@@ -2,5 +2,12 @@
 # for details. All rights reserved. Use of this source code is governed by a
 # BSD-style license that can be found in the LICENSE file.
 
+# Skip non-test files ending with "_test".
+*/packages/*: Skip
+
+# Only run tests from the build directory, since we don't care about the
+# difference between transformed an untransformed code.
+test/*: Skip
+
 [ $browser ]
-http_multi_server/test/http_multi_server_test: Skip # Uses dart:io
+*: Skip # Uses dart:io
