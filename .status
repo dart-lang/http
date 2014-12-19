@@ -15,11 +15,11 @@ packages/*: Skip
 test/*: Skip
 
 [ $browser ]
-*/io/*: Fail, OK # Uses dart:io.
+build/test/io/*: Fail, OK # Uses dart:io.
 
 [ $runtime == vm ]
-*/html/*: Skip # Uses dart:html.
+build/test/html/*: Skip # Uses dart:html.
 
 [ $runtime == drt ]
-*/html/client_test: Skip # Issue 18566
+build/test/html/client_test: Skip # Issue 18566
 
