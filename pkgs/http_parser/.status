@@ -15,4 +15,4 @@ packages/*: Skip
 test/*: Skip
 
 [ $browser ]
-*/web_socket_test: Fail, OK # Uses dart:io
+build/test/web_socket_test: Fail, OK # Uses dart:io
