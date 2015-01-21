@@ -592,7 +592,6 @@ class _WebSocketOutgoingTransformer implements StreamTransformer, EventSink {
     header[index++] = 0x80 | opcode;
     // Determine size and position of length field.
     int lengthBytes = 1;
-    int firstLengthByte = 1;
     if (dataLength > 65535) {
       header[index++] = 127;
       lengthBytes = 8;
