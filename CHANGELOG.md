@@ -1,3 +1,7 @@
+## 0.11.1+3
+
+* Properly namespace an internal library name.
+
 ## 0.11.1+2
 
 * Widen the version constraint on `unittest`.
