@@ -1,3 +1,8 @@
+## 1.3.1
+
+* `loopback()` and `loopbackSecure()` recover gracefully if an ephemeral port is
+  requested and the located port isn't available on both IPv4 and IPv6.
+
 ## 1.3.0
 
 * Add support for `HttpServer.autoCompress`.

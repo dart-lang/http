@@ -10,6 +10,15 @@ import 'dart:io';
 import 'src/multi_headers.dart';
 import 'src/utils.dart';
 
+/// The error code for an error caused by a port already being in use.
+final _addressInUseErrno = _computeAddressInUseErrno();
+int _computeAddressInUseErrno() {
+  if (Platform.isWindows) return 10048;
+  if (Platform.isMacOS) return 48;
+  assert(Platform.isLinux);
+  return 98;
+}
+
 /// An implementation of `dart:io`'s [HttpServer] that wraps multiple servers
 /// and forwards methods to all of them.
 ///
@@ -134,6 +143,16 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       return bind(InternetAddress.LOOPBACK_IP_V6, v4Server.port)
           .then((v6Server) {
         return new HttpMultiServer([v4Server, v6Server]);
+      }).catchError((error) {
+        if (error is! SocketException) throw error;
+        if (error.osError.errno != _addressInUseErrno) throw error;
+        if (port != 0) throw error;
+
+        // A port being available on IPv4 doesn't necessarily mean that the same
+        // port is available on IPv6. If it's not (which is rare in practice),
+        // we try again until we find one that's available on both.
+        v4Server.close();
+        return _loopback(port, bind);
       });
     });
   }
