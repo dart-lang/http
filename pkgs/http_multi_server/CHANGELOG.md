@@ -2,6 +2,8 @@
 
 * Eventually stop retrying port allocation if it fails repeatedly.
 
+* Properly detect socket errors caused by already-in-use addresses.
+
 ## 1.3.1
 
 * `loopback()` and `loopbackSecure()` recover gracefully if an ephemeral port is

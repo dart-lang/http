@@ -148,7 +148,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
         return new HttpMultiServer([v4Server, v6Server]);
       }).catchError((error) {
         if (error is! SocketException) throw error;
-        if (error.osError.errno != _addressInUseErrno) throw error;
+        if (error.osError.errorCode != _addressInUseErrno) throw error;
         if (port != 0) throw error;
         if (remainingRetries == 0) throw error;
 
