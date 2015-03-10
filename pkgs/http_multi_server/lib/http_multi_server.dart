@@ -128,7 +128,10 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// [bind] should forward to either [HttpServer.bind] or
   /// [HttpServer.bindSecure].
   static Future<HttpServer> _loopback(int port,
-      Future<HttpServer> bind(InternetAddress address, int port)) {
+      Future<HttpServer> bind(InternetAddress address, int port),
+      [int remainingRetries]) {
+    if (remainingRetries == null) remainingRetries = 5;
+
     return Future.wait([
       supportsIpV6,
       bind(InternetAddress.LOOPBACK_IP_V4, port)
@@ -147,12 +150,13 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
         if (error is! SocketException) throw error;
         if (error.osError.errno != _addressInUseErrno) throw error;
         if (port != 0) throw error;
+        if (remainingRetries == 0) throw error;
 
         // A port being available on IPv4 doesn't necessarily mean that the same
         // port is available on IPv6. If it's not (which is rare in practice),
         // we try again until we find one that's available on both.
         v4Server.close();
-        return _loopback(port, bind);
+        return _loopback(port, bind, remainingRetries - 1);
       });
     });
   }

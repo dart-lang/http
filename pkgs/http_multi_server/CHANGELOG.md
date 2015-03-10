@@ -1,3 +1,7 @@
+## 1.3.2
+
+* Eventually stop retrying port allocation if it fails repeatedly.
+
 ## 1.3.1
 
 * `loopback()` and `loopbackSecure()` recover gracefully if an ephemeral port is
