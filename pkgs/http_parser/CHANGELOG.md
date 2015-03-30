@@ -1,3 +1,7 @@
+## 0.0.2+6
+
+* Updated homepage URL.
+
 ## 0.0.2+5
 
 * Widen the version constraint on the `collection` package.

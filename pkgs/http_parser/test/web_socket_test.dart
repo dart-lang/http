@@ -22,13 +22,14 @@ void main() {
       });
 
       var client = new HttpClient();
-      return client.openUrl("GET", Uri.parse("http://localhost:${server.port}"))
+      return client
+          .openUrl("GET", Uri.parse("http://localhost:${server.port}"))
           .then((request) {
         request.headers
-            ..set("Connection", "Upgrade")
-            ..set("Upgrade", "websocket")
-            ..set("Sec-WebSocket-Key", "x3JJHMbDL1EzLkh9GBhXDw==")
-            ..set("Sec-WebSocket-Version", "13");
+          ..set("Connection", "Upgrade")
+          ..set("Upgrade", "websocket")
+          ..set("Sec-WebSocket-Key", "x3JJHMbDL1EzLkh9GBhXDw==")
+          ..set("Sec-WebSocket-Version", "13");
         return request.close();
       }).then((response) => response.detachSocket()).then((socket) {
         var webSocket = new CompatibleWebSocket(socket, serverSide: false);
@@ -57,10 +58,10 @@ void main() {
         var response = request.response;
         response.statusCode = 101;
         response.headers
-            ..set("Connection", "Upgrade")
-            ..set("Upgrade", "websocket")
-            ..set("Sec-WebSocket-Accept", CompatibleWebSocket.signKey(
-                request.headers.value('Sec-WebSocket-Key')));
+          ..set("Connection", "Upgrade")
+          ..set("Upgrade", "websocket")
+          ..set("Sec-WebSocket-Accept", CompatibleWebSocket
+              .signKey(request.headers.value('Sec-WebSocket-Key')));
         response.contentLength = 0;
         response.detachSocket().then((socket) {
           var webSocket = new CompatibleWebSocket(socket);
@@ -73,7 +74,8 @@ void main() {
         });
       });
 
-      return WebSocket.connect('ws://localhost:${server.port}')
+      return WebSocket
+          .connect('ws://localhost:${server.port}')
           .then((webSocket) {
         var n = 0;
         return webSocket.listen((message) {

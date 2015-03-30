@@ -24,21 +24,21 @@ final _digitRegExp = new RegExp(r"\d+");
 String formatHttpDate(DateTime date) {
   date = date.toUtc();
   var buffer = new StringBuffer()
-      ..write(_WEEKDAYS[date.weekday - 1])
-      ..write(", ")
-      ..write(date.day <= 9 ? "0" : "")
-      ..write(date.day.toString())
-      ..write(" ")
-      ..write(_MONTHS[date.month - 1])
-      ..write(" ")
-      ..write(date.year.toString())
-      ..write(date.hour <= 9 ? " 0" : " ")
-      ..write(date.hour.toString())
-      ..write(date.minute <= 9 ? ":0" : ":")
-      ..write(date.minute.toString())
-      ..write(date.second <= 9 ? ":0" : ":")
-      ..write(date.second.toString())
-      ..write(" GMT");
+    ..write(_WEEKDAYS[date.weekday - 1])
+    ..write(", ")
+    ..write(date.day <= 9 ? "0" : "")
+    ..write(date.day.toString())
+    ..write(" ")
+    ..write(_MONTHS[date.month - 1])
+    ..write(" ")
+    ..write(date.year.toString())
+    ..write(date.hour <= 9 ? " 0" : " ")
+    ..write(date.hour.toString())
+    ..write(date.minute <= 9 ? ":0" : ":")
+    ..write(date.minute.toString())
+    ..write(date.second <= 9 ? ":0" : ":")
+    ..write(date.second.toString())
+    ..write(" GMT");
   return buffer.toString();
 }
 
@@ -88,9 +88,7 @@ DateTime parseHttpDate(String date) {
     scanner.expect(" ");
     var month = _parseMonth(scanner);
     scanner.expect(" ");
-    var day = scanner.scan(" ") ?
-        _parseInt(scanner, 1) :
-        _parseInt(scanner, 2);
+    var day = scanner.scan(" ") ? _parseInt(scanner, 1) : _parseInt(scanner, 2);
     scanner.expect(" ");
     var time = _parseTime(scanner);
     scanner.expect(" ");
@@ -141,8 +139,8 @@ DateTime _parseTime(StringScanner scanner) {
 /// Validates that [day] is a valid day for [month]. If it's not, throws a
 /// [FormatException].
 DateTime _makeDateTime(int year, int month, int day, DateTime time) {
-  var dateTime = new DateTime.utc(
-      year, month, day, time.hour, time.minute, time.second);
+  var dateTime =
+      new DateTime.utc(year, month, day, time.hour, time.minute, time.second);
 
   // If [day] was too large, it will cause [month] to overflow.
   if (dateTime.month != month) {

@@ -73,8 +73,9 @@ class MediaType {
         } else {
           scanner.expect(_quotedString);
           var quotedString = scanner.lastMatch[0];
-          value = quotedString.substring(1, quotedString.length - 1).
-              replaceAllMapped(_quotedPair, (match) => match[1]);
+          value = quotedString
+              .substring(1, quotedString.length - 1)
+              .replaceAllMapped(_quotedPair, (match) => match[1]);
         }
 
         scanner.scan(_whitespace);
@@ -139,17 +140,17 @@ class MediaType {
   /// This will produce a valid HTTP media type.
   String toString() {
     var buffer = new StringBuffer()
-        ..write(type)
-        ..write("/")
-        ..write(subtype);
+      ..write(type)
+      ..write("/")
+      ..write(subtype);
 
     parameters.forEach((attribute, value) {
       buffer.write("; $attribute=");
       if (_nonToken.hasMatch(value)) {
         buffer
           ..write('"')
-          ..write(value.replaceAllMapped(
-              _escapedChar, (match) => "\\" + match[0]))
+          ..write(
+              value.replaceAllMapped(_escapedChar, (match) => "\\" + match[0]))
           ..write('"');
       } else {
         buffer.write(value);

@@ -17,14 +17,14 @@ void main() {
 
     test("allows leading whitespace", () {
       expect(new MediaType.parse(" text/plain").mimeType, equals("text/plain"));
-      expect(new MediaType.parse("\ttext/plain").mimeType,
-          equals("text/plain"));
+      expect(
+          new MediaType.parse("\ttext/plain").mimeType, equals("text/plain"));
     });
 
     test("allows trailing whitespace", () {
       expect(new MediaType.parse("text/plain ").mimeType, equals("text/plain"));
-      expect(new MediaType.parse("text/plain\t").mimeType,
-          equals("text/plain"));
+      expect(
+          new MediaType.parse("text/plain\t").mimeType, equals("text/plain"));
     });
 
     test("disallows separators in the MIME type", () {
@@ -67,10 +67,8 @@ void main() {
       var type = new MediaType.parse(
           'text/plain; foo="bar space"; baz="bang\\\\escape"');
       expect(type.mimeType, equals("text/plain"));
-      expect(type.parameters, equals({
-        "foo": "bar space",
-        "baz": "bang\\escape"
-      }));
+      expect(
+          type.parameters, equals({"foo": "bar space", "baz": "bang\\escape"}));
     });
   });
 
@@ -102,14 +100,9 @@ void main() {
     });
 
     test("[parameters] overrides and adds to existing parameters", () {
-      expect(type.change(parameters: {
-        "foo": "zap",
-        "qux": "fblthp"
-      }).parameters, equals({
-        "foo": "zap",
-        "baz": "bang",
-        "qux": "fblthp"
-      }));
+      expect(
+          type.change(parameters: {"foo": "zap", "qux": "fblthp"}).parameters,
+          equals({"foo": "zap", "baz": "bang", "qux": "fblthp"}));
     });
 
     test("[clearParameters] removes existing parameters", () {
@@ -117,9 +110,8 @@ void main() {
     });
 
     test("[clearParameters] with [parameters] removes before adding", () {
-      var newType = type.change(
-          parameters: {"foo": "zap"},
-          clearParameters: true);
+      var newType =
+          type.change(parameters: {"foo": "zap"}, clearParameters: true);
       expect(newType.parameters, equals({"foo": "zap"}));
     });
 
@@ -155,9 +147,8 @@ void main() {
     });
 
     test("serializes multiple parameters", () {
-      expect(new MediaType("text", "plain", {
-        "foo": "bar", "baz": "bang"
-      }).toString(), equals("text/plain; foo=bar; baz=bang"));
+      expect(new MediaType("text", "plain", {"foo": "bar", "baz": "bang"})
+          .toString(), equals("text/plain; foo=bar; baz=bang"));
     });
   });
 }

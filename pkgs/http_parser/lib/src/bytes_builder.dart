@@ -86,7 +86,6 @@ abstract class BytesBuilder {
   void clear();
 }
 
-
 class _CopyingBytesBuilder implements BytesBuilder {
   // Start with 1024 bytes.
   static const int _INIT_SIZE = 1024;
@@ -157,7 +156,6 @@ class _CopyingBytesBuilder implements BytesBuilder {
     return x + 1;
   }
 }
-
 
 class _BytesBuilder implements BytesBuilder {
   int _length = 0;
