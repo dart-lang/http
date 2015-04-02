@@ -27,6 +27,8 @@ abstract class BaseRequest {
   /// The URL to which the request will be sent.
   final Uri url;
 
+  bool withCredentials = false;
+
   /// The size of the request body, in bytes.
   ///
   /// This defaults to `null`, which indicates that the size of the request is

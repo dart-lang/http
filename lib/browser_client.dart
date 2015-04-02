@@ -44,6 +44,7 @@ class BrowserClient extends BaseClient {
       _xhrs.add(xhr);
       xhr.open(request.method, request.url.toString(), async: true);
       xhr.responseType = 'blob';
+      xhr.withCredentials = request.withCredentials;
       request.headers.forEach(xhr.setRequestHeader);
 
       var completer = new Completer();
