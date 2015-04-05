@@ -37,6 +37,8 @@ class BrowserClient extends BaseClient {
   /// Creates a new HTTP client.
   BrowserClient();
 
+  bool withCredentials = false;
+
   /// Sends an HTTP request and asynchronously returns the response.
   Future<StreamedResponse> send(BaseRequest request) {
     return request.finalize().toBytes().then((bytes) {
@@ -44,7 +46,7 @@ class BrowserClient extends BaseClient {
       _xhrs.add(xhr);
       xhr.open(request.method, request.url.toString(), async: true);
       xhr.responseType = 'blob';
-      xhr.withCredentials = request.withCredentials;
+      xhr.withCredentials = withCredentials;
       request.headers.forEach(xhr.setRequestHeader);
 
       var completer = new Completer();

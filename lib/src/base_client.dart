@@ -24,15 +24,15 @@ abstract class BaseClient implements Client {
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> head(url, {Map<String, String> headers, bool withCredentials}) =>
-    _sendUnstreamed("HEAD", url, headers, null, null, withCredentials);
+  Future<Response> head(url, {Map<String, String> headers}) =>
+    _sendUnstreamed("HEAD", url, headers);
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> get(url, {Map<String, String> headers, bool withCredentials}) =>
-    _sendUnstreamed("GET", url, headers, null, null, withCredentials);
+  Future<Response> get(url, {Map<String, String> headers}) =>
+    _sendUnstreamed("GET", url, headers);
 
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -53,8 +53,8 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> post(url, {Map<String, String> headers, body,
-      Encoding encoding, bool withCredentials}) =>
-    _sendUnstreamed("POST", url, headers, body, encoding, withCredentials);
+      Encoding encoding}) =>
+    _sendUnstreamed("POST", url, headers, body, encoding);
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -75,15 +75,15 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> put(url, {Map<String, String> headers, body,
-      Encoding encoding, bool withCredentials}) =>
-    _sendUnstreamed("PUT", url, headers, body, encoding, withCredentials);
+      Encoding encoding}) =>
+    _sendUnstreamed("PUT", url, headers, body, encoding);
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> delete(url, {Map<String, String> headers, bool withCredentials}) =>
-    _sendUnstreamed("DELETE", url, headers, null, null, withCredentials);
+  Future<Response> delete(url, {Map<String, String> headers}) =>
+    _sendUnstreamed("DELETE", url, headers);
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
@@ -94,8 +94,8 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  Future<String> read(url, {Map<String, String> headers, bool withCredentials}) {
-    return get(url, headers: headers, withCredentials: withCredentials).then((response) {
+  Future<String> read(url, {Map<String, String> headers}) {
+    return get(url, headers: headers).then((response) {
       _checkResponseSuccess(url, response);
       return response.body;
     });
@@ -110,8 +110,8 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  Future<Uint8List> readBytes(url, {Map<String, String> headers, bool withCredentials}) {
-    return get(url, headers: headers, withCredentials: withCredentials).then((response) {
+  Future<Uint8List> readBytes(url, {Map<String, String> headers}) {
+    return get(url, headers: headers).then((response) {
       _checkResponseSuccess(url, response);
       return response.bodyBytes;
     });
@@ -128,12 +128,11 @@ abstract class BaseClient implements Client {
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(String method, url,
-      Map<String, String> headers, [body, Encoding encoding, bool withCredentials = false]) {
+      Map<String, String> headers, [body, Encoding encoding]) {
     return syncFuture(() {
       if (url is String) url = Uri.parse(url);
       var request = new Request(method, url);
 
-      request.withCredentials = withCredentials;
       if (headers != null) request.headers.addAll(headers);
       if (encoding != null) request.encoding = encoding;
       if (body != null) {
