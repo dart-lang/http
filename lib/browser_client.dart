@@ -37,6 +37,10 @@ class BrowserClient extends BaseClient {
   /// Creates a new HTTP client.
   BrowserClient();
 
+  /// Whether to send credentials such as cookies or authorization headers for
+  /// cross-site requests.
+  ///
+  /// Defaults to `false`.
   bool withCredentials = false;
 
   /// Sends an HTTP request and asynchronously returns the response.

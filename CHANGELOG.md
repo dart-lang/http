@@ -1,3 +1,7 @@
+## 0.11.2
+
+* Add a `BrowserClient.withCredentials` property.
+
 ## 0.11.1+3
 
 * Properly namespace an internal library name.
