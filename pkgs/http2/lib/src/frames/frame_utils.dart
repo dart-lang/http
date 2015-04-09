@@ -4,7 +4,7 @@
 
 part of http2.src.frames;
 
-List<int> _viewOrSublist(List<int> data, int offset, int length) {
+List<int> viewOrSublist(List<int> data, int offset, int length) {
   if (data is Uint8List) {
     return new Uint8List.view(data.buffer, data.offsetInBytes + offset, length);
   } else {

@@ -45,8 +45,8 @@ class FrameWriter {
 
   void writeDataFrame(int streamId, List<int> data, {bool endStream: false}) {
     while (data.length > _peerSettings.maxFrameSize) {
-      var chunk = _viewOrSublist(data, 0, _peerSettings.maxFrameSize);
-      data = _viewOrSublist(data, _peerSettings.maxFrameSize,
+      var chunk = viewOrSublist(data, 0, _peerSettings.maxFrameSize);
+      data = viewOrSublist(data, _peerSettings.maxFrameSize,
                             data.length - _peerSettings.maxFrameSize);
       _writeDataFrameNoFragment(streamId, chunk, false);
     }

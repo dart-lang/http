@@ -56,7 +56,7 @@ class FrameReader {
         if (firstChunkLen == totalFrameLen) {
           bufferedData.removeAt(0);
         } else {
-          bufferedData[0] = _viewOrSublist(
+          bufferedData[0] = viewOrSublist(
               bufferedData[0], totalFrameLen, firstChunkLen - totalFrameLen);
         }
         bufferedLength -= totalFrameLen;
@@ -177,7 +177,7 @@ class FrameReader {
         }
         int dataLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(dataLen >= 0);
-        var dataBytes = _viewOrSublist(bytes, offset, dataLen);
+        var dataBytes = viewOrSublist(bytes, offset, dataLen);
         return new DataFrame(header, padLength, dataBytes);
 
       case FrameType.HEADERS:
@@ -198,7 +198,7 @@ class FrameReader {
         }
         int headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
-        var headerBlockFragment = _viewOrSublist(
+        var headerBlockFragment = viewOrSublist(
             bytes, offset, headerBlockLen);
         return new HeadersFrame(
             header, padLength, exclusiveDependency, streamDependency,
@@ -245,7 +245,7 @@ class FrameReader {
         offset += 4;
         int headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
-        var headerBlockFragment = _viewOrSublist(
+        var headerBlockFragment = viewOrSublist(
             bytes, offset, headerBlockLen);
         return new PushPromiseFrame(
             header, padLength, promisedStreamId, headerBlockFragment);
@@ -261,7 +261,7 @@ class FrameReader {
         _checkFrameLengthCondition((frameEnd - offset) >= 8);
         int lastStreamId = _readInt32(bytes, offset);
         int errorCode = _readInt32(bytes, offset + 4);
-        var debugData = _viewOrSublist(bytes, offset + 8, header.length - 8);
+        var debugData = viewOrSublist(bytes, offset + 8, header.length - 8);
         return new GoawayFrame(header, lastStreamId, errorCode, debugData);
 
       case FrameType.WINDOW_UPDATE:
@@ -272,14 +272,14 @@ class FrameReader {
         return new WindowUpdateFrame(header, windowSizeIncrement);
 
       case FrameType.CONTINUATION:
-        var headerBlockFragment = _viewOrSublist(
+        var headerBlockFragment = viewOrSublist(
             bytes, offset, frameEnd - offset);
         return new ContinuationFrame(header, headerBlockFragment);
 
       default:
         // Unknown frames should be ignored according to spec.
         return new UnknownFrame(
-            header, _viewOrSublist(bytes, offset, frameEnd - offset));
+            header, viewOrSublist(bytes, offset, frameEnd - offset));
     }
   }
 
