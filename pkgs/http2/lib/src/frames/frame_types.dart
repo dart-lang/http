@@ -145,6 +145,8 @@ class HeadersFrame extends Frame {
 }
 
 class PriorityFrame extends Frame {
+  static const int FIXED_FRAME_LENGTH = 5;
+
   final bool exclusiveDependency;
   final int streamDependency;
   final int weight;
@@ -161,6 +163,8 @@ class PriorityFrame extends Frame {
 }
 
 class RstStreamFrame extends Frame {
+  static const int FIXED_FRAME_LENGTH = 4;
+
   final int errorCode;
 
   RstStreamFrame(FrameHeader header, this.errorCode)
@@ -256,6 +260,8 @@ class PushPromiseFrame extends Frame {
 }
 
 class PingFrame extends Frame {
+  static const int FIXED_FRAME_LENGTH = 8;
+
   static const int FLAG_ACK = 0x1;
 
   final int opaqueData;
@@ -287,6 +293,8 @@ class GoawayFrame extends Frame {
 }
 
 class WindowUpdateFrame extends Frame {
+  static const int FIXED_FRAME_LENGTH = 4;
+
   final int windowSizeIncrement;
 
   WindowUpdateFrame(FrameHeader header, this.windowSizeIncrement)

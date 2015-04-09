@@ -4,9 +4,15 @@
 
 library http2.src.frames;
 
+import 'dart:async';
 import 'dart:typed_data';
+import 'dart:math' show max;
 
+import '../async_utils/async_utils.dart';
 import '../hpack/hpack.dart';
+import '../settings/settings.dart';
 
 part "frame_types.dart";
 part "frame_utils.dart";
+part "frame_reader.dart";
+part "frame_writer.dart";
