@@ -28,3 +28,14 @@ class _FrameSizeException extends TypeMatcher {
 const Matcher throwsFrameSizeException =
     const Throws(isFrameSizeException);
 
+
+const Matcher isTerminatedException = const _TerminatedException();
+
+class _TerminatedException extends TypeMatcher {
+  const _TerminatedException() : super("TerminatedException");
+  bool matches(item, Map matchState) => item is TerminatedException;
+}
+
+const Matcher throwsTerminatedException =
+    const Throws(isTerminatedException);
+
