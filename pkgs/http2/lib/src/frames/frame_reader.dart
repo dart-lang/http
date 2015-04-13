@@ -4,15 +4,6 @@
 
 part of http2.src.frames;
 
-/// Exception raised due to invalid frame encoding.
-class FrameEncodingException implements Exception {
-  final String _message;
-
-  FrameEncodingException(this._message);
-
-  String toString() => 'FrameEncodingException: $_message';
-}
-
 /// Used for converting a `Stream<List<int>>` to a `Stream<Frame>`.
 class FrameReader {
   final Stream<List<int>> _inputStream;
@@ -88,7 +79,7 @@ class FrameReader {
                   }
                   if (header != null) {
                     if (header.length > _localSettings.maxFrameSize) {
-                      terminateWithError(new FrameEncodingException(
+                      terminateWithError(new FrameSizeException(
                           'Incoming frame is too big.'));
                       return;
                     }
@@ -116,7 +107,7 @@ class FrameReader {
               if (bufferedLength == 0) {
                 _framesController.close();
               } else {
-                terminateWithError(new FrameEncodingException(
+                terminateWithError(new FrameSizeException(
                     'Incoming byte stream ended with incomplete frame'));
               }
             });
@@ -233,7 +224,13 @@ class FrameReader {
           int value = _readInt32(bytes, offset + 6 * i + 2);
           settings[i] = new Setting(identifier, value);
         }
-        return new SettingsFrame(header, settings);
+        var frame = new SettingsFrame(header, settings);
+        if (frame.hasAckFlag) {
+          _checkFrameLengthCondition(
+              header.length == 0,
+              message: 'Settings frame length must 0 for ACKs.');
+        }
+        return frame;
 
       case FrameType.PUSH_PROMISE:
         int padLength = 0;
@@ -283,12 +280,12 @@ class FrameReader {
     }
   }
 
-  /// Checks that [condition] is `true` and raises an [FrameEncodingException]
+  /// Checks that [condition] is `true` and raises an [FrameSizeException]
   /// otherwise.
   void _checkFrameLengthCondition(bool condition,
                                   {String message: 'Frame not long enough.'}) {
     if (!condition) {
-      throw new FrameEncodingException(message);
+      throw new FrameSizeException(message);
     }
   }
 }

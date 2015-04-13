@@ -4,6 +4,11 @@
 
 library http2.src.settings;
 
+import 'dart:async';
+
+import '../frames/frames.dart';
+import '../sync_errors.dart';
+
 /// The settings a remote peer can choose to set.
 class Settings {
   /// Allows the sender to inform the remote endpoint of the maximum size of the
@@ -11,7 +16,7 @@ class Settings {
   /// encoder can select any size equal to or less than this value by using
   /// signaling specific to the header compression format inside a header block.
   /// The initial value is 4,096 octets.
-  final int headerTableSize;
+  int headerTableSize;
 
   /// This setting can be use to disable server push (Section 8.2). An endpoint
   /// MUST NOT send a PUSH_PROMISE frame if it receives this parameter set to a
@@ -22,7 +27,7 @@ class Settings {
   /// The initial value is 1, which indicates that server push is permitted.
   /// Any value other than 0 or 1 MUST be treated as a connection error
   /// (Section 5.4.1) of type PROTOCOL_ERROR.
-  final bool enablePush;
+  bool enablePush;
 
   /// Indicates the maximum number of concurrent streams that the sender will
   /// allow. This limit is directional: it applies to the number of streams that
@@ -36,7 +41,7 @@ class Settings {
   /// active streams. Servers SHOULD only set a zero value for short durations;
   /// if a server does not wish to accept requests, closing the connection is
   /// more appropriate.
-  final int maxConcurrentStreams;
+  int maxConcurrentStreams;
 
   /// Indicates the sender's initial window size (in octets) for stream level
   /// flow control. The initial value is 2^16-1 (65,535) octets.
@@ -45,7 +50,7 @@ class Settings {
   /// streams, see Section 6.9.2.
   /// Values above the maximum flow control window size of 231-1 MUST be treated
   /// as a connection error (Section 5.4.1) of type FLOW_CONTROL_ERROR.
-  final int initialWindowSize;
+  int initialWindowSize;
 
   /// Indicates the size of the largest frame payload that the sender is willing
   /// to receive, in octets.
@@ -55,7 +60,7 @@ class Settings {
   /// size (2^24-1 or 16,777,215 octets), inclusive. Values outside this range
   /// MUST be treated as a connection error (Section 5.4.1) of type
   /// PROTOCOL_ERROR.
-  final int maxFrameSize;
+  int maxFrameSize;
 
   /// This advisory setting informs a peer of the maximum size of header list
   /// that the sender is prepared to accept, in octets. The value is based on
@@ -64,7 +69,7 @@ class Settings {
   ///
   /// For any given request, a lower limit than what is advertised MAY be
   /// enforced. The initial value of this setting is unlimited.
-  final int maxHeaderListSize;
+  int maxHeaderListSize;
 
   Settings({this.headerTableSize: 4096,
             this.enablePush: true,
@@ -72,26 +77,122 @@ class Settings {
             this.initialWindowSize: (1 << 16) - 1,
             this.maxFrameSize: (1 << 14),
             this.maxHeaderListSize: null});
+}
 
-  Settings replace({int headerTableSize,
-                    bool enablePush,
-                    int maxConcurrentStreams,
-                    int initialWindowSize,
-                    int maxFrameSize,
-                    int maxHeaderListSize}) {
-    if (headerTableSize == null) headerTableSize = this.headerTableSize;
-    if (enablePush == null) enablePush = this.enablePush;
-    if (maxConcurrentStreams == null) {
-      maxConcurrentStreams = this.maxConcurrentStreams;
+
+/// Handles remote and local connection [Setting]s.
+///
+/// Incoming [SettingFrame]s will be handled here to update the peer settings.
+/// Changes to [_toBeAcknowledgedSettings] can be made, the peer will then be
+/// notified of the setting changes it should use.
+class SettingsHandler {
+  final FrameWriter _frameWriter;
+
+  /// A list of outstanding setting changes.
+  final List<List<Setting>> _toBeAcknowledgedSettings = [];
+
+  /// A list of completers for outstanding setting changes.
+  final List<Completer> _toBeAcknowledgedCompleters = [];
+
+  /// The local settings, which the remote side ACKed to obey.
+  Settings _acknowledgedSettings = new Settings();
+
+  /// The peer settings, which we ACKed and are obeying.
+  Settings _peerSettings = new Settings();
+
+  SettingsHandler(this._frameWriter);
+
+  /// The settings for this endpoint of the connection which the remote peer
+  /// has ACKed and uses.
+  Settings get acknowledgedSettings => _acknowledgedSettings;
+
+  /// The settings for the remote endpoint of the connection which this
+  /// endpoint should use.
+  Settings get peerSettings => _peerSettings;
+
+  /// Handles an incoming [SettingsFrame] which can be an ACK or a settings
+  /// change.
+  void handleSettingsFrame(SettingsFrame frame) {
+    assert (frame.header.streamId == 0);
+
+    if (frame.hasAckFlag) {
+      assert (frame.header.length == 0);
+
+      if (_toBeAcknowledgedSettings.isEmpty) {
+        // NOTE: The specification does not say anything about ACKed settings
+        // which were never sent to the other side. We consider this definitly
+        // an error.
+        throw new ProtocolException(
+            'Received an acknowledged settings frame which did not have a '
+            'outstanding settings request.');
+      }
+      List<Setting> settingChanges = _toBeAcknowledgedSettings.removeAt(0);
+      Completer completer = _toBeAcknowledgedCompleters.removeAt(0);
+      _modifySettings(_acknowledgedSettings, settingChanges);
+      completer.complete();
+    } else {
+      _modifySettings(_peerSettings, frame.settings);
+      _frameWriter.writeSettingsAckFrame();
     }
-    if (initialWindowSize == null) initialWindowSize = this.initialWindowSize;
-    if (maxFrameSize == null) maxFrameSize = this.maxFrameSize;
-    if (maxHeaderListSize == null) maxHeaderListSize = this.maxHeaderListSize;
-    return new Settings(headerTableSize: headerTableSize,
-                        enablePush: enablePush,
-                        maxConcurrentStreams: maxConcurrentStreams,
-                        initialWindowSize: initialWindowSize,
-                        maxFrameSize: maxFrameSize,
-                        maxHeaderListSize : maxHeaderListSize);
+  }
+
+  Future changeSettings(List<Setting> changes) {
+    // TODO: Have a timeout: When ACK doesn't get back in a reasonable time
+    // frame we should quit with ErrorCode.SETTINGS_TIMEOUT.
+    var completer = new Completer();
+    _toBeAcknowledgedSettings.add(changes);
+    _toBeAcknowledgedCompleters.add(completer);
+    _frameWriter.writeSettingsFrame(changes);
+    return completer.future;
+  }
+
+  void _modifySettings(Settings base, List<Setting> changes) {
+    for (var setting in changes) {
+      switch (setting.identifier) {
+        case Setting.SETTINGS_ENABLE_PUSH:
+          if (setting.value == 0) {
+            base.enablePush = false;
+          } else if (setting.value == 1) {
+            base.enablePush = true;
+          } else {
+            throw new ProtocolException(
+                'The push setting can be only set to 0 or 1.');
+          }
+          break;
+
+        case Setting.SETTINGS_HEADER_TABLE_SIZE:
+          // TODO: Propagate this signal to the HPackContext.
+          base.headerTableSize = setting.value;
+          break;
+
+        case Setting.SETTINGS_MAX_HEADER_LIST_SIZE:
+          // TODO: Propagate this signal to the HPackContext.
+          base.maxHeaderListSize = setting.value;
+          break;
+
+        case Setting.SETTINGS_MAX_CONCURRENT_STREAMS:
+          // NOTE: We will not force closing of existing streams if the limit is
+          // lower than the current number of open streams. But we will prevent
+          // new streams from being created if the number of existing streams
+          // is above this limit.
+          base.maxConcurrentStreams = setting.value;
+          break;
+
+        case Setting.SETTINGS_INITIAL_WINDOW_SIZE:
+          if (setting.value < (1 << 31)) {
+            // TODO:
+            // var difference = setting.value - base.initialWindowSize;
+            // streamSet.processInitialWindowSizeSettingChange(difference);
+            base.initialWindowSize = setting.value;
+          } else {
+            throw new FlowControlException('Invalid initial window size.');
+          }
+          break;
+
+        default:
+          // Spec says to ignore unkown settings.
+          break;
+      }
+    }
   }
 }

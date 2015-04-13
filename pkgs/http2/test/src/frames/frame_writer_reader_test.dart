@@ -12,6 +12,8 @@ import 'package:http2/src/settings/settings.dart';
 
 import '../hpack/hpack_test.dart' show isHeader;
 
+import '../error_matchers.dart';
+
 main() {
   group('frames', () {
     group('writer-reader', () {
@@ -92,7 +94,25 @@ main() {
                                           FrameReader reader,
                                           HPackDecoder decoder) async {
         writer.writeSettingsFrame(
-            [new Setting(Setting.SETTINGS_ENABLE_PUSH, 1)], ack: true);
+            [new Setting(Setting.SETTINGS_ENABLE_PUSH, 1)]);
+
+        var frames = await finishWriting(writer, reader);
+        expect(frames.length, 1);
+        expect(frames[0] is SettingsFrame, isTrue);
+
+        SettingsFrame settingsFrame = frames[0];
+        expect(settingsFrame.hasAckFlag, false);
+        expect(settingsFrame.header.streamId, 0);
+        expect(settingsFrame.settings.length, 1);
+        expect(settingsFrame.settings[0].identifier,
+               Setting.SETTINGS_ENABLE_PUSH);
+        expect(settingsFrame.settings[0].value, 1);
+      });
+
+      writerReaderTest('settings-frame-ack', (FrameWriter writer,
+                                              FrameReader reader,
+                                              HPackDecoder decoder) async {
+        writer.writeSettingsAckFrame();
 
         var frames = await finishWriting(writer, reader);
         expect(frames.length, 1);
@@ -101,10 +121,7 @@ main() {
         SettingsFrame settingsFrame = frames[0];
         expect(settingsFrame.hasAckFlag, true);
         expect(settingsFrame.header.streamId, 0);
-        expect(settingsFrame.settings.length, 1);
-        expect(settingsFrame.settings[0].identifier,
-               Setting.SETTINGS_ENABLE_PUSH);
-        expect(settingsFrame.settings[0].value, 1);
+        expect(settingsFrame.settings.length, 0);
       });
 
       writerReaderTest('push-promise-frame', (FrameWriter writer,

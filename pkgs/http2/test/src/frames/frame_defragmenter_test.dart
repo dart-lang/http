@@ -4,9 +4,10 @@
 
 import 'package:unittest/unittest.dart';
 
-import 'package:http2/src/sync_errors.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/frames/frame_defragmenter.dart';
+
+import '../error_matchers.dart';
 
 main() {
   group('frames', () {
@@ -132,16 +133,3 @@ main() {
     });
   });
 }
-
-
-/// A matcher for HuffmannDecodingExceptions.
-const Matcher isProtocolException = const _ProtocolException();
-
-class _ProtocolException extends TypeMatcher {
-  const _ProtocolException() : super("ProtocolException");
-  bool matches(item, Map matchState) => item is ProtocolException;
-}
-
-const Matcher throwsProtocolException =
-    const Throws(isProtocolException);
-

@@ -11,6 +11,7 @@ import 'dart:math' show max;
 import '../async_utils/async_utils.dart';
 import '../hpack/hpack.dart';
 import '../settings/settings.dart';
+import '../sync_errors.dart';
 
 part "frame_types.dart";
 part "frame_utils.dart";

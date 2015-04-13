@@ -161,9 +161,9 @@ class FrameWriter {
     _writeData(buffer);
   }
 
-  void writeSettingsFrame(List<Setting> settings, {bool ack: false}) {
+  void writeSettingsFrame(List<Setting> settings) {
     int type = FrameType.SETTINGS;
-    int flags = ack ? SettingsFrame.FLAG_ACK : 0;
+    int flags = 0;
 
     var buffer = new Uint8List(FRAME_HEADER_SIZE + 6 * settings.length);
     int offset = 0;
@@ -176,6 +176,19 @@ class FrameWriter {
       _setInt16(buffer, offset + 6 * i, setting.identifier);
       _setInt32(buffer, offset + 6 * i + 2, setting.value);
     }
+
+    _writeData(buffer);
+  }
+
+  void writeSettingsAckFrame() {
+    int type = FrameType.SETTINGS;
+    int flags = SettingsFrame.FLAG_ACK;
+
+    var buffer = new Uint8List(FRAME_HEADER_SIZE);
+    int offset = 0;
+
+    _setFrameHeader(buffer, offset, type, flags, 0, 0);
+    offset += FRAME_HEADER_SIZE;
 
     _writeData(buffer);
   }

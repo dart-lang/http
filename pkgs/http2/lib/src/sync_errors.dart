@@ -5,9 +5,25 @@
 library http2.src.sync_errors;
 
 class ProtocolException implements Exception {
-  final String message;
+  final String _message;
 
-  ProtocolException(this.message);
+  ProtocolException(this._message);
 
-  String toString() => 'ProtocolError: $message';
+  String toString() => 'ProtocolError: $_message';
+}
+
+class FlowControlException implements Exception {
+  final String _message;
+
+  FlowControlException(this._message);
+
+  String toString() => 'FlowControlException: $_message';
+}
+
+class FrameSizeException implements Exception {
+  final String _message;
+
+  FrameSizeException(this._message);
+
+  String toString() => 'FrameSizeException: $_message';
 }
