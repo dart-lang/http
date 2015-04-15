@@ -8,6 +8,7 @@ import 'dart:async';
 
 import '../frames/frames.dart';
 import '../sync_errors.dart';
+import '../error_handler.dart';
 
 /// The settings a remote peer can choose to set.
 class Settings {
@@ -85,7 +86,7 @@ class Settings {
 /// Incoming [SettingFrame]s will be handled here to update the peer settings.
 /// Changes to [_toBeAcknowledgedSettings] can be made, the peer will then be
 /// notified of the setting changes it should use.
-class SettingsHandler {
+class SettingsHandler extends Object with TerminatableMixin {
   final FrameWriter _frameWriter;
 
   /// A list of outstanding setting changes.
@@ -100,7 +101,9 @@ class SettingsHandler {
   /// The peer settings, which we ACKed and are obeying.
   Settings _peerSettings = new Settings();
 
-  SettingsHandler(this._frameWriter);
+  SettingsHandler(this._frameWriter,
+                  this._acknowledgedSettings,
+                  this._peerSettings);
 
   /// The settings for this endpoint of the connection which the remote peer
   /// has ACKed and uses.
@@ -113,37 +116,47 @@ class SettingsHandler {
   /// Handles an incoming [SettingsFrame] which can be an ACK or a settings
   /// change.
   void handleSettingsFrame(SettingsFrame frame) {
-    assert (frame.header.streamId == 0);
+    ensureNotTerminatedSync(() {
+      assert (frame.header.streamId == 0);
 
-    if (frame.hasAckFlag) {
-      assert (frame.header.length == 0);
+      if (frame.hasAckFlag) {
+        assert (frame.header.length == 0);
 
-      if (_toBeAcknowledgedSettings.isEmpty) {
-        // NOTE: The specification does not say anything about ACKed settings
-        // which were never sent to the other side. We consider this definitly
-        // an error.
-        throw new ProtocolException(
-            'Received an acknowledged settings frame which did not have a '
-            'outstanding settings request.');
+        if (_toBeAcknowledgedSettings.isEmpty) {
+          // NOTE: The specification does not say anything about ACKed settings
+          // which were never sent to the other side. We consider this definitly
+          // an error.
+          throw new ProtocolException(
+              'Received an acknowledged settings frame which did not have a '
+              'outstanding settings request.');
+        }
+        List<Setting> settingChanges = _toBeAcknowledgedSettings.removeAt(0);
+        Completer completer = _toBeAcknowledgedCompleters.removeAt(0);
+        _modifySettings(_acknowledgedSettings, settingChanges);
+        completer.complete();
+      } else {
+        _modifySettings(_peerSettings, frame.settings);
+        _frameWriter.writeSettingsAckFrame();
       }
-      List<Setting> settingChanges = _toBeAcknowledgedSettings.removeAt(0);
-      Completer completer = _toBeAcknowledgedCompleters.removeAt(0);
-      _modifySettings(_acknowledgedSettings, settingChanges);
-      completer.complete();
-    } else {
-      _modifySettings(_peerSettings, frame.settings);
-      _frameWriter.writeSettingsAckFrame();
-    }
+    });
+  }
+
+  void onTerminated(error) {
+    _toBeAcknowledgedSettings.clear();
+    _toBeAcknowledgedCompleters.forEach(
+        (Completer c) => c.completeError(error));
   }
 
   Future changeSettings(List<Setting> changes) {
-    // TODO: Have a timeout: When ACK doesn't get back in a reasonable time
-    // frame we should quit with ErrorCode.SETTINGS_TIMEOUT.
-    var completer = new Completer();
-    _toBeAcknowledgedSettings.add(changes);
-    _toBeAcknowledgedCompleters.add(completer);
-    _frameWriter.writeSettingsFrame(changes);
-    return completer.future;
+    return ensureNotTerminatedAsync(() {
+      // TODO: Have a timeout: When ACK doesn't get back in a reasonable time
+      // frame we should quit with ErrorCode.SETTINGS_TIMEOUT.
+      var completer = new Completer();
+      _toBeAcknowledgedSettings.add(changes);
+      _toBeAcknowledgedCompleters.add(completer);
+      _frameWriter.writeSettingsFrame(changes);
+      return completer.future;
+    });
   }
 
   void _modifySettings(Settings base, List<Setting> changes) {

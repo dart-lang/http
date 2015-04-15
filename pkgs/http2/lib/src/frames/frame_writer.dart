@@ -16,7 +16,7 @@ class FrameWriter {
   final BufferedBytesWriter _outWriter;
 
   /// Connection settings which this writer needs to respect.
-  Settings _peerSettings;
+  final Settings _peerSettings;
 
   /// This is the maximum over all stream id's we've written to the underlying
   /// sink.
@@ -25,16 +25,10 @@ class FrameWriter {
   /// Whether this [FrameWriter] is closed.
   bool _isClosed = false;
 
-  FrameWriter(this._hpackEncoder, StreamSink<List<int>> outgoing)
+  FrameWriter(this._hpackEncoder,
+              StreamSink<List<int>> outgoing,
+              this._peerSettings)
       : _outWriter = new BufferedBytesWriter(outgoing);
-
-  /// Used for initializing [FrameWriter].
-  ///
-  /// This is necessary because of circular dependencies between
-  /// [SettingsHandler] and [FrameWriter].
-  void initialize(Settings settings) {
-    _peerSettings = settings;
-  }
 
   /// A indicator whether writes would be buffered.
   BufferIndicator get bufferIndicator => _outWriter.bufferIndicator;

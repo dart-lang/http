@@ -10,8 +10,6 @@ import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/settings/settings.dart';
 
-import '../hpack/hpack_test.dart' show isHeader;
-
 main() {
   group('frames', () {
     group('frame-writer', () {
@@ -19,9 +17,7 @@ main() {
         var settings = new Settings();
         var context = new HPackContext();
         var controller = new StreamController<List<int>>();
-        var reader = new FrameReader(controller.stream, settings);
-        var writer = new FrameWriter(context.encoder, controller);
-        writer.initialize(settings);
+        var writer = new FrameWriter(context.encoder, controller, settings);
 
         writer.doneFuture.then(expectAsync((_) {
           // We expect that the writer is done at this point.

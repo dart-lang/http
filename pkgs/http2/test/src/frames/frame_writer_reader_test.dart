@@ -232,14 +232,10 @@ main() {
 writerReaderTest(String name, func(writer, reader, decoder)) {
   test(name, () {
     var settings = new Settings();
-
     var context = new HPackContext();
     var controller = new StreamController<List<int>>();
-    var writer = new FrameWriter(context.encoder, controller);
+    var writer = new FrameWriter(context.encoder, controller, settings);
     var reader = new FrameReader(controller.stream, settings);
-
-    writer.initialize(settings);
-
     return func(writer, reader, context.decoder);
   });
 }

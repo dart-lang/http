@@ -19,7 +19,7 @@ main() {
 
     test('successful-setting', () async {
       var writer = new FrameWriterMock();
-      var sh = new SettingsHandler(writer);
+      var sh = new SettingsHandler(writer, new Settings(), new Settings());
       var tc = new TestCounter();
 
       writer.mock_writeSettingsFrame = (List<Setting> s, {bool ack: false}) {
@@ -47,7 +47,7 @@ main() {
 
     test('ack-remote-settings-change', () {
       var writer = new FrameWriterMock();
-      var sh = new SettingsHandler(writer);
+      var sh = new SettingsHandler(writer, new Settings(), new Settings());
       var tc = new TestCounter();
 
       writer.mock_writeSettingsAckFrame = () {
@@ -67,7 +67,7 @@ main() {
 
     test('invalid-remote-ack', () {
       var writer = new FrameWriterMock();
-      var sh = new SettingsHandler(writer);
+      var sh = new SettingsHandler(writer, new Settings(), new Settings());
 
       // Simulates ACK even though we haven't sent any settings.
       var header = new FrameHeader(
@@ -80,7 +80,7 @@ main() {
 
     test('invalid-remote-settings-change', () {
       var writer = new FrameWriterMock();
-      var sh = new SettingsHandler(writer);
+      var sh = new SettingsHandler(writer, new Settings(), new Settings());
 
       // Check that settings haven't been applied.
       expect(sh.peerSettings.enablePush, true);

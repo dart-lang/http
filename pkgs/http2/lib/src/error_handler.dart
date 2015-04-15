@@ -4,6 +4,10 @@
 
 library http2.src.error_handler;
 
+import 'dart:async';
+
+import 'sync_errors.dart';
+
 /// Used by classes which may be terminated from the outside.
 class TerminatableMixin {
   bool _terminated = false;
@@ -20,5 +24,19 @@ class TerminatableMixin {
 
   void onTerminated(error) {
     // Subclasses can override this method if they want.
+  }
+
+  dynamic ensureNotTerminatedSync(f()) {
+    if (wasTerminated) {
+      throw new TerminatedException();
+    }
+    return f();
+  }
+
+  Future ensureNotTerminatedAsync(Future f()) {
+    if (wasTerminated) {
+      return new Future.error(new TerminatedException());
+    }
+    return f();
   }
 }

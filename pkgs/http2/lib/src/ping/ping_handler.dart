@@ -29,42 +29,34 @@ class PingHandler extends Object with TerminatableMixin {
   }
 
   void processPingFrame(PingFrame frame) {
-    if (wasTerminated) {
-      throw new TerminatedException();
-    }
-
-    if (frame.header.streamId != 0) {
-      throw new ProtocolException('Ping frames must have a stream id of 0.');
-    }
-
-    if (!frame.hasAckFlag) {
-      _frameWriter.writePingFrame(frame.opaqueData, ack: true);
-    } else {
-      Completer c = _remainingPings.remove(frame.opaqueData);
-      if (c != null) {
-        c.complete();
-      } else {
-        // NOTE: It is not specified what happens when one gets an ACK for a
-        // ping we never sent. We be very strict and fail in this case.
-        throw new ProtocolException(
-            'Received ping ack with unknown opaque data.');
+    ensureNotTerminatedSync(() {
+      if (frame.header.streamId != 0) {
+        throw new ProtocolException('Ping frames must have a stream id of 0.');
       }
-    }
+
+      if (!frame.hasAckFlag) {
+        _frameWriter.writePingFrame(frame.opaqueData, ack: true);
+      } else {
+        Completer c = _remainingPings.remove(frame.opaqueData);
+        if (c != null) {
+          c.complete();
+        } else {
+          // NOTE: It is not specified what happens when one gets an ACK for a
+          // ping we never sent. We be very strict and fail in this case.
+          throw new ProtocolException(
+              'Received ping ack with unknown opaque data.');
+        }
+      }
+    });
   }
 
   Future ping() {
-    Completer c = new Completer();
-
-    if (wasTerminated) {
-      c.completeError(new TerminatedException());
+    return ensureNotTerminatedAsync(() {
+      Completer c = new Completer();
+      var id = _nextId++;
+      _remainingPings[id] = c;
+      _frameWriter.writePingFrame(id);
       return c.future;
-    }
-
-    var id = _nextId++;
-    _remainingPings[id] = c;
-
-    _frameWriter.writePingFrame(id);
-
-    return c.future;
+    });
   }
 }
