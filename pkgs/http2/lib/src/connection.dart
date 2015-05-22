@@ -8,6 +8,9 @@ import 'dart:async';
 import 'dart:math';
 
 import '../transport.dart';
+import 'flowcontrol/connection_queues.dart';
+import 'flowcontrol/window.dart';
+import 'flowcontrol/window_handler.dart';
 import 'frames/frame_defragmenter.dart';
 import 'frames/frames.dart';
 import 'hpack/hpack.dart';
@@ -46,6 +49,12 @@ class Connection implements TransportConnection {
   /// The HPack context for this connection.
   final HPackContext _hpackContext = new HPackContext();
 
+  /// The flow window for this connection of the peer.
+  final Window _peerWindow = new Window();
+
+  /// The flow window for this connection of this end.
+  final Window _localWindow = new Window();
+
   /// Used for defragmenting PushPromise/Header frames.
   final FrameDefragmenter _defragmenter = new FrameDefragmenter();
 
@@ -55,12 +64,21 @@ class Connection implements TransportConnection {
   /// A subscription of incoming [Frame]s.
   StreamSubscription<Frame> _frameReaderSubscription;
 
+  /// The incoming connection-level message queue.
+  ConnectionMessageQueueIn _incomingQueue;
+
+  /// The outgoing connection-level message queue.
+  ConnectionMessageQueueOut _outgoingQueue;
+
   /// The ping handler used for making pings & handling remote pings.
   PingHandler _pingHandler;
 
   /// The settings handler used for changing settings & for handling remote
   /// setting changes.
   SettingsHandler _settingsHandler;
+
+  /// The connection-level flow control window handler for outgoing messages.
+  OutgoingConnectionWindowHandler _connectionWindowHandler;
 
   /// Represents the highest stream id this connection has received from the
   /// other side.
@@ -120,6 +138,25 @@ class Connection implements TransportConnection {
     _settingsHandler.changeSettings([]).catchError((_) {
       _terminate(ErrorCode.PROTOCOL_ERROR);
     });
+
+    _settingsHandler.onInitialWindowSizeChange.listen((size) {
+      // TODO: Apply change to [StreamHandler]
+    });
+
+
+    // Setup the connection window handler, which keeps track of the
+    // size of the outgoing connection window.
+    _connectionWindowHandler =
+        new OutgoingConnectionWindowHandler(_peerWindow);
+
+    var connectionWindowUpdater = new IncomingWindowHandler.connection(
+        _frameWriter, _localWindow);
+
+    // Setup queues for outgoing/incoming messages on the connection level.
+    _outgoingQueue = new ConnectionMessageQueueOut(
+        _connectionWindowHandler, _frameWriter);
+    _incomingQueue = new ConnectionMessageQueueIn(
+        connectionWindowUpdater);
 
     // NOTE: We're not waiting until initial settings have been exchanged
     // before we start using the connection (i.e. we don't wait for half a
@@ -192,8 +229,7 @@ class Connection implements TransportConnection {
       } else if (frame is PingFrame) {
         _pingHandler.processPingFrame(frame);
       } else if (frame is WindowUpdateFrame) {
-        // TODO: Implement this.
-        throw new UnimplementedError();
+        _connectionWindowHandler.processWindowUpdate(frame);
       } else if (frame is GoawayFrame) {
         // TODO: What to do about [frame.lastStreamIdReceived] ?
         _finishing(active: false);
@@ -259,6 +295,10 @@ class Connection implements TransportConnection {
       //  Future will complete with this error).
       var exception = new TransportConnectionException(
           errorCode, 'Connection is being forcefully terminated.');
+
+      _incomingQueue.terminate(exception);
+      _outgoingQueue.terminate(exception);
+
       _pingHandler.terminate(exception);
       _settingsHandler.terminate(exception);
 

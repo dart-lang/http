@@ -156,9 +156,9 @@ class HPackDecoder {
         }
       }
       return headers;
-    } on RangeError catch (e, s) {
+    } on RangeError catch (e) {
       throw new HPackDecodingException('$e');
-    } on HuffmanDecodingException catch (e, s) {
+    } on HuffmanDecodingException catch (e) {
       throw new HPackDecodingException('$e');
     }
   }

@@ -39,3 +39,13 @@ class _TerminatedException extends TypeMatcher {
 const Matcher throwsTerminatedException =
     const Throws(isTerminatedException);
 
+
+const Matcher isFlowControlException = const _FlowControlException();
+
+class _FlowControlException extends TypeMatcher {
+  const _FlowControlException() : super("FlowControlException");
+  bool matches(item, Map matchState) => item is FlowControlException;
+}
+
+const Matcher throwsFlowControlException =
+    const Throws(isFlowControlException);

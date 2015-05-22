@@ -101,6 +101,14 @@ class SettingsHandler extends Object with TerminatableMixin {
   /// The peer settings, which we ACKed and are obeying.
   Settings _peerSettings = new Settings();
 
+  StreamController<int> _onInitialWindowSizeChangeController =
+      new StreamController.broadcast(sync: true);
+
+  /// Events are fired when a SettingsFrame changes the initial size
+  /// of stream windows.
+  Stream<int> get onInitialWindowSizeChange
+      => _onInitialWindowSizeChangeController.stream;
+
   SettingsHandler(this._frameWriter,
                   this._acknowledgedSettings,
                   this._peerSettings);
@@ -193,9 +201,7 @@ class SettingsHandler extends Object with TerminatableMixin {
 
         case Setting.SETTINGS_INITIAL_WINDOW_SIZE:
           if (setting.value < (1 << 31)) {
-            // TODO:
-            // var difference = setting.value - base.initialWindowSize;
-            // streamSet.processInitialWindowSizeSettingChange(difference);
+            _onInitialWindowSizeChangeController.add(setting.value);
             base.initialWindowSize = setting.value;
           } else {
             throw new FlowControlException('Invalid initial window size.');
@@ -203,7 +209,7 @@ class SettingsHandler extends Object with TerminatableMixin {
           break;
 
         default:
-          // Spec says to ignore unkown settings.
+          // Spec says to ignore unknown settings.
           break;
       }
     }
