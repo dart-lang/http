@@ -16,6 +16,7 @@ import 'frames/frames.dart';
 import 'hpack/hpack.dart';
 import 'ping/ping_handler.dart';
 import 'settings/settings.dart';
+import 'streams/stream_handler.dart';
 import 'sync_errors.dart';
 
 import 'connection_preface.dart';
@@ -35,7 +36,7 @@ enum ConnectionState {
   Terminated,
 }
 
-class Connection implements TransportConnection {
+abstract class Connection {
   /// The settings the other end has acknowledged to use when communicating with
   /// us.
   final Settings acknowledgedSettings = new Settings();
@@ -77,6 +78,9 @@ class Connection implements TransportConnection {
   /// setting changes.
   SettingsHandler _settingsHandler;
 
+  /// The set of active streams this connection has.
+  StreamHandler _streams;
+
   /// The connection-level flow control window handler for outgoing messages.
   OutgoingConnectionWindowHandler _connectionWindowHandler;
 
@@ -86,18 +90,6 @@ class Connection implements TransportConnection {
 
   /// The state of this connection.
   ConnectionState _state;
-
-  factory Connection.client(Stream<List<int>> incoming,
-                            StreamSink<List<int>> outgoing)  {
-    outgoing.add(CONNECTION_PREFACE);
-    return new Connection(incoming, outgoing, isClientConnection: true);
-  }
-
-  factory Connection.server(Stream<List<int>> incoming,
-                            StreamSink<List<int>> outgoing) {
-    var frameBytes = readConnectionPreface(incoming);
-    return new Connection(frameBytes, outgoing, isClientConnection: false);
-  }
 
   Connection(Stream<List<int>> incoming,
              StreamSink<List<int>> outgoing,
@@ -157,6 +149,16 @@ class Connection implements TransportConnection {
         _connectionWindowHandler, _frameWriter);
     _incomingQueue = new ConnectionMessageQueueIn(
         connectionWindowUpdater);
+
+    if (isClientConnection) {
+      _streams = new StreamHandler.client(
+          _frameWriter, _incomingQueue, _outgoingQueue,
+          _settingsHandler.peerSettings, _settingsHandler.acknowledgedSettings);
+    } else {
+      _streams = new StreamHandler.server(
+          _frameWriter, _incomingQueue, _outgoingQueue,
+          _settingsHandler.peerSettings, _settingsHandler.acknowledgedSettings);
+    }
 
     // NOTE: We're not waiting until initial settings have been exchanged
     // before we start using the connection (i.e. we don't wait for half a
@@ -219,10 +221,12 @@ class Connection implements TransportConnection {
     }
 
     // Update highest stream id we received.
+    // TODO: This should only be done for "processed" streams.
+    // So we should ask the StreamSet for what Ids it has processed.
     _highestStreamIdReceived =
         max(_highestStreamIdReceived, frame.header.streamId);
 
-    // Handle the frame as either a stream or a connection frame.
+    // Handle the frame as either a connection or a stream frame.
     if (frame.header.streamId == 0) {
       if (frame is SettingsFrame) {
         _settingsHandler.handleSettingsFrame(frame);
@@ -241,12 +245,13 @@ class Connection implements TransportConnection {
     } else {
       // We will not process frames for stream id's which are higher than when
       // we sent the [GoawayFrame].
+      // TODO/FIXME: Isn't this the responsibility of the StreamSet. It
+      // should also send RST/...
       if (_state == ConnectionState.Finishing &&
           frame.header.streamId > highestSeenStreamId) {
         return;
       }
-
-      // TODO: Hand frame over to StreamHandler.
+      _streams.processStreamFrame(frame);
     }
   }
 
@@ -296,6 +301,10 @@ class Connection implements TransportConnection {
       var exception = new TransportConnectionException(
           errorCode, 'Connection is being forcefully terminated.');
 
+      // Close all streams & stream queues
+      _streams.terminate(exception);
+
+      // Close the connection queues
       _incomingQueue.terminate(exception);
       _outgoingQueue.terminate(exception);
 
@@ -310,4 +319,36 @@ class Connection implements TransportConnection {
   /// The highest stream id which has been used anywhere.
   int get highestSeenStreamId =>
       max(_highestStreamIdReceived, _frameWriter.highestWrittenStreamId);
+}
+
+
+class ClientConnection extends Connection implements ClientTransportConnection {
+  ClientConnection._(Stream<List<int>> incoming,
+                     StreamSink<List<int>> outgoing)
+      : super(incoming, outgoing, isClientConnection: true);
+
+  factory ClientConnection(Stream<List<int>> incoming,
+                          StreamSink<List<int>> outgoing)  {
+    outgoing.add(CONNECTION_PREFACE);
+    return new ClientConnection._(incoming, outgoing);
+  }
+
+  TransportStream makeRequest(List<Header> headers, {bool endStream: false}) {
+    TransportStream hStream = _streams.newStream(headers, endStream: endStream);
+    return hStream;
+  }
+}
+
+class ServerConnection extends Connection implements ServerTransportConnection {
+  ServerConnection._(Stream<List<int>> incoming,
+                     StreamSink<List<int>> outgoing)
+      : super(incoming, outgoing, isClientConnection: false);
+
+  factory ServerConnection(Stream<List<int>> incoming,
+                           StreamSink<List<int>> outgoing)  {
+    var frameBytes = readConnectionPreface(incoming);
+    return new ServerConnection._(frameBytes, outgoing);
+  }
+
+  Stream<TransportStream> get incomingStreams => _streams.incomingStreams;
 }

@@ -86,7 +86,7 @@ class ConnectionMessageQueueOut extends Object with TerminatableMixin {
         _frameWriter.writeHeadersFrame(
             message.streamId, message.headers, endStream: message.endStream);
       } else if (message is PushPromiseMessage) {
-         _messages.removeFirst();
+        _messages.removeFirst();
         _frameWriter.writePushPromiseFrame(
             message.streamId, message.promisedStreamId, message.headers);
       } else if (message is DataMessage) {
@@ -205,7 +205,7 @@ class ConnectionMessageQueueIn extends Object with TerminatableMixin {
   void processHeadersFrame(HeadersFrame frame) {
     var streamId = frame.header.streamId;
     var message = new HeadersMessage(
-        streamId, frame.decodedHeaders, frame.hasEndHeadersFlag);
+        streamId, frame.decodedHeaders, frame.hasEndStreamFlag);
     // NOTE: Header frames do not affect flow control - only data frames do.
     _addMessage(streamId, message);
   }

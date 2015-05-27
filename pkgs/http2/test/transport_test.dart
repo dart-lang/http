@@ -68,8 +68,8 @@ class BidirectionalConnection {
   Stream<List<int>> get readB => writeB.stream;
 
   TransportConnection get clientConnection
-      => new TransportConnection.clientViaStreams(readA, writeB.sink);
+      => new ClientTransportConnection.viaStreams(readA, writeB.sink);
 
   TransportConnection get serverConnection
-      => new TransportConnection.serverViaStreams(readB, writeA.sink);
+      => new ServerTransportConnection.viaStreams(readB, writeA.sink);
 }

@@ -14,20 +14,6 @@ export 'src/hpack/hpack.dart' show Header;
 
 /// Represents a HTTP/2 connection.
 abstract class TransportConnection {
-  factory TransportConnection.clientViaSocket(Socket socket)
-      => new TransportConnection.clientViaStreams(socket, socket);
-
-  factory TransportConnection.serverViaSocket(Socket socket)
-      => new TransportConnection.serverViaStreams(socket, socket);
-
-  factory TransportConnection.clientViaStreams(Stream<List<int>> incoming,
-                                               Sink<List<int>> outgoing)
-      => new Connection.client(incoming, outgoing);
-
-  factory TransportConnection.serverViaStreams(Stream<List<int>> incoming,
-                                               Sink<List<int>> outgoing)
-      => new Connection.server(incoming, outgoing);
-
   /// Pings the other end.
   Future ping();
 
@@ -40,10 +26,85 @@ abstract class TransportConnection {
   Future terminate();
 }
 
+abstract class ClientTransportConnection extends TransportConnection {
+  factory ClientTransportConnection.viaSocket(Socket socket)
+      => new ClientTransportConnection.viaStreams(socket, socket);
+
+  factory ClientTransportConnection.viaStreams(Stream<List<int>> incoming,
+                                               Sink<List<int>> outgoing)
+      => new ClientConnection(incoming, outgoing);
+
+  /// Creates a new outgoing stream.
+  ClientTransportStream makeRequest(List<Header> headers,
+                                    {bool endStream: false});
+}
+
+abstract class ServerTransportConnection extends TransportConnection {
+  factory ServerTransportConnection.viaSocket(Socket socket)
+      => new ServerTransportConnection.viaStreams(socket, socket);
+
+  factory ServerTransportConnection.viaStreams(Stream<List<int>> incoming,
+                                                     Sink<List<int>> outgoing)
+      => new ServerConnection(incoming, outgoing);
+
+  /// Incoming HTTP/2 streams.
+  Stream<TransportStream> get incomingStreams;
+
+  /// Finish this connection.
+  ///
+  /// No new streams will be accepted or can be created.
+  void finish();
+
+  /// Terminates this connection forcefully.
+  Future terminate();
+}
+
 /// Represents a HTTP/2 stream.
 abstract class TransportStream {
-  // TODO: Populate this class.
+  /// The id of this stream.
+  ///
+  ///   * odd numbered streams are client streams
+  ///   * even numbered streams are opened from the server
+  int get id;
+
+  /// A stream of data and/or headers from the remote end.
+  Stream<StreamMessage> get incomingMessages;
+
+  /// A sink for writing data and/or headers to the remote end.
+  StreamSink<StreamMessage> get outgoingMessages;
+
+  /// Terminates this HTTP/2 stream in an un-normal way.
+  ///
+  /// For normal termination, one can cancel the [StreamSubscription] from
+  /// `incoming.listen()` and close the `outgoing` [StreamSink].
+  ///
+  /// Terminating this HTTP/2 stream will free up all resources associated with
+  /// it locally and will notify the remote end that this stream is no longer
+  /// used.
+  void terminate();
+
+  // For convenience only.
+  void sendHeaders(List<Header> headers, {bool endStream: false}) {
+    outgoingMessages.add(new HeadersStreamMessage(headers));
+    if (endStream) outgoingMessages.close();
+  }
+
+  void sendData(List<int> bytes, {bool endStream: false}) {
+    outgoingMessages.add(new DataStreamMessage(bytes));
+    if (endStream) outgoingMessages.close();
+  }
 }
+
+abstract class ClientTransportStream extends TransportStream {
+  /// Streams which the remote end pushed to this endpoint.
+  Stream<TransportStreamPush> get peerPushes;
+}
+
+abstract class ServerTransportStream extends TransportStream {
+  /// Pushes a new stream to the remote peer.
+  TransportStream push(List<Header> requestHeaders);
+}
+
 /// Represents a message which can be sent over a HTTP/2 stream.
 abstract class StreamMessage {}
 
@@ -97,4 +158,10 @@ class TransportConnectionException extends TransportException {
 
   TransportConnectionException(this.errorCode, String details)
       : super('Connection error: $details');
+}
+
+/// An exception thrown when a HTTP/2 connection error occured.
+class StreamTransportException extends TransportException {
+  StreamTransportException(String details)
+      : super('Stream error: $details');
 }
