@@ -41,10 +41,11 @@ class DataMessage extends Message {
 class PushPromiseMessage extends Message {
   final List<Header> headers;
   final int promisedStreamId;
+  final TransportStream pushedStream;
 
   PushPromiseMessage(
-      int streamId, this.headers, this.promisedStreamId, bool endStream)
-      : super(streamId, endStream);
+      int streamId, this.headers, this.promisedStreamId, this.pushedStream,
+      bool endStream) : super(streamId, endStream);
 
   String toString()
       => 'PushPromiseMessage(bytes: ${headers.length}, '

@@ -10,6 +10,8 @@ library http2.src.flowcontrol.connection_flow_controller;
 import 'dart:async';
 import 'dart:collection';
 
+import '../../transport.dart';
+
 import '../error_handler.dart';
 import '../frames/frames.dart';
 
@@ -212,10 +214,12 @@ class ConnectionMessageQueueIn extends Object with TerminatableMixin {
 
   /// Processes an incoming [PushPromiseFrame] which is addressed to a specific
   /// stream.
-  void processPushPromiseFrame(PushPromiseFrame frame) {
+  void processPushPromiseFrame(PushPromiseFrame frame,
+                               TransportStream pushedStream) {
     var streamId = frame.header.streamId;
     var message = new PushPromiseMessage(
-        streamId, frame.decodedHeaders, frame.promisedStreamId, false);
+        streamId, frame.decodedHeaders, frame.promisedStreamId, pushedStream,
+        false);
     // NOTE: Header frames do not affect flow control - only data frames do.
     _addMessage(streamId, message);
   }

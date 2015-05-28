@@ -21,13 +21,18 @@ main() {
       var allBytes = new List.generate(numOfOneKB * 1024, (i) => i % 256);
       allBytes.addAll(new List.generate(42, (i) => 42));
 
+      testHeaders(List<Header> headers) {
+        expect(headers.length, expectedHeaders.length);
+        for (int i = 0; i < headers.length; i++) {
+          expect(headers[i].name, expectedHeaders[i].name);
+          expect(headers[i].value, expectedHeaders[i].value);
+        }
+      }
+
       headersTestFun() {
         return expectAsync((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
-          expect((msg as HeadersStreamMessage).headers.first.name,
-          expectedHeaders.first.name);
-          expect((msg as HeadersStreamMessage).headers.first.value,
-          expectedHeaders.first.value);
+          testHeaders((msg as HeadersStreamMessage).headers);
         });
       }
 
@@ -58,13 +63,12 @@ main() {
            ServerTransportConnection server) async {
         server.incomingStreams.listen(
             expectAsync((ServerTransportStream sStream) async {
-          sStream.incomingMessages.drain();
-
-          sStream.sendHeaders(expectedHeaders, endStream: true);
-
           var pushStream = sStream.push(expectedHeaders);
           pushStream.sendHeaders(expectedHeaders);
           await sendData(pushStream, 'pushing "hello world" :)');
+
+          sStream.incomingMessages.drain();
+          sStream.sendHeaders(expectedHeaders, endStream: true);
 
           expect(await serverReceivedAllBytes.future, completes);
         }));
@@ -74,15 +78,15 @@ main() {
         cStream.incomingMessages.listen(
             headersTestFun(), onDone: expectAsync(() { }));
         cStream.peerPushes.listen(expectAsync((TransportStreamPush push) async {
-          expect(push.requestHeaders, expectedHeaders);
+          testHeaders(push.requestHeaders);
 
           var iterator = new StreamIterator(push.stream.incomingMessages);
           bool hasNext = await iterator.moveNext();
           expect(hasNext, isTrue);
-          headersTestFun()(iterator.current);
+          testHeaders(iterator.current.headers);
 
           String msg = await readData(iterator);
-          expect(msg, 'pushing "hello iworld" :)');
+          expect(msg, 'pushing "hello world" :)');
         }));
       });
     });

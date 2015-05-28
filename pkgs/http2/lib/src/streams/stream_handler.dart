@@ -17,6 +17,7 @@ import '../frames/frames.dart';
 import '../hpack/hpack.dart';
 import '../settings/settings.dart';
 import '../error_handler.dart';
+import '../sync_errors.dart';
 
 /// Represents the current state of a stream.
 enum StreamState {
@@ -94,6 +95,7 @@ class Http2StreamImpl extends TransportStream
 ///
 /// It keeps track of open streams, their state, their queues, forwards
 /// messages from the connectionn level to stream level and vise versa.
+// TODO: Respect SETTINGS_MAX_CONCURRENT_STREAMS
 class StreamHandler extends Object with TerminatableMixin {
   static const int MAX_STREAM_ID = (1 << 31) - 1;
   final FrameWriter _frameWriter;
@@ -108,6 +110,8 @@ class StreamHandler extends Object with TerminatableMixin {
   final Map<int, Http2StreamImpl> _openStreams = {};
   int nextStreamId;
   int lastRemoteStreamId;
+
+  bool get isServer => nextStreamId.isEven;
 
   StreamHandler._(this._frameWriter, this.incomingQueue, this.outgoingQueue,
                   this._peerSettings, this._localSettings,
@@ -182,7 +186,7 @@ class StreamHandler extends Object with TerminatableMixin {
 
   TransportStream newRemoteStream(int remoteStreamId) {
     return ensureNotTerminatedSync(() {
-      assert (MAX_STREAM_ID < remoteStreamId);
+      assert (remoteStreamId < MAX_STREAM_ID);
       if (remoteStreamId != (lastRemoteStreamId + 2)) {
         // FIXME: Is this check ok? Can't there be holes in the streams?
         throw new StateError(
@@ -190,7 +194,7 @@ class StreamHandler extends Object with TerminatableMixin {
             'last one.');
       }
       bool sameDirection = (nextStreamId + remoteStreamId) % 2 == 0;
-      assert (remoteStreamId < lastRemoteStreamId);
+      assert (lastRemoteStreamId < remoteStreamId );
       assert (!sameDirection);
 
       lastRemoteStreamId = remoteStreamId;
@@ -246,9 +250,13 @@ class StreamHandler extends Object with TerminatableMixin {
     }
 
     Http2StreamImpl pushStream = newLocalStream();
+
+    // NOTE: Since there was no real request from the client, we simulate it
+    // by adding a synthetic `endStream = true` Data message into the incoming
+    // queue.
+    pushStream.state = StreamState.HalfClosedRemote;
     pushStream.incomingQueue.enqueueMessage(
         new DataMessage(stream.id, const <int>[], true));
-    pushStream.state = StreamState.HalfClosedRemote;
 
     _frameWriter.writePushPromiseFrame(
         stream.id, pushStream.id, requestHeaders);
@@ -315,22 +323,56 @@ class StreamHandler extends Object with TerminatableMixin {
   ////////////////////////////////////////////////////////////////////////////
 
   void processStreamFrame(Frame frame) {
+    // TODO: Consider splitting this method into client/server handling.
     return ensureNotTerminatedSync(() {
       var stream = _openStreams[frame.header.streamId];
       if (stream == null) {
-        if (frame is HeadersFrame) {
-          Http2StreamImpl newStream = newRemoteStream(frame.header.streamId);
-          var halfClosed = frame.hasEndStreamFlag;
-          if (halfClosed) {
-            newStream.state = StreamState.HalfClosedRemote;
-          } else {
-            newStream.state = StreamState.Open;
-          }
+        bool frameBelongsToIdleStream() {
+          int streamId = frame.header.streamId;
+          bool isServerStreamId = frame.header.streamId.isEven;
+          bool isLocalStream = isServerStreamId == isServer;
+          bool isIdleStream = isLocalStream ?
+              streamId >= nextStreamId : streamId > lastRemoteStreamId;
+          return isIdleStream;
+        }
 
-          _handleHeadersFrame(newStream, frame);
-          _newStreamsC.add(newStream);
+        if (frame is HeadersFrame) {
+          if (isServer) {
+            Http2StreamImpl newStream = newRemoteStream(frame.header.streamId);
+            newStream.state = StreamState.Open;
+
+            _handleHeadersFrame(newStream, frame);
+            _newStreamsC.add(newStream);
+          } else {
+            // A server cannot open new streams to the client. The only way
+            // for a server to start a new stream is via a PUSH_PROMISE_FRAME.
+            throw new ProtocolException(
+                'HTTP/2 clients cannot receive HEADER_FRAMEs as a connection'
+                'attempt.');
+          }
         } else if (frame is WindowUpdateFrame) {
-          // FIXME/TODO: Can we ignore these?
+          if (frameBelongsToIdleStream()) {
+            // We treat this as a protocol error even though not enforced
+            // or specified by the HTTP/2 spec.
+            throw new ProtocolException(
+                'Got a WINDOW_UPDATE_FRAME for an "idle" stream id.');
+          } else {
+            // We must be able to receive window update frames for streams that
+            // have been already closed. The specification does not mention
+            // what happens if the streamId is belonging to an "idle" / unused
+            // stream.
+          }
+        } else if (frame is RstStreamFrame) {
+          if (frameBelongsToIdleStream()) {
+            // [RstFrame]s for streams which haven't been established (known as
+            // idle streams) must be treated as a connection error.
+            throw new ProtocolException(
+                'Got a RST_STREAM_FRAME for an "idle" stream id.');
+          } else {
+            // [RstFrame]s for already dead (known as "closed") streams should
+            // be ignored. (If the stream was in "HalfClosedRemote" and we did
+            // send an endStream=true, it will be removed from the stream set).
+          }
         } else {
           throw new StateError('No open stream found & was not headers frame.');
         }
@@ -382,10 +424,10 @@ class StreamHandler extends Object with TerminatableMixin {
       throw new StateError('Expected open state (was: ${stream.state}).');
     }
 
-    var pushStream = newRemoteStream(frame.promisedStreamId);
-    pushStream.state = StreamState.ReservedRemote;
+    var pushedStream = newRemoteStream(frame.promisedStreamId);
+    pushedStream.state = StreamState.ReservedRemote;
 
-    incomingQueue.processPushPromiseFrame(frame);
+    incomingQueue.processPushPromiseFrame(frame, pushedStream);
   }
 
   void _handleWindowUpdate(Http2StreamImpl stream, WindowUpdateFrame frame) {

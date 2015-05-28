@@ -223,27 +223,52 @@ class StreamMessageQueueIn extends Object with TerminatableMixin {
   }
 
   void _tryDispatch() {
-    while (_incomingMessagesC.hasListener &&
-           !_incomingMessagesC.isPaused &&
-           !_incomingMessagesC.isClosed &&
-           !wasTerminated &&
+    while (!wasTerminated &&
            _pendingMessages.isNotEmpty) {
-      var message = _pendingMessages.removeFirst();
-      if (message is HeadersMessage) {
-        // NOTE: Header messages do not affect flow control - only
-        // data messages do.
-        _incomingMessagesC.add(new HeadersStreamMessage(message.headers));
-      } else if (message is DataMessage) {
-        if (message.bytes.length > 0) {
-          _incomingMessagesC.add(new DataStreamMessage(message.bytes));
-          windowHandler.dataProcessed(message.bytes.length);
+      bool handled = false;
+
+      var message = _pendingMessages.first;
+      if (message is HeadersMessage || message is DataMessage) {
+        assert (!_incomingMessagesC.isClosed);
+        if (_incomingMessagesC.hasListener &&
+            !_incomingMessagesC.isPaused) {
+          _pendingMessages.removeFirst();
+          if (message is HeadersMessage) {
+            // NOTE: Header messages do not affect flow control - only
+            // data messages do.
+            _incomingMessagesC.add(new HeadersStreamMessage(message.headers));
+          } else if (message is DataMessage) {
+            if (message.bytes.length > 0) {
+              _incomingMessagesC.add(new DataStreamMessage(message.bytes));
+              windowHandler.dataProcessed(message.bytes.length);
+            }
+          }
+          if (message.endStream) {
+            _close();
+          }
+          handled = true;
+        }
+      } else if (message is PushPromiseMessage) {
+        assert (!_serverPushStreamsC.isClosed);
+        if (_serverPushStreamsC.hasListener &&
+            !_serverPushStreamsC.isPaused) {
+          _pendingMessages.removeFirst();
+
+          var transportStreamPush = new TransportStreamPush(
+              message.headers, message.pushedStream);
+          _serverPushStreamsC.add(transportStreamPush);
+          if (message.endStream) {
+            _close();
+          }
+          handled = true;
         }
       }
-      if (message.endStream) {
-        _close();
+      if (!handled) {
+        break;
       }
     }
   }
+
 
   void _tryUpdateBufferIndicator() {
     if (_incomingMessagesC.isPaused || _pendingMessages.length > 0) {
