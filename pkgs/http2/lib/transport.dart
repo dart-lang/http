@@ -27,12 +27,16 @@ abstract class TransportConnection {
 }
 
 abstract class ClientTransportConnection extends TransportConnection {
-  factory ClientTransportConnection.viaSocket(Socket socket)
-      => new ClientTransportConnection.viaStreams(socket, socket);
+  factory ClientTransportConnection.viaSocket(Socket socket,
+                                              {bool allowServerPushes: true})
+      => new ClientTransportConnection.viaStreams(
+          socket, socket, allowServerPushes: allowServerPushes);
 
   factory ClientTransportConnection.viaStreams(Stream<List<int>> incoming,
-                                               Sink<List<int>> outgoing)
-      => new ClientConnection(incoming, outgoing);
+                                               Sink<List<int>> outgoing,
+                                               {bool allowServerPushes: true})
+      => new ClientConnection(
+          incoming, outgoing, allowServerPushes: allowServerPushes);
 
   /// Creates a new outgoing stream.
   ClientTransportStream makeRequest(List<Header> headers,

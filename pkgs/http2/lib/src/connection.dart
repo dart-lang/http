@@ -47,6 +47,9 @@ abstract class Connection {
   /// Whether this connection is a client connection.
   final bool isClientConnection;
 
+  /// Whether server side pushes are allowed.
+  final bool pushEnabled;
+
   /// The HPack context for this connection.
   final HPackContext _hpackContext = new HPackContext();
 
@@ -93,7 +96,8 @@ abstract class Connection {
 
   Connection(Stream<List<int>> incoming,
              StreamSink<List<int>> outgoing,
-             {this.isClientConnection: true}) {
+             {this.isClientConnection: true,
+              this.pushEnabled}) {
     _setupConnection(incoming, outgoing);
   }
 
@@ -126,8 +130,13 @@ abstract class Connection {
         _frameWriter, acknowledgedSettings, peerSettings);
     _pingHandler = new PingHandler(_frameWriter);
 
-    // Do the initial settings handshake.
-    _settingsHandler.changeSettings([]).catchError((_) {
+    // Do the initial settings handshake (possibly with pushes disabled).
+    var settings = [];
+    if (isClientConnection && !pushEnabled) {
+      // By default the server is allowed to do server pushes.
+      settings.add(new Setting(Setting.SETTINGS_ENABLE_PUSH, 0));
+    }
+    _settingsHandler.changeSettings(settings).catchError((_) {
       _terminate(ErrorCode.PROTOCOL_ERROR);
     });
 
@@ -324,13 +333,18 @@ abstract class Connection {
 
 class ClientConnection extends Connection implements ClientTransportConnection {
   ClientConnection._(Stream<List<int>> incoming,
-                     StreamSink<List<int>> outgoing)
-      : super(incoming, outgoing, isClientConnection: true);
+                     StreamSink<List<int>> outgoing,
+                     bool pushEnabled)
+      : super(incoming,
+              outgoing,
+              isClientConnection: true,
+              pushEnabled: pushEnabled);
 
   factory ClientConnection(Stream<List<int>> incoming,
-                          StreamSink<List<int>> outgoing)  {
+                           StreamSink<List<int>> outgoing,
+                           {bool allowServerPushes: true})  {
     outgoing.add(CONNECTION_PREFACE);
-    return new ClientConnection._(incoming, outgoing);
+    return new ClientConnection._(incoming, outgoing, allowServerPushes);
   }
 
   TransportStream makeRequest(List<Header> headers, {bool endStream: false}) {
@@ -342,7 +356,8 @@ class ClientConnection extends Connection implements ClientTransportConnection {
 class ServerConnection extends Connection implements ServerTransportConnection {
   ServerConnection._(Stream<List<int>> incoming,
                      StreamSink<List<int>> outgoing)
-      : super(incoming, outgoing, isClientConnection: false);
+      : super(
+          incoming, outgoing, isClientConnection: false, pushEnabled: false);
 
   factory ServerConnection(Stream<List<int>> incoming,
                            StreamSink<List<int>> outgoing)  {
