@@ -5,7 +5,7 @@
 library http_parser.http_date_test;
 
 import 'package:http_parser/http_parser.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('format', () {

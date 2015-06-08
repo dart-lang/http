@@ -7,7 +7,7 @@ library http_parser.web_socket_test;
 import 'dart:io';
 
 import 'package:http_parser/http_parser.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 void main() {
   test("a client can communicate with a WebSocket server", () {
