@@ -1,3 +1,7 @@
+## 0.0.2+7
+
+* Add more detail to the readme.
+
 ## 0.0.2+6
 
 * Updated homepage URL.
