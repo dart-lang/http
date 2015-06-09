@@ -14,7 +14,7 @@ void main() {
     return HttpServer.bind("localhost", 0).then((server) {
       server.transform(new WebSocketTransformer()).listen((webSocket) {
         webSocket.add("hello!");
-        webSocket.first.then((request) {
+        webSocket.listen((request) {
           expect(request, equals("ping"));
           webSocket.add("pong");
           webSocket.close();
