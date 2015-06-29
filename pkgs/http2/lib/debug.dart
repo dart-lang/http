@@ -1,0 +1,145 @@
+// Copyright (c) 2015, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+library http2.debug;
+
+import 'dart:async';
+import 'dart:io';
+import 'dart:io' show stderr;
+import 'dart:convert';
+
+import 'src/connection.dart';
+import 'src/connection_preface.dart';
+import 'src/frames/frames.dart';
+import 'src/settings/settings.dart';
+
+import 'transport.dart';
+
+final jsonEncoder = new JsonEncoder.withIndent('  ');
+
+
+TransportConnection debugPrintingConnection(Socket socket,
+                                            {bool isServer: true,
+                                             bool verbose: true}) {
+  var connection;
+
+  var incoming = decodeVerbose(socket, isServer, verbose: verbose);
+  var outgoing = decodeOutgoingVerbose(socket, isServer, verbose: verbose);
+  if (isServer) {
+    connection = new ServerTransportConnection.viaStreams(incoming, outgoing);
+  } else {
+    connection = new ClientTransportConnection.viaStreams(incoming, outgoing);
+  }
+  return connection;
+}
+
+Stream<List<int>> decodeVerbose(Stream<List<int>> inc,
+                                bool isServer,
+                                {bool verbose: true}) {
+  String name = isServer ? 'server' : 'client';
+
+  var sc = new StreamController();
+  var sDebug = new StreamController();
+
+  _pipeAndCopy(inc, sc, sDebug);
+
+  if (!isServer) {
+    _decodeFrames(sDebug.stream).listen((frame) {
+      print('[$name/stream:${frame.header.streamId}] '
+            'Incoming ${frame.runtimeType}:');
+      if (verbose) {
+        print(jsonEncoder.convert(frame.toJson()));
+        print('');
+      }
+    }, onError: (e, s) {
+      print('[$name] Stream error: $e.');
+    }, onDone: () {
+      print('[$name] Closed.');
+    });
+  } else {
+    var s3 = readConnectionPreface(sDebug.stream);
+    _decodeFrames(s3).listen((frame) {
+      print('[$name/stream:${frame.header.streamId}] '
+            'Incoming ${frame.runtimeType}:');
+      if (verbose) {
+        print(jsonEncoder.convert(frame.toJson()));
+        print('');
+      }
+    }, onError: (e, s) {
+      print('[$name] Stream error: $e.');
+    }, onDone: () {
+      print('[$name] Closed.');
+    });
+  }
+
+  return sc.stream;
+}
+
+StreamSink<List<int>> decodeOutgoingVerbose(StreamSink<List<int>> sink,
+                                            bool isServer,
+                                            {bool verbose: true}) {
+  String name = isServer ? 'server' : 'client';
+
+  var proxySink = new StreamController();
+  var copy = new StreamController();
+
+  if (!isServer) {
+    _decodeFrames(readConnectionPreface(copy.stream))
+        .listen((Frame frame) {
+      print('[$name/stream:${frame.header.streamId}] '
+            'Outgoing ${frame.runtimeType}:');
+      if (verbose) {
+        print(jsonEncoder.convert(frame.toJson()));
+        print('');
+      }
+    }, onError: (e, s) {
+      print('[$name] Outgoing stream error: $e');
+    }, onDone: () {
+      print('[$name] Closing.');
+    });
+  } else {
+    _decodeFrames(copy.stream).listen((Frame frame) {
+      print('[$name/stream:${frame.header.streamId}] '
+            'Outgoing ${frame.runtimeType}:');
+      if (verbose) {
+        print(jsonEncoder.convert(frame.toJson()));
+        print('');
+      }
+    }, onError: (e, s) {
+      print('[$name] Outgoing stream error: $e');
+    }, onDone: () {
+      print('[$name] Closing.');
+      proxySink.close();
+    });
+  }
+
+  _pipeAndCopy(proxySink.stream, sink, copy);
+
+  return proxySink;
+}
+
+Stream<Frame> _decodeFrames(Stream<List<int>> bytes) {
+  var settings = new Settings();
+  var decoder = new FrameReader(bytes, settings);
+  return decoder.startDecoding();
+}
+
+Future _pipeAndCopy(Stream from, StreamSink to, StreamSink to2) {
+  var c = new Completer();
+  from.listen((List<int> data) {
+    to.add(data);
+    to2.add(data);
+  }, onError: (e, s) {
+    to.addError(e, s);
+    to2.addError(e, s);
+  }, onDone: () {
+    Future.wait([to.close(), to2.close()])
+        .then(c.complete).catchError(c.completeError);
+  });
+  return c.future;
+}
+
+void print(String s) {
+  stderr.writeln(s);
+}
