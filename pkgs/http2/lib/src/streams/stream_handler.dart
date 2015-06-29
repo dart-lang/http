@@ -187,14 +187,24 @@ class StreamHandler extends Object with TerminatableMixin {
   TransportStream newRemoteStream(int remoteStreamId) {
     return ensureNotTerminatedSync(() {
       assert (remoteStreamId < MAX_STREAM_ID);
-      if (remoteStreamId != (lastRemoteStreamId + 2)) {
-        // FIXME: Is this check ok? Can't there be holes in the streams?
-        throw new StateError(
-            'Remote end tries to create new stream which is not 2 higher than '
-            'last one.');
+      // NOTE: We cannot enforce that a new stream id is 2 higher than the last
+      // used stream id. Meaning there can be "holes" in the sense that stream
+      // ids are not used:
+      //
+      // http/2 spec:
+      //   The first use of a new stream identifier implicitly closes all
+      //   streams in the "idle" state that might have been initiated by that
+      //   peer with a lower-valued stream identifier.  For example, if a client
+      //   sends a HEADERS frame on stream 7 without ever sending a frame on
+      //   stream 5, then stream 5 transitions to the "closed" state when the
+      //   first frame for stream 7 is sent or received.
+
+      if (remoteStreamId < lastRemoteStreamId) {
+        throw new ProtocolException('Remote tried to open new stream which is '
+                                    'not in "idle" state.');
       }
+
       bool sameDirection = (nextStreamId + remoteStreamId) % 2 == 0;
-      assert (lastRemoteStreamId < remoteStreamId );
       assert (!sameDirection);
 
       lastRemoteStreamId = remoteStreamId;
@@ -373,6 +383,22 @@ class StreamHandler extends Object with TerminatableMixin {
             // be ignored. (If the stream was in "HalfClosedRemote" and we did
             // send an endStream=true, it will be removed from the stream set).
           }
+        } else if (frame is PriorityFrame) {
+          // http/2 spec:
+          //     The PRIORITY frame can be sent for a stream in the "idle" or
+          //     "closed" states. This allows for the reprioritization of a
+          //     group of dependentstreams by altering the priority of an
+          //     unused or closed parentstream.
+          //
+          // As long as we do not handle stream priorities, we can safely ignore
+          // such frames on idle streams.
+          //
+          // NOTE: Firefox for example sends [PriorityFrame]s even without
+          // opening any streams (e.g. streams 3,5,7,9,11 [PriorityFrame]s and
+          // stream 13 is the first real stream opened by a [HeadersFrame].
+          //
+          // TODO: When implementing priorities for HTTP/2 streams, these frames
+          // need to be taken into account.
         } else {
           throw new StateError('No open stream found & was not headers frame.');
         }

@@ -31,3 +31,4 @@ class FrameSizeException implements Exception {
 class TerminatedException implements Exception {
   String toString() => 'TerminatedException: The object has been terminated.';
 }
+
