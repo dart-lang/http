@@ -1,3 +1,7 @@
+## 0.0.2+8
+
+* Bring in the latest `dart:io` WebSocket code.
+
 ## 0.0.2+7
 
 * Add more detail to the readme.

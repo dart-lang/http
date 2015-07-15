@@ -7,7 +7,10 @@
 // non-"dart:io" applications (issue 18348).
 //
 // Because it's copied directly, there are no modifications from the original.
-library http_parser.bytes_builder;
+//
+// This is up-to-date as of sdk revision
+// 86227840d75d974feb238f8b3c59c038b99c05cf.
+library http_parser.copy.bytes_builder;
 
 import 'dart:math';
 import 'dart:typed_data';
@@ -86,6 +89,7 @@ abstract class BytesBuilder {
   void clear();
 }
 
+
 class _CopyingBytesBuilder implements BytesBuilder {
   // Start with 1024 bytes.
   static const int _INIT_SIZE = 1024;
@@ -156,6 +160,7 @@ class _CopyingBytesBuilder implements BytesBuilder {
     return x + 1;
   }
 }
+
 
 class _BytesBuilder implements BytesBuilder {
   int _length = 0;
