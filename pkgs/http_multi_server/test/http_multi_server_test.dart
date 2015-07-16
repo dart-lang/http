@@ -10,7 +10,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http_multi_server/http_multi_server.dart';
 import 'package:http_multi_server/src/utils.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 void main() {
   group("with multiple HttpServers", () {
