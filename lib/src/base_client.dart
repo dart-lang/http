@@ -78,6 +78,28 @@ abstract class BaseClient implements Client {
       Encoding encoding}) =>
     _sendUnstreamed("PUT", url, headers, body, encoding);
 
+  /// Sends an HTTP PATCH request with the given headers and body to the given
+  /// URL, which can be a [Uri] or a [String].
+  ///
+  /// [body] sets the body of the request. It can be a [String], a [List<int>]
+  /// or a [Map<String, String>]. If it's a String, it's encoded using
+  /// [encoding] and used as the body of the request. The content-type of the
+  /// request will default to "text/plain".
+  ///
+  /// If [body] is a List, it's used as a list of bytes for the body of the
+  /// request.
+  ///
+  /// If [body] is a Map, it's encoded as form fields using [encoding]. The
+  /// content-type of the request will be set to
+  /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
+  ///
+  /// [encoding] defaults to UTF-8.
+  ///
+  /// For more fine-grained control over the request, use [send] instead.
+  Future<Response> patch(url, {Map<String, String> headers, body,
+      Encoding encoding}) =>
+    _sendUnstreamed("PATCH", url, headers, body, encoding);
+
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].
   ///

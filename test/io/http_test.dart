@@ -253,6 +253,110 @@ main() {
       }), completes);
     });
 
+    test('patch', () {
+      expect(startServer().then((_) {
+        expect(http.patch(serverUrl, headers: {
+          'X-Random-Header': 'Value',
+          'X-Other-Header': 'Other Value',
+          'Content-Type': 'text/plain',
+          'User-Agent': 'Dart'
+        }).then((response) {
+          expect(response.statusCode, equals(200));
+          expect(response.body, parse(equals({
+            'method': 'PATCH',
+            'path': '/',
+            'headers': {
+              'accept-encoding': ['gzip'],
+              'content-length': ['0'],
+              'content-type': ['text/plain'],
+              'user-agent': ['Dart'],
+              'x-random-header': ['Value'],
+              'x-other-header': ['Other Value']
+            }
+          })));
+        }), completes);
+      }), completes);
+    });
+
+    test('patch with string', () {
+      expect(startServer().then((_) {
+        expect(http.patch(serverUrl, headers: {
+          'X-Random-Header': 'Value',
+          'X-Other-Header': 'Other Value',
+          'User-Agent': 'Dart'
+        }, body: 'request body').then((response) {
+          expect(response.statusCode, equals(200));
+          expect(response.body, parse(equals({
+            'method': 'PATCH',
+            'path': '/',
+            'headers': {
+              'content-type': ['text/plain; charset=utf-8'],
+              'content-length': ['12'],
+              'accept-encoding': ['gzip'],
+              'user-agent': ['Dart'],
+              'x-random-header': ['Value'],
+              'x-other-header': ['Other Value']
+            },
+            'body': 'request body'
+          })));
+        }), completes);
+      }), completes);
+    });
+
+    test('patch with bytes', () {
+      expect(startServer().then((_) {
+        expect(http.patch(serverUrl, headers: {
+          'X-Random-Header': 'Value',
+          'X-Other-Header': 'Other Value',
+          'User-Agent': 'Dart'
+        }, body: [104, 101, 108, 108, 111]).then((response) {
+          expect(response.statusCode, equals(200));
+          expect(response.body, parse(equals({
+            'method': 'PATCH',
+            'path': '/',
+            'headers': {
+              'content-length': ['5'],
+              'accept-encoding': ['gzip'],
+              'user-agent': ['Dart'],
+              'x-random-header': ['Value'],
+              'x-other-header': ['Other Value']
+            },
+            'body': [104, 101, 108, 108, 111]
+          })));
+        }), completes);
+      }), completes);
+    });
+
+    test('patch with fields', () {
+      expect(startServer().then((_) {
+        expect(http.patch(serverUrl, headers: {
+          'X-Random-Header': 'Value',
+          'X-Other-Header': 'Other Value',
+          'User-Agent': 'Dart'
+        }, body: {
+          'some-field': 'value',
+          'other-field': 'other value'
+        }).then((response) {
+          expect(response.statusCode, equals(200));
+          expect(response.body, parse(equals({
+            'method': 'PATCH',
+            'path': '/',
+            'headers': {
+              'content-type': [
+                'application/x-www-form-urlencoded; charset=utf-8'
+              ],
+              'content-length': ['40'],
+              'accept-encoding': ['gzip'],
+              'user-agent': ['Dart'],
+              'x-random-header': ['Value'],
+              'x-other-header': ['Other Value']
+            },
+            'body': 'some-field=value&other-field=other+value'
+          })));
+        }), completes);
+      }), completes);
+    });
+
     test('delete', () {
       expect(startServer().then((_) {
         expect(http.delete(serverUrl, headers: {
