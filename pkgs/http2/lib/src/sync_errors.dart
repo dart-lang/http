@@ -32,3 +32,18 @@ class TerminatedException implements Exception {
   String toString() => 'TerminatedException: The object has been terminated.';
 }
 
+class StreamException implements Exception {
+  final String _message;
+  final int streamId;
+
+  StreamException(this.streamId, this._message);
+
+  String toString() => 'StreamException(stream id: $streamId): $_message';
+}
+
+class StreamClosedException extends StreamException {
+  StreamClosedException(int streamId, [String message = ''])
+      : super(streamId, message);
+
+  String toString() => 'StreamClosedException(stream id: $streamId): $_message';
+}

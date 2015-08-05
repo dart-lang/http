@@ -191,6 +191,27 @@ abstract class Connection {
 
   /// Handles an incoming [Frame] from the underlying [FrameReader].
   void _handleFrame(Frame frame) {
+    try {
+      _handleFrameImpl(frame);
+    } on ProtocolException catch (error) {
+      _terminate(ErrorCode.PROTOCOL_ERROR);
+    } on FlowControlException {
+      _terminate(ErrorCode.FLOW_CONTROL_ERROR);
+    } on FrameSizeException {
+      _terminate(ErrorCode.FRAME_SIZE_ERROR);
+    } on HPackDecodingException {
+      _terminate(ErrorCode.PROTOCOL_ERROR);
+    } on TerminatedException {
+      // We tried to perform an action even though the connection was already
+      // terminated.
+      // TODO: Can this even happen and if so, how should we propagate this
+      // error?
+    } catch (error) {
+      _terminate(ErrorCode.INTERNAL_ERROR);
+    }
+  }
+
+  void _handleFrameImpl(Frame frame) {
     // The first frame from the other side must be a [SettingsFrame], otherwise
     // we terminate the connection.
     if (_state == ConnectionState.Initialized) {
@@ -202,28 +223,18 @@ abstract class Connection {
     }
 
     // Try to defragment [frame] if it is a Headers/PushPromise frame.
-    try {
-      frame = _defragmenter.tryDefragmentFrame(frame);
-      if (frame == null) return;
-    } on ProtocolException {
-      _terminate(ErrorCode.PROTOCOL_ERROR);
-      return;
-    }
+    frame = _defragmenter.tryDefragmentFrame(frame);
+    if (frame == null) return;
 
     // Try to decode headers if it's a Headers/PushPromise frame.
     // [This needs to be done even if the frames get ignored, since the entire
     //  connection shares one HPack compression context.]
-    try {
-      if (frame is HeadersFrame) {
-        frame.decodedHeaders =
-            _hpackContext.decoder.decode(frame.headerBlockFragment);
-      } else if (frame is PushPromiseFrame) {
-        frame.decodedHeaders =
-            _hpackContext.decoder.decode(frame.headerBlockFragment);
-      }
-    } on HPackDecodingException {
-      _terminate(ErrorCode.PROTOCOL_ERROR);
-      return;
+    if (frame is HeadersFrame) {
+      frame.decodedHeaders =
+          _hpackContext.decoder.decode(frame.headerBlockFragment);
+    } else if (frame is PushPromiseFrame) {
+      frame.decodedHeaders =
+          _hpackContext.decoder.decode(frame.headerBlockFragment);
     }
 
     // Handle the frame as either a connection or a stream frame.
@@ -240,7 +251,8 @@ abstract class Connection {
       } else if (frame is UnknownFrame) {
         // We can safely ignore these.
       } else {
-        throw 'Unknown incoming frame ${frame.runtimeType}';
+        throw new ProtocolException(
+            'Cannot handle frame type ${frame.runtimeType} with stream-id 0.');
       }
     } else {
       _streams.processStreamFrame(_state, frame);
