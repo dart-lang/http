@@ -202,6 +202,12 @@ class ConnectionMessageQueueIn extends Object with TerminatableMixin {
     _addMessage(streamId, message);
   }
 
+  /// If a [DataFrame] will be ignored, this method will take the minimal
+  /// action necessary.
+  void processIgnoredDataFrame(DataFrame frame) {
+    _windowUpdateHandler.gotData(frame.bytes.length);
+  }
+
   /// Processes an incoming [HeadersFrame] which is addressed to a specific
   /// stream.
   void processHeadersFrame(HeadersFrame frame) {

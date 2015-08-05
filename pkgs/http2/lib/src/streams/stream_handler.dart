@@ -5,9 +5,11 @@
 library http2.src.stream_handler;
 
 import 'dart:async';
+import 'dart:math';
 
 import '../../transport.dart';
 
+import '../connection.dart';
 import '../flowcontrol/connection_queues.dart';
 import '../flowcontrol/stream_queues.dart';
 import '../flowcontrol/queue_messages.dart';
@@ -110,6 +112,12 @@ class StreamHandler extends Object with TerminatableMixin {
   final Map<int, Http2StreamImpl> _openStreams = {};
   int nextStreamId;
   int lastRemoteStreamId;
+
+  int _highestStreamIdReceived = 0;
+
+  /// Represents the highest stream id this connection has received from the
+  /// remote side.
+  int get highestPeerInitiatedStream => _highestStreamIdReceived;
 
   bool get isServer => nextStreamId.isEven;
 
@@ -332,7 +340,20 @@ class StreamHandler extends Object with TerminatableMixin {
   //// Process incoming stream frames
   ////////////////////////////////////////////////////////////////////////////
 
-  void processStreamFrame(Frame frame) {
+  void processStreamFrame(ConnectionState connectionState, Frame frame) {
+    // If we initiated a close of the connection and the received frame belongs
+    // to a stream id which is higher than the last peer-initiated stream we
+    // processed, we'll ignore it.
+    if (connectionState == ConnectionState.Finishing &&
+        frame.header.streamId > highestPeerInitiatedStream) {
+      // Even if the frame will be ignored, we still need to process it in a
+      // minimal way to ensure the connection window will be updated.
+      if (frame is DataFrame) {
+        incomingQueue.processIgnoredDataFrame(frame);
+      }
+      return null;
+    }
+
     // TODO: Consider splitting this method into client/server handling.
     return ensureNotTerminatedSync(() {
       var stream = _openStreams[frame.header.streamId];
@@ -344,6 +365,20 @@ class StreamHandler extends Object with TerminatableMixin {
           bool isIdleStream = isLocalStream ?
               streamId >= nextStreamId : streamId > lastRemoteStreamId;
           return isIdleStream;
+        }
+        bool isPeerInitiatedStream() {
+          int streamId = frame.header.streamId;
+          bool isServerStreamId = frame.header.streamId.isEven;
+          bool isLocalStream = isServerStreamId == isServer;
+          return !isLocalStream;
+        }
+
+        if (isPeerInitiatedStream()) {
+          // Update highest stream id we received and processed (we update it
+          // before processing, so if it was an error, the client will not
+          // retry it).
+          _highestStreamIdReceived =
+              max(_highestStreamIdReceived, frame.header.streamId);
         }
 
         if (frame is HeadersFrame) {

@@ -75,12 +75,10 @@ main() async {
       expect(body, contains('<!DOCTYPE html>'));
       expect(body, contains('nghttp2'));
 
-      // TODO: Find out why the push we get is a 502, it should be 200 with a
-      // css file. WTF?
       var pushes = results[1];
       expect(pushes, hasLength(1));
       expect(pushes[0][0], '/stylesheets/screen.css');
-      expect(pushes[0][1], contains('Bad Gateway'));
+      expect(pushes[0][1], contains('audio,video{'));
       await connection.close();
     });
 

@@ -150,6 +150,24 @@ main() {
 
       // TODO: Write tests for adding HeadersFrame/PushPromiseFrame.
     });
+
+    test('connection-ignored-message-queue-in', () {
+      const STREAM_ID = 99;
+      final bytes = [1, 2, 3];
+
+      var windowMock = new MockIncomingWindowHandler();
+      var queue = new ConnectionMessageQueueIn(windowMock);
+
+      // Insert a [DataFrame] and let it be buffered.
+      var header = new FrameHeader(0, 0, 0, STREAM_ID);
+      var c = new TestCounter();
+      windowMock.mock_gotData = (int diff) {
+        expect(diff, bytes.length);
+        c.got();
+      };
+      queue.processIgnoredDataFrame(new DataFrame(header, 0, bytes));
+      expect(queue.pendingMessages, 0);
+    });
   });
 }
 

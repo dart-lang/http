@@ -87,10 +87,6 @@ abstract class Connection {
   /// The connection-level flow control window handler for outgoing messages.
   OutgoingConnectionWindowHandler _connectionWindowHandler;
 
-  /// Represents the highest stream id this connection has received from the
-  /// other side.
-  int _highestStreamIdReceived = 0;
-
   /// The state of this connection.
   ConnectionState _state;
 
@@ -205,7 +201,7 @@ abstract class Connection {
       _state = ConnectionState.Operational;
     }
 
-    // Try to decode frame if it is a Headers/PushPromise frame.
+    // Try to defragment [frame] if it is a Headers/PushPromise frame.
     try {
       frame = _defragmenter.tryDefragmentFrame(frame);
       if (frame == null) return;
@@ -227,13 +223,8 @@ abstract class Connection {
       }
     } on HPackDecodingException {
       _terminate(ErrorCode.PROTOCOL_ERROR);
+      return;
     }
-
-    // Update highest stream id we received.
-    // TODO: This should only be done for "processed" streams.
-    // So we should ask the StreamSet for what Ids it has processed.
-    _highestStreamIdReceived =
-        max(_highestStreamIdReceived, frame.header.streamId);
 
     // Handle the frame as either a connection or a stream frame.
     if (frame.header.streamId == 0) {
@@ -252,15 +243,7 @@ abstract class Connection {
         throw 'Unknown incoming frame ${frame.runtimeType}';
       }
     } else {
-      // We will not process frames for stream id's which are higher than when
-      // we sent the [GoawayFrame].
-      // TODO/FIXME: Isn't this the responsibility of the StreamSet. It
-      // should also send RST/...
-      if (_state == ConnectionState.Finishing &&
-          frame.header.streamId > highestSeenStreamId) {
-        return;
-      }
-      _streams.processStreamFrame(frame);
+      _streams.processStreamFrame(_state, frame);
     }
   }
 
@@ -279,7 +262,7 @@ abstract class Connection {
       // GoawayFrame otherwise we'll just propagate the message.
       if (active) {
         _frameWriter.writeGoawayFrame(
-            highestSeenStreamId, ErrorCode.NO_ERROR, []);
+            _streams.highestPeerInitiatedStream, ErrorCode.NO_ERROR, []);
       }
 
       // TODO: Propagate to the [StreamSet] that we no longer process new
@@ -298,7 +281,8 @@ abstract class Connection {
 
       var cancelFuture = new Future.sync(_frameReaderSubscription.cancel);
       if (!causedByTransportError) {
-        _frameWriter.writeGoawayFrame(highestSeenStreamId, errorCode, []);
+        _frameWriter.writeGoawayFrame(
+            _streams.highestPeerInitiatedStream, errorCode, []);
       }
       var closeFuture = _frameWriter.close().catchError((e, s) {
         // We ignore any errors after writing to [GoawayFrame]
@@ -324,10 +308,6 @@ abstract class Connection {
     }
     return new Future.value();
   }
-
-  /// The highest stream id which has been used anywhere.
-  int get highestSeenStreamId =>
-      max(_highestStreamIdReceived, _frameWriter.highestWrittenStreamId);
 }
 
 
