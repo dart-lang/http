@@ -48,7 +48,7 @@ abstract class ServerTransportConnection extends TransportConnection {
       => new ServerTransportConnection.viaStreams(socket, socket);
 
   factory ServerTransportConnection.viaStreams(Stream<List<int>> incoming,
-                                                     Sink<List<int>> outgoing)
+                                               Sink<List<int>> outgoing)
       => new ServerConnection(incoming, outgoing);
 
   /// Incoming HTTP/2 streams.

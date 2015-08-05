@@ -89,6 +89,7 @@ class Http2StreamImpl extends TransportStream
       => _pushStreamFun(this, requestHeaders);
 
   void terminate() {
+    // TODO/FIXME: We need to send an RST to the other side.
     _outgoingCSubscription.cancel();
   }
 }
@@ -450,7 +451,7 @@ class StreamHandler extends Object with TerminatableMixin {
           // TODO: When implementing priorities for HTTP/2 streams, these frames
           // need to be taken into account.
         } else {
-          throw new StreamException(frame.header.streamId,
+          throw new StreamClosedException(frame.header.streamId,
               'No open stream found and was not a headers frame opening a '
               'new stream.');
         }

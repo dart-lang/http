@@ -6,6 +6,7 @@ library http2.src.conn;
 
 import 'dart:async';
 import 'dart:math';
+import 'dart:convert';
 
 import '../transport.dart';
 import 'flowcontrol/connection_queues.dart';
@@ -132,8 +133,12 @@ abstract class Connection {
       // By default the server is allowed to do server pushes.
       settings.add(new Setting(Setting.SETTINGS_ENABLE_PUSH, 0));
     }
-    _settingsHandler.changeSettings(settings).catchError((_) {
-      _terminate(ErrorCode.PROTOCOL_ERROR);
+    _settingsHandler.changeSettings(settings).catchError((error) {
+      // TODO: The [error] can contain sensitive information we now expose via
+      // a [Goaway] frame. We should somehow ensure we're only sending useful
+      // but non-sensitive information.
+      _terminate(ErrorCode.PROTOCOL_ERROR,
+                 message: 'Failed to set initial settings (error: $error).');
     });
 
     _settingsHandler.onInitialWindowSizeChange.listen((size) {
@@ -194,20 +199,20 @@ abstract class Connection {
     try {
       _handleFrameImpl(frame);
     } on ProtocolException catch (error) {
-      _terminate(ErrorCode.PROTOCOL_ERROR);
-    } on FlowControlException {
-      _terminate(ErrorCode.FLOW_CONTROL_ERROR);
-    } on FrameSizeException {
-      _terminate(ErrorCode.FRAME_SIZE_ERROR);
-    } on HPackDecodingException {
-      _terminate(ErrorCode.PROTOCOL_ERROR);
-    } on TerminatedException {
+      _terminate(ErrorCode.PROTOCOL_ERROR, message: '$error');
+    } on FlowControlException catch (error) {
+      _terminate(ErrorCode.FLOW_CONTROL_ERROR, message: '$error');
+    } on FrameSizeException catch (error) {
+      _terminate(ErrorCode.FRAME_SIZE_ERROR, message: '$error');
+    } on HPackDecodingException catch (error) {
+      _terminate(ErrorCode.PROTOCOL_ERROR, message: '$error');
+    } on TerminatedException catch (error) {
       // We tried to perform an action even though the connection was already
       // terminated.
       // TODO: Can this even happen and if so, how should we propagate this
       // error?
     } catch (error) {
-      _terminate(ErrorCode.INTERNAL_ERROR);
+      _terminate(ErrorCode.INTERNAL_ERROR, message: '$error');
     }
   }
 
@@ -216,7 +221,8 @@ abstract class Connection {
     // we terminate the connection.
     if (_state == ConnectionState.Initialized) {
       if (frame is! SettingsFrame) {
-        _terminate(ErrorCode.PROTOCOL_ERROR);
+        _terminate(ErrorCode.PROTOCOL_ERROR,
+                   message: 'Expected to first receive a settings frame.');
         return;
       }
       _state = ConnectionState.Operational;
@@ -259,7 +265,7 @@ abstract class Connection {
     }
   }
 
-  void _finishing({bool active: true}) {
+  void _finishing({bool active: true, String message}) {
     // If this connection is already finishing or dead, we return.
     if (_state == ConnectionState.Terminated ||
         _state == ConnectionState.Finishing) {
@@ -274,7 +280,9 @@ abstract class Connection {
       // GoawayFrame otherwise we'll just propagate the message.
       if (active) {
         _frameWriter.writeGoawayFrame(
-            _streams.highestPeerInitiatedStream, ErrorCode.NO_ERROR, []);
+            _streams.highestPeerInitiatedStream,
+            ErrorCode.NO_ERROR,
+            message != null ? UTF8.encode(message) : []);
       }
 
       // TODO: Propagate to the [StreamSet] that we no longer process new
@@ -286,7 +294,8 @@ abstract class Connection {
   /// Terminates this connection (if it is not already terminated).
   ///
   /// The returned future will never complete with an error.
-  Future _terminate(int errorCode, {bool causedByTransportError: false}) {
+  Future _terminate(int errorCode,
+                    {bool causedByTransportError: false, String message}) {
     // TODO: When do we complete here?
     if (_state != ConnectionState.Terminated) {
       _state = ConnectionState.Terminated;
@@ -294,7 +303,9 @@ abstract class Connection {
       var cancelFuture = new Future.sync(_frameReaderSubscription.cancel);
       if (!causedByTransportError) {
         _frameWriter.writeGoawayFrame(
-            _streams.highestPeerInitiatedStream, errorCode, []);
+            _streams.highestPeerInitiatedStream,
+            errorCode,
+            message != null ? UTF8.encode(message) : []);
       }
       var closeFuture = _frameWriter.close().catchError((e, s) {
         // We ignore any errors after writing to [GoawayFrame]
