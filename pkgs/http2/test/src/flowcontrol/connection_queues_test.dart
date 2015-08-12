@@ -57,10 +57,10 @@ main() {
                                 {bool endStream}) {
         expect(streamId, 99);
         expect(sendingBytes, bytes);
-        expect(endStream, true);
+        expect(endStream, false);
         c.got();
       };
-      queue.enqueueMessage(new DataMessage(99, bytes, true));
+      queue.enqueueMessage(new DataMessage(99, bytes, false));
       expect(queue.pendingMessages, 0);
 
       fw.mock_writeDataFrame = null;
@@ -100,14 +100,12 @@ main() {
       windowMock.peerWindowSize = bytes.length - 1;
       windowMock.positiveWindow.markUnBuffered();
 
-      // Terminate it now, ensure messages get cleared and we no longer
-      // enqueue messages.
-      queue.terminate();
-      expect(queue.pendingMessages, 0);
-      fw = new MockFrameWriter();
-      windowMock = new MockOutgoingWindowHandler();
-      queue.enqueueMessage(new DataMessage(99, bytes, true));
-      expect(queue.pendingMessages, 0);
+      queue.startClosing();
+      queue.done.then(expectAsync((_) {
+        expect(queue.pendingMessages, 0);
+        expect(() => queue.enqueueMessage(new DataMessage(99, bytes, true)),
+               throws);
+      }));
     });
 
     test('connection-message-queue-in', () {

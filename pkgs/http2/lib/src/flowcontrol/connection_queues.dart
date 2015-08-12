@@ -29,7 +29,11 @@ import '../frames/frames.dart';
 ///   allows sending the message and the underlying [StreamSink] is not
 ///   buffering.
 /// - It will use a [FrameWriter] to write a new frame to the connection.
-class ConnectionMessageQueueOut extends Object with TerminatableMixin {
+// TODO: Make [StreamsHandler] call [connectionOut.startClosing()] once
+//   * all streams have been closed
+//   * the connection state is finishing
+class ConnectionMessageQueueOut extends Object
+                                with TerminatableMixin, ClosableMixin {
   /// The handler which will be used for increasing the connection-level flow
   /// control window.
   final OutgoingConnectionWindowHandler _connectionWindow;
@@ -54,14 +58,23 @@ class ConnectionMessageQueueOut extends Object with TerminatableMixin {
 
   /// Enqueues a new [Message] which should be delivered to the remote peer.
   void enqueueMessage(Message message) {
-    if (!wasTerminated) {
-      _messages.addLast(message);
-      _trySendMessages();
-    }
+    ensureNotClosingSync(() {
+      if (!wasTerminated) {
+        _messages.addLast(message);
+        _trySendMessages();
+      }
+    });
   }
 
   void onTerminated(error) {
     _messages.clear();
+    closeWithError(error);
+  }
+
+  void onCheckForClose() {
+    if (isClosing && _messages.length == 0) {
+      closeWithValue();
+    }
   }
 
   void _trySendMessages() {
@@ -76,6 +89,8 @@ class ConnectionMessageQueueOut extends Object with TerminatableMixin {
         // number of bytes written, we could just say, we loop here until 10kb
         // and after words, we'll make `Timer.run()`.
         Timer.run(_trySendMessages);
+      } else {
+        onCheckForClose();
       }
     }
   }
@@ -138,7 +153,11 @@ class ConnectionMessageQueueOut extends Object with TerminatableMixin {
 ///
 /// Incoming [DataFrame]s will decrease the flow control window the peer has
 /// available.
-class ConnectionMessageQueueIn extends Object with TerminatableMixin {
+// TODO: Make [StreamsHandler] call [connectionOut.startClosing()] once
+//   * all streams have been closed
+//   * the connection state is finishing
+class ConnectionMessageQueueIn extends Object
+                               with TerminatableMixin, ClosableMixin {
   /// The handler which will be used for increasing the connection-level flow
   /// control window.
   final IncomingWindowHandler _windowUpdateHandler;
@@ -162,6 +181,16 @@ class ConnectionMessageQueueIn extends Object with TerminatableMixin {
     // should have been removed at this point.
     assert(_stream2messageQueue.isEmpty);
     assert(_stream2pendingMessages.isEmpty);
+    closeWithError(error);
+  }
+
+  void onCheckForClose() {
+    if (isClosing) {
+      assert (_stream2messageQueue.isEmpty == _stream2pendingMessages.isEmpty);
+      if (_stream2messageQueue.isEmpty) {
+        closeWithValue();
+      }
+    }
   }
 
   /// The number of pending messages which haven't been delivered
@@ -266,5 +295,7 @@ class ConnectionMessageQueueIn extends Object with TerminatableMixin {
     if (bytesDeliveredToStream > 0) {
       _windowUpdateHandler.dataProcessed(bytesDeliveredToStream);
     }
+
+    onCheckForClose();
   }
 }

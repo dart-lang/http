@@ -40,3 +40,51 @@ class TerminatableMixin {
     return f();
   }
 }
+
+/// Used by classes which may be closed.
+class ClosableMixin {
+  bool _closing = false;
+  Completer _completer = new Completer();
+
+  Future get done => _completer.future;
+
+  bool get isClosing => _closing;
+  bool get wasClosed => _completer.isCompleted;
+
+  void startClosing() {
+    if (!_closing) {
+      _closing = true;
+
+      onClosing();
+      onCheckForClose();
+    }
+  }
+
+  void onCheckForClose() {
+    // Subclasses can override this method if they want.
+  }
+
+  void onClosing() {
+    // Subclasses can override this method if they want.
+  }
+
+  dynamic ensureNotClosingSync(f()) {
+    if (isClosing) {
+      throw new StateError('Was in the process of closing.');
+    }
+    return f();
+  }
+
+  void closeWithValue([value]) {
+    if (!wasClosed) {
+      _completer.complete(value);
+    }
+  }
+
+  void closeWithError(error) {
+    if (!wasClosed) {
+      _completer.complete(error);
+    }
+  }
+}
+

@@ -21,7 +21,8 @@ import 'window_handler.dart';
 ///
 /// It will ensure that we never send more data than the remote flow control
 /// window allows.
-class StreamMessageQueueOut extends Object with TerminatableMixin {
+class StreamMessageQueueOut extends Object
+                            with TerminatableMixin, ClosableMixin {
   /// The id of the stream this message queue belongs to.
   final int streamId;
 
@@ -68,30 +69,40 @@ class StreamMessageQueueOut extends Object with TerminatableMixin {
   /// Enqueues a new [Message] which is to be delivered to the connection
   /// message queue.
   void enqueueMessage(Message message) {
-    if (!wasTerminated) {
-      if (message is DataMessage) {
-        toBeWrittenBytes += message.bytes.length;
-      }
+    ensureNotClosingSync(() {
+      if (!wasTerminated) {
+        if (message.endStream) startClosing();
 
-      _messages.addLast(message);
-      _trySendData();
+        if (message is DataMessage) {
+          toBeWrittenBytes += message.bytes.length;
+        }
 
-      if (_messages.length > 0) {
-        bufferIndicator.markBuffered();
+        _messages.addLast(message);
+        _trySendData();
+
+        if (_messages.length > 0) {
+          bufferIndicator.markBuffered();
+        }
       }
-    }
+    });
   }
 
-  /// Terminates this stream message queue. Further operations on it will fail.
-  void terminate([error]) {
-    super.terminate(error);
+  void onTerminated(error) {
     _messages.clear();
+    closeWithError(error);
+  }
+
+  void onCheckForClose() {
+    if (isClosing && _messages.isEmpty) closeWithValue();
+
   }
 
   void _trySendData() {
     int queueLenBefore = _messages.length;
 
     while (_messages.length > 0) {
+      assert(!isClosing);
+
       Message message = _messages.first;
 
       if (message is HeadersMessage) {
@@ -132,10 +143,11 @@ class StreamMessageQueueOut extends Object with TerminatableMixin {
         throw new StateError('Unknown messages type: ${message.runtimeType}');
       }
     }
-
     if (queueLenBefore > 0 && _messages.isEmpty) {
       bufferIndicator.markUnBuffered();
     }
+
+    onCheckForClose();
   }
 }
 
@@ -144,7 +156,8 @@ class StreamMessageQueueOut extends Object with TerminatableMixin {
 ///
 /// It will keep messages up to the stream flow control window size if the
 /// [messages] listener is paused.
-class StreamMessageQueueIn extends Object with TerminatableMixin {
+class StreamMessageQueueIn extends Object
+                           with TerminatableMixin, ClosableMixin {
   /// The stream-level window our peer is using when sending us messages.
   final IncomingWindowHandler windowHandler;
 
@@ -168,7 +181,7 @@ class StreamMessageQueueIn extends Object with TerminatableMixin {
 
     _incomingMessagesC = new StreamController(
       onListen: () {
-        if (_checkOpen()) {
+        if (!wasClosed && !wasTerminated) {
           _tryDispatch();
           _tryUpdateBufferIndicator();
         }
@@ -177,13 +190,14 @@ class StreamMessageQueueIn extends Object with TerminatableMixin {
         // TODO: Would we ever want to decrease the window size in this
         // situation?
       }, onResume: () {
-        if (_checkOpen()) {
+        if (!wasClosed && !wasTerminated) {
           _tryDispatch();
           _tryUpdateBufferIndicator();
         }
       }, onCancel: () {
         _pendingMessages.clear();
-        _close();
+        startClosing();
+        onCloseCheck();
       });
 
     // FIXME/TODO/FIXME: This needs to change, we need to intercept all
@@ -203,22 +217,35 @@ class StreamMessageQueueIn extends Object with TerminatableMixin {
   /// A lower layer enqueues a new [Message] which should be delivered to the
   /// app.
   void enqueueMessage(Message message) {
-    if (_checkOpen()) {
+    ensureNotClosingSync(() {
+      if (!wasTerminated) {
         if (message is DataMessage) {
-        windowHandler.gotData(message.bytes.length);
-      }
-      _pendingMessages.add(message);
+          windowHandler.gotData(message.bytes.length);
+        }
+        _pendingMessages.add(message);
+        if (message.endStream) startClosing();
 
-      _tryDispatch();
-      _tryUpdateBufferIndicator();
+        _tryDispatch();
+        _tryUpdateBufferIndicator();
+      }
+    });
+  }
+
+  void onTerminated(exception) {
+    _pendingMessages.clear();
+    if (!wasClosed) {
+      _incomingMessagesC.addError(exception);
+      _incomingMessagesC.close();
+      _serverPushStreamsC.close();
+      closeWithError(exception);
     }
   }
 
-  void onTerminated(TransportException exception) {
-    _pendingMessages.clear();
-    if (!_incomingMessagesC.isClosed) {
-      _incomingMessagesC.addError(exception);
-      _close();
+  void onCloseCheck() {
+    if (isClosing && !wasClosed && _pendingMessages.isEmpty) {
+      _incomingMessagesC.close();
+      _serverPushStreamsC.close();
+      closeWithValue();
     }
   }
 
@@ -243,9 +270,6 @@ class StreamMessageQueueIn extends Object with TerminatableMixin {
               windowHandler.dataProcessed(message.bytes.length);
             }
           }
-          if (message.endStream) {
-            _close();
-          }
           handled = true;
         }
       } else if (message is PushPromiseMessage) {
@@ -257,18 +281,18 @@ class StreamMessageQueueIn extends Object with TerminatableMixin {
           var transportStreamPush = new TransportStreamPush(
               message.headers, message.pushedStream);
           _serverPushStreamsC.add(transportStreamPush);
-          if (message.endStream) {
-            _close();
-          }
           handled = true;
         }
       }
-      if (!handled) {
+      if (handled) {
+        if (message.endStream) {
+          onCloseCheck();
+        }
+      } else {
         break;
       }
     }
   }
-
 
   void _tryUpdateBufferIndicator() {
     if (_incomingMessagesC.isPaused || _pendingMessages.length > 0) {
@@ -277,13 +301,4 @@ class StreamMessageQueueIn extends Object with TerminatableMixin {
       bufferIndicator.markUnBuffered();
     }
   }
-
-  void _close() {
-    if (!_incomingMessagesC.isClosed) {
-      _incomingMessagesC.close();
-      _serverPushStreamsC.close();
-    }
-  }
-
-  bool _checkOpen() => !_incomingMessagesC.isClosed && !wasTerminated;
 }
