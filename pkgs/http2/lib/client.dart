@@ -55,7 +55,7 @@ class ClientConnection {
   }
 
   Future close() {
-    return connection.terminate();
+    return connection.finish();
   }
 
   Future<Response> _handleStream(ClientTransportStream stream) {

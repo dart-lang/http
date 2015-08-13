@@ -185,8 +185,16 @@ abstract class Connection {
   }
 
   /// Finishes this connection.
-  void finish() {
+  Future finish() {
     _finishing(active: true);
+
+    // TODO: There is probably more we need to wait for.
+    return _streams.done.whenComplete(() {
+      var futures = [_frameWriter.close()];
+      var f = _frameReaderSubscription.cancel();
+      if (f != null) futures.add(f);
+      return Future.wait(futures);
+    });
   }
 
   /// Terminates this connection forcefully.
@@ -285,9 +293,7 @@ abstract class Connection {
             message != null ? UTF8.encode(message) : []);
       }
 
-      // TODO: Propagate to the [StreamSet] that we no longer process new
-      // streams. And make it return a Future which we can listen to until
-      // all streams are done.
+      _streams.startClosing();
     }
   }
 

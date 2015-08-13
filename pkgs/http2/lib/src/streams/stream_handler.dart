@@ -99,7 +99,8 @@ class Http2StreamImpl extends TransportStream
 /// It keeps track of open streams, their state, their queues, forwards
 /// messages from the connection level to stream level and vise versa.
 // TODO: Respect SETTINGS_MAX_CONCURRENT_STREAMS
-class StreamHandler extends Object with TerminatableMixin {
+// TODO: Handle stream/connection queue errors & forward to connection object.
+class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   static const int MAX_STREAM_ID = (1 << 31) - 1;
   final FrameWriter _frameWriter;
   final ConnectionMessageQueueIn incomingQueue;
@@ -147,10 +148,7 @@ class StreamHandler extends Object with TerminatableMixin {
   void onTerminated(exception) {
     _openStreams.values.toList().forEach(
         (stream) => _closeStreamAbnormally(stream, exception));
-
-    // Signal that there are no more incoming connections (server case).
-    // FIXME: Should we do this always (even in client case?)
-    _newStreamsC..addError(exception)..close();
+    startClosing();
   }
 
   Stream<TransportStream> get incomingStreams => _newStreamsC.stream;
@@ -602,6 +600,8 @@ class StreamHandler extends Object with TerminatableMixin {
 
     incomingQueue.removeStreamMessageQueue(stream.id);
     _openStreams.remove(stream.id);
+
+    onCheckForClose();
   }
 
   void _closeStreamIdAbnormally(int streamId, Exception exception) {
@@ -622,5 +622,17 @@ class StreamHandler extends Object with TerminatableMixin {
     stream.outgoingQueue.terminate();
 
     _openStreams.remove(stream.id);
+
+    onCheckForClose();
+  }
+
+  void onClosing() {
+    _newStreamsC.close();
+  }
+
+  void onCheckForClose() {
+    if (isClosing && _openStreams.isEmpty) {
+      closeWithValue();
+    }
   }
 }

@@ -20,7 +20,7 @@ abstract class TransportConnection {
   /// Finish this connection.
   ///
   /// No new streams will be accepted or can be created.
-  void finish();
+  Future finish();
 
   /// Terminates this connection forcefully.
   Future terminate();
@@ -33,7 +33,7 @@ abstract class ClientTransportConnection extends TransportConnection {
           socket, socket, allowServerPushes: allowServerPushes);
 
   factory ClientTransportConnection.viaStreams(Stream<List<int>> incoming,
-                                               Sink<List<int>> outgoing,
+                                               StreamSink<List<int>> outgoing,
                                                {bool allowServerPushes: true})
       => new ClientConnection(
           incoming, outgoing, allowServerPushes: allowServerPushes);
@@ -48,19 +48,11 @@ abstract class ServerTransportConnection extends TransportConnection {
       => new ServerTransportConnection.viaStreams(socket, socket);
 
   factory ServerTransportConnection.viaStreams(Stream<List<int>> incoming,
-                                               Sink<List<int>> outgoing)
+                                               StreamSink<List<int>> outgoing)
       => new ServerConnection(incoming, outgoing);
 
   /// Incoming HTTP/2 streams.
   Stream<TransportStream> get incomingStreams;
-
-  /// Finish this connection.
-  ///
-  /// No new streams will be accepted or can be created.
-  void finish();
-
-  /// Terminates this connection forcefully.
-  Future terminate();
 }
 
 /// Represents a HTTP/2 stream.
