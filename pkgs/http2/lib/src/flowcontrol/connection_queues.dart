@@ -12,13 +12,14 @@ import 'dart:collection';
 
 import '../../transport.dart';
 
+import '../byte_utils.dart';
 import '../error_handler.dart';
 import '../frames/frames.dart';
 
 import 'stream_queues.dart';
 import 'queue_messages.dart';
 import 'window_handler.dart';
-import '../frames/frames.dart';
+
 
 /// The last place before messages coming from the application get encoded and
 /// send as [Frame]s.

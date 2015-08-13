@@ -12,6 +12,7 @@ import 'dart:io';
 
 import 'huffman.dart';
 import 'huffman_table.dart';
+import '../byte_utils.dart';
 
 /// Exception raised due to encoding/decoding errors.
 class HPackDecodingException implements Exception {
@@ -95,8 +96,7 @@ class HPackDecoder {
       bool isHuffmanEncoding = (data[offset] & 0x80) != 0;
       int length = readInteger(7);
 
-      // TODO: Use view's for Uint8list
-      var sublist = data.sublist(offset, offset + length);
+      var sublist = viewOrSublist(data, offset, length);
       offset += length;
       if (isHuffmanEncoding) {
         return http2HuffmanCodec.decode(sublist);

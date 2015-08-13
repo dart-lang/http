@@ -9,8 +9,8 @@ import 'dart:collection';
 
 import '../../transport.dart';
 import '../async_utils/async_utils.dart';
+import '../byte_utils.dart';
 import '../error_handler.dart';
-import '../frames/frames.dart';
 
 import 'connection_queues.dart';
 import 'queue_messages.dart';

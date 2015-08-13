@@ -9,6 +9,7 @@ import 'dart:typed_data';
 import 'dart:math' show max;
 
 import '../async_utils/async_utils.dart';
+import '../byte_utils.dart';
 import '../hpack/hpack.dart';
 import '../settings/settings.dart';
 import '../sync_errors.dart';

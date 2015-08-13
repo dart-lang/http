@@ -62,10 +62,10 @@ class SmartMock {
         name = name.substring('mock_'.length, name.length - 1);
         return handleRegistration(name);
       } else {
-        handleCall();
+        return handleCall();
       }
     } else {
-      handleCall();
+      return handleCall();
     }
   }
 }

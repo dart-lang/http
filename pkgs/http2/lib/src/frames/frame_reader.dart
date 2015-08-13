@@ -146,10 +146,10 @@ class FrameReader {
 
   /// Reads a FrameHeader] from [bytes], starting at [offset].
   FrameHeader _readFrameHeader(List<int> bytes, int offset) {
-    int length = _readInt24(bytes, offset);
+    int length = readInt24(bytes, offset);
     int type = bytes[offset + 3];
     int flags = bytes[offset + 4];
-    int streamId = _readInt32(bytes, offset + 5) & 0x7fffffff;
+    int streamId = readInt32(bytes, offset + 5) & 0x7fffffff;
 
     return new FrameHeader(length, type, flags, streamId);
   }
@@ -183,7 +183,7 @@ class FrameReader {
         if (_isFlagSet(header.flags, HeadersFrame.FLAG_PRIORITY)) {
           _checkFrameLengthCondition((frameEnd - offset) >= 5);
           exclusiveDependency = (bytes[offset] & 0x80) == 0x80;
-          streamDependency = _readInt32(bytes, offset) & 0x7fffffff;
+          streamDependency = readInt32(bytes, offset) & 0x7fffffff;
           offset += 4;
           weight = bytes[offset++];
         }
@@ -200,7 +200,7 @@ class FrameReader {
             (frameEnd - offset) == PriorityFrame.FIXED_FRAME_LENGTH,
             message: 'Priority frame length must be exactly 5 bytes.');
         bool exclusiveDependency = (bytes[offset] & 0x80) == 0x80;
-        int streamDependency = _readInt32(bytes, offset) & 0x7fffffff;
+        int streamDependency = readInt32(bytes, offset) & 0x7fffffff;
         int weight = bytes[offset + 4];
         return new PriorityFrame(
             header, exclusiveDependency, streamDependency, weight);
@@ -209,7 +209,7 @@ class FrameReader {
         _checkFrameLengthCondition(
             (frameEnd - offset) == RstStreamFrame.FIXED_FRAME_LENGTH,
             message: 'Rst frames must have a length of 4.');
-        int errorCode = _readInt32(bytes, offset);
+        int errorCode = readInt32(bytes, offset);
         return new RstStreamFrame(header, errorCode);
 
       case FrameType.SETTINGS:
@@ -220,8 +220,8 @@ class FrameReader {
         int count = header.length ~/ 6;
         var settings = new List(count);
         for (int i = 0; i < count; i++) {
-          int identifier = _readInt16(bytes, offset + 6 * i);
-          int value = _readInt32(bytes, offset + 6 * i + 2);
+          int identifier = readInt16(bytes, offset + 6 * i);
+          int value = readInt32(bytes, offset + 6 * i + 2);
           settings[i] = new Setting(identifier, value);
         }
         var frame = new SettingsFrame(header, settings);
@@ -238,7 +238,7 @@ class FrameReader {
           _checkFrameLengthCondition((frameEnd - offset) >= 1);
           padLength = bytes[offset++];
         }
-        int promisedStreamId = _readInt32(bytes, offset) & 0x7fffffff;
+        int promisedStreamId = readInt32(bytes, offset) & 0x7fffffff;
         offset += 4;
         int headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
@@ -251,13 +251,13 @@ class FrameReader {
         _checkFrameLengthCondition(
             (frameEnd - offset) == PingFrame.FIXED_FRAME_LENGTH,
             message: 'Ping frames must have a length of 8.');
-        var opaqueData = _readInt64(bytes, offset);
+        var opaqueData = readInt64(bytes, offset);
         return new PingFrame(header, opaqueData);
 
       case FrameType.GOAWAY:
         _checkFrameLengthCondition((frameEnd - offset) >= 8);
-        int lastStreamId = _readInt32(bytes, offset);
-        int errorCode = _readInt32(bytes, offset + 4);
+        int lastStreamId = readInt32(bytes, offset);
+        int errorCode = readInt32(bytes, offset + 4);
         var debugData = viewOrSublist(bytes, offset + 8, header.length - 8);
         return new GoawayFrame(header, lastStreamId, errorCode, debugData);
 
@@ -265,7 +265,7 @@ class FrameReader {
         _checkFrameLengthCondition(
             (frameEnd - offset) == WindowUpdateFrame.FIXED_FRAME_LENGTH,
             message: 'Window update frames must have a length of 4.');
-        int windowSizeIncrement = _readInt32(bytes, offset) & 0x7fffffff;
+        int windowSizeIncrement = readInt32(bytes, offset) & 0x7fffffff;
         return new WindowUpdateFrame(header, windowSizeIncrement);
 
       case FrameType.CONTINUATION:

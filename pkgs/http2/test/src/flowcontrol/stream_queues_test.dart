@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-
 import 'package:unittest/unittest.dart';
 
 import 'package:http2/transport.dart';
@@ -12,9 +10,7 @@ import 'package:http2/src/flowcontrol/queue_messages.dart';
 import 'package:http2/src/flowcontrol/stream_queues.dart';
 import 'package:http2/src/flowcontrol/window_handler.dart';
 import 'package:http2/src/flowcontrol/connection_queues.dart';
-import 'package:http2/src/frames/frames.dart';
 
-import '../error_matchers.dart';
 import '../mock_utils.dart';
 
 main() {

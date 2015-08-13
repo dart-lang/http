@@ -4,8 +4,6 @@
 
 part of http2.src.frames;
 
-// TODO: Register for window update events.
-// TODO: Register for setting update events.
 // TODO: No support for writing padded information.
 // TODO: No support for stream priorities.
 class FrameWriter {
@@ -130,9 +128,9 @@ class FrameWriter {
     offset += FRAME_HEADER_SIZE;
 
     if (exclusive) {
-      _setInt32(buffer, offset, (1 << 31) | streamDependency);
+      setInt32(buffer, offset, (1 << 31) | streamDependency);
     } else {
-      _setInt32(buffer, offset, streamDependency);
+      setInt32(buffer, offset, streamDependency);
     }
     buffer[offset + 4] = weight;
 
@@ -150,7 +148,7 @@ class FrameWriter {
     _setFrameHeader(buffer, offset, type, flags, streamId, 4);
     offset += FRAME_HEADER_SIZE;
 
-    _setInt32(buffer, offset, errorCode);
+    setInt32(buffer, offset, errorCode);
 
     _writeData(buffer);
   }
@@ -167,8 +165,8 @@ class FrameWriter {
 
     for (int i = 0; i < settings.length; i++) {
       var setting = settings[i];
-      _setInt16(buffer, offset + 6 * i, setting.identifier);
-      _setInt32(buffer, offset + 6 * i + 2, setting.value);
+      setInt16(buffer, offset + 6 * i, setting.identifier);
+      setInt32(buffer, offset + 6 * i + 2, setting.value);
     }
 
     _writeData(buffer);
@@ -221,7 +219,7 @@ class FrameWriter {
     _setFrameHeader(buffer, offset, type, flags, streamId, 4 + fragment.length);
     offset += FRAME_HEADER_SIZE;
 
-    _setInt32(buffer, offset, promisedStreamId);
+    setInt32(buffer, offset, promisedStreamId);
     buffer.setRange(offset + 4, offset + 4 + fragment.length, fragment);
 
     _writeData(buffer);
@@ -238,7 +236,7 @@ class FrameWriter {
     _setFrameHeader(buffer, 0, type, flags, 0, 8);
     offset += FRAME_HEADER_SIZE;
 
-    _setInt64(buffer, offset, opaqueData);
+    setInt64(buffer, offset, opaqueData);
     _writeData(buffer);
   }
 
@@ -252,8 +250,8 @@ class FrameWriter {
     _setFrameHeader(buffer, offset, type, flags, 0, 8 + debugData.length);
     offset += FRAME_HEADER_SIZE;
 
-    _setInt32(buffer, offset, lastStreamId);
-    _setInt32(buffer, offset + 4, errorCode);
+    setInt32(buffer, offset, lastStreamId);
+    setInt32(buffer, offset + 4, errorCode);
     buffer.setRange(offset + 8, buffer.length, debugData);
 
     _writeData(buffer);
@@ -270,7 +268,7 @@ class FrameWriter {
     _setFrameHeader(buffer, offset, type, flags, streamId, 4);
     offset += FRAME_HEADER_SIZE;
 
-    _setInt32(buffer, offset, sizeIncrement);
+    setInt32(buffer, offset, sizeIncrement);
 
     _writeData(buffer);
   }
@@ -294,10 +292,10 @@ class FrameWriter {
 
   void _setFrameHeader(List<int> bytes, int offset,
                        int type, int flags, int streamId, int length) {
-    _setInt24(bytes, offset, length);
+    setInt24(bytes, offset, length);
     bytes[3] = type;
     bytes[4] = flags;
-    _setInt32(bytes, 5, streamId);
+    setInt32(bytes, 5, streamId);
 
     _highestWrittenStreamId = max(_highestWrittenStreamId, streamId);
   }

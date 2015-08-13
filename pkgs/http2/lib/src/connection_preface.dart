@@ -7,7 +7,7 @@ library http2.src.connection_preface;
 import 'dart:async';
 import 'dart:math';
 
-import 'frames/frames.dart';
+import 'byte_utils.dart';
 
 /// This is a set of bytes with which a client connection begins in the normal
 /// case. It can be used on a server to distinguish HTTP/1.1 and HTTP/2 clients.
