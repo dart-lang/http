@@ -234,7 +234,9 @@ class StreamMessageQueueIn extends Object
   void onTerminated(exception) {
     _pendingMessages.clear();
     if (!wasClosed) {
-      _incomingMessagesC.addError(exception);
+      if (exception != null) {
+        _incomingMessagesC.addError(exception);
+      }
       _incomingMessagesC.close();
       _serverPushStreamsC.close();
       closeWithError(exception);

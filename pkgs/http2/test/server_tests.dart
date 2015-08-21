@@ -151,6 +151,52 @@ main() {
         await Future.wait([serverFun(), clientFun()]);
       });
     });
+
+    group('server-errors', () {
+      serverTest('server-resets-stream',
+          (ServerTransportConnection server,
+           FrameWriter clientWriter,
+           StreamIterator<Frame> clientReader,
+           Future<Frame> nextFrame()) async {
+
+        Future serverFun() async {
+          var it = new StreamIterator(server.incomingStreams);
+          expect(await it.moveNext(), true);
+
+          TransportStream stream = it.current;
+          stream.terminate();
+
+          expect(await it.moveNext(), false);
+
+          await server.finish();
+        }
+
+
+        Future clientFun() async {
+          expect(await nextFrame() is SettingsFrame, true);
+          clientWriter.writeSettingsAckFrame();
+          clientWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+
+          clientWriter.writeHeadersFrame(
+              1, [new Header.ascii('a', 'b')], endStream: false);
+
+          // Make sure the client gets a [RstStreamFrame] frame.
+          var frame = await nextFrame();
+          expect(frame is RstStreamFrame, true);
+          expect((frame as RstStreamFrame).errorCode, ErrorCode.CANCEL);
+          expect((frame as RstStreamFrame).header.streamId, 1);
+
+          // Tell the server to finish.
+          clientWriter.writeGoawayFrame(3, ErrorCode.NO_ERROR, []);
+
+          // Make sure the server ended the connection.
+          expect(await clientReader.moveNext(), false);
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+    });
   });
 }
 

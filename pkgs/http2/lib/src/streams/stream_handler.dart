@@ -62,6 +62,7 @@ class Http2StreamImpl extends TransportStream
   StreamState state = StreamState.Idle;
 
   final Function _pushStreamFun;
+  final Function _terminateStreamFun;
 
   StreamSubscription _outgoingCSubscription;
 
@@ -70,7 +71,8 @@ class Http2StreamImpl extends TransportStream
                   this._outgoingC,
                   this.id,
                   this.windowHandler,
-                  this._pushStreamFun);
+                  this._pushStreamFun,
+                  this._terminateStreamFun);
 
   /// A stream of data and/or headers from the remote end.
   Stream<StreamMessage> get incomingMessages => incomingQueue.messages;
@@ -88,10 +90,7 @@ class Http2StreamImpl extends TransportStream
   TransportStream push(List<Header> requestHeaders)
       => _pushStreamFun(this, requestHeaders);
 
-  void terminate() {
-    // TODO/FIXME: We need to send an RST to the other side.
-    _outgoingCSubscription.cancel();
-  }
+  void terminate() => _terminateStreamFun(this);
 }
 
 /// Handles [Frame]s with a non-zero stream-id.
@@ -251,7 +250,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     var _outgoingC = new StreamController();
     var stream = new Http2StreamImpl(
         streamQueueIn, streamQueueOut, _outgoingC, streamId, windowOutHandler,
-        this._push);
+        this._push, this._terminateStream);
     _openStreams[stream.id] = stream;
 
     _setupOutgoingMessageHandling(stream);
@@ -279,6 +278,17 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         stream.id, pushStream.id, requestHeaders);
 
     return pushStream;
+  }
+
+  void _terminateStream(Http2StreamImpl stream) {
+    if (stream.state == StreamState.Open ||
+        stream.state == StreamState.HalfClosedLocal ||
+        stream.state == StreamState.HalfClosedRemote ||
+        stream.state == StreamState.ReservedLocal ||
+        stream.state == StreamState.ReservedRemote) {
+      _frameWriter.writeRstStreamFrame(stream.id, ErrorCode.CANCEL);
+      _closeStreamAbnormally(stream, null, propagateException: false);
+    }
   }
 
   void _setupOutgoingMessageHandling(Http2StreamImpl stream) {
@@ -611,11 +621,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     }
   }
 
-  void _closeStreamAbnormally(Http2StreamImpl stream, Exception exception) {
+  void _closeStreamAbnormally(Http2StreamImpl stream, Exception exception,
+                              {bool propagateException: false}) {
     incomingQueue.removeStreamMessageQueue(stream.id);
 
     stream.state = StreamState.Terminated;
-    stream.incomingQueue.terminate(exception);
+    stream.incomingQueue.terminate(propagateException ? exception : null);
     stream._outgoingCSubscription.cancel();
 
     // NOTE: we're not adding an error here.
