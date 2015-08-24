@@ -7,18 +7,8 @@ library http_parser.media_type;
 import 'package:collection/collection.dart';
 import 'package:string_scanner/string_scanner.dart';
 
-// All of the following regular expressions come from section 2.2 of the HTTP
-// spec: http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html
-final _lws = new RegExp(r"(?:\r\n)?[ \t]+");
-final _token = new RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
-final _quotedString = new RegExp(r'"(?:[^"\x00-\x1F\x7F]|\\.)*"');
-final _quotedPair = new RegExp(r'\\(.)');
-
-/// A regular expression matching any number of [_lws] productions in a row.
-final _whitespace = new RegExp("(?:${_lws.pattern})*");
-
-/// A regular expression matching a character that is not a valid HTTP token.
-final _nonToken = new RegExp(r'[()<>@,;:"\\/\[\]?={} \t\x00-\x1F\x7F]');
+import 'scan.dart';
+import 'utils.dart';
 
 /// A regular expression matching a character that needs to be backslash-escaped
 /// in a quoted string.
@@ -50,44 +40,37 @@ class MediaType {
   factory MediaType.parse(String mediaType) {
     // This parsing is based on sections 3.6 and 3.7 of the HTTP spec:
     // http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html.
-    try {
+    return wrapFormatException("media type", mediaType, () {
       var scanner = new StringScanner(mediaType);
-      scanner.scan(_whitespace);
-      scanner.expect(_token);
+      scanner.scan(whitespace);
+      scanner.expect(token);
       var type = scanner.lastMatch[0];
       scanner.expect('/');
-      scanner.expect(_token);
+      scanner.expect(token);
       var subtype = scanner.lastMatch[0];
-      scanner.scan(_whitespace);
+      scanner.scan(whitespace);
 
       var parameters = {};
       while (scanner.scan(';')) {
-        scanner.scan(_whitespace);
-        scanner.expect(_token);
+        scanner.scan(whitespace);
+        scanner.expect(token);
         var attribute = scanner.lastMatch[0];
         scanner.expect('=');
 
         var value;
-        if (scanner.scan(_token)) {
+        if (scanner.scan(token)) {
           value = scanner.lastMatch[0];
         } else {
-          scanner.expect(_quotedString);
-          var quotedString = scanner.lastMatch[0];
-          value = quotedString
-              .substring(1, quotedString.length - 1)
-              .replaceAllMapped(_quotedPair, (match) => match[1]);
+          value = expectQuotedString(scanner);
         }
 
-        scanner.scan(_whitespace);
+        scanner.scan(whitespace);
         parameters[attribute] = value;
       }
 
       scanner.expectDone();
       return new MediaType(type, subtype, parameters);
-    } on FormatException catch (error) {
-      throw new FormatException(
-          'Invalid media type "$mediaType": ${error.message}');
-    }
+    });
   }
 
   MediaType(this.type, this.subtype, [Map<String, String> parameters])
@@ -146,7 +129,7 @@ class MediaType {
 
     parameters.forEach((attribute, value) {
       buffer.write("; $attribute=");
-      if (_nonToken.hasMatch(value)) {
+      if (nonToken.hasMatch(value)) {
         buffer
           ..write('"')
           ..write(

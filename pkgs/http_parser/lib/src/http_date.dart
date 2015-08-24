@@ -6,6 +6,8 @@ library http_parser.http_date;
 
 import 'package:string_scanner/string_scanner.dart';
 
+import 'utils.dart';
+
 const _WEEKDAYS = const ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const _MONTHS = const ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
     "Sep", "Oct", "Nov", "Dec"];
@@ -48,7 +50,7 @@ String formatHttpDate(DateTime date) {
 /// 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3). It will
 /// throw a [FormatException] if [date] is invalid.
 DateTime parseHttpDate(String date) {
-  try {
+  return wrapFormatException("HTTP date", date, () {
     var scanner = new StringScanner(date);
 
     if (scanner.scan(_longWeekdayRegExp)) {
@@ -96,9 +98,7 @@ DateTime parseHttpDate(String date) {
     scanner.expectDone();
 
     return _makeDateTime(year, month, day, time);
-  } on FormatException catch (error) {
-    throw new FormatException('Invalid HTTP date "$date": ${error.message}');
-  }
+  });
 }
 
 /// Parses a short-form month name to a form accepted by [DateTime].
