@@ -5,6 +5,9 @@ This is 1.0.0 because the API is stable—there are no breaking changes.
 * Added an `AuthenticationChallenge` class for parsing and representing the
   value of `WWW-Authenticate` and related headers.
 
+* Added a `CaseInsensitiveMap` class for representing case-insensitive HTTP
+  values.
+
 ## 0.0.2+8
 
 * Bring in the latest `dart:io` WebSocket code.
