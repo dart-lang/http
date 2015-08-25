@@ -41,6 +41,12 @@ final whitespace = new RegExp("(?:${_lws.pattern})*");
 /// the string, or the end of the string.
 List parseList(StringScanner scanner, parseElement()) {
   var result = [];
+
+  // Consume initial empty values.
+  while (scanner.scan(",")) {
+    scanner.scan(whitespace);
+  }
+
   result.add(parseElement());
   scanner.scan(whitespace);
 
@@ -48,7 +54,7 @@ List parseList(StringScanner scanner, parseElement()) {
     scanner.scan(whitespace);
 
     // Empty elements are allowed, but excluded from the results.
-    if (scanner.matches(",")) continue;
+    if (scanner.matches(",") || scanner.isDone) continue;
 
     result.add(parseElement());
     scanner.scan(whitespace);

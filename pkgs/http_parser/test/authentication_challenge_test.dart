@@ -94,6 +94,13 @@ void _singleChallengeTests(
     expect(challenge.parameters, containsPair("realm", "fblthp"));
   });
 
+  test("doesn't normalize the case of the parameter value", () {
+    var challenge = parseChallenge("scheme realm=FbLtHp");
+    expect(challenge.scheme, equals("scheme"));
+    expect(challenge.parameters, containsPair("realm", "FbLtHp"));
+    expect(challenge.parameters, isNot(containsPair("realm", "fblthp")));
+  });
+
   test("allows extra whitespace", () {
     var challenge = parseChallenge(
         "  scheme\t \trealm\t = \tfblthp\t, \tfoo\t\r\n =\tbar\t");
@@ -107,6 +114,26 @@ void _singleChallengeTests(
   test("allows an empty parameter", () {
     var challenge = parseChallenge(
         "scheme realm=fblthp, , foo=bar");
+    expect(challenge.scheme, equals("scheme"));
+    expect(challenge.parameters, equals({
+      "realm": "fblthp",
+      "foo": "bar"
+    }));
+  });
+
+  test("allows a leading comma", () {
+    var challenge = parseChallenge(
+        "scheme , realm=fblthp, foo=bar,");
+    expect(challenge.scheme, equals("scheme"));
+    expect(challenge.parameters, equals({
+      "realm": "fblthp",
+      "foo": "bar"
+    }));
+  });
+
+  test("allows a trailing comma", () {
+    var challenge = parseChallenge(
+        "scheme realm=fblthp, foo=bar, ,");
     expect(challenge.scheme, equals("scheme"));
     expect(challenge.parameters, equals({
       "realm": "fblthp",

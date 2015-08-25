@@ -40,20 +40,17 @@ class AuthenticationChallenge {
       var scanner = new StringScanner(header);
       scanner.scan(whitespace);
       var challenges = parseList(scanner, () {
-        scanner.expect(token, name: "a token");
-        var scheme = scanner.lastMatch[0].toLowerCase();
-
-        scanner.scan(whitespace);
-
-        // The spec specifically requires a space between the scheme and its
-        // params.
-        if (scanner.lastMatch == null || !scanner.lastMatch[0].contains(" ")) {
-          scanner.expect(" ", name: '" " or "="');
-        }
+        var scheme = _scanScheme(scanner, whitespaceName: '" " or "="');
 
         // Manually parse the inner list. We need to do some lookahead to
         // disambiguate between an auth param and another challenge.
         var params = {};
+
+        // Consume initial empty values.
+        while (scanner.scan(",")) {
+          scanner.scan(whitespace);
+        }
+
         _scanAuthParam(scanner, params);
 
         var beforeComma = scanner.position;
@@ -61,7 +58,7 @@ class AuthenticationChallenge {
           scanner.scan(whitespace);
 
           // Empty elements are allowed, but excluded from the results.
-          if (scanner.matches(",")) continue;
+          if (scanner.matches(",") || scanner.isDone) continue;
 
           scanner.expect(token, name: "a token");
           var name = scanner.lastMatch[0];
@@ -102,16 +99,7 @@ class AuthenticationChallenge {
     return wrapFormatException("authentication challenge", challenge, () {
       var scanner = new StringScanner(challenge);
       scanner.scan(whitespace);
-      scanner.expect(token, name: "a token");
-      var scheme = scanner.lastMatch[0].toLowerCase();
-
-      scanner.scan(whitespace);
-
-      // The spec specifically requires a space between the scheme and its
-      // params.
-      if (scanner.lastMatch == null || !scanner.lastMatch[0].contains(" ")) {
-        scanner.expect(" ");
-      }
+      var scheme = _scanScheme(scanner);
 
       var params = {};
       parseList(scanner, () => _scanAuthParam(scanner, params));
@@ -119,6 +107,25 @@ class AuthenticationChallenge {
       scanner.expectDone();
       return new AuthenticationChallenge(scheme, params);
     });
+  }
+
+  /// Scans a single scheme name and asserts that it's followed by a space.
+  ///
+  /// If [whitespaceName] is passed, it's used as the name for exceptions thrown
+  /// due to invalid trailing whitespace.
+  static String _scanScheme(StringScanner scanner, {String whitespaceName}) {
+    scanner.expect(token, name: "a token");
+    var scheme = scanner.lastMatch[0].toLowerCase();
+
+    scanner.scan(whitespace);
+
+    // The spec specifically requires a space between the scheme and its
+    // params.
+    if (scanner.lastMatch == null || !scanner.lastMatch[0].contains(" ")) {
+      scanner.expect(" ", name: whitespaceName);
+    }
+
+    return scheme;
   }
 
   /// Scans a single authentication parameter and stores its result in [params].
@@ -139,9 +146,7 @@ class AuthenticationChallenge {
     scanner.scan(whitespace);
   }
 
-  /// Creates a new challenge value with [scheme] and, optionally, [parameters].
-  ///
-  /// If [parameters] isn't passed, it defaults to an empty map.
+  /// Creates a new challenge value with [scheme] and [parameters].
   AuthenticationChallenge(this.scheme, Map<String, String> parameters)
       : parameters = new UnmodifiableMapView(
             new CaseInsensitiveMap.from(parameters));
