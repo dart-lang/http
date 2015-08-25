@@ -8,6 +8,7 @@ import 'dart:collection';
 
 import 'package:string_scanner/string_scanner.dart';
 
+import 'case_insensitive_map.dart';
 import 'scan.dart';
 import 'utils.dart';
 
@@ -26,7 +27,8 @@ class AuthenticationChallenge {
 
   /// The parameters describing how to authenticate.
   ///
-  /// The semantics of these parameters are scheme-specific.
+  /// The semantics of these parameters are scheme-specific. The keys of this
+  /// map are case-insensitive.
   final Map<String, String> parameters;
 
   /// Parses a WWW-Authenticate header, which should contain one or more
@@ -62,7 +64,7 @@ class AuthenticationChallenge {
           if (scanner.matches(",")) continue;
 
           scanner.expect(token, name: "a token");
-          var name = scanner.lastMatch[0].toLowerCase();
+          var name = scanner.lastMatch[0];
           scanner.scan(whitespace);
 
           // If there's no "=", then this is another challenge rather than a
@@ -122,7 +124,7 @@ class AuthenticationChallenge {
   /// Scans a single authentication parameter and stores its result in [params].
   static void _scanAuthParam(StringScanner scanner, Map params) {
     scanner.expect(token, name: "a token");
-    var name = scanner.lastMatch[0].toLowerCase();
+    var name = scanner.lastMatch[0];
     scanner.scan(whitespace);
     scanner.expect('=');
     scanner.scan(whitespace);
@@ -141,5 +143,6 @@ class AuthenticationChallenge {
   ///
   /// If [parameters] isn't passed, it defaults to an empty map.
   AuthenticationChallenge(this.scheme, Map<String, String> parameters)
-      : parameters = new UnmodifiableMapView(parameters);
+      : parameters = new UnmodifiableMapView(
+            new CaseInsensitiveMap.from(parameters));
 }
