@@ -1,3 +1,7 @@
+## 0.11.3+1
+
+* Support `http_parser` 1.0.0.
+
 ## 0.11.3
 
 * Add a `Client.patch` shortcut method and a matching top-level `patch` method.
