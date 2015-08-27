@@ -17,11 +17,15 @@ const String HOSTNAME = 'localhost';
 const int PORT = 7777;
 
 main() async {
-  var database = Platform.script.resolve('pkcert').toFilePath();
-  SecureSocket.initialize(database: database, password: 'dartdart');
+  String localFile(path) => Platform.script.resolve(path).toFilePath();
 
-  var server = await SecureServerSocket.bind(
-      HOSTNAME, PORT, 'localhost_cert', supportedProtocols: ['h2']);
+  var privateKeyFile = Platform.script.resolve('privatekey.pem').toFilePath();
+  var context = new SecurityContext()
+    ..usePrivateKey(localFile('server_key.pem'), password: 'dartdart')
+    ..useCertificateChain(localFile('server_chain.pem'))
+    ..setAlpnProtocols(['h2'], true);
+
+  var server = await SecureServerSocket.bind(HOSTNAME, PORT, context);
   print('HTTP/2 server listening on https://$HOSTNAME:$PORT');
 
   runZoned(() {
@@ -43,7 +47,7 @@ handleClient(SecureSocket socket) {
   }
 
   connection.incomingStreams.listen((ServerTransportStream stream) async {
-    dumpInfo('main', 'Got new HTTP/2 stream on connection: ${stream.id}');
+    dumpInfo('main', 'Got new HTTP/2 stream with id: ${stream.id}');
 
     String path;
     stream.incomingMessages.listen((StreamMessage msg) async {
