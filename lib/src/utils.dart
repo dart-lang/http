@@ -8,8 +8,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:stack_trace/stack_trace.dart';
-
 import 'byte_stream.dart';
 
 /// Converts a URL query string (or `application/x-www-form-urlencoded` body)
@@ -196,6 +194,3 @@ class Pair<E, F> {
 void chainToCompleter(Future future, Completer completer) {
   future.then(completer.complete, onError: completer.completeError);
 }
-
-/// Like [Future.sync], but wraps the Future in [Chain.track] as well.
-Future syncFuture(callback()) => Chain.track(new Future.sync(callback));

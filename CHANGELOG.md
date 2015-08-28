@@ -1,3 +1,9 @@
+## 0.11.3+2
+
+* Require Dart SDK >= 1.9.0
+
+* Eliminate many uses of `Chain.track` from the `stack_trace` package.
+
 ## 0.11.3+1
 
 * Support `http_parser` 1.0.0.

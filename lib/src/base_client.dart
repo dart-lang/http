@@ -14,7 +14,6 @@ import 'exception.dart';
 import 'request.dart';
 import 'response.dart';
 import 'streamed_response.dart';
-import 'utils.dart';
 
 /// The abstract base class for an HTTP client. This is a mixin-style class;
 /// subclasses only need to implement [send] and maybe [close], and then they
@@ -150,27 +149,26 @@ abstract class BaseClient implements Client {
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(String method, url,
-      Map<String, String> headers, [body, Encoding encoding]) {
-    return syncFuture(() {
-      if (url is String) url = Uri.parse(url);
-      var request = new Request(method, url);
+      Map<String, String> headers, [body, Encoding encoding]) async {
 
-      if (headers != null) request.headers.addAll(headers);
-      if (encoding != null) request.encoding = encoding;
-      if (body != null) {
-        if (body is String) {
-          request.body = body;
-        } else if (body is List) {
-          request.bodyBytes = body;
-        } else if (body is Map) {
-          request.bodyFields = body;
-        } else {
-          throw new ArgumentError('Invalid request body "$body".');
-        }
+    if (url is String) url = Uri.parse(url);
+    var request = new Request(method, url);
+
+    if (headers != null) request.headers.addAll(headers);
+    if (encoding != null) request.encoding = encoding;
+    if (body != null) {
+      if (body is String) {
+        request.body = body;
+      } else if (body is List) {
+        request.bodyBytes = body;
+      } else if (body is Map) {
+        request.bodyFields = body;
+      } else {
+        throw new ArgumentError('Invalid request body "$body".');
       }
+    }
 
-      return send(request);
-    }).then(Response.fromStream);
+    return Response.fromStream(await send(request));
   }
 
   /// Throws an error if [response] is not successful.
