@@ -56,8 +56,8 @@ class ClosableMixin {
       _closing = true;
 
       onClosing();
-      onCheckForClose();
     }
+    onCheckForClose();
   }
 
   void onCheckForClose() {

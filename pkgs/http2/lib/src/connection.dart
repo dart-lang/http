@@ -280,21 +280,21 @@ abstract class Connection {
       return;
     }
 
-    if (_state == ConnectionState.Initialized ||
-        _state == ConnectionState.Operational) {
-      _state = ConnectionState.Finishing;
+    assert(_state == ConnectionState.Initialized ||
+           _state == ConnectionState.Operational);
 
-      // If we are actively finishing this connection, we'll send a
-      // GoawayFrame otherwise we'll just propagate the message.
-      if (active) {
-        _frameWriter.writeGoawayFrame(
-            _streams.highestPeerInitiatedStream,
-            ErrorCode.NO_ERROR,
-            message != null ? UTF8.encode(message) : []);
-      }
+    _state = ConnectionState.Finishing;
 
-      _streams.startClosing();
+    // If we are actively finishing this connection, we'll send a
+    // GoawayFrame otherwise we'll just propagate the message.
+    if (active) {
+      _frameWriter.writeGoawayFrame(
+          _streams.highestPeerInitiatedStream,
+          ErrorCode.NO_ERROR,
+          message != null ? UTF8.encode(message) : []);
     }
+
+    _streams.startClosing();
   }
 
   /// Terminates this connection (if it is not already terminated).
@@ -356,7 +356,19 @@ class ClientConnection extends Connection implements ClientTransportConnection {
     return new ClientConnection._(incoming, outgoing, allowServerPushes);
   }
 
+  bool get isOpen => _state != ConnectionState.Finishing &&
+                     _state != ConnectionState.Terminated;
+
   TransportStream makeRequest(List<Header> headers, {bool endStream: false}) {
+    if (_state == ConnectionState.Finishing) {
+      throw new StateError(
+          'The http/2 connection is finishing and can therefore not be used to '
+          'make new streams.');
+    } else if (_state == ConnectionState.Terminated) {
+      throw new StateError(
+          'The http/2 connection is no longer active and can therefore not be '
+          'used to make new streams.');
+    }
     TransportStream hStream = _streams.newStream(headers, endStream: endStream);
     return hStream;
   }

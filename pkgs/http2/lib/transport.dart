@@ -38,6 +38,10 @@ abstract class ClientTransportConnection extends TransportConnection {
       => new ClientConnection(
           incoming, outgoing, allowServerPushes: allowServerPushes);
 
+  /// Whether this connection is open and can be used to make new requests
+  /// via [makeRequest].
+  bool get isOpen;
+
   /// Creates a new outgoing stream.
   ClientTransportStream makeRequest(List<Header> headers,
                                     {bool endStream: false});

@@ -146,7 +146,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void onTerminated(exception) {
     _openStreams.values.toList().forEach(
-        (stream) => _closeStreamAbnormally(stream, exception));
+        (stream) => _closeStreamAbnormally(stream, exception,
+                                           propagateException: true));
     startClosing();
   }
 
@@ -511,7 +512,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   void _handlePushPromiseFrame(Http2StreamImpl stream, PushPromiseFrame frame) {
     if (stream.state != StreamState.Open &&
         stream.state != StreamState.HalfClosedLocal) {
-      // FIXME(kustermann): We need to RST the promised stream.
+      _frameWriter.writeRstStreamFrame(
+          frame.promisedStreamId, ErrorCode.REFUSED_STREAM);
       throw new StreamClosedException(
           stream.id, 'Expected open state (was: ${stream.state}).');
     }

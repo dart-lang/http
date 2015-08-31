@@ -47,7 +47,78 @@ main() {
         Future clientFun() async {
           await settingsDone.future;
 
+          expect(client.isOpen, true);
+
           // Try to gracefully finish the connection.
+          var future = client.finish();
+
+          expect(client.isOpen, false);
+
+          await future;
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+    });
+
+    group('server-errors', () {
+      clientTest('no-settings-frame-at-beginning-immediate-error',
+          (ClientTransportConnection client,
+           FrameWriter serverWriter,
+           StreamIterator<Frame> serverReader,
+           Future<Frame> nextFrame()) async {
+
+        var goawayReceived = new Completer();
+        Future serverFun() async {
+          serverWriter.writePingFrame(42);
+          expect(await nextFrame() is SettingsFrame, true);
+          expect(await nextFrame() is GoawayFrame, true);
+          goawayReceived.complete();
+          expect(await serverReader.moveNext(), false);
+        }
+
+        Future clientFun() async {
+          expect(client.isOpen, true);
+
+          // We wait until the server received the error (it's actually later
+          // than necessary, but we can't make a deterministic test otherwise).
+          await goawayReceived.future;
+
+          expect(client.isOpen, false);
+
+          var error;
+          try {
+            client.makeRequest([new Header.ascii('a', 'b')]);
+          } catch (e) { error = '$e'; }
+          expect(error, contains('no longer active'));
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
+      clientTest('no-settings-frame-at-beginning-delayed-error',
+          (ClientTransportConnection client,
+           FrameWriter serverWriter,
+           StreamIterator<Frame> serverReader,
+           Future<Frame> nextFrame()) async {
+
+        Future serverFun() async {
+          expect(await nextFrame() is SettingsFrame, true);
+          expect(await nextFrame() is HeadersFrame, true);
+          serverWriter.writePingFrame(42);
+          expect(await nextFrame() is GoawayFrame, true);
+          expect(await serverReader.moveNext(), false);
+        }
+
+        Future clientFun() async {
+          expect(client.isOpen, true);
+          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+
+          var error = await stream.incomingMessages.toList()
+              .catchError((e) => '$e');
+          expect(error, contains('forcefully terminated'));
           await client.finish();
         }
 
@@ -132,7 +203,7 @@ clientTest(String name,
                 streams.serverConnectionFrameWriter,
                 serverReader,
                 readNext);
-  });
+  }));
 }
 
 class ClientStreams {
