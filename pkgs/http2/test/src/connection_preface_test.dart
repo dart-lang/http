@@ -7,7 +7,7 @@ library http2.test.connection_preface_test;
 import 'dart:async';
 import 'dart:math' show min;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:http2/src/connection_preface.dart';
 
 main() {

@@ -6,7 +6,7 @@ library http2.test.mock_utils;
 
 import 'dart:mirrors';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 /// Used for mocking arbitrary classes.
 ///

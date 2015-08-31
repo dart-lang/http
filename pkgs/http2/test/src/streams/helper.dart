@@ -6,7 +6,7 @@ library http2.test.end2end_test;
 
 import 'dart:async';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:http2/transport.dart';
 import 'package:http2/src/frames/frames.dart';

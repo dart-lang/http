@@ -101,8 +101,6 @@ class StreamMessageQueueOut extends Object
     int queueLenBefore = _messages.length;
 
     while (_messages.length > 0) {
-      assert(!isClosing);
-
       Message message = _messages.first;
 
       if (message is HeadersMessage) {

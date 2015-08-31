@@ -6,7 +6,7 @@ library http2.test.server_tests;
 
 import 'dart:async';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:http2/transport.dart';
 import 'package:http2/src/connection_preface.dart';

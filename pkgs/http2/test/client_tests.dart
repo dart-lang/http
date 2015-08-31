@@ -6,7 +6,7 @@ library http2.test.client_tests;
 
 import 'dart:async';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'package:http2/transport.dart';
 import 'package:http2/src/connection_preface.dart';
@@ -17,7 +17,7 @@ import 'package:http2/src/settings/settings.dart';
 import 'src/hpack/hpack_test.dart' show isHeader;
 
 main() {
-  group('server-tests', () {
+  group('client-tests', () {
     group('normal', () {
       clientTest('gracefull-shutdown-for-unused-connection',
           (ClientTransportConnection client,

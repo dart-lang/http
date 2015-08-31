@@ -6,7 +6,7 @@ library http2.test.streams.simple_flow_test;
 
 import 'dart:async';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:http2/transport.dart';
 
 import 'helper.dart';

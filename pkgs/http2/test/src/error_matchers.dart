@@ -4,7 +4,7 @@
 
 library http2.test.error_matchers;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:http2/src/sync_errors.dart';
 
 const Matcher isProtocolException = const _ProtocolException();

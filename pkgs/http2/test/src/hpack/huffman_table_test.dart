@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:http2/src/hpack/huffman.dart';
 import 'package:http2/src/hpack/huffman_table.dart';
 

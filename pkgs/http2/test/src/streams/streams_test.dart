@@ -4,7 +4,7 @@
 
 library http2.test.end2end_test;
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:http2/transport.dart';
 
 import 'helper.dart';

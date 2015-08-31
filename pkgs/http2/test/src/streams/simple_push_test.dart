@@ -7,7 +7,7 @@ library http2.test.streams.simple_push_test;
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 import 'package:http2/transport.dart';
 
 import 'helper.dart';

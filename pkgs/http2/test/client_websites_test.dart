@@ -6,9 +6,10 @@ library http2.test.client_websites_test;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http2/client.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 main() async {
   group('end2end', () {
@@ -32,7 +33,7 @@ main() async {
       Response response = await connection.makeRequest(new Request('GET', uri));
       dumpHeaders(uri, response.headers);
 
-      String body = await response.stream.transform(UTF8.decoder).join('');
+      String body = await readBody(response);
       connection.close();
 
       expect(body, contains('<!DOCTYPE html>'));
@@ -47,10 +48,6 @@ main() async {
       Response response = await connection.makeRequest(request);
       dumpHeaders(uri, response.headers);
 
-      Future<String> accumulateResponse(stream) async {
-        return await stream.transform(UTF8.decoder).join('');
-      }
-
       Future<List<List>> accumulatePushes() async {
         var futures = [];
         return response.serverPushes.listen((ServerPush push) {
@@ -61,7 +58,7 @@ main() async {
                         msg: '**push** Response headers for server push '
                              'request.');
 
-            return accumulateResponse(response.stream).then((String body) {
+            return readBody(response).then((String body) {
               return [push.requestHeaders[':path'].join(''), body];
             });
           }));
@@ -69,7 +66,7 @@ main() async {
       }
 
       var results = await Future.wait(
-          [accumulateResponse(response.stream), accumulatePushes()]);
+          [readBody(response), accumulatePushes()]);
 
       var body = results[0];
       expect(body, contains('<!DOCTYPE html>'));
@@ -91,10 +88,6 @@ main() async {
       Response response = await connection.makeRequest(request);
       dumpHeaders(uri, response.headers);
 
-      Future<String> accumulateResponse(stream) async {
-        return await stream.transform(UTF8.decoder).join('');
-      }
-
       Future<List<List>> accumulatePushes() async {
         var futures = [];
         return response.serverPushes.listen((ServerPush push) {
@@ -103,8 +96,7 @@ main() async {
         }).asFuture().then((_) => Future.wait(futures));
       }
 
-      var results = await Future.wait(
-          [accumulateResponse(response.stream), accumulatePushes()]);
+      var results = await Future.wait([readBody(response), accumulatePushes()]);
 
       var body = results[0];
       expect(body, contains('<!DOCTYPE html>'));
@@ -128,3 +120,10 @@ dumpHeaders(Uri uri, Map<String, List<String>> headers,
   print('');
 }
 
+Future<String> readBody(Response response) async {
+  var stream = response.stream;
+  if (response.headers['content-encoding']?.join('') == 'gzip') {
+    stream = stream.transform(GZIP.decoder);
+  }
+  return await stream.transform(UTF8.decoder).join('');
+}
