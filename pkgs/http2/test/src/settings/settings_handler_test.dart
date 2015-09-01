@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:test/test.dart';
 
 import 'package:http2/src/frames/frames.dart';
+import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/settings/settings.dart';
 
 import '../error_matchers.dart';
@@ -16,11 +17,13 @@ main() {
   group('settings-handler', () {
     var pushSettings = [new Setting(Setting.SETTINGS_ENABLE_PUSH, 0)];
     var invalidPushSettings = [new Setting(Setting.SETTINGS_ENABLE_PUSH, 2)];
+    var setMaxTable256 = [new Setting(Setting.SETTINGS_HEADER_TABLE_SIZE, 256)];
 
     test('successful-setting', () async {
       var writer = new FrameWriterMock();
       var sh = new SettingsHandler(
-          writer, new ActiveSettings(), new ActiveSettings());
+          new HPackEncoder(), writer,
+          new ActiveSettings(), new ActiveSettings());
       var tc = new TestCounter();
 
       writer.mock_writeSettingsFrame = (List<Setting> s, {bool ack: false}) {
@@ -48,7 +51,9 @@ main() {
 
     test('ack-remote-settings-change', () {
       var writer = new FrameWriterMock();
-      var sh = new SettingsHandler(writer, new ActiveSettings(), new ActiveSettings());
+      var sh = new SettingsHandler(
+          new HPackEncoder(), writer,
+          new ActiveSettings(), new ActiveSettings());
       var tc = new TestCounter();
 
       writer.mock_writeSettingsAckFrame = () {
@@ -68,7 +73,9 @@ main() {
 
     test('invalid-remote-ack', () {
       var writer = new FrameWriterMock();
-      var sh = new SettingsHandler(writer, new ActiveSettings(), new ActiveSettings());
+      var sh = new SettingsHandler(
+          new HPackEncoder(), writer,
+          new ActiveSettings(), new ActiveSettings());
 
       // Simulates ACK even though we haven't sent any settings.
       var header = new FrameHeader(
@@ -81,7 +88,9 @@ main() {
 
     test('invalid-remote-settings-change', () {
       var writer = new FrameWriterMock();
-      var sh = new SettingsHandler(writer, new ActiveSettings(), new ActiveSettings());
+      var sh = new SettingsHandler(
+          new HPackEncoder(), writer,
+          new ActiveSettings(), new ActiveSettings());
 
       // Check that settings haven't been applied.
       expect(sh.peerSettings.enablePush, true);
@@ -92,9 +101,30 @@ main() {
       expect(() => sh.handleSettingsFrame(settingsFrame),
              throwsProtocolException);
     });
+
+    test('change-max-header-table-size', () {
+      var writer = new FrameWriterMock();
+      var mock = new HPackEncoderMock();
+      var sh = new SettingsHandler(
+          mock, writer,
+          new ActiveSettings(), new ActiveSettings());
+
+      // Simulate remote end by setting the push setting.
+      var header = new FrameHeader(6, FrameType.SETTINGS, 0, 0);
+      var settingsFrame = new SettingsFrame(header, setMaxTable256);
+      mock.mock_updateMaxSendingHeaderTableSize = expectAsync((int newSize) {
+        expect(newSize, 256);
+      });
+      writer.mock_writeSettingsAckFrame = expectAsync(() { });
+      sh.handleSettingsFrame(settingsFrame);
+    });
   });
 }
 
 class FrameWriterMock extends SmartMock implements FrameWriter {
+  dynamic noSuchMethod(_) => super.noSuchMethod(_);
+}
+
+class HPackEncoderMock extends SmartMock implements HPackEncoder {
   dynamic noSuchMethod(_) => super.noSuchMethod(_);
 }

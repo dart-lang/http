@@ -21,7 +21,7 @@ import 'package:test/test.dart';
 ///                                        {bool ack: true}) {
 ///        // Assert settings/ack & return maybe value.
 ///      }
-///      var settingsHandler = new SettingsHandler(writer);
+///      var settingsHandler = new SettingsHandler(hpackEncoder, writer);
 ///
 ///      // This will trigger a call on [writer] to the mocked method.
 ///      settingsHandler.changeSettings([]);

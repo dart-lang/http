@@ -7,6 +7,7 @@ library http2.src.settings;
 import 'dart:async';
 
 import '../frames/frames.dart';
+import '../hpack/hpack.dart';
 import '../sync_errors.dart';
 import '../error_handler.dart';
 
@@ -87,6 +88,10 @@ class ActiveSettings {
 /// Changes to [_toBeAcknowledgedSettings] can be made, the peer will then be
 /// notified of the setting changes it should use.
 class SettingsHandler extends Object with TerminatableMixin {
+  /// Certain settings changes can change the maximum allowed dynamic table
+  /// size used by the HPack encoder.
+  final HPackEncoder _hpackEncoder;
+
   final FrameWriter _frameWriter;
 
   /// A list of outstanding setting changes.
@@ -96,10 +101,10 @@ class SettingsHandler extends Object with TerminatableMixin {
   final List<Completer> _toBeAcknowledgedCompleters = [];
 
   /// The local settings, which the remote side ACKed to obey.
-  ActiveSettings _acknowledgedSettings;
+  final ActiveSettings _acknowledgedSettings;
 
   /// The peer settings, which we ACKed and are obeying.
-  ActiveSettings _peerSettings;
+  final ActiveSettings _peerSettings;
 
   StreamController<int> _onInitialWindowSizeChangeController =
       new StreamController.broadcast(sync: true);
@@ -109,7 +114,8 @@ class SettingsHandler extends Object with TerminatableMixin {
   Stream<int> get onInitialWindowSizeChange
       => _onInitialWindowSizeChangeController.stream;
 
-  SettingsHandler(this._frameWriter,
+  SettingsHandler(this._hpackEncoder,
+                  this._frameWriter,
                   this._acknowledgedSettings,
                   this._peerSettings);
 
@@ -140,10 +146,10 @@ class SettingsHandler extends Object with TerminatableMixin {
         }
         List<Setting> settingChanges = _toBeAcknowledgedSettings.removeAt(0);
         Completer completer = _toBeAcknowledgedCompleters.removeAt(0);
-        _modifySettings(_acknowledgedSettings, settingChanges);
+        _modifySettings(_acknowledgedSettings, settingChanges, false);
         completer.complete();
       } else {
-        _modifySettings(_peerSettings, frame.settings);
+        _modifySettings(_peerSettings, frame.settings, true);
         _frameWriter.writeSettingsAckFrame();
       }
     });
@@ -167,7 +173,8 @@ class SettingsHandler extends Object with TerminatableMixin {
     });
   }
 
-  void _modifySettings(ActiveSettings base, List<Setting> changes) {
+  void _modifySettings(ActiveSettings base, List<Setting> changes,
+                       bool peerSettings) {
     for (var setting in changes) {
       switch (setting.identifier) {
         case Setting.SETTINGS_ENABLE_PUSH:
@@ -182,8 +189,10 @@ class SettingsHandler extends Object with TerminatableMixin {
           break;
 
         case Setting.SETTINGS_HEADER_TABLE_SIZE:
-          // TODO: Propagate this signal to the HPackContext.
           base.headerTableSize = setting.value;
+          if (peerSettings) {
+            _hpackEncoder.updateMaxSendingHeaderTableSize(base.headerTableSize);
+          }
           break;
 
         case Setting.SETTINGS_MAX_HEADER_LIST_SIZE:

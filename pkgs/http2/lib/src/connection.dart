@@ -121,7 +121,9 @@ abstract class Connection {
 
     // Setup handlers.
     _settingsHandler = new SettingsHandler(
-        _frameWriter, acknowledgedSettings, peerSettings);
+        _hpackContext.encoder,
+        _frameWriter,
+        acknowledgedSettings, peerSettings);
     _pingHandler = new PingHandler(_frameWriter);
 
     // Do the initial settings handshake (possibly with pushes disabled).

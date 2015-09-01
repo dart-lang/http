@@ -31,11 +31,12 @@ class HPackContext {
   final HPackEncoder encoder = new HPackEncoder();
   final HPackDecoder decoder = new HPackDecoder();
 
-  HPackContext() {
-    // TODO: Inject these constants from Settings
-    // e.g. SETTINGS_HEADER_TABLE_SIZE
-    encoder.updateMaxSendingHeaderTableSize(4096);
-    decoder.updateMaxReceivingHeaderTableSize(4096);
+  HPackContext({int maxSendingHeaderTableSize: 4096,
+                int maxReceivingHeaderTableSize: 4096}) {
+    encoder.updateMaxSendingHeaderTableSize(
+        maxSendingHeaderTableSize);
+    decoder.updateMaxReceivingHeaderTableSize(
+        maxReceivingHeaderTableSize);
   }
 }
 
@@ -175,8 +176,9 @@ class HPackEncoder {
   final IndexTable _table = new IndexTable();
 
   void updateMaxSendingHeaderTableSize(int newMaximumSize) {
+    // TODO: Once we start encoding via dynamic table we need to let the other
+    // side know the maximum table size we're using.
     _maxHeaderTableSize = newMaximumSize;
-    // TODO: Don't we need to write the updated size now in the stream?
   }
 
   List<int> encode(List<Header> headers) {
