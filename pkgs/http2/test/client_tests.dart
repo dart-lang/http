@@ -5,6 +5,7 @@
 library http2.test.client_tests;
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:test/test.dart';
 
@@ -124,6 +125,229 @@ main() {
 
         await Future.wait([serverFun(), clientFun()]);
       });
+
+      clientTest('data-frame-for-invalid-stream',
+          (ClientTransportConnection client,
+           FrameWriter serverWriter,
+           StreamIterator<Frame> serverReader,
+           Future<Frame> nextFrame()) async {
+
+        var handshakeCompleter = new Completer();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          handshakeCompleter.complete();
+
+          HeadersFrame headers = await nextFrame();
+          DataFrame finFrame  = await nextFrame();
+          expect(finFrame.hasEndStreamFlag, true);
+
+          // Write a data frame for a non-existent stream.
+          int invalidStreamId = headers.header.streamId + 2;
+          serverWriter.writeDataFrame(invalidStreamId, [42]);
+
+          // Make sure the client sends a [RstStreamFrame] frame.
+          var frame = await nextFrame();
+          expect(frame is RstStreamFrame, true);
+          expect((frame as RstStreamFrame).errorCode, ErrorCode.STREAM_CLOSED);
+          expect((frame as RstStreamFrame).header.streamId, invalidStreamId);
+
+          // Close the original stream.
+          serverWriter.writeDataFrame(
+              headers.header.streamId, [], endStream: true);
+
+          // Wait for the client finish.
+          expect(await nextFrame() is GoawayFrame, true);
+          expect(await serverReader.moveNext(), false);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          await stream.outgoingMessages.close();
+          expect(await stream.incomingMessages.toList(), isEmpty);
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
+      clientTest('data-frame-after-stream-closed',
+          (ClientTransportConnection client,
+           FrameWriter serverWriter,
+           StreamIterator<Frame> serverReader,
+           Future<Frame> nextFrame()) async {
+
+        var handshakeCompleter = new Completer();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          handshakeCompleter.complete();
+
+          HeadersFrame headers = await nextFrame();
+          DataFrame finFrame  = await nextFrame();
+          expect(finFrame.hasEndStreamFlag, true);
+
+          int streamId = headers.header.streamId;
+
+          // Write a data frame for a non-existent stream.
+          serverWriter.writeDataFrame(streamId, [42], endStream: true);
+
+          // Write more data on the closed stream.
+          serverWriter.writeDataFrame(streamId, [42]);
+
+          // NOTE: The order of the window update frame / rst frame just
+          // happens to be like that ATM.
+
+          // Await stream/connection window update frame.
+          var win = await nextFrame();
+          expect(win.header.streamId, 1);
+          expect(win.windowSizeIncrement, 1);
+          win = await nextFrame();
+          expect(win.header.streamId, 0);
+          expect(win.windowSizeIncrement, 1);
+
+          // Make sure we get a [RstStreamFrame] frame.
+          var frame = await nextFrame();
+          expect(frame is RstStreamFrame, true);
+          expect((frame as RstStreamFrame).errorCode, ErrorCode.STREAM_CLOSED);
+          expect((frame as RstStreamFrame).header.streamId, streamId);
+
+          // Wait for the client finish.
+          expect(await nextFrame() is GoawayFrame, true);
+          expect(await serverReader.moveNext(), false);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          await stream.outgoingMessages.close();
+          var messages = await stream.incomingMessages.toList();
+          expect(messages, hasLength(1));
+          expect((messages[0] as DataStreamMessage).bytes, [42]);
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
+      clientTest('client-reports-connection-error-on-push-to-nonexistent',
+          (ClientTransportConnection client,
+           FrameWriter serverWriter,
+           StreamIterator<Frame> serverReader,
+           Future<Frame> nextFrame()) async {
+
+        var handshakeCompleter = new Completer();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          handshakeCompleter.complete();
+
+          HeadersFrame headers = await nextFrame();
+          DataFrame finFrame  = await nextFrame();
+          expect(finFrame.hasEndStreamFlag, true);
+
+          int streamId = headers.header.streamId;
+
+          // Write response.
+          serverWriter.writeHeadersFrame(
+              streamId, [new Header.ascii('a', 'b')], endStream: true);
+
+          // Push stream to the (non existing) one.
+          int pushStreamId = 2;
+          serverWriter.writePushPromiseFrame(
+              streamId, pushStreamId, [new Header.ascii('a', 'b')]);
+
+          // Make sure we get a connection error.
+          GoawayFrame frame = await nextFrame();
+          expect(ASCII.decode(frame.debugData),
+                 contains('Cannot push on a non-existent stream'));
+          expect(await serverReader.moveNext(), false);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          await stream.outgoingMessages.close();
+          var messages = await stream.incomingMessages.toList();
+          expect(messages, hasLength(1));
+          expect((messages[0] as HeadersStreamMessage).headers.first,
+                 isHeader('a', 'b'));
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
+      clientTest('client-reports-connection-error-on-push-to-non-open',
+          (ClientTransportConnection client,
+           FrameWriter serverWriter,
+           StreamIterator<Frame> serverReader,
+           Future<Frame> nextFrame()) async {
+
+        var handshakeCompleter = new Completer();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          handshakeCompleter.complete();
+
+          HeadersFrame headers = await nextFrame();
+          int streamId = headers.header.streamId;
+
+          // Write response.
+          serverWriter.writeDataFrame(streamId, [], endStream: true);
+
+          // Push stream onto the existing (but half-closed) one.
+          int pushStreamId = 2;
+          serverWriter.writePushPromiseFrame(
+              streamId, pushStreamId, [new Header.ascii('a', 'b')]);
+
+          // Make sure we get a connection error.
+          GoawayFrame frame = await nextFrame();
+          expect(ASCII.decode(frame.debugData),
+          contains('Expected open state (was: StreamState.HalfClosedRemote)'));
+          expect(await serverReader.moveNext(), false);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+
+          // NOTE: We are not closing the outgoing part on purpose.
+          expect(await stream.incomingMessages.toList(), isEmpty);
+          expect(await stream.peerPushes.toList(), isEmpty);
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
     });
 
     group('client-errors', () {
@@ -146,7 +370,7 @@ main() {
           settingsDone.complete();
 
           // Make sure we got the new stream.
-          HeadersFrame frame = await nextFrame();
+          var frame = await nextFrame();
           expect(frame.hasEndStreamFlag, false);
           var decodedHeaders = decoder.decode(frame.headerBlockFragment);
           expect(decodedHeaders, hasLength(1));
@@ -203,7 +427,7 @@ clientTest(String name,
                 streams.serverConnectionFrameWriter,
                 serverReader,
                 readNext);
-  }));
+  });
 }
 
 class ClientStreams {

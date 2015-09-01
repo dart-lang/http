@@ -459,6 +459,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           //
           // TODO: When implementing priorities for HTTP/2 streams, these frames
           // need to be taken into account.
+        } else if (frame is PushPromiseFrame) {
+          throw new ProtocolException(
+              'Cannot push on a non-existent stream '
+              '(stream ${frame.header.streamId} does not exist)');
         } else {
           throw new StreamClosedException(frame.header.streamId,
               'No open stream found and was not a headers frame opening a '
@@ -512,10 +516,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   void _handlePushPromiseFrame(Http2StreamImpl stream, PushPromiseFrame frame) {
     if (stream.state != StreamState.Open &&
         stream.state != StreamState.HalfClosedLocal) {
-      _frameWriter.writeRstStreamFrame(
-          frame.promisedStreamId, ErrorCode.REFUSED_STREAM);
-      throw new StreamClosedException(
-          stream.id, 'Expected open state (was: ${stream.state}).');
+      throw new ProtocolException(
+          'Expected open state (was: ${stream.state}).');
     }
 
     var pushedStream = newRemoteStream(frame.promisedStreamId);
