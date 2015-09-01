@@ -36,9 +36,12 @@ class ServerPush {
 class ClientConnection {
   final ClientTransportConnection connection;
 
-  ClientConnection(Socket socket, {bool allowServerPushes: false})
+  /// Assumes the protocol on [socket] was negogiated to be http/2.
+  ///
+  /// If [settings] are omitted, the default [ClientSettings] will be used.
+  ClientConnection(Socket socket, {ClientSettings settings})
       : connection = new ClientTransportConnection.viaSocket(
-          socket, allowServerPushes: allowServerPushes);
+          socket, settings: settings);
 
   Future<Response> makeRequest(Request request) {
     var path = request.uri.path;
@@ -116,21 +119,30 @@ class ClientConnection {
 
 }
 
-Future<ClientConnection> connect(
-    Uri uri, {bool allowServerPushes: false}) async {
+/// Tries to connect to [uri] via a secure socket connection and establishes a
+/// http/2 connection.
+///
+/// If [allowServerPushes] is `true`, server pushes need to be handled by the
+/// client. The maximum number of concurrent server pushes can be configured via
+/// [maxConcurrentPushes] (default is `null` meaning no limit).
+Future<ClientConnection> connect(Uri uri,
+                                 {bool allowServerPushes: false,
+                                  int maxConcurrentPushes: null}) async {
   const List<String> Http2AlpnProtocols =
       const <String>['h2-14', 'h2-15', 'h2-16', 'h2-17', 'h2'];
 
   bool useSSL = uri.scheme == 'https';
+  var settings = new ClientSettings(
+      maxConcurrentPushes, allowServerPushes);
   if (useSSL) {
     SecureSocket socket = await SecureSocket.connect(
         uri.host, uri.port, supportedProtocols: Http2AlpnProtocols);
     if (!Http2AlpnProtocols.contains(socket.selectedProtocol)) {
       throw  new Exception('Server does not support HTTP/2.');
     }
-    return new ClientConnection(socket, allowServerPushes: allowServerPushes);
+    return new ClientConnection(socket, settings: settings);
   } else {
     Socket socket = await Socket.connect(uri.host, uri.port);
-    return new ClientConnection(socket, allowServerPushes: allowServerPushes);
+    return new ClientConnection(socket, settings: settings);
   }
 }

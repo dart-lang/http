@@ -12,6 +12,29 @@ import 'src/hpack/hpack.dart' show Header;
 
 export 'src/hpack/hpack.dart' show Header;
 
+/// Settings for a [TransportConnection].
+abstract class Settings {
+  /// The maximum number of concurrent streams the remote end can open.
+  final int concurrentStreamLimit;
+
+  const Settings(this.concurrentStreamLimit);
+}
+
+/// Settings for a [TransportConnection] a server can make.
+class ServerSettings extends Settings {
+  const ServerSettings(int concurrentStreamLimit)
+      : super(concurrentStreamLimit);
+}
+
+/// Settings for a [TransportConnection] a client can make.
+class ClientSettings extends Settings {
+  /// Whether the client allows pushes from the server.
+  final bool allowServerPushes;
+
+  const ClientSettings(int concurrentStreamLimit, this.allowServerPushes)
+      : super(concurrentStreamLimit);
+}
+
 /// Represents a HTTP/2 connection.
 abstract class TransportConnection {
   /// Pings the other end.
@@ -28,15 +51,17 @@ abstract class TransportConnection {
 
 abstract class ClientTransportConnection extends TransportConnection {
   factory ClientTransportConnection.viaSocket(Socket socket,
-                                              {bool allowServerPushes: true})
+                                              {ClientSettings settings})
       => new ClientTransportConnection.viaStreams(
-          socket, socket, allowServerPushes: allowServerPushes);
+          socket, socket, settings: settings);
 
-  factory ClientTransportConnection.viaStreams(Stream<List<int>> incoming,
-                                               StreamSink<List<int>> outgoing,
-                                               {bool allowServerPushes: true})
-      => new ClientConnection(
-          incoming, outgoing, allowServerPushes: allowServerPushes);
+  factory ClientTransportConnection.viaStreams(
+      Stream<List<int>> incoming,
+      StreamSink<List<int>> outgoing,
+      {ClientSettings settings}) {
+    if (settings == null) settings = const ClientSettings(null, false);
+    return new ClientConnection(incoming, outgoing, settings);
+  }
 
   /// Whether this connection is open and can be used to make new requests
   /// via [makeRequest].
@@ -48,12 +73,19 @@ abstract class ClientTransportConnection extends TransportConnection {
 }
 
 abstract class ServerTransportConnection extends TransportConnection {
-  factory ServerTransportConnection.viaSocket(Socket socket)
-      => new ServerTransportConnection.viaStreams(socket, socket);
+  factory ServerTransportConnection.viaSocket(Socket socket,
+                                              {ServerSettings settings}) {
+    return new ServerTransportConnection.viaStreams(
+        socket, socket, settings: settings);
+  }
 
-  factory ServerTransportConnection.viaStreams(Stream<List<int>> incoming,
-                                               StreamSink<List<int>> outgoing)
-      => new ServerConnection(incoming, outgoing);
+  factory ServerTransportConnection.viaStreams(
+      Stream<List<int>> incoming,
+      StreamSink<List<int>> outgoing,
+      {ServerSettings settings: const ServerSettings(1000)}) {
+    if (settings == null) settings = const ServerSettings(null);
+    return new ServerConnection(incoming, outgoing, settings);
+  }
 
   /// Incoming HTTP/2 streams.
   Stream<TransportStream> get incomingStreams;
@@ -97,12 +129,22 @@ abstract class TransportStream {
 
 abstract class ClientTransportStream extends TransportStream {
   /// Streams which the remote end pushed to this endpoint.
+  ///
+  /// If peer pushes were enabled, the client is responsible to either
+  /// handle or reject any peer push.
   Stream<TransportStreamPush> get peerPushes;
 }
 
 abstract class ServerTransportStream extends TransportStream {
+  /// Whether a method to [push] will succeed. Requirements for this getter to
+  /// return `true` are:
+  ///    * this stream must be in the Open or HalfClosedRemote state
+  ///    * the client needs to have the "enable push" settings enabled
+  ///    * the number of active streams has not reached the maximum
+  bool get canPush;
+
   /// Pushes a new stream to the remote peer.
-  TransportStream push(List<Header> requestHeaders);
+  ServerTransportStream push(List<Header> requestHeaders);
 }
 
 /// Represents a message which can be sent over a HTTP/2 stream.
@@ -135,7 +177,7 @@ class TransportStreamPush {
   final List<Header> requestHeaders;
 
   /// The remote stream push.
-  final TransportStream stream;
+  final ClientTransportStream stream;
 
   TransportStreamPush(this.requestHeaders, this.stream);
 

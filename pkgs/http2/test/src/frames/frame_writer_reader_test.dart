@@ -231,7 +231,7 @@ main() {
 
 writerReaderTest(String name, func(writer, reader, decoder)) {
   test(name, () {
-    var settings = new Settings();
+    var settings = new ActiveSettings();
     var context = new HPackContext();
     var controller = new StreamController<List<int>>();
     var writer = new FrameWriter(context.encoder, controller, settings);

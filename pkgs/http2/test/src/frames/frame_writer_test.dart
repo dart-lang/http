@@ -14,7 +14,7 @@ main() {
   group('frames', () {
     group('frame-writer', () {
       test('connection-error', () {
-        var settings = new Settings();
+        var settings = new ActiveSettings();
         var context = new HPackContext();
         var controller = new StreamController<List<int>>();
         var writer = new FrameWriter(context.encoder, controller, settings);

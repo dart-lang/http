@@ -225,14 +225,14 @@ class ClientErrorStreams {
   Stream<List<int>> get readB => writeB.stream;
 
   StreamIterator<Frame> get clientConnectionFrameReader {
-    Settings localSettings = new Settings();
+    ActiveSettings localSettings = new ActiveSettings();
     return new StreamIterator(
         new FrameReader(readA, localSettings).startDecoding());
   }
 
   FrameWriter get clientConnectionFrameWriter {
     var encoder = new HPackEncoder();
-    Settings peerSettings = new Settings();
+    ActiveSettings peerSettings = new ActiveSettings();
     writeB.add(CONNECTION_PREFACE);
     return new FrameWriter(encoder, writeB, peerSettings);
   }

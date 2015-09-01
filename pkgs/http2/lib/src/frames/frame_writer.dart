@@ -14,7 +14,7 @@ class FrameWriter {
   final BufferedBytesWriter _outWriter;
 
   /// Connection settings which this writer needs to respect.
-  final Settings _peerSettings;
+  final ActiveSettings _peerSettings;
 
   /// This is the maximum over all stream id's we've written to the underlying
   /// sink.

@@ -120,7 +120,7 @@ StreamSink<List<int>> decodeOutgoingVerbose(StreamSink<List<int>> sink,
 }
 
 Stream<Frame> _decodeFrames(Stream<List<int>> bytes) {
-  var settings = new Settings();
+  var settings = new ActiveSettings();
   var decoder = new FrameReader(bytes, settings);
   return decoder.startDecoding();
 }

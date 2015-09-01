@@ -15,10 +15,10 @@ import '../hpack/hpack_test.dart' show isHeader;
 main() {
   group('frames', () {
     group('frame-reader', () {
-      final int maxFrameSize = new Settings().maxFrameSize;
+      final int maxFrameSize = new ActiveSettings().maxFrameSize;
 
       Stream<Frame> dataFrame(List<int> body) {
-        var settings = new Settings();
+        var settings = new ActiveSettings();
         var context = new HPackContext();
         var controller = new StreamController<List<int>>();
         var reader = new FrameReader(controller.stream, settings);
@@ -63,7 +63,7 @@ main() {
       });
 
       test('incomplete-header', () {
-        var settings = new Settings();
+        var settings = new ActiveSettings();
 
         var context = new HPackContext();
         var controller = new StreamController<List<int>>();
@@ -79,7 +79,7 @@ main() {
       });
 
       test('incomplete-frame', () {
-        var settings = new Settings();
+        var settings = new ActiveSettings();
 
         var context = new HPackContext();
         var controller = new StreamController<List<int>>();
@@ -100,7 +100,7 @@ main() {
       });
 
       test('connection-error', () {
-        var settings = new Settings();
+        var settings = new ActiveSettings();
 
         var context = new HPackContext();
         var controller = new StreamController<List<int>>();

@@ -11,7 +11,7 @@ import '../sync_errors.dart';
 import '../error_handler.dart';
 
 /// The settings a remote peer can choose to set.
-class Settings {
+class ActiveSettings {
   /// Allows the sender to inform the remote endpoint of the maximum size of the
   /// header compression table used to decode header blocks, in octets. The
   /// encoder can select any size equal to or less than this value by using
@@ -72,12 +72,12 @@ class Settings {
   /// enforced. The initial value of this setting is unlimited.
   int maxHeaderListSize;
 
-  Settings({this.headerTableSize: 4096,
-            this.enablePush: true,
-            this.maxConcurrentStreams: null,
-            this.initialWindowSize: (1 << 16) - 1,
-            this.maxFrameSize: (1 << 14),
-            this.maxHeaderListSize: null});
+  ActiveSettings({this.headerTableSize: 4096,
+                  this.enablePush: true,
+                  this.maxConcurrentStreams: null,
+                  this.initialWindowSize: (1 << 16) - 1,
+                  this.maxFrameSize: (1 << 14),
+                  this.maxHeaderListSize: null});
 }
 
 
@@ -96,10 +96,10 @@ class SettingsHandler extends Object with TerminatableMixin {
   final List<Completer> _toBeAcknowledgedCompleters = [];
 
   /// The local settings, which the remote side ACKed to obey.
-  Settings _acknowledgedSettings = new Settings();
+  ActiveSettings _acknowledgedSettings;
 
   /// The peer settings, which we ACKed and are obeying.
-  Settings _peerSettings = new Settings();
+  ActiveSettings _peerSettings;
 
   StreamController<int> _onInitialWindowSizeChangeController =
       new StreamController.broadcast(sync: true);
@@ -115,11 +115,11 @@ class SettingsHandler extends Object with TerminatableMixin {
 
   /// The settings for this endpoint of the connection which the remote peer
   /// has ACKed and uses.
-  Settings get acknowledgedSettings => _acknowledgedSettings;
+  ActiveSettings get acknowledgedSettings => _acknowledgedSettings;
 
   /// The settings for the remote endpoint of the connection which this
   /// endpoint should use.
-  Settings get peerSettings => _peerSettings;
+  ActiveSettings get peerSettings => _peerSettings;
 
   /// Handles an incoming [SettingsFrame] which can be an ACK or a settings
   /// change.
@@ -167,7 +167,7 @@ class SettingsHandler extends Object with TerminatableMixin {
     });
   }
 
-  void _modifySettings(Settings base, List<Setting> changes) {
+  void _modifySettings(ActiveSettings base, List<Setting> changes) {
     for (var setting in changes) {
       switch (setting.identifier) {
         case Setting.SETTINGS_ENABLE_PUSH:

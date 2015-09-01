@@ -19,7 +19,6 @@ const int PORT = 7777;
 main() async {
   String localFile(path) => Platform.script.resolve(path).toFilePath();
 
-  var privateKeyFile = Platform.script.resolve('privatekey.pem').toFilePath();
   var context = new SecurityContext()
     ..usePrivateKey(localFile('server_key.pem'), password: 'dartdart')
     ..useCertificateChain(localFile('server_chain.pem'))

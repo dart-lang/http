@@ -25,9 +25,10 @@ expectEmptyStream(Stream s) {
   s.listen(expectAsync((_) {}, count: 0), onDone: expectAsync(() {}));
 }
 
-streamTest(String name, func(client, server)) {
+streamTest(String name, func(client, server), {ClientSettings settings}) {
   return test(name, () {
     var bidirect = new BidirectionalConnection();
+    bidirect.settings = settings;
     var client = bidirect.clientConnection;
     var server = bidirect.serverConnection;
     return func(client, server);
@@ -37,21 +38,23 @@ streamTest(String name, func(client, server)) {
 framesTest(String name, func(frameWriter, frameStream)) {
   return test(name, () {
     var c = new StreamController();
-    var fw = new FrameWriter(null, c, new Settings());
-    var frameStream = new FrameReader(c.stream, new Settings());
+    var fw = new FrameWriter(null, c, new ActiveSettings());
+    var frameStream = new FrameReader(c.stream, new ActiveSettings());
 
     return func(fw, frameStream);
   });
 }
 
 class BidirectionalConnection {
+  ClientSettings settings;
   final StreamController<List<int>> writeA = new StreamController();
   final StreamController<List<int>> writeB = new StreamController();
   Stream<List<int>> get readA => writeA.stream;
   Stream<List<int>> get readB => writeB.stream;
 
   ClientTransportConnection get clientConnection
-      => new ClientTransportConnection.viaStreams(readA, writeB);
+      => new ClientTransportConnection.viaStreams(
+          readA, writeB, settings: settings);
 
   ServerTransportConnection get serverConnection
       => new ServerTransportConnection.viaStreams(readB, writeA);

@@ -5,10 +5,9 @@
 library http2.src.conn;
 
 import 'dart:async';
-import 'dart:math';
 import 'dart:convert';
 
-import '../transport.dart';
+import '../transport.dart' hide Settings;
 import 'flowcontrol/connection_queues.dart';
 import 'flowcontrol/window.dart';
 import 'flowcontrol/window_handler.dart';
@@ -40,16 +39,13 @@ enum ConnectionState {
 abstract class Connection {
   /// The settings the other end has acknowledged to use when communicating with
   /// us.
-  final Settings acknowledgedSettings = new Settings();
+  final ActiveSettings acknowledgedSettings = new ActiveSettings();
 
   /// The settings we have to obey communicating with the other side.
-  final Settings peerSettings = new Settings();
+  final ActiveSettings peerSettings = new ActiveSettings();
 
   /// Whether this connection is a client connection.
   final bool isClientConnection;
-
-  /// Whether server side pushes are allowed.
-  final bool pushEnabled;
 
   /// The HPack context for this connection.
   final HPackContext _hpackContext = new HPackContext();
@@ -93,15 +89,16 @@ abstract class Connection {
 
   Connection(Stream<List<int>> incoming,
              StreamSink<List<int>> outgoing,
-             {this.isClientConnection: true,
-              this.pushEnabled}) {
-    _setupConnection(incoming, outgoing);
+             List<Setting> settings,
+             {this.isClientConnection: true}) {
+    _setupConnection(incoming, outgoing, settings);
   }
 
   /// Runs all setup necessary before new streams can be created with the remote
   /// peer.
   void _setupConnection(Stream<List<int>> incoming,
-                        StreamSink<List<int>> outgoing) {
+                        StreamSink<List<int>> outgoing,
+                        List<Setting> settings) {
     // Setup frame reading.
     var incomingFrames = new FrameReader(
         incoming, acknowledgedSettings).startDecoding();
@@ -128,11 +125,6 @@ abstract class Connection {
     _pingHandler = new PingHandler(_frameWriter);
 
     // Do the initial settings handshake (possibly with pushes disabled).
-    var settings = [];
-    if (isClientConnection && !pushEnabled) {
-      // By default the server is allowed to do server pushes.
-      settings.add(new Setting(Setting.SETTINGS_ENABLE_PUSH, 0));
-    }
     _settingsHandler.changeSettings(settings).catchError((error) {
       // TODO: The [error] can contain sensitive information we now expose via
       // a [Goaway] frame. We should somehow ensure we're only sending useful
@@ -343,17 +335,30 @@ abstract class Connection {
 class ClientConnection extends Connection implements ClientTransportConnection {
   ClientConnection._(Stream<List<int>> incoming,
                      StreamSink<List<int>> outgoing,
-                     bool pushEnabled)
+                     List<Setting> settings)
       : super(incoming,
               outgoing,
-              isClientConnection: true,
-              pushEnabled: pushEnabled);
+              settings,
+              isClientConnection: true);
 
   factory ClientConnection(Stream<List<int>> incoming,
                            StreamSink<List<int>> outgoing,
-                           {bool allowServerPushes: true})  {
+                           ClientSettings clientSettings)  {
+    var settings = [];
+
+    // By default the server is allowed to do server pushes.
+    if (!clientSettings.allowServerPushes) {
+      settings.add(new Setting(Setting.SETTINGS_ENABLE_PUSH, 0));
+    }
+    // By default the client is allowed to make/push an unlimited number of
+    // concurrent streams.
+    if (clientSettings.concurrentStreamLimit != null) {
+      settings.add(new Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS,
+                               clientSettings.concurrentStreamLimit));
+    }
+
     outgoing.add(CONNECTION_PREFACE);
-    return new ClientConnection._(incoming, outgoing, allowServerPushes);
+    return new ClientConnection._(incoming, outgoing, settings);
   }
 
   bool get isOpen => _state != ConnectionState.Finishing &&
@@ -376,14 +381,25 @@ class ClientConnection extends Connection implements ClientTransportConnection {
 
 class ServerConnection extends Connection implements ServerTransportConnection {
   ServerConnection._(Stream<List<int>> incoming,
-                     StreamSink<List<int>> outgoing)
+                     StreamSink<List<int>> outgoing,
+                     List<Setting> settings)
       : super(
-          incoming, outgoing, isClientConnection: false, pushEnabled: false);
+          incoming, outgoing, settings, isClientConnection: false);
 
   factory ServerConnection(Stream<List<int>> incoming,
-                           StreamSink<List<int>> outgoing)  {
+                           StreamSink<List<int>> outgoing,
+                           ServerSettings serverSettings)  {
+    var settings = [];
+
+    // By default the client is allowed to make an unlimited number of
+    // concurrent streams.
+    if (serverSettings.concurrentStreamLimit != null) {
+      settings.add(new Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS,
+                               serverSettings.concurrentStreamLimit));
+    }
+
     var frameBytes = readConnectionPreface(incoming);
-    return new ServerConnection._(frameBytes, outgoing);
+    return new ServerConnection._(frameBytes, outgoing, settings);
   }
 
   Stream<TransportStream> get incomingStreams => _streams.incomingStreams;

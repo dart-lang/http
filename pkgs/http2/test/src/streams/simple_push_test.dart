@@ -88,7 +88,7 @@ main() {
           String msg = await readData(iterator);
           expect(msg, 'pushing "hello world" :)');
         }));
-      });
+      }, settings: new ClientSettings(null, true));
     });
   });
 }

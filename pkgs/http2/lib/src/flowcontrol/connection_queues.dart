@@ -256,19 +256,32 @@ class ConnectionMessageQueueIn extends Object
     var message = new PushPromiseMessage(
         streamId, frame.decodedHeaders, frame.promisedStreamId, pushedStream,
         false);
-    // NOTE: Header frames do not affect flow control - only data frames do.
-    _addMessage(streamId, message);
+
+    // NOTE:
+    //    * Header frames do not affect flow control - only data frames do.
+    //    * At this point we might reorder a push message earlier than
+    //      data/headers messages.
+    _addPushMessage(streamId, message);
   }
 
   void _addMessage(int streamId, Message message) {
     _count++;
 
-    // FIXME: We need to do a runtime check here and
-    // raise a protocol error if we cannot find the registered stream.
+    // TODO: Do we need to do a runtime check here and
+    // raise a protocol error if we cannot find the registered stream?
     var streamMQ = _stream2messageQueue[streamId];
     var pendingMessages = _stream2pendingMessages[streamId];
     pendingMessages.addLast(message);
     _tryDispatch(streamId, streamMQ, pendingMessages);
+  }
+
+  void _addPushMessage(int streamId, PushPromiseMessage message) {
+    _count++;
+
+    // TODO: Do we need to do a runtime check here and
+    // raise a protocol error if we cannot find the registered stream?
+    var streamMQ = _stream2messageQueue[streamId];
+    streamMQ.enqueueMessage(message);
   }
 
   void _tryDispatch(int streamId,

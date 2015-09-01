@@ -198,9 +198,13 @@ class StreamMessageQueueIn extends Object
         onCloseCheck();
       });
 
-    // FIXME/TODO/FIXME: This needs to change, we need to intercept all
-    // onListen/... callbacks.
-    _serverPushStreamsC = new StreamController();
+    _serverPushStreamsC = new StreamController(
+        onListen: () {
+          if (!wasClosed && !wasTerminated) {
+            _tryDispatch();
+            _tryUpdateBufferIndicator();
+          }
+        });
   }
 
   /// Debugging data: the number of pending messages in this queue.
@@ -217,6 +221,16 @@ class StreamMessageQueueIn extends Object
   void enqueueMessage(Message message) {
     ensureNotClosingSync(() {
       if (!wasTerminated) {
+        if (message is PushPromiseMessage) {
+          // NOTE: If server pushes were enabled, the client is responsible for
+          // either rejecting or handling them.
+          assert (!_serverPushStreamsC.isClosed);
+          var transportStreamPush = new TransportStreamPush(
+              message.headers, message.pushedStream);
+          _serverPushStreamsC.add(transportStreamPush);
+          return;
+        }
+
         if (message is DataMessage) {
           windowHandler.gotData(message.bytes.length);
         }
@@ -269,18 +283,10 @@ class StreamMessageQueueIn extends Object
               _incomingMessagesC.add(new DataStreamMessage(message.bytes));
               windowHandler.dataProcessed(message.bytes.length);
             }
+          } else {
+            // This can never happen.
+            assert(false);
           }
-          handled = true;
-        }
-      } else if (message is PushPromiseMessage) {
-        assert (!_serverPushStreamsC.isClosed);
-        if (_serverPushStreamsC.hasListener &&
-            !_serverPushStreamsC.isPaused) {
-          _pendingMessages.removeFirst();
-
-          var transportStreamPush = new TransportStreamPush(
-              message.headers, message.pushedStream);
-          _serverPushStreamsC.add(transportStreamPush);
           handled = true;
         }
       }

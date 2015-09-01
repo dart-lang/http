@@ -437,7 +437,7 @@ class ClientStreams {
   Stream<List<int>> get readB => writeB.stream;
 
   StreamIterator<Frame> get serverConnectionFrameReader {
-    Settings localSettings = new Settings();
+    ActiveSettings localSettings = new ActiveSettings();
     var streamAfterConnectionPreface = readConnectionPreface(readA);
     return new StreamIterator(
         new FrameReader(streamAfterConnectionPreface, localSettings)
@@ -446,7 +446,7 @@ class ClientStreams {
 
   FrameWriter get serverConnectionFrameWriter {
     var encoder = new HPackEncoder();
-    Settings peerSettings = new Settings();
+    ActiveSettings peerSettings = new ActiveSettings();
     return new FrameWriter(encoder, writeB, peerSettings);
   }
 
