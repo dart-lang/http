@@ -377,6 +377,9 @@ class ClientConnection extends Connection implements ClientTransportConnection {
           'used to make new streams.');
     }
     TransportStream hStream = _streams.newStream(headers, endStream: endStream);
+    if (_streams.ranOutOfStreamIds) {
+      _finishing(active: true, message: 'Ran out of stream ids');
+    }
     return hStream;
   }
 }

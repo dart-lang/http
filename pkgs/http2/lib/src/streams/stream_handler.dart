@@ -101,10 +101,10 @@ class Http2StreamImpl extends TransportStream
 ///
 /// It keeps track of open streams, their state, their queues, forwards
 /// messages from the connection level to stream level and vise versa.
-// TODO: Respect SETTINGS_MAX_CONCURRENT_STREAMS
 // TODO: Handle stream/connection queue errors & forward to connection object.
 class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   static const int MAX_STREAM_ID = (1 << 31) - 1;
+
   final FrameWriter _frameWriter;
   final ConnectionMessageQueueIn incomingQueue;
   final ConnectionMessageQueueOut outgoingQueue;
@@ -125,6 +125,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   int get highestPeerInitiatedStream => _highestStreamIdReceived;
 
   bool get isServer => nextStreamId.isEven;
+
+  bool get ranOutOfStreamIds => _ranOutOfStreamIds();
 
   StreamHandler._(this._frameWriter, this.incomingQueue, this.outgoingQueue,
                   this._peerSettings, this._localSettings,
@@ -195,7 +197,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     return ensureNotTerminatedSync(() {
       assert(_canCreateNewStream());
 
-      if (MAX_STREAM_ID < (nextStreamId + 2)) {
+      if (MAX_STREAM_ID < nextStreamId) {
         throw new StateError(
             'Cannot create new streams, since a wrap around would happen.');
       }
@@ -207,7 +209,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   TransportStream newRemoteStream(int remoteStreamId) {
     return ensureNotTerminatedSync(() {
-      assert (remoteStreamId < MAX_STREAM_ID);
+      assert (remoteStreamId <= MAX_STREAM_ID);
       // NOTE: We cannot enforce that a new stream id is 2 higher than the last
       // used stream id. Meaning there can be "holes" in the sense that stream
       // ids are not used:
@@ -284,7 +286,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     bool openState = (stream.state == StreamState.Open ||
                       stream.state == StreamState.HalfClosedRemote);
     bool pushEnabled = this._peerSettings.enablePush;
-    return openState && pushEnabled && _canCreateNewStream();
+    return openState && pushEnabled && _canCreateNewStream() &&
+        !_ranOutOfStreamIds();
   }
 
   TransportStream _push(Http2StreamImpl stream, List<Header> requestHeaders) {
@@ -300,6 +303,11 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     if (!_canCreateNewStream()) {
       throw new StateError('Maximum number of streams reached.');
+    }
+
+    if (_ranOutOfStreamIds()) {
+      throw new StateError('There are no more stream ids left. Please use a '
+                           'new connection.');
     }
 
     Http2StreamImpl pushStream = newLocalStream();
@@ -706,6 +714,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   bool _canCreateNewStream() {
     int limit = _peerSettings.maxConcurrentStreams;
     return limit == null || _numberOfActiveStreams < limit;
+  }
+
+  bool _ranOutOfStreamIds() {
+    return nextStreamId > MAX_STREAM_ID;
   }
 
   void _changeState(Http2StreamImpl stream, StreamState to) {
