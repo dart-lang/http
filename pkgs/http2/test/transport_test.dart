@@ -144,6 +144,29 @@ main() {
       await client.terminate();
       await serverFuture;
     }, clientSettings: new ClientSettings(kDefaultStreamLimit, true));
+
+    transportTest('early-shutdown',
+        (ClientTransportConnection client,
+         ServerTransportConnection server) async {
+      Future serverFun() async {
+        await for (ServerTransportStream stream in server.incomingStreams) {
+          stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
+          expect(await stream.incomingMessages.toList(), hasLength(1));
+        }
+        await server.finish();
+      }
+
+      Future clientFun() async {
+        var headers = [new Header.ascii('a', 'b')];
+        var stream = client.makeRequest(headers, endStream: true);
+        var finishFuture = client.finish();
+        var messages = await stream.incomingMessages.toList();
+        expect(messages, hasLength(1));
+        await finishFuture;
+      }
+
+      await Future.wait([serverFun(), clientFun()]);
+    });
   });
 }
 

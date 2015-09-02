@@ -174,6 +174,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   //// New local/remote Stream handling
   ////////////////////////////////////////////////////////////////////////////
 
+  bool _isPeerInitiatedStream(int streamId) {
+    bool isServerStreamId = streamId.isEven;
+    bool isLocalStream = isServerStreamId == isServer;
+    return !isLocalStream;
+  }
+
   TransportStream newStream(List<Header> headers, {bool endStream: false}) {
     return ensureNotTerminatedSync(() {
       var stream = newLocalStream();
@@ -263,6 +269,13 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     _openStreams[stream.id] = stream;
 
     _setupOutgoingMessageHandling(stream);
+
+    // NOTE: We are not interested whether the streams were normally finished
+    // or abnormally terminated. Therefore we use 'catchError((_) {})'!
+    var streamDone = [streamQueueIn.done, streamQueueOut.done];
+    Future.wait(streamDone).catchError((_) {}).whenComplete(() {
+      _cleanupClosedStream(stream);
+    });
 
     return stream;
   }
@@ -395,7 +408,21 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     // If we initiated a close of the connection and the received frame belongs
     // to a stream id which is higher than the last peer-initiated stream we
     // processed, we'll ignore it.
+    // http/2 spec:
+    //     After sending a GOAWAY frame, the sender can discard frames for
+    //     streams initiated by the receiver with identifiers higher than the
+    //     identified last stream. However, any frames that alter connection
+    //     state cannot be completely ignored. For instance, HEADERS,
+    //     PUSH_PROMISE, and CONTINUATION frames MUST be minimally processed to
+    //     ensure the state maintained for header compression is consistent
+    //     (see Section 4.3); similarly, DATA frames MUST be counted toward
+    //     the connection flow-control window. Failure to process these
+    //     frames can cause flow control or header compression state to become
+    //     unsynchronized.
+    // TODO: It is not completely clear what "discard" means. I would assume we
+    // should send an [RstFrame] back with [ErrorCode.REFUSED_STREAM].
     if (connectionState == ConnectionState.Finishing &&
+        _isPeerInitiatedStream(frame.header.streamId) &&
         frame.header.streamId > highestPeerInitiatedStream) {
       // Even if the frame will be ignored, we still need to process it in a
       // minimal way to ensure the connection window will be updated.
@@ -417,13 +444,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
               streamId >= nextStreamId : streamId > lastRemoteStreamId;
           return isIdleStream;
         }
-        bool isPeerInitiatedStream() {
-          bool isServerStreamId = frame.header.streamId.isEven;
-          bool isLocalStream = isServerStreamId == isServer;
-          return !isLocalStream;
-        }
 
-        if (isPeerInitiatedStream()) {
+        if (_isPeerInitiatedStream(frame.header.streamId)) {
           // Update highest stream id we received and processed (we update it
           // before processing, so if it was an error, the client will not
           // retry it).
@@ -623,9 +645,6 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       throw new StateError(
           'Invalid state transition. This should never happen.');
     }
-    if (stream.state == StreamState.Closed) {
-      _cleanupClosedStream(stream);
-    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -633,13 +652,14 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   ////////////////////////////////////////////////////////////////////////////
 
   void _cleanupClosedStream(Http2StreamImpl stream) {
-    // FIXME: We can only do this once all the data has been flushed.
-    // Otherwise we won't propagate [WindowUpdateFrame]s to the stream, which
-    // then never writes the remaining data out.
-
+    // NOTE: This function should only be called once
+    //     * all incoming data has been delivered to the application
+    //     * all outgoing data has been added to the connection queue.
     incomingQueue.removeStreamMessageQueue(stream.id);
     _openStreams.remove(stream.id);
-
+    if (stream.state != StreamState.Terminated) {
+      _changeState(stream, StreamState.Terminated);
+    }
     onCheckForClose();
   }
 
@@ -660,8 +680,6 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     // NOTE: we're not adding an error here.
     stream.outgoingQueue.terminate();
-
-    _openStreams.remove(stream.id);
 
     onCheckForClose();
   }
@@ -714,6 +732,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     // If we initiated the stream and it became "open" or "closed" we need to
     // update the [_numberOfActiveStreams] counter.
     if (_didInitiateStream(stream)) {
+      // NOTE: We wait until the stream is completely done.
+      // (If we waited only until `StreamState.Closed` then we might still have
+      //  the endStream header/data message buffered, but not yet sent out).
       switch (stream.state) {
         case StreamState.ReservedLocal:
         case StreamState.ReservedRemote:
@@ -727,11 +748,11 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         case StreamState.Open:
         case StreamState.HalfClosedLocal:
         case StreamState.HalfClosedRemote:
-          if (to == StreamState.Closed || to == StreamState.Terminated) {
+        case StreamState.Closed:
+          if (to == StreamState.Terminated) {
             _numberOfActiveStreams--;
           }
           break;
-        case StreamState.Closed:
         case StreamState.Terminated:
           // There is nothing to do here.
           break;
