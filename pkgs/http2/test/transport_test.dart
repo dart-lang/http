@@ -3,9 +3,11 @@
 // BSD-style license that can be found in the LICENSE FILE.
 
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:test/test.dart';
 import 'package:http2/transport.dart';
+import 'package:http2/src/flowcontrol/window.dart';
 
 import 'src/hpack/hpack_test.dart' show isHeader;
 
@@ -166,6 +168,105 @@ main() {
       }
 
       await Future.wait([serverFun(), clientFun()]);
+    });
+
+    group('flow-control', () {
+      const int kChunkSize = 1024;
+      const int kNumberOfMessages = 1000;
+      final int kStreamWindowSize = new Window().size;
+      final headers = [new Header.ascii('a', 'b')];
+
+      transportTest('fast-sender-receiver-paused',
+          (ClientTransportConnection client,
+           ServerTransportConnection server) async {
+        expect(kStreamWindowSize, lessThan(kChunkSize * kNumberOfMessages));
+
+        int serverSentBytes = 0;
+        Completer flowcontrolWindowFull = new Completer();
+
+        Future serverFun() async {
+          await for (ServerTransportStream stream in server.incomingStreams) {
+            stream.sendHeaders([new Header.ascii('x', 'y')]);
+
+            int messageNr = 0;
+            StreamController controller;
+            addData() {
+              if (!controller.isPaused) {
+                if (messageNr < kNumberOfMessages) {
+                  var messageBytes = new Uint8List(kChunkSize);
+                  for (int j = 0; j < messageBytes.length; j++) {
+                    messageBytes[j] = (messageNr + j) % 256;
+                  }
+                  controller.add(new DataStreamMessage(messageBytes));
+
+                  messageNr++;
+                  serverSentBytes += messageBytes.length;
+
+                  Timer.run(addData);
+                } else {
+                  if (!controller.isClosed) controller.close();
+                }
+              }
+            }
+
+            controller = new StreamController(
+                onListen: () {
+                  addData();
+                },
+                onPause: expectAsync(() {
+                  // Assert that we're now at the place (since the granularity
+                  // of adding is [kChunkSize], it could be that we added
+                  // [kChunkSize - 1] bytes more than allowed, before getting
+                  // the pause event).
+                  expect((serverSentBytes - kChunkSize + 1) < kStreamWindowSize,
+                         true);
+                  flowcontrolWindowFull.complete();
+                }),
+                onResume: () {
+                  addData();
+                },
+                onCancel: () {});
+
+            await stream.outgoingMessages.addStream(controller.stream);
+            await stream.outgoingMessages.close();
+            await stream.incomingMessages.toList();
+          }
+          await server.finish();
+        }
+
+        Future clientFun() async {
+          var stream = client.makeRequest(headers, endStream: true);
+
+          bool gotHeadersFrame = false;
+          int byteNr = 0;
+
+          var sub = stream.incomingMessages.listen((message) {
+            if (!gotHeadersFrame) {
+              expect(message is HeadersStreamMessage, true);
+              gotHeadersFrame = true;
+            } else {
+              expect(message is DataStreamMessage, true);
+              DataStreamMessage dataMessage = message;
+
+              // We're just testing the first byte, to make the test faster.
+              expect(dataMessage.bytes[0],
+                     ((byteNr ~/ kChunkSize) + (byteNr % kChunkSize)) % 256);
+
+              byteNr += dataMessage.bytes.length;
+            }
+          });
+
+          // We pause immediately, making the server fill the stream flowcontrol
+          // window.
+          sub.pause();
+
+          await flowcontrolWindowFull.future;
+          sub.resume();
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
     });
   });
 }

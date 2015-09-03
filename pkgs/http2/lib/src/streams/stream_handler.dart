@@ -542,6 +542,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           _handlePushPromiseFrame(stream, frame);
         } else if (frame is WindowUpdateFrame) {
           _handleWindowUpdate(stream, frame);
+        } else if (frame is RstStreamFrame) {
+          // TODO
         } else {
           throw new ProtocolException(
               'Unsupported frame type ${frame.runtimeType}.');
