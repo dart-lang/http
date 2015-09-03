@@ -145,7 +145,9 @@ main() {
       await clientFun();
       await client.terminate();
       await serverFuture;
-    }, clientSettings: new ClientSettings(kDefaultStreamLimit, true));
+    }, clientSettings: new ClientSettings(
+        concurrentStreamLimit: kDefaultStreamLimit,
+        allowServerPushes: true));
 
     transportTest('early-shutdown',
         (ClientTransportConnection client,
@@ -173,13 +175,15 @@ main() {
     group('flow-control', () {
       const int kChunkSize = 1024;
       const int kNumberOfMessages = 1000;
-      final int kStreamWindowSize = new Window().size;
       final headers = [new Header.ascii('a', 'b')];
 
-      transportTest('fast-sender-receiver-paused',
-          (ClientTransportConnection client,
-           ServerTransportConnection server) async {
-        expect(kStreamWindowSize, lessThan(kChunkSize * kNumberOfMessages));
+
+      Future testWindowSize(ClientTransportConnection client,
+                            ServerTransportConnection server,
+                            int expectedStreamFlowcontrolWindow) async {
+
+        expect(expectedStreamFlowcontrolWindow,
+               lessThan(kChunkSize * kNumberOfMessages));
 
         int serverSentBytes = 0;
         Completer flowcontrolWindowFull = new Completer();
@@ -218,8 +222,8 @@ main() {
                   // of adding is [kChunkSize], it could be that we added
                   // [kChunkSize - 1] bytes more than allowed, before getting
                   // the pause event).
-                  expect((serverSentBytes - kChunkSize + 1) < kStreamWindowSize,
-                         true);
+                  expect((serverSentBytes - kChunkSize + 1),
+                         lessThan(expectedStreamFlowcontrolWindow));
                   flowcontrolWindowFull.complete();
                 }),
                 onResume: () {
@@ -266,7 +270,19 @@ main() {
         }
 
         await Future.wait([serverFun(), clientFun()]);
+      }
+
+      transportTest('fast-sender-receiver-paused--default-window-size',
+          (ClientTransportConnection client,
+           ServerTransportConnection server) async {
+        await testWindowSize(client, server, new Window().size);
       });
+
+      transportTest('fast-sender-receiver-paused--10kb-window-size',
+          (ClientTransportConnection client,
+           ServerTransportConnection server) async {
+        await testWindowSize(client, server, 8096);
+      }, clientSettings: new ClientSettings(streamWindowSize: 8096));
     });
   });
 }

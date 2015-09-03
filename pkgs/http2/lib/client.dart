@@ -133,7 +133,8 @@ Future<ClientConnection> connect(Uri uri,
 
   bool useSSL = uri.scheme == 'https';
   var settings = new ClientSettings(
-      maxConcurrentPushes, allowServerPushes);
+      concurrentStreamLimit: maxConcurrentPushes,
+      allowServerPushes: allowServerPushes);
   if (useSSL) {
     SecureSocket socket = await SecureSocket.connect(
         uri.host, uri.port, supportedProtocols: Http2AlpnProtocols);

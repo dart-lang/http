@@ -7,7 +7,7 @@ library http2.src.conn;
 import 'dart:async';
 import 'dart:convert';
 
-import '../transport.dart' hide Settings;
+import '../transport.dart';
 import 'flowcontrol/connection_queues.dart';
 import 'flowcontrol/window.dart';
 import 'flowcontrol/window_handler.dart';
@@ -114,7 +114,7 @@ abstract class Connection {
 
   Connection(Stream<List<int>> incoming,
              StreamSink<List<int>> outgoing,
-             List<Setting> settings,
+             Settings settings,
              {this.isClientConnection: true}) {
     _setupConnection(incoming, outgoing, settings);
   }
@@ -123,7 +123,7 @@ abstract class Connection {
   /// peer.
   void _setupConnection(Stream<List<int>> incoming,
                         StreamSink<List<int>> outgoing,
-                        List<Setting> settings) {
+                        Settings settingsObject) {
     // Setup frame reading.
     var incomingFrames = new FrameReader(
         incoming, acknowledgedSettings).startDecoding();
@@ -151,6 +151,8 @@ abstract class Connection {
         acknowledgedSettings, peerSettings);
     _pingHandler = new PingHandler(_frameWriter);
 
+    var settings = _decodeSettings(settingsObject);
+
     // Do the initial settings handshake (possibly with pushes disabled).
     _settingsHandler.changeSettings(settings).catchError((error) {
       // TODO: The [error] can contain sensitive information we now expose via
@@ -160,8 +162,8 @@ abstract class Connection {
                  message: 'Failed to set initial settings (error: $error).');
     });
 
-    _settingsHandler.onInitialWindowSizeChange.listen((size) {
-      // TODO: Apply change to [StreamHandler]
+    _settingsHandler.onInitialWindowSizeChange.listen((int difference) {
+      _streams.processInitialWindowSizeSettingChange(difference);
     });
 
 
@@ -193,6 +195,36 @@ abstract class Connection {
     // before we start using the connection (i.e. we don't wait for half a
     // round-trip-time).
     _state = new ConnectionState();
+  }
+
+  List<Setting> _decodeSettings(Settings settings) {
+    var settingsList = [];
+
+    // By default a endpoitn can make an unlimited number of concurrent streams.
+    if (settings.concurrentStreamLimit != null) {
+      settingsList.add(new Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS,
+                                   settings.concurrentStreamLimit));
+    }
+
+    // By default the stream level flow control window is 64 KiB.
+    if (settings.streamWindowSize != null) {
+      settingsList.add(new Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE,
+                                   settings.streamWindowSize));
+    }
+
+    if (settings is ClientSettings) {
+      // By default the server is allowed to do server pushes.
+      if (settings.allowServerPushes == null ||
+          settings.allowServerPushes == false) {
+        settingsList.add(new Setting(Setting.SETTINGS_ENABLE_PUSH, 0));
+      }
+    } else if (settings is ServerSettings) {
+      // No special server settings at the moment.
+    } else {
+      assert(false);
+    }
+
+    return settingsList;
   }
 
   /// Pings the remote peer (can e.g. be used for measuring latency).
@@ -372,7 +404,7 @@ abstract class Connection {
 class ClientConnection extends Connection implements ClientTransportConnection {
   ClientConnection._(Stream<List<int>> incoming,
                      StreamSink<List<int>> outgoing,
-                     List<Setting> settings)
+                     Settings settings)
       : super(incoming,
               outgoing,
               settings,
@@ -381,21 +413,8 @@ class ClientConnection extends Connection implements ClientTransportConnection {
   factory ClientConnection(Stream<List<int>> incoming,
                            StreamSink<List<int>> outgoing,
                            ClientSettings clientSettings)  {
-    var settings = [];
-
-    // By default the server is allowed to do server pushes.
-    if (!clientSettings.allowServerPushes) {
-      settings.add(new Setting(Setting.SETTINGS_ENABLE_PUSH, 0));
-    }
-    // By default the client is allowed to make/push an unlimited number of
-    // concurrent streams.
-    if (clientSettings.concurrentStreamLimit != null) {
-      settings.add(new Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS,
-                               clientSettings.concurrentStreamLimit));
-    }
-
     outgoing.add(CONNECTION_PREFACE);
-    return new ClientConnection._(incoming, outgoing, settings);
+    return new ClientConnection._(incoming, outgoing, clientSettings);
   }
 
   bool get isOpen => _state != ConnectionState.Finishing &&
@@ -422,25 +441,17 @@ class ClientConnection extends Connection implements ClientTransportConnection {
 class ServerConnection extends Connection implements ServerTransportConnection {
   ServerConnection._(Stream<List<int>> incoming,
                      StreamSink<List<int>> outgoing,
-                     List<Setting> settings)
+                     Settings settings)
       : super(
           incoming, outgoing, settings, isClientConnection: false);
 
   factory ServerConnection(Stream<List<int>> incoming,
                            StreamSink<List<int>> outgoing,
                            ServerSettings serverSettings)  {
-    var settings = [];
-
-    // By default the client is allowed to make an unlimited number of
-    // concurrent streams.
-    if (serverSettings.concurrentStreamLimit != null) {
-      settings.add(new Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS,
-                               serverSettings.concurrentStreamLimit));
-    }
-
     var frameBytes = readConnectionPreface(incoming);
-    return new ServerConnection._(frameBytes, outgoing, settings);
+    return new ServerConnection._(frameBytes, outgoing, serverSettings);
   }
 
   Stream<TransportStream> get incomingStreams => _streams.incomingStreams;
 }
+

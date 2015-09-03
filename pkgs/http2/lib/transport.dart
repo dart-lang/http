@@ -14,25 +14,35 @@ export 'src/hpack/hpack.dart' show Header;
 
 /// Settings for a [TransportConnection].
 abstract class Settings {
-  /// The maximum number of concurrent streams the remote end can open.
+  /// The maximum number of concurrent streams the remote end can open
+  /// (defaults to being unlimited).
   final int concurrentStreamLimit;
 
-  const Settings(this.concurrentStreamLimit);
+  /// The default stream window size the remote peer can use when creating new
+  /// streams (defaults to 65535 bytes).
+  final int streamWindowSize;
+
+  const Settings({this.concurrentStreamLimit, this.streamWindowSize});
 }
 
 /// Settings for a [TransportConnection] a server can make.
 class ServerSettings extends Settings {
-  const ServerSettings(int concurrentStreamLimit)
-      : super(concurrentStreamLimit);
+  const ServerSettings({int concurrentStreamLimit,
+                        int streamWindowSize})
+      : super(concurrentStreamLimit: concurrentStreamLimit,
+              streamWindowSize: streamWindowSize);
 }
 
 /// Settings for a [TransportConnection] a client can make.
 class ClientSettings extends Settings {
-  /// Whether the client allows pushes from the server.
+  /// Whether the client allows pushes from the server (defaults to false).
   final bool allowServerPushes;
 
-  const ClientSettings(int concurrentStreamLimit, this.allowServerPushes)
-      : super(concurrentStreamLimit);
+  const ClientSettings({int concurrentStreamLimit,
+                        int streamWindowSize,
+                        this.allowServerPushes: false})
+      : super(concurrentStreamLimit: concurrentStreamLimit,
+              streamWindowSize: streamWindowSize);
 }
 
 /// Represents a HTTP/2 connection.
@@ -59,7 +69,7 @@ abstract class ClientTransportConnection extends TransportConnection {
       Stream<List<int>> incoming,
       StreamSink<List<int>> outgoing,
       {ClientSettings settings}) {
-    if (settings == null) settings = const ClientSettings(null, false);
+    if (settings == null) settings = const ClientSettings();
     return new ClientConnection(incoming, outgoing, settings);
   }
 
@@ -82,8 +92,9 @@ abstract class ServerTransportConnection extends TransportConnection {
   factory ServerTransportConnection.viaStreams(
       Stream<List<int>> incoming,
       StreamSink<List<int>> outgoing,
-      {ServerSettings settings: const ServerSettings(1000)}) {
-    if (settings == null) settings = const ServerSettings(null);
+      {ServerSettings settings: const ServerSettings(
+          concurrentStreamLimit: 1000)}) {
+    if (settings == null) settings = const ServerSettings();
     return new ServerConnection(incoming, outgoing, settings);
   }
 

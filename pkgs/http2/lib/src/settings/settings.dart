@@ -210,7 +210,8 @@ class SettingsHandler extends Object with TerminatableMixin {
 
         case Setting.SETTINGS_INITIAL_WINDOW_SIZE:
           if (setting.value < (1 << 31)) {
-            _onInitialWindowSizeChangeController.add(setting.value);
+            int difference = setting.value - base.initialWindowSize;
+            _onInitialWindowSizeChangeController.add(difference);
             base.initialWindowSize = setting.value;
           } else {
             throw new FlowControlException('Invalid initial window size.');
