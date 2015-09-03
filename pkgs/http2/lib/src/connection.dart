@@ -21,19 +21,44 @@ import 'sync_errors.dart';
 
 import 'connection_preface.dart';
 
-enum ConnectionState {
+class ConnectionState {
   /// The connection has been established, we're waiting for the settings frame
   /// of the remote end.
-  Initialized,
+  static const int Initialized = 1;
 
   /// The connection has been established and is fully operational.
-  Operational,
+  static const int Operational = 2;
 
   /// The connection is no longer accepting new streams or creating new streams.
-  Finishing,
+  static const int Finishing = 3;
 
   /// The connection has been terminated and cannot be used anymore.
-  Terminated,
+  static const int Terminated = 4;
+
+  /// Whether we actively were finishing the connection.
+  static const int FinishingActive = 1;
+
+  /// Whether we passively were finishing the connection.
+  static const int FinishingPassive = 2;
+
+  int state = Initialized;
+  int finishingState = 0;
+
+  ConnectionState();
+
+  bool get isInitialized => state == ConnectionState.Initialized;
+
+  bool get isOperational => state == ConnectionState.Operational;
+
+  bool get isFinishing => state == ConnectionState.Finishing;
+
+  bool get isTerminated => state == ConnectionState.Terminated;
+
+  bool get activeFinishing
+      => state == Finishing && (finishingState & FinishingActive) != 0;
+
+  bool get passiveFinishing
+      => state == Finishing && (finishingState & FinishingPassive) != 0;
 }
 
 abstract class Connection {
@@ -167,7 +192,7 @@ abstract class Connection {
     // NOTE: We're not waiting until initial settings have been exchanged
     // before we start using the connection (i.e. we don't wait for half a
     // round-trip-time).
-    _state = ConnectionState.Initialized;
+    _state = new ConnectionState();
   }
 
   /// Pings the remote peer (can e.g. be used for measuring latency).
@@ -221,13 +246,13 @@ abstract class Connection {
   void _handleFrameImpl(Frame frame) {
     // The first frame from the other side must be a [SettingsFrame], otherwise
     // we terminate the connection.
-    if (_state == ConnectionState.Initialized) {
+    if (_state.isInitialized) {
       if (frame is! SettingsFrame) {
         _terminate(ErrorCode.PROTOCOL_ERROR,
                    message: 'Expected to first receive a settings frame.');
         return;
       }
-      _state = ConnectionState.Operational;
+      _state.state = ConnectionState.Operational;
     }
 
     // Try to defragment [frame] if it is a Headers/PushPromise frame.
@@ -254,7 +279,7 @@ abstract class Connection {
       } else if (frame is WindowUpdateFrame) {
         _connectionWindowHandler.processWindowUpdate(frame);
       } else if (frame is GoawayFrame) {
-        // TODO: What to do about [frame.lastStreamIdReceived] ?
+        _streams.processGoawayFrame(frame);
         _finishing(active: false);
       } else if (frame is UnknownFrame) {
         // We can safely ignore these.
@@ -268,24 +293,34 @@ abstract class Connection {
   }
 
   void _finishing({bool active: true, String message}) {
-    // If this connection is already finishing or dead, we return.
-    if (_state == ConnectionState.Terminated ||
-        _state == ConnectionState.Finishing) {
+    // If this connection is already dead, we return.
+    if (_state.isTerminated) return;
+
+    // If this connection is already finishing, we make sure to store the
+    // passive bit, since this information is used by [StreamHandler].
+    //
+    // Vice versa should not matter: If we started passively finishing, an
+    // active finish should be a NOP.
+    if (_state.isFinishing) {
+      if (!active) _state.finishingState |= ConnectionState.FinishingPassive;
       return;
     }
 
-    assert(_state == ConnectionState.Initialized ||
-           _state == ConnectionState.Operational);
-
-    _state = ConnectionState.Finishing;
+    assert(_state.isInitialized || _state.isOperational);
 
     // If we are actively finishing this connection, we'll send a
     // GoawayFrame otherwise we'll just propagate the message.
     if (active) {
+      _state.state = ConnectionState.Finishing;
+      _state.finishingState |= ConnectionState.FinishingActive;
+
       _frameWriter.writeGoawayFrame(
           _streams.highestPeerInitiatedStream,
           ErrorCode.NO_ERROR,
           message != null ? UTF8.encode(message) : []);
+    } else {
+      _state.state = ConnectionState.Finishing;
+      _state.finishingState |= ConnectionState.FinishingPassive;
     }
 
     _streams.startClosing();
@@ -297,8 +332,8 @@ abstract class Connection {
   Future _terminate(int errorCode,
                     {bool causedByTransportError: false, String message}) {
     // TODO: When do we complete here?
-    if (_state != ConnectionState.Terminated) {
-      _state = ConnectionState.Terminated;
+    if (_state.state != ConnectionState.Terminated) {
+      _state.state = ConnectionState.Terminated;
 
       var cancelFuture = new Future.sync(_frameReaderSubscription.cancel);
       if (!causedByTransportError) {
@@ -367,11 +402,11 @@ class ClientConnection extends Connection implements ClientTransportConnection {
                      _state != ConnectionState.Terminated;
 
   TransportStream makeRequest(List<Header> headers, {bool endStream: false}) {
-    if (_state == ConnectionState.Finishing) {
+    if (_state.isFinishing) {
       throw new StateError(
           'The http/2 connection is finishing and can therefore not be used to '
           'make new streams.');
-    } else if (_state == ConnectionState.Terminated) {
+    } else if (_state.isTerminated) {
       throw new StateError(
           'The http/2 connection is no longer active and can therefore not be '
           'used to make new streams.');

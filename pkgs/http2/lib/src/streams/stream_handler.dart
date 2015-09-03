@@ -171,6 +171,18 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     });
   }
 
+  void processGoawayFrame(GoawayFrame frame) {
+    var lastStreamId = frame.lastStreamId;
+    var streamIds = _openStreams.keys
+        .where((id) => id > lastStreamId && !_isPeerInitiatedStream(id))
+        .toList();
+    for (int id in streamIds) {
+      var exception = new StreamException(id,
+          'Remote end was telling us to stop. This stream was not processed '
+          'and can therefore be retried (on a new connection).');
+      _closeStreamIdAbnormally(id, exception, propagateException: true);
+    }
+  }
 
   ////////////////////////////////////////////////////////////////////////////
   //// New local/remote Stream handling
@@ -427,9 +439,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     //     the connection flow-control window. Failure to process these
     //     frames can cause flow control or header compression state to become
     //     unsynchronized.
-    // TODO: It is not completely clear what "discard" means. I would assume we
-    // should send an [RstFrame] back with [ErrorCode.REFUSED_STREAM].
-    if (connectionState == ConnectionState.Finishing &&
+    if (connectionState.activeFinishing &&
         _isPeerInitiatedStream(frame.header.streamId) &&
         frame.header.streamId > highestPeerInitiatedStream) {
       // Even if the frame will be ignored, we still need to process it in a
@@ -671,10 +681,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     onCheckForClose();
   }
 
-  void _closeStreamIdAbnormally(int streamId, Exception exception) {
+  void _closeStreamIdAbnormally(int streamId, Exception exception,
+                                {bool propagateException: false}) {
     Http2StreamImpl stream = _openStreams[streamId];
     if (stream != null) {
-      _closeStreamAbnormally(stream, exception);
+      _closeStreamAbnormally(
+          stream, exception, propagateException: propagateException);
     }
   }
 

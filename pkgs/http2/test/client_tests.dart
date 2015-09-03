@@ -408,6 +408,61 @@ main() {
 
         await Future.wait([serverFun(), clientFun()]);
       });
+
+      clientTest('goaway-terminates-nonprocessed-streams',
+          (ClientTransportConnection client,
+           FrameWriter serverWriter,
+           StreamIterator<Frame> serverReader,
+           Future<Frame> nextFrame()) async {
+
+        var settingsDone = new Completer();
+
+        Future serverFun() async {
+          var decoder = new HPackDecoder();
+
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          settingsDone.complete();
+
+          // Make sure we got the new stream.
+          var frame = await nextFrame();
+          expect(frame.hasEndStreamFlag, false);
+          var decodedHeaders = decoder.decode(frame.headerBlockFragment);
+          expect(decodedHeaders, hasLength(1));
+          expect(decodedHeaders[0], isHeader('a', 'b'));
+
+          // Send the GoawayFrame.
+          serverWriter.writeGoawayFrame(
+              0, ErrorCode.NO_ERROR, []);
+
+          // Since there are no open streams left, the other end should just
+          // close the connection.
+          expect(await serverReader.moveNext(), false);
+        }
+
+        Future clientFun() async {
+          await settingsDone.future;
+
+          // Make a new stream and terminate it.
+          var stream = client.makeRequest(
+              [new Header.ascii('a', 'b')], endStream: false);
+
+          // Make sure we don't get messages/pushes on the terminated stream.
+          stream.incomingMessages.toList().catchError(expectAsync((e) {
+            expect('$e', contains('This stream was not processed and can '
+                                  'therefore be retried.'));
+          }));
+          expect(await stream.peerPushes.toList(), isEmpty);
+
+          // Try to gracefully finish the connection.
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
     });
   });
 }
