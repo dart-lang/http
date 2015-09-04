@@ -163,6 +163,9 @@ class ConnectionMessageQueueIn extends Object
   /// control window.
   final IncomingWindowHandler _windowUpdateHandler;
 
+  /// Catches any protocol errors and acts upon them.
+  final Function _catchProtocolErrors;
+
   /// A mapping from stream-id to the corresponding stream-specific
   /// [StreamMessageQueueIn].
   final Map<int, StreamMessageQueueIn> _stream2messageQueue = {};
@@ -175,7 +178,8 @@ class ConnectionMessageQueueIn extends Object
   /// to the stream-specific queue. (for debugging purposes)
   int _count = 0;
 
-  ConnectionMessageQueueIn(this._windowUpdateHandler);
+  ConnectionMessageQueueIn(this._windowUpdateHandler,
+                           this._catchProtocolErrors);
 
   void onTerminated(error) {
     // NOTE: The higher level will be shutdown first, so all streams
@@ -211,7 +215,9 @@ class ConnectionMessageQueueIn extends Object
     _stream2messageQueue[streamId] = mq;
 
     mq.bufferIndicator.bufferEmptyEvents.listen((_) {
-      _tryDispatch(streamId, mq, pendingMessages);
+      _catchProtocolErrors(() {
+        _tryDispatch(streamId, mq, pendingMessages);
+      });
     });
   }
 

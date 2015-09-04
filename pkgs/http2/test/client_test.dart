@@ -6,10 +6,12 @@ library http2.test.client_tests;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:test/test.dart';
 
 import 'package:http2/transport.dart';
+import 'package:http2/src/flowcontrol/window.dart';
 import 'package:http2/src/connection_preface.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/hpack/hpack.dart';
@@ -348,6 +350,61 @@ main() {
 
         await Future.wait([serverFun(), clientFun()]);
       });
+
+      clientTest('client-reports-flowcontrol-error-on-negative-window',
+          (ClientTransportConnection client,
+           FrameWriter serverWriter,
+           StreamIterator<Frame> serverReader,
+           Future<Frame> nextFrame()) async {
+
+        var handshakeCompleter = new Completer();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          handshakeCompleter.complete();
+
+          HeadersFrame headers = await nextFrame();
+          int streamId = headers.header.streamId;
+
+          // Write more than [kFlowControlWindowSize] bytes.
+          final int kFlowControlWindowSize = new Window().size;
+          int sentBytes = 0;
+          final bytes = new Uint8List(1024);
+          while (sentBytes <= kFlowControlWindowSize) {
+            serverWriter.writeDataFrame(streamId, bytes);
+            sentBytes += bytes.length;
+          }
+
+          // Read the resulting [GoawayFrame] and assert the error message
+          // describes that the flow control window became negative.
+          GoawayFrame frame = await nextFrame();
+          expect(ASCII.decode(frame.debugData),
+                 contains('Connection level flow control window became '
+                          'negative.'));
+          expect(await serverReader.moveNext(), false);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var sub = stream.incomingMessages.listen(
+              expectAsync((StreamMessage msg) {}, count: 0),
+              onError: expectAsync((error) {}));
+          sub.pause();
+          await new Future.delayed(const Duration(milliseconds: 40));
+          sub.resume();
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
     });
 
     group('client-errors', () {
@@ -453,7 +510,7 @@ main() {
           // Make sure we don't get messages/pushes on the terminated stream.
           stream.incomingMessages.toList().catchError(expectAsync((e) {
             expect('$e', contains('This stream was not processed and can '
-                                  'therefore be retried.'));
+                                  'therefore be retried'));
           }));
           expect(await stream.peerPushes.toList(), isEmpty);
 

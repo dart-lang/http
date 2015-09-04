@@ -128,7 +128,9 @@ abstract class Connection {
     var incomingFrames = new FrameReader(
         incoming, acknowledgedSettings).startDecoding();
     _frameReaderSubscription = incomingFrames.listen(
-        _handleFrame,
+        (Frame frame) {
+          _catchProtocolErrors(() => _handleFrameImpl(frame));
+        },
         onError: (stack, error) {
           _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
         }, onDone: () {
@@ -163,7 +165,9 @@ abstract class Connection {
     });
 
     _settingsHandler.onInitialWindowSizeChange.listen((int difference) {
-      _streams.processInitialWindowSizeSettingChange(difference);
+      _catchProtocolErrors(() {
+        _streams.processInitialWindowSizeSettingChange(difference);
+      });
     });
 
 
@@ -179,7 +183,7 @@ abstract class Connection {
     _outgoingQueue = new ConnectionMessageQueueOut(
         _connectionWindowHandler, _frameWriter);
     _incomingQueue = new ConnectionMessageQueueIn(
-        connectionWindowUpdater);
+        connectionWindowUpdater, _catchProtocolErrors);
 
     if (isClientConnection) {
       _streams = new StreamHandler.client(
@@ -253,10 +257,10 @@ abstract class Connection {
     return _terminate(ErrorCode.NO_ERROR);
   }
 
-  /// Handles an incoming [Frame] from the underlying [FrameReader].
-  void _handleFrame(Frame frame) {
+  /// Invokes the passed in closure and catches any exceptions.
+  void _catchProtocolErrors(void fn()) {
     try {
-      _handleFrameImpl(frame);
+      fn();
     } on ProtocolException catch (error) {
       _terminate(ErrorCode.PROTOCOL_ERROR, message: '$error');
     } on FlowControlException catch (error) {
@@ -417,8 +421,7 @@ class ClientConnection extends Connection implements ClientTransportConnection {
     return new ClientConnection._(incoming, outgoing, clientSettings);
   }
 
-  bool get isOpen => _state != ConnectionState.Finishing &&
-                     _state != ConnectionState.Terminated;
+  bool get isOpen => !_state.isFinishing && !_state.isTerminated;
 
   TransportStream makeRequest(List<Header> headers, {bool endStream: false}) {
     if (_state.isFinishing) {

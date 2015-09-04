@@ -114,7 +114,7 @@ main() {
 
       var windowMock = new MockIncomingWindowHandler();
 
-      var queue = new ConnectionMessageQueueIn(windowMock);
+      var queue = new ConnectionMessageQueueIn(windowMock, (f) => f());
       expect(queue.pendingMessages, 0);
 
       var streamQueueMock = new MockStreamMessageQueueIn();
@@ -154,7 +154,7 @@ main() {
       final bytes = [1, 2, 3];
 
       var windowMock = new MockIncomingWindowHandler();
-      var queue = new ConnectionMessageQueueIn(windowMock);
+      var queue = new ConnectionMessageQueueIn(windowMock, (f) => f());
 
       // Insert a [DataFrame] and let it be buffered.
       var header = new FrameHeader(0, 0, 0, STREAM_ID);

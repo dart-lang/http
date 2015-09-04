@@ -125,7 +125,29 @@ class IncomingWindowHandler {
     // If this turns negative, it means the remote end send us more data
     // then we announced we can handle (i.e. the remote window size must be
     // negative).
-    // FIXME/TODO: We should in such a case terminate the connection.
+    //
+    // NOTE: [_localWindow.size] tracks the amount of data we advertised that we
+    // can handle. The value can change in three situations:
+    //
+    //    a) We received data from the remote end (we can handle now less data)
+    //         => This is handled by [gotData].
+    //
+    //    b) We processed data from the remote end (we can handle now more data)
+    //         => This is handled by [dataProcessed].
+    //
+    //    c) We increase/decrease the initial steram window size after the
+    //       stream was created (newer streams will start with the changed
+    //       initial stream window size).
+    //         => This is not an issue, because we don't support changing the
+    //            initial window size later on -- only during the initial
+    //            settings exchange. Since streams (and therefore instances
+    //            of [IncomingWindowHandler]) are only created after sending out
+    //            our initial settings.
+    //
+    if (_localWindow.size < 0) {
+      throw new FlowControlException(
+          'Connection level flow control window became negative.');
+    }
   }
 
   /// Tell the peer we received [numberOfBytes] bytes. It will increase it's
