@@ -8,7 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http2/client.dart';
+import 'package:http2/src/testing/client.dart';
 import 'package:test/test.dart';
 
 main() async {

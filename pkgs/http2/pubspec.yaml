@@ -1,11 +1,11 @@
 name: http2
-version: 0.0.1
+version: 0.1.0
 description: A HTTP/2 implementation in dart.
 author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/dart-lang/http2
 
 environment:
-  sdk: '>=1.13.0-edge.1015c7f4ffb04c8a1ce541d2101893b19d0e44fd <2.0.0'
+  sdk: '>=1.13.0-dev.1 <2.0.0'
 
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'

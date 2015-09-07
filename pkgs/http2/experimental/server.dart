@@ -8,7 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http2/debug.dart' hide print;
+import 'package:http2/src/debug.dart' hide print;
 import 'package:http2/transport.dart';
 
 const bool DEBUGGING = false;
