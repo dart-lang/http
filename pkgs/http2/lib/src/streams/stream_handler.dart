@@ -543,7 +543,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         } else if (frame is WindowUpdateFrame) {
           _handleWindowUpdate(stream, frame);
         } else if (frame is RstStreamFrame) {
-          // TODO
+          _handleRstFrame(stream, frame);
         } else {
           throw new ProtocolException(
               'Unsupported frame type ${frame.runtimeType}.');
@@ -595,6 +595,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void _handleWindowUpdate(Http2StreamImpl stream, WindowUpdateFrame frame) {
     stream.windowHandler.processWindowUpdate(frame);
+  }
+
+  void _handleRstFrame(Http2StreamImpl stream, RstStreamFrame frame) {
+    var exception = new StreamException(
+        stream.id, 'Stream was terminated by peer.');
+    _closeStreamAbnormally(stream, exception, propagateException: true);
   }
 
   void _handleEndOfStreamRemote(Http2StreamImpl stream) {
@@ -696,7 +702,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
                               {bool propagateException: false}) {
     incomingQueue.removeStreamMessageQueue(stream.id);
 
-    _changeState(stream, StreamState.Terminated);
+    if (stream.state != StreamState.Terminated) {
+      _changeState(stream, StreamState.Terminated);
+    }
     stream.incomingQueue.terminate(propagateException ? exception : null);
     stream._outgoingCSubscription.cancel();
 

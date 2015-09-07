@@ -172,6 +172,59 @@ main() {
       await Future.wait([serverFun(), clientFun()]);
     });
 
+    transportTest('client-terminates-stream',
+        (ClientTransportConnection client,
+         ServerTransportConnection server) async {
+
+      var readyForError = new Completer();
+
+      Future serverFun() async {
+        await for (ServerTransportStream stream in server.incomingStreams) {
+          stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
+          stream.incomingMessages.listen(expectAsync((msg) {
+            expect(msg is HeadersStreamMessage, true);
+            readyForError.complete();
+          }), onError: expectAsync((error) {
+            expect('$error', contains('Stream was terminated by peer'));
+          }));
+        }
+        await server.finish();
+      }
+
+      Future clientFun() async {
+        var headers = [new Header.ascii('a', 'b')];
+        var stream = client.makeRequest(headers, endStream: false);
+        await readyForError.future;
+        stream.terminate();
+        await client.finish();
+      }
+
+      await Future.wait([serverFun(), clientFun()]);
+    });
+
+    transportTest('server-terminates-stream',
+        (ClientTransportConnection client,
+         ServerTransportConnection server) async {
+
+      Future serverFun() async {
+        await for (ServerTransportStream stream in server.incomingStreams) {
+          stream.terminate();
+        }
+        await server.finish();
+      }
+
+      Future clientFun() async {
+        var headers = [new Header.ascii('a', 'b')];
+        var stream = client.makeRequest(headers, endStream: true);
+        await stream.incomingMessages.toList().catchError(expectAsync((error) {
+          expect('$error', contains('Stream was terminated by peer'));
+        }));
+        await client.finish();
+      }
+
+      await Future.wait([serverFun(), clientFun()]);
+    });
+
     group('flow-control', () {
       const int kChunkSize = 1024;
       const int kNumberOfMessages = 1000;

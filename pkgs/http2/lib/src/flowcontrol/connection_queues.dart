@@ -303,9 +303,6 @@ class ConnectionMessageQueueIn extends Object
       }
       mq.enqueueMessage(message);
       if (message.endStream) {
-        // FIXME: This should be turned into a check and we should
-        // raise a protocol error if we ever get a message on a stream
-        // which has been closed.
         assert (pendingMessages.isEmpty);
 
         _stream2messageQueue.remove(streamId);
