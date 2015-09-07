@@ -2,6 +2,100 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+/// This library provides an http/2 interface on top of a bidirectional stream
+/// of bytes.
+///
+/// The client and server sides can be created via [ClientTransportStream] and
+/// [ServerTransportStream] respectively. Both sides can be configured via
+/// settings (see [ClientSettings] and [ServerSettings]). The settings will be
+/// communicated to the remote peer (if necessary) and will be valid during the
+/// entire lifetime of the connection.
+///
+/// A http/2 transport allows a client to open a bidirectional stream (see
+/// [ClientTransportConnection.makeRequest]) and a server can open (or push) a
+/// unidirectional stream to the client via [ServerTransportStream.push].
+///
+/// In both cases (unidirectional and bidirectional stream), one can send
+/// headers and data to the other side (via [HeadersStreamMessage] and
+/// [DataStreamMessage]). These messages are ordered and will arrive in the same
+/// order as they were sent (data messages may be split up into multiple smaller
+/// chunks or might be combined).
+///
+/// In the most common case, each direction will send one [HeadersStreamMessage]
+/// followed by zero or more [DataStreamMessage]s.
+///
+/// Establishing a bidirectional stream of bytes to a server is up to the user
+/// of this library. There are 3 common ways to achive this
+///
+///     * connect to a server via SSL and use the ALPN (SSL) protocol extension
+///       to negogiate with the server to speak http/2 (the ALPN protocol
+///       identifier for http/2 is `h2`)
+///
+///     * have prior knowledge about the server - i.e. know ahead of time that
+///       the server will speak http/2 via an unencrypted tcp connection
+///
+///     * use a http/1.1 connection and upgrade it to http/2
+///
+/// The first way is the most common way and can be done in Dart by using
+/// `dart:io`s secure socket implementation (by using a `SecurityContext` and
+/// including 'h2' in the list of protocols used for ALPN).
+///
+/// Here is a simple example on how to connect to a http/2 capable server and
+/// requesting a resource:
+///
+///     import 'dart:async';
+///     import 'dart:convert';
+///     import 'dart:io';
+///
+///     import 'package:http2/transport.dart';
+///
+///     main() async {
+///       var uri = Uri.parse("https://www.google.com/");
+///
+///       var socket = await connect(uri);
+///
+///       // The default client settings will disable server pushes. We
+///       // therefore do not need to deal with [stream.peerPushes].
+///       var transport = new ClientTransportConnection.viaSocket(socket);
+///
+///       var headers = [
+///         new Header.ascii(':method', 'GET'),
+///         new Header.ascii(':path', uri.path),
+///         new Header.ascii(':scheme', uri.scheme),
+///         new Header.ascii(':authority', uri.host),
+///       ];
+///
+///       var stream = transport.makeRequest(headers, endStream: true);
+///       await for (var message in stream.incomingMessages) {
+///         if (message is HeadersStreamMessage) {
+///           for (var header in message.headers) {
+///             var name = UTF8.decode(header.name);
+///             var value = UTF8.decode(header.value);
+///             print('$name: $value');
+///           }
+///         } else if (message is DataStreamMessage) {
+///           // Use [message.bytes] (but respect 'content-encoding' header)
+///         }
+///       }
+///       await transport.finish();
+///     }
+///
+///     Future<Socket> connect(Uri uri) async {
+///       bool useSSL = uri.scheme == 'https';
+///       if (useSSL) {
+///         var secureSocket = await SecureSocket.connect(
+///             uri.host, uri.port, supportedProtocols: ['h2']);
+///         if (secureSocket.selectedProtocol != 'h2') {
+///           throw new Exception(
+///               "Failed to negogiate http/2 via alpn. Maybe server "
+///               "doesn't support http/2.");
+///         }
+///         return secureSocket;
+///       } else {
+///         return await Socket.connect(uri.host, uri.port);
+///       }
+///     }
+///
 library http2.transport;
 
 import 'dart:async';
@@ -213,7 +307,7 @@ class TransportConnectionException extends TransportException {
       : super('Connection error: $details');
 }
 
-/// An exception thrown when a HTTP/2 connection error occured.
+/// An exception thrown when a HTTP/2 stream error occured.
 class StreamTransportException extends TransportException {
   StreamTransportException(String details)
       : super('Stream error: $details');

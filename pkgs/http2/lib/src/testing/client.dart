@@ -8,7 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'transport.dart';
+import '../../transport.dart';
 
 class Request {
   final String method;
@@ -31,7 +31,6 @@ class ServerPush {
 
   ServerPush(this.requestHeaders, this.response);
 }
-
 
 class ClientConnection {
   final ClientTransportConnection connection;
@@ -116,7 +115,6 @@ class ClientConnection {
     }
     return headerMap;
   }
-
 }
 
 /// Tries to connect to [uri] via a secure socket connection and establishes a

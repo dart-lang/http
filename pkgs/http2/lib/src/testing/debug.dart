@@ -9,12 +9,11 @@ import 'dart:io';
 import 'dart:io' show stderr;
 import 'dart:convert';
 
-import 'src/connection.dart';
-import 'src/connection_preface.dart';
-import 'src/frames/frames.dart';
-import 'src/settings/settings.dart';
+import '../connection_preface.dart';
+import '../frames/frames.dart';
+import '../settings/settings.dart';
 
-import 'transport.dart';
+import '../../transport.dart';
 
 final jsonEncoder = new JsonEncoder.withIndent('  ');
 
