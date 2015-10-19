@@ -70,6 +70,23 @@ void main() {
       expect(
           type.parameters, equals({"foo": "bar space", "baz": "bang\\escape"}));
     });
+
+    test("lower-cases type and subtype", () {
+      var type = new MediaType.parse('TeXt/pLaIn');
+      expect(type.type, equals("text"));
+      expect(type.subtype, equals("plain"));
+      expect(type.mimeType, equals("text/plain"));
+    });
+
+    test("records parameters as case-insensitive", () {
+      var type = new MediaType.parse('test/plain;FoO=bar;bAz=bang');
+      expect(type.parameters, equals({
+        "FoO": "bar",
+        "bAz": "bang"
+      }));
+      expect(type.parameters, containsPair("foo", "bar"));
+      expect(type.parameters, containsPair("baz", "bang"));
+    });
   });
 
   group("change", () {

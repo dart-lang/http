@@ -1,3 +1,9 @@
+## 1.1.0
+
+* The MIME spec says that media types and their parameter names are
+  case-insensitive. Accordingly, `MediaType` now uses a case-insensitive map for
+  its parameters and its `type` and `subtype` fields are now always lowercase.
+
 ## 1.0.0
 
 This is 1.0.0 because the API is stable—there are no breaking changes.

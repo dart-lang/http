@@ -7,6 +7,7 @@ library http_parser.media_type;
 import 'package:collection/collection.dart';
 import 'package:string_scanner/string_scanner.dart';
 
+import 'case_insensitive_map.dart';
 import 'scan.dart';
 import 'utils.dart';
 
@@ -21,14 +22,18 @@ final _escapedChar = new RegExp(r'["\x00-\x1F\x7F]');
 /// calling [change].
 class MediaType {
   /// The primary identifier of the MIME type.
+  ///
+  /// This is always lowercase. 
   final String type;
 
   /// The secondary identifier of the MIME type.
+  ///
+  /// This is always lowercase. 
   final String subtype;
 
   /// The parameters to the media type.
   ///
-  /// This map is immutable.
+  /// This map is immutable and the keys are case-insensitive.
   final Map<String, String> parameters;
 
   /// The media type's MIME type.
@@ -73,9 +78,11 @@ class MediaType {
     });
   }
 
-  MediaType(this.type, this.subtype, [Map<String, String> parameters])
-      : this.parameters = new UnmodifiableMapView(
-          parameters == null ? {} : new Map.from(parameters));
+  MediaType(String type, String subtype, [Map<String, String> parameters])
+      : type = type.toLowerCase(),
+        subtype = subtype.toLowerCase(),
+        parameters = new UnmodifiableMapView(
+            parameters == null ? {} : new CaseInsensitiveMap.from(parameters));
 
   /// Returns a copy of this [MediaType] with some fields altered.
   ///
