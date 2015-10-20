@@ -1,5 +1,7 @@
 ## 1.1.0
 
+* Added a `DataUri` class for encoding and decoding data URIs.
+
 * The MIME spec says that media types and their parameter names are
   case-insensitive. Accordingly, `MediaType` now uses a case-insensitive map for
   its parameters and its `type` and `subtype` fields are now always lowercase.
