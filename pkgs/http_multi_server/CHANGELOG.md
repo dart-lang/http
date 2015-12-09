@@ -1,3 +1,13 @@
+## 2.0.0
+
+* **Breaking:** Change the signature of `HttpMultiServer.loopbackSecure()` to
+  match the new Dart 1.13 `HttpServer.bindSecure()` signature. This removes the
+  `certificateName` named parameter and adds the required `context` parameter
+  and the named `v6Only` and `shared` parameters.
+
+* Added `v6Only` and `shared` parameters to `HttpMultiServer.loopback()` to
+  match `HttpServer.bind()`.
+
 ## 1.3.2
 
 * Eventually stop retrying port allocation if it fails repeatedly.

@@ -93,33 +93,27 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// Creates an [HttpServer] listening on all available loopback addresses for
   /// this computer.
   ///
-  /// If this computer supports both IPv4 and IPv6, this returns an
-  /// [HttpMultiServer] listening to [port] on both loopback addresses.
-  /// Otherwise, it returns a normal [HttpServer] listening only on the IPv4
-  /// address.
-  ///
-  /// If [port] is 0, the same ephemeral port is used for both the IPv4 and IPv6
-  /// addresses.
-  static Future<HttpServer> loopback(int port, {int backlog}) {
+  /// See [HttpServer.bind].
+  static Future<HttpServer> loopback(int port, {int backlog, bool v6Only: false,
+        bool shared: false}) {
     if (backlog == null) backlog = 0;
 
     return _loopback(port, (address, port) =>
-        HttpServer.bind(address, port, backlog: backlog));
+        HttpServer.bind(address, port,
+            backlog: backlog, v6Only: v6Only, shared: shared));
   }
 
   /// Like [loopback], but supports HTTPS requests.
   ///
-  /// The certificate with nickname or distinguished name (DN) [certificateName]
-  /// is looked up in the certificate database, and is used as the server
-  /// certificate. If [requestClientCertificate] is true, the server will
-  /// request clients to authenticate with a client certificate.
-  static Future<HttpServer> loopbackSecure(int port, {int backlog,
-      String certificateName, bool requestClientCertificate: false}) {
+  /// See [HttpServer.bindSecure].
+  static Future<HttpServer> loopbackSecure(int port, SecurityContext context,
+      {int backlog, bool v6Only: false, bool requestClientCertificate: false,
+      bool shared: false}) {
     if (backlog == null) backlog = 0;
 
     return _loopback(port, (address, port) =>
-        HttpServer.bindSecure(address, port, backlog: backlog,
-            certificateName: certificateName,
+        HttpServer.bindSecure(address, port, context,
+            backlog: backlog, v6Only: v6Only, shared: shared,
             requestClientCertificate: requestClientCertificate));
   }
 
