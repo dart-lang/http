@@ -6,7 +6,6 @@ library http_parser;
 
 export 'src/authentication_challenge.dart';
 export 'src/case_insensitive_map.dart';
-export 'src/data_uri.dart';
 export 'src/http_date.dart';
 export 'src/media_type.dart';
 export 'src/web_socket.dart';

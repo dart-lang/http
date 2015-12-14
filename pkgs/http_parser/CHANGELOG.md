@@ -1,6 +1,10 @@
-## 1.1.0
+## 2.0.0
 
-* Added a `DataUri` class for encoding and decoding data URIs.
+* Removed the `DataUri` class. It's redundant with the `Uri.data` getter that's
+  coming in Dart 1.14, and the `DataUri.data` field in particular was an invalid
+  override of that field.
+
+## 1.1.0
 
 * The MIME spec says that media types and their parameter names are
   case-insensitive. Accordingly, `MediaType` now uses a case-insensitive map for
