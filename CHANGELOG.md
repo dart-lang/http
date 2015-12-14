@@ -1,3 +1,7 @@
+## 0.11.3+3
+
+* Support `http_parser` 2.0.0.
+
 ## 0.11.3+2
 
 * Require Dart SDK >= 1.9.0
