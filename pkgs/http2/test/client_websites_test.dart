@@ -124,6 +124,8 @@ Future<String> readBody(Response response) async {
   var stream = response.stream;
   if (response.headers['content-encoding']?.join('') == 'gzip') {
     stream = stream.transform(GZIP.decoder);
+  } else if (response.headers['content-encoding']?.join('') == 'deflate') {
+    stream = stream.transform(ZLIB.decoder);
   }
   return await stream.transform(UTF8.decoder).join('');
 }

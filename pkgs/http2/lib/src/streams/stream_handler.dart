@@ -197,10 +197,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   TransportStream newStream(List<Header> headers, {bool endStream: false}) {
     return ensureNotTerminatedSync(() {
       var stream = newLocalStream();
-      _sendHeaders(stream, headers);
-      if (endStream) {
-        _handleOutgoingClose(stream);
-      }
+      _sendHeaders(stream, headers, endStream: endStream);
       return stream;
     });
   }
