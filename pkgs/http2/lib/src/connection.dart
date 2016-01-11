@@ -131,7 +131,7 @@ abstract class Connection {
         (Frame frame) {
           _catchProtocolErrors(() => _handleFrameImpl(frame));
         },
-        onError: (stack, error) {
+        onError: (error, stack) {
           _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
         }, onDone: () {
           _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
