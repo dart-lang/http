@@ -9,8 +9,6 @@
 /// spec][spec].
 ///
 /// [spec]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html
-library http_parser.scan;
-
 import 'package:string_scanner/string_scanner.dart';
 
 /// An HTTP token.

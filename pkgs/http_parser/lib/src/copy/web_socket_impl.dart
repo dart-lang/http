@@ -11,8 +11,6 @@
 //
 // This is up-to-date as of sdk revision
 // 86227840d75d974feb238f8b3c59c038b99c05cf.
-library http_parser.copy.web_socket_impl;
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';

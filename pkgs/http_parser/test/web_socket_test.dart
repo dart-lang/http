@@ -4,8 +4,6 @@
 
 @TestOn('vm')
 
-library http_parser.web_socket_test;
-
 import 'dart:io';
 
 import 'package:http_parser/http_parser.dart';

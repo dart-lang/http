@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library http_parser;
-
 export 'src/authentication_challenge.dart';
 export 'src/case_insensitive_map.dart';
 export 'src/http_date.dart';
