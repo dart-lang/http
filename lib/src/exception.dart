@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library http.exception;
-
 /// An exception caused by an error in a pkg/http client.
 class ClientException implements Exception {
   final String message;

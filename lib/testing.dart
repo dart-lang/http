@@ -21,6 +21,4 @@
 ///         'content-type': 'application/json'
 ///       });
 ///     };
-library http.testing;
-
 export 'src/mock_client.dart';
