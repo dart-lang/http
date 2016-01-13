@@ -4,8 +4,12 @@
 
 import 'dart:html';
 
+import '../utils.dart' show echoPort;
 export '../utils.dart';
 
-/// The test server's echo URL.
-Uri get echoUrl => Uri.parse(
-    '${window.location.protocol}//${window.location.host}/echo');
+/// The echo server's URL.
+Uri get echoUrl {
+  var protocol = 'http';
+  var host = window.location.host.split(':')[0];
+  return Uri.parse('$protocol://$host:$echoPort');
+}

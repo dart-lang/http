@@ -8,6 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:test/test.dart';
 
+/// Port for an Echo http server
+const echoPort = 8395;
+
 /// A dummy URL for constructing requests that won't be sent.
 Uri get dummyUrl => Uri.parse('http://dartlang.org/');
 
