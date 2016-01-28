@@ -1,15 +1,21 @@
 name: http_parser
-version: 2.0.0
+version: 2.1.0-dev
 author: "Dart Team <misc@dartlang.org>"
 homepage: https://github.com/dart-lang/http_parser
 description: >
   A platform-independent package for parsing and serializing HTTP formats.
 dependencies:
+  async: "^1.3.0"
   collection: ">=0.9.1 <2.0.0"
   crypto: "^0.9.0"
   source_span: "^1.0.0"
+  stream_channel: "^1.0.0"
   string_scanner: ">=0.0.0 <0.2.0"
 dev_dependencies:
   test: "^0.12.0"
 environment:
   sdk: ">=1.8.0 <2.0.0"
+
+dependency_overrides:
+  stream_channel:
+    git: git://github.com/dart-lang/stream_channel.git

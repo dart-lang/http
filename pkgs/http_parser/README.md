@@ -10,9 +10,9 @@ It includes:
   and `Content-Type` headers. This class supports both parsing and formatting
   media types according to [HTTP/1.1][2616].
 
-* A `CompatibleWebSocket` class that supports both the client and server sides
-  of the [WebSocket protocol][6455] independently of any specific server
-  implementation.
+* A `WebSocketChannel` class that provides a `StreamChannel` interface for both
+  the client and server sides of the [WebSocket protocol][6455] independently of
+  any specific server implementation.
 
 [2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html
 [6455]: https://tools.ietf.org/html/rfc6455

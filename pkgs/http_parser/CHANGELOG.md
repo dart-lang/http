@@ -1,3 +1,10 @@
+## 2.1.0
+
+* Added `WebSocketChannel`, an implementation of `StreamChannel` that's backed
+  by a `WebSocket`.
+
+* Deprecated `CompatibleWebSocket` in favor of `WebSocketChannel`.
+
 ## 2.0.0
 
 * Removed the `DataUri` class. It's redundant with the `Uri.data` getter that's

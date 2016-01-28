@@ -7,11 +7,13 @@
 import 'dart:io';
 
 import 'package:http_parser/http_parser.dart';
+import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test("a client can communicate with a WebSocket server", () {
-    return HttpServer.bind("localhost", 0).then((server) {
+  group("using WebSocketChannel", () {
+    test("a client can communicate with a WebSocket server", () async {
+      var server = await HttpServer.bind("localhost", 0);
       server.transform(new WebSocketTransformer()).listen((webSocket) {
         webSocket.add("hello!");
         webSocket.listen((request) {
@@ -22,39 +24,38 @@ void main() {
       });
 
       var client = new HttpClient();
-      return client
-          .openUrl("GET", Uri.parse("http://localhost:${server.port}"))
-          .then((request) {
-        request.headers
-          ..set("Connection", "Upgrade")
-          ..set("Upgrade", "websocket")
-          ..set("Sec-WebSocket-Key", "x3JJHMbDL1EzLkh9GBhXDw==")
-          ..set("Sec-WebSocket-Version", "13");
-        return request.close();
-      }).then((response) => response.detachSocket()).then((socket) {
-        var webSocket = new CompatibleWebSocket(socket, serverSide: false);
+      var request = await client.openUrl(
+          "GET", Uri.parse("http://localhost:${server.port}"));
+      request.headers
+        ..set("Connection", "Upgrade")
+        ..set("Upgrade", "websocket")
+        ..set("Sec-WebSocket-Key", "x3JJHMbDL1EzLkh9GBhXDw==")
+        ..set("Sec-WebSocket-Version", "13");
 
-        var n = 0;
-        return webSocket.listen((message) {
-          if (n == 0) {
-            expect(message, equals("hello!"));
-            webSocket.add("ping");
-          } else if (n == 1) {
-            expect(message, equals("pong"));
-            webSocket.close();
-            server.close();
-          } else {
-            fail("Only expected two messages.");
-          }
-          n++;
-        }).asFuture();
-      });
+      var response = await request.close();
+      var socket = await response.detachSocket();
+      var innerChannel = new StreamChannel(socket, socket);
+      var webSocket = new WebSocketChannel(innerChannel, serverSide: false);
+
+      var n = 0;
+      await webSocket.stream.listen((message) {
+        if (n == 0) {
+          expect(message, equals("hello!"));
+          webSocket.sink.add("ping");
+        } else if (n == 1) {
+          expect(message, equals("pong"));
+          webSocket.sink.close();
+          server.close();
+        } else {
+          fail("Only expected two messages.");
+        }
+        n++;
+      }).asFuture();
     });
-  });
 
-  test("a server can communicate with a WebSocket client", () {
-    return HttpServer.bind("localhost", 0).then((server) {
-      server.listen((request) {
+    test("a server can communicate with a WebSocket client", () async {
+      var server = await HttpServer.bind("localhost", 0);
+      server.listen((request) async {
         var response = request.response;
         response.statusCode = 101;
         response.headers
@@ -63,34 +64,119 @@ void main() {
           ..set("Sec-WebSocket-Accept", CompatibleWebSocket
               .signKey(request.headers.value('Sec-WebSocket-Key')));
         response.contentLength = 0;
-        response.detachSocket().then((socket) {
-          var webSocket = new CompatibleWebSocket(socket);
+
+        var socket = await response.detachSocket();
+        var innerChannel = new StreamChannel(socket, socket);
+        var webSocket = new WebSocketChannel(innerChannel);
+        webSocket.sink.add("hello!");
+
+        var message = await webSocket.stream.first;
+        expect(message, equals("ping"));
+        webSocket.sink.add("pong");
+        webSocket.sink.close();
+      });
+
+      var webSocket = await WebSocket.connect('ws://localhost:${server.port}');
+      var n = 0;
+      await webSocket.listen((message) {
+        if (n == 0) {
+          expect(message, equals("hello!"));
+          webSocket.add("ping");
+        } else if (n == 1) {
+          expect(message, equals("pong"));
+          webSocket.close();
+          server.close();
+        } else {
+          fail("Only expected two messages.");
+        }
+        n++;
+      }).asFuture();
+    });
+  });
+
+  group("using CompatibleWebSocket", () {
+    test("a client can communicate with a WebSocket server", () {
+      return HttpServer.bind("localhost", 0).then((server) {
+        server.transform(new WebSocketTransformer()).listen((webSocket) {
           webSocket.add("hello!");
-          webSocket.first.then((request) {
+          webSocket.listen((request) {
             expect(request, equals("ping"));
             webSocket.add("pong");
             webSocket.close();
           });
         });
-      });
 
-      return WebSocket
-          .connect('ws://localhost:${server.port}')
-          .then((webSocket) {
-        var n = 0;
-        return webSocket.listen((message) {
-          if (n == 0) {
-            expect(message, equals("hello!"));
-            webSocket.add("ping");
-          } else if (n == 1) {
-            expect(message, equals("pong"));
-            webSocket.close();
-            server.close();
-          } else {
-            fail("Only expected two messages.");
-          }
-          n++;
-        }).asFuture();
+        var client = new HttpClient();
+        return client
+            .openUrl("GET", Uri.parse("http://localhost:${server.port}"))
+            .then((request) {
+          request.headers
+            ..set("Connection", "Upgrade")
+            ..set("Upgrade", "websocket")
+            ..set("Sec-WebSocket-Key", "x3JJHMbDL1EzLkh9GBhXDw==")
+            ..set("Sec-WebSocket-Version", "13");
+          return request.close();
+        }).then((response) => response.detachSocket()).then((socket) {
+          var webSocket = new CompatibleWebSocket(socket, serverSide: false);
+
+          var n = 0;
+          return webSocket.listen((message) {
+            if (n == 0) {
+              expect(message, equals("hello!"));
+              webSocket.add("ping");
+            } else if (n == 1) {
+              expect(message, equals("pong"));
+              webSocket.close();
+              server.close();
+            } else {
+              fail("Only expected two messages.");
+            }
+            n++;
+          }).asFuture();
+        });
+      });
+    });
+
+    test("a server can communicate with a WebSocket client", () {
+      return HttpServer.bind("localhost", 0).then((server) {
+        server.listen((request) {
+          var response = request.response;
+          response.statusCode = 101;
+          response.headers
+            ..set("Connection", "Upgrade")
+            ..set("Upgrade", "websocket")
+            ..set("Sec-WebSocket-Accept", CompatibleWebSocket
+                .signKey(request.headers.value('Sec-WebSocket-Key')));
+          response.contentLength = 0;
+          response.detachSocket().then((socket) {
+            var webSocket = new CompatibleWebSocket(socket);
+            webSocket.add("hello!");
+            webSocket.first.then((request) {
+              expect(request, equals("ping"));
+              webSocket.add("pong");
+              webSocket.close();
+            });
+          });
+        });
+
+        return WebSocket
+            .connect('ws://localhost:${server.port}')
+            .then((webSocket) {
+          var n = 0;
+          return webSocket.listen((message) {
+            if (n == 0) {
+              expect(message, equals("hello!"));
+              webSocket.add("ping");
+            } else if (n == 1) {
+              expect(message, equals("pong"));
+              webSocket.close();
+              server.close();
+            } else {
+              fail("Only expected two messages.");
+            }
+            n++;
+          }).asFuture();
+        });
       });
     });
   });
