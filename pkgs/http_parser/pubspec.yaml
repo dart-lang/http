@@ -1,5 +1,5 @@
 name: http_parser
-version: 2.1.0-dev
+version: 2.1.0
 author: "Dart Team <misc@dartlang.org>"
 homepage: https://github.com/dart-lang/http_parser
 description: >
@@ -15,7 +15,3 @@ dev_dependencies:
   test: "^0.12.0"
 environment:
   sdk: ">=1.8.0 <2.0.0"
-
-dependency_overrides:
-  stream_channel:
-    git: git://github.com/dart-lang/stream_channel.git
