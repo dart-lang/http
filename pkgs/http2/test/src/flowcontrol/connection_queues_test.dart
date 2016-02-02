@@ -13,7 +13,6 @@ import 'package:http2/src/flowcontrol/connection_queues.dart';
 import 'package:http2/src/flowcontrol/stream_queues.dart';
 import 'package:http2/src/flowcontrol/queue_messages.dart';
 
-import '../error_matchers.dart';
 import '../mock_utils.dart';
 
 main() {
@@ -48,6 +47,7 @@ main() {
       // Send [DataMessage].
       c = new TestCounter(count: 2);
       windowMock.peerWindowSize = bytes.length;
+      windowMock.positiveWindow.markUnBuffered();
       windowMock.mock_decreaseWindow = (int difference) {
         expect(difference, bytes.length);
         c.got();

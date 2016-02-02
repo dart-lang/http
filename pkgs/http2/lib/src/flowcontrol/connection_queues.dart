@@ -80,59 +80,71 @@ class ConnectionMessageQueueOut extends Object
 
   void _trySendMessages() {
     if (!wasTerminated) {
-      _trySendMessage();
+      // We can make progress if
+      //   * there is at least one message to send
+      //   * the underlying frame writer / sink / socket doesn't block
+      //   * either one
+      //     * the next message is a non-flow control message (e.g. headers)
+      //     * the connection window is positive
 
-      // If we have more messages and we can send them, we'll run them
-      // using `Timer.run()` to let other things get in-between.
       if (_messages.length > 0 &&
-          !_connectionWindow.positiveWindow.wouldBuffer) {
-        // TODO: If all the frame writer methods would return an integer of the
-        // number of bytes written, we could just say, we loop here until 10kb
-        // and after words, we'll make `Timer.run()`.
-        Timer.run(_trySendMessages);
-      } else {
-        onCheckForClose();
+          !_frameWriter.bufferIndicator.wouldBuffer &&
+          (!_connectionWindow.positiveWindow.wouldBuffer ||
+           _messages.first is! DataMessage)) {
+        _trySendMessage();
+
+        // If we have more messages and we can send them, we'll run them
+        // using `Timer.run()` to let other things get in-between.
+        if (_messages.length > 0 &&
+            !_frameWriter.bufferIndicator.wouldBuffer &&
+            (!_connectionWindow.positiveWindow.wouldBuffer ||
+             _messages.first is! DataMessage)) {
+          // TODO: If all the frame writer methods would return the
+          // number of bytes written, we could just say, we loop here until 10kb
+          // and after words, we'll make `Timer.run()`.
+          Timer.run(_trySendMessages);
+        } else {
+          onCheckForClose();
+        }
       }
     }
   }
 
   void _trySendMessage() {
-    if (!_frameWriter.bufferIndicator.wouldBuffer && _messages.length > 0) {
-      Message message = _messages.first;
-      if (message is HeadersMessage) {
-        _messages.removeFirst();
-        _frameWriter.writeHeadersFrame(
-            message.streamId, message.headers, endStream: message.endStream);
-      } else if (message is PushPromiseMessage) {
-        _messages.removeFirst();
-        _frameWriter.writePushPromiseFrame(
-            message.streamId, message.promisedStreamId, message.headers);
-      } else if (message is DataMessage) {
-        _messages.removeFirst();
+    Message message = _messages.first;
+    if (message is HeadersMessage) {
+      _messages.removeFirst();
+      _frameWriter.writeHeadersFrame(
+          message.streamId, message.headers, endStream: message.endStream);
+    } else if (message is PushPromiseMessage) {
+      _messages.removeFirst();
+      _frameWriter.writePushPromiseFrame(
+          message.streamId, message.promisedStreamId, message.headers);
+    } else if (message is DataMessage) {
+      _messages.removeFirst();
 
-        if (_connectionWindow.peerWindowSize >= message.bytes.length) {
-          _connectionWindow.decreaseWindow(message.bytes.length);
-          _frameWriter.writeDataFrame(
-              message.streamId, message.bytes, endStream: message.endStream);
-        } else {
-          // NOTE: We need to fragment the DataMessage.
-          // TODO: Do not fragment if the number of bytes we can send is too low
-          int len = _connectionWindow.peerWindowSize;
-          var head = viewOrSublist(message.bytes, 0, len);
-          var tail = viewOrSublist(
-              message.bytes, len, message.bytes.length - len);
-
-          _connectionWindow.decreaseWindow(head.length);
-          _frameWriter.writeDataFrame(message.streamId, head, endStream: false);
-
-          var tailMessage =
-              new DataMessage(message.streamId, tail, message.endStream);
-          _messages.addFirst(tailMessage);
-        }
+      if (_connectionWindow.peerWindowSize >= message.bytes.length) {
+        _connectionWindow.decreaseWindow(message.bytes.length);
+        _frameWriter.writeDataFrame(
+            message.streamId, message.bytes, endStream: message.endStream);
       } else {
-        throw new StateError(
-            'Unexpected message in queue: ${message.runtimeType}');
+        // NOTE: We need to fragment the DataMessage.
+        // TODO: Do not fragment if the number of bytes we can send is too low
+        int len = _connectionWindow.peerWindowSize;
+        var head = viewOrSublist(message.bytes, 0, len);
+        var tail = viewOrSublist(
+            message.bytes, len, message.bytes.length - len);
+
+        _connectionWindow.decreaseWindow(head.length);
+        _frameWriter.writeDataFrame(message.streamId, head, endStream: false);
+
+        var tailMessage =
+            new DataMessage(message.streamId, tail, message.endStream);
+        _messages.addFirst(tailMessage);
       }
+    } else {
+      throw new StateError(
+          'Unexpected message in queue: ${message.runtimeType}');
     }
   }
 }
