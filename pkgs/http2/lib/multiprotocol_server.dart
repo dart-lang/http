@@ -21,6 +21,7 @@ import 'src/artificial_server_socket.dart';
 ///   * one handles HTTP/2 clients (called with a [http2.ServerTransportStream])
 class MultiProtocolHttpServer {
   final SecureServerSocket _serverSocket;
+  final http2.ServerSettings _settings;
 
   _ServerSocketController _http11Controller;
   HttpServer _http11Server;
@@ -29,7 +30,7 @@ class MultiProtocolHttpServer {
   Stream<http2.ServerTransportStream> _http2Server;
   Set<http2.ServerTransportConnection> _http2Connections = new Set();
 
-  MultiProtocolHttpServer._(this._serverSocket) {
+  MultiProtocolHttpServer._(this._serverSocket, this._settings) {
     _http11Controller = new _ServerSocketController(
         _serverSocket.address, _serverSocket.port);
     _http11Server = new HttpServer.listenOn(_http11Controller.stream);
@@ -42,13 +43,16 @@ class MultiProtocolHttpServer {
   /// [address] (see [SecureServerSocket.bind] for a description of supported
   /// types for [address]).
   ///
+  /// Optionally [settings] can be supplied which will be used for HTTP/2
+  /// clients.
+  ///
   /// See also [startServing].
-  static Future<MultiProtocolHttpServer> bind(address,
-                                              int port,
-                                              SecurityContext context) async {
-    context.setAlpnProtocols(['h2', 'http/1.1'], true);
+  static Future<MultiProtocolHttpServer> bind(
+      address, int port, SecurityContext context,
+      {http2.ServerSettings settings}) async {
+    context.setAlpnProtocols(['h2', 'h2-14', 'http/1.1'], true);
     var secureServer = await SecureServerSocket.bind(address, port, context);
-    return new MultiProtocolHttpServer._(secureServer);
+    return new MultiProtocolHttpServer._(secureServer, settings);
   }
 
   /// The port this multi-protocol HTTP server runs on.
@@ -70,8 +74,9 @@ class MultiProtocolHttpServer {
       var protocol = socket.selectedProtocol;
       if (protocol == null || protocol == 'http/1.1') {
         _http11Controller.addHttp11Socket(socket);
-      } else if (protocol == 'h2') {
-        var connection = new http2.ServerTransportConnection.viaSocket(socket);
+      } else if (protocol == 'h2' || protocol == 'h2-14') {
+        var connection = new http2.ServerTransportConnection.viaSocket(
+            socket, settings: _settings);
         _http2Connections.add(connection);
         connection.incomingStreams.listen(
             _http2Controller.add,

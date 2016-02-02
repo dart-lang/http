@@ -3,6 +3,8 @@
 ## 0.1.1+1
 
 * Fixing a performance issue in case the underlying socket is not writeable
+* Allow clients of MultiProtocolHttpServer to supply [http.ServerSettings]
+* Allow the draft version 'h2-14' in the ALPN protocol negogiation.
 
 ## 0.1.1
 
