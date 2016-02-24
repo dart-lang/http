@@ -1,0 +1,11 @@
+name: web_socket_channel
+version: 1.0.0-dev
+description: StreamChannel wrappers for WebSockets.
+author: Dart Team <misc@dartlang.org>
+homepage: https://github.com/dart-lang/web_socket_channel
+
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+
+dev_dependencies:
+  test: '^0.12.0'
