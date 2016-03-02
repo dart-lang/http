@@ -2,12 +2,14 @@ The `web_socket_channel` package provides [`StreamChannel`][stream_channel]
 wrappers for WebSocket connections. It provides a cross-platform
 [`WebSocketChannel`][WebSocketChannel] API, a cross-platform implementation of
 that API that communicates over an underlying [`StreamChannel`][stream_channel],
-and [an implementation][IOWebSocketChannel] that wraps `dart:io`'s `WebSocket`
-class.
+[an implementation][IOWebSocketChannel] that wraps `dart:io`'s `WebSocket`
+class, and [a similar implementation][HtmlWebSocketChannel] that wrap's
+`dart:html`'s.
 
 [stream_channel]: https://pub.dartlang.org/packages/stream_channel
 [WebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html
 [IOWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel-class.html
+[HtmlWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel-class.html
 
 ## `WebSocketChannel`
 
@@ -68,6 +70,35 @@ import 'package:web_socket_channel/io.dart';
 
 main() async {
   var channel = new IOWebSocketChannel.connect("ws://localhost:8181");
+  channel.sink.add("connected!");
+  channel.sink.listen((message) {
+    // ...
+  });
+}
+```
+
+## `HtmlWebSocketChannel`
+
+The [`HtmlWebSocketChannel`][HtmlWebSocketChannel] class wraps
+[`dart:html`'s `WebSocket` class][html.WebSocket]. Because it imports
+`dart:html`, it has its own library, `package:web_socket_channel/html.dart`.
+This allows the main `WebSocketChannel` class to be available on all platforms.
+
+[html.WebSocket]: https://api.dartlang.org/latest/dart-html/WebSocket-class.html
+
+An `HtmlWebSocketChannel` can be created by passing a `dart:html` WebSocket to
+[its constructor][new HtmlWebSocketChannel]. It's more common to want to connect
+directly to a `ws://` or `wss://` URL, in which case
+[`new HtmlWebSocketChannel.connect()`][HtmlWebSocketChannel.connect] should be used.
+
+[new HtmlWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel/HtmlWebSocketChannel.html
+[HtmlWebSocketChannel.connect]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel/HtmlWebSocketChannel.connect.html
+
+```dart
+import 'package:web_socket_channel/html.dart';
+
+main() async {
+  var channel = new HtmlWebSocketChannel.connect("ws://localhost:8181");
   channel.sink.add("connected!");
   channel.sink.listen((message) {
     // ...
