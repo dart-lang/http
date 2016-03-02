@@ -70,7 +70,7 @@ class WebSocketChannel extends StreamChannelMixin {
   WebSocketSink get sink => new WebSocketSink._(_webSocket);
 
   /// Signs a `Sec-WebSocket-Key` header sent by a WebSocket client as part of
-  /// the [initial handshake].
+  /// the [initial handshake][].
   ///
   /// The return value should be sent back to the client in a
   /// `Sec-WebSocket-Accept` header.
