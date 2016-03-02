@@ -15,13 +15,10 @@ The [`WebSocketChannel`][WebSocketChannel] class's most important role is as the
 interface for WebSocket stream channels across all implementations and all
 platforms. In addition to the base `StreamChannel` interface, it adds a
 [`protocol`][protocol] getter that returns the negotiated protocol for the
-socket; a [`pingInterval`][pingInterval] property that allows you to control the
-socket's keep-alive behavior; and [`closeCode`][closeCode] and
-[`closeReason`][closeReason] getters that provide information about why the
-socket closed.
+socket, as well as [`closeCode`][closeCode] and [`closeReason`][closeReason]
+getters that provide information about why the socket closed.
 
 [protocol]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/protocol.html
-[pingInterval]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/pingInterval.html
 [closeCode]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/closeCode.html
 [closeReason]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/closeReason.html
 

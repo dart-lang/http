@@ -21,23 +21,6 @@ class IOWebSocketChannel extends StreamChannelMixin
   /// `null` until the [WebSocket.connect] future completes.
   WebSocket _webSocket;
 
-  Duration get pingInterval =>
-      _webSocket == null ? _pingInterval : _webSocket.pingInterval;
-
-  set pingInterval(Duration value) {
-    if (_webSocket == null) {
-      _pingInterval = value;
-    } else {
-      _webSocket.pingInterval = value;
-    }
-  }
-
-  /// The ping interval set by the user.
-  ///
-  /// This is stored independently of [_webSocket] so that the user can set it
-  /// prior to [_webSocket] getting a value.
-  Duration _pingInterval;
-
   String get protocol => _webSocket?.protocol;
   int get closeCode => _webSocket?.closeCode;
   String get closeReason => _webSocket?.closeReason;
@@ -51,18 +34,26 @@ class IOWebSocketChannel extends StreamChannelMixin
   ///
   /// Connects to [url] using [WebSocket.connect] and returns a channel that can
   /// be used to communicate over the resulting socket. The [url] may be either
-  /// a [String] or a [Uri]; otherwise, the parameters are the same as
-  /// [WebSocket.connect].
+  /// a [String] or a [Uri]. The [protocols] and [headers] parameters are the
+  /// same as [WebSocket.connect].
+  ///
+  /// [pingInterval] controls the interval for sending ping signals. If a ping
+  /// message is not answered by a pong message from the peer, the WebSocket is
+  /// assumed disconnected and the connection is closed with a
+  /// [WebSocketStatus.GOING_AWAY] close code. When a ping signal is sent, the
+  /// pong message must be received within [pingInterval]. It defaults to
+  /// `null`, indicating that ping messages are disabled.
   ///
   /// If there's an error connecting, the channel's stream emits a
   /// [WebSocketChannelException] wrapping that error and then closes.
   factory IOWebSocketChannel.connect(url, {Iterable<String> protocols,
-      Map<String, dynamic> headers}) {
+      Map<String, dynamic> headers, Duration pingInterval}) {
     var channel;
     var sinkCompleter = new WebSocketSinkCompleter();
     var stream = StreamCompleter.fromFuture(
         WebSocket.connect(url.toString(), headers: headers).then((webSocket) {
-      channel._setWebSocket(webSocket);
+      webSocket.pingInterval = pingInterval;
+      channel._webSocket = webSocket;
       sinkCompleter.setDestinationSink(new _IOWebSocketSink(webSocket));
       return webSocket;
     }).catchError((error) => throw new WebSocketChannelException.from(error)));
@@ -86,17 +77,6 @@ class IOWebSocketChannel extends StreamChannelMixin
       : _webSocket = null,
         stream = stream.handleError((error) =>
             throw new WebSocketChannelException.from(error));
-
-  /// Sets the underlying web socket.
-  ///
-  /// This is called by [connect] once the [WebSocket.connect] future has
-  /// completed.
-  void _setWebSocket(WebSocket webSocket) {
-    assert(_webSocket == null);
-
-    _webSocket = webSocket;
-    if (_pingInterval != null) _webSocket.pingInterval = pingInterval;
-  }
 }
 
 /// A [WebSocketSink] that forwards [close] calls to a `dart:io` [WebSocket].

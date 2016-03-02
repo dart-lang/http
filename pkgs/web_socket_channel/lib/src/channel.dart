@@ -25,21 +25,6 @@ class WebSocketChannel extends StreamChannelMixin {
   /// the IO-specific pieces factored out.
   final WebSocketImpl _webSocket;
 
-  /// The interval for sending ping signals.
-  ///
-  /// If a ping message is not answered by a pong message from the peer, the
-  /// `WebSocket` is assumed disconnected and the connection is closed with a
-  /// [WebSocketStatus.GOING_AWAY] close code. When a ping signal is sent, the
-  /// pong message must be received within [pingInterval].
-  ///
-  /// There are never two outstanding pings at any given time, and the next ping
-  /// timer starts when the pong is received.
-  ///
-  /// By default, the [pingInterval] is `null`, indicating that ping messages
-  /// are disabled. Some implementations may not support setting it.
-  Duration get pingInterval => _webSocket.pingInterval;
-  set pingInterval(Duration value) => _webSocket.pingInterval = value;
-
   /// The subprotocol selected by the server.
   ///
   /// For a client socket, this is initially `null`. After the WebSocket
@@ -93,14 +78,22 @@ class WebSocketChannel extends StreamChannelMixin {
   ///
   /// [protocol] should be the protocol negotiated by this handshake, if any.
   ///
+  /// [pingInterval] controls the interval for sending ping signals. If a ping
+  /// message is not answered by a pong message from the peer, the WebSocket is
+  /// assumed disconnected and the connection is closed with a
+  /// [WebSocketStatus.GOING_AWAY] close code. When a ping signal is sent, the
+  /// pong message must be received within [pingInterval]. It defaults to
+  /// `null`, indicating that ping messages are disabled.
+  ///
   /// If this is a WebSocket server, [serverSide] should be `true` (the
   /// default); if it's a client, [serverSide] should be `false`.
   ///
   /// [WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4
   WebSocketChannel(StreamChannel<List<int>> channel,
-        {String protocol, bool serverSide: true})
+        {String protocol, Duration pingInterval, bool serverSide: true})
       : _webSocket = new WebSocketImpl.fromSocket(
-          channel.stream, channel.sink, protocol, serverSide);
+            channel.stream, channel.sink, protocol, serverSide)
+          ..pingInterval = pingInterval;
 }
 
 /// The sink exposed by a [WebSocketChannel].
