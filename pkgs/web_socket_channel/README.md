@@ -11,6 +11,26 @@ class, and [a similar implementation][HtmlWebSocketChannel] that wrap's
 [IOWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel-class.html
 [HtmlWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel-class.html
 
+It also provides constants for the WebSocket protocol's pre-defined status codes
+in the [`status.dart` library][status]. It's strongly recommended that users
+import this library should be imported with the prefix `status`.
+
+[status]: https://www.dartdocs.org/documentation/web_socket_channel/latest/status/status-library.html
+
+```dart
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/status.dart' as status;
+
+main() async {
+  var channel = await IOWebSocketChannel.connect("ws://localhost:1234");
+
+  channel.stream.listen((message) {
+    channel.sink.add("received!");
+    channel.close(status.goingAway);
+  });
+}
+```
+
 ## `WebSocketChannel`
 
 The [`WebSocketChannel`][WebSocketChannel] class's most important role is as the

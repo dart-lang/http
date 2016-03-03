@@ -80,10 +80,10 @@ class WebSocketChannel extends StreamChannelMixin {
   ///
   /// [pingInterval] controls the interval for sending ping signals. If a ping
   /// message is not answered by a pong message from the peer, the WebSocket is
-  /// assumed disconnected and the connection is closed with a
-  /// [WebSocketStatus.GOING_AWAY] close code. When a ping signal is sent, the
-  /// pong message must be received within [pingInterval]. It defaults to
-  /// `null`, indicating that ping messages are disabled.
+  /// assumed disconnected and the connection is closed with a `goingAway` close
+  /// code. When a ping signal is sent, the pong message must be received within
+  /// [pingInterval]. It defaults to `null`, indicating that ping messages are
+  /// disabled.
   ///
   /// If this is a WebSocket server, [serverSide] should be `true` (the
   /// default); if it's a client, [serverSide] should be `false`.
