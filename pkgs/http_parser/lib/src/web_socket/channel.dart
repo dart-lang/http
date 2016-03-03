@@ -10,15 +10,12 @@ import 'package:stream_channel/stream_channel.dart';
 
 import '../copy/web_socket_impl.dart';
 
-/// A [StreamChannel] implementation of the WebSocket protocol.
+/// This class is deprecated.
 ///
-/// This is not specific to `dart:io` or to any particular HTTP API. Because of
-/// that, it doesn't handle the initial [WebSocket handshake][]. This needs to
-/// be handled manually by the user of the code. Once that's been done, [new
-/// WebSocketChannel] can be called with the underlying socket and it will
-/// handle the remainder of the protocol.
+/// Use the [`web_socket_channel`][web_socket_channel] package instead.
 ///
-/// [WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4
+/// [web_socket_channel]: https://pub.dartlang.org/packages/web_socket_channel
+@Deprecated("Will be removed in 3.0.0.")
 class WebSocketChannel extends StreamChannelMixin {
   /// The underlying web socket.
   ///
@@ -99,10 +96,12 @@ class WebSocketChannel extends StreamChannelMixin {
           channel.stream, channel.sink, protocol, serverSide);
 }
 
-/// The sink exposed by a [CompatibleWebSocket].
+/// This class is deprecated.
 ///
-/// This is like a normal [StreamSink], except that it supports extra arguments
-/// to [close].
+/// Use the [`web_socket_channel`][web_socket_channel] package instead.
+///
+/// [web_socket_channel]: https://pub.dartlang.org/packages/web_socket_channel
+@Deprecated("Will be removed in 3.0.0.")
 class WebSocketSink extends DelegatingStreamSink {
   final WebSocketImpl _webSocket;
 

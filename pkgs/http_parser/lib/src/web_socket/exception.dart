@@ -2,9 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'channel.dart';
-
-/// An exception thrown by [WebSocketChannel].
+/// This class is deprecated.
+///
+/// Use the [`web_socket_channel`][web_socket_channel] package instead.
+///
+/// [web_socket_channel]: https://pub.dartlang.org/packages/web_socket_channel
+@Deprecated("Will be removed in 3.0.0.")
 class CompatibleWebSocketException implements Exception {
   final String message;
 

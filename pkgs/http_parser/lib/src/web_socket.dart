@@ -3,5 +3,5 @@
 // BSD-style license that can be found in the LICENSE file.
 
 export 'web_socket/channel.dart';
-export 'web_socket/deprecated.dart';
+export 'web_socket/compatible.dart';
 export 'web_socket/exception.dart';

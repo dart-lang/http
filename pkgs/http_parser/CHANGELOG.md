@@ -1,3 +1,11 @@
+## 2.2.0
+
+* `WebSocketChannel` has been moved to
+  [the `web_socket_channel` package][web_socket_channel]. The implementation
+  here is now deprecated.
+
+[web_socket_channel]: https://pub.dartlang.org/packages/web_socket_channel
+
 ## 2.1.0
 
 * Added `WebSocketChannel`, an implementation of `StreamChannel` that's backed

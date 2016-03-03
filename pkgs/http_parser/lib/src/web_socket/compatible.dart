@@ -7,9 +7,12 @@ import 'dart:async';
 import 'package:crypto/crypto.dart';
 
 import '../copy/web_socket_impl.dart';
-import 'channel.dart';
 
-/// Use [WebSocketChannel] instead.
+/// This class is deprecated.
+///
+/// Use the [`web_socket_channel`][web_socket_channel] package instead.
+///
+/// [web_socket_channel]: https://pub.dartlang.org/packages/web_socket_channel
 @Deprecated("Will be removed in 3.0.0.")
 abstract class CompatibleWebSocket implements Stream, StreamSink {
   /// The interval for sending ping signals.
