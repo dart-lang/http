@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 
@@ -51,11 +52,9 @@ abstract class CompatibleWebSocket implements Stream, StreamSink {
   ///
   /// [initial handshake]: https://tools.ietf.org/html/rfc6455#section-4.2.2
   static String signKey(String key) {
-    var hash = new SHA1();
     // We use [codeUnits] here rather than UTF-8-decoding the string because
     // [key] is expected to be base64 encoded, and so will be pure ASCII.
-    hash.add((key + webSocketGUID).codeUnits);
-    return CryptoUtils.bytesToBase64(hash.close());
+    return BASE64.encode(sha1.convert((key + webSocketGUID).codeUnits).bytes);
   }
 
   /// Creates a new WebSocket handling messaging across an existing socket.

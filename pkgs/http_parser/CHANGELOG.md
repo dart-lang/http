@@ -1,3 +1,7 @@
+## 2.2.1
+
+* Add support for `crypto` 1.0.0.
+
 ## 2.2.0
 
 * `WebSocketChannel` has been moved to
