@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert' as convert;
 
 import 'package:async/async.dart';
 import 'package:crypto/crypto.dart';
@@ -64,7 +65,8 @@ class WebSocketChannel extends StreamChannelMixin {
   static String signKey(String key) {
     // We use [codeUnits] here rather than UTF-8-decoding the string because
     // [key] is expected to be base64 encoded, and so will be pure ASCII.
-    return BASE64.encode(sha1.convert((key + webSocketGUID).codeUnits).bytes);
+    return convert.BASE64.encode(
+        sha1.convert((key + webSocketGUID).codeUnits).bytes);
   }
 
   /// Creates a new WebSocket handling messaging across an existing [channel].
