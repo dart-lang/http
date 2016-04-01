@@ -1,3 +1,7 @@
+## 2.0.1
+
+* Fix most strong mode errors and warnings.
+
 ## 2.0.0
 
 * **Breaking:** Change the signature of `HttpMultiServer.loopbackSecure()` to

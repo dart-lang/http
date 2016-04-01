@@ -5,6 +5,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:async/async.dart';
+
 import 'src/multi_headers.dart';
 import 'src/utils.dart';
 
@@ -86,7 +88,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       : _servers = servers.toSet(),
         defaultResponseHeaders = new MultiHeaders(
             servers.map((server) => server.defaultResponseHeaders)),
-        super(mergeStreams(servers));
+        super(StreamGroup.merge(servers));
 
   /// Creates an [HttpServer] listening on all available loopback addresses for
   /// this computer.
@@ -121,36 +123,28 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// [HttpServer.bindSecure].
   static Future<HttpServer> _loopback(int port,
       Future<HttpServer> bind(InternetAddress address, int port),
-      [int remainingRetries]) {
+      [int remainingRetries]) async {
     if (remainingRetries == null) remainingRetries = 5;
 
-    return Future.wait([
-      supportsIpV6,
-      bind(InternetAddress.LOOPBACK_IP_V4, port)
-    ]).then((results) {
-      var supportsIpV6 = results[0];
-      var v4Server = results[1];
+    var v4Server = await bind(InternetAddress.LOOPBACK_IP_V4, port);
+    if (!await supportsIpV6) return v4Server;
 
-      if (!supportsIpV6) return v4Server;
-
+    try {
       // Reuse the IPv4 server's port so that if [port] is 0, both servers use
       // the same ephemeral port.
-      return bind(InternetAddress.LOOPBACK_IP_V6, v4Server.port)
-          .then((v6Server) {
-        return new HttpMultiServer([v4Server, v6Server]);
-      }).catchError((error) {
-        if (error is! SocketException) throw error;
-        if (error.osError.errorCode != _addressInUseErrno) throw error;
-        if (port != 0) throw error;
-        if (remainingRetries == 0) throw error;
+      var v6Server = await bind(InternetAddress.LOOPBACK_IP_V6, v4Server.port);
+      return new HttpMultiServer([v4Server, v6Server]);
+    } on SocketException catch (error) {
+      if (error.osError.errorCode != _addressInUseErrno) rethrow;
+      if (port != 0) rethrow;
+      if (remainingRetries == 0) rethrow;
 
-        // A port being available on IPv4 doesn't necessarily mean that the same
-        // port is available on IPv6. If it's not (which is rare in practice),
-        // we try again until we find one that's available on both.
-        v4Server.close();
-        return _loopback(port, bind, remainingRetries - 1);
-      });
-    });
+      // A port being available on IPv4 doesn't necessarily mean that the same
+      // port is available on IPv6. If it's not (which is rare in practice),
+      // we try again until we find one that's available on both.
+      v4Server.close();
+      return await _loopback(port, bind, remainingRetries - 1);
+    }
   }
 
   Future close({bool force: false}) =>
