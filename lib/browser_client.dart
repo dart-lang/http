@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:html';
+import 'dart:typed_data';
 
 import 'package:stack_trace/stack_trace.dart';
 
@@ -42,53 +43,63 @@ class BrowserClient extends BaseClient {
   bool withCredentials = false;
 
   /// Sends an HTTP request and asynchronously returns the response.
-  Future<StreamedResponse> send(BaseRequest request) {
-    return request.finalize().toBytes().then((bytes) {
-      var xhr = new HttpRequest();
-      _xhrs.add(xhr);
-      xhr.open(request.method, request.url.toString(), async: true);
-      xhr.responseType = 'blob';
-      xhr.withCredentials = withCredentials;
-      request.headers.forEach(xhr.setRequestHeader);
+  Future<StreamedResponse> send(BaseRequest request) async {
+    var bytes = await request.finalize().toBytes();
+    var xhr = new HttpRequest();
+    _xhrs.add(xhr);
+    _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
+    xhr.responseType = 'blob';
+    xhr.withCredentials = withCredentials;
+    request.headers.forEach(xhr.setRequestHeader);
 
-      var completer = new Completer();
-      xhr.onLoad.first.then((_) {
-        // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
-        // is fixed.
-        var blob = xhr.response == null ? new Blob([]) : xhr.response;
-        var reader = new FileReader();
+    var completer = new Completer<StreamedResponse>();
+    xhr.onLoad.first.then((_) {
+      // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
+      // is fixed.
+      var blob = xhr.response == null ? new Blob([]) : xhr.response;
+      var reader = new FileReader();
 
-        reader.onLoad.first.then((_) {
-          var body = reader.result;
-          completer.complete(new StreamedResponse(
-              new ByteStream.fromBytes(body),
-              xhr.status,
-              contentLength: body.length,
-              request: request,
-              headers: xhr.responseHeaders,
-              reasonPhrase: xhr.statusText));
-        });
-
-        reader.onError.first.then((error) {
-          completer.completeError(
-              new ClientException(error.toString(), request.url),
-              new Chain.current());
-        });
-
-        reader.readAsArrayBuffer(blob);
+      reader.onLoad.first.then((_) {
+        var body = reader.result as Uint8List;
+        completer.complete(new StreamedResponse(
+            new ByteStream.fromBytes(body),
+            xhr.status,
+            contentLength: body.length,
+            request: request,
+            headers: xhr.responseHeaders,
+            reasonPhrase: xhr.statusText));
       });
 
-      xhr.onError.first.then((_) {
-        // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
-        // specific information about the error itself.
+      reader.onError.first.then((error) {
         completer.completeError(
-            new ClientException("XMLHttpRequest error.", request.url),
+            new ClientException(error.toString(), request.url),
             new Chain.current());
       });
 
-      xhr.send(bytes);
-      return completer.future.whenComplete(() => _xhrs.remove(xhr));
+      reader.readAsArrayBuffer(blob);
     });
+
+    xhr.onError.first.then((_) {
+      // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
+      // specific information about the error itself.
+      completer.completeError(
+          new ClientException("XMLHttpRequest error.", request.url),
+          new Chain.current());
+    });
+
+    xhr.send(bytes);
+
+    try {
+      return await completer.future;
+    } finally {
+      _xhrs.remove(xhr);
+    }
+  }
+
+  // TODO(nweiz): Remove this when sdk#24637 is fixed.
+  void _openHttpRequest(HttpRequest request, String method, String url,
+      {bool asynch, String user, String password}) {
+    request.open(method, url, async: asynch, user: user, password: password);
   }
 
   /// Closes the client.

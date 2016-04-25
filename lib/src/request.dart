@@ -113,7 +113,7 @@ class Request extends BaseRequest {
           'content-type "application/x-www-form-urlencoded".');
     }
 
-    return queryToMap(body, encoding: encoding);
+    return Uri.splitQueryString(body, encoding: encoding);
   }
 
   set bodyFields(Map<String, String> fields) {
@@ -130,9 +130,9 @@ class Request extends BaseRequest {
 
   /// Creates a new HTTP request.
   Request(String method, Uri url)
-    : super(method, url),
-      _defaultEncoding = UTF8,
-      _bodyBytes = new Uint8List(0);
+    : _defaultEncoding = UTF8,
+      _bodyBytes = new Uint8List(0),
+      super(method, url);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// containing the request body.

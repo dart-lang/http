@@ -27,13 +27,13 @@ class StreamedResponse extends BaseResponse {
        bool isRedirect: false,
        bool persistentConnection: true,
        String reasonPhrase})
-    : super(
-        statusCode,
-        contentLength: contentLength,
-        request: request,
-        headers: headers,
-        isRedirect: isRedirect,
-        persistentConnection: persistentConnection,
-        reasonPhrase: reasonPhrase),
-      this.stream = toByteStream(stream);
+    : this.stream = toByteStream(stream),
+      super(
+          statusCode,
+          contentLength: contentLength,
+          request: request,
+          headers: headers,
+          isRedirect: isRedirect,
+          persistentConnection: persistentConnection,
+          reasonPhrase: reasonPhrase);
 }

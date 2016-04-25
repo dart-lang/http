@@ -47,9 +47,9 @@ class MultipartRequest extends BaseRequest {
 
   /// Creates a new [MultipartRequest].
   MultipartRequest(String method, Uri url)
-    : super(method, url),
-      fields = {},
-      _files = <MultipartFile>[];
+    : fields = {},
+      _files = <MultipartFile>[],
+      super(method, url);
 
   /// The list of files to upload for this request.
   List<MultipartFile> get files => _files;

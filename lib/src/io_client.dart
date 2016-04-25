@@ -4,6 +4,8 @@
 
 import 'dart:async';
 
+import 'package:async/async.dart';
+
 import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
@@ -34,45 +36,47 @@ class IOClient extends BaseClient {
   }
 
   /// Sends an HTTP request and asynchronously returns the response.
-  Future<StreamedResponse> send(BaseRequest request) {
+  Future<StreamedResponse> send(BaseRequest request) async {
     var stream = request.finalize();
 
-    return _inner.openUrl(request.method, request.url)
-        .then((ioRequest) {
-      var contentLength = request.contentLength == null ?
-          -1 : request.contentLength;
+    try {
+      var ioRequest = await _inner.openUrl(request.method, request.url);
+
       ioRequest
           ..followRedirects = request.followRedirects
           ..maxRedirects = request.maxRedirects
-          ..contentLength = contentLength
+          ..contentLength = request.contentLength == null
+              ? -1
+              : request.contentLength
           ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
       });
-      return stream.pipe(ioRequest);
-    }).then((response) {
-      var headers = {};
+
+      var response = await stream.pipe(
+          DelegatingStreamConsumer.typed(ioRequest));
+      var headers = <String, String>{};
       response.headers.forEach((key, values) {
         headers[key] = values.join(',');
       });
 
-      var contentLength = response.contentLength == -1 ?
-          null : response.contentLength;
       return new StreamedResponse(
-          response.handleError((error) =>
+          DelegatingStream.typed/*<List<int>>*/(response).handleError((error) =>
               throw new ClientException(error.message, error.uri),
               test: (error) => io.isHttpException(error)),
           response.statusCode,
-          contentLength: contentLength,
+          contentLength: response.contentLength == -1
+              ? null
+              : response.contentLength,
           request: request,
           headers: headers,
           isRedirect: response.isRedirect,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase);
-    }).catchError((error) {
-      if (!io.isHttpException(error)) throw error;
+    } catch (error) {
+      if (!io.isHttpException(error)) rethrow;
       throw new ClientException(error.message, error.uri);
-    });
+    }
   }
 
   /// Closes the client. This terminates all active connections. If a client

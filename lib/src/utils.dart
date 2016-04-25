@@ -8,24 +8,6 @@ import 'dart:typed_data';
 
 import 'byte_stream.dart';
 
-/// Converts a URL query string (or `application/x-www-form-urlencoded` body)
-/// into a [Map] from parameter names to values.
-///
-///     queryToMap("foo=bar&baz=bang&qux");
-///     //=> {"foo": "bar", "baz": "bang", "qux": ""}
-Map<String, String> queryToMap(String queryList, {Encoding encoding}) {
-  var map = {};
-  for (var pair in queryList.split("&")) {
-    var split = split1(pair, "=");
-    if (split.isEmpty) continue;
-    var key = Uri.decodeQueryComponent(split[0], encoding: encoding);
-    var value = Uri.decodeQueryComponent(split.length > 1 ? split[1] : "",
-        encoding: encoding);
-    map[key] = value;
-  }
-  return map;
-}
-
 /// Converts a [Map] from parameter names to values to a URL query string.
 ///
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
@@ -104,11 +86,11 @@ ByteStream toByteStream(Stream<List<int>> stream) {
 /// Calls [onDone] once [stream] (a single-subscription [Stream]) is finished.
 /// The return value, also a single-subscription [Stream] should be used in
 /// place of [stream] after calling this method.
-Stream onDone(Stream stream, void onDone()) {
-  var pair = tee(stream);
-  pair.first.listen((_) {}, onError: (_) {}, onDone: onDone);
-  return pair.last;
-}
+Stream/*<T>*/ onDone/*<T>*/(Stream/*<T>*/ stream, void onDone()) =>
+    stream.transform(new StreamTransformer.fromHandlers(handleDone: (sink) {
+      sink.close();
+      onDone();
+    }));
 
 // TODO(nweiz): remove this when issue 7786 is fixed.
 /// Pipes all data and errors from [stream] into [sink]. When [stream] is done,
@@ -137,38 +119,6 @@ Future writeStreamToSink(Stream stream, EventSink sink) {
 
 /// Returns a [Future] that asynchronously completes to `null`.
 Future get async => new Future.value();
-
-/// Returns a closed [Stream] with no elements.
-Stream get emptyStream => streamFromIterable([]);
-
-/// Creates a single-subscription stream that emits the items in [iter] and then
-/// ends.
-Stream streamFromIterable(Iterable iter) {
-  var controller = new StreamController(sync: true);
-  iter.forEach(controller.add);
-  controller.close();
-  return controller.stream;
-}
-
-// TODO(nweiz): remove this when issue 7787 is fixed.
-/// Creates two single-subscription [Stream]s that each emit all values and
-/// errors from [stream]. This is useful if [stream] is single-subscription but
-/// multiple subscribers are necessary.
-Pair<Stream, Stream> tee(Stream stream) {
-  var controller1 = new StreamController(sync: true);
-  var controller2 = new StreamController(sync: true);
-  stream.listen((value) {
-    controller1.add(value);
-    controller2.add(value);
-  }, onError: (error, [StackTrace stackTrace]) {
-    controller1.addError(error, stackTrace);
-    controller2.addError(error, stackTrace);
-  }, onDone: () {
-    controller1.close();
-    controller2.close();
-  });
-  return new Pair<Stream, Stream>(controller1.stream, controller2.stream);
-}
 
 /// A pair of values.
 class Pair<E, F> {

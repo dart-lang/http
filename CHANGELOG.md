@@ -1,3 +1,7 @@
+## 0.11.3+4
+
+* Fix all strong mode warnings.
+
 ## 0.11.3+3
 
 * Support `http_parser` 2.0.0.

@@ -109,9 +109,11 @@ abstract class BaseRequest {
   /// the request is complete. If you're planning on making multiple requests to
   /// the same server, you should use a single [Client] for all of those
   /// requests.
-  Future<StreamedResponse> send() {
+  Future<StreamedResponse> send() async {
     var client = new Client();
-    return client.send(this).then((response) {
+
+    try {
+      var response = await client.send(this);
       var stream = onDone(response.stream, client.close);
       return new StreamedResponse(
           new ByteStream(stream),
@@ -122,10 +124,10 @@ abstract class BaseRequest {
           isRedirect: response.isRedirect,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase);
-    }).catchError((e) {
+    } catch (_) {
       client.close();
-      throw e;
-    });
+      rethrow;
+    }
   }
 
   // Throws an error if this request has been finalized.
