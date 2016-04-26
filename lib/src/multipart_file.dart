@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:async/async.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
 
@@ -86,16 +87,15 @@ class MultipartFile {
   ///
   /// This can only be used in an environment that supports "dart:io".
   static Future<MultipartFile> fromPath(String field, String filePath,
-      {String filename, MediaType contentType}) {
+      {String filename, MediaType contentType}) async {
     io.assertSupported("MultipartFile.fromPath");
     if (filename == null) filename = path.basename(filePath);
     var file = io.newFile(filePath);
-    return file.length().then((length) {
-      var stream = new ByteStream(file.openRead());
-      return new MultipartFile(field, stream, length,
-          filename: filename,
-          contentType: contentType);
-    });
+    var length = await file.length();
+    var stream = new ByteStream(DelegatingStream.typed(file.openRead()));
+    return new MultipartFile(field, stream, length,
+        filename: filename,
+        contentType: contentType);
   }
 
   // Finalizes the file in preparation for it being sent as part of a

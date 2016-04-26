@@ -1,3 +1,7 @@
+## 0.11.3+5
+
+* Fix some lingering strong mode warnings
+
 ## 0.11.3+4
 
 * Fix all strong mode warnings.
