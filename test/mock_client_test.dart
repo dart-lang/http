@@ -33,7 +33,7 @@ void main() {
     var client = new MockClient.streaming((request, bodyStream) {
       return bodyStream.bytesToString().then((bodyString) {
         var controller = new StreamController<List<int>>(sync: true);
-        async.then((_) {
+        new Future.sync(() {
           controller.add('Request body was "$bodyString"'.codeUnits);
           controller.close();
         });
