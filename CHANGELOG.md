@@ -1,6 +1,10 @@
+## 0.11.3+6
+
+* Fix one more strong mode warning in `http/testing.dart`.
+
 ## 0.11.3+5
 
-* Fix some lingering strong mode warnings
+* Fix some lingering strong mode warnings.
 
 ## 0.11.3+4
 

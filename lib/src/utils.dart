@@ -117,9 +117,6 @@ Future writeStreamToSink(Stream stream, EventSink sink) {
   return completer.future;
 }
 
-/// Returns a [Future] that asynchronously completes to `null`.
-Future get async => new Future.value();
-
 /// A pair of values.
 class Pair<E, F> {
   E first;

@@ -10,7 +10,6 @@ import 'byte_stream.dart';
 import 'request.dart';
 import 'response.dart';
 import 'streamed_response.dart';
-import 'utils.dart';
 
 // TODO(nweiz): once Dart has some sort of Rack- or WSGI-like standard for
 // server APIs, MockClient should conform to it.
@@ -71,9 +70,9 @@ class MockClient extends BaseClient {
     });
 
   /// Sends a request.
-  Future<StreamedResponse> send(BaseRequest request) {
+  Future<StreamedResponse> send(BaseRequest request) async {
     var bodyStream = request.finalize();
-    return async.then((_) => _handler(request, bodyStream));
+    return await _handler(request, bodyStream);
   }
 }
 
