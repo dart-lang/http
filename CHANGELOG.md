@@ -1,3 +1,7 @@
+## 0.11.3+7
+
+* Declare compatibility with `http_parser` 3.0.0.
+
 ## 0.11.3+6
 
 * Fix one more strong mode warning in `http/testing.dart`.
