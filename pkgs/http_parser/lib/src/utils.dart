@@ -8,7 +8,7 @@ import 'package:source_span/source_span.dart';
 ///
 /// [name] should describe the type of thing being parsed, and [value] should be
 /// its actual value.
-wrapFormatException(String name, String value, body()) {
+/*=T*/ wrapFormatException/*<T>*/(String name, String value, /*=T*/ body()) {
   try {
     return body();
   } on SourceSpanFormatException catch (error) {

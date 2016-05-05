@@ -1,3 +1,11 @@
+## 3.0.0
+
+* All deprecated APIs have been removed. No new APIs have been added. Packages
+  that would use 3.0.0 as a lower bound should use 2.2.0 instead—for example,
+  `http_parser: ">=2.2.0 <4.0.0"`.
+
+* Fix all strong-mode warnings.
+
 ## 2.2.1
 
 * Add support for `crypto` 1.0.0.

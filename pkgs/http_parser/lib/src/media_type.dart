@@ -53,7 +53,7 @@ class MediaType {
       var subtype = scanner.lastMatch[0];
       scanner.scan(whitespace);
 
-      var parameters = {};
+      var parameters = <String, String>{};
       while (scanner.scan(';')) {
         scanner.scan(whitespace);
         scanner.expect(token);

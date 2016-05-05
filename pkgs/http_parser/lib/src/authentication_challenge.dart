@@ -42,7 +42,7 @@ class AuthenticationChallenge {
 
         // Manually parse the inner list. We need to do some lookahead to
         // disambiguate between an auth param and another challenge.
-        var params = {};
+        var params = <String, String>{};
 
         // Consume initial empty values.
         while (scanner.scan(",")) {
@@ -99,7 +99,7 @@ class AuthenticationChallenge {
       scanner.scan(whitespace);
       var scheme = _scanScheme(scanner);
 
-      var params = {};
+      var params = <String, String>{};
       parseList(scanner, () => _scanAuthParam(scanner, params));
 
       scanner.expectDone();

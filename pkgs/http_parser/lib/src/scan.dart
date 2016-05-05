@@ -37,8 +37,8 @@ final whitespace = new RegExp("(?:${_lws.pattern})*");
 ///
 /// Once this is finished, [scanner] will be at the next non-LWS character in
 /// the string, or the end of the string.
-List parseList(StringScanner scanner, parseElement()) {
-  var result = [];
+List/*<T>*/ parseList/*<T>*/(StringScanner scanner, /*=T*/ parseElement()) {
+  var result = /*<T>*/[];
 
   // Consume initial empty values.
   while (scanner.scan(",")) {
