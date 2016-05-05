@@ -9,7 +9,8 @@
 // Because it's copied directly, there are no modifications from the original.
 //
 // This is up-to-date as of sdk revision
-// 86227840d75d974feb238f8b3c59c038b99c05cf.
+// e41fb4cafd6052157dbc1490d437045240f4773f.
+
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -122,7 +123,7 @@ class _CopyingBytesBuilder implements BytesBuilder {
     _length = required;
   }
 
-  void addByte(int byte) => add([byte]);
+  void addByte(int byte) { add([byte]); }
 
   List<int> takeBytes() {
     if (_buffer == null) return new Uint8List(0);
@@ -162,7 +163,7 @@ class _CopyingBytesBuilder implements BytesBuilder {
 
 class _BytesBuilder implements BytesBuilder {
   int _length = 0;
-  final List _chunks = [];
+  final _chunks = <List<int>>[];
 
   void add(List<int> bytes) {
     if (bytes is! Uint8List) {
@@ -172,7 +173,7 @@ class _BytesBuilder implements BytesBuilder {
     _length += bytes.length;
   }
 
-  void addByte(int byte) => add([byte]);
+  void addByte(int byte) { add([byte]); }
 
   List<int> takeBytes() {
     if (_chunks.length == 0) return new Uint8List(0);
