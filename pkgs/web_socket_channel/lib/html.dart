@@ -105,7 +105,15 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// Pipes user events to [_webSocket].
   void _listen() {
     _controller.local.stream.listen((message) => _webSocket.send(message),
-        onDone: () => _webSocket.close(_localCloseCode, _localCloseReason));
+        onDone: () {
+      if (_localCloseCode != null && _localCloseReason != null) {
+        _webSocket.close(_localCloseCode, _localCloseReason);
+      } else if (_localCloseCode != null) {
+        _webSocket.close(_localCloseCode);
+      } else {
+        _webSocket.close();
+      }
+    });
   }
 }
 
