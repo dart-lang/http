@@ -1,3 +1,8 @@
+## 1.0.3
+
+* Fix a bug where `HtmlWebSocketChannel.close()` would crash on non-Dartium
+  browsers if the close code and reason weren't provided explicitly.
+
 ## 1.0.2
 
 * Properly use `BASE64` from `dart:convert` rather than `crypto`.
