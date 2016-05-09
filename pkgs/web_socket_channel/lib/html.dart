@@ -106,6 +106,9 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   void _listen() {
     _controller.local.stream.listen((message) => _webSocket.send(message),
         onDone: () {
+      // On Chrome and possibly other browsers, `null` can't be passed as the
+      // default here. The actual arity of the function call must be correct or
+      // it will fail.
       if (_localCloseCode != null && _localCloseReason != null) {
         _webSocket.close(_localCloseCode, _localCloseReason);
       } else if (_localCloseCode != null) {
