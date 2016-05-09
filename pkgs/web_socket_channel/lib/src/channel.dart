@@ -104,8 +104,8 @@ class WebSocketSink extends DelegatingStreamSink {
   final WebSocketImpl _webSocket;
 
   WebSocketSink._(WebSocketImpl webSocket)
-      : super(webSocket),
-        _webSocket = webSocket;
+      : _webSocket = webSocket,
+        super(webSocket);
 
   /// Closes the web socket connection.
   ///

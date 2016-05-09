@@ -35,7 +35,7 @@ void main() {
 
       var response = await request.close();
       var socket = await response.detachSocket();
-      var innerChannel = new StreamChannel(socket, socket);
+      var innerChannel = new StreamChannel<List<int>>(socket, socket);
       var webSocket = new WebSocketChannel(innerChannel, serverSide: false);
 
       var n = 0;
@@ -67,7 +67,7 @@ void main() {
         response.contentLength = 0;
 
         var socket = await response.detachSocket();
-        var innerChannel = new StreamChannel(socket, socket);
+        var innerChannel = new StreamChannel<List<int>>(socket, socket);
         var webSocket = new WebSocketChannel(innerChannel);
         webSocket.sink.add("hello!");
 

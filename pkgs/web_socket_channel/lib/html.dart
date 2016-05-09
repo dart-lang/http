@@ -126,8 +126,8 @@ class _HtmlWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
   final HtmlWebSocketChannel _channel;
 
   _HtmlWebSocketSink(HtmlWebSocketChannel channel)
-      : super(channel._controller.foreign.sink),
-        _channel = channel;
+      : _channel = channel,
+        super(channel._controller.foreign.sink);
 
   Future close([int closeCode, String closeReason]) {
     _channel._localCloseCode = closeCode;

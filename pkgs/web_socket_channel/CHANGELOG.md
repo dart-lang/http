@@ -1,5 +1,7 @@
 ## 1.0.3
 
+* Fix all strong-mode errors and warnings.
+
 * Fix a bug where `HtmlWebSocketChannel.close()` would crash on non-Dartium
   browsers if the close code and reason weren't provided explicitly.
 

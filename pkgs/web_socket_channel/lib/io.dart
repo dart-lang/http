@@ -85,8 +85,8 @@ class _IOWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
   final WebSocket _webSocket;
 
   _IOWebSocketSink(WebSocket webSocket)
-      : super(webSocket),
-        _webSocket = webSocket;
+      : _webSocket = webSocket,
+        super(webSocket);
 
   Future close([int closeCode, String closeReason]) =>
       _webSocket.close(closeCode, closeReason);

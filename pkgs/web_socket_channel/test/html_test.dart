@@ -17,6 +17,7 @@ import 'package:async/async.dart';
 import 'package:test/test.dart';
 
 import 'package:web_socket_channel/html.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() {
   var channel;
@@ -88,5 +89,5 @@ Future<List<int>> _decodeBlob(Blob blob) async {
   var reader = new FileReader();
   reader.readAsArrayBuffer(blob);
   await reader.onLoad.first;
-  return reader.result;
+  return reader.result as Uint8List;
 }
