@@ -1,5 +1,5 @@
 name: http_parser
-version: 3.0.0
+version: 3.0.1-dev
 author: "Dart Team <misc@dartlang.org>"
 homepage: https://github.com/dart-lang/http_parser
 description: >
