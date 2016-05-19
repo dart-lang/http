@@ -1,3 +1,7 @@
+## 3.0.1
+
+* Remove unnecessary dependencies.
+
 ## 3.0.0
 
 * All deprecated APIs have been removed. No new APIs have been added. Packages
