@@ -1,3 +1,7 @@
+## 1.0.4
+
+* Support `crypto` 2.0.0.
+
 ## 1.0.3
 
 * Fix all strong-mode errors and warnings.
