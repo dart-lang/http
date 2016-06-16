@@ -11,14 +11,15 @@
 ///     import 'dart:convert';
 ///     import 'package:http/testing.dart';
 ///
-///     var client = new MockClient((request) {
+///     var client = new MockClient((request) async {
 ///       if (request.url.path != "/data.json") {
 ///         return new Response("", 404);
 ///       }
-///       return new Response(JSON.encode({
-///         'numbers': [1, 4, 15, 19, 214]
-///       }, 200, headers: {
-///         'content-type': 'application/json'
-///       });
-///     };
+///       return new Response(
+///           JSON.encode({
+///             'numbers': [1, 4, 15, 19, 214]
+///           }),
+///           200,
+///           headers: {'content-type': 'application/json'});
+///     });
 export 'src/mock_client.dart';
