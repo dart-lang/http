@@ -44,20 +44,17 @@ You can also exert more fine-grained control over your requests and responses by
 creating [Request][] or [StreamedRequest][] objects yourself and passing them to
 [Client.send][].
 
-[Request]: https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/http/http.Request
-
-[StreamedRequest]: https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/http/http.StreamedRequest
-
-[Client.send]: https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/http/http.Client#id_send
+[Request]: https://www.dartdocs.org/documentation/http/latest/http/Request-class.html
+[StreamedRequest]: https://www.dartdocs.org/documentation/http/latest/http/StreamedRequest-class.html
+[Client.send]: https://www.dartdocs.org/documentation/http/latest/http/Client/send.html
 
 This package is designed to be composable. This makes it easy for external
 libraries to work with one another to add behavior to it. Libraries wishing to
 add behavior should create a subclass of [BaseClient][] that wraps another
 [Client][] and adds the desired behavior:
 
-[BaseClient]: https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/http/http.BaseClient
-
-[Client]: https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/http/http.Client
+[BaseClient]: https://www.dartdocs.org/documentation/http/latest/http/BaseClient-class.html
+[Client]: https://www.dartdocs.org/documentation/http/latest/http/Client-class.html
 
 ```dart
 class UserAgentClient extends http.BaseClient {
@@ -80,17 +77,20 @@ The HTTP library can be used on the browser via the [BrowserClient][] class in
 XMLHttpRequests. For example:
 
 ```dart
+import 'dart:async';
 import 'package:http/browser_client.dart';
-import 'package:http/http.dart' as http;
 
-var client = new BrowserClient();
-var url = "/whatsit/create";
-client.post(url, body: {"name": "doodle", "color": "blue"})
-    .then((response) {
-  print("Response status: ${response.statusCode}");
-  print("Response body: ${response.body}");
-});
+Future<Null> main() async {
+  var client = new BrowserClient();
+  var url = '/whatsit/create';
+  var response =
+      await client.post(url, body: {'name': 'doodle', 'color': 'blue'});
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+}
 ```
+
+[BrowserClient]: https://www.dartdocs.org/documentation/http/latest/http.browser_client/BrowserClient-class.html
 
 ## Filing issues
 
