@@ -1,3 +1,7 @@
+## 2.0.2
+
+* Fix a dependency that was incorrectly marked as dev-only.
+
 ## 2.0.1
 
 * Fix most strong mode errors and warnings.
