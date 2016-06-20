@@ -1,3 +1,7 @@
+## 3.0.2
+
+* Support `string_scanner` 1.0.0.
+
 ## 3.0.1
 
 * Remove unnecessary dependencies.
