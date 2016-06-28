@@ -76,6 +76,8 @@ The HTTP library can be used on the browser via the [BrowserClient][] class in
 `package:http/browser_client.dart`. This client translates requests into
 XMLHttpRequests. For example:
 
+[BrowserClient]: https://www.dartdocs.org/documentation/http/latest/http.browser_client/BrowserClient-class.html
+
 ```dart
 import 'dart:async';
 import 'package:http/browser_client.dart';
@@ -89,8 +91,6 @@ Future<Null> main() async {
   print('Response body: ${response.body}');
 }
 ```
-
-[BrowserClient]: https://www.dartdocs.org/documentation/http/latest/http.browser_client/BrowserClient-class.html
 
 ## Filing issues
 
