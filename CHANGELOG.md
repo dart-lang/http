@@ -1,3 +1,7 @@
+## 0.11.3+8
+
+* Properly specify `Content-Transfer-Encoding` for multipart chunks.
+
 ## 0.11.3+7
 
 * Declare compatibility with `http_parser` 3.0.0.

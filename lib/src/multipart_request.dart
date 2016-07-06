@@ -18,8 +18,7 @@ final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
 /// [files].
 ///
 /// This request automatically sets the Content-Type header to
-/// `multipart/form-data` and the Content-Transfer-Encoding header to `binary`.
-/// These values will override any values set by the user.
+/// `multipart/form-data`. This value will override any value set by the user.
 ///
 ///     var uri = Uri.parse("http://pub.dartlang.org/packages/create");
 ///     var request = new http.MultipartRequest("POST", url);
@@ -85,7 +84,6 @@ class MultipartRequest extends BaseRequest {
     // TODO(nweiz): freeze fields and files
     var boundary = _boundaryString();
     headers['content-type'] = 'multipart/form-data; boundary="$boundary"';
-    headers['content-transfer-encoding'] = 'binary';
     super.finalize();
 
     var controller = new StreamController<List<int>>(sync: true);
@@ -135,7 +133,9 @@ class MultipartRequest extends BaseRequest {
     var header =
         'content-disposition: form-data; name="${_browserEncode(name)}"';
     if (!isPlainAscii(value)) {
-      header = '$header\r\ncontent-type: text/plain; charset=utf-8';
+      header = '$header\r\n'
+          'content-type: text/plain; charset=utf-8\r\n'
+          'content-transfer-encoding: binary\r\n';
     }
     return '$header\r\n\r\n';
   }
