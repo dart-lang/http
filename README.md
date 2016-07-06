@@ -82,7 +82,7 @@ XMLHttpRequests. For example:
 import 'dart:async';
 import 'package:http/browser_client.dart';
 
-Future<Null> main() async {
+main() async {
   var client = new BrowserClient();
   var url = '/whatsit/create';
   var response =
