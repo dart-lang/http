@@ -96,6 +96,8 @@ void main() {
         --{{boundary}}
         content-disposition: form-data; name="field"
         content-type: text/plain; charset=utf-8
+        content-transfer-encoding: binary
+
 
         vⱥlūe
         --{{boundary}}--

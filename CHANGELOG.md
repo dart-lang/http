@@ -1,3 +1,7 @@
+## 0.11.4-dev
+
+* Fix an error in multipart_test.
+
 ## 0.11.3+8
 
 * Properly specify `Content-Transfer-Encoding` for multipart chunks.
