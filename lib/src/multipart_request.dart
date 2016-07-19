@@ -135,7 +135,7 @@ class MultipartRequest extends BaseRequest {
     if (!isPlainAscii(value)) {
       header = '$header\r\n'
           'content-type: text/plain; charset=utf-8\r\n'
-          'content-transfer-encoding: binary\r\n';
+          'content-transfer-encoding: binary';
     }
     return '$header\r\n\r\n';
   }

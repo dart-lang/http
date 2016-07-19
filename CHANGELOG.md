@@ -1,6 +1,6 @@
-## 0.11.4-dev
+## 0.11.3+9
 
-* Fix an error in multipart_test.
+* Remove an extra newline in multipart chunks.
 
 ## 0.11.3+8
 
