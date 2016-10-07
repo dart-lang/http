@@ -183,7 +183,7 @@ void main() {
 
   test('with a stream file', () {
     var request = new http.MultipartRequest('POST', dummyUrl);
-    var controller = new StreamController(sync: true);
+    var controller = new StreamController<List<int>>(sync: true);
     request.files.add(new http.MultipartFile('file', controller.stream, 5));
 
     expect(request, bodyMatches('''
@@ -201,7 +201,7 @@ void main() {
 
   test('with an empty stream file', () {
     var request = new http.MultipartRequest('POST', dummyUrl);
-    var controller = new StreamController(sync: true);
+    var controller = new StreamController<List<int>>(sync: true);
     request.files.add(new http.MultipartFile('file', controller.stream, 0));
 
     expect(request, bodyMatches('''

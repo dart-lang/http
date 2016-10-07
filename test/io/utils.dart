@@ -96,7 +96,7 @@ Future startServer() {
           // want to test them here.
           if (name == 'cookie' || name == 'host') return;
 
-          content['headers'][name] = values;
+          (content['headers'] as Map)[name] = values;
         });
 
         var body = JSON.encode(content);
