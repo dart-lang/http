@@ -140,20 +140,21 @@ void main() {
 
     tearDown(() => server.close());
 
-    test("listens on all localhost interfaces", () {
+    test("listens on all localhost interfaces", () async {
       server.listen((request) {
         request.response.write("got request");
         request.response.close();
       });
 
-      expect(http.read("http://127.0.0.1:${server.port}/"),
-          completion(equals("got request")));
+      if (await supportsIPv4) {
+        expect(http.read("http://127.0.0.1:${server.port}/"),
+            completion(equals("got request")));
+      }
 
-      return supportsIpV6.then((supportsIpV6) {
-        if (!supportsIpV6) return;
+      if (await supportsIPv4) {
         expect(http.read("http://[::1]:${server.port}/"),
             completion(equals("got request")));
-      });
+      }
     });
   });
 }

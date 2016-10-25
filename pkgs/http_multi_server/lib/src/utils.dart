@@ -5,20 +5,24 @@
 import 'dart:async';
 import 'dart:io';
 
-/// A cache for [supportsIpV6].
-bool _supportsIpV6;
-
 /// Returns whether this computer supports binding to IPv6 addresses.
-Future<bool> get supportsIpV6 async {
-  if (_supportsIpV6 != null) return _supportsIpV6;
-
+final Future<bool> supportsIPv6 = () async {
   try {
     var socket = await ServerSocket.bind(InternetAddress.LOOPBACK_IP_V6, 0);
-    _supportsIpV6 = true;
     socket.close();
     return true;
   } on SocketException catch (_) {
-    _supportsIpV6 = false;
     return false;
   }
-}
+}();
+
+/// Returns whether this computer supports binding to IPv4 addresses.
+final Future<bool> supportsIPv4 = () async {
+  try {
+    var socket = await ServerSocket.bind(InternetAddress.LOOPBACK_IP_V4, 0);
+    socket.close();
+    return true;
+  } on SocketException catch (_) {
+    return false;
+  }
+}();

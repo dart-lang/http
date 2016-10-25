@@ -1,3 +1,8 @@
+## 2.0.3
+
+* Fix `HttpMultiServer.loopback()` and `.loopbackSecure()` for environments that
+  don't support IPv4.
+
 ## 2.0.2
 
 * Fix a dependency that was incorrectly marked as dev-only.

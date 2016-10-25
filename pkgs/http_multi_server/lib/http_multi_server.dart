@@ -124,10 +124,14 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   static Future<HttpServer> _loopback(int port,
       Future<HttpServer> bind(InternetAddress address, int port),
       [int remainingRetries]) async {
-    if (remainingRetries == null) remainingRetries = 5;
+    remainingRetries ??= 5;
+
+    if (!await supportsIPv4) {
+      return await bind(InternetAddress.LOOPBACK_IP_V6, port);
+    }
 
     var v4Server = await bind(InternetAddress.LOOPBACK_IP_V4, port);
-    if (!await supportsIpV6) return v4Server;
+    if (!await supportsIPv6) return v4Server;
 
     try {
       // Reuse the IPv4 server's port so that if [port] is 0, both servers use
