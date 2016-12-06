@@ -4,5 +4,6 @@
 
 export 'src/authentication_challenge.dart';
 export 'src/case_insensitive_map.dart';
+export 'src/chunked_coding.dart';
 export 'src/http_date.dart';
 export 'src/media_type.dart';

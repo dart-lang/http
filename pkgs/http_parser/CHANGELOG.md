@@ -1,3 +1,10 @@
+## 3.1.0
+
+* Add `chunkedCoding`, a `Codec` that supports encoding and decoding the
+  [chunked transfer coding][].
+
+[chunked transfer coding]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.6.1
+
 ## 3.0.2
 
 * Support `string_scanner` 1.0.0.
