@@ -91,7 +91,3 @@ main() async {
   print('Response body: ${response.body}');
 }
 ```
-
-## Filing issues
-
-Please file issues for the http package at <https://github.com/dart-lang/http/issues>.
