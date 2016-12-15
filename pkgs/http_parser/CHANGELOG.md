@@ -1,3 +1,8 @@
+## 3.1.1
+
+* Fix a logic bug in the `chunkedCoding` codec. It had been producing invalid
+  output and rejecting valid input.
+
 ## 3.1.0
 
 * Add `chunkedCoding`, a `Codec` that supports encoding and decoding the

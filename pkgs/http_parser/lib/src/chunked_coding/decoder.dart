@@ -70,7 +70,7 @@ class _Sink extends ByteConversionSinkBase {
     /// describe the character in the exception text.
     assertCurrentChar(int char, String name) {
       if (bytes[start] != char) {
-        throw new FormatException("Expected LF.", bytes, start);
+        throw new FormatException("Expected $name.", bytes, start);
       }
     }
 
@@ -85,7 +85,7 @@ class _Sink extends ByteConversionSinkBase {
 
         case _State.size:
           if (bytes[start] == $cr) {
-            _state = _State.beforeLF;
+            _state = _State.sizeBeforeLF;
           } else {
             // Shift four bits left since a single hex digit contains four bits
             // of information.
@@ -94,7 +94,7 @@ class _Sink extends ByteConversionSinkBase {
           start++;
           break;
 
-        case _State.beforeLF:
+        case _State.sizeBeforeLF:
           assertCurrentChar($lf, "LF");
           _state = _size == 0 ? _State.endBeforeCR : _State.body;
           start++;
@@ -105,7 +105,19 @@ class _Sink extends ByteConversionSinkBase {
           buffer.addAll(bytes, start, chunkEnd);
           _size -= chunkEnd - start;
           start = chunkEnd;
-          if (_size == 0) _state = _State.boundary;
+          if (_size == 0) _state = _State.bodyBeforeCR;
+          break;
+
+        case _State.bodyBeforeCR:
+          assertCurrentChar($cr, "CR");
+          _state = _State.bodyBeforeLF;
+          start++;
+          break;
+
+        case _State.bodyBeforeLF:
+          assertCurrentChar($lf, "LF");
+          _state = _State.boundary;
+          start++;
           break;
 
         case _State.endBeforeCR:
@@ -115,7 +127,7 @@ class _Sink extends ByteConversionSinkBase {
           break;
 
         case _State.endBeforeLF:
-          assertCurrentChar($lf, "CR");
+          assertCurrentChar($lf, "LF");
           _state = _State.end;
           start++;
           break;
@@ -161,8 +173,6 @@ class _Sink extends ByteConversionSinkBase {
 
 /// An enumeration of states that [_Sink] can exist in when decoded a chunked
 /// message.
-///
-/// [_SizeState], [_CRState], and [_ChunkState] have additional data attached.
 class _State {
   /// The parser has fully parsed one chunk and is expecting the header for the
   /// next chunk.
@@ -173,20 +183,32 @@ class _State {
   /// The parser has parsed at least one digit of the chunk size header, but has
   /// not yet parsed the `CR LF` sequence that indicates the end of that header.
   ///
-  /// Transitions to [beforeLF].
+  /// Transitions to [sizeBeforeLF].
   static const size = const _State._("size");
 
   /// The parser has parsed the chunk size header and the CR character after it,
   /// but not the LF.
   ///
-  /// Transitions to [body] or [endBeforeCR].
-  static const beforeLF = const _State._("before LF");
+  /// Transitions to [body] or [bodyBeforeCR].
+  static const sizeBeforeLF = const _State._("size before LF");
 
   /// The parser has parsed a chunk header and possibly some of the body, but
   /// still needs to consume more bytes.
   ///
-  /// Transitions to [boundary].
-  static const body = const _State._("CR");
+  /// Transitions to [bodyBeforeCR].
+  static const body = const _State._("body");
+
+  // The parser has parsed all the bytes in a chunk body but not the CR LF
+  // sequence that follows it.
+  //
+  // Transitions to [bodyBeforeLF].
+  static const bodyBeforeCR = const _State._("body before CR");
+
+  // The parser has parsed all the bytes in a chunk body and the CR that follows
+  // it, but not the LF after that.
+  //
+  // Transitions to [bounday].
+  static const bodyBeforeLF = const _State._("body before LF");
 
   /// The parser has parsed the final empty chunk but not the CR LF sequence
   /// that follows it.

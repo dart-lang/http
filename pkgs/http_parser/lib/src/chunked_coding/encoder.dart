@@ -59,12 +59,18 @@ List<int> _convert(List<int> bytes, int start, int end, {bool isLast: false}) {
   var sizeInHex = size.toRadixString(16);
   var footerSize = isLast ? _doneChunk.length : 0;
 
-  // Add 2 for the CRLF sequence that follows the size header.
-  var list = new Uint8List(sizeInHex.length + 2 + size + footerSize);
+  // Add 4 for the CRLF sequences that follow the size header and the bytes.
+  var list = new Uint8List(sizeInHex.length + 4 + size + footerSize);
   list.setRange(0, sizeInHex.length, sizeInHex.codeUnits);
-  list[sizeInHex.length] = $cr;
-  list[sizeInHex.length + 1] = $lf;
-  list.setRange(sizeInHex.length + 2, list.length - footerSize, bytes, start);
+
+  var cursor = sizeInHex.length;
+  list[cursor++] = $cr;
+  list[cursor++] = $lf;
+  list.setRange(cursor, cursor + end - start, bytes, start);
+  cursor += end - start;
+  list[cursor++] = $cr;
+  list[cursor++] = $lf;
+
   if (isLast) {
     list.setRange(list.length - footerSize, list.length, _doneChunk);
   }

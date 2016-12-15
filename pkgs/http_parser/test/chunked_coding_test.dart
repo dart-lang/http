@@ -14,7 +14,7 @@ void main() {
   group("encoder", () {
     test("adds a header to the chunk of bytes", () {
       expect(chunkedCoding.encode([1, 2, 3]),
-          equals([$3, $cr, $lf, 1, 2, 3, $0, $cr, $lf, $cr, $lf]));
+          equals([$3, $cr, $lf, 1, 2, 3, $cr, $lf, $0, $cr, $lf, $cr, $lf]));
     });
 
     test("uses hex for chunk size", () {
@@ -22,7 +22,7 @@ void main() {
       expect(chunkedCoding.encode(data),
           equals([$a, $7, $cr, $lf]
             ..addAll(data)
-            ..addAll([$0, $cr, $lf, $cr, $lf])));
+            ..addAll([$cr, $lf, $0, $cr, $lf, $cr, $lf])));
     });
 
     test("just generates a footer for an empty input", () {
@@ -41,18 +41,18 @@ void main() {
 
       test("adds headers to each chunk of bytes", () {
         sink.add([1, 2, 3, 4]);
-        expect(results, equals([[$4, $cr, $lf, 1, 2, 3, 4]]));
+        expect(results, equals([[$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf]]));
 
         sink.add([5, 6, 7]);
         expect(results, equals([
-          [$4, $cr, $lf, 1, 2, 3, 4],
-          [$3, $cr, $lf, 5, 6, 7],
+          [$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf],
+          [$3, $cr, $lf, 5, 6, 7, $cr, $lf],
         ]));
 
         sink.close();
         expect(results, equals([
-          [$4, $cr, $lf, 1, 2, 3, 4],
-          [$3, $cr, $lf, 5, 6, 7],
+          [$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf],
+          [$3, $cr, $lf, 5, 6, 7, $cr, $lf],
           [$0, $cr, $lf, $cr, $lf],
         ]));
       });
@@ -62,15 +62,15 @@ void main() {
         expect(results, equals([[]]));
 
         sink.add([1, 2, 3]);
-        expect(results, equals([[], [$3, $cr, $lf, 1, 2, 3]]));
+        expect(results, equals([[], [$3, $cr, $lf, 1, 2, 3, $cr, $lf]]));
 
         sink.add([]);
-        expect(results, equals([[], [$3, $cr, $lf, 1, 2, 3], []]));
+        expect(results, equals([[], [$3, $cr, $lf, 1, 2, 3, $cr, $lf], []]));
 
         sink.close();
         expect(results, equals([
           [],
-          [$3, $cr, $lf, 1, 2, 3],
+          [$3, $cr, $lf, 1, 2, 3, $cr, $lf],
           [],
           [$0, $cr, $lf, $cr, $lf],
         ]));
@@ -79,7 +79,7 @@ void main() {
       group("addSlice()", () {
         test("adds bytes from the specified slice", () {
           sink.addSlice([1, 2, 3, 4, 5], 1, 4, false);
-          expect(results, equals([[$3, $cr, $lf, 2, 3, 4]]));
+          expect(results, equals([[$3, $cr, $lf, 2, 3, 4, $cr, $lf]]));
         });
 
         test("doesn't add a header if the slice is empty", () {
@@ -89,8 +89,8 @@ void main() {
 
         test("adds a footer if isLast is true", () {
           sink.addSlice([1, 2, 3, 4, 5], 1, 4, true);
-          expect(results,
-              equals([[$3, $cr, $lf, 2, 3, 4, $0, $cr, $lf, $cr, $lf]]));
+          expect(results, equals(
+              [[$3, $cr, $lf, 2, 3, 4, $cr, $lf, $0, $cr, $lf, $cr, $lf]]));
 
           // Setting isLast shuld close the sink.
           expect(() => sink.add([]), throwsStateError);
@@ -119,8 +119,8 @@ void main() {
   group("decoder", () {
     test("parses chunked data", () {
       expect(chunkedCoding.decode([
-        $3, $cr, $lf, 1, 2, 3,
-        $4, $cr, $lf, 4, 5, 6, 7,
+        $3, $cr, $lf, 1, 2, 3, $cr, $lf,
+        $4, $cr, $lf, 4, 5, 6, 7, $cr, $lf,
         $0, $cr, $lf, $cr, $lf,
       ]), equals([1, 2, 3, 4, 5, 6, 7]));
     });
@@ -130,7 +130,7 @@ void main() {
       expect(
           chunkedCoding.decode([$a, $7, $cr, $lf]
             ..addAll(data)
-            ..addAll([$0, $cr, $lf, $cr, $lf])),
+            ..addAll([$cr, $lf, $0, $cr, $lf, $cr, $lf])),
           equals(data));
     });
 
@@ -139,7 +139,7 @@ void main() {
       expect(
           chunkedCoding.decode([$A, $7, $cr, $lf]
             ..addAll(data)
-            ..addAll([$0, $cr, $lf, $cr, $lf])),
+            ..addAll([$cr, $lf, $0, $cr, $lf, $cr, $lf])),
           equals(data));
     });
 
@@ -170,8 +170,18 @@ void main() {
             throwsFormatException);
       });
 
-      test("that ends at a chunk boundary", () {
+      test("that ends after a chunk's bytes", () {
         expect(() => chunkedCoding.decode([$1, $cr, $lf, 1]),
+            throwsFormatException);
+      });
+
+      test("that ends after a chunk's CR", () {
+        expect(() => chunkedCoding.decode([$1, $cr, $lf, 1, $cr]),
+            throwsFormatException);
+      });
+
+      test("that ends atfter a chunk's LF", () {
+        expect(() => chunkedCoding.decode([$1, $cr, $lf, 1, $cr, $lf]),
             throwsFormatException);
       });
 
@@ -208,10 +218,10 @@ void main() {
       });
 
       test("decodes each chunk of bytes", () {
-        sink.add([$4, $cr, $lf, 1, 2, 3, 4]);
+        sink.add([$4, $cr, $lf, 1, 2, 3, 4, $cr, $lf]);
         expect(results, equals([[1, 2, 3, 4]]));
 
-        sink.add([$3, $cr, $lf, 5, 6, 7]);
+        sink.add([$3, $cr, $lf, 5, 6, 7, $cr, $lf]);
         expect(results, equals([[1, 2, 3, 4], [5, 6, 7]]));
 
         sink.add([$0, $cr, $lf, $cr, $lf]);
@@ -223,7 +233,7 @@ void main() {
         sink.add([]);
         expect(results, isEmpty);
 
-        sink.add([$3, $cr, $lf, 1, 2, 3]);
+        sink.add([$3, $cr, $lf, 1, 2, 3, $cr, $lf]);
         expect(results, equals([[1, 2, 3]]));
 
         sink.add([]);
@@ -279,6 +289,30 @@ void main() {
 
           sink.add([3]);
           expect(results, equals([[1, 2], [3]]));
+        });
+
+        test("after all bytes", () {
+          sink.add([$3, $cr, $lf, 1, 2, 3]);
+          expect(results, equals([[1, 2, 3]]));
+
+          sink.add([$cr, $lf, $3, $cr, $lf, 2, 3, 4, $cr, $lf]);
+          expect(results, equals([[1, 2, 3], [2, 3, 4]]));
+        });
+
+        test("after a post-chunk CR", () {
+          sink.add([$3, $cr, $lf, 1, 2, 3, $cr]);
+          expect(results, equals([[1, 2, 3]]));
+
+          sink.add([$lf, $3, $cr, $lf, 2, 3, 4, $cr, $lf]);
+          expect(results, equals([[1, 2, 3], [2, 3, 4]]));
+        });
+
+        test("after a post-chunk LF", () {
+          sink.add([$3, $cr, $lf, 1, 2, 3, $cr, $lf]);
+          expect(results, equals([[1, 2, 3]]));
+
+          sink.add([$3, $cr, $lf, 2, 3, 4, $cr, $lf]);
+          expect(results, equals([[1, 2, 3], [2, 3, 4]]));
         });
 
         test("after empty chunk size", () {
