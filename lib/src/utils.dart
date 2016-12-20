@@ -16,19 +16,20 @@ import 'byte_stream.dart';
 String mapToQuery(Map<String, Object> map, {Encoding encoding}) {
   var pairs = <List<String>>[];
 
-  void iterateMapEntry(key, value) {
+  map.forEach((key, value) {
     if (value is List) {
-      value.forEach((subvalue) =>
-          pairs.add([Uri.encodeQueryComponent(key, encoding: encoding),
-          Uri.encodeQueryComponent(subvalue, encoding: encoding)]));
+      for (var subvalue in value) {
+        return pairs.add([
+          Uri.encodeQueryComponent(key, encoding: encoding),
+          Uri.encodeQueryComponent(subvalue, encoding: encoding)
+        ]));
+    } else if (value is String) {
+      pairs.add([
+        Uri.encodeQueryComponent(key, encoding: encoding),
+        Uri.encodeQueryComponent(value, encoding: encoding)
+      ]);
     }
-    else if (value is String) {
-      pairs.add([Uri.encodeQueryComponent(key, encoding: encoding),
-      Uri.encodeQueryComponent(value, encoding: encoding)]);
-    }
-  }
-
-  map.forEach(iterateMapEntry);
+  });
 
   return pairs.map((pair) => "${pair[0]}=${pair[1]}").join("&");
 }
