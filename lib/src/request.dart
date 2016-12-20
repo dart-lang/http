@@ -113,10 +113,10 @@ class Request extends BaseRequest {
           'content-type "application/x-www-form-urlencoded".');
     }
 
-    return Uri.splitQueryString(body, encoding: encoding);
+    return splitQueryString(body, encoding: encoding);
   }
 
-  set bodyFields(Map<String, String> fields) {
+  set bodyFields(Map<String, Object> fields) {
     var contentType = _contentType;
     if (contentType == null) {
       _contentType = new MediaType("application", "x-www-form-urlencoded");

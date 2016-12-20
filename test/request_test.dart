@@ -153,6 +153,18 @@ void main() {
       expect(request.bodyFields, equals({'hello': 'world'}));
     });
 
+    test('can be set with a value that is a List<String> and bodyFields returns value as list', () {
+      var request = new http.Request('POST', dummyUrl);
+      request.bodyFields = {'hello': ['world', 'solar system', 'galaxy', 'universe']};
+      expect(request.bodyFields, equals({'hello': ['world', 'solar system', 'galaxy', 'universe']}));
+    });
+
+    test('can be set with a value that is a List<String> and body returns multi-assigned parameter', () {
+      var request = new http.Request('POST', dummyUrl);
+      request.bodyFields = {'hello': ['world', 'solar system', 'galaxy', 'universe']};
+      expect(request.body, equals('hello=world&hello=solar+system&hello=galaxy&hello=universe'));
+    });
+
     test('changes when body changes', () {
       var request = new http.Request('POST', dummyUrl);
       request.headers['Content-Type'] =
