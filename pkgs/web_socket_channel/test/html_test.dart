@@ -3,11 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('browser')
-@Skip(
-    "This suite requires a WebSocket server, which is currently unsupported\n"
-    "by the test package (dart-lang/test#330). It's currently set up to talk\n"
-    "to a hard-coded server on localhost:1234 that is spawned in \n"
-    "html_test_server.dart.")
 
 import 'dart:async';
 import 'dart:html';
@@ -20,13 +15,34 @@ import 'package:web_socket_channel/html.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() {
-  var channel;
+  int port;
+  setUpAll(() async {
+    var channel = spawnHybridCode(r"""
+      import 'dart:io';
+
+      import 'package:stream_channel/stream_channel.dart';
+
+      hybridMain(StreamChannel channel) async {
+        var server = await HttpServer.bind('localhost', 0);
+        server.transform(new WebSocketTransformer()).listen((webSocket) {
+          webSocket.listen((request) {
+            webSocket.add(request);
+          });
+        });
+        channel.sink.add(server.port);
+      }
+    """, stayAlive: true);
+
+    port = await channel.stream.first;
+  });
+
+  WebSocketChannel channel;
   tearDown(() {
     if (channel != null) channel.sink.close();
   });
 
   test("communicates using an existing WebSocket", () async {
-    var webSocket = new WebSocket("ws://localhost:1234");
+    var webSocket = new WebSocket("ws://localhost:$port");
     channel = new HtmlWebSocketChannel(webSocket);
 
     var queue = new StreamQueue(channel.stream);
@@ -42,7 +58,7 @@ void main() {
   });
 
   test("communicates using an existing open WebSocket", () async {
-    var webSocket = new WebSocket("ws://localhost:1234");
+    var webSocket = new WebSocket("ws://localhost:$port");
     await webSocket.onOpen.first;
 
     channel = new HtmlWebSocketChannel(webSocket);
@@ -53,7 +69,7 @@ void main() {
   });
 
   test(".connect defaults to binary lists", () async {
-    channel = new HtmlWebSocketChannel.connect("ws://localhost:1234");
+    channel = new HtmlWebSocketChannel.connect("ws://localhost:$port");
 
     var queue = new StreamQueue(channel.stream);
     channel.sink.add("foo");
@@ -65,7 +81,7 @@ void main() {
 
   test(".connect can use blobs", () async {
     channel = new HtmlWebSocketChannel.connect(
-        "ws://localhost:1234", binaryType: BinaryType.blob);
+        "ws://localhost:$port", binaryType: BinaryType.blob);
 
     var queue = new StreamQueue(channel.stream);
     channel.sink.add("foo");
@@ -77,9 +93,25 @@ void main() {
 
   test(".connect wraps a connection error in WebSocketChannelException",
       () async {
+    // Spawn a server that will immediately reject the connection.
+    var serverChannel = spawnHybridCode(r"""
+      import 'dart:io';
+
+      import 'package:stream_channel/stream_channel.dart';
+
+      hybridMain(StreamChannel channel) async {
+        var server = await ServerSocket.bind('localhost', 0);
+        server.listen((socket) {
+          socket.close();
+        });
+        channel.sink.add(server.port);
+      }
+    """);
+
     // TODO(nweiz): Make this channel use a port number that's guaranteed to be
     // invalid.
-    var channel = new HtmlWebSocketChannel.connect("ws://localhost:1235");
+    var channel = new HtmlWebSocketChannel.connect(
+        "ws://localhost:${await serverChannel.stream.first}");
     expect(channel.stream.toList(),
         throwsA(new isInstanceOf<WebSocketChannelException>()));
   });

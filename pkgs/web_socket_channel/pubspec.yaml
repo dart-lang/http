@@ -1,5 +1,5 @@
 name: web_socket_channel
-version: 1.0.4
+version: 1.0.5-dev
 description: StreamChannel wrappers for WebSockets.
 author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/dart-lang/web_socket_channel
@@ -13,4 +13,4 @@ dependencies:
   stream_channel: '^1.2.0'
 
 dev_dependencies:
-  test: '^0.12.0'
+  test: '^0.12.18'
