@@ -8,6 +8,8 @@ import 'dart:typed_data';
 
 import 'byte_stream.dart';
 
+import 'package:collection/collection.dart';
+
 /// Converts a [Map] from parameter names to values to a URL query string.
 /// Values may either be a String or List<String>.
 ///
@@ -28,58 +30,10 @@ String mapToQuery(Map<String, Object> map, {Encoding encoding}) {
     }
   }
 
-  map.forEach(iterateMapEntry);
+  if (map is MultiMap) (map as MultiMap).forEachMultiple(iterateMapEntry);
+  else map.forEach(iterateMapEntry);
 
   return pairs.map((pair) => "${pair[0]}=${pair[1]}").join("&");
-}
-
-
-/**
- * Returns the [query] split into a map according to the rules
- * specified for FORM post in the [HTML 4.01 specification section
- * 17.13.4](http://www.w3.org/TR/REC-html40/interact/forms.html#h-17.13.4 "HTML 4.01 section 17.13.4").
- * Each key and value in the returned map has been decoded. If the [query]
- * is the empty string an empty map is returned.
- *
- * Keys in the query string that have no value are mapped to the
- * empty string.
- *
- * Each query component will be decoded using [encoding]. The default encoding
- * is UTF-8.
- * This is a copy of dart-sdk core Uri.splitQueryString modified to return
- * List<Strings> when parameter is duplicated, for example:
- * "foo=bar&baz=bang&fi=fo&fi=fum" returns {"foo": "bar", "baz": "bang", "fi":["fo","fum"]}
- */
-Map<String, Object> splitQueryString(String query, {Encoding encoding: UTF8}) {
-  return query.split("&").fold({}, (map, element) {
-    int index = element.indexOf("=");
-    if (index == -1) {
-      if (element != "") {
-        map[Uri.decodeQueryComponent(element, encoding: encoding)] = "";
-      }
-    } else if (index != 0) {
-      var key = element.substring(0, index);
-      var value = element.substring(index + 1);
-      String decodedKey = Uri.decodeQueryComponent(key, encoding: encoding);
-      String decodedValue = Uri.decodeQueryComponent(value, encoding: encoding);
-      if (map[decodedKey] == null) {
-        map[decodedKey] = decodedValue;
-      }
-      else {
-        if (map[decodedKey] is List) {
-          List<String> listValue = map[decodedKey] as List<String>;
-          listValue.add(decodedValue);
-        }
-        else {
-          List<String> listValue = new List<String>();
-          listValue.add(map[decodedKey]);
-          listValue.add(decodedValue);
-          map[decodedKey] = listValue;
-        }
-      }
-    }
-    return map;
-  });
 }
 
 /// Like [String.split], but only splits on the first occurrence of the pattern.
