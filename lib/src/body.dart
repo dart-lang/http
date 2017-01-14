@@ -27,8 +27,6 @@ class Body {
   /// determined efficiently.
   final int contentLength;
 
-  Body._(this._stream, this.encoding, this.contentLength);
-
   /// Converts [body] to a byte stream and wraps it in a [Body].
   ///
   /// [body] may be either a [Body], a [String], a [List<int>], a
@@ -44,14 +42,14 @@ class Body {
       stream = new Stream.fromIterable([]);
     } else if (body is String) {
       if (encoding == null) {
-        var encoded = UTF8.encode(body);
+        final encoded = UTF8.encode(body);
         // If the text is plain ASCII, don't modify the encoding. This means
         // that an encoding of "text/plain" will stay put.
         if (!_isPlainAscii(encoded, body.length)) encoding = UTF8;
         contentLength = encoded.length;
         stream = new Stream.fromIterable([encoded]);
       } else {
-        var encoded = encoding.encode(body);
+        final encoded = encoding.encode(body);
         contentLength = encoded.length;
         stream = new Stream.fromIterable([encoded]);
       }
@@ -67,6 +65,8 @@ class Body {
 
     return new Body._(stream, encoding, contentLength);
   }
+
+  Body._(this._stream, this.encoding, this.contentLength);
 
   /// Returns whether [bytes] is plain ASCII.
   ///
@@ -89,7 +89,7 @@ class Body {
       throw new StateError("The 'read' method can only be called once on a "
           "http.Request/http.Response object.");
     }
-    var stream = _stream;
+    final stream = _stream;
     _stream = null;
     return stream;
   }
