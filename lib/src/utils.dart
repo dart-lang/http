@@ -8,15 +8,30 @@ import 'dart:typed_data';
 
 import 'byte_stream.dart';
 
+/// Returns a [Map] with the values from [original] and the values from
+/// [updates].
+///
+/// For keys that are the same between [original] and [updates], the value in
+/// [updates] is used.
+///
+/// If [updates] is `null` or empty, [original] is returned unchanged.
+Map/*<K, V>*/ updateMap/*<K, V>*/(
+    Map/*<K, V>*/ original, Map/*<K, V>*/ updates) {
+  if (updates == null || updates.isEmpty) return original;
+
+  return new Map.from(original)..addAll(updates);
+}
+
 /// Converts a [Map] from parameter names to values to a URL query string.
 ///
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
 String mapToQuery(Map<String, String> map, {Encoding encoding}) {
   var pairs = <List<String>>[];
-  map.forEach((key, value) =>
-      pairs.add([Uri.encodeQueryComponent(key, encoding: encoding),
-                 Uri.encodeQueryComponent(value, encoding: encoding)]));
+  map.forEach((key, value) => pairs.add([
+        Uri.encodeQueryComponent(key, encoding: encoding),
+        Uri.encodeQueryComponent(value, encoding: encoding)
+      ]));
   return pairs.map((pair) => "${pair[0]}=${pair[1]}").join("&");
 }
 
@@ -45,7 +60,6 @@ Encoding encodingForCharset(String charset, [Encoding fallback = LATIN1]) {
   var encoding = Encoding.getByName(charset);
   return encoding == null ? fallback : encoding;
 }
-
 
 /// Returns the [Encoding] that corresponds to [charset]. Throws a
 /// [FormatException] if no [Encoding] was found that corresponds to [charset].
@@ -97,12 +111,10 @@ Stream/*<T>*/ onDone/*<T>*/(Stream/*<T>*/ stream, void onDone()) =>
 /// [sink] is closed and the returned [Future] is completed.
 Future store(Stream stream, EventSink sink) {
   var completer = new Completer();
-  stream.listen(sink.add,
-      onError: sink.addError,
-      onDone: () {
-        sink.close();
-        completer.complete();
-      });
+  stream.listen(sink.add, onError: sink.addError, onDone: () {
+    sink.close();
+    completer.complete();
+  });
   return completer.future;
 }
 
@@ -112,8 +124,7 @@ Future store(Stream stream, EventSink sink) {
 Future writeStreamToSink(Stream stream, EventSink sink) {
   var completer = new Completer();
   stream.listen(sink.add,
-      onError: sink.addError,
-      onDone: () => completer.complete());
+      onError: sink.addError, onDone: () => completer.complete());
   return completer.future;
 }
 
@@ -126,7 +137,7 @@ class Pair<E, F> {
 
   String toString() => '($first, $last)';
 
-  bool operator==(other) {
+  bool operator ==(other) {
     if (other is! Pair) return false;
     return other.first == first && other.last == last;
   }
