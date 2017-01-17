@@ -11,6 +11,8 @@ import 'base_request.dart';
 import 'byte_stream.dart';
 import 'utils.dart';
 
+import 'package:collection/collection.dart';
+
 /// An HTTP request where the entire request body is known in advance.
 class Request extends BaseRequest {
   /// The size of the request body, in bytes. This is calculated from
@@ -105,7 +107,7 @@ class Request extends BaseRequest {
   /// `application/x-www-form-urlencoded`.
   ///
   /// This map should only be set, not modified in place.
-  Map<String, String> get bodyFields {
+  MultiMap<String, String> get bodyFields {
     var contentType = _contentType;
     if (contentType == null ||
         contentType.mimeType != "application/x-www-form-urlencoded") {
@@ -113,10 +115,10 @@ class Request extends BaseRequest {
           'content-type "application/x-www-form-urlencoded".');
     }
 
-    return Uri.splitQueryString(body, encoding: encoding);
+    return MultiMap.splitQueryString(body, encoding: encoding);
   }
 
-  set bodyFields(Map<String, String> fields) {
+  set bodyFields(Map<String, Object> fields) {
     var contentType = _contentType;
     if (contentType == null) {
       _contentType = new MediaType("application", "x-www-form-urlencoded");

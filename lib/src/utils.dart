@@ -8,15 +8,31 @@ import 'dart:typed_data';
 
 import 'byte_stream.dart';
 
+import 'package:collection/collection.dart';
+
 /// Converts a [Map] from parameter names to values to a URL query string.
+/// Values may either be a String or List<String>.
 ///
-///     mapToQuery({"foo": "bar", "baz": "bang"});
-///     //=> "foo=bar&baz=bang"
-String mapToQuery(Map<String, String> map, {Encoding encoding}) {
+///     mapToQuery({"foo": "bar", "baz": "bang", "fi":["fo","fum"]});
+///     //=> "foo=bar&baz=bang&fi=fo&fi=fum"
+String mapToQuery(Map<String, Object> map, {Encoding encoding}) {
   var pairs = <List<String>>[];
-  map.forEach((key, value) =>
+
+  void iterateMapEntry(key, value) {
+    if (value is List) {
+      value.forEach((subvalue) =>
+          pairs.add([Uri.encodeQueryComponent(key, encoding: encoding),
+          Uri.encodeQueryComponent(subvalue, encoding: encoding)]));
+    }
+    else if (value is String) {
       pairs.add([Uri.encodeQueryComponent(key, encoding: encoding),
-                 Uri.encodeQueryComponent(value, encoding: encoding)]));
+      Uri.encodeQueryComponent(value, encoding: encoding)]);
+    }
+  }
+
+  if (map is MultiMap) (map as MultiMap).forEachMultiple(iterateMapEntry);
+  else map.forEach(iterateMapEntry);
+
   return pairs.map((pair) => "${pair[0]}=${pair[1]}").join("&");
 }
 

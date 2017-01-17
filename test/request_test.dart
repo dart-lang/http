@@ -9,6 +9,8 @@ import 'package:unittest/unittest.dart';
 
 import 'utils.dart';
 
+import 'package:collection/collection.dart';
+
 void main() {
   group('#contentLength', () {
     test('is computed from bodyBytes', () {
@@ -151,6 +153,28 @@ void main() {
       var request = new http.Request('POST', dummyUrl);
       request.bodyFields = {'hello': 'world'};
       expect(request.bodyFields, equals({'hello': 'world'}));
+    });
+
+    test('can be set with a value that is a List<String> and bodyFields returns value as list', () {
+      var request = new http.Request('POST', dummyUrl);
+      request.bodyFields = {'hello': ['world', 'solar system', 'galaxy', 'universe']};
+      expect(request.bodyFields, equals({'hello': 'universe'}));
+      expect(request.bodyFields.multiple('hello'), equals(['world', 'solar system', 'galaxy', 'universe']));
+    });
+
+    test('can be set with a value that is a List<String> and body returns multi-assigned parameter', () {
+      var request = new http.Request('POST', dummyUrl);
+      request.bodyFields = {'hello': ['world', 'solar system', 'galaxy', 'universe']};
+      expect(request.body, equals('hello=world&hello=solar+system&hello=galaxy&hello=universe'));
+    });
+
+    test('can be set with a MultiMap that has multiple values', () {
+      var request = new http.Request('POST', dummyUrl);
+      MultiMap<String, String> map = new MultiMap<String, String>.from({'hello': ['world', 'solar system', 'galaxy', 'universe']});
+      expect(map, equals({'hello': 'universe'}));
+      request.bodyFields = map;
+      expect(request.bodyFields, equals({'hello': 'universe'}));
+      expect(request.bodyFields.multiple('hello'), equals(['world', 'solar system', 'galaxy', 'universe']));
     });
 
     test('changes when body changes', () {
