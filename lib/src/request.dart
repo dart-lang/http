@@ -19,7 +19,7 @@ class Request extends Message {
 
   /// Creates a new [Request] for [url] using [method].
   Request(this.method, this.url,
-      {dynamic body,
+      {body,
       Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
@@ -37,8 +37,8 @@ class Request extends Message {
 
   /// Creates a new [Request] for [url] using a "POST" method.
   Request.post(Uri url,
-      {dynamic body,
-      Encoding encoding,
+      body,
+      {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
       : this('POST', url,
@@ -46,8 +46,8 @@ class Request extends Message {
 
   /// Creates a new [Request] for [url] using a "PUT" method.
   Request.put(Uri url,
-      {dynamic body,
-      Encoding encoding,
+      body,
+      {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
       : this('PUT', url,
@@ -55,8 +55,8 @@ class Request extends Message {
 
   /// Creates a new [Request] for [url] using a "PATCH" method.
   Request.patch(Uri url,
-      {dynamic body,
-      Encoding encoding,
+      body,
+      {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
       : this('PATCH', url,
@@ -81,7 +81,7 @@ class Request extends Message {
   Request change(
       {Map<String, String> headers,
       Map<String, Object> context,
-      dynamic body}) {
+      body}) {
     var updatedHeaders = updateMap(this.headers, headers);
     var updatedContext = updateMap(this.context, context);
 

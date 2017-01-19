@@ -16,7 +16,7 @@ class Response extends Message {
 
   /// Creates a new HTTP response with the [statusCode].
   Response(this.statusCode,
-      {dynamic body,
+      {body,
       Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
@@ -40,7 +40,7 @@ class Response extends Message {
   Response change(
       {Map<String, String> headers,
       Map<String, Object> context,
-      dynamic body}) {
+      body}) {
     var updatedHeaders = updateMap(this.headers, headers);
     var updatedContext = updateMap(this.context, context);
 
