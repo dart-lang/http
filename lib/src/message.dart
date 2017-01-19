@@ -16,7 +16,7 @@ Body getBody(Message message) => message._body;
 
 /// The default set of headers for a message created with no body and no
 /// explicit headers.
-final _defaultHeaders = new HttpUnmodifiableMap<String>({"content-length": "0"},
+final _defaultHeaders = new HttpUnmodifiableMap<String>({},
     ignoreKeyCase: true);
 
 /// Represents logic shared between [Request] and [Response].
