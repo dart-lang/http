@@ -93,7 +93,7 @@ abstract class Message {
   ///
   /// If [headers] doesn't have a Content-Type header, this will be `null`.
   String get mimeType {
-    final contentType = _contentType;
+    var contentType = _contentType;
     if (contentType == null) return null;
     return contentType.mimeType;
   }
@@ -106,7 +106,7 @@ abstract class Message {
   /// If [headers] doesn't have a Content-Type header or it specifies an
   /// encoding that [dart:convert] doesn't support, this will be `null`.
   Encoding get encoding {
-    final contentType = _contentType;
+    var contentType = _contentType;
     if (contentType == null) return null;
     if (!contentType.parameters.containsKey('charset')) return null;
     return Encoding.getByName(contentType.parameters['charset']);
@@ -151,7 +151,7 @@ abstract class Message {
 ///
 /// Returns a new map without modifying [headers].
 Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
-  final sameEncoding = _sameEncoding(headers, body);
+  var sameEncoding = _sameEncoding(headers, body);
   if (sameEncoding) {
     if (body.contentLength == null ||
         getHeader(headers, 'content-length') == body.contentLength.toString()) {
@@ -162,7 +162,7 @@ Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
     }
   }
 
-  final newHeaders = headers == null
+  var newHeaders = headers == null
       ? new CaseInsensitiveMap<String>()
       : new CaseInsensitiveMap<String>.from(headers);
 
@@ -171,14 +171,14 @@ Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
       newHeaders['content-type'] =
           'application/octet-stream; charset=${body.encoding.name}';
     } else {
-      final contentType = new MediaType.parse(newHeaders['content-type'])
+      var contentType = new MediaType.parse(newHeaders['content-type'])
           .change(parameters: {'charset': body.encoding.name});
       newHeaders['content-type'] = contentType.toString();
     }
   }
 
   if (body.contentLength != null) {
-    final coding = newHeaders['transfer-encoding'];
+    var coding = newHeaders['transfer-encoding'];
     if (coding == null || equalsIgnoreAsciiCase(coding, 'identity')) {
       newHeaders['content-length'] = body.contentLength.toString();
     }
@@ -191,9 +191,9 @@ Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
 bool _sameEncoding(Map<String, String> headers, Body body) {
   if (body.encoding == null) return true;
 
-  final contentType = getHeader(headers, 'content-type');
+  var contentType = getHeader(headers, 'content-type');
   if (contentType == null) return false;
 
-  final charset = new MediaType.parse(contentType).parameters['charset'];
+  var charset = new MediaType.parse(contentType).parameters['charset'];
   return Encoding.getByName(charset) == body.encoding;
 }

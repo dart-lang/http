@@ -42,14 +42,14 @@ class Body {
       stream = new Stream.fromIterable([]);
     } else if (body is String) {
       if (encoding == null) {
-        final encoded = UTF8.encode(body);
+        var encoded = UTF8.encode(body);
         // If the text is plain ASCII, don't modify the encoding. This means
         // that an encoding of "text/plain" will stay put.
         if (!_isPlainAscii(encoded, body.length)) encoding = UTF8;
         contentLength = encoded.length;
         stream = new Stream.fromIterable([encoded]);
       } else {
-        final encoded = encoding.encode(body);
+        var encoded = encoding.encode(body);
         contentLength = encoded.length;
         stream = new Stream.fromIterable([encoded]);
       }
@@ -89,7 +89,7 @@ class Body {
       throw new StateError("The 'read' method can only be called once on a "
           "http.Request/http.Response object.");
     }
-    final stream = _stream;
+    var stream = _stream;
     _stream = null;
     return stream;
   }

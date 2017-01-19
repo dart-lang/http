@@ -41,8 +41,8 @@ class Response extends Message {
       {Map<String, String> headers,
       Map<String, Object> context,
       dynamic body}) {
-    final updatedHeaders = updateMap/*<String, String>*/(this.headers, headers);
-    final updatedContext = updateMap/*<String, Object>*/(this.context, context);
+    var updatedHeaders = updateMap(this.headers, headers);
+    var updatedContext = updateMap(this.context, context);
 
     body ??= getBody(this);
 
