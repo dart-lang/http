@@ -15,6 +15,17 @@ class Response extends Message {
   final int statusCode;
 
   /// Creates a new HTTP response with the [statusCode].
+  ///
+  /// [body] is the request body. It may be either a [String], a [List<int>], a
+  /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
+  /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
+  /// UTF-8.
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between outer middleware
+  /// and handlers.
   Response(this.statusCode,
       {body,
       Encoding encoding,

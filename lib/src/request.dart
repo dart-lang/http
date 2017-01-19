@@ -7,17 +7,29 @@ import 'dart:convert';
 import 'message.dart';
 import 'utils.dart';
 
-/// Represents an HTTP request to be processed by a `http` application.
+/// Represents a HTTP request to be sent to a server.
 class Request extends Message {
-  /// The HTTP method of the request. Most commonly "GET" or "POST", less
-  /// commonly "HEAD", "PUT", or "DELETE". Non-standard method names are also
-  /// supported.
+  /// The HTTP method of the request.
+  ///
+  /// Most commonly "GET" or "POST", less commonly "HEAD", "PUT", or "DELETE".
+  /// Non-standard method names are also supported.
   final String method;
 
   /// The URL to which the request will be sent.
   final Uri url;
 
   /// Creates a new [Request] for [url] using [method].
+  ///
+  /// [body] is the request body. It may be either a [String], a [List<int>], a
+  /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
+  /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
+  /// UTF-8.
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between inner middleware
+  /// and handlers.
   Request(this.method, this.url,
       {body,
       Encoding encoding,
@@ -25,17 +37,39 @@ class Request extends Message {
       Map<String, Object> context})
       : super(body, encoding: encoding, headers: headers, context: context);
 
-  /// Creates a new [Request] for [url] using a "HEAD" method.
+  /// Creates a new HEAD [Request] to [url].
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between inner middleware
+  /// and handlers.
   Request.head(Uri url,
       {Map<String, String> headers, Map<String, Object> context})
       : this('HEAD', url, headers: headers, context: context);
 
-  /// Creates a new [Request] for [url] using a "GET" method.
+  /// Creates a new GET [Request] to [url].
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between inner middleware
+  /// and handlers.
   Request.get(Uri url,
       {Map<String, String> headers, Map<String, Object> context})
       : this('GET', url, headers: headers, context: context);
 
-  /// Creates a new [Request] for [url] using a "POST" method.
+  /// Creates a new POST [Request] to [url].
+  /// [body] is the request body. It may be either a [String], a [List<int>], a
+  /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
+  /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
+  /// UTF-8.
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between inner middleware
+  /// and handlers.
   Request.post(Uri url,
       body,
       {Encoding encoding,
@@ -44,7 +78,18 @@ class Request extends Message {
       : this('POST', url,
       body: body, encoding: encoding, headers: headers, context: context);
 
-  /// Creates a new [Request] for [url] using a "PUT" method.
+  /// Creates a new PUT [Request] to [url].
+  ///
+  /// [body] is the request body. It may be either a [String], a [List<int>], a
+  /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
+  /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
+  /// UTF-8.
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between inner middleware
+  /// and handlers.
   Request.put(Uri url,
       body,
       {Encoding encoding,
@@ -53,7 +98,18 @@ class Request extends Message {
       : this('PUT', url,
       body: body, encoding: encoding, headers: headers, context: context);
 
-  /// Creates a new [Request] for [url] using a "PATCH" method.
+  /// Creates a new PATCH [Request] to [url].
+  ///
+  /// [body] is the request body. It may be either a [String], a [List<int>], a
+  /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
+  /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
+  /// UTF-8.
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between inner middleware
+  /// and handlers.
   Request.patch(Uri url,
       body,
       {Encoding encoding,
@@ -62,7 +118,13 @@ class Request extends Message {
       : this('PATCH', url,
       body: body, encoding: encoding, headers: headers, context: context);
 
-  /// Creates a new [Request] for [url] using a "DELETE" method.
+  /// Creates a new DELETE [Request] to [url].
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between inner middleware
+  /// and handlers.
   Request.delete(Uri url,
       {Map<String, String> headers, Map<String, Object> context})
       : this('DELETE', url, headers: headers, context: context);
