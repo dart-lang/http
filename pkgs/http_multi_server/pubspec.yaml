@@ -4,10 +4,10 @@ author: "Dart Team <misc@dartlang.org>"
 homepage: http://github.com/dart-lang/http_multi_server
 description:
   A dart:io HttpServer wrapper that handles requests from multiple servers.
+environment:
+  sdk: ">=1.13.0 <2.0.0-dev.infinity"
 dependencies:
   async: "^1.2.0"
 dev_dependencies:
   test: ">=0.12.0 <0.13.0"
   http: ">=0.11.0 <0.12.0"
-environment:
-  sdk: ">=1.13.0 <2.0.0"
