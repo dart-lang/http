@@ -13,6 +13,9 @@ import 'headers.dart';
 import 'http_unmodifiable_map.dart';
 
 /// Retrieves the [Body] contained in the [message].
+///
+/// This is meant for internal use by `http` so the message body is accessible
+/// for subclasses of [Message] but hidden elsewhere.
 Body getBody(Message message) => message._body;
 
 /// The default set of headers for a message created with no body and no
@@ -33,9 +36,9 @@ abstract class Message {
   /// for responses, it's used to pass data to outer middleware and handlers.
   ///
   /// Context properties that are used by a particular package should begin with
-  /// that package's name followed by a period. For example, if `logRequests`
-  /// wanted to take a prefix, its property name would be `"http.prefix"`,
-  /// since it's in the `http` package.
+  /// that package's name followed by a period. For example, if there was a
+  /// package `foo` which contained a middleware `bar` and it wanted to take
+  /// a context property, its property would be `"foo.bar"`.
   ///
   /// The value is immutable.
   final Map<String, Object> context;

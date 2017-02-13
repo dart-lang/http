@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'message.dart';
 import 'utils.dart';
 
-/// Represents a HTTP request to be sent to a server.
+/// Represents an HTTP request to be sent to a server.
 class Request extends Message {
   /// The HTTP method of the request.
   ///
