@@ -2,94 +2,87 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:http_parser/http_parser.dart';
 
-import 'base_request.dart';
-import 'base_response.dart';
-import 'streamed_response.dart';
+import 'message.dart';
 import 'utils.dart';
 
 /// An HTTP response where the entire response body is known in advance.
-class Response extends BaseResponse {
-  /// The bytes comprising the body of this response.
-  final Uint8List bodyBytes;
+class Response extends Message {
+  /// The status code of the response.
+  final int statusCode;
 
-  /// The body of the response as a string. This is converted from [bodyBytes]
-  /// using the `charset` parameter of the `Content-Type` header field, if
-  /// available. If it's unavailable or if the encoding name is unknown,
-  /// [LATIN1] is used by default, as per [RFC 2616][].
+  /// Creates a new HTTP response with the given [statusCode].
   ///
-  /// [RFC 2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html
-  String get body => _encodingForHeaders(headers).decode(bodyBytes);
+  /// [body] is the request body. It may be either a [String], a [List<int>], a
+  /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
+  /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
+  /// UTF-8.
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between outer middleware
+  /// and handlers.
+  Response(this.statusCode,
+      {body,
+      Encoding encoding,
+      Map<String, String> headers,
+      Map<String, Object> context})
+      : super(body, encoding: encoding, headers: headers, context: context);
 
-  /// Creates a new HTTP response with a string body.
-  Response(
-      String body,
-      int statusCode,
-      {BaseRequest request,
-       Map<String, String> headers: const {},
-       bool isRedirect: false,
-       bool persistentConnection: true,
-       String reasonPhrase})
-    : this.bytes(
-        _encodingForHeaders(headers).encode(body),
-        statusCode,
-        request: request,
-        headers: headers,
-        isRedirect: isRedirect,
-        persistentConnection: persistentConnection,
-        reasonPhrase: reasonPhrase);
+  /// Creates a new [Response] by copying existing values and applying specified
+  /// changes.
+  ///
+  /// New key-value pairs in [context] and [headers] will be added to the copied
+  /// [Response].
+  ///
+  /// If [context] or [headers] includes a key that already exists, the
+  /// key-value pair will replace the corresponding entry in the copied
+  /// [Response].
+  ///
+  /// All other context and header values from the [Response] will be included
+  /// in the copied [Response] unchanged.
+  ///
+  /// [body] is the request body. It may be either a [String], a [List<int>], a
+  /// [Stream<List<int>>], or `null` to indicate no body.
+  Response change(
+      {Map<String, String> headers,
+      Map<String, Object> context,
+      body}) {
+    var updatedHeaders = updateMap(this.headers, headers);
+    var updatedContext = updateMap(this.context, context);
 
-  /// Create a new HTTP response with a byte array body.
-  Response.bytes(
-      List<int> bodyBytes,
-      int statusCode,
-      {BaseRequest request,
-       Map<String, String> headers: const {},
-       bool isRedirect: false,
-       bool persistentConnection: true,
-       String reasonPhrase})
-    : bodyBytes = toUint8List(bodyBytes),
-      super(
-        statusCode,
-        contentLength: bodyBytes.length,
-        request: request,
-        headers: headers,
-        isRedirect: isRedirect,
-        persistentConnection: persistentConnection,
-        reasonPhrase: reasonPhrase);
-
-  /// Creates a new HTTP response by waiting for the full body to become
-  /// available from a [StreamedResponse].
-  static Future<Response> fromStream(StreamedResponse response) {
-    return response.stream.toBytes().then((body) {
-      return new Response.bytes(
-          body,
-          response.statusCode,
-          request: response.request,
-          headers: response.headers,
-          isRedirect: response.isRedirect,
-          persistentConnection: response.persistentConnection,
-          reasonPhrase: response.reasonPhrase);
-    });
+    return new Response(this.statusCode,
+        body: body ?? getBody(this),
+        headers: updatedHeaders,
+        context: updatedContext);
   }
-}
 
-/// Returns the encoding to use for a response with the given headers. This
-/// defaults to [LATIN1] if the headers don't specify a charset or
-/// if that charset is unknown.
-Encoding _encodingForHeaders(Map<String, String> headers) =>
-  encodingForCharset(_contentTypeForHeaders(headers).parameters['charset']);
+  /// The date and time after which the response's data should be considered
+  /// stale.
+  ///
+  /// This is parsed from the Expires header in [headers]. If [headers] doesn't
+  /// have an Expires header, this will be `null`.
+  DateTime get expires {
+    if (_expiresCache != null) return _expiresCache;
+    if (!headers.containsKey('expires')) return null;
+    _expiresCache = parseHttpDate(headers['expires']);
+    return _expiresCache;
+  }
+  DateTime _expiresCache;
 
-/// Returns the [MediaType] object for the given headers's content-type.
-///
-/// Defaults to `application/octet-stream`.
-MediaType _contentTypeForHeaders(Map<String, String> headers) {
-  var contentType = headers['content-type'];
-  if (contentType != null) return new MediaType.parse(contentType);
-  return new MediaType("application", "octet-stream");
+  /// The date and time the source of the response's data was last modified.
+  ///
+  /// This is parsed from the Last-Modified header in [headers]. If [headers]
+  /// doesn't have a Last-Modified header, this will be `null`.
+  DateTime get lastModified {
+    if (_lastModifiedCache != null) return _lastModifiedCache;
+    if (!headers.containsKey('last-modified')) return null;
+    _lastModifiedCache = parseHttpDate(headers['last-modified']);
+    return _lastModifiedCache;
+  }
+  DateTime _lastModifiedCache;
 }

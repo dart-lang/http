@@ -6,7 +6,24 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
+
 import 'byte_stream.dart';
+import 'http_unmodifiable_map.dart';
+
+/// Returns a [Map] with the values from [original] and the values from
+/// [updates].
+///
+/// For keys that are the same between [original] and [updates], the value in
+/// [updates] is used.
+///
+/// If [updates] is `null` or empty, [original] is returned unchanged.
+Map/*<K, V>*/ updateMap/*<K, V>*/(
+    Map/*<K, V>*/ original, Map/*<K, V>*/ updates) {
+  if (updates == null || updates.isEmpty) return original;
+
+  return new Map.from(original)..addAll(updates);
+}
 
 /// Converts a [Map] from parameter names to values to a URL query string.
 ///
@@ -138,4 +155,18 @@ class Pair<E, F> {
 /// to [completer].
 void chainToCompleter(Future future, Completer completer) {
   future.then(completer.complete, onError: completer.completeError);
+}
+
+/// Returns the header with the given [name] in [headers].
+///
+/// This works even if [headers] is `null`, or if it's not yet a
+/// case-insensitive map.
+String getHeader(Map<String, String> headers, String name) {
+  if (headers == null) return null;
+  if (headers is HttpUnmodifiableMap) return headers[name];
+
+  for (var key in headers.keys) {
+    if (equalsIgnoreAsciiCase(key, name)) return headers[key];
+  }
+  return null;
 }
