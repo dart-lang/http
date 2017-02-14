@@ -54,6 +54,5 @@ class HttpUnmodifiableMap<V> extends UnmodifiableMapView<String, V> {
 class _EmptyHttpUnmodifiableMap<V> extends MapView<String, V>
     implements HttpUnmodifiableMap<V> {
   bool get _ignoreKeyCase => true;
-
   const _EmptyHttpUnmodifiableMap() : super(const {});
 }

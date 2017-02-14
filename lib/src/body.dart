@@ -27,6 +27,8 @@ class Body {
   /// determined efficiently.
   final int contentLength;
 
+  Body._(this._stream, this.encoding, this.contentLength);
+
   /// Converts [body] to a byte stream and wraps it in a [Body].
   ///
   /// [body] may be either a [Body], a [String], a [List<int>], a
@@ -65,8 +67,6 @@ class Body {
 
     return new Body._(stream, encoding, contentLength);
   }
-
-  Body._(this._stream, this.encoding, this.contentLength);
 
   /// Returns whether [bytes] is plain ASCII.
   ///

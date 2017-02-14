@@ -14,7 +14,7 @@ class Response extends Message {
   /// The status code of the response.
   final int statusCode;
 
-  /// Creates a new HTTP response with the [statusCode].
+  /// Creates a new HTTP response with the given [statusCode].
   ///
   /// [body] is the request body. It may be either a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
@@ -55,10 +55,10 @@ class Response extends Message {
     var updatedHeaders = updateMap(this.headers, headers);
     var updatedContext = updateMap(this.context, context);
 
-    body ??= getBody(this);
-
     return new Response(this.statusCode,
-        body: body, headers: updatedHeaders, context: updatedContext);
+        body: body ?? getBody(this),
+        headers: updatedHeaders,
+        context: updatedContext);
   }
 
   /// The date and time after which the response's data should be considered

@@ -9,8 +9,8 @@ import 'package:collection/collection.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'body.dart';
-import 'headers.dart';
 import 'http_unmodifiable_map.dart';
+import 'utils.dart';
 
 /// Retrieves the [Body] contained in the [message].
 ///
@@ -18,16 +18,12 @@ import 'http_unmodifiable_map.dart';
 /// for subclasses of [Message] but hidden elsewhere.
 Body getBody(Message message) => message._body;
 
-/// The default set of headers for a message created with no body and no
-/// explicit headers.
-final _defaultHeaders = new HttpUnmodifiableMap<String>({},
-    ignoreKeyCase: true);
-
 /// Represents logic shared between [Request] and [Response].
 abstract class Message {
   /// The HTTP headers.
   ///
-  /// The value is immutable.
+  /// This is immutable. A copy of this with new headers can be created using
+  /// [change].
   final Map<String, String> headers;
 
   /// Extra context that can be used by middleware and handlers.
@@ -40,7 +36,8 @@ abstract class Message {
   /// package `foo` which contained a middleware `bar` and it wanted to take
   /// a context property, its property would be `"foo.bar"`.
   ///
-  /// The value is immutable.
+  /// This is immutable. A copy of this with new context values can be created
+  /// using [change].
   final Map<String, Object> context;
 
   /// The streaming body of the message.
@@ -55,7 +52,7 @@ abstract class Message {
   /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
   /// UTF-8.
   ///
-  /// If [headers] is `null`, it is treated as empty.
+  /// If [headers] is `null`, it's treated as empty.
   ///
   /// If [encoding] is passed, the "encoding" field of the Content-Type header
   /// in [headers] will be set appropriately. If there is no existing
@@ -87,10 +84,9 @@ abstract class Message {
     _contentLengthCache = int.parse(headers['content-length']);
     return _contentLengthCache;
   }
-
   int _contentLengthCache;
 
-  /// The MIME type of the message.
+  /// The MIME type declared in [headers].
   ///
   /// This is parsed from the Content-Type header in [headers]. It contains only
   /// the MIME type, without any Content-Type parameters.
@@ -102,7 +98,7 @@ abstract class Message {
     return contentType.mimeType;
   }
 
-  /// The encoding of the message body.
+  /// The encoding of the body returned by [read].
   ///
   /// This is parsed from the "charset" parameter of the Content-Type header in
   /// [headers].
@@ -125,27 +121,26 @@ abstract class Message {
     _contentTypeCache = new MediaType.parse(headers['content-type']);
     return _contentTypeCache;
   }
-
   MediaType _contentTypeCache;
 
-  /// Returns a [Stream] representing the body.
+  /// Returns the message body as byte chunks.
   ///
-  /// Can only be called once.
+  /// Throws a [StateError] if [read] or [readAsString] has already been called.
   Stream<List<int>> read() => _body.read();
 
-  /// Returns a [Future] containing the body as a String.
+  /// Returns the message body as a string.
   ///
-  /// If [encoding] is passed, that's used to decode the body.
-  /// Otherwise the encoding is taken from the Content-Type header. If that
-  /// doesn't exist or doesn't have a "charset" parameter, UTF-8 is used.
+  /// If [encoding] is passed, that's used to decode the body. Otherwise the
+  /// encoding is taken from the Content-Type header. If that doesn't exist or
+  /// doesn't have a "charset" parameter, UTF-8 is used.
   ///
-  /// This calls [read] internally, which can only be called once.
+  /// Throws a [StateError] if [read] or [readAsString] has already been called.
   Future<String> readAsString([Encoding encoding]) {
     encoding ??= this.encoding ?? UTF8;
     return encoding.decodeStream(read());
   }
 
-  /// Creates a new [Message] by copying existing values and applying specified
+  /// Creates a copy of this by copying existing values and applying specified
   /// changes.
   Message change(
       {Map<String, String> headers, Map<String, Object> context, body});
@@ -162,7 +157,7 @@ Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
       return headers ?? const HttpUnmodifiableMap.empty();
     } else if (body.contentLength == 0 &&
         (headers == null || headers.isEmpty)) {
-      return _defaultHeaders;
+      return const HttpUnmodifiableMap.empty();
     }
   }
 
