@@ -8,7 +8,6 @@ import 'dart:typed_data';
 
 import 'base_client.dart';
 import 'base_request.dart';
-import 'io.dart' as io;
 import 'io_client.dart';
 import 'response.dart';
 import 'streamed_response.dart';
@@ -28,10 +27,7 @@ abstract class Client {
   /// Currently this will create an [IOClient] if `dart:io` is available and
   /// throw an [UnsupportedError] otherwise. In the future, it will create a
   /// [BrowserClient] if `dart:html` is available.
-  factory Client() {
-    io.assertSupported("IOClient");
-    return new IOClient();
-  }
+  factory Client() => new IOClient();
 
   /// Sends an HTTP HEAD request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
