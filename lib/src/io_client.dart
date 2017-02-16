@@ -3,13 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:async/async.dart';
 
 import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
-import 'io.dart' as io;
 import 'streamed_response.dart';
 
 /// A `dart:io`-based HTTP client.
@@ -17,23 +17,10 @@ import 'streamed_response.dart';
 /// This is the default client when running on the command line.
 class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
-  var _inner;
+  HttpClient _inner;
 
   /// Creates a new HTTP client.
-  ///
-  /// [innerClient] must be a `dart:io` HTTP client. If it's not passed, a
-  /// default one will be instantiated.
-  IOClient([innerClient]) {
-    io.assertSupported("IOClient");
-    if (innerClient != null) {
-      // TODO(nweiz): remove this assert when we can type [innerClient]
-      // properly.
-      assert(io.isHttpClient(innerClient));
-      _inner = innerClient;
-    } else {
-      _inner = io.newHttpClient();
-    }
-  }
+  IOClient([HttpClient inner]) : _inner = inner ?? new HttpClient();
 
   /// Sends an HTTP request and asynchronously returns the response.
   Future<StreamedResponse> send(BaseRequest request) async {
@@ -63,7 +50,7 @@ class IOClient extends BaseClient {
       return new StreamedResponse(
           DelegatingStream.typed/*<List<int>>*/(response).handleError((error) =>
               throw new ClientException(error.message, error.uri),
-              test: (error) => io.isHttpException(error)),
+              test: (error) => error is HttpException),
           response.statusCode,
           contentLength: response.contentLength == -1
               ? null
@@ -73,8 +60,7 @@ class IOClient extends BaseClient {
           isRedirect: response.isRedirect,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase);
-    } catch (error) {
-      if (!io.isHttpException(error)) rethrow;
+    } on HttpException catch (error) {
       throw new ClientException(error.message, error.uri);
     }
   }
