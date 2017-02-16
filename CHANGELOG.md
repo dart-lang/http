@@ -1,3 +1,7 @@
+## 0.11.3+10
+
+* Stop using `dart:mirrors`.
+
 ## 0.11.3+9
 
 * Remove an extra newline in multipart chunks.

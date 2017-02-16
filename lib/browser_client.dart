@@ -15,9 +15,7 @@ import 'src/exception.dart';
 import 'src/streamed_response.dart';
 
 // TODO(nweiz): Move this under src/, re-export from lib/http.dart, and use this
-// automatically from [new Client] once we can create an HttpRequest using
-// mirrors on dart2js (issue 18541) and dart2js doesn't crash on pkg/collection
-// (issue 18535).
+// automatically from [new Client] once sdk#24581 is fixed.
 
 /// A `dart:html`-based HTTP client that runs in the browser and is backed by
 /// XMLHttpRequests.
