@@ -11,8 +11,6 @@ import 'src/client.dart';
 import 'src/response.dart';
 
 export 'src/base_client.dart';
-export 'src/base_request.dart';
-export 'src/base_response.dart';
 export 'src/byte_stream.dart';
 export 'src/client.dart';
 export 'src/exception.dart';
@@ -21,8 +19,6 @@ export 'src/multipart_file.dart';
 export 'src/multipart_request.dart';
 export 'src/request.dart';
 export 'src/response.dart';
-export 'src/streamed_request.dart';
-export 'src/streamed_response.dart';
 
 /// Sends an HTTP HEAD request with the given headers to the given URL, which
 /// can be a [Uri] or a [String].
@@ -32,7 +28,7 @@ export 'src/streamed_response.dart';
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-FutureOr<Response> head(url, {Map<String, String> headers}) =>
+Future<Response> head(url, {Map<String, String> headers}) =>
   _withClient((client) => client.head(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
@@ -43,7 +39,7 @@ FutureOr<Response> head(url, {Map<String, String> headers}) =>
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-FutureOr<Response> get(url, {Map<String, String> headers}) =>
+Future<Response> get(url, {Map<String, String> headers}) =>
   _withClient((client) => client.get(url, headers: headers));
 
 /// Sends an HTTP POST request with the given headers and body to the given URL,
@@ -65,7 +61,7 @@ FutureOr<Response> get(url, {Map<String, String> headers}) =>
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-FutureOr<Response> post(url, body, {Map<String, String> headers,
+Future<Response> post(url, body, {Map<String, String> headers,
     Encoding encoding}) =>
   _withClient((client) => client.post(url, body,
       headers: headers, encoding: encoding));
@@ -89,7 +85,7 @@ FutureOr<Response> post(url, body, {Map<String, String> headers,
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-FutureOr<Response> put(url, body, {Map<String, String> headers,
+Future<Response> put(url, body, {Map<String, String> headers,
     Encoding encoding}) =>
   _withClient((client) => client.put(url, body,
       headers: headers, encoding: encoding));
@@ -113,7 +109,7 @@ FutureOr<Response> put(url, body, {Map<String, String> headers,
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-FutureOr<Response> patch(url, body, {Map<String, String> headers,
+Future<Response> patch(url, body, {Map<String, String> headers,
     Encoding encoding}) =>
   _withClient((client) => client.patch(url, body,
       headers: headers, encoding: encoding));
@@ -126,7 +122,7 @@ FutureOr<Response> patch(url, body, {Map<String, String> headers,
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-FutureOr<Response> delete(url, {Map<String, String> headers}) =>
+Future<Response> delete(url, {Map<String, String> headers}) =>
   _withClient((client) => client.delete(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
@@ -142,7 +138,7 @@ FutureOr<Response> delete(url, {Map<String, String> headers}) =>
 ///
 /// For more fine-grained control over the request and response, use [Request]
 /// instead.
-FutureOr<String> read(url, {Map<String, String> headers}) =>
+Future<String> read(url, {Map<String, String> headers}) =>
   _withClient((client) => client.read(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
@@ -158,10 +154,10 @@ FutureOr<String> read(url, {Map<String, String> headers}) =>
 ///
 /// For more fine-grained control over the request and response, use [Request]
 /// instead.
-FutureOr<Uint8List> readBytes(url, {Map<String, String> headers}) =>
+Future<Uint8List> readBytes(url, {Map<String, String> headers}) =>
   _withClient((client) => client.readBytes(url, headers: headers));
 
-FutureOr<T> _withClient<T>(FutureOr<T> fn(Client client)) async {
+Future<T> _withClient<T>(FutureOr<T> fn(Client client)) async {
   var client = new Client();
   try {
     return await fn(client);
