@@ -1,5 +1,5 @@
 name: http
-version: 0.11.3+10
+version: 0.11.3+11
 author: "Dart Team <misc@dartlang.org>"
 homepage: https://github.com/dart-lang/http
 description: A composable, Future-based API for making HTTP requests.
@@ -12,4 +12,4 @@ dependencies:
 dev_dependencies:
   unittest: ">=0.9.0 <0.12.0"
 environment:
-  sdk: ">=1.22.0 <2.0.0"
+  sdk: ">=1.23.0-dev.0.0 <2.0.0"
