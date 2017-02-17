@@ -7,10 +7,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'base_client.dart';
-import 'base_request.dart';
 import 'io_client.dart';
+import 'request.dart';
 import 'response.dart';
-import 'streamed_response.dart';
 
 /// The interface for HTTP clients that take care of maintaining persistent
 /// connections across multiple requests to the same server. If you only need to
@@ -33,13 +32,13 @@ abstract class Client {
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> head(url, {Map<String, String> headers});
+  FutureOr<Response> head(url, {Map<String, String> headers});
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> get(url, {Map<String, String> headers});
+  FutureOr<Response> get(url, {Map<String, String> headers});
 
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -59,7 +58,7 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> post(url, {Map<String, String> headers, body,
+  FutureOr<Response> post(url, body, {Map<String, String> headers,
       Encoding encoding});
 
   /// Sends an HTTP PUT request with the given headers and body to the given
@@ -80,7 +79,7 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> put(url, {Map<String, String> headers, body,
+  FutureOr<Response> put(url, body, {Map<String, String> headers,
       Encoding encoding});
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
@@ -101,14 +100,14 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> patch(url, {Map<String, String> headers, body,
+  FutureOr<Response> patch(url, body, {Map<String, String> headers,
       Encoding encoding});
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> delete(url, {Map<String, String> headers});
+  FutureOr<Response> delete(url, {Map<String, String> headers});
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
@@ -119,7 +118,7 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  Future<String> read(url, {Map<String, String> headers});
+  FutureOr<String> read(url, {Map<String, String> headers});
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
@@ -130,10 +129,10 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  Future<Uint8List> readBytes(url, {Map<String, String> headers});
+  FutureOr<Uint8List> readBytes(url, {Map<String, String> headers});
 
   /// Sends an HTTP request and asynchronously returns the response.
-  Future<StreamedResponse> send(BaseRequest request);
+  FutureOr<Response> send(Request request);
 
   /// Closes the client and cleans up any resources associated with it. It's
   /// important to close each client when it's done being used; failing to do so
