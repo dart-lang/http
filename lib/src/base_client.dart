@@ -21,15 +21,15 @@ abstract class BaseClient implements Client {
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  FutureOr<Response> head(url, {Map<String, String> headers}) =>
-    send(new Request.head(_uri(url), headers: headers));
+  Future<Response> head(url, {Map<String, String> headers}) =>
+    send(new Request.head(url, headers: headers));
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  FutureOr<Response> get(url, {Map<String, String> headers}) =>
-    send(new Request.get(_uri(url), headers: headers));
+  Future<Response> get(url, {Map<String, String> headers}) =>
+    send(new Request.get(url, headers: headers));
 
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -49,9 +49,9 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  FutureOr<Response> post(url, body, {Map<String, String> headers,
+  Future<Response> post(url, body, {Map<String, String> headers,
       Encoding encoding}) =>
-    send(new Request.post(_uri(url), body, headers: headers,
+    send(new Request.post(url, body, headers: headers,
         encoding: encoding));
 
   /// Sends an HTTP PUT request with the given headers and body to the given
@@ -72,9 +72,9 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  FutureOr<Response> put(url, body, {Map<String, String> headers,
+  Future<Response> put(url, body, {Map<String, String> headers,
       Encoding encoding}) =>
-    send(new Request.put(_uri(url), body, headers: headers,
+    send(new Request.put(url, body, headers: headers,
         encoding: encoding));
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
@@ -95,17 +95,17 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  FutureOr<Response> patch(url, body, {Map<String, String> headers,
+  Future<Response> patch(url, body, {Map<String, String> headers,
       Encoding encoding}) =>
-    send(new Request.patch(_uri(url), body, headers: headers,
+    send(new Request.patch(url, body, headers: headers,
         encoding: encoding));
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  FutureOr<Response> delete(url, {Map<String, String> headers}) =>
-      send(new Request.delete(_uri(url), headers: headers));
+  Future<Response> delete(url, {Map<String, String> headers}) =>
+      send(new Request.delete(url, headers: headers));
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
@@ -116,7 +116,7 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  FutureOr<String> read(url, {Map<String, String> headers}) async {
+  Future<String> read(url, {Map<String, String> headers}) async {
     var response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
 
@@ -132,7 +132,7 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  FutureOr<Uint8List> readBytes(url, {Map<String, String> headers}) async {
+  Future<Uint8List> readBytes(url, {Map<String, String> headers}) async {
     var response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
 
@@ -146,7 +146,7 @@ abstract class BaseClient implements Client {
   /// state of the stream; it could have data written to it asynchronously at a
   /// later point, or it could already be closed when it's returned. Any
   /// internal HTTP errors should be wrapped as [ClientException]s.
-  FutureOr<Response> send(Request request);
+  Future<Response> send(Request request);
 
   /// Throws an error if [response] is not successful.
   void _checkResponseSuccess(url, Response response) {
@@ -163,14 +163,4 @@ abstract class BaseClient implements Client {
   /// important to close each client when it's done being used; failing to do so
   /// can cause the Dart process to hang.
   void close() {}
-}
-
-Uri _uri(url) {
-  if (url is Uri) {
-    return url;
-  } else if (url is String) {
-    return Uri.parse(url);
-  } else {
-    throw new ArgumentError.value(url, 'url', 'Not a Uri or String');
-  }
 }
