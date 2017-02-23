@@ -30,12 +30,12 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request(this.method, this.url,
+  Request(String method, url,
       {body,
       Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : super(body, encoding: encoding, headers: headers, context: context);
+      : this._(method, _uri(url), body, encoding, headers, context);
 
   /// Creates a new HEAD [Request] to [url].
   ///
@@ -44,7 +44,7 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request.head(Uri url,
+  Request.head(url,
       {Map<String, String> headers, Map<String, Object> context})
       : this('HEAD', url, headers: headers, context: context);
 
@@ -55,7 +55,7 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request.get(Uri url,
+  Request.get(url,
       {Map<String, String> headers, Map<String, Object> context})
       : this('GET', url, headers: headers, context: context);
 
@@ -70,8 +70,7 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request.post(Uri url,
-      body,
+  Request.post(url, body,
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
@@ -90,8 +89,7 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request.put(Uri url,
-      body,
+  Request.put(url, body,
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
@@ -110,8 +108,7 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request.patch(Uri url,
-      body,
+  Request.patch(url, body,
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
@@ -125,9 +122,16 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request.delete(Uri url,
+  Request.delete(url,
       {Map<String, String> headers, Map<String, Object> context})
       : this('DELETE', url, headers: headers, context: context);
+
+  Request._(this.method, this.url,
+      body,
+      Encoding encoding,
+      Map<String, String> headers,
+      Map<String, Object> context)
+      : super(body, encoding: encoding, headers: headers, context: context);
 
   /// Creates a new [Request] by copying existing values and applying specified
   /// changes.
@@ -147,10 +151,22 @@ class Request extends Message {
     var updatedHeaders = updateMap(this.headers, headers);
     var updatedContext = updateMap(this.context, context);
 
-    return new Request(this.method, this.url,
-        body: body ?? getBody(this),
-        encoding: this.encoding,
-        headers: updatedHeaders,
-        context: updatedContext);
+    return new Request._(
+        this.method,
+        this.url,
+        body ?? getBody(this),
+        this.encoding,
+        updatedHeaders,
+        updatedContext);
+  }
+}
+
+Uri _uri(url) {
+  if (url is Uri) {
+    return url;
+  } else if (url is String) {
+    return Uri.parse(url);
+  } else {
+    throw new ArgumentError.value(url, 'url', 'Not a Uri or String');
   }
 }
