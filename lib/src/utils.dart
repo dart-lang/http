@@ -170,3 +170,16 @@ String getHeader(Map<String, String> headers, String name) {
   }
   return null;
 }
+
+/// Returns a [Uri] from the [url], which can be a [Uri] or a [String].
+///
+/// If the [ur] is not a [Uri] or [String] an [ArgumentError] is thrown.
+Uri getUrl(url) {
+  if (url is Uri) {
+    return url;
+  } else if (url is String) {
+    return Uri.parse(url);
+  } else {
+    throw new ArgumentError.value(url, 'url', 'Not a Uri or String');
+  }
+}

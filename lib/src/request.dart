@@ -18,7 +18,8 @@ class Request extends Message {
   /// The URL to which the request will be sent.
   final Uri url;
 
-  /// Creates a new [Request] for [url] using [method].
+  /// Creates a new [Request] for [url], which can be a [Uri] or a [String],
+  /// using [method].
   ///
   /// [body] is the request body. It may be either a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
@@ -35,9 +36,9 @@ class Request extends Message {
       Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(method, _uri(url), body, encoding, headers, context);
+      : this._(method, getUrl(url), body, encoding, headers, context);
 
-  /// Creates a new HEAD [Request] to [url].
+  /// Creates a new HEAD [Request] to [url], which can be a [Uri] or a [String].
   ///
   /// [headers] are the HTTP headers for the request. If [headers] is `null`,
   /// it is treated as empty.
@@ -48,7 +49,7 @@ class Request extends Message {
       {Map<String, String> headers, Map<String, Object> context})
       : this('HEAD', url, headers: headers, context: context);
 
-  /// Creates a new GET [Request] to [url].
+  /// Creates a new GET [Request] to [url], which can be a [Uri] or a [String].
   ///
   /// [headers] are the HTTP headers for the request. If [headers] is `null`,
   /// it is treated as empty.
@@ -59,7 +60,8 @@ class Request extends Message {
       {Map<String, String> headers, Map<String, Object> context})
       : this('GET', url, headers: headers, context: context);
 
-  /// Creates a new POST [Request] to [url].
+  /// Creates a new POST [Request] to [url], which can be a [Uri] or a [String].
+  ///
   /// [body] is the request body. It may be either a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
   /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
@@ -77,7 +79,7 @@ class Request extends Message {
       : this('POST', url,
       body: body, encoding: encoding, headers: headers, context: context);
 
-  /// Creates a new PUT [Request] to [url].
+  /// Creates a new PUT [Request] to [url], which can be a [Uri] or a [String].
   ///
   /// [body] is the request body. It may be either a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
@@ -96,7 +98,8 @@ class Request extends Message {
       : this('PUT', url,
       body: body, encoding: encoding, headers: headers, context: context);
 
-  /// Creates a new PATCH [Request] to [url].
+  /// Creates a new PATCH [Request] to [url], which can be a [Uri] or a
+  /// [String].
   ///
   /// [body] is the request body. It may be either a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
@@ -115,7 +118,8 @@ class Request extends Message {
       : this('PATCH', url,
       body: body, encoding: encoding, headers: headers, context: context);
 
-  /// Creates a new DELETE [Request] to [url].
+  /// Creates a new DELETE [Request] to [url], which can be a [Uri] or a
+  /// [String].
   ///
   /// [headers] are the HTTP headers for the request. If [headers] is `null`,
   /// it is treated as empty.
@@ -158,15 +162,5 @@ class Request extends Message {
         this.encoding,
         updatedHeaders,
         updatedContext);
-  }
-}
-
-Uri _uri(url) {
-  if (url is Uri) {
-    return url;
-  } else if (url is String) {
-    return Uri.parse(url);
-  } else {
-    throw new ArgumentError.value(url, 'url', 'Not a Uri or String');
   }
 }
