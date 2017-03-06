@@ -83,7 +83,7 @@ class MultipartRequest extends BaseRequest {
   ByteStream finalize() {
     // TODO(nweiz): freeze fields and files
     var boundary = _boundaryString();
-    headers['content-type'] = 'multipart/form-data; boundary="$boundary"';
+    headers['content-type'] = 'multipart/form-data; boundary=$boundary';
     super.finalize();
 
     var controller = new StreamController<List<int>>(sync: true);
