@@ -7,10 +7,9 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'base_client.dart';
-import 'base_request.dart';
 import 'io_client.dart';
+import 'request.dart';
 import 'response.dart';
-import 'streamed_response.dart';
 
 /// The interface for HTTP clients that take care of maintaining persistent
 /// connections across multiple requests to the same server. If you only need to
@@ -59,7 +58,7 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> post(url, {Map<String, String> headers, body,
+  Future<Response> post(url, body, {Map<String, String> headers,
       Encoding encoding});
 
   /// Sends an HTTP PUT request with the given headers and body to the given
@@ -80,7 +79,7 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> put(url, {Map<String, String> headers, body,
+  Future<Response> put(url, body, {Map<String, String> headers,
       Encoding encoding});
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
@@ -101,7 +100,7 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> patch(url, {Map<String, String> headers, body,
+  Future<Response> patch(url, body, {Map<String, String> headers,
       Encoding encoding});
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
@@ -133,7 +132,7 @@ abstract class Client {
   Future<Uint8List> readBytes(url, {Map<String, String> headers});
 
   /// Sends an HTTP request and asynchronously returns the response.
-  Future<StreamedResponse> send(BaseRequest request);
+  Future<Response> send(Request request);
 
   /// Closes the client and cleans up any resources associated with it. It's
   /// important to close each client when it's done being used; failing to do so
