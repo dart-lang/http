@@ -83,7 +83,7 @@ class MultipartRequest extends BaseRequest {
   ByteStream finalize() {
     // TODO(nweiz): freeze fields and files
     var boundary = _boundaryString();
-    headers['content-type'] = 'multipart/form-data; boundary="$boundary"';
+    headers['content-type'] = 'multipart/form-data; boundary=$boundary';
     super.finalize();
 
     var controller = new StreamController<List<int>>(sync: true);
@@ -117,14 +117,19 @@ class MultipartRequest extends BaseRequest {
     return new ByteStream(controller.stream);
   }
 
-  /// All character codes that are valid in multipart boundaries. From
-  /// http://tools.ietf.org/html/rfc2046#section-5.1.1.
+  /// All character codes that are valid in multipart boundaries. This is the
+  /// intersection of the characters allowed in the `bcharsnospace` production
+  /// defined in [RFC 2046][] and those allowed in the `token` production
+  /// defined in [RFC 1521][].
+  ///
+  /// [RFC 2046]: http://tools.ietf.org/html/rfc2046#section-5.1.1.
+  /// [RFC 1521]: https://tools.ietf.org/html/rfc1521#section-4
   static const List<int> _BOUNDARY_CHARACTERS = const <int>[
-    39, 40, 41, 43, 95, 44, 45, 46, 47, 58, 61, 63, 48, 49, 50, 51, 52, 53, 54,
-    55, 56, 57, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
-    81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103,
-    104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118,
-    119, 120, 121, 122
+    39, 43, 95, 44, 45, 46, 58, 61, 63, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57,
+    65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
+    84, 85, 86, 87, 88, 89, 90, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106,
+    107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121,
+    122
   ];
 
   /// Returns the header string for a field. The return value is guaranteed to
