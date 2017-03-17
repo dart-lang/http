@@ -1,5 +1,5 @@
 name: http2
-version: 0.1.1+1
+version: 0.1.1+2
 description: A HTTP/2 implementation in Dart.
 author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/dart-lang/http2
@@ -9,4 +9,3 @@ environment:
 
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'
-

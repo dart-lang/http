@@ -119,8 +119,12 @@ main() {
           expect(client.isOpen, true);
           var stream = client.makeRequest([new Header.ascii('a', 'b')]);
 
-          var error = await stream.incomingMessages.toList()
-              .catchError((e) => '$e');
+          String error;
+          try {
+            await stream.incomingMessages.toList();
+          } catch (e) {
+            error = '$e';
+          }
           expect(error, contains('forcefully terminated'));
           await client.finish();
         }
@@ -415,6 +419,7 @@ main() {
            Future<Frame> nextFrame()) async {
 
         var settingsDone = new Completer();
+        var headersDone = new Completer();
 
         Future serverFun() async {
           var decoder = new HPackDecoder();
@@ -432,6 +437,8 @@ main() {
           var decodedHeaders = decoder.decode(frame.headerBlockFragment);
           expect(decodedHeaders, hasLength(1));
           expect(decodedHeaders[0], isHeader('a', 'b'));
+
+          headersDone.complete();
 
           // Make sure we got the stream reset.
           frame = await nextFrame();
@@ -453,6 +460,8 @@ main() {
           // Make a new stream and terminate it.
           var stream = client.makeRequest(
               [new Header.ascii('a', 'b')], endStream: false);
+
+          await headersDone.future;
           stream.terminate();
 
           // Make sure we don't get messages/pushes on the terminated stream.

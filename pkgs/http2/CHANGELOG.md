@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1+2
+
+* Add errorCode to exception toString message.
+
 ## 0.1.1+1
 
 * Fixing a performance issue in case the underlying socket is not writeable
