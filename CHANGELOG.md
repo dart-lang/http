@@ -1,3 +1,7 @@
+## 0.11.3+13
+
+* remove boundary characters that package:http_parser cannot parse.
+
 ## 0.11.3+12
 
 * Don't quote the boundary header for `MultipartRequest`. This is more
