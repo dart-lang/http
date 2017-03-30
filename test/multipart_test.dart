@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:http/src/boundary_characters.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:unittest/unittest.dart';
 
@@ -16,6 +17,13 @@ void main() {
     expect(request, bodyMatches('''
         --{{boundary}}--
         '''));
+  });
+
+  test('boundary characters', () {
+    var testBoundary = new String.fromCharCodes(BOUNDARY_CHARACTERS);
+    var contentType = new MediaType.parse('text/plain; boundary=${testBoundary}');
+    var boundary = contentType.parameters['boundary'];
+    expect(boundary, testBoundary);
   });
 
   test('with fields and files', () {

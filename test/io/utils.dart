@@ -85,7 +85,7 @@ Future startServer() {
           requestBody = requestBodyBytes;
         }
 
-        var content = {
+        var content = <String, dynamic>{
           'method': request.method,
           'path': request.uri.path,
           'headers': {}
