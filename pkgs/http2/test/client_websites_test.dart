@@ -19,11 +19,12 @@ main() async {
       Response response = await connection.makeRequest(new Request('GET', uri));
       dumpHeaders(uri, response.headers);
 
-      String body = await response.stream.transform(UTF8.decoder).join('');
+      final utf8Decoder = new Utf8Decoder(allowMalformed: true);
+      String body = await response.stream.transform(utf8Decoder).join('');
       connection.close();
 
       body = body.toLowerCase();
-      expect(body, contains('<html>'));
+      expect(body, contains('<html'));
       expect(body, contains('www.google'));
     }, onPlatform: {
       'mac-os' : new Skip('ALPN not supported on MacOS'),
