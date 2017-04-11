@@ -78,10 +78,7 @@ void main() {
 
     test("records parameters as case-insensitive", () {
       var type = new MediaType.parse('test/plain;FoO=bar;bAz=bang');
-      expect(type.parameters, equals({
-        "FoO": "bar",
-        "bAz": "bang"
-      }));
+      expect(type.parameters, equals({"FoO": "bar", "bAz": "bang"}));
       expect(type.parameters, containsPair("foo", "bar"));
       expect(type.parameters, containsPair("baz", "bang"));
     });
@@ -162,8 +159,10 @@ void main() {
     });
 
     test("serializes multiple parameters", () {
-      expect(new MediaType("text", "plain", {"foo": "bar", "baz": "bang"})
-          .toString(), equals("text/plain; foo=bar; baz=bang"));
+      expect(
+          new MediaType("text", "plain", {"foo": "bar", "baz": "bang"})
+              .toString(),
+          equals("text/plain; foo=bar; baz=bang"));
     });
   });
 }

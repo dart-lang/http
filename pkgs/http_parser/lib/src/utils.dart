@@ -16,8 +16,6 @@ import 'package:source_span/source_span.dart';
         'Invalid $name: ${error.message}', error.span, error.source);
   } on FormatException catch (error) {
     throw new FormatException(
-        'Invalid $name "$value": ${error.message}',
-        error.source,
-        error.offset);
+        'Invalid $name "$value": ${error.message}', error.source, error.offset);
   }
 }

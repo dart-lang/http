@@ -21,12 +21,12 @@ final _escapedChar = new RegExp(r'["\x00-\x1F\x7F]');
 class MediaType {
   /// The primary identifier of the MIME type.
   ///
-  /// This is always lowercase. 
+  /// This is always lowercase.
   final String type;
 
   /// The secondary identifier of the MIME type.
   ///
-  /// This is always lowercase. 
+  /// This is always lowercase.
   final String subtype;
 
   /// The parameters to the media type.
@@ -91,8 +91,12 @@ class MediaType {
   /// [parameters] overwrites and adds to the corresponding field. If
   /// [clearParameters] is passed, it replaces the corresponding field entirely
   /// instead.
-  MediaType change({String type, String subtype, String mimeType,
-      Map<String, String> parameters, bool clearParameters: false}) {
+  MediaType change(
+      {String type,
+      String subtype,
+      String mimeType,
+      Map<String, String> parameters,
+      bool clearParameters: false}) {
     if (mimeType != null) {
       if (type != null) {
         throw new ArgumentError("You may not pass both [type] and [mimeType].");
@@ -127,10 +131,7 @@ class MediaType {
   ///
   /// This will produce a valid HTTP media type.
   String toString() {
-    var buffer = new StringBuffer()
-      ..write(type)
-      ..write("/")
-      ..write(subtype);
+    var buffer = new StringBuffer()..write(type)..write("/")..write(subtype);
 
     parameters.forEach((attribute, value) {
       buffer.write("; $attribute=");

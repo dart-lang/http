@@ -7,8 +7,20 @@ import 'package:string_scanner/string_scanner.dart';
 import 'utils.dart';
 
 const _WEEKDAYS = const ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const _MONTHS = const ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
-    "Sep", "Oct", "Nov", "Dec"];
+const _MONTHS = const [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec"
+];
 
 final _shortWeekdayRegExp = new RegExp(r"Mon|Tue|Wed|Thu|Fri|Sat|Sun");
 final _longWeekdayRegExp =

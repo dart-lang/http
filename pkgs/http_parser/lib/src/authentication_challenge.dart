@@ -73,9 +73,9 @@ class AuthenticationChallenge {
 
           if (scanner.scan(token)) {
             params[name] = scanner.lastMatch[0];
-          } else {            
-            params[name] = expectQuotedString(
-                scanner, name: "a token or a quoted string");
+          } else {
+            params[name] =
+                expectQuotedString(scanner, name: "a token or a quoted string");
           }
 
           scanner.scan(whitespace);
@@ -136,9 +136,9 @@ class AuthenticationChallenge {
 
     if (scanner.scan(token)) {
       params[name] = scanner.lastMatch[0];
-    } else {            
-      params[name] = expectQuotedString(
-          scanner, name: "a token or a quoted string");
+    } else {
+      params[name] =
+          expectQuotedString(scanner, name: "a token or a quoted string");
     }
 
     scanner.scan(whitespace);
@@ -146,6 +146,6 @@ class AuthenticationChallenge {
 
   /// Creates a new challenge value with [scheme] and [parameters].
   AuthenticationChallenge(this.scheme, Map<String, String> parameters)
-      : parameters = new UnmodifiableMapView(
-            new CaseInsensitiveMap.from(parameters));
+      : parameters =
+            new UnmodifiableMapView(new CaseInsensitiveMap.from(parameters));
 }
