@@ -13,6 +13,10 @@ import 'byte_stream.dart';
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
 String mapToQuery(Map<String, String> map, {Encoding encoding}) {
+  map.keys
+    .where((k) => (map[k] == null)).toList() // -- keys for null elements
+    .forEach(map.remove);
+
   var pairs = <List<String>>[];
   map.forEach((key, value) =>
       pairs.add([Uri.encodeQueryComponent(key, encoding: encoding),
