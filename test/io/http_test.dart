@@ -125,7 +125,8 @@ main() {
           'User-Agent': 'Dart'
         }, body: {
           'some-field': 'value',
-          'other-field': 'other value'
+          'other-field': 'other value',
+          'null-field': null
         }).then((response) {
           expect(response.statusCode, equals(200));
           expect(response.body, parse(equals({
@@ -229,7 +230,8 @@ main() {
           'User-Agent': 'Dart'
         }, body: {
           'some-field': 'value',
-          'other-field': 'other value'
+          'other-field': 'other value',
+          'null-field': null
         }).then((response) {
           expect(response.statusCode, equals(200));
           expect(response.body, parse(equals({
@@ -333,7 +335,8 @@ main() {
           'User-Agent': 'Dart'
         }, body: {
           'some-field': 'value',
-          'other-field': 'other value'
+          'other-field': 'other value',
+          'null-field': null
         }).then((response) {
           expect(response.statusCode, equals(200));
           expect(response.body, parse(equals({
