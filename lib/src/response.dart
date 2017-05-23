@@ -11,10 +11,20 @@ import 'utils.dart';
 
 /// An HTTP response where the entire response body is known in advance.
 class Response extends Message {
+  /// The location of the requested resource.
+  ///
+  /// The value takes into account any redirects that occurred during the
+  /// request.
+  final Uri location;
+
   /// The status code of the response.
   final int statusCode;
 
-  /// Creates a new HTTP response with the given [statusCode].
+  /// The reason phrase associated with the status code.
+  final String reasonPhrase;
+
+  /// Creates a new HTTP response for a resource at the [location], which can
+  /// be a [Uri] or a [String], with the given [statusCode].
   ///
   /// [body] is the request body. It may be either a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
@@ -26,11 +36,20 @@ class Response extends Message {
   ///
   /// Extra [context] can be used to pass information between outer middleware
   /// and handlers.
-  Response(this.statusCode,
-      {body,
+  Response(location, int statusCode,
+      {String reasonPhrase,
+      body,
       Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
+      : this._(getUrl(location), statusCode, reasonPhrase ?? '',
+      body, encoding, headers, context);
+
+  Response._(this.location, this.statusCode, this.reasonPhrase,
+      body,
+      Encoding encoding,
+      Map<String, String> headers,
+      Map<String, Object> context)
       : super(body, encoding: encoding, headers: headers, context: context);
 
   /// Creates a new [Response] by copying existing values and applying specified
@@ -55,10 +74,14 @@ class Response extends Message {
     var updatedHeaders = updateMap(this.headers, headers);
     var updatedContext = updateMap(this.context, context);
 
-    return new Response(this.statusCode,
-        body: body ?? getBody(this),
-        headers: updatedHeaders,
-        context: updatedContext);
+    return new Response._(
+        this.location,
+        this.statusCode,
+        this.reasonPhrase,
+        body ?? getBody(this),
+        this.encoding,
+        updatedHeaders,
+        updatedContext);
   }
 
   /// The date and time after which the response's data should be considered
