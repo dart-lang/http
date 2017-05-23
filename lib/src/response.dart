@@ -15,7 +15,7 @@ class Response extends Message {
   ///
   /// The value takes into account any redirects that occurred during the
   /// request.
-  final Uri location;
+  final Uri finalUrl;
 
   /// The status code of the response.
   final int statusCode;
@@ -23,7 +23,7 @@ class Response extends Message {
   /// The reason phrase associated with the status code.
   final String reasonPhrase;
 
-  /// Creates a new HTTP response for a resource at the [location], which can
+  /// Creates a new HTTP response for a resource at the [finalUrl], which can
   /// be a [Uri] or a [String], with the given [statusCode].
   ///
   /// [body] is the request body. It may be either a [String], a [List<int>], a
@@ -36,16 +36,16 @@ class Response extends Message {
   ///
   /// Extra [context] can be used to pass information between outer middleware
   /// and handlers.
-  Response(location, int statusCode,
+  Response(finalUrl, int statusCode,
       {String reasonPhrase,
       body,
       Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(getUrl(location), statusCode, reasonPhrase ?? '',
+      : this._(getUrl(finalUrl), statusCode, reasonPhrase ?? '',
       body, encoding, headers, context);
 
-  Response._(this.location, this.statusCode, this.reasonPhrase,
+  Response._(this.finalUrl, this.statusCode, this.reasonPhrase,
       body,
       Encoding encoding,
       Map<String, String> headers,
@@ -75,7 +75,7 @@ class Response extends Message {
     var updatedContext = updateMap(this.context, context);
 
     return new Response._(
-        this.location,
+        this.finalUrl,
         this.statusCode,
         this.reasonPhrase,
         body ?? getBody(this),
