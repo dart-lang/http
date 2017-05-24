@@ -24,8 +24,6 @@ class IOClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   Future<Response> send(Request request) async {
-    var stream = await request.read();
-
     try {
       var ioRequest = await _inner.openUrl(request.method, request.url);
       var context = request.context;
@@ -41,9 +39,8 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      var response = await stream.pipe(
-          DelegatingStreamConsumer.typed<List<int>>(ioRequest)
-      ) as HttpClientResponse;
+      request.read().pipe(DelegatingStreamConsumer.typed<List<int>>(ioRequest));
+      var response = await ioRequest.done;
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
@@ -57,8 +54,7 @@ class IOClient extends BaseClient {
           body: DelegatingStream.typed<List<int>>(response).handleError(
               (error) => throw new ClientException(error.message, error.uri),
               test: (error) => error is HttpException),
-          headers: headers,
-          context: context);
+          headers: headers);
     } on HttpException catch (error) {
       throw new ClientException(error.message, error.uri);
     } on SocketException catch (error) {
@@ -74,15 +70,17 @@ class IOClient extends BaseClient {
   }
 }
 
+/// Determines the finalUrl retrieved by evaluating any redirects received in
+/// the [response] based on the initial [request].
 Uri _responseUrl(Request request, HttpClientResponse response) {
-  var redirects = response.redirects;
+  var finalUrl = request.url;
 
-  if (redirects.isEmpty) {
-    return request.url;
+  for (var redirect in response.redirects) {
+    var location = redirect.location;
+
+    // Redirects can either be absolute or relative
+    finalUrl = location.isAbsolute ? location : finalUrl.resolveUri(location);
   }
 
-  var location = redirects.last.location;
-
-  // Redirect can be relative or absolute
-  return (location.isAbsolute) ? location : request.url.resolveUri(location);
+  return finalUrl;
 }
