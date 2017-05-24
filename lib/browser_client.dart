@@ -34,12 +34,6 @@ class BrowserClient extends BaseClient {
   /// Creates a new HTTP client.
   BrowserClient();
 
-  /// Whether to send credentials such as cookies or authorization headers for
-  /// cross-site requests.
-  ///
-  /// Defaults to `false`.
-  bool withCredentials = false;
-
   /// Sends an HTTP request and asynchronously returns the response.
   Future<Response> send(Request request) async {
     var stream = new ByteStream(request.read());
@@ -48,7 +42,7 @@ class BrowserClient extends BaseClient {
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
     xhr.responseType = 'blob';
-    xhr.withCredentials = withCredentials;
+    xhr.withCredentials = request.context['html.withCredentials'] ?? false;
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = new Completer<Response>();
