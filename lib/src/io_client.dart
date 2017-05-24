@@ -68,19 +68,19 @@ class IOClient extends BaseClient {
     if (_inner != null) _inner.close(force: true);
     _inner = null;
   }
-}
 
-/// Determines the finalUrl retrieved by evaluating any redirects received in
-/// the [response] based on the initial [request].
-Uri _responseUrl(Request request, HttpClientResponse response) {
-  var finalUrl = request.url;
+  /// Determines the finalUrl retrieved by evaluating any redirects received in
+  /// the [response] based on the initial [request].
+  Uri _responseUrl(Request request, HttpClientResponse response) {
+    var finalUrl = request.url;
 
-  for (var redirect in response.redirects) {
-    var location = redirect.location;
+    for (var redirect in response.redirects) {
+      var location = redirect.location;
 
-    // Redirects can either be absolute or relative
-    finalUrl = location.isAbsolute ? location : finalUrl.resolveUri(location);
+      // Redirects can either be absolute or relative
+      finalUrl = location.isAbsolute ? location : finalUrl.resolveUri(location);
+    }
+
+    return finalUrl;
   }
-
-  return finalUrl;
 }
