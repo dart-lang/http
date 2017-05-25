@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'base_client.dart';
+import 'handler_client.dart';
 import 'io_client.dart';
 import 'request.dart';
 import 'response.dart';
@@ -27,6 +28,9 @@ abstract class Client {
   /// throw an [UnsupportedError] otherwise. In the future, it will create a
   /// [BrowserClient] if `dart:html` is available.
   factory Client() => new IOClient();
+
+  factory Client.handler(Handler handler, {CloseHandler onClose})
+      => new HandlerClient(handler, onClose ?? () {});
 
   /// Sends an HTTP HEAD request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
