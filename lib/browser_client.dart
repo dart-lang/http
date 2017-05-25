@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 import 'src/base_client.dart';
@@ -36,8 +37,7 @@ class BrowserClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   Future<Response> send(Request request) async {
-    var stream = new ByteStream(request.read());
-    var bytes = await stream.toBytes();
+    var bytes = await collectBytes(request.read());
     var xhr = new HttpRequest();
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
@@ -58,7 +58,7 @@ class BrowserClient extends BaseClient {
             xhr.responseUrl,
             xhr.status,
             reasonPhrase: xhr.statusText,
-            body: new ByteStream.fromBytes(body),
+            body: new Stream.fromIterable([body]),
             headers: xhr.responseHeaders));
       });
 
