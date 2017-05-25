@@ -91,10 +91,3 @@ main() async {
   print('Response body: ${response.body}');
 }
 ```
-
-## Filing issues
-
-Please file issues for the http package at [http://dartbug.com/new][bugs].
-
-[bugs]: http://dartbug.com/new
-[docs]: https://api.dartlang.org/docs/channels/dev/latest/http.html
