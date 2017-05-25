@@ -10,7 +10,6 @@ import 'package:async/async.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 import 'src/base_client.dart';
-import 'src/byte_stream.dart';
 import 'src/exception.dart';
 import 'src/request.dart';
 import 'src/response.dart';
