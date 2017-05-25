@@ -29,7 +29,7 @@ abstract class Client {
   /// [BrowserClient] if `dart:html` is available.
   factory Client() => new IOClient();
 
-  factory Client.handler(Handler handler, {CloseHandler onClose})
+  factory Client.handler(Handler handler, {void onClose()})
       => new HandlerClient(handler, onClose ?? () {});
 
   /// Sends an HTTP HEAD request with the given headers to the given URL, which

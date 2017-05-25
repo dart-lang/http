@@ -9,13 +9,14 @@ import 'request.dart';
 import 'response.dart';
 
 typedef Future<Response> Handler(Request request);
-typedef void CloseHandler();
+typedef void _CloseHandler();
 
 class HandlerClient extends BaseClient {
   final Handler _handler;
-  final CloseHandler _close;
+  final _CloseHandler _close;
 
-  HandlerClient(this._handler, this._close);
+  HandlerClient(this._handler, void onClose())
+      : _close = onClose;
 
   Future<Response> send(Request request) => _handler(request);
 

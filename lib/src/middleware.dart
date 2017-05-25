@@ -11,32 +11,34 @@ import 'response.dart';
 
 typedef Client Middleware(Client inner);
 
-typedef Future<Response> ResponseHandler(Response response);
-typedef Future<Request> RequestHandler(Request request);
-
 Middleware createMiddleware({
-  RequestHandler requestHandler,
-  ResponseHandler responseHandler,
-  CloseHandler closeHandler,
+  Future<Request> onRequest(Request request),
+  Future<Response> onResponse(Response response),
+  void onClose(),
 }) {
-  requestHandler ??= (request) async => request;
-  responseHandler ??= (response) async => response;
-  closeHandler ??= () {};
+  onRequest ??= _defaultRequest;
+  onResponse ??= _defaultResponse;
+  onClose ??= _defaultClose;
 
   return (Client inner) {
     return new HandlerClient(
-          (Request request) async {
-        request = await requestHandler(request);
+      (request) async {
+        request = await onRequest(request);
 
-        final response = await inner.send(request);
+        var response = await inner.send(request);
 
-        return await responseHandler(response);
+        return await onResponse(response);
       },
       () {
-        closeHandler();
+        onClose();
 
+        // Ensure the inner close is called
         inner.close();
       },
     );
   };
 }
+
+Future<Request> _defaultRequest(Request request) async => request;
+Future<Response> _defaultResponse(Response response) async => response;
+void _defaultClose() {}
