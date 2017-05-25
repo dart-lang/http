@@ -20,7 +20,7 @@ Middleware createMiddleware({
   onResponse ??= _defaultResponse;
   onClose ??= _defaultClose;
 
-  return (Client inner) {
+  return (inner) {
     return new HandlerClient(
       (request) async {
         request = await onRequest(request);
