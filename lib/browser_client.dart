@@ -6,13 +6,13 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 import 'src/base_client.dart';
-import 'src/base_request.dart';
-import 'src/byte_stream.dart';
 import 'src/exception.dart';
-import 'src/streamed_response.dart';
+import 'src/request.dart';
+import 'src/response.dart';
 
 // TODO(nweiz): Move this under src/, re-export from lib/http.dart, and use this
 // automatically from [new Client] once sdk#24581 is fixed.
@@ -34,23 +34,17 @@ class BrowserClient extends BaseClient {
   /// Creates a new HTTP client.
   BrowserClient();
 
-  /// Whether to send credentials such as cookies or authorization headers for
-  /// cross-site requests.
-  ///
-  /// Defaults to `false`.
-  bool withCredentials = false;
-
   /// Sends an HTTP request and asynchronously returns the response.
-  Future<StreamedResponse> send(BaseRequest request) async {
-    var bytes = await request.finalize().toBytes();
+  Future<Response> send(Request request) async {
+    var bytes = await collectBytes(request.read());
     var xhr = new HttpRequest();
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
     xhr.responseType = 'blob';
-    xhr.withCredentials = withCredentials;
+    xhr.withCredentials = request.context['html.withCredentials'] ?? false;
     request.headers.forEach(xhr.setRequestHeader);
 
-    var completer = new Completer<StreamedResponse>();
+    var completer = new Completer<Response>();
     xhr.onLoad.first.then((_) {
       // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
       // is fixed.
@@ -59,13 +53,12 @@ class BrowserClient extends BaseClient {
 
       reader.onLoad.first.then((_) {
         var body = reader.result as Uint8List;
-        completer.complete(new StreamedResponse(
-            new ByteStream.fromBytes(body),
+        completer.complete(new Response(
+            xhr.responseUrl,
             xhr.status,
-            contentLength: body.length,
-            request: request,
-            headers: xhr.responseHeaders,
-            reasonPhrase: xhr.statusText));
+            reasonPhrase: xhr.statusText,
+            body: new Stream.fromIterable([body]),
+            headers: xhr.responseHeaders));
       });
 
       reader.onError.first.then((error) {
