@@ -11,7 +11,6 @@ import 'src/client.dart';
 import 'src/response.dart';
 
 export 'src/base_client.dart';
-export 'src/byte_stream.dart';
 export 'src/client.dart';
 export 'src/exception.dart';
 export 'src/io_client.dart';

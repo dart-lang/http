@@ -8,7 +8,6 @@ import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
 
-import 'byte_stream.dart';
 import 'http_unmodifiable_map.dart';
 
 /// Returns a [Map] with the values from [original] and the values from
@@ -91,13 +90,6 @@ Uint8List toUint8List(List<int> input) {
     return new Uint8List.view((input as TypedData).buffer);
   }
   return new Uint8List.fromList(input);
-}
-
-/// If [stream] is already a [ByteStream], returns it. Otherwise, wraps it in a
-/// [ByteStream].
-ByteStream toByteStream(Stream<List<int>> stream) {
-  if (stream is ByteStream) return stream;
-  return new ByteStream(stream);
 }
 
 /// Calls [onDone] once [stream] (a single-subscription [Stream]) is finished.
