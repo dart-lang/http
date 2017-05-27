@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'base_client.dart';
+import 'handler.dart';
 import 'handler_client.dart';
 import 'io_client.dart';
 import 'request.dart';

@@ -5,10 +5,10 @@
 import 'dart:async';
 
 import 'base_client.dart';
+import 'handler.dart';
 import 'request.dart';
 import 'response.dart';
 
-typedef Future<Response> Handler(Request request);
 typedef void _CloseHandler();
 
 class HandlerClient extends BaseClient {
