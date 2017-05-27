@@ -15,7 +15,7 @@ Middleware createMiddleware({
   Future<Request> requestHandler(Request request),
   Future<Response> responseHandler(Response response),
   void onClose(),
-  void errorHandler(error, StackTrace stackTrace)
+  void errorHandler(error, [StackTrace stackTrace])
 }) {
   requestHandler ??= (request) async => request;
   responseHandler ??= (response) async => response;
@@ -23,21 +23,10 @@ Middleware createMiddleware({
 
   return (inner) {
     return new HandlerClient(
-      (request) async {
-        try {
-          request = await requestHandler(request);
-
-          var response = await inner.send(request);
-
-          return await responseHandler(response);
-        } catch(error, stackTrace) {
-          if (errorHandler != null) {
-            errorHandler(error, stackTrace);
-          } else {
-            throw error;
-          }
-        }
-      },
+      (request) =>
+        requestHandler(request)
+            .then((req) => inner.send(req))
+            .then((res) => responseHandler(res), onError: errorHandler),
       () {
         onClose();
 
