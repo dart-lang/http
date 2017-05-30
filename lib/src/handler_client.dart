@@ -9,11 +9,9 @@ import 'handler.dart';
 import 'request.dart';
 import 'response.dart';
 
-typedef void _CloseHandler();
-
 class HandlerClient extends BaseClient {
   final Handler _handler;
-  final _CloseHandler _close;
+  final void Function() _close;
 
   HandlerClient(this._handler, void onClose())
       : _close = onClose;

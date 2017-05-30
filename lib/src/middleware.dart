@@ -19,7 +19,6 @@ Middleware createMiddleware({
 }) {
   requestHandler ??= (request) async => request;
   responseHandler ??= (response) async => response;
-  onClose ??= () {};
 
   return (inner) {
     return new HandlerClient(
@@ -27,12 +26,12 @@ Middleware createMiddleware({
         requestHandler(request)
             .then((req) => inner.send(req))
             .then((res) => responseHandler(res), onError: errorHandler),
-      () {
-        onClose();
-
-        // Ensure the inner close is called
-        inner.close();
-      },
+        onClose == null
+            ? inner.close
+            : () {
+                onClose();
+                inner.close();
+              },
     );
   };
 }
