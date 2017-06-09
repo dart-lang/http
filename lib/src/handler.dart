@@ -7,4 +7,9 @@ import 'dart:async';
 import 'request.dart';
 import 'response.dart';
 
+/// The signature of a function which handles a [Request] and returns a
+/// [Future<Response>].
+///
+/// A [Handler] may receive a request directly for a HTTP resource or it may be
+/// composed as part of a larger application.
 typedef Future<Response> Handler(Request request);
