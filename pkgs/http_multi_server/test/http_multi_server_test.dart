@@ -18,9 +18,9 @@ void main() {
     var subServer3;
     setUp(() {
       return Future.wait([
-        HttpServer.bind("127.0.0.1", 0).then((server) => subServer1 = server),
-        HttpServer.bind("127.0.0.1", 0).then((server) => subServer2 = server),
-        HttpServer.bind("127.0.0.1", 0).then((server) => subServer3 = server)
+        HttpServer.bind("localhost", 0).then((server) => subServer1 = server),
+        HttpServer.bind("localhost", 0).then((server) => subServer2 = server),
+        HttpServer.bind("localhost", 0).then((server) => subServer3 = server)
       ]).then((servers) => multiServer = new HttpMultiServer(servers));
     });
 
@@ -151,7 +151,7 @@ void main() {
             completion(equals("got request")));
       }
 
-      if (await supportsIPv4) {
+      if (await supportsIPv6) {
         expect(http.read("http://[::1]:${server.port}/"),
             completion(equals("got request")));
       }
