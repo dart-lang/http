@@ -14,8 +14,7 @@ export 'src/base_client.dart';
 export 'src/client.dart';
 export 'src/exception.dart';
 export 'src/io_client.dart';
-export 'src/multipart_file.dart';
-export 'src/multipart_request.dart';
+export 'src/middleware.dart';
 export 'src/request.dart';
 export 'src/response.dart';
 
