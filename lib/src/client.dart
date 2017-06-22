@@ -30,11 +30,10 @@ abstract class Client {
   /// [BrowserClient] if `dart:html` is available.
   factory Client() => new IOClient();
 
-  /// Creates a new client handler.
+  /// Creates a new [Client] from a [handler] callback.
   ///
   /// The [handler] is a function that receives a [Request] and returns a
-  /// [Future<Response>]. It will be called when [Client.send] is invoked. This
-  /// allows for composition of a [Client] within a larger application.
+  /// [Future<Response>]. It will be called when [Client.send] is invoked.
   ///
   /// When [Client.close] is called the [onClose] function will be called.
   factory Client.handler(Handler handler, {void onClose()})

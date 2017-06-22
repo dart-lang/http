@@ -9,7 +9,7 @@ import 'handler.dart';
 import 'request.dart';
 import 'response.dart';
 
-/// A [Handler] based HTTP client.
+/// A [Handler]-based HTTP client.
 ///
 /// The [HandlerClient] allows composition of a [Client] within a larger
 /// application.
@@ -22,13 +22,9 @@ class HandlerClient extends BaseClient {
       : _close = onClose;
 
   /// Sends an HTTP request and asynchronously returns the response.
-  ///
-  /// The [Handler] function will be called when this method is invoked.
   Future<Response> send(Request request) => _handler(request);
 
   /// Closes the client and cleans up any resources associated with it.
-  ///
-  /// The close function will be called when this method is invoked.
   void close() {
     _close();
   }
