@@ -170,4 +170,56 @@ main() {
       }, count: chunks.length));
     });
   });
+
+  streamTest('single-data-request--data-trailer-response',
+      (ClientTransportConnection client,
+          ServerTransportConnection server) async {
+    var expectedHeaders = [new Header.ascii('key', 'value')];
+    var chunk = [1];
+
+    server.incomingStreams.listen(expectAsync((TransportStream sStream) async {
+      bool isFirst = true;
+      var receivedChunk;
+      sStream.incomingMessages.listen(
+          expectAsync((StreamMessage msg) {
+            if (isFirst) {
+              isFirst = false;
+              expect(msg is HeadersStreamMessage, isTrue);
+              expect(msg.endStream, false);
+
+              HeadersStreamMessage headersMsg = msg;
+              expectHeadersEqual(headersMsg.headers, expectedHeaders);
+            } else {
+              expect(msg is DataStreamMessage, isTrue);
+              expect(msg.endStream, true);
+              expect(receivedChunk, null);
+
+              DataStreamMessage dataMsg = msg;
+              receivedChunk = dataMsg.bytes;
+            }
+          }, count: 2), onDone: expectAsync(() {
+        expect(receivedChunk, chunk);
+        sStream.sendData([2]);
+        sStream.sendHeaders(expectedHeaders, endStream: true);
+      }));
+    }));
+
+    TransportStream cStream = client.makeRequest(expectedHeaders);
+    cStream.sendData(chunk, endStream: true);
+
+    bool isFirst = true;
+    cStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      if (isFirst) {
+        expect(msg, new isInstanceOf<DataStreamMessage>());
+        final data = msg as DataStreamMessage;
+        expect(data.bytes, [2]);
+        isFirst = false;
+      } else {
+        expect(msg, new isInstanceOf<HeadersStreamMessage>());
+        final trailer = msg as HeadersStreamMessage;
+        expect(trailer.endStream, true);
+        expectHeadersEqual(trailer.headers, expectedHeaders);
+      }
+    }, count: 2));
+  });
 }

@@ -222,12 +222,13 @@ abstract class TransportStream {
 
   // For convenience only.
   void sendHeaders(List<Header> headers, {bool endStream: false}) {
-    outgoingMessages.add(new HeadersStreamMessage(headers));
+    outgoingMessages.add(
+        new HeadersStreamMessage(headers, endStream: endStream));
     if (endStream) outgoingMessages.close();
   }
 
   void sendData(List<int> bytes, {bool endStream: false}) {
-    outgoingMessages.add(new DataStreamMessage(bytes));
+    outgoingMessages.add(new DataStreamMessage(bytes, endStream: endStream));
     if (endStream) outgoingMessages.close();
   }
 }
@@ -253,24 +254,30 @@ abstract class ServerTransportStream extends TransportStream {
 }
 
 /// Represents a message which can be sent over a HTTP/2 stream.
-abstract class StreamMessage {}
+abstract class StreamMessage {
+  final bool endStream;
+
+  StreamMessage({bool endStream}) : this.endStream = endStream ?? false;
+}
 
 
 /// Represents a data message which can be sent over a HTTP/2 stream.
-class DataStreamMessage implements StreamMessage {
+class DataStreamMessage extends StreamMessage {
   final List<int> bytes;
 
-  DataStreamMessage(this.bytes);
+  DataStreamMessage(this.bytes, {bool endStream})
+      : super(endStream: endStream);
 
   String toString() => 'DataStreamMessage(${bytes.length} bytes)';
 }
 
 
 /// Represents a headers message which can be sent over a HTTP/2 stream.
-class HeadersStreamMessage implements StreamMessage {
+class HeadersStreamMessage extends StreamMessage {
   final List<Header> headers;
 
-  HeadersStreamMessage(this.headers);
+  HeadersStreamMessage(this.headers, {bool endStream})
+      : super(endStream: endStream);
 
   String toString() => 'HeadersStreamMessage(${headers.length} headers)';
 }

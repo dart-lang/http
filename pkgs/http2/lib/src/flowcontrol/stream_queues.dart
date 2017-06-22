@@ -277,10 +277,14 @@ class StreamMessageQueueIn extends Object
           if (message is HeadersMessage) {
             // NOTE: Header messages do not affect flow control - only
             // data messages do.
-            _incomingMessagesC.add(new HeadersStreamMessage(message.headers));
+            _incomingMessagesC.add(
+                new HeadersStreamMessage(
+                    message.headers, endStream: message.endStream));
           } else if (message is DataMessage) {
             if (message.bytes.length > 0) {
-              _incomingMessagesC.add(new DataStreamMessage(message.bytes));
+              _incomingMessagesC.add(
+                  new DataStreamMessage(
+                      message.bytes, endStream: message.endStream));
               windowHandler.dataProcessed(message.bytes.length);
             }
           } else {

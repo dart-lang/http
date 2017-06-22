@@ -360,8 +360,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           }
         }, onDone: () {
           if (!wasTerminated) {
-            // TODO: We should really allow the endStream flag to be send with
-            // the last headers/data frame. Should we add it to [StreamMessage]?
+            // Stream should already have been closed by the last frame, but we
+            // allow multiple close calls, just to make sure.
             _handleOutgoingClose(stream);
           }
         });
@@ -384,9 +384,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     }
 
     if (msg is DataStreamMessage) {
-      _sendData(stream, msg.bytes, endStream: false);
+      _sendData(stream, msg.bytes, endStream: msg.endStream);
     } else if (msg is HeadersStreamMessage) {
-      _sendHeaders(stream, msg.headers, endStream: false);
+      _sendHeaders(stream, msg.headers, endStream: msg.endStream);
     }
 
     if (stream.outgoingQueue.bufferIndicator.wouldBuffer &&
@@ -397,7 +397,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void _handleOutgoingClose(Http2StreamImpl stream) {
     // We allow multiple close calls.
-    if (stream.state != StreamState.Closed) {
+    if (stream.state != StreamState.HalfClosedLocal &&
+        stream.state != StreamState.Closed &&
+        stream.state != StreamState.Terminated) {
       _sendData(stream, const [], endStream: true);
     }
   }
