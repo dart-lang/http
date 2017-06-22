@@ -7,6 +7,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'base_client.dart';
+import 'handler.dart';
+import 'handler_client.dart';
 import 'io_client.dart';
 import 'request.dart';
 import 'response.dart';
@@ -27,6 +29,15 @@ abstract class Client {
   /// throw an [UnsupportedError] otherwise. In the future, it will create a
   /// [BrowserClient] if `dart:html` is available.
   factory Client() => new IOClient();
+
+  /// Creates a new [Client] from a [handler] callback.
+  ///
+  /// The [handler] is a function that receives a [Request] and returns a
+  /// [Future<Response>]. It will be called when [Client.send] is invoked.
+  ///
+  /// When [Client.close] is called the [onClose] function will be called.
+  factory Client.handler(Handler handler, {void onClose()})
+      => new HandlerClient(handler, onClose ?? () {});
 
   /// Sends an HTTP HEAD request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
