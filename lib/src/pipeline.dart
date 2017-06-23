@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'client.dart';
+import 'handler.dart';
 import 'middleware.dart';
 
 /// A helper that makes it easy to compose a set of [Middleware] and a
@@ -11,9 +12,11 @@ import 'middleware.dart';
 ///     var client = const Pipeline()
 ///         .addMiddleware(loggingMiddleware)
 ///         .addMiddleware(basicAuthMiddleware)
-///         .addHandler(new Client());
+///         .addClient(new Client());
 class Pipeline {
+  /// The outer pipeline.
   final Pipeline _parent;
+  /// The [Middleware] that is invoked at this stage.
   final Middleware _middleware;
 
   const Pipeline()
@@ -35,6 +38,11 @@ class Pipeline {
   /// through.
   Client addClient(Client client) =>
       _middleware == null ? client : _parent.addClient(_middleware(client));
+
+  /// Returns a new [Client] with [handler] as the final processor of a
+  /// [Request] if all of the middleware in the pipeline have passed the request
+  /// through.
+  Client addHandler(Handler handler) => addClient(new Client.handler(handler));
 
   /// Exposes this pipeline of [Middleware] as a single middleware instance.
   Middleware get middleware => addClient;

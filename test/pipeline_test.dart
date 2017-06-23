@@ -2,14 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:http/http.dart';
 import 'package:test/test.dart';
-// \TODO REMOVE
-import 'package:http/src/pipeline.dart';
+
+import 'package:http/http.dart';
 
 void main() {
   test('compose middleware with Pipeline', () async {
-    int accessLocation = 0;
+    var accessLocation = 0;
 
     var middlewareA = createMiddleware(requestHandler: (request) async {
       expect(accessLocation, 0);
