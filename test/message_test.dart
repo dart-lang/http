@@ -5,8 +5,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:http/src/message.dart';
 import 'package:test/test.dart';
+
+import 'package:http/src/message.dart';
 
 // "hello,"
 const HELLO_BYTES = const [104, 101, 108, 108, 111, 44];
