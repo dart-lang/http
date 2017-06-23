@@ -69,9 +69,11 @@ class _Parse extends Matcher {
 /// A matcher that matches a [http.ClientException] with the given [message].
 ///
 /// [message] can be a String or a [Matcher].
-Matcher isClientException(message) => predicate((error) {
+Matcher isClientException([message]) => predicate((error) {
   expect(error, new isInstanceOf<http.ClientException>());
-  expect(error.message, message);
+  if (message != null) {
+    expect(error.message, message);
+  }
   return true;
 });
 
@@ -79,4 +81,4 @@ Matcher isClientException(message) => predicate((error) {
 /// [http.ClientException] with the given [message].
 ///
 /// [message] can be a String or a [Matcher].
-Matcher throwsClientException(message) => throwsA(isClientException(message));
+Matcher throwsClientException([message]) => throwsA(isClientException(message));

@@ -2,11 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-
 import 'package:test/test.dart';
 
-import 'hybrid/client.dart'
+import 'package:http/http.dart';
+
+import 'client.dart'
     if (dart.library.io) 'hybrid/client_io.dart'
     if (dart.library.html) 'hybrid/client_html.dart';
 import 'utils.dart';
@@ -21,8 +21,6 @@ void main() {
       serverUrl = Uri.parse(await channel.stream.first);
     });
 
-    // HEAD
-
     test('head', () async {
       var response = await platformClient().head(serverUrl);
       var body = await response.readAsString();
@@ -30,8 +28,6 @@ void main() {
       expect(response.statusCode, equals(200));
       expect(body, equals(''));
     });
-
-    // GET
 
     test('get', () async {
       var response = await platformClient().get(serverUrl, headers: {
@@ -54,8 +50,6 @@ void main() {
             }
           })));
     });
-
-    // POST
 
     test('post with string', () async {
       var response = await platformClient().post(
@@ -145,8 +139,6 @@ void main() {
           })));
     });
 
-    // PUT
-
     test('put with string', () async {
       var response = await platformClient().put(
         serverUrl,
@@ -234,8 +226,6 @@ void main() {
             'body': 'some-field=value&other-field=other+value'
           })));
     });
-
-    // PATCH
 
     test('patch with string', () async {
       var response = await platformClient().patch(
@@ -325,8 +315,6 @@ void main() {
           })));
     });
 
-    // DELETE
-
     test('delete', () async {
       var response = await platformClient().delete(serverUrl, headers: {
         'X-Random-Header': 'Value',
@@ -349,8 +337,6 @@ void main() {
           })));
     });
 
-    // READ
-
     test('read', () async {
       var body = await platformClient().read(serverUrl, headers: {
         'X-Random-Header': 'Value',
@@ -372,11 +358,8 @@ void main() {
     });
 
     test('read throws an error for a 4** status code', () async {
-      platformClient().read(serverUrl.resolve('/error')).then((_) {
-        expect(true, isFalse);
-      }).catchError((err) {
-        expect(err, isClientException);
-      });
+      expect(() => platformClient().read(serverUrl.resolve('/error')),
+          throwsClientException());
     });
 
     test('readBytes', () async {
@@ -399,12 +382,9 @@ void main() {
           })));
     });
 
-    test('readBytes throws an error for a 4** status code', () {
-      platformClient().readBytes(serverUrl.resolve('/error')).then((_) {
-        expect(true, isFalse);
-      }).catchError((err) {
-        expect(err, isClientException);
-      });
+    test('readBytes throws an error for a 4** status code', () async {
+      expect(() => platformClient().readBytes(serverUrl.resolve('/error')),
+          throwsClientException());
     });
   });
 }

@@ -24,6 +24,30 @@ final _ignoreHeaders = <String>[
   'host',
 ];
 
+/// Creates a server used to test a `http` client.
+///
+/// On startup the server will bind to `localhost`. Then it will send the url
+/// as a string back through the [channel].
+///
+/// The server has the following explicit endpoints used to test individual
+/// functionality.
+/// * /error - Will return a 400 status code.
+/// * /loop - Which is used to check for max redirects.
+/// * /redirect - Which is used to test that a redirect works.
+/// * /no-content-length - Which returns a body with no content.
+///
+/// All other requests will be responded to. This is used to test the
+/// individual HTTP methods. The server will return back the following
+/// information in a string.
+///
+///     {
+///       method: 'METHOD_NAME',
+///       path: 'ENDPOINT_PATH',
+///       headers: {
+///         KEY VALUE STORE OF INDIVIDUAL HEADERS
+///       },
+///       body: OPTIONAL
+///     }
 hybridMain(StreamChannel channel) async {
   var server = await HttpServer.bind('localhost', 0);
   var serverUrl = Uri.parse('http://localhost:${server.port}');
