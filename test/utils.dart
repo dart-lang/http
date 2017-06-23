@@ -4,9 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:test/test.dart';
+
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
-import 'package:unittest/unittest.dart';
 
 /// A dummy URL for constructing requests that won't be sent.
 Uri get dummyUrl => Uri.parse('http://dartlang.org/');
@@ -66,46 +66,14 @@ class _Parse extends Matcher {
   }
 }
 
-/// A matcher that validates the body of a multipart request after finalization.
-/// The string "{{boundary}}" in [pattern] will be replaced by the boundary
-/// string for the request, and LF newlines will be replaced with CRLF.
-/// Indentation will be normalized.
-Matcher bodyMatches(String pattern) => new _BodyMatches(pattern);
-
-class _BodyMatches extends Matcher {
-  final String _pattern;
-
-  _BodyMatches(this._pattern);
-
-  bool matches(item, Map matchState) {
-    if (item is! http.MultipartRequest) return false;
-
-    var future = item.finalize().toBytes().then((bodyBytes) {
-      var body = UTF8.decode(bodyBytes);
-      var contentType = new MediaType.parse(item.headers['content-type']);
-      var boundary = contentType.parameters['boundary'];
-      var expected = cleanUpLiteral(_pattern)
-          .replaceAll("\n", "\r\n")
-          .replaceAll("{{boundary}}", boundary);
-
-      expect(body, equals(expected));
-      expect(item.contentLength, equals(bodyBytes.length));
-    });
-
-    return completes.matches(future, matchState);
-  }
-
-  Description describe(Description description) {
-    return description.add('has a body that matches "$_pattern"');
-  }
-}
-
 /// A matcher that matches a [http.ClientException] with the given [message].
 ///
 /// [message] can be a String or a [Matcher].
-Matcher isClientException(message) => predicate((error) {
+Matcher isClientException([message]) => predicate((error) {
   expect(error, new isInstanceOf<http.ClientException>());
-  expect(error.message, message);
+  if (message != null) {
+    expect(error.message, message);
+  }
   return true;
 });
 
@@ -113,4 +81,4 @@ Matcher isClientException(message) => predicate((error) {
 /// [http.ClientException] with the given [message].
 ///
 /// [message] can be a String or a [Matcher].
-Matcher throwsClientException(message) => throwsA(isClientException(message));
+Matcher throwsClientException([message]) => throwsA(isClientException(message));
