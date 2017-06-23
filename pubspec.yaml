@@ -10,6 +10,9 @@ dependencies:
   path: ">=0.9.0 <2.0.0"
   stack_trace: ">=0.9.1 <2.0.0"
 dev_dependencies:
-  unittest: ">=0.9.0 <0.12.0"
+  test: "^0.12.18"
+# Override dependency on package_resolver to enable test
+dependency_overrides:
+  package_resolver: '^1.0.0'
 environment:
   sdk: ">=1.24.0-dev.0.0 <2.0.0"
