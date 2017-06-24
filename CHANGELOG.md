@@ -1,3 +1,17 @@
+## 0.11.3+13
+
+* remove boundary characters that package:http_parser cannot parse.
+
+## 0.11.3+12
+
+* Don't quote the boundary header for `MultipartRequest`. This is more
+  compatible with server quirks.
+
+## 0.11.3+11
+
+* Fix the SDK constraint to only include SDK versions that support importing
+  `dart:io` everywhere.
+
 ## 0.11.3+10
 
 * Stop using `dart:mirrors`.
