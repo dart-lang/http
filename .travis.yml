@@ -6,10 +6,7 @@ dart:
   - stable
 
 dart_task:
-  - test: --platform vm
-  - test: --platform firefox
-  - dartfmt
-  - dartanalyzer
+  - test: --platform vm,firefox
 
 # Only run one instance of the formatter and the analyzer, rather than running
 # them against each Dart version.
