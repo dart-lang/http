@@ -6,7 +6,8 @@ dart:
   - stable
 
 dart_task:
-  - test
+  - test: --platform vm
+  - test: --platform firefox
   - dartfmt
   - dartanalyzer
 
