@@ -30,7 +30,7 @@ main() {
       }
 
       headersTestFun() {
-        return expectAsync((StreamMessage msg) {
+        return expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
           testHeaders((msg as HeadersStreamMessage).headers);
         });
@@ -62,7 +62,7 @@ main() {
           (ClientTransportConnection client,
            ServerTransportConnection server) async {
         server.incomingStreams.listen(
-            expectAsync((ServerTransportStream sStream) async {
+            expectAsync1((ServerTransportStream sStream) async {
           var pushStream = sStream.push(expectedHeaders);
           pushStream.sendHeaders(expectedHeaders);
           await sendData(pushStream, 'pushing "hello world" :)');
@@ -76,8 +76,8 @@ main() {
         ClientTransportStream cStream =
             client.makeRequest(expectedHeaders, endStream: true);
         cStream.incomingMessages.listen(
-            headersTestFun(), onDone: expectAsync(() { }));
-        cStream.peerPushes.listen(expectAsync((TransportStreamPush push) async {
+            headersTestFun(), onDone: expectAsync0(() { }));
+        cStream.peerPushes.listen(expectAsync1((TransportStreamPush push) async {
           testHeaders(push.requestHeaders);
 
           var iterator = new StreamIterator(push.stream.incomingMessages);

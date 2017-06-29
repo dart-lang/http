@@ -10,7 +10,6 @@ import 'package:test/test.dart';
 
 import 'package:http2/transport.dart';
 import 'package:http2/src/frames/frames.dart';
-import 'package:http2/src/connection.dart';
 import 'package:http2/src/settings/settings.dart';
 
 expectHeadersEqual(List<Header> headers, List<Header> expectedHeaders) {
@@ -22,7 +21,7 @@ expectHeadersEqual(List<Header> headers, List<Header> expectedHeaders) {
 }
 
 expectEmptyStream(Stream s) {
-  s.listen(expectAsync((_) {}, count: 0), onDone: expectAsync(() {}));
+  s.listen(expectAsync1((_) {}, count: 0), onDone: expectAsync0(() {}));
 }
 
 streamTest(String name, func(client, server), {ClientSettings settings}) {

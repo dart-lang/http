@@ -18,7 +18,7 @@ main() {
         Window window,
         int initialSize) {
       var sub = handler.positiveWindow.bufferEmptyEvents.listen(
-          expectAsync((_) {}, count: 0));
+          expectAsync1((_) {}, count: 0));
 
       expect(handler.peerWindowSize, initialSize);
       expect(window.size, initialSize);
@@ -43,7 +43,7 @@ main() {
       expect(handler.positiveWindow.wouldBuffer, isFalse);
       handler.decreaseWindow(window.size);
       expect(handler.positiveWindow.wouldBuffer, isTrue);
-      sub = handler.positiveWindow.bufferEmptyEvents.listen(expectAsync((_) {
+      sub = handler.positiveWindow.bufferEmptyEvents.listen(expectAsync1((_) {
         expect(handler.peerWindowSize, 1);
         expect(window.size, 1);
       }));
@@ -84,7 +84,7 @@ main() {
 
       expect(handler.positiveWindow.wouldBuffer, isFalse);
       handler.positiveWindow.bufferEmptyEvents.listen(
-          expectAsync((_) {}, count: 0));
+          expectAsync1((_) {}, count: 0));
       handler.processInitialWindowSizeSettingChange(-window.size);
       expect(handler.positiveWindow.wouldBuffer, isTrue);
       expect(handler.peerWindowSize, 0);
@@ -128,6 +128,4 @@ main() {
   });
 }
 
-class FrameWriterMock extends SmartMock implements FrameWriter {
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
-}
+class FrameWriterMock extends SmartMock implements FrameWriter { }

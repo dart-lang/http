@@ -16,13 +16,13 @@ main() {
                 ServerTransportConnection server) async {
       var expectedHeaders = [new Header.ascii('key', 'value')];
 
-      server.incomingStreams.listen(expectAsync((TransportStream sStream) {
-        sStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
+        sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
           HeadersStreamMessage headersMsg = msg;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
-        }), onDone: expectAsync(() {}));
+        }), onDone: expectAsync0(() {}));
         sStream.outgoingMessages.close();
       }));
 
@@ -36,13 +36,13 @@ main() {
                 ServerTransportConnection server) async {
       var expectedHeaders = [new Header.ascii('key', 'value')];
 
-      server.incomingStreams.listen(expectAsync((TransportStream sStream) {
-        sStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
+        sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
           HeadersStreamMessage headersMsg = msg;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
-        }, count: 3), onDone: expectAsync(() {}));
+        }, count: 3), onDone: expectAsync0(() {}));
         sStream.outgoingMessages.close();
       }));
 
@@ -59,10 +59,10 @@ main() {
       var chunks = [[1], [2], [3]];
 
       server.incomingStreams.listen(
-          expectAsync((TransportStream sStream) async {
+          expectAsync1((TransportStream sStream) async {
         bool isFirst = true;
         var receivedChunks = [];
-        sStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+        sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           if (isFirst) {
             isFirst = false;
             expect(msg is HeadersStreamMessage, isTrue);
@@ -75,7 +75,7 @@ main() {
             DataStreamMessage dataMsg = msg;
             receivedChunks.add(dataMsg.bytes);
           }
-        }, count: 1 + chunks.length), onDone: expectAsync(() {
+        }, count: 1 + chunks.length), onDone: expectAsync0(() {
           expect(receivedChunks, chunks);
         }));
         sStream.outgoingMessages.close();
@@ -92,25 +92,25 @@ main() {
                 ServerTransportConnection server) async {
       var expectedHeaders = [new Header.ascii('key', 'value')];
 
-      server.incomingStreams.listen(expectAsync((TransportStream sStream) {
-        sStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
+        sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
           HeadersStreamMessage headersMsg = msg;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
-        }), onDone: expectAsync(() {}));
+        }), onDone: expectAsync0(() {}));
         sStream.sendHeaders(expectedHeaders, endStream: true);
       }));
 
       TransportStream cStream =
           client.makeRequest(expectedHeaders, endStream: true);
 
-      cStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
         expect(msg is HeadersStreamMessage, isTrue);
 
         HeadersStreamMessage headersMsg = msg;
         expectHeadersEqual(headersMsg.headers, expectedHeaders);
-      }), onDone: expectAsync(() {}));
+      }), onDone: expectAsync0(() {}));
     });
 
     streamTest('single-header-request--multi-headers-response',
@@ -118,13 +118,13 @@ main() {
                 ServerTransportConnection server) async {
       var expectedHeaders = [new Header.ascii('key', 'value')];
 
-      server.incomingStreams.listen(expectAsync((TransportStream sStream) {
-        sStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
+        sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
           HeadersStreamMessage headersMsg = msg;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
-        }), onDone: expectAsync(() {}));
+        }), onDone: expectAsync0(() {}));
 
         sStream.sendHeaders(expectedHeaders);
         sStream.sendHeaders(expectedHeaders);
@@ -134,7 +134,7 @@ main() {
       TransportStream cStream =
           client.makeRequest(expectedHeaders, endStream: true);
 
-      cStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
         expect(msg is HeadersStreamMessage, isTrue);
 
         HeadersStreamMessage headersMsg = msg;
@@ -148,13 +148,13 @@ main() {
       var expectedHeaders = [new Header.ascii('key', 'value')];
       var chunks = [[1], [2], [3]];
 
-      server.incomingStreams.listen(expectAsync((TransportStream sStream) {
-        sStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
+        sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
           HeadersStreamMessage headersMsg = msg;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
-        }), onDone: expectAsync(() {}));
+        }), onDone: expectAsync0(() {}));
 
         chunks.forEach(sStream.sendData);
         sStream.outgoingMessages.close();
@@ -164,7 +164,7 @@ main() {
       cStream.outgoingMessages.close();
 
       int i = 0;
-      cStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+      cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
         expect(msg is DataStreamMessage, isTrue);
         expect((msg as DataStreamMessage).bytes, chunks[i++]);
       }, count: chunks.length));
@@ -177,11 +177,11 @@ main() {
     var expectedHeaders = [new Header.ascii('key', 'value')];
     var chunk = [1];
 
-    server.incomingStreams.listen(expectAsync((TransportStream sStream) async {
+    server.incomingStreams.listen(expectAsync1((TransportStream sStream) async {
       bool isFirst = true;
       var receivedChunk;
       sStream.incomingMessages.listen(
-          expectAsync((StreamMessage msg) {
+          expectAsync1((StreamMessage msg) {
             if (isFirst) {
               isFirst = false;
               expect(msg is HeadersStreamMessage, isTrue);
@@ -197,7 +197,7 @@ main() {
               DataStreamMessage dataMsg = msg;
               receivedChunk = dataMsg.bytes;
             }
-          }, count: 2), onDone: expectAsync(() {
+          }, count: 2), onDone: expectAsync0(() {
         expect(receivedChunk, chunk);
         sStream.sendData([2]);
         sStream.sendHeaders(expectedHeaders, endStream: true);
@@ -208,7 +208,7 @@ main() {
     cStream.sendData(chunk, endStream: true);
 
     bool isFirst = true;
-    cStream.incomingMessages.listen(expectAsync((StreamMessage msg) {
+    cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
       if (isFirst) {
         expect(msg, new isInstanceOf<DataStreamMessage>());
         final data = msg as DataStreamMessage;

@@ -12,8 +12,6 @@ import 'package:http2/src/settings/settings.dart';
 
 import '../hpack/hpack_test.dart' show isHeader;
 
-import '../error_matchers.dart';
-
 main() {
   group('frames', () {
     group('writer-reader', () {

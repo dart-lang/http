@@ -83,7 +83,7 @@ main() {
       var settingsFrame = new SettingsFrame(header, const []);
 
       expect(() => sh.handleSettingsFrame(settingsFrame),
-             throwsProtocolException);
+             throwsA(isProtocolException));
     });
 
     test('invalid-remote-settings-change', () {
@@ -99,7 +99,7 @@ main() {
       var header = new FrameHeader(6, FrameType.SETTINGS, 0, 0);
       var settingsFrame = new SettingsFrame(header, invalidPushSettings);
       expect(() => sh.handleSettingsFrame(settingsFrame),
-             throwsProtocolException);
+             throwsA(isProtocolException));
     });
 
     test('change-max-header-table-size', () {
@@ -112,19 +112,15 @@ main() {
       // Simulate remote end by setting the push setting.
       var header = new FrameHeader(6, FrameType.SETTINGS, 0, 0);
       var settingsFrame = new SettingsFrame(header, setMaxTable256);
-      mock.mock_updateMaxSendingHeaderTableSize = expectAsync((int newSize) {
+      mock.mock_updateMaxSendingHeaderTableSize = expectAsync1((int newSize) {
         expect(newSize, 256);
       });
-      writer.mock_writeSettingsAckFrame = expectAsync(() { });
+      writer.mock_writeSettingsAckFrame = expectAsync0(() { });
       sh.handleSettingsFrame(settingsFrame);
     });
   });
 }
 
-class FrameWriterMock extends SmartMock implements FrameWriter {
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
-}
+class FrameWriterMock extends SmartMock implements FrameWriter { }
 
-class HPackEncoderMock extends SmartMock implements HPackEncoder {
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
-}
+class HPackEncoderMock extends SmartMock implements HPackEncoder { }

@@ -42,7 +42,8 @@ main() {
         }
 
         expect(client.isOpen, false);
-        expect(() => client.makeRequest(headers), throws);
+        expect(() => client.makeRequest(headers),
+            throwsA(new isInstanceOf<StateError>()));
 
         await new Future.delayed(const Duration(seconds: 1));
         await client.finish();

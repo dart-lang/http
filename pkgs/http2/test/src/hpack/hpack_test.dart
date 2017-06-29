@@ -184,19 +184,19 @@ main() {
       test('invalid-integer-encoding', () {
         var context = new HPackContext();
         expect(() => context.decoder.decode([1 << 6, 0xff]),
-               throwsHuffmanDecodingException);
+               throwsA(isHPackDecodingException));
       });
 
       test('index-out-of-table-size', () {
         var context = new HPackContext();
         expect(() => context.decoder.decode([0x7f]),
-               throwsHuffmanDecodingException);
+               throwsA(isHPackDecodingException));
       });
 
       test('invalid-update-dynamic-table-size', () {
         var context = new HPackContext();
         expect(() => context.decoder.decode([0x3f]),
-               throwsHuffmanDecodingException);
+               throwsA(isHPackDecodingException));
       });
 
       test('update-dynamic-table-size-too-high', () {
@@ -204,7 +204,7 @@ main() {
         // Tries to set dynamic table to 4097 (max is 4096 by default)
         var bytes = TestHelper.newInteger(0x20, 5, 4097);
         expect(() => context.decoder.decode(bytes),
-               throwsHuffmanDecodingException);
+               throwsA(isHPackDecodingException));
       });
     });
 
@@ -419,11 +419,6 @@ class _HPackDecodingException extends TypeMatcher {
   const _HPackDecodingException() : super("HPackDecodingException");
   bool matches(item, Map matchState) => item is HPackDecodingException;
 }
-
-const Matcher throwsHuffmanDecodingException =
-    const Throws(isHPackDecodingException);
-
-
 
 class _HeaderMatcher extends Matcher {
   final Header header;

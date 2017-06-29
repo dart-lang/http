@@ -6,11 +6,8 @@ import 'dart:async';
 
 import 'package:test/test.dart';
 
-import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/settings/settings.dart';
-
-import '../hpack/hpack_test.dart' show isHeader;
 
 main() {
   group('frames', () {
@@ -19,7 +16,6 @@ main() {
 
       Stream<Frame> dataFrame(List<int> body) {
         var settings = new ActiveSettings();
-        var context = new HPackContext();
         var controller = new StreamController<List<int>>();
         var reader = new FrameReader(controller.stream, settings);
 
@@ -41,7 +37,7 @@ main() {
       test('data-frame--max-frame-size', () {
         var body = new List.filled(maxFrameSize, 0x42);
         dataFrame(body).listen(
-            expectAsync((Frame frame) {
+            expectAsync1((Frame frame) {
               expect(frame is DataFrame, isTrue);
               expect(frame.header.length, body.length);
               expect(frame.header.flags, 0);
@@ -50,14 +46,14 @@ main() {
               expect(dataFrame.hasPaddedFlag, isFalse);
               expect(dataFrame.bytes, body);
             }),
-            onError: expectAsync((error, stack) {}, count: 0));
+            onError: expectAsync2((error, stack) {}, count: 0));
       });
 
       test('data-frame--max-frame-size-plus-1', () {
         var body = new List.filled(maxFrameSize + 1, 0x42);
         dataFrame(body).listen(
-            expectAsync((_) {}, count: 0),
-            onError: expectAsync((error, stack) {
+            expectAsync1((_) {}, count: 0),
+            onError: expectAsync2((error, stack) {
           expect('$error', contains('Incoming frame is too big'));
         }));
       });
@@ -65,15 +61,14 @@ main() {
       test('incomplete-header', () {
         var settings = new ActiveSettings();
 
-        var context = new HPackContext();
         var controller = new StreamController<List<int>>();
         var reader = new FrameReader(controller.stream, settings);
 
         controller..add([1])..close();
 
         reader.startDecoding().listen(
-            expectAsync((_) {}, count: 0),
-            onError: expectAsync((error, stack) {
+            expectAsync1((_) {}, count: 0),
+            onError: expectAsync2((error, stack) {
           expect('$error', contains('incomplete frame'));
         }));
       });
@@ -81,7 +76,6 @@ main() {
       test('incomplete-frame', () {
         var settings = new ActiveSettings();
 
-        var context = new HPackContext();
         var controller = new StreamController<List<int>>();
         var reader = new FrameReader(controller.stream, settings);
 
@@ -93,8 +87,8 @@ main() {
         controller..add([0, 0, 255, 0, 0, 0, 0, 0, 1])..close();
 
         reader.startDecoding().listen(
-            expectAsync((_) {}, count: 0),
-            onError: expectAsync((error, stack) {
+            expectAsync1((_) {}, count: 0),
+            onError: expectAsync2((error, stack) {
           expect('$error', contains('incomplete frame'));
         }));
       });
@@ -102,15 +96,14 @@ main() {
       test('connection-error', () {
         var settings = new ActiveSettings();
 
-        var context = new HPackContext();
         var controller = new StreamController<List<int>>();
         var reader = new FrameReader(controller.stream, settings);
 
         controller..addError('hello world')..close();
 
         reader.startDecoding().listen(
-            expectAsync((_) {}, count: 0),
-            onError: expectAsync((error, stack) {
+            expectAsync1((_) {}, count: 0),
+            onError: expectAsync2((error, stack) {
           expect('$error', contains('hello world'));
         }));
       });

@@ -43,7 +43,7 @@ main() {
       }
       c.close();
 
-      resultF.catchError(expectAsync((error, _) {
+      resultF.catchError(expectAsync2((error, _) {
         expect(error, contains('EOS before connection preface could be read'));
       }));
     });
@@ -58,7 +58,7 @@ main() {
       }
       c.close();
 
-      resultF.catchError(expectAsync((error, _) {
+      resultF.catchError(expectAsync2((error, _) {
         expect(error, contains('Connection preface does not match.'));
       }));
     });
@@ -71,7 +71,7 @@ main() {
       c.addError('hello world');
       c.close();
 
-      resultF.catchError(expectAsync((error, _) {
+      resultF.catchError(expectAsync2((error, _) {
         expect(error, contains('hello world'));
       }));
     });

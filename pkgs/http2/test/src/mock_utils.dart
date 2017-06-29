@@ -77,7 +77,7 @@ class SmartMock {
 /// arguments
 /// (e.g. `expectAsync((List<Setting> settings, {bool ack: true}) {})`).
 class TestCounter {
-  final Function _complete = expectAsync(() {});
+  final Function _complete = expectAsync0(() {});
 
   final int count;
   int _got = 0;

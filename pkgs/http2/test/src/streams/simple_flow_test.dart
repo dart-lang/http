@@ -21,7 +21,7 @@ main() {
       allBytes.addAll(new List.generate(42, (i) => 42));
 
       headersTestFun(String type) {
-        return expectAsync((StreamMessage msg) {
+        return expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
           expect((msg as HeadersStreamMessage).headers.first.name,
                  expectedHeaders.first.name);
@@ -75,9 +75,9 @@ main() {
           (ClientTransportConnection client,
            ServerTransportConnection server) async {
         server.incomingStreams.listen(
-            expectAsync((TransportStream sStream) async {
+            expectAsync1((TransportStream sStream) async {
           sStream.incomingMessages.listen(
-              messageTestFun('server'), onDone: expectAsync(() { }));
+              messageTestFun('server'), onDone: expectAsync0(() { }));
           sStream.sendHeaders(expectedHeaders, endStream: true);
           expect(await serverReceivedAllBytes.future, completes);
         }));
@@ -85,7 +85,7 @@ main() {
         TransportStream cStream = client.makeRequest(expectedHeaders);
         sendData(cStream);
         cStream.incomingMessages.listen(
-            headersTestFun('client'), onDone: expectAsync(() {}));
+            headersTestFun('client'), onDone: expectAsync0(() {}));
       });
     });
   });

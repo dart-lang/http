@@ -398,8 +398,8 @@ main() {
 
           var stream = client.makeRequest([new Header.ascii('a', 'b')]);
           var sub = stream.incomingMessages.listen(
-              expectAsync((StreamMessage msg) {}, count: 0),
-              onError: expectAsync((error) {}));
+              expectAsync1((StreamMessage msg) {}, count: 0),
+              onError: expectAsync1((error) {}));
           sub.pause();
           await new Future.delayed(const Duration(milliseconds: 40));
           sub.resume();
@@ -517,7 +517,7 @@ main() {
               [new Header.ascii('a', 'b')], endStream: false);
 
           // Make sure we don't get messages/pushes on the terminated stream.
-          stream.incomingMessages.toList().catchError(expectAsync((e) {
+          stream.incomingMessages.toList().catchError(expectAsync1((e) {
             expect('$e', contains('This stream was not processed and can '
                                   'therefore be retried'));
           }));

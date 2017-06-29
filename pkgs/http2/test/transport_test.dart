@@ -21,7 +21,7 @@ main() {
 
     transportTest('terminated-client-ping', (TransportConnection client,
                                              TransportConnection server) async {
-      var clientError = client.ping().catchError(expectAsync((e, s) {
+      var clientError = client.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
       }));
       await client.terminate();
@@ -29,17 +29,17 @@ main() {
 
       // NOTE: Now the connection is dead and client/server should complete
       // with [TransportException]s when doing work (e.g. ping).
-      client.ping().catchError(expectAsync((e, s) {
+      client.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
       }));
-      server.ping().catchError(expectAsync((e, s) {
+      server.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
       }));
     });
 
     transportTest('terminated-server-ping', (TransportConnection client,
                                              TransportConnection server) async {
-      var clientError = client.ping().catchError(expectAsync((e, s) {
+      var clientError = client.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
       }));
       await server.terminate();
@@ -47,10 +47,10 @@ main() {
 
       // NOTE: Now the connection is dead and the client/server should complete
       // with [TransportException]s when doing work (e.g. ping).
-      client.ping().catchError(expectAsync((e, s) {
+      client.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
       }));
-      server.ping().catchError(expectAsync((e, s) {
+      server.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
       }));
     });
@@ -58,9 +58,10 @@ main() {
     transportTest('disabled-push', (ClientTransportConnection client,
                                     ServerTransportConnection server) async {
       server.incomingStreams.listen(
-          expectAsync((ServerTransportStream stream) async {
+          expectAsync1((ServerTransportStream stream) async {
         expect(stream.canPush, false);
-        expect(() => stream.push([new Header.ascii('a', 'b')]), throws);
+        expect(() => stream.push([new Header.ascii('a', 'b')]),
+            throwsA(new isInstanceOf<StateError>()));
         stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
       }));
 
@@ -95,7 +96,8 @@ main() {
           // Now we should have reached the limit and we should not be able to
           // create more pushes.
           expect(stream.canPush, false);
-          expect(() => stream.push([new Header.ascii('a', 'b')]), throws);
+          expect(() => stream.push([new Header.ascii('a', 'b')]),
+              throwsA(new isInstanceOf<StateError>()));
 
           // Finish the pushes
           for (ServerTransportStream pushedStream in pushes) {
@@ -181,10 +183,10 @@ main() {
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
           stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
-          stream.incomingMessages.listen(expectAsync((msg) {
+          stream.incomingMessages.listen(expectAsync1((msg) {
             expect(msg is HeadersStreamMessage, true);
             readyForError.complete();
-          }), onError: expectAsync((error) {
+          }), onError: expectAsync1((error) {
             expect('$error', contains('Stream was terminated by peer'));
           }));
         }
@@ -216,7 +218,7 @@ main() {
       Future clientFun() async {
         var headers = [new Header.ascii('a', 'b')];
         var stream = client.makeRequest(headers, endStream: true);
-        await stream.incomingMessages.toList().catchError(expectAsync((error) {
+        await stream.incomingMessages.toList().catchError(expectAsync1((error) {
           expect('$error', contains('Stream was terminated by peer'));
         }));
         await client.finish();
@@ -270,7 +272,7 @@ main() {
                 onListen: () {
                   addData();
                 },
-                onPause: expectAsync(() {
+                onPause: expectAsync0(() {
                   // Assert that we're now at the place (since the granularity
                   // of adding is [kChunkSize], it could be that we added
                   // [kChunkSize - 1] bytes more than allowed, before getting

@@ -101,10 +101,10 @@ main() {
       windowMock.positiveWindow.markUnBuffered();
 
       queue.startClosing();
-      queue.done.then(expectAsync((_) {
+      queue.done.then(expectAsync1((_) {
         expect(queue.pendingMessages, 0);
         expect(() => queue.enqueueMessage(new DataMessage(99, bytes, true)),
-               throws);
+               throwsA(new isInstanceOf<StateError>()));
       }));
     });
 
@@ -171,27 +171,19 @@ main() {
 
 class MockFrameWriter extends SmartMock implements FrameWriter {
   BufferIndicator bufferIndicator = new BufferIndicator();
-
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
 }
 
 class MockStreamMessageQueueIn extends SmartMock
                                implements StreamMessageQueueIn {
   BufferIndicator bufferIndicator = new BufferIndicator();
-
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
 }
 
 class MockIncomingWindowHandler extends SmartMock
-                                implements IncomingWindowHandler {
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
-}
+                                implements IncomingWindowHandler { }
 
 class MockOutgoingWindowHandler extends SmartMock
                                 implements OutgoingConnectionWindowHandler,
                                            OutgoingStreamWindowHandler {
   BufferIndicator positiveWindow = new BufferIndicator();
   int peerWindowSize = new Window().size;
-
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
 }

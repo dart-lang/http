@@ -19,7 +19,7 @@ main() {
         var controller = new StreamController<List<int>>();
         var writer = new FrameWriter(context.encoder, controller, settings);
 
-        writer.doneFuture.then(expectAsync((_) {
+        writer.doneFuture.then(expectAsync1((_) {
           // We expect that the writer is done at this point.
         }));
 

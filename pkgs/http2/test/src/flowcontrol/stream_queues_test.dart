@@ -31,11 +31,11 @@ main() {
         expect(queue.pendingMessages, 0);
 
         windowMock.peerWindowSize = BYTES.length;
-        windowMock.mock_decreaseWindow = expectAsync((int difference) {
+        windowMock.mock_decreaseWindow = expectAsync1((int difference) {
           expect(difference, BYTES.length);
         });
         connectionQueueMock.mock_enqueueMessage =
-            expectAsync((Message message) {
+            expectAsync1((Message message) {
           expect(message is DataMessage, isTrue);
           DataMessage dataMessage = message;
           expect(dataMessage.bytes, BYTES);
@@ -58,12 +58,12 @@ main() {
         // We set the window size fixed to 1, which means all the data messages
         // will get fragmented to 1 byte.
         windowMock.peerWindowSize = 1;
-        windowMock.mock_decreaseWindow = expectAsync((int difference) {
+        windowMock.mock_decreaseWindow = expectAsync1((int difference) {
           expect(difference, 1);
         }, count: BYTES.length);
         int counter = 0;
         connectionQueueMock.mock_enqueueMessage =
-            expectAsync((Message message) {
+            expectAsync1((Message message) {
           expect(message is DataMessage, isTrue);
           DataMessage dataMessage = message;
           expect(dataMessage.bytes, BYTES.sublist(counter, counter + 1));
@@ -87,9 +87,9 @@ main() {
         expect(queue.pendingMessages, 0);
 
         windowMock.peerWindowSize = 0;
-        windowMock.mock_decreaseWindow = expectAsync((_) {}, count: 0);
+        windowMock.mock_decreaseWindow = expectAsync1((_) {}, count: 0);
         connectionQueueMock.mock_enqueueMessage =
-            expectAsync((_) {}, count: 0);
+            expectAsync1((_) {}, count: 0);
         queue.enqueueMessage(new DataMessage(STREAM_ID, BYTES, true));
         expect(queue.bufferIndicator.wouldBuffer, isTrue);
         expect(queue.pendingMessages, 1);
@@ -102,16 +102,16 @@ main() {
         var queue = new StreamMessageQueueIn(windowMock);
 
         expect(queue.pendingMessages, 0);
-        queue.messages.listen(expectAsync((StreamMessage message) {
+        queue.messages.listen(expectAsync1((StreamMessage message) {
           expect(message is DataStreamMessage, isTrue);
 
           DataStreamMessage dataMessage = message;
           expect(dataMessage.bytes, BYTES);
-        }), onDone: expectAsync(() {}));
-        windowMock.mock_gotData = expectAsync((int difference) {
+        }), onDone: expectAsync0(() {}));
+        windowMock.mock_gotData = expectAsync1((int difference) {
           expect(difference, BYTES.length);
         });
-        windowMock.mock_dataProcessed = expectAsync((int difference) {
+        windowMock.mock_dataProcessed = expectAsync1((int difference) {
           expect(difference, BYTES.length);
         });
         queue.enqueueMessage(new DataMessage(STREAM_ID, BYTES, true));
@@ -127,14 +127,14 @@ main() {
       var queue = new StreamMessageQueueIn(windowMock);
 
       var sub = queue.messages.listen(
-          expectAsync((_) {}, count: 0), onDone: expectAsync(() {}, count: 0));
+          expectAsync1((_) {}, count: 0), onDone: expectAsync0(() {}, count: 0));
       sub.pause();
 
       // We assert that we got the data, but it wasn't processed.
-      windowMock.mock_gotData = expectAsync((int difference) {
+      windowMock.mock_gotData = expectAsync1((int difference) {
         expect(difference, bytes.length);
       });
-      windowMock.mock_dataProcessed = expectAsync((_) {}, count: 0);
+      windowMock.mock_dataProcessed = expectAsync1((_) {}, count: 0);
 
       expect(queue.pendingMessages, 0);
       queue.enqueueMessage(new DataMessage(STREAM_ID, bytes, true));
@@ -148,20 +148,14 @@ main() {
 
 
 class MockConnectionMessageQueueOut extends SmartMock
-                                    implements ConnectionMessageQueueOut {
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
-}
+                                    implements ConnectionMessageQueueOut { }
 
 
 class MockIncomingWindowHandler extends SmartMock
-                                implements IncomingWindowHandler {
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
-}
+                                implements IncomingWindowHandler { }
 
 class MockOutgoingStreamWindowHandler extends SmartMock
                                       implements OutgoingStreamWindowHandler {
   final BufferIndicator positiveWindow = new BufferIndicator();
   int peerWindowSize;
-
-  dynamic noSuchMethod(_) => super.noSuchMethod(_);
 }

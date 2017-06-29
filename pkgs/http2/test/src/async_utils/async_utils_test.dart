@@ -11,7 +11,7 @@ main() {
   group('async_utils', () {
     test('buffer-indicator', () {
       var bi = new BufferIndicator();
-      bi.bufferEmptyEvents.listen(expectAsync((_) {}, count: 2));
+      bi.bufferEmptyEvents.listen(expectAsync1((_) {}, count: 2));
 
       expect(bi.wouldBuffer, true);
 
@@ -39,21 +39,21 @@ main() {
       var bs = new BufferedSink(c);
 
       expect(bs.bufferIndicator.wouldBuffer, true);
-      var sub = c.stream.listen(expectAsync((_) {}, count: 2));
+      var sub = c.stream.listen(expectAsync1((_) {}, count: 2));
 
       expect(bs.bufferIndicator.wouldBuffer, false);
 
       sub.pause();
-      Timer.run(expectAsync(() {
+      Timer.run(expectAsync0(() {
         expect(bs.bufferIndicator.wouldBuffer, true);
         bs.sink.add([1]);
 
         sub.resume();
-        Timer.run(expectAsync(() {
+        Timer.run(expectAsync0(() {
           expect(bs.bufferIndicator.wouldBuffer, false);
           bs.sink.add([2]);
 
-          Timer.run(expectAsync(() {
+          Timer.run(expectAsync0(() {
             sub.cancel();
             expect(bs.bufferIndicator.wouldBuffer, false);
           }));

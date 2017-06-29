@@ -88,7 +88,7 @@ main() {
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
         expect(() => defrag.tryDefragmentFrame(f2),
-               throwsProtocolException);
+               throwsA(isProtocolException));
       });
 
       test('fragmented-push-promise-frame', () {
@@ -99,7 +99,7 @@ main() {
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
         expect(() => defrag.tryDefragmentFrame(f2),
-               throwsProtocolException);
+               throwsA(isProtocolException));
       });
 
       test('fragmented-headers-frame--no-continuation-frame', () {
@@ -110,7 +110,7 @@ main() {
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
         expect(() => defrag.tryDefragmentFrame(f2),
-               throwsProtocolException);
+               throwsA(isProtocolException));
       });
 
       test('fragmented-push-promise-no-continuation-frame', () {
@@ -121,7 +121,7 @@ main() {
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
         expect(() => defrag.tryDefragmentFrame(f2),
-               throwsProtocolException);
+               throwsA(isProtocolException));
       });
 
       test('push-without-headres-or-push-promise-frame', () {

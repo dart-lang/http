@@ -28,9 +28,6 @@ class ArtificialServerSocket extends Object
 
   final int port;
 
-  @deprecated
-  ServerSocketReference get reference => null;
-
   /// Closing of an [ArtificialServerSocket] is not possible and an exception
   /// will be thrown when calling this method.
   Future<ServerSocket> close() async {

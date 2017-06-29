@@ -26,13 +26,13 @@ main() {
       var server = await MultiProtocolHttpServer.bind('localhost', 0, context);
       int requestNr = 0;
       server.startServing(
-          expectAsync((HttpRequest request) async {
+          expectAsync1((HttpRequest request) async {
             await handleHttp11Request(request, requestNr++);
             if (requestNr == Count) {
               await server.close();
             }
           }, count: Count),
-          expectAsync((ServerTransportStream stream) {
+          expectAsync1((ServerTransportStream stream) {
           }, count: 0));
 
       var client = new HttpClient();
@@ -50,9 +50,9 @@ main() {
       var server = await MultiProtocolHttpServer.bind('localhost', 0, context);
       int requestNr = 0;
       server.startServing(
-          expectAsync((HttpRequest request) {
+          expectAsync1((HttpRequest request) {
           }, count: 0),
-          expectAsync((ServerTransportStream stream) async {
+          expectAsync1((ServerTransportStream stream) async {
             await handleHttp2Request(stream, requestNr++);
             if (requestNr == Count) {
               await server.close();

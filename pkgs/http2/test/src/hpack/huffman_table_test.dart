@@ -49,7 +49,7 @@ main() {
         ];
 
         for (var test in data) {
-          expect(() => decode(test), throwsHuffmanDecodingException);
+          expect(() => decode(test), throwsA(isHuffmanDecodingException));
         }
       });
 
@@ -63,7 +63,7 @@ main() {
         ];
 
         for (var test in data) {
-          expect(() => decode(test), throwsHuffmanDecodingException);
+          expect(() => decode(test), throwsA(isHuffmanDecodingException));
         }
       });
 
@@ -150,6 +150,3 @@ class _HuffmanDecodingException extends TypeMatcher {
   const _HuffmanDecodingException() : super("HuffmanDecodingException");
   bool matches(item, Map matchState) => item is HuffmanDecodingException;
 }
-
-const Matcher throwsHuffmanDecodingException =
-    const Throws(isHuffmanDecodingException);
