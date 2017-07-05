@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.2
+
+* The endStream bit is now set on the requested frame, instead of on an empty
+  data frame following it.
+* Added an `onTerminated` hook that is called when a TransportStream receives
+  a RST_STREAM frame.
+
 ## 0.1.1+2
 
 * Add errorCode to exception toString message.
