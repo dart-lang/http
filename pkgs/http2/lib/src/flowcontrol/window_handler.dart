@@ -30,8 +30,6 @@ abstract class AbstractOutgoingWindowHandler {
 
   /// Process a window update frame received from the remote end.
   void processWindowUpdate(WindowUpdateFrame frame) {
-    int oldWindowSize = _peerWindow.size;
-
     int increment = frame.windowSizeIncrement;
     if ((_peerWindow.size + increment) > Window.MAX_WINDOW_SIZE) {
       throw new FlowControlException(
@@ -43,7 +41,7 @@ abstract class AbstractOutgoingWindowHandler {
 
     // If we transitioned from an negative/empty window to a positive window
     // we'll fire an event that more data frames can be sent now.
-    if (oldWindowSize <= 0 && _peerWindow.size > 0) {
+    if (positiveWindow.wouldBuffer && _peerWindow.size > 0) {
       positiveWindow.markUnBuffered();
     }
   }
@@ -86,6 +84,8 @@ class OutgoingStreamWindowHandler extends AbstractOutgoingWindowHandler {
       _peerWindow.modify(difference);
       if (_peerWindow.size <= 0) {
         positiveWindow.markBuffered();
+      } else if (positiveWindow.wouldBuffer) {
+        positiveWindow.markUnBuffered();
       }
     }
   }

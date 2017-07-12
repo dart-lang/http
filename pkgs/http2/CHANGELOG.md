@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+* Fixed a bug where a closed window would not open correctly due to an increase
+  in initial window size.
+
 ## 0.1.2
 
 * The endStream bit is now set on the requested frame, instead of on an empty

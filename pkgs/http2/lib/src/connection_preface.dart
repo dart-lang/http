@@ -38,15 +38,16 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
     terminated = true;
   }
 
-  void compareConnectionPreface(List<int> data) {
+  bool compareConnectionPreface(List<int> data) {
     for (int i = 0; i < CONNECTION_PREFACE.length; i++) {
       if (data[i] != CONNECTION_PREFACE[i]) {
         terminate('Connection preface does not match.');
-        break;
+        return false;
       }
     }
     prefaceBuffer = null;
     connectionPrefaceRead = true;
+    return true;
   }
 
   void onData(List<int> data) {
@@ -55,7 +56,7 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
       result.add(data);
     } else {
       if (prefaceBuffer.isEmpty && data.length > CONNECTION_PREFACE.length) {
-        compareConnectionPreface(data);
+        if (!compareConnectionPreface(data)) return;
         data = data.sublist(CONNECTION_PREFACE.length);
       } else if (prefaceBuffer.length < CONNECTION_PREFACE.length) {
         int remaining = CONNECTION_PREFACE.length - prefaceBuffer.length;
@@ -66,7 +67,7 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
         prefaceBuffer.addAll(part1);
 
         if (prefaceBuffer.length == CONNECTION_PREFACE.length) {
-          compareConnectionPreface(prefaceBuffer);
+          if (!compareConnectionPreface(prefaceBuffer)) return;
         }
         data = part2;
       }

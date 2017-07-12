@@ -83,12 +83,17 @@ main() {
       handler = new OutgoingStreamWindowHandler(window);
 
       expect(handler.positiveWindow.wouldBuffer, isFalse);
-      handler.positiveWindow.bufferEmptyEvents.listen(
+      final bufferEmpty = handler.positiveWindow.bufferEmptyEvents.listen(
           expectAsync1((_) {}, count: 0));
       handler.processInitialWindowSizeSettingChange(-window.size);
       expect(handler.positiveWindow.wouldBuffer, isTrue);
       expect(handler.peerWindowSize, 0);
       expect(window.size, 0);
+      bufferEmpty.onData(expectAsync1((_) {}, count: 1));
+      handler.processInitialWindowSizeSettingChange(1);
+      expect(handler.positiveWindow.wouldBuffer, isFalse);
+      expect(handler.peerWindowSize, 1);
+      expect(window.size, 1);
 
       expect(() => handler.processInitialWindowSizeSettingChange(
           Window.MAX_WINDOW_SIZE + 1), throwsA(isFlowControlException));

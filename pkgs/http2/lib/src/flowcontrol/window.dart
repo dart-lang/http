@@ -15,26 +15,13 @@ class Window {
   /// NOTE: This value can potentially become negative.
   int _size;
 
-  /// The size the window would normally have if there is no outstanding
-  /// data.
-  ///
-  /// NOTE: The peer can always increase a stream window above this default
-  /// limit.
-  int _defaultSize;
-
   Window({int initialSize: (1 << 16) - 1})
-      : _size = initialSize, _defaultSize = initialSize;
+      : _size = initialSize;
 
   /// The current size of the flow control window.
   int get size => _size;
 
   void modify(int difference) {
     _size += difference;
-  }
-
-  /// This method can be e.g. called after receiving a SettingsFrame
-  /// which changes the initial window size of all streams.
-  void modifyDefaultSize(int difference) {
-    _defaultSize += difference;
   }
 }
