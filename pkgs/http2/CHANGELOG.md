@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.3
 
 * Fixed a bug where a closed window would not open correctly due to an increase
   in initial window size.
