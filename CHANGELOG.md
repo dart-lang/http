@@ -1,3 +1,8 @@
+## 0.11.3+14
+
+* Remove single quote ("'" - ASCII 39) from boundary characters.
+  Causes issues with Google Cloud Storage.
+
 ## 0.11.3+13
 
 * remove boundary characters that package:http_parser cannot parse.
