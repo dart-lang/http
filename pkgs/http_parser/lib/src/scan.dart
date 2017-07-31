@@ -10,6 +10,13 @@
 ///
 /// [spec]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html
 import 'package:string_scanner/string_scanner.dart';
+/// HTTP entities.
+///
+/// Many of the regular expressions come from [section 2.2 of the HTTP
+/// spec][spec].
+///
+/// [spec]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html
+
 
 /// An HTTP token.
 final token = new RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
@@ -37,8 +44,8 @@ final whitespace = new RegExp("(?:${_lws.pattern})*");
 ///
 /// Once this is finished, [scanner] will be at the next non-LWS character in
 /// the string, or the end of the string.
-List/*<T>*/ parseList/*<T>*/(StringScanner scanner, /*=T*/ parseElement()) {
-  var result = /*<T>*/ [];
+List<T> parseList<T>(StringScanner scanner, T parseElement()) {
+  var result = <T>[];
 
   // Consume initial empty values.
   while (scanner.scan(",")) {
