@@ -94,12 +94,13 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// this computer.
   ///
   /// See [HttpServer.bind].
-  static Future<HttpServer> loopback(int port, {int backlog, bool v6Only: false,
-        bool shared: false}) {
+  static Future<HttpServer> loopback(int port,
+      {int backlog, bool v6Only: false, bool shared: false}) {
     if (backlog == null) backlog = 0;
 
-    return _loopback(port, (address, port) =>
-        HttpServer.bind(address, port,
+    return _loopback(
+        port,
+        (address, port) => HttpServer.bind(address, port,
             backlog: backlog, v6Only: v6Only, shared: shared));
   }
 
@@ -107,13 +108,18 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// See [HttpServer.bindSecure].
   static Future<HttpServer> loopbackSecure(int port, SecurityContext context,
-      {int backlog, bool v6Only: false, bool requestClientCertificate: false,
+      {int backlog,
+      bool v6Only: false,
+      bool requestClientCertificate: false,
       bool shared: false}) {
     if (backlog == null) backlog = 0;
 
-    return _loopback(port, (address, port) =>
-        HttpServer.bindSecure(address, port, context,
-            backlog: backlog, v6Only: v6Only, shared: shared,
+    return _loopback(
+        port,
+        (address, port) => HttpServer.bindSecure(address, port, context,
+            backlog: backlog,
+            v6Only: v6Only,
+            shared: shared,
             requestClientCertificate: requestClientCertificate));
   }
 
@@ -121,8 +127,8 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// [bind] should forward to either [HttpServer.bind] or
   /// [HttpServer.bindSecure].
-  static Future<HttpServer> _loopback(int port,
-      Future<HttpServer> bind(InternetAddress address, int port),
+  static Future<HttpServer> _loopback(
+      int port, Future<HttpServer> bind(InternetAddress address, int port),
       [int remainingRetries]) async {
     remainingRetries ??= 5;
 

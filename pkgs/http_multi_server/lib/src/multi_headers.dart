@@ -73,8 +73,7 @@ class MultiHeaders implements HttpHeaders {
     }
   }
 
-  MultiHeaders(Iterable<HttpHeaders> headers)
-      : _headers = headers.toSet();
+  MultiHeaders(Iterable<HttpHeaders> headers) : _headers = headers.toSet();
 
   void add(String name, Object value) {
     for (var headers in _headers) {
@@ -111,7 +110,7 @@ class MultiHeaders implements HttpHeaders {
 
   String value(String name) => _headers.first.value(name);
 
-  List<String> operator[](String name) => _headers.first[name];
+  List<String> operator [](String name) => _headers.first[name];
 
   void clear() {
     for (var headers in _headers) {
