@@ -80,8 +80,8 @@ void main() {
   });
 
   test(".connect can use blobs", () async {
-    channel = new HtmlWebSocketChannel.connect(
-        "ws://localhost:$port", binaryType: BinaryType.blob);
+    channel = new HtmlWebSocketChannel.connect("ws://localhost:$port",
+        binaryType: BinaryType.blob);
 
     var queue = new StreamQueue(channel.stream);
     channel.sink.add("foo");

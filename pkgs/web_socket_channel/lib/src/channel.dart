@@ -65,8 +65,8 @@ class WebSocketChannel extends StreamChannelMixin {
   static String signKey(String key) {
     // We use [codeUnits] here rather than UTF-8-decoding the string because
     // [key] is expected to be base64 encoded, and so will be pure ASCII.
-    return convert.BASE64.encode(
-        sha1.convert((key + webSocketGUID).codeUnits).bytes);
+    return convert.BASE64
+        .encode(sha1.convert((key + webSocketGUID).codeUnits).bytes);
   }
 
   /// Creates a new WebSocket handling messaging across an existing [channel].
@@ -90,7 +90,7 @@ class WebSocketChannel extends StreamChannelMixin {
   ///
   /// [WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4
   WebSocketChannel(StreamChannel<List<int>> channel,
-        {String protocol, Duration pingInterval, bool serverSide: true})
+      {String protocol, Duration pingInterval, bool serverSide: true})
       : _webSocket = new WebSocketImpl.fromSocket(
             channel.stream, channel.sink, protocol, serverSide)
           ..pingInterval = pingInterval;

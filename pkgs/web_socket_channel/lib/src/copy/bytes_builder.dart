@@ -88,7 +88,6 @@ abstract class BytesBuilder {
   void clear();
 }
 
-
 class _CopyingBytesBuilder implements BytesBuilder {
   // Start with 1024 bytes.
   static const int _INIT_SIZE = 1024;
@@ -123,7 +122,9 @@ class _CopyingBytesBuilder implements BytesBuilder {
     _length = required;
   }
 
-  void addByte(int byte) { add([byte]); }
+  void addByte(int byte) {
+    add([byte]);
+  }
 
   List<int> takeBytes() {
     if (_buffer == null) return new Uint8List(0);
@@ -160,7 +161,6 @@ class _CopyingBytesBuilder implements BytesBuilder {
   }
 }
 
-
 class _BytesBuilder implements BytesBuilder {
   int _length = 0;
   final _chunks = <List<int>>[];
@@ -173,7 +173,9 @@ class _BytesBuilder implements BytesBuilder {
     _length += bytes.length;
   }
 
-  void addByte(int byte) { add([byte]); }
+  void addByte(int byte) {
+    add([byte]);
+  }
 
   List<int> takeBytes() {
     if (_chunks.length == 0) return new Uint8List(0);

@@ -59,14 +59,16 @@ void main() {
       });
     });
 
-    var channel = new IOWebSocketChannel.connect(
-        "ws://localhost:${server.port}");
+    var channel =
+        new IOWebSocketChannel.connect("ws://localhost:${server.port}");
     channel.sink.add("ping");
 
-    channel.stream.listen(expectAsync((message) {
-      expect(message, equals("pong"));
-      channel.sink.close(5678, "raisin");
-    }, count: 1), onDone: expectAsync(() {}));
+    channel.stream.listen(
+        expectAsync((message) {
+          expect(message, equals("pong"));
+          channel.sink.close(5678, "raisin");
+        }, count: 1),
+        onDone: expectAsync(() {}));
   });
 
   test(".connect with an immediate call to close", () async {
@@ -80,8 +82,8 @@ void main() {
       }(), completes);
     });
 
-    var channel = new IOWebSocketChannel.connect(
-        "ws://localhost:${server.port}");
+    var channel =
+        new IOWebSocketChannel.connect("ws://localhost:${server.port}");
     channel.sink.close(5678, "raisin");
   });
 
@@ -93,8 +95,8 @@ void main() {
       request.response.close();
     });
 
-    var channel = new IOWebSocketChannel.connect(
-        "ws://localhost:${server.port}");
+    var channel =
+        new IOWebSocketChannel.connect("ws://localhost:${server.port}");
     expect(channel.stream.toList(),
         throwsA(new isInstanceOf<WebSocketChannelException>()));
   });

@@ -18,6 +18,6 @@ class WebSocketChannelException implements Exception {
         inner = inner;
 
   String toString() => message == null
-      ? "WebSocketChannelException" :
-        "WebSocketChannelException: $message";
+      ? "WebSocketChannelException"
+      : "WebSocketChannelException: $message";
 }

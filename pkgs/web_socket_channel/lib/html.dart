@@ -45,8 +45,8 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   String _localCloseReason;
 
   Stream get stream => _controller.foreign.stream;
-  final _controller = new StreamChannelController(
-        sync: true, allowForeignErrors: false);
+  final _controller =
+      new StreamChannelController(sync: true, allowForeignErrors: false);
 
   WebSocketSink get sink => _sink;
   WebSocketSink _sink;
@@ -62,13 +62,13 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// received by this socket. It defaults to [BinaryType.list], which causes
   /// binary messages to be delivered as [Uint8List]s. If it's
   /// [BinaryType.blob], they're delivered as [Blob]s instead.
-  HtmlWebSocketChannel.connect(url, {Iterable<String> protocols,
-          BinaryType binaryType})
+  HtmlWebSocketChannel.connect(url,
+      {Iterable<String> protocols, BinaryType binaryType})
       : this(new WebSocket(url.toString(), protocols)
           ..binaryType = (binaryType ?? BinaryType.list).value);
 
   /// Creates a channel wrapping [webSocket].
-  HtmlWebSocketChannel(this._webSocket){
+  HtmlWebSocketChannel(this._webSocket) {
     _sink = new _HtmlWebSocketSink(this);
 
     if (_webSocket.readyState == WebSocket.OPEN) {

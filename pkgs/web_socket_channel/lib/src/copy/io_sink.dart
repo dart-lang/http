@@ -41,11 +41,11 @@ class StreamSinkImpl<T> implements StreamSink<T> {
     if (_hasError) return done;
     // Wait for any sync operations to complete.
     Future targetAddStream() {
-      return _target.addStream(stream)
-          .whenComplete(() {
-            _isBound = false;
-          });
+      return _target.addStream(stream).whenComplete(() {
+        _isBound = false;
+      });
     }
+
     if (_controllerInstance == null) return targetAddStream();
     var future = _controllerCompleter.future;
     _controllerInstance.close();
@@ -133,7 +133,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
           _completeDoneError(error, stackTrace);
         }
       });
-   }
+    }
     return _controllerInstance;
   }
 }

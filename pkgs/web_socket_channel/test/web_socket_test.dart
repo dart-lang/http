@@ -62,8 +62,10 @@ void main() {
         response.headers
           ..set("Connection", "Upgrade")
           ..set("Upgrade", "websocket")
-          ..set("Sec-WebSocket-Accept", WebSocketChannel
-              .signKey(request.headers.value('Sec-WebSocket-Key')));
+          ..set(
+              "Sec-WebSocket-Accept",
+              WebSocketChannel
+                  .signKey(request.headers.value('Sec-WebSocket-Key')));
         response.contentLength = 0;
 
         var socket = await response.detachSocket();

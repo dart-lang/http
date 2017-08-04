@@ -118,7 +118,9 @@ class _WebSocketProtocolTransformer
     _eventSink.addError(error, stackTrace);
   }
 
-  void close() { _eventSink.close(); }
+  void close() {
+    _eventSink.close();
+  }
 
   /**
    * Process data received from the underlying communication channel.
@@ -139,7 +141,7 @@ class _WebSocketProtocolTransformer
         if (_state == START) {
           _fin = (byte & FIN) != 0;
 
-          if((byte & (RSV2 | RSV3)) != 0) {
+          if ((byte & (RSV2 | RSV3)) != 0) {
             // The RSV2, RSV3 bits must both be zero.
             throw new WebSocketChannelException("Protocol error");
           }
@@ -468,11 +470,8 @@ class _WebSocketOutgoingTransformer
     _eventSink.close();
   }
 
-  void addFrame(int opcode, List<int> data) => createFrame(
-          opcode,
-          data,
-          webSocket._serverSide,
-          false).forEach((e) {
+  void addFrame(int opcode, List<int> data) =>
+      createFrame(opcode, data, webSocket._serverSide, false).forEach((e) {
         _eventSink.add(e);
       });
 
@@ -491,9 +490,9 @@ class _WebSocketOutgoingTransformer
     int index = 0;
 
     // Set FIN and opcode.
-    var hoc = _WebSocketProtocolTransformer.FIN
-              | (compressed ? _WebSocketProtocolTransformer.RSV1 : 0)
-              | (opcode & _WebSocketProtocolTransformer.OPCODE);
+    var hoc = _WebSocketProtocolTransformer.FIN |
+        (compressed ? _WebSocketProtocolTransformer.RSV1 : 0) |
+        (opcode & _WebSocketProtocolTransformer.OPCODE);
 
     header[index++] = hoc;
     // Determine size and position of length field.
@@ -511,8 +510,12 @@ class _WebSocketOutgoingTransformer
     }
     if (mask) {
       header[1] |= 1 << 7;
-      var maskBytes = [_random.nextInt(256), _random.nextInt(256),
-          _random.nextInt(256), _random.nextInt(256)];
+      var maskBytes = [
+        _random.nextInt(256),
+        _random.nextInt(256),
+        _random.nextInt(256),
+        _random.nextInt(256)
+      ];
       header.setRange(index, index + 4, maskBytes);
       index += 4;
       if (data != null) {
@@ -667,6 +670,7 @@ class _WebSocketConsumer implements StreamConsumer {
     Future closeSocket() {
       return sink.close().catchError((_) {}).then((_) => webSocket);
     }
+
     _controller.close();
     return _closeCompleter.future.then((_) => closeSocket());
   }
@@ -755,10 +759,14 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
     }, cancelOnError: true);
     _subscription.pause();
     _controller = new StreamController(
-        sync: true, onListen: () => _subscription.resume(), onCancel: () {
-      _subscription.cancel();
-      _subscription = null;
-    }, onPause: _subscription.pause, onResume: _subscription.resume);
+        sync: true,
+        onListen: () => _subscription.resume(),
+        onCancel: () {
+          _subscription.cancel();
+          _subscription = null;
+        },
+        onPause: _subscription.pause,
+        onResume: _subscription.resume);
 
     _webSockets[_serviceId] = this;
   }
@@ -794,10 +802,14 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   int get closeCode => _closeCode;
   String get closeReason => _closeReason;
 
-  void add(data) { _sink.add(data); }
+  void add(data) {
+    _sink.add(data);
+  }
+
   void addError(error, [StackTrace stackTrace]) {
     _sink.addError(error, stackTrace);
   }
+
   Future addStream(Stream stream) => _sink.addStream(stream);
   Future get done => _sink.done;
 
