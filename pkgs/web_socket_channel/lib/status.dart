@@ -16,6 +16,8 @@
 ///   channel.close(status.goingAway);
 /// }
 /// ```
+library web_socket_channel.status;
+
 import 'dart:core';
 
 /// The purpose for which the connection was established has been fulfilled.

@@ -1,3 +1,7 @@
+## 1.0.5
+
+* Increase the SDK version constraint to `<2.0.0-dev.infinity`.
+
 ## 1.0.4
 
 * Support `crypto` 2.0.0.
