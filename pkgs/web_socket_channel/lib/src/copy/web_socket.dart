@@ -11,9 +11,7 @@
 // This is up-to-date as of sdk revision
 // e41fb4cafd6052157dbc1490d437045240f4773f.
 
-/**
- * Web socket status codes used when closing a web socket connection.
- */
+/// Web socket status codes used when closing a web socket connection.
 abstract class WebSocketStatus {
   static const int NORMAL_CLOSURE = 1000;
   static const int GOING_AWAY = 1001;
@@ -31,9 +29,7 @@ abstract class WebSocketStatus {
 }
 
 abstract class WebSocket {
-  /**
-   * Possible states of the connection.
-   */
+  /// Possible states of the connection.
   static const int CONNECTING = 0;
   static const int OPEN = 1;
   static const int CLOSING = 2;

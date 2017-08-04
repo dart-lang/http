@@ -57,15 +57,13 @@ class _WebSocketOpcode {
   static const int RESERVED_F = 15;
 }
 
-/**
- * The web socket protocol transformer handles the protocol byte stream
- * which is supplied through the [:handleData:]. As the protocol is processed,
- * it'll output frame data as either a List<int> or String.
- *
- * Important information about usage: Be sure you use cancelOnError, so the
- * socket will be closed when the processor encounter an error. Not using it
- * will lead to undefined behaviour.
- */
+/// The web socket protocol transformer handles the protocol byte stream
+/// which is supplied through the [:handleData:]. As the protocol is processed,
+/// it'll output frame data as either a List<int> or String.
+///
+/// Important information about usage: Be sure you use cancelOnError, so the
+/// socket will be closed when the processor encounter an error. Not using it
+/// will lead to undefined behaviour.
 // TODO(ajohnsen): make this transformer reusable?
 class _WebSocketProtocolTransformer
     implements StreamTransformer<List<int>, dynamic>, EventSink<List<int>> {
@@ -121,9 +119,7 @@ class _WebSocketProtocolTransformer
     _eventSink.close();
   }
 
-  /**
-   * Process data received from the underlying communication channel.
-   */
+  /// Process data received from the underlying communication channel.
   void add(List<int> bytes) {
     var buffer = bytes is Uint8List ? bytes : new Uint8List.fromList(bytes);
     int index = 0;
@@ -386,12 +382,12 @@ class _WebSocketProtocolTransformer
 
 class _WebSocketPing {
   final List<int> payload;
-  _WebSocketPing([this.payload = null]);
+  _WebSocketPing([this.payload]);
 }
 
 class _WebSocketPong {
   final List<int> payload;
-  _WebSocketPong([this.payload = null]);
+  _WebSocketPong([this.payload]);
 }
 
 // TODO(ajohnsen): Make this transformer reusable.
@@ -567,7 +563,7 @@ class _WebSocketConsumer implements StreamConsumer {
   StreamSubscription _subscription;
   bool _issuedPause = false;
   bool _closed = false;
-  Completer _closeCompleter = new Completer();
+  final Completer _closeCompleter = new Completer();
   Completer _completer;
 
   _WebSocketConsumer(this.webSocket, this.sink);
@@ -681,7 +677,8 @@ class _WebSocketConsumer implements StreamConsumer {
 
 class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   // Use default Map so we keep order.
-  static Map<int, WebSocketImpl> _webSockets = new Map<int, WebSocketImpl>();
+  static final Map<int, WebSocketImpl> _webSockets =
+      new Map<int, WebSocketImpl>();
   static const int DEFAULT_WINDOW_BITS = 15;
   static const String PER_MESSAGE_DEFLATE = "permessage-deflate";
 
@@ -770,7 +767,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
 
   Duration get pingInterval => _pingInterval;
 
-  void set pingInterval(Duration interval) {
+  set pingInterval(Duration interval) {
     if (_writeClosed) return;
     if (_pingTimer != null) _pingTimer.cancel();
     _pingInterval = interval;
