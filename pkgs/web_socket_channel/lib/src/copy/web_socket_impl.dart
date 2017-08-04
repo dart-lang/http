@@ -58,18 +58,6 @@ class _WebSocketOpcode {
 }
 
 /**
- *  Stores the header and integer value derived from negotiation of
- *  client_max_window_bits and server_max_window_bits. headerValue will be
- *  set in the Websocket response headers.
- */
-class _CompressionMaxWindowBits {
-  String headerValue;
-  int maxWindowBits;
-  _CompressionMaxWindowBits([this.headerValue, this.maxWindowBits]);
-  String toString() => headerValue;
-}
-
-/**
  * The web socket protocol transformer handles the protocol byte stream
  * which is supplied through the [:handleData:]. As the protocol is processed,
  * it'll output frame data as either a List<int> or String.
