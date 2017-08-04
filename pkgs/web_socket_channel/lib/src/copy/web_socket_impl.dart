@@ -84,7 +84,6 @@ class _WebSocketProtocolTransformer
 
   int _state = START;
   bool _fin = false;
-  bool _compressed = false;
   int _opcode = -1;
   int _len = -1;
   bool _masked = false;
@@ -147,14 +146,6 @@ class _WebSocketProtocolTransformer
           }
 
           _opcode = (byte & OPCODE);
-
-          if (_opcode != _WebSocketOpcode.CONTINUATION) {
-            if ((byte & RSV1) != 0) {
-              _compressed = true;
-            } else {
-              _compressed = false;
-            }
-          }
 
           if (_opcode <= _WebSocketOpcode.BINARY) {
             if (_opcode == _WebSocketOpcode.CONTINUATION) {

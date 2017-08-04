@@ -43,7 +43,7 @@ void main() {
         fail("Only expected two messages.");
       }
       n++;
-    }, onDone: expectAsync(() {
+    }, onDone: expectAsync0(() {
       expect(channel.closeCode, equals(5678));
       expect(channel.closeReason, equals("raisin"));
     }));
@@ -64,11 +64,11 @@ void main() {
     channel.sink.add("ping");
 
     channel.stream.listen(
-        expectAsync((message) {
+        expectAsync1((message) {
           expect(message, equals("pong"));
           channel.sink.close(5678, "raisin");
         }, count: 1),
-        onDone: expectAsync(() {}));
+        onDone: expectAsync0(() {}));
   });
 
   test(".connect with an immediate call to close", () async {
