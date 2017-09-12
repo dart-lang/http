@@ -3,7 +3,6 @@ sudo: false
 dart:
   - dev
   - stable
-  - 1.22.1
   - 1.21.1
 cache:
   directories:
