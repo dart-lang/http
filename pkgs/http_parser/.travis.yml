@@ -4,9 +4,7 @@ dart:
   - dev
   - stable
   - 1.21.1
-cache:
-  directories:
-    - $HOME/.pub-cache
+
 dart_task:
   - test: --platform vm
     xvfb: false
@@ -15,3 +13,11 @@ dart_task:
     install_dartium: true
   - dartfmt
   - dartanalyzer
+
+# Only building master means that we don't run two builds for each pull request.
+branches:
+  only: [master]
+
+cache:
+  directories:
+    - $HOME/.pub-cache
