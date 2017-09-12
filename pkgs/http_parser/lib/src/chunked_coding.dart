@@ -10,7 +10,7 @@ import 'chunked_coding/decoder.dart';
 export 'chunked_coding/encoder.dart' hide chunkedCodingEncoder;
 export 'chunked_coding/decoder.dart' hide chunkedCodingDecoder;
 
-/// The canonical instance of [ChunkedCodec].
+/// The canonical instance of [ChunkedCodingCodec].
 const chunkedCoding = const ChunkedCodingCodec._();
 
 /// A codec that encodes and decodes the [chunked transfer coding][].
@@ -18,10 +18,10 @@ const chunkedCoding = const ChunkedCodingCodec._();
 /// [chunked transfer coding]: https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.6.1
 ///
 /// The [encoder] creates a *single* chunked message for each call to
-/// [ChunkedEncoder.convert] or [ChunkedEncoder.startChunkedConversion]. This
-/// means that it will always add an end-of-message footer once conversion has
-/// finished. It doesn't support generating chunk extensions or trailing
-/// headers.
+/// [ChunkedCodingEncoder.convert] or
+/// [ChunkedCodingEncoder.startChunkedConversion]. This means that it will
+/// always add an end-of-message footer once conversion has finished. It doesn't
+/// support generating chunk extensions or trailing headers.
 ///
 /// Similarly, the [decoder] decodes a *single* chunked message into a stream of
 /// byte arrays that must be concatenated to get the full list (like most Dart

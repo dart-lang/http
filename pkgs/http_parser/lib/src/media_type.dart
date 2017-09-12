@@ -60,7 +60,7 @@ class MediaType {
         var attribute = scanner.lastMatch[0];
         scanner.expect('=');
 
-        var value;
+        String value;
         if (scanner.scan(token)) {
           value = scanner.lastMatch[0];
         } else {

@@ -139,7 +139,7 @@ class _Sink extends ByteConversionSinkBase {
   }
 
   /// Returns the hex digit (0 through 15) corresponding to the byte at index
-  /// [i] in [bytes].
+  /// [index] in [bytes].
   ///
   /// If the given byte isn't a hexadecimal ASCII character, throws a
   /// [FormatException].
