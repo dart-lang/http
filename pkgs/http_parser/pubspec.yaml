@@ -5,7 +5,7 @@ homepage: https://github.com/dart-lang/http_parser
 description: >
   A platform-independent package for parsing and serializing HTTP formats.
 environment:
-  sdk: ">=1.21.0 <2.0.0-dev.infinity"
+  sdk: ">=1.23.0 <2.0.0-dev.infinity"
 dependencies:
   charcode: "^1.1.0"
   collection: ">=0.9.1 <2.0.0"

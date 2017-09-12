@@ -1,3 +1,9 @@
+## 3.1.2
+
+* Require Dart SDK 1.23 or greater.
+
+* A number of strong-mode fixes.
+
 ## 3.1.1
 
 * Fix a logic bug in the `chunkedCoding` codec. It had been producing invalid
