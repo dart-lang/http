@@ -5,7 +5,7 @@ homepage: https://github.com/dart-lang/http_multi_server
 description:
   A dart:io HttpServer wrapper that handles requests from multiple servers.
 environment:
-  sdk: ">=1.13.0 <2.0.0-dev.infinity"
+  sdk: ">=1.13.0 <2.0.0"
 dependencies:
   async: "^1.2.0"
 dev_dependencies:
