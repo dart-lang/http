@@ -31,9 +31,6 @@ class IOClient extends BaseClient {
       ioRequest
           ..followRedirects = context['io.followRedirects'] ?? true
           ..maxRedirects = context['io.maxRedirects'] ?? 5
-          ..contentLength = request.contentLength == null
-              ? -1
-              : request.contentLength
           ..persistentConnection = context['io.persistentConnection'] ?? true;
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
