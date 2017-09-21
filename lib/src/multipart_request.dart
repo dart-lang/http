@@ -4,162 +4,143 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
-import 'base_request.dart';
-import 'boundary_characters.dart';
-import 'byte_stream.dart';
+import 'body.dart';
 import 'multipart_file.dart';
 import 'utils.dart';
 
 final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
 
-/// A `multipart/form-data` request. Such a request has both string [fields],
-/// which function as normal form fields, and (potentially streamed) binary
-/// [files].
-///
-/// This request automatically sets the Content-Type header to
-/// `multipart/form-data`. This value will override any value set by the user.
-///
-///     var uri = Uri.parse("http://pub.dartlang.org/packages/create");
-///     var request = new http.MultipartRequest("POST", url);
-///     request.fields['user'] = 'nweiz@google.com';
-///     request.files.add(new http.MultipartFile.fromFile(
-///         'package',
-///         new File('build/package.tar.gz'),
-///         contentType: new MediaType('application', 'x-tar'));
-///     request.send().then((response) {
-///       if (response.statusCode == 200) print("Uploaded!");
-///     });
-class MultipartRequest extends BaseRequest {
-  /// The total length of the multipart boundaries used when building the
-  /// request body. According to http://tools.ietf.org/html/rfc1341.html, this
-  /// can't be longer than 70.
-  static const int _BOUNDARY_LENGTH = 70;
+class MultipartBody implements Body {
+  /// The contents of the message body.
+  ///
+  /// This will be `null` after [read] is called.
+  Stream<List<int>> _stream;
 
-  static final Random _random = new Random();
+  /// The length of the stream returned by [read].
+  ///
+  /// This is calculated from the fields and files passed into the body.
+  final int contentLength;
 
-  /// The form fields to send for this request.
-  final Map<String, String> fields;
+  /// Multipart forms do not have an encoding.
+  Encoding get encoding => null;
 
-  /// The private version of [files].
-  final List<MultipartFile> _files;
-
-  /// Creates a new [MultipartRequest].
-  MultipartRequest(String method, Uri url)
-    : fields = {},
-      _files = <MultipartFile>[],
-      super(method, url);
-
-  /// The list of files to upload for this request.
-  List<MultipartFile> get files => _files;
-
-  /// The total length of the request body, in bytes. This is calculated from
-  /// [fields] and [files] and cannot be set manually.
-  int get contentLength {
-    var length = 0;
-
-    fields.forEach((name, value) {
-      length += "--".length + _BOUNDARY_LENGTH + "\r\n".length +
-          UTF8.encode(_headerForField(name, value)).length +
-          UTF8.encode(value).length + "\r\n".length;
-    });
-
-    for (var file in _files) {
-      length += "--".length + _BOUNDARY_LENGTH + "\r\n".length +
-          UTF8.encode(_headerForFile(file)).length +
-          file.length + "\r\n".length;
-    }
-
-    return length + "--".length + _BOUNDARY_LENGTH + "--\r\n".length;
-  }
-
-  void set contentLength(int value) {
-    throw new UnsupportedError("Cannot set the contentLength property of "
-        "multipart requests.");
-  }
-
-  /// Freezes all mutable fields and returns a single-subscription [ByteStream]
-  /// that will emit the request body.
-  ByteStream finalize() {
-    // TODO(nweiz): freeze fields and files
-    var boundary = _boundaryString();
-    headers['content-type'] = 'multipart/form-data; boundary=$boundary';
-    super.finalize();
-
+  /// Creates a [MultipartBody] from the given [fields] and [files].
+  ///
+  /// The [boundary] is used to
+  factory MultipartBody(
+    Map<String, String> fields,
+    List<MultipartFile> files,
+    String boundary,
+  ) {
     var controller = new StreamController<List<int>>(sync: true);
+    var contentLength = 0;
 
     void writeAscii(String string) {
-      controller.add(UTF8.encode(string));
+      controller.add(string.codeUnits);
+      contentLength += string.length;
+    }
+    void writeUtf8(String string) {
+      var encoded = UTF8.encode(string);
+      controller.add(encoded);
+      contentLength += encoded.length;
+    }
+    void writeLine() {
+      controller.add([13, 10]); // \r\n
+      contentLength += 2;
     }
 
-    writeUtf8(String string) => controller.add(UTF8.encode(string));
-    writeLine() => controller.add([13, 10]); // \r\n
-
+    // Write the fields to the stream
     fields.forEach((name, value) {
       writeAscii('--$boundary\r\n');
-      writeAscii(_headerForField(name, value));
+      writeUtf8(_headerForField(name, value));
       writeUtf8(value);
       writeLine();
     });
 
-    Future.forEach(_files, (file) {
-      writeAscii('--$boundary\r\n');
-      writeAscii(_headerForFile(file));
-      return writeStreamToSink(file.finalize(), controller)
-        .then((_) => writeLine());
+    // Iterate over the files to get the length
+    var fileCount = files.length;
+    var fileHeaders = new List<List<int>>(fileCount);
+
+    for (var i = 0; i < fileCount; ++i) {
+      var file = files[i];
+      var header = <int>[];
+      header.addAll('--$boundary\r\n'.codeUnits);
+      header.addAll(UTF8.encode(_headerForFile(file)));
+      contentLength += header.length + file.length + 2;
+      fileHeaders[i] = header;
+    }
+
+    // Ending characters
+    var ending = '--$boundary--\r\n'.codeUnits;
+    contentLength += ending.length;
+
+    // Write the files to the stream
+    //
+    // Future.forEach will ensure that the actions happen in sequence so i is
+    // used to get the fileHeaders
+    var i = 0;
+
+    Future.forEach(files, (file) {
+      assert(files[i] == file);
+      controller.add(fileHeaders[i++]);
+      return writeStreamToSink(file.read(), controller).then((_) => controller.add([13, 10]));
     }).then((_) {
       // TODO(nweiz): pass any errors propagated through this future on to
       // the stream. See issue 3657.
-      writeAscii('--$boundary--\r\n');
+      controller.add(ending);
       controller.close();
     });
 
-    return new ByteStream(controller.stream);
+    return new MultipartBody._(controller.stream, contentLength);
   }
 
-  /// Returns the header string for a field. The return value is guaranteed to
-  /// contain only ASCII characters.
-  String _headerForField(String name, String value) {
-    var header =
-        'content-disposition: form-data; name="${_browserEncode(name)}"';
-    if (!isPlainAscii(value)) {
-      header = '$header\r\n'
-          'content-type: text/plain; charset=utf-8\r\n'
-          'content-transfer-encoding: binary';
+  MultipartBody._(this._stream, this.contentLength);
+
+  /// Returns a [Stream] representing the body.
+  ///
+  /// Can only be called once.
+  Stream<List<int>> read() {
+    if (_stream == null) {
+      throw new StateError("The 'read' method can only be called once on a "
+          "http.Request/http.Response object.");
     }
-    return '$header\r\n\r\n';
+    var stream = _stream;
+    _stream = null;
+    return stream;
   }
+}
 
-  /// Returns the header string for a file. The return value is guaranteed to
-  /// contain only ASCII characters.
-  String _headerForFile(MultipartFile file) {
-    var header = 'content-type: ${file.contentType}\r\n'
+/// Returns the header string for a field.
+String _headerForField(String name, String value) {
+  var header =
+      'content-disposition: form-data; name="${_browserEncode(name)}"';
+  if (!isPlainAscii(value)) {
+    header = '$header\r\n'
+        'content-type: text/plain; charset=utf-8\r\n'
+        'content-transfer-encoding: binary';
+  }
+  return '$header\r\n\r\n';
+}
+
+/// Returns the header string for a file. The return value is guaranteed to
+/// contain only ASCII characters.
+String _headerForFile(MultipartFile file) {
+  var header = 'content-type: ${file.contentType}\r\n'
       'content-disposition: form-data; name="${_browserEncode(file.field)}"';
 
-    if (file.filename != null) {
-      header = '$header; filename="${_browserEncode(file.filename)}"';
-    }
-    return '$header\r\n\r\n';
+  if (file.filename != null) {
+    header = '$header; filename="${_browserEncode(file.filename)}"';
   }
+  return '$header\r\n\r\n';
+}
 
-  /// Encode [value] in the same way browsers do.
-  String _browserEncode(String value) {
-    // http://tools.ietf.org/html/rfc2388 mandates some complex encodings for
-    // field names and file names, but in practice user agents seem not to
-    // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
-    // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
-    // characters). We follow their behavior.
-    return value.replaceAll(_newlineRegExp, "%0D%0A").replaceAll('"', "%22");
-  }
-
-  /// Returns a randomly-generated multipart boundary string
-  String _boundaryString() {
-    var prefix = "dart-http-boundary-";
-    var list = new List<int>.generate(_BOUNDARY_LENGTH - prefix.length,
-        (index) =>
-            BOUNDARY_CHARACTERS[_random.nextInt(BOUNDARY_CHARACTERS.length)],
-        growable: false);
-    return "$prefix${new String.fromCharCodes(list)}";
-  }
+/// Encode [value] in the same way browsers do.
+String _browserEncode(String value) {
+  // http://tools.ietf.org/html/rfc2388 mandates some complex encodings for
+  // field names and file names, but in practice user agents seem not to
+  // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
+  // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
+  // characters). We follow their behavior.
+  return value.replaceAll(_newlineRegExp, "%0D%0A").replaceAll('"', "%22");
 }

@@ -4,7 +4,10 @@
 
 import 'dart:convert';
 
+import 'boundary_characters.dart';
 import 'message.dart';
+import 'multipart_file.dart';
+import 'multipart_request.dart';
 import 'utils.dart';
 
 /// Represents an HTTP request to be sent to a server.
@@ -129,6 +132,18 @@ class Request extends Message {
   Request.delete(url,
       {Map<String, String> headers, Map<String, Object> context})
       : this('DELETE', url, headers: headers, context: context);
+
+  factory Request.multipart(url, {Map<String, String> headers, Map<String, Object> context, Map<String, String> fields, List<MultipartFile> files,}) {
+    fields ??= <String, String>{};
+    files ??= <MultipartFile>[];
+
+    var boundary = boundaryString();
+
+    headers ??= <String, String>{};
+    headers['content-type'] = 'multipart/form-data; boundary=$boundary';
+
+    return new Request._('POST', url, new MultipartBody(fields, files, boundary), null, headers, context,);
+  }
 
   Request._(this.method, this.url,
       body,
