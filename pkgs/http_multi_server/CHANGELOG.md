@@ -1,3 +1,7 @@
+## 2.0.4
+
+* Declare support for `async` 2.0.0.
+
 ## 2.0.3
 
 * Fix `HttpMultiServer.loopback()` and `.loopbackSecure()` for environments that
