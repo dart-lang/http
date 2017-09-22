@@ -1,3 +1,7 @@
+## 0.11.3+15
+
+* Declare support for `async` 2.0.0.
+
 ## 0.11.3+14
 
 * Remove single quote ("'" - ASCII 39) from boundary characters.
