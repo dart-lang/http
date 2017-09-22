@@ -47,16 +47,15 @@ abstract class Message {
 
   /// Creates a new [Message].
   ///
-  /// [body] is the message body. It may be either a [String], a [List<int>], a
-  /// [Stream<List<int>>], or `null` to indicate no body. If it's a [String],
-  /// [encoding] is used to encode it to a [Stream<List<int>>]. It defaults to
-  /// UTF-8.
+  /// [body] is the message body. It may be either a [String], a [Map], a
+  /// [List<int>], a [Stream<List<int>>], or `null` to indicate no body. If
+  /// it's a [String], [encoding] is used to encode it to a [Stream<List<int>>].
+  /// It defaults to UTF-8.
   ///
   /// If [headers] is `null`, it's treated as empty.
   ///
   /// If [encoding] is passed, the "encoding" field of the Content-Type header
-  /// in [headers] will be set appropriately. If there is no existing
-  /// Content-Type header, it will be set to "application/octet-stream".
+  /// in [headers] will be set appropriately.
   Message(body,
       {Encoding encoding,
       Map<String, String> headers,

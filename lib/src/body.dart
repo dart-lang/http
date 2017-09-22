@@ -37,9 +37,15 @@ class Body {
 
   /// Converts [body] to a byte stream and wraps it in a [Body].
   ///
-  /// [body] may be either a [Body], a [String], a [List<int>], a
+  /// [body] may be either a [Body], a [String], a [Map], a [List<int>], a
   /// [Stream<List<int>>], or `null`. If it's a [String], [encoding] will be
   /// used to convert it to a [Stream<List<int>>].
+  ///
+  /// The [contentTypeHeader] is used to determine the [MediaType] of the body
+  /// and if it is not set then it will be set to a default value depending
+  /// on the type of [body]. For [String] it will default to `text/plain` and
+  /// for [Map] it will default to `application/x-www-form-urlencoded`. For
+  /// all other types no default is set and [contentType] will be `null`.
   factory Body(body, Encoding encoding, String contentTypeHeader) {
     if (body is Body) return body;
 
