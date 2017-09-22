@@ -7,6 +7,9 @@ import 'dart:convert';
 
 import 'package:async/async.dart';
 import 'package:collection/collection.dart';
+import 'package:http_parser/http_parser.dart';
+
+import 'utils.dart';
 
 /// The body of a request or response.
 ///
@@ -23,38 +26,71 @@ class Body {
   /// encoding was used.
   final Encoding encoding;
 
+  /// The content type of the body.
+  final MediaType contentType;
+
   /// The length of the stream returned by [read], or `null` if that can't be
   /// determined efficiently.
   final int contentLength;
 
-  Body._(this._stream, this.encoding, this.contentLength);
+  Body._(this._stream, this.encoding, this.contentType, this.contentLength);
 
   /// Converts [body] to a byte stream and wraps it in a [Body].
   ///
-  /// [body] may be either a [Body], a [String], a [List<int>], a
+  /// [body] may be either a [Body], a [String], a [Map], a [List<int>], a
   /// [Stream<List<int>>], or `null`. If it's a [String], [encoding] will be
   /// used to convert it to a [Stream<List<int>>].
-  factory Body(body, [Encoding encoding]) {
+  ///
+  /// The [contentTypeHeader] is used to determine the [MediaType] of the body
+  /// and if it is not set then it will be set to a default value depending
+  /// on the type of [body]. For [String] it will default to `text/plain` and
+  /// for [Map] it will default to `application/x-www-form-urlencoded`. For
+  /// all other types no default is set and [contentType] will be `null`.
+  factory Body(body, Encoding encoding, String contentTypeHeader) {
     if (body is Body) return body;
+
+    // Determine media type and encoding
+    MediaType contentType;
+
+    if (contentTypeHeader == null) {
+      // Defaults to UTF8 when body is set
+      encoding ??= UTF8;
+
+      var parameters = {'charset': encoding.name};
+
+      if (body is String) {
+        contentType = new MediaType('text', 'plain', parameters);
+      } else if (body is Map) {
+        contentType = new MediaType('application', 'x-www-form-urlencoded', parameters);
+      }
+    } else {
+      contentType = new MediaType.parse(contentTypeHeader);
+      var charsetFromHeader = contentType.parameters['charset'];
+      var charset = encoding?.name ?? charsetFromHeader ?? UTF8.name;
+
+      encoding = requiredEncodingForCharset(charset);
+
+      if (charset != charsetFromHeader) {
+        contentType = contentType.change(parameters: {'charset': charset});
+      }
+    }
+
+    // Default for null bodies
+    if (body == null) {
+      return new Body._(new Stream.fromIterable([]), encoding, contentType, 0);
+    }
 
     Stream<List<int>> stream;
     int contentLength;
-    if (body == null) {
-      contentLength = 0;
-      stream = new Stream.fromIterable([]);
-    } else if (body is String) {
-      if (encoding == null) {
-        var encoded = UTF8.encode(body);
-        // If the text is plain ASCII, don't modify the encoding. This means
-        // that an encoding of "text/plain" will stay put.
-        if (!_isPlainAscii(encoded, body.length)) encoding = UTF8;
-        contentLength = encoded.length;
-        stream = new Stream.fromIterable([encoded]);
-      } else {
-        var encoded = encoding.encode(body);
-        contentLength = encoded.length;
-        stream = new Stream.fromIterable([encoded]);
-      }
+
+    if (body is Map) {
+      body = mapToQuery(body, encoding: encoding);
+    }
+
+    if (body is String) {
+      var encoded = encoding.encode(body);
+      contentLength = encoded.length;
+      stream = new Stream.fromIterable([encoded]);
     } else if (body is List) {
       contentLength = body.length;
       stream = new Stream.fromIterable([DelegatingList.typed(body)]);
@@ -65,20 +101,7 @@ class Body {
           'Stream.');
     }
 
-    return new Body._(stream, encoding, contentLength);
-  }
-
-  /// Returns whether [bytes] is plain ASCII.
-  ///
-  /// [codeUnits] is the number of code units in the original string.
-  static bool _isPlainAscii(List<int> bytes, int codeUnits) {
-    // Most non-ASCII code units will produce multiple bytes and make the text
-    // longer.
-    if (bytes.length != codeUnits) return false;
-
-    // Non-ASCII code units between U+0080 and U+009F produce 8-bit characters
-    // with the high bit set.
-    return bytes.every((byte) => byte & 0x80 == 0);
+    return new Body._(stream, encoding, contentType, contentLength);
   }
 
   /// Returns a [Stream] representing the body.
