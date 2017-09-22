@@ -1,3 +1,7 @@
+## 1.0.6
+
+* Declare support for `async` 2.0.0.
+
 ## 1.0.5
 
 * Increase the SDK version constraint to `<2.0.0-dev.infinity`.
