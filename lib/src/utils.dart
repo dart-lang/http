@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:collection/collection.dart';
+import 'package:http_parser/http_parser.dart';
 
 import 'http_unmodifiable_map.dart';
 
@@ -51,6 +52,11 @@ List<String> split1(String toSplit, String pattern) {
     toSplit.substring(0, index),
     toSplit.substring(index + pattern.length)
   ];
+}
+
+Encoding encodingForMediaType(MediaType type, [Encoding fallback = LATIN1]) {
+  if (type == null) return null;
+  return encodingForCharset(type.parameters['charset'], fallback);
 }
 
 /// Returns the [Encoding] that corresponds to [charset]. Returns [fallback] if
