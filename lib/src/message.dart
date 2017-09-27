@@ -44,9 +44,6 @@ abstract class Message {
   /// This can be read via [read] or [readAsString].
   final Body _body;
 
-  /// The parsed version of the Content-Type header in [headers].
-  final MediaType _contentType;
-
   /// Creates a new [Message].
   ///
   /// [body] is the message body. It may be either a [String], a [List<int>], a
@@ -61,25 +58,30 @@ abstract class Message {
   /// Content-Type header, it will be set to "application/octet-stream".
   Message(body,
       {Encoding encoding,
-      Map<String, String> headers,
-      Map<String, Object> context})
+        Map<String, String> headers,
+        Map<String, Object> context})
       : this.__(body, _determineMediaType(body, encoding, headers), headers,
-            context);
+      context);
 
   Message.__(body, MediaType contentType, Map<String, String> headers,
       Map<String, Object> context)
-      : this._(new Body(body, encodingForMediaType(contentType, null)),
-            contentType, headers, context);
+      : this._(new Body(body, encodingForMediaType(contentType, null)), contentType,
+      headers, context);
 
   Message._(Body body, MediaType contentType, Map<String, String> headers,
       Map<String, Object> context)
+      : this.fromValues(body, _adjustHeaders(headers, body, contentType), context);
+
+  /// Creates a new [Message].
+  ///
+  /// This constructor should be used when no computation is required for the
+  /// [body], [headers] or [context].
+  Message.fromValues(
+      Body body, Map<String, String> headers, Map<String, Object> context)
       : _body = body,
-        headers = new HttpUnmodifiableMap<String>(
-            _adjustHeaders(headers, body, contentType),
-            ignoreKeyCase: true),
+        headers = new HttpUnmodifiableMap<String>(headers, ignoreKeyCase: true),
         context =
-            new HttpUnmodifiableMap<Object>(context, ignoreKeyCase: false),
-        _contentType = contentType;
+        new HttpUnmodifiableMap<Object>(context, ignoreKeyCase: false);
 
   /// If `true`, the stream returned by [read] won't emit any bytes.
   ///
@@ -104,7 +106,11 @@ abstract class Message {
   /// the MIME type, without any Content-Type parameters.
   ///
   /// If [headers] doesn't have a Content-Type header, this will be `null`.
-  String get mimeType => _contentType?.mimeType;
+  String get mimeType {
+    var contentType = _contentType;
+    if (contentType == null) return null;
+    return contentType.mimeType;
+  }
 
   /// The encoding of the body returned by [read].
   ///
@@ -113,7 +119,24 @@ abstract class Message {
   ///
   /// If [headers] doesn't have a Content-Type header or it specifies an
   /// encoding that [dart:convert] doesn't support, this will be `null`.
-  Encoding get encoding => _body.encoding;
+  Encoding get encoding {
+    var contentType = _contentType;
+    if (contentType == null) return null;
+    if (!contentType.parameters.containsKey('charset')) return null;
+    return Encoding.getByName(contentType.parameters['charset']);
+  }
+
+  /// The parsed version of the Content-Type header in [headers].
+  ///
+  /// This is cached for efficient access.
+  MediaType get _contentType {
+    if (_contentTypeCache != null) return _contentTypeCache;
+    if (!headers.containsKey('content-type')) return null;
+    _contentTypeCache = new MediaType.parse(headers['content-type']);
+    return _contentTypeCache;
+  }
+
+  MediaType _contentTypeCache;
 
   /// Returns the message body as byte chunks.
   ///
@@ -139,7 +162,7 @@ abstract class Message {
 
   /// Determines the media type based on the [headers], [encoding] and [body].
   static MediaType _determineMediaType(
-          body, Encoding encoding, Map<String, String> headers) =>
+      body, Encoding encoding, Map<String, String> headers) =>
       _headerMediaType(headers, encoding) ?? _defaultMediaType(body, encoding);
 
   static MediaType _defaultMediaType(body, Encoding encoding) {
@@ -166,7 +189,7 @@ abstract class Message {
     var contentType = new MediaType.parse(contentTypeHeader);
     var parameters = {
       'charset':
-          encoding?.name ?? contentType.parameters['charset'] ?? UTF8.name
+      encoding?.name ?? contentType.parameters['charset'] ?? UTF8.name
     };
 
     return contentType.change(parameters: parameters);
