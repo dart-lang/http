@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'body.dart';
 import 'multipart_file.dart';
@@ -28,11 +29,9 @@ class MultipartBody implements Body {
   /// Creates a [MultipartBody] from the given [fields] and [files].
   ///
   /// The [boundary] is used to
-  factory MultipartBody(
-    Map<String, String> fields,
-    List<MultipartFile> files,
-    String boundary,
-  ) {
+  factory MultipartBody(Map<String, String> fields,
+      List<MultipartFile> files,
+      String boundary,) {
     var controller = new StreamController<List<int>>(sync: true);
     var contentLength = 0;
 
@@ -84,7 +83,8 @@ class MultipartBody implements Body {
     Future.forEach(files, (file) {
       assert(files[i] == file);
       controller.add(fileHeaders[i++]);
-      return writeStreamToSink(file.read(), controller).then((_) => controller.add([13, 10]));
+      return writeStreamToSink(file.read(), controller).then((_) =>
+          controller.add([13, 10]));
     }).then((_) {
       // TODO(nweiz): pass any errors propagated through this future on to
       // the stream. See issue 3657.
@@ -109,38 +109,39 @@ class MultipartBody implements Body {
     _stream = null;
     return stream;
   }
-}
 
-/// Returns the header string for a field.
-String _headerForField(String name, String value) {
-  var header =
-      'content-disposition: form-data; name="${_browserEncode(name)}"';
-  if (!isPlainAscii(value)) {
-    header = '$header\r\n'
-        'content-type: text/plain; charset=utf-8\r\n'
-        'content-transfer-encoding: binary';
+  /// Returns the header string for a field.
+  static String _headerForField(String name, String value) {
+    var header =
+        'content-disposition: form-data; name="${_browserEncode(name)}"';
+    if (!isPlainAscii(value)) {
+      header = '$header\r\n'
+          'content-type: text/plain; charset=utf-8\r\n'
+          'content-transfer-encoding: binary';
+    }
+    return '$header\r\n\r\n';
   }
-  return '$header\r\n\r\n';
-}
 
-/// Returns the header string for a file. The return value is guaranteed to
-/// contain only ASCII characters.
-String _headerForFile(MultipartFile file) {
-  var header = 'content-type: ${file.contentType}\r\n'
-      'content-disposition: form-data; name="${_browserEncode(file.field)}"';
+  /// Returns the header string for a file.
+  ///
+  /// The return value is guaranteed to contain only ASCII characters.
+  static String _headerForFile(MultipartFile file) {
+    var header = 'content-type: ${file.contentType}\r\n'
+        'content-disposition: form-data; name="${_browserEncode(file.field)}"';
 
-  if (file.filename != null) {
-    header = '$header; filename="${_browserEncode(file.filename)}"';
+    if (file.filename != null) {
+      header = '$header; filename="${_browserEncode(file.filename)}"';
+    }
+    return '$header\r\n\r\n';
   }
-  return '$header\r\n\r\n';
-}
 
-/// Encode [value] in the same way browsers do.
-String _browserEncode(String value) {
-  // http://tools.ietf.org/html/rfc2388 mandates some complex encodings for
-  // field names and file names, but in practice user agents seem not to
-  // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
-  // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
-  // characters). We follow their behavior.
-  return value.replaceAll(_newlineRegExp, "%0D%0A").replaceAll('"', "%22");
+  /// Encode [value] in the same way browsers do.
+  static String _browserEncode(String value) {
+    // http://tools.ietf.org/html/rfc2388 mandates some complex encodings for
+    // field names and file names, but in practice user agents seem not to
+    // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
+    // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
+    // characters). We follow their behavior.
+    return value.replaceAll(_newlineRegExp, "%0D%0A").replaceAll('"', "%22");
+  }
 }

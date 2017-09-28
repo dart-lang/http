@@ -22,19 +22,24 @@ class MultipartFile {
   /// The name of the form field for the file.
   final String field;
 
-  /// The size of the file in bytes. This must be known in advance, even if this
-  /// file is created from a [Stream].
+  /// The size of the file in bytes.
+  ///
+  /// This must be known in advance, even if this file is created from a
+  /// [Stream].
   final int length;
 
   /// The basename of the file. May be null.
   final String filename;
 
-  /// The content-type of the file. Defaults to `application/octet-stream`.
+  /// The content-type of the file.
+  ///
+  /// Defaults to `application/octet-stream`.
   final MediaType contentType;
 
-  /// Creates a new [MultipartFile] from a chunked [Stream] of bytes. The length
-  /// of the file in bytes must be known in advance. If it's not, read the data
-  /// from the stream and use [MultipartFile.fromBytes] instead.
+  /// Creates a new [MultipartFile] from a chunked [Stream] of bytes.
+  ///
+  /// The length of the file in bytes must be known in advance. If it's not,
+  /// read the data from the stream and use [MultipartFile.fromBytes] instead.
   ///
   /// [contentType] currently defaults to `application/octet-stream`, but in the
   /// future may be inferred from [filename].
@@ -92,7 +97,7 @@ class MultipartFile {
         filename: filename, contentType: contentType);
   }
 
-  /// Returns a [Stream] representing the file.
+  /// Returns a [Stream] representing the contents of the file.
   ///
   /// Can only be called once.
   Stream<List<int>> read() {
