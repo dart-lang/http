@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:async/async.dart';
 import 'package:collection/collection.dart';
 
+import 'empty_body.dart';
 import 'utils.dart';
 
 /// The body of a request or response.
@@ -42,7 +43,7 @@ class Body {
   factory Body(body, [Encoding encoding]) {
     if (body is Body) return body;
     if (body == null) {
-      return new Body._(_emptyStream, encoding, 0);
+      return const EmptyBody();
     }
 
     Stream<List<int>> stream;
@@ -83,4 +84,13 @@ class Body {
     _stream = null;
     return stream;
   }
+}
+
+class _EmptyBody implements Body {
+  const _EmptyBody();
+
+  Encoding get encoding => UTF8;
+  int get contentLength => 0;
+
+  Stream<List<int>> read() => const Stream<List<int>>.empty();
 }
