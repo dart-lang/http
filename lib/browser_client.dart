@@ -6,8 +6,6 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
-import 'package:stack_trace/stack_trace.dart';
-
 import 'src/base_client.dart';
 import 'src/base_request.dart';
 import 'src/byte_stream.dart';
@@ -71,7 +69,7 @@ class BrowserClient extends BaseClient {
       reader.onError.first.then((error) {
         completer.completeError(
             new ClientException(error.toString(), request.url),
-            new Chain.current());
+            StackTrace.current);
       });
 
       reader.readAsArrayBuffer(blob);
@@ -82,7 +80,7 @@ class BrowserClient extends BaseClient {
       // specific information about the error itself.
       completer.completeError(
           new ClientException("XMLHttpRequest error.", request.url),
-          new Chain.current());
+          StackTrace.current);
     });
 
     xhr.send(bytes);
