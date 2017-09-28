@@ -7,7 +7,7 @@ import 'dart:math';
 
 import 'message.dart';
 import 'multipart_file.dart';
-import 'multipart_request.dart';
+import 'multipart_body.dart';
 import 'utils.dart';
 
 /// Represents an HTTP request to be sent to a server.
