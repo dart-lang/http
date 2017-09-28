@@ -133,7 +133,11 @@ class Request extends Message {
       {Map<String, String> headers, Map<String, Object> context})
       : this('DELETE', url, headers: headers, context: context);
 
-  factory Request.multipart(url, {Map<String, String> headers, Map<String, Object> context, Map<String, String> fields, Iterable<MultipartFile> files}) {
+  factory Request.multipart(url,
+      {Map<String, String> headers,
+        Map<String, Object> context,
+        Map<String, String> fields,
+        Iterable<MultipartFile> files}) {
     fields ??= <String, String>{};
     files ??= <MultipartFile>[];
 
@@ -142,7 +146,14 @@ class Request extends Message {
     headers ??= <String, String>{};
     headers['content-type'] = 'multipart/form-data; boundary=$boundary';
 
-    return new Request._('POST', url, new MultipartBody(fields, files, boundary), null, headers, context,);
+    return new Request._(
+      'POST',
+      url,
+      new MultipartBody(fields, files, boundary),
+      null,
+      headers,
+      context,
+    );
   }
 
   Request._(this.method, this.url,
