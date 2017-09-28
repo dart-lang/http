@@ -133,7 +133,7 @@ class Request extends Message {
       {Map<String, String> headers, Map<String, Object> context})
       : this('DELETE', url, headers: headers, context: context);
 
-  factory Request.multipart(url, {Map<String, String> headers, Map<String, Object> context, Map<String, String> fields, List<MultipartFile> files,}) {
+  factory Request.multipart(url, {Map<String, String> headers, Map<String, Object> context, Map<String, String> fields, Iterable<MultipartFile> files}) {
     fields ??= <String, String>{};
     files ??= <MultipartFile>[];
 

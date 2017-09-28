@@ -4,13 +4,10 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'body.dart';
 import 'multipart_file.dart';
 import 'utils.dart';
-
-final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
 
 class MultipartBody implements Body {
   /// The contents of the message body.
@@ -49,7 +46,7 @@ class MultipartBody implements Body {
       contentLength += 2;
     }
 
-    // Write the fields to the stream
+    // Write the fields to the stream.
     fields.forEach((name, value) {
       writeAscii('--$boundary\r\n');
       writeUtf8(_headerForField(name, value));
@@ -57,7 +54,8 @@ class MultipartBody implements Body {
       writeLine();
     });
 
-    // Iterate over the files to get the length
+    // Iterate over the files to get the length and compute the headers ahead
+    // time so the length can be synchronously accessed.
     var fileCount = files.length;
     var fileHeaders = new List<List<int>>(fileCount);
 
@@ -70,14 +68,14 @@ class MultipartBody implements Body {
       fileHeaders[i] = header;
     }
 
-    // Ending characters
+    // Ending characters.
     var ending = '--$boundary--\r\n'.codeUnits;
     contentLength += ending.length;
 
-    // Write the files to the stream
+    // Write the files to the stream.
     //
     // Future.forEach will ensure that the actions happen in sequence so i is
-    // used to get the fileHeaders
+    // used to get the fileHeaders.
     var i = 0;
 
     Future.forEach(files, (file) {
@@ -134,6 +132,8 @@ class MultipartBody implements Body {
     }
     return '$header\r\n\r\n';
   }
+
+  static final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
 
   /// Encode [value] in the same way browsers do.
   static String _browserEncode(String value) {
