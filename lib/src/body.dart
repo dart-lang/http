@@ -29,6 +29,9 @@ class Body {
   /// determined efficiently.
   final int contentLength;
 
+  /// An empty stream for use with empty bodies.
+  static const _emptyStream = const Stream.empty();
+
   Body._(this._stream, this.encoding, this.contentLength);
 
   /// Converts [body] to a byte stream and wraps it in a [Body].
@@ -38,8 +41,9 @@ class Body {
   /// used to convert it to a [Stream<List<int>>].
   factory Body(body, [Encoding encoding]) {
     if (body is Body) return body;
-    if (body == null)
-      return new Body._(new Stream.fromIterable([]), encoding, 0);
+    if (body == null) {
+      return new Body._(_emptyStream, encoding, 0);
+    }
 
     Stream<List<int>> stream;
     int contentLength;
