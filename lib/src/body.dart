@@ -48,6 +48,8 @@ class Body {
     Stream<List<int>> stream;
     int contentLength;
 
+    encoding ??= UTF8;
+
     if (body is Map) {
       body = mapToQuery(body, encoding: encoding);
     }

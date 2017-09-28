@@ -58,30 +58,31 @@ abstract class Message {
   /// Content-Type header, it will be set to "application/octet-stream".
   Message(body,
       {Encoding encoding,
-        Map<String, String> headers,
-        Map<String, Object> context})
-      : this.__(body, _determineMediaType(body, encoding, headers), headers,
-      context);
+      Map<String, String> headers,
+      Map<String, Object> context})
+      : this._forwardToContentType(body, encoding,
+            _determineMediaType(body, encoding, headers), headers, context);
 
-  Message.__(body, MediaType contentType, Map<String, String> headers,
-      Map<String, Object> context)
-      : this._(new Body(body, encodingForMediaType(contentType, null)), contentType,
-      headers, context);
+  Message.withContentType(Body body, MediaType contentType,
+      Map<String, String> headers, Map<String, Object> context)
+      : this._fromValues(
+            body, _adjustHeaders(headers, body, contentType), context);
 
-  Message._(Body body, MediaType contentType, Map<String, String> headers,
-      Map<String, Object> context)
-      : this.fromValues(body, _adjustHeaders(headers, body, contentType), context);
+  Message._forwardToContentType(body, Encoding encoding, MediaType contentType,
+      Map<String, String> headers, Map<String, Object> context)
+      : this.withContentType(
+            new Body(body, encoding), contentType, headers, context);
 
   /// Creates a new [Message].
   ///
   /// This constructor should be used when no computation is required for the
   /// [body], [headers] or [context].
-  Message.fromValues(
+  Message._fromValues(
       Body body, Map<String, String> headers, Map<String, Object> context)
       : _body = body,
         headers = new HttpUnmodifiableMap<String>(headers, ignoreKeyCase: true),
         context =
-        new HttpUnmodifiableMap<Object>(context, ignoreKeyCase: false);
+            new HttpUnmodifiableMap<Object>(context, ignoreKeyCase: false);
 
   /// If `true`, the stream returned by [read] won't emit any bytes.
   ///
@@ -97,7 +98,6 @@ abstract class Message {
     _contentLengthCache = int.parse(headers['content-length']);
     return _contentLengthCache;
   }
-
   int _contentLengthCache;
 
   /// The MIME type declared in [headers].
@@ -135,7 +135,6 @@ abstract class Message {
     _contentTypeCache = new MediaType.parse(headers['content-type']);
     return _contentTypeCache;
   }
-
   MediaType _contentTypeCache;
 
   /// Returns the message body as byte chunks.
@@ -162,7 +161,7 @@ abstract class Message {
 
   /// Determines the media type based on the [headers], [encoding] and [body].
   static MediaType _determineMediaType(
-      body, Encoding encoding, Map<String, String> headers) =>
+          body, Encoding encoding, Map<String, String> headers) =>
       _headerMediaType(headers, encoding) ?? _defaultMediaType(body, encoding);
 
   static MediaType _defaultMediaType(body, Encoding encoding) {
@@ -189,7 +188,7 @@ abstract class Message {
     var contentType = new MediaType.parse(contentTypeHeader);
     var parameters = {
       'charset':
-      encoding?.name ?? contentType.parameters['charset'] ?? UTF8.name
+          encoding?.name ?? contentType.parameters['charset'] ?? UTF8.name
     };
 
     return contentType.change(parameters: parameters);
