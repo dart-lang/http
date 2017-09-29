@@ -31,8 +31,8 @@ void main() {
 
     test('get', () async {
       var response = await platformClient().get(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
+        'x-random-header': 'Value',
+        'x-other-header': 'Other Value',
         'User-Agent': userAgent()
       });
       var body = await response.readAsString();
@@ -56,8 +56,8 @@ void main() {
         serverUrl,
         'request body',
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -85,8 +85,8 @@ void main() {
         serverUrl,
         [104, 101, 108, 108, 111],
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -113,8 +113,8 @@ void main() {
         serverUrl,
         {'some-field': 'value', 'other-field': 'other value'},
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -144,8 +144,8 @@ void main() {
         serverUrl,
         'request body',
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -173,8 +173,8 @@ void main() {
         serverUrl,
         [104, 101, 108, 108, 111],
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -201,8 +201,8 @@ void main() {
         serverUrl,
         {'some-field': 'value', 'other-field': 'other value'},
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -232,8 +232,8 @@ void main() {
         serverUrl,
         'request body',
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -261,8 +261,8 @@ void main() {
         serverUrl,
         [104, 101, 108, 108, 111],
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -289,8 +289,8 @@ void main() {
         serverUrl,
         {'some-field': 'value', 'other-field': 'other value'},
         headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
+          'x-random-header': 'Value',
+          'x-other-header': 'Other Value',
           'User-Agent': userAgent()
         },
       );
@@ -317,8 +317,8 @@ void main() {
 
     test('delete', () async {
       var response = await platformClient().delete(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
+        'x-random-header': 'Value',
+        'x-other-header': 'Other Value',
         'User-Agent': userAgent()
       });
       var body = await response.readAsString();
@@ -340,8 +340,8 @@ void main() {
 
     test('read', () async {
       var body = await platformClient().read(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
+        'x-random-header': 'Value',
+        'x-other-header': 'Other Value',
         'User-Agent': userAgent()
       });
 
@@ -365,8 +365,8 @@ void main() {
 
     test('readBytes', () async {
       var body = await platformClient().readBytes(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
+        'x-random-header': 'Value',
+        'x-other-header': 'Other Value',
         'User-Agent': userAgent()
       });
 
