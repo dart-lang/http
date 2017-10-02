@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.4
+
+* Added an `onActiveStateChanged` callback to `Connection`, which is invoked when
+  the connection changes state from idle to active or from active to idle. This
+  can be used to implement an idle connection timeout.
+
 ## 0.1.3
 
 * Fixed a bug where a closed window would not open correctly due to an increase
