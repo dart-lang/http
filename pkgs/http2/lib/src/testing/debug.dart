@@ -17,10 +17,8 @@ import '../../transport.dart';
 
 final jsonEncoder = new JsonEncoder.withIndent('  ');
 
-
 TransportConnection debugPrintingConnection(Socket socket,
-                                            {bool isServer: true,
-                                             bool verbose: true}) {
+    {bool isServer: true, bool verbose: true}) {
   var connection;
 
   var incoming = decodeVerbose(socket, isServer, verbose: verbose);
@@ -33,9 +31,8 @@ TransportConnection debugPrintingConnection(Socket socket,
   return connection;
 }
 
-Stream<List<int>> decodeVerbose(Stream<List<int>> inc,
-                                bool isServer,
-                                {bool verbose: true}) {
+Stream<List<int>> decodeVerbose(Stream<List<int>> inc, bool isServer,
+    {bool verbose: true}) {
   String name = isServer ? 'server' : 'client';
 
   var sc = new StreamController();
@@ -46,7 +43,7 @@ Stream<List<int>> decodeVerbose(Stream<List<int>> inc,
   if (!isServer) {
     _decodeFrames(sDebug.stream).listen((frame) {
       print('[$name/stream:${frame.header.streamId}] '
-            'Incoming ${frame.runtimeType}:');
+          'Incoming ${frame.runtimeType}:');
       if (verbose) {
         print(jsonEncoder.convert(frame.toJson()));
         print('');
@@ -60,7 +57,7 @@ Stream<List<int>> decodeVerbose(Stream<List<int>> inc,
     var s3 = readConnectionPreface(sDebug.stream);
     _decodeFrames(s3).listen((frame) {
       print('[$name/stream:${frame.header.streamId}] '
-            'Incoming ${frame.runtimeType}:');
+          'Incoming ${frame.runtimeType}:');
       if (verbose) {
         print(jsonEncoder.convert(frame.toJson()));
         print('');
@@ -75,19 +72,18 @@ Stream<List<int>> decodeVerbose(Stream<List<int>> inc,
   return sc.stream;
 }
 
-StreamSink<List<int>> decodeOutgoingVerbose(StreamSink<List<int>> sink,
-                                            bool isServer,
-                                            {bool verbose: true}) {
+StreamSink<List<int>> decodeOutgoingVerbose(
+    StreamSink<List<int>> sink, bool isServer,
+    {bool verbose: true}) {
   String name = isServer ? 'server' : 'client';
 
   var proxySink = new StreamController();
   var copy = new StreamController();
 
   if (!isServer) {
-    _decodeFrames(readConnectionPreface(copy.stream))
-        .listen((Frame frame) {
+    _decodeFrames(readConnectionPreface(copy.stream)).listen((Frame frame) {
       print('[$name/stream:${frame.header.streamId}] '
-            'Outgoing ${frame.runtimeType}:');
+          'Outgoing ${frame.runtimeType}:');
       if (verbose) {
         print(jsonEncoder.convert(frame.toJson()));
         print('');
@@ -100,7 +96,7 @@ StreamSink<List<int>> decodeOutgoingVerbose(StreamSink<List<int>> sink,
   } else {
     _decodeFrames(copy.stream).listen((Frame frame) {
       print('[$name/stream:${frame.header.streamId}] '
-            'Outgoing ${frame.runtimeType}:');
+          'Outgoing ${frame.runtimeType}:');
       if (verbose) {
         print(jsonEncoder.convert(frame.toJson()));
         print('');
@@ -133,8 +129,10 @@ Future _pipeAndCopy(Stream from, StreamSink to, StreamSink to2) {
     to.addError(e, s);
     to2.addError(e, s);
   }, onDone: () {
-    Future.wait([to.close(), to2.close()])
-        .then(c.complete).catchError(c.completeError);
+    Future
+        .wait([to.close(), to2.close()])
+        .then(c.complete)
+        .catchError(c.completeError);
   });
   return c.future;
 }

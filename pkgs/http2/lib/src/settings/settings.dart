@@ -73,14 +73,14 @@ class ActiveSettings {
   /// enforced. The initial value of this setting is unlimited.
   int maxHeaderListSize;
 
-  ActiveSettings({this.headerTableSize: 4096,
-                  this.enablePush: true,
-                  this.maxConcurrentStreams: null,
-                  this.initialWindowSize: (1 << 16) - 1,
-                  this.maxFrameSize: (1 << 14),
-                  this.maxHeaderListSize: null});
+  ActiveSettings(
+      {this.headerTableSize: 4096,
+      this.enablePush: true,
+      this.maxConcurrentStreams: null,
+      this.initialWindowSize: (1 << 16) - 1,
+      this.maxFrameSize: (1 << 14),
+      this.maxHeaderListSize: null});
 }
-
 
 /// Handles remote and local connection [Setting]s.
 ///
@@ -111,13 +111,11 @@ class SettingsHandler extends Object with TerminatableMixin {
 
   /// Events are fired when a SettingsFrame changes the initial size
   /// of stream windows.
-  Stream<int> get onInitialWindowSizeChange
-      => _onInitialWindowSizeChangeController.stream;
+  Stream<int> get onInitialWindowSizeChange =>
+      _onInitialWindowSizeChangeController.stream;
 
-  SettingsHandler(this._hpackEncoder,
-                  this._frameWriter,
-                  this._acknowledgedSettings,
-                  this._peerSettings);
+  SettingsHandler(this._hpackEncoder, this._frameWriter,
+      this._acknowledgedSettings, this._peerSettings);
 
   /// The settings for this endpoint of the connection which the remote peer
   /// has ACKed and uses.
@@ -131,10 +129,10 @@ class SettingsHandler extends Object with TerminatableMixin {
   /// change.
   void handleSettingsFrame(SettingsFrame frame) {
     ensureNotTerminatedSync(() {
-      assert (frame.header.streamId == 0);
+      assert(frame.header.streamId == 0);
 
       if (frame.hasAckFlag) {
-        assert (frame.header.length == 0);
+        assert(frame.header.length == 0);
 
         if (_toBeAcknowledgedSettings.isEmpty) {
           // NOTE: The specification does not say anything about ACKed settings
@@ -157,8 +155,8 @@ class SettingsHandler extends Object with TerminatableMixin {
 
   void onTerminated(error) {
     _toBeAcknowledgedSettings.clear();
-    _toBeAcknowledgedCompleters.forEach(
-        (Completer c) => c.completeError(error));
+    _toBeAcknowledgedCompleters
+        .forEach((Completer c) => c.completeError(error));
   }
 
   Future changeSettings(List<Setting> changes) {
@@ -173,8 +171,8 @@ class SettingsHandler extends Object with TerminatableMixin {
     });
   }
 
-  void _modifySettings(ActiveSettings base, List<Setting> changes,
-                       bool peerSettings) {
+  void _modifySettings(
+      ActiveSettings base, List<Setting> changes, bool peerSettings) {
     for (var setting in changes) {
       switch (setting.identifier) {
         case Setting.SETTINGS_ENABLE_PUSH:

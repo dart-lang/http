@@ -58,12 +58,10 @@ abstract class AbstractOutgoingWindowHandler {
   }
 }
 
-
 /// Handles the connection window for outgoing data frames.
 class OutgoingConnectionWindowHandler extends AbstractOutgoingWindowHandler {
   OutgoingConnectionWindowHandler(Window window) : super(window);
 }
-
 
 /// Handles the window for outgoing messages to the peer.
 class OutgoingStreamWindowHandler extends AbstractOutgoingWindowHandler {
@@ -91,7 +89,6 @@ class OutgoingStreamWindowHandler extends AbstractOutgoingWindowHandler {
   }
 }
 
-
 /// Mirrors the flow control window the remote end is using.
 class IncomingWindowHandler {
   /// The [FrameWriter] used for writing [WindowUpdateFrame]s to the wire.
@@ -109,8 +106,8 @@ class IncomingWindowHandler {
   IncomingWindowHandler.stream(
       this._frameWriter, this._localWindow, this._streamId);
 
-  IncomingWindowHandler.connection(
-      this._frameWriter, this._localWindow) : _streamId = 0;
+  IncomingWindowHandler.connection(this._frameWriter, this._localWindow)
+      : _streamId = 0;
 
   /// The current size for the incoming data window.
   ///

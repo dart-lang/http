@@ -19,10 +19,9 @@ main() {
     group('normal', () {
       serverTest('gracefull-shutdown-for-unused-connection',
           (ServerTransportConnection server,
-           FrameWriter clientWriter,
-           StreamIterator<Frame> clientReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter clientWriter,
+              StreamIterator<Frame> clientReader,
+              Future<Frame> nextFrame()) async {
         Future serverFun() async {
           expect(await server.incomingStreams.toList(), isEmpty);
           await server.finish();
@@ -48,10 +47,9 @@ main() {
     group('client-errors', () {
       serverTest('no-settings-frame-at-beginning',
           (ServerTransportConnection server,
-           FrameWriter clientWriter,
-           StreamIterator<Frame> clientReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter clientWriter,
+              StreamIterator<Frame> clientReader,
+              Future<Frame> nextFrame()) async {
         Future serverFun() async {
           // TODO: Do we want to get an error in this case?
           expect(await server.incomingStreams.toList(), isEmpty);
@@ -78,9 +76,9 @@ main() {
 
       serverTest('data-frame-for-invalid-stream',
           (ServerTransportConnection server,
-           FrameWriter clientWriter,
-           StreamIterator<Frame> clientReader,
-           Future<Frame> nextFrame()) async {
+              FrameWriter clientWriter,
+              StreamIterator<Frame> clientReader,
+              Future<Frame> nextFrame()) async {
         Future serverFun() async {
           await server.incomingStreams.toList();
           await server.finish();
@@ -113,10 +111,9 @@ main() {
 
       serverTest('data-frame-after-stream-closed',
           (ServerTransportConnection server,
-           FrameWriter clientWriter,
-           StreamIterator<Frame> clientReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter clientWriter,
+              StreamIterator<Frame> clientReader,
+              Future<Frame> nextFrame()) async {
         Future serverFun() async {
           await server.incomingStreams.toList();
           await server.finish();
@@ -128,8 +125,8 @@ main() {
           clientWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
 
-          clientWriter.writeHeadersFrame(
-              3, [new Header.ascii('a', 'b')], endStream: true);
+          clientWriter.writeHeadersFrame(3, [new Header.ascii('a', 'b')],
+              endStream: true);
 
           // Write data frame to non-existent stream (stream 3 was closed
           // above).
@@ -153,12 +150,10 @@ main() {
     });
 
     group('server-errors', () {
-      serverTest('server-resets-stream',
-          (ServerTransportConnection server,
-           FrameWriter clientWriter,
-           StreamIterator<Frame> clientReader,
-           Future<Frame> nextFrame()) async {
-
+      serverTest('server-resets-stream', (ServerTransportConnection server,
+          FrameWriter clientWriter,
+          StreamIterator<Frame> clientReader,
+          Future<Frame> nextFrame()) async {
         Future serverFun() async {
           var it = new StreamIterator(server.incomingStreams);
           expect(await it.moveNext(), true);
@@ -171,15 +166,14 @@ main() {
           await server.finish();
         }
 
-
         Future clientFun() async {
           expect(await nextFrame() is SettingsFrame, true);
           clientWriter.writeSettingsAckFrame();
           clientWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
 
-          clientWriter.writeHeadersFrame(
-              1, [new Header.ascii('a', 'b')], endStream: false);
+          clientWriter.writeHeadersFrame(1, [new Header.ascii('a', 'b')],
+              endStream: false);
 
           // Make sure the client gets a [RstStreamFrame] frame.
           var frame = await nextFrame();
@@ -200,8 +194,8 @@ main() {
   });
 }
 
-serverTest(String name,
-           func(serverConnection, frameWriter, frameReader, readNext)) {
+serverTest(
+    String name, func(serverConnection, frameWriter, frameReader, readNext)) {
   return test(name, () {
     var streams = new ClientErrorStreams();
     var clientReader = streams.clientConnectionFrameReader;
@@ -211,10 +205,8 @@ serverTest(String name,
       return clientReader.current;
     }
 
-    return func(streams.serverConnection,
-                streams.clientConnectionFrameWriter,
-                clientReader,
-                readNext);
+    return func(streams.serverConnection, streams.clientConnectionFrameWriter,
+        clientReader, readNext);
   });
 }
 
@@ -237,6 +229,6 @@ class ClientErrorStreams {
     return new FrameWriter(encoder, writeB, peerSettings);
   }
 
-  ServerTransportConnection get serverConnection
-      => new ServerTransportConnection.viaStreams(readB, writeA);
+  ServerTransportConnection get serverConnection =>
+      new ServerTransportConnection.viaStreams(readB, writeA);
 }

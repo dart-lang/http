@@ -27,7 +27,7 @@ main() async {
       expect(body, contains('<html'));
       expect(body, contains('www.google'));
     }, onPlatform: {
-      'mac-os' : new Skip('ALPN not supported on MacOS'),
+      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
 
     test('twitter', () async {
@@ -42,7 +42,7 @@ main() async {
       expect(body, contains('<!DOCTYPE html>'));
       expect(body, contains('twitter.com'));
     }, onPlatform: {
-      'mac-os' : new Skip('ALPN not supported on MacOS'),
+      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
 
     test('nghttp2.org - server push enabled', () async {
@@ -55,23 +55,25 @@ main() async {
 
       Future<List<List>> accumulatePushes() async {
         var futures = [];
-        return response.serverPushes.listen((ServerPush push) {
-          futures.add(push.response.then((Response response) {
-            dumpHeaders(uri, push.requestHeaders,
-                        msg: '**push** Request headers for push request.');
-            dumpHeaders(uri, response.headers,
-                        msg: '**push** Response headers for server push '
-                             'request.');
+        return response.serverPushes
+            .listen((ServerPush push) {
+              futures.add(push.response.then((Response response) {
+                dumpHeaders(uri, push.requestHeaders,
+                    msg: '**push** Request headers for push request.');
+                dumpHeaders(uri, response.headers,
+                    msg: '**push** Response headers for server push '
+                        'request.');
 
-            return readBody(response).then((String body) {
-              return [push.requestHeaders[':path'].join(''), body];
-            });
-          }));
-        }).asFuture().then((_) => Future.wait(futures));
+                return readBody(response).then((String body) {
+                  return [push.requestHeaders[':path'].join(''), body];
+                });
+              }));
+            })
+            .asFuture()
+            .then((_) => Future.wait(futures));
       }
 
-      var results = await Future.wait(
-          [readBody(response), accumulatePushes()]);
+      var results = await Future.wait([readBody(response), accumulatePushes()]);
 
       var body = results[0];
       expect(body, contains('<!DOCTYPE html>'));
@@ -83,24 +85,27 @@ main() async {
       expect(pushes[0][1], contains('audio,video{'));
       await connection.close();
     }, onPlatform: {
-      'mac-os' : new Skip('ALPN not supported on MacOS'),
+      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
 
     test('nghttp2.org - server push disabled', () async {
       var uri = Uri.parse("https://nghttp2.org/");
 
-      ClientConnection connection = await connect(
-          uri, allowServerPushes: false);
+      ClientConnection connection =
+          await connect(uri, allowServerPushes: false);
       var request = new Request('GET', uri);
       Response response = await connection.makeRequest(request);
       dumpHeaders(uri, response.headers);
 
       Future<List<List>> accumulatePushes() async {
         var futures = [];
-        return response.serverPushes.listen((ServerPush push) {
-          futures.add(push.response.then(
-                  (Response response) => response.stream.drain()));
-        }).asFuture().then((_) => Future.wait(futures));
+        return response.serverPushes
+            .listen((ServerPush push) {
+              futures.add(push.response
+                  .then((Response response) => response.stream.drain()));
+            })
+            .asFuture()
+            .then((_) => Future.wait(futures));
       }
 
       var results = await Future.wait([readBody(response), accumulatePushes()]);
@@ -113,13 +118,13 @@ main() async {
       expect(pushes, hasLength(0));
       await connection.close();
     }, onPlatform: {
-      'mac-os' : new Skip('ALPN not supported on MacOS'),
+      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
   });
 }
 
 dumpHeaders(Uri uri, Map<String, List<String>> headers,
-            {String msg: 'Response headers.'}) {
+    {String msg: 'Response headers.'}) {
   print('');
   print('[$uri]  $msg');
   for (var key in headers.keys.toList()..sort()) {

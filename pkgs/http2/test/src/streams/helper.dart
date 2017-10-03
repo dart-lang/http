@@ -51,10 +51,10 @@ class BidirectionalConnection {
   Stream<List<int>> get readA => writeA.stream;
   Stream<List<int>> get readB => writeB.stream;
 
-  ClientTransportConnection get clientConnection
-      => new ClientTransportConnection.viaStreams(
-          readA, writeB, settings: settings);
+  ClientTransportConnection get clientConnection =>
+      new ClientTransportConnection.viaStreams(readA, writeB,
+          settings: settings);
 
-  ServerTransportConnection get serverConnection
-      => new ServerTransportConnection.viaStreams(readB, writeA);
+  ServerTransportConnection get serverConnection =>
+      new ServerTransportConnection.viaStreams(readB, writeA);
 }

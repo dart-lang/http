@@ -31,9 +31,8 @@ main() {
 
       // Send [HeadersMessage].
       var c = new TestCounter();
-      fw.mock_writeHeadersFrame = (int streamId,
-                                   List<Header> sendingHeaders,
-                                   {bool endStream}) {
+      fw.mock_writeHeadersFrame =
+          (int streamId, List<Header> sendingHeaders, {bool endStream}) {
         expect(streamId, 99);
         expect(sendingHeaders, headers);
         expect(endStream, false);
@@ -52,9 +51,8 @@ main() {
         expect(difference, bytes.length);
         c.got();
       };
-      fw.mock_writeDataFrame = (int streamId,
-                                List<Header> sendingBytes,
-                                {bool endStream}) {
+      fw.mock_writeDataFrame =
+          (int streamId, List<Header> sendingBytes, {bool endStream}) {
         expect(streamId, 99);
         expect(sendingBytes, bytes);
         expect(endStream, false);
@@ -73,8 +71,8 @@ main() {
         expect(difference, 1);
         c.got();
       };
-      fw.mock_writeDataFrame = (int streamId, List<Header> sendingBytes,
-                                {bool endStream}) {
+      fw.mock_writeDataFrame =
+          (int streamId, List<Header> sendingBytes, {bool endStream}) {
         expect(streamId, 99);
         expect(sendingBytes, bytes.sublist(0, 1));
         expect(endStream, false);
@@ -90,8 +88,8 @@ main() {
         expect(difference, bytes.length - 1);
         c.got();
       };
-      fw.mock_writeDataFrame = (int streamId, List<Header> sendingBytes,
-                                {bool endStream}) {
+      fw.mock_writeDataFrame =
+          (int streamId, List<Header> sendingBytes, {bool endStream}) {
         expect(streamId, 99);
         expect(sendingBytes, bytes.sublist(1));
         expect(endStream, true);
@@ -104,7 +102,7 @@ main() {
       queue.done.then(expectAsync1((_) {
         expect(queue.pendingMessages, 0);
         expect(() => queue.enqueueMessage(new DataMessage(99, bytes, true)),
-               throwsA(new isInstanceOf<StateError>()));
+            throwsA(new isInstanceOf<StateError>()));
       }));
     });
 
@@ -174,16 +172,15 @@ class MockFrameWriter extends SmartMock implements FrameWriter {
 }
 
 class MockStreamMessageQueueIn extends SmartMock
-                               implements StreamMessageQueueIn {
+    implements StreamMessageQueueIn {
   BufferIndicator bufferIndicator = new BufferIndicator();
 }
 
 class MockIncomingWindowHandler extends SmartMock
-                                implements IncomingWindowHandler { }
+    implements IncomingWindowHandler {}
 
 class MockOutgoingWindowHandler extends SmartMock
-                                implements OutgoingConnectionWindowHandler,
-                                           OutgoingStreamWindowHandler {
+    implements OutgoingConnectionWindowHandler, OutgoingStreamWindowHandler {
   BufferIndicator positiveWindow = new BufferIndicator();
   int peerWindowSize = new Window().size;
 }

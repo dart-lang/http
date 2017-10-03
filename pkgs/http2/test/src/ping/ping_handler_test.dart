@@ -72,7 +72,7 @@ main() {
 
       var header = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
       expect(() => pingHandler.processPingFrame(new PingFrame(header, 2)),
-             throwsA(isProtocolException));
+          throwsA(isProtocolException));
 
       // Ensure outstanding pings will be completed with an error once we call
       // `pingHandler.terminate()`.
@@ -88,9 +88,8 @@ main() {
 
       pingHandler.terminate('hello world');
       expect(() => pingHandler.processPingFrame(null),
-             throwsA(isTerminatedException));
-      expect(pingHandler.ping(),
-             throwsA(isTerminatedException));
+          throwsA(isTerminatedException));
+      expect(pingHandler.ping(), throwsA(isTerminatedException));
     });
 
     test('ping-non-zero-stream-id', () async {
@@ -99,9 +98,9 @@ main() {
 
       var header = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1);
       expect(() => pingHandler.processPingFrame(new PingFrame(header, 1)),
-             throwsA(isProtocolException));
+          throwsA(isProtocolException));
     });
   });
 }
 
-class FrameWriterMock extends SmartMock implements FrameWriter { }
+class FrameWriterMock extends SmartMock implements FrameWriter {}

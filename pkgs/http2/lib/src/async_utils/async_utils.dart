@@ -42,7 +42,6 @@ class BufferIndicator {
   Stream get bufferEmptyEvents => _controller.stream;
 }
 
-
 /// Contains a [StreamSink] and a [BufferIndicator] to indicate whether writes
 /// to the sink would cause buffering.
 ///
@@ -88,7 +87,6 @@ class BufferedSink {
   /// The future which will complete once this sink has been closed.
   Future get doneFuture => _doneFuture;
 }
-
 
 /// A small wrapper around [BufferedSink] which writes data in batches.
 class BufferedBytesWriter {

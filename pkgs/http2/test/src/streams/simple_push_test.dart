@@ -50,7 +50,6 @@ main() {
         return UTF8.decode(all);
       }
 
-
       Future sendData(TransportStream stream, String data) {
         stream.outgoingMessages
           ..add(new DataStreamMessage(UTF8.encode(data)))
@@ -58,11 +57,10 @@ main() {
         return stream.outgoingMessages.done;
       }
 
-      streamTest('server-push',
-          (ClientTransportConnection client,
-           ServerTransportConnection server) async {
-        server.incomingStreams.listen(
-            expectAsync1((ServerTransportStream sStream) async {
+      streamTest('server-push', (ClientTransportConnection client,
+          ServerTransportConnection server) async {
+        server.incomingStreams
+            .listen(expectAsync1((ServerTransportStream sStream) async {
           var pushStream = sStream.push(expectedHeaders);
           pushStream.sendHeaders(expectedHeaders);
           await sendData(pushStream, 'pushing "hello world" :)');
@@ -75,9 +73,10 @@ main() {
 
         ClientTransportStream cStream =
             client.makeRequest(expectedHeaders, endStream: true);
-        cStream.incomingMessages.listen(
-            headersTestFun(), onDone: expectAsync0(() { }));
-        cStream.peerPushes.listen(expectAsync1((TransportStreamPush push) async {
+        cStream.incomingMessages
+            .listen(headersTestFun(), onDone: expectAsync0(() {}));
+        cStream.peerPushes
+            .listen(expectAsync1((TransportStreamPush push) async {
           testHeaders(push.requestHeaders);
 
           var iterator = new StreamIterator(push.stream.incomingMessages);

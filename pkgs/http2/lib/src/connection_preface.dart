@@ -12,10 +12,31 @@ import 'byte_utils.dart';
 /// This is a set of bytes with which a client connection begins in the normal
 /// case. It can be used on a server to distinguish HTTP/1.1 and HTTP/2 clients.
 const List<int> CONNECTION_PREFACE = const [
-    0x50, 0x52, 0x49, 0x20, 0x2a, 0x20, 0x48, 0x54, 0x54,
-    0x50, 0x2f, 0x32, 0x2e, 0x30, 0x0d, 0x0a, 0x0d, 0x0a,
-    0x53, 0x4d, 0x0d, 0x0a, 0x0d, 0x0a];
-
+  0x50,
+  0x52,
+  0x49,
+  0x20,
+  0x2a,
+  0x20,
+  0x48,
+  0x54,
+  0x54,
+  0x50,
+  0x2f,
+  0x32,
+  0x2e,
+  0x30,
+  0x0d,
+  0x0a,
+  0x0d,
+  0x0a,
+  0x53,
+  0x4d,
+  0x0d,
+  0x0a,
+  0x0d,
+  0x0a
+];
 
 /// Reads the connection preface from [incoming].
 ///
@@ -79,9 +100,8 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
 
   result = new StreamController(
       onListen: () {
-        subscription = incoming.listen(
-            onData,
-            onError: (e,s) => result.addError(e, s),
+        subscription = incoming.listen(onData,
+            onError: (e, s) => result.addError(e, s),
             onDone: () {
               if (prefaceBuffer != null) {
                 terminate('EOS before connection preface could be read.');
@@ -89,7 +109,7 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
                 result.close();
               }
             });
-        },
+      },
       onPause: () => subscription.pause(),
       onResume: () => subscription.resume(),
       onCancel: () => subscription.cancel());

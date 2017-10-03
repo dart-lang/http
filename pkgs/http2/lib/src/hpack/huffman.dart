@@ -16,7 +16,6 @@ class HuffmanDecodingException implements Exception {
   String toString() => 'HuffmanDecodingException: $_message';
 }
 
-
 /// A codec used for encoding/decoding using a huffman codec.
 class HuffmanCodec {
   final HuffmanEncoder _encoder;
@@ -28,7 +27,6 @@ class HuffmanCodec {
 
   List<int> encode(List<int> bytes) => _encoder.encode(bytes);
 }
-
 
 /// A huffman decoder based on a [HuffmanTreeNode].
 class HuffmanDecoder {
@@ -76,15 +74,13 @@ class HuffmanDecoder {
       while (node.right != null) node = node.right;
 
       if (node.value != 256) {
-        throw new HuffmanDecodingException(
-            'Incomplete encoding of a byte.');
+        throw new HuffmanDecodingException('Incomplete encoding of a byte.');
       }
     }
 
     return buffer.takeBytes();
   }
 }
-
 
 /// A huffman encoder based on a list of codewords.
 class HuffmanEncoder {
@@ -122,6 +118,7 @@ class HuffmanEncoder {
         }
       }
     }
+
     for (int i = 0; i < bytes.length; i++) {
       var byte = bytes[i];
       var value = _codewords[byte];
@@ -136,7 +133,6 @@ class HuffmanEncoder {
   }
 }
 
-
 /// Specifies the encoding of a specific value using huffman encoding.
 class EncodedHuffmanValue {
   /// An integer representation of the encoded bit-string.
@@ -148,14 +144,12 @@ class EncodedHuffmanValue {
   const EncodedHuffmanValue(this.encodedBytes, this.numBits);
 }
 
-
 /// A node in the huffman tree.
 class HuffmanTreeNode {
   HuffmanTreeNode left;
   HuffmanTreeNode right;
   int value;
 }
-
 
 /// Generates a huffman decoding tree.
 HuffmanTreeNode generateHuffmanTree(List<EncodedHuffmanValue> valueEncodings) {
@@ -187,4 +181,3 @@ HuffmanTreeNode generateHuffmanTree(List<EncodedHuffmanValue> valueEncodings) {
 
   return root;
 }
-

@@ -20,7 +20,6 @@ import 'stream_queues.dart';
 import 'queue_messages.dart';
 import 'window_handler.dart';
 
-
 /// The last place before messages coming from the application get encoded and
 /// send as [Frame]s.
 ///
@@ -34,7 +33,7 @@ import 'window_handler.dart';
 //   * all streams have been closed
 //   * the connection state is finishing
 class ConnectionMessageQueueOut extends Object
-                                with TerminatableMixin, ClosableMixin {
+    with TerminatableMixin, ClosableMixin {
   /// The handler which will be used for increasing the connection-level flow
   /// control window.
   final OutgoingConnectionWindowHandler _connectionWindow;
@@ -90,7 +89,7 @@ class ConnectionMessageQueueOut extends Object
       if (_messages.length > 0 &&
           !_frameWriter.bufferIndicator.wouldBuffer &&
           (!_connectionWindow.positiveWindow.wouldBuffer ||
-           _messages.first is! DataMessage)) {
+              _messages.first is! DataMessage)) {
         _trySendMessage();
 
         // If we have more messages and we can send them, we'll run them
@@ -98,7 +97,7 @@ class ConnectionMessageQueueOut extends Object
         if (_messages.length > 0 &&
             !_frameWriter.bufferIndicator.wouldBuffer &&
             (!_connectionWindow.positiveWindow.wouldBuffer ||
-             _messages.first is! DataMessage)) {
+                _messages.first is! DataMessage)) {
           // TODO: If all the frame writer methods would return the
           // number of bytes written, we could just say, we loop here until 10kb
           // and after words, we'll make `Timer.run()`.
@@ -114,8 +113,8 @@ class ConnectionMessageQueueOut extends Object
     Message message = _messages.first;
     if (message is HeadersMessage) {
       _messages.removeFirst();
-      _frameWriter.writeHeadersFrame(
-          message.streamId, message.headers, endStream: message.endStream);
+      _frameWriter.writeHeadersFrame(message.streamId, message.headers,
+          endStream: message.endStream);
     } else if (message is PushPromiseMessage) {
       _messages.removeFirst();
       _frameWriter.writePushPromiseFrame(
@@ -125,15 +124,15 @@ class ConnectionMessageQueueOut extends Object
 
       if (_connectionWindow.peerWindowSize >= message.bytes.length) {
         _connectionWindow.decreaseWindow(message.bytes.length);
-        _frameWriter.writeDataFrame(
-            message.streamId, message.bytes, endStream: message.endStream);
+        _frameWriter.writeDataFrame(message.streamId, message.bytes,
+            endStream: message.endStream);
       } else {
         // NOTE: We need to fragment the DataMessage.
         // TODO: Do not fragment if the number of bytes we can send is too low
         int len = _connectionWindow.peerWindowSize;
         var head = viewOrSublist(message.bytes, 0, len);
-        var tail = viewOrSublist(
-            message.bytes, len, message.bytes.length - len);
+        var tail =
+            viewOrSublist(message.bytes, len, message.bytes.length - len);
 
         _connectionWindow.decreaseWindow(head.length);
         _frameWriter.writeDataFrame(message.streamId, head, endStream: false);
@@ -170,7 +169,7 @@ class ConnectionMessageQueueOut extends Object
 //   * all streams have been closed
 //   * the connection state is finishing
 class ConnectionMessageQueueIn extends Object
-                               with TerminatableMixin, ClosableMixin {
+    with TerminatableMixin, ClosableMixin {
   /// The handler which will be used for increasing the connection-level flow
   /// control window.
   final IncomingWindowHandler _windowUpdateHandler;
@@ -190,8 +189,8 @@ class ConnectionMessageQueueIn extends Object
   /// to the stream-specific queue. (for debugging purposes)
   int _count = 0;
 
-  ConnectionMessageQueueIn(this._windowUpdateHandler,
-                           this._catchProtocolErrors);
+  ConnectionMessageQueueIn(
+      this._windowUpdateHandler, this._catchProtocolErrors);
 
   void onTerminated(error) {
     // NOTE: The higher level will be shutdown first, so all streams
@@ -203,7 +202,7 @@ class ConnectionMessageQueueIn extends Object
 
   void onCheckForClose() {
     if (isClosing) {
-      assert (_stream2messageQueue.isEmpty == _stream2pendingMessages.isEmpty);
+      assert(_stream2messageQueue.isEmpty == _stream2pendingMessages.isEmpty);
       if (_stream2messageQueue.isEmpty) {
         closeWithValue();
       }
@@ -268,12 +267,11 @@ class ConnectionMessageQueueIn extends Object
 
   /// Processes an incoming [PushPromiseFrame] which is addressed to a specific
   /// stream.
-  void processPushPromiseFrame(PushPromiseFrame frame,
-                               TransportStream pushedStream) {
+  void processPushPromiseFrame(
+      PushPromiseFrame frame, TransportStream pushedStream) {
     var streamId = frame.header.streamId;
-    var message = new PushPromiseMessage(
-        streamId, frame.decodedHeaders, frame.promisedStreamId, pushedStream,
-        false);
+    var message = new PushPromiseMessage(streamId, frame.decodedHeaders,
+        frame.promisedStreamId, pushedStream, false);
 
     // NOTE:
     //    * Header frames do not affect flow control - only data frames do.
@@ -302,9 +300,8 @@ class ConnectionMessageQueueIn extends Object
     streamMQ.enqueueMessage(message);
   }
 
-  void _tryDispatch(int streamId,
-                    StreamMessageQueueIn mq,
-                    Queue<Message> pendingMessages) {
+  void _tryDispatch(
+      int streamId, StreamMessageQueueIn mq, Queue<Message> pendingMessages) {
     int bytesDeliveredToStream = 0;
     while (!mq.bufferIndicator.wouldBuffer && pendingMessages.length > 0) {
       _count--;
@@ -315,7 +312,7 @@ class ConnectionMessageQueueIn extends Object
       }
       mq.enqueueMessage(message);
       if (message.endStream) {
-        assert (pendingMessages.isEmpty);
+        assert(pendingMessages.isEmpty);
 
         _stream2messageQueue.remove(streamId);
         _stream2pendingMessages.remove(streamId);

@@ -13,14 +13,14 @@ import 'src/hpack/hpack_test.dart' show isHeader;
 
 main() {
   group('transport-test', () {
-    transportTest('ping', (TransportConnection client,
-                           TransportConnection server) async {
+    transportTest('ping',
+        (TransportConnection client, TransportConnection server) async {
       await client.ping();
       await server.ping();
     });
 
-    transportTest('terminated-client-ping', (TransportConnection client,
-                                             TransportConnection server) async {
+    transportTest('terminated-client-ping',
+        (TransportConnection client, TransportConnection server) async {
       var clientError = client.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
       }));
@@ -37,8 +37,8 @@ main() {
       }));
     });
 
-    transportTest('terminated-server-ping', (TransportConnection client,
-                                             TransportConnection server) async {
+    transportTest('terminated-server-ping',
+        (TransportConnection client, TransportConnection server) async {
       var clientError = client.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
       }));
@@ -56,23 +56,23 @@ main() {
     });
 
     transportTest('disabled-push', (ClientTransportConnection client,
-                                    ServerTransportConnection server) async {
-      server.incomingStreams.listen(
-          expectAsync1((ServerTransportStream stream) async {
+        ServerTransportConnection server) async {
+      server.incomingStreams
+          .listen(expectAsync1((ServerTransportStream stream) async {
         expect(stream.canPush, false);
         expect(() => stream.push([new Header.ascii('a', 'b')]),
             throwsA(new isInstanceOf<StateError>()));
         stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
       }));
 
-      var stream = client.makeRequest(
-          [new Header.ascii('a', 'b')], endStream: true);
+      var stream =
+          client.makeRequest([new Header.ascii('a', 'b')], endStream: true);
 
       var messages = await stream.incomingMessages.toList();
       expect(messages, hasLength(1));
       expect(messages[0] is HeadersStreamMessage, true);
-      expect((messages[0] as HeadersStreamMessage).headers[0],
-             isHeader('x', 'y'));
+      expect(
+          (messages[0] as HeadersStreamMessage).headers[0], isHeader('x', 'y'));
 
       expect(await stream.peerPushes.toList(), isEmpty);
     });
@@ -80,7 +80,7 @@ main() {
     // By default, the stream concurrency level is set to this limit.
     const int kDefaultStreamLimit = 100;
     transportTest('enabled-push-100', (ClientTransportConnection client,
-                                       ServerTransportConnection server) async {
+            ServerTransportConnection server) async {
       // To ensure the limit is kept up-to-date with closing/opening streams, we
       // retry this.
       const int kRepetitions = 20;
@@ -101,8 +101,8 @@ main() {
 
           // Finish the pushes
           for (ServerTransportStream pushedStream in pushes) {
-            pushedStream.sendHeaders(
-                [new Header.ascii('e', 'nd')], endStream: true);
+            pushedStream
+                .sendHeaders([new Header.ascii('e', 'nd')], endStream: true);
             await pushedStream.incomingMessages.toList();
           }
 
@@ -114,8 +114,8 @@ main() {
 
       Future clientFun() async {
         for (int i = 0; i < kRepetitions; i++) {
-          var stream = client.makeRequest(
-              [new Header.ascii('a', 'b')], endStream: true);
+          var stream =
+              client.makeRequest([new Header.ascii('a', 'b')], endStream: true);
 
           Future<int> expectPeerPushes() async {
             int numberOfPushes = 0;
@@ -125,7 +125,7 @@ main() {
                   await pushedStream.stream.incomingMessages.toList();
               expect(messages, hasLength(1));
               expect((messages[0] as HeadersStreamMessage).headers[0],
-                     isHeader('e', 'nd'));
+                  isHeader('e', 'nd'));
               expect(await pushedStream.stream.peerPushes.toList(), isEmpty);
             }
             return numberOfPushes;
@@ -136,7 +136,7 @@ main() {
           expect(messages, hasLength(1));
           expect(messages[0] is HeadersStreamMessage, true);
           expect((messages[0] as HeadersStreamMessage).headers[0],
-                 isHeader('x', 'y'));
+              isHeader('x', 'y'));
 
           expect(await expectPeerPushes(), kDefaultStreamLimit);
         }
@@ -147,13 +147,13 @@ main() {
       await clientFun();
       await client.terminate();
       await serverFuture;
-    }, clientSettings: new ClientSettings(
-        concurrentStreamLimit: kDefaultStreamLimit,
-        allowServerPushes: true));
+    },
+        clientSettings: new ClientSettings(
+            concurrentStreamLimit: kDefaultStreamLimit,
+            allowServerPushes: true));
 
-    transportTest('early-shutdown',
-        (ClientTransportConnection client,
-         ServerTransportConnection server) async {
+    transportTest('early-shutdown', (ClientTransportConnection client,
+        ServerTransportConnection server) async {
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
           stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
@@ -174,10 +174,8 @@ main() {
       await Future.wait([serverFun(), clientFun()]);
     });
 
-    transportTest('client-terminates-stream',
-        (ClientTransportConnection client,
-         ServerTransportConnection server) async {
-
+    transportTest('client-terminates-stream', (ClientTransportConnection client,
+        ServerTransportConnection server) async {
       var readyForError = new Completer();
 
       Future serverFun() async {
@@ -204,9 +202,8 @@ main() {
       await Future.wait([serverFun(), clientFun()]);
     });
 
-    transportTest('server-terminates-stream',
-        (ClientTransportConnection client,
-         ServerTransportConnection server) async {
+    transportTest('server-terminates-stream', (ClientTransportConnection client,
+        ServerTransportConnection server) async {
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
           stream.terminate();
@@ -228,8 +225,7 @@ main() {
 
     transportTest('client-terminates-stream-after-half-close',
         (ClientTransportConnection client,
-         ServerTransportConnection server) async {
-
+            ServerTransportConnection server) async {
       var readyForError = new Completer();
 
       Future serverFun() async {
@@ -265,41 +261,40 @@ main() {
 
     transportTest('server-terminates-stream-after-half-close',
         (ClientTransportConnection client,
-         ServerTransportConnection server) async {
-          var readyForError = new Completer();
+            ServerTransportConnection server) async {
+      var readyForError = new Completer();
 
-          Future serverFun() async {
-            await for (ServerTransportStream stream in server.incomingStreams) {
-              stream.sendHeaders([new Header.ascii('x', 'y')], endStream: false);
-              stream.incomingMessages.listen(
-                expectAsync1((msg) async {
-                  expect(msg is HeadersStreamMessage, true);
-                  await readyForError.future;
-                  stream.terminate();
-                }),
-                onError: expectAsync1((_) {}, count: 0),
-                onDone: expectAsync0(() {}, count: 1),
-              );
-            }
-            await server.finish();
-          }
+      Future serverFun() async {
+        await for (ServerTransportStream stream in server.incomingStreams) {
+          stream.sendHeaders([new Header.ascii('x', 'y')], endStream: false);
+          stream.incomingMessages.listen(
+            expectAsync1((msg) async {
+              expect(msg is HeadersStreamMessage, true);
+              await readyForError.future;
+              stream.terminate();
+            }),
+            onError: expectAsync1((_) {}, count: 0),
+            onDone: expectAsync0(() {}, count: 1),
+          );
+        }
+        await server.finish();
+      }
 
-          Future clientFun() async {
-            var headers = [new Header.ascii('a', 'b')];
-            var stream = client.makeRequest(headers, endStream: false);
-            stream.onTerminated = expectAsync1((errorCode) {
-              expect(errorCode, 8);
-            }, count: 1);
-            readyForError.complete();
-            await client.finish();
-          }
+      Future clientFun() async {
+        var headers = [new Header.ascii('a', 'b')];
+        var stream = client.makeRequest(headers, endStream: false);
+        stream.onTerminated = expectAsync1((errorCode) {
+          expect(errorCode, 8);
+        }, count: 1);
+        readyForError.complete();
+        await client.finish();
+      }
 
-          await Future.wait([serverFun(), clientFun()]);
-        });
+      await Future.wait([serverFun(), clientFun()]);
+    });
 
-    transportTest('idle-handler',
-        (ClientTransportConnection client,
-         ServerTransportConnection server) async {
+    transportTest('idle-handler', (ClientTransportConnection client,
+        ServerTransportConnection server) async {
       Future serverFun() async {
         int activeCount = 0;
         int idleCount = 0;
@@ -312,8 +307,9 @@ main() {
         }, count: 6);
         await for (final stream in server.incomingStreams) {
           stream.sendHeaders([]);
-          stream.incomingMessages.toList().then(
-                  (_) => stream.outgoingMessages.close());
+          stream.incomingMessages
+              .toList()
+              .then((_) => stream.outgoingMessages.close());
         }
         await server.finish();
         expect(activeCount, 3);
@@ -364,13 +360,12 @@ main() {
       const int kNumberOfMessages = 1000;
       final headers = [new Header.ascii('a', 'b')];
 
-
-      Future testWindowSize(ClientTransportConnection client,
-                            ServerTransportConnection server,
-                            int expectedStreamFlowcontrolWindow) async {
-
+      Future testWindowSize(
+          ClientTransportConnection client,
+          ServerTransportConnection server,
+          int expectedStreamFlowcontrolWindow) async {
         expect(expectedStreamFlowcontrolWindow,
-               lessThan(kChunkSize * kNumberOfMessages));
+            lessThan(kChunkSize * kNumberOfMessages));
 
         int serverSentBytes = 0;
         Completer flowcontrolWindowFull = new Completer();
@@ -410,7 +405,7 @@ main() {
                   // [kChunkSize - 1] bytes more than allowed, before getting
                   // the pause event).
                   expect((serverSentBytes - kChunkSize + 1),
-                         lessThan(expectedStreamFlowcontrolWindow));
+                      lessThan(expectedStreamFlowcontrolWindow));
                   flowcontrolWindowFull.complete();
                 }),
                 onResume: () {
@@ -441,7 +436,7 @@ main() {
 
               // We're just testing the first byte, to make the test faster.
               expect(dataMessage.bytes[0],
-                     ((byteNr ~/ kChunkSize) + (byteNr % kChunkSize)) % 256);
+                  ((byteNr ~/ kChunkSize) + (byteNr % kChunkSize)) % 256);
 
               byteNr += dataMessage.bytes.length;
             }
@@ -461,23 +456,21 @@ main() {
 
       transportTest('fast-sender-receiver-paused--default-window-size',
           (ClientTransportConnection client,
-           ServerTransportConnection server) async {
+              ServerTransportConnection server) async {
         await testWindowSize(client, server, new Window().size);
       });
 
       transportTest('fast-sender-receiver-paused--10kb-window-size',
           (ClientTransportConnection client,
-           ServerTransportConnection server) async {
+              ServerTransportConnection server) async {
         await testWindowSize(client, server, 8096);
       }, clientSettings: new ClientSettings(streamWindowSize: 8096));
     });
   });
 }
 
-transportTest(String name,
-              func(client, server),
-              {ClientSettings clientSettings,
-               ServerSettings serverSettings}) {
+transportTest(String name, func(client, server),
+    {ClientSettings clientSettings, ServerSettings serverSettings}) {
   return test(name, () {
     var bidirectional = new BidirectionalConnection();
     bidirectional.clientSettings = clientSettings;
@@ -497,13 +490,11 @@ class BidirectionalConnection {
   Stream<List<int>> get readA => writeA.stream;
   Stream<List<int>> get readB => writeB.stream;
 
-  ClientTransportConnection get clientConnection
-      => new ClientTransportConnection.viaStreams(
-          readA,
-          writeB.sink, settings: clientSettings);
+  ClientTransportConnection get clientConnection =>
+      new ClientTransportConnection.viaStreams(readA, writeB.sink,
+          settings: clientSettings);
 
-  ServerTransportConnection get serverConnection
-      => new ServerTransportConnection.viaStreams(
-          readB, writeA.sink, settings: serverSettings);
+  ServerTransportConnection get serverConnection =>
+      new ServerTransportConnection.viaStreams(readB, writeA.sink,
+          settings: serverSettings);
 }
-

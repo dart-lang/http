@@ -26,13 +26,13 @@ class MultiProtocolHttpServer {
   _ServerSocketController _http11Controller;
   HttpServer _http11Server;
 
-  StreamController<http2.ServerTransportStream>  _http2Controller;
+  StreamController<http2.ServerTransportStream> _http2Controller;
   Stream<http2.ServerTransportStream> _http2Server;
   Set<http2.ServerTransportConnection> _http2Connections = new Set();
 
   MultiProtocolHttpServer._(this._serverSocket, this._settings) {
-    _http11Controller = new _ServerSocketController(
-        _serverSocket.address, _serverSocket.port);
+    _http11Controller =
+        new _ServerSocketController(_serverSocket.address, _serverSocket.port);
     _http11Server = new HttpServer.listenOn(_http11Controller.stream);
 
     _http2Controller = new StreamController();
@@ -67,25 +67,23 @@ class MultiProtocolHttpServer {
   /// It is expected that [callbackHttp11] and [callbackHttp2] will never throw
   /// an exception (i.e. these must take care of error handling themselves).
   void startServing(void callbackHttp11(HttpRequest request),
-                    void callbackHttp2(http2.ServerTransportStream stream),
-                    {void onError(error, stack)}) {
+      void callbackHttp2(http2.ServerTransportStream stream),
+      {void onError(error, stack)}) {
     // 1. Start listening on the real [SecureServerSocket].
     _serverSocket.listen((SecureSocket socket) {
       var protocol = socket.selectedProtocol;
       if (protocol == null || protocol == 'http/1.1') {
         _http11Controller.addHttp11Socket(socket);
       } else if (protocol == 'h2' || protocol == 'h2-14') {
-        var connection = new http2.ServerTransportConnection.viaSocket(
-            socket, settings: _settings);
+        var connection = new http2.ServerTransportConnection.viaSocket(socket,
+            settings: _settings);
         _http2Connections.add(connection);
-        connection.incomingStreams.listen(
-            _http2Controller.add,
+        connection.incomingStreams.listen(_http2Controller.add,
             onError: onError,
             onDone: () => _http2Connections.remove(connection));
       } else {
         socket.destroy();
-        throw new Exception(
-            "Unexpected negotiated ALPN protocol: $protocol.");
+        throw new Exception("Unexpected negotiated ALPN protocol: $protocol.");
       }
     }, onError: onError);
 
@@ -101,8 +99,8 @@ class MultiProtocolHttpServer {
   Future close({bool force: false}) {
     return _serverSocket.close().whenComplete(() {
       Future done1 = _http11Server.close(force: force);
-      Future done2 = Future.wait(_http2Connections.map(
-          (c) => force ? c.terminate() : c.finish()));
+      Future done2 = Future.wait(
+          _http2Connections.map((c) => force ? c.terminate() : c.finish()));
       return Future.wait([done1, done2]);
     });
   }

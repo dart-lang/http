@@ -5,10 +5,10 @@
 /// ---------------------------------------------------------------------------
 /// In order to run this test one needs to change the following line in
 /// ../lib/src/streams/stream_handler.dart
-/// 
+///
 ///    -  static const int MAX_STREAM_ID = (1 << 31) - 1;
 ///    +  static const int MAX_STREAM_ID = (1 << 5) - 1;
-/// 
+///
 /// ---------------------------------------------------------------------------
 
 import 'dart:async';
@@ -22,7 +22,7 @@ main() {
   group('transport-test', () {
     transportTest('client-runs-out-of-stream-ids',
         (ClientTransportConnection client,
-         ServerTransportConnection server) async {
+            ServerTransportConnection server) async {
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
           stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
@@ -57,4 +57,3 @@ main() {
     });
   });
 }
-

@@ -39,8 +39,8 @@ class ClientConnection {
   ///
   /// If [settings] are omitted, the default [ClientSettings] will be used.
   ClientConnection(Socket socket, {ClientSettings settings})
-      : connection = new ClientTransportConnection.viaSocket(
-          socket, settings: settings);
+      : connection =
+            new ClientTransportConnection.viaSocket(socket, settings: settings);
 
   Future<Response> makeRequest(Request request) {
     var path = request.uri.path;
@@ -110,8 +110,9 @@ class ClientConnection {
   Map<String, List<String>> _convertHeaders(List<Header> headers) {
     var headerMap = {};
     for (var header in headers) {
-      headerMap.putIfAbsent(ASCII.decode(header.name), () => [])
-      .add(ASCII.decode(header.value));
+      headerMap
+          .putIfAbsent(ASCII.decode(header.name), () => [])
+          .add(ASCII.decode(header.value));
     }
     return headerMap;
   }
@@ -124,20 +125,24 @@ class ClientConnection {
 /// client. The maximum number of concurrent server pushes can be configured via
 /// [maxConcurrentPushes] (default is `null` meaning no limit).
 Future<ClientConnection> connect(Uri uri,
-                                 {bool allowServerPushes: false,
-                                  int maxConcurrentPushes: null}) async {
-  const List<String> Http2AlpnProtocols =
-      const <String>['h2-14', 'h2-15', 'h2-16', 'h2-17', 'h2'];
+    {bool allowServerPushes: false, int maxConcurrentPushes: null}) async {
+  const List<String> Http2AlpnProtocols = const <String>[
+    'h2-14',
+    'h2-15',
+    'h2-16',
+    'h2-17',
+    'h2'
+  ];
 
   bool useSSL = uri.scheme == 'https';
   var settings = new ClientSettings(
       concurrentStreamLimit: maxConcurrentPushes,
       allowServerPushes: allowServerPushes);
   if (useSSL) {
-    SecureSocket socket = await SecureSocket.connect(
-        uri.host, uri.port, supportedProtocols: Http2AlpnProtocols);
+    SecureSocket socket = await SecureSocket.connect(uri.host, uri.port,
+        supportedProtocols: Http2AlpnProtocols);
     if (!Http2AlpnProtocols.contains(socket.selectedProtocol)) {
-      throw  new Exception('Server does not support HTTP/2.');
+      throw new Exception('Server does not support HTTP/2.');
     }
     return new ClientConnection(socket, settings: settings);
   } else {

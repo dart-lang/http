@@ -126,8 +126,8 @@ main() {
       var windowMock = new MockIncomingWindowHandler();
       var queue = new StreamMessageQueueIn(windowMock);
 
-      var sub = queue.messages.listen(
-          expectAsync1((_) {}, count: 0), onDone: expectAsync0(() {}, count: 0));
+      var sub = queue.messages.listen(expectAsync1((_) {}, count: 0),
+          onDone: expectAsync0(() {}, count: 0));
       sub.pause();
 
       // We assert that we got the data, but it wasn't processed.
@@ -146,16 +146,14 @@ main() {
   });
 }
 
-
 class MockConnectionMessageQueueOut extends SmartMock
-                                    implements ConnectionMessageQueueOut { }
-
+    implements ConnectionMessageQueueOut {}
 
 class MockIncomingWindowHandler extends SmartMock
-                                implements IncomingWindowHandler { }
+    implements IncomingWindowHandler {}
 
 class MockOutgoingStreamWindowHandler extends SmartMock
-                                      implements OutgoingStreamWindowHandler {
+    implements OutgoingStreamWindowHandler {
   final BufferIndicator positiveWindow = new BufferIndicator();
   int peerWindowSize;
 }

@@ -24,8 +24,8 @@ class HeadersMessage extends Message {
   HeadersMessage(int streamId, this.headers, bool endStream)
       : super(streamId, endStream);
 
-  String toString()
-      => 'HeadersMessage(headers: ${headers.length}, endStream: $endStream)';
+  String toString() =>
+      'HeadersMessage(headers: ${headers.length}, endStream: $endStream)';
 }
 
 class DataMessage extends Message {
@@ -34,8 +34,8 @@ class DataMessage extends Message {
   DataMessage(int streamId, this.bytes, bool endStream)
       : super(streamId, endStream);
 
-  String toString()
-      => 'DataMessage(bytes: ${bytes.length}, endStream: $endStream)';
+  String toString() =>
+      'DataMessage(bytes: ${bytes.length}, endStream: $endStream)';
 }
 
 class PushPromiseMessage extends Message {
@@ -43,11 +43,10 @@ class PushPromiseMessage extends Message {
   final int promisedStreamId;
   final TransportStream pushedStream;
 
-  PushPromiseMessage(
-      int streamId, this.headers, this.promisedStreamId, this.pushedStream,
-      bool endStream) : super(streamId, endStream);
+  PushPromiseMessage(int streamId, this.headers, this.promisedStreamId,
+      this.pushedStream, bool endStream)
+      : super(streamId, endStream);
 
-  String toString()
-      => 'PushPromiseMessage(bytes: ${headers.length}, '
-         'promisedStreamId: $promisedStreamId, endStream: $endStream)';
+  String toString() => 'PushPromiseMessage(bytes: ${headers.length}, '
+      'promisedStreamId: $promisedStreamId, endStream: $endStream)';
 }

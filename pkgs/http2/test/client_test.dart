@@ -24,10 +24,9 @@ main() {
     group('normal', () {
       clientTest('gracefull-shutdown-for-unused-connection',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         var settingsDone = new Completer();
 
         Future serverFun() async {
@@ -67,10 +66,9 @@ main() {
     group('server-errors', () {
       clientTest('no-settings-frame-at-beginning-immediate-error',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         var goawayReceived = new Completer();
         Future serverFun() async {
           serverWriter.writePingFrame(42);
@@ -92,7 +90,9 @@ main() {
           var error;
           try {
             client.makeRequest([new Header.ascii('a', 'b')]);
-          } catch (e) { error = '$e'; }
+          } catch (e) {
+            error = '$e';
+          }
           expect(error, contains('no longer active'));
 
           await client.finish();
@@ -103,10 +103,9 @@ main() {
 
       clientTest('no-settings-frame-at-beginning-delayed-error',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         Future serverFun() async {
           expect(await nextFrame() is SettingsFrame, true);
           expect(await nextFrame() is HeadersFrame, true);
@@ -134,10 +133,9 @@ main() {
 
       clientTest('data-frame-for-invalid-stream',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         var handshakeCompleter = new Completer();
 
         Future serverFun() async {
@@ -149,7 +147,7 @@ main() {
           handshakeCompleter.complete();
 
           HeadersFrame headers = await nextFrame();
-          DataFrame finFrame  = await nextFrame();
+          DataFrame finFrame = await nextFrame();
           expect(finFrame.hasEndStreamFlag, true);
 
           // Write a data frame for a non-existent stream.
@@ -163,8 +161,8 @@ main() {
           expect((frame as RstStreamFrame).header.streamId, invalidStreamId);
 
           // Close the original stream.
-          serverWriter.writeDataFrame(
-              headers.header.streamId, [], endStream: true);
+          serverWriter.writeDataFrame(headers.header.streamId, [],
+              endStream: true);
 
           // Wait for the client finish.
           expect(await nextFrame() is GoawayFrame, true);
@@ -187,10 +185,9 @@ main() {
 
       clientTest('data-frame-after-stream-closed',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         var handshakeCompleter = new Completer();
 
         Future serverFun() async {
@@ -202,7 +199,7 @@ main() {
           handshakeCompleter.complete();
 
           HeadersFrame headers = await nextFrame();
-          DataFrame finFrame  = await nextFrame();
+          DataFrame finFrame = await nextFrame();
           expect(finFrame.hasEndStreamFlag, true);
 
           int streamId = headers.header.streamId;
@@ -253,10 +250,9 @@ main() {
 
       clientTest('client-reports-connection-error-on-push-to-nonexistent',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         var handshakeCompleter = new Completer();
 
         Future serverFun() async {
@@ -268,14 +264,14 @@ main() {
           handshakeCompleter.complete();
 
           HeadersFrame headers = await nextFrame();
-          DataFrame finFrame  = await nextFrame();
+          DataFrame finFrame = await nextFrame();
           expect(finFrame.hasEndStreamFlag, true);
 
           int streamId = headers.header.streamId;
 
           // Write response.
-          serverWriter.writeHeadersFrame(
-              streamId, [new Header.ascii('a', 'b')], endStream: true);
+          serverWriter.writeHeadersFrame(streamId, [new Header.ascii('a', 'b')],
+              endStream: true);
 
           // Push stream to the (non existing) one.
           int pushStreamId = 2;
@@ -285,7 +281,7 @@ main() {
           // Make sure we get a connection error.
           GoawayFrame frame = await nextFrame();
           expect(ASCII.decode(frame.debugData),
-                 contains('Cannot push on a non-existent stream'));
+              contains('Cannot push on a non-existent stream'));
           expect(await serverReader.moveNext(), false);
           await serverWriter.close();
         }
@@ -298,7 +294,7 @@ main() {
           var messages = await stream.incomingMessages.toList();
           expect(messages, hasLength(1));
           expect((messages[0] as HeadersStreamMessage).headers.first,
-                 isHeader('a', 'b'));
+              isHeader('a', 'b'));
           await client.finish();
         }
 
@@ -307,10 +303,9 @@ main() {
 
       clientTest('client-reports-connection-error-on-push-to-non-open',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         var handshakeCompleter = new Completer();
 
         Future serverFun() async {
@@ -334,8 +329,10 @@ main() {
 
           // Make sure we get a connection error.
           GoawayFrame frame = await nextFrame();
-          expect(ASCII.decode(frame.debugData),
-          contains('Expected open state (was: StreamState.HalfClosedRemote)'));
+          expect(
+              ASCII.decode(frame.debugData),
+              contains(
+                  'Expected open state (was: StreamState.HalfClosedRemote)'));
           expect(await serverReader.moveNext(), false);
           await serverWriter.close();
         }
@@ -357,10 +354,9 @@ main() {
 
       clientTest('client-reports-flowcontrol-error-on-negative-window',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         var handshakeCompleter = new Completer();
 
         Future serverFun() async {
@@ -386,9 +382,10 @@ main() {
           // Read the resulting [GoawayFrame] and assert the error message
           // describes that the flow control window became negative.
           GoawayFrame frame = await nextFrame();
-          expect(ASCII.decode(frame.debugData),
-                 contains('Connection level flow control window became '
-                          'negative.'));
+          expect(
+              ASCII.decode(frame.debugData),
+              contains('Connection level flow control window became '
+                  'negative.'));
           expect(await serverReader.moveNext(), false);
           await serverWriter.close();
         }
@@ -412,12 +409,10 @@ main() {
     });
 
     group('client-errors', () {
-      clientTest('client-resets-stream',
-          (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+      clientTest('client-resets-stream', (ClientTransportConnection client,
+          FrameWriter serverWriter,
+          StreamIterator<Frame> serverReader,
+          Future<Frame> nextFrame()) async {
         var settingsDone = new Completer();
         var headersDone = new Completer();
 
@@ -458,8 +453,8 @@ main() {
           await settingsDone.future;
 
           // Make a new stream and terminate it.
-          var stream = client.makeRequest(
-              [new Header.ascii('a', 'b')], endStream: false);
+          var stream = client
+              .makeRequest([new Header.ascii('a', 'b')], endStream: false);
 
           await headersDone.future;
           stream.terminate();
@@ -477,10 +472,9 @@ main() {
 
       clientTest('goaway-terminates-nonprocessed-streams',
           (ClientTransportConnection client,
-           FrameWriter serverWriter,
-           StreamIterator<Frame> serverReader,
-           Future<Frame> nextFrame()) async {
-
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
         var settingsDone = new Completer();
 
         Future serverFun() async {
@@ -501,8 +495,7 @@ main() {
           expect(decodedHeaders[0], isHeader('a', 'b'));
 
           // Send the GoawayFrame.
-          serverWriter.writeGoawayFrame(
-              0, ErrorCode.NO_ERROR, []);
+          serverWriter.writeGoawayFrame(0, ErrorCode.NO_ERROR, []);
 
           // Since there are no open streams left, the other end should just
           // close the connection.
@@ -513,13 +506,15 @@ main() {
           await settingsDone.future;
 
           // Make a new stream and terminate it.
-          var stream = client.makeRequest(
-              [new Header.ascii('a', 'b')], endStream: false);
+          var stream = client
+              .makeRequest([new Header.ascii('a', 'b')], endStream: false);
 
           // Make sure we don't get messages/pushes on the terminated stream.
           stream.incomingMessages.toList().catchError(expectAsync1((e) {
-            expect('$e', contains('This stream was not processed and can '
-                                  'therefore be retried'));
+            expect(
+                '$e',
+                contains('This stream was not processed and can '
+                    'therefore be retried'));
           }));
           expect(await stream.peerPushes.toList(), isEmpty);
 
@@ -533,8 +528,8 @@ main() {
   });
 }
 
-clientTest(String name,
-           func(clientConnection, frameWriter, frameReader, readNext)) {
+clientTest(
+    String name, func(clientConnection, frameWriter, frameReader, readNext)) {
   return test(name, () {
     var streams = new ClientStreams();
     var serverReader = streams.serverConnectionFrameReader;
@@ -544,10 +539,8 @@ clientTest(String name,
       return serverReader.current;
     }
 
-    return func(streams.clientConnection,
-                streams.serverConnectionFrameWriter,
-                serverReader,
-                readNext);
+    return func(streams.clientConnection, streams.serverConnectionFrameWriter,
+        serverReader, readNext);
   });
 }
 
@@ -562,7 +555,7 @@ class ClientStreams {
     var streamAfterConnectionPreface = readConnectionPreface(readA);
     return new StreamIterator(
         new FrameReader(streamAfterConnectionPreface, localSettings)
-        .startDecoding());
+            .startDecoding());
   }
 
   FrameWriter get serverConnectionFrameWriter {
@@ -571,6 +564,6 @@ class ClientStreams {
     return new FrameWriter(encoder, writeB, peerSettings);
   }
 
-  ClientTransportConnection get clientConnection
-      => new ClientTransportConnection.viaStreams(readB, writeA);
+  ClientTransportConnection get clientConnection =>
+      new ClientTransportConnection.viaStreams(readB, writeA);
 }

@@ -54,11 +54,11 @@ class ConnectionState {
 
   bool get isTerminated => state == ConnectionState.Terminated;
 
-  bool get activeFinishing
-      => state == Finishing && (finishingState & FinishingActive) != 0;
+  bool get activeFinishing =>
+      state == Finishing && (finishingState & FinishingActive) != 0;
 
-  bool get passiveFinishing
-      => state == Finishing && (finishingState & FinishingPassive) != 0;
+  bool get passiveFinishing =>
+      state == Finishing && (finishingState & FinishingPassive) != 0;
 }
 
 abstract class Connection {
@@ -115,34 +115,30 @@ abstract class Connection {
   /// The state of this connection.
   ConnectionState _state;
 
-  Connection(Stream<List<int>> incoming,
-             StreamSink<List<int>> outgoing,
-             Settings settings,
-             {this.isClientConnection: true}) {
+  Connection(Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
+      Settings settings,
+      {this.isClientConnection: true}) {
     _setupConnection(incoming, outgoing, settings);
   }
 
   /// Runs all setup necessary before new streams can be created with the remote
   /// peer.
   void _setupConnection(Stream<List<int>> incoming,
-                        StreamSink<List<int>> outgoing,
-                        Settings settingsObject) {
+      StreamSink<List<int>> outgoing, Settings settingsObject) {
     // Setup frame reading.
-    var incomingFrames = new FrameReader(
-        incoming, acknowledgedSettings).startDecoding();
-    _frameReaderSubscription = incomingFrames.listen(
-        (Frame frame) {
-          _catchProtocolErrors(() => _handleFrameImpl(frame));
-        },
-        onError: (error, stack) {
-          _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
-        }, onDone: () {
-          _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
-        });
+    var incomingFrames =
+        new FrameReader(incoming, acknowledgedSettings).startDecoding();
+    _frameReaderSubscription = incomingFrames.listen((Frame frame) {
+      _catchProtocolErrors(() => _handleFrameImpl(frame));
+    }, onError: (error, stack) {
+      _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+    }, onDone: () {
+      _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
+    });
 
     // Setup frame writing.
-    _frameWriter = new FrameWriter(
-        _hpackContext.encoder, outgoing, peerSettings);
+    _frameWriter =
+        new FrameWriter(_hpackContext.encoder, outgoing, peerSettings);
     _frameWriter.doneFuture.then((_) {
       _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
     }).catchError((error, stack) {
@@ -150,9 +146,7 @@ abstract class Connection {
     });
 
     // Setup handlers.
-    _settingsHandler = new SettingsHandler(
-        _hpackContext.encoder,
-        _frameWriter,
+    _settingsHandler = new SettingsHandler(_hpackContext.encoder, _frameWriter,
         acknowledgedSettings, peerSettings);
     _pingHandler = new PingHandler(_frameWriter);
 
@@ -164,7 +158,7 @@ abstract class Connection {
       // a [Goaway] frame. We should somehow ensure we're only sending useful
       // but non-sensitive information.
       _terminate(ErrorCode.PROTOCOL_ERROR,
-                 message: 'Failed to set initial settings (error: $error).');
+          message: 'Failed to set initial settings (error: $error).');
     });
 
     _settingsHandler.onInitialWindowSizeChange.listen((int difference) {
@@ -173,30 +167,34 @@ abstract class Connection {
       });
     });
 
-
     // Setup the connection window handler, which keeps track of the
     // size of the outgoing connection window.
-    _connectionWindowHandler =
-        new OutgoingConnectionWindowHandler(_peerWindow);
+    _connectionWindowHandler = new OutgoingConnectionWindowHandler(_peerWindow);
 
-    var connectionWindowUpdater = new IncomingWindowHandler.connection(
-        _frameWriter, _localWindow);
+    var connectionWindowUpdater =
+        new IncomingWindowHandler.connection(_frameWriter, _localWindow);
 
     // Setup queues for outgoing/incoming messages on the connection level.
-    _outgoingQueue = new ConnectionMessageQueueOut(
-        _connectionWindowHandler, _frameWriter);
+    _outgoingQueue =
+        new ConnectionMessageQueueOut(_connectionWindowHandler, _frameWriter);
     _incomingQueue = new ConnectionMessageQueueIn(
         connectionWindowUpdater, _catchProtocolErrors);
 
     if (isClientConnection) {
       _streams = new StreamHandler.client(
-          _frameWriter, _incomingQueue, _outgoingQueue,
-          _settingsHandler.peerSettings, _settingsHandler.acknowledgedSettings,
+          _frameWriter,
+          _incomingQueue,
+          _outgoingQueue,
+          _settingsHandler.peerSettings,
+          _settingsHandler.acknowledgedSettings,
           _activeStateHandler);
     } else {
       _streams = new StreamHandler.server(
-          _frameWriter, _incomingQueue, _outgoingQueue,
-          _settingsHandler.peerSettings, _settingsHandler.acknowledgedSettings,
+          _frameWriter,
+          _incomingQueue,
+          _outgoingQueue,
+          _settingsHandler.peerSettings,
+          _settingsHandler.acknowledgedSettings,
           _activeStateHandler);
     }
 
@@ -212,13 +210,13 @@ abstract class Connection {
     // By default a endpoitn can make an unlimited number of concurrent streams.
     if (settings.concurrentStreamLimit != null) {
       settingsList.add(new Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS,
-                                   settings.concurrentStreamLimit));
+          settings.concurrentStreamLimit));
     }
 
     // By default the stream level flow control window is 64 KiB.
     if (settings.streamWindowSize != null) {
-      settingsList.add(new Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE,
-                                   settings.streamWindowSize));
+      settingsList.add(new Setting(
+          Setting.SETTINGS_INITIAL_WINDOW_SIZE, settings.streamWindowSize));
     }
 
     if (settings is ClientSettings) {
@@ -296,7 +294,7 @@ abstract class Connection {
     if (_state.isInitialized) {
       if (frame is! SettingsFrame) {
         _terminate(ErrorCode.PROTOCOL_ERROR,
-                   message: 'Expected to first receive a settings frame.');
+            message: 'Expected to first receive a settings frame.');
         return;
       }
       _state.state = ConnectionState.Operational;
@@ -361,10 +359,8 @@ abstract class Connection {
       _state.state = ConnectionState.Finishing;
       _state.finishingState |= ConnectionState.FinishingActive;
 
-      _frameWriter.writeGoawayFrame(
-          _streams.highestPeerInitiatedStream,
-          ErrorCode.NO_ERROR,
-          message != null ? UTF8.encode(message) : []);
+      _frameWriter.writeGoawayFrame(_streams.highestPeerInitiatedStream,
+          ErrorCode.NO_ERROR, message != null ? UTF8.encode(message) : []);
     } else {
       _state.state = ConnectionState.Finishing;
       _state.finishingState |= ConnectionState.FinishingPassive;
@@ -377,17 +373,15 @@ abstract class Connection {
   ///
   /// The returned future will never complete with an error.
   Future _terminate(int errorCode,
-                    {bool causedByTransportError: false, String message}) {
+      {bool causedByTransportError: false, String message}) {
     // TODO: When do we complete here?
     if (_state.state != ConnectionState.Terminated) {
       _state.state = ConnectionState.Terminated;
 
       var cancelFuture = new Future.sync(_frameReaderSubscription.cancel);
       if (!causedByTransportError) {
-        _frameWriter.writeGoawayFrame(
-            _streams.highestPeerInitiatedStream,
-            errorCode,
-            message != null ? UTF8.encode(message) : []);
+        _frameWriter.writeGoawayFrame(_streams.highestPeerInitiatedStream,
+            errorCode, message != null ? UTF8.encode(message) : []);
       }
       var closeFuture = _frameWriter.close().catchError((e, s) {
         // We ignore any errors after writing to [GoawayFrame]
@@ -415,19 +409,13 @@ abstract class Connection {
   }
 }
 
-
 class ClientConnection extends Connection implements ClientTransportConnection {
-  ClientConnection._(Stream<List<int>> incoming,
-                     StreamSink<List<int>> outgoing,
-                     Settings settings)
-      : super(incoming,
-              outgoing,
-              settings,
-              isClientConnection: true);
+  ClientConnection._(Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
+      Settings settings)
+      : super(incoming, outgoing, settings, isClientConnection: true);
 
   factory ClientConnection(Stream<List<int>> incoming,
-                           StreamSink<List<int>> outgoing,
-                           ClientSettings clientSettings)  {
+      StreamSink<List<int>> outgoing, ClientSettings clientSettings) {
     outgoing.add(CONNECTION_PREFACE);
     return new ClientConnection._(incoming, outgoing, clientSettings);
   }
@@ -453,19 +441,15 @@ class ClientConnection extends Connection implements ClientTransportConnection {
 }
 
 class ServerConnection extends Connection implements ServerTransportConnection {
-  ServerConnection._(Stream<List<int>> incoming,
-                     StreamSink<List<int>> outgoing,
-                     Settings settings)
-      : super(
-          incoming, outgoing, settings, isClientConnection: false);
+  ServerConnection._(Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
+      Settings settings)
+      : super(incoming, outgoing, settings, isClientConnection: false);
 
   factory ServerConnection(Stream<List<int>> incoming,
-                           StreamSink<List<int>> outgoing,
-                           ServerSettings serverSettings)  {
+      StreamSink<List<int>> outgoing, ServerSettings serverSettings) {
     var frameBytes = readConnectionPreface(incoming);
     return new ServerConnection._(frameBytes, outgoing, serverSettings);
   }
 
   Stream<TransportStream> get incomingStreams => _streams.incomingStreams;
 }
-

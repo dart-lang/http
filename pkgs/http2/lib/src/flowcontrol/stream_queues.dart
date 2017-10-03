@@ -22,7 +22,7 @@ import 'window_handler.dart';
 /// It will ensure that we never send more data than the remote flow control
 /// window allows.
 class StreamMessageQueueOut extends Object
-                            with TerminatableMixin, ClosableMixin {
+    with TerminatableMixin, ClosableMixin {
   /// The id of the stream this message queue belongs to.
   final int streamId;
 
@@ -47,9 +47,8 @@ class StreamMessageQueueOut extends Object
   /// message queue.
   int writtenBytes = 0;
 
-  StreamMessageQueueOut(this.streamId,
-                        this.streamWindow,
-                        this.connectionMessageQueue) {
+  StreamMessageQueueOut(
+      this.streamId, this.streamWindow, this.connectionMessageQueue) {
     streamWindow.positiveWindow.bufferEmptyEvents.listen((_) {
       if (!wasTerminated) {
         _trySendData();
@@ -94,7 +93,6 @@ class StreamMessageQueueOut extends Object
 
   void onCheckForClose() {
     if (isClosing && _messages.isEmpty) closeWithValue();
-
   }
 
   void _trySendData() {
@@ -117,12 +115,11 @@ class StreamMessageQueueOut extends Object
           // TODO: Do not fragment if the number of bytes we can send is too low
           if (messageBytes.length > bytesAvailable) {
             var partA = viewOrSublist(messageBytes, 0, bytesAvailable);
-            var partB = viewOrSublist(
-                messageBytes, bytesAvailable,
+            var partB = viewOrSublist(messageBytes, bytesAvailable,
                 messageBytes.length - bytesAvailable);
             var messageA = new DataMessage(message.streamId, partA, false);
-            var messageB = new DataMessage(
-                message.streamId, partB, message.endStream);
+            var messageB =
+                new DataMessage(message.streamId, partB, message.endStream);
 
             // Put the second fragment back into the front of the queue.
             _messages.addFirst(messageB);
@@ -155,7 +152,7 @@ class StreamMessageQueueOut extends Object
 /// It will keep messages up to the stream flow control window size if the
 /// [messages] listener is paused.
 class StreamMessageQueueIn extends Object
-                           with TerminatableMixin, ClosableMixin {
+    with TerminatableMixin, ClosableMixin {
   /// The stream-level window our peer is using when sending us messages.
   final IncomingWindowHandler windowHandler;
 
@@ -177,34 +174,32 @@ class StreamMessageQueueIn extends Object
     // incoming messages will get buffered.
     bufferIndicator.markBuffered();
 
-    _incomingMessagesC = new StreamController(
-      onListen: () {
-        if (!wasClosed && !wasTerminated) {
-          _tryDispatch();
-          _tryUpdateBufferIndicator();
-        }
-      }, onPause: () {
+    _incomingMessagesC = new StreamController(onListen: () {
+      if (!wasClosed && !wasTerminated) {
+        _tryDispatch();
         _tryUpdateBufferIndicator();
-        // TODO: Would we ever want to decrease the window size in this
-        // situation?
-      }, onResume: () {
-        if (!wasClosed && !wasTerminated) {
-          _tryDispatch();
-          _tryUpdateBufferIndicator();
-        }
-      }, onCancel: () {
-        _pendingMessages.clear();
-        startClosing();
-        onCloseCheck();
-      });
+      }
+    }, onPause: () {
+      _tryUpdateBufferIndicator();
+      // TODO: Would we ever want to decrease the window size in this
+      // situation?
+    }, onResume: () {
+      if (!wasClosed && !wasTerminated) {
+        _tryDispatch();
+        _tryUpdateBufferIndicator();
+      }
+    }, onCancel: () {
+      _pendingMessages.clear();
+      startClosing();
+      onCloseCheck();
+    });
 
-    _serverPushStreamsC = new StreamController(
-        onListen: () {
-          if (!wasClosed && !wasTerminated) {
-            _tryDispatch();
-            _tryUpdateBufferIndicator();
-          }
-        });
+    _serverPushStreamsC = new StreamController(onListen: () {
+      if (!wasClosed && !wasTerminated) {
+        _tryDispatch();
+        _tryUpdateBufferIndicator();
+      }
+    });
   }
 
   /// Debugging data: the number of pending messages in this queue.
@@ -224,9 +219,9 @@ class StreamMessageQueueIn extends Object
         if (message is PushPromiseMessage) {
           // NOTE: If server pushes were enabled, the client is responsible for
           // either rejecting or handling them.
-          assert (!_serverPushStreamsC.isClosed);
-          var transportStreamPush = new TransportStreamPush(
-              message.headers, message.pushedStream);
+          assert(!_serverPushStreamsC.isClosed);
+          var transportStreamPush =
+              new TransportStreamPush(message.headers, message.pushedStream);
           _serverPushStreamsC.add(transportStreamPush);
           return;
         }
@@ -264,27 +259,23 @@ class StreamMessageQueueIn extends Object
   }
 
   void _tryDispatch() {
-    while (!wasTerminated &&
-           _pendingMessages.isNotEmpty) {
+    while (!wasTerminated && _pendingMessages.isNotEmpty) {
       bool handled = false;
 
       var message = _pendingMessages.first;
       if (message is HeadersMessage || message is DataMessage) {
-        assert (!_incomingMessagesC.isClosed);
-        if (_incomingMessagesC.hasListener &&
-            !_incomingMessagesC.isPaused) {
+        assert(!_incomingMessagesC.isClosed);
+        if (_incomingMessagesC.hasListener && !_incomingMessagesC.isPaused) {
           _pendingMessages.removeFirst();
           if (message is HeadersMessage) {
             // NOTE: Header messages do not affect flow control - only
             // data messages do.
-            _incomingMessagesC.add(
-                new HeadersStreamMessage(
-                    message.headers, endStream: message.endStream));
+            _incomingMessagesC.add(new HeadersStreamMessage(message.headers,
+                endStream: message.endStream));
           } else if (message is DataMessage) {
             if (message.bytes.length > 0) {
-              _incomingMessagesC.add(
-                  new DataStreamMessage(
-                      message.bytes, endStream: message.endStream));
+              _incomingMessagesC.add(new DataStreamMessage(message.bytes,
+                  endStream: message.endStream));
               windowHandler.dataProcessed(message.bytes.length);
             }
           } else {

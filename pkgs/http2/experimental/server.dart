@@ -73,7 +73,7 @@ handleClient(SecureSocket socket) {
 }
 
 void dumpHeaders(String prefix, List<Header> headers) {
-  for (int i = 0 ; i < headers.length; i++) {
+  for (int i = 0; i < headers.length; i++) {
     String key = ASCII.decode(headers[i].name);
     String value = ASCII.decode(headers[i].value);
     print('[$prefix] $key: $value');
@@ -81,7 +81,7 @@ void dumpHeaders(String prefix, List<Header> headers) {
 }
 
 String pathFromHeaders(List<Header> headers) {
-  for (int i = 0 ; i < headers.length; i++) {
+  for (int i = 0; i < headers.length; i++) {
     if (ASCII.decode(headers[i].name) == ':path') {
       return ASCII.decode(headers[i].value);
     }
@@ -103,8 +103,8 @@ Future sendHtml(TransportStream stream) async {
   push(stream, '/favicon.ico', send404);
 
   stream.sendHeaders([
-      new Header.ascii(':status', '200'),
-      new Header.ascii('content-type', 'text/html; charset=utf-8'),
+    new Header.ascii(':status', '200'),
+    new Header.ascii('content-type', 'text/html; charset=utf-8'),
   ]);
   stream.sendData(ASCII.encode('''
 <html>
@@ -121,9 +121,8 @@ Future sendHtml(TransportStream stream) async {
   return stream.outgoingMessages.close();
 }
 
-Future push(ServerTransportStream stream,
-            String path,
-            Future sendResponse(stream, path)) async {
+Future push(ServerTransportStream stream, String path,
+    Future sendResponse(stream, path)) async {
   var requestHeaders = [
     new Header.ascii(':authority', '$HOSTNAME:$PORT'),
     new Header.ascii(':method', 'GET'),

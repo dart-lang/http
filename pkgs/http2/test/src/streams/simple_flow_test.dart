@@ -24,9 +24,9 @@ main() {
         return expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
           expect((msg as HeadersStreamMessage).headers.first.name,
-                 expectedHeaders.first.name);
+              expectedHeaders.first.name);
           expect((msg as HeadersStreamMessage).headers.first.value,
-                 expectedHeaders.first.value);
+              expectedHeaders.first.value);
         });
       }
 
@@ -40,14 +40,16 @@ main() {
             expectHeader = false;
             expect(msg is HeadersStreamMessage, isTrue);
             expect((msg as HeadersStreamMessage).headers.first.name,
-                   expectedHeaders.first.name);
+                expectedHeaders.first.name);
             expect((msg as HeadersStreamMessage).headers.first.value,
-                   expectedHeaders.first.value);
+                expectedHeaders.first.value);
           } else {
             expect(msg is DataStreamMessage, isTrue);
             var bytes = (msg as DataStreamMessage).bytes;
-            expect(bytes, allBytes.sublist(
-                numBytesReceived, numBytesReceived + bytes.length));
+            expect(
+                bytes,
+                allBytes.sublist(
+                    numBytesReceived, numBytesReceived + bytes.length));
             numBytesReceived += bytes.length;
 
             if (numBytesReceived == allBytes) {
@@ -73,19 +75,19 @@ main() {
 
       streamTest('single-header-request--empty-response',
           (ClientTransportConnection client,
-           ServerTransportConnection server) async {
-        server.incomingStreams.listen(
-            expectAsync1((TransportStream sStream) async {
-          sStream.incomingMessages.listen(
-              messageTestFun('server'), onDone: expectAsync0(() { }));
+              ServerTransportConnection server) async {
+        server.incomingStreams
+            .listen(expectAsync1((TransportStream sStream) async {
+          sStream.incomingMessages
+              .listen(messageTestFun('server'), onDone: expectAsync0(() {}));
           sStream.sendHeaders(expectedHeaders, endStream: true);
           expect(await serverReceivedAllBytes.future, completes);
         }));
 
         TransportStream cStream = client.makeRequest(expectedHeaders);
         sendData(cStream);
-        cStream.incomingMessages.listen(
-            headersTestFun('client'), onDone: expectAsync0(() {}));
+        cStream.incomingMessages
+            .listen(headersTestFun('client'), onDone: expectAsync0(() {}));
       });
     });
   });

@@ -14,7 +14,6 @@ class _ProtocolException extends TypeMatcher {
   bool matches(item, Map matchState) => item is ProtocolException;
 }
 
-
 const Matcher isFrameSizeException = const _FrameSizeException();
 
 class _FrameSizeException extends TypeMatcher {
@@ -22,14 +21,12 @@ class _FrameSizeException extends TypeMatcher {
   bool matches(item, Map matchState) => item is FrameSizeException;
 }
 
-
 const Matcher isTerminatedException = const _TerminatedException();
 
 class _TerminatedException extends TypeMatcher {
   const _TerminatedException() : super("TerminatedException");
   bool matches(item, Map matchState) => item is TerminatedException;
 }
-
 
 const Matcher isFlowControlException = const _FlowControlException();
 

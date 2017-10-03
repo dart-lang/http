@@ -21,8 +21,10 @@ int readInt64(List<int> bytes, int offset) {
 }
 
 int readInt32(List<int> bytes, int offset) {
-  return (bytes[offset] << 24) | (bytes[offset + 1] << 16) |
-  (bytes[offset + 2] << 8) | bytes[offset + 3];
+  return (bytes[offset] << 24) |
+      (bytes[offset + 1] << 16) |
+      (bytes[offset + 2] << 8) |
+      bytes[offset + 3];
 }
 
 int readInt24(List<int> bytes, int offset) {
@@ -32,7 +34,6 @@ int readInt24(List<int> bytes, int offset) {
 int readInt16(List<int> bytes, int offset) {
   return (bytes[offset] << 8) | bytes[offset + 1];
 }
-
 
 void setInt64(List<int> bytes, int offset, int value) {
   setInt32(bytes, offset, value >> 32);
@@ -56,4 +57,3 @@ void setInt16(List<int> bytes, int offset, int value) {
   bytes[offset] = (value >> 8) & 0xff;
   bytes[offset + 1] = value & 0xff;
 }
-

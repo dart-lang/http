@@ -14,11 +14,9 @@ import '../mock_utils.dart';
 main() {
   group('flowcontrol', () {
     void testAbstractOutgoingWindowHandler(
-        AbstractOutgoingWindowHandler handler,
-        Window window,
-        int initialSize) {
-      var sub = handler.positiveWindow.bufferEmptyEvents.listen(
-          expectAsync1((_) {}, count: 0));
+        AbstractOutgoingWindowHandler handler, Window window, int initialSize) {
+      var sub = handler.positiveWindow.bufferEmptyEvents
+          .listen(expectAsync1((_) {}, count: 0));
 
       expect(handler.peerWindowSize, initialSize);
       expect(window.size, initialSize);
@@ -56,7 +54,7 @@ main() {
       // the maximum size, we throw a [FlowControlException].
       var frame = new WindowUpdateFrame(frameHeader, Window.MAX_WINDOW_SIZE);
       expect(() => handler.processWindowUpdate(frame),
-      throwsA(isFlowControlException));
+          throwsA(isFlowControlException));
     }
 
     test('outgoing-connection-window-handler', () {
@@ -83,8 +81,8 @@ main() {
       handler = new OutgoingStreamWindowHandler(window);
 
       expect(handler.positiveWindow.wouldBuffer, isFalse);
-      final bufferEmpty = handler.positiveWindow.bufferEmptyEvents.listen(
-          expectAsync1((_) {}, count: 0));
+      final bufferEmpty = handler.positiveWindow.bufferEmptyEvents
+          .listen(expectAsync1((_) {}, count: 0));
       handler.processInitialWindowSizeSettingChange(-window.size);
       expect(handler.positiveWindow.wouldBuffer, isTrue);
       expect(handler.peerWindowSize, 0);
@@ -95,8 +93,10 @@ main() {
       expect(handler.peerWindowSize, 1);
       expect(window.size, 1);
 
-      expect(() => handler.processInitialWindowSizeSettingChange(
-          Window.MAX_WINDOW_SIZE + 1), throwsA(isFlowControlException));
+      expect(
+          () => handler.processInitialWindowSizeSettingChange(
+              Window.MAX_WINDOW_SIZE + 1),
+          throwsA(isFlowControlException));
     });
 
     test('incoming-window-handler', () {
@@ -133,4 +133,4 @@ main() {
   });
 }
 
-class FrameWriterMock extends SmartMock implements FrameWriter { }
+class FrameWriterMock extends SmartMock implements FrameWriter {}

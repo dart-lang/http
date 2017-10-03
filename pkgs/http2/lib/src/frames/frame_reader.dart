@@ -12,7 +12,7 @@ class FrameReader {
   /// complying with.
   ActiveSettings _localSettings;
 
-  StreamSubscription<List<int>>  _subscription;
+  StreamSubscription<List<int>> _subscription;
   StreamController<Frame> _framesController;
 
   FrameReader(this._inputStream, this._localSettings);
@@ -62,55 +62,53 @@ class FrameReader {
           FrameHeader header;
 
           void terminateWithError(error, [stack]) {
-              header = null;
-              _framesController.addError(error, stack);
-              _subscription.cancel();
-              _framesController.close();
+            header = null;
+            _framesController.addError(error, stack);
+            _subscription.cancel();
+            _framesController.close();
           }
 
           _subscription = _inputStream.listen((List<int> data) {
-              bufferedData.add(data);
-              bufferedLength += data.length;
+            bufferedData.add(data);
+            bufferedLength += data.length;
 
-              try {
-                while (true) {
-                  if (header == null) {
-                    header = tryReadHeader();
+            try {
+              while (true) {
+                if (header == null) {
+                  header = tryReadHeader();
+                }
+                if (header != null) {
+                  if (header.length > _localSettings.maxFrameSize) {
+                    terminateWithError(
+                        new FrameSizeException('Incoming frame is too big.'));
+                    return;
                   }
-                  if (header != null) {
-                    if (header.length > _localSettings.maxFrameSize) {
-                      terminateWithError(new FrameSizeException(
-                          'Incoming frame is too big.'));
-                      return;
-                    }
 
-                    Frame frame = tryReadFrame(header);
+                  Frame frame = tryReadFrame(header);
 
-                    if (frame != null) {
-                      _framesController.add(frame);
-                      header = null;
-                    } else {
-                      break;
-                    }
+                  if (frame != null) {
+                    _framesController.add(frame);
+                    header = null;
                   } else {
                     break;
                   }
+                } else {
+                  break;
                 }
-              } catch (error, stack) {
-                terminateWithError(error, stack);
               }
-            },
-            onError: (error, stack) {
+            } catch (error, stack) {
               terminateWithError(error, stack);
-            },
-            onDone: () {
-              if (bufferedLength == 0) {
-                _framesController.close();
-              } else {
-                terminateWithError(new FrameSizeException(
-                    'Incoming byte stream ended with incomplete frame'));
-              }
-            });
+            }
+          }, onError: (error, stack) {
+            terminateWithError(error, stack);
+          }, onDone: () {
+            if (bufferedLength == 0) {
+              _framesController.close();
+            } else {
+              terminateWithError(new FrameSizeException(
+                  'Incoming byte stream ended with incomplete frame'));
+            }
+          });
         },
         onPause: () => _subscription.pause(),
         onResume: () => _subscription.resume());
@@ -126,12 +124,12 @@ class FrameReader {
   void _mergeLists(List<List<int>> bufferedData, int numberOfBytes) {
     if (bufferedData[0].length < numberOfBytes) {
       int numLists = 0;
-      int accumulatedLength  = 0;
+      int accumulatedLength = 0;
       while (accumulatedLength < numberOfBytes &&
-             numLists <= bufferedData.length) {
+          numLists <= bufferedData.length) {
         accumulatedLength += bufferedData[numLists++].length;
       }
-      assert (accumulatedLength >= numberOfBytes);
+      assert(accumulatedLength >= numberOfBytes);
       var newList = new Uint8List(accumulatedLength);
       int offset = 0;
       for (int i = 0; i < numLists; i++) {
@@ -162,7 +160,7 @@ class FrameReader {
     switch (header.type) {
       case FrameType.DATA:
         int padLength = 0;
-        if (_isFlagSet(header.flags, DataFrame.FLAG_PADDED)){
+        if (_isFlagSet(header.flags, DataFrame.FLAG_PADDED)) {
           _checkFrameLengthCondition((frameEnd - offset) >= 1);
           padLength = bytes[offset++];
         }
@@ -189,11 +187,9 @@ class FrameReader {
         }
         int headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
-        var headerBlockFragment = viewOrSublist(
-            bytes, offset, headerBlockLen);
-        return new HeadersFrame(
-            header, padLength, exclusiveDependency, streamDependency,
-            weight, headerBlockFragment);
+        var headerBlockFragment = viewOrSublist(bytes, offset, headerBlockLen);
+        return new HeadersFrame(header, padLength, exclusiveDependency,
+            streamDependency, weight, headerBlockFragment);
 
       case FrameType.PRIORITY:
         _checkFrameLengthCondition(
@@ -213,8 +209,7 @@ class FrameReader {
         return new RstStreamFrame(header, errorCode);
 
       case FrameType.SETTINGS:
-        _checkFrameLengthCondition(
-            (header.length % 6) == 0,
+        _checkFrameLengthCondition((header.length % 6) == 0,
             message: 'Settings frame length must be a multiple of 6 bytes.');
 
         int count = header.length ~/ 6;
@@ -226,8 +221,7 @@ class FrameReader {
         }
         var frame = new SettingsFrame(header, settings);
         if (frame.hasAckFlag) {
-          _checkFrameLengthCondition(
-              header.length == 0,
+          _checkFrameLengthCondition(header.length == 0,
               message: 'Settings frame length must 0 for ACKs.');
         }
         return frame;
@@ -242,8 +236,7 @@ class FrameReader {
         offset += 4;
         int headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
-        var headerBlockFragment = viewOrSublist(
-            bytes, offset, headerBlockLen);
+        var headerBlockFragment = viewOrSublist(bytes, offset, headerBlockLen);
         return new PushPromiseFrame(
             header, padLength, promisedStreamId, headerBlockFragment);
 
@@ -269,8 +262,8 @@ class FrameReader {
         return new WindowUpdateFrame(header, windowSizeIncrement);
 
       case FrameType.CONTINUATION:
-        var headerBlockFragment = viewOrSublist(
-            bytes, offset, frameEnd - offset);
+        var headerBlockFragment =
+            viewOrSublist(bytes, offset, frameEnd - offset);
         return new ContinuationFrame(header, headerBlockFragment);
 
       default:
@@ -283,7 +276,7 @@ class FrameReader {
   /// Checks that [condition] is `true` and raises an [FrameSizeException]
   /// otherwise.
   void _checkFrameLengthCondition(bool condition,
-                                  {String message: 'Frame not long enough.'}) {
+      {String message: 'Frame not long enough.'}) {
     if (!condition) {
       throw new FrameSizeException(message);
     }

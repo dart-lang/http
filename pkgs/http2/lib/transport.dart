@@ -121,10 +121,10 @@ abstract class Settings {
 
 /// Settings for a [TransportConnection] a server can make.
 class ServerSettings extends Settings {
-  const ServerSettings({int concurrentStreamLimit,
-                        int streamWindowSize})
-      : super(concurrentStreamLimit: concurrentStreamLimit,
-              streamWindowSize: streamWindowSize);
+  const ServerSettings({int concurrentStreamLimit, int streamWindowSize})
+      : super(
+            concurrentStreamLimit: concurrentStreamLimit,
+            streamWindowSize: streamWindowSize);
 }
 
 /// Settings for a [TransportConnection] a client can make.
@@ -132,11 +132,13 @@ class ClientSettings extends Settings {
   /// Whether the client allows pushes from the server (defaults to false).
   final bool allowServerPushes;
 
-  const ClientSettings({int concurrentStreamLimit,
-                        int streamWindowSize,
-                        this.allowServerPushes: false})
-      : super(concurrentStreamLimit: concurrentStreamLimit,
-              streamWindowSize: streamWindowSize);
+  const ClientSettings(
+      {int concurrentStreamLimit,
+      int streamWindowSize,
+      this.allowServerPushes: false})
+      : super(
+            concurrentStreamLimit: concurrentStreamLimit,
+            streamWindowSize: streamWindowSize);
 }
 
 /// Represents a HTTP/2 connection.
@@ -163,13 +165,12 @@ abstract class TransportConnection {
 
 abstract class ClientTransportConnection extends TransportConnection {
   factory ClientTransportConnection.viaSocket(Socket socket,
-                                              {ClientSettings settings})
-      => new ClientTransportConnection.viaStreams(
-          socket, socket, settings: settings);
+          {ClientSettings settings}) =>
+      new ClientTransportConnection.viaStreams(socket, socket,
+          settings: settings);
 
   factory ClientTransportConnection.viaStreams(
-      Stream<List<int>> incoming,
-      StreamSink<List<int>> outgoing,
+      Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
       {ClientSettings settings}) {
     if (settings == null) settings = const ClientSettings();
     return new ClientConnection(incoming, outgoing, settings);
@@ -181,21 +182,20 @@ abstract class ClientTransportConnection extends TransportConnection {
 
   /// Creates a new outgoing stream.
   ClientTransportStream makeRequest(List<Header> headers,
-                                    {bool endStream: false});
+      {bool endStream: false});
 }
 
 abstract class ServerTransportConnection extends TransportConnection {
   factory ServerTransportConnection.viaSocket(Socket socket,
-                                              {ServerSettings settings}) {
-    return new ServerTransportConnection.viaStreams(
-        socket, socket, settings: settings);
+      {ServerSettings settings}) {
+    return new ServerTransportConnection.viaStreams(socket, socket,
+        settings: settings);
   }
 
   factory ServerTransportConnection.viaStreams(
-      Stream<List<int>> incoming,
-      StreamSink<List<int>> outgoing,
-      {ServerSettings settings: const ServerSettings(
-          concurrentStreamLimit: 1000)}) {
+      Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
+      {ServerSettings settings:
+          const ServerSettings(concurrentStreamLimit: 1000)}) {
     if (settings == null) settings = const ServerSettings();
     return new ServerConnection(incoming, outgoing, settings);
   }
@@ -235,8 +235,8 @@ abstract class TransportStream {
 
   // For convenience only.
   void sendHeaders(List<Header> headers, {bool endStream: false}) {
-    outgoingMessages.add(
-        new HeadersStreamMessage(headers, endStream: endStream));
+    outgoingMessages
+        .add(new HeadersStreamMessage(headers, endStream: endStream));
     if (endStream) outgoingMessages.close();
   }
 
@@ -273,17 +273,14 @@ abstract class StreamMessage {
   StreamMessage({bool endStream}) : this.endStream = endStream ?? false;
 }
 
-
 /// Represents a data message which can be sent over a HTTP/2 stream.
 class DataStreamMessage extends StreamMessage {
   final List<int> bytes;
 
-  DataStreamMessage(this.bytes, {bool endStream})
-      : super(endStream: endStream);
+  DataStreamMessage(this.bytes, {bool endStream}) : super(endStream: endStream);
 
   String toString() => 'DataStreamMessage(${bytes.length} bytes)';
 }
-
 
 /// Represents a headers message which can be sent over a HTTP/2 stream.
 class HeadersStreamMessage extends StreamMessage {
@@ -294,7 +291,6 @@ class HeadersStreamMessage extends StreamMessage {
 
   String toString() => 'HeadersStreamMessage(${headers.length} headers)';
 }
-
 
 /// Represents a remote stream push.
 class TransportStreamPush {
@@ -330,6 +326,5 @@ class TransportConnectionException extends TransportException {
 
 /// An exception thrown when a HTTP/2 stream error occured.
 class StreamTransportException extends TransportException {
-  StreamTransportException(String details)
-      : super('Stream error: $details');
+  StreamTransportException(String details) : super('Stream error: $details');
 }

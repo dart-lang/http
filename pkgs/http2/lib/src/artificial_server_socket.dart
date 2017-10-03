@@ -14,8 +14,8 @@ import 'dart:io';
 /// and keep the [ServerSocket] interface for APIs that expect it,
 /// e.g. `new HttpServer.listenOn()`).
 class ArtificialServerSocket extends Object
-                             with StreamMethodsMixin<Socket>
-                             implements ServerSocket {
+    with StreamMethodsMixin<Socket>
+    implements ServerSocket {
   final Stream<Socket> _stream;
 
   ArtificialServerSocket(this.address, this.port, this._stream);
@@ -99,11 +99,9 @@ abstract class StreamMethodsMixin<T> implements Stream<T> {
   Future<int> get length => _stream.length;
 
   StreamSubscription<T> listen(void onData(T event),
-                               {Function onError,
-                                void onDone(),
-                                bool cancelOnError}) {
+      {Function onError, void onDone(), bool cancelOnError}) {
     return _stream.listen(onData,
-    onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+        onError: onError, onDone: onDone, cancelOnError: cancelOnError);
   }
 
   Stream map(convert(T event)) => _stream.map(convert);

@@ -17,16 +17,15 @@ main() {
       }
 
       HeadersFrame headersFrame(List<int> data,
-                                {bool fragmented: false, int streamId: 1}) {
+          {bool fragmented: false, int streamId: 1}) {
         int flags = fragmented ? 0 : HeadersFrame.FLAG_END_HEADERS;
-        var header = new FrameHeader(
-            data.length, FrameType.HEADERS, flags, streamId);
+        var header =
+            new FrameHeader(data.length, FrameType.HEADERS, flags, streamId);
         return new HeadersFrame(header, 0, false, null, null, data);
       }
 
       PushPromiseFrame pushPromiseFrame(List<int> data,
-                                        {bool fragmented: false,
-                                         int streamId: 1}) {
+          {bool fragmented: false, int streamId: 1}) {
         int flags = fragmented ? 0 : HeadersFrame.FLAG_END_HEADERS;
         var header = new FrameHeader(
             data.length, FrameType.PUSH_PROMISE, flags, streamId);
@@ -34,8 +33,7 @@ main() {
       }
 
       ContinuationFrame continuationFrame(List<int> data,
-                                          {bool fragmented: false,
-                                           int streamId: 1}) {
+          {bool fragmented: false, int streamId: 1}) {
         int flags = fragmented ? 0 : ContinuationFrame.FLAG_END_HEADERS;
         var header = new FrameHeader(
             data.length, FrameType.CONTINUATION, flags, streamId);
@@ -87,8 +85,8 @@ main() {
         var f2 = continuationFrame([4, 5, 6], fragmented: true, streamId: 2);
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
-        expect(() => defrag.tryDefragmentFrame(f2),
-               throwsA(isProtocolException));
+        expect(
+            () => defrag.tryDefragmentFrame(f2), throwsA(isProtocolException));
       });
 
       test('fragmented-push-promise-frame', () {
@@ -98,8 +96,8 @@ main() {
         var f2 = continuationFrame([4, 5, 6], fragmented: true, streamId: 2);
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
-        expect(() => defrag.tryDefragmentFrame(f2),
-               throwsA(isProtocolException));
+        expect(
+            () => defrag.tryDefragmentFrame(f2), throwsA(isProtocolException));
       });
 
       test('fragmented-headers-frame--no-continuation-frame', () {
@@ -109,8 +107,8 @@ main() {
         var f2 = unknownFrame();
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
-        expect(() => defrag.tryDefragmentFrame(f2),
-               throwsA(isProtocolException));
+        expect(
+            () => defrag.tryDefragmentFrame(f2), throwsA(isProtocolException));
       });
 
       test('fragmented-push-promise-no-continuation-frame', () {
@@ -120,8 +118,8 @@ main() {
         var f2 = unknownFrame();
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
-        expect(() => defrag.tryDefragmentFrame(f2),
-               throwsA(isProtocolException));
+        expect(
+            () => defrag.tryDefragmentFrame(f2), throwsA(isProtocolException));
       });
 
       test('push-without-headres-or-push-promise-frame', () {
