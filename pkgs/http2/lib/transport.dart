@@ -106,6 +106,8 @@ import 'src/hpack/hpack.dart' show Header;
 
 export 'src/hpack/hpack.dart' show Header;
 
+typedef void ActiveStateHandler(bool isActive);
+
 /// Settings for a [TransportConnection].
 abstract class Settings {
   /// The maximum number of concurrent streams the remote end can open
@@ -152,7 +154,7 @@ abstract class TransportConnection {
   /// goes from 0 to 1 (the connection goes from idle to active), and with
   /// [false] when the number of active streams becomes 0 (the connection goes
   /// from active to idle).
-  set onActiveStateChanged(void Function(bool isActive) callback);
+  set onActiveStateChanged(ActiveStateHandler callback);
 
   /// Finish this connection.
   ///

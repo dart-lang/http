@@ -149,7 +149,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   bool get ranOutOfStreamIds => _ranOutOfStreamIds();
 
-  final void Function(bool isActive) _onActiveStateChanged;
+  final ActiveStateHandler _onActiveStateChanged;
 
   StreamHandler._(
       this._frameWriter,
@@ -167,7 +167,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       ConnectionMessageQueueOut outgoingQueue,
       ActiveSettings peerSettings,
       ActiveSettings localSettings,
-      void Function(bool isActive) onActiveStateChanged) {
+      ActiveStateHandler onActiveStateChanged) {
     return new StreamHandler._(writer, incomingQueue, outgoingQueue,
         peerSettings, localSettings, onActiveStateChanged, 1, 0);
   }
@@ -178,7 +178,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       ConnectionMessageQueueOut outgoingQueue,
       ActiveSettings peerSettings,
       ActiveSettings localSettings,
-      void Function(bool isActive) onActiveStateChanged) {
+      ActiveStateHandler onActiveStateChanged) {
     return new StreamHandler._(writer, incomingQueue, outgoingQueue,
         peerSettings, localSettings, onActiveStateChanged, 2, -1);
   }

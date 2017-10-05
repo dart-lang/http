@@ -73,7 +73,7 @@ abstract class Connection {
   final bool isClientConnection;
 
   /// Active state handler for this connection.
-  void Function(bool isActive) onActiveStateChanged;
+  ActiveStateHandler onActiveStateChanged;
 
   /// The HPack context for this connection.
   final HPackContext _hpackContext = new HPackContext();

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5
+
+* Removed use of new `Function` syntax, since it isn't fully supported in Dart
+  1.24.
+
 ## 0.1.4
 
 * Added an `onActiveStateChanged` callback to `Connection`, which is invoked when
