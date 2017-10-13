@@ -1,3 +1,7 @@
+## 0.11.3+16
+
+* Stop depending on the `stack_trace` package.
+
 ## 0.11.3+15
 
 * Declare support for `async` 2.0.0.
