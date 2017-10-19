@@ -83,7 +83,8 @@ abstract class Message {
     if (_contentLengthCache != null) return _contentLengthCache;
     var contentLengthHeader = getHeader(headers, 'content-length');
     if (contentLengthHeader == null) return null;
-    return _contentLengthCache = int.parse(contentLengthHeader);
+    _contentLengthCache = int.parse(contentLengthHeader);
+    return _contentLengthCache;
   }
 
   int _contentLengthCache;
@@ -112,7 +113,8 @@ abstract class Message {
     if (_contentTypeCache != null) return _contentTypeCache;
     var contentLengthHeader = getHeader(headers, 'content-type');
     if (contentLengthHeader == null) return null;
-    return _contentTypeCache = new MediaType.parse(contentLengthHeader);
+    _contentTypeCache = new MediaType.parse(contentLengthHeader);
+    return _contentTypeCache;
   }
 
   MediaType _contentTypeCache;
