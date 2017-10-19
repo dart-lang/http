@@ -17,11 +17,10 @@ import 'http_unmodifiable_map.dart';
 /// [updates] is used.
 ///
 /// If [updates] is `null` or empty, [original] is returned unchanged.
-Map/*<K, V>*/ updateMap/*<K, V>*/(
-    Map/*<K, V>*/ original, Map/*<K, V>*/ updates) {
+Map<K, V> updateMap<K, V>(Map<K, V> original, Map<K, V> updates) {
   if (updates == null || updates.isEmpty) return original;
 
-  return new Map.from(original)..addAll(updates);
+  return new Map<K, V>.from(original)..addAll(updates);
 }
 
 /// Converts a [Map] from parameter names to values to a URL query string.
