@@ -143,17 +143,15 @@ class Request extends Message {
 
     var boundary = _boundaryString();
 
-    headers ??= <String, String>{};
-    headers['content-type'] = 'multipart/form-data; boundary=$boundary';
-
     return new Request._(
-      'POST',
-      url,
-      new MultipartBody(fields, files, boundary),
-      null,
-      headers,
-      context,
-    );
+        'POST',
+        url,
+        new MultipartBody(fields, files, boundary),
+        null,
+        updateMap(headers, <String, String>{
+          'content-type': 'multipart/form-data; boundary=$boundary'
+        }),
+        context);
   }
 
   Request._(this.method, this.url,
