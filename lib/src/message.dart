@@ -66,7 +66,7 @@ abstract class Message {
             new Body(
                 body,
                 determineEncoding(
-                    encoding, getHeader(headers, 'content-type'))),
+                    encoding, getHeader(headers, 'content-type'), null)),
             headers,
             context);
 
@@ -87,9 +87,9 @@ abstract class Message {
   /// If not set, `null`.
   int get contentLength {
     if (_contentLengthCache != null) return _contentLengthCache;
-    if (!headers.containsKey('content-length')) return null;
-    _contentLengthCache = int.parse(headers['content-length']);
-    return _contentLengthCache;
+    var contentLengthHeader = getHeader(headers, 'content-length');
+    if (contentLengthHeader == null) return null;
+    return _contentLengthCache = int.parse(contentLengthHeader);
   }
 
   int _contentLengthCache;
@@ -100,11 +100,7 @@ abstract class Message {
   /// the MIME type, without any Content-Type parameters.
   ///
   /// If [headers] doesn't have a Content-Type header, this will be `null`.
-  String get mimeType {
-    var contentType = _contentType;
-    if (contentType == null) return null;
-    return contentType.mimeType;
-  }
+  String get mimeType => _contentType?.mimeType;
 
   /// The encoding of the body returned by [read].
   ///
@@ -113,21 +109,16 @@ abstract class Message {
   ///
   /// If [headers] doesn't have a Content-Type header or it specifies an
   /// encoding that [dart:convert] doesn't support, this will be `null`.
-  Encoding get encoding {
-    var contentType = _contentType;
-    if (contentType == null) return null;
-    if (!contentType.parameters.containsKey('charset')) return null;
-    return Encoding.getByName(contentType.parameters['charset']);
-  }
+  Encoding get encoding => encodingForMediaType(_contentType, null);
 
   /// The parsed version of the Content-Type header in [headers].
   ///
   /// This is cached for efficient access.
   MediaType get _contentType {
     if (_contentTypeCache != null) return _contentTypeCache;
-    if (!headers.containsKey('content-type')) return null;
-    _contentTypeCache = new MediaType.parse(headers['content-type']);
-    return _contentTypeCache;
+    var contentLengthHeader = getHeader(headers, 'content-type');
+    if (contentLengthHeader == null) return null;
+    return _contentTypeCache = new MediaType.parse(contentLengthHeader);
   }
 
   MediaType _contentTypeCache;

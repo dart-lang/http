@@ -16,15 +16,13 @@ Encoding encodingForCharset(String charset, [Encoding fallback = LATIN1]) {
   return encoding == null ? fallback : encoding;
 }
 
-/// Returns the name of the charset that corresponds to the [contentType].
+/// Determines the encoding from the media [type].
 ///
-/// If [contentType] is `null` then no charset has been specified and `null`
-/// will be returned. If the [contentType] is present then it will be parsed
-/// and the value of `charset` is returned.
-String charsetForContentType(String contentType) {
-  if (contentType == null) return null;
-  var mediaType = new MediaType.parse(contentType);
-  return mediaType.parameters['charset'];
+/// Returns [fallback] if the charset is not specified in the [type] or if no
+/// [Encoding] was found that corresponds to the `charset`.
+Encoding encodingForMediaType(MediaType type, [Encoding fallback = LATIN1]) {
+  if (type == null) return fallback;
+  return encodingForCharset(type.parameters['charset'], fallback);
 }
 
 /// Determines the body encoding either through an explicit [encoding] or
@@ -32,9 +30,14 @@ String charsetForContentType(String contentType) {
 ///
 /// If an explicit [encoding] is set then this will be used and will override
 /// any `charset` from [contentType]. Otherwise the [contentType]'s `charset`
-/// will be used. If neither are provided `null` will be returned.
-Encoding determineEncoding(Encoding encoding, String contentType) {
+/// will be used. If neither are provided [fallback] will be returned.
+Encoding determineEncoding(Encoding encoding, String contentType,
+    [Encoding fallback = LATIN1]) {
   if (encoding != null) return encoding;
-  var charset = charsetForContentType(contentType);
-  return encodingForCharset(charset, null);
+  if (contentType == null) return fallback;
+  return encodingForMediaType(new MediaType.parse(contentType), fallback);
 }
+
+/// Modifies the media [type]'s [encoding].
+MediaType modifyEncoding(MediaType type, Encoding encoding) =>
+    type.change(parameters: <String, String>{'charset': encoding.name});
