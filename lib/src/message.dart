@@ -62,13 +62,7 @@ abstract class Message {
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(
-            new Body(
-                body,
-                determineEncoding(
-                    encoding, getHeader(headers, 'content-type'), null)),
-            headers,
-            context);
+      : this._(new Body(body, encoding), headers, context);
 
   Message._(Body body, Map<String, String> headers, Map<String, Object> context)
       : _body = body,

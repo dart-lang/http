@@ -25,19 +25,6 @@ Encoding encodingForMediaType(MediaType type, [Encoding fallback = LATIN1]) {
   return encodingForCharset(type.parameters['charset'], fallback);
 }
 
-/// Determines the body encoding either through an explicit [encoding] or
-/// through the [contentType] header.
-///
-/// If an explicit [encoding] is set then this will be used and will override
-/// any `charset` from [contentType]. Otherwise the [contentType]'s `charset`
-/// will be used. If neither are provided [fallback] will be returned.
-Encoding determineEncoding(Encoding encoding, String contentType,
-    [Encoding fallback = LATIN1]) {
-  if (encoding != null) return encoding;
-  if (contentType == null) return fallback;
-  return encodingForMediaType(new MediaType.parse(contentType), fallback);
-}
-
 /// Modifies the media [type]'s [encoding].
 MediaType modifyEncoding(MediaType type, Encoding encoding) =>
     type.change(parameters: <String, String>{'charset': encoding.name});
