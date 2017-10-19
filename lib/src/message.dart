@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'body.dart';
+import 'content_type.dart';
 import 'http_unmodifiable_map.dart';
 import 'utils.dart';
 
@@ -61,7 +62,13 @@ abstract class Message {
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(new Body(body, encoding), headers, context);
+      : this._(
+            new Body(
+                body,
+                determineEncoding(
+                    encoding, getHeader(headers, 'content-type'))),
+            headers,
+            context);
 
   Message._(Body body, Map<String, String> headers, Map<String, Object> context)
       : _body = body,
@@ -84,6 +91,7 @@ abstract class Message {
     _contentLengthCache = int.parse(headers['content-length']);
     return _contentLengthCache;
   }
+
   int _contentLengthCache;
 
   /// The MIME type declared in [headers].
@@ -121,6 +129,7 @@ abstract class Message {
     _contentTypeCache = new MediaType.parse(headers['content-type']);
     return _contentTypeCache;
   }
+
   MediaType _contentTypeCache;
 
   /// Returns the message body as byte chunks.
