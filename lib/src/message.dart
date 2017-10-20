@@ -9,6 +9,7 @@ import 'package:collection/collection.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'body.dart';
+import 'content_type.dart';
 import 'http_unmodifiable_map.dart';
 import 'utils.dart';
 
@@ -80,10 +81,12 @@ abstract class Message {
   /// If not set, `null`.
   int get contentLength {
     if (_contentLengthCache != null) return _contentLengthCache;
-    if (!headers.containsKey('content-length')) return null;
-    _contentLengthCache = int.parse(headers['content-length']);
+    var contentLengthHeader = getHeader(headers, 'content-length');
+    if (contentLengthHeader == null) return null;
+    _contentLengthCache = int.parse(contentLengthHeader);
     return _contentLengthCache;
   }
+
   int _contentLengthCache;
 
   /// The MIME type declared in [headers].
@@ -92,11 +95,7 @@ abstract class Message {
   /// the MIME type, without any Content-Type parameters.
   ///
   /// If [headers] doesn't have a Content-Type header, this will be `null`.
-  String get mimeType {
-    var contentType = _contentType;
-    if (contentType == null) return null;
-    return contentType.mimeType;
-  }
+  String get mimeType => _contentType?.mimeType;
 
   /// The encoding of the body returned by [read].
   ///
@@ -105,22 +104,19 @@ abstract class Message {
   ///
   /// If [headers] doesn't have a Content-Type header or it specifies an
   /// encoding that [dart:convert] doesn't support, this will be `null`.
-  Encoding get encoding {
-    var contentType = _contentType;
-    if (contentType == null) return null;
-    if (!contentType.parameters.containsKey('charset')) return null;
-    return Encoding.getByName(contentType.parameters['charset']);
-  }
+  Encoding get encoding => encodingForMediaType(_contentType);
 
   /// The parsed version of the Content-Type header in [headers].
   ///
   /// This is cached for efficient access.
   MediaType get _contentType {
     if (_contentTypeCache != null) return _contentTypeCache;
-    if (!headers.containsKey('content-type')) return null;
-    _contentTypeCache = new MediaType.parse(headers['content-type']);
+    var contentLengthHeader = getHeader(headers, 'content-type');
+    if (contentLengthHeader == null) return null;
+    _contentTypeCache = new MediaType.parse(contentLengthHeader);
     return _contentTypeCache;
   }
+
   MediaType _contentTypeCache;
 
   /// Returns the message body as byte chunks.

@@ -52,24 +52,6 @@ List<String> split1(String toSplit, String pattern) {
   ];
 }
 
-/// Returns the [Encoding] that corresponds to [charset]. Returns [fallback] if
-/// [charset] is null or if no [Encoding] was found that corresponds to
-/// [charset].
-Encoding encodingForCharset(String charset, [Encoding fallback = LATIN1]) {
-  if (charset == null) return fallback;
-  var encoding = Encoding.getByName(charset);
-  return encoding == null ? fallback : encoding;
-}
-
-
-/// Returns the [Encoding] that corresponds to [charset]. Throws a
-/// [FormatException] if no [Encoding] was found that corresponds to [charset].
-/// [charset] may not be null.
-Encoding requiredEncodingForCharset(String charset) {
-  var encoding = Encoding.getByName(charset);
-  if (encoding != null) return encoding;
-  throw new FormatException('Unsupported encoding "$charset".');
-}
 
 /// A regular expression that matches strings that are composed entirely of
 /// ASCII-compatible characters.
