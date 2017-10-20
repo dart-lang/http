@@ -26,8 +26,6 @@ main() async {
       body = body.toLowerCase();
       expect(body, contains('<html'));
       expect(body, contains('www.google'));
-    }, onPlatform: {
-      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
 
     test('twitter', () async {
@@ -41,8 +39,6 @@ main() async {
 
       expect(body, contains('<!DOCTYPE html>'));
       expect(body, contains('twitter.com'));
-    }, onPlatform: {
-      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
 
     test('nghttp2.org - server push enabled', () async {
@@ -54,7 +50,7 @@ main() async {
       dumpHeaders(uri, response.headers);
 
       Future<List<List>> accumulatePushes() async {
-        var futures = [];
+        var futures = <Future<List>>[];
         return response.serverPushes
             .listen((ServerPush push) {
               futures.add(push.response.then((Response response) {
@@ -79,13 +75,11 @@ main() async {
       expect(body, contains('<!DOCTYPE html>'));
       expect(body, contains('nghttp2'));
 
-      var pushes = results[1];
+      var pushes = results[1] as List<List>;
       expect(pushes, hasLength(1));
       expect(pushes[0][0], '/stylesheets/screen.css');
       expect(pushes[0][1], contains('audio,video{'));
       await connection.close();
-    }, onPlatform: {
-      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
 
     test('nghttp2.org - server push disabled', () async {
@@ -98,7 +92,7 @@ main() async {
       dumpHeaders(uri, response.headers);
 
       Future<List<List>> accumulatePushes() async {
-        var futures = [];
+        var futures = <Future<List>>[];
         return response.serverPushes
             .listen((ServerPush push) {
               futures.add(push.response
@@ -117,8 +111,6 @@ main() async {
       var pushes = results[1];
       expect(pushes, hasLength(0));
       await connection.close();
-    }, onPlatform: {
-      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
   });
 }

@@ -203,7 +203,7 @@ abstract class ServerTransportConnection extends TransportConnection {
   }
 
   /// Incoming HTTP/2 streams.
-  Stream<TransportStream> get incomingStreams;
+  Stream<ServerTransportStream> get incomingStreams;
 }
 
 /// Represents a HTTP/2 stream.
@@ -223,7 +223,7 @@ abstract class TransportStream {
   /// Sets the termination handler on this stream.
   ///
   /// The handler will be called if the stream receives an RST_STREAM frame.
-  set onTerminated(void value(int));
+  set onTerminated(void value(int v));
 
   /// Terminates this HTTP/2 stream in an un-normal way.
   ///

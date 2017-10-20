@@ -195,7 +195,9 @@ main() {
 }
 
 serverTest(
-    String name, func(serverConnection, frameWriter, frameReader, readNext)) {
+    String name,
+    func(ServerTransportConnection serverConnection, FrameWriter frameWriter,
+        StreamIterator<Frame> frameReader, Future<Frame> readNext())) {
   return test(name, () {
     var streams = new ClientErrorStreams();
     var clientReader = streams.clientConnectionFrameReader;

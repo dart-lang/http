@@ -5,21 +5,19 @@
 library http2.debug;
 
 import 'dart:async';
-import 'dart:io';
-import 'dart:io' show stderr;
 import 'dart:convert';
+import 'dart:io';
 
+import '../../transport.dart';
 import '../connection_preface.dart';
 import '../frames/frames.dart';
 import '../settings/settings.dart';
-
-import '../../transport.dart';
 
 final jsonEncoder = new JsonEncoder.withIndent('  ');
 
 TransportConnection debugPrintingConnection(Socket socket,
     {bool isServer: true, bool verbose: true}) {
-  var connection;
+  TransportConnection connection;
 
   var incoming = decodeVerbose(socket, isServer, verbose: verbose);
   var outgoing = decodeOutgoingVerbose(socket, isServer, verbose: verbose);
@@ -35,8 +33,8 @@ Stream<List<int>> decodeVerbose(Stream<List<int>> inc, bool isServer,
     {bool verbose: true}) {
   String name = isServer ? 'server' : 'client';
 
-  var sc = new StreamController();
-  var sDebug = new StreamController();
+  var sc = new StreamController<List<int>>();
+  var sDebug = new StreamController<List<int>>();
 
   _pipeAndCopy(inc, sc, sDebug);
 
@@ -77,8 +75,8 @@ StreamSink<List<int>> decodeOutgoingVerbose(
     {bool verbose: true}) {
   String name = isServer ? 'server' : 'client';
 
-  var proxySink = new StreamController();
-  var copy = new StreamController();
+  var proxySink = new StreamController<List<int>>();
+  var copy = new StreamController<List<int>>();
 
   if (!isServer) {
     _decodeFrames(readConnectionPreface(copy.stream)).listen((Frame frame) {
@@ -120,12 +118,12 @@ Stream<Frame> _decodeFrames(Stream<List<int>> bytes) {
   return decoder.startDecoding();
 }
 
-Future _pipeAndCopy(Stream from, StreamSink to, StreamSink to2) {
+Future _pipeAndCopy(Stream<List<int>> from, StreamSink to, StreamSink to2) {
   var c = new Completer();
   from.listen((List<int> data) {
     to.add(data);
     to2.add(data);
-  }, onError: (e, s) {
+  }, onError: (e, StackTrace s) {
     to.addError(e, s);
     to2.addError(e, s);
   }, onDone: () {

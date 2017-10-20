@@ -6,10 +6,10 @@ library http2.src.settings;
 
 import 'dart:async';
 
+import '../error_handler.dart';
 import '../frames/frames.dart';
 import '../hpack/hpack.dart';
 import '../sync_errors.dart';
-import '../error_handler.dart';
 
 /// The settings a remote peer can choose to set.
 class ActiveSettings {
@@ -76,15 +76,15 @@ class ActiveSettings {
   ActiveSettings(
       {this.headerTableSize: 4096,
       this.enablePush: true,
-      this.maxConcurrentStreams: null,
+      this.maxConcurrentStreams,
       this.initialWindowSize: (1 << 16) - 1,
       this.maxFrameSize: (1 << 14),
-      this.maxHeaderListSize: null});
+      this.maxHeaderListSize});
 }
 
 /// Handles remote and local connection [Setting]s.
 ///
-/// Incoming [SettingFrame]s will be handled here to update the peer settings.
+/// Incoming [SettingsFrame]s will be handled here to update the peer settings.
 /// Changes to [_toBeAcknowledgedSettings] can be made, the peer will then be
 /// notified of the setting changes it should use.
 class SettingsHandler extends Object with TerminatableMixin {
@@ -106,8 +106,8 @@ class SettingsHandler extends Object with TerminatableMixin {
   /// The peer settings, which we ACKed and are obeying.
   final ActiveSettings _peerSettings;
 
-  StreamController<int> _onInitialWindowSizeChangeController =
-      new StreamController.broadcast(sync: true);
+  final _onInitialWindowSizeChangeController =
+      new StreamController<int>.broadcast(sync: true);
 
   /// Events are fired when a SettingsFrame changes the initial size
   /// of stream windows.

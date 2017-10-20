@@ -35,7 +35,7 @@ main() {
     });
 
     test('buffered-sink', () {
-      var c = new StreamController();
+      var c = new StreamController<List<int>>();
       var bs = new BufferedSink(c);
 
       expect(bs.bufferIndicator.wouldBuffer, true);
@@ -62,7 +62,7 @@ main() {
     });
 
     test('buffered-bytes-writer', () async {
-      var c = new StreamController();
+      var c = new StreamController<List<int>>();
       var writer = new BufferedBytesWriter(c);
 
       expect(writer.bufferIndicator.wouldBuffer, true);

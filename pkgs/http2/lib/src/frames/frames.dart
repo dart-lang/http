@@ -5,8 +5,8 @@
 library http2.src.frames;
 
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:math' show max;
+import 'dart:typed_data';
 
 import '../async_utils/async_utils.dart';
 import '../byte_utils.dart';

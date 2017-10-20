@@ -52,7 +52,7 @@ main() {
                     numBytesReceived, numBytesReceived + bytes.length));
             numBytesReceived += bytes.length;
 
-            if (numBytesReceived == allBytes) {
+            if (numBytesReceived > allBytes.length) {
               if (serverReceivedAllBytes.isCompleted) {
                 throw new Exception('Got more messages than expected');
               }

@@ -50,9 +50,11 @@ abstract class StreamMethodsMixin<T> implements Stream<T> {
     return _stream.asBroadcastStream(onListen: onListen, onCancel: onCancel);
   }
 
-  Stream asyncExpand(Stream convert(T)) => _stream.asyncExpand(convert);
+  Stream<E> asyncExpand<E>(Stream<E> convert(T value)) =>
+      _stream.asyncExpand(convert);
 
-  Stream asyncMap(convert(T event)) => _stream.asyncExpand(convert);
+  Stream<E> asyncMap<E>(FutureOr<E> convert(T event)) =>
+      _stream.asyncMap(convert);
 
   Future<bool> contains(Object needle) => _stream.contains(needle);
 
@@ -60,13 +62,13 @@ abstract class StreamMethodsMixin<T> implements Stream<T> {
     return _stream.distinct(equals);
   }
 
-  Future drain([futureValue]) => _stream.drain();
+  Future<T> drain<T>([T futureValue]) => _stream.drain();
 
   Future<T> elementAt(int index) => _stream.elementAt(index);
 
-  Future<bool> every(bool test(T)) => _stream.every(test);
+  Future<bool> every(bool test(T item)) => _stream.every(test);
 
-  Stream expand(Iterable convert(T)) => _stream.expand(convert);
+  Stream<S> expand<S>(Iterable<S> convert(T item)) => _stream.expand(convert);
 
   Future<T> get first => _stream.first;
 
@@ -74,8 +76,8 @@ abstract class StreamMethodsMixin<T> implements Stream<T> {
     return _stream.firstWhere(test);
   }
 
-  Future fold(initialValue, combine(previous, T element)) {
-    return _stream.fold(initialValue, combine);
+  Future<S> fold<S>(S initialValue, S combine(S previous, T element)) {
+    return _stream.fold<S>(initialValue, combine);
   }
 
   Future forEach(void action(T element)) => _stream.forEach(action);
@@ -104,37 +106,33 @@ abstract class StreamMethodsMixin<T> implements Stream<T> {
         onError: onError, onDone: onDone, cancelOnError: cancelOnError);
   }
 
-  Stream map(convert(T event)) => _stream.map(convert);
+  Stream<S> map<S>(S convert(T event)) => _stream.map(convert);
 
   Future pipe(StreamConsumer<T> consumer) => _stream.pipe(consumer);
 
-  Future<T> reduce(T combine(T previous, T element)) {
-    return _stream.reduce(combine);
-  }
+  Future<T> reduce(T combine(T previous, T element)) => _stream.reduce(combine);
 
   Future<T> get single => _stream.single;
 
-  Future<T> singleWhere(bool test(T)) => _stream.singleWhere(test);
+  Future<T> singleWhere(bool test(T item)) => _stream.singleWhere(test);
 
   Stream<T> skip(int count) => _stream.skip(count);
 
-  Stream<T> skipWhile(bool test(T)) => _stream.skipWhile(test);
+  Stream<T> skipWhile(bool test(T item)) => _stream.skipWhile(test);
 
   Stream<T> take(int count) => _stream.take(count);
 
-  Stream<T> takeWhile(bool test(T)) => _stream.takeWhile(test);
+  Stream<T> takeWhile(bool test(T item)) => _stream.takeWhile(test);
 
-  Stream timeout(Duration timeLimit, {void onTimeout(EventSink sink)}) {
-    return _stream.timeout(timeLimit, onTimeout: onTimeout);
-  }
+  Stream<T> timeout(Duration timeLimit, {void onTimeout(EventSink<T> sink)}) =>
+      _stream.timeout(timeLimit, onTimeout: onTimeout);
 
   Future<List<T>> toList() => _stream.toList();
 
   Future<Set<T>> toSet() => _stream.toSet();
 
-  Stream transform(StreamTransformer<T, dynamic> streamTransformer) {
-    return _stream.transform(streamTransformer);
-  }
+  Stream<S> transform<S>(StreamTransformer<T, S> streamTransformer) =>
+      _stream.transform(streamTransformer);
 
-  Stream<T> where(bool test(T)) => _stream.where(test);
+  Stream<T> where(bool test(T value)) => _stream.where(test);
 }

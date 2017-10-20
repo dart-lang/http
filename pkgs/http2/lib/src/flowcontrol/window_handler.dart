@@ -5,8 +5,8 @@
 library http2.src.window_handler;
 
 import '../async_utils/async_utils.dart';
-import '../sync_errors.dart';
 import '../frames/frames.dart';
+import '../sync_errors.dart';
 
 import 'window.dart';
 

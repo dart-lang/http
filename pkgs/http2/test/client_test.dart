@@ -214,10 +214,10 @@ main() {
           // happens to be like that ATM.
 
           // Await stream/connection window update frame.
-          var win = await nextFrame();
+          var win = await nextFrame() as WindowUpdateFrame;
           expect(win.header.streamId, 1);
           expect(win.windowSizeIncrement, 1);
-          win = await nextFrame();
+          win = await nextFrame() as WindowUpdateFrame;
           expect(win.header.streamId, 0);
           expect(win.windowSizeIncrement, 1);
 
@@ -427,7 +427,7 @@ main() {
           settingsDone.complete();
 
           // Make sure we got the new stream.
-          var frame = await nextFrame();
+          var frame = await nextFrame() as HeadersFrame;
           expect(frame.hasEndStreamFlag, false);
           var decodedHeaders = decoder.decode(frame.headerBlockFragment);
           expect(decodedHeaders, hasLength(1));
@@ -436,14 +436,12 @@ main() {
           headersDone.complete();
 
           // Make sure we got the stream reset.
-          frame = await nextFrame();
-          expect(frame is RstStreamFrame, true);
-          expect((frame as RstStreamFrame).errorCode, ErrorCode.CANCEL);
+          var frame2 = await nextFrame() as RstStreamFrame;
+          expect(frame2.errorCode, ErrorCode.CANCEL);
 
           // Make sure we get the graceful shutdown message.
-          frame = await nextFrame();
-          expect(frame is GoawayFrame, true);
-          expect((frame as GoawayFrame).errorCode, ErrorCode.NO_ERROR);
+          var frame3 = await nextFrame() as GoawayFrame;
+          expect(frame3.errorCode, ErrorCode.NO_ERROR);
 
           // Make sure the client ended the connection.
           expect(await serverReader.moveNext(), false);
@@ -488,7 +486,7 @@ main() {
           settingsDone.complete();
 
           // Make sure we got the new stream.
-          var frame = await nextFrame();
+          var frame = await nextFrame() as HeadersFrame;
           expect(frame.hasEndStreamFlag, false);
           var decodedHeaders = decoder.decode(frame.headerBlockFragment);
           expect(decodedHeaders, hasLength(1));
@@ -529,7 +527,12 @@ main() {
 }
 
 clientTest(
-    String name, func(clientConnection, frameWriter, frameReader, readNext)) {
+    String name,
+    Future<Null> func(
+        ClientTransportConnection clientConnection,
+        FrameWriter frameWriter,
+        StreamIterator<Frame> frameReader,
+        Future<Frame> readNext())) {
   return test(name, () {
     var streams = new ClientStreams();
     var serverReader = streams.serverConnectionFrameReader;

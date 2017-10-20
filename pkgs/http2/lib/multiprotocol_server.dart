@@ -7,9 +7,8 @@ library http2.multiprotocol_server;
 import 'dart:async';
 import 'dart:io';
 
-import 'package:http2/transport.dart' as http2;
-
 import 'src/artificial_server_socket.dart';
+import 'transport.dart' as http2;
 
 /// Handles protocol negotiation with HTTP/1.1 and HTTP/2 clients.
 ///
@@ -28,7 +27,7 @@ class MultiProtocolHttpServer {
 
   StreamController<http2.ServerTransportStream> _http2Controller;
   Stream<http2.ServerTransportStream> _http2Server;
-  Set<http2.ServerTransportConnection> _http2Connections = new Set();
+  final _http2Connections = new Set<http2.ServerTransportConnection>();
 
   MultiProtocolHttpServer._(this._serverSocket, this._settings) {
     _http11Controller =
@@ -68,7 +67,7 @@ class MultiProtocolHttpServer {
   /// an exception (i.e. these must take care of error handling themselves).
   void startServing(void callbackHttp11(HttpRequest request),
       void callbackHttp2(http2.ServerTransportStream stream),
-      {void onError(error, stack)}) {
+      {void onError(error, StackTrace stack)}) {
     // 1. Start listening on the real [SecureServerSocket].
     _serverSocket.listen((SecureSocket socket) {
       var protocol = socket.selectedProtocol;

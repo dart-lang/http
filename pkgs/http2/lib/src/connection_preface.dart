@@ -44,10 +44,10 @@ const List<int> CONNECTION_PREFACE = const [
 /// connection preface. If an error occurs while reading the connection
 /// preface, the returned stream will have only an error.
 Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
-  StreamController result;
+  StreamController<List<int>> result;
   StreamSubscription subscription;
   bool connectionPrefaceRead = false;
-  var prefaceBuffer = [];
+  var prefaceBuffer = <int>[];
   bool terminated = false;
 
   terminate(error) {
@@ -101,7 +101,7 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
   result = new StreamController(
       onListen: () {
         subscription = incoming.listen(onData,
-            onError: (e, s) => result.addError(e, s),
+            onError: (e, StackTrace s) => result.addError(e, s),
             onDone: () {
               if (prefaceBuffer != null) {
                 terminate('EOS before connection preface could be read.');

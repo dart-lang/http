@@ -617,7 +617,7 @@ main() {
         List<Header> headers;
         var context = new HPackContext();
 
-        var buffer = [];
+        var buffer = <int>[];
         buffer.addAll(TestHelper.insertIntoDynamicTable(2048, char0, charA));
         buffer.addAll(TestHelper.insertIntoDynamicTable(2048, char1, charB));
         buffer.addAll(TestHelper.dynamicTableLookup(0));
@@ -743,7 +743,7 @@ class TestHelper {
 
   static List<int> newInteger(int currentByte, int prefixBits, int value) {
     assert((currentByte & ((1 << prefixBits) - 1)) == 0);
-    var buffer = [];
+    var buffer = <int>[];
     if (value < ((1 << prefixBits) - 1)) {
       currentByte |= value;
       buffer.add(currentByte);
@@ -767,7 +767,7 @@ class TestHelper {
   static List<int> insertIntoDynamicTable(int n, int nameChar, int valueChar) {
     // NOTE: size(header) = 32 + header.name.length + header.value.length.
 
-    var buffer = [];
+    var buffer = <int>[];
 
     // Literal indexed (will be put into dynamic table)
     buffer.addAll([0x40]);

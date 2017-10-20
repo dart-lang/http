@@ -10,9 +10,10 @@ library http2.hpack;
 import 'dart:convert';
 import 'dart:io';
 
+import '../byte_utils.dart';
+
 import 'huffman.dart';
 import 'huffman_table.dart';
-import '../byte_utils.dart';
 
 /// Exception raised due to encoding/decoding errors.
 class HPackDecodingException implements Exception {
@@ -103,7 +104,7 @@ class HPackDecoder {
     }
 
     Header readHeaderFieldInternal(int index, {bool neverIndexed: false}) {
-      var name, value;
+      List<int> name, value;
       if (index > 0) {
         name = _table.lookup(index).name;
         value = readStringLiteral();

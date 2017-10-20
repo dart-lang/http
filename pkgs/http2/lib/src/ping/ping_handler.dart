@@ -6,8 +6,8 @@ library http2.src.ping.ping_handler;
 
 import 'dart:async';
 
-import '../frames/frames.dart';
 import '../error_handler.dart';
+import '../frames/frames.dart';
 import '../sync_errors.dart';
 
 /// Responsible for pinging the other end and for handling pings from the

@@ -32,7 +32,6 @@ import 'package:test/test.dart';
 ///
 /// NOTE: If method signatures change, the test code must be changed and
 /// the analyzer will not give any warnings if this is not done.
-@proxy
 class SmartMock {
   final Map<String, Function> _registeredMethods = {};
 

@@ -17,7 +17,7 @@ const String HOSTNAME = 'localhost';
 const int PORT = 7777;
 
 main() async {
-  String localFile(path) => Platform.script.resolve(path).toFilePath();
+  String localFile(String path) => Platform.script.resolve(path).toFilePath();
 
   var context = new SecurityContext()
     ..usePrivateKey(localFile('server_key.pem'), password: 'dartdart')
@@ -55,7 +55,7 @@ handleClient(SecureSocket socket) {
         dumpHeaders('${stream.id}', msg.headers);
         if (path == null) {
           path = pathFromHeaders(msg.headers);
-          if (path == null) throw 'no path given';
+          if (path == null) throw new Exception('no path given');
 
           if (path == '/') {
             sendHtml(stream);
@@ -97,7 +97,7 @@ void dumpInfo(String prefix, String msg) {
   print('[$prefix] $msg');
 }
 
-Future sendHtml(TransportStream stream) async {
+Future sendHtml(ServerTransportStream stream) async {
   push(stream, '/iframe', sendIFrameHtml);
   push(stream, '/iframe2', sendIFrameHtml);
   push(stream, '/favicon.ico', send404);
@@ -122,7 +122,7 @@ Future sendHtml(TransportStream stream) async {
 }
 
 Future push(ServerTransportStream stream, String path,
-    Future sendResponse(stream, path)) async {
+    Future sendResponse(TransportStream stream, String path)) async {
   var requestHeaders = [
     new Header.ascii(':authority', '$HOSTNAME:$PORT'),
     new Header.ascii(':method', 'GET'),

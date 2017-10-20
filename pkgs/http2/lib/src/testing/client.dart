@@ -61,10 +61,10 @@ class ClientConnection {
   }
 
   Future<Response> _handleStream(ClientTransportStream stream) {
-    var completer = new Completer();
+    var completer = new Completer<Response>();
     bool isFirst = true;
-    var controller = new StreamController();
-    var serverPushController = new StreamController(sync: true);
+    var controller = new StreamController<List<int>>();
+    var serverPushController = new StreamController<ServerPush>(sync: true);
     stream.incomingMessages.listen((StreamMessage msg) {
       if (isFirst) {
         isFirst = false;
@@ -81,16 +81,16 @@ class ClientConnection {
 
   Stream<ServerPush> _handlePeerPushes(
       Stream<TransportStreamPush> serverPushes) {
-    var pushesController = new StreamController();
+    var pushesController = new StreamController<ServerPush>();
     serverPushes.listen((TransportStreamPush push) {
-      var responseCompleter = new Completer();
+      var responseCompleter = new Completer<Response>();
       var serverPush = new ServerPush(
           _convertHeaders(push.requestHeaders), responseCompleter.future);
 
       pushesController.add(serverPush);
 
       bool isFirst = true;
-      var dataController = new StreamController();
+      var dataController = new StreamController<List<int>>();
       push.stream.incomingMessages.listen((StreamMessage msg) {
         if (isFirst) {
           isFirst = false;
@@ -108,7 +108,7 @@ class ClientConnection {
   }
 
   Map<String, List<String>> _convertHeaders(List<Header> headers) {
-    var headerMap = {};
+    var headerMap = <String, List<String>>{};
     for (var header in headers) {
       headerMap
           .putIfAbsent(ASCII.decode(header.name), () => [])
@@ -125,7 +125,7 @@ class ClientConnection {
 /// client. The maximum number of concurrent server pushes can be configured via
 /// [maxConcurrentPushes] (default is `null` meaning no limit).
 Future<ClientConnection> connect(Uri uri,
-    {bool allowServerPushes: false, int maxConcurrentPushes: null}) async {
+    {bool allowServerPushes: false, int maxConcurrentPushes}) async {
   const List<String> Http2AlpnProtocols = const <String>[
     'h2-14',
     'h2-15',

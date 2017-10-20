@@ -26,7 +26,7 @@ class TerminatableMixin {
     // Subclasses can override this method if they want.
   }
 
-  dynamic ensureNotTerminatedSync(f()) {
+  T ensureNotTerminatedSync<T>(T f()) {
     if (wasTerminated) {
       throw new TerminatedException();
     }
@@ -44,7 +44,7 @@ class TerminatableMixin {
 /// Used by classes which may be closed.
 class ClosableMixin {
   bool _closing = false;
-  Completer _completer = new Completer();
+  final Completer _completer = new Completer();
 
   Future get done => _completer.future;
 

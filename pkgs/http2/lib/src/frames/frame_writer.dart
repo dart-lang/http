@@ -20,9 +20,6 @@ class FrameWriter {
   /// sink.
   int _highestWrittenStreamId = 0;
 
-  /// Whether this [FrameWriter] is closed.
-  bool _isClosed = false;
-
   FrameWriter(
       this._hpackEncoder, StreamSink<List<int>> outgoing, this._peerSettings)
       : _outWriter = new BufferedBytesWriter(outgoing);
@@ -273,11 +270,6 @@ class FrameWriter {
   }
 
   void _writeData(List<int> bytes) {
-    if (_isClosed) {
-      // We do ignore any frames after this [FrameWriter] has been closed.
-      return;
-    }
-
     _outWriter.add(bytes);
   }
 

@@ -146,7 +146,7 @@ class StreamMessageQueueOut extends Object
   }
 }
 
-/// Keeps a list of [Messages] which should be delivered to the
+/// Keeps a list of [Message] which should be delivered to the
 /// [TransportStream].
 ///
 /// It will keep messages up to the stream flow control window size if the
@@ -208,7 +208,7 @@ class StreamMessageQueueIn extends Object
   /// The stream of [StreamMessage]s which come from the remote peer.
   Stream<StreamMessage> get messages => _incomingMessagesC.stream;
 
-  /// The stream of [ServerPush]es which come from the remote peer.
+  /// The stream of [TransportStreamPush]es which come from the remote peer.
   Stream<TransportStreamPush> get serverPushes => _serverPushStreamsC.stream;
 
   /// A lower layer enqueues a new [Message] which should be delivered to the

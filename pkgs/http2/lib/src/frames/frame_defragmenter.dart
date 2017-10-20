@@ -4,9 +4,9 @@
 
 library http2.src.frames.frame_defragmenter;
 
-import 'frames.dart';
-
 import '../sync_errors.dart';
+
+import 'frames.dart';
 
 /// Class used for defragmenting [HeadersFrame]s and [PushPromiseFrame]s.
 // TODO: Somehow emit an error if too many continuation frames have been sent

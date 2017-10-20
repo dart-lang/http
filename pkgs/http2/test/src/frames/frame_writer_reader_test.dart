@@ -203,7 +203,7 @@ main() {
         expect(contFrame.header.streamId, 99);
         expect(contFrame.hasEndHeadersFlag, isTrue);
 
-        var headerBlock = []
+        var headerBlock = <int>[]
           ..addAll(headersFrame.headerBlockFragment)
           ..addAll(contFrame.headerBlockFragment);
 
@@ -216,7 +216,8 @@ main() {
   });
 }
 
-writerReaderTest(String name, func(writer, reader, decoder)) {
+writerReaderTest(String name,
+    func(FrameWriter writer, FrameReader reader, HPackDecoder decoder)) {
   test(name, () {
     var settings = new ActiveSettings();
     var context = new HPackContext();

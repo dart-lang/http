@@ -61,7 +61,7 @@ class FrameReader {
         onListen: () {
           FrameHeader header;
 
-          void terminateWithError(error, [stack]) {
+          void terminateWithError(error, [StackTrace stack]) {
             header = null;
             _framesController.addError(error, stack);
             _subscription.cancel();
@@ -99,7 +99,7 @@ class FrameReader {
             } catch (error, stack) {
               terminateWithError(error, stack);
             }
-          }, onError: (error, stack) {
+          }, onError: (error, StackTrace stack) {
             terminateWithError(error, stack);
           }, onDone: () {
             if (bufferedLength == 0) {
@@ -213,7 +213,7 @@ class FrameReader {
             message: 'Settings frame length must be a multiple of 6 bytes.');
 
         int count = header.length ~/ 6;
-        var settings = new List(count);
+        var settings = new List<Setting>(count);
         for (int i = 0; i < count; i++) {
           int identifier = readInt16(bytes, offset + 6 * i);
           int value = readInt32(bytes, offset + 6 * i + 2);

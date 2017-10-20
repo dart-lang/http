@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import '../transport.dart';
+import 'connection_preface.dart';
 import 'flowcontrol/connection_queues.dart';
 import 'flowcontrol/window.dart';
 import 'flowcontrol/window_handler.dart';
@@ -18,8 +19,6 @@ import 'ping/ping_handler.dart';
 import 'settings/settings.dart';
 import 'streams/stream_handler.dart';
 import 'sync_errors.dart';
-
-import 'connection_preface.dart';
 
 class ConnectionState {
   /// The connection has been established, we're waiting for the settings frame
@@ -205,7 +204,7 @@ abstract class Connection {
   }
 
   List<Setting> _decodeSettings(Settings settings) {
-    var settingsList = [];
+    var settingsList = <Setting>[];
 
     // By default a endpoitn can make an unlimited number of concurrent streams.
     if (settings.concurrentStreamLimit != null) {
@@ -278,7 +277,7 @@ abstract class Connection {
       _terminate(ErrorCode.FRAME_SIZE_ERROR, message: '$error');
     } on HPackDecodingException catch (error) {
       _terminate(ErrorCode.PROTOCOL_ERROR, message: '$error');
-    } on TerminatedException catch (error) {
+    } on TerminatedException {
       // We tried to perform an action even though the connection was already
       // terminated.
       // TODO: Can this even happen and if so, how should we propagate this
@@ -422,7 +421,8 @@ class ClientConnection extends Connection implements ClientTransportConnection {
 
   bool get isOpen => !_state.isFinishing && !_state.isTerminated;
 
-  TransportStream makeRequest(List<Header> headers, {bool endStream: false}) {
+  ClientTransportStream makeRequest(List<Header> headers,
+      {bool endStream: false}) {
     if (_state.isFinishing) {
       throw new StateError(
           'The http/2 connection is finishing and can therefore not be used to '
@@ -432,7 +432,7 @@ class ClientConnection extends Connection implements ClientTransportConnection {
           'The http/2 connection is no longer active and can therefore not be '
           'used to make new streams.');
     }
-    TransportStream hStream = _streams.newStream(headers, endStream: endStream);
+    var hStream = _streams.newStream(headers, endStream: endStream);
     if (_streams.ranOutOfStreamIds) {
       _finishing(active: true, message: 'Ran out of stream ids');
     }
@@ -451,5 +451,5 @@ class ServerConnection extends Connection implements ServerTransportConnection {
     return new ServerConnection._(frameBytes, outgoing, serverSettings);
   }
 
-  Stream<TransportStream> get incomingStreams => _streams.incomingStreams;
+  Stream<ServerTransportStream> get incomingStreams => _streams.incomingStreams;
 }

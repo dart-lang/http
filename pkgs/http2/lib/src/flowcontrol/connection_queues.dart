@@ -16,8 +16,8 @@ import '../byte_utils.dart';
 import '../error_handler.dart';
 import '../frames/frames.dart';
 
-import 'stream_queues.dart';
 import 'queue_messages.dart';
+import 'stream_queues.dart';
 import 'window_handler.dart';
 
 /// The last place before messages coming from the application get encoded and
@@ -268,7 +268,7 @@ class ConnectionMessageQueueIn extends Object
   /// Processes an incoming [PushPromiseFrame] which is addressed to a specific
   /// stream.
   void processPushPromiseFrame(
-      PushPromiseFrame frame, TransportStream pushedStream) {
+      PushPromiseFrame frame, ClientTransportStream pushedStream) {
     var streamId = frame.header.streamId;
     var message = new PushPromiseMessage(streamId, frame.decodedHeaders,
         frame.promisedStreamId, pushedStream, false);

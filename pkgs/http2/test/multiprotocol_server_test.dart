@@ -5,8 +5,8 @@
 library http2.test.client_tests;
 
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:test/test.dart';
 
@@ -38,8 +38,6 @@ main() {
       for (int i = 0; i < Count; i++) {
         await makeHttp11Request(server, client, i);
       }
-    }, onPlatform: {
-      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
 
     test('http/2', () async {
@@ -64,8 +62,6 @@ main() {
         await makeHttp2Request(server, connection, i);
       }
       await connection.finish();
-    }, onPlatform: {
-      'mac-os': new Skip('ALPN not supported on MacOS'),
     });
   });
 }
@@ -105,8 +101,7 @@ Future makeHttp2Request(MultiProtocolHttpServer server,
   expect(responseHeaders[':status'], '200');
 
   expect(await si.moveNext(), true);
-  expect(si.current is DataStreamMessage, true);
-  expect(ASCII.decode(si.current.bytes), 'answer$i');
+  expect(ASCII.decode((si.current as DataStreamMessage).bytes), 'answer$i');
 
   expect(await si.moveNext(), false);
 }
@@ -130,7 +125,7 @@ Future handleHttp2Request(ServerTransportStream stream, int i) async {
 }
 
 Map<String, String> getHeaders(HeadersStreamMessage headers) {
-  var map = {};
+  var map = <String, String>{};
   for (var h in headers.headers) {
     map.putIfAbsent(ASCII.decode(h.name), () => ASCII.decode(h.value));
   }

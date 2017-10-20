@@ -375,7 +375,7 @@ main() {
             stream.sendHeaders([new Header.ascii('x', 'y')]);
 
             int messageNr = 0;
-            StreamController controller;
+            StreamController<StreamMessage> controller;
             addData() {
               if (!controller.isPaused) {
                 if (messageNr < kNumberOfMessages) {
@@ -469,7 +469,8 @@ main() {
   });
 }
 
-transportTest(String name, func(client, server),
+transportTest(String name,
+    func(ClientTransportConnection client, ServerTransportConnection server),
     {ClientSettings clientSettings, ServerSettings serverSettings}) {
   return test(name, () {
     var bidirectional = new BidirectionalConnection();
