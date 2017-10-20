@@ -11,7 +11,7 @@ import 'package:collection/collection.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
 
-import 'utils.dart';
+import 'content_type.dart';
 
 /// A file to be uploaded as part of a [MultipartRequest]. This doesn't need to
 /// correspond to a physical file.
@@ -46,9 +46,8 @@ class MultipartFile {
   MultipartFile(this.field, Stream<List<int>> stream, this.length,
       {this.filename, MediaType contentType})
       : this._stream = stream,
-        this.contentType = contentType != null
-            ? contentType
-            : new MediaType("application", "octet-stream");
+        this.contentType =
+            contentType ?? new MediaType("application", "octet-stream");
 
   /// Creates a new [MultipartFile] from a byte array.
   ///
@@ -69,9 +68,8 @@ class MultipartFile {
   /// the future may be inferred from [filename].
   factory MultipartFile.fromString(String field, String value,
       {String filename, MediaType contentType}) {
-    contentType =
-        contentType == null ? new MediaType("text", "plain") : contentType;
-    var encoding = encodingForCharset(contentType.parameters['charset'], UTF8);
+    contentType ??= new MediaType("text", "plain");
+    var encoding = encodingForMediaType(contentType) ?? UTF8;
     contentType = contentType.change(parameters: {'charset': encoding.name});
 
     return new MultipartFile.fromBytes(field, encoding.encode(value),

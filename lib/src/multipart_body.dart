@@ -27,8 +27,7 @@ class MultipartBody implements Body {
   ///
   /// The [boundary] is used to
   factory MultipartBody(Map<String, String> fields,
-      List<MultipartFile> files,
-      String boundary,) {
+      Iterable<MultipartFile> files, String boundary) {
     var controller = new StreamController<List<int>>(sync: true);
     var contentLength = 0;
 
@@ -36,11 +35,13 @@ class MultipartBody implements Body {
       controller.add(string.codeUnits);
       contentLength += string.length;
     }
+
     void writeUtf8(String string) {
       var encoded = UTF8.encode(string);
       controller.add(encoded);
       contentLength += encoded.length;
     }
+
     void writeLine() {
       controller.add([13, 10]); // \r\n
       contentLength += 2;
@@ -81,8 +82,8 @@ class MultipartBody implements Body {
     Future.forEach(files, (file) {
       assert(files[i] == file);
       controller.add(fileHeaders[i++]);
-      return writeStreamToSink(file.read(), controller).then((_) =>
-          controller.add([13, 10]));
+      return writeStreamToSink(file.read(), controller)
+          .then((_) => controller.add([13, 10]));
     }).then((_) {
       // TODO(nweiz): pass any errors propagated through this future on to
       // the stream. See issue 3657.
