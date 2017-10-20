@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
@@ -32,6 +33,25 @@ String mapToQuery(Map<String, String> map, {Encoding encoding}) {
         Uri.encodeQueryComponent(value, encoding: encoding)
       ]));
   return pairs.map((pair) => "${pair[0]}=${pair[1]}").join("&");
+}
+
+/// A regular expression that matches strings that are composed entirely of
+/// ASCII-compatible characters.
+final RegExp _asciiOnly = new RegExp(r"^[\x00-\x7F]+$");
+
+/// Returns whether [string] is composed entirely of ASCII-compatible
+/// characters.
+bool isPlainAscii(String string) => _asciiOnly.hasMatch(string);
+
+/// Pipes all data and errors from [stream] into [sink].
+///
+/// Completes [Future] once [stream] is done. Unlike [store], [sink] remains
+/// open after [stream] is done.
+Future writeStreamToSink(Stream stream, EventSink sink) {
+  var completer = new Completer();
+  stream.listen(sink.add,
+      onError: sink.addError, onDone: () => completer.complete());
+  return completer.future;
 }
 
 /// Returns the header with the given [name] in [headers].
