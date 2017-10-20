@@ -4,8 +4,6 @@
 
 import 'package:test/test.dart';
 
-import 'package:http/http.dart';
-
 import 'client.dart'
     if (dart.library.io) 'hybrid/client_io.dart'
     if (dart.library.html) 'hybrid/client_html.dart';

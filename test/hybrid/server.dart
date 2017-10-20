@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:async/async.dart';
-import 'package:http/src/utils.dart';
+import 'package:http/src/content_type.dart';
 import "package:stream_channel/stream_channel.dart";
 
 /// The list of headers to ignore when sending back confirmation.
@@ -93,7 +93,7 @@ hybridMain(StreamChannel channel) async {
       var outputEncoding;
       var encodingName = request.uri.queryParameters['response-encoding'];
       if (encodingName != null) {
-        outputEncoding = requiredEncodingForCharset(encodingName);
+        outputEncoding = encodingForCharset(encodingName);
       } else {
         outputEncoding = ASCII;
       }
@@ -114,7 +114,7 @@ hybridMain(StreamChannel channel) async {
       } else if (request.headers.contentType != null &&
           request.headers.contentType.charset != null) {
         var encoding =
-            requiredEncodingForCharset(request.headers.contentType.charset);
+            encodingForCharset(request.headers.contentType.charset);
         requestBody = encoding.decode(requestBodyBytes);
       } else {
         requestBody = requestBodyBytes;
