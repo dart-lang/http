@@ -4,9 +4,10 @@
 
 import 'dart:convert';
 
-import 'package:test/test.dart';
-
+import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'package:test/test.dart';
 
 /// A dummy URL for constructing requests that won't be sent.
 Uri get dummyUrl => Uri.parse('http://dartlang.org/');
@@ -63,6 +64,40 @@ class _Parse extends Matcher {
   Description describe(Description description) {
     return description.add('parses to a value that ')
       .addDescriptionOf(_matcher);
+  }
+}
+
+/// A matcher that validates the body of a multipart request after finalization.
+/// The string "{{boundary}}" in [pattern] will be replaced by the boundary
+/// string for the request, and LF newlines will be replaced with CRLF.
+/// Indentation will be normalized.
+Matcher bodyMatches(String pattern) => new _BodyMatches(pattern);
+
+class _BodyMatches extends Matcher {
+  final String _pattern;
+
+  _BodyMatches(this._pattern);
+
+  bool matches(item, Map matchState) {
+    if (item is! http.Request) return false;
+
+    var future = collectBytes(item.read()).then((bodyBytes) {
+      var body = UTF8.decode(bodyBytes);
+      var contentType = new MediaType.parse(item.headers['content-type']);
+      var boundary = contentType.parameters['boundary'];
+      var expected = cleanUpLiteral(_pattern)
+          .replaceAll("\n", "\r\n")
+          .replaceAll("{{boundary}}", boundary);
+
+      expect(body, equals(expected));
+      expect(item.contentLength, equals(bodyBytes.length));
+    });
+
+    return completes.matches(future, matchState);
+  }
+
+  Description describe(Description description) {
+    return description.add('has a body that matches "$_pattern"');
   }
 }
 

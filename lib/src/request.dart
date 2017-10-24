@@ -140,6 +140,7 @@ class Request extends Message {
         Iterable<MultipartFile> files}) {
     fields ??= <String, String>{};
     files ??= <MultipartFile>[];
+    headers ??= <String, String>{};
 
     var boundary = _boundaryString();
 

@@ -27,7 +27,7 @@ class MultipartBody implements Body {
   ///
   /// The [boundary] is used to
   factory MultipartBody(Map<String, String> fields,
-      Iterable<MultipartFile> files, String boundary) {
+      List<MultipartFile> files, String boundary) {
     var controller = new StreamController<List<int>>(sync: true);
     var contentLength = 0;
 
