@@ -103,8 +103,8 @@ hybridMain(StreamChannel channel) async {
 
       // Add CORS headers for browser testing
       response.headers.set('access-control-allow-origin', '*');
-      response.headers.set(
-          'access-control-allow-headers', 'X-Random-Header,X-Other-Header');
+      response.headers.set('access-control-allow-headers',
+          'X-Random-Header,X-Other-Header,User-Agent');
       response.headers.set('access-control-allow-methods',
           'GET, PUT, POST, DELETE, PATCH, HEAD');
 
