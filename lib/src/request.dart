@@ -150,9 +150,9 @@ class Request extends Message {
       Map<String, Object> context,
       Map<String, String> fields,
       Iterable<MultipartFile> files}) {
-    fields ??= <String, String>{};
-    files ??= <MultipartFile>[];
-    headers ??= <String, String>{};
+    fields ??= const {};
+    files ??= const [];
+    headers ??= {};
 
     var boundary = boundaryString();
 
