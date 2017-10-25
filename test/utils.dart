@@ -62,21 +62,24 @@ class _Parse extends Matcher {
   }
 
   Description describe(Description description) {
-    return description.add('parses to a value that ')
-      .addDescriptionOf(_matcher);
+    return description
+        .add('parses to a value that ')
+        .addDescriptionOf(_matcher);
   }
 }
 
 /// A matcher that validates the body of a multipart request after finalization.
+///
 /// The string "{{boundary}}" in [pattern] will be replaced by the boundary
 /// string for the request, and LF newlines will be replaced with CRLF.
 /// Indentation will be normalized.
-Matcher bodyMatches(String pattern) => new _BodyMatches(pattern);
+Matcher multipartBodyMatches(String pattern) =>
+    new _MultipartBodyMatches(pattern);
 
-class _BodyMatches extends Matcher {
+class _MultipartBodyMatches extends Matcher {
   final String _pattern;
 
-  _BodyMatches(this._pattern);
+  _MultipartBodyMatches(this._pattern);
 
   bool matches(item, Map matchState) {
     if (item is! http.Request) return false;
@@ -86,8 +89,8 @@ class _BodyMatches extends Matcher {
       var contentType = new MediaType.parse(item.headers['content-type']);
       var boundary = contentType.parameters['boundary'];
       var expected = cleanUpLiteral(_pattern)
-          .replaceAll("\n", "\r\n")
-          .replaceAll("{{boundary}}", boundary);
+          .replaceAll('\n', '\r\n')
+          .replaceAll('{{boundary}}', boundary);
 
       expect(body, equals(expected));
       expect(item.contentLength, equals(bodyBytes.length));
@@ -96,21 +99,20 @@ class _BodyMatches extends Matcher {
     return completes.matches(future, matchState);
   }
 
-  Description describe(Description description) {
-    return description.add('has a body that matches "$_pattern"');
-  }
+  Description describe(Description description) =>
+      description.add('has a body that matches "$_pattern"');
 }
 
 /// A matcher that matches a [http.ClientException] with the given [message].
 ///
 /// [message] can be a String or a [Matcher].
 Matcher isClientException([message]) => predicate((error) {
-  expect(error, new isInstanceOf<http.ClientException>());
-  if (message != null) {
-    expect(error.message, message);
-  }
-  return true;
-});
+      expect(error, new isInstanceOf<http.ClientException>());
+      if (message != null) {
+        expect(error.message, message);
+      }
+      return true;
+    });
 
 /// A matcher that matches function or future that throws a
 /// [http.ClientException] with the given [message].

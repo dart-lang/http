@@ -1,4 +1,4 @@
-// Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -13,7 +13,7 @@ import 'utils.dart';
 void main() {
   test('empty', () {
     var request = new http.Request.multipart(dummyUrl);
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}--
         '''));
   });
@@ -24,15 +24,15 @@ void main() {
       'field2': 'value2',
     };
     var files = [
-      new http.MultipartFile.fromString("file1", "contents1",
-          filename: "filename1.txt"),
-      new http.MultipartFile.fromString("file2", "contents2"),
+      new http.MultipartFile.fromString('file1', 'contents1',
+          filename: 'filename1.txt'),
+      new http.MultipartFile.fromString('file2', 'contents2'),
     ];
 
     var request =
         new http.Request.multipart(dummyUrl, fields: fields, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-disposition: form-data; name="field1"
 
@@ -60,7 +60,7 @@ void main() {
 
     var request = new http.Request.multipart(dummyUrl, fields: fields);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-disposition: form-data; name="fïēld"
 
@@ -73,7 +73,7 @@ void main() {
     var fields = {'foo\nbar\rbaz\r\nbang': 'value'};
     var request = new http.Request.multipart(dummyUrl, fields: fields);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-disposition: form-data; name="foo%0D%0Abar%0D%0Abaz%0D%0Abang"
 
@@ -86,7 +86,7 @@ void main() {
     var fields = {'foo"bar': 'value'};
     var request = new http.Request.multipart(dummyUrl, fields: fields);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-disposition: form-data; name="foo%22bar"
 
@@ -99,7 +99,7 @@ void main() {
     var fields = {'field': 'vⱥlūe'};
     var request = new http.Request.multipart(dummyUrl, fields: fields);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-disposition: form-data; name="field"
         content-type: text/plain; charset=utf-8
@@ -117,7 +117,7 @@ void main() {
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-type: text/plain; charset=utf-8
         content-disposition: form-data; name="file"; filename="fïlēname.txt"
@@ -134,7 +134,7 @@ void main() {
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-type: text/plain; charset=utf-8
         content-disposition: form-data; name="file"; filename="foo%0D%0Abar%0D%0Abaz%0D%0Abang"
@@ -150,7 +150,7 @@ void main() {
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-type: text/plain; charset=utf-8
         content-disposition: form-data; name="file"; filename="foo%22bar"
@@ -167,7 +167,7 @@ void main() {
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-type: application/json; charset=utf-8
         content-disposition: form-data; name="file"
@@ -186,7 +186,7 @@ void main() {
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-type: text/plain; charset=iso-8859-1
         content-disposition: form-data; name="file"
@@ -197,11 +197,11 @@ void main() {
   });
 
   test('with a stream file', () {
-    var controller = new StreamController(sync: true);
+    var controller = new StreamController<List<int>>(sync: true);
     var files = [new http.MultipartFile('file', controller.stream, 5)];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-type: application/octet-stream
         content-disposition: form-data; name="file"
@@ -210,16 +210,17 @@ void main() {
         --{{boundary}}--
         '''));
 
-    controller.add([104, 101, 108, 108, 111]);
-    controller.close();
+    controller
+      ..add([104, 101, 108, 108, 111])
+      ..close();
   });
 
   test('with an empty stream file', () {
-    var controller = new StreamController(sync: true);
+    var controller = new StreamController<List<int>>(sync: true);
     var files = [new http.MultipartFile('file', controller.stream, 0)];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-type: application/octet-stream
         content-disposition: form-data; name="file"
@@ -237,7 +238,7 @@ void main() {
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
-    expect(request, bodyMatches('''
+    expect(request, multipartBodyMatches('''
         --{{boundary}}
         content-type: application/octet-stream
         content-disposition: form-data; name="file"

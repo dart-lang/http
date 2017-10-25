@@ -13,8 +13,9 @@ import 'package:path/path.dart' as path;
 
 import 'content_type.dart';
 
-/// A file to be uploaded as part of a [MultipartRequest]. This doesn't need to
-/// correspond to a physical file.
+/// A file to be uploaded as part of a `multipart/form-data` Request.
+///
+/// This doesn't need to correspond to a physical file.
 class MultipartFile {
   /// The stream that will emit the file's contents.
   Stream<List<int>> _stream;

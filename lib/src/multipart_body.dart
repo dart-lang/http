@@ -1,4 +1,4 @@
-// Copyright (c) 2013, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2017, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -20,9 +20,6 @@ class MultipartBody implements Body {
   /// This will be `null` after [read] is called.
   Stream<List<int>> _stream;
 
-  /// The length of the stream returned by [read].
-  ///
-  /// This is calculated from the fields and files passed into the body.
   final int contentLength;
 
   /// Multipart forms do not have an encoding.
@@ -30,7 +27,7 @@ class MultipartBody implements Body {
 
   /// Creates a [MultipartBody] from the given [fields] and [files].
   ///
-  /// The [boundary] is used to
+  /// The [boundary] is used to separate key value pairs within the body.
   factory MultipartBody(Map<String, String> fields,
       Iterable<MultipartFile> files, String boundary) {
     var controller = new StreamController<List<int>>(sync: true);
@@ -45,10 +42,10 @@ class MultipartBody implements Body {
     }
 
     void writeLine() {
-      buffer.addAll([13, 10]); // \r\n
+      buffer..add(13)..add(10); // \r\n
     }
 
-    // Write the fields to the stream.
+    // Write the fields to the buffer.
     fields.forEach((name, value) {
       writeAscii('--$boundary\r\n');
       writeUtf8(_headerForField(name, value));
@@ -58,16 +55,17 @@ class MultipartBody implements Body {
 
     controller.add(buffer);
 
-    // Iterate over the files to get the length and compute the headers ahead
+    // Iterate over the files to get the length and compute the headers ahead of
     // time so the length can be synchronously accessed.
     var fileList = files.toList();
     var fileHeaders = <List<int>>[];
     var fileContentsLength = 0;
 
     for (var file in fileList) {
-      var header = <int>[];
-      header.addAll('--$boundary\r\n'.codeUnits);
-      header.addAll(UTF8.encode(_headerForFile(file)));
+      var header = <int>[]
+        ..addAll('--$boundary\r\n'.codeUnits)
+        ..addAll(UTF8.encode(_headerForFile(file)));
+
       fileContentsLength += header.length + file.length + 2;
       fileHeaders.add(header);
     }
@@ -77,7 +75,7 @@ class MultipartBody implements Body {
     fileContentsLength += ending.length;
 
     // Write the files to the stream asynchronously.
-    _writeFilesToStream(controller, files, fileHeaders, ending);
+    _writeFilesToStream(controller, fileList, fileHeaders, ending);
 
     return new MultipartBody._(
         controller.stream, buffer.length + fileContentsLength);
@@ -91,7 +89,7 @@ class MultipartBody implements Body {
   Stream<List<int>> read() {
     if (_stream == null) {
       throw new StateError("The 'read' method can only be called once on a "
-          "http.Request/http.Response object.");
+          'http.Request/http.Response object.');
     }
     var stream = _stream;
     _stream = null;
@@ -106,12 +104,17 @@ class MultipartBody implements Body {
       List<int> ending) async {
     for (var i = 0; i < files.length; ++i) {
       controller.add(fileHeaders[i]);
-      await writeStreamToSink(files[i].read(), controller);
+      try {
+        await writeStreamToSink(files[i].read(), controller);
+      } on Exception catch (exception, stackTrace) {
+        controller.addError(exception, stackTrace);
+      }
       controller.add([13, 10]);
     }
 
-    controller.add(ending);
-    controller.close();
+    controller
+      ..add(ending)
+      ..close();
   }
 
   /// Returns the header string for a field.
@@ -139,15 +142,14 @@ class MultipartBody implements Body {
     return '$header\r\n\r\n';
   }
 
-  static final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
+  static final _newlineRegExp = new RegExp(r'\r\n|\r|\n');
 
   /// Encode [value] in the same way browsers do.
-  static String _browserEncode(String value) {
-    // http://tools.ietf.org/html/rfc2388 mandates some complex encodings for
-    // field names and file names, but in practice user agents seem not to
-    // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
-    // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
-    // characters). We follow their behavior.
-    return value.replaceAll(_newlineRegExp, "%0D%0A").replaceAll('"', "%22");
-  }
+  static String _browserEncode(String value) =>
+      // http://tools.ietf.org/html/rfc2388 mandates some complex encodings for
+      // field names and file names, but in practice user agents seem not to
+      // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
+      // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
+      // characters). We follow their behavior.
+      value.replaceAll(_newlineRegExp, '%0D%0A').replaceAll('"', '%22');
 }
