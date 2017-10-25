@@ -11,6 +11,9 @@ import 'body.dart';
 import 'multipart_file.dart';
 import 'utils.dart';
 
+/// A `multipart/form-data` request [Body]. Such a request has both string
+/// fields, which function as normal form fields, and (potentially streamed)
+/// binary files.
 class MultipartBody implements Body {
   /// The contents of the message body.
   ///
@@ -58,40 +61,23 @@ class MultipartBody implements Body {
     // Iterate over the files to get the length and compute the headers ahead
     // time so the length can be synchronously accessed.
     var fileList = files.toList();
-    var fileCount = files.length;
-    var fileHeaders = new List<List<int>>(fileCount);
+    var fileHeaders = <List<int>>[];
     var fileContentsLength = 0;
 
-    for (var i = 0; i < fileCount; ++i) {
-      var file = fileList[i];
+    for (var file in fileList) {
       var header = <int>[];
       header.addAll('--$boundary\r\n'.codeUnits);
       header.addAll(UTF8.encode(_headerForFile(file)));
       fileContentsLength += header.length + file.length + 2;
-      fileHeaders[i] = header;
+      fileHeaders.add(header);
     }
 
     // Ending characters.
     var ending = '--$boundary--\r\n'.codeUnits;
     fileContentsLength += ending.length;
 
-    // Write the files to the stream.
-    //
-    // Future.forEach will ensure that the actions happen in sequence so i is
-    // used to get the fileHeaders.
-    var i = 0;
-
-    Future.forEach(files, (file) {
-      assert(fileList[i] == file);
-      controller.add(fileHeaders[i++]);
-      return writeStreamToSink(file.read(), controller)
-          .then((_) => controller.add([13, 10]));
-    }).then((_) {
-      // TODO(nweiz): pass any errors propagated through this future on to
-      // the stream. See issue 3657.
-      controller.add(ending);
-      controller.close();
-    });
+    // Write the files to the stream asynchronously.
+    _writeFilesToStream(controller, files, fileHeaders, ending);
 
     return new MultipartBody._(
         controller.stream, buffer.length + fileContentsLength);
@@ -110,6 +96,22 @@ class MultipartBody implements Body {
     var stream = _stream;
     _stream = null;
     return stream;
+  }
+
+  /// Writes the [files] to the [controller].
+  static Future _writeFilesToStream(
+      StreamController<List<int>> controller,
+      List<MultipartFile> files,
+      List<List<int>> fileHeaders,
+      List<int> ending) async {
+    for (var i = 0; i < files.length; ++i) {
+      controller.add(fileHeaders[i]);
+      await writeStreamToSink(files[i].read(), controller);
+      controller.add([13, 10]);
+    }
+
+    controller.add(ending);
+    controller.close();
   }
 
   /// Returns the header string for a field.
