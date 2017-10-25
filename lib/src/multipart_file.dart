@@ -50,10 +50,7 @@ class MultipartFile {
       defaultMediaType = new MediaType('application', 'octet-stream');
     } else {
       throw new ArgumentError.value(
-          value,
-          'value',
-          'value must be either a '
-          'String or a List<int>');
+          value, 'value', 'value must be either a String or a List<int>');
     }
 
     contentType ??= _lookupMediaType(filename, bytes) ?? defaultMediaType;
@@ -89,8 +86,8 @@ class MultipartFile {
   /// Can only be called once.
   Stream<List<int>> read() {
     if (_stream == null) {
-      throw new StateError("The 'read' method can only be called once on a "
-          "http.MultipartFile object.");
+      throw new StateError('The "read" method can only be called once on a '
+          'http.MultipartFile object.');
     }
     var stream = _stream;
     _stream = null;
