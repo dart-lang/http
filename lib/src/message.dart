@@ -5,7 +5,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'body.dart';
@@ -62,12 +61,27 @@ abstract class Message {
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(new Body(body, encoding), headers, context);
+      : this._forwardToContentType(body, encoding,
+            _determineMediaType(body, encoding, headers), headers, context);
 
-  Message._(Body body, Map<String, String> headers, Map<String, Object> context)
+  Message.withContentType(Body body, MediaType contentType,
+      Map<String, String> headers, Map<String, Object> context)
+      : this._fromValues(
+            body, _adjustHeaders(headers, body, contentType), context);
+
+  Message._forwardToContentType(body, Encoding encoding, MediaType contentType,
+      Map<String, String> headers, Map<String, Object> context)
+      : this.withContentType(
+            new Body(body, encoding), contentType, headers, context);
+
+  /// Creates a new [Message].
+  ///
+  /// This constructor should be used when no computation is required for the
+  /// [body], [headers] or [context].
+  Message._fromValues(
+      Body body, Map<String, String> headers, Map<String, Object> context)
       : _body = body,
-        headers = new HttpUnmodifiableMap<String>(_adjustHeaders(headers, body),
-            ignoreKeyCase: true),
+        headers = new HttpUnmodifiableMap<String>(headers, ignoreKeyCase: true),
         context =
             new HttpUnmodifiableMap<Object>(context, ignoreKeyCase: false);
 
@@ -140,55 +154,119 @@ abstract class Message {
   /// changes.
   Message change(
       {Map<String, String> headers, Map<String, Object> context, body});
-}
 
-/// Adds information about encoding to [headers].
-///
-/// Returns a new map without modifying [headers].
-Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
-  var sameEncoding = _sameEncoding(headers, body);
-  if (sameEncoding) {
-    if (body.contentLength == null ||
-        getHeader(headers, 'content-length') == body.contentLength.toString()) {
+  /// Determines the media type based on the [headers], [encoding] and [body].
+  static MediaType _determineMediaType(
+          body, Encoding encoding, Map<String, String> headers) =>
+      _headerMediaType(headers, encoding) ?? _defaultMediaType(body, encoding);
+
+  static MediaType _defaultMediaType(body, Encoding encoding) {
+    //if (body == null) return null;
+
+    var parameters = {'charset': encoding?.name ?? UTF8.name};
+
+    if (body is String) {
+      return new MediaType('text', 'plain', parameters);
+    } else if (body is Map) {
+      return new MediaType('application', 'x-www-form-urlencoded', parameters);
+    } else if (encoding != null) {
+      return new MediaType('application', 'octet-stream', parameters);
+    }
+
+    return null;
+  }
+
+  static MediaType _headerMediaType(
+      Map<String, String> headers, Encoding encoding) {
+    var contentTypeHeader = getHeader(headers, 'content-type');
+    if (contentTypeHeader == null) return null;
+
+    var contentType = new MediaType.parse(contentTypeHeader);
+    var parameters = {
+      'charset':
+          encoding?.name ?? contentType.parameters['charset'] ?? UTF8.name
+    };
+
+    return contentType.change(parameters: parameters);
+  }
+
+  /// Adjusts the [headers] to include information from the [body].
+  ///
+  /// Returns a new map without modifying [headers].
+  ///
+  /// The following headers could be added or modified.
+  /// * content-length
+  /// * content-type
+  static Map<String, String> _adjustHeaders(
+      Map<String, String> headers, Body body, MediaType contentType) {
+    var modified = <String, String>{};
+
+    var contentLengthHeader = _adjustContentLengthHeader(headers, body);
+    if (contentLengthHeader.isNotEmpty) {
+      modified['content-length'] = contentLengthHeader;
+    }
+
+    var contentTypeHeader = _adjustContentTypeHeader(headers, contentType);
+    if (contentTypeHeader.isNotEmpty) {
+      modified['content-type'] = contentTypeHeader;
+    }
+
+    if (modified.isEmpty) {
       return headers ?? const HttpUnmodifiableMap.empty();
-    } else if (body.contentLength == 0 &&
-        (headers == null || headers.isEmpty)) {
-      return const HttpUnmodifiableMap.empty();
     }
+
+    var newHeaders = headers == null
+        ? new CaseInsensitiveMap<String>()
+        : new CaseInsensitiveMap<String>.from(headers);
+
+    newHeaders.addAll(modified);
+
+    return newHeaders;
   }
 
-  var newHeaders = headers == null
-      ? new CaseInsensitiveMap<String>()
-      : new CaseInsensitiveMap<String>.from(headers);
+  /// Checks the `content-length` header to see if it requires modification.
+  ///
+  /// Returns an empty string when no modification is required, otherwise it
+  /// returns the value to set.
+  ///
+  /// If there is a contentLength specified within the [body] and it does not
+  /// match what is specified in the [headers] it will be modified to the body's
+  /// value.
+  static String _adjustContentLengthHeader(
+      Map<String, String> headers, Body body) {
+    var bodyContentLength = body.contentLength ?? -1;
 
-  if (!sameEncoding) {
-    if (newHeaders['content-type'] == null) {
-      newHeaders['content-type'] =
-          'application/octet-stream; charset=${body.encoding.name}';
-    } else {
-      var contentType = new MediaType.parse(newHeaders['content-type'])
-          .change(parameters: {'charset': body.encoding.name});
-      newHeaders['content-type'] = contentType.toString();
+    if (bodyContentLength >= 0) {
+      var bodyContentHeader = bodyContentLength.toString();
+
+      if (getHeader(headers, 'content-length') != bodyContentHeader) {
+        return bodyContentHeader;
+      }
     }
+
+    return '';
   }
 
-  if (body.contentLength != null) {
-    var coding = newHeaders['transfer-encoding'];
-    if (coding == null || equalsIgnoreAsciiCase(coding, 'identity')) {
-      newHeaders['content-length'] = body.contentLength.toString();
+  /// Checks the `content-type` header to see if it requires modification.
+  ///
+  /// Returns an empty string when no modification is required, otherwise it
+  /// returns the value to set.
+  ///
+  /// If the contentType within [body] is different than the one specified in the
+  /// [headers] then body's value will be used. The [headers] were already used
+  /// when creating the body's contentType so this will only actually change
+  /// things when headers did not contain a `content-type`.
+  static String _adjustContentTypeHeader(
+      Map<String, String> headers, MediaType contentType) {
+    var headerContentType = getHeader(headers, 'content-type');
+    var bodyContentType = contentType?.toString();
+
+    // Neither are set so don't modify it
+    if ((headerContentType == null) && (bodyContentType == null)) {
+      return '';
     }
+
+    // The value of bodyContentType will have the overridden values so use that
+    return headerContentType != bodyContentType ? bodyContentType : '';
   }
-
-  return newHeaders;
-}
-
-/// Returns whether [headers] declares the same encoding as [body].
-bool _sameEncoding(Map<String, String> headers, Body body) {
-  if (body.encoding == null) return true;
-
-  var contentType = getHeader(headers, 'content-type');
-  if (contentType == null) return false;
-
-  var charset = new MediaType.parse(contentType).parameters['charset'];
-  return Encoding.getByName(charset) == body.encoding;
 }
