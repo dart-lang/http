@@ -5,6 +5,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:typed_data/typed_buffers.dart';
+
 import 'body.dart';
 import 'multipart_file.dart';
 import 'utils.dart';
@@ -26,25 +28,21 @@ class MultipartBody implements Body {
   /// Creates a [MultipartBody] from the given [fields] and [files].
   ///
   /// The [boundary] is used to
-  factory MultipartBody(
-      Map<String, String> fields, List<MultipartFile> files, String boundary) {
+  factory MultipartBody(Map<String, String> fields,
+      Iterable<MultipartFile> files, String boundary) {
     var controller = new StreamController<List<int>>(sync: true);
-    var contentLength = 0;
+    var buffer = new Uint8Buffer();
 
     void writeAscii(String string) {
-      controller.add(string.codeUnits);
-      contentLength += string.length;
+      buffer.addAll(string.codeUnits);
     }
 
     void writeUtf8(String string) {
-      var encoded = UTF8.encode(string);
-      controller.add(encoded);
-      contentLength += encoded.length;
+      buffer.addAll(UTF8.encode(string));
     }
 
     void writeLine() {
-      controller.add([13, 10]); // \r\n
-      contentLength += 2;
+      buffer.addAll([13, 10]); // \r\n
     }
 
     // Write the fields to the stream.
@@ -55,23 +53,27 @@ class MultipartBody implements Body {
       writeLine();
     });
 
+    controller.add(buffer);
+
     // Iterate over the files to get the length and compute the headers ahead
     // time so the length can be synchronously accessed.
+    var fileList = files.toList();
     var fileCount = files.length;
     var fileHeaders = new List<List<int>>(fileCount);
+    var fileContentsLength = 0;
 
     for (var i = 0; i < fileCount; ++i) {
-      var file = files[i];
+      var file = fileList[i];
       var header = <int>[];
       header.addAll('--$boundary\r\n'.codeUnits);
       header.addAll(UTF8.encode(_headerForFile(file)));
-      contentLength += header.length + file.length + 2;
+      fileContentsLength += header.length + file.length + 2;
       fileHeaders[i] = header;
     }
 
     // Ending characters.
     var ending = '--$boundary--\r\n'.codeUnits;
-    contentLength += ending.length;
+    fileContentsLength += ending.length;
 
     // Write the files to the stream.
     //
@@ -80,7 +82,7 @@ class MultipartBody implements Body {
     var i = 0;
 
     Future.forEach(files, (file) {
-      assert(files[i] == file);
+      assert(fileList[i] == file);
       controller.add(fileHeaders[i++]);
       return writeStreamToSink(file.read(), controller)
           .then((_) => controller.add([13, 10]));
@@ -91,7 +93,8 @@ class MultipartBody implements Body {
       controller.close();
     });
 
-    return new MultipartBody._(controller.stream, contentLength);
+    return new MultipartBody._(
+        controller.stream, buffer.length + fileContentsLength);
   }
 
   MultipartBody._(this._stream, this.contentLength);
