@@ -24,9 +24,8 @@ void main() {
       'field2': 'value2',
     };
     var files = [
-      new http.MultipartFile.fromString('file1', 'contents1',
-          filename: 'filename1.txt'),
-      new http.MultipartFile.fromString('file2', 'contents2'),
+      new http.MultipartFile('file1', 'contents1', filename: 'filename1.txt'),
+      new http.MultipartFile('file2', 'contents2'),
     ];
 
     var request =
@@ -112,8 +111,7 @@ void main() {
 
   test('with a unicode filename', () {
     var files = [
-      new http.MultipartFile.fromString('file', 'contents',
-          filename: 'fïlēname.txt')
+      new http.MultipartFile('file', 'contents', filename: 'fïlēname.txt')
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
@@ -129,7 +127,7 @@ void main() {
 
   test('with a filename with newlines', () {
     var files = [
-      new http.MultipartFile.fromString('file', 'contents',
+      new http.MultipartFile('file', 'contents',
           filename: 'foo\nbar\rbaz\r\nbang')
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
@@ -146,7 +144,7 @@ void main() {
 
   test('with a filename with a quote', () {
     var files = [
-      new http.MultipartFile.fromString('file', 'contents', filename: 'foo"bar')
+      new http.MultipartFile('file', 'contents', filename: 'foo"bar')
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
@@ -162,7 +160,7 @@ void main() {
 
   test('with a string file with a content-type but no charset', () {
     var files = [
-      new http.MultipartFile.fromString('file', '{"hello": "world"}',
+      new http.MultipartFile('file', '{"hello": "world"}',
           contentType: new MediaType('application', 'json'))
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
@@ -180,7 +178,7 @@ void main() {
   test('with a file with a iso-8859-1 body', () {
     // "Ã¥" encoded as ISO-8859-1 and then read as UTF-8 results in "å".
     var files = [
-      new http.MultipartFile.fromString('file', 'non-ascii: "Ã¥"',
+      new http.MultipartFile('file', 'non-ascii: "Ã¥"',
           contentType:
               new MediaType('text', 'plain', {'charset': 'iso-8859-1'}))
     ];
@@ -198,7 +196,9 @@ void main() {
 
   test('with a stream file', () {
     var controller = new StreamController<List<int>>(sync: true);
-    var files = [new http.MultipartFile('file', controller.stream, 5)];
+    var files = [
+      new http.MultipartFile.fromStream('file', controller.stream, 5)
+    ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
     expect(request, multipartBodyMatches('''
@@ -217,7 +217,9 @@ void main() {
 
   test('with an empty stream file', () {
     var controller = new StreamController<List<int>>(sync: true);
-    var files = [new http.MultipartFile('file', controller.stream, 0)];
+    var files = [
+      new http.MultipartFile.fromStream('file', controller.stream, 0)
+    ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
     expect(request, multipartBodyMatches('''
@@ -234,7 +236,7 @@ void main() {
 
   test('with a byte file', () {
     var files = [
-      new http.MultipartFile.fromBytes('file', [104, 101, 108, 108, 111])
+      new http.MultipartFile('file', [104, 101, 108, 108, 111])
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
