@@ -18,8 +18,7 @@ class HandlerClient extends BaseClient {
   final void Function() _close;
 
   /// Creates a new client using the [_handler] and [onClose] functions.
-  HandlerClient(this._handler, void onClose())
-      : _close = onClose;
+  HandlerClient(this._handler, void onClose()) : _close = onClose;
 
   /// Sends an HTTP request and asynchronously returns the response.
   Future<Response> send(Request request) => _handler(request);
