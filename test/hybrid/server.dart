@@ -7,7 +7,7 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:http/src/content_type.dart';
-import "package:stream_channel/stream_channel.dart";
+import 'package:stream_channel/stream_channel.dart';
 
 /// The list of headers to ignore when sending back confirmation.
 final _ignoreHeaders = <String>[
@@ -57,35 +57,39 @@ hybridMain(StreamChannel channel) async {
     var response = request.response;
 
     if (path == '/error') {
-      response.statusCode = 400;
-      response.contentLength = 0;
-      response.close();
+      response
+        ..statusCode = 400
+        ..contentLength = 0
+        ..close();
       return;
     }
 
     if (path == '/loop') {
       var n = int.parse(request.uri.query);
-      response.statusCode = 302;
-      response.headers
-          .set('location', serverUrl.resolve('/loop?${n + 1}').toString());
-      response.contentLength = 0;
-      response.close();
+      response
+        ..statusCode = 302
+        ..headers
+            .set('location', serverUrl.resolve('/loop?${n + 1}').toString())
+        ..contentLength = 0
+        ..close();
       return;
     }
 
     if (path == '/redirect') {
-      response.statusCode = 302;
-      response.headers.set('location', serverUrl.resolve('/').toString());
-      response.contentLength = 0;
-      response.close();
+      response
+        ..statusCode = 302
+        ..headers.set('location', serverUrl.resolve('/').toString())
+        ..contentLength = 0
+        ..close();
       return;
     }
 
     if (path == '/no-content-length') {
-      response.statusCode = 200;
-      response.contentLength = -1;
-      response.write('body');
-      response.close();
+      response
+        ..statusCode = 200
+        ..contentLength = -1
+        ..write('body')
+        ..close();
       return;
     }
 
@@ -99,7 +103,7 @@ hybridMain(StreamChannel channel) async {
       }
 
       response.headers.contentType =
-          new ContentType("application", "json", charset: outputEncoding.name);
+          new ContentType('application', 'json', charset: outputEncoding.name);
 
       // Add CORS headers for browser testing
       response.headers.set('access-control-allow-origin', '*');
@@ -113,8 +117,7 @@ hybridMain(StreamChannel channel) async {
         requestBody = null;
       } else if (request.headers.contentType != null &&
           request.headers.contentType.charset != null) {
-        var encoding =
-            encodingForCharset(request.headers.contentType.charset);
+        var encoding = encodingForCharset(request.headers.contentType.charset);
         requestBody = encoding.decode(requestBodyBytes);
       } else {
         requestBody = requestBodyBytes;
@@ -134,9 +137,11 @@ hybridMain(StreamChannel channel) async {
       });
 
       var body = JSON.encode(content);
-      response.contentLength = body.length;
-      response.write(body);
-      response.close();
+
+      response
+        ..contentLength = body.length
+        ..write(body)
+        ..close();
     });
   });
 

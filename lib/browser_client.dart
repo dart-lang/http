@@ -37,13 +37,19 @@ class BrowserClient extends BaseClient {
   Future<Response> send(Request request) async {
     var bytes = await collectBytes(request.read());
     var xhr = new HttpRequest();
+
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
-    xhr.responseType = 'blob';
-    xhr.withCredentials = request.context['html.withCredentials'] ?? false;
+
+    xhr
+      ..responseType = 'blob'
+      ..withCredentials = request.context['html.withCredentials'] ?? false
+      ..timeout = request.context['html.timeout'];
+
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = new Completer<Response>();
+
     xhr.onLoad.first.then((_) {
       // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
       // is fixed.
@@ -52,9 +58,7 @@ class BrowserClient extends BaseClient {
 
       reader.onLoad.first.then((_) {
         var body = reader.result as Uint8List;
-        completer.complete(new Response(
-            xhr.responseUrl,
-            xhr.status,
+        completer.complete(new Response(xhr.responseUrl, xhr.status,
             reasonPhrase: xhr.statusText,
             body: new Stream.fromIterable([body]),
             headers: xhr.responseHeaders));
@@ -92,9 +96,6 @@ class BrowserClient extends BaseClient {
     request.open(method, url, async: asynch, user: user, password: password);
   }
 
-  /// Closes the client.
-  ///
-  /// This terminates all active requests.
   void close() {
     for (var xhr in _xhrs) {
       xhr.abort();
