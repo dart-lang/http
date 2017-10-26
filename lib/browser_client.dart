@@ -20,10 +20,9 @@ import 'src/response.dart';
 /// XMLHttpRequests.
 ///
 /// This client inherits some of the limitations of XMLHttpRequest. It is
-/// unable to directly set some headers, such as `content-length`. There is no
-/// way to create a persistent connection. Redirects cannot be handled directly.
-/// It is also unable to stream requests or responses; a request will only be
-/// sent and a response will only be returned once all the data is available.
+/// unable to directly set some headers, such as `content-length`. It is also
+/// unable to stream requests or responses; a request will only be sent and a
+/// response will only be returned once all the data is available.
 class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///

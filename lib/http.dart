@@ -28,8 +28,9 @@ export 'src/response.dart';
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
 ///
-/// For more fine-grained control over the request and response, create a
-/// [Client] and use it directly.
+/// This automatically initializes a new [Client] and closes that client once
+/// the request is complete. If you're planning on making multiple requests to
+/// the same server, you should use a single [Client] for all of those requests.
 Future<Response> head(url, {Map<String, String> headers}) =>
     _withClient((client) => client.head(url, headers: headers));
 
@@ -40,8 +41,9 @@ Future<Response> head(url, {Map<String, String> headers}) =>
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
 ///
-/// For more fine-grained control over the request and response, create a
-/// [Client] and use it directly.
+/// This automatically initializes a new [Client] and closes that client once
+/// the request is complete. If you're planning on making multiple requests to
+/// the same server, you should use a single [Client] for all of those requests.
 Future<Response> get(url, {Map<String, String> headers}) =>
     _withClient((client) => client.get(url, headers: headers));
 
@@ -62,8 +64,9 @@ Future<Response> get(url, {Map<String, String> headers}) =>
 ///
 /// [encoding] defaults to [UTF8].
 ///
-/// For more fine-grained control over the request and response, create a
-/// [Client] and use it directly.
+/// This automatically initializes a new [Client] and closes that client once
+/// the request is complete. If you're planning on making multiple requests to
+/// the same server, you should use a single [Client] for all of those requests.
 Future<Response> post(url, body,
         {Map<String, String> headers, Encoding encoding}) =>
     _withClient((client) =>
@@ -86,8 +89,9 @@ Future<Response> post(url, body,
 ///
 /// [encoding] defaults to [UTF8].
 ///
-/// For more fine-grained control over the request and response, create a
-/// [Client] and use it directly.
+/// This automatically initializes a new [Client] and closes that client once
+/// the request is complete. If you're planning on making multiple requests to
+/// the same server, you should use a single [Client] for all of those requests.
 Future<Response> put(url, body,
         {Map<String, String> headers, Encoding encoding}) =>
     _withClient((client) =>
@@ -110,8 +114,9 @@ Future<Response> put(url, body,
 ///
 /// [encoding] defaults to [UTF8].
 ///
-/// For more fine-grained control over the request and response, create a
-/// [Client] and use it directly.
+/// This automatically initializes a new [Client] and closes that client once
+/// the request is complete. If you're planning on making multiple requests to
+/// the same server, you should use a single [Client] for all of those requests.
 Future<Response> patch(url, body,
         {Map<String, String> headers, Encoding encoding}) =>
     _withClient((client) =>
@@ -123,9 +128,6 @@ Future<Response> patch(url, body,
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
-///
-/// For more fine-grained control over the request and response, create a
-/// [Client] and use it directly.
 Future<Response> delete(url, {Map<String, String> headers}) =>
     _withClient((client) => client.delete(url, headers: headers));
 
@@ -139,9 +141,6 @@ Future<Response> delete(url, {Map<String, String> headers}) =>
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
-///
-/// For more fine-grained control over the request and response, create a
-/// [Client] and use it directly.
 Future<String> read(url, {Map<String, String> headers}) =>
     _withClient((client) => client.read(url, headers: headers));
 
@@ -155,9 +154,6 @@ Future<String> read(url, {Map<String, String> headers}) =>
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
-///
-/// For more fine-grained control over the request and response, create a
-/// [Client] and use it directly.
 Future<Uint8List> readBytes(url, {Map<String, String> headers}) =>
     _withClient((client) => client.readBytes(url, headers: headers));
 

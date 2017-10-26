@@ -15,8 +15,8 @@ import 'response.dart';
 
 /// The abstract base class for an HTTP client.
 ///
-/// This is a mixin-style class; subclasses only need to implement [send] and
-/// maybe [close], and then they get various convenience methods for free.
+/// Subclasses only need to implement [send] and maybe [close], and then they
+/// get various convenience methods for free.
 abstract class BaseClient implements Client {
   Future<Response> head(url, {Map<String, String> headers}) =>
       send(new Request.head(url, headers: headers));
