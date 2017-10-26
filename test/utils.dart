@@ -84,7 +84,7 @@ class _MultipartBodyMatches extends Matcher {
   bool matches(item, Map matchState) {
     if (item is! http.Request) return false;
 
-    var future = collectBytes(item.read()).then((bodyBytes) {
+    var future = item.readAsBytes().then((bodyBytes) {
       var body = UTF8.decode(bodyBytes);
       var contentType = new MediaType.parse(item.headers['content-type']);
       var boundary = contentType.parameters['boundary'];
