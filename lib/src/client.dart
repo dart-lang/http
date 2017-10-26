@@ -36,8 +36,8 @@ abstract class Client {
   /// [Future<Response>]. It will be called when [Client.send] is invoked.
   ///
   /// When [Client.close] is called the [onClose] function will be called.
-  factory Client.handler(Handler handler, {void onClose()})
-      => new HandlerClient(handler, onClose ?? () {});
+  factory Client.handler(Handler handler, {void onClose()}) =>
+      new HandlerClient(handler, onClose ?? () {});
 
   /// Sends an HTTP HEAD request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
@@ -69,8 +69,8 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> post(url, body, {Map<String, String> headers,
-      Encoding encoding});
+  Future<Response> post(url, body,
+      {Map<String, String> headers, Encoding encoding});
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -90,8 +90,8 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> put(url, body, {Map<String, String> headers,
-      Encoding encoding});
+  Future<Response> put(url, body,
+      {Map<String, String> headers, Encoding encoding});
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -111,8 +111,8 @@ abstract class Client {
   /// [encoding] defaults to [UTF8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> patch(url, body, {Map<String, String> headers,
-      Encoding encoding});
+  Future<Response> patch(url, body,
+      {Map<String, String> headers, Encoding encoding});
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].
@@ -145,8 +145,9 @@ abstract class Client {
   /// Sends an HTTP request and asynchronously returns the response.
   Future<Response> send(Request request);
 
-  /// Closes the client and cleans up any resources associated with it. It's
-  /// important to close each client when it's done being used; failing to do so
-  /// can cause the Dart process to hang.
+  /// Closes the client and cleans up any resources associated with it.
+  ///
+  /// It's important to close each client when it's done being used; failing to
+  /// do so can cause the Dart process to hang.
   void close();
 }

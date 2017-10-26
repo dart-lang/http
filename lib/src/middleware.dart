@@ -40,19 +40,16 @@ typedef Client Middleware(Client inner);
 /// If provided, [errorHandler] receives errors thrown by the inner handler. It
 /// does not receive errors thrown by [requestHandler] or [responseHandler].
 /// It can either return a new response or throw an error.
-Middleware createMiddleware({
-  Future<Request> requestHandler(Request request),
-  Future<Response> responseHandler(Response response),
-  void onClose(),
-  void errorHandler(error, [StackTrace stackTrace])
-}) {
+Middleware createMiddleware(
+    {Future<Request> requestHandler(Request request),
+    Future<Response> responseHandler(Response response),
+    void onClose(),
+    void errorHandler(error, [StackTrace stackTrace])}) {
   requestHandler ??= (request) async => request;
   responseHandler ??= (response) async => response;
 
-  return (inner) {
-    return new HandlerClient(
-      (request) =>
-        requestHandler(request)
+  return (inner) => new HandlerClient(
+        (request) => requestHandler(request)
             .then((req) => inner.send(req))
             .then((res) => responseHandler(res), onError: errorHandler),
         onClose == null
@@ -61,6 +58,5 @@ Middleware createMiddleware({
                 onClose();
                 inner.close();
               },
-    );
-  };
+      );
 }

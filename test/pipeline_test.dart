@@ -46,7 +46,7 @@ void main() {
   });
 
   test('Pipeline can be used as middleware', () async {
-    int accessLocation = 0;
+    var accessLocation = 0;
 
     var middlewareA = createMiddleware(requestHandler: (request) async {
       expect(accessLocation, 0);
@@ -86,7 +86,7 @@ void main() {
   });
 
   test('Pipeline calls close on all middleware', () {
-    int accessLocation = 0;
+    var accessLocation = 0;
 
     var middlewareA = createMiddleware(onClose: () {
       expect(accessLocation, 0);
@@ -98,15 +98,15 @@ void main() {
       accessLocation = 2;
     });
 
-    var client = const Pipeline()
+    const Pipeline()
         .addMiddleware(middlewareA)
         .addMiddleware(middlewareB)
         .addClient(new Client.handler((request) async => null, onClose: () {
           expect(accessLocation, 2);
           accessLocation = 3;
-        }));
+        }))
+          ..close();
 
-    client.close();
     expect(accessLocation, 3);
   });
 }

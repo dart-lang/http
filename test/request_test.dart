@@ -68,7 +68,7 @@ void main() {
 
     test('is encoded according to the given encoding', () {
       var request =
-          new http.Request('POST', dummyUrl, encoding: LATIN1, body: "föøbãr");
+          new http.Request('POST', dummyUrl, encoding: LATIN1, body: 'föøbãr');
       expect(collectBytes(request.read()),
           completion(equals([102, 246, 248, 98, 227, 114])));
     });
@@ -76,7 +76,7 @@ void main() {
     test('is decoded according to the given encoding', () {
       var request = new http.Request('POST', dummyUrl,
           encoding: LATIN1, body: [102, 246, 248, 98, 227, 114]);
-      expect(request.readAsString(), completion(equals("föøbãr")));
+      expect(request.readAsString(), completion(equals('föøbãr')));
     });
   });
 
@@ -85,7 +85,7 @@ void main() {
       var request = new http.Request('POST', dummyUrl,
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           encoding: LATIN1,
-          body: {"föø": "bãr"});
+          body: {'föø': 'bãr'});
       expect(request.readAsString(), completion(equals('f%F6%F8=b%E3r')));
     });
   });
@@ -157,7 +157,7 @@ void main() {
           equals('application/json; charset=iso-8859-1'));
     });
 
-    test("doen't have its charset overridden by setting bodyFields", () {
+    test("doesn't have its charset overridden by setting bodyFields", () {
       var request = new http.Request('POST', dummyUrl, headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=iso-8859-1'
       }, body: {
@@ -167,7 +167,7 @@ void main() {
           equals('application/x-www-form-urlencoded; charset=iso-8859-1'));
     });
 
-    test("doen't have its charset overridden by setting body", () {
+    test("doesn't have its charset overridden by setting body", () {
       var request = new http.Request('POST', dummyUrl,
           headers: {'Content-Type': 'application/json; charset=iso-8859-1'},
           body: '{"hello": "world"}');
@@ -192,7 +192,7 @@ void main() {
       expect(copy.readAsString(), completion('hello, world'));
     });
 
-    test("allows the original request to be read", () {
+    test('allows the original request to be read', () {
       var request = new http.Request('GET', dummyUrl);
       var changed = request.change();
 
@@ -200,7 +200,7 @@ void main() {
       expect(changed.read, throwsStateError);
     });
 
-    test("allows the changed request to be read", () {
+    test('allows the changed request to be read', () {
       var request = new http.Request('GET', dummyUrl);
       var changed = request.change();
 
@@ -208,7 +208,7 @@ void main() {
       expect(request.read, throwsStateError);
     });
 
-    test("allows another changed request to be read", () {
+    test('allows another changed request to be read', () {
       var request = new http.Request('GET', dummyUrl);
       var changed1 = request.change();
       var changed2 = request.change();
