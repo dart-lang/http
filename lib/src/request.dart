@@ -4,7 +4,10 @@
 
 import 'dart:convert';
 
+import 'boundary.dart';
 import 'message.dart';
+import 'multipart_body.dart';
+import 'multipart_file.dart';
 import 'utils.dart';
 
 /// Represents an HTTP request to be sent to a server.
@@ -45,8 +48,7 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request.head(url,
-      {Map<String, String> headers, Map<String, Object> context})
+  Request.head(url, {Map<String, String> headers, Map<String, Object> context})
       : this('HEAD', url, headers: headers, context: context);
 
   /// Creates a new GET [Request] to [url], which can be a [Uri] or a [String].
@@ -56,8 +58,7 @@ class Request extends Message {
   ///
   /// Extra [context] can be used to pass information between inner middleware
   /// and handlers.
-  Request.get(url,
-      {Map<String, String> headers, Map<String, Object> context})
+  Request.get(url, {Map<String, String> headers, Map<String, Object> context})
       : this('GET', url, headers: headers, context: context);
 
   /// Creates a new POST [Request] to [url], which can be a [Uri] or a [String].
@@ -77,7 +78,7 @@ class Request extends Message {
       Map<String, String> headers,
       Map<String, Object> context})
       : this('POST', url,
-      body: body, encoding: encoding, headers: headers, context: context);
+            body: body, encoding: encoding, headers: headers, context: context);
 
   /// Creates a new PUT [Request] to [url], which can be a [Uri] or a [String].
   ///
@@ -96,7 +97,7 @@ class Request extends Message {
       Map<String, String> headers,
       Map<String, Object> context})
       : this('PUT', url,
-      body: body, encoding: encoding, headers: headers, context: context);
+            body: body, encoding: encoding, headers: headers, context: context);
 
   /// Creates a new PATCH [Request] to [url], which can be a [Uri] or a
   /// [String].
@@ -116,7 +117,7 @@ class Request extends Message {
       Map<String, String> headers,
       Map<String, Object> context})
       : this('PATCH', url,
-      body: body, encoding: encoding, headers: headers, context: context);
+            body: body, encoding: encoding, headers: headers, context: context);
 
   /// Creates a new DELETE [Request] to [url], which can be a [Uri] or a
   /// [String].
@@ -130,11 +131,44 @@ class Request extends Message {
       {Map<String, String> headers, Map<String, Object> context})
       : this('DELETE', url, headers: headers, context: context);
 
-  Request._(this.method, this.url,
-      body,
-      Encoding encoding,
+  /// Creates a new
+  /// [`multipart/form-data`](https://en.wikipedia.org/wiki/MIME#Multipart_messages)
+  /// [Request] to [url], which can be a [Uri] or a [String].
+  ///
+  /// The content of the body is specified through the values of [fields] and
+  /// [files].
+  ///
+  /// If [method] is not specified it defaults to POST.
+  ///
+  /// [headers] are the HTTP headers for the request. If [headers] is `null`,
+  /// it is treated as empty.
+  ///
+  /// Extra [context] can be used to pass information between inner middleware
+  /// and handlers.
+  factory Request.multipart(url,
+      {String method,
       Map<String, String> headers,
-      Map<String, Object> context)
+      Map<String, Object> context,
+      Map<String, String> fields,
+      Iterable<MultipartFile> files}) {
+    fields ??= const {};
+    files ??= const [];
+    headers ??= {};
+
+    var boundary = boundaryString();
+
+    return new Request._(
+        method ?? 'POST',
+        getUrl(url),
+        new MultipartBody(fields, files, boundary),
+        null,
+        updateMap(headers,
+            {'content-type': 'multipart/form-data; boundary=$boundary'}),
+        context);
+  }
+
+  Request._(this.method, this.url, body, Encoding encoding,
+      Map<String, String> headers, Map<String, Object> context)
       : super(body, encoding: encoding, headers: headers, context: context);
 
   /// Creates a new [Request] by copying existing values and applying specified
@@ -149,18 +183,11 @@ class Request extends Message {
   /// [body] is the request body. It may be either a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null` to indicate no body.
   Request change(
-      {Map<String, String> headers,
-      Map<String, Object> context,
-      body}) {
+      {Map<String, String> headers, Map<String, Object> context, body}) {
     var updatedHeaders = updateMap(this.headers, headers);
     var updatedContext = updateMap(this.context, context);
 
-    return new Request._(
-        this.method,
-        this.url,
-        body ?? getBody(this),
-        this.encoding,
-        updatedHeaders,
-        updatedContext);
+    return new Request._(this.method, this.url, body ?? getBody(this),
+        this.encoding, updatedHeaders, updatedContext);
   }
 }

@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:async/async.dart';
 import 'package:collection/collection.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -121,8 +122,15 @@ abstract class Message {
 
   /// Returns the message body as byte chunks.
   ///
-  /// Throws a [StateError] if [read] or [readAsString] has already been called.
+  /// Throws a [StateError] if [read] or [readAsBytes] or [readAsString] has
+  /// already been called.
   Stream<List<int>> read() => _body.read();
+
+  /// Returns the message body as a list of bytes.
+  ///
+  /// Throws a [StateError] if [read] or [readAsBytes] or [readAsString] has
+  /// already been called.
+  Future<List<int>> readAsBytes() => collectBytes(read());
 
   /// Returns the message body as a string.
   ///
@@ -130,7 +138,8 @@ abstract class Message {
   /// encoding is taken from the Content-Type header. If that doesn't exist or
   /// doesn't have a "charset" parameter, UTF-8 is used.
   ///
-  /// Throws a [StateError] if [read] or [readAsString] has already been called.
+  /// Throws a [StateError] if [read] or [readAsBytes] or [readAsString] has
+  /// already been called.
   Future<String> readAsString([Encoding encoding]) {
     encoding ??= this.encoding ?? UTF8;
     return encoding.decodeStream(read());
