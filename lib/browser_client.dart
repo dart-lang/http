@@ -52,9 +52,7 @@ class BrowserClient extends BaseClient {
 
       reader.onLoad.first.then((_) {
         var body = reader.result as Uint8List;
-        completer.complete(new Response(
-            xhr.responseUrl,
-            xhr.status,
+        completer.complete(new Response(xhr.responseUrl, xhr.status,
             reasonPhrase: xhr.statusText,
             body: new Stream.fromIterable([body]),
             headers: xhr.responseHeaders));

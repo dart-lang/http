@@ -22,14 +22,14 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> head(url, {Map<String, String> headers}) =>
-    send(new Request.head(url, headers: headers));
+      send(new Request.head(url, headers: headers));
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> get(url, {Map<String, String> headers}) =>
-    send(new Request.get(url, headers: headers));
+      send(new Request.get(url, headers: headers));
 
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -49,10 +49,9 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> post(url, body, {Map<String, String> headers,
-      Encoding encoding}) =>
-    send(new Request.post(url, body, headers: headers,
-        encoding: encoding));
+  Future<Response> post(url, body,
+          {Map<String, String> headers, Encoding encoding}) =>
+      send(new Request.post(url, body, headers: headers, encoding: encoding));
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -72,10 +71,9 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> put(url, body, {Map<String, String> headers,
-      Encoding encoding}) =>
-    send(new Request.put(url, body, headers: headers,
-        encoding: encoding));
+  Future<Response> put(url, body,
+          {Map<String, String> headers, Encoding encoding}) =>
+      send(new Request.put(url, body, headers: headers, encoding: encoding));
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -95,10 +93,9 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> patch(url, body, {Map<String, String> headers,
-      Encoding encoding}) =>
-    send(new Request.patch(url, body, headers: headers,
-        encoding: encoding));
+  Future<Response> patch(url, body,
+          {Map<String, String> headers, Encoding encoding}) =>
+      send(new Request.patch(url, body, headers: headers, encoding: encoding));
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].

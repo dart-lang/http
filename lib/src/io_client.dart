@@ -29,9 +29,9 @@ class IOClient extends BaseClient {
       var context = request.context;
 
       ioRequest
-          ..followRedirects = context['io.followRedirects'] ?? true
-          ..maxRedirects = context['io.maxRedirects'] ?? 5
-          ..persistentConnection = context['io.persistentConnection'] ?? true;
+        ..followRedirects = context['io.followRedirects'] ?? true
+        ..maxRedirects = context['io.maxRedirects'] ?? 5
+        ..persistentConnection = context['io.persistentConnection'] ?? true;
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
       });
@@ -44,9 +44,7 @@ class IOClient extends BaseClient {
         headers[key] = values.join(',');
       });
 
-      return new Response(
-          _responseUrl(request, response),
-          response.statusCode,
+      return new Response(_responseUrl(request, response), response.statusCode,
           reasonPhrase: response.reasonPhrase,
           body: DelegatingStream.typed<List<int>>(response).handleError(
               (error) => throw new ClientException(error.message, error.uri),

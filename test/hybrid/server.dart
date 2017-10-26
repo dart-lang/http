@@ -113,8 +113,7 @@ hybridMain(StreamChannel channel) async {
         requestBody = null;
       } else if (request.headers.contentType != null &&
           request.headers.contentType.charset != null) {
-        var encoding =
-            encodingForCharset(request.headers.contentType.charset);
+        var encoding = encodingForCharset(request.headers.contentType.charset);
         requestBody = encoding.decode(requestBodyBytes);
       } else {
         requestBody = requestBodyBytes;

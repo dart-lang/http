@@ -42,10 +42,13 @@ class Response extends Message {
       Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(getUrl(finalUrl), statusCode, reasonPhrase ?? '',
-      body, encoding, headers, context);
+      : this._(getUrl(finalUrl), statusCode, reasonPhrase ?? '', body, encoding,
+            headers, context);
 
-  Response._(this.finalUrl, this.statusCode, this.reasonPhrase,
+  Response._(
+      this.finalUrl,
+      this.statusCode,
+      this.reasonPhrase,
       body,
       Encoding encoding,
       Map<String, String> headers,
@@ -68,20 +71,12 @@ class Response extends Message {
   /// [body] is the request body. It may be either a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null` to indicate no body.
   Response change(
-      {Map<String, String> headers,
-      Map<String, Object> context,
-      body}) {
+      {Map<String, String> headers, Map<String, Object> context, body}) {
     var updatedHeaders = updateMap(this.headers, headers);
     var updatedContext = updateMap(this.context, context);
 
-    return new Response._(
-        this.finalUrl,
-        this.statusCode,
-        this.reasonPhrase,
-        body ?? getBody(this),
-        this.encoding,
-        updatedHeaders,
-        updatedContext);
+    return new Response._(this.finalUrl, this.statusCode, this.reasonPhrase,
+        body ?? getBody(this), this.encoding, updatedHeaders, updatedContext);
   }
 
   /// The date and time after which the response's data should be considered
@@ -95,6 +90,7 @@ class Response extends Message {
     _expiresCache = parseHttpDate(headers['expires']);
     return _expiresCache;
   }
+
   DateTime _expiresCache;
 
   /// The date and time the source of the response's data was last modified.
@@ -107,5 +103,6 @@ class Response extends Message {
     _lastModifiedCache = parseHttpDate(headers['last-modified']);
     return _lastModifiedCache;
   }
+
   DateTime _lastModifiedCache;
 }
