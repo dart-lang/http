@@ -131,8 +131,9 @@ class Request extends Message {
       {Map<String, String> headers, Map<String, Object> context})
       : this('DELETE', url, headers: headers, context: context);
 
-  /// Creates a new `multipart/form-data` [Request] to [url], which can be a
-  /// [Uri] or a [String].
+  /// Creates a new
+  /// [`multipart/form-data`](https://en.wikipedia.org/wiki/MIME#Multipart_messages)
+  /// [Request] to [url], which can be a [Uri] or a [String].
   ///
   /// The content of the body is specified through the values of [fields] and
   /// [files].

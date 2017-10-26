@@ -11,9 +11,10 @@ import 'body.dart';
 import 'multipart_file.dart';
 import 'utils.dart';
 
-/// A `multipart/form-data` request [Body]. Such a request has both string
-/// fields, which function as normal form fields, and (potentially streamed)
-/// binary files.
+/// A `multipart/form-data` request [Body].
+///
+/// Such a request has both string fields, which function as normal form
+/// fields, and (potentially streamed) binary files.
 class MultipartBody implements Body {
   /// The contents of the message body.
   ///
@@ -104,11 +105,14 @@ class MultipartBody implements Body {
       List<int> ending) async {
     for (var i = 0; i < files.length; ++i) {
       controller.add(fileHeaders[i]);
+
+      // file.read() can throw synchronously
       try {
         await writeStreamToSink(files[i].read(), controller);
-      } on Exception catch (exception, stackTrace) {
+      } catch (exception, stackTrace) {
         controller.addError(exception, stackTrace);
       }
+
       controller.add([13, 10]);
     }
 
