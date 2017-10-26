@@ -145,8 +145,9 @@ abstract class Client {
   /// Sends an HTTP request and asynchronously returns the response.
   Future<Response> send(Request request);
 
-  /// Closes the client and cleans up any resources associated with it. It's
-  /// important to close each client when it's done being used; failing to do so
-  /// can cause the Dart process to hang.
+  /// Closes the client and cleans up any resources associated with it.
+  ///
+  /// It's important to close each client when it's done being used; failing to
+  /// do so can cause the Dart process to hang.
   void close();
 }

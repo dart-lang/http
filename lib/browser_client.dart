@@ -19,11 +19,11 @@ import 'src/response.dart';
 /// A `dart:html`-based HTTP client that runs in the browser and is backed by
 /// XMLHttpRequests.
 ///
-/// This client inherits some of the limitations of XMLHttpRequest. It ignores
-/// the [BaseRequest.contentLength], [BaseRequest.persistentConnection],
-/// [BaseRequest.followRedirects], and [BaseRequest.maxRedirects] fields. It is
-/// also unable to stream requests or responses; a request will only be sent and
-/// a response will only be returned once all the data is available.
+/// This client inherits some of the limitations of XMLHttpRequest. It is
+/// unable to directly set some headers, such as `content-length`. There is no
+/// way to create a persistent connection. Redirects cannot be handled directly.
+/// It is also unable to stream requests or responses; a request will only be
+/// sent and a response will only be returned once all the data is available.
 class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
@@ -33,7 +33,6 @@ class BrowserClient extends BaseClient {
   /// Creates a new HTTP client.
   BrowserClient();
 
-  /// Sends an HTTP request and asynchronously returns the response.
   Future<Response> send(Request request) async {
     var bytes = await collectBytes(request.read());
     var xhr = new HttpRequest();
@@ -90,9 +89,6 @@ class BrowserClient extends BaseClient {
     request.open(method, url, async: asynch, user: user, password: password);
   }
 
-  /// Closes the client.
-  ///
-  /// This terminates all active requests.
   void close() {
     for (var xhr in _xhrs) {
       xhr.abort();
