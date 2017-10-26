@@ -84,9 +84,6 @@ class MultipartBody implements Body {
 
   MultipartBody._(this._stream, this.contentLength);
 
-  /// Returns a [Stream] representing the body.
-  ///
-  /// Can only be called once.
   Stream<List<int>> read() {
     if (_stream == null) {
       throw new StateError("The 'read' method can only be called once on a "

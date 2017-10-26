@@ -45,8 +45,8 @@ bool isPlainAscii(String string) => _asciiOnly.hasMatch(string);
 
 /// Pipes all data and errors from [stream] into [sink].
 ///
-/// Completes [Future] once [stream] is done. Unlike [store], [sink] remains
-/// open after [stream] is done.
+/// Completes [Future] once [stream] is done. [sink] remains open after [stream]
+/// is done.
 Future writeStreamToSink(Stream stream, EventSink sink) {
   var completer = new Completer();
   stream.listen(sink.add,

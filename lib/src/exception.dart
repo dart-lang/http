@@ -4,11 +4,15 @@
 
 /// An exception caused by an error in a pkg/http client.
 class ClientException implements Exception {
+  /// Message describing the problem.
   final String message;
 
   /// The URL of the HTTP request or response that failed.
   final Uri uri;
 
+  /// Creates a [ClientException] explained in [message].
+  ///
+  /// The [uri] points to the URL being requested if applicable.
   ClientException(this.message, [this.uri]);
 
   String toString() => message;

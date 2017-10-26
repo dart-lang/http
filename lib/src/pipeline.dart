@@ -20,6 +20,7 @@ class Pipeline {
   /// The [Middleware] that is invoked at this stage.
   final Middleware _middleware;
 
+  /// Creates a [Pipeline].
   const Pipeline()
       : _parent = null,
         _middleware = null;
