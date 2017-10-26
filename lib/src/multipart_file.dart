@@ -35,14 +35,25 @@ class MultipartFile {
   /// Defaults to `application/octet-stream`.
   final MediaType contentType;
 
+  /// Creates a [MultipartFile] from the [value].
   ///
+  /// [value] can be either a [String] or a [List<int>].
+  ///
+  /// For a String [value] the content will be encoded using [encoding] which
+  /// defaults to [UTF8]. The `charset` from [contentType] is ignored when
+  /// encoding the String.
+  ///
+  /// [contentType] if not specified will attempt to be looked up from the
+  /// bytes contained within the [stream] and the [filename] if provided. It
+  /// will default to `plain/text` for [String]s and `application/octet-stream`
+  /// for [List<int>].
   factory MultipartFile(String field, value,
       {String filename, MediaType contentType, Encoding encoding}) {
     List<int> bytes;
     var defaultMediaType;
 
     if (value is String) {
-      encoding ??= encodingForMediaType(contentType) ?? UTF8;
+      encoding ??= UTF8;
       bytes = encoding.encode(value);
       defaultMediaType = new MediaType('text', 'plain');
     } else if (value is List<int>) {
@@ -53,25 +64,40 @@ class MultipartFile {
           value, 'value', 'value must be either a String or a List<int>');
     }
 
-    contentType ??= _lookupMediaType(filename, bytes) ?? defaultMediaType;
+    contentType ??= _lookUpMediaType(filename, bytes) ?? defaultMediaType;
 
     if (encoding != null) {
       contentType = contentType.change(parameters: {'charset': encoding.name});
     }
 
     return new MultipartFile.fromStream(
-        field, new Stream<List<int>>.fromIterable([bytes]), bytes.length,
+        field, new Stream.fromIterable([bytes]), bytes.length,
         filename: filename, contentType: contentType);
   }
 
+  /// Creates a new [MultipartFile] from a chunked [stream] of bytes.
+  ///
+  /// The [length] of the file in bytes must be known in advance. If it's not
+  /// then use [loadStream] to create the [MultipartFile] instance.
+  ///
+  /// [contentType] if not specified will attempt to be looked up from the
+  /// [filename] if provided. It will default to `application/octet-stream`.
   MultipartFile.fromStream(this.field, Stream<List<int>> stream, this.length,
       {String filename, MediaType contentType})
       : _stream = stream,
         filename = filename,
         contentType = contentType ??
-            _lookupMediaType(filename) ??
+            _lookUpMediaType(filename) ??
             new MediaType('application', 'octet-stream');
 
+  /// Creates a new [MultipartFile] from the [stream].
+  ///
+  /// This method should be used when the length of [stream] in bytes is not
+  /// known ahead of time.
+  ///
+  /// [contentType] if not specified will attempt to be looked up from the
+  /// bytes contained within the [stream] and the [filename] if provided. It
+  /// will default to `application/octet-stream`.
   static Future<MultipartFile> loadStream(
       String field, Stream<List<int>> stream,
       {String filename, MediaType contentType}) async {
@@ -96,11 +122,12 @@ class MultipartFile {
 
   /// Looks up the [MediaType] from the [filename]'s extension or from
   /// magic numbers contained within a file header's [bytes].
-  static MediaType _lookupMediaType(String filename, [List<int> bytes]) {
-    if ((filename == null) && (bytes == null)) return null;
+  static MediaType _lookUpMediaType(String filename, [List<int> bytes]) {
+    if (filename == null && bytes == null) return null;
 
     // lookupMimeType expects filename to be non-null but its possible that
     // this can be called with bytes but no filename.
+    // FIXME: https://github.com/dart-lang/mime/issues/11
     var mimeType = lookupMimeType(filename ?? '', headerBytes: bytes);
 
     return mimeType != null ? new MediaType.parse(mimeType) : null;

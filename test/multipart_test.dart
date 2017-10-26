@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -179,8 +180,9 @@ void main() {
     // "Ã¥" encoded as ISO-8859-1 and then read as UTF-8 results in "å".
     var files = [
       new http.MultipartFile('file', 'non-ascii: "Ã¥"',
+          encoding: LATIN1,
           contentType:
-              new MediaType('text', 'plain', {'charset': 'iso-8859-1'}))
+              new MediaType('text', 'plain'))
     ];
     var request = new http.Request.multipart(dummyUrl, files: files);
 
