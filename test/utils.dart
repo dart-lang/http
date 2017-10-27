@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:test/test.dart';
@@ -61,11 +60,8 @@ class _Parse extends Matcher {
     return _matcher.matches(parsed, matchState);
   }
 
-  Description describe(Description description) {
-    return description
-        .add('parses to a value that ')
-        .addDescriptionOf(_matcher);
-  }
+  Description describe(Description description) =>
+      description.add('parses to a value that ').addDescriptionOf(_matcher);
 }
 
 /// A matcher that validates the body of a multipart request after finalization.
@@ -107,7 +103,7 @@ class _MultipartBodyMatches extends Matcher {
 ///
 /// [message] can be a String or a [Matcher].
 Matcher isClientException([message]) => predicate((error) {
-      expect(error, new isInstanceOf<http.ClientException>());
+      expect(error, const isInstanceOf<http.ClientException>());
       if (message != null) {
         expect(error.message, message);
       }
