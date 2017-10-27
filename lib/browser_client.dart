@@ -73,6 +73,12 @@ class BrowserClient extends BaseClient {
           StackTrace.current);
     });
 
+    xhr.onAbort.first.then((_) {
+      completer.completeError(
+          new ClientException('Request cancelled', request.url),
+          StackTrace.current);
+    });
+
     xhr.send(bytes);
 
     try {
