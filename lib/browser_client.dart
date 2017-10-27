@@ -25,10 +25,12 @@ import 'src/response.dart';
 /// response will only be returned once all the data is available.
 ///
 /// [BrowserClient] allows setting values directly on the underlying
-/// [HttpRequest] values through [Request.context].
+/// [HttpRequest] values through [Request.context] :
 ///
-/// * `http.html.with_credentials` is a boolean value, defaulting to `false`
-///   that corresponds to [HttpRequest.withCredentials].
+/// * `http.html.with_credentials` is a boolean value, defaulting to `false`.
+///   If true then cross-site requests should use credentials such as cookies
+///   or authorization headers. This corresponds to
+///   [HttpRequest.withCredentials].
 class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///

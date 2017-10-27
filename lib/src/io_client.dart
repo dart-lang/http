@@ -17,14 +17,19 @@ import 'response.dart';
 /// This is the default client when running on the command line.
 ///
 /// [IOClient] allows setting values directly on the underlying [HttpRequest]
-/// through the [Request.context].
+/// through the [Request.context] :
 ///
-/// * `http.io.follow_redirects` is a boolean value, defaulting to `true` that
-///   corresponds to [HttpRequest.followRedirects].
-/// * `http.io.max_redirects` is an integer value, defaulting to `5` that
-///   corresponds to [HttpRequest.maxRedirects].
-/// * `http.io.persistent_connection` is a boolean value, defaulting to `true`
-///   that corresponds to [HttpRequest.persistentConnection].
+/// * `http.io.follow_redirects` is a boolean value, defaulting to `true`.
+///   If true then the request will automatically follow redirects; otherwise
+///   the client will need to handle them explicitly. This corresponds to
+///   [HttpClientRequest.followRedirects].
+/// * `http.io.max_redirects` is an integer value, defaulting to `5`. This
+///   specifies the maximum number of redirects that will be followed. If
+///   the site redirects more than this value a [ClientException] will be
+///   thrown. This corresponds to [HttpClientRequest.maxRedirects].
+/// * `http.io.persistent_connection` is a boolean value, defaulting to `true`.
+///   If true the client will request a persistent connection state. This
+///   corresponds to [HttpClientRequest.persistentConnection].
 class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
   HttpClient _inner;
