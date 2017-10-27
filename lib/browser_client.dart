@@ -23,6 +23,12 @@ import 'src/response.dart';
 /// unable to directly set some headers, such as `content-length`. It is also
 /// unable to stream requests or responses; a request will only be sent and a
 /// response will only be returned once all the data is available.
+///
+/// [BrowserClient] allows setting values directly on the underlying
+/// [HttpRequest] values through [Request.context].
+///
+/// * `http.html.with_credentials` is a boolean value, defaulting to `false`
+///   that corresponds to [HttpRequest.withCredentials].
 class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
@@ -38,7 +44,8 @@ class BrowserClient extends BaseClient {
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
     xhr.responseType = 'blob';
-    xhr.withCredentials = request.context['html.withCredentials'] ?? false;
+    xhr.withCredentials =
+        request.context['http.html.with_credentials'] ?? false;
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = new Completer<Response>();

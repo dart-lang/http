@@ -15,6 +15,16 @@ import 'response.dart';
 /// A `dart:io`-based HTTP client.
 ///
 /// This is the default client when running on the command line.
+///
+/// [IOClient] allows setting values directly on the underlying [HttpRequest]
+/// through the [Request.context].
+///
+/// * `http.io.follow_redirects` is a boolean value, defaulting to `true` that
+///   corresponds to [HttpRequest.followRedirects].
+/// * `http.io.max_redirects` is an integer value, defaulting to `5` that
+///   corresponds to [HttpRequest.maxRedirects].
+/// * `http.io.persistent_connection` is a boolean value, defaulting to `true`
+///   that corresponds to [HttpRequest.persistentConnection].
 class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
   HttpClient _inner;
@@ -28,9 +38,10 @@ class IOClient extends BaseClient {
       var context = request.context;
 
       ioRequest
-        ..followRedirects = context['io.followRedirects'] ?? true
-        ..maxRedirects = context['io.maxRedirects'] ?? 5
-        ..persistentConnection = context['io.persistentConnection'] ?? true;
+        ..followRedirects = context['http.io.follow_redirects'] ?? true
+        ..maxRedirects = context['http.io.max_redirects'] ?? 5
+        ..persistentConnection =
+            context['http.io.persistent_connection'] ?? true;
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
       });
