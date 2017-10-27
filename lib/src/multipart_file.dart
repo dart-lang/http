@@ -9,8 +9,6 @@ import 'package:async/async.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 
-import 'content_type.dart';
-
 /// A file to be uploaded as part of a `multipart/form-data` Request.
 ///
 /// This doesn't need to correspond to a physical file.
