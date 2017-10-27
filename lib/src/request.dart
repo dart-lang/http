@@ -187,7 +187,7 @@ class Request extends Message {
     var updatedHeaders = updateMap(this.headers, headers);
     var updatedContext = updateMap(this.context, context);
 
-    return new Request._(this.method, this.url, body ?? getBody(this),
-        this.encoding, updatedHeaders, updatedContext);
+    return new Request._(method, url, body ?? getBody(this), encoding,
+        updatedHeaders, updatedContext);
   }
 }
