@@ -12,6 +12,7 @@ import 'client.dart';
 import 'exception.dart';
 import 'request.dart';
 import 'response.dart';
+import 'utils.dart';
 
 /// The abstract base class for an HTTP client.
 ///
@@ -55,16 +56,15 @@ abstract class BaseClient implements Client {
 
   Future<Response> send(Request request);
 
-  /// Throws an error if [response] is not successful.
-  void _checkResponseSuccess(url, Response response) {
-    if (response.statusCode < 400) return;
-    var message = "Request to $url failed with status ${response.statusCode}";
-    if (response.reasonPhrase != null) {
-      message = "$message: ${response.reasonPhrase}";
-    }
-    if (url is String) url = Uri.parse(url);
-    throw new ClientException("$message.", url);
-  }
-
   void close() {}
+
+  /// Throws an error if [response] is not successful.
+  static void _checkResponseSuccess(url, Response response) {
+    if (response.statusCode < 400) return;
+    var message = 'Request to $url failed with status ${response.statusCode}';
+    if (response.reasonPhrase.isNotEmpty) {
+      message = '$message: ${response.reasonPhrase}';
+    }
+    throw new ClientException('$message.', getUrl(url));
+  }
 }
