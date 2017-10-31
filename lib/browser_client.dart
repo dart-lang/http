@@ -81,6 +81,13 @@ class BrowserClient extends BaseClient {
           StackTrace.current);
     });
 
+    // Catch the abort event so futures complete when close is called.
+    xhr.onAbort.first.then((_) {
+      completer.completeError(
+          new ClientException('Request cancelled', request.url),
+          StackTrace.current);
+    });
+
     xhr.send(bytes);
 
     try {
