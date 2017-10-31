@@ -30,6 +30,11 @@ import 'src/response.dart';
 /// * `"http.html.with_credentials"` is a boolean that defaults to `false`. If
 ///   it's `true`, cross-site requests will include credentials such as cookies
 ///   or authorization headers. See also [HttpRequest.withCredentials].
+///
+/// * `"http.html.timeout"` is an integer that specifies the time in
+///   milliseconds before a request is automatically terminated. It defaults to
+///   `0` which prevents a request from timing out. See also
+///   [HttpRequest.timeout].
 class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
@@ -44,9 +49,12 @@ class BrowserClient extends BaseClient {
     var xhr = new HttpRequest();
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
-    xhr.responseType = 'blob';
-    xhr.withCredentials =
-        request.context['http.html.with_credentials'] ?? false;
+
+    xhr
+      ..responseType = 'blob'
+      ..withCredentials = request.context['http.html.with_credentials'] ?? false
+      ..timeout = request.context['http.html.timeout'] ?? 0;
+
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = new Completer<Response>();
@@ -71,6 +79,13 @@ class BrowserClient extends BaseClient {
       });
 
       reader.readAsArrayBuffer(blob);
+    });
+
+    xhr.onTimeout.first.then((error) {
+      completer.completeError(
+          new ClientException(
+              'XMLHttpRequest timeout after ${xhr.timeout}ms.', request.url),
+          StackTrace.current);
     });
 
     xhr.onError.first.then((_) {
