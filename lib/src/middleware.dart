@@ -48,7 +48,8 @@ Middleware createMiddleware(
   requestHandler ??= (request) async => request;
   responseHandler ??= (response) async => response;
 
-  return (inner) => new HandlerClient(
+  return (inner) {
+    return new HandlerClient(
         (request) => requestHandler(request)
             .then((req) => inner.send(req))
             .then((res) => responseHandler(res), onError: errorHandler),
@@ -57,6 +58,6 @@ Middleware createMiddleware(
             : () {
                 onClose();
                 inner.close();
-              },
-      );
+              });
+  };
 }
