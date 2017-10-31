@@ -59,7 +59,7 @@ abstract class BaseClient implements Client {
   void close() {}
 
   /// Throws an error if [response] is not successful.
-  static void _checkResponseSuccess(url, Response response) {
+  void _checkResponseSuccess(url, Response response) {
     if (response.statusCode < 400) return;
     var message = "Request to $url failed with status ${response.statusCode}";
     if (response.reasonPhrase.isNotEmpty) {

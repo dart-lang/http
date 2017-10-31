@@ -103,7 +103,7 @@ class _MultipartBodyMatches extends Matcher {
 ///
 /// [message] can be a String or a [Matcher].
 Matcher isClientException([message]) => predicate((error) {
-      expect(error, const isInstanceOf<http.ClientException>());
+      expect(error, new isInstanceOf<http.ClientException>());
       if (message != null) {
         expect(error.message, message);
       }
