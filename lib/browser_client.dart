@@ -24,13 +24,12 @@ import 'src/response.dart';
 /// unable to stream requests or responses; a request will only be sent and a
 /// response will only be returned once all the data is available.
 ///
-/// [BrowserClient] allows setting values directly on the underlying
-/// [HttpRequest] values through [Request.context] :
+/// You can control the underlying `dart:html` [HttpRequest] by adding values to
+/// [Request.context]:
 ///
-/// * `http.html.with_credentials` is a boolean value, defaulting to `false`.
-///   If true then cross-site requests should use credentials such as cookies
-///   or authorization headers. This corresponds to
-///   [HttpRequest.withCredentials].
+/// * `"http.html.with_credentials"` is a boolean that defaults to `false`. If
+///   it's `true`, cross-site requests will include credentials such as cookies
+///   or authorization headers. See also [HttpRequest.withCredentials].
 class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
