@@ -23,6 +23,13 @@ import 'src/response.dart';
 /// unable to directly set some headers, such as `content-length`. It is also
 /// unable to stream requests or responses; a request will only be sent and a
 /// response will only be returned once all the data is available.
+///
+/// You can control the underlying `dart:html` [HttpRequest] by adding values to
+/// [Request.context]:
+///
+/// * `"http.html.with_credentials"` is a boolean that defaults to `false`. If
+///   it's `true`, cross-site requests will include credentials such as cookies
+///   or authorization headers. See also [HttpRequest.withCredentials].
 class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
@@ -38,7 +45,8 @@ class BrowserClient extends BaseClient {
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
     xhr.responseType = 'blob';
-    xhr.withCredentials = request.context['html.withCredentials'] ?? false;
+    xhr.withCredentials =
+        request.context['http.html.with_credentials'] ?? false;
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = new Completer<Response>();
