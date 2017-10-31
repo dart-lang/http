@@ -10,10 +10,10 @@ import 'package:test/test.dart';
 import 'package:http/src/message.dart';
 
 // "hello,"
-const HELLO_BYTES = const [104, 101, 108, 108, 111, 44];
+const _helloBytes = const [104, 101, 108, 108, 111, 44];
 
 // " world"
-const WORLD_BYTES = const [32, 119, 111, 114, 108, 100];
+const _worldBytes = const [32, 119, 111, 114, 108, 100];
 
 class _TestMessage extends Message {
   _TestMessage(Map<String, String> headers, Map<String, Object> context, body,
@@ -27,12 +27,11 @@ class _TestMessage extends Message {
 }
 
 Message _createMessage(
-    {Map<String, String> headers,
-    Map<String, Object> context,
-    body,
-    Encoding encoding}) {
-  return new _TestMessage(headers, context, body, encoding);
-}
+        {Map<String, String> headers,
+        Map<String, Object> context,
+        body,
+        Encoding encoding}) =>
+    new _TestMessage(headers, context, body, encoding);
 
 void main() {
   group('headers', () {
@@ -89,10 +88,10 @@ void main() {
       var request = _createMessage(body: controller.stream);
       expect(request.readAsString(), completion(equals("hello, world")));
 
-      controller.add(HELLO_BYTES);
+      controller.add(_helloBytes);
       return new Future(() {
         controller
-          ..add(WORLD_BYTES)
+          ..add(_worldBytes)
           ..close();
       });
     });
@@ -134,19 +133,19 @@ void main() {
       var controller = new StreamController();
       var request = _createMessage(body: controller.stream);
       expect(request.read().toList(),
-          completion(equals([HELLO_BYTES, WORLD_BYTES])));
+          completion(equals([_helloBytes, _worldBytes])));
 
-      controller.add(HELLO_BYTES);
+      controller.add(_helloBytes);
       return new Future(() {
         controller
-          ..add(WORLD_BYTES)
+          ..add(_worldBytes)
           ..close();
       });
     });
 
     test("supports a List<int> body", () {
-      var request = _createMessage(body: HELLO_BYTES);
-      expect(request.read().toList(), completion(equals([HELLO_BYTES])));
+      var request = _createMessage(body: _helloBytes);
+      expect(request.read().toList(), completion(equals([_helloBytes])));
     });
 
     test("throws when calling read()/readAsString() multiple times", () {
@@ -199,13 +198,13 @@ void main() {
     });
 
     test("is null for a stream body", () {
-      var request = _createMessage(body: new Stream.empty());
+      var request = _createMessage(body: const Stream.empty());
       expect(request.contentLength, isNull);
     });
 
     test("uses the content-length header for a stream body", () {
       var request = _createMessage(
-          body: new Stream.empty(), headers: {'content-length': '42'});
+          body: const Stream.empty(), headers: {'content-length': '42'});
       expect(request.contentLength, 42);
       expect(request.isEmpty, isFalse);
     });

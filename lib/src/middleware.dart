@@ -50,15 +50,14 @@ Middleware createMiddleware(
 
   return (inner) {
     return new HandlerClient(
-      (request) => requestHandler(request)
-          .then((req) => inner.send(req))
-          .then((res) => responseHandler(res), onError: errorHandler),
-      onClose == null
-          ? inner.close
-          : () {
-              onClose();
-              inner.close();
-            },
-    );
+        (request) => requestHandler(request)
+            .then((req) => inner.send(req))
+            .then((res) => responseHandler(res), onError: errorHandler),
+        onClose == null
+            ? inner.close
+            : () {
+                onClose();
+                inner.close();
+              });
   };
 }
