@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: undefined_setter
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'package:http2/src/flowcontrol/window.dart';
@@ -10,7 +10,6 @@ import 'package:http2/src/flowcontrol/window_handler.dart';
 import 'package:http2/src/frames/frames.dart';
 
 import '../error_matchers.dart';
-import '../mock_utils.dart';
 
 main() {
   group('flowcontrol', () {
@@ -121,17 +120,13 @@ main() {
       // The data might sit in a queue. Once the user drains enough data of
       // the queue, we will start ACKing the data and the window becomes
       // positive again.
-      var c = new TestCounter();
-      fw.mock_writeWindowUpdate = (int numberOfBytes, {int streamId}) {
-        expect(numberOfBytes, 100);
-        expect(streamId, STREAM_ID);
-        c.got();
-      };
       handler.dataProcessed(100);
       expect(handler.localWindowSize, initialSize);
       expect(window.size, initialSize);
+      verify(fw.writeWindowUpdate(100, streamId: STREAM_ID)).called(1);
+      verifyNoMoreInteractions(fw);
     });
   });
 }
 
-class FrameWriterMock extends SmartMock implements FrameWriter {}
+class FrameWriterMock extends Mock implements FrameWriter {}

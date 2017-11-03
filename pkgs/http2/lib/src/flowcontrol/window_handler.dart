@@ -132,7 +132,7 @@ class IncomingWindowHandler {
     //    b) We processed data from the remote end (we can handle now more data)
     //         => This is handled by [dataProcessed].
     //
-    //    c) We increase/decrease the initial steram window size after the
+    //    c) We increase/decrease the initial stream window size after the
     //       stream was created (newer streams will start with the changed
     //       initial stream window size).
     //         => This is not an issue, because we don't support changing the

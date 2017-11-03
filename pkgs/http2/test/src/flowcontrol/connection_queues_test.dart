@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: undefined_setter
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'package:http2/transport.dart';
@@ -13,8 +13,6 @@ import 'package:http2/src/flowcontrol/window_handler.dart';
 import 'package:http2/src/flowcontrol/connection_queues.dart';
 import 'package:http2/src/flowcontrol/stream_queues.dart';
 import 'package:http2/src/flowcontrol/queue_messages.dart';
-
-import '../mock_utils.dart';
 
 main() {
   group('flowcontrol', () {
@@ -31,73 +29,56 @@ main() {
       var bytes = [1, 2, 3];
 
       // Send [HeadersMessage].
-      var c = new TestCounter();
-      fw.mock_writeHeadersFrame =
-          (int streamId, List<Header> sendingHeaders, {bool endStream}) {
-        expect(streamId, 99);
-        expect(sendingHeaders, headers);
-        expect(endStream, false);
-        c.got();
-      };
       queue.enqueueMessage(new HeadersMessage(99, headers, false));
       expect(queue.pendingMessages, 0);
+      verify(fw.writeHeadersFrame(99, headers, endStream: false)).called(1);
+      verifyNoMoreInteractions(fw);
+      verifyZeroInteractions(windowMock);
 
-      fw.mock_writeHeadersFrame = null;
+      clearInteractions(fw);
 
       // Send [DataMessage].
-      c = new TestCounter(count: 2);
       windowMock.peerWindowSize = bytes.length;
       windowMock.positiveWindow.markUnBuffered();
-      windowMock.mock_decreaseWindow = (int difference) {
-        expect(difference, bytes.length);
-        c.got();
-      };
-      fw.mock_writeDataFrame =
-          (int streamId, List<Header> sendingBytes, {bool endStream}) {
-        expect(streamId, 99);
-        expect(sendingBytes, bytes);
-        expect(endStream, false);
-        c.got();
-      };
       queue.enqueueMessage(new DataMessage(99, bytes, false));
       expect(queue.pendingMessages, 0);
+      verify(windowMock.decreaseWindow(bytes.length)).called(1);
+      verify(fw.writeDataFrame(99, bytes, endStream: false)).called(1);
+      verifyNoMoreInteractions(windowMock);
+      verifyNoMoreInteractions(fw);
 
-      fw.mock_writeDataFrame = null;
+      clearInteractions(fw);
+      clearInteractions(windowMock);
 
       // Send [DataMessage] if the connection window is too small.
       // Should trigger fragmentation and should write 1 byte.
-      c = new TestCounter(count: 2);
       windowMock.peerWindowSize = 1;
-      windowMock.mock_decreaseWindow = (int difference) {
-        expect(difference, 1);
-        c.got();
-      };
-      fw.mock_writeDataFrame =
-          (int streamId, List<Header> sendingBytes, {bool endStream}) {
-        expect(streamId, 99);
-        expect(sendingBytes, bytes.sublist(0, 1));
-        expect(endStream, false);
-        c.got();
-      };
+      // decreaseWindow() marks the window as buffered in this case, so we need
+      // our mock to do the same (otherwise, the call to markUnBuffered() below
+      // has no effect).
+      when(windowMock.decreaseWindow(1)).thenAnswer((_) {
+        windowMock.positiveWindow.markBuffered();
+      });
       queue.enqueueMessage(new DataMessage(99, bytes, true));
       expect(queue.pendingMessages, 1);
+      verify(windowMock.decreaseWindow(1)).called(1);
+      verify(fw.writeDataFrame(99, bytes.sublist(0, 1), endStream: false))
+          .called(1);
+      verifyNoMoreInteractions(windowMock);
+      verifyNoMoreInteractions(fw);
+
+      clearInteractions(fw);
+      reset(windowMock);
 
       // Now mark it as unbuffered. This should write the rest of the
       // [bytes.length - 1] bytes.
-      c = new TestCounter(count: 2);
-      windowMock.mock_decreaseWindow = (int difference) {
-        expect(difference, bytes.length - 1);
-        c.got();
-      };
-      fw.mock_writeDataFrame =
-          (int streamId, List<Header> sendingBytes, {bool endStream}) {
-        expect(streamId, 99);
-        expect(sendingBytes, bytes.sublist(1));
-        expect(endStream, true);
-        c.got();
-      };
       windowMock.peerWindowSize = bytes.length - 1;
       windowMock.positiveWindow.markUnBuffered();
+      verify(windowMock.decreaseWindow(bytes.length - 1)).called(1);
+      verify(fw.writeDataFrame(99, bytes.sublist(1), endStream: true))
+          .called(1);
+      verifyNoMoreInteractions(windowMock);
+      verifyNoMoreInteractions(fw);
 
       queue.startClosing();
       queue.done.then(expectAsync1((_) {
@@ -121,29 +102,26 @@ main() {
 
       // Insert a [DataFrame] and let it be buffered.
       var header = new FrameHeader(0, 0, 0, STREAM_ID);
-      var c = new TestCounter();
-      windowMock.mock_gotData = (int diff) {
-        expect(diff, bytes.length);
-        c.got();
-      };
       queue.processDataFrame(new DataFrame(header, 0, bytes));
       expect(queue.pendingMessages, 1);
+      verify(windowMock.gotData(bytes.length)).called(1);
+      verifyNoMoreInteractions(windowMock);
+      verifyZeroInteractions(streamQueueMock);
+
+      clearInteractions(windowMock);
 
       // Indicate that the stream queue has space, and make sure
       // the data is propagated from the connection to the stream
       // specific queue.
-      c = new TestCounter(count: 2);
-      windowMock.mock_gotData = null;
-      windowMock.mock_dataProcessed = (int diff) {
-        expect(diff, bytes.length);
-        c.got();
-      };
-      streamQueueMock.mock_enqueueMessage = (DataMessage message) {
-        expect(message.streamId, STREAM_ID);
-        expect(message.bytes, bytes);
-        c.got();
-      };
       streamQueueMock.bufferIndicator.markUnBuffered();
+      verify(windowMock.dataProcessed(bytes.length)).called(1);
+      DataMessage capturedMessage =
+          verify(streamQueueMock.enqueueMessage(captureAny)).captured.single;
+      expect(capturedMessage.streamId, STREAM_ID);
+      expect(capturedMessage.bytes, bytes);
+
+      verifyNoMoreInteractions(windowMock);
+      verifyNoMoreInteractions(streamQueueMock);
 
       // TODO: Write tests for adding HeadersFrame/PushPromiseFrame.
     });
@@ -157,30 +135,25 @@ main() {
 
       // Insert a [DataFrame] and let it be buffered.
       var header = new FrameHeader(0, 0, 0, STREAM_ID);
-      var c = new TestCounter();
-      windowMock.mock_gotData = (int diff) {
-        expect(diff, bytes.length);
-        c.got();
-      };
       queue.processIgnoredDataFrame(new DataFrame(header, 0, bytes));
       expect(queue.pendingMessages, 0);
+      verify(windowMock.gotData(bytes.length)).called(1);
+      verifyNoMoreInteractions(windowMock);
     });
   });
 }
 
-class MockFrameWriter extends SmartMock implements FrameWriter {
+class MockFrameWriter extends Mock implements FrameWriter {
   BufferIndicator bufferIndicator = new BufferIndicator();
 }
 
-class MockStreamMessageQueueIn extends SmartMock
-    implements StreamMessageQueueIn {
+class MockStreamMessageQueueIn extends Mock implements StreamMessageQueueIn {
   BufferIndicator bufferIndicator = new BufferIndicator();
 }
 
-class MockIncomingWindowHandler extends SmartMock
-    implements IncomingWindowHandler {}
+class MockIncomingWindowHandler extends Mock implements IncomingWindowHandler {}
 
-class MockOutgoingWindowHandler extends SmartMock
+class MockOutgoingWindowHandler extends Mock
     implements OutgoingConnectionWindowHandler, OutgoingStreamWindowHandler {
   BufferIndicator positiveWindow = new BufferIndicator();
   int peerWindowSize = new Window().size;

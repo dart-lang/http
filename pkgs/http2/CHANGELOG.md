@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.6
+
+* Strong mode fixes and other cleanup.
+
 ## 0.1.5
 
 * Removed use of new `Function` syntax, since it isn't fully supported in Dart

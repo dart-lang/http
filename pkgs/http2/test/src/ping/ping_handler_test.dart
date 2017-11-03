@@ -2,34 +2,29 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: undefined_setter
 import 'dart:async';
 
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/ping/ping_handler.dart';
 
 import '../error_matchers.dart';
-import '../mock_utils.dart';
 
 main() {
   group('ping-handler', () {
     test('successful-ping', () async {
       var writer = new FrameWriterMock();
       var pingHandler = new PingHandler(writer);
-      var tc = new TestCounter(count: 2);
-
-      int pingCount = 1;
-      writer.mock_writePingFrame = (int opaqueData, {bool ack: false}) {
-        expect(opaqueData, pingCount);
-        expect(ack, false);
-        pingCount++;
-        tc.got();
-      };
 
       Future p1 = pingHandler.ping();
       Future p2 = pingHandler.ping();
+
+      verifyInOrder([
+        writer.writePingFrame(1),
+        writer.writePingFrame(2),
+      ]);
 
       var header = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
       pingHandler.processPingFrame(new PingFrame(header, 1));
@@ -38,38 +33,31 @@ main() {
 
       await p1;
       await p2;
+      verifyNoMoreInteractions(writer);
     });
 
     test('successful-ack-to-remote-ping', () async {
       var writer = new FrameWriterMock();
       var pingHandler = new PingHandler(writer);
-      var tc = new TestCounter(count: 2);
-
-      int pingCount = 1;
-      writer.mock_writePingFrame = (int opaqueData, {bool ack: false}) {
-        expect(opaqueData, pingCount);
-        expect(ack, true);
-        pingCount++;
-        tc.got();
-      };
 
       var header = new FrameHeader(8, FrameType.PING, 0, 0);
       pingHandler.processPingFrame(new PingFrame(header, 1));
       var header2 = new FrameHeader(8, FrameType.PING, 0, 0);
       pingHandler.processPingFrame(new PingFrame(header2, 2));
+
+      verifyInOrder([
+        writer.writePingFrame(1, ack: true),
+        writer.writePingFrame(2, ack: true)
+      ]);
+      verifyNoMoreInteractions(writer);
     });
 
     test('ping-unknown-opaque-data', () async {
       var writer = new FrameWriterMock();
       var pingHandler = new PingHandler(writer);
-      var tc = new TestCounter();
-
-      writer.mock_writePingFrame = (int opaqueData, {bool ack: false}) {
-        expect(opaqueData, 1);
-        tc.got();
-      };
 
       Future future = pingHandler.ping();
+      verify(writer.writePingFrame(1)).called(1);
 
       var header = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
       expect(() => pingHandler.processPingFrame(new PingFrame(header, 2)),
@@ -81,6 +69,7 @@ main() {
         expect(error, 'hello world');
       }));
       pingHandler.terminate('hello world');
+      verifyNoMoreInteractions(writer);
     });
 
     test('terminate-ping-handler', () async {
@@ -91,6 +80,7 @@ main() {
       expect(() => pingHandler.processPingFrame(null),
           throwsA(isTerminatedException));
       expect(pingHandler.ping(), throwsA(isTerminatedException));
+      verifyZeroInteractions(writer);
     });
 
     test('ping-non-zero-stream-id', () async {
@@ -100,8 +90,9 @@ main() {
       var header = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1);
       expect(() => pingHandler.processPingFrame(new PingFrame(header, 1)),
           throwsA(isProtocolException));
+      verifyZeroInteractions(writer);
     });
   });
 }
 
-class FrameWriterMock extends SmartMock implements FrameWriter {}
+class FrameWriterMock extends Mock implements FrameWriter {}
