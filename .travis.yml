@@ -1,0 +1,33 @@
+language: dart
+
+# By default, builds are run in containers.
+# https://docs.travis-ci.com/user/getting-started/#Selecting-infrastructure-(optional)
+# Set `sudo: true` to disable containers if you need to use sudo in your scripts.
+# sudo: true
+
+dart:
+- dev
+- stable
+
+# See https://docs.travis-ci.com/user/languages/dart/ for details.
+dart_task:
+- test: --platform vm
+# Uncomment this line to run tests on the browser.
+# - test: --platform firefox
+
+# Only run one instance of the formatter and the analyzer, rather than running
+# them against each Dart version.
+matrix:
+  include:
+  - dart: stable
+    dart_task: dartfmt
+  - dart: dev
+    dart_task: dartanalyzer
+
+# Only building master means that we don't run two builds for each pull request.
+branches:
+  only: [master]
+
+cache:
+  directories:
+  - $HOME/.pub-cache
