@@ -22,6 +22,9 @@ class RetryClient extends BaseClient {
   /// The callback that determines how long to wait before retrying a request.
   final Duration Function(int) _delay;
 
+  /// The callback to call to indicate that a request is being retried.
+  final void Function(BaseRequest, BaseResponse, int) _onRetry;
+
   /// Creates a client wrapping [inner] that retries HTTP requests.
   ///
   /// This retries a failing request [retries] times (3 by default). Note that
@@ -35,15 +38,20 @@ class RetryClient extends BaseClient {
   /// retry, then increases the delay by 1.5x for each subsequent retry. If
   /// [delay] is passed, it's used to determine the time to wait before the
   /// given (zero-based) retry.
+  ///
+  /// If [onRetry] is passed, it's called immediately before each retry so that
+  /// the client has a chance to perform side effects like logging.
   RetryClient(this._inner,
       {int retries,
       bool when(BaseResponse response),
-      Duration delay(int retryCount)})
+      Duration delay(int retryCount),
+      void onRetry(BaseRequest request, BaseResponse response, int retryCount)})
       : _retries = retries ?? 3,
         _when = when ?? ((response) => response.statusCode == 503),
         _delay = delay ??
             ((retryCount) =>
-                new Duration(milliseconds: 500) * math.pow(1.5, retryCount)) {
+                new Duration(milliseconds: 500) * math.pow(1.5, retryCount)),
+        _onRetry = onRetry {
     RangeError.checkNotNegative(_retries, "retries");
   }
 
@@ -54,15 +62,18 @@ class RetryClient extends BaseClient {
   /// in order. It will wait for `delays[0]` after the initial request,
   /// `delays[1]` after the first retry, and so on.
   RetryClient.withDelays(Client inner, Iterable<Duration> delays,
-      {bool when(BaseResponse response)})
-      : this._withDelays(inner, delays.toList(), when: when);
+      {bool when(BaseResponse response),
+      void onRetry(BaseRequest request, BaseResponse response, int retryCount)})
+      : this._withDelays(inner, delays.toList(), when: when, onRetry: onRetry);
 
   RetryClient._withDelays(Client inner, List<Duration> delays,
-      {bool when(BaseResponse response)})
+      {bool when(BaseResponse response),
+      void onRetry(BaseRequest request, BaseResponse response, int retryCount)})
       : this(inner,
             retries: delays.length,
             delay: (retryCount) => delays[retryCount],
-            when: when);
+            when: when,
+            onRetry: onRetry);
 
   Future<StreamedResponse> send(BaseRequest request) async {
     var splitter = new StreamSplitter(request.finalize());
@@ -76,6 +87,7 @@ class RetryClient extends BaseClient {
       // dangling connections.
       response.stream.listen((_) {}).cancel()?.catchError((_) {});
       await new Future.delayed(_delay(i));
+      if (_onRetry != null) _onRetry(request, response, i);
       i++;
     }
   }
