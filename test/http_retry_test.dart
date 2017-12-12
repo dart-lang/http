@@ -162,6 +162,23 @@ void main() {
     });
   });
 
+  test("calls onRetry for each retry", () async {
+    var count = 0;
+    var client = new RetryClient(
+        new MockClient(
+            expectAsync1((_) async => new Response("", 503), count: 3)),
+        retries: 2,
+        delay: (_) => Duration.ZERO,
+        onRetry: expectAsync3((request, response, retryCount) {
+          expect(request.url, equals(Uri.parse("http://example.org")));
+          expect(response.statusCode, equals(503));
+          expect(retryCount, equals(count));
+          count++;
+        }, count: 2));
+    var response = await client.get("http://example.org");
+    expect(response.statusCode, equals(503));
+  });
+
   test("copies all request attributes for each attempt", () async {
     var client = new RetryClient.withDelays(
         new MockClient(expectAsync1((request) async {
