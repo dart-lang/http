@@ -17,7 +17,7 @@ class RetryClient extends BaseClient {
   final int _retries;
 
   /// The callback that determines whether a request should be retried.
-  final bool Function(StreamedResponse) _when;
+  final bool Function(BaseResponse) _when;
 
   /// The callback that determines how long to wait before retrying a request.
   final Duration Function(int) _delay;
@@ -37,7 +37,7 @@ class RetryClient extends BaseClient {
   /// given (zero-based) retry.
   RetryClient(this._inner,
       {int retries,
-      bool when(StreamedResponse response),
+      bool when(BaseResponse response),
       Duration delay(int retryCount)})
       : _retries = retries ?? 3,
         _when = when ?? ((response) => response.statusCode == 503),
@@ -54,13 +54,15 @@ class RetryClient extends BaseClient {
   /// in order. It will wait for `delays[0]` after the initial request,
   /// `delays[1]` after the first retry, and so on.
   RetryClient.withDelays(Client inner, Iterable<Duration> delays,
-      {bool when(StreamedResponse response)})
+      {bool when(BaseResponse response)})
       : this._withDelays(inner, delays.toList(), when: when);
 
   RetryClient._withDelays(Client inner, List<Duration> delays,
-      {bool when(StreamedResponse response)})
+      {bool when(BaseResponse response)})
       : this(inner,
-            retries: delays.length, delay: (retryCount) => delays[retryCount]);
+            retries: delays.length,
+            delay: (retryCount) => delays[retryCount],
+            when: when);
 
   Future<StreamedResponse> send(BaseRequest request) async {
     var splitter = new StreamSplitter(request.finalize());
