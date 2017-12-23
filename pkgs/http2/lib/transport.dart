@@ -150,9 +150,9 @@ abstract class TransportConnection {
 
   /// Sets the active state callback.
   ///
-  /// This callback is invoked with [true] when the number of active streams
+  /// This callback is invoked with `true` when the number of active streams
   /// goes from 0 to 1 (the connection goes from idle to active), and with
-  /// [false] when the number of active streams becomes 0 (the connection goes
+  /// `false` when the number of active streams becomes 0 (the connection goes
   /// from active to idle).
   set onActiveStateChanged(ActiveStateHandler callback);
 
