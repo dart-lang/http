@@ -24,9 +24,9 @@ final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
 ///     var uri = Uri.parse("http://pub.dartlang.org/packages/create");
 ///     var request = new http.MultipartRequest("POST", url);
 ///     request.fields['user'] = 'nweiz@google.com';
-///     request.files.add(new http.MultipartFile.fromFile(
+///     request.files.add(await http.MultipartFile.fromPath(
 ///         'package',
-///         new File('build/package.tar.gz'),
+///         'build/package.tar.gz',
 ///         contentType: new MediaType('application', 'x-tar'));
 ///     request.send().then((response) {
 ///       if (response.statusCode == 200) print("Uploaded!");
