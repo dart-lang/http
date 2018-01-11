@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.7
+
+* Fixes for Dart 2.0.
+
 ## 0.1.6
 
 * Strong mode fixes and other cleanup.
