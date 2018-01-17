@@ -8,6 +8,8 @@ import 'dart:convert';
 import 'package:async/async.dart';
 import 'package:collection/collection.dart';
 
+import 'utils.dart';
+
 /// The body of a request or response.
 ///
 /// This tracks whether the body has been read. It's separate from [Message]
@@ -34,51 +36,36 @@ class Body {
   /// [body] may be either a [Body], a [String], a [List<int>], a
   /// [Stream<List<int>>], or `null`. If it's a [String], [encoding] will be
   /// used to convert it to a [Stream<List<int>>].
-  factory Body(body, [Encoding encoding]) {
+  factory Body(body, Encoding encoding) {
     if (body is Body) return body;
+    if (body == null) {
+      return new Body._(const Stream<List<int>>.empty(), null, 0);
+    }
 
     Stream<List<int>> stream;
     int contentLength;
-    if (body == null) {
-      contentLength = 0;
-      stream = new Stream.fromIterable([]);
-    } else if (body is String) {
-      if (encoding == null) {
-        var encoded = UTF8.encode(body);
-        // If the text is plain ASCII, don't modify the encoding. This means
-        // that an encoding of "text/plain" will stay put.
-        if (!_isPlainAscii(encoded, body.length)) encoding = UTF8;
-        contentLength = encoded.length;
-        stream = new Stream.fromIterable([encoded]);
-      } else {
-        var encoded = encoding.encode(body);
-        contentLength = encoded.length;
-        stream = new Stream.fromIterable([encoded]);
-      }
+
+    if (body is Map) {
+      encoding ??= UTF8;
+      body = mapToQuery(body, encoding: encoding);
+    }
+
+    if (body is String) {
+      encoding ??= UTF8;
+      var encoded = encoding.encode(body);
+      contentLength = encoded.length;
+      stream = new Stream.fromIterable([encoded]);
     } else if (body is List) {
       contentLength = body.length;
       stream = new Stream.fromIterable([DelegatingList.typed(body)]);
     } else if (body is Stream) {
       stream = DelegatingStream.typed(body);
     } else {
-      throw new ArgumentError('Response body "$body" must be a String or a '
-          'Stream.');
+      throw new ArgumentError('Response body "$body" must be a String, a Map '
+          'or a Stream.');
     }
 
     return new Body._(stream, encoding, contentLength);
-  }
-
-  /// Returns whether [bytes] is plain ASCII.
-  ///
-  /// [codeUnits] is the number of code units in the original string.
-  static bool _isPlainAscii(List<int> bytes, int codeUnits) {
-    // Most non-ASCII code units will produce multiple bytes and make the text
-    // longer.
-    if (bytes.length != codeUnits) return false;
-
-    // Non-ASCII code units between U+0080 and U+009F produce 8-bit characters
-    // with the high bit set.
-    return bytes.every((byte) => byte & 0x80 == 0);
   }
 
   /// Returns a [Stream] representing the body.
