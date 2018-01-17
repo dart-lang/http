@@ -63,11 +63,13 @@ abstract class Message {
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(new Body(body, encoding), headers, context);
+      : this._(new Body(body, encoding), headers, context, body);
 
-  Message._(Body body, Map<String, String> headers, Map<String, Object> context)
+  Message._(Body body, Map<String, String> headers, Map<String, Object> context,
+      originalBody)
       : _body = body,
-        headers = new HttpUnmodifiableMap<String>(_adjustHeaders(headers, body),
+        headers = new HttpUnmodifiableMap<String>(
+            _adjustHeaders(headers, body, originalBody),
             ignoreKeyCase: true),
         context =
             new HttpUnmodifiableMap<Object>(context, ignoreKeyCase: false);
@@ -154,30 +156,21 @@ abstract class Message {
 /// Adds information about encoding to [headers].
 ///
 /// Returns a new map without modifying [headers].
-Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
-  var sameEncoding = _sameEncoding(headers, body);
-  if (sameEncoding) {
-    if (body.contentLength == null ||
-        getHeader(headers, 'content-length') == body.contentLength.toString()) {
-      return headers ?? const HttpUnmodifiableMap.empty();
-    } else if (body.contentLength == 0 &&
-        (headers == null || headers.isEmpty)) {
-      return const HttpUnmodifiableMap.empty();
-    }
-  }
+Map<String, String> _adjustHeaders(
+    Map<String, String> headers, Body body, originalBody) {
+  // When an instance of Body is passed to the Body factory constructor it will
+  // return that instance which means that the headers don't need adjustment
+  if (body == originalBody) return headers;
 
   var newHeaders = headers == null
       ? new CaseInsensitiveMap<String>()
       : new CaseInsensitiveMap<String>.from(headers);
 
-  if (!sameEncoding) {
-    if (newHeaders['content-type'] == null) {
-      newHeaders['content-type'] =
-          'application/octet-stream; charset=${body.encoding.name}';
-    } else {
-      var contentType = new MediaType.parse(newHeaders['content-type'])
-          .change(parameters: {'charset': body.encoding.name});
-      newHeaders['content-type'] = contentType.toString();
+  if (!newHeaders.containsKey('content-type')) {
+    var contentType = guessContentType(originalBody, body.encoding);
+
+    if (contentType.isNotEmpty) {
+      newHeaders['content-type'] = contentType;
     }
   }
 
@@ -189,15 +182,4 @@ Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
   }
 
   return newHeaders;
-}
-
-/// Returns whether [headers] declares the same encoding as [body].
-bool _sameEncoding(Map<String, String> headers, Body body) {
-  if (body.encoding == null) return true;
-
-  var contentType = getHeader(headers, 'content-type');
-  if (contentType == null) return false;
-
-  var charset = new MediaType.parse(contentType).parameters['charset'];
-  return Encoding.getByName(charset) == body.encoding;
 }

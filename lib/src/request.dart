@@ -156,14 +156,17 @@ class Request extends Message {
     headers ??= {};
 
     var boundary = boundaryString();
+    var multipartBody = new MultipartBody(fields, files, boundary);
 
     return new Request._(
         method ?? 'POST',
         getUrl(url),
-        new MultipartBody(fields, files, boundary),
+        multipartBody,
         null,
-        updateMap(headers,
-            {'content-type': 'multipart/form-data; boundary=$boundary'}),
+        updateMap(headers, {
+          'content-type': 'multipart/form-data; boundary=$boundary',
+          'content-length': multipartBody.contentLength.toString()
+        }),
         context);
   }
 

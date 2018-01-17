@@ -6,6 +6,10 @@ import 'dart:convert';
 
 import 'package:http_parser/http_parser.dart';
 
+const String _textContentType = 'text/plain';
+const String _urlEncodedType = 'application/x-www-form-urlencoded';
+const String _defaultContentType = 'application/octet-stream';
+
 /// Returns the [Encoding] that corresponds to [charset].
 ///
 /// Returns `null` if [charset] is `null` or if no [Encoding] was found that
@@ -22,4 +26,22 @@ Encoding encodingForCharset(String charset) {
 Encoding encodingForMediaType(MediaType type) {
   if (type == null) return null;
   return encodingForCharset(type.parameters['charset']);
+}
+
+String guessContentType(contents, Encoding encoding) {
+  if (contents is String) {
+    return _contentType(_textContentType, encoding);
+  } else if (contents is Map) {
+    return _contentType(_urlEncodedType, encoding);
+  } else if (encoding != null) {
+    return _contentType(_defaultContentType, encoding);
+  } else {
+    return '';
+  }
+}
+
+String _contentType(String contentType, Encoding encoding) {
+  encoding ??= UTF8;
+
+  return '$contentType; charset=${encoding.name}';
 }
