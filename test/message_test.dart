@@ -323,7 +323,7 @@ void main() {
     test(
         "sets an absent content-type to application/octet-stream in order to "
         "set the charset", () {
-      var request = _createMessage(body: "è", encoding: LATIN1);
+      var request = _createMessage(body: [232], encoding: LATIN1);
       expect(
           request.headers,
           containsPair(
