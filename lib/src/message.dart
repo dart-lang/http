@@ -20,6 +20,11 @@ import 'utils.dart';
 /// for subclasses of [Message] but hidden elsewhere.
 Body getBody(Message message) => message._body;
 
+/// The default set of headers for a message created with no body and no
+/// explicit headers.
+final _defaultHeaders = new HttpUnmodifiableMap<String>({'content-length': '0'},
+    ignoreKeyCase: true);
+
 /// Represents logic shared between [Request] and [Response].
 abstract class Message {
   /// The HTTP headers.
@@ -63,7 +68,8 @@ abstract class Message {
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(new Body(body, encoding), headers, context);
+      : this._(
+            new Body(body, encoding), _addContentType(headers, body), context);
 
   Message._(Body body, Map<String, String> headers, Map<String, Object> context)
       : _body = body,
@@ -151,6 +157,30 @@ abstract class Message {
       {Map<String, String> headers, Map<String, Object> context, body});
 }
 
+Map<String, String> _addContentType(Map<String, String> headers, body) {
+  if (body == null) return headers;
+
+  var contentTypeHeader = getHeader(headers, 'content-type');
+
+  if (contentTypeHeader != null) return headers;
+
+  if (body is String) {
+    contentTypeHeader = 'text/plain; charset=utf-8';
+  } else if (body is Map) {
+    contentTypeHeader = 'application/x-www-form-urlencoded; charset=utf-8';
+  }
+
+  if (contentTypeHeader == null) return headers;
+
+  var newHeaders = headers == null
+      ? new CaseInsensitiveMap<String>()
+      : new CaseInsensitiveMap<String>.from(headers);
+
+  newHeaders['content-type'] = contentTypeHeader;
+
+  return newHeaders;
+}
+
 /// Adds information about encoding to [headers].
 ///
 /// Returns a new map without modifying [headers].
@@ -162,7 +192,7 @@ Map<String, String> _adjustHeaders(Map<String, String> headers, Body body) {
       return headers ?? const HttpUnmodifiableMap.empty();
     } else if (body.contentLength == 0 &&
         (headers == null || headers.isEmpty)) {
-      return const HttpUnmodifiableMap.empty();
+      return _defaultHeaders;
     }
   }
 
