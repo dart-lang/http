@@ -126,6 +126,7 @@ hybridMain(StreamChannel channel) async {
       var content = {
         'method': request.method,
         'path': request.uri.path,
+        '_debug_': '${request.headers}',
         'headers': {}
       };
       if (requestBody != null) content['body'] = requestBody;
