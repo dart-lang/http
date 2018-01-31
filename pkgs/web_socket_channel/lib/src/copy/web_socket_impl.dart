@@ -66,7 +66,8 @@ class _WebSocketOpcode {
 /// will lead to undefined behaviour.
 // TODO(ajohnsen): make this transformer reusable?
 class _WebSocketProtocolTransformer
-    implements StreamTransformer<List<int>, dynamic>, EventSink<List<int>> {
+    extends StreamTransformerBase<List<int>, dynamic>
+    implements EventSink<List<int>> {
   static const int START = 0;
   static const int LEN_FIRST = 1;
   static const int LEN_REST = 2;
@@ -392,7 +393,7 @@ class _WebSocketPong {
 
 // TODO(ajohnsen): Make this transformer reusable.
 class _WebSocketOutgoingTransformer
-    implements StreamTransformer<dynamic, List<int>>, EventSink {
+    extends StreamTransformerBase<dynamic, List<int>> implements EventSink {
   final WebSocketImpl webSocket;
   EventSink<List<int>> _eventSink;
 
