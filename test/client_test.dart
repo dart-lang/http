@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:test/test.dart';
 
 import 'client.dart'
@@ -50,15 +52,12 @@ void main() {
     });
 
     test('post with string', () async {
-      var response = await platformClient().post(
-        serverUrl,
-        'request body',
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response =
+          await platformClient().post(serverUrl, 'request body', headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -79,15 +78,12 @@ void main() {
     });
 
     test('post with bytes', () async {
-      var response = await platformClient().post(
-        serverUrl,
-        [104, 101, 108, 108, 111],
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient()
+          .post(serverUrl, ASCII.encode('hello'), headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -102,20 +98,19 @@ void main() {
               'x-random-header': ['Value'],
               'x-other-header': ['Other Value']
             },
-            'body': [104, 101, 108, 108, 111]
+            'body': ASCII.encode('hello')
           })));
     });
 
     test('post with fields', () async {
-      var response = await platformClient().post(
-        serverUrl,
-        {'some-field': 'value', 'other-field': 'other value'},
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient().post(serverUrl, {
+        'some-field': 'value',
+        'other-field': 'other value'
+      }, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -138,15 +133,12 @@ void main() {
     });
 
     test('put with string', () async {
-      var response = await platformClient().put(
-        serverUrl,
-        'request body',
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response =
+          await platformClient().put(serverUrl, 'request body', headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -167,15 +159,12 @@ void main() {
     });
 
     test('put with bytes', () async {
-      var response = await platformClient().put(
-        serverUrl,
-        [104, 101, 108, 108, 111],
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient()
+          .put(serverUrl, ASCII.encode('hello'), headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -190,20 +179,19 @@ void main() {
               'x-random-header': ['Value'],
               'x-other-header': ['Other Value']
             },
-            'body': [104, 101, 108, 108, 111]
+            'body': ASCII.encode('hello')
           })));
     });
 
     test('put with fields', () async {
-      var response = await platformClient().put(
-        serverUrl,
-        {'some-field': 'value', 'other-field': 'other value'},
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient().put(serverUrl, {
+        'some-field': 'value',
+        'other-field': 'other value'
+      }, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -226,15 +214,12 @@ void main() {
     });
 
     test('patch with string', () async {
-      var response = await platformClient().patch(
-        serverUrl,
-        'request body',
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response =
+          await platformClient().patch(serverUrl, 'request body', headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -255,15 +240,12 @@ void main() {
     });
 
     test('patch with bytes', () async {
-      var response = await platformClient().patch(
-        serverUrl,
-        [104, 101, 108, 108, 111],
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient()
+          .patch(serverUrl, ASCII.encode('hello'), headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -278,20 +260,19 @@ void main() {
               'x-random-header': ['Value'],
               'x-other-header': ['Other Value']
             },
-            'body': [104, 101, 108, 108, 111]
+            'body': ASCII.encode('hello')
           })));
     });
 
     test('patch with fields', () async {
-      var response = await platformClient().patch(
-        serverUrl,
-        {'some-field': 'value', 'other-field': 'other value'},
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient().patch(serverUrl, {
+        'some-field': 'value',
+        'other-field': 'other value'
+      }, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
