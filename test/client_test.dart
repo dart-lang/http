@@ -42,11 +42,11 @@ void main() {
           body,
           parse(equals({
             'method': 'GET',
-            'path': '/',
+            'path': '',
             'headers': {
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             }
           })));
     });
@@ -65,13 +65,13 @@ void main() {
           body,
           parse(equals({
             'method': 'POST',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': ['text/plain; charset=utf-8'],
-              'content-length': ['12'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type': 'text/plain; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'request body'
           })));
@@ -91,12 +91,12 @@ void main() {
           body,
           parse(equals({
             'method': 'POST',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-length': ['5'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '5',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': ASCII.encode('hello')
           })));
@@ -118,15 +118,14 @@ void main() {
           body,
           parse(equals({
             'method': 'POST',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
-              'content-length': ['40'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type':
+                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-length': '40',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'some-field=value&other-field=other+value'
           })));
@@ -146,13 +145,13 @@ void main() {
           body,
           parse(equals({
             'method': 'PUT',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': ['text/plain; charset=utf-8'],
-              'content-length': ['12'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type': 'text/plain; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'request body'
           })));
@@ -172,12 +171,12 @@ void main() {
           body,
           parse(equals({
             'method': 'PUT',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-length': ['5'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '5',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': ASCII.encode('hello')
           })));
@@ -199,15 +198,14 @@ void main() {
           body,
           parse(equals({
             'method': 'PUT',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
-              'content-length': ['40'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type':
+                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-length': '40',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'some-field=value&other-field=other+value'
           })));
@@ -227,13 +225,13 @@ void main() {
           body,
           parse(equals({
             'method': 'PATCH',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': ['text/plain; charset=utf-8'],
-              'content-length': ['12'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type': 'text/plain; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'request body'
           })));
@@ -253,12 +251,12 @@ void main() {
           body,
           parse(equals({
             'method': 'PATCH',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-length': ['5'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '5',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': ASCII.encode('hello')
           })));
@@ -280,15 +278,14 @@ void main() {
           body,
           parse(equals({
             'method': 'PATCH',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
-              'content-length': ['40'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type':
+                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-length': '40',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'some-field=value&other-field=other+value'
           })));
@@ -307,12 +304,12 @@ void main() {
           body,
           parse(equals({
             'method': 'DELETE',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-length': ['0'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '0',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             }
           })));
     });
@@ -328,11 +325,11 @@ void main() {
           body,
           parse(equals({
             'method': 'GET',
-            'path': '/',
+            'path': '',
             'headers': {
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             }
           })));
     });
@@ -353,11 +350,11 @@ void main() {
           new String.fromCharCodes(body),
           parse(equals({
             'method': 'GET',
-            'path': '/',
+            'path': '',
             'headers': {
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             }
           })));
     });
