@@ -67,7 +67,32 @@ void main() {
             'method': 'POST',
             'path': '',
             'headers': {
-              'content-type': 'text/plain; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
+            },
+            'body': ASCII.encode('request body')
+          })));
+    });
+
+    test('post with string and encoding', () async {
+      var response = await platformClient()
+          .post(serverUrl, 'request body', encoding: UTF8, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
+      var body = await response.readAsString();
+
+      expect(response.statusCode, equals(200));
+      expect(
+          body,
+          parse(equals({
+            'method': 'POST',
+            'path': '',
+            'headers': {
+              'content-type': 'application/octet-stream; charset=utf-8',
               'content-length': '12',
               'user-agent': userAgent(),
               'x-random-header': 'Value',
@@ -147,7 +172,32 @@ void main() {
             'method': 'PUT',
             'path': '',
             'headers': {
-              'content-type': 'text/plain; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
+            },
+            'body': ASCII.encode('request body')
+          })));
+    });
+
+    test('put with string and encoding', () async {
+      var response = await platformClient()
+          .put(serverUrl, 'request body', encoding: UTF8, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
+      var body = await response.readAsString();
+
+      expect(response.statusCode, equals(200));
+      expect(
+          body,
+          parse(equals({
+            'method': 'PUT',
+            'path': '',
+            'headers': {
+              'content-type': 'application/octet-stream; charset=utf-8',
               'content-length': '12',
               'user-agent': userAgent(),
               'x-random-header': 'Value',
@@ -227,7 +277,32 @@ void main() {
             'method': 'PATCH',
             'path': '',
             'headers': {
-              'content-type': 'text/plain; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
+            },
+            'body': ASCII.encode('request body')
+          })));
+    });
+
+    test('patch with string and encoding', () async {
+      var response = await platformClient()
+          .patch(serverUrl, 'request body', encoding: UTF8, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
+      var body = await response.readAsString();
+
+      expect(response.statusCode, equals(200));
+      expect(
+          body,
+          parse(equals({
+            'method': 'PATCH',
+            'path': '',
+            'headers': {
+              'content-type': 'application/octet-stream; charset=utf-8',
               'content-length': '12',
               'user-agent': userAgent(),
               'x-random-header': 'Value',

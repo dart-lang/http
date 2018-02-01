@@ -98,7 +98,7 @@ hybridMain(StreamChannel channel) async {
       // CORS headers for browser testing
       'access-control-allow-origin': '*',
       'access-control-allow-headers':
-          'X-Random-Header,X-Other-Header,User-Agent',
+          'X-Random-Header,X-Other-Header,User-Agent,Content-Type',
       'access-control-allow-methods': 'GET, PUT, POST, DELETE, PATCH, HEAD'
     });
   }, 'localhost', 0);
