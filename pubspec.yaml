@@ -11,6 +11,7 @@ dependencies:
   typed_data: "^1.0.0"
 dev_dependencies:
   test: "^0.12.28"
+  shelf: ">=0.6.0 <0.8.0"
 # Override dependency on package_resolver to enable test
 dependency_overrides:
   package_resolver: '^1.0.0'

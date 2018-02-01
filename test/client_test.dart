@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:test/test.dart';
 
 import 'client.dart'
@@ -40,25 +42,22 @@ void main() {
           body,
           parse(equals({
             'method': 'GET',
-            'path': '/',
+            'path': '',
             'headers': {
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             }
           })));
     });
 
     test('post with string', () async {
-      var response = await platformClient().post(
-        serverUrl,
-        'request body',
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response =
+          await platformClient().post(serverUrl, 'request body', headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -66,28 +65,50 @@ void main() {
           body,
           parse(equals({
             'method': 'POST',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': ['text/plain; charset=utf-8'],
-              'content-length': ['12'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
+            },
+            'body': ASCII.encode('request body')
+          })));
+    });
+
+    test('post with string and encoding', () async {
+      var response = await platformClient()
+          .post(serverUrl, 'request body', encoding: UTF8, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
+      var body = await response.readAsString();
+
+      expect(response.statusCode, equals(200));
+      expect(
+          body,
+          parse(equals({
+            'method': 'POST',
+            'path': '',
+            'headers': {
+              'content-type': 'application/octet-stream; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'request body'
           })));
     });
 
     test('post with bytes', () async {
-      var response = await platformClient().post(
-        serverUrl,
-        [104, 101, 108, 108, 111],
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient()
+          .post(serverUrl, ASCII.encode('hello'), headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -95,27 +116,26 @@ void main() {
           body,
           parse(equals({
             'method': 'POST',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-length': ['5'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '5',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
-            'body': [104, 101, 108, 108, 111]
+            'body': ASCII.encode('hello')
           })));
     });
 
     test('post with fields', () async {
-      var response = await platformClient().post(
-        serverUrl,
-        {'some-field': 'value', 'other-field': 'other value'},
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient().post(serverUrl, {
+        'some-field': 'value',
+        'other-field': 'other value'
+      }, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -123,30 +143,26 @@ void main() {
           body,
           parse(equals({
             'method': 'POST',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
-              'content-length': ['40'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type':
+                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-length': '40',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'some-field=value&other-field=other+value'
           })));
     });
 
     test('put with string', () async {
-      var response = await platformClient().put(
-        serverUrl,
-        'request body',
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response =
+          await platformClient().put(serverUrl, 'request body', headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -154,28 +170,50 @@ void main() {
           body,
           parse(equals({
             'method': 'PUT',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': ['text/plain; charset=utf-8'],
-              'content-length': ['12'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
+            },
+            'body': ASCII.encode('request body')
+          })));
+    });
+
+    test('put with string and encoding', () async {
+      var response = await platformClient()
+          .put(serverUrl, 'request body', encoding: UTF8, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
+      var body = await response.readAsString();
+
+      expect(response.statusCode, equals(200));
+      expect(
+          body,
+          parse(equals({
+            'method': 'PUT',
+            'path': '',
+            'headers': {
+              'content-type': 'application/octet-stream; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'request body'
           })));
     });
 
     test('put with bytes', () async {
-      var response = await platformClient().put(
-        serverUrl,
-        [104, 101, 108, 108, 111],
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient()
+          .put(serverUrl, ASCII.encode('hello'), headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -183,27 +221,26 @@ void main() {
           body,
           parse(equals({
             'method': 'PUT',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-length': ['5'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '5',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
-            'body': [104, 101, 108, 108, 111]
+            'body': ASCII.encode('hello')
           })));
     });
 
     test('put with fields', () async {
-      var response = await platformClient().put(
-        serverUrl,
-        {'some-field': 'value', 'other-field': 'other value'},
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient().put(serverUrl, {
+        'some-field': 'value',
+        'other-field': 'other value'
+      }, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -211,30 +248,26 @@ void main() {
           body,
           parse(equals({
             'method': 'PUT',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
-              'content-length': ['40'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type':
+                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-length': '40',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'some-field=value&other-field=other+value'
           })));
     });
 
     test('patch with string', () async {
-      var response = await platformClient().patch(
-        serverUrl,
-        'request body',
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response =
+          await platformClient().patch(serverUrl, 'request body', headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -242,28 +275,50 @@ void main() {
           body,
           parse(equals({
             'method': 'PATCH',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': ['text/plain; charset=utf-8'],
-              'content-length': ['12'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
+            },
+            'body': ASCII.encode('request body')
+          })));
+    });
+
+    test('patch with string and encoding', () async {
+      var response = await platformClient()
+          .patch(serverUrl, 'request body', encoding: UTF8, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
+      var body = await response.readAsString();
+
+      expect(response.statusCode, equals(200));
+      expect(
+          body,
+          parse(equals({
+            'method': 'PATCH',
+            'path': '',
+            'headers': {
+              'content-type': 'application/octet-stream; charset=utf-8',
+              'content-length': '12',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'request body'
           })));
     });
 
     test('patch with bytes', () async {
-      var response = await platformClient().patch(
-        serverUrl,
-        [104, 101, 108, 108, 111],
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient()
+          .patch(serverUrl, ASCII.encode('hello'), headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -271,27 +326,26 @@ void main() {
           body,
           parse(equals({
             'method': 'PATCH',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-length': ['5'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '5',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
-            'body': [104, 101, 108, 108, 111]
+            'body': ASCII.encode('hello')
           })));
     });
 
     test('patch with fields', () async {
-      var response = await platformClient().patch(
-        serverUrl,
-        {'some-field': 'value', 'other-field': 'other value'},
-        headers: {
-          'X-Random-Header': 'Value',
-          'X-Other-Header': 'Other Value',
-          'User-Agent': userAgent()
-        },
-      );
+      var response = await platformClient().patch(serverUrl, {
+        'some-field': 'value',
+        'other-field': 'other value'
+      }, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': userAgent()
+      });
       var body = await response.readAsString();
 
       expect(response.statusCode, equals(200));
@@ -299,15 +353,14 @@ void main() {
           body,
           parse(equals({
             'method': 'PATCH',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-type': [
-                'application/x-www-form-urlencoded; charset=utf-8'
-              ],
-              'content-length': ['40'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-type':
+                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-length': '40',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             },
             'body': 'some-field=value&other-field=other+value'
           })));
@@ -326,12 +379,12 @@ void main() {
           body,
           parse(equals({
             'method': 'DELETE',
-            'path': '/',
+            'path': '',
             'headers': {
-              'content-length': ['0'],
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'content-length': '0',
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             }
           })));
     });
@@ -347,11 +400,11 @@ void main() {
           body,
           parse(equals({
             'method': 'GET',
-            'path': '/',
+            'path': '',
             'headers': {
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             }
           })));
     });
@@ -372,11 +425,11 @@ void main() {
           new String.fromCharCodes(body),
           parse(equals({
             'method': 'GET',
-            'path': '/',
+            'path': '',
             'headers': {
-              'user-agent': [userAgent()],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
+              'user-agent': userAgent(),
+              'x-random-header': 'Value',
+              'x-other-header': 'Other Value'
             }
           })));
     });

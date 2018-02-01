@@ -115,7 +115,8 @@ void main() {
     test("collects a streamed body", () async {
       var controller = new StreamController();
       var message = _createMessage(body: controller.stream);
-      expect(message.readAsBytes(), completion(equals([]..addAll(_helloBytes)..addAll(_worldBytes))));
+      expect(message.readAsBytes(),
+          completion(equals([]..addAll(_helloBytes)..addAll(_worldBytes))));
 
       controller.add(_helloBytes);
       await pumpEventQueue();
