@@ -9,7 +9,7 @@
 // desired public API and to remove "dart:io" dependencies have been made.
 //
 // This is up-to-date as of sdk revision
-// e41fb4cafd6052157dbc1490d437045240f4773f.
+// 365f7b5a8b6ef900a5ee23913b7203569b81b175.
 
 import 'dart:async';
 
@@ -24,12 +24,20 @@ class StreamSinkImpl<T> implements StreamSink<T> {
 
   StreamSinkImpl(this._target);
 
+  // The _reportClosedSink method has been deleted for web_socket_channel. This
+  // method did nothing but print to stderr, which is unavailable here.
+
   void add(T data) {
-    if (_isClosed) return;
+    if (_isClosed) {
+      return;
+    }
     _controller.add(data);
   }
 
   void addError(error, [StackTrace stackTrace]) {
+    if (_isClosed) {
+      return;
+    }
     _controller.addError(error, stackTrace);
   }
 
@@ -37,19 +45,19 @@ class StreamSinkImpl<T> implements StreamSink<T> {
     if (_isBound) {
       throw new StateError("StreamSink is already bound to a stream");
     }
-    _isBound = true;
     if (_hasError) return done;
-    // Wait for any sync operations to complete.
-    Future targetAddStream() {
-      return _target.addStream(stream).whenComplete(() {
-        _isBound = false;
-      });
-    }
 
-    if (_controllerInstance == null) return targetAddStream();
-    var future = _controllerCompleter.future;
-    _controllerInstance.close();
-    return future.then((_) => targetAddStream());
+    _isBound = true;
+    var future = _controllerCompleter == null
+        ? _target.addStream(stream)
+        : _controllerCompleter.future.then((_) => _target.addStream(stream));
+    _controllerInstance?.close();
+
+    // Wait for any pending events in [_controller] to be dispatched before
+    // adding [stream].
+    return future.whenComplete(() {
+      _isBound = false;
+    });
   }
 
   Future flush() {

@@ -9,7 +9,7 @@
 // desired public API and to remove "dart:io" dependencies have been made.
 //
 // This is up-to-date as of sdk revision
-// e41fb4cafd6052157dbc1490d437045240f4773f.
+// 365f7b5a8b6ef900a5ee23913b7203569b81b175.
 
 /// Web socket status codes used when closing a web socket connection.
 abstract class WebSocketStatus {

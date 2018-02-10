@@ -10,7 +10,7 @@
 // desired public API and to remove "dart:io" dependencies have been made.
 //
 // This is up-to-date as of sdk revision
-// e41fb4cafd6052157dbc1490d437045240f4773f.
+// 365f7b5a8b6ef900a5ee23913b7203569b81b175.
 
 import 'dart:async';
 import 'dart:convert';
@@ -57,16 +57,21 @@ class _WebSocketOpcode {
   static const int RESERVED_F = 15;
 }
 
+class _EncodedString {
+  final List<int> bytes;
+  _EncodedString(this.bytes);
+}
+
 /// The web socket protocol transformer handles the protocol byte stream
-/// which is supplied through the [:handleData:]. As the protocol is processed,
+/// which is supplied through the `handleData`. As the protocol is processed,
 /// it'll output frame data as either a List<int> or String.
 ///
 /// Important information about usage: Be sure you use cancelOnError, so the
 /// socket will be closed when the processor encounter an error. Not using it
 /// will lead to undefined behaviour.
-// TODO(ajohnsen): make this transformer reusable?
-class _WebSocketProtocolTransformer
-    implements StreamTransformer<List<int>, dynamic>, EventSink<List<int>> {
+class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
+        dynamic /*List<int>|_WebSocketPing|_WebSocketPong*/ >
+    implements EventSink<List<int>> {
   static const int START = 0;
   static const int LEN_FIRST = 1;
   static const int LEN_REST = 2;
@@ -93,7 +98,7 @@ class _WebSocketProtocolTransformer
   int closeCode = WebSocketStatus.NO_STATUS_RECEIVED;
   String closeReason = "";
 
-  EventSink _eventSink;
+  EventSink<dynamic /*List<int>|_WebSocketPing|_WebSocketPong*/ > _eventSink;
 
   final bool _serverSide;
   final List _maskingBytes = new List(4);
@@ -101,7 +106,8 @@ class _WebSocketProtocolTransformer
 
   _WebSocketProtocolTransformer([this._serverSide = false]);
 
-  Stream bind(Stream stream) {
+  Stream<dynamic /*List<int>|_WebSocketPing|_WebSocketPong*/ > bind(
+      Stream<List<int>> stream) {
     return new Stream.eventTransformed(stream, (EventSink eventSink) {
       if (_eventSink != null) {
         throw new StateError("WebSocket transformer already used.");
@@ -319,7 +325,7 @@ class _WebSocketProtocolTransformer
 
       switch (_currentMessageType) {
         case _WebSocketMessageType.TEXT:
-          _eventSink.add(UTF8.decode(bytes));
+          _eventSink.add(utf8.decode(bytes));
           break;
         case _WebSocketMessageType.BINARY:
           _eventSink.add(bytes);
@@ -344,7 +350,7 @@ class _WebSocketProtocolTransformer
             throw new WebSocketChannelException("Protocol error");
           }
           if (payload.length > 2) {
-            closeReason = UTF8.decode(payload.sublist(2));
+            closeReason = utf8.decode(payload.sublist(2));
           }
         }
         _state = CLOSED;
@@ -392,14 +398,15 @@ class _WebSocketPong {
 
 // TODO(ajohnsen): Make this transformer reusable.
 class _WebSocketOutgoingTransformer
-    implements StreamTransformer<dynamic, List<int>>, EventSink {
+    extends StreamTransformerBase<dynamic, List<int>> implements EventSink {
   final WebSocketImpl webSocket;
   EventSink<List<int>> _eventSink;
 
   _WebSocketOutgoingTransformer(this.webSocket);
 
   Stream<List<int>> bind(Stream stream) {
-    return new Stream.eventTransformed(stream, (eventSink) {
+    return new Stream<List<int>>.eventTransformed(stream,
+        (EventSink<List<int>> eventSink) {
       if (_eventSink != null) {
         throw new StateError("WebSocket transformer already used");
       }
@@ -422,14 +429,15 @@ class _WebSocketOutgoingTransformer
     if (message != null) {
       if (message is String) {
         opcode = _WebSocketOpcode.TEXT;
-        data = UTF8.encode(message);
+        data = utf8.encode(message);
+      } else if (message is List<int>) {
+        opcode = _WebSocketOpcode.BINARY;
+        data = message;
+      } else if (message is _EncodedString) {
+        opcode = _WebSocketOpcode.TEXT;
+        data = message.bytes;
       } else {
-        if (message is List<int>) {
-          data = message;
-          opcode = _WebSocketOpcode.BINARY;
-        } else {
-          throw new ArgumentError(message);
-        }
+        throw new ArgumentError(message);
       }
     } else {
       opcode = _WebSocketOpcode.TEXT;
@@ -450,17 +458,24 @@ class _WebSocketOutgoingTransformer
       data.add((code >> 8) & 0xFF);
       data.add(code & 0xFF);
       if (reason != null) {
-        data.addAll(UTF8.encode(reason));
+        data.addAll(utf8.encode(reason));
       }
     }
     addFrame(_WebSocketOpcode.CLOSE, data);
     _eventSink.close();
   }
 
-  void addFrame(int opcode, List<int> data) =>
-      createFrame(opcode, data, webSocket._serverSide, false).forEach((e) {
-        _eventSink.add(e);
-      });
+  void addFrame(int opcode, List<int> data) {
+    createFrame(
+        opcode,
+        data,
+        webSocket._serverSide,
+        // Logic around _deflateHelper was removed here, since ther ewill never
+        // be a deflate helper for a cross-platform WebSocket client.
+        false).forEach((e) {
+      _eventSink.add(e);
+    });
+  }
 
   static Iterable<List<int>> createFrame(
       int opcode, List<int> data, bool serverSide, bool compressed) {
@@ -563,7 +578,7 @@ class _WebSocketConsumer implements StreamConsumer {
   StreamSubscription _subscription;
   bool _issuedPause = false;
   bool _closed = false;
-  final Completer _closeCompleter = new Completer();
+  final Completer _closeCompleter = new Completer<WebSocketImpl>();
   Completer _completer;
 
   _WebSocketConsumer(this.webSocket, this.sink);

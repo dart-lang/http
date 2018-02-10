@@ -1,3 +1,7 @@
+## 1.0.7
+
+* Support the latest dev SDK.
+
 ## 1.0.6
 
 * Declare support for `async` 2.0.0.
