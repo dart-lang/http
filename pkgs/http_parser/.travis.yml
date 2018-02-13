@@ -1,5 +1,5 @@
 language: dart
-sudo: false
+
 dart:
   - dev
   - stable
@@ -9,8 +9,6 @@ dart_task:
   - test: --platform vm
     xvfb: false
   - test: --platform firefox
-  - test: --platform dartium
-    install_dartium: true
   - dartfmt
   - dartanalyzer
 
