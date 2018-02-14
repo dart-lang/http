@@ -7,8 +7,6 @@ dart:
 dart_task:
   - test: --platform vm
   - test: --platform firefox -j 1
-  - test: --platform dartium
-    install_dartium: true
   - dartanalyzer
 
 matrix:
