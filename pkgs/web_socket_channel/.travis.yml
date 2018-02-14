@@ -1,8 +1,6 @@
 language: dart
 sudo: false
-dart:
-  - dev
-  - stable
+dart: dev
 
 dart_task:
   - test: --platform vm
