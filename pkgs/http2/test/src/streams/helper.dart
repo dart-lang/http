@@ -24,7 +24,7 @@ expectEmptyStream(Stream s) {
   s.listen(expectAsync1((_) {}, count: 0), onDone: expectAsync0(() {}));
 }
 
-streamTest(String name,
+void streamTest(String name,
     func(ClientTransportConnection client, ServerTransportConnection server),
     {ClientSettings settings}) {
   return test(name, () {
@@ -36,7 +36,7 @@ streamTest(String name,
   });
 }
 
-framesTest(String name, func(frameWriter, frameStream)) {
+void framesTest(String name, func(frameWriter, frameStream)) {
   return test(name, () {
     var c = new StreamController<List<int>>();
     var fw = new FrameWriter(null, c, new ActiveSettings());

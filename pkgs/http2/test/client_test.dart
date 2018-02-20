@@ -526,7 +526,7 @@ main() {
   });
 }
 
-clientTest(
+void clientTest(
     String name,
     Future<Null> func(
         ClientTransportConnection clientConnection,

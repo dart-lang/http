@@ -469,7 +469,7 @@ main() {
   });
 }
 
-transportTest(String name,
+void transportTest(String name,
     func(ClientTransportConnection client, ServerTransportConnection server),
     {ClientSettings clientSettings, ServerSettings serverSettings}) {
   return test(name, () {

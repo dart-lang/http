@@ -194,7 +194,7 @@ main() {
   });
 }
 
-serverTest(
+void serverTest(
     String name,
     func(ServerTransportConnection serverConnection, FrameWriter frameWriter,
         StreamIterator<Frame> frameReader, Future<Frame> readNext())) {
