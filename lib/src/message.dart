@@ -167,8 +167,7 @@ abstract class Message {
     if (contentType == null) {
       if (contentLength == null) {
         return headers ?? const HttpUnmodifiableMap.empty();
-      } else if ((contentLength == '0') &&
-          (headers == null || headers.isEmpty)) {
+      } else if (contentLength == '0' && (headers == null || headers.isEmpty)) {
         return _defaultHeaders;
       }
     }
@@ -232,7 +231,7 @@ abstract class Message {
       mediaType = _defaultMediaType;
     }
 
-    if ((body.encoding != null) && (body.encoding != mediaEncoding)) {
+    if (body.encoding != null && body.encoding != mediaEncoding) {
       mediaType = mediaType.change(parameters: {'charset': body.encoding.name});
       changed = true;
     }
