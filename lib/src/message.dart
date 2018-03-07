@@ -150,6 +150,12 @@ abstract class Message {
   Message change(
       {Map<String, String> headers, Map<String, Object> context, body});
 
+  /// The default set of headers for a message created with no body and no
+  /// explicit headers.
+  static final _defaultHeaders = new HttpUnmodifiableMap<String>(
+      {'content-length': '0'},
+      ignoreKeyCase: true);
+
   /// Adds information about encoding and content-type to [headers].
   ///
   /// Returns a new map without modifying [headers].
@@ -158,12 +164,12 @@ abstract class Message {
     var contentType = _contentTypeHeader(headers, body);
     var contentLength = _contentLengthHeader(headers, body);
 
-    if (contentType.isEmpty) {
-      if (contentLength.isEmpty) {
+    if (contentType == null) {
+      if (contentLength == null) {
         return headers ?? const HttpUnmodifiableMap.empty();
       } else if ((contentLength == '0') &&
           (headers == null || headers.isEmpty)) {
-        return const HttpUnmodifiableMap.empty();
+        return _defaultHeaders;
       }
     }
 
@@ -171,11 +177,11 @@ abstract class Message {
         ? new CaseInsensitiveMap<String>()
         : new CaseInsensitiveMap<String>.from(headers);
 
-    if (contentType.isNotEmpty) {
+    if (contentType != null) {
       newHeaders['content-type'] = contentType;
     }
 
-    if (contentLength.isNotEmpty) {
+    if (contentLength != null) {
       newHeaders['content-length'] = contentLength;
     }
 
@@ -185,19 +191,20 @@ abstract class Message {
   /// Determines the `content-length` from the given [headers] and [body].
   ///
   /// Returns the value for the `content-length` header if it should be
-  /// modified, otherwise it returns the empty string.
+  /// modified, otherwise it returns `null`.
   static String _contentLengthHeader(Map<String, String> headers, Body body) {
     var bodyLength = body.contentLength;
-    if (bodyLength == null) return '';
+    if (bodyLength == null) return null;
 
     var contentLengthHeader = bodyLength.toString();
-    if (contentLengthHeader == getHeader(headers, 'content-length')) return '';
+    if (contentLengthHeader == getHeader(headers, 'content-length'))
+      return null;
 
     var coding = getHeader(headers, 'transfer-encoding');
 
     return coding == null || equalsIgnoreAsciiCase(coding, 'identity')
         ? contentLengthHeader
-        : '';
+        : null;
   }
 
   /// The default media type `application/octet-stream` as defined by HTTP.
@@ -211,12 +218,12 @@ abstract class Message {
   /// override the value.
   ///
   /// Returns the value for the `content-type` header if it should be
-  /// modified, otherwise it returns the empty string.
+  /// modified, otherwise it returns `null`.
   static String _contentTypeHeader(Map<String, String> headers, Body body) {
     var contentTypeHeader = getHeader(headers, 'content-type');
     var changed = false;
     MediaType mediaType;
-    Encoding mediaEncoding = null;
+    Encoding mediaEncoding;
 
     if (contentTypeHeader != null) {
       mediaType = new MediaType.parse(contentTypeHeader);
@@ -225,13 +232,11 @@ abstract class Message {
       mediaType = _defaultMediaType;
     }
 
-    var bodyEncoding = body.encoding;
-
-    if ((bodyEncoding != null) && (bodyEncoding != mediaEncoding)) {
+    if ((body.encoding != null) && (body.encoding != mediaEncoding)) {
+      mediaType = mediaType.change(parameters: {'charset': body.encoding.name});
       changed = true;
-      mediaType = mediaType.change(parameters: {'charset': bodyEncoding.name});
     }
 
-    return changed ? mediaType.toString() : '';
+    return changed ? mediaType.toString() : null;
   }
 }
