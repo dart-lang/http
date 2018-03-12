@@ -14,6 +14,15 @@ import 'content_type.dart';
 import 'http_unmodifiable_map.dart';
 import 'utils.dart';
 
+/// The default set of headers for a message created with no body and no
+/// explicit headers.
+final _defaultHeaders = new HttpUnmodifiableMap<String>({'content-length': '0'},
+    ignoreKeyCase: true);
+
+/// The default media type `application/octet-stream` as defined by HTTP.
+final MediaType _defaultMediaType =
+    new MediaType('application', 'octet-stream');
+
 /// Retrieves the [Body] contained in the [message].
 ///
 /// This is meant for internal use by `http` so the message body is accessible
@@ -150,12 +159,6 @@ abstract class Message {
   Message change(
       {Map<String, String> headers, Map<String, Object> context, body});
 
-  /// The default set of headers for a message created with no body and no
-  /// explicit headers.
-  static final _defaultHeaders = new HttpUnmodifiableMap<String>(
-      {'content-length': '0'},
-      ignoreKeyCase: true);
-
   /// Adds information about encoding and content-type to [headers].
   ///
   /// Returns a new map without modifying [headers].
@@ -172,18 +175,9 @@ abstract class Message {
       }
     }
 
-    var newHeaders = headers == null
-        ? new CaseInsensitiveMap<String>()
-        : new CaseInsensitiveMap<String>.from(headers);
-
-    if (contentType != null) {
-      newHeaders['content-type'] = contentType;
-    }
-
-    if (contentLength != null) {
-      newHeaders['content-length'] = contentLength;
-    }
-
+    var newHeaders = new CaseInsensitiveMap<String>.from(headers ?? const {});
+    if (contentType != null) newHeaders['content-type'] = contentType;
+    if (contentLength != null) newHeaders['content-length'] = contentLength;
     return newHeaders;
   }
 
@@ -196,19 +190,15 @@ abstract class Message {
     if (bodyLength == null) return null;
 
     var contentLengthHeader = bodyLength.toString();
-    if (contentLengthHeader == getHeader(headers, 'content-length'))
+    if (contentLengthHeader == getHeader(headers, 'content-length')) {
       return null;
+    }
 
     var coding = getHeader(headers, 'transfer-encoding');
-
     return coding == null || equalsIgnoreAsciiCase(coding, 'identity')
         ? contentLengthHeader
         : null;
   }
-
-  /// The default media type `application/octet-stream` as defined by HTTP.
-  static final MediaType _defaultMediaType =
-      new MediaType('application', 'octet-stream');
 
   /// Determines the `content-type` from the given [headers] and [body].
   ///
