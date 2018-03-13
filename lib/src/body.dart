@@ -38,18 +38,12 @@ class Body {
   /// used to convert it to a [Stream<List<int>>].
   factory Body(body, [Encoding encoding]) {
     if (body is Body) return body;
+    if (body == null) return new Body._(const Stream.empty(), encoding, 0);
 
-    if (body == null) {
-      return new Body._(const Stream.empty(), encoding, 0);
-    }
+    if (body is Map) body = mapToQuery(body, encoding ?? UTF8);
 
     Stream<List<int>> stream;
     int contentLength;
-
-    if (body is Map) {
-      body = mapToQuery(body, encoding ?? UTF8);
-    }
-
     if (body is String) {
       if (encoding == null) {
         var encoded = UTF8.encode(body);
@@ -69,8 +63,8 @@ class Body {
     } else if (body is Stream) {
       stream = DelegatingStream.typed(body);
     } else {
-      throw new ArgumentError('Response body "$body" must be a String, a Map'
-          'or a Stream.');
+      throw new ArgumentError(
+          'Response body "$body" must be a String, a Map, or a Stream.');
     }
 
     return new Body._(stream, encoding, contentLength);

@@ -20,12 +20,10 @@ final _defaultHeaders = new HttpUnmodifiableMap<String>({'content-length': '0'},
     ignoreKeyCase: true);
 
 /// The default media type `application/octet-stream` as defined by HTTP.
-final MediaType _defaultMediaType =
-    new MediaType('application', 'octet-stream');
+final _defaultMediaType = new MediaType('application', 'octet-stream');
 
 /// The media type for URL encoded form data.
-final MediaType _urlEncodedForm =
-    new MediaType('application', 'x-www-form-urlencoded');
+final _urlEncodedForm = new MediaType('application', 'x-www-form-urlencoded');
 
 /// Retrieves the [Body] contained in the [message].
 ///
