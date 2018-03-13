@@ -26,7 +26,7 @@ Map<K, V> updateMap<K, V>(Map<K, V> original, Map<K, V> updates) {
 ///
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
-String mapToQuery(Map<String, String> map, {Encoding encoding}) {
+String mapToQuery(Map<String, String> map, Encoding encoding) {
   var pairs = <List<String>>[];
   map.forEach((key, value) => pairs.add([
         Uri.encodeQueryComponent(key, encoding: encoding),
