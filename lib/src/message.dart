@@ -23,6 +23,10 @@ final _defaultHeaders = new HttpUnmodifiableMap<String>({'content-length': '0'},
 final MediaType _defaultMediaType =
     new MediaType('application', 'octet-stream');
 
+/// The media type for URL encoded form data.
+final MediaType _urlEncodedForm =
+    new MediaType('application', 'x-www-form-urlencoded');
+
 /// Retrieves the [Body] contained in the [message].
 ///
 /// This is meant for internal use by `http` so the message body is accessible
@@ -72,11 +76,13 @@ abstract class Message {
       {Encoding encoding,
       Map<String, String> headers,
       Map<String, Object> context})
-      : this._(new Body(body, encoding), headers, context);
+      : this._(new Body(body, encoding), headers, context, body);
 
-  Message._(Body body, Map<String, String> headers, Map<String, Object> context)
+  Message._(Body body, Map<String, String> headers, Map<String, Object> context,
+      originalBody)
       : _body = body,
-        headers = new HttpUnmodifiableMap<String>(_adjustHeaders(headers, body),
+        headers = new HttpUnmodifiableMap<String>(
+            _adjustHeaders(headers, body, originalBody),
             ignoreKeyCase: true),
         context =
             new HttpUnmodifiableMap<Object>(context, ignoreKeyCase: false);
@@ -163,8 +169,8 @@ abstract class Message {
   ///
   /// Returns a new map without modifying [headers].
   static Map<String, String> _adjustHeaders(
-      Map<String, String> headers, Body body) {
-    var contentType = _contentTypeHeader(headers, body);
+      Map<String, String> headers, Body body, originalBody) {
+    var contentType = _contentTypeHeader(headers, body, originalBody);
     var contentLength = _contentLengthHeader(headers, body);
 
     if (contentType == null) {
@@ -206,9 +212,12 @@ abstract class Message {
   /// within the `content-type` header. The body's encoding will always
   /// override the value.
   ///
+  /// If [originalBody] is a [Map] then a URL encoded form is assumed.
+  ///
   /// Returns the value for the `content-type` header if it should be
   /// modified, otherwise it returns `null`.
-  static String _contentTypeHeader(Map<String, String> headers, Body body) {
+  static String _contentTypeHeader(
+      Map<String, String> headers, Body body, originalBody) {
     var contentTypeHeader = getHeader(headers, 'content-type');
     var changed = false;
     MediaType mediaType;
@@ -217,6 +226,9 @@ abstract class Message {
     if (contentTypeHeader != null) {
       mediaType = new MediaType.parse(contentTypeHeader);
       mediaEncoding = Encoding.getByName(mediaType.parameters['charset']);
+    } else if (originalBody is Map) {
+      mediaType = _urlEncodedForm;
+      changed = true;
     } else {
       mediaType = _defaultMediaType;
     }

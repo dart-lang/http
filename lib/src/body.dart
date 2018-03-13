@@ -8,6 +8,8 @@ import 'dart:convert';
 import 'package:async/async.dart';
 import 'package:collection/collection.dart';
 
+import 'utils.dart';
+
 /// The body of a request or response.
 ///
 /// This tracks whether the body has been read. It's separate from [Message]
@@ -37,12 +39,18 @@ class Body {
   factory Body(body, [Encoding encoding]) {
     if (body is Body) return body;
 
+    if (body == null) {
+      return new Body._(const Stream.empty(), encoding, 0);
+    }
+
     Stream<List<int>> stream;
     int contentLength;
-    if (body == null) {
-      contentLength = 0;
-      stream = new Stream.fromIterable([]);
-    } else if (body is String) {
+
+    if (body is Map) {
+      body = mapToQuery(body, encoding ?? UTF8);
+    }
+
+    if (body is String) {
       if (encoding == null) {
         var encoded = UTF8.encode(body);
         // If the text is plain ASCII, don't modify the encoding. This means
@@ -61,8 +69,8 @@ class Body {
     } else if (body is Stream) {
       stream = DelegatingStream.typed(body);
     } else {
-      throw new ArgumentError('Response body "$body" must be a String or a '
-          'Stream.');
+      throw new ArgumentError('Response body "$body" must be a String, a Map'
+          'or a Stream.');
     }
 
     return new Body._(stream, encoding, contentLength);

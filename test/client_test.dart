@@ -145,14 +145,13 @@ void main() {
             'method': 'POST',
             'path': '',
             'headers': {
-              'content-type':
-                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-type': 'application/x-www-form-urlencoded',
               'content-length': '40',
               'user-agent': userAgent(),
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': 'some-field=value&other-field=other+value'
+            'body': ASCII.encode('some-field=value&other-field=other+value')
           })));
     });
 
@@ -250,14 +249,13 @@ void main() {
             'method': 'PUT',
             'path': '',
             'headers': {
-              'content-type':
-                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-type': 'application/x-www-form-urlencoded',
               'content-length': '40',
               'user-agent': userAgent(),
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': 'some-field=value&other-field=other+value'
+            'body': ASCII.encode('some-field=value&other-field=other+value')
           })));
     });
 
@@ -355,14 +353,13 @@ void main() {
             'method': 'PATCH',
             'path': '',
             'headers': {
-              'content-type':
-                  'application/x-www-form-urlencoded; charset=utf-8',
+              'content-type': 'application/x-www-form-urlencoded',
               'content-length': '40',
               'user-agent': userAgent(),
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': 'some-field=value&other-field=other+value'
+            'body': ASCII.encode('some-field=value&other-field=other+value')
           })));
     });
 
