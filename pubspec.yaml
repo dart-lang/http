@@ -1,5 +1,5 @@
 name: http_retry
-version: 0.1.0
+version: 0.1.1
 description: HTTP client middleware that automatically retries requests.
 author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/dart-lang/http_retry

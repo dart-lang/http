@@ -66,6 +66,31 @@ void main() {
     expect(response.statusCode, equals(503));
   });
 
+  test("retries on any request where whenError() returns true", () async {
+    var count = 0;
+    var client = new RetryClient(
+        new MockClient(expectAsync1((request) async {
+          count++;
+          if (count < 2) throw "oh no";
+          return new Response("", 200);
+        }, count: 2)),
+        whenError: (error, _) => error == "oh no",
+        delay: (_) => Duration.ZERO);
+
+    var response = await client.get("http://example.org");
+    expect(response.statusCode, equals(200));
+  });
+
+  test("doesn't retry a request where whenError() returns false", () async {
+    var count = 0;
+    var client = new RetryClient(
+        new MockClient(expectAsync1((request) async => throw "oh no")),
+        whenError: (error, _) => error == "oh yeah",
+        delay: (_) => Duration.ZERO);
+
+    expect(client.get("http://example.org"), throwsA("oh no"));
+  });
+
   test("retries three times by default", () async {
     var client = new RetryClient(
         new MockClient(
