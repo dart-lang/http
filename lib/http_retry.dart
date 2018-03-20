@@ -19,6 +19,9 @@ class RetryClient extends BaseClient {
   /// The callback that determines whether a request should be retried.
   final bool Function(BaseResponse) _when;
 
+  /// The callback that determines whether a request when an error is thrown.
+  final bool Function(dynamic, StackTrace) _whenError;
+
   /// The callback that determines how long to wait before retrying a request.
   final Duration Function(int) _delay;
 
@@ -32,7 +35,8 @@ class RetryClient extends BaseClient {
   ///
   /// By default, this retries requests whose responses have status code 503
   /// Temporary Failure. If [when] is passed, it retries any request for whose
-  /// response [when] returns `true`.
+  /// response [when] returns `true`. If [whenError] is passed, it also retries
+  /// any request that throws an error for which [whenError] returns `true`.
   ///
   /// By default, this waits 500ms between the original request and the first
   /// retry, then increases the delay by 1.5x for each subsequent retry. If
@@ -40,14 +44,18 @@ class RetryClient extends BaseClient {
   /// given (zero-based) retry.
   ///
   /// If [onRetry] is passed, it's called immediately before each retry so that
-  /// the client has a chance to perform side effects like logging.
+  /// the client has a chance to perform side effects like logging. The
+  /// `response` parameter will be null if the request was retried due to an
+  /// error for which [whenError] returned `true`.
   RetryClient(this._inner,
       {int retries,
       bool when(BaseResponse response),
+      bool whenError(error, StackTrace stackTrace),
       Duration delay(int retryCount),
       void onRetry(BaseRequest request, BaseResponse response, int retryCount)})
       : _retries = retries ?? 3,
         _when = when ?? ((response) => response.statusCode == 503),
+        _whenError = whenError ?? ((_, __) => false),
         _delay = delay ??
             ((retryCount) =>
                 new Duration(milliseconds: 500) * math.pow(1.5, retryCount)),
@@ -63,16 +71,20 @@ class RetryClient extends BaseClient {
   /// `delays[1]` after the first retry, and so on.
   RetryClient.withDelays(Client inner, Iterable<Duration> delays,
       {bool when(BaseResponse response),
+      bool whenError(error, StackTrace stackTrace),
       void onRetry(BaseRequest request, BaseResponse response, int retryCount)})
-      : this._withDelays(inner, delays.toList(), when: when, onRetry: onRetry);
+      : this._withDelays(inner, delays.toList(),
+            when: when, whenError: whenError, onRetry: onRetry);
 
   RetryClient._withDelays(Client inner, List<Duration> delays,
       {bool when(BaseResponse response),
+      bool whenError(error, StackTrace stackTrace),
       void onRetry(BaseRequest request, BaseResponse response, int retryCount)})
       : this(inner,
             retries: delays.length,
             delay: (retryCount) => delays[retryCount],
             when: when,
+            whenError: whenError,
             onRetry: onRetry);
 
   Future<StreamedResponse> send(BaseRequest request) async {
@@ -80,12 +92,21 @@ class RetryClient extends BaseClient {
 
     var i = 0;
     while (true) {
-      var response = await _inner.send(_copyRequest(request, splitter.split()));
-      if (i == _retries || !_when(response)) return response;
+      StreamedResponse response;
+      try {
+        response = await _inner.send(_copyRequest(request, splitter.split()));
+      } catch (error, stackTrace) {
+        if (i == _retries || !_whenError(error, stackTrace)) rethrow;
+      }
 
-      // Make sure the response stream is listened to so that we don't leave
-      // dangling connections.
-      response.stream.listen((_) {}).cancel()?.catchError((_) {});
+      if (response != null) {
+        if (i == _retries || !_when(response)) return response;
+
+        // Make sure the response stream is listened to so that we don't leave
+        // dangling connections.
+        response.stream.listen((_) {}).cancel()?.catchError((_) {});
+      }
+
       await new Future.delayed(_delay(i));
       if (_onRetry != null) _onRetry(request, response, i);
       i++;
