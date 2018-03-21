@@ -34,7 +34,7 @@ main() {
       Future clientFun() async {
         var headers = [new Header.ascii('a', 'b')];
 
-        const kMaxStreamId = (1 << 5) - 1;
+        const kMaxStreamId = (1 << 31) - 1;
         for (int i = 1; i <= kMaxStreamId; i += 2) {
           var stream = client.makeRequest(headers, endStream: true);
           var messages = await stream.incomingMessages.toList();

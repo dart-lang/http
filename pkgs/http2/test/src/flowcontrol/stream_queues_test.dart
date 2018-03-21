@@ -19,8 +19,8 @@ main() {
 
     group('stream-message-queue-out', () {
       test('window-big-enough', () {
-        var connectionQueueMock = new MockConnectionMessageQueueOut();
-        var windowMock = new MockOutgoingStreamWindowHandler();
+        dynamic connectionQueueMock = new MockConnectionMessageQueueOut();
+        dynamic windowMock = new MockOutgoingStreamWindowHandler();
 
         windowMock.positiveWindow.markUnBuffered();
         var queue = new StreamMessageQueueOut(
@@ -33,7 +33,7 @@ main() {
         queue.enqueueMessage(new DataMessage(STREAM_ID, BYTES, true));
         verify(windowMock.decreaseWindow(BYTES.length)).called(1);
         final capturedMessage =
-            verify(connectionQueueMock.enqueueMessage(captureAny))
+            verify(connectionQueueMock.enqueueMessage(typed(captureAny)))
                 .captured
                 .single;
         expect(capturedMessage, new isInstanceOf<DataMessage>());
@@ -43,8 +43,8 @@ main() {
       });
 
       test('window-smaller-than-necessary', () {
-        var connectionQueueMock = new MockConnectionMessageQueueOut();
-        var windowMock = new MockOutgoingStreamWindowHandler();
+        dynamic connectionQueueMock = new MockConnectionMessageQueueOut();
+        dynamic windowMock = new MockOutgoingStreamWindowHandler();
 
         windowMock.positiveWindow.markUnBuffered();
         var queue = new StreamMessageQueueOut(
@@ -61,7 +61,8 @@ main() {
         expect(queue.pendingMessages, 0);
         verify(windowMock.decreaseWindow(1)).called(BYTES.length);
         final messages =
-            verify(connectionQueueMock.enqueueMessage(captureAny)).captured;
+            verify(connectionQueueMock.enqueueMessage(typed(captureAny)))
+                .captured;
         expect(messages.length, BYTES.length);
         for (var counter = 0; counter < messages.length; counter++) {
           expect(messages[counter], new isInstanceOf<DataMessage>());
@@ -94,8 +95,8 @@ main() {
 
     group('stream-message-queue-in', () {
       test('data-end-of-stream', () {
-        var windowMock = new MockIncomingWindowHandler();
-        var queue = new StreamMessageQueueIn(windowMock);
+        dynamic windowMock = new MockIncomingWindowHandler();
+        dynamic queue = new StreamMessageQueueIn(windowMock);
 
         expect(queue.pendingMessages, 0);
         queue.messages.listen(expectAsync1((StreamMessage message) {
@@ -118,8 +119,8 @@ main() {
       const STREAM_ID = 99;
       final bytes = [1, 2, 3];
 
-      var windowMock = new MockIncomingWindowHandler();
-      var queue = new StreamMessageQueueIn(windowMock);
+      dynamic windowMock = new MockIncomingWindowHandler();
+      dynamic queue = new StreamMessageQueueIn(windowMock);
 
       var sub = queue.messages.listen(expectAsync1((_) {}, count: 0),
           onDone: expectAsync0(() {}, count: 0));
@@ -131,7 +132,7 @@ main() {
       expect(queue.bufferIndicator.wouldBuffer, isTrue);
       // We assert that we got the data, but it wasn't processed.
       verify(windowMock.gotData(bytes.length)).called(1);
-      verifyNever(windowMock.dataProcessed(any));
+      verifyNever(windowMock.dataProcessed(typed(any)));
     });
 
     // TODO: Add tests for Headers/HeadersPush messages.

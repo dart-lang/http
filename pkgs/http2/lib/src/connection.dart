@@ -451,5 +451,6 @@ class ServerConnection extends Connection implements ServerTransportConnection {
     return new ServerConnection._(frameBytes, outgoing, serverSettings);
   }
 
-  Stream<ServerTransportStream> get incomingStreams => _streams.incomingStreams;
+  Stream<ServerTransportStream> get incomingStreams =>
+      _streams.incomingStreams.cast<ServerTransportStream>();
 }

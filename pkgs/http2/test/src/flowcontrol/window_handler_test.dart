@@ -102,7 +102,7 @@ main() {
     test('incoming-window-handler', () {
       const STREAM_ID = 99;
 
-      var fw = new FrameWriterMock();
+      dynamic fw = new FrameWriterMock();
       var window = new Window();
       int initialSize = window.size;
       var handler = new IncomingWindowHandler.stream(fw, window, STREAM_ID);

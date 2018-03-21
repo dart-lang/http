@@ -38,14 +38,13 @@ main() {
 
       Completer serverReceivedAllBytes = new Completer();
 
-      Future<String> readData(
-          StreamIterator<DataStreamMessage> iterator) async {
+      Future<String> readData(StreamIterator<StreamMessage> iterator) async {
         var all = <int>[];
 
         while (await iterator.moveNext()) {
           var msg = iterator.current;
           expect(msg is DataStreamMessage, isTrue);
-          all.addAll(msg.bytes);
+          all.addAll((msg as DataStreamMessage).bytes);
         }
 
         return UTF8.decode(all);

@@ -17,8 +17,8 @@ import 'package:http2/src/flowcontrol/queue_messages.dart';
 main() {
   group('flowcontrol', () {
     test('connection-message-queue-out', () {
-      var fw = new MockFrameWriter();
-      var windowMock = new MockOutgoingWindowHandler();
+      dynamic fw = new MockFrameWriter();
+      dynamic windowMock = new MockOutgoingWindowHandler();
       var queue = new ConnectionMessageQueueOut(windowMock, fw);
 
       fw.bufferIndicator.markUnBuffered();
@@ -92,12 +92,12 @@ main() {
       const STREAM_ID = 99;
       final bytes = [1, 2, 3];
 
-      var windowMock = new MockIncomingWindowHandler();
+      dynamic windowMock = new MockIncomingWindowHandler();
 
       var queue = new ConnectionMessageQueueIn(windowMock, (f) => f());
       expect(queue.pendingMessages, 0);
 
-      var streamQueueMock = new MockStreamMessageQueueIn();
+      dynamic streamQueueMock = new MockStreamMessageQueueIn();
       queue.insertNewStreamMessageQueue(STREAM_ID, streamQueueMock);
 
       // Insert a [DataFrame] and let it be buffered.
@@ -116,7 +116,9 @@ main() {
       streamQueueMock.bufferIndicator.markUnBuffered();
       verify(windowMock.dataProcessed(bytes.length)).called(1);
       DataMessage capturedMessage =
-          verify(streamQueueMock.enqueueMessage(captureAny)).captured.single;
+          verify(streamQueueMock.enqueueMessage(typed(captureAny)))
+              .captured
+              .single;
       expect(capturedMessage.streamId, STREAM_ID);
       expect(capturedMessage.bytes, bytes);
 
@@ -130,7 +132,7 @@ main() {
       const STREAM_ID = 99;
       final bytes = [1, 2, 3];
 
-      var windowMock = new MockIncomingWindowHandler();
+      dynamic windowMock = new MockIncomingWindowHandler();
       var queue = new ConnectionMessageQueueIn(windowMock, (f) => f());
 
       // Insert a [DataFrame] and let it be buffered.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.8
+
+* More changes required for making tests pass under Dart 2.0 runtime.
+* Modify sdk constraint to require '>=2.0.0-dev.40.0'.
+
 ## 0.1.7
 
 * Fixes for Dart 2.0.
