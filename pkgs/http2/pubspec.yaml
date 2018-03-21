@@ -5,7 +5,7 @@ author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/dart-lang/http2
 
 environment:
-  sdk: '>=2.0.0-dev.40.0'
+  sdk: '>=2.0.0-dev.40.0 <2.0.0'
 
 dev_dependencies:
   mockito: ^3.0.0-alpha
