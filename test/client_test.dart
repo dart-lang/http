@@ -72,7 +72,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('request body')
+            'body': ascii.encode('request body')
           })));
     });
 
@@ -104,7 +104,7 @@ void main() {
 
     test('post with bytes', () async {
       var response = await platformClient()
-          .post(serverUrl, ASCII.encode('hello'), headers: {
+          .post(serverUrl, ascii.encode('hello'), headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': userAgent()
@@ -123,7 +123,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('hello')
+            'body': ascii.encode('hello')
           })));
     });
 
@@ -151,7 +151,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('some-field=value&other-field=other+value')
+            'body': ascii.encode('some-field=value&other-field=other+value')
           })));
     });
 
@@ -176,7 +176,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('request body')
+            'body': ascii.encode('request body')
           })));
     });
 
@@ -208,7 +208,7 @@ void main() {
 
     test('put with bytes', () async {
       var response = await platformClient()
-          .put(serverUrl, ASCII.encode('hello'), headers: {
+          .put(serverUrl, ascii.encode('hello'), headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': userAgent()
@@ -227,7 +227,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('hello')
+            'body': ascii.encode('hello')
           })));
     });
 
@@ -255,7 +255,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('some-field=value&other-field=other+value')
+            'body': ascii.encode('some-field=value&other-field=other+value')
           })));
     });
 
@@ -280,7 +280,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('request body')
+            'body': ascii.encode('request body')
           })));
     });
 
@@ -312,7 +312,7 @@ void main() {
 
     test('patch with bytes', () async {
       var response = await platformClient()
-          .patch(serverUrl, ASCII.encode('hello'), headers: {
+          .patch(serverUrl, ascii.encode('hello'), headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': userAgent()
@@ -331,7 +331,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('hello')
+            'body': ascii.encode('hello')
           })));
     });
 
@@ -359,7 +359,7 @@ void main() {
               'x-random-header': 'Value',
               'x-other-header': 'Other Value'
             },
-            'body': ASCII.encode('some-field=value&other-field=other+value')
+            'body': ascii.encode('some-field=value&other-field=other+value')
           })));
     });
 

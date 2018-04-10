@@ -13,16 +13,16 @@ import 'package:http/src/message.dart';
 final _nonAscii = "föøbãr";
 
 /// The UTF-8 encoding of [_nonAscii].
-final _utf8Bytes = UTF8.encode(_nonAscii);
+final _utf8Bytes = utf8.encode(_nonAscii);
 
 /// The Latin-1 encoding of [_nonAscii].
-final _latin1Bytes = LATIN1.encode(_nonAscii);
+final _latin1Bytes = latin1.encode(_nonAscii);
 
 /// The ASCII bytes in the string "hello,".
-final _helloBytes = ASCII.encode("hello,");
+final _helloBytes = ascii.encode("hello,");
 
 /// The ASCII bytes in the string " world".
-final _worldBytes = ASCII.encode(" world");
+final _worldBytes = ascii.encode(" world");
 
 class _TestMessage extends Message {
   _TestMessage(Map<String, String> headers, Map<String, Object> context, body,

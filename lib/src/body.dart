@@ -46,7 +46,7 @@ class Body {
     int contentLength;
     if (body is String) {
       if (encoding == null) {
-        var encoded = UTF8.encode(body);
+        var encoded = utf8.encode(body);
         // If the text is plain ASCII, don't modify the encoding. This means
         // that an encoding of "text/plain" will stay put.
         if (!_isPlainAscii(encoded, body.length)) encoding = UTF8;
