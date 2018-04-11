@@ -78,7 +78,7 @@ void main() {
 
     test('post with string and encoding', () async {
       var response = await platformClient()
-          .post(serverUrl, 'request body', encoding: UTF8, headers: {
+          .post(serverUrl, 'request body', encoding: utf8, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': userAgent()
@@ -182,7 +182,7 @@ void main() {
 
     test('put with string and encoding', () async {
       var response = await platformClient()
-          .put(serverUrl, 'request body', encoding: UTF8, headers: {
+          .put(serverUrl, 'request body', encoding: utf8, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': userAgent()
@@ -286,7 +286,7 @@ void main() {
 
     test('patch with string and encoding', () async {
       var response = await platformClient()
-          .patch(serverUrl, 'request body', encoding: UTF8, headers: {
+          .patch(serverUrl, 'request body', encoding: utf8, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': userAgent()

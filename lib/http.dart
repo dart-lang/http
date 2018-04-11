@@ -62,7 +62,7 @@ Future<Response> get(url, {Map<String, String> headers}) =>
 /// content-type of the request will be set to
 /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
-/// [encoding] defaults to [UTF8].
+/// [encoding] defaults to [utf8].
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
@@ -87,7 +87,7 @@ Future<Response> post(url, body,
 /// content-type of the request will be set to
 /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
-/// [encoding] defaults to [UTF8].
+/// [encoding] defaults to [utf8].
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
@@ -112,7 +112,7 @@ Future<Response> put(url, body,
 /// content-type of the request will be set to
 /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
-/// [encoding] defaults to [UTF8].
+/// [encoding] defaults to [utf8].
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to

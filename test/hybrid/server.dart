@@ -90,7 +90,7 @@ hybridMain(StreamChannel channel) async {
 
     var encodingName = request.url.queryParameters['response-encoding'];
     var outputEncoding =
-        encodingName == null ? ASCII : Encoding.getByName(encodingName);
+        encodingName == null ? ascii : Encoding.getByName(encodingName);
 
     return new shelf.Response.ok(jsonEncode(content), headers: {
       "content-type": "application/json; charset=${outputEncoding.name}",
