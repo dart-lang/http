@@ -91,7 +91,7 @@ import 'package:web_socket_channel/io.dart';
 main() async {
   var channel = new IOWebSocketChannel.connect("ws://localhost:8181");
   channel.sink.add("connected!");
-  channel.sink.listen((message) {
+  channel.stream.listen((message) {
     // ...
   });
 }
@@ -120,7 +120,7 @@ import 'package:web_socket_channel/html.dart';
 main() async {
   var channel = new HtmlWebSocketChannel.connect("ws://localhost:8181");
   channel.sink.add("connected!");
-  channel.sink.listen((message) {
+  channel.stream.listen((message) {
     // ...
   });
 }
