@@ -65,7 +65,7 @@ hybridMain(StreamChannel channel) async {
 
     if (request.url.path == 'no-content-length') {
       return new shelf.Response.ok(
-          new Stream.fromIterable([ASCII.encode('body')]));
+          new Stream.fromIterable([ascii.encode('body')]));
     }
 
     var requestBody;
@@ -90,9 +90,9 @@ hybridMain(StreamChannel channel) async {
 
     var encodingName = request.url.queryParameters['response-encoding'];
     var outputEncoding =
-        encodingName == null ? ASCII : Encoding.getByName(encodingName);
+        encodingName == null ? ascii : Encoding.getByName(encodingName);
 
-    return new shelf.Response.ok(JSON.encode(content), headers: {
+    return new shelf.Response.ok(jsonEncode(content), headers: {
       "content-type": "application/json; charset=${outputEncoding.name}",
 
       // CORS headers for browser testing

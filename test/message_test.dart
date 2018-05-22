@@ -13,16 +13,16 @@ import 'package:http/src/message.dart';
 final _nonAscii = "föøbãr";
 
 /// The UTF-8 encoding of [_nonAscii].
-final _utf8Bytes = UTF8.encode(_nonAscii);
+final _utf8Bytes = utf8.encode(_nonAscii);
 
 /// The Latin-1 encoding of [_nonAscii].
-final _latin1Bytes = LATIN1.encode(_nonAscii);
+final _latin1Bytes = latin1.encode(_nonAscii);
 
 /// The ASCII bytes in the string "hello,".
-final _helloBytes = ASCII.encode("hello,");
+final _helloBytes = ascii.encode("hello,");
 
 /// The ASCII bytes in the string " world".
-final _worldBytes = ASCII.encode(" world");
+final _worldBytes = ascii.encode(" world");
 
 class _TestMessage extends Message {
   _TestMessage(Map<String, String> headers, Map<String, Object> context, body,
@@ -191,7 +191,7 @@ void main() {
       expect(message.contentLength, 9);
       expect(message.isEmpty, isFalse);
 
-      message = _createMessage(body: 'fööbär', encoding: LATIN1);
+      message = _createMessage(body: 'fööbär', encoding: latin1);
       expect(message.contentLength, 6);
       expect(message.isEmpty, isFalse);
     });
@@ -316,7 +316,7 @@ void main() {
     group('defaults to UTF-8 with a non-ASCII body and', () {
       test('no content-type header', () {
         var message = _createMessage(body: _nonAscii);
-        expect(message.encoding, equals(UTF8));
+        expect(message.encoding, equals(utf8));
         expect(
             message.headers,
             containsPair(
@@ -328,7 +328,7 @@ void main() {
         var message = _createMessage(
             body: _nonAscii,
             headers: {'Content-Type': 'text/plain; charset=iso-8859-1'});
-        expect(message.encoding, equals(UTF8));
+        expect(message.encoding, equals(utf8));
         expect(message.headers,
             containsPair('content-type', 'text/plain; charset=utf-8'));
         expect(message.readAsBytes(), completion(equals(_utf8Bytes)));
@@ -338,8 +338,8 @@ void main() {
     group('uses the encoding parameter with', () {
       group('no content-type header and', () {
         test('no body', () {
-          var message = _createMessage(encoding: LATIN1);
-          expect(message.encoding, equals(LATIN1));
+          var message = _createMessage(encoding: latin1);
+          expect(message.encoding, equals(latin1));
           expect(
               message.headers,
               containsPair('content-type',
@@ -347,8 +347,8 @@ void main() {
         });
 
         test('a plain ASCII body', () {
-          var message = _createMessage(body: "foo", encoding: LATIN1);
-          expect(message.encoding, equals(LATIN1));
+          var message = _createMessage(body: "foo", encoding: latin1);
+          expect(message.encoding, equals(latin1));
           expect(
               message.headers,
               containsPair('content-type',
@@ -356,8 +356,8 @@ void main() {
         });
 
         test('a non-ASCII body', () {
-          var message = _createMessage(body: _nonAscii, encoding: LATIN1);
-          expect(message.encoding, equals(LATIN1));
+          var message = _createMessage(body: _nonAscii, encoding: latin1);
+          expect(message.encoding, equals(latin1));
           expect(
               message.headers,
               containsPair('content-type',
@@ -366,8 +366,8 @@ void main() {
         });
 
         test('body bytes', () {
-          var message = _createMessage(encoding: LATIN1, body: _latin1Bytes);
-          expect(message.encoding, equals(LATIN1));
+          var message = _createMessage(encoding: latin1, body: _latin1Bytes);
+          expect(message.encoding, equals(latin1));
           expect(
               message.headers,
               containsPair('content-type',
@@ -378,7 +378,7 @@ void main() {
 
       test('a content-type header without a charset', () {
         var message = _createMessage(
-            encoding: LATIN1, headers: {'Content-Type': 'text/plain'});
+            encoding: latin1, headers: {'Content-Type': 'text/plain'});
         expect(message.headers,
             containsPair('content-type', 'text/plain; charset=iso-8859-1'));
       });
@@ -386,9 +386,9 @@ void main() {
       group('a content-type header and', () {
         test('no body', () {
           var message = _createMessage(
-              encoding: LATIN1,
+              encoding: latin1,
               headers: {'Content-Type': 'text/plain; charset=utf-8'});
-          expect(message.encoding, equals(LATIN1));
+          expect(message.encoding, equals(latin1));
           expect(message.headers,
               containsPair('content-type', 'text/plain; charset=iso-8859-1'));
         });
@@ -396,9 +396,9 @@ void main() {
         test('a plain ASCII body', () {
           var message = _createMessage(
               body: "foo",
-              encoding: LATIN1,
+              encoding: latin1,
               headers: {'Content-Type': 'text/plain; charset=utf-8'});
-          expect(message.encoding, equals(LATIN1));
+          expect(message.encoding, equals(latin1));
           expect(message.headers,
               containsPair('content-type', 'text/plain; charset=iso-8859-1'));
         });
@@ -406,9 +406,9 @@ void main() {
         test('a non-ASCII body', () {
           var message = _createMessage(
               body: _nonAscii,
-              encoding: LATIN1,
+              encoding: latin1,
               headers: {'Content-Type': 'text/plain; charset=utf-8'});
-          expect(message.encoding, equals(LATIN1));
+          expect(message.encoding, equals(latin1));
           expect(message.headers,
               containsPair('content-type', 'text/plain; charset=iso-8859-1'));
           expect(message.readAsBytes(), completion(equals(_latin1Bytes)));
@@ -416,10 +416,10 @@ void main() {
 
         test('body bytes', () {
           var message = _createMessage(
-              encoding: LATIN1,
+              encoding: latin1,
               body: _latin1Bytes,
               headers: {'Content-Type': 'text/plain; charset=utf-8'});
-          expect(message.encoding, equals(LATIN1));
+          expect(message.encoding, equals(latin1));
           expect(message.headers,
               containsPair('content-type', 'text/plain; charset=iso-8859-1'));
           expect(message.readAsString(), completion(equals(_nonAscii)));
@@ -431,7 +431,7 @@ void main() {
       test('no body', () {
         var message = _createMessage(
             headers: {'Content-Type': 'text/plain; charset=iso-8859-1'});
-        expect(message.encoding.name, equals(LATIN1.name));
+        expect(message.encoding.name, equals(latin1.name));
         expect(message.headers,
             containsPair('content-type', 'text/plain; charset=iso-8859-1'));
       });
@@ -440,7 +440,7 @@ void main() {
         var message = _createMessage(
             body: "foo",
             headers: {'Content-Type': 'text/plain; charset=iso-8859-1'});
-        expect(message.encoding.name, equals(LATIN1.name));
+        expect(message.encoding.name, equals(latin1.name));
         expect(message.headers,
             containsPair('content-type', 'text/plain; charset=iso-8859-1'));
       });
@@ -449,7 +449,7 @@ void main() {
         var message = _createMessage(
             body: _latin1Bytes,
             headers: {'Content-Type': 'text/plain; charset=iso-8859-1'});
-        expect(message.encoding.name, equals(LATIN1.name));
+        expect(message.encoding.name, equals(latin1.name));
         expect(message.headers,
             containsPair('content-type', 'text/plain; charset=iso-8859-1'));
         expect(message.readAsString(), completion(equals(_nonAscii)));

@@ -38,7 +38,7 @@ class MultipartFile {
   /// [value] can be either a [String] or a [List<int>].
   ///
   /// For a String [value] the content will be encoded using [encoding] which
-  /// defaults to [UTF8]. The `charset` from [contentType] is ignored when
+  /// defaults to [utf8]. The `charset` from [contentType] is ignored when
   /// encoding the String.
   ///
   /// [contentType] if not specified will attempt to be looked up from the
@@ -51,7 +51,7 @@ class MultipartFile {
     var defaultMediaType;
 
     if (value is String) {
-      encoding ??= UTF8;
+      encoding ??= utf8;
       bytes = encoding.encode(value);
       defaultMediaType = new MediaType('text', 'plain');
     } else if (value is List<int>) {

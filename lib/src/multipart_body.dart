@@ -39,7 +39,7 @@ class MultipartBody implements Body {
     }
 
     void writeUtf8(String string) {
-      buffer.addAll(UTF8.encode(string));
+      buffer.addAll(utf8.encode(string));
     }
 
     void writeLine() {
@@ -65,7 +65,7 @@ class MultipartBody implements Body {
     for (var file in fileList) {
       var header = <int>[]
         ..addAll('--$boundary\r\n'.codeUnits)
-        ..addAll(UTF8.encode(_headerForFile(file)));
+        ..addAll(utf8.encode(_headerForFile(file)));
 
       fileContentsLength += header.length + file.length + 2;
       fileHeaders.add(header);

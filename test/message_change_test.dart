@@ -47,7 +47,7 @@ void _testChange(
       var request = factory(body: 'Hello, world');
       var copy = request.change(
           body: new Stream.fromIterable(['Goodbye, world'])
-              .transform(UTF8.encoder));
+              .transform(utf8.encoder));
 
       var newBody = await copy.readAsString();
 

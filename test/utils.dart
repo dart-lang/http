@@ -52,7 +52,7 @@ class _Parse extends Matcher {
 
     var parsed;
     try {
-      parsed = JSON.decode(item);
+      parsed = jsonDecode(item);
     } catch (e) {
       return false;
     }
@@ -81,7 +81,7 @@ class _MultipartBodyMatches extends Matcher {
     if (item is! http.Request) return false;
 
     var future = item.readAsBytes().then((bodyBytes) {
-      var body = UTF8.decode(bodyBytes);
+      var body = utf8.decode(bodyBytes);
       var contentType = new MediaType.parse(item.headers['content-type']);
       var boundary = contentType.parameters['boundary'];
       var expected = cleanUpLiteral(_pattern)

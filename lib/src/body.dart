@@ -40,16 +40,16 @@ class Body {
     if (body is Body) return body;
     if (body == null) return new Body._(const Stream.empty(), encoding, 0);
 
-    if (body is Map) body = mapToQuery(body, encoding ?? UTF8);
+    if (body is Map) body = mapToQuery(body, encoding ?? utf8);
 
     Stream<List<int>> stream;
     int contentLength;
     if (body is String) {
       if (encoding == null) {
-        var encoded = UTF8.encode(body);
+        var encoded = utf8.encode(body);
         // If the text is plain ASCII, don't modify the encoding. This means
         // that an encoding of "text/plain" will stay put.
-        if (!_isPlainAscii(encoded, body.length)) encoding = UTF8;
+        if (!_isPlainAscii(encoded, body.length)) encoding = utf8;
         contentLength = encoded.length;
         stream = new Stream.fromIterable([encoded]);
       } else {
