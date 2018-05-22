@@ -7,8 +7,6 @@ language: dart
 
 dart:
 - dev
-- stable
-
 # See https://docs.travis-ci.com/user/languages/dart/ for details.
 dart_task:
 - test: --platform vm
@@ -19,7 +17,7 @@ dart_task:
 # them against each Dart version.
 matrix:
   include:
-  - dart: stable
+  - dart: dev
     dart_task: dartfmt
   - dart: dev
     dart_task: dartanalyzer

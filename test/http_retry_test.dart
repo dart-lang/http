@@ -44,7 +44,7 @@ void main() {
           count++;
           return count < 2 ? new Response("", 503) : new Response("", 200);
         }, count: 2)),
-        delay: (_) => Duration.ZERO);
+        delay: (_) => Duration.zero);
 
     var response = await client.get("http://example.org");
     expect(response.statusCode, equals(200));
@@ -59,7 +59,7 @@ void main() {
               headers: {"retry": count < 2 ? "true" : "false"});
         }, count: 2)),
         when: (response) => response.headers["retry"] == "true",
-        delay: (_) => Duration.ZERO);
+        delay: (_) => Duration.zero);
 
     var response = await client.get("http://example.org");
     expect(response.headers, containsPair("retry", "false"));
@@ -75,7 +75,7 @@ void main() {
           return new Response("", 200);
         }, count: 2)),
         whenError: (error, _) => error == "oh no",
-        delay: (_) => Duration.ZERO);
+        delay: (_) => Duration.zero);
 
     var response = await client.get("http://example.org");
     expect(response.statusCode, equals(200));
@@ -86,7 +86,7 @@ void main() {
     var client = new RetryClient(
         new MockClient(expectAsync1((request) async => throw "oh no")),
         whenError: (error, _) => error == "oh yeah",
-        delay: (_) => Duration.ZERO);
+        delay: (_) => Duration.zero);
 
     expect(client.get("http://example.org"), throwsA("oh no"));
   });
@@ -95,7 +95,7 @@ void main() {
     var client = new RetryClient(
         new MockClient(
             expectAsync1((_) async => new Response("", 503), count: 4)),
-        delay: (_) => Duration.ZERO);
+        delay: (_) => Duration.zero);
     var response = await client.get("http://example.org");
     expect(response.statusCode, equals(503));
   });
@@ -105,7 +105,7 @@ void main() {
         new MockClient(
             expectAsync1((_) async => new Response("", 503), count: 13)),
         retries: 12,
-        delay: (_) => Duration.ZERO);
+        delay: (_) => Duration.zero);
     var response = await client.get("http://example.org");
     expect(response.statusCode, equals(503));
   });
@@ -116,7 +116,7 @@ void main() {
       var client = new RetryClient(new MockClient(expectAsync1((_) async {
         count++;
         if (count == 1) {
-          expect(fake.elapsed, equals(Duration.ZERO));
+          expect(fake.elapsed, equals(Duration.zero));
         } else if (count == 2) {
           expect(fake.elapsed, equals(new Duration(milliseconds: 500)));
         } else if (count == 3) {
@@ -140,9 +140,9 @@ void main() {
           new MockClient(expectAsync1((_) async {
             count++;
             if (count == 1) {
-              expect(fake.elapsed, equals(Duration.ZERO));
+              expect(fake.elapsed, equals(Duration.zero));
             } else if (count == 2) {
-              expect(fake.elapsed, equals(Duration.ZERO));
+              expect(fake.elapsed, equals(Duration.zero));
             } else if (count == 3) {
               expect(fake.elapsed, equals(new Duration(seconds: 1)));
             } else if (count == 4) {
@@ -165,7 +165,7 @@ void main() {
           new MockClient(expectAsync1((_) async {
             count++;
             if (count == 1) {
-              expect(fake.elapsed, equals(Duration.ZERO));
+              expect(fake.elapsed, equals(Duration.zero));
             } else if (count == 2) {
               expect(fake.elapsed, equals(new Duration(seconds: 1)));
             } else if (count == 3) {
@@ -193,7 +193,7 @@ void main() {
         new MockClient(
             expectAsync1((_) async => new Response("", 503), count: 3)),
         retries: 2,
-        delay: (_) => Duration.ZERO,
+        delay: (_) => Duration.zero,
         onRetry: expectAsync3((request, response, retryCount) {
           expect(request.url, equals(Uri.parse("http://example.org")));
           expect(response.statusCode, equals(503));
@@ -217,7 +217,7 @@ void main() {
           expect(request.body, equals("hello"));
           return new Response("", 503);
         }, count: 2)),
-        [Duration.ZERO]);
+        [Duration.zero]);
 
     var request = new Request("POST", Uri.parse("http://example.org"));
     request.body = "hello";
