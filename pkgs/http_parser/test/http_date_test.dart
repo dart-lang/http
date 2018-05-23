@@ -43,7 +43,7 @@ void main() {
       test("parses the example date", () {
         var date = parseHttpDate("Sun, 06 Nov 1994 08:49:37 GMT");
         expect(date.day, equals(6));
-        expect(date.month, equals(DateTime.NOVEMBER));
+        expect(date.month, equals(DateTime.november));
         expect(date.year, equals(1994));
         expect(date.hour, equals(8));
         expect(date.minute, equals(49));
@@ -147,7 +147,7 @@ void main() {
       test("parses the example date", () {
         var date = parseHttpDate("Sunday, 06-Nov-94 08:49:37 GMT");
         expect(date.day, equals(6));
-        expect(date.month, equals(DateTime.NOVEMBER));
+        expect(date.month, equals(DateTime.november));
         expect(date.year, equals(1994));
         expect(date.hour, equals(8));
         expect(date.minute, equals(49));
@@ -239,7 +239,7 @@ void main() {
       test("parses the example date", () {
         var date = parseHttpDate("Sun Nov  6 08:49:37 1994");
         expect(date.day, equals(6));
-        expect(date.month, equals(DateTime.NOVEMBER));
+        expect(date.month, equals(DateTime.november));
         expect(date.year, equals(1994));
         expect(date.hour, equals(8));
         expect(date.minute, equals(49));
@@ -250,7 +250,7 @@ void main() {
       test("parses a date with a two-digit day", () {
         var date = parseHttpDate("Sun Nov 16 08:49:37 1994");
         expect(date.day, equals(16));
-        expect(date.month, equals(DateTime.NOVEMBER));
+        expect(date.month, equals(DateTime.november));
         expect(date.year, equals(1994));
         expect(date.hour, equals(8));
         expect(date.minute, equals(49));

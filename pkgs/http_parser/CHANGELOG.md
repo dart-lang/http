@@ -1,6 +1,6 @@
 ## 3.1.2
 
-* Require Dart SDK 1.23 or greater.
+* Require Dart SDK 2.0.0-dev.17.0 or greater.
 
 * A number of strong-mode fixes.
 
