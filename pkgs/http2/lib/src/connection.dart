@@ -5,7 +5,7 @@
 library http2.src.conn;
 
 import 'dart:async';
-import 'dart:convert';
+import 'dart:convert' show utf8;
 
 import '../transport.dart';
 import 'connection_preface.dart';
@@ -359,7 +359,7 @@ abstract class Connection {
       _state.finishingState |= ConnectionState.FinishingActive;
 
       _frameWriter.writeGoawayFrame(_streams.highestPeerInitiatedStream,
-          ErrorCode.NO_ERROR, message != null ? UTF8.encode(message) : []);
+          ErrorCode.NO_ERROR, message != null ? utf8.encode(message) : []);
     } else {
       _state.state = ConnectionState.Finishing;
       _state.finishingState |= ConnectionState.FinishingPassive;
@@ -380,7 +380,7 @@ abstract class Connection {
       var cancelFuture = new Future.sync(_frameReaderSubscription.cancel);
       if (!causedByTransportError) {
         _frameWriter.writeGoawayFrame(_streams.highestPeerInitiatedStream,
-            errorCode, message != null ? UTF8.encode(message) : []);
+            errorCode, message != null ? utf8.encode(message) : []);
       }
       var closeFuture = _frameWriter.close().catchError((e, s) {
         // We ignore any errors after writing to [GoawayFrame]

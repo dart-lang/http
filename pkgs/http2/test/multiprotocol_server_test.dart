@@ -5,7 +5,7 @@
 library http2.test.client_tests;
 
 import 'dart:async';
-import 'dart:convert';
+import 'dart:convert' show ascii, utf8;
 import 'dart:io';
 
 import 'package:test/test.dart';
@@ -71,7 +71,7 @@ Future makeHttp11Request(
   var request =
       await client.getUrl(Uri.parse('https://localhost:${server.port}/abc$i'));
   var response = await request.close();
-  var body = await response.transform(UTF8.decoder).join('');
+  var body = await response.transform(utf8.decoder).join('');
   expect(body, 'answer$i');
 }
 
@@ -101,7 +101,7 @@ Future makeHttp2Request(MultiProtocolHttpServer server,
   expect(responseHeaders[':status'], '200');
 
   expect(await si.moveNext(), true);
-  expect(ASCII.decode((si.current as DataStreamMessage).bytes), 'answer$i');
+  expect(ascii.decode((si.current as DataStreamMessage).bytes), 'answer$i');
 
   expect(await si.moveNext(), false);
 }
@@ -120,14 +120,14 @@ Future handleHttp2Request(ServerTransportStream stream, int i) async {
     new Header.ascii(':status', '200'),
   ]));
 
-  stream.outgoingMessages.add(new DataStreamMessage(ASCII.encode('answer$i')));
+  stream.outgoingMessages.add(new DataStreamMessage(ascii.encode('answer$i')));
   await stream.outgoingMessages.close();
 }
 
 Map<String, String> getHeaders(HeadersStreamMessage headers) {
   var map = <String, String>{};
   for (var h in headers.headers) {
-    map.putIfAbsent(ASCII.decode(h.name), () => ASCII.decode(h.value));
+    map.putIfAbsent(ascii.decode(h.name), () => ascii.decode(h.value));
   }
   return map;
 }

@@ -5,7 +5,7 @@
 library http2.test.client_websites_test;
 
 import 'dart:async';
-import 'dart:convert';
+import 'dart:convert' show Utf8Decoder, utf8;
 import 'dart:io';
 
 import 'package:http2/src/testing/client.dart';
@@ -129,9 +129,9 @@ dumpHeaders(Uri uri, Map<String, List<String>> headers,
 Future<String> readBody(Response response) async {
   var stream = response.stream;
   if (response.headers['content-encoding']?.join('') == 'gzip') {
-    stream = stream.transform(GZIP.decoder);
+    stream = stream.transform(gzip.decoder);
   } else if (response.headers['content-encoding']?.join('') == 'deflate') {
-    stream = stream.transform(ZLIB.decoder);
+    stream = stream.transform(zlib.decoder);
   }
-  return await stream.transform(UTF8.decoder).join('');
+  return await stream.transform(utf8.decoder).join('');
 }

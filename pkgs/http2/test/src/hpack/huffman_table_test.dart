@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
+import 'dart:convert' show ascii;
 
 import 'package:test/test.dart';
 import 'package:http2/src/hpack/huffman.dart';
@@ -36,8 +36,8 @@ main() {
 
       test('hpack-spec-testcases', () {
         hpackSpecTestCases.forEach((String value, List<int> encoding) {
-          expect(decode(encoding), ASCII.encode(value));
-          expect(encode(ASCII.encode(value)), encoding);
+          expect(decode(encoding), ascii.encode(value));
+          expect(encode(ascii.encode(value)), encoding);
         });
       });
 

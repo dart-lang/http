@@ -5,7 +5,7 @@
 library http2.test.streams.simple_push_test;
 
 import 'dart:async';
-import 'dart:convert';
+import 'dart:convert' show utf8;
 
 import 'package:test/test.dart';
 import 'package:http2/transport.dart';
@@ -47,12 +47,12 @@ main() {
           all.addAll((msg as DataStreamMessage).bytes);
         }
 
-        return UTF8.decode(all);
+        return utf8.decode(all);
       }
 
       Future sendData(TransportStream stream, String data) {
         stream.outgoingMessages
-          ..add(new DataStreamMessage(UTF8.encode(data)))
+          ..add(new DataStreamMessage(utf8.encode(data)))
           ..close();
         return stream.outgoingMessages.done;
       }

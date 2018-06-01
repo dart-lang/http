@@ -5,7 +5,7 @@
 library http2.test.client_tests;
 
 import 'dart:async';
-import 'dart:convert';
+import 'dart:convert' show ascii;
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
@@ -280,7 +280,7 @@ main() {
 
           // Make sure we get a connection error.
           GoawayFrame frame = await nextFrame();
-          expect(ASCII.decode(frame.debugData),
+          expect(ascii.decode(frame.debugData),
               contains('Cannot push on a non-existent stream'));
           expect(await serverReader.moveNext(), false);
           await serverWriter.close();
@@ -330,7 +330,7 @@ main() {
           // Make sure we get a connection error.
           GoawayFrame frame = await nextFrame();
           expect(
-              ASCII.decode(frame.debugData),
+              ascii.decode(frame.debugData),
               contains(
                   'Expected open state (was: StreamState.HalfClosedRemote)'));
           expect(await serverReader.moveNext(), false);
@@ -383,7 +383,7 @@ main() {
           // describes that the flow control window became negative.
           GoawayFrame frame = await nextFrame();
           expect(
-              ASCII.decode(frame.debugData),
+              ascii.decode(frame.debugData),
               contains('Connection level flow control window became '
                   'negative.'));
           expect(await serverReader.moveNext(), false);

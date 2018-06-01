@@ -5,7 +5,7 @@
 library http2.client;
 
 import 'dart:async';
-import 'dart:convert';
+import 'dart:convert' show ascii;
 import 'dart:io';
 
 import '../../transport.dart';
@@ -111,8 +111,8 @@ class ClientConnection {
     var headerMap = <String, List<String>>{};
     for (var header in headers) {
       headerMap
-          .putIfAbsent(ASCII.decode(header.name), () => [])
-          .add(ASCII.decode(header.value));
+          .putIfAbsent(ascii.decode(header.name), () => [])
+          .add(ascii.decode(header.value));
     }
     return headerMap;
   }

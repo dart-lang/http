@@ -1,4 +1,6 @@
-# Changelog
+## 0.1.8+1
+
+* Switch all uppercase constants from `dart:convert` to lowercase.
 
 ## 0.1.8
 
