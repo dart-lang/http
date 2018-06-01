@@ -2,7 +2,6 @@ language: dart
 sudo: false
 dart:
   - dev
-  - stable
 
 dart_task:
   - test

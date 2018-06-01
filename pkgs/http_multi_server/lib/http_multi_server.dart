@@ -133,16 +133,16 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
     remainingRetries ??= 5;
 
     if (!await supportsIPv4) {
-      return await bind(InternetAddress.LOOPBACK_IP_V6, port);
+      return await bind(InternetAddress.loopbackIPv6, port);
     }
 
-    var v4Server = await bind(InternetAddress.LOOPBACK_IP_V4, port);
+    var v4Server = await bind(InternetAddress.loopbackIPv4, port);
     if (!await supportsIPv6) return v4Server;
 
     try {
       // Reuse the IPv4 server's port so that if [port] is 0, both servers use
       // the same ephemeral port.
-      var v6Server = await bind(InternetAddress.LOOPBACK_IP_V6, v4Server.port);
+      var v6Server = await bind(InternetAddress.loopbackIPv6, v4Server.port);
       return new HttpMultiServer([v4Server, v6Server]);
     } on SocketException catch (error) {
       if (error.osError.errorCode != _addressInUseErrno) rethrow;

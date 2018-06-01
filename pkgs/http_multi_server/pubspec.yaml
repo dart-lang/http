@@ -1,11 +1,11 @@
 name: http_multi_server
-version: 2.0.4
+version: 2.0.5
 author: "Dart Team <misc@dartlang.org>"
 homepage: https://github.com/dart-lang/http_multi_server
 description:
   A dart:io HttpServer wrapper that handles requests from multiple servers.
 environment:
-  sdk: ">=1.13.0 <2.0.0"
+  sdk: ">=2.0.0-dev.55.0 <3.0.0"
 dependencies:
   async: ">=1.2.0 <3.0.0"
 dev_dependencies:
