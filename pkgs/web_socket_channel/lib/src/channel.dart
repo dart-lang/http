@@ -65,7 +65,7 @@ class WebSocketChannel extends StreamChannelMixin {
   static String signKey(String key) {
     // We use [codeUnits] here rather than UTF-8-decoding the string because
     // [key] is expected to be base64 encoded, and so will be pure ASCII.
-    return convert.BASE64
+    return convert.base64
         .encode(sha1.convert((key + webSocketGUID).codeUnits).bytes);
   }
 

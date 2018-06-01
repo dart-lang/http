@@ -1,3 +1,7 @@
+## 1.0.8
+
+* Remove use of deprecated constant name.
+
 ## 1.0.7
 
 * Support the latest dev SDK.
