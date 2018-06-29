@@ -113,7 +113,7 @@ void main() {
     var channel = new HtmlWebSocketChannel.connect(
         "ws://localhost:${await serverChannel.stream.first}");
     expect(channel.stream.toList(),
-        throwsA(new isInstanceOf<WebSocketChannelException>()));
+        throwsA(new TypeMatcher<WebSocketChannelException>()));
   });
 }
 

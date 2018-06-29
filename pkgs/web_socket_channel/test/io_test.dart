@@ -98,6 +98,6 @@ void main() {
     var channel =
         new IOWebSocketChannel.connect("ws://localhost:${server.port}");
     expect(channel.stream.toList(),
-        throwsA(new isInstanceOf<WebSocketChannelException>()));
+        throwsA(new TypeMatcher<WebSocketChannelException>()));
   });
 }

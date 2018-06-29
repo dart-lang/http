@@ -467,12 +467,13 @@ class _WebSocketOutgoingTransformer
 
   void addFrame(int opcode, List<int> data) {
     createFrame(
-        opcode,
-        data,
-        webSocket._serverSide,
-        // Logic around _deflateHelper was removed here, since ther ewill never
-        // be a deflate helper for a cross-platform WebSocket client.
-        false).forEach((e) {
+            opcode,
+            data,
+            webSocket._serverSide,
+            // Logic around _deflateHelper was removed here, since ther ewill never
+            // be a deflate helper for a cross-platform WebSocket client.
+            false)
+        .forEach((e) {
       _eventSink.add(e);
     });
   }
