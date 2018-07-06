@@ -36,30 +36,30 @@ void main() {
   group('#encoding', () {
     test('defaults to utf-8', () {
       var request = new http.Request('POST', dummyUrl);
-      expect(request.encoding.name, equals(UTF8.name));
+      expect(request.encoding.name, equals(utf8.name));
     });
 
     test('can be set', () {
       var request = new http.Request('POST', dummyUrl);
-      request.encoding = LATIN1;
-      expect(request.encoding.name, equals(LATIN1.name));
+      request.encoding = latin1;
+      expect(request.encoding.name, equals(latin1.name));
     });
 
     test('is based on the content-type charset if it exists', () {
       var request = new http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'text/plain; charset=iso-8859-1';
-      expect(request.encoding.name, equals(LATIN1.name));
+      expect(request.encoding.name, equals(latin1.name));
     });
 
     test('remains the default if the content-type charset is set and unset',
         () {
       var request = new http.Request('POST', dummyUrl);
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       request.headers['Content-Type'] = 'text/plain; charset=utf-8';
-      expect(request.encoding.name, equals(UTF8.name));
+      expect(request.encoding.name, equals(utf8.name));
 
       request.headers.remove('Content-Type');
-      expect(request.encoding.name, equals(LATIN1.name));
+      expect(request.encoding.name, equals(latin1.name));
     });
 
     test('throws an error if the content-type charset is unknown', () {
@@ -109,14 +109,14 @@ void main() {
 
     test('is encoded according to the given encoding', () {
       var request = new http.Request('POST', dummyUrl);
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       request.body = "föøbãr";
       expect(request.bodyBytes, equals([102, 246, 248, 98, 227, 114]));
     });
 
     test('is decoded according to the given encoding', () {
       var request = new http.Request('POST', dummyUrl);
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       request.bodyBytes = [102, 246, 248, 98, 227, 114];
       expect(request.body, equals("föøbãr"));
     });
@@ -166,7 +166,7 @@ void main() {
       var request = new http.Request('POST', dummyUrl);
       request.headers['Content-Type'] =
           'application/x-www-form-urlencoded';
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       request.bodyFields = {"föø": "bãr"};
       expect(request.body, equals('f%F6%F8=b%E3r'));
     });
@@ -175,7 +175,7 @@ void main() {
       var request = new http.Request('POST', dummyUrl);
       request.headers['Content-Type'] =
           'application/x-www-form-urlencoded';
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       request.body = 'f%F6%F8=b%E3r';
       expect(request.bodyFields, equals({"föø": "bãr"}));
     });
@@ -189,7 +189,7 @@ void main() {
 
     test('defaults to empty if only encoding is set', () {
       var request = new http.Request('POST', dummyUrl);
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       expect(request.headers['Content-Type'], isNull);
     });
 
@@ -211,7 +211,7 @@ void main() {
     test('is set to application/x-www-form-urlencoded with the given charset '
         'if bodyFields and encoding are set', () {
       var request = new http.Request('POST', dummyUrl);
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       request.bodyFields = {'hello': 'world'};
       expect(request.headers['Content-Type'],
           equals('application/x-www-form-urlencoded; charset=iso-8859-1'));
@@ -220,7 +220,7 @@ void main() {
     test('is set to text/plain and the given encoding if body and encoding are '
         'both set', () {
       var request = new http.Request('POST', dummyUrl);
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       request.body = 'hello, world';
       expect(request.headers['Content-Type'],
           equals('text/plain; charset=iso-8859-1'));
@@ -237,7 +237,7 @@ void main() {
     test('is modified to include the given encoding if encoding is set', () {
       var request = new http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'application/json';
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       expect(request.headers['Content-Type'],
           equals('application/json; charset=iso-8859-1'));
     });
@@ -246,7 +246,7 @@ void main() {
       var request = new http.Request('POST', dummyUrl);
       request.headers['Content-Type'] =
           'application/json; charset=utf-8';
-      request.encoding = LATIN1;
+      request.encoding = latin1;
       expect(request.headers['Content-Type'],
           equals('application/json; charset=iso-8859-1'));
     });
@@ -306,8 +306,8 @@ void main() {
       var request = new http.Request('POST', dummyUrl);
       request.finalize();
 
-      expect(request.encoding.name, equals(UTF8.name));
-      expect(() => request.encoding = ASCII, throwsStateError);
+      expect(request.encoding.name, equals(utf8.name));
+      expect(() => request.encoding = ascii, throwsStateError);
     });
 
     test('freezes #bodyBytes', () {

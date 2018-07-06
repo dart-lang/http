@@ -36,7 +36,7 @@ class Request extends BaseRequest {
   /// If the request has a `Content-Type` header and that header has a `charset`
   /// parameter, that parameter's value is used as the encoding. Otherwise, if
   /// [encoding] has been set manually, that encoding is used. If that hasn't
-  /// been set either, this defaults to [UTF8].
+  /// been set either, this defaults to [utf8].
   ///
   /// If the `charset` parameter's value is not a known [Encoding], reading this
   /// will throw a [FormatException].
@@ -130,7 +130,7 @@ class Request extends BaseRequest {
 
   /// Creates a new HTTP request.
   Request(String method, Uri url)
-    : _defaultEncoding = UTF8,
+    : _defaultEncoding = utf8,
       _bodyBytes = new Uint8List(0),
       super(method, url);
 

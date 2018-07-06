@@ -20,7 +20,7 @@ void main() {
 
         return request.send();
       }).then((response) {
-        expect(UTF8.decodeStream(response.stream),
+        expect(utf8.decodeStream(response.stream),
             completion(parse(containsPair('headers',
                 containsPair('content-length', ['10'])))));
       }).whenComplete(stopServer);
@@ -34,7 +34,7 @@ void main() {
 
         return request.send();
       }).then((response) {
-        expect(UTF8.decodeStream(response.stream),
+        expect(utf8.decodeStream(response.stream),
             completion(parse(containsPair('headers',
                 isNot(contains('content-length'))))));
       }).whenComplete(stopServer);
@@ -49,7 +49,7 @@ void main() {
       request.sink.close();
       return request.send();
     }).then((response) {
-      expect(UTF8.decodeStream(response.stream), completion(equals('body')));
+      expect(utf8.decodeStream(response.stream), completion(equals('body')));
     }).whenComplete(stopServer);
   });
 

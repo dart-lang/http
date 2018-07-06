@@ -28,9 +28,9 @@ class ByteStream extends StreamView<List<int>> {
 
   /// Collect the data of this stream in a [String], decoded according to
   /// [encoding], which defaults to `UTF8`.
-  Future<String> bytesToString([Encoding encoding=UTF8]) =>
+  Future<String> bytesToString([Encoding encoding=utf8]) =>
       encoding.decodeStream(this);
 
-  Stream<String> toStringStream([Encoding encoding=UTF8]) =>
+  Stream<String> toStringStream([Encoding encoding=utf8]) =>
       encoding.decoder.bind(this);
 }

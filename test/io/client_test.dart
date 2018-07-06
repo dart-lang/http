@@ -16,9 +16,9 @@ void main() {
     expect(startServer().then((_) {
       var client = new http.Client();
       var request = new http.StreamedRequest("POST", serverUrl);
-      request.headers[HttpHeaders.CONTENT_TYPE] =
+      request.headers[HttpHeaders.contentType] =
         'application/json; charset=utf-8';
-      request.headers[HttpHeaders.USER_AGENT] = 'Dart';
+      request.headers[HttpHeaders.userAgent] = 'Dart';
 
       expect(client.send(request).then((response) {
         expect(response.request, equals(request));
@@ -51,9 +51,9 @@ void main() {
       var ioClient = new HttpClient();
       var client = new http.IOClient(ioClient);
       var request = new http.StreamedRequest("POST", serverUrl);
-      request.headers[HttpHeaders.CONTENT_TYPE] =
+      request.headers[HttpHeaders.contentType] =
         'application/json; charset=utf-8';
-      request.headers[HttpHeaders.USER_AGENT] = 'Dart';
+      request.headers[HttpHeaders.userAgent] = 'Dart';
 
       expect(client.send(request).then((response) {
         expect(response.request, equals(request));
@@ -86,7 +86,7 @@ void main() {
       var client = new http.Client();
       var url = Uri.parse('http://http.invalid');
       var request = new http.StreamedRequest("POST", url);
-      request.headers[HttpHeaders.CONTENT_TYPE] =
+      request.headers[HttpHeaders.contentType] =
           'application/json; charset=utf-8';
 
       expect(client.send(request), throwsSocketException);

@@ -61,7 +61,7 @@ Future<Response> get(url, {Map<String, String> headers}) =>
 /// content-type of the request will be set to
 /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
-/// [encoding] defaults to [UTF8].
+/// [encoding] defaults to [utf8].
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
@@ -85,7 +85,7 @@ Future<Response> post(url, {Map<String, String> headers, body,
 /// content-type of the request will be set to
 /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
-/// [encoding] defaults to [UTF8].
+/// [encoding] defaults to [utf8].
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
@@ -109,7 +109,7 @@ Future<Response> put(url, {Map<String, String> headers, body,
 /// content-type of the request will be set to
 /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
-/// [encoding] defaults to [UTF8].
+/// [encoding] defaults to [utf8].
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.

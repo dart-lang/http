@@ -65,7 +65,7 @@ Future startServer() {
         if (encodingName != null) {
           outputEncoding = requiredEncodingForCharset(encodingName);
         } else {
-          outputEncoding = ASCII;
+          outputEncoding = ascii;
         }
 
         response.headers.contentType =

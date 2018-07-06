@@ -56,7 +56,7 @@ abstract class Client {
   /// content-type of the request will be set to
   /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
   ///
-  /// [encoding] defaults to [UTF8].
+  /// [encoding] defaults to [utf8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> post(url, {Map<String, String> headers, body,
@@ -77,7 +77,7 @@ abstract class Client {
   /// content-type of the request will be set to
   /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
   ///
-  /// [encoding] defaults to [UTF8].
+  /// [encoding] defaults to [utf8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> put(url, {Map<String, String> headers, body,
@@ -98,7 +98,7 @@ abstract class Client {
   /// content-type of the request will be set to
   /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
   ///
-  /// [encoding] defaults to [UTF8].
+  /// [encoding] defaults to [utf8].
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> patch(url, {Map<String, String> headers, body,
