@@ -99,7 +99,7 @@ Future startServer() {
           content['headers'][name] = values;
         });
 
-        var body = JSON.encode(content);
+        var body = json.encode(content);
         response.contentLength = body.length;
         response.write(body);
         response.close();

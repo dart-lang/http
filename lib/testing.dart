@@ -16,7 +16,7 @@
 ///         return new Response("", 404);
 ///       }
 ///       return new Response(
-///           JSON.encode({
+///           json.encode({
 ///             'numbers': [1, 4, 15, 19, 214]
 ///           }),
 ///           200,

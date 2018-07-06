@@ -61,13 +61,13 @@ class MultipartRequest extends BaseRequest {
 
     fields.forEach((name, value) {
       length += "--".length + _BOUNDARY_LENGTH + "\r\n".length +
-          UTF8.encode(_headerForField(name, value)).length +
-          UTF8.encode(value).length + "\r\n".length;
+          utf8.encode(_headerForField(name, value)).length +
+          utf8.encode(value).length + "\r\n".length;
     });
 
     for (var file in _files) {
       length += "--".length + _BOUNDARY_LENGTH + "\r\n".length +
-          UTF8.encode(_headerForFile(file)).length +
+          utf8.encode(_headerForFile(file)).length +
           file.length + "\r\n".length;
     }
 
@@ -90,10 +90,10 @@ class MultipartRequest extends BaseRequest {
     var controller = new StreamController<List<int>>(sync: true);
 
     void writeAscii(String string) {
-      controller.add(UTF8.encode(string));
+      controller.add(utf8.encode(string));
     }
 
-    writeUtf8(String string) => controller.add(UTF8.encode(string));
+    writeUtf8(String string) => controller.add(utf8.encode(string));
     writeLine() => controller.add([13, 10]); // \r\n
 
     fields.forEach((name, value) {

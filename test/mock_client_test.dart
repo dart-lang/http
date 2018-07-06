@@ -15,7 +15,7 @@ void main() {
   test('handles a request', () {
     var client = new MockClient((request) {
       return new Future.value(new http.Response(
-          JSON.encode(request.bodyFields), 200,
+          json.encode(request.bodyFields), 200,
           request: request, headers: {'content-type': 'application/json'}));
     });
 

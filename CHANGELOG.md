@@ -1,3 +1,8 @@
+## 0.11.3+17
+
+* Use new Dart 2 constant names. This branch is only for allowing existing
+  code to keep running under Dart 2.
+
 ## 0.11.3+16
 
 * Stop depending on the `stack_trace` package.
