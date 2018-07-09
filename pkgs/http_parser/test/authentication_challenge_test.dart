@@ -21,8 +21,8 @@ void main() {
     });
 
     test("parses multiple challenges", () {
-      var challenges = AuthenticationChallenge
-          .parseHeader("scheme1 realm=fblthp, scheme2 realm=asdfg");
+      var challenges = AuthenticationChallenge.parseHeader(
+          "scheme1 realm=fblthp, scheme2 realm=asdfg");
       expect(challenges, hasLength(2));
       expect(challenges.first.scheme, equals("scheme1"));
       expect(challenges.first.parameters, equals({"realm": "fblthp"}));
