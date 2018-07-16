@@ -324,4 +324,25 @@ class ConnectionMessageQueueIn extends Object
 
     onCheckForClose();
   }
+
+  void forceDispatchIncomingMessages() {
+    final toBeRemoved = new Set<int>();
+    _stream2pendingMessages.forEach((int streamId, Queue<Message> messages) {
+      final mq = _stream2messageQueue[streamId];
+      while (messages.isNotEmpty) {
+        _count--;
+        final message = messages.removeFirst();
+        mq.enqueueMessage(message);
+        if (message.endStream) {
+          toBeRemoved.add(streamId);
+          break;
+        }
+      }
+    });
+
+    for (final streamId in toBeRemoved) {
+      _stream2messageQueue.remove(streamId);
+      _stream2pendingMessages.remove(streamId);
+    }
+  }
 }

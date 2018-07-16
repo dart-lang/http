@@ -1,3 +1,11 @@
+## 0.1.8+2
+
+* On connection termination, try to dispatch existing messages, thereby avoiding
+  terminating existing streams.
+
+* Fix `ClientTransportConnection.isOpen` to return `false` if we have exhausted
+  the number of max-concurrent-streams.
+
 ## 0.1.8+1
 
 * Switch all uppercase constants from `dart:convert` to lowercase.

@@ -258,6 +258,28 @@ class StreamMessageQueueIn extends Object
     }
   }
 
+  void forceDispatchIncomingMessages() {
+    while (_pendingMessages.isNotEmpty) {
+      final message = _pendingMessages.removeFirst();
+      assert(!_incomingMessagesC.isClosed);
+      if (message is HeadersMessage) {
+        _incomingMessagesC.add(new HeadersStreamMessage(message.headers,
+            endStream: message.endStream));
+      } else if (message is DataMessage) {
+        if (message.bytes.length > 0) {
+          _incomingMessagesC.add(new DataStreamMessage(message.bytes,
+              endStream: message.endStream));
+        }
+      } else {
+        // This can never happen.
+        assert(false);
+      }
+      if (message.endStream) {
+        onCloseCheck();
+      }
+    }
+  }
+
   void _tryDispatch() {
     while (!wasTerminated && _pendingMessages.isNotEmpty) {
       bool handled = false;

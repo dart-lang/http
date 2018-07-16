@@ -229,6 +229,6 @@ writerReaderTest(String name,
 }
 
 Future<List<Frame>> finishWriting(FrameWriter writer, FrameReader reader) {
-  return Future.wait([writer.close(), reader.startDecoding().toList()]).then(
-      (results) => results.last);
+  return Future.wait([writer.close(), reader.startDecoding().toList()])
+      .then((results) => results.last);
 }

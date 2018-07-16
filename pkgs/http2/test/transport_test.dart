@@ -55,6 +55,44 @@ main() {
       }));
     });
 
+    const int concurrentStreamLimit = 5;
+    transportTest('exhaust-concurrent-stream-limit',
+        (ClientTransportConnection client,
+            ServerTransportConnection server) async {
+      Future clientFun() async {
+        // We have to wait until the max-concurrent-streams [Setting] was
+        // transferred from server to client, which is asynchronous.
+        // The default is unlimited, which is why we have to wait for the server
+        // setting to arrive on the client.
+        // At the moment, delaying by 2 microtask cycles is enough.
+        await new Future.value();
+        await new Future.value();
+
+        final streams = <ClientTransportStream>[];
+        for (int i = 0; i < concurrentStreamLimit; ++i) {
+          expect(client.isOpen, true);
+          streams.add(client.makeRequest([new Header.ascii('a', 'b')]));
+        }
+        expect(client.isOpen, false);
+        for (final stream in streams) {
+          stream.sendData([], endStream: true);
+        }
+        await client.finish();
+      }
+
+      Future serverFun() async {
+        await for (final stream in server.incomingStreams) {
+          await stream.incomingMessages.toList();
+          stream.sendHeaders([new Header.ascii('a', 'b')], endStream: true);
+        }
+        await server.finish();
+      }
+
+      await Future.wait([clientFun(), serverFun()]);
+    },
+        serverSettings:
+            new ServerSettings(concurrentStreamLimit: concurrentStreamLimit));
+
     transportTest('disabled-push', (ClientTransportConnection client,
         ServerTransportConnection server) async {
       server.incomingStreams

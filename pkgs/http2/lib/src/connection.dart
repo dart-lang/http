@@ -58,6 +58,29 @@ class ConnectionState {
 
   bool get passiveFinishing =>
       state == Finishing && (finishingState & FinishingPassive) != 0;
+
+  String toString() {
+    String message = '';
+
+    void add(bool condition, String flag) {
+      if (condition) {
+        if (message.length == 0) {
+          message = flag;
+        } else {
+          message = '$message/$flag';
+        }
+      }
+    }
+
+    add(isInitialized, 'Initialized');
+    add(isOperational, 'IsOperational');
+    add(isFinishing, 'IsFinishing');
+    add(isTerminated, 'IsTerminated');
+    add(activeFinishing, 'ActiveFinishing');
+    add(passiveFinishing, 'PassiveFinishing');
+
+    return message;
+  }
 }
 
 abstract class Connection {
@@ -132,6 +155,11 @@ abstract class Connection {
     }, onError: (error, stack) {
       _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
     }, onDone: () {
+      // Ensure existing messages from lower levels are sent to the upper
+      // levels before we terminate everything.
+      _incomingQueue.forceDispatchIncomingMessages();
+      _streams.forceDispatchIncomingMessages();
+
       _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
     });
 
@@ -419,7 +447,8 @@ class ClientConnection extends Connection implements ClientTransportConnection {
     return new ClientConnection._(incoming, outgoing, clientSettings);
   }
 
-  bool get isOpen => !_state.isFinishing && !_state.isTerminated;
+  bool get isOpen =>
+      !_state.isFinishing && !_state.isTerminated && _streams.canOpenStream;
 
   ClientTransportStream makeRequest(List<Header> headers,
       {bool endStream: false}) {
