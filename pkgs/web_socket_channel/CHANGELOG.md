@@ -1,3 +1,7 @@
+## 1.0.9
+
+* Set max SDK version to `<3.0.0`.
+
 ## 1.0.8
 
 * Remove use of deprecated constant name.
