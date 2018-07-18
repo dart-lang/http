@@ -1,8 +1,3 @@
-## 0.12.0+1
-
-* Set max SDK version to <3.0.0, and adjust other dependencies.
-* Fix constant evaluation analyzer error in `http_unmodifiable_map.dart`.
-
 ## 0.11.3+14
 
 * Remove single quote ("'" - ASCII 39) from boundary characters.
