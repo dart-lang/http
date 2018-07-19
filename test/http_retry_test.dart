@@ -82,7 +82,6 @@ void main() {
   });
 
   test("doesn't retry a request where whenError() returns false", () async {
-    var count = 0;
     var client = new RetryClient(
         new MockClient(expectAsync1((request) async => throw "oh no")),
         whenError: (error, _) => error == "oh yeah",
