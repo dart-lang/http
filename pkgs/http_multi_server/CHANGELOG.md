@@ -1,6 +1,6 @@
 ## 2.0.5
 
-* Update SDK to 2.0.0-dev.
+* Update SDK constraints to `>=2.0.0-dev <3.0.0`.
 
 ## 2.0.4
 
