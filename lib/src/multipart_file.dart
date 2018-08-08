@@ -44,9 +44,10 @@ class MultipartFile {
   /// future may be inferred from [filename].
   MultipartFile(this.field, Stream<List<int>> stream, this.length,
       {this.filename, MediaType contentType})
-    : this._stream = toByteStream(stream),
-      this.contentType = contentType != null ? contentType :
-          new MediaType("application", "octet-stream");
+      : this._stream = toByteStream(stream),
+        this.contentType = contentType != null
+            ? contentType
+            : new MediaType("application", "octet-stream");
 
   /// Creates a new [MultipartFile] from a byte array.
   ///
@@ -56,8 +57,7 @@ class MultipartFile {
       {String filename, MediaType contentType}) {
     var stream = new ByteStream.fromBytes(value);
     return new MultipartFile(field, stream, value.length,
-        filename: filename,
-        contentType: contentType);
+        filename: filename, contentType: contentType);
   }
 
   /// Creates a new [MultipartFile] from a string.
@@ -68,14 +68,13 @@ class MultipartFile {
   /// the future may be inferred from [filename].
   factory MultipartFile.fromString(String field, String value,
       {String filename, MediaType contentType}) {
-    contentType = contentType == null ? new MediaType("text", "plain")
-                                      : contentType;
+    contentType =
+        contentType == null ? new MediaType("text", "plain") : contentType;
     var encoding = encodingForCharset(contentType.parameters['charset'], utf8);
     contentType = contentType.change(parameters: {'charset': encoding.name});
 
     return new MultipartFile.fromBytes(field, encoding.encode(value),
-        filename: filename,
-        contentType: contentType);
+        filename: filename, contentType: contentType);
   }
 
   // TODO(nweiz): Infer the content-type from the filename.
@@ -94,8 +93,7 @@ class MultipartFile {
     var length = await file.length();
     var stream = new ByteStream(DelegatingStream.typed(file.openRead()));
     return new MultipartFile(field, stream, length,
-        filename: filename,
-        contentType: contentType);
+        filename: filename, contentType: contentType);
   }
 
   // Finalizes the file in preparation for it being sent as part of a

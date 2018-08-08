@@ -20,15 +20,16 @@ void main() {
   tearDown(() => tempDir.deleteSync(recursive: true));
 
   test('with a file from disk', () {
-    expect(new Future.sync(() {
-      var filePath = path.join(tempDir.path, 'test-file');
-      new File(filePath).writeAsStringSync('hello');
-      return http.MultipartFile.fromPath('file', filePath);
-    }).then((file) {
-      var request = new http.MultipartRequest('POST', dummyUrl);
-      request.files.add(file);
+    expect(
+        new Future.sync(() {
+          var filePath = path.join(tempDir.path, 'test-file');
+          new File(filePath).writeAsStringSync('hello');
+          return http.MultipartFile.fromPath('file', filePath);
+        }).then((file) {
+          var request = new http.MultipartRequest('POST', dummyUrl);
+          request.files.add(file);
 
-      expect(request, bodyMatches('''
+          expect(request, bodyMatches('''
         --{{boundary}}
         content-type: application/octet-stream
         content-disposition: form-data; name="file"; filename="test-file"
@@ -36,6 +37,7 @@ void main() {
         hello
         --{{boundary}}--
       '''));
-    }), completes);
+        }),
+        completes);
   });
 }

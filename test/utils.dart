@@ -61,8 +61,9 @@ class _Parse extends Matcher {
   }
 
   Description describe(Description description) {
-    return description.add('parses to a value that ')
-      .addDescriptionOf(_matcher);
+    return description
+        .add('parses to a value that ')
+        .addDescriptionOf(_matcher);
   }
 }
 
@@ -104,10 +105,10 @@ class _BodyMatches extends Matcher {
 ///
 /// [message] can be a String or a [Matcher].
 Matcher isClientException(message) => predicate((error) {
-  expect(error, new isInstanceOf<http.ClientException>());
-  expect(error.message, message);
-  return true;
-});
+      expect(error, new isInstanceOf<http.ClientException>());
+      expect(error.message, message);
+      return true;
+    });
 
 /// A matcher that matches function or future that throws a
 /// [http.ClientException] with the given [message].

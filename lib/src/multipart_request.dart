@@ -47,9 +47,9 @@ class MultipartRequest extends BaseRequest {
 
   /// Creates a new [MultipartRequest].
   MultipartRequest(String method, Uri url)
-    : fields = {},
-      _files = <MultipartFile>[],
-      super(method, url);
+      : fields = {},
+        _files = <MultipartFile>[],
+        super(method, url);
 
   /// The list of files to upload for this request.
   List<MultipartFile> get files => _files;
@@ -60,15 +60,21 @@ class MultipartRequest extends BaseRequest {
     var length = 0;
 
     fields.forEach((name, value) {
-      length += "--".length + _BOUNDARY_LENGTH + "\r\n".length +
+      length += "--".length +
+          _BOUNDARY_LENGTH +
+          "\r\n".length +
           utf8.encode(_headerForField(name, value)).length +
-          utf8.encode(value).length + "\r\n".length;
+          utf8.encode(value).length +
+          "\r\n".length;
     });
 
     for (var file in _files) {
-      length += "--".length + _BOUNDARY_LENGTH + "\r\n".length +
+      length += "--".length +
+          _BOUNDARY_LENGTH +
+          "\r\n".length +
           utf8.encode(_headerForFile(file)).length +
-          file.length + "\r\n".length;
+          file.length +
+          "\r\n".length;
     }
 
     return length + "--".length + _BOUNDARY_LENGTH + "--\r\n".length;
@@ -107,7 +113,7 @@ class MultipartRequest extends BaseRequest {
       writeAscii('--$boundary\r\n');
       writeAscii(_headerForFile(file));
       return writeStreamToSink(file.finalize(), controller)
-        .then((_) => writeLine());
+          .then((_) => writeLine());
     }).then((_) {
       // TODO(nweiz): pass any errors propagated through this future on to
       // the stream. See issue 3657.
@@ -135,7 +141,7 @@ class MultipartRequest extends BaseRequest {
   /// contain only ASCII characters.
   String _headerForFile(MultipartFile file) {
     var header = 'content-type: ${file.contentType}\r\n'
-      'content-disposition: form-data; name="${_browserEncode(file.field)}"';
+        'content-disposition: form-data; name="${_browserEncode(file.field)}"';
 
     if (file.filename != null) {
       header = '$header; filename="${_browserEncode(file.filename)}"';
@@ -156,7 +162,8 @@ class MultipartRequest extends BaseRequest {
   /// Returns a randomly-generated multipart boundary string
   String _boundaryString() {
     var prefix = "dart-http-boundary-";
-    var list = new List<int>.generate(_BOUNDARY_LENGTH - prefix.length,
+    var list = new List<int>.generate(
+        _BOUNDARY_LENGTH - prefix.length,
         (index) =>
             BOUNDARY_CHARACTERS[_random.nextInt(BOUNDARY_CHARACTERS.length)],
         growable: false);

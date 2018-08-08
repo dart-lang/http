@@ -7,5 +7,5 @@ import 'dart:html';
 export '../utils.dart';
 
 /// The test server's echo URL.
-Uri get echoUrl => Uri.parse(
-    '${window.location.protocol}//${window.location.host}/echo');
+Uri get echoUrl =>
+    Uri.parse('${window.location.protocol}//${window.location.host}/echo');

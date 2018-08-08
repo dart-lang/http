@@ -130,9 +130,9 @@ class Request extends BaseRequest {
 
   /// Creates a new HTTP request.
   Request(String method, Uri url)
-    : _defaultEncoding = utf8,
-      _bodyBytes = new Uint8List(0),
-      super(method, url);
+      : _defaultEncoding = utf8,
+        _bodyBytes = new Uint8List(0),
+        super(method, url);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// containing the request body.

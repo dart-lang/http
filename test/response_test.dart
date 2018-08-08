@@ -16,15 +16,16 @@ void main() {
 
     test('sets bodyBytes', () {
       var response = new http.Response("Hello, world!", 200);
-      expect(response.bodyBytes, equals(
-          [72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]));
+      expect(
+          response.bodyBytes,
+          equals(
+              [72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]));
     });
 
     test('respects the inferred encoding', () {
       var response = new http.Response("föøbãr", 200,
           headers: {'content-type': 'text/plain; charset=iso-8859-1'});
-      expect(response.bodyBytes, equals(
-          [102, 246, 248, 98, 227, 114]));
+      expect(response.bodyBytes, equals([102, 246, 248, 98, 227, 114]));
     });
   });
 
@@ -49,8 +50,8 @@ void main() {
   group('.fromStream()', () {
     test('sets body', () {
       var controller = new StreamController(sync: true);
-      var streamResponse = new http.StreamedResponse(
-          controller.stream, 200, contentLength: 13);
+      var streamResponse =
+          new http.StreamedResponse(controller.stream, 200, contentLength: 13);
       var future = http.Response.fromStream(streamResponse)
           .then((response) => response.body);
       expect(future, completion(equals("Hello, world!")));
@@ -62,8 +63,8 @@ void main() {
 
     test('sets bodyBytes', () {
       var controller = new StreamController(sync: true);
-      var streamResponse = new http.StreamedResponse(
-          controller.stream, 200, contentLength: 5);
+      var streamResponse =
+          new http.StreamedResponse(controller.stream, 200, contentLength: 5);
       var future = http.Response.fromStream(streamResponse)
           .then((response) => response.bodyBytes);
       expect(future, completion(equals([104, 101, 108, 108, 111])));

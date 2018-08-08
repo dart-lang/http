@@ -30,31 +30,29 @@ class IOClient extends BaseClient {
       var ioRequest = await _inner.openUrl(request.method, request.url);
 
       ioRequest
-          ..followRedirects = request.followRedirects
-          ..maxRedirects = request.maxRedirects
-          ..contentLength = request.contentLength == null
-              ? -1
-              : request.contentLength
-          ..persistentConnection = request.persistentConnection;
+        ..followRedirects = request.followRedirects
+        ..maxRedirects = request.maxRedirects
+        ..contentLength =
+            request.contentLength == null ? -1 : request.contentLength
+        ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
       });
 
-      var response = await stream.pipe(
-          DelegatingStreamConsumer.typed(ioRequest));
+      var response =
+          await stream.pipe(DelegatingStreamConsumer.typed(ioRequest));
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
         headers[key] = values.join(',');
       });
 
       return new StreamedResponse(
-          DelegatingStream.typed<List<int>>(response).handleError((error) =>
-              throw new ClientException(error.message, error.uri),
+          DelegatingStream.typed<List<int>>(response).handleError(
+              (error) => throw new ClientException(error.message, error.uri),
               test: (error) => error is HttpException),
           response.statusCode,
-          contentLength: response.contentLength == -1
-              ? null
-              : response.contentLength,
+          contentLength:
+              response.contentLength == -1 ? null : response.contentLength,
           request: request,
           headers: headers,
           isRedirect: response.isRedirect,

@@ -21,7 +21,8 @@ void main() {
 
   test('boundary characters', () {
     var testBoundary = new String.fromCharCodes(BOUNDARY_CHARACTERS);
-    var contentType = new MediaType.parse('text/plain; boundary=${testBoundary}');
+    var contentType =
+        new MediaType.parse('text/plain; boundary=${testBoundary}');
     var boundary = contentType.parameters['boundary'];
     expect(boundary, testBoundary);
   });
@@ -226,8 +227,8 @@ void main() {
 
   test('with a byte file', () {
     var request = new http.MultipartRequest('POST', dummyUrl);
-    var file = new http.MultipartFile.fromBytes(
-        'file', [104, 101, 108, 108, 111]);
+    var file =
+        new http.MultipartFile.fromBytes('file', [104, 101, 108, 108, 111]);
     request.files.add(file);
 
     expect(request, bodyMatches('''

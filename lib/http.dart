@@ -33,7 +33,7 @@ export 'src/streamed_response.dart';
 ///
 /// For more fine-grained control over the request, use [Request] instead.
 Future<Response> head(url, {Map<String, String> headers}) =>
-  _withClient((client) => client.head(url, headers: headers));
+    _withClient((client) => client.head(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
 /// be a [Uri] or a [String].
@@ -44,7 +44,7 @@ Future<Response> head(url, {Map<String, String> headers}) =>
 ///
 /// For more fine-grained control over the request, use [Request] instead.
 Future<Response> get(url, {Map<String, String> headers}) =>
-  _withClient((client) => client.get(url, headers: headers));
+    _withClient((client) => client.get(url, headers: headers));
 
 /// Sends an HTTP POST request with the given headers and body to the given URL,
 /// which can be a [Uri] or a [String].
@@ -65,10 +65,10 @@ Future<Response> get(url, {Map<String, String> headers}) =>
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> post(url, {Map<String, String> headers, body,
-    Encoding encoding}) =>
-  _withClient((client) => client.post(url,
-      headers: headers, body: body, encoding: encoding));
+Future<Response> post(url,
+        {Map<String, String> headers, body, Encoding encoding}) =>
+    _withClient((client) =>
+        client.post(url, headers: headers, body: body, encoding: encoding));
 
 /// Sends an HTTP PUT request with the given headers and body to the given URL,
 /// which can be a [Uri] or a [String].
@@ -89,10 +89,10 @@ Future<Response> post(url, {Map<String, String> headers, body,
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> put(url, {Map<String, String> headers, body,
-    Encoding encoding}) =>
-  _withClient((client) => client.put(url,
-      headers: headers, body: body, encoding: encoding));
+Future<Response> put(url,
+        {Map<String, String> headers, body, Encoding encoding}) =>
+    _withClient((client) =>
+        client.put(url, headers: headers, body: body, encoding: encoding));
 
 /// Sends an HTTP PATCH request with the given headers and body to the given
 /// URL, which can be a [Uri] or a [String].
@@ -113,10 +113,10 @@ Future<Response> put(url, {Map<String, String> headers, body,
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> patch(url, {Map<String, String> headers, body,
-    Encoding encoding}) =>
-  _withClient((client) => client.patch(url,
-      headers: headers, body: body, encoding: encoding));
+Future<Response> patch(url,
+        {Map<String, String> headers, body, Encoding encoding}) =>
+    _withClient((client) =>
+        client.patch(url, headers: headers, body: body, encoding: encoding));
 
 /// Sends an HTTP DELETE request with the given headers to the given URL, which
 /// can be a [Uri] or a [String].
@@ -127,7 +127,7 @@ Future<Response> patch(url, {Map<String, String> headers, body,
 ///
 /// For more fine-grained control over the request, use [Request] instead.
 Future<Response> delete(url, {Map<String, String> headers}) =>
-  _withClient((client) => client.delete(url, headers: headers));
+    _withClient((client) => client.delete(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
 /// be a [Uri] or a [String], and returns a Future that completes to the body of
@@ -143,7 +143,7 @@ Future<Response> delete(url, {Map<String, String> headers}) =>
 /// For more fine-grained control over the request and response, use [Request]
 /// instead.
 Future<String> read(url, {Map<String, String> headers}) =>
-  _withClient((client) => client.read(url, headers: headers));
+    _withClient((client) => client.read(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
 /// be a [Uri] or a [String], and returns a Future that completes to the body of
@@ -159,7 +159,7 @@ Future<String> read(url, {Map<String, String> headers}) =>
 /// For more fine-grained control over the request and response, use [Request]
 /// instead.
 Future<Uint8List> readBytes(url, {Map<String, String> headers}) =>
-  _withClient((client) => client.readBytes(url, headers: headers));
+    _withClient((client) => client.readBytes(url, headers: headers));
 
 Future<T> _withClient<T>(Future<T> fn(Client client)) async {
   var client = new Client();

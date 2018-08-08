@@ -24,14 +24,14 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> head(url, {Map<String, String> headers}) =>
-    _sendUnstreamed("HEAD", url, headers);
+      _sendUnstreamed("HEAD", url, headers);
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> get(url, {Map<String, String> headers}) =>
-    _sendUnstreamed("GET", url, headers);
+      _sendUnstreamed("GET", url, headers);
 
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -51,9 +51,9 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> post(url, {Map<String, String> headers, body,
-      Encoding encoding}) =>
-    _sendUnstreamed("POST", url, headers, body, encoding);
+  Future<Response> post(url,
+          {Map<String, String> headers, body, Encoding encoding}) =>
+      _sendUnstreamed("POST", url, headers, body, encoding);
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -73,9 +73,9 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> put(url, {Map<String, String> headers, body,
-      Encoding encoding}) =>
-    _sendUnstreamed("PUT", url, headers, body, encoding);
+  Future<Response> put(url,
+          {Map<String, String> headers, body, Encoding encoding}) =>
+      _sendUnstreamed("PUT", url, headers, body, encoding);
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -95,16 +95,16 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> patch(url, {Map<String, String> headers, body,
-      Encoding encoding}) =>
-    _sendUnstreamed("PATCH", url, headers, body, encoding);
+  Future<Response> patch(url,
+          {Map<String, String> headers, body, Encoding encoding}) =>
+      _sendUnstreamed("PATCH", url, headers, body, encoding);
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> delete(url, {Map<String, String> headers}) =>
-    _sendUnstreamed("DELETE", url, headers);
+      _sendUnstreamed("DELETE", url, headers);
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
@@ -148,9 +148,9 @@ abstract class BaseClient implements Client {
   Future<StreamedResponse> send(BaseRequest request);
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
-  Future<Response> _sendUnstreamed(String method, url,
-      Map<String, String> headers, [body, Encoding encoding]) async {
-
+  Future<Response> _sendUnstreamed(
+      String method, url, Map<String, String> headers,
+      [body, Encoding encoding]) async {
     if (url is String) url = Uri.parse(url);
     var request = new Request(method, url);
 

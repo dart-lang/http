@@ -36,14 +36,13 @@ abstract class BaseResponse {
   final bool persistentConnection;
 
   /// Creates a new HTTP response.
-  BaseResponse(
-      this.statusCode,
+  BaseResponse(this.statusCode,
       {this.contentLength,
-       this.request,
-       this.headers: const {},
-       this.isRedirect: false,
-       this.persistentConnection: true,
-       this.reasonPhrase}) {
+      this.request,
+      this.headers: const {},
+      this.isRedirect: false,
+      this.persistentConnection: true,
+      this.reasonPhrase}) {
     if (statusCode < 100) {
       throw new ArgumentError("Invalid status code $statusCode.");
     } else if (contentLength != null && contentLength < 0) {
