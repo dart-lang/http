@@ -2,10 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+@TestOn('vm')
+
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'utils.dart';
 
@@ -17,9 +19,9 @@ void main() {
         startServer().then((_) {
           var client = new http.Client();
           var request = new http.StreamedRequest("POST", serverUrl);
-          request.headers[HttpHeaders.contentType] =
+          request.headers[HttpHeaders.contentTypeHeader] =
               'application/json; charset=utf-8';
-          request.headers[HttpHeaders.userAgent] = 'Dart';
+          request.headers[HttpHeaders.userAgentHeader] = 'Dart';
 
           expect(
               client.send(request).then((response) {
@@ -56,9 +58,9 @@ void main() {
           var ioClient = new HttpClient();
           var client = new http.IOClient(ioClient);
           var request = new http.StreamedRequest("POST", serverUrl);
-          request.headers[HttpHeaders.contentType] =
+          request.headers[HttpHeaders.contentTypeHeader] =
               'application/json; charset=utf-8';
-          request.headers[HttpHeaders.userAgent] = 'Dart';
+          request.headers[HttpHeaders.userAgentHeader] = 'Dart';
 
           expect(
               client.send(request).then((response) {
@@ -95,7 +97,7 @@ void main() {
           var client = new http.Client();
           var url = Uri.parse('http://http.invalid');
           var request = new http.StreamedRequest("POST", url);
-          request.headers[HttpHeaders.contentType] =
+          request.headers[HttpHeaders.contentTypeHeader] =
               'application/json; charset=utf-8';
 
           expect(client.send(request), throwsSocketException);

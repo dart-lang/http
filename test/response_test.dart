@@ -5,7 +5,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('()', () {
@@ -49,7 +49,7 @@ void main() {
 
   group('.fromStream()', () {
     test('sets body', () {
-      var controller = new StreamController(sync: true);
+      var controller = new StreamController<List<int>>(sync: true);
       var streamResponse =
           new http.StreamedResponse(controller.stream, 200, contentLength: 13);
       var future = http.Response.fromStream(streamResponse)
@@ -62,7 +62,7 @@ void main() {
     });
 
     test('sets bodyBytes', () {
-      var controller = new StreamController(sync: true);
+      var controller = new StreamController<List<int>>(sync: true);
       var streamResponse =
           new http.StreamedResponse(controller.stream, 200, contentLength: 5);
       var future = http.Response.fromStream(streamResponse)

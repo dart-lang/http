@@ -8,7 +8,7 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:http/src/utils.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 export '../utils.dart';
 
@@ -117,31 +117,16 @@ void stopServer() {
 
 /// A matcher for functions that throw HttpException.
 Matcher get throwsClientException =>
-    throwsA(new isInstanceOf<ClientException>());
+    throwsA(new TypeMatcher<ClientException>());
 
 /// A matcher for RedirectLimitExceededExceptions.
-const isRedirectLimitExceededException =
-    const _RedirectLimitExceededException();
+final isRedirectLimitExceededException = const TypeMatcher<RedirectException>()
+    .having((e) => e.message, 'message', 'Redirect limit exceeded');
 
 /// A matcher for functions that throw RedirectLimitExceededException.
-const Matcher throwsRedirectLimitExceededException =
-    const Throws(isRedirectLimitExceededException);
-
-class _RedirectLimitExceededException extends TypeMatcher {
-  const _RedirectLimitExceededException()
-      : super("RedirectLimitExceededException");
-
-  bool matches(item, Map matchState) =>
-      item is RedirectException && item.message == "Redirect limit exceeded";
-}
-
-/// A matcher for SocketExceptions.
-const isSocketException = const _SocketException();
+final Matcher throwsRedirectLimitExceededException =
+    throwsA(isRedirectLimitExceededException);
 
 /// A matcher for functions that throw SocketException.
-const Matcher throwsSocketException = const Throws(isSocketException);
-
-class _SocketException extends TypeMatcher {
-  const _SocketException() : super("SocketException");
-  bool matches(item, Map matchState) => item is SocketException;
-}
+final Matcher throwsSocketException =
+    throwsA(const TypeMatcher<SocketException>());

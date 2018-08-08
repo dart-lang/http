@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:http/src/boundary_characters.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'utils.dart';
 
@@ -192,7 +192,7 @@ void main() {
 
   test('with a stream file', () {
     var request = new http.MultipartRequest('POST', dummyUrl);
-    var controller = new StreamController(sync: true);
+    var controller = new StreamController<List<int>>(sync: true);
     request.files.add(new http.MultipartFile('file', controller.stream, 5));
 
     expect(request, bodyMatches('''
@@ -210,7 +210,7 @@ void main() {
 
   test('with an empty stream file', () {
     var request = new http.MultipartRequest('POST', dummyUrl);
-    var controller = new StreamController(sync: true);
+    var controller = new StreamController<List<int>>(sync: true);
     request.files.add(new http.MultipartFile('file', controller.stream, 0));
 
     expect(request, bodyMatches('''

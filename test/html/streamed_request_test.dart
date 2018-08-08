@@ -2,9 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+@TestOn('browser')
+
 import 'package:http/http.dart' as http;
 import 'package:http/browser_client.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 import 'utils.dart';
 
@@ -32,5 +34,5 @@ void main() {
             completion(equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])));
       });
     });
-  });
+  }, skip: 'Need to fix server tests for browser');
 }

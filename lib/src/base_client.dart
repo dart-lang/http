@@ -6,8 +6,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:collection/collection.dart';
-
 import 'base_request.dart';
 import 'client.dart';
 import 'exception.dart';
@@ -160,9 +158,9 @@ abstract class BaseClient implements Client {
       if (body is String) {
         request.body = body;
       } else if (body is List) {
-        request.bodyBytes = DelegatingList.typed(body);
+        request.bodyBytes = body.cast<int>();
       } else if (body is Map) {
-        request.bodyFields = DelegatingMap.typed(body);
+        request.bodyFields = body.cast<String, String>();
       } else {
         throw new ArgumentError('Invalid request body "$body".');
       }
