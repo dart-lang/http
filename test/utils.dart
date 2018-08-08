@@ -6,7 +6,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 /// A dummy URL for constructing requests that won't be sent.
 Uri get dummyUrl => Uri.parse('http://dartlang.org/');
@@ -105,7 +105,7 @@ class _BodyMatches extends Matcher {
 ///
 /// [message] can be a String or a [Matcher].
 Matcher isClientException(message) => predicate((error) {
-      expect(error, new isInstanceOf<http.ClientException>());
+      expect(error, new TypeMatcher<http.ClientException>());
       expect(error.message, message);
       return true;
     });

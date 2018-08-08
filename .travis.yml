@@ -1,0 +1,20 @@
+language: dart
+
+dart:
+  - dev
+  - stable
+
+dart_task:
+  - test: --platform vm
+  # No parallelism on Firefox (-j 1)
+  # Causes flakiness – need to investigate
+  - test: --platform firefox -j 1
+  - dartanalyzer
+
+# Only building master means that we don't run two builds for each pull request.
+branches:
+  only: [master]
+
+cache:
+ directories:
+   - $HOME/.pub-cache
