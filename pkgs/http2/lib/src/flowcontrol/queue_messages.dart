@@ -50,3 +50,15 @@ class PushPromiseMessage extends Message {
   String toString() => 'PushPromiseMessage(bytes: ${headers.length}, '
       'promisedStreamId: $promisedStreamId, endStream: $endStream)';
 }
+
+class GoawayMessage extends Message {
+  final int lastStreamId;
+  final int errorCode;
+  final List<int> debugData;
+
+  GoawayMessage(this.lastStreamId, this.errorCode, this.debugData)
+      : super(0, false);
+
+  String toString() => 'GoawayMessage(lastStreamId: ${lastStreamId}, '
+      'errorCode: ${errorCode}, debugData: ${debugData.length})';
+}

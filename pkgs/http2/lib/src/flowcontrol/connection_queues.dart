@@ -141,6 +141,10 @@ class ConnectionMessageQueueOut extends Object
             new DataMessage(message.streamId, tail, message.endStream);
         _messages.addFirst(tailMessage);
       }
+    } else if (message is GoawayMessage) {
+      _messages.removeFirst();
+      _frameWriter.writeGoawayFrame(
+          message.lastStreamId, message.errorCode, message.debugData);
     } else {
       throw new StateError(
           'Unexpected message in queue: ${message.runtimeType}');
