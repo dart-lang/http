@@ -83,9 +83,9 @@ abstract class BaseRequest {
 
   /// Creates a new HTTP request.
   BaseRequest(this.method, this.url)
-    : headers = new LinkedHashMap(
-        equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
-        hashCode: (key) => key.toLowerCase().hashCode);
+      : headers = new LinkedHashMap(
+            equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
+            hashCode: (key) => key.toLowerCase().hashCode);
 
   /// Finalizes the HTTP request in preparation for it being sent. This freezes
   /// all mutable fields and returns a single-subscription [ByteStream] that
@@ -115,9 +115,7 @@ abstract class BaseRequest {
     try {
       var response = await client.send(this);
       var stream = onDone(response.stream, client.close);
-      return new StreamedResponse(
-          new ByteStream(stream),
-          response.statusCode,
+      return new StreamedResponse(new ByteStream(stream), response.statusCode,
           contentLength: response.contentLength,
           request: response.request,
           headers: response.headers,

@@ -28,46 +28,44 @@ class MockClient extends BaseClient {
   /// Creates a [MockClient] with a handler that receives [Request]s and sends
   /// [Response]s.
   MockClient(MockClientHandler fn)
-    : this._((baseRequest, bodyStream) {
-      return bodyStream.toBytes().then((bodyBytes) {
-        var request = new Request(baseRequest.method, baseRequest.url)
-            ..persistentConnection = baseRequest.persistentConnection
-            ..followRedirects = baseRequest.followRedirects
-            ..maxRedirects = baseRequest.maxRedirects
-            ..headers.addAll(baseRequest.headers)
-            ..bodyBytes = bodyBytes
-            ..finalize();
+      : this._((baseRequest, bodyStream) {
+          return bodyStream.toBytes().then((bodyBytes) {
+            var request = new Request(baseRequest.method, baseRequest.url)
+              ..persistentConnection = baseRequest.persistentConnection
+              ..followRedirects = baseRequest.followRedirects
+              ..maxRedirects = baseRequest.maxRedirects
+              ..headers.addAll(baseRequest.headers)
+              ..bodyBytes = bodyBytes
+              ..finalize();
 
-        return fn(request);
-      }).then((response) {
-        return new StreamedResponse(
-            new ByteStream.fromBytes(response.bodyBytes),
-            response.statusCode,
-            contentLength: response.contentLength,
-            request: baseRequest,
-            headers: response.headers,
-            isRedirect: response.isRedirect,
-            persistentConnection: response.persistentConnection,
-            reasonPhrase: response.reasonPhrase);
-      });
-    });
+            return fn(request);
+          }).then((response) {
+            return new StreamedResponse(
+                new ByteStream.fromBytes(response.bodyBytes),
+                response.statusCode,
+                contentLength: response.contentLength,
+                request: baseRequest,
+                headers: response.headers,
+                isRedirect: response.isRedirect,
+                persistentConnection: response.persistentConnection,
+                reasonPhrase: response.reasonPhrase);
+          });
+        });
 
   /// Creates a [MockClient] with a handler that receives [StreamedRequest]s and
   /// sends [StreamedResponse]s.
   MockClient.streaming(MockClientStreamHandler fn)
-    : this._((request, bodyStream) {
-      return fn(request, bodyStream).then((response) {
-        return new StreamedResponse(
-            response.stream,
-            response.statusCode,
-            contentLength: response.contentLength,
-            request: request,
-            headers: response.headers,
-            isRedirect: response.isRedirect,
-            persistentConnection: response.persistentConnection,
-            reasonPhrase: response.reasonPhrase);
-      });
-    });
+      : this._((request, bodyStream) {
+          return fn(request, bodyStream).then((response) {
+            return new StreamedResponse(response.stream, response.statusCode,
+                contentLength: response.contentLength,
+                request: request,
+                headers: response.headers,
+                isRedirect: response.isRedirect,
+                persistentConnection: response.persistentConnection,
+                reasonPhrase: response.reasonPhrase);
+          });
+        });
 
   /// Sends a request.
   Future<StreamedResponse> send(BaseRequest request) async {

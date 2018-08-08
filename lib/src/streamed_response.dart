@@ -18,22 +18,19 @@ class StreamedResponse extends BaseResponse {
 
   /// Creates a new streaming response. [stream] should be a single-subscription
   /// stream.
-  StreamedResponse(
-      Stream<List<int>> stream,
-      int statusCode,
+  StreamedResponse(Stream<List<int>> stream, int statusCode,
       {int contentLength,
-       BaseRequest request,
-       Map<String, String> headers: const {},
-       bool isRedirect: false,
-       bool persistentConnection: true,
-       String reasonPhrase})
-    : this.stream = toByteStream(stream),
-      super(
-          statusCode,
-          contentLength: contentLength,
-          request: request,
-          headers: headers,
-          isRedirect: isRedirect,
-          persistentConnection: persistentConnection,
-          reasonPhrase: reasonPhrase);
+      BaseRequest request,
+      Map<String, String> headers: const {},
+      bool isRedirect: false,
+      bool persistentConnection: true,
+      String reasonPhrase})
+      : this.stream = toByteStream(stream),
+        super(statusCode,
+            contentLength: contentLength,
+            request: request,
+            headers: headers,
+            isRedirect: isRedirect,
+            persistentConnection: persistentConnection,
+            reasonPhrase: reasonPhrase);
 }

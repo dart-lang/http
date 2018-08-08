@@ -19,13 +19,12 @@ void main() {
           request: request, headers: {'content-type': 'application/json'}));
     });
 
-    expect(client.post("http://example.com/foo", body: {
-      'field1': 'value1',
-      'field2': 'value2'
-    }).then((response) => response.body), completion(parse(equals({
-      'field1': 'value1',
-      'field2': 'value2'
-    }))));
+    expect(
+        client.post("http://example.com/foo", body: {
+          'field1': 'value1',
+          'field2': 'value2'
+        }).then((response) => response.body),
+        completion(parse(equals({'field1': 'value1', 'field2': 'value2'}))));
   });
 
   test('handles a streamed request', () {
@@ -44,7 +43,8 @@ void main() {
     var uri = Uri.parse("http://example.com/foo");
     var request = new http.Request("POST", uri);
     request.body = "hello, world";
-    var future = client.send(request)
+    var future = client
+        .send(request)
         .then(http.Response.fromStream)
         .then((response) => response.body);
     expect(future, completion(equals('Request body was "hello, world"')));

@@ -13,9 +13,11 @@ void main() {
     var client = new BrowserClient();
     var request = new http.StreamedRequest("POST", echoUrl);
 
-    expect(client.send(request).then((response) {
-      return response.stream.bytesToString();
-    }).whenComplete(client.close), completion(equals('{"hello": "world"}')));
+    expect(
+        client.send(request).then((response) {
+          return response.stream.bytesToString();
+        }).whenComplete(client.close),
+        completion(equals('{"hello": "world"}')));
 
     request.sink.add('{"hello": "world"}'.codeUnits);
     request.sink.close();
@@ -26,8 +28,8 @@ void main() {
     var url = Uri.parse('http://http.invalid');
     var request = new http.StreamedRequest("POST", url);
 
-    expect(client.send(request),
-        throwsClientException("XMLHttpRequest error."));
+    expect(
+        client.send(request), throwsClientException("XMLHttpRequest error."));
 
     request.sink.add('{"hello": "world"}'.codeUnits);
     request.sink.close();

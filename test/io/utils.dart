@@ -36,8 +36,8 @@ Future startServer() {
       if (path == '/loop') {
         var n = int.parse(request.uri.query);
         response.statusCode = 302;
-        response.headers.set('location',
-            serverUrl.resolve('/loop?${n + 1}').toString());
+        response.headers
+            .set('location', serverUrl.resolve('/loop?${n + 1}').toString());
         response.contentLength = 0;
         response.close();
         return;
@@ -68,9 +68,8 @@ Future startServer() {
           outputEncoding = ascii;
         }
 
-        response.headers.contentType =
-            new ContentType(
-                "application", "json", charset: outputEncoding.name);
+        response.headers.contentType = new ContentType("application", "json",
+            charset: outputEncoding.name);
         response.headers.set('single', 'value');
 
         var requestBody;
@@ -78,8 +77,8 @@ Future startServer() {
           requestBody = null;
         } else if (request.headers.contentType != null &&
             request.headers.contentType.charset != null) {
-          var encoding = requiredEncodingForCharset(
-              request.headers.contentType.charset);
+          var encoding =
+              requiredEncodingForCharset(request.headers.contentType.charset);
           requestBody = encoding.decode(requestBodyBytes);
         } else {
           requestBody = requestBodyBytes;
@@ -129,19 +128,18 @@ const Matcher throwsRedirectLimitExceededException =
     const Throws(isRedirectLimitExceededException);
 
 class _RedirectLimitExceededException extends TypeMatcher {
-  const _RedirectLimitExceededException() :
-      super("RedirectLimitExceededException");
+  const _RedirectLimitExceededException()
+      : super("RedirectLimitExceededException");
 
   bool matches(item, Map matchState) =>
-    item is RedirectException && item.message == "Redirect limit exceeded";
+      item is RedirectException && item.message == "Redirect limit exceeded";
 }
 
 /// A matcher for SocketExceptions.
 const isSocketException = const _SocketException();
 
 /// A matcher for functions that throw SocketException.
-const Matcher throwsSocketException =
-    const Throws(isSocketException);
+const Matcher throwsSocketException = const Throws(isSocketException);
 
 class _SocketException extends TypeMatcher {
   const _SocketException() : super("SocketException");

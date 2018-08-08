@@ -8,8 +8,7 @@ import 'dart:typed_data';
 
 /// A stream of chunks of bytes representing a single piece of data.
 class ByteStream extends StreamView<List<int>> {
-  ByteStream(Stream<List<int>> stream)
-      : super(stream);
+  ByteStream(Stream<List<int>> stream) : super(stream);
 
   /// Returns a single-subscription byte stream that will emit the given bytes
   /// in a single chunk.
@@ -19,18 +18,20 @@ class ByteStream extends StreamView<List<int>> {
   /// Collects the data of this stream in a [Uint8List].
   Future<Uint8List> toBytes() {
     var completer = new Completer<Uint8List>();
-    var sink = new ByteConversionSink.withCallback((bytes) =>
-        completer.complete(new Uint8List.fromList(bytes)));
-    listen(sink.add, onError: completer.completeError, onDone: sink.close,
+    var sink = new ByteConversionSink.withCallback(
+        (bytes) => completer.complete(new Uint8List.fromList(bytes)));
+    listen(sink.add,
+        onError: completer.completeError,
+        onDone: sink.close,
         cancelOnError: true);
     return completer.future;
   }
 
   /// Collect the data of this stream in a [String], decoded according to
   /// [encoding], which defaults to `UTF8`.
-  Future<String> bytesToString([Encoding encoding=utf8]) =>
+  Future<String> bytesToString([Encoding encoding = utf8]) =>
       encoding.decodeStream(this);
 
-  Stream<String> toStringStream([Encoding encoding=utf8]) =>
+  Stream<String> toStringStream([Encoding encoding = utf8]) =>
       encoding.decoder.bind(this);
 }

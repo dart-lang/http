@@ -28,8 +28,8 @@ class StreamedRequest extends BaseRequest {
 
   /// Creates a new streaming request.
   StreamedRequest(String method, Uri url)
-    : _controller = new StreamController<List<int>>(sync: true),
-      super(method, url);
+      : _controller = new StreamController<List<int>>(sync: true),
+        super(method, url);
 
   /// Freezes all mutable fields other than [stream] and returns a
   /// single-subscription [ByteStream] that emits the data being written to
