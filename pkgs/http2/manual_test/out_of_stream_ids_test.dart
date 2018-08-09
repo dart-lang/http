@@ -9,12 +9,14 @@
 ///    -  static const int MAX_STREAM_ID = (1 << 31) - 1;
 ///    +  static const int MAX_STREAM_ID = (1 << 5) - 1;
 ///
+/// without this patch this test will run for a _long_ time.
 /// ---------------------------------------------------------------------------
 
 import 'dart:async';
 
 import 'package:test/test.dart';
 import 'package:http2/transport.dart';
+import 'package:http2/src/streams/stream_handler.dart';
 
 import '../test/transport_test.dart';
 
@@ -34,7 +36,7 @@ main() {
       Future clientFun() async {
         var headers = [new Header.ascii('a', 'b')];
 
-        const kMaxStreamId = (1 << 31) - 1;
+        const kMaxStreamId = StreamHandler.MAX_STREAM_ID;
         for (int i = 1; i <= kMaxStreamId; i += 2) {
           var stream = client.makeRequest(headers, endStream: true);
           var messages = await stream.incomingMessages.toList();
@@ -43,7 +45,7 @@ main() {
 
         expect(client.isOpen, false);
         expect(() => client.makeRequest(headers),
-            throwsA(new isInstanceOf<StateError>()));
+            throwsA(const TypeMatcher<StateError>()));
 
         await new Future.delayed(const Duration(seconds: 1));
         await client.finish();
