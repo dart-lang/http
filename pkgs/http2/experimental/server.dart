@@ -74,16 +74,16 @@ handleClient(SecureSocket socket) {
 
 void dumpHeaders(String prefix, List<Header> headers) {
   for (int i = 0; i < headers.length; i++) {
-    String key = ASCII.decode(headers[i].name);
-    String value = ASCII.decode(headers[i].value);
+    String key = ascii.decode(headers[i].name);
+    String value = ascii.decode(headers[i].value);
     print('[$prefix] $key: $value');
   }
 }
 
 String pathFromHeaders(List<Header> headers) {
   for (int i = 0; i < headers.length; i++) {
-    if (ASCII.decode(headers[i].name) == ':path') {
-      return ASCII.decode(headers[i].value);
+    if (ascii.decode(headers[i].name) == ':path') {
+      return ascii.decode(headers[i].value);
     }
   }
   throw new Exception('Expected a :path header, but did not find one.');
@@ -106,7 +106,7 @@ Future sendHtml(ServerTransportStream stream) async {
     new Header.ascii(':status', '200'),
     new Header.ascii('content-type', 'text/html; charset=utf-8'),
   ]);
-  stream.sendData(ASCII.encode('''
+  stream.sendData(ascii.encode('''
 <html>
   <head><title>hello</title></head>
   <body>
@@ -139,7 +139,7 @@ Future sendIFrameHtml(TransportStream stream, String path) async {
     new Header.ascii(':status', '200'),
     new Header.ascii('content-type', 'text/html; charset=utf-8'),
   ]);
-  stream.sendData(ASCII.encode('''
+  stream.sendData(ascii.encode('''
 <html>
   <head><title>Content for '$path' inside an IFrame.</title></head>
   <body>
@@ -155,7 +155,7 @@ Future send404(TransportStream stream, String path) async {
     new Header.ascii(':status', '404'),
     new Header.ascii('content-type', 'text/html; charset=utf-8'),
   ]);
-  stream.sendData(ASCII.encode('''
+  stream.sendData(ascii.encode('''
 <html>
   <head><title>Path '$path' was not found on this server.</title></head>
   <body>

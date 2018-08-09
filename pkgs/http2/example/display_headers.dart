@@ -36,8 +36,8 @@ main(List<String> args) async {
   await for (var message in stream.incomingMessages) {
     if (message is HeadersStreamMessage) {
       for (var header in message.headers) {
-        var name = UTF8.decode(header.name);
-        var value = UTF8.decode(header.value);
+        var name = utf8.decode(header.name);
+        var value = utf8.decode(header.value);
         print('$name: $value');
       }
     } else if (message is DataStreamMessage) {
