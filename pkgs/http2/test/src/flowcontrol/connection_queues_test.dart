@@ -84,7 +84,7 @@ main() {
       queue.done.then(expectAsync1((_) {
         expect(queue.pendingMessages, 0);
         expect(() => queue.enqueueMessage(new DataMessage(99, bytes, true)),
-            throwsA(new isInstanceOf<StateError>()));
+            throwsA(const TypeMatcher<StateError>()));
       }));
     });
 
@@ -116,9 +116,7 @@ main() {
       streamQueueMock.bufferIndicator.markUnBuffered();
       verify(windowMock.dataProcessed(bytes.length)).called(1);
       DataMessage capturedMessage =
-          verify(streamQueueMock.enqueueMessage(typed(captureAny)))
-              .captured
-              .single;
+          verify(streamQueueMock.enqueueMessage(captureAny)).captured.single;
       expect(capturedMessage.streamId, STREAM_ID);
       expect(capturedMessage.bytes, bytes);
 

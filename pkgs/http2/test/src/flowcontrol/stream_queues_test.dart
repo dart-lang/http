@@ -33,10 +33,10 @@ main() {
         queue.enqueueMessage(new DataMessage(STREAM_ID, BYTES, true));
         verify(windowMock.decreaseWindow(BYTES.length)).called(1);
         final capturedMessage =
-            verify(connectionQueueMock.enqueueMessage(typed(captureAny)))
+            verify(connectionQueueMock.enqueueMessage(captureAny))
                 .captured
                 .single;
-        expect(capturedMessage, new isInstanceOf<DataMessage>());
+        expect(capturedMessage, const TypeMatcher<DataMessage>());
         DataMessage capturedDataMessage = capturedMessage;
         expect(capturedDataMessage.bytes, BYTES);
         expect(capturedDataMessage.endStream, isTrue);
@@ -61,11 +61,10 @@ main() {
         expect(queue.pendingMessages, 0);
         verify(windowMock.decreaseWindow(1)).called(BYTES.length);
         final messages =
-            verify(connectionQueueMock.enqueueMessage(typed(captureAny)))
-                .captured;
+            verify(connectionQueueMock.enqueueMessage(captureAny)).captured;
         expect(messages.length, BYTES.length);
         for (var counter = 0; counter < messages.length; counter++) {
-          expect(messages[counter], new isInstanceOf<DataMessage>());
+          expect(messages[counter], const TypeMatcher<DataMessage>());
           DataMessage dataMessage = messages[counter];
           expect(dataMessage.bytes, BYTES.sublist(counter, counter + 1));
           expect(dataMessage.endStream, counter == BYTES.length - 1);
@@ -132,7 +131,7 @@ main() {
       expect(queue.bufferIndicator.wouldBuffer, isTrue);
       // We assert that we got the data, but it wasn't processed.
       verify(windowMock.gotData(bytes.length)).called(1);
-      verifyNever(windowMock.dataProcessed(typed(any)));
+      verifyNever(windowMock.dataProcessed(any));
     });
 
     // TODO: Add tests for Headers/HeadersPush messages.

@@ -221,12 +221,12 @@ main() {
     bool isFirst = true;
     cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
       if (isFirst) {
-        expect(msg, new isInstanceOf<DataStreamMessage>());
+        expect(msg, const TypeMatcher<DataStreamMessage>());
         final data = msg as DataStreamMessage;
         expect(data.bytes, [2]);
         isFirst = false;
       } else {
-        expect(msg, new isInstanceOf<HeadersStreamMessage>());
+        expect(msg, const TypeMatcher<HeadersStreamMessage>());
         final trailer = msg as HeadersStreamMessage;
         expect(trailer.endStream, true);
         expectHeadersEqual(trailer.headers, expectedHeaders);

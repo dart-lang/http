@@ -798,12 +798,8 @@ class TestHelper {
 }
 
 /// A matcher for HuffmannDecodingExceptions.
-const Matcher isHPackDecodingException = const _HPackDecodingException();
-
-class _HPackDecodingException extends TypeMatcher {
-  const _HPackDecodingException() : super("HPackDecodingException");
-  bool matches(item, Map matchState) => item is HPackDecodingException;
-}
+const Matcher isHPackDecodingException =
+    const TypeMatcher<HPackDecodingException>();
 
 class _HeaderMatcher extends Matcher {
   final Header header;

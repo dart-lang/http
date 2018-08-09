@@ -154,9 +154,5 @@ main() {
 }
 
 /// A matcher for HuffmanDecodingExceptions.
-const Matcher isHuffmanDecodingException = const _HuffmanDecodingException();
-
-class _HuffmanDecodingException extends TypeMatcher {
-  const _HuffmanDecodingException() : super("HuffmanDecodingException");
-  bool matches(item, Map matchState) => item is HuffmanDecodingException;
-}
+const Matcher isHuffmanDecodingException =
+    const TypeMatcher<HuffmanDecodingException>();

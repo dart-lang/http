@@ -99,7 +99,7 @@ main() {
           .listen(expectAsync1((ServerTransportStream stream) async {
         expect(stream.canPush, false);
         expect(() => stream.push([new Header.ascii('a', 'b')]),
-            throwsA(new isInstanceOf<StateError>()));
+            throwsA(const TypeMatcher<StateError>()));
         stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
       }));
 
@@ -135,7 +135,7 @@ main() {
           // create more pushes.
           expect(stream.canPush, false);
           expect(() => stream.push([new Header.ascii('a', 'b')]),
-              throwsA(new isInstanceOf<StateError>()));
+              throwsA(const TypeMatcher<StateError>()));
 
           // Finish the pushes
           for (ServerTransportStream pushedStream in pushes) {
