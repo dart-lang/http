@@ -12,6 +12,8 @@ import 'base_request.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
 
+BaseClient createClient() => IOClient();
+
 /// A `dart:io`-based HTTP client.
 ///
 /// This is the default client when running on the command line.
