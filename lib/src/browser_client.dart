@@ -12,10 +12,8 @@ import 'byte_stream.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
 
+/// Used from conditional imports, matches the definition in `client_stub.dart`.
 BaseClient createClient() => BrowserClient();
-
-// TODO(nweiz): Move this under src/, re-export from lib/http.dart, and use this
-// automatically from [new Client] once sdk#24581 is fixed.
 
 /// A `dart:html`-based HTTP client that runs in the browser and is backed by
 /// XMLHttpRequests.

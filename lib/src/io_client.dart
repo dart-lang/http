@@ -12,6 +12,7 @@ import 'base_request.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
 
+/// Used from conditional imports, matches the definition in `client_stub.dart`.
 BaseClient createClient() => IOClient();
 
 /// A `dart:io`-based HTTP client.
