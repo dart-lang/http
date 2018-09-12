@@ -1,3 +1,20 @@
+## 0.12.0-dev
+
+### New Features
+
+* The regular `Client` factory constructor is now usable anywhere that `dart:io`
+  or `dart:html` are available, and will give you an `IoClient` or
+  `BrowserClient` respectively.
+* The `package:http/http.dart` import is now safe to use on the web (or
+  anywhere that either `dart:io` or `dart:html` are available).
+
+### Breaking Changes
+
+* In order to use or reference the `IoClient` directly, you will need to import
+  the new `package:http/io_client.dart` import. This is typically only necessary
+  if you are passing a custom `HttpClient` instance to the constructor, in which
+  case you are already giving up support for web.
+
 ## 0.11.3+17
 
 * Use new Dart 2 constant names. This branch is only for allowing existing
