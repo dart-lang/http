@@ -8,8 +8,11 @@ import 'dart:typed_data';
 
 import 'base_client.dart';
 import 'base_request.dart';
+// ignore: uri_does_not_exist
 import 'client_stub.dart'
+    // ignore: uri_does_not_exist
     if (dart.library.html) 'browser_client.dart'
+    // ignore: uri_does_not_exist
     if (dart.library.io) 'io_client.dart';
 import 'response.dart';
 import 'streamed_response.dart';
