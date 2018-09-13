@@ -7,6 +7,7 @@
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:http/src/io_client.dart' as http_io;
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -56,7 +57,7 @@ void main() {
     expect(
         startServer().then((_) {
           var ioClient = new HttpClient();
-          var client = new http.IOClient(ioClient);
+          var client = new http_io.IOClient(ioClient);
           var request = new http.StreamedRequest("POST", serverUrl);
           request.headers[HttpHeaders.contentTypeHeader] =
               'application/json; charset=utf-8';

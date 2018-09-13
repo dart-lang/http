@@ -4,14 +4,16 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:async/async.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:path/path.dart' as path;
 
 import 'byte_stream.dart';
 import 'utils.dart';
+
+// ignore: uri_does_not_exist
+import 'multipart_file_stub.dart'
+    // ignore: uri_does_not_exist
+    if (dart.library.io) 'multipart_file_io.dart';
 
 /// A file to be uploaded as part of a [MultipartRequest]. This doesn't need to
 /// correspond to a physical file.
@@ -87,14 +89,9 @@ class MultipartFile {
   /// Throws an [UnsupportedError] if `dart:io` isn't supported in this
   /// environment.
   static Future<MultipartFile> fromPath(String field, String filePath,
-      {String filename, MediaType contentType}) async {
-    if (filename == null) filename = path.basename(filePath);
-    var file = new File(filePath);
-    var length = await file.length();
-    var stream = new ByteStream(DelegatingStream.typed(file.openRead()));
-    return new MultipartFile(field, stream, length,
-        filename: filename, contentType: contentType);
-  }
+          {String filename, MediaType contentType}) =>
+      multipartFileFromPath(field, filePath,
+          filename: filename, contentType: contentType);
 
   // Finalizes the file in preparation for it being sent as part of a
   // [MultipartRequest]. This returns a [ByteStream] that should emit the body
