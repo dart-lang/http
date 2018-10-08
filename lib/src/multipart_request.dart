@@ -22,7 +22,7 @@ final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
 /// `multipart/form-data`. This value will override any value set by the user.
 ///
 ///     var uri = Uri.parse("http://pub.dartlang.org/packages/create");
-///     var request = new http.MultipartRequest("POST", url);
+///     var request = new http.MultipartRequest("POST", uri);
 ///     request.fields['user'] = 'nweiz@google.com';
 ///     request.files.add(new http.MultipartFile.fromFile(
 ///         'package',
