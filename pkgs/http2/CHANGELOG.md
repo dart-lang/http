@@ -1,3 +1,6 @@
+## 0.1.9
+* Discard messages incoming after stream cancellation.
+
 ## 0.1.8+2
 
 * On connection termination, try to dispatch existing messages, thereby avoiding
