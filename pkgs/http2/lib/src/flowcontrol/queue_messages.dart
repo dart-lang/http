@@ -51,6 +51,14 @@ class PushPromiseMessage extends Message {
       'promisedStreamId: $promisedStreamId, endStream: $endStream)';
 }
 
+class ResetStreamMessage extends Message {
+  final int errorCode;
+
+  ResetStreamMessage(int streamId, this.errorCode) : super(streamId, false);
+
+  String toString() => 'ResetStreamMessage(errorCode: $errorCode)';
+}
+
 class GoawayMessage extends Message {
   final int lastStreamId;
   final int errorCode;

@@ -41,6 +41,24 @@ class TerminatableMixin {
   }
 }
 
+/// Used by classes which may be cancelled.
+class CancellableMixin {
+  bool _cancelled = false;
+  final _cancelCompleter = new Completer<void>.sync();
+
+  Future<void> get onCancel => _cancelCompleter.future;
+
+  /// Cancel this stream message queue. Further operations on it will fail.
+  void cancel() {
+    if (!wasCancelled) {
+      _cancelled = true;
+      _cancelCompleter.complete();
+    }
+  }
+
+  bool get wasCancelled => _cancelled;
+}
+
 /// Used by classes which may be closed.
 class ClosableMixin {
   bool _closing = false;

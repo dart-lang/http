@@ -68,22 +68,21 @@ class StreamMessageQueueOut extends Object
   /// Enqueues a new [Message] which is to be delivered to the connection
   /// message queue.
   void enqueueMessage(Message message) {
-    ensureNotClosingSync(() {
-      if (!wasTerminated) {
-        if (message.endStream) startClosing();
+    if (message is! ResetStreamMessage) ensureNotClosingSync(() {});
+    if (!wasTerminated) {
+      if (message.endStream) startClosing();
 
-        if (message is DataMessage) {
-          toBeWrittenBytes += message.bytes.length;
-        }
-
-        _messages.addLast(message);
-        _trySendData();
-
-        if (_messages.length > 0) {
-          bufferIndicator.markBuffered();
-        }
+      if (message is DataMessage) {
+        toBeWrittenBytes += message.bytes.length;
       }
-    });
+
+      _messages.addLast(message);
+      _trySendData();
+
+      if (_messages.length > 0) {
+        bufferIndicator.markBuffered();
+      }
+    }
   }
 
   void onTerminated(error) {
@@ -134,6 +133,9 @@ class StreamMessageQueueOut extends Object
         } else {
           break;
         }
+      } else if (message is ResetStreamMessage) {
+        _messages.removeFirst();
+        connectionMessageQueue.enqueueMessage(message);
       } else {
         throw new StateError('Unknown messages type: ${message.runtimeType}');
       }
@@ -152,7 +154,7 @@ class StreamMessageQueueOut extends Object
 /// It will keep messages up to the stream flow control window size if the
 /// [messages] listener is paused.
 class StreamMessageQueueIn extends Object
-    with TerminatableMixin, ClosableMixin {
+    with TerminatableMixin, ClosableMixin, CancellableMixin {
   /// The stream-level window our peer is using when sending us messages.
   final IncomingWindowHandler windowHandler;
 
@@ -174,25 +176,25 @@ class StreamMessageQueueIn extends Object
     // incoming messages will get buffered.
     bufferIndicator.markBuffered();
 
-    _incomingMessagesC = new StreamController(onListen: () {
-      if (!wasClosed && !wasTerminated) {
-        _tryDispatch();
-        _tryUpdateBufferIndicator();
-      }
-    }, onPause: () {
-      _tryUpdateBufferIndicator();
-      // TODO: Would we ever want to decrease the window size in this
-      // situation?
-    }, onResume: () {
-      if (!wasClosed && !wasTerminated) {
-        _tryDispatch();
-        _tryUpdateBufferIndicator();
-      }
-    }, onCancel: () {
-      _pendingMessages.clear();
-      startClosing();
-      onCloseCheck();
-    });
+    _incomingMessagesC = new StreamController(
+        onListen: () {
+          if (!wasClosed && !wasTerminated) {
+            _tryDispatch();
+            _tryUpdateBufferIndicator();
+          }
+        },
+        onPause: () {
+          _tryUpdateBufferIndicator();
+          // TODO: Would we ever want to decrease the window size in this
+          // situation?
+        },
+        onResume: () {
+          if (!wasClosed && !wasTerminated) {
+            _tryDispatch();
+            _tryUpdateBufferIndicator();
+          }
+        },
+        onCancel: cancel);
 
     _serverPushStreamsC = new StreamController(onListen: () {
       if (!wasClosed && !wasTerminated) {
@@ -282,10 +284,12 @@ class StreamMessageQueueIn extends Object
 
   void _tryDispatch() {
     while (!wasTerminated && _pendingMessages.isNotEmpty) {
-      bool handled = false;
+      bool handled = wasCancelled;
 
       var message = _pendingMessages.first;
-      if (message is HeadersMessage || message is DataMessage) {
+      if (wasCancelled) {
+        _pendingMessages.removeFirst();
+      } else if (message is HeadersMessage || message is DataMessage) {
         assert(!_incomingMessagesC.isClosed);
         if (_incomingMessagesC.hasListener && !_incomingMessagesC.isPaused) {
           _pendingMessages.removeFirst();

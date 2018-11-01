@@ -10,12 +10,12 @@ import 'dart:typed_data';
 
 import 'package:test/test.dart';
 
-import 'package:http2/transport.dart';
-import 'package:http2/src/flowcontrol/window.dart';
 import 'package:http2/src/connection_preface.dart';
+import 'package:http2/src/flowcontrol/window.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/settings/settings.dart';
+import 'package:http2/transport.dart';
 
 import 'src/hpack/hpack_test.dart' show isHeader;
 
@@ -241,6 +241,155 @@ main() {
           var messages = await stream.incomingMessages.toList();
           expect(messages, hasLength(1));
           expect((messages[0] as DataStreamMessage).bytes, [42]);
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
+      clientTest('data-frame-received-after-stream-cancel',
+          (ClientTransportConnection client,
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
+        var handshakeCompleter = new Completer();
+        var cancelDone = new Completer();
+        var endDone = new Completer();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          handshakeCompleter.complete();
+
+          HeadersFrame headers = await nextFrame();
+          DataFrame finFrame = await nextFrame();
+          expect(finFrame.hasEndStreamFlag, true);
+
+          int streamId = headers.header.streamId;
+
+          // Write a data frame.
+          serverWriter.writeDataFrame(streamId, [42]);
+          await cancelDone.future;
+          serverWriter.writeDataFrame(streamId, [43]);
+
+          // NOTE: The order of the window update frame / rst frame just
+          // happens to be like that ATM.
+
+          // Await stream/connection window update frame.
+          var win = await nextFrame() as WindowUpdateFrame;
+          expect(win.header.streamId, 1);
+          expect(win.windowSizeIncrement, 1);
+          win = await nextFrame() as WindowUpdateFrame;
+          expect(win.header.streamId, 0);
+          expect(win.windowSizeIncrement, 1);
+          win = await nextFrame() as WindowUpdateFrame;
+          expect(win.header.streamId, 0);
+          expect(win.windowSizeIncrement, 1);
+
+          // Make sure we get a [RstStreamFrame] frame.
+          var frame = await nextFrame();
+          expect(frame is RstStreamFrame, true);
+          expect((frame as RstStreamFrame).errorCode, ErrorCode.CANCEL);
+          expect((frame as RstStreamFrame).header.streamId, streamId);
+
+          serverWriter.writeRstStreamFrame(streamId, ErrorCode.STREAM_CLOSED);
+
+          endDone.complete();
+
+          // Wait for the client finish.
+          expect(await nextFrame() is GoawayFrame, true);
+          expect(await serverReader.moveNext(), false);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          await stream.outgoingMessages.close();
+
+          // first will cancel the stream
+          var message = await stream.incomingMessages.first;
+          expect((message as DataStreamMessage).bytes, [42]);
+          cancelDone.complete();
+
+          await endDone.future;
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
+      clientTest('data-frame-received-after-stream-cancel-and-out-not-closed',
+          (ClientTransportConnection client,
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> nextFrame()) async {
+        var handshakeCompleter = new Completer();
+        var cancelDone = new Completer();
+        var endDone = new Completer();
+        var clientDone = new Completer();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          handshakeCompleter.complete();
+
+          HeadersFrame headers = await nextFrame();
+
+          int streamId = headers.header.streamId;
+
+          // Write a data frame.
+          serverWriter.writeDataFrame(streamId, [42]);
+          await cancelDone.future;
+          serverWriter.writeDataFrame(streamId, [43]);
+          serverWriter.writeRstStreamFrame(streamId, ErrorCode.STREAM_CLOSED);
+          endDone.complete();
+
+          // NOTE: The order of the window update frame / rst frame just
+          // happens to be like that ATM.
+
+          // Await stream/connection window update frame.
+          var win = await nextFrame() as WindowUpdateFrame;
+          expect(win.header.streamId, 1);
+          expect(win.windowSizeIncrement, 1);
+          win = await nextFrame() as WindowUpdateFrame;
+          expect(win.header.streamId, 0);
+          expect(win.windowSizeIncrement, 1);
+          win = await nextFrame() as WindowUpdateFrame;
+          expect(win.header.streamId, 0);
+          expect(win.windowSizeIncrement, 1);
+
+          await clientDone.future;
+          DataFrame finFrame = await nextFrame();
+          expect(finFrame.hasEndStreamFlag, true);
+
+          // Wait for the client finish.
+          expect(await serverReader.moveNext(), false);
+          await serverWriter.close();
+        }
+
+        Future clientFun() async {
+          await handshakeCompleter.future;
+
+          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+
+          // first will cancel the stream
+          var message = await stream.incomingMessages.first;
+          expect((message as DataStreamMessage).bytes, [42]);
+          cancelDone.complete();
+
+          await endDone.future;
+
+          await stream.outgoingMessages.close();
+          clientDone.complete();
 
           await client.finish();
         }

@@ -141,6 +141,9 @@ class ConnectionMessageQueueOut extends Object
             new DataMessage(message.streamId, tail, message.endStream);
         _messages.addFirst(tailMessage);
       }
+    } else if (message is ResetStreamMessage) {
+      _messages.removeFirst();
+      _frameWriter.writeRstStreamFrame(message.streamId, message.errorCode);
     } else if (message is GoawayMessage) {
       _messages.removeFirst();
       _frameWriter.writeGoawayFrame(
