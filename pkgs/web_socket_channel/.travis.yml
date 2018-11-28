@@ -5,7 +5,7 @@ dart: dev
 dart_task:
   - test: --platform vm
   - test: --platform firefox -j 1
-  - dartanalyzer
+  - dartanalyzer --fatal-infos --fatal-warnings
 
 matrix:
   include:
@@ -17,5 +17,5 @@ branches:
   only: [master]
 
 cache:
- directories:
-   - $HOME/.pub-cache
+  directories:
+    - $HOME/.pub-cache

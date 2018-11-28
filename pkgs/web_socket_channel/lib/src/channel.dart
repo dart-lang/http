@@ -47,13 +47,13 @@ class WebSocketChannel extends StreamChannelMixin {
   /// Before the connection has been closed, this will be `null`.
   String get closeReason => _webSocket.closeReason;
 
-  Stream get stream => new StreamView(_webSocket);
+  Stream get stream => StreamView(_webSocket);
 
   /// The sink for sending values to the other endpoint.
   ///
   /// This supports additional arguments to [WebSocketSink.close] that provide
   /// the remote endpoint reasons for closing the connection.
-  WebSocketSink get sink => new WebSocketSink._(_webSocket);
+  WebSocketSink get sink => WebSocketSink._(_webSocket);
 
   /// Signs a `Sec-WebSocket-Key` header sent by a WebSocket client as part of
   /// the [initial handshake][].
@@ -91,7 +91,7 @@ class WebSocketChannel extends StreamChannelMixin {
   /// [WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4
   WebSocketChannel(StreamChannel<List<int>> channel,
       {String protocol, Duration pingInterval, bool serverSide: true})
-      : _webSocket = new WebSocketImpl.fromSocket(
+      : _webSocket = WebSocketImpl.fromSocket(
             channel.stream, channel.sink, protocol, serverSide)
           ..pingInterval = pingInterval;
 }

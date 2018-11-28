@@ -46,7 +46,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
   Stream get stream => _controller.foreign.stream;
   final _controller =
-      new StreamChannelController(sync: true, allowForeignErrors: false);
+      StreamChannelController(sync: true, allowForeignErrors: false);
 
   WebSocketSink get sink => _sink;
   WebSocketSink _sink;
@@ -64,12 +64,12 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// [BinaryType.blob], they're delivered as [Blob]s instead.
   HtmlWebSocketChannel.connect(url,
       {Iterable<String> protocols, BinaryType binaryType})
-      : this(new WebSocket(url.toString(), protocols)
+      : this(WebSocket(url.toString(), protocols)
           ..binaryType = (binaryType ?? BinaryType.list).value);
 
   /// Creates a channel wrapping [webSocket].
   HtmlWebSocketChannel(this._webSocket) {
-    _sink = new _HtmlWebSocketSink(this);
+    _sink = _HtmlWebSocketSink(this);
 
     if (_webSocket.readyState == WebSocket.OPEN) {
       _listen();
@@ -84,8 +84,8 @@ class HtmlWebSocketChannel extends StreamChannelMixin
     // The socket API guarantees that only a single error event will be emitted,
     // and that once it is no open or message events will be emitted.
     _webSocket.onError.first.then((_) {
-      _controller.local.sink.addError(
-          new WebSocketChannelException("WebSocket connection failed."));
+      _controller.local.sink
+          .addError(WebSocketChannelException("WebSocket connection failed."));
       _controller.local.sink.close();
     });
 

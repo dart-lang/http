@@ -26,9 +26,9 @@ abstract class BytesBuilder {
   /// output. Default is `true`.
   factory BytesBuilder({bool copy: true}) {
     if (copy) {
-      return new _CopyingBytesBuilder();
+      return _CopyingBytesBuilder();
     } else {
-      return new _BytesBuilder();
+      return _BytesBuilder();
     }
   }
 
@@ -71,7 +71,7 @@ class _CopyingBytesBuilder implements BytesBuilder {
   // Start with 1024 bytes.
   static const int _INIT_SIZE = 1024;
 
-  static final _emptyList = new Uint8List(0);
+  static final _emptyList = Uint8List(0);
 
   int _length = 0;
   Uint8List _buffer;
@@ -79,7 +79,7 @@ class _CopyingBytesBuilder implements BytesBuilder {
   _CopyingBytesBuilder([int initialCapacity = 0])
       : _buffer = (initialCapacity <= 0)
             ? _emptyList
-            : new Uint8List(_pow2roundup(initialCapacity));
+            : Uint8List(_pow2roundup(initialCapacity));
 
   void add(List<int> bytes) {
     int bytesLength = bytes.length;
@@ -119,22 +119,21 @@ class _CopyingBytesBuilder implements BytesBuilder {
     } else {
       newSize = _pow2roundup(newSize);
     }
-    var newBuffer = new Uint8List(newSize);
+    var newBuffer = Uint8List(newSize);
     newBuffer.setRange(0, _buffer.length, _buffer);
     _buffer = newBuffer;
   }
 
   List<int> takeBytes() {
     if (_length == 0) return _emptyList;
-    var buffer = new Uint8List.view(_buffer.buffer, 0, _length);
+    var buffer = Uint8List.view(_buffer.buffer, 0, _length);
     clear();
     return buffer;
   }
 
   List<int> toBytes() {
     if (_length == 0) return _emptyList;
-    return new Uint8List.fromList(
-        new Uint8List.view(_buffer.buffer, 0, _length));
+    return Uint8List.fromList(Uint8List.view(_buffer.buffer, 0, _length));
   }
 
   int get length => _length;
@@ -169,14 +168,14 @@ class _BytesBuilder implements BytesBuilder {
     if (bytes is Uint8List) {
       typedBytes = bytes;
     } else {
-      typedBytes = new Uint8List.fromList(bytes);
+      typedBytes = Uint8List.fromList(bytes);
     }
     _chunks.add(typedBytes);
     _length += typedBytes.length;
   }
 
   void addByte(int byte) {
-    _chunks.add(new Uint8List(1)..[0] = byte);
+    _chunks.add(Uint8List(1)..[0] = byte);
     _length++;
   }
 
@@ -187,7 +186,7 @@ class _BytesBuilder implements BytesBuilder {
       clear();
       return buffer;
     }
-    var buffer = new Uint8List(_length);
+    var buffer = Uint8List(_length);
     int offset = 0;
     for (var chunk in _chunks) {
       buffer.setRange(offset, offset + chunk.length, chunk);
@@ -199,7 +198,7 @@ class _BytesBuilder implements BytesBuilder {
 
   List<int> toBytes() {
     if (_length == 0) return _CopyingBytesBuilder._emptyList;
-    var buffer = new Uint8List(_length);
+    var buffer = Uint8List(_length);
     int offset = 0;
     for (var chunk in _chunks) {
       buffer.setRange(offset, offset + chunk.length, chunk);

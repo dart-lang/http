@@ -56,7 +56,7 @@ other socket exactly why they're closing the connection.
 
 `WebSocketChannel` also works as a cross-platform implementation of the
 WebSocket protocol. Because it can't initiate or handle HTTP requests in a
-cross-platform way, the [`new WebSocketChannel()` constructor][new] takes an
+cross-platform way, the [`WebSocketChannel()` constructor][new] takes an
 underlying [`StreamChannel`][stream_channel] over which it communicates using
 the WebSocket protocol. It also provides the static [`signKey()`][signKey]
 method to make it easier to implement the [initial WebSocket handshake][]. These
@@ -78,18 +78,18 @@ has its own library, `package:web_socket_channel/io.dart`. This allows the main
 [io.WebSocket]: https://api.dartlang.org/latest/dart-io/WebSocket-class.html
 
 An `IOWebSocketChannel` can be created by passing a `dart:io` WebSocket to
-[its constructor][new IOWebSocketChannel]. It's more common to want to connect
+[its constructor][IOWebSocketChannel]. It's more common to want to connect
 directly to a `ws://` or `wss://` URL, in which case
-[`new IOWebSocketChannel.connect()`][IOWebSocketChannel.connect] should be used.
+[`IOWebSocketChannel.connect()`][IOWebSocketChannel.connect] should be used.
 
-[new IOWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel/IOWebSocketChannel.html
+[IOWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel/IOWebSocketChannel.html
 [IOWebSocketChannel.connect]: https://www.dartdocs.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel/IOWebSocketChannel.connect.html
 
 ```dart
 import 'package:web_socket_channel/io.dart';
 
 main() async {
-  var channel = new IOWebSocketChannel.connect("ws://localhost:8181");
+  var channel = IOWebSocketChannel.connect("ws://localhost:8181");
   channel.sink.add("connected!");
   channel.stream.listen((message) {
     // ...
@@ -107,18 +107,18 @@ This allows the main `WebSocketChannel` class to be available on all platforms.
 [html.WebSocket]: https://api.dartlang.org/latest/dart-html/WebSocket-class.html
 
 An `HtmlWebSocketChannel` can be created by passing a `dart:html` WebSocket to
-[its constructor][new HtmlWebSocketChannel]. It's more common to want to connect
+[its constructor][HtmlWebSocketChannel]. It's more common to want to connect
 directly to a `ws://` or `wss://` URL, in which case
-[`new HtmlWebSocketChannel.connect()`][HtmlWebSocketChannel.connect] should be used.
+[`HtmlWebSocketChannel.connect()`][HtmlWebSocketChannel.connect] should be used.
 
-[new HtmlWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel/HtmlWebSocketChannel.html
+[HtmlWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel/HtmlWebSocketChannel.html
 [HtmlWebSocketChannel.connect]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel/HtmlWebSocketChannel.connect.html
 
 ```dart
 import 'package:web_socket_channel/html.dart';
 
 main() async {
-  var channel = new HtmlWebSocketChannel.connect("ws://localhost:8181");
+  var channel = HtmlWebSocketChannel.connect("ws://localhost:8181");
   channel.sink.add("connected!");
   channel.stream.listen((message) {
     // ...

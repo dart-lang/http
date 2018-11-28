@@ -24,7 +24,7 @@ void main() {
 
       hybridMain(StreamChannel channel) async {
         var server = await HttpServer.bind('localhost', 0);
-        server.transform(new WebSocketTransformer()).listen((webSocket) {
+        server.transform(WebSocketTransformer()).listen((webSocket) {
           webSocket.listen((request) {
             webSocket.add(request);
           });
@@ -42,52 +42,52 @@ void main() {
   });
 
   test("communicates using an existing WebSocket", () async {
-    var webSocket = new WebSocket("ws://localhost:$port");
-    channel = new HtmlWebSocketChannel(webSocket);
+    var webSocket = WebSocket("ws://localhost:$port");
+    channel = HtmlWebSocketChannel(webSocket);
 
-    var queue = new StreamQueue(channel.stream);
+    var queue = StreamQueue(channel.stream);
     channel.sink.add("foo");
     expect(await queue.next, equals("foo"));
 
-    channel.sink.add(new Uint8List.fromList([1, 2, 3, 4, 5]));
+    channel.sink.add(Uint8List.fromList([1, 2, 3, 4, 5]));
     expect(await _decodeBlob(await queue.next), equals([1, 2, 3, 4, 5]));
 
     webSocket.binaryType = "arraybuffer";
-    channel.sink.add(new Uint8List.fromList([1, 2, 3, 4, 5]));
+    channel.sink.add(Uint8List.fromList([1, 2, 3, 4, 5]));
     expect(await queue.next, equals([1, 2, 3, 4, 5]));
   });
 
   test("communicates using an existing open WebSocket", () async {
-    var webSocket = new WebSocket("ws://localhost:$port");
+    var webSocket = WebSocket("ws://localhost:$port");
     await webSocket.onOpen.first;
 
-    channel = new HtmlWebSocketChannel(webSocket);
+    channel = HtmlWebSocketChannel(webSocket);
 
-    var queue = new StreamQueue(channel.stream);
+    var queue = StreamQueue(channel.stream);
     channel.sink.add("foo");
     expect(await queue.next, equals("foo"));
   });
 
   test(".connect defaults to binary lists", () async {
-    channel = new HtmlWebSocketChannel.connect("ws://localhost:$port");
+    channel = HtmlWebSocketChannel.connect("ws://localhost:$port");
 
-    var queue = new StreamQueue(channel.stream);
+    var queue = StreamQueue(channel.stream);
     channel.sink.add("foo");
     expect(await queue.next, equals("foo"));
 
-    channel.sink.add(new Uint8List.fromList([1, 2, 3, 4, 5]));
+    channel.sink.add(Uint8List.fromList([1, 2, 3, 4, 5]));
     expect(await queue.next, equals([1, 2, 3, 4, 5]));
   });
 
   test(".connect can use blobs", () async {
-    channel = new HtmlWebSocketChannel.connect("ws://localhost:$port",
+    channel = HtmlWebSocketChannel.connect("ws://localhost:$port",
         binaryType: BinaryType.blob);
 
-    var queue = new StreamQueue(channel.stream);
+    var queue = StreamQueue(channel.stream);
     channel.sink.add("foo");
     expect(await queue.next, equals("foo"));
 
-    channel.sink.add(new Uint8List.fromList([1, 2, 3, 4, 5]));
+    channel.sink.add(Uint8List.fromList([1, 2, 3, 4, 5]));
     expect(await _decodeBlob(await queue.next), equals([1, 2, 3, 4, 5]));
   });
 
@@ -110,15 +110,15 @@ void main() {
 
     // TODO(nweiz): Make this channel use a port number that's guaranteed to be
     // invalid.
-    var channel = new HtmlWebSocketChannel.connect(
+    var channel = HtmlWebSocketChannel.connect(
         "ws://localhost:${await serverChannel.stream.first}");
     expect(channel.stream.toList(),
-        throwsA(new TypeMatcher<WebSocketChannelException>()));
+        throwsA(TypeMatcher<WebSocketChannelException>()));
   });
 }
 
 Future<List<int>> _decodeBlob(Blob blob) async {
-  var reader = new FileReader();
+  var reader = FileReader();
   reader.readAsArrayBuffer(blob);
   await reader.onLoad.first;
   return reader.result as Uint8List;

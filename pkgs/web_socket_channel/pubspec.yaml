@@ -1,7 +1,7 @@
 name: web_socket_channel
 version: 1.0.9
 
-description: StreamChannel wrappers for WebSockets.
+description: StreamChannel wrappers for WebSockets. This package provides a cross-platform WebSocketChannel API, a cross-platform implementation of that API that communicates over an underlying StreamChannel, IOWebSocketChannel that wraps dart:io's WebSocket class, and a HtmlWebSocketChannel that wrap's dart:html's.
 author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/dart-lang/web_socket_channel
 

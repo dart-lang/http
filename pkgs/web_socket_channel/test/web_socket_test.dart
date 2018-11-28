@@ -15,7 +15,7 @@ void main() {
   group("using WebSocketChannel", () {
     test("a client can communicate with a WebSocket server", () async {
       var server = await HttpServer.bind("localhost", 0);
-      server.transform(new WebSocketTransformer()).listen((webSocket) {
+      server.transform(WebSocketTransformer()).listen((webSocket) {
         webSocket.add("hello!");
         webSocket.listen((request) {
           expect(request, equals("ping"));
@@ -24,7 +24,7 @@ void main() {
         });
       });
 
-      var client = new HttpClient();
+      var client = HttpClient();
       var request = await client.openUrl(
           "GET", Uri.parse("http://localhost:${server.port}"));
       request.headers
@@ -35,8 +35,8 @@ void main() {
 
       var response = await request.close();
       var socket = await response.detachSocket();
-      var innerChannel = new StreamChannel<List<int>>(socket, socket);
-      var webSocket = new WebSocketChannel(innerChannel, serverSide: false);
+      var innerChannel = StreamChannel<List<int>>(socket, socket);
+      var webSocket = WebSocketChannel(innerChannel, serverSide: false);
 
       var n = 0;
       await webSocket.stream.listen((message) {
@@ -69,8 +69,8 @@ void main() {
         response.contentLength = 0;
 
         var socket = await response.detachSocket();
-        var innerChannel = new StreamChannel<List<int>>(socket, socket);
-        var webSocket = new WebSocketChannel(innerChannel);
+        var innerChannel = StreamChannel<List<int>>(socket, socket);
+        var webSocket = WebSocketChannel(innerChannel);
         webSocket.sink.add("hello!");
 
         var message = await webSocket.stream.first;

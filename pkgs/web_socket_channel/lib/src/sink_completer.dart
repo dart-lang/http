@@ -18,7 +18,7 @@ class WebSocketSinkCompleter {
   ///
   /// Events can be added to the sink either before or after a destination sink
   /// is set.
-  final WebSocketSink sink = new _CompleterSink();
+  final WebSocketSink sink = _CompleterSink();
 
   /// Returns [sink] typed as a [_CompleterSink].
   _CompleterSink get _sink => sink;
@@ -37,7 +37,7 @@ class WebSocketSinkCompleter {
   /// A destination sink may be set at most once.
   void setDestinationSink(WebSocketSink destinationSink) {
     if (_sink._destinationSink != null) {
-      throw new StateError("Destination sink already set");
+      throw StateError("Destination sink already set");
     }
     _sink._setDestinationSink(destinationSink);
   }
@@ -75,7 +75,7 @@ class _CompleterSink implements WebSocketSink {
   Future get done {
     if (_doneCompleter != null) return _doneCompleter.future;
     if (_destinationSink == null) {
-      _doneCompleter = new Completer.sync();
+      _doneCompleter = Completer.sync();
       return _doneCompleter.future;
     }
     return _destinationSink.done;
@@ -120,7 +120,7 @@ class _CompleterSink implements WebSocketSink {
 
   /// Create [_controller] if it doesn't yet exist.
   void _ensureController() {
-    if (_controller == null) _controller = new StreamController(sync: true);
+    if (_controller == null) _controller = StreamController(sync: true);
   }
 
   /// Sets the destination sink to which events from this sink will be provided.

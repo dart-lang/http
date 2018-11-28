@@ -19,8 +19,8 @@ void main() {
 
   test("communicates using existing WebSockets", () async {
     server = await HttpServer.bind("localhost", 0);
-    server.transform(new WebSocketTransformer()).listen((webSocket) {
-      var channel = new IOWebSocketChannel(webSocket);
+    server.transform(WebSocketTransformer()).listen((webSocket) {
+      var channel = IOWebSocketChannel(webSocket);
       channel.sink.add("hello!");
       channel.stream.listen((request) {
         expect(request, equals("ping"));
@@ -30,7 +30,7 @@ void main() {
     });
 
     var webSocket = await WebSocket.connect("ws://localhost:${server.port}");
-    var channel = new IOWebSocketChannel(webSocket);
+    var channel = IOWebSocketChannel(webSocket);
 
     var n = 0;
     channel.stream.listen((message) {
@@ -51,16 +51,15 @@ void main() {
 
   test(".connect communicates immediately", () async {
     server = await HttpServer.bind("localhost", 0);
-    server.transform(new WebSocketTransformer()).listen((webSocket) {
-      var channel = new IOWebSocketChannel(webSocket);
+    server.transform(WebSocketTransformer()).listen((webSocket) {
+      var channel = IOWebSocketChannel(webSocket);
       channel.stream.listen((request) {
         expect(request, equals("ping"));
         channel.sink.add("pong");
       });
     });
 
-    var channel =
-        new IOWebSocketChannel.connect("ws://localhost:${server.port}");
+    var channel = IOWebSocketChannel.connect("ws://localhost:${server.port}");
     channel.sink.add("ping");
 
     channel.stream.listen(
@@ -73,17 +72,16 @@ void main() {
 
   test(".connect with an immediate call to close", () async {
     server = await HttpServer.bind("localhost", 0);
-    server.transform(new WebSocketTransformer()).listen((webSocket) {
+    server.transform(WebSocketTransformer()).listen((webSocket) {
       expect(() async {
-        var channel = new IOWebSocketChannel(webSocket);
+        var channel = IOWebSocketChannel(webSocket);
         await channel.stream.listen(null).asFuture();
         expect(channel.closeCode, equals(5678));
         expect(channel.closeReason, equals("raisin"));
       }(), completes);
     });
 
-    var channel =
-        new IOWebSocketChannel.connect("ws://localhost:${server.port}");
+    var channel = IOWebSocketChannel.connect("ws://localhost:${server.port}");
     channel.sink.close(5678, "raisin");
   });
 
@@ -95,9 +93,8 @@ void main() {
       request.response.close();
     });
 
-    var channel =
-        new IOWebSocketChannel.connect("ws://localhost:${server.port}");
+    var channel = IOWebSocketChannel.connect("ws://localhost:${server.port}");
     expect(channel.stream.toList(),
-        throwsA(new TypeMatcher<WebSocketChannelException>()));
+        throwsA(TypeMatcher<WebSocketChannelException>()));
   });
 }

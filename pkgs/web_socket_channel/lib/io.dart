@@ -53,16 +53,16 @@ class IOWebSocketChannel extends StreamChannelMixin
       Map<String, dynamic> headers,
       Duration pingInterval}) {
     var channel;
-    var sinkCompleter = new WebSocketSinkCompleter();
+    var sinkCompleter = WebSocketSinkCompleter();
     var stream = StreamCompleter.fromFuture(
         WebSocket.connect(url.toString(), headers: headers).then((webSocket) {
       webSocket.pingInterval = pingInterval;
       channel._webSocket = webSocket;
-      sinkCompleter.setDestinationSink(new _IOWebSocketSink(webSocket));
+      sinkCompleter.setDestinationSink(_IOWebSocketSink(webSocket));
       return webSocket;
-    }).catchError((error) => throw new WebSocketChannelException.from(error)));
+    }).catchError((error) => throw WebSocketChannelException.from(error)));
 
-    channel = new IOWebSocketChannel._withoutSocket(stream, sinkCompleter.sink);
+    channel = IOWebSocketChannel._withoutSocket(stream, sinkCompleter.sink);
     return channel;
   }
 
@@ -70,8 +70,8 @@ class IOWebSocketChannel extends StreamChannelMixin
   IOWebSocketChannel(WebSocket socket)
       : _webSocket = socket,
         stream = socket.handleError(
-            (error) => throw new WebSocketChannelException.from(error)),
-        sink = new _IOWebSocketSink(socket);
+            (error) => throw WebSocketChannelException.from(error)),
+        sink = _IOWebSocketSink(socket);
 
   /// Creates a channel without a socket.
   ///
@@ -80,7 +80,7 @@ class IOWebSocketChannel extends StreamChannelMixin
   IOWebSocketChannel._withoutSocket(Stream stream, this.sink)
       : _webSocket = null,
         stream = stream.handleError(
-            (error) => throw new WebSocketChannelException.from(error));
+            (error) => throw WebSocketChannelException.from(error));
 }
 
 /// A [WebSocketSink] that forwards [close] calls to a `dart:io` [WebSocket].
