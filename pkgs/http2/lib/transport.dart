@@ -28,7 +28,7 @@
 /// of this library. There are 3 common ways to achive this
 ///
 ///     * connect to a server via SSL and use the ALPN (SSL) protocol extension
-///       to negogiate with the server to speak http/2 (the ALPN protocol
+///       to negotiate with the server to speak http/2 (the ALPN protocol
 ///       identifier for http/2 is `h2`)
 ///
 ///     * have prior knowledge about the server - i.e. know ahead of time that
@@ -40,62 +40,8 @@
 /// `dart:io`s secure socket implementation (by using a `SecurityContext` and
 /// including 'h2' in the list of protocols used for ALPN).
 ///
-/// Here is a simple example on how to connect to a http/2 capable server and
-/// requesting a resource:
-///
-///     import 'dart:async';
-///     import 'dart:convert';
-///     import 'dart:io';
-///
-///     import 'package:http2/transport.dart';
-///
-///     main() async {
-///       var uri = Uri.parse("https://www.google.com/");
-///
-///       var socket = await connect(uri);
-///
-///       // The default client settings will disable server pushes. We
-///       // therefore do not need to deal with [stream.peerPushes].
-///       var transport = new ClientTransportConnection.viaSocket(socket);
-///
-///       var headers = [
-///         new Header.ascii(':method', 'GET'),
-///         new Header.ascii(':path', uri.path),
-///         new Header.ascii(':scheme', uri.scheme),
-///         new Header.ascii(':authority', uri.host),
-///       ];
-///
-///       var stream = transport.makeRequest(headers, endStream: true);
-///       await for (var message in stream.incomingMessages) {
-///         if (message is HeadersStreamMessage) {
-///           for (var header in message.headers) {
-///             var name = UTF8.decode(header.name);
-///             var value = UTF8.decode(header.value);
-///             print('$name: $value');
-///           }
-///         } else if (message is DataStreamMessage) {
-///           // Use [message.bytes] (but respect 'content-encoding' header)
-///         }
-///       }
-///       await transport.finish();
-///     }
-///
-///     Future<Socket> connect(Uri uri) async {
-///       bool useSSL = uri.scheme == 'https';
-///       if (useSSL) {
-///         var secureSocket = await SecureSocket.connect(
-///             uri.host, uri.port, supportedProtocols: ['h2']);
-///         if (secureSocket.selectedProtocol != 'h2') {
-///           throw new Exception(
-///               "Failed to negogiate http/2 via alpn. Maybe server "
-///               "doesn't support http/2.");
-///         }
-///         return secureSocket;
-///       } else {
-///         return await Socket.connect(uri.host, uri.port);
-///       }
-///     }
-///
+/// A simple example on how to connect to a http/2 capable server and
+/// requesting a resource is available at https://github.com/dart-lang/http2/blob/master/example/display_headers.dart.
 library http2.transport;
 
 import 'dart:async';
