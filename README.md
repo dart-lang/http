@@ -1,5 +1,3 @@
-# http
-
 A composable, Future-based library for making HTTP requests.
 
 [![pub package](https://img.shields.io/pub/v/http.svg)](https://pub.dartlang.org/packages/http)
