@@ -11,7 +11,7 @@ iterating over the response.
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:http2/transport.dart';
+import 'package:http2/http2.dart';
 
 main() async {
   var uri = Uri.parse('https://www.google.com/');
