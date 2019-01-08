@@ -1,8 +1,0 @@
-name: httpexample
-description: A sample http example.
-
-environment:
-  sdk: '>=2.0.0 <3.0.0'
-
-dependencies:
-  http:
