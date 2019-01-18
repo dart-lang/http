@@ -13,15 +13,15 @@ import 'package:test/test.dart';
 void main() {
   group("with multiple HttpServers", () {
     var multiServer;
-    var subServer1;
-    var subServer2;
-    var subServer3;
+    HttpServer subServer1;
+    HttpServer subServer2;
+    HttpServer subServer3;
     setUp(() {
       return Future.wait([
         HttpServer.bind("localhost", 0).then((server) => subServer1 = server),
         HttpServer.bind("localhost", 0).then((server) => subServer2 = server),
         HttpServer.bind("localhost", 0).then((server) => subServer3 = server)
-      ]).then((servers) => multiServer = new HttpMultiServer(servers));
+      ]).then((servers) => multiServer = HttpMultiServer(servers));
     });
 
     tearDown(() => multiServer.close());
@@ -127,8 +127,8 @@ void main() {
 
     test("connectionsInfo sums the values for all servers", () {
       var pendingRequests = 0;
-      var awaitingResponseCompleter = new Completer();
-      var sendResponseCompleter = new Completer();
+      var awaitingResponseCompleter = Completer();
+      var sendResponseCompleter = Completer();
       multiServer.listen((request) {
         sendResponseCompleter.future.then((_) {
           request.response.write("got request");
@@ -159,7 +159,7 @@ void main() {
   group("HttpMultiServer.loopback", () {
     var server;
     setUp(() {
-      return HttpMultiServer.loopback(0).then((server_) => server = server_);
+      return HttpMultiServer.loopback(0).then((s) => server = s);
     });
 
     tearDown(() => server.close());

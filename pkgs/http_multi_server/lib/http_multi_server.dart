@@ -86,7 +86,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// listened to when this is called.
   HttpMultiServer(Iterable<HttpServer> servers)
       : _servers = servers.toSet(),
-        defaultResponseHeaders = new MultiHeaders(
+        defaultResponseHeaders = MultiHeaders(
             servers.map((server) => server.defaultResponseHeaders)),
         super(StreamGroup.merge(servers));
 
@@ -95,7 +95,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// See [HttpServer.bind].
   static Future<HttpServer> loopback(int port,
-      {int backlog, bool v6Only: false, bool shared: false}) {
+      {int backlog, bool v6Only = false, bool shared = false}) {
     if (backlog == null) backlog = 0;
 
     return _loopback(
@@ -109,9 +109,9 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// See [HttpServer.bindSecure].
   static Future<HttpServer> loopbackSecure(int port, SecurityContext context,
       {int backlog,
-      bool v6Only: false,
-      bool requestClientCertificate: false,
-      bool shared: false}) {
+      bool v6Only = false,
+      bool requestClientCertificate = false,
+      bool shared = false}) {
     if (backlog == null) backlog = 0;
 
     return _loopback(
@@ -143,7 +143,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       // Reuse the IPv4 server's port so that if [port] is 0, both servers use
       // the same ephemeral port.
       var v6Server = await bind(InternetAddress.loopbackIPv6, v4Server.port);
-      return new HttpMultiServer([v4Server, v6Server]);
+      return HttpMultiServer([v4Server, v6Server]);
     } on SocketException catch (error) {
       if (error.osError.errorCode != _addressInUseErrno) rethrow;
       if (port != 0) rethrow;
@@ -152,18 +152,18 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       // A port being available on IPv4 doesn't necessarily mean that the same
       // port is available on IPv6. If it's not (which is rare in practice),
       // we try again until we find one that's available on both.
-      v4Server.close();
+      await v4Server.close();
       return await _loopback(port, bind, remainingRetries - 1);
     }
   }
 
-  Future close({bool force: false}) =>
+  Future close({bool force = false}) =>
       Future.wait(_servers.map((server) => server.close(force: force)));
 
   /// Returns an HttpConnectionsInfo object summarizing the total number of
   /// current connections handled by all the servers.
   HttpConnectionsInfo connectionsInfo() {
-    var info = new HttpConnectionsInfo();
+    var info = HttpConnectionsInfo();
     for (var server in _servers) {
       var subInfo = server.connectionsInfo();
       info.total += subInfo.total;
