@@ -153,20 +153,21 @@ abstract class BaseClient implements Client {
     var request = new Request(method, url);
 
     if (headers != null) request.headers.addAll(headers);
-    if (encoding != null) request.encoding = encoding;
-    if (body != null) {
-      if (body is String) {
-        request.body = body;
-      } else if (body is List) {
-        request.bodyBytes = body.cast<int>();
-      } else if (body is Map) {
-        request.bodyFields = body.cast<String, String>();
-      } else {
-        throw new ArgumentError('Invalid request body "$body".');
+     request.encoding = encoding;
+      if (body != null) {
+        if (body is String) {
+          request.body = body;
+        } else if (body is List) {
+          request.bodyBytes = body.cast<int>();
+        } else if (body is Map) {
+          request.bodyFields = body.cast<String, String>();
+        } else {
+          throw new ArgumentError('Invalid request body "$body".');
+        }
       }
-    }
 
-    return Response.fromStream(await send(request));
+      return Response.fromStream(await send(request));
+
   }
 
   /// Throws an error if [response] is not successful.

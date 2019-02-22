@@ -56,7 +56,10 @@ class Request extends BaseRequest {
     _defaultEncoding = value;
     var contentType = _contentType;
     if (contentType == null) return;
-    _contentType = contentType.change(parameters: {'charset': value.name});
+    if (value == null)
+      _contentType = contentType.change(parameters: {});
+    else
+      _contentType = contentType.change(parameters: {'charset': value.name});
   }
 
   // TODO(nweiz): make this return a read-only view
