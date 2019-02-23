@@ -13,6 +13,8 @@ import 'utils.dart';
 
 /// An HTTP request where the entire request body is known in advance.
 class Request extends BaseRequest {
+  bool isIgnoreEncoding = false;
+
   /// The size of the request body, in bytes. This is calculated from
   /// [bodyBytes].
   ///
@@ -56,7 +58,7 @@ class Request extends BaseRequest {
     _defaultEncoding = value;
     var contentType = _contentType;
     if (contentType == null) return;
-    if (value == null)
+    if (isIgnoreEncoding)
       _contentType = contentType.change(parameters: {});
     else
       _contentType = contentType.change(parameters: {'charset': value.name});
@@ -89,8 +91,8 @@ class Request extends BaseRequest {
     var contentType = _contentType;
     if (contentType == null) {
       _contentType = new MediaType("text", "plain", {'charset': encoding.name});
-    } else if (!contentType.parameters.containsKey('charset') && encoding !=
-        null) {
+    } else if (!contentType.parameters.containsKey('charset') &&
+        !isIgnoreEncoding) {
       _contentType = contentType.change(parameters: {'charset': encoding.name});
     }
   }

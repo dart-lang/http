@@ -152,7 +152,10 @@ abstract class BaseClient implements Client {
     if (url is String) url = Uri.parse(url);
     var request = new Request(method, url);
 
-
+    if (headers != null) request.headers.addAll(headers);
+   if(encoding != null) request.encoding = encoding; else {
+     request.isIgnoreEncoding = true;
+   }
       if (body != null) {
         if (body is String) {
           request.body = body;
@@ -164,8 +167,7 @@ abstract class BaseClient implements Client {
           throw new ArgumentError('Invalid request body "$body".');
         }
       }
-      if (headers != null) request.headers.addAll(headers);
-      request.encoding = encoding;
+
       return Response.fromStream(await send(request));
 
   }
