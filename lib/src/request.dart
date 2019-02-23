@@ -89,7 +89,8 @@ class Request extends BaseRequest {
     var contentType = _contentType;
     if (contentType == null) {
       _contentType = new MediaType("text", "plain", {'charset': encoding.name});
-    } else if (!contentType.parameters.containsKey('charset')) {
+    } else if (!contentType.parameters.containsKey('charset') && encoding !=
+        null) {
       _contentType = contentType.change(parameters: {'charset': encoding.name});
     }
   }
