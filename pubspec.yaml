@@ -1,5 +1,5 @@
 name: http
-version: 0.12.0+1
+version: 0.12.1-dev
 author: "Dart Team <misc@dartlang.org>"
 homepage: https://github.com/dart-lang/http
 description: A composable, cross-platform, Future-based API for making HTTP requests.
