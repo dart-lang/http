@@ -20,7 +20,7 @@ var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
 print('Response status: ${response.statusCode}');
 print('Response body: ${response.body}');
 
-http.read('http://example.com/foobar.txt').then(print);
+print(await http.read('http://example.com/foobar.txt'));
 ```
 
 If you're making multiple requests to the same server, you can keep open a
