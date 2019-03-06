@@ -24,13 +24,12 @@ final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
 ///     var uri = Uri.parse("http://pub.dartlang.org/packages/create");
 ///     var request = new http.MultipartRequest("POST", uri);
 ///     request.fields['user'] = 'nweiz@google.com';
-///     request.files.add(new http.MultipartFile.fromFile(
+///     request.files.add(new http.MultipartFile.fromPath(
 ///         'package',
-///         new File('build/package.tar.gz'),
+///         'build/package.tar.gz',
 ///         contentType: new MediaType('application', 'x-tar'));
-///     request.send().then((response) {
-///       if (response.statusCode == 200) print("Uploaded!");
-///     });
+///     var response = await request.send();
+///     if (response.statusCode == 200) print('Uploaded!');
 class MultipartRequest extends BaseRequest {
   /// The total length of the multipart boundaries used when building the
   /// request body. According to http://tools.ietf.org/html/rfc1341.html, this
