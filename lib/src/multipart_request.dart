@@ -79,7 +79,7 @@ class MultipartRequest extends BaseRequest {
     return length + "--".length + _BOUNDARY_LENGTH + "--\r\n".length;
   }
 
-  void set contentLength(int value) {
+  set contentLength(int value) {
     throw new UnsupportedError("Cannot set the contentLength property of "
         "multipart requests.");
   }
