@@ -6,6 +6,8 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
+import 'package:pedantic/pedantic.dart' show unawaited;
+
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
@@ -49,7 +51,7 @@ class BrowserClient extends BaseClient {
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = new Completer<StreamedResponse>();
-    xhr.onLoad.first.then((_) {
+    unawaited(xhr.onLoad.first.then((_) {
       // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
       // is fixed.
       var blob = xhr.response == null ? new Blob([]) : xhr.response;
@@ -72,15 +74,15 @@ class BrowserClient extends BaseClient {
       });
 
       reader.readAsArrayBuffer(blob);
-    });
+    }));
 
-    xhr.onError.first.then((_) {
+    unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
       completer.completeError(
           new ClientException("XMLHttpRequest error.", request.url),
           StackTrace.current);
-    });
+    }));
 
     xhr.send(bytes);
 
