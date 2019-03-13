@@ -39,9 +39,9 @@ abstract class BaseResponse {
   BaseResponse(this.statusCode,
       {this.contentLength,
       this.request,
-      this.headers: const {},
-      this.isRedirect: false,
-      this.persistentConnection: true,
+      this.headers = const {},
+      this.isRedirect = false,
+      this.persistentConnection = true,
       this.reasonPhrase}) {
     if (statusCode < 100) {
       throw new ArgumentError("Invalid status code $statusCode.");
