@@ -67,3 +67,29 @@ class UserAgentClient extends http.BaseClient {
   }
 }
 ```
+## Using on the Browser
+The HTTP library can be used on the browser via the BrowserClient class in package:http/browser_client.dart. This client translates requests into XMLHttpRequests. For example:
+
+```dart
+import 'dart:async';
+import 'package:http/browser_client.dart';
+
+main() async {
+  var client = new BrowserClient();
+  var url = '/whatsit/create';
+  var response =
+      await client.post(url, body: {'name': 'doodle', 'color': 'blue'});
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+}
+```
+
+## Using in Flutter
+Note that when using this library in Flutter, your app needs to have Internet permissions. In iOS, this should already exist, but in Android, you will need to add the Internet Permission to your AndroidManifest.xml. By default, Flutter includes this permission in `android/app/src/` but that only applies to debug builds. For release builds, you will also need to specify Internet permissions in the file `android/app/src/main/AndroidManifest.xml` like so:
+
+```xml
+<android>
+  <uses-permission android:name="android.permission.INTERNET" />
+</android>
+```
+
