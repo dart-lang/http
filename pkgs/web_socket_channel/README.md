@@ -75,7 +75,7 @@ The [`IOWebSocketChannel`][IOWebSocketChannel] class wraps
 has its own library, `package:web_socket_channel/io.dart`. This allows the main
 `WebSocketChannel` class to be available on all platforms.
 
-[io.WebSocket]: https://api.dartlang.org/latest/dart-io/WebSocket-class.html
+[io.WebSocket]: https://api.dartlang.org/stable/dart-io/WebSocket-class.html
 
 An `IOWebSocketChannel` can be created by passing a `dart:io` WebSocket to
 [its constructor][IOWebSocketChannel]. It's more common to want to connect
@@ -104,7 +104,7 @@ The [`HtmlWebSocketChannel`][HtmlWebSocketChannel] class wraps
 `dart:html`, it has its own library, `package:web_socket_channel/html.dart`.
 This allows the main `WebSocketChannel` class to be available on all platforms.
 
-[html.WebSocket]: https://api.dartlang.org/latest/dart-html/WebSocket-class.html
+[html.WebSocket]: https://api.dartlang.org/stable/dart-html/WebSocket-class.html
 
 An `HtmlWebSocketChannel` can be created by passing a `dart:html` WebSocket to
 [its constructor][HtmlWebSocketChannel]. It's more common to want to connect
