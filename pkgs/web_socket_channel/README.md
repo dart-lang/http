@@ -8,8 +8,8 @@ class, and [a similar implementation][HtmlWebSocketChannel] that wrap's
 
 [stream_channel]: https://pub.dartlang.org/packages/stream_channel
 [WebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html
-[IOWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel-class.html
-[HtmlWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel-class.html
+[IOWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.io/IOWebSocketChannel-class.html
+[HtmlWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.html/HtmlWebSocketChannel-class.html
 
 It also provides constants for the WebSocket protocol's pre-defined status codes
 in the [`status.dart` library][status]. It's strongly recommended that users
@@ -82,7 +82,6 @@ An `IOWebSocketChannel` can be created by passing a `dart:io` WebSocket to
 directly to a `ws://` or `wss://` URL, in which case
 [`IOWebSocketChannel.connect()`][IOWebSocketChannel.connect] should be used.
 
-[IOWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.io/IOWebSocketChannel-class.html
 [IOWebSocketChannel.connect]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.io/IOWebSocketChannel/IOWebSocketChannel.connect.html
 
 ```dart
@@ -111,7 +110,6 @@ An `HtmlWebSocketChannel` can be created by passing a `dart:html` WebSocket to
 directly to a `ws://` or `wss://` URL, in which case
 [`HtmlWebSocketChannel.connect()`][HtmlWebSocketChannel.connect] should be used.
 
-[HtmlWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.html/HtmlWebSocketChannel-class.html
 [HtmlWebSocketChannel.connect]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.html/HtmlWebSocketChannel/HtmlWebSocketChannel.connect.html
 
 ```dart

@@ -1,3 +1,9 @@
+## 1.0.11
+
+* Fixed description in pubspec.
+
+* Fixed lints in README.md.
+
 ## 1.0.10
 
 * Fixed links in README.md.
