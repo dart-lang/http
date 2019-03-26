@@ -7,15 +7,15 @@ class, and [a similar implementation][HtmlWebSocketChannel] that wrap's
 `dart:html`'s.
 
 [stream_channel]: https://pub.dartlang.org/packages/stream_channel
-[WebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html
-[IOWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel-class.html
-[HtmlWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel-class.html
+[WebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html
+[IOWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel-class.html
+[HtmlWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel-class.html
 
 It also provides constants for the WebSocket protocol's pre-defined status codes
 in the [`status.dart` library][status]. It's strongly recommended that users
 import this library should be imported with the prefix `status`.
 
-[status]: https://www.dartdocs.org/documentation/web_socket_channel/latest/status/status-library.html
+[status]: https://pub.dartlang.org/documentation/web_socket_channel/latest/status/status-library.html
 
 ```dart
 import 'package:web_socket_channel/io.dart';
@@ -40,9 +40,9 @@ platforms. In addition to the base `StreamChannel` interface, it adds a
 socket, as well as [`closeCode`][closeCode] and [`closeReason`][closeReason]
 getters that provide information about why the socket closed.
 
-[protocol]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/protocol.html
-[closeCode]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/closeCode.html
-[closeReason]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/closeReason.html
+[protocol]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/protocol.html
+[closeCode]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/closeCode.html
+[closeReason]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/closeReason.html
 
 The channel's [`sink` property][sink] is also special. It returns a
 [`WebSocketSink`][WebSocketSink], which is just like a `StreamSink` except that
@@ -50,9 +50,9 @@ its [`close()`][sink.close] method supports optional `closeCode` and
 `closeReason` parameters. These parameters allow the caller to signal to the
 other socket exactly why they're closing the connection.
 
-[sink]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/sink.html
-[WebSocketSink]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketSink-class.html
-[sink.close]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketSink/close.html
+[sink]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/sink.html
+[WebSocketSink]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketSink-class.html
+[sink.close]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketSink/close.html
 
 `WebSocketChannel` also works as a cross-platform implementation of the
 WebSocket protocol. Because it can't initiate or handle HTTP requests in a
@@ -63,8 +63,8 @@ method to make it easier to implement the [initial WebSocket handshake][]. These
 are used in the [`shelf_web_socket`][shelf_web_socket] package to support
 WebSockets in a cross-platform way.
 
-[new]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/WebSocketChannel.html
-[signKey]: https://www.dartdocs.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/signKey.html
+[new]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html
+[signKey]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/signKey.html
 [initial WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4.2.2
 [shelf_web_socket]: https://pub.dartlang.org/packages/shelf_web_socket
 
@@ -82,8 +82,8 @@ An `IOWebSocketChannel` can be created by passing a `dart:io` WebSocket to
 directly to a `ws://` or `wss://` URL, in which case
 [`IOWebSocketChannel.connect()`][IOWebSocketChannel.connect] should be used.
 
-[IOWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel/IOWebSocketChannel.html
-[IOWebSocketChannel.connect]: https://www.dartdocs.org/documentation/web_socket_channel/latest/io/IOWebSocketChannel/IOWebSocketChannel.connect.html
+[IOWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.io/IOWebSocketChannel-class.html
+[IOWebSocketChannel.connect]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.io/IOWebSocketChannel/IOWebSocketChannel.connect.html
 
 ```dart
 import 'package:web_socket_channel/io.dart';
@@ -111,8 +111,8 @@ An `HtmlWebSocketChannel` can be created by passing a `dart:html` WebSocket to
 directly to a `ws://` or `wss://` URL, in which case
 [`HtmlWebSocketChannel.connect()`][HtmlWebSocketChannel.connect] should be used.
 
-[HtmlWebSocketChannel]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel/HtmlWebSocketChannel.html
-[HtmlWebSocketChannel.connect]: https://www.dartdocs.org/documentation/web_socket_channel/latest/html/HtmlWebSocketChannel/HtmlWebSocketChannel.connect.html
+[HtmlWebSocketChannel]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.html/HtmlWebSocketChannel-class.html
+[HtmlWebSocketChannel.connect]: https://pub.dartlang.org/documentation/web_socket_channel/latest/web_socket_channel.html/HtmlWebSocketChannel/HtmlWebSocketChannel.connect.html
 
 ```dart
 import 'package:web_socket_channel/html.dart';
