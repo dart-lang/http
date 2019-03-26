@@ -1,16 +1,14 @@
 language: dart
-sudo: false
-dart: dev
+
+dart:
+- 2.0.0
+- dev
 
 dart_task:
   - test: --platform vm
   - test: --platform firefox -j 1
-  - dartanalyzer --fatal-infos --fatal-warnings
-
-matrix:
-  include:
-    - dart: dev
-      dart_task: dartfmt
+  - dartanalyzer: --fatal-infos --fatal-warnings .
+  - dartfmt
 
 # Only building master means that we don't run two builds for each pull request.
 branches:

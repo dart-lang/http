@@ -82,7 +82,7 @@ void main() {
     });
 
     var channel = IOWebSocketChannel.connect("ws://localhost:${server.port}");
-    channel.sink.close(5678, "raisin");
+    await channel.sink.close(5678, "raisin");
   });
 
   test(".connect wraps a connection error in WebSocketChannelException",

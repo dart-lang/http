@@ -142,10 +142,10 @@ class _HtmlWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
 /// messages.
 class BinaryType {
   /// Tells the channel to emit binary messages as [Blob]s.
-  static const blob = const BinaryType._("blob", "blob");
+  static const blob = BinaryType._("blob", "blob");
 
   /// Tells the channel to emit binary messages as [Uint8List]s.
-  static const list = const BinaryType._("list", "arraybuffer");
+  static const list = BinaryType._("list", "arraybuffer");
 
   /// The name of the binary type, which matches its variable name.
   final String name;

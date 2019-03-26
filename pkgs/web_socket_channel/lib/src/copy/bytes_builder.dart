@@ -24,7 +24,7 @@ abstract class BytesBuilder {
   /// it [copy] is false, the data is only copied if needed. That means that if
   /// the lists are changed after added to the [BytesBuilder], it may effect the
   /// output. Default is `true`.
-  factory BytesBuilder({bool copy: true}) {
+  factory BytesBuilder({bool copy = true}) {
     if (copy) {
       return _CopyingBytesBuilder();
     } else {

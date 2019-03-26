@@ -76,7 +76,7 @@ void main() {
         var message = await webSocket.stream.first;
         expect(message, equals("ping"));
         webSocket.sink.add("pong");
-        webSocket.sink.close();
+        await webSocket.sink.close();
       });
 
       var webSocket = await WebSocket.connect('ws://localhost:${server.port}');

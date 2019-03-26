@@ -90,7 +90,7 @@ class WebSocketChannel extends StreamChannelMixin {
   ///
   /// [WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4
   WebSocketChannel(StreamChannel<List<int>> channel,
-      {String protocol, Duration pingInterval, bool serverSide: true})
+      {String protocol, Duration pingInterval, bool serverSide = true})
       : _webSocket = WebSocketImpl.fromSocket(
             channel.stream, channel.sink, protocol, serverSide)
           ..pingInterval = pingInterval;

@@ -52,11 +52,6 @@ class _WebSocketOpcode {
   static const int RESERVED_F = 15;
 }
 
-class _EncodedString {
-  final List<int> bytes;
-  _EncodedString(this.bytes);
-}
-
 /// The web socket protocol transformer handles the protocol byte stream
 /// which is supplied through the `handleData`. As the protocol is processed,
 /// it'll output frame data as either a List<int> or String.
@@ -334,7 +329,7 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
       case _WebSocketOpcode.CLOSE:
         closeCode = WebSocketStatus.NO_STATUS_RECEIVED;
         var payload = _payload.takeBytes();
-        if (payload.length > 0) {
+        if (payload.isNotEmpty) {
           if (payload.length == 1) {
             throw WebSocketChannelException("Protocol error");
           }
@@ -426,9 +421,6 @@ class _WebSocketOutgoingTransformer
       } else if (message is List<int>) {
         opcode = _WebSocketOpcode.BINARY;
         data = message;
-      } else if (message is _EncodedString) {
-        opcode = _WebSocketOpcode.TEXT;
-        data = message.bytes;
       } else {
         throw ArgumentError(message);
       }
