@@ -1,3 +1,7 @@
+## 1.0.12
+
+* Allow `stream_channel` version 2.x
+
 ## 1.0.11
 
 * Fixed description in pubspec.
