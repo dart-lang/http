@@ -5,7 +5,7 @@ about: You are attempting to make a GET or POST and getting an unexpected
 
 ---
 
-** This is not the repository you want to file issues in! **
+**This is not the repository you want to file issues in!**
 
 Note that a failing HTTP connection is almost certainly not caused by a bug in
 `package:http`.
