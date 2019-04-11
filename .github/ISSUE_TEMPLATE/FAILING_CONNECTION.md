@@ -15,7 +15,7 @@ This package is a wrapper around the clients [`dart:io` client][] and
 verify that the issue is not surfaced when using those interfaces directly.
 
 [`dart:io` client]: https://api.dartlang.org/stable/dart-io/HttpClient-class.html
-[`dart:html` request]: https://api.dartlang.org/stable/2.2.0/dart-html/HttpRequest-class.html
+[`dart:html` request]: https://api.dartlang.org/stable/dart-html/HttpRequest-class.html
 
 # Common problems:
 
