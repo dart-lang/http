@@ -1,3 +1,8 @@
+## 2.0.6
+
+* If there is a problem starting a loopback Ipv6 server, don't keep the Ipv4
+  server open when throwing the exception.
+
 ## 2.0.5
 
 * Update SDK constraints to `>=2.0.0-dev <3.0.0`.

@@ -145,6 +145,10 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       var v6Server = await bind(InternetAddress.loopbackIPv6, v4Server.port);
       return HttpMultiServer([v4Server, v6Server]);
     } on SocketException catch (error) {
+      // If there is already a server listening we'll lose the reference on a
+      // rethrow.
+      await v4Server.close();
+
       if (error.osError.errorCode != _addressInUseErrno) rethrow;
       if (port != 0) rethrow;
       if (remainingRetries == 0) rethrow;
@@ -152,7 +156,6 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       // A port being available on IPv4 doesn't necessarily mean that the same
       // port is available on IPv6. If it's not (which is rare in practice),
       // we try again until we find one that's available on both.
-      await v4Server.close();
       return await _loopback(port, bind, remainingRetries - 1);
     }
   }

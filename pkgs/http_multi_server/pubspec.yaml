@@ -1,5 +1,5 @@
 name: http_multi_server
-version: 2.0.6-dev
+version: 2.0.6
 
 description: A dart:io HttpServer wrapper that handles requests from multiple servers.
 author: Dart Team <misc@dartlang.org>
