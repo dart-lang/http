@@ -13,9 +13,8 @@ import 'utils.dart';
 
 void main() {
   test('handles a request', () {
-    var client = new MockClient((request) {
-      return new Future.value(new http.Response(
-          json.encode(request.bodyFields), 200,
+    var client = MockClient((request) {
+      return Future.value(http.Response(json.encode(request.bodyFields), 200,
           request: request, headers: {'content-type': 'application/json'}));
     });
 
@@ -28,20 +27,20 @@ void main() {
   });
 
   test('handles a streamed request', () {
-    var client = new MockClient.streaming((request, bodyStream) {
+    var client = MockClient.streaming((request, bodyStream) {
       return bodyStream.bytesToString().then((bodyString) {
-        var controller = new StreamController<List<int>>(sync: true);
-        new Future.sync(() {
+        var controller = StreamController<List<int>>(sync: true);
+        Future.sync(() {
           controller.add('Request body was "$bodyString"'.codeUnits);
           controller.close();
         });
 
-        return new http.StreamedResponse(controller.stream, 200);
+        return http.StreamedResponse(controller.stream, 200);
       });
     });
 
     var uri = Uri.parse("http://example.com/foo");
-    var request = new http.Request("POST", uri);
+    var request = http.Request("POST", uri);
     request.body = "hello, world";
     var future = client
         .send(request)
@@ -51,8 +50,8 @@ void main() {
   });
 
   test('handles a request with no body', () {
-    var client = new MockClient((request) {
-      return new Future.value(new http.Response('you did it', 200));
+    var client = MockClient((request) {
+      return Future.value(http.Response('you did it', 200));
     });
 
     expect(client.read("http://example.com/foo"),

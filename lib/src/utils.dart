@@ -53,12 +53,12 @@ Encoding encodingForCharset(String charset, [Encoding fallback = latin1]) {
 Encoding requiredEncodingForCharset(String charset) {
   var encoding = Encoding.getByName(charset);
   if (encoding != null) return encoding;
-  throw new FormatException('Unsupported encoding "$charset".');
+  throw FormatException('Unsupported encoding "$charset".');
 }
 
 /// A regular expression that matches strings that are composed entirely of
 /// ASCII-compatible characters.
-final RegExp _ASCII_ONLY = new RegExp(r"^[\x00-\x7F]+$");
+final RegExp _ASCII_ONLY = RegExp(r"^[\x00-\x7F]+$");
 
 /// Returns whether [string] is composed entirely of ASCII-compatible
 /// characters.
@@ -71,23 +71,23 @@ Uint8List toUint8List(List<int> input) {
   if (input is Uint8List) return input;
   if (input is TypedData) {
     // TODO(nweiz): remove "as" when issue 11080 is fixed.
-    return new Uint8List.view((input as TypedData).buffer);
+    return Uint8List.view((input as TypedData).buffer);
   }
-  return new Uint8List.fromList(input);
+  return Uint8List.fromList(input);
 }
 
 /// If [stream] is already a [ByteStream], returns it. Otherwise, wraps it in a
 /// [ByteStream].
 ByteStream toByteStream(Stream<List<int>> stream) {
   if (stream is ByteStream) return stream;
-  return new ByteStream(stream);
+  return ByteStream(stream);
 }
 
 /// Calls [onDone] once [stream] (a single-subscription [Stream]) is finished.
 /// The return value, also a single-subscription [Stream] should be used in
 /// place of [stream] after calling this method.
 Stream<T> onDone<T>(Stream<T> stream, void onDone()) =>
-    stream.transform(new StreamTransformer.fromHandlers(handleDone: (sink) {
+    stream.transform(StreamTransformer.fromHandlers(handleDone: (sink) {
       sink.close();
       onDone();
     }));
@@ -96,7 +96,7 @@ Stream<T> onDone<T>(Stream<T> stream, void onDone()) =>
 /// Pipes all data and errors from [stream] into [sink]. When [stream] is done,
 /// [sink] is closed and the returned [Future] is completed.
 Future store(Stream stream, EventSink sink) {
-  var completer = new Completer();
+  var completer = Completer();
   stream.listen(sink.add, onError: sink.addError, onDone: () {
     sink.close();
     completer.complete();
@@ -108,7 +108,7 @@ Future store(Stream stream, EventSink sink) {
 /// [stream] is done. Unlike [store], [sink] remains open after [stream] is
 /// done.
 Future writeStreamToSink(Stream stream, EventSink sink) {
-  var completer = new Completer();
+  var completer = Completer();
   stream.listen(sink.add,
       onError: sink.addError, onDone: () => completer.complete());
   return completer.future;

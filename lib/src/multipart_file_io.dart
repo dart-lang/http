@@ -15,9 +15,9 @@ import 'multipart_file.dart';
 Future<MultipartFile> multipartFileFromPath(String field, String filePath,
     {String filename, MediaType contentType}) async {
   if (filename == null) filename = p.basename(filePath);
-  var file = new File(filePath);
+  var file = File(filePath);
   var length = await file.length();
-  var stream = new ByteStream(DelegatingStream.typed(file.openRead()));
-  return new MultipartFile(field, stream, length,
+  var stream = ByteStream(DelegatingStream.typed(file.openRead()));
+  return MultipartFile(field, stream, length,
       filename: filename, contentType: contentType);
 }

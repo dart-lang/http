@@ -60,7 +60,7 @@ class Response extends BaseResponse {
   /// available from a [StreamedResponse].
   static Future<Response> fromStream(StreamedResponse response) {
     return response.stream.toBytes().then((body) {
-      return new Response.bytes(body, response.statusCode,
+      return Response.bytes(body, response.statusCode,
           request: response.request,
           headers: response.headers,
           isRedirect: response.isRedirect,
@@ -81,6 +81,6 @@ Encoding _encodingForHeaders(Map<String, String> headers) =>
 /// Defaults to `application/octet-stream`.
 MediaType _contentTypeForHeaders(Map<String, String> headers) {
   var contentType = headers['content-type'];
-  if (contentType != null) return new MediaType.parse(contentType);
-  return new MediaType("application", "octet-stream");
+  if (contentType != null) return MediaType.parse(contentType);
+  return MediaType("application", "octet-stream");
 }

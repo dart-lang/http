@@ -538,7 +538,7 @@ main() {
               'X-Random-Header': 'Value',
               'X-Other-Header': 'Other Value',
               'User-Agent': 'Dart'
-            }).then((bytes) => new String.fromCharCodes(bytes));
+            }).then((bytes) => String.fromCharCodes(bytes));
 
             expect(
                 future,

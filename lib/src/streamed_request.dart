@@ -28,7 +28,7 @@ class StreamedRequest extends BaseRequest {
 
   /// Creates a new streaming request.
   StreamedRequest(String method, Uri url)
-      : _controller = new StreamController<List<int>>(sync: true),
+      : _controller = StreamController<List<int>>(sync: true),
         super(method, url);
 
   /// Freezes all mutable fields other than [stream] and returns a
@@ -36,6 +36,6 @@ class StreamedRequest extends BaseRequest {
   /// [sink].
   ByteStream finalize() {
     super.finalize();
-    return new ByteStream(_controller.stream);
+    return ByteStream(_controller.stream);
   }
 }

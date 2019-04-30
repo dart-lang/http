@@ -13,23 +13,23 @@ import 'utils.dart';
 void main() {
   group('contentLength', () {
     test("works when it's set", () {
-      var request = new http.StreamedRequest('POST', echoUrl);
+      var request = http.StreamedRequest('POST', echoUrl);
       request.contentLength = 10;
       request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       request.sink.close();
 
-      return new BrowserClient().send(request).then((response) {
+      return BrowserClient().send(request).then((response) {
         expect(response.stream.toBytes(),
             completion(equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])));
       });
     });
 
     test("works when it's not set", () {
-      var request = new http.StreamedRequest('POST', echoUrl);
+      var request = http.StreamedRequest('POST', echoUrl);
       request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       request.sink.close();
 
-      return new BrowserClient().send(request).then((response) {
+      return BrowserClient().send(request).then((response) {
         expect(response.stream.toBytes(),
             completion(equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])));
       });

@@ -49,7 +49,7 @@ class MultipartFile {
       : this._stream = toByteStream(stream),
         this.contentType = contentType != null
             ? contentType
-            : new MediaType("application", "octet-stream");
+            : MediaType("application", "octet-stream");
 
   /// Creates a new [MultipartFile] from a byte array.
   ///
@@ -57,8 +57,8 @@ class MultipartFile {
   /// future may be inferred from [filename].
   factory MultipartFile.fromBytes(String field, List<int> value,
       {String filename, MediaType contentType}) {
-    var stream = new ByteStream.fromBytes(value);
-    return new MultipartFile(field, stream, value.length,
+    var stream = ByteStream.fromBytes(value);
+    return MultipartFile(field, stream, value.length,
         filename: filename, contentType: contentType);
   }
 
@@ -71,11 +71,11 @@ class MultipartFile {
   factory MultipartFile.fromString(String field, String value,
       {String filename, MediaType contentType}) {
     contentType =
-        contentType == null ? new MediaType("text", "plain") : contentType;
+        contentType == null ? MediaType("text", "plain") : contentType;
     var encoding = encodingForCharset(contentType.parameters['charset'], utf8);
     contentType = contentType.change(parameters: {'charset': encoding.name});
 
-    return new MultipartFile.fromBytes(field, encoding.encode(value),
+    return MultipartFile.fromBytes(field, encoding.encode(value),
         filename: filename, contentType: contentType);
   }
 
@@ -98,7 +98,7 @@ class MultipartFile {
   // of the file. The stream may be closed to indicate an empty file.
   ByteStream finalize() {
     if (isFinalized) {
-      throw new StateError("Can't finalize a finalized MultipartFile.");
+      throw StateError("Can't finalize a finalized MultipartFile.");
     }
     _isFinalized = true;
     return _stream;
