@@ -12,7 +12,7 @@ import 'byte_stream.dart';
 import 'multipart_file.dart';
 import 'utils.dart';
 
-final _newlineRegExp = new RegExp(r"\r\n|\r|\n");
+final _newlineRegExp = RegExp(r"\r\n|\r|\n");
 
 /// A `multipart/form-data` request. Such a request has both string [fields],
 /// which function as normal form fields, and (potentially streamed) binary
@@ -36,7 +36,7 @@ class MultipartRequest extends BaseRequest {
   /// can't be longer than 70.
   static const int _BOUNDARY_LENGTH = 70;
 
-  static final Random _random = new Random();
+  static final Random _random = Random();
 
   /// The form fields to send for this request.
   final Map<String, String> fields;
@@ -80,7 +80,7 @@ class MultipartRequest extends BaseRequest {
   }
 
   set contentLength(int value) {
-    throw new UnsupportedError("Cannot set the contentLength property of "
+    throw UnsupportedError("Cannot set the contentLength property of "
         "multipart requests.");
   }
 
@@ -92,7 +92,7 @@ class MultipartRequest extends BaseRequest {
     headers['content-type'] = 'multipart/form-data; boundary=$boundary';
     super.finalize();
 
-    var controller = new StreamController<List<int>>(sync: true);
+    var controller = StreamController<List<int>>(sync: true);
 
     void writeAscii(String string) {
       controller.add(utf8.encode(string));
@@ -120,7 +120,7 @@ class MultipartRequest extends BaseRequest {
       controller.close();
     });
 
-    return new ByteStream(controller.stream);
+    return ByteStream(controller.stream);
   }
 
   /// Returns the header string for a field. The return value is guaranteed to
@@ -161,11 +161,11 @@ class MultipartRequest extends BaseRequest {
   /// Returns a randomly-generated multipart boundary string
   String _boundaryString() {
     var prefix = "dart-http-boundary-";
-    var list = new List<int>.generate(
+    var list = List<int>.generate(
         _BOUNDARY_LENGTH - prefix.length,
         (index) =>
             BOUNDARY_CHARACTERS[_random.nextInt(BOUNDARY_CHARACTERS.length)],
         growable: false);
-    return "$prefix${new String.fromCharCodes(list)}";
+    return "$prefix${String.fromCharCodes(list)}";
   }
 }

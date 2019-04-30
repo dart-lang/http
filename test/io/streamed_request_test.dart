@@ -15,7 +15,7 @@ void main() {
   group('contentLength', () {
     test('controls the Content-Length header', () {
       return startServer().then((_) {
-        var request = new http.StreamedRequest('POST', serverUrl);
+        var request = http.StreamedRequest('POST', serverUrl);
         request.contentLength = 10;
         request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
         request.sink.close();
@@ -31,7 +31,7 @@ void main() {
 
     test('defaults to sending no Content-Length', () {
       return startServer().then((_) {
-        var request = new http.StreamedRequest('POST', serverUrl);
+        var request = http.StreamedRequest('POST', serverUrl);
         request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
         request.sink.close();
 
@@ -48,8 +48,8 @@ void main() {
   // Regression test.
   test('.send() with a response with no content length', () {
     return startServer().then((_) {
-      var request = new http.StreamedRequest(
-          'GET', serverUrl.resolve('/no-content-length'));
+      var request =
+          http.StreamedRequest('GET', serverUrl.resolve('/no-content-length'));
       request.sink.close();
       return request.send();
     }).then((response) {

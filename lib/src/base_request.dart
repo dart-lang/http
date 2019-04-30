@@ -34,7 +34,7 @@ abstract class BaseRequest {
 
   set contentLength(int value) {
     if (value != null && value < 0) {
-      throw new ArgumentError("Invalid content length $value.");
+      throw ArgumentError("Invalid content length $value.");
     }
     _checkFinalized();
     _contentLength = value;
@@ -83,7 +83,7 @@ abstract class BaseRequest {
 
   /// Creates a new HTTP request.
   BaseRequest(this.method, this.url)
-      : headers = new LinkedHashMap(
+      : headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
             hashCode: (key) => key.toLowerCase().hashCode);
 
@@ -98,7 +98,7 @@ abstract class BaseRequest {
   /// change after the request headers are sent.
   ByteStream finalize() {
     // TODO(nweiz): freeze headers
-    if (finalized) throw new StateError("Can't finalize a finalized Request.");
+    if (finalized) throw StateError("Can't finalize a finalized Request.");
     _finalized = true;
     return null;
   }
@@ -110,12 +110,12 @@ abstract class BaseRequest {
   /// the same server, you should use a single [Client] for all of those
   /// requests.
   Future<StreamedResponse> send() async {
-    var client = new Client();
+    var client = Client();
 
     try {
       var response = await client.send(this);
       var stream = onDone(response.stream, client.close);
-      return new StreamedResponse(new ByteStream(stream), response.statusCode,
+      return StreamedResponse(ByteStream(stream), response.statusCode,
           contentLength: response.contentLength,
           request: response.request,
           headers: response.headers,
@@ -131,7 +131,7 @@ abstract class BaseRequest {
   // Throws an error if this request has been finalized.
   void _checkFinalized() {
     if (!finalized) return;
-    throw new StateError("Can't modify a finalized Request.");
+    throw StateError("Can't modify a finalized Request.");
   }
 
   String toString() => "$method $url";

@@ -13,7 +13,7 @@ void main() {
   test('.send', () {
     expect(
         startServer().then((_) {
-          var request = new http.Request('POST', serverUrl);
+          var request = http.Request('POST', serverUrl);
           request.body = "hello";
           request.headers['User-Agent'] = 'Dart';
 
@@ -40,7 +40,7 @@ void main() {
   test('#followRedirects', () {
     expect(
         startServer().then((_) {
-          var request = new http.Request('POST', serverUrl.resolve('/redirect'))
+          var request = http.Request('POST', serverUrl.resolve('/redirect'))
             ..followRedirects = false;
           var future = request.send().then((response) {
             expect(response.statusCode, equals(302));
@@ -55,7 +55,7 @@ void main() {
   test('#maxRedirects', () {
     expect(
         startServer().then((_) {
-          var request = new http.Request('POST', serverUrl.resolve('/loop?1'))
+          var request = http.Request('POST', serverUrl.resolve('/loop?1'))
             ..maxRedirects = 2;
           var future = request.send().catchError((error) {
             expect(error, isRedirectLimitExceededException);

@@ -10,17 +10,17 @@ import 'utils.dart';
 void main() {
   group('contentLength', () {
     test('defaults to null', () {
-      var request = new http.StreamedRequest('POST', dummyUrl);
+      var request = http.StreamedRequest('POST', dummyUrl);
       expect(request.contentLength, isNull);
     });
 
     test('disallows negative values', () {
-      var request = new http.StreamedRequest('POST', dummyUrl);
+      var request = http.StreamedRequest('POST', dummyUrl);
       expect(() => request.contentLength = -1, throwsArgumentError);
     });
 
     test('is frozen by finalize()', () {
-      var request = new http.StreamedRequest('POST', dummyUrl);
+      var request = http.StreamedRequest('POST', dummyUrl);
       request.finalize();
       expect(() => request.contentLength = 10, throwsStateError);
     });
