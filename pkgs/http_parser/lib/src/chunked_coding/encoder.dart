@@ -8,10 +8,10 @@ import 'dart:typed_data';
 import 'package:charcode/ascii.dart';
 
 /// The canonical instance of [ChunkedCodingEncoder].
-const chunkedCodingEncoder = const ChunkedCodingEncoder._();
+const chunkedCodingEncoder = ChunkedCodingEncoder._();
 
 /// The chunk indicating that the chunked message has finished.
-final _doneChunk = new Uint8List.fromList([$0, $cr, $lf, $cr, $lf]);
+final _doneChunk = Uint8List.fromList([$0, $cr, $lf, $cr, $lf]);
 
 /// A converter that encodes byte arrays into chunks with size tags.
 class ChunkedCodingEncoder extends Converter<List<int>, List<int>> {
@@ -21,7 +21,7 @@ class ChunkedCodingEncoder extends Converter<List<int>, List<int>> {
       _convert(bytes, 0, bytes.length, isLast: true);
 
   ByteConversionSink startChunkedConversion(Sink<List<int>> sink) =>
-      new _Sink(sink);
+      _Sink(sink);
 }
 
 /// A conversion sink for the chunked transfer encoding.
@@ -52,7 +52,7 @@ class _Sink extends ByteConversionSinkBase {
 ///
 /// If [isLast] is `true`, this adds the footer that indicates that the chunked
 /// message is complete.
-List<int> _convert(List<int> bytes, int start, int end, {bool isLast: false}) {
+List<int> _convert(List<int> bytes, int start, int end, {bool isLast = false}) {
   if (end == start) return isLast ? _doneChunk : const [];
 
   var size = end - start;
@@ -60,7 +60,7 @@ List<int> _convert(List<int> bytes, int start, int end, {bool isLast: false}) {
   var footerSize = isLast ? _doneChunk.length : 0;
 
   // Add 4 for the CRLF sequences that follow the size header and the bytes.
-  var list = new Uint8List(sizeInHex.length + 4 + size + footerSize);
+  var list = Uint8List(sizeInHex.length + 4 + size + footerSize);
   list.setRange(0, sizeInHex.length, sizeInHex.codeUnits);
 
   var cursor = sizeInHex.length;

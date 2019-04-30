@@ -6,8 +6,8 @@ import 'package:string_scanner/string_scanner.dart';
 
 import 'utils.dart';
 
-const _WEEKDAYS = const ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const _MONTHS = const [
+const _weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const _months = [
   "Jan",
   "Feb",
   "Mar",
@@ -22,12 +22,11 @@ const _MONTHS = const [
   "Dec"
 ];
 
-final _shortWeekdayRegExp = new RegExp(r"Mon|Tue|Wed|Thu|Fri|Sat|Sun");
+final _shortWeekdayRegExp = RegExp(r"Mon|Tue|Wed|Thu|Fri|Sat|Sun");
 final _longWeekdayRegExp =
-    new RegExp(r"Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday");
-final _monthRegExp =
-    new RegExp(r"Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec");
-final _digitRegExp = new RegExp(r"\d+");
+    RegExp(r"Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday");
+final _monthRegExp = RegExp(r"Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec");
+final _digitRegExp = RegExp(r"\d+");
 
 /// Return a HTTP-formatted string representation of [date].
 ///
@@ -35,13 +34,13 @@ final _digitRegExp = new RegExp(r"\d+");
 /// 1123](http://tools.ietf.org/html/rfc1123).
 String formatHttpDate(DateTime date) {
   date = date.toUtc();
-  var buffer = new StringBuffer()
-    ..write(_WEEKDAYS[date.weekday - 1])
+  var buffer = StringBuffer()
+    ..write(_weekdays[date.weekday - 1])
     ..write(", ")
     ..write(date.day <= 9 ? "0" : "")
     ..write(date.day.toString())
     ..write(" ")
-    ..write(_MONTHS[date.month - 1])
+    ..write(_months[date.month - 1])
     ..write(" ")
     ..write(date.year.toString())
     ..write(date.hour <= 9 ? " 0" : " ")
@@ -61,7 +60,7 @@ String formatHttpDate(DateTime date) {
 /// throw a [FormatException] if [date] is invalid.
 DateTime parseHttpDate(String date) {
   return wrapFormatException("HTTP date", date, () {
-    var scanner = new StringScanner(date);
+    var scanner = StringScanner(date);
 
     if (scanner.scan(_longWeekdayRegExp)) {
       // RFC 850 starts with a long weekday.
@@ -115,7 +114,7 @@ DateTime parseHttpDate(String date) {
 int _parseMonth(StringScanner scanner) {
   scanner.expect(_monthRegExp);
   // DateTime uses 1-indexed months.
-  return _MONTHS.indexOf(scanner.lastMatch[0]) + 1;
+  return _months.indexOf(scanner.lastMatch[0]) + 1;
 }
 
 /// Parses an int an enforces that it has exactly [digits] digits.
@@ -141,7 +140,7 @@ DateTime _parseTime(StringScanner scanner) {
   var seconds = _parseInt(scanner, 2);
   if (seconds >= 60) scanner.error("seconds may not be greater than 60.");
 
-  return new DateTime(1, 1, 1, hours, minutes, seconds);
+  return DateTime(1, 1, 1, hours, minutes, seconds);
 }
 
 /// Returns a UTC [DateTime] from the given components.
@@ -150,11 +149,11 @@ DateTime _parseTime(StringScanner scanner) {
 /// [FormatException].
 DateTime _makeDateTime(int year, int month, int day, DateTime time) {
   var dateTime =
-      new DateTime.utc(year, month, day, time.hour, time.minute, time.second);
+      DateTime.utc(year, month, day, time.hour, time.minute, time.second);
 
   // If [day] was too large, it will cause [month] to overflow.
   if (dateTime.month != month) {
-    throw new FormatException("invalid day '$day' for month '$month'.");
+    throw FormatException("invalid day '$day' for month '$month'.");
   }
   return dateTime;
 }

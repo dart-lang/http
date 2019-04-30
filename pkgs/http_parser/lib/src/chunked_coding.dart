@@ -4,14 +4,14 @@
 
 import 'dart:convert';
 
-import 'chunked_coding/encoder.dart';
 import 'chunked_coding/decoder.dart';
+import 'chunked_coding/encoder.dart';
 
-export 'chunked_coding/encoder.dart' hide chunkedCodingEncoder;
 export 'chunked_coding/decoder.dart' hide chunkedCodingDecoder;
+export 'chunked_coding/encoder.dart' hide chunkedCodingEncoder;
 
 /// The canonical instance of [ChunkedCodingCodec].
-const chunkedCoding = const ChunkedCodingCodec._();
+const chunkedCoding = ChunkedCodingCodec._();
 
 /// A codec that encodes and decodes the [chunked transfer coding][].
 ///
@@ -33,6 +33,7 @@ const chunkedCoding = const ChunkedCodingCodec._();
 /// headers. It may be updated to silently ignore them in the future.
 class ChunkedCodingCodec extends Codec<List<int>, List<int>> {
   ChunkedCodingEncoder get encoder => chunkedCodingEncoder;
+
   ChunkedCodingDecoder get decoder => chunkedCodingDecoder;
 
   const ChunkedCodingCodec._();

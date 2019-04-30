@@ -19,22 +19,22 @@ import 'package:string_scanner/string_scanner.dart';
 /// [spec]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html
 
 /// An HTTP token.
-final token = new RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
+final token = RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
 
 /// Linear whitespace.
-final _lws = new RegExp(r"(?:\r\n)?[ \t]+");
+final _lws = RegExp(r"(?:\r\n)?[ \t]+");
 
 /// A quoted string.
-final _quotedString = new RegExp(r'"(?:[^"\x00-\x1F\x7F]|\\.)*"');
+final _quotedString = RegExp(r'"(?:[^"\x00-\x1F\x7F]|\\.)*"');
 
 /// A quoted pair.
-final _quotedPair = new RegExp(r'\\(.)');
+final _quotedPair = RegExp(r'\\(.)');
 
 /// A character that is *not* a valid HTTP token.
-final nonToken = new RegExp(r'[()<>@,;:"\\/\[\]?={} \t\x00-\x1F\x7F]');
+final nonToken = RegExp(r'[()<>@,;:"\\/\[\]?={} \t\x00-\x1F\x7F]');
 
 /// A regular expression matching any number of [_lws] productions in a row.
-final whitespace = new RegExp("(?:${_lws.pattern})*");
+final whitespace = RegExp("(?:${_lws.pattern})*");
 
 /// Parses a list of elements, as in `1#element` in the HTTP spec.
 ///

@@ -8,76 +8,74 @@ import 'package:test/test.dart';
 void main() {
   group("parse", () {
     test("parses a simple MIME type", () {
-      var type = new MediaType.parse("text/plain");
+      var type = MediaType.parse("text/plain");
       expect(type.type, equals("text"));
       expect(type.subtype, equals("plain"));
     });
 
     test("allows leading whitespace", () {
-      expect(new MediaType.parse(" text/plain").mimeType, equals("text/plain"));
-      expect(
-          new MediaType.parse("\ttext/plain").mimeType, equals("text/plain"));
+      expect(MediaType.parse(" text/plain").mimeType, equals("text/plain"));
+      expect(MediaType.parse("\ttext/plain").mimeType, equals("text/plain"));
     });
 
     test("allows trailing whitespace", () {
-      expect(new MediaType.parse("text/plain ").mimeType, equals("text/plain"));
-      expect(
-          new MediaType.parse("text/plain\t").mimeType, equals("text/plain"));
+      expect(MediaType.parse("text/plain ").mimeType, equals("text/plain"));
+      expect(MediaType.parse("text/plain\t").mimeType, equals("text/plain"));
     });
 
     test("disallows separators in the MIME type", () {
-      expect(() => new MediaType.parse("te(xt/plain"), throwsFormatException);
-      expect(() => new MediaType.parse("text/pla=in"), throwsFormatException);
+      expect(() => MediaType.parse("te(xt/plain"), throwsFormatException);
+      expect(() => MediaType.parse("text/pla=in"), throwsFormatException);
     });
 
     test("disallows whitespace around the slash", () {
-      expect(() => new MediaType.parse("text /plain"), throwsFormatException);
-      expect(() => new MediaType.parse("text/ plain"), throwsFormatException);
+      expect(() => MediaType.parse("text /plain"), throwsFormatException);
+      expect(() => MediaType.parse("text/ plain"), throwsFormatException);
     });
 
     test("parses parameters", () {
-      var type = new MediaType.parse("text/plain;foo=bar;baz=bang");
+      var type = MediaType.parse("text/plain;foo=bar;baz=bang");
       expect(type.mimeType, equals("text/plain"));
       expect(type.parameters, equals({"foo": "bar", "baz": "bang"}));
     });
 
     test("allows whitespace around the semicolon", () {
-      var type = new MediaType.parse("text/plain ; foo=bar ; baz=bang");
+      var type = MediaType.parse("text/plain ; foo=bar ; baz=bang");
       expect(type.mimeType, equals("text/plain"));
       expect(type.parameters, equals({"foo": "bar", "baz": "bang"}));
     });
 
     test("disallows whitespace around the equals", () {
-      expect(() => new MediaType.parse("text/plain; foo =bar"),
-          throwsFormatException);
-      expect(() => new MediaType.parse("text/plain; foo= bar"),
-          throwsFormatException);
+      expect(
+          () => MediaType.parse("text/plain; foo =bar"), throwsFormatException);
+      expect(
+          () => MediaType.parse("text/plain; foo= bar"), throwsFormatException);
     });
 
     test("disallows separators in the parameters", () {
-      expect(() => new MediaType.parse("text/plain; fo:o=bar"),
-          throwsFormatException);
-      expect(() => new MediaType.parse("text/plain; foo=b@ar"),
-          throwsFormatException);
+      expect(
+          () => MediaType.parse("text/plain; fo:o=bar"), throwsFormatException);
+      expect(
+          () => MediaType.parse("text/plain; foo=b@ar"), throwsFormatException);
     });
 
     test("parses quoted parameters", () {
-      var type = new MediaType.parse(
-          'text/plain; foo="bar space"; baz="bang\\\\escape"');
+      var type =
+          MediaType.parse('text/plain; foo="bar space"; baz="bang\\\\escape"');
       expect(type.mimeType, equals("text/plain"));
       expect(
           type.parameters, equals({"foo": "bar space", "baz": "bang\\escape"}));
     });
 
     test("lower-cases type and subtype", () {
-      var type = new MediaType.parse('TeXt/pLaIn');
+      var type = MediaType.parse('TeXt/pLaIn');
       expect(type.type, equals("text"));
       expect(type.subtype, equals("plain"));
       expect(type.mimeType, equals("text/plain"));
     });
 
     test("records parameters as case-insensitive", () {
-      var type = new MediaType.parse('test/plain;FoO=bar;bAz=bang');
+      var type = MediaType.parse('test/plain;FoO=bar;bAz=bang');
       expect(type.parameters, equals({"FoO": "bar", "bAz": "bang"}));
       expect(type.parameters, containsPair("foo", "bar"));
       expect(type.parameters, containsPair("baz", "bang"));
@@ -87,7 +85,7 @@ void main() {
   group("change", () {
     var type;
     setUp(() {
-      type = new MediaType.parse("text/plain; foo=bar; baz=bang");
+      type = MediaType.parse("text/plain; foo=bar; baz=bang");
     });
 
     test("uses the existing fields by default", () {
@@ -140,28 +138,27 @@ void main() {
 
   group("toString", () {
     test("serializes a simple MIME type", () {
-      expect(new MediaType("text", "plain").toString(), equals("text/plain"));
+      expect(MediaType("text", "plain").toString(), equals("text/plain"));
     });
 
     test("serializes a token parameter as a token", () {
-      expect(new MediaType("text", "plain", {"foo": "bar"}).toString(),
+      expect(MediaType("text", "plain", {"foo": "bar"}).toString(),
           equals("text/plain; foo=bar"));
     });
 
     test("serializes a non-token parameter as a quoted string", () {
-      expect(new MediaType("text", "plain", {"foo": "bar baz"}).toString(),
+      expect(MediaType("text", "plain", {"foo": "bar baz"}).toString(),
           equals('text/plain; foo="bar baz"'));
     });
 
     test("escapes a quoted string as necessary", () {
-      expect(new MediaType("text", "plain", {"foo": 'bar"\x7Fbaz'}).toString(),
+      expect(MediaType("text", "plain", {"foo": 'bar"\x7Fbaz'}).toString(),
           equals('text/plain; foo="bar\\"\\\x7Fbaz"'));
     });
 
     test("serializes multiple parameters", () {
       expect(
-          new MediaType("text", "plain", {"foo": "bar", "baz": "bang"})
-              .toString(),
+          MediaType("text", "plain", {"foo": "bar", "baz": "bang"}).toString(),
           equals("text/plain; foo=bar; baz=bang"));
     });
   });

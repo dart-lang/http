@@ -12,10 +12,10 @@ T wrapFormatException<T>(String name, String value, T body()) {
   try {
     return body();
   } on SourceSpanFormatException catch (error) {
-    throw new SourceSpanFormatException(
+    throw SourceSpanFormatException(
         'Invalid $name: ${error.message}', error.span, error.source);
   } on FormatException catch (error) {
-    throw new FormatException(
+    throw FormatException(
         'Invalid $name "$value": ${error.message}', error.source, error.offset);
   }
 }

@@ -10,22 +10,22 @@ import 'package:charcode/ascii.dart';
 import 'package:typed_data/typed_data.dart';
 
 /// The canonical instance of [ChunkedCodingDecoder].
-const chunkedCodingDecoder = const ChunkedCodingDecoder._();
+const chunkedCodingDecoder = ChunkedCodingDecoder._();
 
 /// A converter that decodes byte arrays into chunks with size tags.
 class ChunkedCodingDecoder extends Converter<List<int>, List<int>> {
   const ChunkedCodingDecoder._();
 
   List<int> convert(List<int> bytes) {
-    var sink = new _Sink(null);
+    var sink = _Sink(null);
     var output = sink._decode(bytes, 0, bytes.length);
     if (sink._state == _State.end) return output;
 
-    throw new FormatException("Input ended unexpectedly.", bytes, bytes.length);
+    throw FormatException("Input ended unexpectedly.", bytes, bytes.length);
   }
 
   ByteConversionSink startChunkedConversion(Sink<List<int>> sink) =>
-      new _Sink(sink);
+      _Sink(sink);
 }
 
 /// A conversion sink for the chunked transfer encoding.
@@ -57,7 +57,7 @@ class _Sink extends ByteConversionSinkBase {
   /// one is thrown.
   void _close([List<int> chunk, int index]) {
     if (_state != _State.end) {
-      throw new FormatException("Input ended unexpectedly.", chunk, index);
+      throw FormatException("Input ended unexpectedly.", chunk, index);
     }
 
     _sink.close();
@@ -69,11 +69,11 @@ class _Sink extends ByteConversionSinkBase {
     /// describe the character in the exception text.
     assertCurrentChar(int char, String name) {
       if (bytes[start] != char) {
-        throw new FormatException("Expected $name.", bytes, start);
+        throw FormatException("Expected $name.", bytes, start);
       }
     }
 
-    var buffer = new Uint8Buffer();
+    var buffer = Uint8Buffer();
     while (start != end) {
       switch (_state) {
         case _State.boundary:
@@ -132,7 +132,7 @@ class _Sink extends ByteConversionSinkBase {
           break;
 
         case _State.end:
-          throw new FormatException("Expected no more data.", bytes, start);
+          throw FormatException("Expected no more data.", bytes, start);
       }
     }
     return buffer.buffer.asUint8List(0, buffer.length);
@@ -164,7 +164,7 @@ class _Sink extends ByteConversionSinkBase {
       if ($a <= letter && letter <= $f) return letter - $a + 10;
     }
 
-    throw new FormatException(
+    throw FormatException(
         "Invalid hexadecimal byte 0x${byte.toRadixString(16).toUpperCase()}.",
         bytes,
         index);
@@ -178,53 +178,53 @@ class _State {
   /// next chunk.
   ///
   /// Transitions to [size].
-  static const boundary = const _State._("boundary");
+  static const boundary = _State._("boundary");
 
   /// The parser has parsed at least one digit of the chunk size header, but has
   /// not yet parsed the `CR LF` sequence that indicates the end of that header.
   ///
   /// Transitions to [sizeBeforeLF].
-  static const size = const _State._("size");
+  static const size = _State._("size");
 
   /// The parser has parsed the chunk size header and the CR character after it,
   /// but not the LF.
   ///
   /// Transitions to [body] or [bodyBeforeCR].
-  static const sizeBeforeLF = const _State._("size before LF");
+  static const sizeBeforeLF = _State._("size before LF");
 
   /// The parser has parsed a chunk header and possibly some of the body, but
   /// still needs to consume more bytes.
   ///
   /// Transitions to [bodyBeforeCR].
-  static const body = const _State._("body");
+  static const body = _State._("body");
 
   // The parser has parsed all the bytes in a chunk body but not the CR LF
   // sequence that follows it.
   //
   // Transitions to [bodyBeforeLF].
-  static const bodyBeforeCR = const _State._("body before CR");
+  static const bodyBeforeCR = _State._("body before CR");
 
   // The parser has parsed all the bytes in a chunk body and the CR that follows
   // it, but not the LF after that.
   //
   // Transitions to [bounday].
-  static const bodyBeforeLF = const _State._("body before LF");
+  static const bodyBeforeLF = _State._("body before LF");
 
   /// The parser has parsed the final empty chunk but not the CR LF sequence
   /// that follows it.
   ///
   /// Transitions to [endBeforeLF].
-  static const endBeforeCR = const _State._("end before CR");
+  static const endBeforeCR = _State._("end before CR");
 
   /// The parser has parsed the final empty chunk and the CR that follows it,
   /// but not the LF after that.
   ///
   /// Transitions to [end].
-  static const endBeforeLF = const _State._("end before LF");
+  static const endBeforeLF = _State._("end before LF");
 
   /// The parser has parsed the final empty chunk as well as the CR LF that
   /// follows, and expects no more data.
-  static const end = const _State._("end");
+  static const end = _State._("end");
 
   final String _name;
 

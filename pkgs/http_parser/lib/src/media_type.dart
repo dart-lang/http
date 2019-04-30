@@ -11,7 +11,7 @@ import 'utils.dart';
 
 /// A regular expression matching a character that needs to be backslash-escaped
 /// in a quoted string.
-final _escapedChar = new RegExp(r'["\x00-\x1F\x7F]');
+final _escapedChar = RegExp(r'["\x00-\x1F\x7F]');
 
 /// A class representing an HTTP media type, as used in Accept and Content-Type
 /// headers.
@@ -44,7 +44,7 @@ class MediaType {
     // This parsing is based on sections 3.6 and 3.7 of the HTTP spec:
     // http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html.
     return wrapFormatException("media type", mediaType, () {
-      var scanner = new StringScanner(mediaType);
+      var scanner = StringScanner(mediaType);
       scanner.scan(whitespace);
       scanner.expect(token);
       var type = scanner.lastMatch[0];
@@ -72,15 +72,15 @@ class MediaType {
       }
 
       scanner.expectDone();
-      return new MediaType(type, subtype, parameters);
+      return MediaType(type, subtype, parameters);
     });
   }
 
   MediaType(String type, String subtype, [Map<String, String> parameters])
       : type = type.toLowerCase(),
         subtype = subtype.toLowerCase(),
-        parameters = new UnmodifiableMapView(
-            parameters == null ? {} : new CaseInsensitiveMap.from(parameters));
+        parameters = UnmodifiableMapView(
+            parameters == null ? {} : CaseInsensitiveMap.from(parameters));
 
   /// Returns a copy of this [MediaType] with some fields altered.
   ///
@@ -96,18 +96,18 @@ class MediaType {
       String subtype,
       String mimeType,
       Map<String, String> parameters,
-      bool clearParameters: false}) {
+      bool clearParameters = false}) {
     if (mimeType != null) {
       if (type != null) {
-        throw new ArgumentError("You may not pass both [type] and [mimeType].");
+        throw ArgumentError("You may not pass both [type] and [mimeType].");
       } else if (subtype != null) {
-        throw new ArgumentError("You may not pass both [subtype] and "
+        throw ArgumentError("You may not pass both [subtype] and "
             "[mimeType].");
       }
 
       var segments = mimeType.split('/');
       if (segments.length != 2) {
-        throw new FormatException('Invalid mime type "$mimeType".');
+        throw FormatException('Invalid mime type "$mimeType".');
       }
 
       type = segments[0];
@@ -120,18 +120,18 @@ class MediaType {
 
     if (!clearParameters) {
       var newParameters = parameters;
-      parameters = new Map.from(this.parameters);
+      parameters = Map.from(this.parameters);
       parameters.addAll(newParameters);
     }
 
-    return new MediaType(type, subtype, parameters);
+    return MediaType(type, subtype, parameters);
   }
 
   /// Converts the media type to a string.
   ///
   /// This will produce a valid HTTP media type.
   String toString() {
-    var buffer = new StringBuffer()..write(type)..write("/")..write(subtype);
+    var buffer = StringBuffer()..write(type)..write("/")..write(subtype);
 
     parameters.forEach((attribute, value) {
       buffer.write("; $attribute=");

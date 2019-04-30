@@ -35,7 +35,7 @@ class AuthenticationChallenge {
   /// Throws a [FormatException] if the header is invalid.
   static List<AuthenticationChallenge> parseHeader(String header) {
     return wrapFormatException("authentication header", header, () {
-      var scanner = new StringScanner(header);
+      var scanner = StringScanner(header);
       scanner.scan(whitespace);
       var challenges = parseList(scanner, () {
         var scheme = _scanScheme(scanner, whitespaceName: '" " or "="');
@@ -82,7 +82,7 @@ class AuthenticationChallenge {
           beforeComma = scanner.position;
         }
 
-        return new AuthenticationChallenge(scheme, params);
+        return AuthenticationChallenge(scheme, params);
       });
 
       scanner.expectDone();
@@ -95,7 +95,7 @@ class AuthenticationChallenge {
   /// Throws a [FormatException] if the challenge is invalid.
   factory AuthenticationChallenge.parse(String challenge) {
     return wrapFormatException("authentication challenge", challenge, () {
-      var scanner = new StringScanner(challenge);
+      var scanner = StringScanner(challenge);
       scanner.scan(whitespace);
       var scheme = _scanScheme(scanner);
 
@@ -103,7 +103,7 @@ class AuthenticationChallenge {
       parseList(scanner, () => _scanAuthParam(scanner, params));
 
       scanner.expectDone();
-      return new AuthenticationChallenge(scheme, params);
+      return AuthenticationChallenge(scheme, params);
     });
   }
 
@@ -146,6 +146,5 @@ class AuthenticationChallenge {
 
   /// Creates a new challenge value with [scheme] and [parameters].
   AuthenticationChallenge(this.scheme, Map<String, String> parameters)
-      : parameters =
-            new UnmodifiableMapView(new CaseInsensitiveMap.from(parameters));
+      : parameters = UnmodifiableMapView(CaseInsensitiveMap.from(parameters));
 }
