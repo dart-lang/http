@@ -150,7 +150,7 @@ abstract class BaseClient implements Client {
       String method, url, Map<String, String> headers,
       [body, Encoding encoding]) async {
     if (url is String) url = Uri.parse(url);
-    var request = new Request(method, url);
+    var request = Request(method, url);
 
     if (headers != null) request.headers.addAll(headers);
     if (encoding != null) request.encoding = encoding;
@@ -162,7 +162,7 @@ abstract class BaseClient implements Client {
       } else if (body is Map) {
         request.bodyFields = body.cast<String, String>();
       } else {
-        throw new ArgumentError('Invalid request body "$body".');
+        throw ArgumentError('Invalid request body "$body".');
       }
     }
 
@@ -177,7 +177,7 @@ abstract class BaseClient implements Client {
       message = "$message: ${response.reasonPhrase}";
     }
     if (url is String) url = Uri.parse(url);
-    throw new ClientException("$message.", url);
+    throw ClientException("$message.", url);
   }
 
   /// Closes the client and cleans up any resources associated with it. It's

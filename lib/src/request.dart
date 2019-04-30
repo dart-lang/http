@@ -21,7 +21,7 @@ class Request extends BaseRequest {
   int get contentLength => bodyBytes.length;
 
   set contentLength(int value) {
-    throw new UnsupportedError("Cannot set the contentLength property of "
+    throw UnsupportedError("Cannot set the contentLength property of "
         "non-streaming Request objects.");
   }
 
@@ -85,7 +85,7 @@ class Request extends BaseRequest {
     bodyBytes = encoding.encode(value);
     var contentType = _contentType;
     if (contentType == null) {
-      _contentType = new MediaType("text", "plain", {'charset': encoding.name});
+      _contentType = MediaType("text", "plain", {'charset': encoding.name});
     } else if (!contentType.parameters.containsKey('charset')) {
       _contentType = contentType.change(parameters: {'charset': encoding.name});
     }
@@ -109,7 +109,7 @@ class Request extends BaseRequest {
     var contentType = _contentType;
     if (contentType == null ||
         contentType.mimeType != "application/x-www-form-urlencoded") {
-      throw new StateError('Cannot access the body fields of a Request without '
+      throw StateError('Cannot access the body fields of a Request without '
           'content-type "application/x-www-form-urlencoded".');
     }
 
@@ -119,9 +119,9 @@ class Request extends BaseRequest {
   set bodyFields(Map<String, String> fields) {
     var contentType = _contentType;
     if (contentType == null) {
-      _contentType = new MediaType("application", "x-www-form-urlencoded");
+      _contentType = MediaType("application", "x-www-form-urlencoded");
     } else if (contentType.mimeType != "application/x-www-form-urlencoded") {
-      throw new StateError('Cannot set the body fields of a Request with '
+      throw StateError('Cannot set the body fields of a Request with '
           'content-type "${contentType.mimeType}".');
     }
 
@@ -131,14 +131,14 @@ class Request extends BaseRequest {
   /// Creates a new HTTP request.
   Request(String method, Uri url)
       : _defaultEncoding = utf8,
-        _bodyBytes = new Uint8List(0),
+        _bodyBytes = Uint8List(0),
         super(method, url);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// containing the request body.
   ByteStream finalize() {
     super.finalize();
-    return new ByteStream.fromBytes(bodyBytes);
+    return ByteStream.fromBytes(bodyBytes);
   }
 
   /// The `Content-Type` header of the request (if it exists) as a
@@ -146,7 +146,7 @@ class Request extends BaseRequest {
   MediaType get _contentType {
     var contentType = headers['content-type'];
     if (contentType == null) return null;
-    return new MediaType.parse(contentType);
+    return MediaType.parse(contentType);
   }
 
   set _contentType(MediaType value) {
@@ -156,6 +156,6 @@ class Request extends BaseRequest {
   /// Throw an error if this request has been finalized.
   void _checkFinalized() {
     if (!finalized) return;
-    throw new StateError("Can't modify a finalized Request.");
+    throw StateError("Can't modify a finalized Request.");
   }
 }

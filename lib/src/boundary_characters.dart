@@ -9,7 +9,7 @@
 ///
 /// [RFC 2046]: http://tools.ietf.org/html/rfc2046#section-5.1.1.
 /// [RFC 1521]: https://tools.ietf.org/html/rfc1521#section-4
-const List<int> BOUNDARY_CHARACTERS = const <int>[
+const List<int> BOUNDARY_CHARACTERS = <int>[
   43,
   95,
   45,
