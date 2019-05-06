@@ -7,6 +7,7 @@ import 'dart:math' as math;
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
+import 'package:pedantic/pedantic.dart';
 
 /// An HTTP client wrapper that automatically retries failing requests.
 class RetryClient extends BaseClient {
@@ -28,7 +29,7 @@ class RetryClient extends BaseClient {
   /// The callback to call to indicate that a request is being retried.
   final void Function(BaseRequest, BaseResponse, int) _onRetry;
 
-  /// Creates a client wrapping [inner] that retries HTTP requests.
+  /// Creates a client wrapping [_inner] that retries HTTP requests.
   ///
   /// This retries a failing request [retries] times (3 by default). Note that
   /// `n` retries means that the request will be sent at most `n + 1` times.
@@ -58,7 +59,7 @@ class RetryClient extends BaseClient {
         _whenError = whenError ?? ((_, __) => false),
         _delay = delay ??
             ((retryCount) =>
-                new Duration(milliseconds: 500) * math.pow(1.5, retryCount)),
+                Duration(milliseconds: 500) * math.pow(1.5, retryCount)),
         _onRetry = onRetry {
     RangeError.checkNotNegative(_retries, "retries");
   }
@@ -87,11 +88,12 @@ class RetryClient extends BaseClient {
             whenError: whenError,
             onRetry: onRetry);
 
+  @override
   Future<StreamedResponse> send(BaseRequest request) async {
-    var splitter = new StreamSplitter(request.finalize());
+    var splitter = StreamSplitter(request.finalize());
 
     var i = 0;
-    while (true) {
+    for (;;) {
       StreamedResponse response;
       try {
         response = await _inner.send(_copyRequest(request, splitter.split()));
@@ -104,10 +106,10 @@ class RetryClient extends BaseClient {
 
         // Make sure the response stream is listened to so that we don't leave
         // dangling connections.
-        response.stream.listen((_) {}).cancel()?.catchError((_) {});
+        unawaited(response.stream.listen((_) {}).cancel()?.catchError((_) {}));
       }
 
-      await new Future.delayed(_delay(i));
+      await Future.delayed(_delay(i));
       if (_onRetry != null) _onRetry(request, response, i);
       i++;
     }
@@ -115,7 +117,7 @@ class RetryClient extends BaseClient {
 
   /// Returns a copy of [original] with the given [body].
   StreamedRequest _copyRequest(BaseRequest original, Stream<List<int>> body) {
-    var request = new StreamedRequest(original.method, original.url);
+    var request = StreamedRequest(original.method, original.url);
     request.contentLength = original.contentLength;
     request.followRedirects = original.followRedirects;
     request.headers.addAll(original.headers);
@@ -130,5 +132,6 @@ class RetryClient extends BaseClient {
     return request;
   }
 
+  @override
   void close() => _inner.close();
 }
