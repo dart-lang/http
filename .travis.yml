@@ -1,16 +1,13 @@
 language: dart
 
-# By default, builds are run in containers.
-# https://docs.travis-ci.com/user/getting-started/#Selecting-infrastructure-(optional)
-# Set `sudo: true` to disable containers if you need to use sudo in your scripts.
-# sudo: true
-
 dart:
+- 2.0.0
 - dev
-# See https://docs.travis-ci.com/user/languages/dart/ for details.
+
 dart_task:
   - dartfmt
   - dartanalyzer
+
   # TODO: reinstate tests once https://github.com/dart-lang/http_retry/issues/6 is fixed
   #  - test: --platform vm
   #    xvfb: false
