@@ -1,3 +1,7 @@
+## 2.0.7
+
+- Update SDK constraints to `>=2.1.0 <3.0.0`.
+
 ## 2.0.6
 
 * If there is a problem starting a loopback Ipv6 server, don't keep the Ipv4

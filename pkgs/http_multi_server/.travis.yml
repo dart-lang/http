@@ -1,12 +1,18 @@
 language: dart
-sudo: false
+
 dart:
+  - 2.1.0
   - dev
 
 dart_task:
   - test
-  - dartfmt
   - dartanalyzer
+
+matrix:
+  include:
+  # Only validate formatting using the dev release
+  - dart: dev
+    dart_task: dartfmt
 
 # Only building master means that we don't run two builds for each pull request.
 branches:
