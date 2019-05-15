@@ -39,14 +39,14 @@ class MultipartRequest extends BaseRequest {
   static final Random _random = Random();
 
   /// The form fields to send for this request.
-  final Map<String, String> fields;
+  final List<MapEntry<String, String>> fields;
 
   /// The private version of [files].
   final List<MultipartFile> _files;
 
   /// Creates a new [MultipartRequest].
   MultipartRequest(String method, Uri url)
-      : fields = {},
+      : fields = [],
         _files = <MultipartFile>[],
         super(method, url);
 
@@ -58,12 +58,12 @@ class MultipartRequest extends BaseRequest {
   int get contentLength {
     var length = 0;
 
-    fields.forEach((name, value) {
+    fields.forEach((field) {
       length += "--".length +
           _BOUNDARY_LENGTH +
           "\r\n".length +
-          utf8.encode(_headerForField(name, value)).length +
-          utf8.encode(value).length +
+          utf8.encode(_headerForField(field.key, field.value)).length +
+          utf8.encode(field.value).length +
           "\r\n".length;
     });
 
@@ -101,10 +101,10 @@ class MultipartRequest extends BaseRequest {
     writeUtf8(String string) => controller.add(utf8.encode(string));
     writeLine() => controller.add([13, 10]); // \r\n
 
-    fields.forEach((name, value) {
+    fields.forEach((field) {
       writeAscii('--$boundary\r\n');
-      writeAscii(_headerForField(name, value));
-      writeUtf8(value);
+      writeAscii(_headerForField(field.key, field.value));
+      writeUtf8(field.value);
       writeLine();
     });
 

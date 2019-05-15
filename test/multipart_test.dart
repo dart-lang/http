@@ -28,8 +28,8 @@ void main() {
 
   test('with fields and files', () {
     var request = http.MultipartRequest('POST', dummyUrl);
-    request.fields['field1'] = 'value1';
-    request.fields['field2'] = 'value2';
+    request.fields.add(MapEntry('field1', 'value1'));
+    request.fields.add(MapEntry('field2', 'value2'));
     request.files.add(http.MultipartFile.fromString("file1", "contents1",
         filename: "filename1.txt"));
     request.files.add(http.MultipartFile.fromString("file2", "contents2"));
@@ -57,9 +57,27 @@ void main() {
         '''));
   });
 
+  test('with multiple fields of the same name', () {
+    var request = http.MultipartRequest('POST', dummyUrl);
+    request.fields.add(MapEntry('field1', 'value1'));
+    request.fields.add(MapEntry('field1', 'value2'));
+
+    expect(request, bodyMatches('''
+        --{{boundary}}
+        content-disposition: form-data; name="field1"
+
+        value1
+        --{{boundary}}
+        content-disposition: form-data; name="field1"
+
+        value2
+        --{{boundary}}--
+        '''));
+  });
+
   test('with a unicode field name', () {
     var request = http.MultipartRequest('POST', dummyUrl);
-    request.fields['fïēld'] = 'value';
+    request.fields.add(MapEntry('fïēld', 'value'));
 
     expect(request, bodyMatches('''
         --{{boundary}}
@@ -72,7 +90,7 @@ void main() {
 
   test('with a field name with newlines', () {
     var request = http.MultipartRequest('POST', dummyUrl);
-    request.fields['foo\nbar\rbaz\r\nbang'] = 'value';
+    request.fields.add(MapEntry('foo\nbar\rbaz\r\nbang', 'value'));
 
     expect(request, bodyMatches('''
         --{{boundary}}
@@ -85,7 +103,7 @@ void main() {
 
   test('with a field name with a quote', () {
     var request = http.MultipartRequest('POST', dummyUrl);
-    request.fields['foo"bar'] = 'value';
+    request.fields.add(MapEntry('foo"bar', 'value'));
 
     expect(request, bodyMatches('''
         --{{boundary}}
@@ -98,7 +116,7 @@ void main() {
 
   test('with a unicode field value', () {
     var request = http.MultipartRequest('POST', dummyUrl);
-    request.fields['field'] = 'vⱥlūe';
+    request.fields.add(MapEntry('field', 'vⱥlūe'));
 
     expect(request, bodyMatches('''
         --{{boundary}}
