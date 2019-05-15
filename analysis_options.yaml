@@ -1,0 +1,6 @@
+include: package:pedantic/analysis_options.yaml
+linter:
+  rules:
+  - prefer_generic_function_type_aliases
+  - unnecessary_const
+  - unnecessary_new

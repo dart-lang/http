@@ -6,6 +6,8 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
+import 'package:pedantic/pedantic.dart' show unawaited;
+
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
@@ -27,7 +29,7 @@ class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
   /// These are aborted if the client is closed.
-  final _xhrs = new Set<HttpRequest>();
+  final _xhrs = Set<HttpRequest>();
 
   /// Creates a new HTTP client.
   BrowserClient();
@@ -41,24 +43,24 @@ class BrowserClient extends BaseClient {
   /// Sends an HTTP request and asynchronously returns the response.
   Future<StreamedResponse> send(BaseRequest request) async {
     var bytes = await request.finalize().toBytes();
-    var xhr = new HttpRequest();
+    var xhr = HttpRequest();
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
     xhr.responseType = 'blob';
     xhr.withCredentials = withCredentials;
     request.headers.forEach(xhr.setRequestHeader);
 
-    var completer = new Completer<StreamedResponse>();
-    xhr.onLoad.first.then((_) {
+    var completer = Completer<StreamedResponse>();
+    unawaited(xhr.onLoad.first.then((_) {
       // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
       // is fixed.
-      var blob = xhr.response == null ? new Blob([]) : xhr.response;
-      var reader = new FileReader();
+      var blob = xhr.response == null ? Blob([]) : xhr.response;
+      var reader = FileReader();
 
       reader.onLoad.first.then((_) {
         var body = reader.result as Uint8List;
-        completer.complete(new StreamedResponse(
-            new ByteStream.fromBytes(body), xhr.status,
+        completer.complete(StreamedResponse(
+            ByteStream.fromBytes(body), xhr.status,
             contentLength: body.length,
             request: request,
             headers: xhr.responseHeaders,
@@ -67,20 +69,19 @@ class BrowserClient extends BaseClient {
 
       reader.onError.first.then((error) {
         completer.completeError(
-            new ClientException(error.toString(), request.url),
-            StackTrace.current);
+            ClientException(error.toString(), request.url), StackTrace.current);
       });
 
       reader.readAsArrayBuffer(blob);
-    });
+    }));
 
-    xhr.onError.first.then((_) {
+    unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
       completer.completeError(
-          new ClientException("XMLHttpRequest error.", request.url),
+          ClientException("XMLHttpRequest error.", request.url),
           StackTrace.current);
-    });
+    }));
 
     xhr.send(bytes);
 

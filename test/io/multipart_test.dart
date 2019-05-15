@@ -23,12 +23,12 @@ void main() {
 
   test('with a file from disk', () {
     expect(
-        new Future.sync(() {
+        Future.sync(() {
           var filePath = path.join(tempDir.path, 'test-file');
-          new File(filePath).writeAsStringSync('hello');
+          File(filePath).writeAsStringSync('hello');
           return http.MultipartFile.fromPath('file', filePath);
         }).then((file) {
-          var request = new http.MultipartRequest('POST', dummyUrl);
+          var request = http.MultipartRequest('POST', dummyUrl);
           request.files.add(file);
 
           expect(request, bodyMatches('''

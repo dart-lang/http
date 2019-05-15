@@ -23,7 +23,7 @@ class IOClient extends BaseClient {
   HttpClient _inner;
 
   /// Creates a new HTTP client.
-  IOClient([HttpClient inner]) : _inner = inner ?? new HttpClient();
+  IOClient([HttpClient inner]) : _inner = inner ?? HttpClient();
 
   /// Sends an HTTP request and asynchronously returns the response.
   Future<StreamedResponse> send(BaseRequest request) async {
@@ -49,9 +49,9 @@ class IOClient extends BaseClient {
         headers[key] = values.join(',');
       });
 
-      return new StreamedResponse(
+      return StreamedResponse(
           DelegatingStream.typed<List<int>>(response).handleError(
-              (error) => throw new ClientException(error.message, error.uri),
+              (error) => throw ClientException(error.message, error.uri),
               test: (error) => error is HttpException),
           response.statusCode,
           contentLength:
@@ -62,7 +62,7 @@ class IOClient extends BaseClient {
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase);
     } on HttpException catch (error) {
-      throw new ClientException(error.message, error.uri);
+      throw ClientException(error.message, error.uri);
     }
   }
 

@@ -13,13 +13,13 @@ class ByteStream extends StreamView<List<int>> {
   /// Returns a single-subscription byte stream that will emit the given bytes
   /// in a single chunk.
   factory ByteStream.fromBytes(List<int> bytes) =>
-      new ByteStream(new Stream.fromIterable([bytes]));
+      ByteStream(Stream.fromIterable([bytes]));
 
   /// Collects the data of this stream in a [Uint8List].
   Future<Uint8List> toBytes() {
-    var completer = new Completer<Uint8List>();
-    var sink = new ByteConversionSink.withCallback(
-        (bytes) => completer.complete(new Uint8List.fromList(bytes)));
+    var completer = Completer<Uint8List>();
+    var sink = ByteConversionSink.withCallback(
+        (bytes) => completer.complete(Uint8List.fromList(bytes)));
     listen(sink.add,
         onError: completer.completeError,
         onDone: sink.close,

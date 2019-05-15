@@ -30,7 +30,7 @@ class MockClient extends BaseClient {
   MockClient(MockClientHandler fn)
       : this._((baseRequest, bodyStream) {
           return bodyStream.toBytes().then((bodyBytes) {
-            var request = new Request(baseRequest.method, baseRequest.url)
+            var request = Request(baseRequest.method, baseRequest.url)
               ..persistentConnection = baseRequest.persistentConnection
               ..followRedirects = baseRequest.followRedirects
               ..maxRedirects = baseRequest.maxRedirects
@@ -40,9 +40,8 @@ class MockClient extends BaseClient {
 
             return fn(request);
           }).then((response) {
-            return new StreamedResponse(
-                new ByteStream.fromBytes(response.bodyBytes),
-                response.statusCode,
+            return StreamedResponse(
+                ByteStream.fromBytes(response.bodyBytes), response.statusCode,
                 contentLength: response.contentLength,
                 request: baseRequest,
                 headers: response.headers,
@@ -57,7 +56,7 @@ class MockClient extends BaseClient {
   MockClient.streaming(MockClientStreamHandler fn)
       : this._((request, bodyStream) {
           return fn(request, bodyStream).then((response) {
-            return new StreamedResponse(response.stream, response.statusCode,
+            return StreamedResponse(response.stream, response.statusCode,
                 contentLength: response.contentLength,
                 request: request,
                 headers: response.headers,
@@ -76,9 +75,9 @@ class MockClient extends BaseClient {
 
 /// A handler function that receives [StreamedRequest]s and sends
 /// [StreamedResponse]s. Note that [request] will be finalized.
-typedef Future<StreamedResponse> MockClientStreamHandler(
+typedef MockClientStreamHandler = Future<StreamedResponse> Function(
     BaseRequest request, ByteStream bodyStream);
 
 /// A handler function that receives [Request]s and sends [Response]s. Note that
 /// [request] will be finalized.
-typedef Future<Response> MockClientHandler(Request request);
+typedef MockClientHandler = Future<Response> Function(Request request);

@@ -12,8 +12,8 @@ import 'utils.dart';
 
 void main() {
   test('#send a StreamedRequest', () {
-    var client = new BrowserClient();
-    var request = new http.StreamedRequest("POST", echoUrl);
+    var client = BrowserClient();
+    var request = http.StreamedRequest("POST", echoUrl);
 
     expect(
         client.send(request).then((response) {
@@ -26,9 +26,9 @@ void main() {
   }, skip: 'Need to fix server tests for browser');
 
   test('#send with an invalid URL', () {
-    var client = new BrowserClient();
+    var client = BrowserClient();
     var url = Uri.parse('http://http.invalid');
-    var request = new http.StreamedRequest("POST", url);
+    var request = http.StreamedRequest("POST", url);
 
     expect(
         client.send(request), throwsClientException("XMLHttpRequest error."));

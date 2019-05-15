@@ -40,7 +40,7 @@ String cleanUpLiteral(String text) {
 
 /// A matcher that matches JSON that parses to a value that matches the inner
 /// matcher.
-Matcher parse(matcher) => new _Parse(matcher);
+Matcher parse(matcher) => _Parse(matcher);
 
 class _Parse extends Matcher {
   final Matcher _matcher;
@@ -71,7 +71,7 @@ class _Parse extends Matcher {
 /// The string "{{boundary}}" in [pattern] will be replaced by the boundary
 /// string for the request, and LF newlines will be replaced with CRLF.
 /// Indentation will be normalized.
-Matcher bodyMatches(String pattern) => new _BodyMatches(pattern);
+Matcher bodyMatches(String pattern) => _BodyMatches(pattern);
 
 class _BodyMatches extends Matcher {
   final String _pattern;
@@ -83,7 +83,7 @@ class _BodyMatches extends Matcher {
 
     var future = item.finalize().toBytes().then((bodyBytes) {
       var body = utf8.decode(bodyBytes);
-      var contentType = new MediaType.parse(item.headers['content-type']);
+      var contentType = MediaType.parse(item.headers['content-type']);
       var boundary = contentType.parameters['boundary'];
       var expected = cleanUpLiteral(_pattern)
           .replaceAll("\n", "\r\n")
@@ -105,7 +105,7 @@ class _BodyMatches extends Matcher {
 ///
 /// [message] can be a String or a [Matcher].
 Matcher isClientException(message) => predicate((error) {
-      expect(error, new TypeMatcher<http.ClientException>());
+      expect(error, TypeMatcher<http.ClientException>());
       expect(error.message, message);
       return true;
     });

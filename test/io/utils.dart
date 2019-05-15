@@ -59,7 +59,7 @@ Future startServer() {
         return;
       }
 
-      new ByteStream(request).toBytes().then((requestBodyBytes) {
+      ByteStream(request).toBytes().then((requestBodyBytes) {
         var outputEncoding;
         var encodingName = request.uri.queryParameters['response-encoding'];
         if (encodingName != null) {
@@ -68,8 +68,8 @@ Future startServer() {
           outputEncoding = ascii;
         }
 
-        response.headers.contentType = new ContentType("application", "json",
-            charset: outputEncoding.name);
+        response.headers.contentType =
+            ContentType("application", "json", charset: outputEncoding.name);
         response.headers.set('single', 'value');
 
         var requestBody;
@@ -116,8 +116,7 @@ void stopServer() {
 }
 
 /// A matcher for functions that throw HttpException.
-Matcher get throwsClientException =>
-    throwsA(new TypeMatcher<ClientException>());
+Matcher get throwsClientException => throwsA(TypeMatcher<ClientException>());
 
 /// A matcher for RedirectLimitExceededExceptions.
 final isRedirectLimitExceededException = const TypeMatcher<RedirectException>()

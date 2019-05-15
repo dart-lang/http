@@ -161,7 +161,7 @@ Future<Uint8List> readBytes(url, {Map<String, String> headers}) =>
     _withClient((client) => client.readBytes(url, headers: headers));
 
 Future<T> _withClient<T>(Future<T> fn(Client client)) async {
-  var client = new Client();
+  var client = Client();
   try {
     return await fn(client);
   } finally {
