@@ -1,5 +1,5 @@
 name: web_socket_channel
-version: 1.0.12
+version: 1.0.13
 
 description: >-
   StreamChannel wrappers for WebSockets. Provides a cross-platform

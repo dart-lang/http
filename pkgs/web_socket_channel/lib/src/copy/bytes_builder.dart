@@ -47,12 +47,12 @@ abstract class BytesBuilder {
   ///
   /// The list returned is a view of the internal buffer, limited to the
   /// [length].
-  List<int> takeBytes();
+  Uint8List takeBytes();
 
   /// Returns a copy of the current contents of the builder.
   ///
   /// Leaves the contents of the builder intact.
-  List<int> toBytes();
+  Uint8List toBytes();
 
   /// The number of bytes in the builder.
   int get length;
@@ -124,14 +124,14 @@ class _CopyingBytesBuilder implements BytesBuilder {
     _buffer = newBuffer;
   }
 
-  List<int> takeBytes() {
+  Uint8List takeBytes() {
     if (_length == 0) return _emptyList;
     var buffer = Uint8List.view(_buffer.buffer, 0, _length);
     clear();
     return buffer;
   }
 
-  List<int> toBytes() {
+  Uint8List toBytes() {
     if (_length == 0) return _emptyList;
     return Uint8List.fromList(Uint8List.view(_buffer.buffer, 0, _length));
   }
@@ -179,7 +179,7 @@ class _BytesBuilder implements BytesBuilder {
     _length++;
   }
 
-  List<int> takeBytes() {
+  Uint8List takeBytes() {
     if (_length == 0) return _CopyingBytesBuilder._emptyList;
     if (_chunks.length == 1) {
       var buffer = _chunks[0];
@@ -196,7 +196,7 @@ class _BytesBuilder implements BytesBuilder {
     return buffer;
   }
 
-  List<int> toBytes() {
+  Uint8List toBytes() {
     if (_length == 0) return _CopyingBytesBuilder._emptyList;
     var buffer = Uint8List(_length);
     int offset = 0;
