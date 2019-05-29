@@ -5,7 +5,8 @@ dart:
   - dev
 
 dart_task:
-  - test
+  - test: --exclude-tags flaky
+  - test: --tags flaky
   - dartanalyzer: --fatal-infos --fatal-warnings .
 
 matrix:
@@ -13,6 +14,9 @@ matrix:
     # Only validate formatting using the dev release
     - dart: dev
       dart_task: dartfmt
+  allow_failures:
+    - dart_task:
+        test: --tags flaky
 
 # Only building master means that we don't run two builds for each pull request.
 branches:

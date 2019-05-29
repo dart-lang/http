@@ -12,36 +12,36 @@ import 'package:http2/src/testing/client.dart';
 import 'package:test/test.dart';
 
 main() async {
-  group('end2end', () {
-    test('google', () async {
-      var uri = Uri.parse("https://www.google.com/");
-      ClientConnection connection = await connect(uri);
-      Response response = await connection.makeRequest(new Request('GET', uri));
-      dumpHeaders(uri, response.headers);
+  test('google', () async {
+    var uri = Uri.parse("https://www.google.com/");
+    ClientConnection connection = await connect(uri);
+    Response response = await connection.makeRequest(new Request('GET', uri));
+    dumpHeaders(uri, response.headers);
 
-      final utf8Decoder = new Utf8Decoder(allowMalformed: true);
-      String body = await response.stream.transform(utf8Decoder).join('');
-      connection.close();
+    final utf8Decoder = new Utf8Decoder(allowMalformed: true);
+    String body = await response.stream.transform(utf8Decoder).join('');
+    connection.close();
 
-      body = body.toLowerCase();
-      expect(body, contains('<html'));
-      expect(body, contains('www.google'));
-    });
+    body = body.toLowerCase();
+    expect(body, contains('<html'));
+    expect(body, contains('www.google'));
+  });
 
-    test('twitter', () async {
-      var uri = Uri.parse("https://twitter.com/");
-      ClientConnection connection = await connect(uri);
-      Response response = await connection.makeRequest(new Request('GET', uri));
-      dumpHeaders(uri, response.headers);
+  test('twitter', () async {
+    var uri = Uri.parse("https://twitter.com/");
+    ClientConnection connection = await connect(uri);
+    Response response = await connection.makeRequest(new Request('GET', uri));
+    dumpHeaders(uri, response.headers);
 
-      String body = await readBody(response);
-      connection.close();
+    String body = await readBody(response);
+    connection.close();
 
-      expect(body, contains('<!DOCTYPE html>'));
-      expect(body, contains('twitter.com'));
-    });
+    expect(body, contains('<!DOCTYPE html>'));
+    expect(body, contains('twitter.com'));
+  });
 
-    test('nghttp2.org - server push enabled', () async {
+  group('nghttp2.org - ', () {
+    test('server push enabled', () async {
       var uri = Uri.parse("https://nghttp2.org/");
 
       ClientConnection connection = await connect(uri, allowServerPushes: true);
@@ -82,7 +82,7 @@ main() async {
       await connection.close();
     });
 
-    test('nghttp2.org - server push disabled', () async {
+    test('server push disabled', () async {
       var uri = Uri.parse("https://nghttp2.org/");
 
       ClientConnection connection =
@@ -112,7 +112,7 @@ main() async {
       expect(pushes, hasLength(0));
       await connection.close();
     });
-  });
+  }, tags: ['flaky']);
 }
 
 dumpHeaders(Uri uri, Map<String, List<String>> headers,
