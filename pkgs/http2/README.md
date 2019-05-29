@@ -58,5 +58,5 @@ See the [API docs][api] for more details.
 Please file feature requests and bugs at the [issue tracker][tracker].
 
 [tracker]: https://github.com/dart-lang/http2/issues
-[api]: http://www.dartdocs.org/documentation/http2/latest
+[api]: https://pub.dev/documentation/http2/latest/
 [example]: https://github.com/dart-lang/http2/blob/master/example/display_headers.dart.
