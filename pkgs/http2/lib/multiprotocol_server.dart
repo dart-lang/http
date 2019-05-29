@@ -82,7 +82,7 @@ class MultiProtocolHttpServer {
             onDone: () => _http2Connections.remove(connection));
       } else {
         socket.destroy();
-        throw new Exception("Unexpected negotiated ALPN protocol: $protocol.");
+        throw new Exception('Unexpected negotiated ALPN protocol: $protocol.');
       }
     }, onError: onError);
 

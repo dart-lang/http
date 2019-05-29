@@ -29,6 +29,6 @@ class ArtificialServerSocket extends StreamView<Socket>
   /// Closing of an [ArtificialServerSocket] is not possible and an exception
   /// will be thrown when calling this method.
   Future<ServerSocket> close() async {
-    throw new Exception("Did not expect close() to be called.");
+    throw new Exception('Did not expect close() to be called.');
   }
 }

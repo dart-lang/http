@@ -13,7 +13,7 @@ import 'package:test/test.dart';
 
 main() async {
   test('google', () async {
-    var uri = Uri.parse("https://www.google.com/");
+    var uri = Uri.parse('https://www.google.com/');
     ClientConnection connection = await connect(uri);
     Response response = await connection.makeRequest(new Request('GET', uri));
     dumpHeaders(uri, response.headers);
@@ -28,7 +28,7 @@ main() async {
   });
 
   test('twitter', () async {
-    var uri = Uri.parse("https://twitter.com/");
+    var uri = Uri.parse('https://twitter.com/');
     ClientConnection connection = await connect(uri);
     Response response = await connection.makeRequest(new Request('GET', uri));
     dumpHeaders(uri, response.headers);
@@ -42,7 +42,7 @@ main() async {
 
   group('nghttp2.org - ', () {
     test('server push enabled', () async {
-      var uri = Uri.parse("https://nghttp2.org/");
+      var uri = Uri.parse('https://nghttp2.org/');
 
       ClientConnection connection = await connect(uri, allowServerPushes: true);
       var request = new Request('GET', uri);
@@ -83,7 +83,7 @@ main() async {
     });
 
     test('server push disabled', () async {
-      var uri = Uri.parse("https://nghttp2.org/");
+      var uri = Uri.parse('https://nghttp2.org/');
 
       ClientConnection connection =
           await connect(uri, allowServerPushes: false);

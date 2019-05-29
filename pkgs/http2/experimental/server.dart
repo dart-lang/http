@@ -30,8 +30,8 @@ main() async {
   runZoned(() {
     server.listen(handleClient);
   }, onError: (e, s) {
-    print("Unexpected error: $e");
-    print("Unexpected error - stack: $s");
+    print('Unexpected error: $e');
+    print('Unexpected error - stack: $s');
   });
 }
 

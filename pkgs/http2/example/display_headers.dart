@@ -53,7 +53,7 @@ Future<Socket> connect(Uri uri) async {
     var secureSocket = await SecureSocket.connect(uri.host, uri.port,
         supportedProtocols: ['h2']);
     if (secureSocket.selectedProtocol != 'h2') {
-      throw new Exception("Failed to negogiate http/2 via alpn. Maybe server "
+      throw new Exception('Failed to negogiate http/2 via alpn. Maybe server '
           "doesn't support http/2.");
     }
     return secureSocket;
