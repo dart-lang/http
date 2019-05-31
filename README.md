@@ -1,6 +1,6 @@
 A composable, Future-based library for making HTTP requests.
 
-[![pub package](https://img.shields.io/pub/v/http.svg)](https://pub.dartlang.org/packages/http)
+[![pub package](https://img.shields.io/pub/v/http.svg)](https://pub.dev/packages/http)
 [![Build Status](https://travis-ci.org/dart-lang/http.svg?branch=master)](https://travis-ci.org/dart-lang/http)
 
 This package contains a set of high-level functions and classes that make it
@@ -42,17 +42,17 @@ You can also exert more fine-grained control over your requests and responses by
 creating [Request][] or [StreamedRequest][] objects yourself and passing them to
 [Client.send][].
 
-[Request]: https://pub.dartlang.org/documentation/http/latest/http/Request-class.html
-[StreamedRequest]: https://pub.dartlang.org/documentation/http/latest/http/StreamedRequest-class.html
-[Client.send]: https://pub.dartlang.org/documentation/http/latest/http/Client/send.html
+[Request]: https://pub.dev/documentation/http/latest/http/Request-class.html
+[StreamedRequest]: https://pub.dev/documentation/http/latest/http/StreamedRequest-class.html
+[Client.send]: https://pub.dev/documentation/http/latest/http/Client/send.html
 
 This package is designed to be composable. This makes it easy for external
 libraries to work with one another to add behavior to it. Libraries wishing to
 add behavior should create a subclass of [BaseClient][] that wraps another
 [Client][] and adds the desired behavior:
 
-[BaseClient]: https://pub.dartlang.org/documentation/http/latest/http/BaseClient-class.html
-[Client]: https://pub.dartlang.org/documentation/http/latest/http/Client-class.html
+[BaseClient]: https://pub.dev/documentation/http/latest/http/BaseClient-class.html
+[Client]: https://pub.dev/documentation/http/latest/http/Client-class.html
 
 ```dart
 class UserAgentClient extends http.BaseClient {
