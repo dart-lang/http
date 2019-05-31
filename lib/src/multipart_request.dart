@@ -21,7 +21,7 @@ final _newlineRegExp = RegExp(r"\r\n|\r|\n");
 /// This request automatically sets the Content-Type header to
 /// `multipart/form-data`. This value will override any value set by the user.
 ///
-///     var uri = Uri.parse("http://pub.dartlang.org/packages/create");
+///     var uri = Uri.parse("https://example.com/create");
 ///     var request = new http.MultipartRequest("POST", uri);
 ///     request.fields['user'] = 'nweiz@google.com';
 ///     request.files.add(new http.MultipartFile.fromPath(
