@@ -35,7 +35,9 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// If the wrapped servers have different default values, it's not defined
   /// which value is returned.
+  @override
   String get serverHeader => _servers.first.serverHeader;
+  @override
   set serverHeader(String value) {
     for (var server in _servers) {
       server.serverHeader = value;
@@ -46,16 +48,21 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// If the wrapped servers have different default headers, it's not defined
   /// which header is returned for accessor methods.
+  @override
   final HttpHeaders defaultResponseHeaders;
 
+  @override
   Duration get idleTimeout => _servers.first.idleTimeout;
+  @override
   set idleTimeout(Duration value) {
     for (var server in _servers) {
       server.idleTimeout = value;
     }
   }
 
+  @override
   bool get autoCompress => _servers.first.autoCompress;
+  @override
   set autoCompress(bool value) {
     for (var server in _servers) {
       server.autoCompress = value;
@@ -66,14 +73,17 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// If the wrapped servers are listening on different ports, it's not defined
   /// which port is returned.
+  @override
   int get port => _servers.first.port;
 
   /// Returns the address that one of the wrapped servers is listening on.
   ///
   /// If the wrapped servers are listening on different addresses, it's not
   /// defined which address is returned.
+  @override
   InternetAddress get address => _servers.first.address;
 
+  @override
   set sessionTimeout(int value) {
     for (var server in _servers) {
       server.sessionTimeout = value;
@@ -160,11 +170,13 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
     }
   }
 
+  @override
   Future close({bool force = false}) =>
       Future.wait(_servers.map((server) => server.close(force: force)));
 
   /// Returns an HttpConnectionsInfo object summarizing the total number of
   /// current connections handled by all the servers.
+  @override
   HttpConnectionsInfo connectionsInfo() {
     var info = HttpConnectionsInfo();
     for (var server in _servers) {
