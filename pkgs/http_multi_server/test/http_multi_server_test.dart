@@ -181,6 +181,62 @@ void main() {
       }
     });
   });
+
+  group("HttpMultiServer.bind", () {
+    test("listens on all localhost interfaces for 'localhost'", () async {
+      final server = await HttpMultiServer.bind("localhost", 0);
+      server.listen((request) {
+        request.response.write("got request");
+        request.response.close();
+      });
+
+      if (await supportsIPv4) {
+        expect(http.read("http://127.0.0.1:${server.port}/"),
+            completion(equals("got request")));
+      }
+
+      if (await supportsIPv6) {
+        expect(http.read("http://[::1]:${server.port}/"),
+            completion(equals("got request")));
+      }
+    });
+
+    test("listens on all localhost interfaces for 'any'", () async {
+      final server = await HttpMultiServer.bind("any", 0);
+      server.listen((request) {
+        request.response.write("got request");
+        request.response.close();
+      });
+
+      if (await supportsIPv4) {
+        expect(http.read("http://127.0.0.1:${server.port}/"),
+            completion(equals("got request")));
+      }
+
+      if (await supportsIPv6) {
+        expect(http.read("http://[::1]:${server.port}/"),
+            completion(equals("got request")));
+      }
+    });
+
+    test("listens on specified hostname", () async {
+      final server = await HttpMultiServer.bind(InternetAddress.anyIPv4, 0);
+      server.listen((request) {
+        request.response.write("got request");
+        request.response.close();
+      });
+
+      if (await supportsIPv4) {
+        expect(http.read("http://127.0.0.1:${server.port}/"),
+            completion(equals("got request")));
+      }
+
+      if (await supportsIPv6) {
+        expect(http.read("http://[::1]:${server.port}/"),
+            throwsA(isA<SocketException>()));
+      }
+    });
+  });
 }
 
 /// Makes a GET request to the root of [server] and returns the response.

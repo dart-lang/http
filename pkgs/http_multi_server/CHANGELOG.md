@@ -1,6 +1,10 @@
-## 2.0.7
+## 2.1.0
 
+- Add `HttpMultiServer.bind` static which centralizes logic around common local
+  serving scenarios - handling a more flexible 'localhost' and listening on
+  'any' hostname.
 - Update SDK constraints to `>=2.1.0 <3.0.0`.
+
 
 ## 2.0.6
 
