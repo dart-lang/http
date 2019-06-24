@@ -13,7 +13,7 @@ import 'utils.dart';
 // ignore: uri_does_not_exist
 import 'multipart_file_stub.dart'
     // ignore: uri_does_not_exist
-    if (dart.library.io) 'multipart_file_io.dart';
+    if (!dart.library.js) 'multipart_file_io.dart';
 
 /// A file to be uploaded as part of a [MultipartRequest]. This doesn't need to
 /// correspond to a physical file.
