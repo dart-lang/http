@@ -71,7 +71,7 @@ Future makeHttp11Request(
   var request =
       await client.getUrl(Uri.parse('https://localhost:${server.port}/abc$i'));
   var response = await request.close();
-  var body = await response.transform(utf8.decoder).join('');
+  var body = await response.cast<List<int>>().transform(utf8.decoder).join('');
   expect(body, 'answer$i');
 }
 
