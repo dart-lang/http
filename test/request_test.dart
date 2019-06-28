@@ -248,7 +248,7 @@ void main() {
           equals('application/json; charset=iso-8859-1'));
     });
 
-    test("doen't have its charset overridden by setting bodyFields", () {
+    test("doesn't have its charset overridden by setting bodyFields", () {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] =
           'application/x-www-form-urlencoded; charset=iso-8859-1';
@@ -257,7 +257,7 @@ void main() {
           equals('application/x-www-form-urlencoded; charset=iso-8859-1'));
     });
 
-    test("doen't have its charset overridden by setting body", () {
+    test("doesn't have its charset overridden by setting body", () {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'application/json; charset=iso-8859-1';
       request.body = '{"hello": "world"}';
