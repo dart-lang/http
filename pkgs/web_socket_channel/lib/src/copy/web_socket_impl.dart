@@ -607,7 +607,7 @@ class _WebSocketConsumer implements StreamConsumer {
         onResume: _onResume,
         onCancel: _onListen);
     var stream =
-        _controller.stream.transform(_WebSocketOutgoingTransformer(webSocket));
+        _WebSocketOutgoingTransformer(webSocket).bind(_controller.stream);
     sink.addStream(stream).then((_) {
       _done();
       _closeCompleter.complete(webSocket);
@@ -709,7 +709,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
     _readyState = WebSocket.OPEN;
 
     var transformer = _WebSocketProtocolTransformer(_serverSide);
-    _subscription = stream.transform(transformer).listen((data) {
+    _subscription = transformer.bind(stream).listen((data) {
       if (data is _WebSocketPing) {
         if (!_writeClosed) _consumer.add(_WebSocketPong(data.payload));
       } else if (data is _WebSocketPong) {
