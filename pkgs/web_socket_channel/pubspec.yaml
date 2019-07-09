@@ -17,5 +17,5 @@ dependencies:
   stream_channel: ">=1.2.0 <3.0.0"
 
 dev_dependencies:
-  pedantic:
+  pedantic: ^1.0.0
   test: ^1.2.0
