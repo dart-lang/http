@@ -10,7 +10,7 @@ class FrameReader {
 
   /// Connection settings which this reader needs to ensure the remote end is
   /// complying with.
-  ActiveSettings _localSettings;
+  final ActiveSettings _localSettings;
 
   StreamSubscription<List<int>> _subscription;
   StreamController<Frame> _framesController;
