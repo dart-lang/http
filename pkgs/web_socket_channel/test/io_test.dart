@@ -75,7 +75,7 @@ void main() {
     server.transform(WebSocketTransformer()).listen((webSocket) {
       expect(() async {
         var channel = IOWebSocketChannel(webSocket);
-        await channel.stream.listen(null).asFuture();
+        await channel.stream.drain();
         expect(channel.closeCode, equals(5678));
         expect(channel.closeReason, equals("raisin"));
       }(), completes);
@@ -94,7 +94,7 @@ void main() {
     });
 
     var channel = IOWebSocketChannel.connect("ws://localhost:${server.port}");
-    expect(channel.stream.toList(),
+    expect(channel.stream.drain(),
         throwsA(TypeMatcher<WebSocketChannelException>()));
   });
 
@@ -111,7 +111,7 @@ void main() {
 
     var channel = IOWebSocketChannel.connect("ws://localhost:${server.port}",
         protocols: [failedProtocol]);
-    expect(channel.stream.toList(),
+    expect(channel.stream.drain(),
         throwsA(TypeMatcher<WebSocketChannelException>()));
   });
 
@@ -129,7 +129,7 @@ void main() {
 
     var channel = IOWebSocketChannel.connect("ws://localhost:${server.port}",
         protocols: [passedProtocol]);
-    await channel.stream.listen(null).asFuture();
+    await channel.stream.drain();
     expect(channel.protocol, passedProtocol);
   });
 }
