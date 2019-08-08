@@ -54,8 +54,9 @@ class IOWebSocketChannel extends StreamChannelMixin
       Duration pingInterval}) {
     var channel;
     var sinkCompleter = WebSocketSinkCompleter();
-    var stream = StreamCompleter.fromFuture(
-        WebSocket.connect(url.toString(), headers: headers).then((webSocket) {
+    var stream = StreamCompleter.fromFuture(WebSocket.connect(url.toString(),
+            headers: headers, protocols: protocols)
+        .then((webSocket) {
       webSocket.pingInterval = pingInterval;
       channel._webSocket = webSocket;
       sinkCompleter.setDestinationSink(_IOWebSocketSink(webSocket));

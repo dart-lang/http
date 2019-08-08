@@ -1,3 +1,7 @@
+## 1.0.15
+
+* bug fix don't pass protocols parameter to WebSocket.
+
 ## 1.0.14
 
 * Updates to handle `Socket implements Stream<Uint8List>`
