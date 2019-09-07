@@ -44,10 +44,14 @@ class MultipartRequest extends BaseRequest {
   /// The private version of [files].
   final List<MultipartFile> _files;
 
+  /// The boundary prefix. When not set, defaults to "dart-http-boundary-".
+  String boundaryPrefix;
+
   /// Creates a new [MultipartRequest].
   MultipartRequest(String method, Uri url)
       : fields = {},
         _files = <MultipartFile>[],
+        boundaryPrefix = "dart-http-boundary-",
         super(method, url);
 
   /// The list of files to upload for this request.
@@ -160,7 +164,7 @@ class MultipartRequest extends BaseRequest {
 
   /// Returns a randomly-generated multipart boundary string
   String _boundaryString() {
-    var prefix = "dart-http-boundary-";
+    var prefix = boundaryPrefix;
     var list = List<int>.generate(
         _BOUNDARY_LENGTH - prefix.length,
         (index) =>
