@@ -39,7 +39,9 @@ class MultipartRequest extends BaseRequest {
   static final Random _random = Random();
 
   /// The form fields to send for this request.
-  final Map<String, String> fields;
+  // final List<MapEntry<String, String>> fields;
+
+  final Map<String, List<String>> fields;
 
   /// The private version of [files].
   final List<MultipartFile> _files;
@@ -58,13 +60,15 @@ class MultipartRequest extends BaseRequest {
   int get contentLength {
     var length = 0;
 
-    fields.forEach((name, value) {
-      length += "--".length +
-          _BOUNDARY_LENGTH +
-          "\r\n".length +
-          utf8.encode(_headerForField(name, value)).length +
-          utf8.encode(value).length +
-          "\r\n".length;
+    fields.forEach((name, values) {
+      values.forEach((value) {
+        length += "--".length +
+            _BOUNDARY_LENGTH +
+            "\r\n".length +
+            utf8.encode(_headerForField(name, value)).length +
+            utf8.encode(value).length +
+            "\r\n".length;
+      });
     });
 
     for (var file in _files) {
@@ -101,11 +105,13 @@ class MultipartRequest extends BaseRequest {
     writeUtf8(String string) => controller.add(utf8.encode(string));
     writeLine() => controller.add([13, 10]); // \r\n
 
-    fields.forEach((name, value) {
-      writeAscii('--$boundary\r\n');
-      writeAscii(_headerForField(name, value));
-      writeUtf8(value);
-      writeLine();
+    fields.forEach((name, values) {
+      values.forEach((value) {
+        writeAscii('--$boundary\r\n');
+        writeAscii(_headerForField(name, value));
+        writeUtf8(value);
+        writeLine();
+      });
     });
 
     Future.forEach(_files, (file) {
