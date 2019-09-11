@@ -1,3 +1,7 @@
+## 0.12.0+3
+
+* Documentation fixes.
+
 ## 0.12.0+2
 
 * Documentation fixes.
