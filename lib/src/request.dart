@@ -18,8 +18,10 @@ class Request extends BaseRequest {
   ///
   /// The content length cannot be set for [Request], since it's automatically
   /// calculated from [bodyBytes].
+  @override
   int get contentLength => bodyBytes.length;
 
+  @override
   set contentLength(int value) {
     throw UnsupportedError("Cannot set the contentLength property of "
         "non-streaming Request objects.");
@@ -136,6 +138,7 @@ class Request extends BaseRequest {
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// containing the request body.
+  @override
   ByteStream finalize() {
     super.finalize();
     return ByteStream.fromBytes(bodyBytes);
