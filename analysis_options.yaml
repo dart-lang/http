@@ -23,7 +23,7 @@ linter:
   # comment_references
   - control_flow_in_finally
   - curly_braces_in_flow_control_structures
-  # directives_ordering
+  - directives_ordering
   - empty_catches
   - empty_constructor_bodies
   - empty_statements
