@@ -64,13 +64,10 @@ Future startServer() {
       }
 
       ByteStream(request).toBytes().then((requestBodyBytes) {
-        var outputEncoding;
         var encodingName = request.uri.queryParameters['response-encoding'];
-        if (encodingName != null) {
-          outputEncoding = requiredEncodingForCharset(encodingName);
-        } else {
-          outputEncoding = ascii;
-        }
+        var outputEncoding = encodingName == null
+            ? ascii
+            : requiredEncodingForCharset(encodingName);
 
         response.headers.contentType =
             ContentType('application', 'json', charset: outputEncoding.name);
@@ -79,8 +76,7 @@ Future startServer() {
         var requestBody;
         if (requestBodyBytes.isEmpty) {
           requestBody = null;
-        } else if (request.headers.contentType != null &&
-            request.headers.contentType.charset != null) {
+        } else if (request.headers.contentType?.charset != null) {
           var encoding =
               requiredEncodingForCharset(request.headers.contentType.charset);
           requestBody = encoding.decode(requestBodyBytes);

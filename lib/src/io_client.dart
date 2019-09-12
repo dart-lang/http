@@ -34,8 +34,7 @@ class IOClient extends BaseClient {
       var ioRequest = (await _inner.openUrl(request.method, request.url))
         ..followRedirects = request.followRedirects
         ..maxRedirects = request.maxRedirects
-        ..contentLength =
-            request.contentLength == null ? -1 : request.contentLength
+        ..contentLength = (request?.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
@@ -69,7 +68,9 @@ class IOClient extends BaseClient {
   /// remains unclosed, the Dart process may not terminate.
   @override
   void close() {
-    if (_inner != null) _inner.close(force: true);
-    _inner = null;
+    if (_inner != null) {
+      _inner.close(force: true);
+      _inner = null;
+    }
   }
 }

@@ -47,9 +47,8 @@ class MultipartFile {
   MultipartFile(this.field, Stream<List<int>> stream, this.length,
       {this.filename, MediaType contentType})
       : this._stream = toByteStream(stream),
-        this.contentType = contentType != null
-            ? contentType
-            : MediaType('application', 'octet-stream');
+        this.contentType =
+            contentType ?? MediaType('application', 'octet-stream');
 
   /// Creates a new [MultipartFile] from a byte array.
   ///
@@ -70,8 +69,7 @@ class MultipartFile {
   /// the future may be inferred from [filename].
   factory MultipartFile.fromString(String field, String value,
       {String filename, MediaType contentType}) {
-    contentType =
-        contentType == null ? MediaType('text', 'plain') : contentType;
+    contentType ??= MediaType('text', 'plain');
     var encoding = encodingForCharset(contentType.parameters['charset'], utf8);
     contentType = contentType.change(parameters: {'charset': encoding.name});
 
