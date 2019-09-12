@@ -34,7 +34,7 @@ abstract class BaseRequest {
 
   set contentLength(int value) {
     if (value != null && value < 0) {
-      throw ArgumentError("Invalid content length $value.");
+      throw ArgumentError('Invalid content length $value.');
     }
     _checkFinalized();
     _contentLength = value;

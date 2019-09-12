@@ -13,7 +13,7 @@ import 'utils.dart';
 void main() {
   test('#send a StreamedRequest', () {
     var client = BrowserClient();
-    var request = http.StreamedRequest("POST", echoUrl);
+    var request = http.StreamedRequest('POST', echoUrl);
 
     expect(
         client.send(request).then((response) {
@@ -28,10 +28,10 @@ void main() {
   test('#send with an invalid URL', () {
     var client = BrowserClient();
     var url = Uri.parse('http://http.invalid');
-    var request = http.StreamedRequest("POST", url);
+    var request = http.StreamedRequest('POST', url);
 
     expect(
-        client.send(request), throwsClientException("XMLHttpRequest error."));
+        client.send(request), throwsClientException('XMLHttpRequest error.'));
 
     request.sink.add('{"hello": "world"}'.codeUnits);
     request.sink.close();

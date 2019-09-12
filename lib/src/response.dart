@@ -82,5 +82,5 @@ Encoding _encodingForHeaders(Map<String, String> headers) =>
 MediaType _contentTypeForHeaders(Map<String, String> headers) {
   var contentType = headers['content-type'];
   if (contentType != null) return MediaType.parse(contentType);
-  return MediaType("application", "octet-stream");
+  return MediaType('application', 'octet-stream');
 }

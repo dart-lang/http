@@ -3,5 +3,6 @@ linter:
   rules:
   - annotate_overrides
   - prefer_generic_function_type_aliases
+  - prefer_single_quotes
   - unnecessary_const
   - unnecessary_new
