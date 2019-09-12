@@ -5,7 +5,7 @@ homepage: https://github.com/dart-lang/http
 description: A composable, multi-platform, Future-based API for HTTP requests.
 
 environment:
-  sdk: ">=2.0.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   async: ">=1.10.0 <3.0.0"
