@@ -4,8 +4,8 @@
 
 import 'dart:async';
 
-import 'byte_stream.dart';
 import 'base_request.dart';
+import 'byte_stream.dart';
 
 /// An HTTP request where the request body is sent asynchronously after the
 /// connection has been established and the headers have been sent.

@@ -4,9 +4,9 @@
 
 import 'dart:async';
 
-import 'byte_stream.dart';
-import 'base_response.dart';
 import 'base_request.dart';
+import 'base_response.dart';
+import 'byte_stream.dart';
 import 'utils.dart';
 
 /// An HTTP response where the response body is received asynchronously after

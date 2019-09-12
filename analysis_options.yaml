@@ -23,7 +23,7 @@ linter:
   # comment_references
   - control_flow_in_finally
   - curly_braces_in_flow_control_structures
-  # directives_ordering
+  - directives_ordering
   - empty_catches
   - empty_constructor_bodies
   - empty_statements
@@ -48,6 +48,7 @@ linter:
   - prefer_contains
   - prefer_equal_for_default_values
   - prefer_final_fields
+  - prefer_collection_literals
   - prefer_generic_function_type_aliases
   - prefer_initializing_formals
   - prefer_is_empty

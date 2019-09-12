@@ -29,7 +29,7 @@ class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
   /// These are aborted if the client is closed.
-  final _xhrs = Set<HttpRequest>();
+  final _xhrs = <HttpRequest>{};
 
   /// Creates a new HTTP client.
   BrowserClient();
