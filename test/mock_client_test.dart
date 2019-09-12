@@ -19,7 +19,7 @@ void main() {
     });
 
     expect(
-        client.post("http://example.com/foo", body: {
+        client.post('http://example.com/foo', body: {
           'field1': 'value1',
           'field2': 'value2'
         }).then((response) => response.body),
@@ -39,9 +39,9 @@ void main() {
       });
     });
 
-    var uri = Uri.parse("http://example.com/foo");
-    var request = http.Request("POST", uri);
-    request.body = "hello, world";
+    var uri = Uri.parse('http://example.com/foo');
+    var request = http.Request('POST', uri);
+    request.body = 'hello, world';
     var future = client
         .send(request)
         .then(http.Response.fromStream)
@@ -54,7 +54,7 @@ void main() {
       return Future.value(http.Response('you did it', 200));
     });
 
-    expect(client.read("http://example.com/foo"),
+    expect(client.read('http://example.com/foo'),
         completion(equals('you did it')));
   });
 }

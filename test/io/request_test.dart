@@ -14,7 +14,7 @@ void main() {
     expect(
         startServer().then((_) {
           var request = http.Request('POST', serverUrl);
-          request.body = "hello";
+          request.body = 'hello';
           request.headers['User-Agent'] = 'Dart';
 
           expect(

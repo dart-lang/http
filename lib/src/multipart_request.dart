@@ -12,7 +12,7 @@ import 'byte_stream.dart';
 import 'multipart_file.dart';
 import 'utils.dart';
 
-final _newlineRegExp = RegExp(r"\r\n|\r|\n");
+final _newlineRegExp = RegExp(r'\r\n|\r|\n');
 
 /// A `multipart/form-data` request.
 ///
@@ -57,29 +57,29 @@ class MultipartRequest extends BaseRequest {
     var length = 0;
 
     fields.forEach((name, value) {
-      length += "--".length +
+      length += '--'.length +
           _boundaryLength +
-          "\r\n".length +
+          '\r\n'.length +
           utf8.encode(_headerForField(name, value)).length +
           utf8.encode(value).length +
-          "\r\n".length;
+          '\r\n'.length;
     });
 
     for (var file in _files) {
-      length += "--".length +
+      length += '--'.length +
           _boundaryLength +
-          "\r\n".length +
+          '\r\n'.length +
           utf8.encode(_headerForFile(file)).length +
           file.length +
-          "\r\n".length;
+          '\r\n'.length;
     }
 
-    return length + "--".length + _boundaryLength + "--\r\n".length;
+    return length + '--'.length + _boundaryLength + '--\r\n'.length;
   }
 
   set contentLength(int value) {
-    throw UnsupportedError("Cannot set the contentLength property of "
-        "multipart requests.");
+    throw UnsupportedError('Cannot set the contentLength property of '
+        'multipart requests.');
   }
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
@@ -155,17 +155,17 @@ class MultipartRequest extends BaseRequest {
     // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
     // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
     // characters). We follow their behavior.
-    return value.replaceAll(_newlineRegExp, "%0D%0A").replaceAll('"', "%22");
+    return value.replaceAll(_newlineRegExp, '%0D%0A').replaceAll('"', '%22');
   }
 
   /// Returns a randomly-generated multipart boundary string
   String _boundaryString() {
-    var prefix = "dart-http-boundary-";
+    var prefix = 'dart-http-boundary-';
     var list = List<int>.generate(
         _boundaryLength - prefix.length,
         (index) =>
             BOUNDARY_CHARACTERS[_random.nextInt(BOUNDARY_CHARACTERS.length)],
         growable: false);
-    return "$prefix${String.fromCharCodes(list)}";
+    return '$prefix${String.fromCharCodes(list)}';
   }
 }

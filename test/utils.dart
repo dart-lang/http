@@ -86,8 +86,8 @@ class _BodyMatches extends Matcher {
       var contentType = MediaType.parse(item.headers['content-type']);
       var boundary = contentType.parameters['boundary'];
       var expected = cleanUpLiteral(_pattern)
-          .replaceAll("\n", "\r\n")
-          .replaceAll("{{boundary}}", boundary);
+          .replaceAll('\n', '\r\n')
+          .replaceAll('{{boundary}}', boundary);
 
       expect(body, equals(expected));
       expect(item.contentLength, equals(bodyBytes.length));

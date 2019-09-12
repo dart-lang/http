@@ -79,7 +79,7 @@ class BrowserClient extends BaseClient {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
       completer.completeError(
-          ClientException("XMLHttpRequest error.", request.url),
+          ClientException('XMLHttpRequest error.', request.url),
           StackTrace.current);
     }));
 

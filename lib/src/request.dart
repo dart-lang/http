@@ -21,8 +21,8 @@ class Request extends BaseRequest {
   int get contentLength => bodyBytes.length;
 
   set contentLength(int value) {
-    throw UnsupportedError("Cannot set the contentLength property of "
-        "non-streaming Request objects.");
+    throw UnsupportedError('Cannot set the contentLength property of '
+        'non-streaming Request objects.');
   }
 
   /// The default encoding to use when converting between [bodyBytes] and
@@ -85,7 +85,7 @@ class Request extends BaseRequest {
     bodyBytes = encoding.encode(value);
     var contentType = _contentType;
     if (contentType == null) {
-      _contentType = MediaType("text", "plain", {'charset': encoding.name});
+      _contentType = MediaType('text', 'plain', {'charset': encoding.name});
     } else if (!contentType.parameters.containsKey('charset')) {
       _contentType = contentType.change(parameters: {'charset': encoding.name});
     }
@@ -108,7 +108,7 @@ class Request extends BaseRequest {
   Map<String, String> get bodyFields {
     var contentType = _contentType;
     if (contentType == null ||
-        contentType.mimeType != "application/x-www-form-urlencoded") {
+        contentType.mimeType != 'application/x-www-form-urlencoded') {
       throw StateError('Cannot access the body fields of a Request without '
           'content-type "application/x-www-form-urlencoded".');
     }
@@ -119,8 +119,8 @@ class Request extends BaseRequest {
   set bodyFields(Map<String, String> fields) {
     var contentType = _contentType;
     if (contentType == null) {
-      _contentType = MediaType("application", "x-www-form-urlencoded");
-    } else if (contentType.mimeType != "application/x-www-form-urlencoded") {
+      _contentType = MediaType('application', 'x-www-form-urlencoded');
+    } else if (contentType.mimeType != 'application/x-www-form-urlencoded') {
       throw StateError('Cannot set the body fields of a Request with '
           'content-type "${contentType.mimeType}".');
     }
