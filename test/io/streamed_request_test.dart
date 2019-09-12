@@ -15,10 +15,10 @@ void main() {
   group('contentLength', () {
     test('controls the Content-Length header', () {
       return startServer().then((_) {
-        var request = http.StreamedRequest('POST', serverUrl);
-        request.contentLength = 10;
-        request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-        request.sink.close();
+        var request = http.StreamedRequest('POST', serverUrl)
+          ..contentLength = 10
+          ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+          ..sink.close();
 
         return request.send();
       }).then((response) {

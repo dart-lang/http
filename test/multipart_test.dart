@@ -203,8 +203,9 @@ void main() {
         --{{boundary}}--
         '''));
 
-    controller.add([104, 101, 108, 108, 111]);
-    controller.close();
+    controller
+      ..add([104, 101, 108, 108, 111])
+      ..close();
   });
 
   test('with an empty stream file', () {

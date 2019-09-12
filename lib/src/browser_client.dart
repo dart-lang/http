@@ -47,8 +47,9 @@ class BrowserClient extends BaseClient {
     var xhr = HttpRequest();
     _xhrs.add(xhr);
     _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
-    xhr.responseType = 'blob';
-    xhr.withCredentials = withCredentials;
+    xhr
+      ..responseType = 'blob'
+      ..withCredentials = withCredentials;
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = Completer<StreamedResponse>();
