@@ -34,6 +34,7 @@ class StreamedRequest extends BaseRequest {
   /// Freezes all mutable fields other than [stream] and returns a
   /// single-subscription [ByteStream] that emits the data being written to
   /// [sink].
+  @override
   ByteStream finalize() {
     super.finalize();
     return ByteStream(_controller.stream);

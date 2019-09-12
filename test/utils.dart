@@ -47,6 +47,7 @@ class _Parse extends Matcher {
 
   _Parse(this._matcher);
 
+  @override
   bool matches(item, Map matchState) {
     if (item is! String) return false;
 
@@ -60,6 +61,7 @@ class _Parse extends Matcher {
     return _matcher.matches(parsed, matchState);
   }
 
+  @override
   Description describe(Description description) {
     return description
         .add('parses to a value that ')
@@ -78,6 +80,7 @@ class _BodyMatches extends Matcher {
 
   _BodyMatches(this._pattern);
 
+  @override
   bool matches(item, Map matchState) {
     if (item is! http.MultipartRequest) return false;
 
@@ -96,6 +99,7 @@ class _BodyMatches extends Matcher {
     return completes.matches(future, matchState);
   }
 
+  @override
   Description describe(Description description) {
     return description.add('has a body that matches "$_pattern"');
   }
