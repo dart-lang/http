@@ -41,6 +41,7 @@ class BrowserClient extends BaseClient {
   bool withCredentials = false;
 
   /// Sends an HTTP request and asynchronously returns the response.
+  @override
   Future<StreamedResponse> send(BaseRequest request) async {
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
@@ -101,6 +102,7 @@ class BrowserClient extends BaseClient {
   /// Closes the client.
   ///
   /// This terminates all active requests.
+  @override
   void close() {
     for (var xhr in _xhrs) {
       xhr.abort();

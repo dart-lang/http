@@ -26,6 +26,7 @@ class IOClient extends BaseClient {
   IOClient([HttpClient inner]) : _inner = inner ?? HttpClient();
 
   /// Sends an HTTP request and asynchronously returns the response.
+  @override
   Future<StreamedResponse> send(BaseRequest request) async {
     var stream = request.finalize();
 
@@ -68,6 +69,7 @@ class IOClient extends BaseClient {
 
   /// Closes the client. This terminates all active connections. If a client
   /// remains unclosed, the Dart process may not terminate.
+  @override
   void close() {
     if (_inner != null) _inner.close(force: true);
     _inner = null;

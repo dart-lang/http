@@ -67,6 +67,7 @@ class MockClient extends BaseClient {
         });
 
   /// Sends a request.
+  @override
   Future<StreamedResponse> send(BaseRequest request) async {
     var bodyStream = request.finalize();
     return await _handler(request, bodyStream);
