@@ -14,53 +14,51 @@ import 'utils.dart';
 
 final _newlineRegExp = RegExp(r"\r\n|\r|\n");
 
-/// A `multipart/form-data` request. Such a request has both string [fields],
-/// which function as normal form fields, and (potentially streamed) binary
-/// [files].
+/// A `multipart/form-data` request.
+///
+/// Such a request has both string [fields], which function as normal form
+/// fields, and (potentially streamed) binary [files].
 ///
 /// This request automatically sets the Content-Type header to
 /// `multipart/form-data`. This value will override any value set by the user.
 ///
-///     var uri = Uri.parse("https://example.com/create");
-///     var request = new http.MultipartRequest("POST", uri);
-///     request.fields['user'] = 'nweiz@google.com';
-///     request.files.add(new http.MultipartFile.fromPath(
-///         'package',
-///         'build/package.tar.gz',
-///         contentType: new MediaType('application', 'x-tar'));
+///     var uri = Uri.parse('https://example.com/create');
+///     var request = http.MultipartRequest('POST', uri)
+///       ..fields['user'] = 'nweiz@google.com'
+///       ..files.add(http.MultipartFile.fromPath(
+///           'package', 'build/package.tar.gz',
+///           contentType: MediaType('application', 'x-tar')));
 ///     var response = await request.send();
 ///     if (response.statusCode == 200) print('Uploaded!');
 class MultipartRequest extends BaseRequest {
   /// The total length of the multipart boundaries used when building the
-  /// request body. According to http://tools.ietf.org/html/rfc1341.html, this
-  /// can't be longer than 70.
-  static const int _BOUNDARY_LENGTH = 70;
+  /// request body.
+  ///
+  /// According to http://tools.ietf.org/html/rfc1341.html, this can't be longer
+  /// than 70.
+  static const int _boundaryLength = 70;
 
   static final Random _random = Random();
 
   /// The form fields to send for this request.
-  final Map<String, String> fields;
+  final fields = <String, String>{};
 
-  /// The private version of [files].
-  final List<MultipartFile> _files;
+  final _files = <MultipartFile>[];
 
-  /// Creates a new [MultipartRequest].
-  MultipartRequest(String method, Uri url)
-      : fields = {},
-        _files = <MultipartFile>[],
-        super(method, url);
+  MultipartRequest(String method, Uri url) : super(method, url);
 
   /// The list of files to upload for this request.
   List<MultipartFile> get files => _files;
 
-  /// The total length of the request body, in bytes. This is calculated from
-  /// [fields] and [files] and cannot be set manually.
+  /// The total length of the request body, in bytes.
+  ///
+  /// This is calculated from [fields] and [files] and cannot be set manually.
   int get contentLength {
     var length = 0;
 
     fields.forEach((name, value) {
       length += "--".length +
-          _BOUNDARY_LENGTH +
+          _boundaryLength +
           "\r\n".length +
           utf8.encode(_headerForField(name, value)).length +
           utf8.encode(value).length +
@@ -69,14 +67,14 @@ class MultipartRequest extends BaseRequest {
 
     for (var file in _files) {
       length += "--".length +
-          _BOUNDARY_LENGTH +
+          _boundaryLength +
           "\r\n".length +
           utf8.encode(_headerForFile(file)).length +
           file.length +
           "\r\n".length;
     }
 
-    return length + "--".length + _BOUNDARY_LENGTH + "--\r\n".length;
+    return length + "--".length + _boundaryLength + "--\r\n".length;
   }
 
   set contentLength(int value) {
@@ -123,8 +121,9 @@ class MultipartRequest extends BaseRequest {
     return ByteStream(controller.stream);
   }
 
-  /// Returns the header string for a field. The return value is guaranteed to
-  /// contain only ASCII characters.
+  /// Returns the header string for a field.
+  ///
+  /// The return value is guaranteed to contain only ASCII characters.
   String _headerForField(String name, String value) {
     var header =
         'content-disposition: form-data; name="${_browserEncode(name)}"';
@@ -136,8 +135,9 @@ class MultipartRequest extends BaseRequest {
     return '$header\r\n\r\n';
   }
 
-  /// Returns the header string for a file. The return value is guaranteed to
-  /// contain only ASCII characters.
+  /// Returns the header string for a file.
+  ///
+  /// The return value is guaranteed to contain only ASCII characters.
   String _headerForFile(MultipartFile file) {
     var header = 'content-type: ${file.contentType}\r\n'
         'content-disposition: form-data; name="${_browserEncode(file.field)}"';
@@ -162,7 +162,7 @@ class MultipartRequest extends BaseRequest {
   String _boundaryString() {
     var prefix = "dart-http-boundary-";
     var list = List<int>.generate(
-        _BOUNDARY_LENGTH - prefix.length,
+        _boundaryLength - prefix.length,
         (index) =>
             BOUNDARY_CHARACTERS[_random.nextInt(BOUNDARY_CHARACTERS.length)],
         growable: false);
