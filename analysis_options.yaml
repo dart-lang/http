@@ -19,7 +19,7 @@ linter:
   - avoid_unused_constructor_parameters
   - await_only_futures
   - camel_case_types
-  # cascade_invocations
+  - cascade_invocations
   # comment_references
   - control_flow_in_finally
   - curly_braces_in_flow_control_structures

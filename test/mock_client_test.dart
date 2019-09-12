@@ -31,8 +31,9 @@ void main() {
       return bodyStream.bytesToString().then((bodyString) {
         var controller = StreamController<List<int>>(sync: true);
         Future.sync(() {
-          controller.add('Request body was "$bodyString"'.codeUnits);
-          controller.close();
+          controller
+            ..add('Request body was "$bodyString"'.codeUnits)
+            ..close();
         });
 
         return http.StreamedResponse(controller.stream, 200);
@@ -40,8 +41,7 @@ void main() {
     });
 
     var uri = Uri.parse('http://example.com/foo');
-    var request = http.Request('POST', uri);
-    request.body = 'hello, world';
+    var request = http.Request('POST', uri)..body = 'hello, world';
     var future = client
         .send(request)
         .then(http.Response.fromStream)

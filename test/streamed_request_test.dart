@@ -20,8 +20,7 @@ void main() {
     });
 
     test('is frozen by finalize()', () {
-      var request = http.StreamedRequest('POST', dummyUrl);
-      request.finalize();
+      var request = http.StreamedRequest('POST', dummyUrl)..finalize();
       expect(() => request.contentLength = 10, throwsStateError);
     });
   });
