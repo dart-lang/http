@@ -31,9 +31,7 @@ class IOClient extends BaseClient {
     var stream = request.finalize();
 
     try {
-      var ioRequest = await _inner.openUrl(request.method, request.url);
-
-      ioRequest
+      var ioRequest = (await _inner.openUrl(request.method, request.url))
         ..followRedirects = request.followRedirects
         ..maxRedirects = request.maxRedirects
         ..contentLength =
@@ -75,3 +73,4 @@ class IOClient extends BaseClient {
     _inner = null;
   }
 }
+Isolate creation failed
