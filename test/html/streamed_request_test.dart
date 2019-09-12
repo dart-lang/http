@@ -13,10 +13,10 @@ import 'utils.dart';
 void main() {
   group('contentLength', () {
     test("works when it's set", () {
-      var request = http.StreamedRequest('POST', echoUrl);
-      request.contentLength = 10;
-      request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-      request.sink.close();
+      var request = http.StreamedRequest('POST', echoUrl)
+        ..contentLength = 10
+        ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        ..sink.close();
 
       return BrowserClient().send(request).then((response) {
         expect(response.stream.toBytes(),

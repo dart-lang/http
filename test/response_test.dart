@@ -56,9 +56,10 @@ void main() {
           .then((response) => response.body);
       expect(future, completion(equals('Hello, world!')));
 
-      controller.add([72, 101, 108, 108, 111, 44, 32]);
-      controller.add([119, 111, 114, 108, 100, 33]);
-      controller.close();
+      controller
+        ..add([72, 101, 108, 108, 111, 44, 32])
+        ..add([119, 111, 114, 108, 100, 33])
+        ..close();
     });
 
     test('sets bodyBytes', () {
@@ -69,8 +70,9 @@ void main() {
           .then((response) => response.bodyBytes);
       expect(future, completion(equals([104, 101, 108, 108, 111])));
 
-      controller.add([104, 101, 108, 108, 111]);
-      controller.close();
+      controller
+        ..add([104, 101, 108, 108, 111])
+        ..close();
     });
   });
 }
