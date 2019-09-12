@@ -20,7 +20,7 @@ Uri get serverUrl => Uri.parse('http://localhost:${_server.port}');
 
 /// Starts a new HTTP server.
 Future startServer() {
-  return HttpServer.bind("localhost", 0).then((s) {
+  return HttpServer.bind('localhost', 0).then((s) {
     _server = s;
     s.listen((request) {
       var path = request.uri.path;
@@ -69,7 +69,7 @@ Future startServer() {
         }
 
         response.headers.contentType =
-            ContentType("application", "json", charset: outputEncoding.name);
+            ContentType('application', 'json', charset: outputEncoding.name);
         response.headers.set('single', 'value');
 
         var requestBody;

@@ -23,7 +23,7 @@ abstract class BaseClient implements Client {
   /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> head(url, {Map<String, String> headers}) =>
-      _sendUnstreamed("HEAD", url, headers);
+      _sendUnstreamed('HEAD', url, headers);
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
@@ -31,7 +31,7 @@ abstract class BaseClient implements Client {
   /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> get(url, {Map<String, String> headers}) =>
-      _sendUnstreamed("GET", url, headers);
+      _sendUnstreamed('GET', url, headers);
 
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -54,7 +54,7 @@ abstract class BaseClient implements Client {
   @override
   Future<Response> post(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
-      _sendUnstreamed("POST", url, headers, body, encoding);
+      _sendUnstreamed('POST', url, headers, body, encoding);
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -77,7 +77,7 @@ abstract class BaseClient implements Client {
   @override
   Future<Response> put(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
-      _sendUnstreamed("PUT", url, headers, body, encoding);
+      _sendUnstreamed('PUT', url, headers, body, encoding);
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -100,7 +100,7 @@ abstract class BaseClient implements Client {
   @override
   Future<Response> patch(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
-      _sendUnstreamed("PATCH", url, headers, body, encoding);
+      _sendUnstreamed('PATCH', url, headers, body, encoding);
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].
@@ -108,7 +108,7 @@ abstract class BaseClient implements Client {
   /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> delete(url, {Map<String, String> headers}) =>
-      _sendUnstreamed("DELETE", url, headers);
+      _sendUnstreamed('DELETE', url, headers);
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
@@ -181,12 +181,12 @@ abstract class BaseClient implements Client {
   /// Throws an error if [response] is not successful.
   void _checkResponseSuccess(url, Response response) {
     if (response.statusCode < 400) return;
-    var message = "Request to $url failed with status ${response.statusCode}";
+    var message = 'Request to $url failed with status ${response.statusCode}';
     if (response.reasonPhrase != null) {
-      message = "$message: ${response.reasonPhrase}";
+      message = '$message: ${response.reasonPhrase}';
     }
     if (url is String) url = Uri.parse(url);
-    throw ClientException("$message.", url);
+    throw ClientException('$message.', url);
   }
 
   /// Closes the client and cleans up any resources associated with it. It's

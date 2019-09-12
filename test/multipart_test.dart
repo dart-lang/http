@@ -30,9 +30,9 @@ void main() {
     var request = http.MultipartRequest('POST', dummyUrl);
     request.fields['field1'] = 'value1';
     request.fields['field2'] = 'value2';
-    request.files.add(http.MultipartFile.fromString("file1", "contents1",
-        filename: "filename1.txt"));
-    request.files.add(http.MultipartFile.fromString("file2", "contents2"));
+    request.files.add(http.MultipartFile.fromString('file1', 'contents1',
+        filename: 'filename1.txt'));
+    request.files.add(http.MultipartFile.fromString('file2', 'contents2'));
 
     expect(request, bodyMatches('''
         --{{boundary}}

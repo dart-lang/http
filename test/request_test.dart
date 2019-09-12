@@ -21,9 +21,9 @@ void main() {
 
     test('is computed from body', () {
       var request = http.Request('POST', dummyUrl);
-      request.body = "hello";
+      request.body = 'hello';
       expect(request.contentLength, equals(5));
-      request.body = "hello, world";
+      request.body = 'hello, world';
       expect(request.contentLength, equals(12));
     });
 
@@ -84,7 +84,7 @@ void main() {
 
     test('changes when body changes', () {
       var request = http.Request('POST', dummyUrl);
-      request.body = "hello";
+      request.body = 'hello';
       expect(request.bodyBytes, equals([104, 101, 108, 108, 111]));
     });
   });
@@ -97,20 +97,20 @@ void main() {
 
     test('can be set', () {
       var request = http.Request('POST', dummyUrl);
-      request.body = "hello";
-      expect(request.body, equals("hello"));
+      request.body = 'hello';
+      expect(request.body, equals('hello'));
     });
 
     test('changes when bodyBytes changes', () {
       var request = http.Request('POST', dummyUrl);
       request.bodyBytes = [104, 101, 108, 108, 111];
-      expect(request.body, equals("hello"));
+      expect(request.body, equals('hello'));
     });
 
     test('is encoded according to the given encoding', () {
       var request = http.Request('POST', dummyUrl);
       request.encoding = latin1;
-      request.body = "föøbãr";
+      request.body = 'föøbãr';
       expect(request.bodyBytes, equals([102, 246, 248, 98, 227, 114]));
     });
 
@@ -118,7 +118,7 @@ void main() {
       var request = http.Request('POST', dummyUrl);
       request.encoding = latin1;
       request.bodyBytes = [102, 246, 248, 98, 227, 114];
-      expect(request.body, equals("föøbãr"));
+      expect(request.body, equals('föøbãr'));
     });
   });
 
@@ -164,7 +164,7 @@ void main() {
       var request = http.Request('POST', dummyUrl);
       request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
       request.encoding = latin1;
-      request.bodyFields = {"föø": "bãr"};
+      request.bodyFields = {'föø': 'bãr'};
       expect(request.body, equals('f%F6%F8=b%E3r'));
     });
 
@@ -173,7 +173,7 @@ void main() {
       request.headers['Content-Type'] = 'application/x-www-form-urlencoded';
       request.encoding = latin1;
       request.body = 'f%F6%F8=b%E3r';
-      expect(request.bodyFields, equals({"föø": "bãr"}));
+      expect(request.bodyFields, equals({'föø': 'bãr'}));
     });
   });
 
@@ -269,9 +269,9 @@ void main() {
   group('#finalize', () {
     test('returns a stream that emits the request body', () {
       var request = http.Request('POST', dummyUrl);
-      request.body = "Hello, world!";
+      request.body = 'Hello, world!';
       expect(request.finalize().bytesToString(),
-          completion(equals("Hello, world!")));
+          completion(equals('Hello, world!')));
     });
 
     test('freezes #persistentConnection', () {
@@ -317,19 +317,19 @@ void main() {
 
     test('freezes #body', () {
       var request = http.Request('POST', dummyUrl);
-      request.body = "hello";
+      request.body = 'hello';
       request.finalize();
 
-      expect(request.body, equals("hello"));
-      expect(() => request.body = "goodbye", throwsStateError);
+      expect(request.body, equals('hello'));
+      expect(() => request.body = 'goodbye', throwsStateError);
     });
 
     test('freezes #bodyFields', () {
       var request = http.Request('POST', dummyUrl);
-      request.bodyFields = {"hello": "world"};
+      request.bodyFields = {'hello': 'world'};
       request.finalize();
 
-      expect(request.bodyFields, equals({"hello": "world"}));
+      expect(request.bodyFields, equals({'hello': 'world'}));
       expect(() => request.bodyFields = {}, throwsStateError);
     });
 

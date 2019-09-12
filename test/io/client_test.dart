@@ -19,7 +19,7 @@ void main() {
     expect(
         startServer().then((_) {
           var client = http.Client();
-          var request = http.StreamedRequest("POST", serverUrl);
+          var request = http.StreamedRequest('POST', serverUrl);
           request.headers[HttpHeaders.contentTypeHeader] =
               'application/json; charset=utf-8';
           request.headers[HttpHeaders.userAgentHeader] = 'Dart';
@@ -58,7 +58,7 @@ void main() {
         startServer().then((_) {
           var ioClient = HttpClient();
           var client = http_io.IOClient(ioClient);
-          var request = http.StreamedRequest("POST", serverUrl);
+          var request = http.StreamedRequest('POST', serverUrl);
           request.headers[HttpHeaders.contentTypeHeader] =
               'application/json; charset=utf-8';
           request.headers[HttpHeaders.userAgentHeader] = 'Dart';
@@ -97,7 +97,7 @@ void main() {
         startServer().then((_) {
           var client = http.Client();
           var url = Uri.parse('http://http.invalid');
-          var request = http.StreamedRequest("POST", url);
+          var request = http.StreamedRequest('POST', url);
           request.headers[HttpHeaders.contentTypeHeader] =
               'application/json; charset=utf-8';
 
