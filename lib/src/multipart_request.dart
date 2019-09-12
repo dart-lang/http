@@ -53,6 +53,7 @@ class MultipartRequest extends BaseRequest {
   /// The total length of the request body, in bytes.
   ///
   /// This is calculated from [fields] and [files] and cannot be set manually.
+  @override
   int get contentLength {
     var length = 0;
 
@@ -77,6 +78,7 @@ class MultipartRequest extends BaseRequest {
     return length + '--'.length + _boundaryLength + '--\r\n'.length;
   }
 
+  @override
   set contentLength(int value) {
     throw UnsupportedError('Cannot set the contentLength property of '
         'multipart requests.');
@@ -84,6 +86,7 @@ class MultipartRequest extends BaseRequest {
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that will emit the request body.
+  @override
   ByteStream finalize() {
     // TODO(nweiz): freeze fields and files
     var boundary = _boundaryString();

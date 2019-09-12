@@ -21,6 +21,7 @@ abstract class BaseClient implements Client {
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
+  @override
   Future<Response> head(url, {Map<String, String> headers}) =>
       _sendUnstreamed('HEAD', url, headers);
 
@@ -28,6 +29,7 @@ abstract class BaseClient implements Client {
   /// can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
+  @override
   Future<Response> get(url, {Map<String, String> headers}) =>
       _sendUnstreamed('GET', url, headers);
 
@@ -49,6 +51,7 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
+  @override
   Future<Response> post(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
       _sendUnstreamed('POST', url, headers, body, encoding);
@@ -71,6 +74,7 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
+  @override
   Future<Response> put(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
       _sendUnstreamed('PUT', url, headers, body, encoding);
@@ -93,6 +97,7 @@ abstract class BaseClient implements Client {
   /// [encoding] defaults to UTF-8.
   ///
   /// For more fine-grained control over the request, use [send] instead.
+  @override
   Future<Response> patch(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
       _sendUnstreamed('PATCH', url, headers, body, encoding);
@@ -101,6 +106,7 @@ abstract class BaseClient implements Client {
   /// which can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
+  @override
   Future<Response> delete(url, {Map<String, String> headers}) =>
       _sendUnstreamed('DELETE', url, headers);
 
@@ -113,6 +119,7 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
+  @override
   Future<String> read(url, {Map<String, String> headers}) {
     return get(url, headers: headers).then((response) {
       _checkResponseSuccess(url, response);
@@ -129,6 +136,7 @@ abstract class BaseClient implements Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
+  @override
   Future<Uint8List> readBytes(url, {Map<String, String> headers}) {
     return get(url, headers: headers).then((response) {
       _checkResponseSuccess(url, response);
@@ -143,6 +151,7 @@ abstract class BaseClient implements Client {
   /// state of the stream; it could have data written to it asynchronously at a
   /// later point, or it could already be closed when it's returned. Any
   /// internal HTTP errors should be wrapped as [ClientException]s.
+  @override
   Future<StreamedResponse> send(BaseRequest request);
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
@@ -183,5 +192,6 @@ abstract class BaseClient implements Client {
   /// Closes the client and cleans up any resources associated with it. It's
   /// important to close each client when it's done being used; failing to do so
   /// can cause the Dart process to hang.
+  @override
   void close() {}
 }
