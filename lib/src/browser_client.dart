@@ -45,8 +45,8 @@ class BrowserClient extends BaseClient {
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
     _xhrs.add(xhr);
-    _openHttpRequest(xhr, request.method, request.url.toString(), asynch: true);
     xhr
+      ..open(request.method, '${request.url}', async: true)
       ..responseType = 'blob'
       ..withCredentials = withCredentials;
     request.headers.forEach(xhr.setRequestHeader);
@@ -91,12 +91,6 @@ class BrowserClient extends BaseClient {
     } finally {
       _xhrs.remove(xhr);
     }
-  }
-
-  // TODO(nweiz): Remove this when sdk#24637 is fixed.
-  void _openHttpRequest(HttpRequest request, String method, String url,
-      {bool asynch, String user, String password}) {
-    request.open(method, url, async: asynch, user: user, password: password);
   }
 
   /// Closes the client.
