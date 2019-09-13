@@ -10,61 +10,48 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
-  test('.send', () {
-    expect(
-        startServer().then((_) {
-          var request = http.Request('POST', serverUrl)
-            ..body = 'hello'
-            ..headers['User-Agent'] = 'Dart';
+  setUp(startServer);
 
-          expect(
-              request.send().then((response) {
-                expect(response.statusCode, equals(200));
-                return response.stream.bytesToString();
-              }).whenComplete(stopServer),
-              completion(parse(equals({
-                'method': 'POST',
-                'path': '/',
-                'headers': {
-                  'content-type': ['text/plain; charset=utf-8'],
-                  'accept-encoding': ['gzip'],
-                  'user-agent': ['Dart'],
-                  'content-length': ['5']
-                },
-                'body': 'hello'
-              }))));
-        }),
-        completes);
+  tearDown(stopServer);
+
+  test('.send', () async {
+    final request = http.Request('GET', serverUrl)
+      ..body = 'hello'
+      ..headers['User-Agent'] = 'Dart';
+
+    final response = await request.send();
+
+    expect(response.statusCode, equals(200));
+    final bytesString = await response.stream.bytesToString();
+    expect(
+        bytesString,
+        parse(equals({
+          'method': 'GET',
+          'path': '/',
+          'headers': {
+            'content-type': ['text/plain; charset=utf-8'],
+            'accept-encoding': ['gzip'],
+            'user-agent': ['Dart'],
+            'content-length': ['5']
+          },
+          'body': 'hello',
+        })));
   });
 
-  test('#followRedirects', () {
-    expect(
-        startServer().then((_) {
-          var request = http.Request('POST', serverUrl.resolve('/redirect'))
-            ..followRedirects = false;
-          var future = request.send().then((response) {
-            expect(response.statusCode, equals(302));
-          });
-          expect(
-              future.catchError((_) {}).then((_) => stopServer()), completes);
-          expect(future, completes);
-        }),
-        completes);
+  test('#followRedirects', () async {
+    final request = http.Request('GET', serverUrl.resolve('/redirect'))
+      ..followRedirects = false;
+    final response = await request.send();
+
+    expect(response.statusCode, equals(302));
   });
 
-  test('#maxRedirects', () {
+  test('#maxRedirects', () async {
+    final request = http.Request('GET', serverUrl.resolve('/loop?1'))
+      ..maxRedirects = 2;
     expect(
-        startServer().then((_) {
-          var request = http.Request('POST', serverUrl.resolve('/loop?1'))
-            ..maxRedirects = 2;
-          var future = request.send().catchError((error) {
-            expect(error, isRedirectLimitExceededException);
-            expect(error.redirects.length, equals(2));
-          });
-          expect(
-              future.catchError((_) {}).then((_) => stopServer()), completes);
-          expect(future, completes);
-        }),
-        completes);
+        request.send(),
+        throwsA(isA<http.ClientException>()
+            .having((e) => e.message, 'message', 'Redirect limit exceeded')));
   });
 }

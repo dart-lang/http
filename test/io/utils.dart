@@ -119,14 +119,6 @@ void stopServer() {
 /// A matcher for functions that throw HttpException.
 Matcher get throwsClientException => throwsA(TypeMatcher<ClientException>());
 
-/// A matcher for RedirectLimitExceededExceptions.
-final isRedirectLimitExceededException = const TypeMatcher<RedirectException>()
-    .having((e) => e.message, 'message', 'Redirect limit exceeded');
-
-/// A matcher for functions that throw RedirectLimitExceededException.
-final Matcher throwsRedirectLimitExceededException =
-    throwsA(isRedirectLimitExceededException);
-
 /// A matcher for functions that throw SocketException.
 final Matcher throwsSocketException =
     throwsA(const TypeMatcher<SocketException>());
