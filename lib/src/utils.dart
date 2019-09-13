@@ -21,24 +21,6 @@ String mapToQuery(Map<String, String> map, {Encoding encoding}) {
   return pairs.map((pair) => '${pair[0]}=${pair[1]}').join('&');
 }
 
-/// Like [String.split], but only splits on the first occurrence of the pattern.
-///
-/// This will always return an array of two elements or fewer.
-///
-///     split1("foo,bar,baz", ","); //=> ["foo", "bar,baz"]
-///     split1("foo", ","); //=> ["foo"]
-///     split1("", ","); //=> []
-List<String> split1(String toSplit, String pattern) {
-  if (toSplit.isEmpty) return <String>[];
-
-  var index = toSplit.indexOf(pattern);
-  if (index == -1) return [toSplit];
-  return [
-    toSplit.substring(0, index),
-    toSplit.substring(index + pattern.length)
-  ];
-}
-
 /// Returns the [Encoding] that corresponds to [charset].
 ///
 /// Returns [fallback] if [charset] is null or if no [Encoding] was found that
@@ -92,51 +74,3 @@ Stream<T> onDone<T>(Stream<T> stream, void onDone()) =>
       sink.close();
       onDone();
     }));
-
-// TODO(nweiz): remove this when issue 7786 is fixed.
-/// Pipes all data and errors from [stream] into [sink]. When [stream] is done,
-/// [sink] is closed and the returned [Future] is completed.
-Future store(Stream stream, EventSink sink) {
-  var completer = Completer();
-  stream.listen(sink.add, onError: sink.addError, onDone: () {
-    sink.close();
-    completer.complete();
-  });
-  return completer.future;
-}
-
-/// Pipes all data and errors from [stream] into [sink]. Completes [Future] once
-/// [stream] is done. Unlike [store], [sink] remains open after [stream] is
-/// done.
-Future writeStreamToSink(Stream stream, EventSink sink) {
-  var completer = Completer();
-  stream.listen(sink.add,
-      onError: sink.addError, onDone: () => completer.complete());
-  return completer.future;
-}
-
-/// A pair of values.
-class Pair<E, F> {
-  E first;
-  F last;
-
-  Pair(this.first, this.last);
-
-  @override
-  String toString() => '($first, $last)';
-
-  @override
-  bool operator ==(other) {
-    if (other is! Pair) return false;
-    return other.first == first && other.last == last;
-  }
-
-  @override
-  int get hashCode => first.hashCode ^ last.hashCode;
-}
-
-/// Configures [future] so that its result (success or exception) is passed on
-/// to [completer].
-void chainToCompleter(Future future, Completer completer) {
-  future.then(completer.complete, onError: completer.completeError);
-}
