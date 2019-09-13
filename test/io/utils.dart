@@ -73,7 +73,7 @@ Future startServer() {
             ContentType('application', 'json', charset: outputEncoding.name);
         response.headers.set('single', 'value');
 
-        var requestBody;
+        dynamic requestBody;
         if (requestBodyBytes.isEmpty) {
           requestBody = null;
         } else if (request.headers.contentType?.charset != null) {
