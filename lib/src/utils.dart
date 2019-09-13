@@ -60,11 +60,11 @@ Encoding requiredEncodingForCharset(String charset) =>
 
 /// A regular expression that matches strings that are composed entirely of
 /// ASCII-compatible characters.
-final RegExp _ASCII_ONLY = RegExp(r'^[\x00-\x7F]+$');
+final _asciiOnly = RegExp(r'^[\x00-\x7F]+$');
 
 /// Returns whether [string] is composed entirely of ASCII-compatible
 /// characters.
-bool isPlainAscii(String string) => _ASCII_ONLY.hasMatch(string);
+bool isPlainAscii(String string) => _asciiOnly.hasMatch(string);
 
 /// Converts [input] into a [Uint8List].
 ///

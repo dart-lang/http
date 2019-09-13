@@ -51,7 +51,7 @@ class _Parse extends Matcher {
   bool matches(item, Map matchState) {
     if (item is! String) return false;
 
-    var parsed;
+    dynamic parsed;
     try {
       parsed = json.decode(item);
     } catch (e) {
