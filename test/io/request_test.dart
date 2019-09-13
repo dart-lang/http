@@ -52,17 +52,7 @@ void main() {
 
     expect(response.statusCode, equals(200));
     final bytesString = await response.stream.bytesToString();
-    expect(
-        bytesString,
-        parse(equals({
-          'method': 'GET',
-          'path': '/',
-          'headers': {
-            'accept-encoding': ['gzip'],
-            'user-agent': ['Dart/2.5 (dart:io)'],
-            'content-length': ['0']
-          },
-        })));
+    expect(bytesString, parse(containsPair('path', '/')));
   });
 
   test('exceeding max redirects', () async {
