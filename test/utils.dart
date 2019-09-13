@@ -106,17 +106,9 @@ class _BodyMatches extends Matcher {
   }
 }
 
-/// A matcher that matches a [http.ClientException] with the given [message].
-///
-/// [message] can be a String or a [Matcher].
-Matcher isClientException(message) => predicate((error) {
-      expect(error, TypeMatcher<http.ClientException>());
-      expect(error.message, message);
-      return true;
-    });
-
 /// A matcher that matches function or future that throws a
 /// [http.ClientException] with the given [message].
 ///
 /// [message] can be a String or a [Matcher].
-Matcher throwsClientException(message) => throwsA(isClientException(message));
+Matcher throwsClientException(message) => throwsA(
+    isA<http.ClientException>().having((e) => e.message, 'message', message));

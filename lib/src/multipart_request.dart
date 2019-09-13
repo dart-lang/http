@@ -109,11 +109,10 @@ class MultipartRequest extends BaseRequest {
       writeLine();
     });
 
-    Future.forEach(_files, (file) {
+    Future.forEach(_files, (MultipartFile file) {
       writeAscii('--$boundary\r\n');
       writeAscii(_headerForFile(file));
-      return writeStreamToSink(file.finalize(), controller)
-          .then((_) => writeLine());
+      return controller.addStream(file.finalize()).then((_) => writeLine());
     }).then((_) {
       // TODO(nweiz): pass any errors propagated through this future on to
       // the stream. See issue 3657.
