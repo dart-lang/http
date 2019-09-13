@@ -18,10 +18,12 @@ class Response extends BaseResponse {
   /// The bytes comprising the body of this response.
   final Uint8List bodyBytes;
 
-  /// The body of the response as a string. This is converted from [bodyBytes]
-  /// using the `charset` parameter of the `Content-Type` header field, if
-  /// available. If it's unavailable or if the encoding name is unknown,
-  /// [latin1] is used by default, as per [RFC 2616][].
+  /// The body of the response as a string.
+  ///
+  /// This is converted from [bodyBytes] using the `charset` parameter of the
+  /// `Content-Type` header field, if available. If it's unavailable or if the
+  /// encoding name is unknown, [latin1] is used by default, as per
+  /// [RFC 2616][].
   ///
   /// [RFC 2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html
   String get body => _encodingForHeaders(headers).decode(bodyBytes);
@@ -70,9 +72,10 @@ class Response extends BaseResponse {
   }
 }
 
-/// Returns the encoding to use for a response with the given headers. This
-/// defaults to [latin1] if the headers don't specify a charset or
-/// if that charset is unknown.
+/// Returns the encoding to use for a response with the given headers.
+///
+/// Defaults to [latin1] if the headers don't specify a charset or if that
+/// charset is unknown.
 Encoding _encodingForHeaders(Map<String, String> headers) =>
     encodingForCharset(_contentTypeForHeaders(headers).parameters['charset']);
 

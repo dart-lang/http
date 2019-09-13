@@ -28,7 +28,7 @@ persistent connection by using a [Client][] rather than making one-off requests.
 If you do this, make sure to close the client when you're done:
 
 ```dart
-var client = new http.Client();
+var client = http.Client();
 try {
   var uriResponse = await client.post('https://example.com/whatsit/create',
       body: {'name': 'doodle', 'color': 'blue'});

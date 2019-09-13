@@ -17,9 +17,10 @@ import 'utils.dart';
 /// over the request properties. However, usually it's easier to use convenience
 /// methods like [get] or [BaseClient.get].
 abstract class BaseRequest {
-  /// The HTTP method of the request. Most commonly "GET" or "POST", less
-  /// commonly "HEAD", "PUT", or "DELETE". Non-standard method names are also
-  /// supported.
+  /// The HTTP method of the request.
+  ///
+  /// Most commonly "GET" or "POST", less commonly "HEAD", "PUT", or "DELETE".
+  /// Non-standard method names are also supported.
   final String method;
 
   /// The URL to which the request will be sent.
@@ -28,7 +29,7 @@ abstract class BaseRequest {
   /// The size of the request body, in bytes.
   ///
   /// This defaults to `null`, which indicates that the size of the request is
-  /// not known in advance.
+  /// not known in advance. May not be assigned a negative value.
   int get contentLength => _contentLength;
   int _contentLength;
 
@@ -41,6 +42,7 @@ abstract class BaseRequest {
   }
 
   /// Whether a persistent connection should be maintained with the server.
+  ///
   /// Defaults to true.
   bool get persistentConnection => _persistentConnection;
   bool _persistentConnection = true;
@@ -51,6 +53,7 @@ abstract class BaseRequest {
   }
 
   /// Whether the client should follow redirects while resolving this request.
+  ///
   /// Defaults to true.
   bool get followRedirects => _followRedirects;
   bool _followRedirects = true;
@@ -61,6 +64,7 @@ abstract class BaseRequest {
   }
 
   /// The maximum number of redirects to follow when [followRedirects] is true.
+  ///
   /// If this number is exceeded the [BaseResponse] future will signal a
   /// [RedirectException]. Defaults to 5.
   int get maxRedirects => _maxRedirects;
@@ -74,22 +78,21 @@ abstract class BaseRequest {
   // TODO(nweiz): automatically parse cookies from headers
 
   // TODO(nweiz): make this a HttpHeaders object
-  /// The headers for this request.
   final Map<String, String> headers;
 
-  /// Whether the request has been finalized.
+  /// Whether [finalize] has been called.
   bool get finalized => _finalized;
   bool _finalized = false;
 
-  /// Creates a new HTTP request.
   BaseRequest(this.method, this.url)
       : headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
             hashCode: (key) => key.toLowerCase().hashCode);
 
-  /// Finalizes the HTTP request in preparation for it being sent. This freezes
-  /// all mutable fields and returns a single-subscription [ByteStream] that
-  /// emits the body of the request.
+  /// Finalizes the HTTP request in preparation for it being sent.
+  ///
+  /// Freezes all mutable fields and returns a single-subscription [ByteStream]
+  /// that emits the body of the request.
   ///
   /// The base implementation of this returns null rather than a [ByteStream];
   /// subclasses are responsible for creating the return value, which should be
@@ -128,7 +131,7 @@ abstract class BaseRequest {
     }
   }
 
-  // Throws an error if this request has been finalized.
+  /// Throws an error if this request has been finalized.
   void _checkFinalized() {
     if (!finalized) return;
     throw StateError("Can't modify a finalized Request.");

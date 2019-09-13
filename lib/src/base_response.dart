@@ -12,7 +12,7 @@ abstract class BaseResponse {
   /// The (frozen) request that triggered this response.
   final BaseRequest request;
 
-  /// The status code of the response.
+  /// The HTTP status code for this response.
   final int statusCode;
 
   /// The reason phrase associated with the status code.
@@ -26,16 +26,13 @@ abstract class BaseResponse {
   // TODO(nweiz): automatically parse cookies from headers
 
   // TODO(nweiz): make this a HttpHeaders object.
-  /// The headers for this response.
   final Map<String, String> headers;
 
-  /// Whether this response is a redirect.
   final bool isRedirect;
 
   /// Whether the server requested that a persistent connection be maintained.
   final bool persistentConnection;
 
-  /// Creates a new HTTP response.
   BaseResponse(this.statusCode,
       {this.contentLength,
       this.request,
