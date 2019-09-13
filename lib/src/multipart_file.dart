@@ -45,9 +45,8 @@ class MultipartFile {
   /// future may be inferred from [filename].
   MultipartFile(this.field, Stream<List<int>> stream, this.length,
       {this.filename, MediaType contentType})
-      : this._stream = toByteStream(stream),
-        this.contentType =
-            contentType ?? MediaType('application', 'octet-stream');
+      : _stream = toByteStream(stream),
+        contentType = contentType ?? MediaType('application', 'octet-stream');
 
   /// Creates a new [MultipartFile] from a byte array.
   ///
