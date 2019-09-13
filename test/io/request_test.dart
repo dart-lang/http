@@ -46,6 +46,25 @@ void main() {
     expect(response.statusCode, equals(302));
   });
 
+  test('with redirects', () async {
+    final request = http.Request('GET', serverUrl.resolve('/redirect'));
+    final response = await request.send();
+
+    expect(response.statusCode, equals(200));
+    final bytesString = await response.stream.bytesToString();
+    expect(
+        bytesString,
+        parse(equals({
+          'method': 'GET',
+          'path': '/',
+          'headers': {
+            'accept-encoding': ['gzip'],
+            'user-agent': ['Dart/2.5 (dart:io)'],
+            'content-length': ['0']
+          },
+        })));
+  });
+
   test('exceeding max redirects', () async {
     final request = http.Request('GET', serverUrl.resolve('/loop?1'))
       ..maxRedirects = 2;
