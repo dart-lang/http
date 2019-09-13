@@ -25,7 +25,7 @@ class StreamedResponse extends BaseResponse {
       bool isRedirect = false,
       bool persistentConnection = true,
       String reasonPhrase})
-      : this.stream = toByteStream(stream),
+      : stream = toByteStream(stream),
         super(statusCode,
             contentLength: contentLength,
             request: request,

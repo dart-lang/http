@@ -127,7 +127,7 @@ class Request extends BaseRequest {
           'content-type "${contentType.mimeType}".');
     }
 
-    this.body = mapToQuery(fields, encoding: encoding);
+    body = mapToQuery(fields, encoding: encoding);
   }
 
   /// Creates a new HTTP request.
