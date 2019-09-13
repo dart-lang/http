@@ -87,40 +87,31 @@ class MultipartRequest extends BaseRequest {
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that will emit the request body.
   @override
-  ByteStream finalize() {
+  ByteStream finalize() => ByteStream(_finalize());
+
+  Stream<List<int>> _finalize() async* {
     // TODO(nweiz): freeze fields and files
     var boundary = _boundaryString();
     headers['content-type'] = 'multipart/form-data; boundary=$boundary';
     super.finalize();
+    const line = [13, 10]; // \r\n
+    final separator = utf8.encode('--$boundary\r\n');
+    final close = utf8.encode('--$boundary--\r\n');
 
-    var controller = StreamController<List<int>>(sync: true);
-
-    void writeAscii(String string) {
-      controller.add(utf8.encode(string));
+    for (var field in fields.entries) {
+      yield separator;
+      yield utf8.encode(_headerForField(field.key, field.value));
+      yield utf8.encode(field.value);
+      yield line;
     }
 
-    writeUtf8(String string) => controller.add(utf8.encode(string));
-    writeLine() => controller.add([13, 10]); // \r\n
-
-    fields.forEach((name, value) {
-      writeAscii('--$boundary\r\n');
-      writeAscii(_headerForField(name, value));
-      writeUtf8(value);
-      writeLine();
-    });
-
-    Future.forEach(_files, (MultipartFile file) {
-      writeAscii('--$boundary\r\n');
-      writeAscii(_headerForFile(file));
-      return controller.addStream(file.finalize()).then((_) => writeLine());
-    }).then((_) {
-      // TODO(nweiz): pass any errors propagated through this future on to
-      // the stream. See issue 3657.
-      writeAscii('--$boundary--\r\n');
-      controller.close();
-    });
-
-    return ByteStream(controller.stream);
+    for (final file in _files) {
+      yield separator;
+      yield utf8.encode(_headerForFile(file));
+      yield* file.finalize();
+      yield line;
+    }
+    yield close;
   }
 
   /// Returns the header string for a field.

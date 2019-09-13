@@ -121,11 +121,10 @@ abstract class BaseClient implements Client {
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
   @override
-  Future<String> read(url, {Map<String, String> headers}) {
-    return get(url, headers: headers).then((response) {
-      _checkResponseSuccess(url, response);
-      return response.body;
-    });
+  Future<String> read(url, {Map<String, String> headers}) async {
+    final response = await get(url, headers: headers);
+    _checkResponseSuccess(url, response);
+    return response.body;
   }
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
@@ -138,11 +137,10 @@ abstract class BaseClient implements Client {
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
   @override
-  Future<Uint8List> readBytes(url, {Map<String, String> headers}) {
-    return get(url, headers: headers).then((response) {
-      _checkResponseSuccess(url, response);
-      return response.bodyBytes;
-    });
+  Future<Uint8List> readBytes(url, {Map<String, String> headers}) async {
+    final response = await get(url, headers: headers);
+    _checkResponseSuccess(url, response);
+    return response.bodyBytes;
   }
 
   /// Sends an HTTP request and asynchronously returns the response.

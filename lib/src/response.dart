@@ -60,15 +60,14 @@ class Response extends BaseResponse {
 
   /// Creates a new HTTP response by waiting for the full body to become
   /// available from a [StreamedResponse].
-  static Future<Response> fromStream(StreamedResponse response) {
-    return response.stream.toBytes().then((body) {
-      return Response.bytes(body, response.statusCode,
-          request: response.request,
-          headers: response.headers,
-          isRedirect: response.isRedirect,
-          persistentConnection: response.persistentConnection,
-          reasonPhrase: response.reasonPhrase);
-    });
+  static Future<Response> fromStream(StreamedResponse response) async {
+    final body = await response.stream.toBytes();
+    return Response.bytes(body, response.statusCode,
+        request: response.request,
+        headers: response.headers,
+        isRedirect: response.isRedirect,
+        persistentConnection: response.persistentConnection,
+        reasonPhrase: response.reasonPhrase);
   }
 }
 
