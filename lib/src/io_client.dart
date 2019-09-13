@@ -12,17 +12,16 @@ import 'base_request.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
 
+/// Create an [IOClient].
+///
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
 BaseClient createClient() => IOClient();
 
 /// A `dart:io`-based HTTP client.
-///
-/// This is the default client when running on the command line.
 class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
   HttpClient _inner;
 
-  /// Creates a new HTTP client.
   IOClient([HttpClient inner]) : _inner = inner ?? HttpClient();
 
   /// Sends an HTTP request and asynchronously returns the response.
@@ -64,8 +63,10 @@ class IOClient extends BaseClient {
     }
   }
 
-  /// Closes the client. This terminates all active connections. If a client
-  /// remains unclosed, the Dart process may not terminate.
+  /// Closes the client.
+  ///
+  /// Terminates all active connections. If a client remains unclosed, the Dart
+  /// process may not terminate.
   @override
   void close() {
     if (_inner != null) {

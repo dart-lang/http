@@ -14,6 +14,8 @@ import 'byte_stream.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
 
+/// Create a [BrowserClient].
+///
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
 BaseClient createClient() => BrowserClient();
 
@@ -30,9 +32,6 @@ class BrowserClient extends BaseClient {
   ///
   /// These are aborted if the client is closed.
   final _xhrs = <HttpRequest>{};
-
-  /// Creates a new HTTP client.
-  BrowserClient();
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.

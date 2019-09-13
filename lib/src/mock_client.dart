@@ -15,9 +15,11 @@ import 'streamed_response.dart';
 // server APIs, MockClient should conform to it.
 
 /// A mock HTTP client designed for use when testing code that uses
-/// [BaseClient]. This client allows you to define a handler callback for all
-/// requests that are made through it so that you can mock a server without
-/// having to send real HTTP requests.
+/// [BaseClient].
+///
+/// This client allows you to define a handler callback for all requests that
+/// are made through it so that you can mock a server without having to send
+/// real HTTP requests.
 class MockClient extends BaseClient {
   /// The handler for receiving [StreamedRequest]s and sending
   /// [StreamedResponse]s.
@@ -66,7 +68,6 @@ class MockClient extends BaseClient {
           });
         });
 
-  /// Sends a request.
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     var bodyStream = request.finalize();
@@ -75,10 +76,13 @@ class MockClient extends BaseClient {
 }
 
 /// A handler function that receives [StreamedRequest]s and sends
-/// [StreamedResponse]s. Note that [request] will be finalized.
+/// [StreamedResponse]s.
+///
+/// Note that [request] will be finalized.
 typedef MockClientStreamHandler = Future<StreamedResponse> Function(
     BaseRequest request, ByteStream bodyStream);
 
-/// A handler function that receives [Request]s and sends [Response]s. Note that
-/// [request] will be finalized.
+/// A handler function that receives [Request]s and sends [Response]s.
+///
+/// Note that [request] will be finalized.
 typedef MockClientHandler = Future<Response> Function(Request request);

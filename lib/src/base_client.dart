@@ -13,9 +13,10 @@ import 'request.dart';
 import 'response.dart';
 import 'streamed_response.dart';
 
-/// The abstract base class for an HTTP client. This is a mixin-style class;
-/// subclasses only need to implement [send] and maybe [close], and then they
-/// get various convenience methods for free.
+/// The abstract base class for an HTTP client.
+///
+/// This is a mixin-style class; subclasses only need to implement [send] and
+/// maybe [close], and then they get various convenience methods for free.
 abstract class BaseClient implements Client {
   /// Sends an HTTP HEAD request with the given headers to the given URL, which
   /// can be a [Uri] or a [String].
@@ -189,9 +190,10 @@ abstract class BaseClient implements Client {
     throw ClientException('$message.', url);
   }
 
-  /// Closes the client and cleans up any resources associated with it. It's
-  /// important to close each client when it's done being used; failing to do so
-  /// can cause the Dart process to hang.
+  /// Closes the client and cleans up any resources associated with it.
+  ///
+  /// It's important to close each client when it's done being used; failing to
+  /// do so can cause the Dart process to hang.
   @override
   void close() {}
 }

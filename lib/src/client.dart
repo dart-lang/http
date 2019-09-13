@@ -18,20 +18,20 @@ import 'response.dart';
 import 'streamed_response.dart';
 
 /// The interface for HTTP clients that take care of maintaining persistent
-/// connections across multiple requests to the same server. If you only need to
-/// send a single request, it's usually easier to use [head], [get], [post],
-/// [put], [patch], or [delete] instead.
+/// connections across multiple requests to the same server.
+///
+/// If you only need to send a single request, it's usually easier to use
+/// [head], [get], [post], [put], [patch], or [delete] instead.
 ///
 /// When creating an HTTP client class with additional functionality, you must
 /// extend [BaseClient] rather than [Client]. In most cases, you can wrap
 /// another instance of [Client] and add functionality on top of that. This
 /// allows all classes implementing [Client] to be mutually composable.
 abstract class Client {
-  /// Creates a new client.
+  /// Creates a new platform appropriate client.
   ///
-  /// Currently this will create an `IOClient` if `dart:io` is available and
-  /// a `BrowserClient` if `dart:html` is available, otherwise it will throw
-  /// an unsupported error.
+  /// Creates an `IOClient` if `dart:io` is available and a `BrowserClient` if
+  /// `dart:html` is available, otherwise it will throw an unsupported error.
   factory Client() => createClient();
 
   /// Sends an HTTP HEAD request with the given headers to the given URL, which
@@ -140,8 +140,9 @@ abstract class Client {
   /// Sends an HTTP request and asynchronously returns the response.
   Future<StreamedResponse> send(BaseRequest request);
 
-  /// Closes the client and cleans up any resources associated with it. It's
-  /// important to close each client when it's done being used; failing to do so
-  /// can cause the Dart process to hang.
+  /// Closes the client and cleans up any resources associated with it.
+  ///
+  /// It's important to close each client when it's done being used; failing to
+  /// do so can cause the Dart process to hang.
   void close();
 }
