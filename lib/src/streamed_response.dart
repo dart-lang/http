@@ -12,12 +12,14 @@ import 'utils.dart';
 /// An HTTP response where the response body is received asynchronously after
 /// the headers have been received.
 class StreamedResponse extends BaseResponse {
-  /// The stream from which the response body data can be read. This should
-  /// always be a single-subscription stream.
+  /// The stream from which the response body data can be read.
+  ///
+  /// This should always be a single-subscription stream.
   final ByteStream stream;
 
-  /// Creates a new streaming response. [stream] should be a single-subscription
-  /// stream.
+  /// Creates a new streaming response.
+  ///
+  /// [stream] should be a single-subscription stream.
   StreamedResponse(Stream<List<int>> stream, int statusCode,
       {int contentLength,
       BaseRequest request,

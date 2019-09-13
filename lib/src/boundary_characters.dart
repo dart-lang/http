@@ -2,10 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// All character codes that are valid in multipart boundaries. This is the
-/// intersection of the characters allowed in the `bcharsnospace` production
-/// defined in [RFC 2046][] and those allowed in the `token` production
-/// defined in [RFC 1521][].
+/// All character codes that are valid in multipart boundaries.
+///
+/// This is the intersection of the characters allowed in the `bcharsnospace`
+/// production defined in [RFC 2046][] and those allowed in the `token`
+/// production defined in [RFC 1521][].
 ///
 /// [RFC 2046]: http://tools.ietf.org/html/rfc2046#section-5.1.1.
 /// [RFC 1521]: https://tools.ietf.org/html/rfc1521#section-4

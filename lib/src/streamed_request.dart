@@ -16,6 +16,7 @@ import 'byte_stream.dart';
 /// [StreamedRequest.sink], and when the sink is closed the request will end.
 class StreamedRequest extends BaseRequest {
   /// The sink to which to write data that will be sent as the request body.
+  ///
   /// This may be safely written to before the request is sent; the data will be
   /// buffered.
   ///

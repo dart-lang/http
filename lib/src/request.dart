@@ -28,12 +28,15 @@ class Request extends BaseRequest {
   }
 
   /// The default encoding to use when converting between [bodyBytes] and
-  /// [body]. This is only used if [encoding] hasn't been manually set and if
-  /// the content-type header has no encoding information.
+  /// [body].
+  ///
+  /// This is only used if [encoding] hasn't been manually set and if the
+  /// content-type header has no encoding information.
   Encoding _defaultEncoding;
 
-  /// The encoding used for the request. This encoding is used when converting
-  /// between [bodyBytes] and [body].
+  /// The encoding used for the request.
+  ///
+  /// This encoding is used when converting between [bodyBytes] and [body].
   ///
   /// If the request has a `Content-Type` header and that header has a `charset`
   /// parameter, that parameter's value is used as the encoding. Otherwise, if
@@ -62,8 +65,9 @@ class Request extends BaseRequest {
   }
 
   // TODO(nweiz): make this return a read-only view
-  /// The bytes comprising the body of the request. This is converted to and
-  /// from [body] using [encoding].
+  /// The bytes comprising the body of the request.
+  ///
+  /// This is converted to and from [body] using [encoding].
   ///
   /// This list should only be set, not be modified in place.
   Uint8List get bodyBytes => _bodyBytes;
@@ -74,8 +78,9 @@ class Request extends BaseRequest {
     _bodyBytes = toUint8List(value);
   }
 
-  /// The body of the request as a string. This is converted to and from
-  /// [bodyBytes] using [encoding].
+  /// The body of the request as a string.
+  ///
+  /// This is converted to and from [bodyBytes] using [encoding].
   ///
   /// When this is set, if the request does not yet have a `Content-Type`
   /// header, one will be added with the type `text/plain`. Then the `charset`
@@ -94,8 +99,10 @@ class Request extends BaseRequest {
   }
 
   /// The form-encoded fields in the body of the request as a map from field
-  /// names to values. The form-encoded body is converted to and from
-  /// [bodyBytes] using [encoding] (in the same way as [body]).
+  /// names to values.
+  ///
+  /// The form-encoded body is converted to and from [bodyBytes] using
+  /// [encoding] (in the same way as [body]).
   ///
   /// If the request doesn't have a `Content-Type` header of
   /// `application/x-www-form-urlencoded`, reading this will throw a
@@ -130,7 +137,6 @@ class Request extends BaseRequest {
     body = mapToQuery(fields, encoding: encoding);
   }
 
-  /// Creates a new HTTP request.
   Request(String method, Uri url)
       : _defaultEncoding = utf8,
         _bodyBytes = Uint8List(0),
@@ -144,8 +150,7 @@ class Request extends BaseRequest {
     return ByteStream.fromBytes(bodyBytes);
   }
 
-  /// The `Content-Type` header of the request (if it exists) as a
-  /// [MediaType].
+  /// The `Content-Type` header of the request (if it exists) as a [MediaType].
   MediaType get _contentType {
     var contentType = headers['content-type'];
     if (contentType == null) return null;

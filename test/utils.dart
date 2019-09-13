@@ -70,6 +70,7 @@ class _Parse extends Matcher {
 }
 
 /// A matcher that validates the body of a multipart request after finalization.
+///
 /// The string "{{boundary}}" in [pattern] will be replaced by the boundary
 /// string for the request, and LF newlines will be replaced with CRLF.
 /// Indentation will be normalized.

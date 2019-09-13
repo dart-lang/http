@@ -22,6 +22,7 @@ String mapToQuery(Map<String, String> map, {Encoding encoding}) {
 }
 
 /// Like [String.split], but only splits on the first occurrence of the pattern.
+///
 /// This will always return an array of two elements or fewer.
 ///
 ///     split1("foo,bar,baz", ","); //=> ["foo", "bar,baz"]
@@ -38,16 +39,20 @@ List<String> split1(String toSplit, String pattern) {
   ];
 }
 
-/// Returns the [Encoding] that corresponds to [charset]. Returns [fallback] if
-/// [charset] is null or if no [Encoding] was found that corresponds to
-/// [charset].
+/// Returns the [Encoding] that corresponds to [charset].
+///
+/// Returns [fallback] if [charset] is null or if no [Encoding] was found that
+/// corresponds to [charset].
 Encoding encodingForCharset(String charset, [Encoding fallback = latin1]) {
   if (charset == null) return fallback;
   return Encoding.getByName(charset) ?? fallback;
 }
 
-/// Returns the [Encoding] that corresponds to [charset]. Throws a
-/// [FormatException] if no [Encoding] was found that corresponds to [charset].
+/// Returns the [Encoding] that corresponds to [charset].
+///
+/// Throws a [FormatException] if no [Encoding] was found that corresponds to
+/// [charset].
+///
 /// [charset] may not be null.
 Encoding requiredEncodingForCharset(String charset) =>
     Encoding.getByName(charset) ??
@@ -73,14 +78,13 @@ Uint8List toUint8List(List<int> input) {
   return Uint8List.fromList(input);
 }
 
-/// If [stream] is already a [ByteStream], returns it. Otherwise, wraps it in a
-/// [ByteStream].
 ByteStream toByteStream(Stream<List<int>> stream) {
   if (stream is ByteStream) return stream;
   return ByteStream(stream);
 }
 
 /// Calls [onDone] once [stream] (a single-subscription [Stream]) is finished.
+///
 /// The return value, also a single-subscription [Stream] should be used in
 /// place of [stream] after calling this method.
 Stream<T> onDone<T>(Stream<T> stream, void onDone()) =>

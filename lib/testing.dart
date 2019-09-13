@@ -11,11 +11,11 @@
 ///     import 'dart:convert';
 ///     import 'package:http/testing.dart';
 ///
-///     var client = new MockClient((request) async {
+///     var client = MockClient((request) async {
 ///       if (request.url.path != "/data.json") {
-///         return new Response("", 404);
+///         return Response("", 404);
 ///       }
-///       return new Response(
+///       return Response(
 ///           json.encode({
 ///             'numbers': [1, 4, 15, 19, 214]
 ///           }),
