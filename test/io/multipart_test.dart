@@ -4,7 +4,6 @@
 
 @TestOn('vm')
 
-import 'dart:async';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -21,17 +20,14 @@ void main() {
 
   tearDown(() => tempDir.deleteSync(recursive: true));
 
-  test('with a file from disk', () {
-    expect(
-        Future.sync(() {
-          var filePath = path.join(tempDir.path, 'test-file');
-          File(filePath).writeAsStringSync('hello');
-          return http.MultipartFile.fromPath('file', filePath);
-        }).then((file) {
-          var request = http.MultipartRequest('POST', dummyUrl);
-          request.files.add(file);
+  test('with a file from disk', () async {
+    var filePath = path.join(tempDir.path, 'test-file');
+    File(filePath).writeAsStringSync('hello');
+    var file = await http.MultipartFile.fromPath('file', filePath);
+    var request = http.MultipartRequest('POST', dummyUrl);
+    request.files.add(file);
 
-          expect(request, bodyMatches('''
+    expect(request, bodyMatches('''
         --{{boundary}}
         content-type: application/octet-stream
         content-disposition: form-data; name="file"; filename="test-file"
@@ -39,7 +35,5 @@ void main() {
         hello
         --{{boundary}}--
       '''));
-        }),
-        completes);
   });
 }

@@ -13,99 +13,97 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
+  setUp(startServer);
+
   tearDown(stopServer);
 
-  test('#send a StreamedRequest', () {
+  test('#send a StreamedRequest', () async {
+    var client = http.Client();
+    var request = http.StreamedRequest('POST', serverUrl)
+      ..headers[HttpHeaders.contentTypeHeader] =
+          'application/json; charset=utf-8'
+      ..headers[HttpHeaders.userAgentHeader] = 'Dart';
+
+    var responseFuture = client.send(request);
+    request
+      ..sink.add('{"hello": "world"}'.codeUnits)
+      ..sink.close();
+
+    var response = await responseFuture;
+
+    expect(response.request, equals(request));
+    expect(response.statusCode, equals(200));
+    expect(response.headers['single'], equals('value'));
+    // dart:io internally normalizes outgoing headers so that they never
+    // have multiple headers with the same name, so there's no way to test
+    // whether we handle that case correctly.
+
+    var bytesString = await response.stream.bytesToString();
+    client.close();
     expect(
-        startServer().then((_) {
-          var client = http.Client();
-          var request = http.StreamedRequest('POST', serverUrl);
-          request.headers[HttpHeaders.contentTypeHeader] =
-              'application/json; charset=utf-8';
-          request.headers[HttpHeaders.userAgentHeader] = 'Dart';
-
-          expect(
-              client.send(request).then((response) {
-                expect(response.request, equals(request));
-                expect(response.statusCode, equals(200));
-                expect(response.headers['single'], equals('value'));
-                // dart:io internally normalizes outgoing headers so that they never
-                // have multiple headers with the same name, so there's no way to test
-                // whether we handle that case correctly.
-
-                return response.stream.bytesToString();
-              }).whenComplete(client.close),
-              completion(parse(equals({
-                'method': 'POST',
-                'path': '/',
-                'headers': {
-                  'content-type': ['application/json; charset=utf-8'],
-                  'accept-encoding': ['gzip'],
-                  'user-agent': ['Dart'],
-                  'transfer-encoding': ['chunked']
-                },
-                'body': '{"hello": "world"}'
-              }))));
-
-          request.sink.add('{"hello": "world"}'.codeUnits);
-          request.sink.close();
-        }),
-        completes);
+        bytesString,
+        parse(equals({
+          'method': 'POST',
+          'path': '/',
+          'headers': {
+            'content-type': ['application/json; charset=utf-8'],
+            'accept-encoding': ['gzip'],
+            'user-agent': ['Dart'],
+            'transfer-encoding': ['chunked']
+          },
+          'body': '{"hello": "world"}'
+        })));
   });
 
-  test('#send a StreamedRequest with a custom client', () {
+  test('#send a StreamedRequest with a custom client', () async {
+    var ioClient = HttpClient();
+    var client = http_io.IOClient(ioClient);
+    var request = http.StreamedRequest('POST', serverUrl)
+      ..headers[HttpHeaders.contentTypeHeader] =
+          'application/json; charset=utf-8'
+      ..headers[HttpHeaders.userAgentHeader] = 'Dart';
+
+    var responseFuture = client.send(request);
+    request
+      ..sink.add('{"hello": "world"}'.codeUnits)
+      ..sink.close();
+
+    var response = await responseFuture;
+
+    expect(response.request, equals(request));
+    expect(response.statusCode, equals(200));
+    expect(response.headers['single'], equals('value'));
+    // dart:io internally normalizes outgoing headers so that they never
+    // have multiple headers with the same name, so there's no way to test
+    // whether we handle that case correctly.
+
+    var bytesString = await response.stream.bytesToString();
+    client.close();
     expect(
-        startServer().then((_) {
-          var ioClient = HttpClient();
-          var client = http_io.IOClient(ioClient);
-          var request = http.StreamedRequest('POST', serverUrl);
-          request.headers[HttpHeaders.contentTypeHeader] =
-              'application/json; charset=utf-8';
-          request.headers[HttpHeaders.userAgentHeader] = 'Dart';
-
-          expect(
-              client.send(request).then((response) {
-                expect(response.request, equals(request));
-                expect(response.statusCode, equals(200));
-                expect(response.headers['single'], equals('value'));
-                // dart:io internally normalizes outgoing headers so that they never
-                // have multiple headers with the same name, so there's no way to test
-                // whether we handle that case correctly.
-
-                return response.stream.bytesToString();
-              }).whenComplete(client.close),
-              completion(parse(equals({
-                'method': 'POST',
-                'path': '/',
-                'headers': {
-                  'content-type': ['application/json; charset=utf-8'],
-                  'accept-encoding': ['gzip'],
-                  'user-agent': ['Dart'],
-                  'transfer-encoding': ['chunked']
-                },
-                'body': '{"hello": "world"}'
-              }))));
-
-          request.sink.add('{"hello": "world"}'.codeUnits);
-          request.sink.close();
-        }),
-        completes);
+        bytesString,
+        parse(equals({
+          'method': 'POST',
+          'path': '/',
+          'headers': {
+            'content-type': ['application/json; charset=utf-8'],
+            'accept-encoding': ['gzip'],
+            'user-agent': ['Dart'],
+            'transfer-encoding': ['chunked']
+          },
+          'body': '{"hello": "world"}'
+        })));
   });
 
   test('#send with an invalid URL', () {
-    expect(
-        startServer().then((_) {
-          var client = http.Client();
-          var url = Uri.parse('http://http.invalid');
-          var request = http.StreamedRequest('POST', url);
-          request.headers[HttpHeaders.contentTypeHeader] =
-              'application/json; charset=utf-8';
+    var client = http.Client();
+    var url = Uri.parse('http://http.invalid');
+    var request = http.StreamedRequest('POST', url);
+    request.headers[HttpHeaders.contentTypeHeader] =
+        'application/json; charset=utf-8';
 
-          expect(client.send(request), throwsSocketException);
+    expect(client.send(request), throwsSocketException);
 
-          request.sink.add('{"hello": "world"}'.codeUnits);
-          request.sink.close();
-        }),
-        completes);
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    request.sink.close();
   });
 }

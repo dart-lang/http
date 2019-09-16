@@ -12,49 +12,35 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
-  test('handles a request', () {
-    var client = MockClient((request) {
-      return Future.value(http.Response(json.encode(request.bodyFields), 200,
-          request: request, headers: {'content-type': 'application/json'}));
-    });
+  test('handles a request', () async {
+    var client = MockClient((request) async => http.Response(
+        json.encode(request.bodyFields), 200,
+        request: request, headers: {'content-type': 'application/json'}));
 
+    var response = await client.post('http://example.com/foo',
+        body: {'field1': 'value1', 'field2': 'value2'});
     expect(
-        client.post('http://example.com/foo', body: {
-          'field1': 'value1',
-          'field2': 'value2'
-        }).then((response) => response.body),
-        completion(parse(equals({'field1': 'value1', 'field2': 'value2'}))));
+        response.body, parse(equals({'field1': 'value1', 'field2': 'value2'})));
   });
 
-  test('handles a streamed request', () {
-    var client = MockClient.streaming((request, bodyStream) {
-      return bodyStream.bytesToString().then((bodyString) {
-        var controller = StreamController<List<int>>(sync: true);
-        Future.sync(() {
-          controller
-            ..add('Request body was "$bodyString"'.codeUnits)
-            ..close();
-        });
-
-        return http.StreamedResponse(controller.stream, 200);
-      });
+  test('handles a streamed request', () async {
+    var client = MockClient.streaming((request, bodyStream) async {
+      var bodyString = await bodyStream.bytesToString();
+      var stream =
+          Stream.fromIterable(['Request body was "$bodyString"'.codeUnits]);
+      return http.StreamedResponse(stream, 200);
     });
 
     var uri = Uri.parse('http://example.com/foo');
     var request = http.Request('POST', uri)..body = 'hello, world';
-    var future = client
-        .send(request)
-        .then(http.Response.fromStream)
-        .then((response) => response.body);
-    expect(future, completion(equals('Request body was "hello, world"')));
+    var streamedResponse = await client.send(request);
+    var response = await http.Response.fromStream(streamedResponse);
+    expect(response.body, equals('Request body was "hello, world"'));
   });
 
-  test('handles a request with no body', () {
-    var client = MockClient((request) {
-      return Future.value(http.Response('you did it', 200));
-    });
+  test('handles a request with no body', () async {
+    var client = MockClient((_) async => http.Response('you did it', 200));
 
-    expect(client.read('http://example.com/foo'),
-        completion(equals('you did it')));
+    expect(await client.read('http://example.com/foo'), equals('you did it'));
   });
 }

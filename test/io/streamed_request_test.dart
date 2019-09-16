@@ -12,48 +12,41 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
-  group('contentLength', () {
-    test('controls the Content-Length header', () {
-      return startServer().then((_) {
-        var request = http.StreamedRequest('POST', serverUrl)
-          ..contentLength = 10
-          ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-          ..sink.close();
+  setUp(startServer);
 
-        return request.send();
-      }).then((response) {
-        expect(
-            utf8.decodeStream(response.stream),
-            completion(parse(containsPair(
-                'headers', containsPair('content-length', ['10'])))));
-      }).whenComplete(stopServer);
+  tearDown(stopServer);
+
+  group('contentLength', () {
+    test('controls the Content-Length header', () async {
+      var request = http.StreamedRequest('POST', serverUrl)
+        ..contentLength = 10
+        ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        ..sink.close();
+
+      var response = await request.send();
+      expect(
+          await utf8.decodeStream(response.stream),
+          parse(
+              containsPair('headers', containsPair('content-length', ['10']))));
     });
 
-    test('defaults to sending no Content-Length', () {
-      return startServer().then((_) {
-        var request = http.StreamedRequest('POST', serverUrl);
-        request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-        request.sink.close();
+    test('defaults to sending no Content-Length', () async {
+      var request = http.StreamedRequest('POST', serverUrl);
+      request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      request.sink.close();
 
-        return request.send();
-      }).then((response) {
-        expect(
-            utf8.decodeStream(response.stream),
-            completion(parse(
-                containsPair('headers', isNot(contains('content-length'))))));
-      }).whenComplete(stopServer);
+      var response = await request.send();
+      expect(await utf8.decodeStream(response.stream),
+          parse(containsPair('headers', isNot(contains('content-length')))));
     });
   });
 
   // Regression test.
-  test('.send() with a response with no content length', () {
-    return startServer().then((_) {
-      var request =
-          http.StreamedRequest('GET', serverUrl.resolve('/no-content-length'));
-      request.sink.close();
-      return request.send();
-    }).then((response) {
-      expect(utf8.decodeStream(response.stream), completion(equals('body')));
-    }).whenComplete(stopServer);
+  test('.send() with a response with no content length', () async {
+    var request =
+        http.StreamedRequest('GET', serverUrl.resolve('/no-content-length'));
+    request.sink.close();
+    var response = await request.send();
+    expect(await utf8.decodeStream(response.stream), equals('body'));
   });
 }
