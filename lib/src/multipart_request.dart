@@ -25,7 +25,7 @@ final _newlineRegExp = RegExp(r'\r\n|\r|\n');
 ///     var uri = Uri.parse('https://example.com/create');
 ///     var request = http.MultipartRequest('POST', uri)
 ///       ..fields['user'] = 'nweiz@google.com'
-///       ..files.add(http.MultipartFile.fromPath(
+///       ..files.add(await http.MultipartFile.fromPath(
 ///           'package', 'build/package.tar.gz',
 ///           contentType: MediaType('application', 'x-tar')));
 ///     var response = await request.send();
