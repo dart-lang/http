@@ -12,27 +12,26 @@ import 'utils.dart';
 
 void main() {
   group('contentLength', () {
-    test("works when it's set", () {
+    test("works when it's set", () async {
       var request = http.StreamedRequest('POST', echoUrl)
         ..contentLength = 10
         ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         ..sink.close();
 
-      return BrowserClient().send(request).then((response) {
-        expect(response.stream.toBytes(),
-            completion(equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])));
-      });
+      final response = await BrowserClient().send(request);
+
+      expect(await response.stream.toBytes(),
+          equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
     });
 
-    test("works when it's not set", () {
+    test("works when it's not set", () async {
       var request = http.StreamedRequest('POST', echoUrl);
       request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       request.sink.close();
 
-      return BrowserClient().send(request).then((response) {
-        expect(response.stream.toBytes(),
-            completion(equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])));
-      });
+      final response = await BrowserClient().send(request);
+      expect(await response.stream.toBytes(),
+          equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
     });
   }, skip: 'Need to fix server tests for browser');
 }

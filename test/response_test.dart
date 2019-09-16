@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -48,31 +49,26 @@ void main() {
   });
 
   group('.fromStream()', () {
-    test('sets body', () {
+    test('sets body', () async {
       var controller = StreamController<List<int>>(sync: true);
       var streamResponse =
           http.StreamedResponse(controller.stream, 200, contentLength: 13);
-      var future = http.Response.fromStream(streamResponse)
-          .then((response) => response.body);
-      expect(future, completion(equals('Hello, world!')));
-
       controller
         ..add([72, 101, 108, 108, 111, 44, 32])
-        ..add([119, 111, 114, 108, 100, 33])
-        ..close();
+        ..add([119, 111, 114, 108, 100, 33]);
+      unawaited(controller.close());
+      var response = await http.Response.fromStream(streamResponse);
+      expect(response.body, equals('Hello, world!'));
     });
 
-    test('sets bodyBytes', () {
+    test('sets bodyBytes', () async {
       var controller = StreamController<List<int>>(sync: true);
       var streamResponse =
           http.StreamedResponse(controller.stream, 200, contentLength: 5);
-      var future = http.Response.fromStream(streamResponse)
-          .then((response) => response.bodyBytes);
-      expect(future, completion(equals([104, 101, 108, 108, 111])));
-
-      controller
-        ..add([104, 101, 108, 108, 111])
-        ..close();
+      controller.add([104, 101, 108, 108, 111]);
+      unawaited(controller.close());
+      var response = await http.Response.fromStream(streamResponse);
+      expect(response.bodyBytes, equals([104, 101, 108, 108, 111]));
     });
   });
 }
