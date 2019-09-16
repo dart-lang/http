@@ -85,19 +85,20 @@ class _BodyMatches extends Matcher {
   bool matches(item, Map matchState) {
     if (item is! http.MultipartRequest) return false;
 
-    var future = item.finalize().toBytes().then((bodyBytes) {
-      var body = utf8.decode(bodyBytes);
-      var contentType = MediaType.parse(item.headers['content-type']);
-      var boundary = contentType.parameters['boundary'];
-      var expected = cleanUpLiteral(_pattern)
-          .replaceAll('\n', '\r\n')
-          .replaceAll('{{boundary}}', boundary);
+    return completes.matches(_checks(item), matchState);
+  }
 
-      expect(body, equals(expected));
-      expect(item.contentLength, equals(bodyBytes.length));
-    });
+  Future<void> _checks(http.MultipartRequest item) async {
+    var bodyBytes = await item.finalize().toBytes();
+    var body = utf8.decode(bodyBytes);
+    var contentType = MediaType.parse(item.headers['content-type']);
+    var boundary = contentType.parameters['boundary'];
+    var expected = cleanUpLiteral(_pattern)
+        .replaceAll('\n', '\r\n')
+        .replaceAll('{{boundary}}', boundary);
 
-    return completes.matches(future, matchState);
+    expect(body, equals(expected));
+    expect(item.contentLength, equals(bodyBytes.length));
   }
 
   @override

@@ -11,18 +11,20 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
-  test('#send a StreamedRequest', () {
+  test('#send a StreamedRequest', () async {
     var client = BrowserClient();
     var request = http.StreamedRequest('POST', echoUrl);
 
-    expect(
-        client.send(request).then((response) {
-          return response.stream.bytesToString();
-        }).whenComplete(client.close),
-        completion(equals('{"hello": "world"}')));
+    var responseFuture = client.send(request);
+    request.sink
+      ..add('{"hello": "world"}'.codeUnits)
+      ..close();
 
-    request.sink.add('{"hello": "world"}'.codeUnits);
-    request.sink.close();
+    var response = await responseFuture;
+    var bytesString = await response.stream.bytesToString();
+    client.close();
+
+    expect(bytesString, equals('{"hello": "world"}'));
   }, skip: 'Need to fix server tests for browser');
 
   test('#send with an invalid URL', () {
