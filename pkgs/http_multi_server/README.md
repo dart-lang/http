@@ -14,7 +14,7 @@ void main() {
   // server.
   HttpMultiServer.loopback(8080).then((server) {
     shelf_io.serveRequests(server, (request) {
-      return new shelf.Response.ok("Hello, world!");
+      return shelf.Response.ok("Hello, world!");
     });
   });
 }
