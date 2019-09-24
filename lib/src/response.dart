@@ -32,12 +32,14 @@ class Response extends BaseResponse {
   Response(String body, int statusCode,
       {BaseRequest request,
       Map<String, String> headers = const {},
+      String url,
       bool isRedirect = false,
       bool persistentConnection = true,
       String reasonPhrase})
       : this.bytes(_encodingForHeaders(headers).encode(body), statusCode,
             request: request,
             headers: headers,
+            url: url,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);
@@ -46,6 +48,7 @@ class Response extends BaseResponse {
   Response.bytes(List<int> bodyBytes, int statusCode,
       {BaseRequest request,
       Map<String, String> headers = const {},
+      String url,
       bool isRedirect = false,
       bool persistentConnection = true,
       String reasonPhrase})
@@ -54,6 +57,7 @@ class Response extends BaseResponse {
             contentLength: bodyBytes.length,
             request: request,
             headers: headers,
+            url: url,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);
@@ -65,6 +69,7 @@ class Response extends BaseResponse {
       return Response.bytes(body, response.statusCode,
           request: response.request,
           headers: response.headers,
+          url: response.url,
           isRedirect: response.isRedirect,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase);

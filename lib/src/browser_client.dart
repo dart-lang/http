@@ -65,6 +65,7 @@ class BrowserClient extends BaseClient {
             contentLength: body.length,
             request: request,
             headers: xhr.responseHeaders,
+            url: xhr.responseUrl,
             reasonPhrase: xhr.statusText));
       });
 
