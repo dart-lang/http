@@ -241,7 +241,7 @@ void main() {
   });
 
   test('with a file that has an error', () async {
-    var file = http.MultipartFile('file', Stream.error('error'), 1);
+    var file = http.MultipartFile('file', Future.error('error').asStream(), 1);
     var request = http.MultipartRequest('POST', dummyUrl)..files.add(file);
     expect(request.finalize().drain(), throwsA('error'));
   });
