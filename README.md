@@ -9,6 +9,18 @@ both the command-line and the browser.
 
 ## Using
 
+Before Using make sure you add internet permissions
+
+### Android
+Add Internet Permission in `AndroidManifest.xml `
+```
+<manifest xlmns:android...>
+ ...
+ <uses-permission android:name="android.permission.INTERNET" />
+ <application ...
+</manifest>
+```
+
 The easiest way to use this library is via the top-level functions. They allow
 you to make individual HTTP requests with minimal hassle:
 
