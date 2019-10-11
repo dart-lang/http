@@ -1,3 +1,9 @@
+## 1.1.0
+
+* Add `WebSocketChannel.connect` factory constructor supporting platform
+  independent creation of WebSockets providing the lowest common denominator
+  of support on dart:io and dart:html.
+
 ## 1.0.15
 
 * bug fix don't pass protocols parameter to WebSocket.

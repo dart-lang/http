@@ -70,6 +70,28 @@ void main() {
         onDone: expectAsync0(() {}));
   });
 
+  test(".connect communicates immediately using platform independent api",
+      () async {
+    server = await HttpServer.bind("localhost", 0);
+    server.transform(WebSocketTransformer()).listen((webSocket) {
+      var channel = IOWebSocketChannel(webSocket);
+      channel.stream.listen((request) {
+        expect(request, equals("ping"));
+        channel.sink.add("pong");
+      });
+    });
+
+    var channel = WebSocketChannel.connect("ws://localhost:${server.port}");
+    channel.sink.add("ping");
+
+    channel.stream.listen(
+        expectAsync1((message) {
+          expect(message, equals("pong"));
+          channel.sink.close(5678, "raisin");
+        }, count: 1),
+        onDone: expectAsync0(() {}));
+  });
+
   test(".connect with an immediate call to close", () async {
     server = await HttpServer.bind("localhost", 0);
     server.transform(WebSocketTransformer()).listen((webSocket) {

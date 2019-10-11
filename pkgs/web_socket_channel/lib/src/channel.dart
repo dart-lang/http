@@ -11,6 +11,10 @@ import 'package:stream_channel/stream_channel.dart';
 
 import 'copy/web_socket_impl.dart';
 
+import '_connect_api.dart'
+    if (dart.library.io) '_connect_io.dart'
+    if (dart.library.html) '_connect_html.dart' as platform;
+
 /// A [StreamChannel] that communicates over a WebSocket.
 ///
 /// This is implemented by classes that use `dart:io` and `dart:html`. The [new
@@ -94,6 +98,13 @@ class WebSocketChannel extends StreamChannelMixin {
       : _webSocket = WebSocketImpl.fromSocket(
             channel.stream, channel.sink, protocol, serverSide)
           ..pingInterval = pingInterval;
+
+  /// Creates a new WebSocket connection.
+  ///
+  /// Connects to [url] using and returns a channel that can be used to
+  /// communicate over the resulting socket. The [url] may be either a [String]
+  /// or a [Uri].
+  factory WebSocketChannel.connect(url) => platform.connect(url);
 }
 
 /// The sink exposed by a [WebSocketChannel].
