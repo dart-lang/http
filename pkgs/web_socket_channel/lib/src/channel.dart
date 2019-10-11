@@ -101,10 +101,9 @@ class WebSocketChannel extends StreamChannelMixin {
 
   /// Creates a new WebSocket connection.
   ///
-  /// Connects to [url] using and returns a channel that can be used to
-  /// communicate over the resulting socket. The [url] may be either a [String]
-  /// or a [Uri].
-  factory WebSocketChannel.connect(url) => platform.connect(url);
+  /// Connects to [uri] using and returns a channel that can be used to
+  /// communicate over the resulting socket.
+  factory WebSocketChannel.connect(Uri uri) => platform.connect(uri);
 }
 
 /// The sink exposed by a [WebSocketChannel].

@@ -81,7 +81,7 @@ void main() {
 
   test(".connect defaults to binary lists using platform independent api",
       () async {
-    channel = WebSocketChannel.connect("ws://localhost:$port");
+    channel = WebSocketChannel.connect(Uri.parse("ws://localhost:$port"));
 
     var queue = StreamQueue(channel.stream);
     channel.sink.add("foo");

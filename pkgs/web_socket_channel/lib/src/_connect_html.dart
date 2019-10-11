@@ -8,7 +8,6 @@ import '../web_socket_channel.dart';
 
 /// Creates a new WebSocket connection.
 ///
-/// Connects to [url] using and returns a channel that can be used to
-/// communicate over the resulting socket. The [url] may be either a [String]
-/// or a [Uri].
-WebSocketChannel connect(url) => HtmlWebSocketChannel.connect(url);
+/// Connects to [uri] using and returns a channel that can be used to
+/// communicate over the resulting socket.
+WebSocketChannel connect(Uri uri) => HtmlWebSocketChannel.connect(uri);

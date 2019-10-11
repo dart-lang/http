@@ -81,7 +81,8 @@ void main() {
       });
     });
 
-    var channel = WebSocketChannel.connect("ws://localhost:${server.port}");
+    var channel =
+        WebSocketChannel.connect(Uri.parse("ws://localhost:${server.port}"));
     channel.sink.add("ping");
 
     channel.stream.listen(
