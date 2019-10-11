@@ -79,6 +79,18 @@ void main() {
     expect(await queue.next, equals([1, 2, 3, 4, 5]));
   });
 
+  test(".connect defaults to binary lists using platform independent api",
+      () async {
+    channel = WebSocketChannel.connect(Uri.parse("ws://localhost:$port"));
+
+    var queue = StreamQueue(channel.stream);
+    channel.sink.add("foo");
+    expect(await queue.next, equals("foo"));
+
+    channel.sink.add(Uint8List.fromList([1, 2, 3, 4, 5]));
+    expect(await queue.next, equals([1, 2, 3, 4, 5]));
+  });
+
   test(".connect can use blobs", () async {
     channel = HtmlWebSocketChannel.connect("ws://localhost:$port",
         binaryType: BinaryType.blob);
