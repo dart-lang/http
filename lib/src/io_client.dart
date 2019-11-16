@@ -40,7 +40,9 @@ class IOClient extends BaseClient {
       });
 
       var response =
-          await stream.pipe(DelegatingStreamConsumer.typed(ioRequest));
+          await stream.pipe(DelegatingStreamConsumer.typed(ioRequest))
+              as HttpClientResponse;
+
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
         headers[key] = values.join(',');
@@ -48,7 +50,8 @@ class IOClient extends BaseClient {
 
       return StreamedResponse(
           DelegatingStream.typed<List<int>>(response).handleError(
-              (error) => throw ClientException(error.message, error.uri),
+              (HttpException error) =>
+                  throw ClientException(error.message, error.uri),
               test: (error) => error is HttpException),
           response.statusCode,
           contentLength:
