@@ -55,7 +55,7 @@ class BrowserClient extends BaseClient {
     unawaited(xhr.onLoad.first.then((_) {
       // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
       // is fixed.
-      var blob = xhr.response ?? Blob([]);
+      var blob = xhr.response as Blob ?? Blob([]);
       var reader = FileReader();
 
       reader.onLoad.first.then((_) {

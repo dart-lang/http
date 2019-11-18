@@ -40,7 +40,7 @@ String cleanUpLiteral(String text) {
 
 /// A matcher that matches JSON that parses to a value that matches the inner
 /// matcher.
-Matcher parse(matcher) => _Parse(matcher);
+Matcher parse(Matcher matcher) => _Parse(matcher);
 
 class _Parse extends Matcher {
   final Matcher _matcher;
@@ -49,16 +49,17 @@ class _Parse extends Matcher {
 
   @override
   bool matches(item, Map matchState) {
-    if (item is! String) return false;
+    if (item is String) {
+      dynamic parsed;
+      try {
+        parsed = json.decode(item);
+      } catch (e) {
+        return false;
+      }
 
-    dynamic parsed;
-    try {
-      parsed = json.decode(item);
-    } catch (e) {
-      return false;
+      return _matcher.matches(parsed, matchState);
     }
-
-    return _matcher.matches(parsed, matchState);
+    return false;
   }
 
   @override
@@ -83,9 +84,11 @@ class _BodyMatches extends Matcher {
 
   @override
   bool matches(item, Map matchState) {
-    if (item is! http.MultipartRequest) return false;
+    if (item is http.MultipartRequest) {
+      return completes.matches(_checks(item), matchState);
+    }
 
-    return completes.matches(_checks(item), matchState);
+    return false;
   }
 
   Future<void> _checks(http.MultipartRequest item) async {

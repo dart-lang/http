@@ -157,8 +157,7 @@ abstract class BaseClient implements Client {
   Future<Response> _sendUnstreamed(
       String method, url, Map<String, String> headers,
       [body, Encoding encoding]) async {
-    if (url is String) url = Uri.parse(url);
-    var request = Request(method, url);
+    var request = Request(method, _fromUriOrString(url));
 
     if (headers != null) request.headers.addAll(headers);
     if (encoding != null) request.encoding = encoding;
@@ -184,8 +183,7 @@ abstract class BaseClient implements Client {
     if (response.reasonPhrase != null) {
       message = '$message: ${response.reasonPhrase}';
     }
-    if (url is String) url = Uri.parse(url);
-    throw ClientException('$message.', url);
+    throw ClientException('$message.', _fromUriOrString(url));
   }
 
   /// Closes the client and cleans up any resources associated with it.
@@ -195,3 +193,5 @@ abstract class BaseClient implements Client {
   @override
   void close() {}
 }
+
+Uri _fromUriOrString(uri) => uri is String ? Uri.parse(uri) : uri as Uri;
