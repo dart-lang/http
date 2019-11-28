@@ -114,9 +114,9 @@ class MediaType {
       subtype = segments[1];
     }
 
-    if (type == null) type = this.type;
-    if (subtype == null) subtype = this.subtype;
-    if (parameters == null) parameters = {};
+    type ??= this.type;
+    subtype ??= this.subtype;
+    parameters ??= {};
 
     if (!clearParameters) {
       var newParameters = parameters;
@@ -130,6 +130,7 @@ class MediaType {
   /// Converts the media type to a string.
   ///
   /// This will produce a valid HTTP media type.
+  @override
   String toString() {
     var buffer = StringBuffer()..write(type)..write("/")..write(subtype);
 

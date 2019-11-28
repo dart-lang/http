@@ -44,7 +44,7 @@ final whitespace = RegExp("(?:${_lws.pattern})*");
 ///
 /// Once this is finished, [scanner] will be at the next non-LWS character in
 /// the string, or the end of the string.
-List<T> parseList<T>(StringScanner scanner, T parseElement()) {
+List<T> parseList<T>(StringScanner scanner, T Function() parseElement) {
   var result = <T>[];
 
   // Consume initial empty values.
@@ -73,7 +73,7 @@ List<T> parseList<T>(StringScanner scanner, T parseElement()) {
 /// If [name] is passed, it's used to describe the expected value if it's not
 /// found.
 String expectQuotedString(StringScanner scanner, {String name}) {
-  if (name == null) name = "quoted string";
+  name ??= "quoted string";
   scanner.expect(_quotedString, name: name);
   var string = scanner.lastMatch[0];
   return string

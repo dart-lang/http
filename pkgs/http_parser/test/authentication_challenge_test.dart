@@ -52,7 +52,7 @@ void main() {
 /// [AuthenticationChallenge.parseHeader], since they use almost entirely
 /// separate code paths.
 void _singleChallengeTests(
-    AuthenticationChallenge parseChallenge(String challenge)) {
+    AuthenticationChallenge Function(String challenge) parseChallenge) {
   test("parses a simple challenge", () {
     var challenge = parseChallenge("scheme realm=fblthp");
     expect(challenge.scheme, equals("scheme"));

@@ -32,8 +32,10 @@ const chunkedCoding = ChunkedCodingCodec._();
 /// Currently, [decoder] will fail to parse chunk extensions and trailing
 /// headers. It may be updated to silently ignore them in the future.
 class ChunkedCodingCodec extends Codec<List<int>, List<int>> {
+  @override
   ChunkedCodingEncoder get encoder => chunkedCodingEncoder;
 
+  @override
   ChunkedCodingDecoder get decoder => chunkedCodingDecoder;
 
   const ChunkedCodingCodec._();

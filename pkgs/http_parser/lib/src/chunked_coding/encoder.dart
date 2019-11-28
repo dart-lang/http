@@ -17,9 +17,11 @@ final _doneChunk = Uint8List.fromList([$0, $cr, $lf, $cr, $lf]);
 class ChunkedCodingEncoder extends Converter<List<int>, List<int>> {
   const ChunkedCodingEncoder._();
 
-  List<int> convert(List<int> bytes) =>
-      _convert(bytes, 0, bytes.length, isLast: true);
+  @override
+  List<int> convert(List<int> input) =>
+      _convert(input, 0, input.length, isLast: true);
 
+  @override
   ByteConversionSink startChunkedConversion(Sink<List<int>> sink) =>
       _Sink(sink);
 }
@@ -31,16 +33,19 @@ class _Sink extends ByteConversionSinkBase {
 
   _Sink(this._sink);
 
+  @override
   void add(List<int> chunk) {
     _sink.add(_convert(chunk, 0, chunk.length));
   }
 
+  @override
   void addSlice(List<int> chunk, int start, int end, bool isLast) {
     RangeError.checkValidRange(start, end, chunk.length);
     _sink.add(_convert(chunk, start, end, isLast: isLast));
     if (isLast) _sink.close();
   }
 
+  @override
   void close() {
     _sink.add(_doneChunk);
     _sink.close();

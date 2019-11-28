@@ -16,14 +16,16 @@ const chunkedCodingDecoder = ChunkedCodingDecoder._();
 class ChunkedCodingDecoder extends Converter<List<int>, List<int>> {
   const ChunkedCodingDecoder._();
 
-  List<int> convert(List<int> bytes) {
+  @override
+  List<int> convert(List<int> input) {
     var sink = _Sink(null);
-    var output = sink._decode(bytes, 0, bytes.length);
+    var output = sink._decode(input, 0, input.length);
     if (sink._state == _State.end) return output;
 
-    throw FormatException("Input ended unexpectedly.", bytes, bytes.length);
+    throw FormatException("Input ended unexpectedly.", input, input.length);
   }
 
+  @override
   ByteConversionSink startChunkedConversion(Sink<List<int>> sink) =>
       _Sink(sink);
 }
@@ -42,8 +44,10 @@ class _Sink extends ByteConversionSinkBase {
 
   _Sink(this._sink);
 
+  @override
   void add(List<int> chunk) => addSlice(chunk, 0, chunk.length, false);
 
+  @override
   void addSlice(List<int> chunk, int start, int end, bool isLast) {
     RangeError.checkValidRange(start, end, chunk.length);
     var output = _decode(chunk, start, end);
@@ -51,6 +55,7 @@ class _Sink extends ByteConversionSinkBase {
     if (isLast) _close(chunk, end);
   }
 
+  @override
   void close() => _close();
 
   /// Like [close], but includes [chunk] and [index] in the [FormatException] if
@@ -67,7 +72,7 @@ class _Sink extends ByteConversionSinkBase {
   Uint8List _decode(List<int> bytes, int start, int end) {
     /// Throws a [FormatException] if `bytes[start] != $char`. Uses [name] to
     /// describe the character in the exception text.
-    assertCurrentChar(int char, String name) {
+    void assertCurrentChar(int char, String name) {
       if (bytes[start] != char) {
         throw FormatException("Expected $name.", bytes, start);
       }
@@ -230,5 +235,6 @@ class _State {
 
   const _State._(this._name);
 
+  @override
   String toString() => _name;
 }
