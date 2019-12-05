@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 
 import 'utils.dart';
 
-main() {
+void main() {
   group('http.', () {
     setUp(startServer);
 
