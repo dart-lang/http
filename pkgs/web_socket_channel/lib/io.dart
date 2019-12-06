@@ -23,11 +23,16 @@ class IOWebSocketChannel extends StreamChannelMixin
   /// `null` until the [WebSocket.connect] future completes.
   WebSocket _webSocket;
 
+  @override
   String get protocol => _webSocket?.protocol;
+  @override
   int get closeCode => _webSocket?.closeCode;
+  @override
   String get closeReason => _webSocket?.closeReason;
 
+  @override
   final Stream stream;
+  @override
   final WebSocketSink sink;
 
   // TODO(nweiz): Add a compression parameter after the initial release.
@@ -93,6 +98,7 @@ class _IOWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
       : _webSocket = webSocket,
         super(webSocket);
 
+  @override
   Future close([int closeCode, String closeReason]) =>
       _webSocket.close(closeCode, closeReason);
 }

@@ -51,12 +51,14 @@ class WebSocketChannel extends StreamChannelMixin {
   /// Before the connection has been closed, this will be `null`.
   String get closeReason => _webSocket.closeReason;
 
+  @override
   Stream get stream => StreamView(_webSocket);
 
   /// The sink for sending values to the other endpoint.
   ///
   /// This supports additional arguments to [WebSocketSink.close] that provide
   /// the remote endpoint reasons for closing the connection.
+  @override
   WebSocketSink get sink => WebSocketSink._(_webSocket);
 
   /// Signs a `Sec-WebSocket-Key` header sent by a WebSocket client as part of
@@ -125,6 +127,7 @@ class WebSocketSink extends DelegatingStreamSink {
   ///
   /// [close code]: https://tools.ietf.org/html/rfc6455#section-7.1.5
   /// [reason]: https://tools.ietf.org/html/rfc6455#section-7.1.6
+  @override
   Future close([int closeCode, String closeReason]) =>
       _webSocket.close(closeCode, closeReason);
 }

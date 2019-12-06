@@ -20,11 +20,14 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// The underlying `dart:html` [WebSocket].
   final WebSocket _webSocket;
 
+  @override
   String get protocol => _webSocket.protocol;
 
+  @override
   int get closeCode => _closeCode;
   int _closeCode;
 
+  @override
   String get closeReason => _closeReason;
   String _closeReason;
 
@@ -44,10 +47,12 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// [_controller.local.stream].
   String _localCloseReason;
 
+  @override
   Stream get stream => _controller.foreign.stream;
   final _controller =
       StreamChannelController(sync: true, allowForeignErrors: false);
 
+  @override
   WebSocketSink get sink => _sink;
   WebSocketSink _sink;
 
@@ -85,7 +90,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
     // and that once it is no open or message events will be emitted.
     _webSocket.onError.first.then((_) {
       _controller.local.sink
-          .addError(WebSocketChannelException("WebSocket connection failed."));
+          .addError(WebSocketChannelException('WebSocket connection failed.'));
       _controller.local.sink.close();
     });
 
@@ -131,6 +136,7 @@ class _HtmlWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
       : _channel = channel,
         super(channel._controller.foreign.sink);
 
+  @override
   Future close([int closeCode, String closeReason]) {
     _channel._localCloseCode = closeCode;
     _channel._localCloseReason = closeReason;
@@ -142,10 +148,10 @@ class _HtmlWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
 /// messages.
 class BinaryType {
   /// Tells the channel to emit binary messages as [Blob]s.
-  static const blob = BinaryType._("blob", "blob");
+  static const blob = BinaryType._('blob', 'blob');
 
   /// Tells the channel to emit binary messages as [Uint8List]s.
-  static const list = BinaryType._("list", "arraybuffer");
+  static const list = BinaryType._('list', 'arraybuffer');
 
   /// The name of the binary type, which matches its variable name.
   final String name;
@@ -155,5 +161,6 @@ class BinaryType {
 
   const BinaryType._(this.name, this.value);
 
+  @override
   String toString() => name;
 }

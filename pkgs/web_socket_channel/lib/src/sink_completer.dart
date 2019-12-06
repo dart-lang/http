@@ -37,7 +37,7 @@ class WebSocketSinkCompleter {
   /// A destination sink may be set at most once.
   void setDestinationSink(WebSocketSink destinationSink) {
     if (_sink._destinationSink != null) {
-      throw StateError("Destination sink already set");
+      throw StateError('Destination sink already set');
     }
     _sink._setDestinationSink(destinationSink);
   }
@@ -72,6 +72,7 @@ class _CompleterSink implements WebSocketSink {
   /// to going through [_controller].
   bool get _canSendDirectly => _controller == null && _destinationSink != null;
 
+  @override
   Future get done {
     if (_doneCompleter != null) return _doneCompleter.future;
     if (_destinationSink == null) {
@@ -81,6 +82,7 @@ class _CompleterSink implements WebSocketSink {
     return _destinationSink.done;
   }
 
+  @override
   void add(event) {
     if (_canSendDirectly) {
       _destinationSink.add(event);
@@ -90,6 +92,7 @@ class _CompleterSink implements WebSocketSink {
     }
   }
 
+  @override
   void addError(error, [StackTrace stackTrace]) {
     if (_canSendDirectly) {
       _destinationSink.addError(error, stackTrace);
@@ -99,6 +102,7 @@ class _CompleterSink implements WebSocketSink {
     }
   }
 
+  @override
   Future addStream(Stream stream) {
     if (_canSendDirectly) return _destinationSink.addStream(stream);
 
@@ -106,6 +110,7 @@ class _CompleterSink implements WebSocketSink {
     return _controller.addStream(stream, cancelOnError: false);
   }
 
+  @override
   Future close([int closeCode, String closeReason]) {
     if (_canSendDirectly) {
       _destinationSink.close(closeCode, closeReason);
@@ -120,7 +125,7 @@ class _CompleterSink implements WebSocketSink {
 
   /// Create [_controller] if it doesn't yet exist.
   void _ensureController() {
-    if (_controller == null) _controller = StreamController(sync: true);
+    _controller ??= StreamController(sync: true);
   }
 
   /// Sets the destination sink to which events from this sink will be provided.

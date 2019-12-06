@@ -81,10 +81,11 @@ class _CopyingBytesBuilder implements BytesBuilder {
             ? _emptyList
             : Uint8List(_pow2roundup(initialCapacity));
 
+  @override
   void add(List<int> bytes) {
-    int bytesLength = bytes.length;
+    var bytesLength = bytes.length;
     if (bytesLength == 0) return;
-    int required = _length + bytesLength;
+    var required = _length + bytesLength;
     if (_buffer.length < required) {
       _grow(required);
     }
@@ -92,13 +93,14 @@ class _CopyingBytesBuilder implements BytesBuilder {
     if (bytes is Uint8List) {
       _buffer.setRange(_length, required, bytes);
     } else {
-      for (int i = 0; i < bytesLength; i++) {
+      for (var i = 0; i < bytesLength; i++) {
         _buffer[_length + i] = bytes[i];
       }
     }
     _length = required;
   }
 
+  @override
   void addByte(int byte) {
     if (_buffer.length == _length) {
       // The grow algorithm always at least doubles.
@@ -113,7 +115,7 @@ class _CopyingBytesBuilder implements BytesBuilder {
   void _grow(int required) {
     // We will create a list in the range of 2-4 times larger than
     // required.
-    int newSize = required * 2;
+    var newSize = required * 2;
     if (newSize < _INIT_SIZE) {
       newSize = _INIT_SIZE;
     } else {
@@ -124,6 +126,7 @@ class _CopyingBytesBuilder implements BytesBuilder {
     _buffer = newBuffer;
   }
 
+  @override
   Uint8List takeBytes() {
     if (_length == 0) return _emptyList;
     var buffer = Uint8List.view(_buffer.buffer, 0, _length);
@@ -131,17 +134,22 @@ class _CopyingBytesBuilder implements BytesBuilder {
     return buffer;
   }
 
+  @override
   Uint8List toBytes() {
     if (_length == 0) return _emptyList;
     return Uint8List.fromList(Uint8List.view(_buffer.buffer, 0, _length));
   }
 
+  @override
   int get length => _length;
 
+  @override
   bool get isEmpty => _length == 0;
 
+  @override
   bool get isNotEmpty => _length != 0;
 
+  @override
   void clear() {
     _length = 0;
     _buffer = _emptyList;
@@ -163,6 +171,7 @@ class _BytesBuilder implements BytesBuilder {
   int _length = 0;
   final List<Uint8List> _chunks = [];
 
+  @override
   void add(List<int> bytes) {
     Uint8List typedBytes;
     if (bytes is Uint8List) {
@@ -174,11 +183,13 @@ class _BytesBuilder implements BytesBuilder {
     _length += typedBytes.length;
   }
 
+  @override
   void addByte(int byte) {
     _chunks.add(Uint8List(1)..[0] = byte);
     _length++;
   }
 
+  @override
   Uint8List takeBytes() {
     if (_length == 0) return _CopyingBytesBuilder._emptyList;
     if (_chunks.length == 1) {
@@ -187,7 +198,7 @@ class _BytesBuilder implements BytesBuilder {
       return buffer;
     }
     var buffer = Uint8List(_length);
-    int offset = 0;
+    var offset = 0;
     for (var chunk in _chunks) {
       buffer.setRange(offset, offset + chunk.length, chunk);
       offset += chunk.length;
@@ -196,10 +207,11 @@ class _BytesBuilder implements BytesBuilder {
     return buffer;
   }
 
+  @override
   Uint8List toBytes() {
     if (_length == 0) return _CopyingBytesBuilder._emptyList;
     var buffer = Uint8List(_length);
-    int offset = 0;
+    var offset = 0;
     for (var chunk in _chunks) {
       buffer.setRange(offset, offset + chunk.length, chunk);
       offset += chunk.length;
@@ -207,12 +219,16 @@ class _BytesBuilder implements BytesBuilder {
     return buffer;
   }
 
+  @override
   int get length => _length;
 
+  @override
   bool get isEmpty => _length == 0;
 
+  @override
   bool get isNotEmpty => _length != 0;
 
+  @override
   void clear() {
     _length = 0;
     _chunks.clear();

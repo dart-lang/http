@@ -27,6 +27,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
   // The _reportClosedSink method has been deleted for web_socket_channel. This
   // method did nothing but print to stderr, which is unavailable here.
 
+  @override
   void add(T data) {
     if (_isClosed) {
       return;
@@ -34,6 +35,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
     _controller.add(data);
   }
 
+  @override
   void addError(error, [StackTrace stackTrace]) {
     if (_isClosed) {
       return;
@@ -41,9 +43,10 @@ class StreamSinkImpl<T> implements StreamSink<T> {
     _controller.addError(error, stackTrace);
   }
 
+  @override
   Future addStream(Stream<T> stream) {
     if (_isBound) {
-      throw StateError("StreamSink is already bound to a stream");
+      throw StateError('StreamSink is already bound to a stream');
     }
     if (_hasError) return done;
 
@@ -62,7 +65,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
 
   Future flush() {
     if (_isBound) {
-      throw StateError("StreamSink is bound to a stream");
+      throw StateError('StreamSink is bound to a stream');
     }
     if (_controllerInstance == null) return Future.value(this);
     // Adding an empty stream-controller will return a future that will complete
@@ -75,9 +78,10 @@ class StreamSinkImpl<T> implements StreamSink<T> {
     });
   }
 
+  @override
   Future close() {
     if (_isBound) {
-      throw StateError("StreamSink is bound to a stream");
+      throw StateError('StreamSink is bound to a stream');
     }
     if (!_isClosed) {
       _isClosed = true;
@@ -94,6 +98,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
     _target.close().then(_completeDoneValue, onError: _completeDoneError);
   }
 
+  @override
   Future get done => _doneCompleter.future;
 
   void _completeDoneValue(value) {
@@ -111,10 +116,10 @@ class StreamSinkImpl<T> implements StreamSink<T> {
 
   StreamController<T> get _controller {
     if (_isBound) {
-      throw StateError("StreamSink is bound to a stream");
+      throw StateError('StreamSink is bound to a stream');
     }
     if (_isClosed) {
-      throw StateError("StreamSink is closed");
+      throw StateError('StreamSink is closed');
     }
     if (_controllerInstance == null) {
       _controllerInstance = StreamController<T>(sync: true);
