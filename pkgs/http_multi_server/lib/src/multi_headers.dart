@@ -101,7 +101,7 @@ class MultiHeaders implements HttpHeaders {
   }
 
   @override
-  void forEach(void f(String name, List<String> values)) =>
+  void forEach(void Function(String name, List<String> values) f) =>
       _headers.first.forEach(f);
 
   @override

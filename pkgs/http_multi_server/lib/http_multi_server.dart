@@ -106,7 +106,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// See [HttpServer.bind].
   static Future<HttpServer> loopback(int port,
       {int backlog, bool v6Only = false, bool shared = false}) {
-    if (backlog == null) backlog = 0;
+    backlog ??= 0;
 
     return _loopback(
         port,
@@ -122,7 +122,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       bool v6Only = false,
       bool requestClientCertificate = false,
       bool shared = false}) {
-    if (backlog == null) backlog = 0;
+    backlog ??= 0;
 
     return _loopback(
         port,
@@ -161,7 +161,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// [bind] should forward to either [HttpServer.bind] or
   /// [HttpServer.bindSecure].
   static Future<HttpServer> _loopback(
-      int port, Future<HttpServer> bind(InternetAddress address, int port),
+      int port, Future<HttpServer> Function(InternetAddress, int port) bind,
       [int remainingRetries]) async {
     remainingRetries ??= 5;
 

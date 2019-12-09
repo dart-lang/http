@@ -7,6 +7,6 @@ void main() async {
   // server.
   var server = await HttpMultiServer.loopback(8080);
   shelf_io.serveRequests(server, (request) {
-    return shelf.Response.ok("Hello, world!");
+    return shelf.Response.ok('Hello, world!');
   });
 }
