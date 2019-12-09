@@ -35,7 +35,7 @@ class MediaType {
   final Map<String, String> parameters;
 
   /// The media type's MIME type.
-  String get mimeType => "$type/$subtype";
+  String get mimeType => '$type/$subtype';
 
   /// Parses a media type.
   ///
@@ -43,7 +43,7 @@ class MediaType {
   factory MediaType.parse(String mediaType) {
     // This parsing is based on sections 3.6 and 3.7 of the HTTP spec:
     // http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html.
-    return wrapFormatException("media type", mediaType, () {
+    return wrapFormatException('media type', mediaType, () {
       var scanner = StringScanner(mediaType);
       scanner.scan(whitespace);
       scanner.expect(token);
@@ -99,10 +99,10 @@ class MediaType {
       bool clearParameters = false}) {
     if (mimeType != null) {
       if (type != null) {
-        throw ArgumentError("You may not pass both [type] and [mimeType].");
+        throw ArgumentError('You may not pass both [type] and [mimeType].');
       } else if (subtype != null) {
-        throw ArgumentError("You may not pass both [subtype] and "
-            "[mimeType].");
+        throw ArgumentError('You may not pass both [subtype] and '
+            '[mimeType].');
       }
 
       var segments = mimeType.split('/');
@@ -132,15 +132,15 @@ class MediaType {
   /// This will produce a valid HTTP media type.
   @override
   String toString() {
-    var buffer = StringBuffer()..write(type)..write("/")..write(subtype);
+    var buffer = StringBuffer()..write(type)..write('/')..write(subtype);
 
     parameters.forEach((attribute, value) {
-      buffer.write("; $attribute=");
+      buffer.write('; $attribute=');
       if (nonToken.hasMatch(value)) {
         buffer
           ..write('"')
           ..write(
-              value.replaceAllMapped(_escapedChar, (match) => "\\" + match[0]))
+              value.replaceAllMapped(_escapedChar, (match) => '\\' + match[0]))
           ..write('"');
       } else {
         buffer.write(value);

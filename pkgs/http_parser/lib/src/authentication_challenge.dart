@@ -34,7 +34,7 @@ class AuthenticationChallenge {
   ///
   /// Throws a [FormatException] if the header is invalid.
   static List<AuthenticationChallenge> parseHeader(String header) {
-    return wrapFormatException("authentication header", header, () {
+    return wrapFormatException('authentication header', header, () {
       var scanner = StringScanner(header);
       scanner.scan(whitespace);
       var challenges = parseList(scanner, () {
@@ -45,20 +45,20 @@ class AuthenticationChallenge {
         var params = <String, String>{};
 
         // Consume initial empty values.
-        while (scanner.scan(",")) {
+        while (scanner.scan(',')) {
           scanner.scan(whitespace);
         }
 
         _scanAuthParam(scanner, params);
 
         var beforeComma = scanner.position;
-        while (scanner.scan(",")) {
+        while (scanner.scan(',')) {
           scanner.scan(whitespace);
 
           // Empty elements are allowed, but excluded from the results.
-          if (scanner.matches(",") || scanner.isDone) continue;
+          if (scanner.matches(',') || scanner.isDone) continue;
 
-          scanner.expect(token, name: "a token");
+          scanner.expect(token, name: 'a token');
           var name = scanner.lastMatch[0];
           scanner.scan(whitespace);
 
@@ -75,7 +75,7 @@ class AuthenticationChallenge {
             params[name] = scanner.lastMatch[0];
           } else {
             params[name] =
-                expectQuotedString(scanner, name: "a token or a quoted string");
+                expectQuotedString(scanner, name: 'a token or a quoted string');
           }
 
           scanner.scan(whitespace);
@@ -94,7 +94,7 @@ class AuthenticationChallenge {
   ///
   /// Throws a [FormatException] if the challenge is invalid.
   factory AuthenticationChallenge.parse(String challenge) {
-    return wrapFormatException("authentication challenge", challenge, () {
+    return wrapFormatException('authentication challenge', challenge, () {
       var scanner = StringScanner(challenge);
       scanner.scan(whitespace);
       var scheme = _scanScheme(scanner);
@@ -112,15 +112,15 @@ class AuthenticationChallenge {
   /// If [whitespaceName] is passed, it's used as the name for exceptions thrown
   /// due to invalid trailing whitespace.
   static String _scanScheme(StringScanner scanner, {String whitespaceName}) {
-    scanner.expect(token, name: "a token");
+    scanner.expect(token, name: 'a token');
     var scheme = scanner.lastMatch[0].toLowerCase();
 
     scanner.scan(whitespace);
 
     // The spec specifically requires a space between the scheme and its
     // params.
-    if (scanner.lastMatch == null || !scanner.lastMatch[0].contains(" ")) {
-      scanner.expect(" ", name: whitespaceName);
+    if (scanner.lastMatch == null || !scanner.lastMatch[0].contains(' ')) {
+      scanner.expect(' ', name: whitespaceName);
     }
 
     return scheme;
@@ -128,7 +128,7 @@ class AuthenticationChallenge {
 
   /// Scans a single authentication parameter and stores its result in [params].
   static void _scanAuthParam(StringScanner scanner, Map params) {
-    scanner.expect(token, name: "a token");
+    scanner.expect(token, name: 'a token');
     var name = scanner.lastMatch[0];
     scanner.scan(whitespace);
     scanner.expect('=');
@@ -138,7 +138,7 @@ class AuthenticationChallenge {
       params[name] = scanner.lastMatch[0];
     } else {
       params[name] =
-          expectQuotedString(scanner, name: "a token or a quoted string");
+          expectQuotedString(scanner, name: 'a token or a quoted string');
     }
 
     scanner.scan(whitespace);

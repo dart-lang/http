@@ -22,7 +22,7 @@ import 'package:string_scanner/string_scanner.dart';
 final token = RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
 
 /// Linear whitespace.
-final _lws = RegExp(r"(?:\r\n)?[ \t]+");
+final _lws = RegExp(r'(?:\r\n)?[ \t]+');
 
 /// A quoted string.
 final _quotedString = RegExp(r'"(?:[^"\x00-\x1F\x7F]|\\.)*"');
@@ -34,7 +34,7 @@ final _quotedPair = RegExp(r'\\(.)');
 final nonToken = RegExp(r'[()<>@,;:"\\/\[\]?={} \t\x00-\x1F\x7F]');
 
 /// A regular expression matching any number of [_lws] productions in a row.
-final whitespace = RegExp("(?:${_lws.pattern})*");
+final whitespace = RegExp('(?:${_lws.pattern})*');
 
 /// Parses a list of elements, as in `1#element` in the HTTP spec.
 ///
@@ -48,18 +48,18 @@ List<T> parseList<T>(StringScanner scanner, T Function() parseElement) {
   var result = <T>[];
 
   // Consume initial empty values.
-  while (scanner.scan(",")) {
+  while (scanner.scan(',')) {
     scanner.scan(whitespace);
   }
 
   result.add(parseElement());
   scanner.scan(whitespace);
 
-  while (scanner.scan(",")) {
+  while (scanner.scan(',')) {
     scanner.scan(whitespace);
 
     // Empty elements are allowed, but excluded from the results.
-    if (scanner.matches(",") || scanner.isDone) continue;
+    if (scanner.matches(',') || scanner.isDone) continue;
 
     result.add(parseElement());
     scanner.scan(whitespace);
@@ -73,7 +73,7 @@ List<T> parseList<T>(StringScanner scanner, T Function() parseElement) {
 /// If [name] is passed, it's used to describe the expected value if it's not
 /// found.
 String expectQuotedString(StringScanner scanner, {String name}) {
-  name ??= "quoted string";
+  name ??= 'quoted string';
   scanner.expect(_quotedString, name: name);
   var string = scanner.lastMatch[0];
   return string

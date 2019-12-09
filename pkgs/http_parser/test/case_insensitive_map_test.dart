@@ -6,24 +6,24 @@ import 'package:http_parser/http_parser.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test("provides case-insensitive access to the map", () {
+  test('provides case-insensitive access to the map', () {
     var map = CaseInsensitiveMap();
-    map["fOo"] = "bAr";
-    expect(map, containsPair("FoO", "bAr"));
+    map['fOo'] = 'bAr';
+    expect(map, containsPair('FoO', 'bAr'));
 
-    map["foo"] = "baz";
-    expect(map, containsPair("FOO", "baz"));
+    map['foo'] = 'baz';
+    expect(map, containsPair('FOO', 'baz'));
   });
 
-  test("stores the original key cases", () {
+  test('stores the original key cases', () {
     var map = CaseInsensitiveMap();
-    map["fOo"] = "bAr";
-    expect(map, equals({"fOo": "bAr"}));
+    map['fOo'] = 'bAr';
+    expect(map, equals({'fOo': 'bAr'}));
   });
 
-  test(".from() converts an existing map", () {
-    var map = CaseInsensitiveMap.from({"fOo": "bAr"});
-    expect(map, containsPair("FoO", "bAr"));
-    expect(map, equals({"fOo": "bAr"}));
+  test('.from() converts an existing map', () {
+    var map = CaseInsensitiveMap.from({'fOo': 'bAr'});
+    expect(map, containsPair('FoO', 'bAr'));
+    expect(map, equals({'fOo': 'bAr'}));
   });
 }

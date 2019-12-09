@@ -6,27 +6,27 @@ import 'package:string_scanner/string_scanner.dart';
 
 import 'utils.dart';
 
-const _weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const _weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const _months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec"
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
 ];
 
-final _shortWeekdayRegExp = RegExp(r"Mon|Tue|Wed|Thu|Fri|Sat|Sun");
+final _shortWeekdayRegExp = RegExp(r'Mon|Tue|Wed|Thu|Fri|Sat|Sun');
 final _longWeekdayRegExp =
-    RegExp(r"Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday");
-final _monthRegExp = RegExp(r"Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec");
-final _digitRegExp = RegExp(r"\d+");
+    RegExp(r'Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday');
+final _monthRegExp = RegExp(r'Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec');
+final _digitRegExp = RegExp(r'\d+');
 
 /// Return a HTTP-formatted string representation of [date].
 ///
@@ -36,20 +36,20 @@ String formatHttpDate(DateTime date) {
   date = date.toUtc();
   var buffer = StringBuffer()
     ..write(_weekdays[date.weekday - 1])
-    ..write(", ")
-    ..write(date.day <= 9 ? "0" : "")
+    ..write(', ')
+    ..write(date.day <= 9 ? '0' : '')
     ..write(date.day.toString())
-    ..write(" ")
+    ..write(' ')
     ..write(_months[date.month - 1])
-    ..write(" ")
+    ..write(' ')
     ..write(date.year.toString())
-    ..write(date.hour <= 9 ? " 0" : " ")
+    ..write(date.hour <= 9 ? ' 0' : ' ')
     ..write(date.hour.toString())
-    ..write(date.minute <= 9 ? ":0" : ":")
+    ..write(date.minute <= 9 ? ':0' : ':')
     ..write(date.minute.toString())
-    ..write(date.second <= 9 ? ":0" : ":")
+    ..write(date.second <= 9 ? ':0' : ':')
     ..write(date.second.toString())
-    ..write(" GMT");
+    ..write(' GMT');
   return buffer.toString();
 }
 
@@ -59,20 +59,20 @@ String formatHttpDate(DateTime date) {
 /// 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3). It will
 /// throw a [FormatException] if [date] is invalid.
 DateTime parseHttpDate(String date) {
-  return wrapFormatException("HTTP date", date, () {
+  return wrapFormatException('HTTP date', date, () {
     var scanner = StringScanner(date);
 
     if (scanner.scan(_longWeekdayRegExp)) {
       // RFC 850 starts with a long weekday.
-      scanner.expect(", ");
+      scanner.expect(', ');
       var day = _parseInt(scanner, 2);
-      scanner.expect("-");
+      scanner.expect('-');
       var month = _parseMonth(scanner);
-      scanner.expect("-");
+      scanner.expect('-');
       var year = 1900 + _parseInt(scanner, 2);
-      scanner.expect(" ");
+      scanner.expect(' ');
       var time = _parseTime(scanner);
-      scanner.expect(" GMT");
+      scanner.expect(' GMT');
       scanner.expectDone();
 
       return _makeDateTime(year, month, day, time);
@@ -80,29 +80,29 @@ DateTime parseHttpDate(String date) {
 
     // RFC 1123 and asctime both start with a short weekday.
     scanner.expect(_shortWeekdayRegExp);
-    if (scanner.scan(", ")) {
+    if (scanner.scan(', ')) {
       // RFC 1123 follows the weekday with a comma.
       var day = _parseInt(scanner, 2);
-      scanner.expect(" ");
+      scanner.expect(' ');
       var month = _parseMonth(scanner);
-      scanner.expect(" ");
+      scanner.expect(' ');
       var year = _parseInt(scanner, 4);
-      scanner.expect(" ");
+      scanner.expect(' ');
       var time = _parseTime(scanner);
-      scanner.expect(" GMT");
+      scanner.expect(' GMT');
       scanner.expectDone();
 
       return _makeDateTime(year, month, day, time);
     }
 
     // asctime follows the weekday with a space.
-    scanner.expect(" ");
+    scanner.expect(' ');
     var month = _parseMonth(scanner);
-    scanner.expect(" ");
-    var day = scanner.scan(" ") ? _parseInt(scanner, 1) : _parseInt(scanner, 2);
-    scanner.expect(" ");
+    scanner.expect(' ');
+    var day = scanner.scan(' ') ? _parseInt(scanner, 1) : _parseInt(scanner, 2);
+    scanner.expect(' ');
     var time = _parseTime(scanner);
-    scanner.expect(" ");
+    scanner.expect(' ');
     var year = _parseInt(scanner, 4);
     scanner.expectDone();
 
@@ -121,7 +121,7 @@ int _parseMonth(StringScanner scanner) {
 int _parseInt(StringScanner scanner, int digits) {
   scanner.expect(_digitRegExp);
   if (scanner.lastMatch[0].length != digits) {
-    scanner.error("expected a $digits-digit number.");
+    scanner.error('expected a $digits-digit number.');
   }
 
   return int.parse(scanner.lastMatch[0]);
@@ -130,15 +130,15 @@ int _parseInt(StringScanner scanner, int digits) {
 /// Parses an timestamp of the form "HH:MM:SS" on a 24-hour clock.
 DateTime _parseTime(StringScanner scanner) {
   var hours = _parseInt(scanner, 2);
-  if (hours >= 24) scanner.error("hours may not be greater than 24.");
+  if (hours >= 24) scanner.error('hours may not be greater than 24.');
   scanner.expect(':');
 
   var minutes = _parseInt(scanner, 2);
-  if (minutes >= 60) scanner.error("minutes may not be greater than 60.");
+  if (minutes >= 60) scanner.error('minutes may not be greater than 60.');
   scanner.expect(':');
 
   var seconds = _parseInt(scanner, 2);
-  if (seconds >= 60) scanner.error("seconds may not be greater than 60.");
+  if (seconds >= 60) scanner.error('seconds may not be greater than 60.');
 
   return DateTime(1, 1, 1, hours, minutes, seconds);
 }
