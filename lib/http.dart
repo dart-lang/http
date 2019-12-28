@@ -117,16 +117,27 @@ Future<Response> patch(url,
     _withClient((client) =>
         client.patch(url, headers: headers, body: body, encoding: encoding));
 
-/// Sends an HTTP DELETE request with the given headers to the given URL, which
-/// can be a [Uri] or a [String].
+/// Sends an HTTP DELETE request with the given headers and body to the given
+/// URL, which can be a [Uri] or a [String].
+///
+/// [body] sets the body of the request. It can be a [String], a [List<int>] or
+/// a [Map<String, String>]. If it's a String, it's encoded using [encoding] and
+/// used as the body of the request. The content-type of the request will
+/// default to "text/plain".
+///
+/// If [body] is a Map, it's encoded as form fields using [encoding]. The
+/// content-type of the request will be set to
+/// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> delete(url, {Map<String, String> headers}) =>
-    _withClient((client) => client.delete(url, headers: headers));
+Future<Response> delete(url,
+        {Map<String, String> headers, body, Encoding encoding}) =>
+    _withClient((client) =>
+        client.delete(url, headers: headers, body: body, encoding: encoding));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
 /// be a [Uri] or a [String], and returns a Future that completes to the body of
