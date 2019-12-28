@@ -129,6 +129,8 @@ Future<Response> patch(url,
 /// content-type of the request will be set to
 /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
+/// [encoding] defaults to [utf8].
+///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.

@@ -389,6 +389,90 @@ void main() {
           })));
     });
 
+    test(' delete with string', () async {
+      var response = await http.delete(serverUrl,
+          headers: {
+            'X-Random-Header': 'Value',
+            'X-Other-Header': 'Other Value',
+            'User-Agent': 'Dart'
+          },
+          body: 'request body');
+      expect(response.statusCode, equals(200));
+      expect(
+          response.body,
+          parse(equals({
+            'method': 'DELETE',
+            'path': '/',
+            'headers': {
+              'content-type': ['text/plain; charset=utf-8'],
+              'content-length': ['12'],
+              'accept-encoding': ['gzip'],
+              'user-agent': ['Dart'],
+              'x-random-header': ['Value'],
+              'x-other-header': ['Other Value']
+            },
+            'body': 'request body'
+          })));
+    });
+
+    test('delete with bytes', () async {
+      var response = await http.delete(serverUrl, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': 'Dart'
+      }, body: [
+        104,
+        101,
+        108,
+        108,
+        111
+      ]);
+      expect(response.statusCode, equals(200));
+      expect(
+          response.body,
+          parse(equals({
+            'method': 'DELETE',
+            'path': '/',
+            'headers': {
+              'content-length': ['5'],
+              'accept-encoding': ['gzip'],
+              'user-agent': ['Dart'],
+              'x-random-header': ['Value'],
+              'x-other-header': ['Other Value']
+            },
+            'body': [104, 101, 108, 108, 111]
+          })));
+    });
+
+    test('delete with fields', () async {
+      var response = await http.delete(serverUrl, headers: {
+        'X-Random-Header': 'Value',
+        'X-Other-Header': 'Other Value',
+        'User-Agent': 'Dart'
+      }, body: {
+        'some-field': 'value',
+        'other-field': 'other value'
+      });
+      expect(response.statusCode, equals(200));
+      expect(
+          response.body,
+          parse(equals({
+            'method': 'DELETE',
+            'path': '/',
+            'headers': {
+              'content-type': [
+                'application/x-www-form-urlencoded; charset=utf-8'
+              ],
+              'content-length': ['40'],
+              'accept-encoding': ['gzip'],
+              'user-agent': ['Dart'],
+              'x-random-header': ['Value'],
+              'x-other-header': ['Other Value']
+            },
+            'body': 'some-field=value&other-field=other+value'
+          })));
+    });
+
     test('read', () async {
       var response = await http.read(serverUrl, headers: {
         'X-Random-Header': 'Value',
