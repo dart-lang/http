@@ -87,12 +87,14 @@ class MultipartRequest extends BaseRequest {
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that will emit the request body.
   @override
-  ByteStream finalize() => ByteStream(_finalize());
+  ByteStream finalize(){
+    final boundary = _boundaryString();
+    headers['Content-Type'] = 'multipart/form-data; boundary=$boundary';
+    return ByteStream(_finalize(boundary));
+  }
 
-  Stream<List<int>> _finalize() async* {
+  Stream<List<int>> _finalize(final String boundary) async* {
     // TODO(nweiz): freeze fields and files
-    var boundary = _boundaryString();
-    headers['content-type'] = 'multipart/form-data; boundary=$boundary';
     super.finalize();
     const line = [13, 10]; // \r\n
     final separator = utf8.encode('--$boundary\r\n');
@@ -119,11 +121,11 @@ class MultipartRequest extends BaseRequest {
   /// The return value is guaranteed to contain only ASCII characters.
   String _headerForField(String name, String value) {
     var header =
-        'content-disposition: form-data; name="${_browserEncode(name)}"';
+        'Content-Disposition: form-data; name="${_browserEncode(name)}"';
     if (!isPlainAscii(value)) {
       header = '$header\r\n'
-          'content-type: text/plain; charset=utf-8\r\n'
-          'content-transfer-encoding: binary';
+          'Content-Type: text/plain; charset=utf-8\r\n'
+          'Content-Transfer-Encoding: binary';
     }
     return '$header\r\n\r\n';
   }
@@ -132,8 +134,8 @@ class MultipartRequest extends BaseRequest {
   ///
   /// The return value is guaranteed to contain only ASCII characters.
   String _headerForFile(MultipartFile file) {
-    var header = 'content-type: ${file.contentType}\r\n'
-        'content-disposition: form-data; name="${_browserEncode(file.field)}"';
+    var header = 'Content-Type: ${file.contentType}\r\n'
+        'Content-Disposition: form-data; name="${_browserEncode(file.field)}"';
 
     if (file.filename != null) {
       header = '$header; filename="${_browserEncode(file.filename)}"';
