@@ -1,3 +1,7 @@
+## 0.12.0+4
+
+* DELETE method now accepts an optional body parameter.
+
 ## 0.12.0+3
 
 * Documentation fixes.
