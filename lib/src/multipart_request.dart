@@ -43,12 +43,10 @@ class MultipartRequest extends BaseRequest {
   /// The form fields to send for this request.
   final fields = <String, String>{};
 
-  final _files = <MultipartFile>[];
+  /// The list of files to upload for this request.
+  final files = <MultipartFile>[];
 
   MultipartRequest(String method, Uri url) : super(method, url);
-
-  /// The list of files to upload for this request.
-  List<MultipartFile> get files => _files;
 
   /// The total length of the request body, in bytes.
   ///
@@ -66,7 +64,7 @@ class MultipartRequest extends BaseRequest {
           '\r\n'.length;
     });
 
-    for (var file in _files) {
+    for (var file in files) {
       length += '--'.length +
           _boundaryLength +
           '\r\n'.length +
@@ -105,7 +103,7 @@ class MultipartRequest extends BaseRequest {
       yield line;
     }
 
-    for (final file in _files) {
+    for (final file in files) {
       yield separator;
       yield utf8.encode(_headerForFile(file));
       yield* file.finalize();
