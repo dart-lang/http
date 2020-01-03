@@ -1,6 +1,6 @@
 ## 0.12.0+4-dev
 
-* Internal changes.
+* Fix a bug setting the `'content-type'` header in `MultipartRequest`.
 
 ## 0.12.0+3
 
