@@ -108,7 +108,7 @@ void main() {
     request.sink.close();
   });
 
-  test('sends a MultipartRequest', () async {
+  test('sends a MultipartRequest with correct content-type header', () async {
     var client = http.Client();
     var request = http.MultipartRequest('POST', serverUrl);
 
