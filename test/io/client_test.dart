@@ -4,6 +4,7 @@
 
 @TestOn('vm')
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -105,5 +106,19 @@ void main() {
 
     request.sink.add('{"hello": "world"}'.codeUnits);
     request.sink.close();
+  });
+
+  test('sends a MultipartRequest', () async {
+    var client = http.Client();
+    var request = http.MultipartRequest('POST', serverUrl);
+
+    var response = await client.send(request);
+
+    var bytesString = await response.stream.bytesToString();
+    client.close();
+
+    var headers = jsonDecode(bytesString)['headers'] as Map<String, dynamic>;
+    var contentType = (headers['content-type'] as List).single;
+    expect(contentType, startsWith('multipart/form-data; boundary='));
   });
 }
