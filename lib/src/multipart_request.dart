@@ -85,13 +85,15 @@ class MultipartRequest extends BaseRequest {
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that will emit the request body.
   @override
-  ByteStream finalize() => ByteStream(_finalize());
-
-  Stream<List<int>> _finalize() async* {
-    // TODO(nweiz): freeze fields and files
-    var boundary = _boundaryString();
+  ByteStream finalize() {
+    // TODO: freeze fields and files
+    final boundary = _boundaryString();
     headers['content-type'] = 'multipart/form-data; boundary=$boundary';
     super.finalize();
+    return ByteStream(_finalize(boundary));
+  }
+
+  Stream<List<int>> _finalize(String boundary) async* {
     const line = [13, 10]; // \r\n
     final separator = utf8.encode('--$boundary\r\n');
     final close = utf8.encode('--$boundary--\r\n');
