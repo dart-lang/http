@@ -5,7 +5,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:async/async.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as p;
 
@@ -17,7 +16,7 @@ Future<MultipartFile> multipartFileFromPath(String field, String filePath,
   filename ??= p.basename(filePath);
   var file = File(filePath);
   var length = await file.length();
-  var stream = ByteStream(DelegatingStream.typed(file.openRead()));
+  var stream = ByteStream(file.openRead());
   return MultipartFile(field, stream, length,
       filename: filename, contentType: contentType);
 }
