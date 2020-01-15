@@ -5,8 +5,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:async/async.dart';
-
 import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
@@ -39,9 +37,7 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      var response =
-          await stream.pipe(DelegatingStreamConsumer.typed(ioRequest))
-              as HttpClientResponse;
+      var response = await stream.pipe(ioRequest) as HttpClientResponse;
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
@@ -49,7 +45,7 @@ class IOClient extends BaseClient {
       });
 
       return StreamedResponse(
-          DelegatingStream.typed<List<int>>(response).handleError(
+          response.handleError(
               (HttpException error) =>
                   throw ClientException(error.message, error.uri),
               test: (error) => error is HttpException),
