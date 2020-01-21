@@ -1,6 +1,11 @@
+## 0.12.1-dev
+
+* Remove dependency on `package:async`.
+* DELETE method now accepts an optional body parameter.
+
 ## 0.12.0+4
 
-* DELETE method now accepts an optional body parameter.
+* Fix a bug setting the `'content-type'` header in `MultipartRequest`.
 
 ## 0.12.0+3
 
