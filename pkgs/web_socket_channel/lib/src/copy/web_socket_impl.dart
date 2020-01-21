@@ -12,6 +12,8 @@
 // This is up-to-date as of sdk revision
 // 365f7b5a8b6ef900a5ee23913b7203569b81b175.
 
+// ignore_for_file: unused_field
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
