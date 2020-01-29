@@ -1,3 +1,11 @@
+## 2.2.0-dev
+
+- Preparation for [HttpHeaders change]. Update signature of `MultiHeaders.add()`
+  and `MultiHeaders.set()` to match new signature of `HttpHeaders`. The
+  parameter is not yet forwarded and will not behave as expected.
+
+  [HttpHeaders change]: https://github.com/dart-lang/sdk/issues/39657
+
 ## 2.1.0
 
 - Add `HttpMultiServer.bind` static which centralizes logic around common local
