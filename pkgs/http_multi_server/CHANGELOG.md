@@ -1,4 +1,4 @@
-## 2.2.0-dev
+## 2.2.0
 
 - Preparation for [HttpHeaders change]. Update signature of `MultiHeaders.add()`
   and `MultiHeaders.set()` to match new signature of `HttpHeaders`. The
