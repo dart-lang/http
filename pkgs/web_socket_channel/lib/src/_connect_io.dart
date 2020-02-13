@@ -8,5 +8,8 @@ import '../io.dart';
 /// Creates a new WebSocket connection.
 ///
 /// Connects to [uri] using and returns a channel that can be used to
-/// communicate over the resulting socket
-WebSocketChannel connect(Uri uri) => IOWebSocketChannel.connect(uri);
+/// communicate over the resulting socket.
+///
+/// The optional [protocols] parameter is the same as [WebSocket.connect].
+WebSocketChannel connect(Uri uri, {Iterable<String> protocols}) =>
+    IOWebSocketChannel.connect(uri, protocols: protocols);
