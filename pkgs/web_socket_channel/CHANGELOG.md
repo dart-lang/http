@@ -1,3 +1,8 @@
+## 1.2.0-dev
+
+* Add `protocols` argument to `WebSocketChannel.connect`. See the docs for
+  `WebSocket.connet`.
+
 ## 1.1.0
 
 * Add `WebSocketChannel.connect` factory constructor supporting platform
