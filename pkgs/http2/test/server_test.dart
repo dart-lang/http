@@ -19,7 +19,7 @@ void main() {
           (ServerTransportConnection server,
               FrameWriter clientWriter,
               StreamIterator<Frame> clientReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         Future serverFun() async {
           expect(await server.incomingStreams.toList(), isEmpty);
           await server.finish();
@@ -47,7 +47,7 @@ void main() {
           (ServerTransportConnection server,
               FrameWriter clientWriter,
               StreamIterator<Frame> clientReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         Future serverFun() async {
           // TODO: Do we want to get an error in this case?
           expect(await server.incomingStreams.toList(), isEmpty);
@@ -76,7 +76,7 @@ void main() {
           (ServerTransportConnection server,
               FrameWriter clientWriter,
               StreamIterator<Frame> clientReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         Future serverFun() async {
           await server.incomingStreams.toList();
           await server.finish();
@@ -111,7 +111,7 @@ void main() {
           (ServerTransportConnection server,
               FrameWriter clientWriter,
               StreamIterator<Frame> clientReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         Future serverFun() async {
           await server.incomingStreams.toList();
           await server.finish();
@@ -151,7 +151,7 @@ void main() {
       serverTest('server-resets-stream', (ServerTransportConnection server,
           FrameWriter clientWriter,
           StreamIterator<Frame> clientReader,
-          Future<Frame> nextFrame()) async {
+          Future<Frame> Function() nextFrame) async {
         Future serverFun() async {
           var it = StreamIterator(server.incomingStreams);
           expect(await it.moveNext(), true);
@@ -194,8 +194,12 @@ void main() {
 
 void serverTest(
     String name,
-    func(ServerTransportConnection serverConnection, FrameWriter frameWriter,
-        StreamIterator<Frame> frameReader, Future<Frame> readNext())) {
+    void Function(
+            ServerTransportConnection,
+            FrameWriter,
+            StreamIterator<Frame> frameReader,
+            Future<Frame> Function() readNext)
+        func) {
   return test(name, () {
     var streams = ClientErrorStreams();
     var clientReader = streams.clientConnectionFrameReader;

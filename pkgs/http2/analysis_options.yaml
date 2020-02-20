@@ -40,4 +40,5 @@ linter:
     - unnecessary_const
     - unnecessary_new
     - unrelated_type_equality_checks
+    - use_function_type_syntax_for_parameters
     - valid_regexps

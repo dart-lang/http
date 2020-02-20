@@ -63,9 +63,9 @@ class MultiProtocolHttpServer {
   ///
   /// It is expected that [callbackHttp11] and [callbackHttp2] will never throw
   /// an exception (i.e. these must take care of error handling themselves).
-  void startServing(void callbackHttp11(HttpRequest request),
-      void callbackHttp2(http2.ServerTransportStream stream),
-      {void onError(error, StackTrace stack)}) {
+  void startServing(void Function(HttpRequest) callbackHttp11,
+      void Function(http2.ServerTransportStream) callbackHttp2,
+      {void Function(dynamic error, StackTrace) onError}) {
     // 1. Start listening on the real [SecureServerSocket].
     _serverSocket.listen((SecureSocket socket) {
       var protocol = socket.selectedProtocol;

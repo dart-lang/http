@@ -293,7 +293,7 @@ abstract class Connection {
   }
 
   /// Invokes the passed in closure and catches any exceptions.
-  void _catchProtocolErrors(void fn()) {
+  void _catchProtocolErrors(void Function() fn) {
     try {
       fn();
     } on ProtocolException catch (error) {

@@ -110,7 +110,7 @@ class Http2StreamImpl extends TransportStream
   void terminate() => _terminateStreamFun(this);
 
   @override
-  set onTerminated(void handler(int v)) {
+  set onTerminated(void Function(int) handler) {
     _onTerminated = handler;
     if (_terminatedErrorCode != null && _onTerminated != null) {
       _onTerminated(_terminatedErrorCode);

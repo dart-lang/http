@@ -22,8 +22,10 @@ void expectEmptyStream(Stream s) {
   s.listen(expectAsync1((_) {}, count: 0), onDone: expectAsync0(() {}));
 }
 
-void streamTest(String name,
-    func(ClientTransportConnection client, ServerTransportConnection server),
+void streamTest(
+    String name,
+    Future<void> Function(ClientTransportConnection, ServerTransportConnection)
+        func,
     {ClientSettings settings}) {
   return test(name, () {
     var bidirect = BidirectionalConnection();
@@ -34,7 +36,8 @@ void streamTest(String name,
   });
 }
 
-void framesTest(String name, func(frameWriter, frameStream)) {
+void framesTest(
+    String name, Future<void> Function(FrameWriter, FrameReader) func) {
   return test(name, () {
     var c = StreamController<List<int>>();
     var fw = FrameWriter(null, c, ActiveSettings());

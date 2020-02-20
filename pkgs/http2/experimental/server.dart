@@ -121,7 +121,7 @@ Future sendHtml(ServerTransportStream stream) async {
 }
 
 Future push(ServerTransportStream stream, String path,
-    Future sendResponse(TransportStream stream, String path)) async {
+    Future Function(TransportStream, String path) sendResponse) async {
   var requestHeaders = [
     Header.ascii(':authority', '$HOSTNAME:$PORT'),
     Header.ascii(':method', 'GET'),

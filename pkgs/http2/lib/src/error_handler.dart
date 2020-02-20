@@ -24,14 +24,14 @@ class TerminatableMixin {
     // Subclasses can override this method if they want.
   }
 
-  T ensureNotTerminatedSync<T>(T f()) {
+  T ensureNotTerminatedSync<T>(T Function() f) {
     if (wasTerminated) {
       throw TerminatedException();
     }
     return f();
   }
 
-  Future ensureNotTerminatedAsync(Future f()) {
+  Future ensureNotTerminatedAsync(Future Function() f) {
     if (wasTerminated) {
       return Future.error(TerminatedException());
     }
@@ -84,7 +84,7 @@ class ClosableMixin {
     // Subclasses can override this method if they want.
   }
 
-  dynamic ensureNotClosingSync(f()) {
+  dynamic ensureNotClosingSync(dynamic Function() f) {
     if (isClosing) {
       throw StateError('Was in the process of closing.');
     }

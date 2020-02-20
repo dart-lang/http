@@ -508,9 +508,12 @@ void main() {
   });
 }
 
-void transportTest(String name,
-    func(ClientTransportConnection client, ServerTransportConnection server),
-    {ClientSettings clientSettings, ServerSettings serverSettings}) {
+void transportTest(
+    String name,
+    Future<void> Function(ClientTransportConnection, ServerTransportConnection)
+        func,
+    {ClientSettings clientSettings,
+    ServerSettings serverSettings}) {
   return test(name, () {
     var bidirectional = BidirectionalConnection();
     bidirectional.clientSettings = clientSettings;

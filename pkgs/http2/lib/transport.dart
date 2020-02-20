@@ -126,7 +126,7 @@ abstract class TransportStream {
   /// Sets the termination handler on this stream.
   ///
   /// The handler will be called if the stream receives an RST_STREAM frame.
-  set onTerminated(void value(int v));
+  set onTerminated(void Function(int) value);
 
   /// Terminates this HTTP/2 stream in an un-normal way.
   ///

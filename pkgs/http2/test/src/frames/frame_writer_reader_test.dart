@@ -215,7 +215,7 @@ void main() {
 }
 
 void writerReaderTest(String name,
-    func(FrameWriter writer, FrameReader reader, HPackDecoder decoder)) {
+    Future<void> Function(FrameWriter, FrameReader, HPackDecoder) func) {
   test(name, () {
     var settings = ActiveSettings();
     var context = HPackContext();

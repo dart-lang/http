@@ -25,7 +25,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var settingsDone = Completer();
 
         Future serverFun() async {
@@ -67,7 +67,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var goawayReceived = Completer();
         Future serverFun() async {
           serverWriter.writePingFrame(42);
@@ -104,7 +104,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         Future serverFun() async {
           expect(await nextFrame() is SettingsFrame, true);
           expect(await nextFrame() is HeadersFrame, true);
@@ -134,7 +134,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var handshakeCompleter = Completer();
 
         Future serverFun() async {
@@ -186,7 +186,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var handshakeCompleter = Completer();
 
         Future serverFun() async {
@@ -251,7 +251,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var handshakeCompleter = Completer();
         var cancelDone = Completer();
         var endDone = Completer();
@@ -327,7 +327,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var handshakeCompleter = Completer();
         var cancelDone = Completer();
         var endDone = Completer();
@@ -400,7 +400,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var handshakeCompleter = Completer();
 
         Future serverFun() async {
@@ -453,7 +453,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var handshakeCompleter = Completer();
 
         Future serverFun() async {
@@ -504,7 +504,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var handshakeCompleter = Completer();
 
         Future serverFun() async {
@@ -560,7 +560,7 @@ void main() {
       clientTest('client-resets-stream', (ClientTransportConnection client,
           FrameWriter serverWriter,
           StreamIterator<Frame> serverReader,
-          Future<Frame> nextFrame()) async {
+          Future<Frame> Function() nextFrame) async {
         var settingsDone = Completer();
         var headersDone = Completer();
 
@@ -620,7 +620,7 @@ void main() {
           (ClientTransportConnection client,
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
-              Future<Frame> nextFrame()) async {
+              Future<Frame> Function() nextFrame) async {
         var settingsDone = Completer();
 
         Future serverFun() async {
@@ -677,11 +677,12 @@ void main() {
 
 void clientTest(
     String name,
-    Future<Null> func(
-        ClientTransportConnection clientConnection,
-        FrameWriter frameWriter,
-        StreamIterator<Frame> frameReader,
-        Future<Frame> readNext())) {
+    Future<Null> Function(
+            ClientTransportConnection,
+            FrameWriter,
+            StreamIterator<Frame> frameReader,
+            Future<Frame> Function() readNext)
+        func) {
   return test(name, () {
     var streams = ClientStreams();
     var serverReader = streams.serverConnectionFrameReader;
