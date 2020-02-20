@@ -12,7 +12,7 @@ import 'package:http2/src/ping/ping_handler.dart';
 
 import '../error_matchers.dart';
 
-main() {
+void main() {
   group('ping-handler', () {
     test('successful-ping', () async {
       dynamic writer = FrameWriterMock();

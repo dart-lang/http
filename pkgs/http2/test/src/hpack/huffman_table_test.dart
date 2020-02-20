@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 import 'package:http2/src/hpack/huffman.dart';
 import 'package:http2/src/hpack/huffman_table.dart';
 
-main() {
+void main() {
   group('hpack', () {
     group('huffman', () {
       final decode = http2HuffmanCodec.decode;

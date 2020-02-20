@@ -11,7 +11,7 @@ import 'package:http2/transport.dart';
 
 import 'helper.dart';
 
-main() {
+void main() {
   group('streams', () {
     group('flowcontrol', () {
       const int numOfOneKB = 1000;
@@ -20,7 +20,7 @@ main() {
       var allBytes = List.generate(numOfOneKB * 1024, (i) => i % 256);
       allBytes.addAll(List.generate(42, (i) => 42));
 
-      headersTestFun(String type) {
+      void Function(StreamMessage) headersTestFun(String type) {
         return expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
           expect((msg as HeadersStreamMessage).headers.first.name,
@@ -32,7 +32,7 @@ main() {
 
       Completer serverReceivedAllBytes = Completer();
 
-      messageTestFun(String type) {
+      void Function(StreamMessage) messageTestFun(String type) {
         bool expectHeader = true;
         int numBytesReceived = 0;
         return (StreamMessage msg) {
@@ -62,7 +62,7 @@ main() {
         };
       }
 
-      sendData(TransportStream cStream) {
+      void sendData(TransportStream cStream) {
         for (int i = 0; i < (allBytes.length + 1023) ~/ 1024; i++) {
           int end = 1024 * (i + 1);
           bool isLast = end > allBytes.length;

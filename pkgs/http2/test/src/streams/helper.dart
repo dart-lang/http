@@ -12,7 +12,7 @@ import 'package:http2/transport.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/settings/settings.dart';
 
-expectHeadersEqual(List<Header> headers, List<Header> expectedHeaders) {
+void expectHeadersEqual(List<Header> headers, List<Header> expectedHeaders) {
   expect(headers, hasLength(expectedHeaders.length));
   for (int i = 0; i < expectedHeaders.length; i++) {
     expect(headers[i].name, expectedHeaders[i].name);
@@ -20,7 +20,7 @@ expectHeadersEqual(List<Header> headers, List<Header> expectedHeaders) {
   }
 }
 
-expectEmptyStream(Stream s) {
+void expectEmptyStream(Stream s) {
   s.listen(expectAsync1((_) {}, count: 0), onDone: expectAsync0(() {}));
 }
 

@@ -14,7 +14,7 @@ import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/settings/settings.dart';
 
-main() {
+void main() {
   group('server-tests', () {
     group('normal', () {
       serverTest('gracefull-shutdown-for-unused-connection',

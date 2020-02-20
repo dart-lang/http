@@ -12,7 +12,7 @@ import 'package:http2/src/flowcontrol/stream_queues.dart';
 import 'package:http2/src/flowcontrol/window_handler.dart';
 import 'package:http2/src/flowcontrol/connection_queues.dart';
 
-main() {
+void main() {
   group('flowcontrol', () {
     const STREAM_ID = 99;
     const BYTES = [1, 2, 3];

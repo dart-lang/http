@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/settings/settings.dart';
 
-main() {
+void main() {
   group('frames', () {
     group('frame-reader', () {
       final int maxFrameSize = ActiveSettings().maxFrameSize;

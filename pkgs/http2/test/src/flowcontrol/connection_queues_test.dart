@@ -14,7 +14,7 @@ import 'package:http2/src/flowcontrol/connection_queues.dart';
 import 'package:http2/src/flowcontrol/stream_queues.dart';
 import 'package:http2/src/flowcontrol/queue_messages.dart';
 
-main() {
+void main() {
   group('flowcontrol', () {
     test('connection-message-queue-out', () {
       dynamic fw = MockFrameWriter();

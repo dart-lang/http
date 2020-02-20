@@ -10,7 +10,7 @@ import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/settings/settings.dart';
 
-main() {
+void main() {
   group('frames', () {
     group('frame-writer', () {
       test('connection-error', () {

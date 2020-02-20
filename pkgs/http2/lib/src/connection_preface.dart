@@ -50,7 +50,7 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
   var prefaceBuffer = <int>[];
   bool terminated = false;
 
-  terminate(error) {
+  void terminate(error) {
     if (!terminated) {
       result.addError(error);
       result.close();

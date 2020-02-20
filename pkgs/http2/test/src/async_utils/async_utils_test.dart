@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:test/test.dart';
 import 'package:http2/src/async_utils/async_utils.dart';
 
-main() {
+void main() {
   group('async_utils', () {
     test('buffer-indicator', () {
       var bi = BufferIndicator();

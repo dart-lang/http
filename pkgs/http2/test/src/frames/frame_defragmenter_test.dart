@@ -9,7 +9,7 @@ import 'package:http2/src/frames/frame_defragmenter.dart';
 
 import '../error_matchers.dart';
 
-main() {
+void main() {
   group('frames', () {
     group('frame-defragmenter', () {
       UnknownFrame unknownFrame() {

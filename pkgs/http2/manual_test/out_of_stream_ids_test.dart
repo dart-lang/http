@@ -20,7 +20,7 @@ import 'package:http2/src/streams/stream_handler.dart';
 
 import '../test/transport_test.dart';
 
-main() {
+void main() {
   group('transport-test', () {
     transportTest('client-runs-out-of-stream-ids',
         (ClientTransportConnection client,

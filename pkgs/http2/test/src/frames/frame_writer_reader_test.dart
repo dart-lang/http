@@ -12,7 +12,7 @@ import 'package:http2/src/settings/settings.dart';
 
 import '../hpack/hpack_test.dart' show isHeader;
 
-main() {
+void main() {
   group('frames', () {
     group('writer-reader', () {
       writerReaderTest('data-frame',
@@ -214,7 +214,7 @@ main() {
   });
 }
 
-writerReaderTest(String name,
+void writerReaderTest(String name,
     func(FrameWriter writer, FrameReader reader, HPackDecoder decoder)) {
   test(name, () {
     var settings = ActiveSettings();

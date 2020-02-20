@@ -13,7 +13,7 @@ import 'package:http2/src/settings/settings.dart';
 
 import '../error_matchers.dart';
 
-main() {
+void main() {
   group('settings-handler', () {
     var pushSettings = [Setting(Setting.SETTINGS_ENABLE_PUSH, 0)];
     var invalidPushSettings = [Setting(Setting.SETTINGS_ENABLE_PUSH, 2)];

@@ -11,7 +11,7 @@ import 'package:http2/src/frames/frames.dart';
 
 import '../error_matchers.dart';
 
-main() {
+void main() {
   group('flowcontrol', () {
     void testAbstractOutgoingWindowHandler(
         AbstractOutgoingWindowHandler handler, Window window, int initialSize) {

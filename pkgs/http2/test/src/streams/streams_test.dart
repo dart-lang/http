@@ -9,7 +9,7 @@ import 'package:http2/transport.dart';
 
 import 'helper.dart';
 
-main() {
+void main() {
   group('streams', () {
     streamTest('single-header-request--empty-response',
         (ClientTransportConnection client,

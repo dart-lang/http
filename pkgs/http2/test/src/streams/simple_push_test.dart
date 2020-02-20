@@ -12,7 +12,7 @@ import 'package:http2/transport.dart';
 
 import 'helper.dart';
 
-main() {
+void main() {
   group('streams', () {
     group('server-push', () {
       const int numOfOneKB = 1000;
@@ -21,7 +21,7 @@ main() {
       var allBytes = List.generate(numOfOneKB * 1024, (i) => i % 256);
       allBytes.addAll(List.generate(42, (i) => 42));
 
-      testHeaders(List<Header> headers) {
+      void testHeaders(List<Header> headers) {
         expect(headers.length, expectedHeaders.length);
         for (int i = 0; i < headers.length; i++) {
           expect(headers[i].name, expectedHeaders[i].name);
@@ -29,7 +29,7 @@ main() {
         }
       }
 
-      headersTestFun() {
+      void Function(StreamMessage) headersTestFun() {
         return expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
           testHeaders((msg as HeadersStreamMessage).headers);

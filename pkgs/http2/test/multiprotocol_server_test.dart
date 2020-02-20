@@ -13,7 +13,7 @@ import 'package:test/test.dart';
 import 'package:http2/transport.dart';
 import 'package:http2/multiprotocol_server.dart';
 
-main() {
+void main() {
   SecurityContext context = SecurityContext()
     ..useCertificateChain('test/certificates/server_chain.pem')
     ..usePrivateKey('test/certificates/server_key.pem', password: 'dartdart');

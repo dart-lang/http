@@ -5,7 +5,7 @@
 import 'package:test/test.dart';
 import 'package:http2/src/hpack/hpack.dart';
 
-main() {
+void main() {
   group('hpack', () {
     group('hpack-spec-decoder', () {
       test('C.3 request without huffman encoding', () {

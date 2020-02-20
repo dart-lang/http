@@ -11,7 +11,7 @@ import 'dart:io';
 import 'package:http2/src/testing/client.dart';
 import 'package:test/test.dart';
 
-main() async {
+void main() async {
   test('google', () async {
     var uri = Uri.parse('https://www.google.com/');
     ClientConnection connection = await connect(uri);
@@ -115,7 +115,7 @@ main() async {
   }, tags: ['flaky']);
 }
 
-dumpHeaders(Uri uri, Map<String, List<String>> headers,
+void dumpHeaders(Uri uri, Map<String, List<String>> headers,
     {String msg = 'Response headers.'}) {
   print('');
   print('[$uri]  $msg');

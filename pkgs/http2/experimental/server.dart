@@ -16,7 +16,7 @@ const bool DEBUGGING = false;
 const String HOSTNAME = 'localhost';
 const int PORT = 7777;
 
-main() async {
+void main() async {
   String localFile(String path) => Platform.script.resolve(path).toFilePath();
 
   var context = SecurityContext()
@@ -35,7 +35,7 @@ main() async {
   });
 }
 
-handleClient(SecureSocket socket) {
+void handleClient(SecureSocket socket) {
   dumpInfo('main', 'Got new https client');
 
   var connection;

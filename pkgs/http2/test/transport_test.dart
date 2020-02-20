@@ -11,7 +11,7 @@ import 'package:http2/src/flowcontrol/window.dart';
 
 import 'src/hpack/hpack_test.dart' show isHeader;
 
-main() {
+void main() {
   group('transport-test', () {
     transportTest('ping',
         (TransportConnection client, TransportConnection server) async {
@@ -414,7 +414,7 @@ main() {
 
             int messageNr = 0;
             StreamController<StreamMessage> controller;
-            addData() {
+            void addData() {
               if (!controller.isPaused) {
                 if (messageNr < kNumberOfMessages) {
                   var messageBytes = Uint8List(kChunkSize);

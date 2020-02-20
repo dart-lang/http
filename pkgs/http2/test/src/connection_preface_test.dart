@@ -10,7 +10,7 @@ import 'dart:math' show min;
 import 'package:test/test.dart';
 import 'package:http2/src/connection_preface.dart';
 
-main() {
+void main() {
   group('connection-preface', () {
     test('successful', () async {
       final frameBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];

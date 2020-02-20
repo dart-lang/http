@@ -19,7 +19,7 @@ import 'package:http2/transport.dart';
 
 import 'src/hpack/hpack_test.dart' show isHeader;
 
-main() {
+void main() {
   group('client-tests', () {
     group('normal', () {
       clientTest('gracefull-shutdown-for-unused-connection',

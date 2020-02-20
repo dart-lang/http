@@ -96,7 +96,7 @@ class HuffmanEncoder {
     int currentByte = 0;
     int currentBitOffset = 7;
 
-    writeValue(int value, int numBits) {
+    void writeValue(int value, int numBits) {
       int i = numBits - 1;
       while (i >= 0) {
         if (currentBitOffset == 7 && i >= 7) {
