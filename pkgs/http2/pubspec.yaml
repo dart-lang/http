@@ -10,3 +10,4 @@ environment:
 dev_dependencies:
   mockito: ^4.0.0
   test: ^1.2.0
+  pedantic: ^1.0.0

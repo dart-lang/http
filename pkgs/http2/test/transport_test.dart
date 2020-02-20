@@ -5,9 +5,10 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:test/test.dart';
-import 'package:http2/transport.dart';
 import 'package:http2/src/flowcontrol/window.dart';
+import 'package:http2/transport.dart';
+import 'package:pedantic/pedantic.dart';
+import 'package:test/test.dart';
 
 import 'src/hpack/hpack_test.dart' show isHeader;
 
@@ -29,12 +30,12 @@ void main() {
 
       // NOTE: Now the connection is dead and client/server should complete
       // with [TransportException]s when doing work (e.g. ping).
-      client.ping().catchError(expectAsync2((e, s) {
+      unawaited(client.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
-      }));
-      server.ping().catchError(expectAsync2((e, s) {
+      })));
+      unawaited(server.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
-      }));
+      })));
     });
 
     transportTest('terminated-server-ping',
@@ -47,12 +48,12 @@ void main() {
 
       // NOTE: Now the connection is dead and the client/server should complete
       // with [TransportException]s when doing work (e.g. ping).
-      client.ping().catchError(expectAsync2((e, s) {
+      unawaited(client.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
-      }));
-      server.ping().catchError(expectAsync2((e, s) {
+      })));
+      unawaited(server.ping().catchError(expectAsync2((e, s) {
         expect(e is TransportException, isTrue);
-      }));
+      })));
     });
 
     const int concurrentStreamLimit = 5;
@@ -345,9 +346,9 @@ void main() {
         }, count: 6);
         await for (final stream in server.incomingStreams) {
           stream.sendHeaders([]);
-          stream.incomingMessages
+          unawaited(stream.incomingMessages
               .toList()
-              .then((_) => stream.outgoingMessages.close());
+              .then((_) => stream.outgoingMessages.close()));
         }
         await server.finish();
         expect(activeCount, 3);

@@ -7,8 +7,9 @@ library http2.test.streams.simple_push_test;
 import 'dart:async';
 import 'dart:convert' show utf8;
 
-import 'package:test/test.dart';
 import 'package:http2/transport.dart';
+import 'package:pedantic/pedantic.dart';
+import 'package:test/test.dart';
 
 import 'helper.dart';
 
@@ -65,7 +66,7 @@ void main() {
           pushStream.sendHeaders(expectedHeaders);
           await sendData(pushStream, 'pushing "hello world" :)');
 
-          sStream.incomingMessages.drain();
+          unawaited(sStream.incomingMessages.drain());
           sStream.sendHeaders(expectedHeaders, endStream: true);
 
           expect(await serverReceivedAllBytes.future, completes);

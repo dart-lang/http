@@ -34,6 +34,7 @@ linter:
     - test_types_in_equals
     - throw_in_finally
     - type_init_formals
+    - unawaited_futures
     - unnecessary_const
     - unnecessary_new
     - unrelated_type_equality_checks

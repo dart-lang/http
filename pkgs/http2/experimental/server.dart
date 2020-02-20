@@ -10,6 +10,7 @@ import 'dart:io';
 
 import 'package:http2/src/testing/debug.dart' hide print;
 import 'package:http2/transport.dart';
+import 'package:pedantic/pedantic.dart';
 
 const bool DEBUGGING = false;
 
@@ -58,11 +59,11 @@ void handleClient(SecureSocket socket) {
           if (path == null) throw Exception('no path given');
 
           if (path == '/') {
-            sendHtml(stream);
+            unawaited(sendHtml(stream));
           } else if (['/iframe', '/iframe2'].contains(path)) {
-            sendIFrameHtml(stream, path);
+            unawaited(sendIFrameHtml(stream, path));
           } else {
-            send404(stream, path);
+            unawaited(send404(stream, path));
           }
         }
       } else if (msg is DataStreamMessage) {
@@ -98,9 +99,9 @@ void dumpInfo(String prefix, String msg) {
 }
 
 Future sendHtml(ServerTransportStream stream) async {
-  push(stream, '/iframe', sendIFrameHtml);
-  push(stream, '/iframe2', sendIFrameHtml);
-  push(stream, '/favicon.ico', send404);
+  unawaited(push(stream, '/iframe', sendIFrameHtml));
+  unawaited(push(stream, '/iframe2', sendIFrameHtml));
+  unawaited(push(stream, '/favicon.ico', send404));
 
   stream.sendHeaders([
     Header.ascii(':status', '200'),

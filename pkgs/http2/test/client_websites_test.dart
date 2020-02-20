@@ -9,6 +9,7 @@ import 'dart:convert' show Utf8Decoder, utf8;
 import 'dart:io';
 
 import 'package:http2/src/testing/client.dart';
+import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 void main() async {
@@ -20,7 +21,7 @@ void main() async {
 
     final utf8Decoder = Utf8Decoder(allowMalformed: true);
     String body = await response.stream.transform(utf8Decoder).join('');
-    connection.close();
+    unawaited(connection.close());
 
     body = body.toLowerCase();
     expect(body, contains('<html'));
@@ -34,7 +35,7 @@ void main() async {
     dumpHeaders(uri, response.headers);
 
     String body = await readBody(response);
-    connection.close();
+    unawaited(connection.close());
 
     expect(body, contains('<!DOCTYPE html>'));
     expect(body, contains('twitter.com'));

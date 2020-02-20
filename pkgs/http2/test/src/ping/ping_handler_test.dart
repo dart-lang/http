@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/ping/ping_handler.dart';
+import 'package:pedantic/pedantic.dart';
 
 import '../error_matchers.dart';
 
@@ -65,9 +66,9 @@ void main() {
 
       // Ensure outstanding pings will be completed with an error once we call
       // `pingHandler.terminate()`.
-      future.catchError(expectAsync2((error, _) {
+      unawaited(future.catchError(expectAsync2((error, _) {
         expect(error, 'hello world');
-      }));
+      })));
       pingHandler.terminate('hello world');
       verifyNoMoreInteractions(writer);
     });

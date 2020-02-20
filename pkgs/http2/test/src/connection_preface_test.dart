@@ -7,8 +7,9 @@ library http2.test.connection_preface_test;
 import 'dart:async';
 import 'dart:math' show min;
 
-import 'package:test/test.dart';
 import 'package:http2/src/connection_preface.dart';
+import 'package:pedantic/pedantic.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('connection-preface', () {
@@ -27,7 +28,7 @@ void main() {
 
           c.add(data.sublist(from, to));
         }
-        c.close();
+        unawaited(c.close());
 
         expect(await resultF, frameBytes);
       }
@@ -41,11 +42,11 @@ void main() {
       for (int i = 0; i < CONNECTION_PREFACE.length - 1; i++) {
         c.add([CONNECTION_PREFACE[i]]);
       }
-      c.close();
+      unawaited(c.close());
 
-      resultF.catchError(expectAsync2((error, _) {
+      unawaited(resultF.catchError(expectAsync2((error, _) {
         expect(error, contains('EOS before connection preface could be read'));
-      }));
+      })));
     });
 
     test('wrong-connection-sequence', () async {
@@ -56,11 +57,11 @@ void main() {
       for (int i = 0; i < CONNECTION_PREFACE.length; i++) {
         c.add([0xff]);
       }
-      c.close();
+      unawaited(c.close());
 
-      resultF.catchError(expectAsync2((error, _) {
+      unawaited(resultF.catchError(expectAsync2((error, _) {
         expect(error, contains('Connection preface does not match.'));
-      }));
+      })));
     });
 
     test('incoming-socket-error', () async {
@@ -69,11 +70,11 @@ void main() {
           readConnectionPreface(c.stream).fold([], (b, d) => b..addAll(d));
 
       c.addError('hello world');
-      c.close();
+      unawaited(c.close());
 
-      resultF.catchError(expectAsync2((error, _) {
+      unawaited(resultF.catchError(expectAsync2((error, _) {
         expect(error, contains('hello world'));
-      }));
+      })));
     });
   });
 }

@@ -4,8 +4,9 @@
 
 library http2.test.end2end_test;
 
-import 'package:test/test.dart';
 import 'package:http2/transport.dart';
+import 'package:pedantic/pedantic.dart';
+import 'package:test/test.dart';
 
 import 'helper.dart';
 
@@ -85,12 +86,12 @@ void main() {
             }, count: 1 + chunks.length), onDone: expectAsync0(() {
           expect(receivedChunks, chunks);
         }));
-        sStream.outgoingMessages.close();
+        unawaited(sStream.outgoingMessages.close());
       }));
 
       TransportStream cStream = client.makeRequest(expectedHeaders);
       chunks.forEach(cStream.sendData);
-      cStream.outgoingMessages.close();
+      unawaited(cStream.outgoingMessages.close());
       expectEmptyStream(cStream.incomingMessages);
     });
 
@@ -172,7 +173,7 @@ void main() {
       }));
 
       TransportStream cStream = client.makeRequest(expectedHeaders);
-      cStream.outgoingMessages.close();
+      unawaited(cStream.outgoingMessages.close());
 
       int i = 0;
       cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {

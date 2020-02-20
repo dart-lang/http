@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert' show ascii;
 import 'dart:typed_data';
 
+import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 import 'package:http2/src/connection_preface.dart';
@@ -657,12 +658,13 @@ void main() {
               client.makeRequest([Header.ascii('a', 'b')], endStream: false);
 
           // Make sure we don't get messages/pushes on the terminated stream.
-          stream.incomingMessages.toList().catchError(expectAsync1((e) {
+          unawaited(
+              stream.incomingMessages.toList().catchError(expectAsync1((e) {
             expect(
                 '$e',
                 contains('This stream was not processed and can '
                     'therefore be retried'));
-          }));
+          })));
           expect(await stream.peerPushes.toList(), isEmpty);
 
           // Try to gracefully finish the connection.
