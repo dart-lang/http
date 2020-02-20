@@ -12,7 +12,7 @@ import 'package:http2/src/settings/settings.dart';
 void main() {
   group('frames', () {
     group('frame-reader', () {
-      final int maxFrameSize = ActiveSettings().maxFrameSize;
+      final maxFrameSize = ActiveSettings().maxFrameSize;
 
       Stream<Frame> dataFrame(List<int> body) {
         var settings = ActiveSettings();

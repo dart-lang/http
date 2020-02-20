@@ -64,7 +64,7 @@ class HPackDecoder {
   }
 
   List<Header> decode(List<int> data) {
-    int offset = 0;
+    var offset = 0;
 
     int readInteger(int prefixBits) {
       assert(prefixBits <= 8 && prefixBits > 0);
@@ -75,9 +75,9 @@ class HPackDecoder {
       if (byte == ((1 << prefixBits) - 1)) {
         // Length encodeded.
         integer = 0;
-        int shift = 0;
+        var shift = 0;
         while (true) {
-          bool done = (data[offset] & 0x80) != 0x80;
+          var done = (data[offset] & 0x80) != 0x80;
           integer += (data[offset++] & 0x7f) << shift;
           shift += 7;
           if (done) break;
@@ -92,8 +92,8 @@ class HPackDecoder {
     }
 
     List<int> readStringLiteral() {
-      bool isHuffmanEncoding = (data[offset] & 0x80) != 0;
-      int length = readInteger(7);
+      var isHuffmanEncoding = (data[offset] & 0x80) != 0;
+      var length = readInteger(7);
 
       var sublist = viewOrSublist(data, offset, length);
       offset += length;
@@ -117,18 +117,18 @@ class HPackDecoder {
     }
 
     try {
-      List<Header> headers = [];
+      var headers = <Header>[];
       while (offset < data.length) {
-        int byte = data[offset];
-        bool isIndexedField = (byte & 0x80) != 0;
-        bool isIncrementalIndexing = (byte & 0xc0) == 0x40;
+        var byte = data[offset];
+        var isIndexedField = (byte & 0x80) != 0;
+        var isIncrementalIndexing = (byte & 0xc0) == 0x40;
 
-        bool isWithoutIndexing = (byte & 0xf0) == 0;
-        bool isNeverIndexing = (byte & 0xf0) == 0x10;
-        bool isDynamicTableSizeUpdate = (byte & 0xe0) == 0x20;
+        var isWithoutIndexing = (byte & 0xf0) == 0;
+        var isNeverIndexing = (byte & 0xf0) == 0x10;
+        var isDynamicTableSizeUpdate = (byte & 0xe0) == 0x20;
 
         if (isIndexedField) {
-          int index = readInteger(7);
+          var index = readInteger(7);
           var field = _table.lookup(index);
           headers.add(field);
         } else if (isIncrementalIndexing) {
@@ -141,7 +141,7 @@ class HPackDecoder {
           headers
               .add(readHeaderFieldInternal(readInteger(4), neverIndexed: true));
         } else if (isDynamicTableSizeUpdate) {
-          int newMaxSize = readInteger(5);
+          var newMaxSize = readInteger(5);
           if (newMaxSize <= _maxHeaderTableSize) {
             _table.updateMaxSize(newMaxSize);
           } else {
@@ -174,7 +174,7 @@ class HPackEncoder {
 
   List<int> encode(List<Header> headers) {
     var bytesBuilder = BytesBuilder();
-    int currentByte = 0;
+    var currentByte = 0;
 
     void writeInteger(int prefixBits, int value) {
       assert(prefixBits <= 8);
@@ -187,7 +187,7 @@ class HPackEncoder {
         currentByte |= (1 << prefixBits) - 1;
         value -= (1 << prefixBits) - 1;
         bytesBuilder.addByte(currentByte);
-        bool done = false;
+        var done = false;
         while (!done) {
           currentByte = value & 0x7f;
           value = value >> 7;
@@ -332,7 +332,7 @@ class IndexTable {
   /// [_maximumSize].
   void _reduce() {
     while (_currentSize > _maximumSize) {
-      Header h = _dynamicTable.removeLast();
+      var h = _dynamicTable.removeLast();
       _currentSize -= _sizeOf(h);
     }
   }

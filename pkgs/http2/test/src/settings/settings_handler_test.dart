@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -25,7 +23,7 @@ void main() {
           HPackEncoder(), writer, ActiveSettings(), ActiveSettings());
 
       // Start changing settings.
-      Future changed = sh.changeSettings(pushSettings);
+      var changed = sh.changeSettings(pushSettings);
       verify(writer.writeSettingsFrame(pushSettings)).called(1);
       verifyNoMoreInteractions(writer);
 

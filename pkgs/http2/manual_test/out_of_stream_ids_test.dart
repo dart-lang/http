@@ -37,7 +37,7 @@ void main() {
         var headers = [Header.ascii('a', 'b')];
 
         const kMaxStreamId = StreamHandler.MAX_STREAM_ID;
-        for (int i = 1; i <= kMaxStreamId; i += 2) {
+        for (var i = 1; i <= kMaxStreamId; i += 2) {
           var stream = client.makeRequest(headers, endStream: true);
           var messages = await stream.incomingMessages.toList();
           expect(messages, hasLength(1));

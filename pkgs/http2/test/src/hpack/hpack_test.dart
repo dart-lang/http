@@ -752,7 +752,7 @@ class TestHelper {
       currentByte |= (1 << prefixBits) - 1;
       value -= (1 << prefixBits) - 1;
       buffer.add(currentByte);
-      bool done = false;
+      var done = false;
       while (!done) {
         currentByte = value & 0x7f;
         value = value >> 7;
@@ -789,9 +789,9 @@ class TestHelper {
   }
 
   static void expectHeader(Header h, int len, int nameChar, int valueChar) {
-    List<int> data = h.value;
+    var data = h.value;
     expect(data.length, len - 32 - 1);
-    for (int i = 0; i < data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
       expect(data[i], valueChar);
     }
   }
@@ -819,7 +819,7 @@ class _HeaderMatcher extends Matcher {
     if (a == null && b == null) return true;
     if (a == null && b != null) return false;
     if (a.length != b.length) return false;
-    for (int i = 0; i < a.length; i++) {
+    for (var i = 0; i < a.length; i++) {
       if (a[i] != b[i]) return false;
     }
     return true;

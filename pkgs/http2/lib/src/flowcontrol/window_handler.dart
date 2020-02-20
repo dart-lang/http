@@ -30,7 +30,7 @@ abstract class AbstractOutgoingWindowHandler {
 
   /// Process a window update frame received from the remote end.
   void processWindowUpdate(WindowUpdateFrame frame) {
-    int increment = frame.windowSizeIncrement;
+    var increment = frame.windowSizeIncrement;
     if ((_peerWindow.size + increment) > Window.MAX_WINDOW_SIZE) {
       throw FlowControlException(
           'Window update received from remote peer would make flow control '

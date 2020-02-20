@@ -15,12 +15,12 @@ import 'package:test/test.dart';
 void main() async {
   test('google', () async {
     var uri = Uri.parse('https://www.google.com/');
-    ClientConnection connection = await connect(uri);
-    Response response = await connection.makeRequest(Request('GET', uri));
+    var connection = await connect(uri);
+    var response = await connection.makeRequest(Request('GET', uri));
     dumpHeaders(uri, response.headers);
 
     final utf8Decoder = Utf8Decoder(allowMalformed: true);
-    String body = await response.stream.transform(utf8Decoder).join('');
+    var body = await response.stream.transform(utf8Decoder).join('');
     unawaited(connection.close());
 
     body = body.toLowerCase();
@@ -30,11 +30,11 @@ void main() async {
 
   test('twitter', () async {
     var uri = Uri.parse('https://twitter.com/');
-    ClientConnection connection = await connect(uri);
-    Response response = await connection.makeRequest(Request('GET', uri));
+    var connection = await connect(uri);
+    var response = await connection.makeRequest(Request('GET', uri));
     dumpHeaders(uri, response.headers);
 
-    String body = await readBody(response);
+    var body = await readBody(response);
     unawaited(connection.close());
 
     expect(body, contains('<!DOCTYPE html>'));
@@ -45,9 +45,9 @@ void main() async {
     test('server push enabled', () async {
       var uri = Uri.parse('https://nghttp2.org/');
 
-      ClientConnection connection = await connect(uri, allowServerPushes: true);
+      var connection = await connect(uri, allowServerPushes: true);
       var request = Request('GET', uri);
-      Response response = await connection.makeRequest(request);
+      var response = await connection.makeRequest(request);
       dumpHeaders(uri, response.headers);
 
       Future<List<List>> accumulatePushes() async {
@@ -86,10 +86,9 @@ void main() async {
     test('server push disabled', () async {
       var uri = Uri.parse('https://nghttp2.org/');
 
-      ClientConnection connection =
-          await connect(uri, allowServerPushes: false);
+      var connection = await connect(uri, allowServerPushes: false);
       var request = Request('GET', uri);
-      Response response = await connection.makeRequest(request);
+      var response = await connection.makeRequest(request);
       dumpHeaders(uri, response.headers);
 
       Future<List<List>> accumulatePushes() async {

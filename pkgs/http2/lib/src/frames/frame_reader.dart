@@ -19,8 +19,8 @@ class FrameReader {
 
   /// Starts to listen on the input stream and decodes HTTP/2 transport frames.
   Stream<Frame> startDecoding() {
-    List<List<int>> bufferedData = List<List<int>>();
-    int bufferedLength = 0;
+    var bufferedData = List<List<int>>();
+    var bufferedLength = 0;
 
     FrameHeader tryReadHeader() {
       if (bufferedLength >= FRAME_HEADER_SIZE) {
@@ -34,16 +34,16 @@ class FrameReader {
     }
 
     Frame tryReadFrame(FrameHeader header) {
-      int totalFrameLen = FRAME_HEADER_SIZE + header.length;
+      var totalFrameLen = FRAME_HEADER_SIZE + header.length;
       if (bufferedLength >= totalFrameLen) {
         // Get the whole frame in the first byte array.
         _mergeLists(bufferedData, totalFrameLen);
 
         // Read the frame.
-        Frame frame = _readFrame(header, bufferedData[0], FRAME_HEADER_SIZE);
+        var frame = _readFrame(header, bufferedData[0], FRAME_HEADER_SIZE);
 
         // Update bufferedData/bufferedLength
-        int firstChunkLen = bufferedData[0].length;
+        var firstChunkLen = bufferedData[0].length;
         if (firstChunkLen == totalFrameLen) {
           bufferedData.removeAt(0);
         } else {
@@ -84,7 +84,7 @@ class FrameReader {
                     return;
                   }
 
-                  Frame frame = tryReadFrame(header);
+                  var frame = tryReadFrame(header);
 
                   if (frame != null) {
                     _framesController.add(frame);
@@ -123,17 +123,17 @@ class FrameReader {
   /// `numberOfBytes` bytes.
   void _mergeLists(List<List<int>> bufferedData, int numberOfBytes) {
     if (bufferedData[0].length < numberOfBytes) {
-      int numLists = 0;
-      int accumulatedLength = 0;
+      var numLists = 0;
+      var accumulatedLength = 0;
       while (accumulatedLength < numberOfBytes &&
           numLists <= bufferedData.length) {
         accumulatedLength += bufferedData[numLists++].length;
       }
       assert(accumulatedLength >= numberOfBytes);
       var newList = Uint8List(accumulatedLength);
-      int offset = 0;
-      for (int i = 0; i < numLists; i++) {
-        List<int> data = bufferedData[i];
+      var offset = 0;
+      for (var i = 0; i < numLists; i++) {
+        var data = bufferedData[i];
         newList.setRange(offset, offset + data.length, data);
         offset += data.length;
       }
@@ -144,39 +144,39 @@ class FrameReader {
 
   /// Reads a FrameHeader] from [bytes], starting at [offset].
   FrameHeader _readFrameHeader(List<int> bytes, int offset) {
-    int length = readInt24(bytes, offset);
-    int type = bytes[offset + 3];
-    int flags = bytes[offset + 4];
-    int streamId = readInt32(bytes, offset + 5) & 0x7fffffff;
+    var length = readInt24(bytes, offset);
+    var type = bytes[offset + 3];
+    var flags = bytes[offset + 4];
+    var streamId = readInt32(bytes, offset + 5) & 0x7fffffff;
 
     return FrameHeader(length, type, flags, streamId);
   }
 
   /// Reads a [Frame] from [bytes], starting at [frameOffset].
   Frame _readFrame(FrameHeader header, List<int> bytes, int frameOffset) {
-    int frameEnd = frameOffset + header.length;
+    var frameEnd = frameOffset + header.length;
 
-    int offset = frameOffset;
+    var offset = frameOffset;
     switch (header.type) {
       case FrameType.DATA:
-        int padLength = 0;
+        var padLength = 0;
         if (_isFlagSet(header.flags, DataFrame.FLAG_PADDED)) {
           _checkFrameLengthCondition((frameEnd - offset) >= 1);
           padLength = bytes[offset++];
         }
-        int dataLen = frameEnd - offset - padLength;
+        var dataLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(dataLen >= 0);
         var dataBytes = viewOrSublist(bytes, offset, dataLen);
         return DataFrame(header, padLength, dataBytes);
 
       case FrameType.HEADERS:
-        int padLength = 0;
+        var padLength = 0;
         if (_isFlagSet(header.flags, HeadersFrame.FLAG_PADDED)) {
           _checkFrameLengthCondition((frameEnd - offset) >= 1);
           padLength = bytes[offset++];
         }
         int streamDependency;
-        bool exclusiveDependency = false;
+        var exclusiveDependency = false;
         int weight;
         if (_isFlagSet(header.flags, HeadersFrame.FLAG_PRIORITY)) {
           _checkFrameLengthCondition((frameEnd - offset) >= 5);
@@ -185,7 +185,7 @@ class FrameReader {
           offset += 4;
           weight = bytes[offset++];
         }
-        int headerBlockLen = frameEnd - offset - padLength;
+        var headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
         var headerBlockFragment = viewOrSublist(bytes, offset, headerBlockLen);
         return HeadersFrame(header, padLength, exclusiveDependency,
@@ -195,9 +195,9 @@ class FrameReader {
         _checkFrameLengthCondition(
             (frameEnd - offset) == PriorityFrame.FIXED_FRAME_LENGTH,
             message: 'Priority frame length must be exactly 5 bytes.');
-        bool exclusiveDependency = (bytes[offset] & 0x80) == 0x80;
-        int streamDependency = readInt32(bytes, offset) & 0x7fffffff;
-        int weight = bytes[offset + 4];
+        var exclusiveDependency = (bytes[offset] & 0x80) == 0x80;
+        var streamDependency = readInt32(bytes, offset) & 0x7fffffff;
+        var weight = bytes[offset + 4];
         return PriorityFrame(
             header, exclusiveDependency, streamDependency, weight);
 
@@ -205,18 +205,18 @@ class FrameReader {
         _checkFrameLengthCondition(
             (frameEnd - offset) == RstStreamFrame.FIXED_FRAME_LENGTH,
             message: 'Rst frames must have a length of 4.');
-        int errorCode = readInt32(bytes, offset);
+        var errorCode = readInt32(bytes, offset);
         return RstStreamFrame(header, errorCode);
 
       case FrameType.SETTINGS:
         _checkFrameLengthCondition((header.length % 6) == 0,
             message: 'Settings frame length must be a multiple of 6 bytes.');
 
-        int count = header.length ~/ 6;
+        var count = header.length ~/ 6;
         var settings = List<Setting>(count);
-        for (int i = 0; i < count; i++) {
-          int identifier = readInt16(bytes, offset + 6 * i);
-          int value = readInt32(bytes, offset + 6 * i + 2);
+        for (var i = 0; i < count; i++) {
+          var identifier = readInt16(bytes, offset + 6 * i);
+          var value = readInt32(bytes, offset + 6 * i + 2);
           settings[i] = Setting(identifier, value);
         }
         var frame = SettingsFrame(header, settings);
@@ -227,14 +227,14 @@ class FrameReader {
         return frame;
 
       case FrameType.PUSH_PROMISE:
-        int padLength = 0;
+        var padLength = 0;
         if (_isFlagSet(header.flags, PushPromiseFrame.FLAG_PADDED)) {
           _checkFrameLengthCondition((frameEnd - offset) >= 1);
           padLength = bytes[offset++];
         }
-        int promisedStreamId = readInt32(bytes, offset) & 0x7fffffff;
+        var promisedStreamId = readInt32(bytes, offset) & 0x7fffffff;
         offset += 4;
-        int headerBlockLen = frameEnd - offset - padLength;
+        var headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
         var headerBlockFragment = viewOrSublist(bytes, offset, headerBlockLen);
         return PushPromiseFrame(
@@ -249,8 +249,8 @@ class FrameReader {
 
       case FrameType.GOAWAY:
         _checkFrameLengthCondition((frameEnd - offset) >= 8);
-        int lastStreamId = readInt32(bytes, offset);
-        int errorCode = readInt32(bytes, offset + 4);
+        var lastStreamId = readInt32(bytes, offset);
+        var errorCode = readInt32(bytes, offset + 4);
         var debugData = viewOrSublist(bytes, offset + 8, header.length - 8);
         return GoawayFrame(header, lastStreamId, errorCode, debugData);
 
@@ -258,7 +258,7 @@ class FrameReader {
         _checkFrameLengthCondition(
             (frameEnd - offset) == WindowUpdateFrame.FIXED_FRAME_LENGTH,
             message: 'Window update frames must have a length of 4.');
-        int windowSizeIncrement = readInt32(bytes, offset) & 0x7fffffff;
+        var windowSizeIncrement = readInt32(bytes, offset) & 0x7fffffff;
         return WindowUpdateFrame(header, windowSizeIncrement);
 
       case FrameType.CONTINUATION:

@@ -14,7 +14,7 @@ import 'helper.dart';
 void main() {
   group('streams', () {
     group('flowcontrol', () {
-      const int numOfOneKB = 1000;
+      const numOfOneKB = 1000;
 
       var expectedHeaders = [Header.ascii('key', 'value')];
       var allBytes = List.generate(numOfOneKB * 1024, (i) => i % 256);
@@ -30,11 +30,11 @@ void main() {
         });
       }
 
-      Completer serverReceivedAllBytes = Completer();
+      var serverReceivedAllBytes = Completer();
 
       void Function(StreamMessage) messageTestFun(String type) {
-        bool expectHeader = true;
-        int numBytesReceived = 0;
+        var expectHeader = true;
+        var numBytesReceived = 0;
         return (StreamMessage msg) {
           if (expectHeader) {
             expectHeader = false;
@@ -63,9 +63,9 @@ void main() {
       }
 
       void sendData(TransportStream cStream) {
-        for (int i = 0; i < (allBytes.length + 1023) ~/ 1024; i++) {
-          int end = 1024 * (i + 1);
-          bool isLast = end > allBytes.length;
+        for (var i = 0; i < (allBytes.length + 1023) ~/ 1024; i++) {
+          var end = 1024 * (i + 1);
+          var isLast = end > allBytes.length;
           if (isLast) {
             end = allBytes.length;
           }

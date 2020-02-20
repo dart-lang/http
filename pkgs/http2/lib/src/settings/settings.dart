@@ -142,8 +142,8 @@ class SettingsHandler extends Object with TerminatableMixin {
               'Received an acknowledged settings frame which did not have a '
               'outstanding settings request.');
         }
-        List<Setting> settingChanges = _toBeAcknowledgedSettings.removeAt(0);
-        Completer completer = _toBeAcknowledgedCompleters.removeAt(0);
+        var settingChanges = _toBeAcknowledgedSettings.removeAt(0);
+        var completer = _toBeAcknowledgedCompleters.removeAt(0);
         _modifySettings(_acknowledgedSettings, settingChanges, false);
         completer.complete();
       } else {
@@ -209,7 +209,7 @@ class SettingsHandler extends Object with TerminatableMixin {
 
         case Setting.SETTINGS_INITIAL_WINDOW_SIZE:
           if (setting.value < (1 << 31)) {
-            int difference = setting.value - base.initialWindowSize;
+            var difference = setting.value - base.initialWindowSize;
             _onInitialWindowSizeChangeController.add(difference);
             base.initialWindowSize = setting.value;
           } else {

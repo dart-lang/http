@@ -17,14 +17,14 @@ void main() {
       final frameBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
       final data = List<int>.from(CONNECTION_PREFACE)..addAll(frameBytes);
 
-      for (int size = 1; size <= data.length; size++) {
+      for (var size = 1; size <= data.length; size++) {
         var c = StreamController<List<int>>();
         var resultF =
             readConnectionPreface(c.stream).fold([], (b, d) => b..addAll(d));
 
-        for (int i = 0; i < (size - 1 + data.length) ~/ size; i++) {
-          int from = size * i;
-          int to = min(size * (i + 1), data.length);
+        for (var i = 0; i < (size - 1 + data.length) ~/ size; i++) {
+          var from = size * i;
+          var to = min(size * (i + 1), data.length);
 
           c.add(data.sublist(from, to));
         }
@@ -39,7 +39,7 @@ void main() {
       var resultF =
           readConnectionPreface(c.stream).fold([], (b, d) => b..addAll(d));
 
-      for (int i = 0; i < CONNECTION_PREFACE.length - 1; i++) {
+      for (var i = 0; i < CONNECTION_PREFACE.length - 1; i++) {
         c.add([CONNECTION_PREFACE[i]]);
       }
       unawaited(c.close());
@@ -54,7 +54,7 @@ void main() {
       var resultF =
           readConnectionPreface(c.stream).fold([], (b, d) => b..addAll(d));
 
-      for (int i = 0; i < CONNECTION_PREFACE.length; i++) {
+      for (var i = 0; i < CONNECTION_PREFACE.length; i++) {
         c.add([0xff]);
       }
       unawaited(c.close());

@@ -67,7 +67,7 @@ void main() {
 
       server.incomingStreams
           .listen(expectAsync1((TransportStream sStream) async {
-        bool isFirst = true;
+        var isFirst = true;
         var receivedChunks = [];
         sStream.incomingMessages.listen(
             expectAsync1((StreamMessage msg) {
@@ -175,7 +175,7 @@ void main() {
       TransportStream cStream = client.makeRequest(expectedHeaders);
       unawaited(cStream.outgoingMessages.close());
 
-      int i = 0;
+      var i = 0;
       cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
         expect(msg is DataStreamMessage, isTrue);
         expect((msg as DataStreamMessage).bytes, chunks[i++]);
@@ -190,7 +190,7 @@ void main() {
     var chunk = [1];
 
     server.incomingStreams.listen(expectAsync1((TransportStream sStream) async {
-      bool isFirst = true;
+      var isFirst = true;
       var receivedChunk;
       sStream.incomingMessages.listen(
           expectAsync1((StreamMessage msg) {
@@ -219,7 +219,7 @@ void main() {
     TransportStream cStream = client.makeRequest(expectedHeaders);
     cStream.sendData(chunk, endStream: true);
 
-    bool isFirst = true;
+    var isFirst = true;
     cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
       if (isFirst) {
         expect(msg, const TypeMatcher<DataStreamMessage>());

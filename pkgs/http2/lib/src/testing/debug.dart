@@ -31,7 +31,7 @@ TransportConnection debugPrintingConnection(Socket socket,
 
 Stream<List<int>> decodeVerbose(Stream<List<int>> inc, bool isServer,
     {bool verbose = true}) {
-  String name = isServer ? 'server' : 'client';
+  var name = isServer ? 'server' : 'client';
 
   var sc = StreamController<List<int>>();
   var sDebug = StreamController<List<int>>();
@@ -73,7 +73,7 @@ Stream<List<int>> decodeVerbose(Stream<List<int>> inc, bool isServer,
 StreamSink<List<int>> decodeOutgoingVerbose(
     StreamSink<List<int>> sink, bool isServer,
     {bool verbose = true}) {
-  String name = isServer ? 'server' : 'client';
+  var name = isServer ? 'server' : 'client';
 
   var proxySink = StreamController<List<int>>();
   var copy = StreamController<List<int>>();

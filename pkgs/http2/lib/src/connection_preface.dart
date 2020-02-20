@@ -46,9 +46,9 @@ const List<int> CONNECTION_PREFACE = [
 Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
   StreamController<List<int>> result;
   StreamSubscription subscription;
-  bool connectionPrefaceRead = false;
+  var connectionPrefaceRead = false;
   var prefaceBuffer = <int>[];
-  bool terminated = false;
+  var terminated = false;
 
   void terminate(error) {
     if (!terminated) {
@@ -60,7 +60,7 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
   }
 
   bool compareConnectionPreface(List<int> data) {
-    for (int i = 0; i < CONNECTION_PREFACE.length; i++) {
+    for (var i = 0; i < CONNECTION_PREFACE.length; i++) {
       if (data[i] != CONNECTION_PREFACE[i]) {
         terminate('Connection preface does not match.');
         return false;
@@ -80,9 +80,9 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
         if (!compareConnectionPreface(data)) return;
         data = data.sublist(CONNECTION_PREFACE.length);
       } else if (prefaceBuffer.length < CONNECTION_PREFACE.length) {
-        int remaining = CONNECTION_PREFACE.length - prefaceBuffer.length;
+        var remaining = CONNECTION_PREFACE.length - prefaceBuffer.length;
 
-        int end = min(data.length, remaining);
+        var end = min(data.length, remaining);
         var part1 = viewOrSublist(data, 0, end);
         var part2 = viewOrSublist(data, end, data.length - end);
         prefaceBuffer.addAll(part1);

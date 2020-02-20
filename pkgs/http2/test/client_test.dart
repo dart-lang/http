@@ -152,7 +152,7 @@ void main() {
           expect(finFrame.hasEndStreamFlag, true);
 
           // Write a data frame for a non-existent stream.
-          int invalidStreamId = headers.header.streamId + 2;
+          var invalidStreamId = headers.header.streamId + 2;
           serverWriter.writeDataFrame(invalidStreamId, [42]);
 
           // Make sure the client sends a [RstStreamFrame] frame.
@@ -203,7 +203,7 @@ void main() {
           DataFrame finFrame = await nextFrame();
           expect(finFrame.hasEndStreamFlag, true);
 
-          int streamId = headers.header.streamId;
+          var streamId = headers.header.streamId;
 
           // Write a data frame for a non-existent stream.
           serverWriter.writeDataFrame(streamId, [42], endStream: true);
@@ -270,7 +270,7 @@ void main() {
           DataFrame finFrame = await nextFrame();
           expect(finFrame.hasEndStreamFlag, true);
 
-          int streamId = headers.header.streamId;
+          var streamId = headers.header.streamId;
 
           // Write a data frame.
           serverWriter.writeDataFrame(streamId, [42]);
@@ -345,7 +345,7 @@ void main() {
 
           HeadersFrame headers = await nextFrame();
 
-          int streamId = headers.header.streamId;
+          var streamId = headers.header.streamId;
 
           // Write a data frame.
           serverWriter.writeDataFrame(streamId, [42]);
@@ -417,14 +417,14 @@ void main() {
           DataFrame finFrame = await nextFrame();
           expect(finFrame.hasEndStreamFlag, true);
 
-          int streamId = headers.header.streamId;
+          var streamId = headers.header.streamId;
 
           // Write response.
           serverWriter.writeHeadersFrame(streamId, [Header.ascii('a', 'b')],
               endStream: true);
 
           // Push stream to the (non existing) one.
-          int pushStreamId = 2;
+          var pushStreamId = 2;
           serverWriter.writePushPromiseFrame(
               streamId, pushStreamId, [Header.ascii('a', 'b')]);
 
@@ -467,13 +467,13 @@ void main() {
           handshakeCompleter.complete();
 
           HeadersFrame headers = await nextFrame();
-          int streamId = headers.header.streamId;
+          var streamId = headers.header.streamId;
 
           // Write response.
           serverWriter.writeDataFrame(streamId, [], endStream: true);
 
           // Push stream onto the existing (but half-closed) one.
-          int pushStreamId = 2;
+          var pushStreamId = 2;
           serverWriter.writePushPromiseFrame(
               streamId, pushStreamId, [Header.ascii('a', 'b')]);
 
@@ -518,11 +518,11 @@ void main() {
           handshakeCompleter.complete();
 
           HeadersFrame headers = await nextFrame();
-          int streamId = headers.header.streamId;
+          var streamId = headers.header.streamId;
 
           // Write more than [kFlowControlWindowSize] bytes.
-          final int kFlowControlWindowSize = Window().size;
-          int sentBytes = 0;
+          final kFlowControlWindowSize = Window().size;
+          var sentBytes = 0;
           final bytes = Uint8List(1024);
           while (sentBytes <= kFlowControlWindowSize) {
             serverWriter.writeDataFrame(streamId, bytes);
@@ -705,7 +705,7 @@ class ClientStreams {
   Stream<List<int>> get readB => writeB.stream;
 
   StreamIterator<Frame> get serverConnectionFrameReader {
-    ActiveSettings localSettings = ActiveSettings();
+    var localSettings = ActiveSettings();
     var streamAfterConnectionPreface = readConnectionPreface(readA);
     return StreamIterator(
         FrameReader(streamAfterConnectionPreface, localSettings)
@@ -714,7 +714,7 @@ class ClientStreams {
 
   FrameWriter get serverConnectionFrameWriter {
     var encoder = HPackEncoder();
-    ActiveSettings peerSettings = ActiveSettings();
+    var peerSettings = ActiveSettings();
     return FrameWriter(encoder, writeB, peerSettings);
   }
 

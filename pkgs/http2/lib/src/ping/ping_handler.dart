@@ -38,7 +38,7 @@ class PingHandler extends Object with TerminatableMixin {
       if (!frame.hasAckFlag) {
         _frameWriter.writePingFrame(frame.opaqueData, ack: true);
       } else {
-        Completer c = _remainingPings.remove(frame.opaqueData);
+        var c = _remainingPings.remove(frame.opaqueData);
         if (c != null) {
           c.complete();
         } else {
@@ -53,7 +53,7 @@ class PingHandler extends Object with TerminatableMixin {
 
   Future ping() {
     return ensureNotTerminatedAsync(() {
-      Completer c = Completer();
+      var c = Completer();
       var id = _nextId++;
       _remainingPings[id] = c;
       _frameWriter.writePingFrame(id);

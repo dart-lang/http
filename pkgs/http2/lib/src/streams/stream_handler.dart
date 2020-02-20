@@ -226,7 +226,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     var streamIds = _openStreams.keys
         .where((id) => id > lastStreamId && !_isPeerInitiatedStream(id))
         .toList();
-    for (int id in streamIds) {
+    for (var id in streamIds) {
       var exception = StreamException(
           id,
           'Remote end was telling us to stop. This stream was not processed '
@@ -240,8 +240,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   ////////////////////////////////////////////////////////////////////////////
 
   bool _isPeerInitiatedStream(int streamId) {
-    bool isServerStreamId = streamId.isEven;
-    bool isLocalStream = isServerStreamId == isServer;
+    var isServerStreamId = streamId.isEven;
+    var isLocalStream = isServerStreamId == isServer;
     return !isLocalStream;
   }
 
@@ -261,7 +261,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         throw StateError(
             'Cannot create new streams, since a wrap around would happen.');
       }
-      int streamId = nextStreamId;
+      var streamId = nextStreamId;
       nextStreamId += 2;
       return _newStreamInternal(streamId);
     });
@@ -287,7 +287,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             'not in "idle" state.');
       }
 
-      bool sameDirection = (nextStreamId + remoteStreamId) % 2 == 0;
+      var sameDirection = (nextStreamId + remoteStreamId) % 2 == 0;
       assert(!sameDirection);
 
       lastRemoteStreamId = remoteStreamId;
@@ -366,9 +366,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   bool _canPush(Http2StreamImpl stream) {
-    bool openState = (stream.state == StreamState.Open ||
+    var openState = (stream.state == StreamState.Open ||
         stream.state == StreamState.HalfClosedRemote);
-    bool pushEnabled = this._peerSettings.enablePush;
+    var pushEnabled = this._peerSettings.enablePush;
     return openState &&
         pushEnabled &&
         _canCreateNewStream() &&
@@ -396,7 +396,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
           'new connection.');
     }
 
-    Http2StreamImpl pushStream = newLocalStream();
+    var pushStream = newLocalStream();
 
     // NOTE: Since there was no real request from the client, we simulate it
     // by adding a synthetic `endStream = true` Data message into the incoming
@@ -531,10 +531,10 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       var stream = _openStreams[frame.header.streamId];
       if (stream == null) {
         bool frameBelongsToIdleStream() {
-          int streamId = frame.header.streamId;
-          bool isServerStreamId = frame.header.streamId.isEven;
-          bool isLocalStream = isServerStreamId == isServer;
-          bool isIdleStream = isLocalStream
+          var streamId = frame.header.streamId;
+          var isServerStreamId = frame.header.streamId.isEven;
+          var isLocalStream = isServerStreamId == isServer;
+          var isIdleStream = isLocalStream
               ? streamId >= nextStreamId
               : streamId > lastRemoteStreamId;
           return isIdleStream;
@@ -550,7 +550,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
         if (frame is HeadersFrame) {
           if (isServer) {
-            Http2StreamImpl newStream = newRemoteStream(frame.header.streamId);
+            var newStream = newRemoteStream(frame.header.streamId);
             _changeState(newStream, StreamState.Open);
 
             _handleHeadersFrame(newStream, frame);
@@ -769,7 +769,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
   void _closeStreamIdAbnormally(int streamId, Exception exception,
       {bool propagateException = false}) {
-    Http2StreamImpl stream = _openStreams[streamId];
+    var stream = _openStreams[streamId];
     if (stream != null) {
       _closeStreamAbnormally(stream, exception,
           propagateException: propagateException);
@@ -815,7 +815,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   int _numberOfActiveStreams = 0;
 
   bool _canCreateNewStream() {
-    int limit = _peerSettings.maxConcurrentStreams;
+    var limit = _peerSettings.maxConcurrentStreams;
     return limit == null || _numberOfActiveStreams < limit;
   }
 
@@ -824,7 +824,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   void _changeState(Http2StreamImpl stream, StreamState to) {
-    StreamState from = stream.state;
+    var from = stream.state;
 
     // In checked mode we'll test that the state transition is allowed.
     assert((from == StreamState.Idle && to == StreamState.ReservedLocal) ||
@@ -876,7 +876,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   bool _didInitiateStream(Http2StreamImpl stream) {
-    int id = stream.id;
+    var id = stream.id;
     return (isServer && id.isEven) || (!isServer && id.isOdd);
   }
 }

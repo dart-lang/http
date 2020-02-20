@@ -14,7 +14,7 @@ import 'package:http2/src/settings/settings.dart';
 
 void expectHeadersEqual(List<Header> headers, List<Header> expectedHeaders) {
   expect(headers, hasLength(expectedHeaders.length));
-  for (int i = 0; i < expectedHeaders.length; i++) {
+  for (var i = 0; i < expectedHeaders.length; i++) {
     expect(headers[i].name, expectedHeaders[i].name);
     expect(headers[i].value, expectedHeaders[i].value);
   }

@@ -62,7 +62,7 @@ class ClientConnection {
 
   Future<Response> _handleStream(ClientTransportStream stream) {
     var completer = Completer<Response>();
-    bool isFirst = true;
+    var isFirst = true;
     var controller = StreamController<List<int>>();
     var serverPushController = StreamController<ServerPush>(sync: true);
     stream.incomingMessages.listen((StreamMessage msg) {
@@ -89,7 +89,7 @@ class ClientConnection {
 
       pushesController.add(serverPush);
 
-      bool isFirst = true;
+      var isFirst = true;
       var dataController = StreamController<List<int>>();
       push.stream.incomingMessages.listen((StreamMessage msg) {
         if (isFirst) {
@@ -126,27 +126,21 @@ class ClientConnection {
 /// [maxConcurrentPushes] (default is `null` meaning no limit).
 Future<ClientConnection> connect(Uri uri,
     {bool allowServerPushes = false, int maxConcurrentPushes}) async {
-  const List<String> Http2AlpnProtocols = <String>[
-    'h2-14',
-    'h2-15',
-    'h2-16',
-    'h2-17',
-    'h2'
-  ];
+  const Http2AlpnProtocols = <String>['h2-14', 'h2-15', 'h2-16', 'h2-17', 'h2'];
 
-  bool useSSL = uri.scheme == 'https';
+  var useSSL = uri.scheme == 'https';
   var settings = ClientSettings(
       concurrentStreamLimit: maxConcurrentPushes,
       allowServerPushes: allowServerPushes);
   if (useSSL) {
-    SecureSocket socket = await SecureSocket.connect(uri.host, uri.port,
+    var socket = await SecureSocket.connect(uri.host, uri.port,
         supportedProtocols: Http2AlpnProtocols);
     if (!Http2AlpnProtocols.contains(socket.selectedProtocol)) {
       throw Exception('Server does not support HTTP/2.');
     }
     return ClientConnection(socket, settings: settings);
   } else {
-    Socket socket = await Socket.connect(uri.host, uri.port);
+    var socket = await Socket.connect(uri.host, uri.port);
     return ClientConnection(socket, settings: settings);
   }
 }

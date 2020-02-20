@@ -219,13 +219,13 @@ class ClientErrorStreams {
   Stream<List<int>> get readB => writeB.stream;
 
   StreamIterator<Frame> get clientConnectionFrameReader {
-    ActiveSettings localSettings = ActiveSettings();
+    var localSettings = ActiveSettings();
     return StreamIterator(FrameReader(readA, localSettings).startDecoding());
   }
 
   FrameWriter get clientConnectionFrameWriter {
     var encoder = HPackEncoder();
-    ActiveSettings peerSettings = ActiveSettings();
+    var peerSettings = ActiveSettings();
     writeB.add(CONNECTION_PREFACE);
     return FrameWriter(encoder, writeB, peerSettings);
   }

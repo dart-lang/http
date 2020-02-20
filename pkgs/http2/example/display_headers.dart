@@ -48,7 +48,7 @@ void main(List<String> args) async {
 }
 
 Future<Socket> connect(Uri uri) async {
-  bool useSSL = uri.scheme == 'https';
+  var useSSL = uri.scheme == 'https';
   if (useSSL) {
     var secureSocket = await SecureSocket.connect(uri.host, uri.port,
         supportedProtocols: ['h2']);

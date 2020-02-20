@@ -15,8 +15,8 @@ List<int> viewOrSublist(List<int> data, int offset, int length) {
 }
 
 int readInt64(List<int> bytes, int offset) {
-  int high = readInt32(bytes, offset);
-  int low = readInt32(bytes, offset + 4);
+  var high = readInt32(bytes, offset);
+  var low = readInt32(bytes, offset + 4);
   return high << 32 | low;
 }
 

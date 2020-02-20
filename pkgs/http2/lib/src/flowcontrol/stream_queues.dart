@@ -97,22 +97,22 @@ class StreamMessageQueueOut extends Object
   }
 
   void _trySendData() {
-    int queueLenBefore = _messages.length;
+    var queueLenBefore = _messages.length;
 
     while (_messages.length > 0) {
-      Message message = _messages.first;
+      var message = _messages.first;
 
       if (message is HeadersMessage) {
         _messages.removeFirst();
         connectionMessageQueue.enqueueMessage(message);
       } else if (message is DataMessage) {
-        int bytesAvailable = streamWindow.peerWindowSize;
+        var bytesAvailable = streamWindow.peerWindowSize;
         if (bytesAvailable > 0 || message.bytes.length == 0) {
           _messages.removeFirst();
 
           // Do we need to fragment?
-          DataMessage messageToSend = message;
-          List<int> messageBytes = message.bytes;
+          var messageToSend = message;
+          var messageBytes = message.bytes;
           // TODO: Do not fragment if the number of bytes we can send is too low
           if (messageBytes.length > bytesAvailable) {
             var partA = viewOrSublist(messageBytes, 0, bytesAvailable);
@@ -287,7 +287,7 @@ class StreamMessageQueueIn extends Object
 
   void _tryDispatch() {
     while (!wasTerminated && _pendingMessages.isNotEmpty) {
-      bool handled = wasCancelled;
+      var handled = wasCancelled;
 
       var message = _pendingMessages.first;
       if (wasCancelled) {

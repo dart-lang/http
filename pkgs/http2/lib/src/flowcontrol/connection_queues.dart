@@ -112,7 +112,7 @@ class ConnectionMessageQueueOut extends Object
   }
 
   void _trySendMessage() {
-    Message message = _messages.first;
+    var message = _messages.first;
     if (message is HeadersMessage) {
       _messages.removeFirst();
       _frameWriter.writeHeadersFrame(message.streamId, message.headers,
@@ -131,7 +131,7 @@ class ConnectionMessageQueueOut extends Object
       } else {
         // NOTE: We need to fragment the DataMessage.
         // TODO: Do not fragment if the number of bytes we can send is too low
-        int len = _connectionWindow.peerWindowSize;
+        var len = _connectionWindow.peerWindowSize;
         var head = viewOrSublist(message.bytes, 0, len);
         var tail =
             viewOrSublist(message.bytes, len, message.bytes.length - len);
@@ -311,7 +311,7 @@ class ConnectionMessageQueueIn extends Object
 
   void _tryDispatch(
       int streamId, StreamMessageQueueIn mq, Queue<Message> pendingMessages) {
-    int bytesDeliveredToStream = 0;
+    var bytesDeliveredToStream = 0;
     while (!mq.bufferIndicator.wouldBuffer && pendingMessages.length > 0) {
       _count--;
 

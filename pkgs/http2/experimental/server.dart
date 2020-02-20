@@ -74,15 +74,15 @@ void handleClient(SecureSocket socket) {
 }
 
 void dumpHeaders(String prefix, List<Header> headers) {
-  for (int i = 0; i < headers.length; i++) {
-    String key = ascii.decode(headers[i].name);
-    String value = ascii.decode(headers[i].value);
+  for (var i = 0; i < headers.length; i++) {
+    var key = ascii.decode(headers[i].name);
+    var value = ascii.decode(headers[i].value);
     print('[$prefix] $key: $value');
   }
 }
 
 String pathFromHeaders(List<Header> headers) {
-  for (int i = 0; i < headers.length; i++) {
+  for (var i = 0; i < headers.length; i++) {
     if (ascii.decode(headers[i].name) == ':path') {
       return ascii.decode(headers[i].value);
     }

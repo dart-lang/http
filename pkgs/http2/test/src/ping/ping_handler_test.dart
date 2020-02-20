@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -19,8 +17,8 @@ void main() {
       dynamic writer = FrameWriterMock();
       var pingHandler = PingHandler(writer);
 
-      Future p1 = pingHandler.ping();
-      Future p2 = pingHandler.ping();
+      var p1 = pingHandler.ping();
+      var p2 = pingHandler.ping();
 
       verifyInOrder([
         writer.writePingFrame(1),
@@ -57,7 +55,7 @@ void main() {
       dynamic writer = FrameWriterMock();
       var pingHandler = PingHandler(writer);
 
-      Future future = pingHandler.ping();
+      var future = pingHandler.ping();
       verify(writer.writePingFrame(1)).called(1);
 
       var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);

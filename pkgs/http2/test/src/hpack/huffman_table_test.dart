@@ -14,7 +14,7 @@ void main() {
       final decode = http2HuffmanCodec.decode;
       final encode = http2HuffmanCodec.encode;
 
-      Map<String, List<int>> hpackSpecTestCases = {
+      var hpackSpecTestCases = {
         'www.example.com': [
           0xf1,
           0xe3,
