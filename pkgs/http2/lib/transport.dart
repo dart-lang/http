@@ -77,7 +77,7 @@ abstract class ClientTransportConnection extends TransportConnection {
   factory ClientTransportConnection.viaStreams(
       Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
       {ClientSettings settings}) {
-    if (settings == null) settings = const ClientSettings();
+    settings ??= const ClientSettings();
     return ClientConnection(incoming, outgoing, settings);
   }
 
@@ -101,7 +101,7 @@ abstract class ServerTransportConnection extends TransportConnection {
       Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
       {ServerSettings settings =
           const ServerSettings(concurrentStreamLimit: 1000)}) {
-    if (settings == null) settings = const ServerSettings();
+    settings ??= const ServerSettings();
     return ServerConnection(incoming, outgoing, settings);
   }
 
@@ -174,7 +174,7 @@ abstract class ServerTransportStream extends TransportStream {
 abstract class StreamMessage {
   final bool endStream;
 
-  StreamMessage({bool endStream}) : this.endStream = endStream ?? false;
+  StreamMessage({bool endStream}) : endStream = endStream ?? false;
 }
 
 /// Represents a data message which can be sent over a HTTP/2 stream.

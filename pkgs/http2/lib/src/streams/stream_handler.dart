@@ -322,15 +322,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     incomingQueue.insertNewStreamMessageQueue(streamId, streamQueueIn);
 
     var _outgoingC = StreamController<StreamMessage>();
-    var stream = Http2StreamImpl(
-        streamQueueIn,
-        streamQueueOut,
-        _outgoingC,
-        streamId,
-        windowOutHandler,
-        this._canPush,
-        this._push,
-        this._terminateStream);
+    var stream = Http2StreamImpl(streamQueueIn, streamQueueOut, _outgoingC,
+        streamId, windowOutHandler, _canPush, _push, _terminateStream);
     final wasIdle = _openStreams.isEmpty;
     _openStreams[stream.id] = stream;
 
@@ -366,7 +359,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   bool _canPush(Http2StreamImpl stream) {
     var openState = (stream.state == StreamState.Open ||
         stream.state == StreamState.HalfClosedRemote);
-    var pushEnabled = this._peerSettings.enablePush;
+    var pushEnabled = _peerSettings.enablePush;
     return openState &&
         pushEnabled &&
         _canCreateNewStream() &&

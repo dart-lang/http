@@ -334,7 +334,7 @@ class ConnectionMessageQueueIn extends Object
   }
 
   void forceDispatchIncomingMessages() {
-    final toBeRemoved = Set<int>();
+    final toBeRemoved = <int>{};
     _stream2pendingMessages.forEach((int streamId, Queue<Message> messages) {
       final mq = _stream2messageQueue[streamId];
       while (messages.isNotEmpty) {

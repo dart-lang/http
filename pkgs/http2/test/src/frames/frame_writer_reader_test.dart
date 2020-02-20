@@ -201,9 +201,10 @@ void main() {
         expect(contFrame.header.streamId, 99);
         expect(contFrame.hasEndHeadersFlag, isTrue);
 
-        var headerBlock = <int>[]
-          ..addAll(headersFrame.headerBlockFragment)
-          ..addAll(contFrame.headerBlockFragment);
+        var headerBlock = <int>[
+          ...headersFrame.headerBlockFragment,
+          ...contFrame.headerBlockFragment
+        ];
 
         var headers = decoder.decode(headerBlock);
         expect(headers.length, 1);

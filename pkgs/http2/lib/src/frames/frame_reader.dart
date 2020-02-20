@@ -19,7 +19,7 @@ class FrameReader {
 
   /// Starts to listen on the input stream and decodes HTTP/2 transport frames.
   Stream<Frame> startDecoding() {
-    var bufferedData = List<List<int>>();
+    var bufferedData = <List<int>>[];
     var bufferedLength = 0;
 
     FrameHeader tryReadHeader() {
@@ -74,9 +74,7 @@ class FrameReader {
 
             try {
               while (true) {
-                if (header == null) {
-                  header = tryReadHeader();
-                }
+                header ??= tryReadHeader();
                 if (header != null) {
                   if (header.length > _localSettings.maxFrameSize) {
                     terminateWithError(
