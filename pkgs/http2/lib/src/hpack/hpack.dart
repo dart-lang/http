@@ -21,6 +21,7 @@ class HPackDecodingException implements Exception {
 
   HPackDecodingException(this._message);
 
+  @override
   String toString() => 'HPackDecodingException: $_message';
 }
 

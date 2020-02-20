@@ -22,6 +22,7 @@ class PingHandler extends Object with TerminatableMixin {
 
   PingHandler(this._frameWriter);
 
+  @override
   void onTerminated(error) {
     var values = _remainingPings.values.toList();
     _remainingPings.clear();

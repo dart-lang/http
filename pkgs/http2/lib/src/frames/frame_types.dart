@@ -72,6 +72,7 @@ class DataFrame extends Frame {
   bool get hasEndStreamFlag => _isFlagSet(header.flags, FLAG_END_STREAM);
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'padLength': padLength,
@@ -129,6 +130,7 @@ class HeadersFrame extends Frame {
         streamDependency, weight, mergedHeaderBlockFragment);
   }
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'padLength': padLength,
@@ -150,6 +152,7 @@ class PriorityFrame extends Frame {
       this.streamDependency, this.weight)
       : super(header);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'exclusiveDependency': exclusiveDependency,
@@ -165,6 +168,7 @@ class RstStreamFrame extends Frame {
 
   RstStreamFrame(FrameHeader header, this.errorCode) : super(header);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'errorCode': errorCode,
@@ -199,6 +203,7 @@ class SettingsFrame extends Frame {
 
   bool get hasAckFlag => _isFlagSet(header.flags, FLAG_ACK);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'settings': settings.map((s) => s.toJson()).toList(),
@@ -246,6 +251,7 @@ class PushPromiseFrame extends Frame {
         fh, padLength, promisedStreamId, mergedHeaderBlockFragment);
   }
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'padLength': padLength,
@@ -265,6 +271,7 @@ class PingFrame extends Frame {
 
   bool get hasAckFlag => _isFlagSet(header.flags, FLAG_ACK);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'opaqueData': opaqueData,
@@ -280,6 +287,7 @@ class GoawayFrame extends Frame {
       FrameHeader header, this.lastStreamId, this.errorCode, this.debugData)
       : super(header);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'lastStreamId': lastStreamId,
@@ -296,6 +304,7 @@ class WindowUpdateFrame extends Frame {
   WindowUpdateFrame(FrameHeader header, this.windowSizeIncrement)
       : super(header);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'windowSizeIncrement': windowSizeIncrement,
@@ -312,6 +321,7 @@ class ContinuationFrame extends Frame {
 
   bool get hasEndHeadersFlag => _isFlagSet(header.flags, FLAG_END_HEADERS);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'headerBlockFragment (length)': headerBlockFragment.length,
@@ -323,6 +333,7 @@ class UnknownFrame extends Frame {
 
   UnknownFrame(FrameHeader header, this.data) : super(header);
 
+  @override
   Map toJson() => super.toJson()
     ..addAll({
       'data (length)': data.length,

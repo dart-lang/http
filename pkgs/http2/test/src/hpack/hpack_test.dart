@@ -806,8 +806,10 @@ class _HeaderMatcher extends Matcher {
 
   _HeaderMatcher(this.header);
 
+  @override
   Description describe(Description description) => description.add('Header');
 
+  @override
   bool matches(item, Map matchState) {
     return item is Header &&
         _compareLists(item.name, header.name) &&

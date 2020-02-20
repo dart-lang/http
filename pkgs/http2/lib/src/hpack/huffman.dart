@@ -13,6 +13,7 @@ class HuffmanDecodingException implements Exception {
 
   HuffmanDecodingException(this._message);
 
+  @override
   String toString() => 'HuffmanDecodingException: $_message';
 }
 

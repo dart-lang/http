@@ -60,6 +60,7 @@ class ConnectionState {
   bool get passiveFinishing =>
       state == Finishing && (finishingState & FinishingPassive) != 0;
 
+  @override
   String toString() {
     String message = '';
 
@@ -452,9 +453,11 @@ class ClientConnection extends Connection implements ClientTransportConnection {
     return new ClientConnection._(incoming, outgoing, clientSettings);
   }
 
+  @override
   bool get isOpen =>
       !_state.isFinishing && !_state.isTerminated && _streams.canOpenStream;
 
+  @override
   ClientTransportStream makeRequest(List<Header> headers,
       {bool endStream: false}) {
     if (_state.isFinishing) {
@@ -485,6 +488,7 @@ class ServerConnection extends Connection implements ServerTransportConnection {
     return new ServerConnection._(frameBytes, outgoing, serverSettings);
   }
 
+  @override
   Stream<ServerTransportStream> get incomingStreams =>
       _streams.incomingStreams.cast<ServerTransportStream>();
 }

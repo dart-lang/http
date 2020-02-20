@@ -43,6 +43,7 @@ class Http2StreamImpl extends TransportStream
   ///
   ///   * odd numbered streams are client streams
   ///   * even numbered streams are opened from the server
+  @override
   final int id;
 
   // The queue for incoming [StreamMessage]s.
@@ -85,25 +86,32 @@ class Http2StreamImpl extends TransportStream
       this._terminateStreamFun);
 
   /// A stream of data and/or headers from the remote end.
+  @override
   Stream<StreamMessage> get incomingMessages => incomingQueue.messages;
 
   /// A sink for writing data and/or headers to the remote end.
+  @override
   StreamSink<StreamMessage> get outgoingMessages => _outgoingC.sink;
 
   /// Streams which the server pushed to this endpoint.
+  @override
   Stream<TransportStreamPush> get peerPushes => incomingQueue.serverPushes;
 
+  @override
   bool get canPush => _canPushFun(this);
 
   /// Pushes a new stream to a client.
   ///
   /// The [requestHeaders] are the headers to which the pushed stream
   /// responds to.
+  @override
   ServerTransportStream push(List<Header> requestHeaders) =>
       _pushStreamFun(this, requestHeaders);
 
+  @override
   void terminate() => _terminateStreamFun(this);
 
+  @override
   set onTerminated(void handler(int v)) {
     _onTerminated = handler;
     if (_terminatedErrorCode != null && _onTerminated != null) {
@@ -188,6 +196,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
         peerSettings, localSettings, onActiveStateChanged, 2, -1);
   }
 
+  @override
   void onTerminated(exception) {
     _openStreams.values.toList().forEach((stream) =>
         _closeStreamAbnormally(stream, exception, propagateException: true));
@@ -787,10 +796,12 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     onCheckForClose();
   }
 
+  @override
   void onClosing() {
     _newStreamsC.close();
   }
 
+  @override
   void onCheckForClose() {
     if (isClosing && _openStreams.isEmpty) {
       closeWithValue();

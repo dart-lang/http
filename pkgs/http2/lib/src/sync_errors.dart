@@ -9,6 +9,7 @@ class ProtocolException implements Exception {
 
   ProtocolException(this._message);
 
+  @override
   String toString() => 'ProtocolError: $_message';
 }
 
@@ -17,6 +18,7 @@ class FlowControlException implements Exception {
 
   FlowControlException(this._message);
 
+  @override
   String toString() => 'FlowControlException: $_message';
 }
 
@@ -25,10 +27,12 @@ class FrameSizeException implements Exception {
 
   FrameSizeException(this._message);
 
+  @override
   String toString() => 'FrameSizeException: $_message';
 }
 
 class TerminatedException implements Exception {
+  @override
   String toString() => 'TerminatedException: The object has been terminated.';
 }
 
@@ -38,6 +42,7 @@ class StreamException implements Exception {
 
   StreamException(this.streamId, this._message);
 
+  @override
   String toString() => 'StreamException(stream id: $streamId): $_message';
 }
 
@@ -45,5 +50,6 @@ class StreamClosedException extends StreamException {
   StreamClosedException(int streamId, [String message = ''])
       : super(streamId, message);
 
+  @override
   String toString() => 'StreamClosedException(stream id: $streamId): $_message';
 }

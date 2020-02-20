@@ -22,12 +22,15 @@ class ArtificialServerSocket extends StreamView<Socket>
   // These are the methods of [ServerSocket] in addition to [Stream<Socket>].
   // ########################################################################
 
+  @override
   final InternetAddress address;
 
+  @override
   final int port;
 
   /// Closing of an [ArtificialServerSocket] is not possible and an exception
   /// will be thrown when calling this method.
+  @override
   Future<ServerSocket> close() async {
     throw new Exception('Did not expect close() to be called.');
   }

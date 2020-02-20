@@ -85,11 +85,13 @@ class StreamMessageQueueOut extends Object
     }
   }
 
+  @override
   void onTerminated(error) {
     _messages.clear();
     closeWithError(error);
   }
 
+  @override
   void onCheckForClose() {
     if (isClosing && _messages.isEmpty) closeWithValue();
   }
@@ -240,6 +242,7 @@ class StreamMessageQueueIn extends Object
     });
   }
 
+  @override
   void onTerminated(exception) {
     _pendingMessages.clear();
     if (!wasClosed) {

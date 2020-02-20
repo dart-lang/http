@@ -144,10 +144,12 @@ main() {
 }
 
 class MockFrameWriter extends Mock implements FrameWriter {
+  @override
   BufferIndicator bufferIndicator = new BufferIndicator();
 }
 
 class MockStreamMessageQueueIn extends Mock implements StreamMessageQueueIn {
+  @override
   BufferIndicator bufferIndicator = new BufferIndicator();
 }
 
@@ -155,6 +157,8 @@ class MockIncomingWindowHandler extends Mock implements IncomingWindowHandler {}
 
 class MockOutgoingWindowHandler extends Mock
     implements OutgoingConnectionWindowHandler, OutgoingStreamWindowHandler {
+  @override
   BufferIndicator positiveWindow = new BufferIndicator();
+  @override
   int peerWindowSize = new Window().size;
 }

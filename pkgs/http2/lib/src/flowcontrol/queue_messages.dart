@@ -24,6 +24,7 @@ class HeadersMessage extends Message {
   HeadersMessage(int streamId, this.headers, bool endStream)
       : super(streamId, endStream);
 
+  @override
   String toString() =>
       'HeadersMessage(headers: ${headers.length}, endStream: $endStream)';
 }
@@ -34,6 +35,7 @@ class DataMessage extends Message {
   DataMessage(int streamId, this.bytes, bool endStream)
       : super(streamId, endStream);
 
+  @override
   String toString() =>
       'DataMessage(bytes: ${bytes.length}, endStream: $endStream)';
 }
@@ -47,6 +49,7 @@ class PushPromiseMessage extends Message {
       this.pushedStream, bool endStream)
       : super(streamId, endStream);
 
+  @override
   String toString() => 'PushPromiseMessage(bytes: ${headers.length}, '
       'promisedStreamId: $promisedStreamId, endStream: $endStream)';
 }
@@ -56,6 +59,7 @@ class ResetStreamMessage extends Message {
 
   ResetStreamMessage(int streamId, this.errorCode) : super(streamId, false);
 
+  @override
   String toString() => 'ResetStreamMessage(errorCode: $errorCode)';
 }
 
@@ -67,6 +71,7 @@ class GoawayMessage extends Message {
   GoawayMessage(this.lastStreamId, this.errorCode, this.debugData)
       : super(0, false);
 
+  @override
   String toString() => 'GoawayMessage(lastStreamId: ${lastStreamId}, '
       'errorCode: ${errorCode}, debugData: ${debugData.length})';
 }

@@ -66,11 +66,13 @@ class ConnectionMessageQueueOut extends Object
     });
   }
 
+  @override
   void onTerminated(error) {
     _messages.clear();
     closeWithError(error);
   }
 
+  @override
   void onCheckForClose() {
     if (isClosing && _messages.length == 0) {
       closeWithValue();
@@ -199,6 +201,7 @@ class ConnectionMessageQueueIn extends Object
   ConnectionMessageQueueIn(
       this._windowUpdateHandler, this._catchProtocolErrors);
 
+  @override
   void onTerminated(error) {
     // NOTE: The higher level will be shutdown first, so all streams
     // should have been removed at this point.
@@ -207,6 +210,7 @@ class ConnectionMessageQueueIn extends Object
     closeWithError(error);
   }
 
+  @override
   void onCheckForClose() {
     if (isClosing) {
       assert(_stream2messageQueue.isEmpty == _stream2pendingMessages.isEmpty);

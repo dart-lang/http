@@ -185,6 +185,7 @@ class DataStreamMessage extends StreamMessage {
 
   DataStreamMessage(this.bytes, {bool endStream}) : super(endStream: endStream);
 
+  @override
   String toString() => 'DataStreamMessage(${bytes.length} bytes)';
 }
 
@@ -195,6 +196,7 @@ class HeadersStreamMessage extends StreamMessage {
   HeadersStreamMessage(this.headers, {bool endStream})
       : super(endStream: endStream);
 
+  @override
   String toString() => 'HeadersStreamMessage(${headers.length} headers)';
 }
 
@@ -208,6 +210,7 @@ class TransportStreamPush {
 
   TransportStreamPush(this.requestHeaders, this.stream);
 
+  @override
   String toString() =>
       'TransportStreamPush(${requestHeaders.length} request headers headers)';
 }
@@ -218,6 +221,7 @@ class TransportException implements Exception {
 
   TransportException(this.message);
 
+  @override
   String toString() => 'HTTP/2 error: $message';
 }
 

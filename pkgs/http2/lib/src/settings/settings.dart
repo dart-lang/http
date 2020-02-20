@@ -153,6 +153,7 @@ class SettingsHandler extends Object with TerminatableMixin {
     });
   }
 
+  @override
   void onTerminated(error) {
     _toBeAcknowledgedSettings.clear();
     _toBeAcknowledgedCompleters
