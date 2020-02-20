@@ -27,14 +27,14 @@ class MultiProtocolHttpServer {
 
   StreamController<http2.ServerTransportStream> _http2Controller;
   Stream<http2.ServerTransportStream> _http2Server;
-  final _http2Connections = new Set<http2.ServerTransportConnection>();
+  final _http2Connections = Set<http2.ServerTransportConnection>();
 
   MultiProtocolHttpServer._(this._serverSocket, this._settings) {
     _http11Controller =
-        new _ServerSocketController(_serverSocket.address, _serverSocket.port);
-    _http11Server = new HttpServer.listenOn(_http11Controller.stream);
+        _ServerSocketController(_serverSocket.address, _serverSocket.port);
+    _http11Server = HttpServer.listenOn(_http11Controller.stream);
 
-    _http2Controller = new StreamController();
+    _http2Controller = StreamController();
     _http2Server = _http2Controller.stream;
   }
 
@@ -51,7 +51,7 @@ class MultiProtocolHttpServer {
       {http2.ServerSettings settings}) async {
     context.setAlpnProtocols(['h2', 'h2-14', 'http/1.1'], true);
     var secureServer = await SecureServerSocket.bind(address, port, context);
-    return new MultiProtocolHttpServer._(secureServer, settings);
+    return MultiProtocolHttpServer._(secureServer, settings);
   }
 
   /// The port this multi-protocol HTTP server runs on.
@@ -74,7 +74,7 @@ class MultiProtocolHttpServer {
       if (protocol == null || protocol == 'http/1.1') {
         _http11Controller.addHttp11Socket(socket);
       } else if (protocol == 'h2' || protocol == 'h2-14') {
-        var connection = new http2.ServerTransportConnection.viaSocket(socket,
+        var connection = http2.ServerTransportConnection.viaSocket(socket,
             settings: _settings);
         _http2Connections.add(connection);
         connection.incomingStreams.listen(_http2Controller.add,
@@ -82,7 +82,7 @@ class MultiProtocolHttpServer {
             onDone: () => _http2Connections.remove(connection));
       } else {
         socket.destroy();
-        throw new Exception('Unexpected negotiated ALPN protocol: $protocol.');
+        throw Exception('Unexpected negotiated ALPN protocol: $protocol.');
       }
     }, onError: onError);
 
@@ -95,7 +95,7 @@ class MultiProtocolHttpServer {
   /// Closes this [MultiProtocolHttpServer].
   ///
   /// Completes once everything has been successfully shut down.
-  Future close({bool force: false}) {
+  Future close({bool force = false}) {
     return _serverSocket.close().whenComplete(() {
       Future done1 = _http11Server.close(force: force);
       Future done2 = Future.wait(
@@ -109,12 +109,12 @@ class MultiProtocolHttpServer {
 class _ServerSocketController {
   final InternetAddress address;
   final int port;
-  final StreamController<Socket> _controller = new StreamController();
+  final StreamController<Socket> _controller = StreamController();
 
   _ServerSocketController(this.address, this.port);
 
   ArtificialServerSocket get stream {
-    return new ArtificialServerSocket(address, port, _controller.stream);
+    return ArtificialServerSocket(address, port, _controller.stream);
   }
 
   void addHttp11Socket(Socket socket) {

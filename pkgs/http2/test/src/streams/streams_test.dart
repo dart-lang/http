@@ -14,7 +14,7 @@ main() {
     streamTest('single-header-request--empty-response',
         (ClientTransportConnection client,
             ServerTransportConnection server) async {
-      var expectedHeaders = [new Header.ascii('key', 'value')];
+      var expectedHeaders = [Header.ascii('key', 'value')];
 
       server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
         sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
@@ -34,7 +34,7 @@ main() {
     streamTest('multi-header-request--empty-response',
         (ClientTransportConnection client,
             ServerTransportConnection server) async {
-      var expectedHeaders = [new Header.ascii('key', 'value')];
+      var expectedHeaders = [Header.ascii('key', 'value')];
 
       server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
         sStream.incomingMessages.listen(
@@ -57,7 +57,7 @@ main() {
     streamTest('multi-data-request--empty-response',
         (ClientTransportConnection client,
             ServerTransportConnection server) async {
-      var expectedHeaders = [new Header.ascii('key', 'value')];
+      var expectedHeaders = [Header.ascii('key', 'value')];
       var chunks = [
         [1],
         [2],
@@ -97,7 +97,7 @@ main() {
     streamTest('single-header-request--single-headers-response',
         (ClientTransportConnection client,
             ServerTransportConnection server) async {
-      var expectedHeaders = [new Header.ascii('key', 'value')];
+      var expectedHeaders = [Header.ascii('key', 'value')];
 
       server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
         sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
@@ -123,7 +123,7 @@ main() {
     streamTest('single-header-request--multi-headers-response',
         (ClientTransportConnection client,
             ServerTransportConnection server) async {
-      var expectedHeaders = [new Header.ascii('key', 'value')];
+      var expectedHeaders = [Header.ascii('key', 'value')];
 
       server.incomingStreams.listen(expectAsync1((TransportStream sStream) {
         sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
@@ -152,7 +152,7 @@ main() {
     streamTest('single-header-request--multi-data-response',
         (ClientTransportConnection client,
             ServerTransportConnection server) async {
-      var expectedHeaders = [new Header.ascii('key', 'value')];
+      var expectedHeaders = [Header.ascii('key', 'value')];
       var chunks = [
         [1],
         [2],
@@ -185,7 +185,7 @@ main() {
   streamTest('single-data-request--data-trailer-response',
       (ClientTransportConnection client,
           ServerTransportConnection server) async {
-    var expectedHeaders = [new Header.ascii('key', 'value')];
+    var expectedHeaders = [Header.ascii('key', 'value')];
     var chunk = [1];
 
     server.incomingStreams.listen(expectAsync1((TransportStream sStream) async {

@@ -39,7 +39,7 @@ class ConnectionMessageQueueOut extends Object
   final OutgoingConnectionWindowHandler _connectionWindow;
 
   /// The buffered [Message]s which are to be delivered to the remote peer.
-  final Queue<Message> _messages = new Queue<Message>();
+  final Queue<Message> _messages = Queue<Message>();
 
   /// The [FrameWriter] used for writing Headers/Data/PushPromise frames.
   final FrameWriter _frameWriter;
@@ -140,7 +140,7 @@ class ConnectionMessageQueueOut extends Object
         _frameWriter.writeDataFrame(message.streamId, head, endStream: false);
 
         var tailMessage =
-            new DataMessage(message.streamId, tail, message.endStream);
+            DataMessage(message.streamId, tail, message.endStream);
         _messages.addFirst(tailMessage);
       }
     } else if (message is ResetStreamMessage) {
@@ -151,8 +151,7 @@ class ConnectionMessageQueueOut extends Object
       _frameWriter.writeGoawayFrame(
           message.lastStreamId, message.errorCode, message.debugData);
     } else {
-      throw new StateError(
-          'Unexpected message in queue: ${message.runtimeType}');
+      throw StateError('Unexpected message in queue: ${message.runtimeType}');
     }
   }
 }
@@ -227,12 +226,12 @@ class ConnectionMessageQueueIn extends Object
   /// Registers a stream specific [StreamMessageQueueIn] for a new stream id.
   void insertNewStreamMessageQueue(int streamId, StreamMessageQueueIn mq) {
     if (_stream2messageQueue.containsKey(streamId)) {
-      throw new ArgumentError(
+      throw ArgumentError(
           'Cannot register a SteramMessageQueueIn for the same streamId '
           'multiple times');
     }
 
-    var pendingMessages = new Queue<Message>();
+    var pendingMessages = Queue<Message>();
     _stream2pendingMessages[streamId] = pendingMessages;
     _stream2messageQueue[streamId] = mq;
 
@@ -253,8 +252,7 @@ class ConnectionMessageQueueIn extends Object
   /// Processes an incoming [DataFrame] which is addressed to a specific stream.
   void processDataFrame(DataFrame frame) {
     var streamId = frame.header.streamId;
-    var message =
-        new DataMessage(streamId, frame.bytes, frame.hasEndStreamFlag);
+    var message = DataMessage(streamId, frame.bytes, frame.hasEndStreamFlag);
 
     _windowUpdateHandler.gotData(message.bytes.length);
     _addMessage(streamId, message);
@@ -270,8 +268,8 @@ class ConnectionMessageQueueIn extends Object
   /// stream.
   void processHeadersFrame(HeadersFrame frame) {
     var streamId = frame.header.streamId;
-    var message = new HeadersMessage(
-        streamId, frame.decodedHeaders, frame.hasEndStreamFlag);
+    var message =
+        HeadersMessage(streamId, frame.decodedHeaders, frame.hasEndStreamFlag);
     // NOTE: Header frames do not affect flow control - only data frames do.
     _addMessage(streamId, message);
   }
@@ -281,7 +279,7 @@ class ConnectionMessageQueueIn extends Object
   void processPushPromiseFrame(
       PushPromiseFrame frame, ClientTransportStream pushedStream) {
     var streamId = frame.header.streamId;
-    var message = new PushPromiseMessage(streamId, frame.decodedHeaders,
+    var message = PushPromiseMessage(streamId, frame.decodedHeaders,
         frame.promisedStreamId, pushedStream, false);
 
     // NOTE:
@@ -337,7 +335,7 @@ class ConnectionMessageQueueIn extends Object
   }
 
   void forceDispatchIncomingMessages() {
-    final toBeRemoved = new Set<int>();
+    final toBeRemoved = Set<int>();
     _stream2pendingMessages.forEach((int streamId, Queue<Message> messages) {
       final mq = _stream2messageQueue[streamId];
       while (messages.isNotEmpty) {

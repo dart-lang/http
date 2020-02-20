@@ -74,11 +74,11 @@ class ActiveSettings {
   int maxHeaderListSize;
 
   ActiveSettings(
-      {this.headerTableSize: 4096,
-      this.enablePush: true,
+      {this.headerTableSize = 4096,
+      this.enablePush = true,
       this.maxConcurrentStreams,
-      this.initialWindowSize: (1 << 16) - 1,
-      this.maxFrameSize: (1 << 14),
+      this.initialWindowSize = (1 << 16) - 1,
+      this.maxFrameSize = (1 << 14),
       this.maxHeaderListSize});
 }
 
@@ -107,7 +107,7 @@ class SettingsHandler extends Object with TerminatableMixin {
   final ActiveSettings _peerSettings;
 
   final _onInitialWindowSizeChangeController =
-      new StreamController<int>.broadcast(sync: true);
+      StreamController<int>.broadcast(sync: true);
 
   /// Events are fired when a SettingsFrame changes the initial size
   /// of stream windows.
@@ -138,7 +138,7 @@ class SettingsHandler extends Object with TerminatableMixin {
           // NOTE: The specification does not say anything about ACKed settings
           // which were never sent to the other side. We consider this definitly
           // an error.
-          throw new ProtocolException(
+          throw ProtocolException(
               'Received an acknowledged settings frame which did not have a '
               'outstanding settings request.');
         }
@@ -164,7 +164,7 @@ class SettingsHandler extends Object with TerminatableMixin {
     return ensureNotTerminatedAsync(() {
       // TODO: Have a timeout: When ACK doesn't get back in a reasonable time
       // frame we should quit with ErrorCode.SETTINGS_TIMEOUT.
-      var completer = new Completer();
+      var completer = Completer();
       _toBeAcknowledgedSettings.add(changes);
       _toBeAcknowledgedCompleters.add(completer);
       _frameWriter.writeSettingsFrame(changes);
@@ -182,7 +182,7 @@ class SettingsHandler extends Object with TerminatableMixin {
           } else if (setting.value == 1) {
             base.enablePush = true;
           } else {
-            throw new ProtocolException(
+            throw ProtocolException(
                 'The push setting can be only set to 0 or 1.');
           }
           break;
@@ -213,7 +213,7 @@ class SettingsHandler extends Object with TerminatableMixin {
             _onInitialWindowSizeChangeController.add(difference);
             base.initialWindowSize = setting.value;
           } else {
-            throw new FlowControlException('Invalid initial window size.');
+            throw FlowControlException('Invalid initial window size.');
           }
           break;
 

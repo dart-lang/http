@@ -14,7 +14,7 @@ import 'package:http2/transport.dart';
 import 'package:http2/multiprotocol_server.dart';
 
 main() {
-  SecurityContext context = new SecurityContext()
+  SecurityContext context = SecurityContext()
     ..useCertificateChain('test/certificates/server_chain.pem')
     ..usePrivateKey('test/certificates/server_key.pem', password: 'dartdart');
 
@@ -33,7 +33,7 @@ main() {
           }, count: Count),
           expectAsync1((ServerTransportStream stream) {}, count: 0));
 
-      var client = new HttpClient();
+      var client = HttpClient();
       client.badCertificateCallback = (_, __, ___) => true;
       for (int i = 0; i < Count; i++) {
         await makeHttp11Request(server, client, i);
@@ -57,7 +57,7 @@ main() {
       var socket = await SecureSocket.connect('localhost', server.port,
           onBadCertificate: (_) => true,
           supportedProtocols: ['http/1.1', 'h2']);
-      var connection = new ClientTransportConnection.viaSocket(socket);
+      var connection = ClientTransportConnection.viaSocket(socket);
       for (int i = 0; i < Count; i++) {
         await makeHttp2Request(server, connection, i);
       }
@@ -86,14 +86,14 @@ Future makeHttp2Request(MultiProtocolHttpServer server,
     ClientTransportConnection connection, int i) async {
   expect(connection.isOpen, true);
   var headers = [
-    new Header.ascii(':method', 'GET'),
-    new Header.ascii(':scheme', 'https'),
-    new Header.ascii(':authority', 'localhost:${server.port}'),
-    new Header.ascii(':path', '/abc$i'),
+    Header.ascii(':method', 'GET'),
+    Header.ascii(':scheme', 'https'),
+    Header.ascii(':authority', 'localhost:${server.port}'),
+    Header.ascii(':path', '/abc$i'),
   ];
 
   var stream = connection.makeRequest(headers, endStream: true);
-  var si = new StreamIterator(stream.incomingMessages);
+  var si = StreamIterator(stream.incomingMessages);
 
   expect(await si.moveNext(), true);
   expect(si.current is HeadersStreamMessage, true);
@@ -107,7 +107,7 @@ Future makeHttp2Request(MultiProtocolHttpServer server,
 }
 
 Future handleHttp2Request(ServerTransportStream stream, int i) async {
-  var si = new StreamIterator(stream.incomingMessages);
+  var si = StreamIterator(stream.incomingMessages);
 
   expect(await si.moveNext(), true);
   expect(si.current is HeadersStreamMessage, true);
@@ -116,11 +116,11 @@ Future handleHttp2Request(ServerTransportStream stream, int i) async {
   expect(headers[':path'], '/abc$i');
   expect(await si.moveNext(), false);
 
-  stream.outgoingMessages.add(new HeadersStreamMessage([
-    new Header.ascii(':status', '200'),
+  stream.outgoingMessages.add(HeadersStreamMessage([
+    Header.ascii(':status', '200'),
   ]));
 
-  stream.outgoingMessages.add(new DataStreamMessage(ascii.encode('answer$i')));
+  stream.outgoingMessages.add(DataStreamMessage(ascii.encode('answer$i')));
   await stream.outgoingMessages.close();
 }
 

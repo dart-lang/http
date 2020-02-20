@@ -15,22 +15,22 @@ import 'package:http2/src/flowcontrol/connection_queues.dart';
 main() {
   group('flowcontrol', () {
     const STREAM_ID = 99;
-    const BYTES = const [1, 2, 3];
+    const BYTES = [1, 2, 3];
 
     group('stream-message-queue-out', () {
       test('window-big-enough', () {
-        dynamic connectionQueueMock = new MockConnectionMessageQueueOut();
-        dynamic windowMock = new MockOutgoingStreamWindowHandler();
+        dynamic connectionQueueMock = MockConnectionMessageQueueOut();
+        dynamic windowMock = MockOutgoingStreamWindowHandler();
 
         windowMock.positiveWindow.markUnBuffered();
-        var queue = new StreamMessageQueueOut(
-            STREAM_ID, windowMock, connectionQueueMock);
+        var queue =
+            StreamMessageQueueOut(STREAM_ID, windowMock, connectionQueueMock);
 
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         expect(queue.pendingMessages, 0);
 
         windowMock.peerWindowSize = BYTES.length;
-        queue.enqueueMessage(new DataMessage(STREAM_ID, BYTES, true));
+        queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         verify(windowMock.decreaseWindow(BYTES.length)).called(1);
         final capturedMessage =
             verify(connectionQueueMock.enqueueMessage(captureAny))
@@ -43,12 +43,12 @@ main() {
       });
 
       test('window-smaller-than-necessary', () {
-        dynamic connectionQueueMock = new MockConnectionMessageQueueOut();
-        dynamic windowMock = new MockOutgoingStreamWindowHandler();
+        dynamic connectionQueueMock = MockConnectionMessageQueueOut();
+        dynamic windowMock = MockOutgoingStreamWindowHandler();
 
         windowMock.positiveWindow.markUnBuffered();
-        var queue = new StreamMessageQueueOut(
-            STREAM_ID, windowMock, connectionQueueMock);
+        var queue =
+            StreamMessageQueueOut(STREAM_ID, windowMock, connectionQueueMock);
 
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         expect(queue.pendingMessages, 0);
@@ -56,7 +56,7 @@ main() {
         // We set the window size fixed to 1, which means all the data messages
         // will get fragmented to 1 byte.
         windowMock.peerWindowSize = 1;
-        queue.enqueueMessage(new DataMessage(STREAM_ID, BYTES, true));
+        queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
 
         expect(queue.pendingMessages, 0);
         verify(windowMock.decreaseWindow(1)).called(BYTES.length);
@@ -73,18 +73,18 @@ main() {
       });
 
       test('window-empty', () {
-        var connectionQueueMock = new MockConnectionMessageQueueOut();
-        var windowMock = new MockOutgoingStreamWindowHandler();
+        var connectionQueueMock = MockConnectionMessageQueueOut();
+        var windowMock = MockOutgoingStreamWindowHandler();
 
         windowMock.positiveWindow.markUnBuffered();
-        var queue = new StreamMessageQueueOut(
-            STREAM_ID, windowMock, connectionQueueMock);
+        var queue =
+            StreamMessageQueueOut(STREAM_ID, windowMock, connectionQueueMock);
 
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         expect(queue.pendingMessages, 0);
 
         windowMock.peerWindowSize = 0;
-        queue.enqueueMessage(new DataMessage(STREAM_ID, BYTES, true));
+        queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         expect(queue.bufferIndicator.wouldBuffer, isTrue);
         expect(queue.pendingMessages, 1);
         verifyZeroInteractions(windowMock);
@@ -94,8 +94,8 @@ main() {
 
     group('stream-message-queue-in', () {
       test('data-end-of-stream', () {
-        dynamic windowMock = new MockIncomingWindowHandler();
-        dynamic queue = new StreamMessageQueueIn(windowMock);
+        dynamic windowMock = MockIncomingWindowHandler();
+        dynamic queue = StreamMessageQueueIn(windowMock);
 
         expect(queue.pendingMessages, 0);
         queue.messages.listen(expectAsync1((StreamMessage message) {
@@ -104,7 +104,7 @@ main() {
           DataStreamMessage dataMessage = message;
           expect(dataMessage.bytes, BYTES);
         }), onDone: expectAsync0(() {}));
-        queue.enqueueMessage(new DataMessage(STREAM_ID, BYTES, true));
+        queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         verifyInOrder([
           windowMock.gotData(BYTES.length),
@@ -118,15 +118,15 @@ main() {
       const STREAM_ID = 99;
       final bytes = [1, 2, 3];
 
-      dynamic windowMock = new MockIncomingWindowHandler();
-      dynamic queue = new StreamMessageQueueIn(windowMock);
+      dynamic windowMock = MockIncomingWindowHandler();
+      dynamic queue = StreamMessageQueueIn(windowMock);
 
       var sub = queue.messages.listen(expectAsync1((_) {}, count: 0),
           onDone: expectAsync0(() {}, count: 0));
       sub.pause();
 
       expect(queue.pendingMessages, 0);
-      queue.enqueueMessage(new DataMessage(STREAM_ID, bytes, true));
+      queue.enqueueMessage(DataMessage(STREAM_ID, bytes, true));
       expect(queue.pendingMessages, 1);
       expect(queue.bufferIndicator.wouldBuffer, isTrue);
       // We assert that we got the data, but it wasn't processed.
@@ -146,7 +146,7 @@ class MockIncomingWindowHandler extends Mock implements IncomingWindowHandler {}
 class MockOutgoingStreamWindowHandler extends Mock
     implements OutgoingStreamWindowHandler {
   @override
-  final BufferIndicator positiveWindow = new BufferIndicator();
+  final BufferIndicator positiveWindow = BufferIndicator();
   @override
   int peerWindowSize;
 }

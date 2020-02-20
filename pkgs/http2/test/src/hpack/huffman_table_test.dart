@@ -155,4 +155,4 @@ main() {
 
 /// A matcher for HuffmanDecodingExceptions.
 const Matcher isHuffmanDecodingException =
-    const TypeMatcher<HuffmanDecodingException>();
+    TypeMatcher<HuffmanDecodingException>();

@@ -1,4 +1,6 @@
-## 1.0
+## 1.0.1-dev
+
+## 1.0.0
 
 * Graduate package to 1.0.
 * `package:http2/http2.dart` now reexports `package:http2/transport.dart`.

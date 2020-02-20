@@ -10,7 +10,7 @@ import 'src/hpack/hpack.dart' show Header;
 
 export 'src/hpack/hpack.dart' show Header;
 
-typedef void ActiveStateHandler(bool isActive);
+typedef ActiveStateHandler = void Function(bool isActive);
 
 /// Settings for a [TransportConnection].
 abstract class Settings {
@@ -41,7 +41,7 @@ class ClientSettings extends Settings {
   const ClientSettings(
       {int concurrentStreamLimit,
       int streamWindowSize,
-      this.allowServerPushes: false})
+      this.allowServerPushes = false})
       : super(
             concurrentStreamLimit: concurrentStreamLimit,
             streamWindowSize: streamWindowSize);
@@ -72,14 +72,13 @@ abstract class TransportConnection {
 abstract class ClientTransportConnection extends TransportConnection {
   factory ClientTransportConnection.viaSocket(Socket socket,
           {ClientSettings settings}) =>
-      new ClientTransportConnection.viaStreams(socket, socket,
-          settings: settings);
+      ClientTransportConnection.viaStreams(socket, socket, settings: settings);
 
   factory ClientTransportConnection.viaStreams(
       Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
       {ClientSettings settings}) {
     if (settings == null) settings = const ClientSettings();
-    return new ClientConnection(incoming, outgoing, settings);
+    return ClientConnection(incoming, outgoing, settings);
   }
 
   /// Whether this connection is open and can be used to make new requests
@@ -88,22 +87,22 @@ abstract class ClientTransportConnection extends TransportConnection {
 
   /// Creates a new outgoing stream.
   ClientTransportStream makeRequest(List<Header> headers,
-      {bool endStream: false});
+      {bool endStream = false});
 }
 
 abstract class ServerTransportConnection extends TransportConnection {
   factory ServerTransportConnection.viaSocket(Socket socket,
       {ServerSettings settings}) {
-    return new ServerTransportConnection.viaStreams(socket, socket,
+    return ServerTransportConnection.viaStreams(socket, socket,
         settings: settings);
   }
 
   factory ServerTransportConnection.viaStreams(
       Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
-      {ServerSettings settings:
+      {ServerSettings settings =
           const ServerSettings(concurrentStreamLimit: 1000)}) {
     if (settings == null) settings = const ServerSettings();
-    return new ServerConnection(incoming, outgoing, settings);
+    return ServerConnection(incoming, outgoing, settings);
   }
 
   /// Incoming HTTP/2 streams.
@@ -140,14 +139,13 @@ abstract class TransportStream {
   void terminate();
 
   // For convenience only.
-  void sendHeaders(List<Header> headers, {bool endStream: false}) {
-    outgoingMessages
-        .add(new HeadersStreamMessage(headers, endStream: endStream));
+  void sendHeaders(List<Header> headers, {bool endStream = false}) {
+    outgoingMessages.add(HeadersStreamMessage(headers, endStream: endStream));
     if (endStream) outgoingMessages.close();
   }
 
-  void sendData(List<int> bytes, {bool endStream: false}) {
-    outgoingMessages.add(new DataStreamMessage(bytes, endStream: endStream));
+  void sendData(List<int> bytes, {bool endStream = false}) {
+    outgoingMessages.add(DataStreamMessage(bytes, endStream: endStream));
     if (endStream) outgoingMessages.close();
   }
 }

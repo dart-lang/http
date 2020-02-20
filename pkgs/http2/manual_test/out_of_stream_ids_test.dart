@@ -27,14 +27,14 @@ main() {
             ServerTransportConnection server) async {
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
-          stream.sendHeaders([new Header.ascii('x', 'y')], endStream: true);
+          stream.sendHeaders([Header.ascii('x', 'y')], endStream: true);
           expect(await stream.incomingMessages.toList(), hasLength(1));
         }
         await server.finish();
       }
 
       Future clientFun() async {
-        var headers = [new Header.ascii('a', 'b')];
+        var headers = [Header.ascii('a', 'b')];
 
         const kMaxStreamId = StreamHandler.MAX_STREAM_ID;
         for (int i = 1; i <= kMaxStreamId; i += 2) {
@@ -47,7 +47,7 @@ main() {
         expect(() => client.makeRequest(headers),
             throwsA(const TypeMatcher<StateError>()));
 
-        await new Future.delayed(const Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         await client.finish();
       }
 

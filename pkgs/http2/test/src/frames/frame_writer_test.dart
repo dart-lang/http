@@ -14,10 +14,10 @@ main() {
   group('frames', () {
     group('frame-writer', () {
       test('connection-error', () {
-        var settings = new ActiveSettings();
-        var context = new HPackContext();
-        var controller = new StreamController<List<int>>();
-        var writer = new FrameWriter(context.encoder, controller, settings);
+        var settings = ActiveSettings();
+        var context = HPackContext();
+        var controller = StreamController<List<int>>();
+        var writer = FrameWriter(context.encoder, controller, settings);
 
         writer.doneFuture.then(expectAsync1((_) {
           // We expect that the writer is done at this point.

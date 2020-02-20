@@ -29,12 +29,12 @@ class HPackDecodingException implements Exception {
 ///
 /// This is a statefull class, so encoding/decoding changes internal state.
 class HPackContext {
-  final HPackEncoder encoder = new HPackEncoder();
-  final HPackDecoder decoder = new HPackDecoder();
+  final HPackEncoder encoder = HPackEncoder();
+  final HPackDecoder decoder = HPackDecoder();
 
   HPackContext(
-      {int maxSendingHeaderTableSize: 4096,
-      int maxReceivingHeaderTableSize: 4096}) {
+      {int maxSendingHeaderTableSize = 4096,
+      int maxReceivingHeaderTableSize = 4096}) {
     encoder.updateMaxSendingHeaderTableSize(maxSendingHeaderTableSize);
     decoder.updateMaxReceivingHeaderTableSize(maxReceivingHeaderTableSize);
   }
@@ -46,10 +46,10 @@ class Header {
   final List<int> value;
   final bool neverIndexed;
 
-  Header(this.name, this.value, {this.neverIndexed: false});
+  Header(this.name, this.value, {this.neverIndexed = false});
 
   factory Header.ascii(String name, String value) {
-    return new Header(ascii.encode(name), ascii.encode(value));
+    return Header(ascii.encode(name), ascii.encode(value));
   }
 }
 
@@ -57,7 +57,7 @@ class Header {
 class HPackDecoder {
   int _maxHeaderTableSize;
 
-  final IndexTable _table = new IndexTable();
+  final IndexTable _table = IndexTable();
 
   void updateMaxReceivingHeaderTableSize(int newMaximumSize) {
     _maxHeaderTableSize = newMaximumSize;
@@ -104,7 +104,7 @@ class HPackDecoder {
       }
     }
 
-    Header readHeaderFieldInternal(int index, {bool neverIndexed: false}) {
+    Header readHeaderFieldInternal(int index, {bool neverIndexed = false}) {
       List<int> name, value;
       if (index > 0) {
         name = _table.lookup(index).name;
@@ -113,7 +113,7 @@ class HPackDecoder {
         name = readStringLiteral();
         value = readStringLiteral();
       }
-      return new Header(name, value, neverIndexed: neverIndexed);
+      return Header(name, value, neverIndexed: neverIndexed);
     }
 
     try {
@@ -145,20 +145,19 @@ class HPackDecoder {
           if (newMaxSize <= _maxHeaderTableSize) {
             _table.updateMaxSize(newMaxSize);
           } else {
-            throw new HPackDecodingException(
-                'Dynamic table size update failed: '
+            throw HPackDecodingException('Dynamic table size update failed: '
                 'A new value of $newMaxSize exceeds the limit of '
                 '$_maxHeaderTableSize');
           }
         } else {
-          throw new HPackDecodingException('Invalid encoding of headers.');
+          throw HPackDecodingException('Invalid encoding of headers.');
         }
       }
       return headers;
     } on RangeError catch (e) {
-      throw new HPackDecodingException('$e');
+      throw HPackDecodingException('$e');
     } on HuffmanDecodingException catch (e) {
-      throw new HPackDecodingException('$e');
+      throw HPackDecodingException('$e');
     }
   }
 }
@@ -174,7 +173,7 @@ class HPackEncoder {
   }
 
   List<int> encode(List<Header> headers) {
-    var bytesBuilder = new BytesBuilder();
+    var bytesBuilder = BytesBuilder();
     int currentByte = 0;
 
     void writeInteger(int prefixBits, int value) {
@@ -224,67 +223,67 @@ class HPackEncoder {
 class IndexTable {
   static final List<Header> _staticTable = [
     null,
-    new Header(ascii.encode(':authority'), const []),
-    new Header(ascii.encode(':method'), ascii.encode('GET')),
-    new Header(ascii.encode(':method'), ascii.encode('POST')),
-    new Header(ascii.encode(':path'), ascii.encode('/')),
-    new Header(ascii.encode(':path'), ascii.encode('/index.html')),
-    new Header(ascii.encode(':scheme'), ascii.encode('http')),
-    new Header(ascii.encode(':scheme'), ascii.encode('https')),
-    new Header(ascii.encode(':status'), ascii.encode('200')),
-    new Header(ascii.encode(':status'), ascii.encode('204')),
-    new Header(ascii.encode(':status'), ascii.encode('206')),
-    new Header(ascii.encode(':status'), ascii.encode('304')),
-    new Header(ascii.encode(':status'), ascii.encode('400')),
-    new Header(ascii.encode(':status'), ascii.encode('404')),
-    new Header(ascii.encode(':status'), ascii.encode('500')),
-    new Header(ascii.encode('accept-charset'), const []),
-    new Header(ascii.encode('accept-encoding'), ascii.encode('gzip, deflate')),
-    new Header(ascii.encode('accept-language'), const []),
-    new Header(ascii.encode('accept-ranges'), const []),
-    new Header(ascii.encode('accept'), const []),
-    new Header(ascii.encode('access-control-allow-origin'), const []),
-    new Header(ascii.encode('age'), const []),
-    new Header(ascii.encode('allow'), const []),
-    new Header(ascii.encode('authorization'), const []),
-    new Header(ascii.encode('cache-control'), const []),
-    new Header(ascii.encode('content-disposition'), const []),
-    new Header(ascii.encode('content-encoding'), const []),
-    new Header(ascii.encode('content-language'), const []),
-    new Header(ascii.encode('content-length'), const []),
-    new Header(ascii.encode('content-location'), const []),
-    new Header(ascii.encode('content-range'), const []),
-    new Header(ascii.encode('content-type'), const []),
-    new Header(ascii.encode('cookie'), const []),
-    new Header(ascii.encode('date'), const []),
-    new Header(ascii.encode('etag'), const []),
-    new Header(ascii.encode('expect'), const []),
-    new Header(ascii.encode('expires'), const []),
-    new Header(ascii.encode('from'), const []),
-    new Header(ascii.encode('host'), const []),
-    new Header(ascii.encode('if-match'), const []),
-    new Header(ascii.encode('if-modified-since'), const []),
-    new Header(ascii.encode('if-none-match'), const []),
-    new Header(ascii.encode('if-range'), const []),
-    new Header(ascii.encode('if-unmodified-since'), const []),
-    new Header(ascii.encode('last-modified'), const []),
-    new Header(ascii.encode('link'), const []),
-    new Header(ascii.encode('location'), const []),
-    new Header(ascii.encode('max-forwards'), const []),
-    new Header(ascii.encode('proxy-authenticate'), const []),
-    new Header(ascii.encode('proxy-authorization'), const []),
-    new Header(ascii.encode('range'), const []),
-    new Header(ascii.encode('referer'), const []),
-    new Header(ascii.encode('refresh'), const []),
-    new Header(ascii.encode('retry-after'), const []),
-    new Header(ascii.encode('server'), const []),
-    new Header(ascii.encode('set-cookie'), const []),
-    new Header(ascii.encode('strict-transport-security'), const []),
-    new Header(ascii.encode('transfer-encoding'), const []),
-    new Header(ascii.encode('user-agent'), const []),
-    new Header(ascii.encode('vary'), const []),
-    new Header(ascii.encode('via'), const []),
-    new Header(ascii.encode('www-authenticate'), const []),
+    Header(ascii.encode(':authority'), const []),
+    Header(ascii.encode(':method'), ascii.encode('GET')),
+    Header(ascii.encode(':method'), ascii.encode('POST')),
+    Header(ascii.encode(':path'), ascii.encode('/')),
+    Header(ascii.encode(':path'), ascii.encode('/index.html')),
+    Header(ascii.encode(':scheme'), ascii.encode('http')),
+    Header(ascii.encode(':scheme'), ascii.encode('https')),
+    Header(ascii.encode(':status'), ascii.encode('200')),
+    Header(ascii.encode(':status'), ascii.encode('204')),
+    Header(ascii.encode(':status'), ascii.encode('206')),
+    Header(ascii.encode(':status'), ascii.encode('304')),
+    Header(ascii.encode(':status'), ascii.encode('400')),
+    Header(ascii.encode(':status'), ascii.encode('404')),
+    Header(ascii.encode(':status'), ascii.encode('500')),
+    Header(ascii.encode('accept-charset'), const []),
+    Header(ascii.encode('accept-encoding'), ascii.encode('gzip, deflate')),
+    Header(ascii.encode('accept-language'), const []),
+    Header(ascii.encode('accept-ranges'), const []),
+    Header(ascii.encode('accept'), const []),
+    Header(ascii.encode('access-control-allow-origin'), const []),
+    Header(ascii.encode('age'), const []),
+    Header(ascii.encode('allow'), const []),
+    Header(ascii.encode('authorization'), const []),
+    Header(ascii.encode('cache-control'), const []),
+    Header(ascii.encode('content-disposition'), const []),
+    Header(ascii.encode('content-encoding'), const []),
+    Header(ascii.encode('content-language'), const []),
+    Header(ascii.encode('content-length'), const []),
+    Header(ascii.encode('content-location'), const []),
+    Header(ascii.encode('content-range'), const []),
+    Header(ascii.encode('content-type'), const []),
+    Header(ascii.encode('cookie'), const []),
+    Header(ascii.encode('date'), const []),
+    Header(ascii.encode('etag'), const []),
+    Header(ascii.encode('expect'), const []),
+    Header(ascii.encode('expires'), const []),
+    Header(ascii.encode('from'), const []),
+    Header(ascii.encode('host'), const []),
+    Header(ascii.encode('if-match'), const []),
+    Header(ascii.encode('if-modified-since'), const []),
+    Header(ascii.encode('if-none-match'), const []),
+    Header(ascii.encode('if-range'), const []),
+    Header(ascii.encode('if-unmodified-since'), const []),
+    Header(ascii.encode('last-modified'), const []),
+    Header(ascii.encode('link'), const []),
+    Header(ascii.encode('location'), const []),
+    Header(ascii.encode('max-forwards'), const []),
+    Header(ascii.encode('proxy-authenticate'), const []),
+    Header(ascii.encode('proxy-authorization'), const []),
+    Header(ascii.encode('range'), const []),
+    Header(ascii.encode('referer'), const []),
+    Header(ascii.encode('refresh'), const []),
+    Header(ascii.encode('retry-after'), const []),
+    Header(ascii.encode('server'), const []),
+    Header(ascii.encode('set-cookie'), const []),
+    Header(ascii.encode('strict-transport-security'), const []),
+    Header(ascii.encode('transfer-encoding'), const []),
+    Header(ascii.encode('user-agent'), const []),
+    Header(ascii.encode('vary'), const []),
+    Header(ascii.encode('via'), const []),
+    Header(ascii.encode('www-authenticate'), const []),
   ];
 
   final List<Header> _dynamicTable = [];
@@ -307,7 +306,7 @@ class IndexTable {
   /// Lookup an item by index.
   Header lookup(int index) {
     if (index <= 0) {
-      throw new HPackDecodingException(
+      throw HPackDecodingException(
           'Invalid index (was: $index) for table lookup.');
     }
     if (index < _staticTable.length) {
@@ -317,7 +316,7 @@ class IndexTable {
     if (index < _dynamicTable.length) {
       return _dynamicTable[index];
     }
-    throw new HPackDecodingException(
+    throw HPackDecodingException(
         'Invalid index (was: $index) for table lookup.');
   }
 

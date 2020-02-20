@@ -40,17 +40,17 @@ class ClientConnection {
   /// If [settings] are omitted, the default [ClientSettings] will be used.
   ClientConnection(Socket socket, {ClientSettings settings})
       : connection =
-            new ClientTransportConnection.viaSocket(socket, settings: settings);
+            ClientTransportConnection.viaSocket(socket, settings: settings);
 
   Future<Response> makeRequest(Request request) {
     var path = request.uri.path;
     if (path.isEmpty) path = '/';
 
     var headers = [
-      new Header.ascii(':method', request.method),
-      new Header.ascii(':path', path),
-      new Header.ascii(':scheme', request.uri.scheme),
-      new Header.ascii(':authority', '${request.uri.host}'),
+      Header.ascii(':method', request.method),
+      Header.ascii(':path', path),
+      Header.ascii(':scheme', request.uri.scheme),
+      Header.ascii(':authority', '${request.uri.host}'),
     ];
 
     return _handleStream(connection.makeRequest(headers, endStream: true));
@@ -61,15 +61,15 @@ class ClientConnection {
   }
 
   Future<Response> _handleStream(ClientTransportStream stream) {
-    var completer = new Completer<Response>();
+    var completer = Completer<Response>();
     bool isFirst = true;
-    var controller = new StreamController<List<int>>();
-    var serverPushController = new StreamController<ServerPush>(sync: true);
+    var controller = StreamController<List<int>>();
+    var serverPushController = StreamController<ServerPush>(sync: true);
     stream.incomingMessages.listen((StreamMessage msg) {
       if (isFirst) {
         isFirst = false;
         var headerMap = _convertHeaders((msg as HeadersStreamMessage).headers);
-        completer.complete(new Response(
+        completer.complete(Response(
             headerMap, controller.stream, serverPushController.stream));
       } else {
         controller.add((msg as DataStreamMessage).bytes);
@@ -81,23 +81,23 @@ class ClientConnection {
 
   Stream<ServerPush> _handlePeerPushes(
       Stream<TransportStreamPush> serverPushes) {
-    var pushesController = new StreamController<ServerPush>();
+    var pushesController = StreamController<ServerPush>();
     serverPushes.listen((TransportStreamPush push) {
-      var responseCompleter = new Completer<Response>();
-      var serverPush = new ServerPush(
+      var responseCompleter = Completer<Response>();
+      var serverPush = ServerPush(
           _convertHeaders(push.requestHeaders), responseCompleter.future);
 
       pushesController.add(serverPush);
 
       bool isFirst = true;
-      var dataController = new StreamController<List<int>>();
+      var dataController = StreamController<List<int>>();
       push.stream.incomingMessages.listen((StreamMessage msg) {
         if (isFirst) {
           isFirst = false;
           var headerMap =
               _convertHeaders((msg as HeadersStreamMessage).headers);
-          var response = new Response(
-              headerMap, dataController.stream, new Stream.fromIterable([]));
+          var response = Response(
+              headerMap, dataController.stream, Stream.fromIterable([]));
           responseCompleter.complete(response);
         } else {
           dataController.add((msg as DataStreamMessage).bytes);
@@ -125,8 +125,8 @@ class ClientConnection {
 /// client. The maximum number of concurrent server pushes can be configured via
 /// [maxConcurrentPushes] (default is `null` meaning no limit).
 Future<ClientConnection> connect(Uri uri,
-    {bool allowServerPushes: false, int maxConcurrentPushes}) async {
-  const List<String> Http2AlpnProtocols = const <String>[
+    {bool allowServerPushes = false, int maxConcurrentPushes}) async {
+  const List<String> Http2AlpnProtocols = <String>[
     'h2-14',
     'h2-15',
     'h2-16',
@@ -135,18 +135,18 @@ Future<ClientConnection> connect(Uri uri,
   ];
 
   bool useSSL = uri.scheme == 'https';
-  var settings = new ClientSettings(
+  var settings = ClientSettings(
       concurrentStreamLimit: maxConcurrentPushes,
       allowServerPushes: allowServerPushes);
   if (useSSL) {
     SecureSocket socket = await SecureSocket.connect(uri.host, uri.port,
         supportedProtocols: Http2AlpnProtocols);
     if (!Http2AlpnProtocols.contains(socket.selectedProtocol)) {
-      throw new Exception('Server does not support HTTP/2.');
+      throw Exception('Server does not support HTTP/2.');
     }
-    return new ClientConnection(socket, settings: settings);
+    return ClientConnection(socket, settings: settings);
   } else {
     Socket socket = await Socket.connect(uri.host, uri.port);
-    return new ClientConnection(socket, settings: settings);
+    return ClientConnection(socket, settings: settings);
   }
 }

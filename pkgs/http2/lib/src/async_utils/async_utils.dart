@@ -10,8 +10,7 @@ import 'dart:io';
 /// An interface for `StreamSink`-like classes to indicate whether adding data
 /// would be buffered and when the buffer is empty again.
 class BufferIndicator {
-  final StreamController _controller =
-      new StreamController.broadcast(sync: true);
+  final StreamController _controller = StreamController.broadcast(sync: true);
 
   /// A state variable indicating whether buffereing would occur at the moment.
   bool _wouldBuffer = true;
@@ -50,7 +49,7 @@ class BufferIndicator {
 /// whether the underlying stream cannot handle more data and would buffer.
 class BufferedSink {
   /// The indicator whether the underlying sink is buffering at the moment.
-  final BufferIndicator bufferIndicator = new BufferIndicator();
+  final BufferIndicator bufferIndicator = BufferIndicator();
 
   /// A intermediate [StreamController] used to catch pause signals and to
   /// propagate the change via [bufferIndicator].
@@ -62,7 +61,7 @@ class BufferedSink {
   BufferedSink(StreamSink<List<int>> dataSink) {
     bufferIndicator.markBuffered();
 
-    _controller = new StreamController<List<int>>(
+    _controller = StreamController<List<int>>(
         onListen: () {
           bufferIndicator.markUnBuffered();
         },
@@ -92,13 +91,13 @@ class BufferedSink {
 /// A small wrapper around [BufferedSink] which writes data in batches.
 class BufferedBytesWriter {
   /// A buffer which will be used for batching writes.
-  final BytesBuilder _builder = new BytesBuilder(copy: false);
+  final BytesBuilder _builder = BytesBuilder(copy: false);
 
   /// The underlying [BufferedSink].
   final BufferedSink _bufferedSink;
 
   BufferedBytesWriter(StreamSink<List<int>> outgoing)
-      : _bufferedSink = new BufferedSink(outgoing);
+      : _bufferedSink = BufferedSink(outgoing);
 
   /// An indicator whether the underlying sink is buffering at the moment.
   BufferIndicator get bufferIndicator => _bufferedSink.bufferIndicator;
@@ -109,7 +108,7 @@ class BufferedBytesWriter {
   /// has not been flushed with [flushBufferedData] an error will be thrown.
   void add(List<int> data) {
     if (_builder.length > 0) {
-      throw new StateError(
+      throw StateError(
           'Cannot trigger an asynchronous write while there is buffered data.');
     }
     _bufferedSink.sink.add(data);

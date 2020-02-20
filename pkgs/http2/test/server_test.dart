@@ -125,7 +125,7 @@ main() {
           clientWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
 
-          clientWriter.writeHeadersFrame(3, [new Header.ascii('a', 'b')],
+          clientWriter.writeHeadersFrame(3, [Header.ascii('a', 'b')],
               endStream: true);
 
           // Write data frame to non-existent stream (stream 3 was closed
@@ -155,7 +155,7 @@ main() {
           StreamIterator<Frame> clientReader,
           Future<Frame> nextFrame()) async {
         Future serverFun() async {
-          var it = new StreamIterator(server.incomingStreams);
+          var it = StreamIterator(server.incomingStreams);
           expect(await it.moveNext(), true);
 
           TransportStream stream = it.current;
@@ -172,7 +172,7 @@ main() {
           clientWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
 
-          clientWriter.writeHeadersFrame(1, [new Header.ascii('a', 'b')],
+          clientWriter.writeHeadersFrame(1, [Header.ascii('a', 'b')],
               endStream: false);
 
           // Make sure the client gets a [RstStreamFrame] frame.
@@ -199,7 +199,7 @@ void serverTest(
     func(ServerTransportConnection serverConnection, FrameWriter frameWriter,
         StreamIterator<Frame> frameReader, Future<Frame> readNext())) {
   return test(name, () {
-    var streams = new ClientErrorStreams();
+    var streams = ClientErrorStreams();
     var clientReader = streams.clientConnectionFrameReader;
 
     Future<Frame> readNext() async {
@@ -213,24 +213,23 @@ void serverTest(
 }
 
 class ClientErrorStreams {
-  final StreamController<List<int>> writeA = new StreamController();
-  final StreamController<List<int>> writeB = new StreamController();
+  final StreamController<List<int>> writeA = StreamController();
+  final StreamController<List<int>> writeB = StreamController();
   Stream<List<int>> get readA => writeA.stream;
   Stream<List<int>> get readB => writeB.stream;
 
   StreamIterator<Frame> get clientConnectionFrameReader {
-    ActiveSettings localSettings = new ActiveSettings();
-    return new StreamIterator(
-        new FrameReader(readA, localSettings).startDecoding());
+    ActiveSettings localSettings = ActiveSettings();
+    return StreamIterator(FrameReader(readA, localSettings).startDecoding());
   }
 
   FrameWriter get clientConnectionFrameWriter {
-    var encoder = new HPackEncoder();
-    ActiveSettings peerSettings = new ActiveSettings();
+    var encoder = HPackEncoder();
+    ActiveSettings peerSettings = ActiveSettings();
     writeB.add(CONNECTION_PREFACE);
-    return new FrameWriter(encoder, writeB, peerSettings);
+    return FrameWriter(encoder, writeB, peerSettings);
   }
 
   ServerTransportConnection get serverConnection =>
-      new ServerTransportConnection.viaStreams(readB, writeA);
+      ServerTransportConnection.viaStreams(readB, writeA);
 }

@@ -7,8 +7,7 @@ library http2.test.error_matchers;
 import 'package:test/test.dart';
 import 'package:http2/src/sync_errors.dart';
 
-const Matcher isProtocolException = const TypeMatcher<ProtocolException>();
-const Matcher isFrameSizeException = const TypeMatcher<FrameSizeException>();
-const Matcher isTerminatedException = const TypeMatcher<TerminatedException>();
-const Matcher isFlowControlException =
-    const TypeMatcher<FlowControlException>();
+const Matcher isProtocolException = TypeMatcher<ProtocolException>();
+const Matcher isFrameSizeException = TypeMatcher<FrameSizeException>();
+const Matcher isTerminatedException = TypeMatcher<TerminatedException>();
+const Matcher isFlowControlException = TypeMatcher<FlowControlException>();

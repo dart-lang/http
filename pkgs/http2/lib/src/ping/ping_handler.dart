@@ -32,7 +32,7 @@ class PingHandler extends Object with TerminatableMixin {
   void processPingFrame(PingFrame frame) {
     ensureNotTerminatedSync(() {
       if (frame.header.streamId != 0) {
-        throw new ProtocolException('Ping frames must have a stream id of 0.');
+        throw ProtocolException('Ping frames must have a stream id of 0.');
       }
 
       if (!frame.hasAckFlag) {
@@ -44,7 +44,7 @@ class PingHandler extends Object with TerminatableMixin {
         } else {
           // NOTE: It is not specified what happens when one gets an ACK for a
           // ping we never sent. We be very strict and fail in this case.
-          throw new ProtocolException(
+          throw ProtocolException(
               'Received ping ack with unknown opaque data.');
         }
       }
@@ -53,7 +53,7 @@ class PingHandler extends Object with TerminatableMixin {
 
   Future ping() {
     return ensureNotTerminatedAsync(() {
-      Completer c = new Completer();
+      Completer c = Completer();
       var id = _nextId++;
       _remainingPings[id] = c;
       _frameWriter.writePingFrame(id);

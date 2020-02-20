@@ -17,9 +17,9 @@ main() {
     group('server-push', () {
       const int numOfOneKB = 1000;
 
-      var expectedHeaders = [new Header.ascii('key', 'value')];
-      var allBytes = new List.generate(numOfOneKB * 1024, (i) => i % 256);
-      allBytes.addAll(new List.generate(42, (i) => 42));
+      var expectedHeaders = [Header.ascii('key', 'value')];
+      var allBytes = List.generate(numOfOneKB * 1024, (i) => i % 256);
+      allBytes.addAll(List.generate(42, (i) => 42));
 
       testHeaders(List<Header> headers) {
         expect(headers.length, expectedHeaders.length);
@@ -36,7 +36,7 @@ main() {
         });
       }
 
-      Completer serverReceivedAllBytes = new Completer();
+      Completer serverReceivedAllBytes = Completer();
 
       Future<String> readData(StreamIterator<StreamMessage> iterator) async {
         var all = <int>[];
@@ -52,7 +52,7 @@ main() {
 
       Future sendData(TransportStream stream, String data) {
         stream.outgoingMessages
-          ..add(new DataStreamMessage(utf8.encode(data)))
+          ..add(DataStreamMessage(utf8.encode(data)))
           ..close();
         return stream.outgoingMessages.done;
       }
@@ -79,7 +79,7 @@ main() {
             .listen(expectAsync1((TransportStreamPush push) async {
           testHeaders(push.requestHeaders);
 
-          var iterator = new StreamIterator(push.stream.incomingMessages);
+          var iterator = StreamIterator(push.stream.incomingMessages);
           bool hasNext = await iterator.moveNext();
           expect(hasNext, isTrue);
           testHeaders((iterator.current as HeadersStreamMessage).headers);
@@ -87,7 +87,7 @@ main() {
           String msg = await readData(iterator);
           expect(msg, 'pushing "hello world" :)');
         }));
-      }, settings: new ClientSettings(allowServerPushes: true));
+      }, settings: ClientSettings(allowServerPushes: true));
     });
   });
 }

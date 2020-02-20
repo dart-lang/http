@@ -15,8 +15,8 @@ import '../error_matchers.dart';
 main() {
   group('ping-handler', () {
     test('successful-ping', () async {
-      dynamic writer = new FrameWriterMock();
-      var pingHandler = new PingHandler(writer);
+      dynamic writer = FrameWriterMock();
+      var pingHandler = PingHandler(writer);
 
       Future p1 = pingHandler.ping();
       Future p2 = pingHandler.ping();
@@ -26,10 +26,10 @@ main() {
         writer.writePingFrame(2),
       ]);
 
-      var header = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
-      pingHandler.processPingFrame(new PingFrame(header, 1));
-      var header2 = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
-      pingHandler.processPingFrame(new PingFrame(header2, 2));
+      var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
+      pingHandler.processPingFrame(PingFrame(header, 1));
+      var header2 = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
+      pingHandler.processPingFrame(PingFrame(header2, 2));
 
       await p1;
       await p2;
@@ -37,13 +37,13 @@ main() {
     });
 
     test('successful-ack-to-remote-ping', () async {
-      dynamic writer = new FrameWriterMock();
-      var pingHandler = new PingHandler(writer);
+      dynamic writer = FrameWriterMock();
+      var pingHandler = PingHandler(writer);
 
-      var header = new FrameHeader(8, FrameType.PING, 0, 0);
-      pingHandler.processPingFrame(new PingFrame(header, 1));
-      var header2 = new FrameHeader(8, FrameType.PING, 0, 0);
-      pingHandler.processPingFrame(new PingFrame(header2, 2));
+      var header = FrameHeader(8, FrameType.PING, 0, 0);
+      pingHandler.processPingFrame(PingFrame(header, 1));
+      var header2 = FrameHeader(8, FrameType.PING, 0, 0);
+      pingHandler.processPingFrame(PingFrame(header2, 2));
 
       verifyInOrder([
         writer.writePingFrame(1, ack: true),
@@ -53,14 +53,14 @@ main() {
     });
 
     test('ping-unknown-opaque-data', () async {
-      dynamic writer = new FrameWriterMock();
-      var pingHandler = new PingHandler(writer);
+      dynamic writer = FrameWriterMock();
+      var pingHandler = PingHandler(writer);
 
       Future future = pingHandler.ping();
       verify(writer.writePingFrame(1)).called(1);
 
-      var header = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
-      expect(() => pingHandler.processPingFrame(new PingFrame(header, 2)),
+      var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 0);
+      expect(() => pingHandler.processPingFrame(PingFrame(header, 2)),
           throwsA(isProtocolException));
 
       // Ensure outstanding pings will be completed with an error once we call
@@ -73,8 +73,8 @@ main() {
     });
 
     test('terminate-ping-handler', () async {
-      var writer = new FrameWriterMock();
-      var pingHandler = new PingHandler(writer);
+      var writer = FrameWriterMock();
+      var pingHandler = PingHandler(writer);
 
       pingHandler.terminate('hello world');
       expect(() => pingHandler.processPingFrame(null),
@@ -84,11 +84,11 @@ main() {
     });
 
     test('ping-non-zero-stream-id', () async {
-      var writer = new FrameWriterMock();
-      var pingHandler = new PingHandler(writer);
+      var writer = FrameWriterMock();
+      var pingHandler = PingHandler(writer);
 
-      var header = new FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1);
-      expect(() => pingHandler.processPingFrame(new PingFrame(header, 1)),
+      var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1);
+      expect(() => pingHandler.processPingFrame(PingFrame(header, 1)),
           throwsA(isProtocolException));
       verifyZeroInteractions(writer);
     });

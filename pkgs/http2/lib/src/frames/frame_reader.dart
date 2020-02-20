@@ -19,7 +19,7 @@ class FrameReader {
 
   /// Starts to listen on the input stream and decodes HTTP/2 transport frames.
   Stream<Frame> startDecoding() {
-    List<List<int>> bufferedData = new List<List<int>>();
+    List<List<int>> bufferedData = List<List<int>>();
     int bufferedLength = 0;
 
     FrameHeader tryReadHeader() {
@@ -57,7 +57,7 @@ class FrameReader {
       return null;
     }
 
-    _framesController = new StreamController(
+    _framesController = StreamController(
         onListen: () {
           FrameHeader header;
 
@@ -80,7 +80,7 @@ class FrameReader {
                 if (header != null) {
                   if (header.length > _localSettings.maxFrameSize) {
                     terminateWithError(
-                        new FrameSizeException('Incoming frame is too big.'));
+                        FrameSizeException('Incoming frame is too big.'));
                     return;
                   }
 
@@ -105,7 +105,7 @@ class FrameReader {
             if (bufferedLength == 0) {
               _framesController.close();
             } else {
-              terminateWithError(new FrameSizeException(
+              terminateWithError(FrameSizeException(
                   'Incoming byte stream ended with incomplete frame'));
             }
           });
@@ -130,7 +130,7 @@ class FrameReader {
         accumulatedLength += bufferedData[numLists++].length;
       }
       assert(accumulatedLength >= numberOfBytes);
-      var newList = new Uint8List(accumulatedLength);
+      var newList = Uint8List(accumulatedLength);
       int offset = 0;
       for (int i = 0; i < numLists; i++) {
         List<int> data = bufferedData[i];
@@ -149,7 +149,7 @@ class FrameReader {
     int flags = bytes[offset + 4];
     int streamId = readInt32(bytes, offset + 5) & 0x7fffffff;
 
-    return new FrameHeader(length, type, flags, streamId);
+    return FrameHeader(length, type, flags, streamId);
   }
 
   /// Reads a [Frame] from [bytes], starting at [frameOffset].
@@ -167,7 +167,7 @@ class FrameReader {
         int dataLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(dataLen >= 0);
         var dataBytes = viewOrSublist(bytes, offset, dataLen);
-        return new DataFrame(header, padLength, dataBytes);
+        return DataFrame(header, padLength, dataBytes);
 
       case FrameType.HEADERS:
         int padLength = 0;
@@ -188,7 +188,7 @@ class FrameReader {
         int headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
         var headerBlockFragment = viewOrSublist(bytes, offset, headerBlockLen);
-        return new HeadersFrame(header, padLength, exclusiveDependency,
+        return HeadersFrame(header, padLength, exclusiveDependency,
             streamDependency, weight, headerBlockFragment);
 
       case FrameType.PRIORITY:
@@ -198,7 +198,7 @@ class FrameReader {
         bool exclusiveDependency = (bytes[offset] & 0x80) == 0x80;
         int streamDependency = readInt32(bytes, offset) & 0x7fffffff;
         int weight = bytes[offset + 4];
-        return new PriorityFrame(
+        return PriorityFrame(
             header, exclusiveDependency, streamDependency, weight);
 
       case FrameType.RST_STREAM:
@@ -206,20 +206,20 @@ class FrameReader {
             (frameEnd - offset) == RstStreamFrame.FIXED_FRAME_LENGTH,
             message: 'Rst frames must have a length of 4.');
         int errorCode = readInt32(bytes, offset);
-        return new RstStreamFrame(header, errorCode);
+        return RstStreamFrame(header, errorCode);
 
       case FrameType.SETTINGS:
         _checkFrameLengthCondition((header.length % 6) == 0,
             message: 'Settings frame length must be a multiple of 6 bytes.');
 
         int count = header.length ~/ 6;
-        var settings = new List<Setting>(count);
+        var settings = List<Setting>(count);
         for (int i = 0; i < count; i++) {
           int identifier = readInt16(bytes, offset + 6 * i);
           int value = readInt32(bytes, offset + 6 * i + 2);
-          settings[i] = new Setting(identifier, value);
+          settings[i] = Setting(identifier, value);
         }
-        var frame = new SettingsFrame(header, settings);
+        var frame = SettingsFrame(header, settings);
         if (frame.hasAckFlag) {
           _checkFrameLengthCondition(header.length == 0,
               message: 'Settings frame length must 0 for ACKs.');
@@ -237,7 +237,7 @@ class FrameReader {
         int headerBlockLen = frameEnd - offset - padLength;
         _checkFrameLengthCondition(headerBlockLen >= 0);
         var headerBlockFragment = viewOrSublist(bytes, offset, headerBlockLen);
-        return new PushPromiseFrame(
+        return PushPromiseFrame(
             header, padLength, promisedStreamId, headerBlockFragment);
 
       case FrameType.PING:
@@ -245,30 +245,30 @@ class FrameReader {
             (frameEnd - offset) == PingFrame.FIXED_FRAME_LENGTH,
             message: 'Ping frames must have a length of 8.');
         var opaqueData = readInt64(bytes, offset);
-        return new PingFrame(header, opaqueData);
+        return PingFrame(header, opaqueData);
 
       case FrameType.GOAWAY:
         _checkFrameLengthCondition((frameEnd - offset) >= 8);
         int lastStreamId = readInt32(bytes, offset);
         int errorCode = readInt32(bytes, offset + 4);
         var debugData = viewOrSublist(bytes, offset + 8, header.length - 8);
-        return new GoawayFrame(header, lastStreamId, errorCode, debugData);
+        return GoawayFrame(header, lastStreamId, errorCode, debugData);
 
       case FrameType.WINDOW_UPDATE:
         _checkFrameLengthCondition(
             (frameEnd - offset) == WindowUpdateFrame.FIXED_FRAME_LENGTH,
             message: 'Window update frames must have a length of 4.');
         int windowSizeIncrement = readInt32(bytes, offset) & 0x7fffffff;
-        return new WindowUpdateFrame(header, windowSizeIncrement);
+        return WindowUpdateFrame(header, windowSizeIncrement);
 
       case FrameType.CONTINUATION:
         var headerBlockFragment =
             viewOrSublist(bytes, offset, frameEnd - offset);
-        return new ContinuationFrame(header, headerBlockFragment);
+        return ContinuationFrame(header, headerBlockFragment);
 
       default:
         // Unknown frames should be ignored according to spec.
-        return new UnknownFrame(
+        return UnknownFrame(
             header, viewOrSublist(bytes, offset, frameEnd - offset));
     }
   }
@@ -276,9 +276,9 @@ class FrameReader {
   /// Checks that [condition] is `true` and raises an [FrameSizeException]
   /// otherwise.
   void _checkFrameLengthCondition(bool condition,
-      {String message: 'Frame not long enough.'}) {
+      {String message = 'Frame not long enough.'}) {
     if (!condition) {
-      throw new FrameSizeException(message);
+      throw FrameSizeException(message);
     }
   }
 }

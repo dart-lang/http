@@ -17,19 +17,19 @@ import 'package:http2/src/flowcontrol/queue_messages.dart';
 main() {
   group('flowcontrol', () {
     test('connection-message-queue-out', () {
-      dynamic fw = new MockFrameWriter();
-      dynamic windowMock = new MockOutgoingWindowHandler();
-      var queue = new ConnectionMessageQueueOut(windowMock, fw);
+      dynamic fw = MockFrameWriter();
+      dynamic windowMock = MockOutgoingWindowHandler();
+      var queue = ConnectionMessageQueueOut(windowMock, fw);
 
       fw.bufferIndicator.markUnBuffered();
 
       expect(queue.pendingMessages, 0);
 
-      var headers = [new Header.ascii('a', 'b')];
+      var headers = [Header.ascii('a', 'b')];
       var bytes = [1, 2, 3];
 
       // Send [HeadersMessage].
-      queue.enqueueMessage(new HeadersMessage(99, headers, false));
+      queue.enqueueMessage(HeadersMessage(99, headers, false));
       expect(queue.pendingMessages, 0);
       verify(fw.writeHeadersFrame(99, headers, endStream: false)).called(1);
       verifyNoMoreInteractions(fw);
@@ -40,7 +40,7 @@ main() {
       // Send [DataMessage].
       windowMock.peerWindowSize = bytes.length;
       windowMock.positiveWindow.markUnBuffered();
-      queue.enqueueMessage(new DataMessage(99, bytes, false));
+      queue.enqueueMessage(DataMessage(99, bytes, false));
       expect(queue.pendingMessages, 0);
       verify(windowMock.decreaseWindow(bytes.length)).called(1);
       verify(fw.writeDataFrame(99, bytes, endStream: false)).called(1);
@@ -59,7 +59,7 @@ main() {
       when(windowMock.decreaseWindow(1)).thenAnswer((_) {
         windowMock.positiveWindow.markBuffered();
       });
-      queue.enqueueMessage(new DataMessage(99, bytes, true));
+      queue.enqueueMessage(DataMessage(99, bytes, true));
       expect(queue.pendingMessages, 1);
       verify(windowMock.decreaseWindow(1)).called(1);
       verify(fw.writeDataFrame(99, bytes.sublist(0, 1), endStream: false))
@@ -83,7 +83,7 @@ main() {
       queue.startClosing();
       queue.done.then(expectAsync1((_) {
         expect(queue.pendingMessages, 0);
-        expect(() => queue.enqueueMessage(new DataMessage(99, bytes, true)),
+        expect(() => queue.enqueueMessage(DataMessage(99, bytes, true)),
             throwsA(const TypeMatcher<StateError>()));
       }));
     });
@@ -92,17 +92,17 @@ main() {
       const STREAM_ID = 99;
       final bytes = [1, 2, 3];
 
-      dynamic windowMock = new MockIncomingWindowHandler();
+      dynamic windowMock = MockIncomingWindowHandler();
 
-      var queue = new ConnectionMessageQueueIn(windowMock, (f) => f());
+      var queue = ConnectionMessageQueueIn(windowMock, (f) => f());
       expect(queue.pendingMessages, 0);
 
-      dynamic streamQueueMock = new MockStreamMessageQueueIn();
+      dynamic streamQueueMock = MockStreamMessageQueueIn();
       queue.insertNewStreamMessageQueue(STREAM_ID, streamQueueMock);
 
       // Insert a [DataFrame] and let it be buffered.
-      var header = new FrameHeader(0, 0, 0, STREAM_ID);
-      queue.processDataFrame(new DataFrame(header, 0, bytes));
+      var header = FrameHeader(0, 0, 0, STREAM_ID);
+      queue.processDataFrame(DataFrame(header, 0, bytes));
       expect(queue.pendingMessages, 1);
       verify(windowMock.gotData(bytes.length)).called(1);
       verifyNoMoreInteractions(windowMock);
@@ -130,12 +130,12 @@ main() {
       const STREAM_ID = 99;
       final bytes = [1, 2, 3];
 
-      dynamic windowMock = new MockIncomingWindowHandler();
-      var queue = new ConnectionMessageQueueIn(windowMock, (f) => f());
+      dynamic windowMock = MockIncomingWindowHandler();
+      var queue = ConnectionMessageQueueIn(windowMock, (f) => f());
 
       // Insert a [DataFrame] and let it be buffered.
-      var header = new FrameHeader(0, 0, 0, STREAM_ID);
-      queue.processIgnoredDataFrame(new DataFrame(header, 0, bytes));
+      var header = FrameHeader(0, 0, 0, STREAM_ID);
+      queue.processIgnoredDataFrame(DataFrame(header, 0, bytes));
       expect(queue.pendingMessages, 0);
       verify(windowMock.gotData(bytes.length)).called(1);
       verifyNoMoreInteractions(windowMock);
@@ -145,12 +145,12 @@ main() {
 
 class MockFrameWriter extends Mock implements FrameWriter {
   @override
-  BufferIndicator bufferIndicator = new BufferIndicator();
+  BufferIndicator bufferIndicator = BufferIndicator();
 }
 
 class MockStreamMessageQueueIn extends Mock implements StreamMessageQueueIn {
   @override
-  BufferIndicator bufferIndicator = new BufferIndicator();
+  BufferIndicator bufferIndicator = BufferIndicator();
 }
 
 class MockIncomingWindowHandler extends Mock implements IncomingWindowHandler {}
@@ -158,7 +158,7 @@ class MockIncomingWindowHandler extends Mock implements IncomingWindowHandler {}
 class MockOutgoingWindowHandler extends Mock
     implements OutgoingConnectionWindowHandler, OutgoingStreamWindowHandler {
   @override
-  BufferIndicator positiveWindow = new BufferIndicator();
+  BufferIndicator positiveWindow = BufferIndicator();
   @override
-  int peerWindowSize = new Window().size;
+  int peerWindowSize = Window().size;
 }

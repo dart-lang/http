@@ -19,7 +19,7 @@ const int PORT = 7777;
 main() async {
   String localFile(String path) => Platform.script.resolve(path).toFilePath();
 
-  var context = new SecurityContext()
+  var context = SecurityContext()
     ..usePrivateKey(localFile('server_key.pem'), password: 'dartdart')
     ..useCertificateChain(localFile('server_chain.pem'))
     ..setAlpnProtocols(['h2'], true);
@@ -42,7 +42,7 @@ handleClient(SecureSocket socket) {
   if (DEBUGGING) {
     connection = debugPrintingConnection(socket);
   } else {
-    connection = new ServerTransportConnection.viaSocket(socket);
+    connection = ServerTransportConnection.viaSocket(socket);
   }
 
   connection.incomingStreams.listen((ServerTransportStream stream) async {
@@ -55,7 +55,7 @@ handleClient(SecureSocket socket) {
         dumpHeaders('${stream.id}', msg.headers);
         if (path == null) {
           path = pathFromHeaders(msg.headers);
-          if (path == null) throw new Exception('no path given');
+          if (path == null) throw Exception('no path given');
 
           if (path == '/') {
             sendHtml(stream);
@@ -86,7 +86,7 @@ String pathFromHeaders(List<Header> headers) {
       return ascii.decode(headers[i].value);
     }
   }
-  throw new Exception('Expected a :path header, but did not find one.');
+  throw Exception('Expected a :path header, but did not find one.');
 }
 
 void dumpData(String prefix, List<int> data) {
@@ -103,8 +103,8 @@ Future sendHtml(ServerTransportStream stream) async {
   push(stream, '/favicon.ico', send404);
 
   stream.sendHeaders([
-    new Header.ascii(':status', '200'),
-    new Header.ascii('content-type', 'text/html; charset=utf-8'),
+    Header.ascii(':status', '200'),
+    Header.ascii('content-type', 'text/html; charset=utf-8'),
   ]);
   stream.sendData(ascii.encode('''
 <html>
@@ -124,10 +124,10 @@ Future sendHtml(ServerTransportStream stream) async {
 Future push(ServerTransportStream stream, String path,
     Future sendResponse(TransportStream stream, String path)) async {
   var requestHeaders = [
-    new Header.ascii(':authority', '$HOSTNAME:$PORT'),
-    new Header.ascii(':method', 'GET'),
-    new Header.ascii(':path', path),
-    new Header.ascii(':scheme', 'https'),
+    Header.ascii(':authority', '$HOSTNAME:$PORT'),
+    Header.ascii(':method', 'GET'),
+    Header.ascii(':path', path),
+    Header.ascii(':scheme', 'https'),
   ];
 
   var pushStream = stream.push(requestHeaders);
@@ -136,8 +136,8 @@ Future push(ServerTransportStream stream, String path,
 
 Future sendIFrameHtml(TransportStream stream, String path) async {
   stream.sendHeaders([
-    new Header.ascii(':status', '200'),
-    new Header.ascii('content-type', 'text/html; charset=utf-8'),
+    Header.ascii(':status', '200'),
+    Header.ascii('content-type', 'text/html; charset=utf-8'),
   ]);
   stream.sendData(ascii.encode('''
 <html>
@@ -152,8 +152,8 @@ Future sendIFrameHtml(TransportStream stream, String path) async {
 
 Future send404(TransportStream stream, String path) async {
   stream.sendHeaders([
-    new Header.ascii(':status', '404'),
-    new Header.ascii('content-type', 'text/html; charset=utf-8'),
+    Header.ascii(':status', '404'),
+    Header.ascii('content-type', 'text/html; charset=utf-8'),
   ]);
   stream.sendData(ascii.encode('''
 <html>

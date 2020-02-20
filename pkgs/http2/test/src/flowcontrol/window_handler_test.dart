@@ -29,8 +29,8 @@ main() {
 
       // If we received a window update frame, the window should be increased
       // again.
-      var frameHeader = new FrameHeader(4, FrameType.WINDOW_UPDATE, 0, 0);
-      handler.processWindowUpdate(new WindowUpdateFrame(frameHeader, 100));
+      var frameHeader = FrameHeader(4, FrameType.WINDOW_UPDATE, 0, 0);
+      handler.processWindowUpdate(WindowUpdateFrame(frameHeader, 100));
       expect(handler.peerWindowSize, initialSize);
       expect(window.size, initialSize);
 
@@ -47,28 +47,28 @@ main() {
       }));
 
       // Now we trigger the 1 byte window increase
-      handler.processWindowUpdate(new WindowUpdateFrame(frameHeader, 1));
+      handler.processWindowUpdate(WindowUpdateFrame(frameHeader, 1));
       sub.cancel();
 
       // If the remote end sends us [WindowUpdateFrame]s which increase it above
       // the maximum size, we throw a [FlowControlException].
-      var frame = new WindowUpdateFrame(frameHeader, Window.MAX_WINDOW_SIZE);
+      var frame = WindowUpdateFrame(frameHeader, Window.MAX_WINDOW_SIZE);
       expect(() => handler.processWindowUpdate(frame),
           throwsA(isFlowControlException));
     }
 
     test('outgoing-connection-window-handler', () {
-      var window = new Window();
+      var window = Window();
       int initialSize = window.size;
-      var handler = new OutgoingConnectionWindowHandler(window);
+      var handler = OutgoingConnectionWindowHandler(window);
 
       testAbstractOutgoingWindowHandler(handler, window, initialSize);
     });
 
     test('outgoing-stream-window-handler', () {
-      var window = new Window();
+      var window = Window();
       int initialSize = window.size;
-      var handler = new OutgoingStreamWindowHandler(window);
+      var handler = OutgoingStreamWindowHandler(window);
 
       testAbstractOutgoingWindowHandler(handler, window, initialSize);
 
@@ -76,9 +76,9 @@ main() {
       // gets increased/decreased via a [SettingsFrame], all stream
       // windows need to get updated as well.
 
-      window = new Window();
+      window = Window();
       initialSize = window.size;
-      handler = new OutgoingStreamWindowHandler(window);
+      handler = OutgoingStreamWindowHandler(window);
 
       expect(handler.positiveWindow.wouldBuffer, isFalse);
       final bufferEmpty = handler.positiveWindow.bufferEmptyEvents
@@ -102,10 +102,10 @@ main() {
     test('incoming-window-handler', () {
       const STREAM_ID = 99;
 
-      dynamic fw = new FrameWriterMock();
-      var window = new Window();
+      dynamic fw = FrameWriterMock();
+      var window = Window();
       int initialSize = window.size;
-      var handler = new IncomingWindowHandler.stream(fw, window, STREAM_ID);
+      var handler = IncomingWindowHandler.stream(fw, window, STREAM_ID);
 
       expect(handler.localWindowSize, initialSize);
       expect(window.size, initialSize);

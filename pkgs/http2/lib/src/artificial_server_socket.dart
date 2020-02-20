@@ -32,6 +32,6 @@ class ArtificialServerSocket extends StreamView<Socket>
   /// will be thrown when calling this method.
   @override
   Future<ServerSocket> close() async {
-    throw new Exception('Did not expect close() to be called.');
+    throw Exception('Did not expect close() to be called.');
   }
 }

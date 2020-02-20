@@ -11,7 +11,7 @@ import 'byte_utils.dart';
 
 /// This is a set of bytes with which a client connection begins in the normal
 /// case. It can be used on a server to distinguish HTTP/1.1 and HTTP/2 clients.
-const List<int> CONNECTION_PREFACE = const [
+const List<int> CONNECTION_PREFACE = [
   0x50,
   0x52,
   0x49,
@@ -98,7 +98,7 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
     }
   }
 
-  result = new StreamController(
+  result = StreamController(
       onListen: () {
         subscription = incoming.listen(onData,
             onError: (e, StackTrace s) => result.addError(e, s),

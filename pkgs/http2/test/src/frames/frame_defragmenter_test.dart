@@ -13,40 +13,40 @@ main() {
   group('frames', () {
     group('frame-defragmenter', () {
       UnknownFrame unknownFrame() {
-        return new UnknownFrame(new FrameHeader(0, 0, 0, 1), []);
+        return UnknownFrame(FrameHeader(0, 0, 0, 1), []);
       }
 
       HeadersFrame headersFrame(List<int> data,
-          {bool fragmented: false, int streamId: 1}) {
+          {bool fragmented = false, int streamId = 1}) {
         int flags = fragmented ? 0 : HeadersFrame.FLAG_END_HEADERS;
         var header =
-            new FrameHeader(data.length, FrameType.HEADERS, flags, streamId);
-        return new HeadersFrame(header, 0, false, null, null, data);
+            FrameHeader(data.length, FrameType.HEADERS, flags, streamId);
+        return HeadersFrame(header, 0, false, null, null, data);
       }
 
       PushPromiseFrame pushPromiseFrame(List<int> data,
-          {bool fragmented: false, int streamId: 1}) {
+          {bool fragmented = false, int streamId = 1}) {
         int flags = fragmented ? 0 : HeadersFrame.FLAG_END_HEADERS;
-        var header = new FrameHeader(
-            data.length, FrameType.PUSH_PROMISE, flags, streamId);
-        return new PushPromiseFrame(header, 0, 44, data);
+        var header =
+            FrameHeader(data.length, FrameType.PUSH_PROMISE, flags, streamId);
+        return PushPromiseFrame(header, 0, 44, data);
       }
 
       ContinuationFrame continuationFrame(List<int> data,
-          {bool fragmented: false, int streamId: 1}) {
+          {bool fragmented = false, int streamId = 1}) {
         int flags = fragmented ? 0 : ContinuationFrame.FLAG_END_HEADERS;
-        var header = new FrameHeader(
-            data.length, FrameType.CONTINUATION, flags, streamId);
-        return new ContinuationFrame(header, data);
+        var header =
+            FrameHeader(data.length, FrameType.CONTINUATION, flags, streamId);
+        return ContinuationFrame(header, data);
       }
 
       test('unknown-frame', () {
-        var defrag = new FrameDefragmenter();
+        var defrag = FrameDefragmenter();
         expect(defrag.tryDefragmentFrame(unknownFrame()) is UnknownFrame, true);
       });
 
       test('fragmented-headers-frame', () {
-        var defrag = new FrameDefragmenter();
+        var defrag = FrameDefragmenter();
 
         var f1 = headersFrame([1, 2, 3], fragmented: true);
         var f2 = continuationFrame([4, 5, 6], fragmented: true);
@@ -63,7 +63,7 @@ main() {
       });
 
       test('fragmented-push-promise-frame', () {
-        var defrag = new FrameDefragmenter();
+        var defrag = FrameDefragmenter();
 
         var f1 = pushPromiseFrame([1, 2, 3], fragmented: true);
         var f2 = continuationFrame([4, 5, 6], fragmented: true);
@@ -79,7 +79,7 @@ main() {
       });
 
       test('fragmented-headers-frame--wrong-id', () {
-        var defrag = new FrameDefragmenter();
+        var defrag = FrameDefragmenter();
 
         var f1 = headersFrame([1, 2, 3], fragmented: true, streamId: 1);
         var f2 = continuationFrame([4, 5, 6], fragmented: true, streamId: 2);
@@ -90,7 +90,7 @@ main() {
       });
 
       test('fragmented-push-promise-frame', () {
-        var defrag = new FrameDefragmenter();
+        var defrag = FrameDefragmenter();
 
         var f1 = pushPromiseFrame([1, 2, 3], fragmented: true, streamId: 1);
         var f2 = continuationFrame([4, 5, 6], fragmented: true, streamId: 2);
@@ -101,7 +101,7 @@ main() {
       });
 
       test('fragmented-headers-frame--no-continuation-frame', () {
-        var defrag = new FrameDefragmenter();
+        var defrag = FrameDefragmenter();
 
         var f1 = headersFrame([1, 2, 3], fragmented: true);
         var f2 = unknownFrame();
@@ -112,7 +112,7 @@ main() {
       });
 
       test('fragmented-push-promise-no-continuation-frame', () {
-        var defrag = new FrameDefragmenter();
+        var defrag = FrameDefragmenter();
 
         var f1 = pushPromiseFrame([1, 2, 3], fragmented: true);
         var f2 = unknownFrame();
@@ -123,7 +123,7 @@ main() {
       });
 
       test('push-without-headres-or-push-promise-frame', () {
-        var defrag = new FrameDefragmenter();
+        var defrag = FrameDefragmenter();
 
         var f1 = continuationFrame([4, 5, 6], fragmented: true, streamId: 1);
         expect(defrag.tryDefragmentFrame(f1), equals(f1));

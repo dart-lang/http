@@ -28,14 +28,14 @@ class TerminatableMixin {
 
   T ensureNotTerminatedSync<T>(T f()) {
     if (wasTerminated) {
-      throw new TerminatedException();
+      throw TerminatedException();
     }
     return f();
   }
 
   Future ensureNotTerminatedAsync(Future f()) {
     if (wasTerminated) {
-      return new Future.error(new TerminatedException());
+      return Future.error(TerminatedException());
     }
     return f();
   }
@@ -44,7 +44,7 @@ class TerminatableMixin {
 /// Used by classes which may be cancelled.
 class CancellableMixin {
   bool _cancelled = false;
-  final _cancelCompleter = new Completer<void>.sync();
+  final _cancelCompleter = Completer<void>.sync();
 
   Future<void> get onCancel => _cancelCompleter.future;
 
@@ -62,7 +62,7 @@ class CancellableMixin {
 /// Used by classes which may be closed.
 class ClosableMixin {
   bool _closing = false;
-  final Completer _completer = new Completer();
+  final Completer _completer = Completer();
 
   Future get done => _completer.future;
 
@@ -88,7 +88,7 @@ class ClosableMixin {
 
   dynamic ensureNotClosingSync(f()) {
     if (isClosing) {
-      throw new StateError('Was in the process of closing.');
+      throw StateError('Was in the process of closing.');
     }
     return f();
   }

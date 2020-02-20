@@ -15,7 +15,7 @@ class Window {
   /// NOTE: This value can potentially become negative.
   int _size;
 
-  Window({int initialSize: (1 << 16) - 1}) : _size = initialSize;
+  Window({int initialSize = (1 << 16) - 1}) : _size = initialSize;
 
   /// The current size of the flow control window.
   int get size => _size;

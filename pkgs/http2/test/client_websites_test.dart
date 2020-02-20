@@ -15,10 +15,10 @@ main() async {
   test('google', () async {
     var uri = Uri.parse('https://www.google.com/');
     ClientConnection connection = await connect(uri);
-    Response response = await connection.makeRequest(new Request('GET', uri));
+    Response response = await connection.makeRequest(Request('GET', uri));
     dumpHeaders(uri, response.headers);
 
-    final utf8Decoder = new Utf8Decoder(allowMalformed: true);
+    final utf8Decoder = Utf8Decoder(allowMalformed: true);
     String body = await response.stream.transform(utf8Decoder).join('');
     connection.close();
 
@@ -30,7 +30,7 @@ main() async {
   test('twitter', () async {
     var uri = Uri.parse('https://twitter.com/');
     ClientConnection connection = await connect(uri);
-    Response response = await connection.makeRequest(new Request('GET', uri));
+    Response response = await connection.makeRequest(Request('GET', uri));
     dumpHeaders(uri, response.headers);
 
     String body = await readBody(response);
@@ -45,7 +45,7 @@ main() async {
       var uri = Uri.parse('https://nghttp2.org/');
 
       ClientConnection connection = await connect(uri, allowServerPushes: true);
-      var request = new Request('GET', uri);
+      var request = Request('GET', uri);
       Response response = await connection.makeRequest(request);
       dumpHeaders(uri, response.headers);
 
@@ -87,7 +87,7 @@ main() async {
 
       ClientConnection connection =
           await connect(uri, allowServerPushes: false);
-      var request = new Request('GET', uri);
+      var request = Request('GET', uri);
       Response response = await connection.makeRequest(request);
       dumpHeaders(uri, response.headers);
 
@@ -116,7 +116,7 @@ main() async {
 }
 
 dumpHeaders(Uri uri, Map<String, List<String>> headers,
-    {String msg: 'Response headers.'}) {
+    {String msg = 'Response headers.'}) {
   print('');
   print('[$uri]  $msg');
   for (var key in headers.keys.toList()..sort()) {

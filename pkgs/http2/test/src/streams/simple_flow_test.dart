@@ -16,9 +16,9 @@ main() {
     group('flowcontrol', () {
       const int numOfOneKB = 1000;
 
-      var expectedHeaders = [new Header.ascii('key', 'value')];
-      var allBytes = new List.generate(numOfOneKB * 1024, (i) => i % 256);
-      allBytes.addAll(new List.generate(42, (i) => 42));
+      var expectedHeaders = [Header.ascii('key', 'value')];
+      var allBytes = List.generate(numOfOneKB * 1024, (i) => i % 256);
+      allBytes.addAll(List.generate(42, (i) => 42));
 
       headersTestFun(String type) {
         return expectAsync1((StreamMessage msg) {
@@ -30,7 +30,7 @@ main() {
         });
       }
 
-      Completer serverReceivedAllBytes = new Completer();
+      Completer serverReceivedAllBytes = Completer();
 
       messageTestFun(String type) {
         bool expectHeader = true;
@@ -54,7 +54,7 @@ main() {
 
             if (numBytesReceived > allBytes.length) {
               if (serverReceivedAllBytes.isCompleted) {
-                throw new Exception('Got more messages than expected');
+                throw Exception('Got more messages than expected');
               }
               serverReceivedAllBytes.complete();
             }

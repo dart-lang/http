@@ -27,7 +27,7 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var settingsDone = new Completer();
+        var settingsDone = Completer();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -69,7 +69,7 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var goawayReceived = new Completer();
+        var goawayReceived = Completer();
         Future serverFun() async {
           serverWriter.writePingFrame(42);
           expect(await nextFrame() is SettingsFrame, true);
@@ -89,7 +89,7 @@ main() {
 
           var error;
           try {
-            client.makeRequest([new Header.ascii('a', 'b')]);
+            client.makeRequest([Header.ascii('a', 'b')]);
           } catch (e) {
             error = '$e';
           }
@@ -116,7 +116,7 @@ main() {
 
         Future clientFun() async {
           expect(client.isOpen, true);
-          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
 
           String error;
           try {
@@ -136,7 +136,7 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var handshakeCompleter = new Completer();
+        var handshakeCompleter = Completer();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -173,7 +173,7 @@ main() {
         Future clientFun() async {
           await handshakeCompleter.future;
 
-          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
           await stream.outgoingMessages.close();
           expect(await stream.incomingMessages.toList(), isEmpty);
 
@@ -188,7 +188,7 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var handshakeCompleter = new Completer();
+        var handshakeCompleter = Completer();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -236,7 +236,7 @@ main() {
         Future clientFun() async {
           await handshakeCompleter.future;
 
-          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
           await stream.outgoingMessages.close();
           var messages = await stream.incomingMessages.toList();
           expect(messages, hasLength(1));
@@ -253,9 +253,9 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var handshakeCompleter = new Completer();
-        var cancelDone = new Completer();
-        var endDone = new Completer();
+        var handshakeCompleter = Completer();
+        var cancelDone = Completer();
+        var endDone = Completer();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -309,7 +309,7 @@ main() {
         Future clientFun() async {
           await handshakeCompleter.future;
 
-          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
           await stream.outgoingMessages.close();
 
           // first will cancel the stream
@@ -329,10 +329,10 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var handshakeCompleter = new Completer();
-        var cancelDone = new Completer();
-        var endDone = new Completer();
-        var clientDone = new Completer();
+        var handshakeCompleter = Completer();
+        var cancelDone = Completer();
+        var endDone = Completer();
+        var clientDone = Completer();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -379,7 +379,7 @@ main() {
         Future clientFun() async {
           await handshakeCompleter.future;
 
-          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
 
           // first will cancel the stream
           var message = await stream.incomingMessages.first;
@@ -402,7 +402,7 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var handshakeCompleter = new Completer();
+        var handshakeCompleter = Completer();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -419,13 +419,13 @@ main() {
           int streamId = headers.header.streamId;
 
           // Write response.
-          serverWriter.writeHeadersFrame(streamId, [new Header.ascii('a', 'b')],
+          serverWriter.writeHeadersFrame(streamId, [Header.ascii('a', 'b')],
               endStream: true);
 
           // Push stream to the (non existing) one.
           int pushStreamId = 2;
           serverWriter.writePushPromiseFrame(
-              streamId, pushStreamId, [new Header.ascii('a', 'b')]);
+              streamId, pushStreamId, [Header.ascii('a', 'b')]);
 
           // Make sure we get a connection error.
           GoawayFrame frame = await nextFrame();
@@ -438,7 +438,7 @@ main() {
         Future clientFun() async {
           await handshakeCompleter.future;
 
-          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
           await stream.outgoingMessages.close();
           var messages = await stream.incomingMessages.toList();
           expect(messages, hasLength(1));
@@ -455,7 +455,7 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var handshakeCompleter = new Completer();
+        var handshakeCompleter = Completer();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -474,7 +474,7 @@ main() {
           // Push stream onto the existing (but half-closed) one.
           int pushStreamId = 2;
           serverWriter.writePushPromiseFrame(
-              streamId, pushStreamId, [new Header.ascii('a', 'b')]);
+              streamId, pushStreamId, [Header.ascii('a', 'b')]);
 
           // Make sure we get a connection error.
           GoawayFrame frame = await nextFrame();
@@ -489,7 +489,7 @@ main() {
         Future clientFun() async {
           await handshakeCompleter.future;
 
-          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
 
           // NOTE: We are not closing the outgoing part on purpose.
           expect(await stream.incomingMessages.toList(), isEmpty);
@@ -506,7 +506,7 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var handshakeCompleter = new Completer();
+        var handshakeCompleter = Completer();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -520,9 +520,9 @@ main() {
           int streamId = headers.header.streamId;
 
           // Write more than [kFlowControlWindowSize] bytes.
-          final int kFlowControlWindowSize = new Window().size;
+          final int kFlowControlWindowSize = Window().size;
           int sentBytes = 0;
-          final bytes = new Uint8List(1024);
+          final bytes = Uint8List(1024);
           while (sentBytes <= kFlowControlWindowSize) {
             serverWriter.writeDataFrame(streamId, bytes);
             sentBytes += bytes.length;
@@ -542,12 +542,12 @@ main() {
         Future clientFun() async {
           await handshakeCompleter.future;
 
-          var stream = client.makeRequest([new Header.ascii('a', 'b')]);
+          var stream = client.makeRequest([Header.ascii('a', 'b')]);
           var sub = stream.incomingMessages.listen(
               expectAsync1((StreamMessage msg) {}, count: 0),
               onError: expectAsync1((error) {}));
           sub.pause();
-          await new Future.delayed(const Duration(milliseconds: 40));
+          await Future.delayed(const Duration(milliseconds: 40));
           sub.resume();
 
           await client.finish();
@@ -562,11 +562,11 @@ main() {
           FrameWriter serverWriter,
           StreamIterator<Frame> serverReader,
           Future<Frame> nextFrame()) async {
-        var settingsDone = new Completer();
-        var headersDone = new Completer();
+        var settingsDone = Completer();
+        var headersDone = Completer();
 
         Future serverFun() async {
-          var decoder = new HPackDecoder();
+          var decoder = HPackDecoder();
 
           serverWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
@@ -600,8 +600,8 @@ main() {
           await settingsDone.future;
 
           // Make a new stream and terminate it.
-          var stream = client
-              .makeRequest([new Header.ascii('a', 'b')], endStream: false);
+          var stream =
+              client.makeRequest([Header.ascii('a', 'b')], endStream: false);
 
           await headersDone.future;
           stream.terminate();
@@ -622,10 +622,10 @@ main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> nextFrame()) async {
-        var settingsDone = new Completer();
+        var settingsDone = Completer();
 
         Future serverFun() async {
-          var decoder = new HPackDecoder();
+          var decoder = HPackDecoder();
 
           serverWriter.writeSettingsFrame([]);
           expect(await nextFrame() is SettingsFrame, true);
@@ -653,8 +653,8 @@ main() {
           await settingsDone.future;
 
           // Make a new stream and terminate it.
-          var stream = client
-              .makeRequest([new Header.ascii('a', 'b')], endStream: false);
+          var stream =
+              client.makeRequest([Header.ascii('a', 'b')], endStream: false);
 
           // Make sure we don't get messages/pushes on the terminated stream.
           stream.incomingMessages.toList().catchError(expectAsync1((e) {
@@ -683,7 +683,7 @@ void clientTest(
         StreamIterator<Frame> frameReader,
         Future<Frame> readNext())) {
   return test(name, () {
-    var streams = new ClientStreams();
+    var streams = ClientStreams();
     var serverReader = streams.serverConnectionFrameReader;
 
     Future<Frame> readNext() async {
@@ -697,25 +697,25 @@ void clientTest(
 }
 
 class ClientStreams {
-  final StreamController<List<int>> writeA = new StreamController();
-  final StreamController<List<int>> writeB = new StreamController();
+  final StreamController<List<int>> writeA = StreamController();
+  final StreamController<List<int>> writeB = StreamController();
   Stream<List<int>> get readA => writeA.stream;
   Stream<List<int>> get readB => writeB.stream;
 
   StreamIterator<Frame> get serverConnectionFrameReader {
-    ActiveSettings localSettings = new ActiveSettings();
+    ActiveSettings localSettings = ActiveSettings();
     var streamAfterConnectionPreface = readConnectionPreface(readA);
-    return new StreamIterator(
-        new FrameReader(streamAfterConnectionPreface, localSettings)
+    return StreamIterator(
+        FrameReader(streamAfterConnectionPreface, localSettings)
             .startDecoding());
   }
 
   FrameWriter get serverConnectionFrameWriter {
-    var encoder = new HPackEncoder();
-    ActiveSettings peerSettings = new ActiveSettings();
-    return new FrameWriter(encoder, writeB, peerSettings);
+    var encoder = HPackEncoder();
+    ActiveSettings peerSettings = ActiveSettings();
+    return FrameWriter(encoder, writeB, peerSettings);
   }
 
   ClientTransportConnection get clientConnection =>
-      new ClientTransportConnection.viaStreams(readB, writeA);
+      ClientTransportConnection.viaStreams(readB, writeA);
 }

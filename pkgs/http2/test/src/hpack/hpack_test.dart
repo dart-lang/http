@@ -9,7 +9,7 @@ main() {
   group('hpack', () {
     group('hpack-spec-decoder', () {
       test('C.3 request without huffman encoding', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         List<Header> headers;
 
         // First request
@@ -106,7 +106,7 @@ main() {
       });
 
       test('C.4 request with huffman encoding', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         List<Header> headers;
 
         // First request
@@ -193,7 +193,7 @@ main() {
       });
 
       test('C.5 response without huffman encoding', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         List<Header> headers;
 
         // First response
@@ -398,7 +398,7 @@ main() {
       });
 
       test('C.6 response with huffman encoding', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         List<Header> headers;
 
         // First response
@@ -570,25 +570,25 @@ main() {
 
     group('negative-decoder-tests', () {
       test('invalid-integer-encoding', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         expect(() => context.decoder.decode([1 << 6, 0xff]),
             throwsA(isHPackDecodingException));
       });
 
       test('index-out-of-table-size', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         expect(() => context.decoder.decode([0x7f]),
             throwsA(isHPackDecodingException));
       });
 
       test('invalid-update-dynamic-table-size', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         expect(() => context.decoder.decode([0x3f]),
             throwsA(isHPackDecodingException));
       });
 
       test('update-dynamic-table-size-too-high', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         // Tries to set dynamic table to 4097 (max is 4096 by default)
         var bytes = TestHelper.newInteger(0x20, 5, 4097);
         expect(() => context.decoder.decode(bytes),
@@ -607,7 +607,7 @@ main() {
       const charD = 0x64;
 
       test('update-dynamic-table-size-too-high', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         // Sets dynamic table to 4096
         expect(
             context.decoder.decode(TestHelper.newInteger(0x20, 5, 4096)), []);
@@ -615,7 +615,7 @@ main() {
 
       test('dynamic table entry', () {
         List<Header> headers;
-        var context = new HPackContext();
+        var context = HPackContext();
 
         var buffer = <int>[];
         buffer.addAll(TestHelper.insertIntoDynamicTable(2048, char0, charA));
@@ -669,16 +669,16 @@ main() {
 
     group('encoder-tests', () {
       test('simple-encoding', () {
-        var context = new HPackContext();
-        var headers = [new Header.ascii('key', 'value')];
+        var context = HPackContext();
+        var headers = [Header.ascii('key', 'value')];
         expect(context.encoder.encode(headers),
             [0x00, 0x03, 0x6b, 0x65, 0x79, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65]);
       });
 
       test('simple-encoding-long-value', () {
-        var context = new HPackContext();
+        var context = HPackContext();
         var headers = [
-          new Header([0x42], new List.filled(300, 0x84))
+          Header([0x42], List.filled(300, 0x84))
         ];
 
         expect(context.decoder.decode(context.encoder.encode(headers)).first,
@@ -776,7 +776,7 @@ class TestHelper {
     buffer.addAll(newInteger(0, 7, name.length));
     buffer.addAll(name);
 
-    var value = new List.filled(n - 32 - name.length, valueChar);
+    var value = List.filled(n - 32 - name.length, valueChar);
     buffer.addAll(newInteger(0, 7, value.length));
     buffer.addAll(value);
 
@@ -798,8 +798,7 @@ class TestHelper {
 }
 
 /// A matcher for HuffmannDecodingExceptions.
-const Matcher isHPackDecodingException =
-    const TypeMatcher<HPackDecodingException>();
+const Matcher isHPackDecodingException = TypeMatcher<HPackDecodingException>();
 
 class _HeaderMatcher extends Matcher {
   final Header header;
@@ -828,6 +827,6 @@ class _HeaderMatcher extends Matcher {
 }
 
 Matcher isHeader(String name, String value) =>
-    new _HeaderMatcher(new Header.ascii(name, value));
+    _HeaderMatcher(Header.ascii(name, value));
 
-Matcher equalsHeader(Header header) => new _HeaderMatcher(header);
+Matcher equalsHeader(Header header) => _HeaderMatcher(header);

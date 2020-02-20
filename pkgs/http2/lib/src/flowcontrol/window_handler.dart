@@ -16,7 +16,7 @@ abstract class AbstractOutgoingWindowHandler {
 
   /// Indicates when the outgoing connection window turned positive and we can
   /// send data frames again.
-  final BufferIndicator positiveWindow = new BufferIndicator();
+  final BufferIndicator positiveWindow = BufferIndicator();
 
   AbstractOutgoingWindowHandler(this._peerWindow) {
     if (_peerWindow.size > 0) {
@@ -32,7 +32,7 @@ abstract class AbstractOutgoingWindowHandler {
   void processWindowUpdate(WindowUpdateFrame frame) {
     int increment = frame.windowSizeIncrement;
     if ((_peerWindow.size + increment) > Window.MAX_WINDOW_SIZE) {
-      throw new FlowControlException(
+      throw FlowControlException(
           'Window update received from remote peer would make flow control '
           'window too large.');
     } else {
@@ -75,7 +75,7 @@ class OutgoingStreamWindowHandler extends AbstractOutgoingWindowHandler {
   /// existing streams to update the flow stream-level flow control window.
   void processInitialWindowSizeSettingChange(int difference) {
     if ((_peerWindow.size + difference) > Window.MAX_WINDOW_SIZE) {
-      throw new FlowControlException(
+      throw FlowControlException(
           'Window update received from remote peer would make flow control '
           'window too large.');
     } else {
@@ -142,7 +142,7 @@ class IncomingWindowHandler {
     //            our initial settings.
     //
     if (_localWindow.size < 0) {
-      throw new FlowControlException(
+      throw FlowControlException(
           'Connection level flow control window became negative.');
     }
   }

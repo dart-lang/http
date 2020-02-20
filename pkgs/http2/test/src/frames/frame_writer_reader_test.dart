@@ -33,8 +33,7 @@ main() {
 
       writerReaderTest('headers-frame',
           (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
-        writer.writeHeadersFrame(99, [new Header.ascii('a', 'b')],
-            endStream: true);
+        writer.writeHeadersFrame(99, [Header.ascii('a', 'b')], endStream: true);
 
         var frames = await finishWriting(writer, reader);
         expect(frames.length, 1);
@@ -86,8 +85,7 @@ main() {
 
       writerReaderTest('settings-frame',
           (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
-        writer
-            .writeSettingsFrame([new Setting(Setting.SETTINGS_ENABLE_PUSH, 1)]);
+        writer.writeSettingsFrame([Setting(Setting.SETTINGS_ENABLE_PUSH, 1)]);
 
         var frames = await finishWriting(writer, reader);
         expect(frames.length, 1);
@@ -118,7 +116,7 @@ main() {
 
       writerReaderTest('push-promise-frame',
           (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
-        writer.writePushPromiseFrame(99, 44, [new Header.ascii('a', 'b')]);
+        writer.writePushPromiseFrame(99, 44, [Header.ascii('a', 'b')]);
 
         var frames = await finishWriting(writer, reader);
         expect(frames.length, 1);
@@ -181,8 +179,8 @@ main() {
       writerReaderTest('frag-headers-frame',
           (FrameWriter writer, FrameReader reader, HPackDecoder decoder) async {
         var headerName = [1];
-        var headerValue = new List.filled(1 << 14, 0x42);
-        var header = new Header(headerName, headerValue);
+        var headerValue = List.filled(1 << 14, 0x42);
+        var header = Header(headerName, headerValue);
 
         writer.writeHeadersFrame(99, [header], endStream: true);
 
@@ -219,11 +217,11 @@ main() {
 writerReaderTest(String name,
     func(FrameWriter writer, FrameReader reader, HPackDecoder decoder)) {
   test(name, () {
-    var settings = new ActiveSettings();
-    var context = new HPackContext();
-    var controller = new StreamController<List<int>>();
-    var writer = new FrameWriter(context.encoder, controller, settings);
-    var reader = new FrameReader(controller.stream, settings);
+    var settings = ActiveSettings();
+    var context = HPackContext();
+    var controller = StreamController<List<int>>();
+    var writer = FrameWriter(context.encoder, controller, settings);
+    var reader = FrameReader(controller.stream, settings);
     return func(writer, reader, context.decoder);
   });
 }

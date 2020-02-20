@@ -10,7 +10,7 @@ import 'package:http2/src/async_utils/async_utils.dart';
 main() {
   group('async_utils', () {
     test('buffer-indicator', () {
-      var bi = new BufferIndicator();
+      var bi = BufferIndicator();
       bi.bufferEmptyEvents.listen(expectAsync1((_) {}, count: 2));
 
       expect(bi.wouldBuffer, true);
@@ -35,8 +35,8 @@ main() {
     });
 
     test('buffered-sink', () {
-      var c = new StreamController<List<int>>();
-      var bs = new BufferedSink(c);
+      var c = StreamController<List<int>>();
+      var bs = BufferedSink(c);
 
       expect(bs.bufferIndicator.wouldBuffer, true);
       var sub = c.stream.listen(expectAsync1((_) {}, count: 2));
@@ -62,8 +62,8 @@ main() {
     });
 
     test('buffered-bytes-writer', () async {
-      var c = new StreamController<List<int>>();
-      var writer = new BufferedBytesWriter(c);
+      var c = StreamController<List<int>>();
+      var writer = BufferedBytesWriter(c);
 
       expect(writer.bufferIndicator.wouldBuffer, true);
 

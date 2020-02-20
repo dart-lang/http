@@ -28,7 +28,7 @@ void streamTest(String name,
     func(ClientTransportConnection client, ServerTransportConnection server),
     {ClientSettings settings}) {
   return test(name, () {
-    var bidirect = new BidirectionalConnection();
+    var bidirect = BidirectionalConnection();
     bidirect.settings = settings;
     var client = bidirect.clientConnection;
     var server = bidirect.serverConnection;
@@ -38,9 +38,9 @@ void streamTest(String name,
 
 void framesTest(String name, func(frameWriter, frameStream)) {
   return test(name, () {
-    var c = new StreamController<List<int>>();
-    var fw = new FrameWriter(null, c, new ActiveSettings());
-    var frameStream = new FrameReader(c.stream, new ActiveSettings());
+    var c = StreamController<List<int>>();
+    var fw = FrameWriter(null, c, ActiveSettings());
+    var frameStream = FrameReader(c.stream, ActiveSettings());
 
     return func(fw, frameStream);
   });
@@ -48,15 +48,14 @@ void framesTest(String name, func(frameWriter, frameStream)) {
 
 class BidirectionalConnection {
   ClientSettings settings;
-  final StreamController<List<int>> writeA = new StreamController();
-  final StreamController<List<int>> writeB = new StreamController();
+  final StreamController<List<int>> writeA = StreamController();
+  final StreamController<List<int>> writeB = StreamController();
   Stream<List<int>> get readA => writeA.stream;
   Stream<List<int>> get readB => writeB.stream;
 
   ClientTransportConnection get clientConnection =>
-      new ClientTransportConnection.viaStreams(readA, writeB,
-          settings: settings);
+      ClientTransportConnection.viaStreams(readA, writeB, settings: settings);
 
   ServerTransportConnection get serverConnection =>
-      new ServerTransportConnection.viaStreams(readB, writeA);
+      ServerTransportConnection.viaStreams(readB, writeA);
 }

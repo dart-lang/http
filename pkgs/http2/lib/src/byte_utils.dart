@@ -8,7 +8,7 @@ import 'dart:typed_data';
 
 List<int> viewOrSublist(List<int> data, int offset, int length) {
   if (data is Uint8List) {
-    return new Uint8List.view(data.buffer, data.offsetInBytes + offset, length);
+    return Uint8List.view(data.buffer, data.offsetInBytes + offset, length);
   } else {
     return data.sublist(offset, offset + length);
   }

@@ -22,7 +22,7 @@ class FrameWriter {
 
   FrameWriter(
       this._hpackEncoder, StreamSink<List<int>> outgoing, this._peerSettings)
-      : _outWriter = new BufferedBytesWriter(outgoing);
+      : _outWriter = BufferedBytesWriter(outgoing);
 
   /// A indicator whether writes would be buffered.
   BufferIndicator get bufferIndicator => _outWriter.bufferIndicator;
@@ -31,7 +31,7 @@ class FrameWriter {
   /// sink.
   int get highestWrittenStreamId => _highestWrittenStreamId;
 
-  void writeDataFrame(int streamId, List<int> data, {bool endStream: false}) {
+  void writeDataFrame(int streamId, List<int> data, {bool endStream = false}) {
     while (data.length > _peerSettings.maxFrameSize) {
       var chunk = viewOrSublist(data, 0, _peerSettings.maxFrameSize);
       data = viewOrSublist(data, _peerSettings.maxFrameSize,
@@ -45,7 +45,7 @@ class FrameWriter {
     int type = FrameType.DATA;
     int flags = endStream ? DataFrame.FLAG_END_STREAM : 0;
 
-    var buffer = new Uint8List(FRAME_HEADER_SIZE + data.length);
+    var buffer = Uint8List(FRAME_HEADER_SIZE + data.length);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, streamId, data.length);
@@ -57,7 +57,7 @@ class FrameWriter {
   }
 
   void writeHeadersFrame(int streamId, List<Header> headers,
-      {bool endStream: true}) {
+      {bool endStream = true}) {
     var fragment = _hpackEncoder.encode(headers);
     var maxSize =
         _peerSettings.maxFrameSize - HeadersFrame.MAX_CONSTANT_PAYLOAD;
@@ -84,7 +84,7 @@ class FrameWriter {
     if (endHeaders) flags |= HeadersFrame.FLAG_END_HEADERS;
     if (endStream) flags |= HeadersFrame.FLAG_END_STREAM;
 
-    var buffer = new Uint8List(FRAME_HEADER_SIZE + fragment.length);
+    var buffer = Uint8List(FRAME_HEADER_SIZE + fragment.length);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, streamId, fragment.length);
@@ -100,7 +100,7 @@ class FrameWriter {
     int type = FrameType.CONTINUATION;
     int flags = endHeaders ? ContinuationFrame.FLAG_END_HEADERS : 0;
 
-    var buffer = new Uint8List(FRAME_HEADER_SIZE + fragment.length);
+    var buffer = Uint8List(FRAME_HEADER_SIZE + fragment.length);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, streamId, fragment.length);
@@ -112,12 +112,12 @@ class FrameWriter {
   }
 
   void writePriorityFrame(int streamId, int streamDependency, int weight,
-      {bool exclusive: false}) {
+      {bool exclusive = false}) {
     int type = FrameType.PRIORITY;
     int flags = 0;
 
     var buffer =
-        new Uint8List(FRAME_HEADER_SIZE + PriorityFrame.FIXED_FRAME_LENGTH);
+        Uint8List(FRAME_HEADER_SIZE + PriorityFrame.FIXED_FRAME_LENGTH);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, streamId, 5);
@@ -138,7 +138,7 @@ class FrameWriter {
     int flags = 0;
 
     var buffer =
-        new Uint8List(FRAME_HEADER_SIZE + RstStreamFrame.FIXED_FRAME_LENGTH);
+        Uint8List(FRAME_HEADER_SIZE + RstStreamFrame.FIXED_FRAME_LENGTH);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, streamId, 4);
@@ -153,7 +153,7 @@ class FrameWriter {
     int type = FrameType.SETTINGS;
     int flags = 0;
 
-    var buffer = new Uint8List(FRAME_HEADER_SIZE + 6 * settings.length);
+    var buffer = Uint8List(FRAME_HEADER_SIZE + 6 * settings.length);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, 0, 6 * settings.length);
@@ -172,7 +172,7 @@ class FrameWriter {
     int type = FrameType.SETTINGS;
     int flags = SettingsFrame.FLAG_ACK;
 
-    var buffer = new Uint8List(FRAME_HEADER_SIZE);
+    var buffer = Uint8List(FRAME_HEADER_SIZE);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, 0, 0);
@@ -209,7 +209,7 @@ class FrameWriter {
     int type = FrameType.PUSH_PROMISE;
     int flags = endHeaders ? HeadersFrame.FLAG_END_HEADERS : 0;
 
-    var buffer = new Uint8List(FRAME_HEADER_SIZE + 4 + fragment.length);
+    var buffer = Uint8List(FRAME_HEADER_SIZE + 4 + fragment.length);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, streamId, 4 + fragment.length);
@@ -221,12 +221,11 @@ class FrameWriter {
     _writeData(buffer);
   }
 
-  void writePingFrame(int opaqueData, {bool ack: false}) {
+  void writePingFrame(int opaqueData, {bool ack = false}) {
     int type = FrameType.PING;
     int flags = ack ? PingFrame.FLAG_ACK : 0;
 
-    var buffer =
-        new Uint8List(FRAME_HEADER_SIZE + PingFrame.FIXED_FRAME_LENGTH);
+    var buffer = Uint8List(FRAME_HEADER_SIZE + PingFrame.FIXED_FRAME_LENGTH);
     int offset = 0;
 
     _setFrameHeader(buffer, 0, type, flags, 0, 8);
@@ -240,7 +239,7 @@ class FrameWriter {
     int type = FrameType.GOAWAY;
     int flags = 0;
 
-    var buffer = new Uint8List(FRAME_HEADER_SIZE + 8 + debugData.length);
+    var buffer = Uint8List(FRAME_HEADER_SIZE + 8 + debugData.length);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, 0, 8 + debugData.length);
@@ -253,12 +252,12 @@ class FrameWriter {
     _writeData(buffer);
   }
 
-  void writeWindowUpdate(int sizeIncrement, {int streamId: 0}) {
+  void writeWindowUpdate(int sizeIncrement, {int streamId = 0}) {
     int type = FrameType.WINDOW_UPDATE;
     int flags = 0;
 
     var buffer =
-        new Uint8List(FRAME_HEADER_SIZE + WindowUpdateFrame.FIXED_FRAME_LENGTH);
+        Uint8List(FRAME_HEADER_SIZE + WindowUpdateFrame.FIXED_FRAME_LENGTH);
     int offset = 0;
 
     _setFrameHeader(buffer, offset, type, flags, streamId, 4);

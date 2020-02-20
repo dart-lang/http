@@ -13,28 +13,28 @@ import '../connection_preface.dart';
 import '../frames/frames.dart';
 import '../settings/settings.dart';
 
-final jsonEncoder = new JsonEncoder.withIndent('  ');
+final jsonEncoder = JsonEncoder.withIndent('  ');
 
 TransportConnection debugPrintingConnection(Socket socket,
-    {bool isServer: true, bool verbose: true}) {
+    {bool isServer = true, bool verbose = true}) {
   TransportConnection connection;
 
   var incoming = decodeVerbose(socket, isServer, verbose: verbose);
   var outgoing = decodeOutgoingVerbose(socket, isServer, verbose: verbose);
   if (isServer) {
-    connection = new ServerTransportConnection.viaStreams(incoming, outgoing);
+    connection = ServerTransportConnection.viaStreams(incoming, outgoing);
   } else {
-    connection = new ClientTransportConnection.viaStreams(incoming, outgoing);
+    connection = ClientTransportConnection.viaStreams(incoming, outgoing);
   }
   return connection;
 }
 
 Stream<List<int>> decodeVerbose(Stream<List<int>> inc, bool isServer,
-    {bool verbose: true}) {
+    {bool verbose = true}) {
   String name = isServer ? 'server' : 'client';
 
-  var sc = new StreamController<List<int>>();
-  var sDebug = new StreamController<List<int>>();
+  var sc = StreamController<List<int>>();
+  var sDebug = StreamController<List<int>>();
 
   _pipeAndCopy(inc, sc, sDebug);
 
@@ -72,11 +72,11 @@ Stream<List<int>> decodeVerbose(Stream<List<int>> inc, bool isServer,
 
 StreamSink<List<int>> decodeOutgoingVerbose(
     StreamSink<List<int>> sink, bool isServer,
-    {bool verbose: true}) {
+    {bool verbose = true}) {
   String name = isServer ? 'server' : 'client';
 
-  var proxySink = new StreamController<List<int>>();
-  var copy = new StreamController<List<int>>();
+  var proxySink = StreamController<List<int>>();
+  var copy = StreamController<List<int>>();
 
   if (!isServer) {
     _decodeFrames(readConnectionPreface(copy.stream)).listen((Frame frame) {
@@ -113,13 +113,13 @@ StreamSink<List<int>> decodeOutgoingVerbose(
 }
 
 Stream<Frame> _decodeFrames(Stream<List<int>> bytes) {
-  var settings = new ActiveSettings();
-  var decoder = new FrameReader(bytes, settings);
+  var settings = ActiveSettings();
+  var decoder = FrameReader(bytes, settings);
   return decoder.startDecoding();
 }
 
 Future _pipeAndCopy(Stream<List<int>> from, StreamSink to, StreamSink to2) {
-  var c = new Completer();
+  var c = Completer();
   from.listen((List<int> data) {
     to.add(data);
     to2.add(data);

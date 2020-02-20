@@ -12,12 +12,12 @@ import 'package:http2/src/settings/settings.dart';
 main() {
   group('frames', () {
     group('frame-reader', () {
-      final int maxFrameSize = new ActiveSettings().maxFrameSize;
+      final int maxFrameSize = ActiveSettings().maxFrameSize;
 
       Stream<Frame> dataFrame(List<int> body) {
-        var settings = new ActiveSettings();
-        var controller = new StreamController<List<int>>();
-        var reader = new FrameReader(controller.stream, settings);
+        var settings = ActiveSettings();
+        var controller = StreamController<List<int>>();
+        var reader = FrameReader(controller.stream, settings);
 
         // This is a DataFrame:
         //   - length: n
@@ -35,7 +35,7 @@ main() {
       }
 
       test('data-frame--max-frame-size', () {
-        var body = new List.filled(maxFrameSize, 0x42);
+        var body = List.filled(maxFrameSize, 0x42);
         dataFrame(body).listen(expectAsync1((Frame frame) {
           expect(frame is DataFrame, isTrue);
           expect(frame.header.length, body.length);
@@ -48,7 +48,7 @@ main() {
       });
 
       test('data-frame--max-frame-size-plus-1', () {
-        var body = new List.filled(maxFrameSize + 1, 0x42);
+        var body = List.filled(maxFrameSize + 1, 0x42);
         dataFrame(body).listen(expectAsync1((_) {}, count: 0),
             onError: expectAsync2((error, stack) {
           expect('$error', contains('Incoming frame is too big'));
@@ -56,10 +56,10 @@ main() {
       });
 
       test('incomplete-header', () {
-        var settings = new ActiveSettings();
+        var settings = ActiveSettings();
 
-        var controller = new StreamController<List<int>>();
-        var reader = new FrameReader(controller.stream, settings);
+        var controller = StreamController<List<int>>();
+        var reader = FrameReader(controller.stream, settings);
 
         controller
           ..add([1])
@@ -72,10 +72,10 @@ main() {
       });
 
       test('incomplete-frame', () {
-        var settings = new ActiveSettings();
+        var settings = ActiveSettings();
 
-        var controller = new StreamController<List<int>>();
-        var reader = new FrameReader(controller.stream, settings);
+        var controller = StreamController<List<int>>();
+        var reader = FrameReader(controller.stream, settings);
 
         // This is a DataFrame:
         //   - length: [0, 0, 255]
@@ -93,10 +93,10 @@ main() {
       });
 
       test('connection-error', () {
-        var settings = new ActiveSettings();
+        var settings = ActiveSettings();
 
-        var controller = new StreamController<List<int>>();
-        var reader = new FrameReader(controller.stream, settings);
+        var controller = StreamController<List<int>>();
+        var reader = FrameReader(controller.stream, settings);
 
         controller
           ..addError('hello world')

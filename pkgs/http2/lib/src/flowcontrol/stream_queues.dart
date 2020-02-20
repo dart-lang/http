@@ -33,11 +33,11 @@ class StreamMessageQueueOut extends Object
   final ConnectionMessageQueueOut connectionMessageQueue;
 
   /// A indicator for whether this queue is currently buffering.
-  final BufferIndicator bufferIndicator = new BufferIndicator();
+  final BufferIndicator bufferIndicator = BufferIndicator();
 
   /// Buffered [Message]s which will be written to the underlying connection
   /// if the flow control window allows so.
-  final Queue<Message> _messages = new Queue<Message>();
+  final Queue<Message> _messages = Queue<Message>();
 
   /// Debugging data on how much data should be written to the underlying
   /// connection message queue.
@@ -118,9 +118,9 @@ class StreamMessageQueueOut extends Object
             var partA = viewOrSublist(messageBytes, 0, bytesAvailable);
             var partB = viewOrSublist(messageBytes, bytesAvailable,
                 messageBytes.length - bytesAvailable);
-            var messageA = new DataMessage(message.streamId, partA, false);
+            var messageA = DataMessage(message.streamId, partA, false);
             var messageB =
-                new DataMessage(message.streamId, partB, message.endStream);
+                DataMessage(message.streamId, partB, message.endStream);
 
             // Put the second fragment back into the front of the queue.
             _messages.addFirst(messageB);
@@ -139,7 +139,7 @@ class StreamMessageQueueOut extends Object
         _messages.removeFirst();
         connectionMessageQueue.enqueueMessage(message);
       } else {
-        throw new StateError('Unknown messages type: ${message.runtimeType}');
+        throw StateError('Unknown messages type: ${message.runtimeType}');
       }
     }
     if (queueLenBefore > 0 && _messages.isEmpty) {
@@ -161,11 +161,11 @@ class StreamMessageQueueIn extends Object
   final IncomingWindowHandler windowHandler;
 
   /// A indicator whether this [StreamMessageQueueIn] is currently buffering.
-  final BufferIndicator bufferIndicator = new BufferIndicator();
+  final BufferIndicator bufferIndicator = BufferIndicator();
 
   /// The pending [Message]s which are to be delivered via the [messages]
   /// stream.
-  final Queue<Message> _pendingMessages = new Queue<Message>();
+  final Queue<Message> _pendingMessages = Queue<Message>();
 
   /// The [StreamController] used for producing the [messages] stream.
   StreamController<StreamMessage> _incomingMessagesC;
@@ -178,7 +178,7 @@ class StreamMessageQueueIn extends Object
     // incoming messages will get buffered.
     bufferIndicator.markBuffered();
 
-    _incomingMessagesC = new StreamController(
+    _incomingMessagesC = StreamController(
         onListen: () {
           if (!wasClosed && !wasTerminated) {
             _tryDispatch();
@@ -198,7 +198,7 @@ class StreamMessageQueueIn extends Object
         },
         onCancel: cancel);
 
-    _serverPushStreamsC = new StreamController(onListen: () {
+    _serverPushStreamsC = StreamController(onListen: () {
       if (!wasClosed && !wasTerminated) {
         _tryDispatch();
         _tryUpdateBufferIndicator();
@@ -225,7 +225,7 @@ class StreamMessageQueueIn extends Object
           // either rejecting or handling them.
           assert(!_serverPushStreamsC.isClosed);
           var transportStreamPush =
-              new TransportStreamPush(message.headers, message.pushedStream);
+              TransportStreamPush(message.headers, message.pushedStream);
           _serverPushStreamsC.add(transportStreamPush);
           return;
         }
@@ -268,12 +268,12 @@ class StreamMessageQueueIn extends Object
       final message = _pendingMessages.removeFirst();
       assert(!_incomingMessagesC.isClosed);
       if (message is HeadersMessage) {
-        _incomingMessagesC.add(new HeadersStreamMessage(message.headers,
+        _incomingMessagesC.add(HeadersStreamMessage(message.headers,
             endStream: message.endStream));
       } else if (message is DataMessage) {
         if (message.bytes.length > 0) {
-          _incomingMessagesC.add(new DataStreamMessage(message.bytes,
-              endStream: message.endStream));
+          _incomingMessagesC.add(
+              DataStreamMessage(message.bytes, endStream: message.endStream));
         }
       } else {
         // This can never happen.
@@ -299,11 +299,11 @@ class StreamMessageQueueIn extends Object
           if (message is HeadersMessage) {
             // NOTE: Header messages do not affect flow control - only
             // data messages do.
-            _incomingMessagesC.add(new HeadersStreamMessage(message.headers,
+            _incomingMessagesC.add(HeadersStreamMessage(message.headers,
                 endStream: message.endStream));
           } else if (message is DataMessage) {
             if (message.bytes.length > 0) {
-              _incomingMessagesC.add(new DataStreamMessage(message.bytes,
+              _incomingMessagesC.add(DataStreamMessage(message.bytes,
                   endStream: message.endStream));
               windowHandler.dataProcessed(message.bytes.length);
             }

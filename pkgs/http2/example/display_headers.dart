@@ -23,13 +23,13 @@ main(List<String> args) async {
 
   // The default client settings will disable server pushes. We
   // therefore do not need to deal with [stream.peerPushes].
-  var transport = new ClientTransportConnection.viaSocket(socket);
+  var transport = ClientTransportConnection.viaSocket(socket);
 
   var headers = [
-    new Header.ascii(':method', 'GET'),
-    new Header.ascii(':path', uri.path),
-    new Header.ascii(':scheme', uri.scheme),
-    new Header.ascii(':authority', uri.host),
+    Header.ascii(':method', 'GET'),
+    Header.ascii(':path', uri.path),
+    Header.ascii(':scheme', uri.scheme),
+    Header.ascii(':authority', uri.host),
   ];
 
   var stream = transport.makeRequest(headers, endStream: true);
@@ -53,7 +53,7 @@ Future<Socket> connect(Uri uri) async {
     var secureSocket = await SecureSocket.connect(uri.host, uri.port,
         supportedProtocols: ['h2']);
     if (secureSocket.selectedProtocol != 'h2') {
-      throw new Exception('Failed to negogiate http/2 via alpn. Maybe server '
+      throw Exception('Failed to negogiate http/2 via alpn. Maybe server '
           "doesn't support http/2.");
     }
     return secureSocket;

@@ -14,10 +14,10 @@ main() {
   group('connection-preface', () {
     test('successful', () async {
       final frameBytes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-      final data = new List<int>.from(CONNECTION_PREFACE)..addAll(frameBytes);
+      final data = List<int>.from(CONNECTION_PREFACE)..addAll(frameBytes);
 
       for (int size = 1; size <= data.length; size++) {
-        var c = new StreamController<List<int>>();
+        var c = StreamController<List<int>>();
         var resultF =
             readConnectionPreface(c.stream).fold([], (b, d) => b..addAll(d));
 
@@ -34,7 +34,7 @@ main() {
     });
 
     test('only-part-of-connection-sequence', () async {
-      var c = new StreamController<List<int>>();
+      var c = StreamController<List<int>>();
       var resultF =
           readConnectionPreface(c.stream).fold([], (b, d) => b..addAll(d));
 
@@ -49,7 +49,7 @@ main() {
     });
 
     test('wrong-connection-sequence', () async {
-      var c = new StreamController<List<int>>();
+      var c = StreamController<List<int>>();
       var resultF =
           readConnectionPreface(c.stream).fold([], (b, d) => b..addAll(d));
 
@@ -64,7 +64,7 @@ main() {
     });
 
     test('incoming-socket-error', () async {
-      var c = new StreamController<List<int>>();
+      var c = StreamController<List<int>>();
       var resultF =
           readConnectionPreface(c.stream).fold([], (b, d) => b..addAll(d));
 
