@@ -46,18 +46,28 @@ class MultipartRequest extends BaseRequest {
   /// The list of files to upload for this request.
   final files = <MultipartFile>[];
 
-  MultipartRequest(String method, Uri url) : super(method, url);
+  /// Set a custom boundary.
+  final String _customBoundary;
+
+  MultipartRequest(String method, Uri url, {String boundary})
+      : _customBoundary = boundary,
+        super(method, url);
 
   /// The total length of the request body, in bytes.
   ///
   /// This is calculated from [fields] and [files] and cannot be set manually.
   @override
   int get contentLength {
+    var boundaryLength = _boundaryLength;
+    if (_customBoundary != null) {
+      boundaryLength = _customBoundary.length;
+    }
+
     var length = 0;
 
     fields.forEach((name, value) {
       length += '--'.length +
-          _boundaryLength +
+          boundaryLength +
           '\r\n'.length +
           utf8.encode(_headerForField(name, value)).length +
           utf8.encode(value).length +
@@ -66,14 +76,14 @@ class MultipartRequest extends BaseRequest {
 
     for (var file in files) {
       length += '--'.length +
-          _boundaryLength +
+          boundaryLength +
           '\r\n'.length +
           utf8.encode(_headerForFile(file)).length +
           file.length +
           '\r\n'.length;
     }
 
-    return length + '--'.length + _boundaryLength + '--\r\n'.length;
+    return length + '--'.length + boundaryLength + '--\r\n'.length;
   }
 
   @override
@@ -87,7 +97,7 @@ class MultipartRequest extends BaseRequest {
   @override
   ByteStream finalize() {
     // TODO: freeze fields and files
-    final boundary = _boundaryString();
+    var boundary = _customBoundary ?? _boundaryString();
     headers['content-type'] = 'multipart/form-data; boundary=$boundary';
     super.finalize();
     return ByteStream(_finalize(boundary));
