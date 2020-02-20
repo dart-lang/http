@@ -20,11 +20,13 @@ void main() {
 
       void Function(StreamMessage) headersTestFun(String type) {
         return expectAsync1((StreamMessage msg) {
-          expect(msg is HeadersStreamMessage, isTrue);
-          expect((msg as HeadersStreamMessage).headers.first.name,
-              expectedHeaders.first.name);
-          expect((msg as HeadersStreamMessage).headers.first.value,
-              expectedHeaders.first.value);
+          expect(
+              msg,
+              isA<HeadersStreamMessage>()
+                  .having((m) => m.headers.first.name, 'headers.first.name',
+                      expectedHeaders.first.name)
+                  .having((m) => m.headers.first.value, 'headers.first.value',
+                      expectedHeaders.first.value));
         });
       }
 
@@ -36,13 +38,15 @@ void main() {
         return (StreamMessage msg) {
           if (expectHeader) {
             expectHeader = false;
-            expect(msg is HeadersStreamMessage, isTrue);
-            expect((msg as HeadersStreamMessage).headers.first.name,
-                expectedHeaders.first.name);
-            expect((msg as HeadersStreamMessage).headers.first.value,
-                expectedHeaders.first.value);
+            expect(
+                msg,
+                isA<HeadersStreamMessage>()
+                    .having((m) => m.headers.first.name, 'headers.first.name',
+                        expectedHeaders.first.name)
+                    .having((m) => m.headers.first.value, 'headers.first.value',
+                        expectedHeaders.first.value));
           } else {
-            expect(msg is DataStreamMessage, isTrue);
+            expect(msg, isA<DataStreamMessage>());
             var bytes = (msg as DataStreamMessage).bytes;
             expect(
                 bytes,

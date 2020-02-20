@@ -37,9 +37,10 @@ void main() {
           settingsDone.complete();
 
           // Make sure we get the graceful shutdown message.
-          var frame = await nextFrame();
-          expect(frame is GoawayFrame, true);
-          expect((frame as GoawayFrame).errorCode, ErrorCode.NO_ERROR);
+          expect(
+              await nextFrame(),
+              isA<GoawayFrame>()
+                  .having((f) => f.errorCode, 'errorCode', ErrorCode.NO_ERROR));
 
           // Make sure the client ended the connection.
           expect(await serverReader.moveNext(), false);
@@ -154,10 +155,13 @@ void main() {
           serverWriter.writeDataFrame(invalidStreamId, [42]);
 
           // Make sure the client sends a [RstStreamFrame] frame.
-          var frame = await nextFrame();
-          expect(frame is RstStreamFrame, true);
-          expect((frame as RstStreamFrame).errorCode, ErrorCode.STREAM_CLOSED);
-          expect((frame as RstStreamFrame).header.streamId, invalidStreamId);
+          expect(
+              await nextFrame(),
+              isA<RstStreamFrame>()
+                  .having(
+                      (f) => f.errorCode, 'errorCode', ErrorCode.STREAM_CLOSED)
+                  .having((f) => f.header.streamId, 'header.streamId',
+                      invalidStreamId));
 
           // Close the original stream.
           serverWriter.writeDataFrame(headers.header.streamId, [],
@@ -221,10 +225,13 @@ void main() {
           expect(win.windowSizeIncrement, 1);
 
           // Make sure we get a [RstStreamFrame] frame.
-          var frame = await nextFrame();
-          expect(frame is RstStreamFrame, true);
-          expect((frame as RstStreamFrame).errorCode, ErrorCode.STREAM_CLOSED);
-          expect((frame as RstStreamFrame).header.streamId, streamId);
+          expect(
+              await nextFrame(),
+              isA<RstStreamFrame>()
+                  .having(
+                      (f) => f.errorCode, 'errorCode', ErrorCode.STREAM_CLOSED)
+                  .having(
+                      (f) => f.header.streamId, 'header.streamId', streamId));
 
           // Wait for the client finish.
           expect(await nextFrame() is GoawayFrame, true);
@@ -290,10 +297,12 @@ void main() {
           expect(win.windowSizeIncrement, 1);
 
           // Make sure we get a [RstStreamFrame] frame.
-          var frame = await nextFrame();
-          expect(frame is RstStreamFrame, true);
-          expect((frame as RstStreamFrame).errorCode, ErrorCode.CANCEL);
-          expect((frame as RstStreamFrame).header.streamId, streamId);
+          expect(
+              await nextFrame(),
+              isA<RstStreamFrame>()
+                  .having((f) => f.errorCode, 'errorCode', ErrorCode.CANCEL)
+                  .having(
+                      (f) => f.header.streamId, 'header.streamId', streamId));
 
           serverWriter.writeRstStreamFrame(streamId, ErrorCode.STREAM_CLOSED);
 

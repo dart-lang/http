@@ -37,7 +37,7 @@ void main() {
       test('data-frame--max-frame-size', () {
         var body = List.filled(maxFrameSize, 0x42);
         dataFrame(body).listen(expectAsync1((Frame frame) {
-          expect(frame is DataFrame, isTrue);
+          expect(frame, isA<DataFrame>());
           expect(frame.header, hasLength(body.length));
           expect(frame.header.flags, 0);
           var dataFrame = frame as DataFrame;

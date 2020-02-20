@@ -23,7 +23,7 @@ void main() {
     transportTest('terminated-client-ping',
         (TransportConnection client, TransportConnection server) async {
       var clientError = client.ping().catchError(expectAsync2((e, s) {
-        expect(e is TransportException, isTrue);
+        expect(e, isA<TransportException>());
       }));
       await client.terminate();
       await clientError;
@@ -31,17 +31,17 @@ void main() {
       // NOTE: Now the connection is dead and client/server should complete
       // with [TransportException]s when doing work (e.g. ping).
       unawaited(client.ping().catchError(expectAsync2((e, s) {
-        expect(e is TransportException, isTrue);
+        expect(e, isA<TransportException>());
       })));
       unawaited(server.ping().catchError(expectAsync2((e, s) {
-        expect(e is TransportException, isTrue);
+        expect(e, isA<TransportException>());
       })));
     });
 
     transportTest('terminated-server-ping',
         (TransportConnection client, TransportConnection server) async {
       var clientError = client.ping().catchError(expectAsync2((e, s) {
-        expect(e is TransportException, isTrue);
+        expect(e, isA<TransportException>());
       }));
       await server.terminate();
       await clientError;
@@ -49,10 +49,10 @@ void main() {
       // NOTE: Now the connection is dead and the client/server should complete
       // with [TransportException]s when doing work (e.g. ping).
       unawaited(client.ping().catchError(expectAsync2((e, s) {
-        expect(e is TransportException, isTrue);
+        expect(e, isA<TransportException>());
       })));
       unawaited(server.ping().catchError(expectAsync2((e, s) {
-        expect(e is TransportException, isTrue);
+        expect(e, isA<TransportException>());
       })));
     });
 
@@ -221,7 +221,7 @@ void main() {
         await for (ServerTransportStream stream in server.incomingStreams) {
           stream.sendHeaders([Header.ascii('x', 'y')], endStream: true);
           stream.incomingMessages.listen(expectAsync1((msg) {
-            expect(msg is HeadersStreamMessage, true);
+            expect(msg, isA<HeadersStreamMessage>());
             readyForError.complete();
           }), onError: expectAsync1((error) {
             expect('$error', contains('Stream was terminated by peer'));
@@ -275,7 +275,7 @@ void main() {
           stream.sendHeaders([Header.ascii('x', 'y')], endStream: false);
           stream.incomingMessages.listen(
             expectAsync1((msg) {
-              expect(msg is HeadersStreamMessage, true);
+              expect(msg, isA<HeadersStreamMessage>());
             }),
             onError: expectAsync1((_) {}, count: 0),
             onDone: expectAsync0(() {
@@ -308,7 +308,7 @@ void main() {
           stream.sendHeaders([Header.ascii('x', 'y')], endStream: false);
           stream.incomingMessages.listen(
             expectAsync1((msg) async {
-              expect(msg is HeadersStreamMessage, true);
+              expect(msg, isA<HeadersStreamMessage>());
               await readyForError.future;
               stream.terminate();
             }),
@@ -467,10 +467,10 @@ void main() {
 
           var sub = stream.incomingMessages.listen((message) {
             if (!gotHeadersFrame) {
-              expect(message is HeadersStreamMessage, true);
+              expect(message, isA<HeadersStreamMessage>());
               gotHeadersFrame = true;
             } else {
-              expect(message is DataStreamMessage, true);
+              expect(message, isA<DataStreamMessage>());
               var dataMessage = message as DataStreamMessage;
 
               // We're just testing the first byte, to make the test faster.

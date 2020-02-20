@@ -94,7 +94,7 @@ Future makeHttp2Request(MultiProtocolHttpServer server,
   var si = StreamIterator(stream.incomingMessages);
 
   expect(await si.moveNext(), true);
-  expect(si.current is HeadersStreamMessage, true);
+  expect(si.current, isA<HeadersStreamMessage>());
   var responseHeaders = getHeaders(si.current as HeadersStreamMessage);
   expect(responseHeaders[':status'], '200');
 
@@ -108,7 +108,7 @@ Future handleHttp2Request(ServerTransportStream stream, int i) async {
   var si = StreamIterator(stream.incomingMessages);
 
   expect(await si.moveNext(), true);
-  expect(si.current is HeadersStreamMessage, true);
+  expect(si.current, isA<HeadersStreamMessage>());
   var headers = getHeaders(si.current as HeadersStreamMessage);
 
   expect(headers[':path'], '/abc$i');

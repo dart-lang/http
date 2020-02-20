@@ -99,7 +99,7 @@ void main() {
 
         expect(queue.pendingMessages, 0);
         queue.messages.listen(expectAsync1((StreamMessage message) {
-          expect(message is DataStreamMessage, isTrue);
+          expect(message, isA<DataStreamMessage>());
 
           var dataMessage = message as DataStreamMessage;
           expect(dataMessage.bytes, BYTES);

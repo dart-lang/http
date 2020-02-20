@@ -30,7 +30,7 @@ void main() {
 
       void Function(StreamMessage) headersTestFun() {
         return expectAsync1((StreamMessage msg) {
-          expect(msg is HeadersStreamMessage, isTrue);
+          expect(msg, isA<HeadersStreamMessage>());
           testHeaders((msg as HeadersStreamMessage).headers);
         });
       }
@@ -42,7 +42,7 @@ void main() {
 
         while (await iterator.moveNext()) {
           var msg = iterator.current;
-          expect(msg is DataStreamMessage, isTrue);
+          expect(msg, isA<DataStreamMessage>());
           all.addAll((msg as DataStreamMessage).bytes);
         }
 
