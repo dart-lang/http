@@ -167,14 +167,9 @@ class HPackDecoder {
 //    - without huffman encoding
 //    - without using the dynamic table
 class HPackEncoder {
-  int _maxHeaderTableSize = 4096;
-
-  final IndexTable _table = new IndexTable();
-
   void updateMaxSendingHeaderTableSize(int newMaximumSize) {
     // TODO: Once we start encoding via dynamic table we need to let the other
     // side know the maximum table size we're using.
-    _maxHeaderTableSize = newMaximumSize;
   }
 
   List<int> encode(List<Header> headers) {
