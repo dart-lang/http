@@ -66,7 +66,7 @@ class ConnectionState {
 
     void add(bool condition, String flag) {
       if (condition) {
-        if (message.length == 0) {
+        if (message.isEmpty) {
           message = flag;
         } else {
           message = '$message/$flag';

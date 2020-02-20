@@ -74,7 +74,7 @@ class ConnectionMessageQueueOut extends Object
 
   @override
   void onCheckForClose() {
-    if (isClosing && _messages.length == 0) {
+    if (isClosing && _messages.isEmpty) {
       closeWithValue();
     }
   }
@@ -88,7 +88,7 @@ class ConnectionMessageQueueOut extends Object
       //     * the next message is a non-flow control message (e.g. headers)
       //     * the connection window is positive
 
-      if (_messages.length > 0 &&
+      if (_messages.isNotEmpty &&
           !_frameWriter.bufferIndicator.wouldBuffer &&
           (!_connectionWindow.positiveWindow.wouldBuffer ||
               _messages.first is! DataMessage)) {
@@ -96,7 +96,7 @@ class ConnectionMessageQueueOut extends Object
 
         // If we have more messages and we can send them, we'll run them
         // using `Timer.run()` to let other things get in-between.
-        if (_messages.length > 0 &&
+        if (_messages.isNotEmpty &&
             !_frameWriter.bufferIndicator.wouldBuffer &&
             (!_connectionWindow.positiveWindow.wouldBuffer ||
                 _messages.first is! DataMessage)) {
@@ -312,7 +312,7 @@ class ConnectionMessageQueueIn extends Object
   void _tryDispatch(
       int streamId, StreamMessageQueueIn mq, Queue<Message> pendingMessages) {
     var bytesDeliveredToStream = 0;
-    while (!mq.bufferIndicator.wouldBuffer && pendingMessages.length > 0) {
+    while (!mq.bufferIndicator.wouldBuffer && pendingMessages.isNotEmpty) {
       _count--;
 
       var message = pendingMessages.removeFirst();

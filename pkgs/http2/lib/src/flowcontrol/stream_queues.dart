@@ -79,7 +79,7 @@ class StreamMessageQueueOut extends Object
       _messages.addLast(message);
       _trySendData();
 
-      if (_messages.length > 0) {
+      if (_messages.isNotEmpty) {
         bufferIndicator.markBuffered();
       }
     }
@@ -99,7 +99,7 @@ class StreamMessageQueueOut extends Object
   void _trySendData() {
     var queueLenBefore = _messages.length;
 
-    while (_messages.length > 0) {
+    while (_messages.isNotEmpty) {
       var message = _messages.first;
 
       if (message is HeadersMessage) {
@@ -107,7 +107,7 @@ class StreamMessageQueueOut extends Object
         connectionMessageQueue.enqueueMessage(message);
       } else if (message is DataMessage) {
         var bytesAvailable = streamWindow.peerWindowSize;
-        if (bytesAvailable > 0 || message.bytes.length == 0) {
+        if (bytesAvailable > 0 || message.bytes.isEmpty) {
           _messages.removeFirst();
 
           // Do we need to fragment?
@@ -271,7 +271,7 @@ class StreamMessageQueueIn extends Object
         _incomingMessagesC.add(HeadersStreamMessage(message.headers,
             endStream: message.endStream));
       } else if (message is DataMessage) {
-        if (message.bytes.length > 0) {
+        if (message.bytes.isNotEmpty) {
           _incomingMessagesC.add(
               DataStreamMessage(message.bytes, endStream: message.endStream));
         }
@@ -302,7 +302,7 @@ class StreamMessageQueueIn extends Object
             _incomingMessagesC.add(HeadersStreamMessage(message.headers,
                 endStream: message.endStream));
           } else if (message is DataMessage) {
-            if (message.bytes.length > 0) {
+            if (message.bytes.isNotEmpty) {
               _incomingMessagesC.add(DataStreamMessage(message.bytes,
                   endStream: message.endStream));
               windowHandler.dataProcessed(message.bytes.length);
@@ -325,7 +325,7 @@ class StreamMessageQueueIn extends Object
   }
 
   void _tryUpdateBufferIndicator() {
-    if (_incomingMessagesC.isPaused || _pendingMessages.length > 0) {
+    if (_incomingMessagesC.isPaused || _pendingMessages.isNotEmpty) {
       bufferIndicator.markBuffered();
     } else if (bufferIndicator.wouldBuffer && !_incomingMessagesC.isPaused) {
       bufferIndicator.markUnBuffered();

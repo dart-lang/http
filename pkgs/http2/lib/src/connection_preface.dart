@@ -92,7 +92,7 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
         }
         data = part2;
       }
-      if (data.length > 0) {
+      if (data.isNotEmpty) {
         result.add(data);
       }
     }
