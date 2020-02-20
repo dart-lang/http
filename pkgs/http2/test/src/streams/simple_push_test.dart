@@ -21,7 +21,7 @@ void main() {
       allBytes.addAll(List.generate(42, (i) => 42));
 
       void testHeaders(List<Header> headers) {
-        expect(headers.length, expectedHeaders.length);
+        expect(headers, hasLength(expectedHeaders.length));
         for (var i = 0; i < headers.length; i++) {
           expect(headers[i].name, expectedHeaders[i].name);
           expect(headers[i].value, expectedHeaders[i].value);

@@ -20,7 +20,7 @@ void main() {
         writer.writeDataFrame(99, [1, 2, 3], endStream: true);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is DataFrame, isTrue);
 
         DataFrame dataFrame = frames[0];
@@ -36,7 +36,7 @@ void main() {
         writer.writeHeadersFrame(99, [Header.ascii('a', 'b')], endStream: true);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is HeadersFrame, isTrue);
 
         HeadersFrame headersFrame = frames[0];
@@ -51,7 +51,7 @@ void main() {
         expect(headersFrame.weight, isNull);
 
         var headers = decoder.decode(headersFrame.headerBlockFragment);
-        expect(headers.length, 1);
+        expect(headers, hasLength(1));
         expect(headers[0], isHeader('a', 'b'));
       });
 
@@ -60,7 +60,7 @@ void main() {
         writer.writePriorityFrame(99, 44, 33, exclusive: true);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is PriorityFrame, isTrue);
 
         PriorityFrame priorityFrame = frames[0];
@@ -75,7 +75,7 @@ void main() {
         writer.writeRstStreamFrame(99, 42);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is RstStreamFrame, isTrue);
 
         RstStreamFrame rstFrame = frames[0];
@@ -88,13 +88,13 @@ void main() {
         writer.writeSettingsFrame([Setting(Setting.SETTINGS_ENABLE_PUSH, 1)]);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is SettingsFrame, isTrue);
 
         SettingsFrame settingsFrame = frames[0];
         expect(settingsFrame.hasAckFlag, false);
         expect(settingsFrame.header.streamId, 0);
-        expect(settingsFrame.settings.length, 1);
+        expect(settingsFrame.settings, hasLength(1));
         expect(
             settingsFrame.settings[0].identifier, Setting.SETTINGS_ENABLE_PUSH);
         expect(settingsFrame.settings[0].value, 1);
@@ -105,13 +105,13 @@ void main() {
         writer.writeSettingsAckFrame();
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is SettingsFrame, isTrue);
 
         SettingsFrame settingsFrame = frames[0];
         expect(settingsFrame.hasAckFlag, true);
         expect(settingsFrame.header.streamId, 0);
-        expect(settingsFrame.settings.length, 0);
+        expect(settingsFrame.settings, hasLength(0));
       });
 
       writerReaderTest('push-promise-frame',
@@ -119,7 +119,7 @@ void main() {
         writer.writePushPromiseFrame(99, 44, [Header.ascii('a', 'b')]);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is PushPromiseFrame, isTrue);
 
         PushPromiseFrame pushPromiseFrame = frames[0];
@@ -130,7 +130,7 @@ void main() {
         expect(pushPromiseFrame.promisedStreamId, 44);
 
         var headers = decoder.decode(pushPromiseFrame.headerBlockFragment);
-        expect(headers.length, 1);
+        expect(headers, hasLength(1));
         expect(headers[0], isHeader('a', 'b'));
       });
 
@@ -139,7 +139,7 @@ void main() {
         writer.writePingFrame(44, ack: true);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is PingFrame, isTrue);
 
         PingFrame pingFrame = frames[0];
@@ -153,7 +153,7 @@ void main() {
         writer.writeGoawayFrame(44, 33, [1, 2, 3]);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is GoawayFrame, isTrue);
 
         GoawayFrame goawayFrame = frames[0];
@@ -168,7 +168,7 @@ void main() {
         writer.writeWindowUpdate(55, streamId: 99);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 1);
+        expect(frames, hasLength(1));
         expect(frames[0] is WindowUpdateFrame, isTrue);
 
         WindowUpdateFrame windowUpdateFrame = frames[0];
@@ -185,7 +185,7 @@ void main() {
         writer.writeHeadersFrame(99, [header], endStream: true);
 
         var frames = await finishWriting(writer, reader);
-        expect(frames.length, 2);
+        expect(frames, hasLength(2));
         expect(frames[0] is HeadersFrame, isTrue);
         expect(frames[1] is ContinuationFrame, isTrue);
 
@@ -207,7 +207,7 @@ void main() {
         ];
 
         var headers = decoder.decode(headerBlock);
-        expect(headers.length, 1);
+        expect(headers, hasLength(1));
         expect(headers[0].name, headerName);
         expect(headers[0].value, headerValue);
       });

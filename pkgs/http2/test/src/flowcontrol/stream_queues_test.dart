@@ -62,7 +62,7 @@ void main() {
         verify(windowMock.decreaseWindow(1)).called(BYTES.length);
         final messages =
             verify(connectionQueueMock.enqueueMessage(captureAny)).captured;
-        expect(messages.length, BYTES.length);
+        expect(messages, hasLength(BYTES.length));
         for (var counter = 0; counter < messages.length; counter++) {
           expect(messages[counter], const TypeMatcher<DataMessage>());
           DataMessage dataMessage = messages[counter];

@@ -790,7 +790,7 @@ class TestHelper {
 
   static void expectHeader(Header h, int len, int nameChar, int valueChar) {
     var data = h.value;
-    expect(data.length, len - 32 - 1);
+    expect(data, hasLength(len - 32 - 1));
     for (var i = 0; i < data.length; i++) {
       expect(data[i], valueChar);
     }

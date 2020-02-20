@@ -38,7 +38,7 @@ void main() {
         var body = List.filled(maxFrameSize, 0x42);
         dataFrame(body).listen(expectAsync1((Frame frame) {
           expect(frame is DataFrame, isTrue);
-          expect(frame.header.length, body.length);
+          expect(frame.header, hasLength(body.length));
           expect(frame.header.flags, 0);
           DataFrame dataFrame = frame;
           expect(dataFrame.hasEndStreamFlag, isFalse);
