@@ -40,7 +40,7 @@ void main() {
           expect(frame is DataFrame, isTrue);
           expect(frame.header, hasLength(body.length));
           expect(frame.header.flags, 0);
-          DataFrame dataFrame = frame;
+          var dataFrame = frame as DataFrame;
           expect(dataFrame.hasEndStreamFlag, isFalse);
           expect(dataFrame.hasPaddedFlag, isFalse);
           expect(dataFrame.bytes, body);

@@ -14,7 +14,7 @@ import '../error_matchers.dart';
 void main() {
   group('ping-handler', () {
     test('successful-ping', () async {
-      dynamic writer = FrameWriterMock();
+      var writer = FrameWriterMock();
       var pingHandler = PingHandler(writer);
 
       var p1 = pingHandler.ping();
@@ -36,7 +36,7 @@ void main() {
     });
 
     test('successful-ack-to-remote-ping', () async {
-      dynamic writer = FrameWriterMock();
+      var writer = FrameWriterMock();
       var pingHandler = PingHandler(writer);
 
       var header = FrameHeader(8, FrameType.PING, 0, 0);
@@ -52,7 +52,7 @@ void main() {
     });
 
     test('ping-unknown-opaque-data', () async {
-      dynamic writer = FrameWriterMock();
+      var writer = FrameWriterMock();
       var pingHandler = PingHandler(writer);
 
       var future = pingHandler.ping();

@@ -1,5 +1,7 @@
 include: package:pedantic/analysis_options.yaml
 analyzer:
+  strong-mode:
+    implicit-casts: false
   errors:
     unused_element: error
     unused_import: error

@@ -145,8 +145,8 @@ void main() {
 
           handshakeCompleter.complete();
 
-          HeadersFrame headers = await nextFrame();
-          DataFrame finFrame = await nextFrame();
+          var headers = await nextFrame() as HeadersFrame;
+          var finFrame = await nextFrame() as DataFrame;
           expect(finFrame.hasEndStreamFlag, true);
 
           // Write a data frame for a non-existent stream.
@@ -197,8 +197,8 @@ void main() {
 
           handshakeCompleter.complete();
 
-          HeadersFrame headers = await nextFrame();
-          DataFrame finFrame = await nextFrame();
+          var headers = await nextFrame() as HeadersFrame;
+          var finFrame = await nextFrame() as DataFrame;
           expect(finFrame.hasEndStreamFlag, true);
 
           var streamId = headers.header.streamId;
@@ -264,8 +264,8 @@ void main() {
 
           handshakeCompleter.complete();
 
-          HeadersFrame headers = await nextFrame();
-          DataFrame finFrame = await nextFrame();
+          var headers = await nextFrame() as HeadersFrame;
+          var finFrame = await nextFrame() as DataFrame;
           expect(finFrame.hasEndStreamFlag, true);
 
           var streamId = headers.header.streamId;
@@ -341,7 +341,7 @@ void main() {
 
           handshakeCompleter.complete();
 
-          HeadersFrame headers = await nextFrame();
+          var headers = await nextFrame() as HeadersFrame;
 
           var streamId = headers.header.streamId;
 
@@ -367,7 +367,7 @@ void main() {
           expect(win.windowSizeIncrement, 1);
 
           await clientDone.future;
-          DataFrame finFrame = await nextFrame();
+          var finFrame = await nextFrame() as DataFrame;
           expect(finFrame.hasEndStreamFlag, true);
 
           // Wait for the client finish.
@@ -411,8 +411,8 @@ void main() {
 
           handshakeCompleter.complete();
 
-          HeadersFrame headers = await nextFrame();
-          DataFrame finFrame = await nextFrame();
+          var headers = await nextFrame() as HeadersFrame;
+          var finFrame = await nextFrame() as DataFrame;
           expect(finFrame.hasEndStreamFlag, true);
 
           var streamId = headers.header.streamId;
@@ -427,7 +427,7 @@ void main() {
               streamId, pushStreamId, [Header.ascii('a', 'b')]);
 
           // Make sure we get a connection error.
-          GoawayFrame frame = await nextFrame();
+          var frame = await nextFrame() as GoawayFrame;
           expect(ascii.decode(frame.debugData),
               contains('Cannot push on a non-existent stream'));
           expect(await serverReader.moveNext(), false);
@@ -464,7 +464,7 @@ void main() {
 
           handshakeCompleter.complete();
 
-          HeadersFrame headers = await nextFrame();
+          var headers = await nextFrame() as HeadersFrame;
           var streamId = headers.header.streamId;
 
           // Write response.
@@ -476,7 +476,7 @@ void main() {
               streamId, pushStreamId, [Header.ascii('a', 'b')]);
 
           // Make sure we get a connection error.
-          GoawayFrame frame = await nextFrame();
+          var frame = await nextFrame() as GoawayFrame;
           expect(
               ascii.decode(frame.debugData),
               contains(
@@ -515,7 +515,7 @@ void main() {
 
           handshakeCompleter.complete();
 
-          HeadersFrame headers = await nextFrame();
+          var headers = await nextFrame() as HeadersFrame;
           var streamId = headers.header.streamId;
 
           // Write more than [kFlowControlWindowSize] bytes.
@@ -529,7 +529,7 @@ void main() {
 
           // Read the resulting [GoawayFrame] and assert the error message
           // describes that the flow control window became negative.
-          GoawayFrame frame = await nextFrame();
+          var frame = await nextFrame() as GoawayFrame;
           expect(
               ascii.decode(frame.debugData),
               contains('Connection level flow control window became '

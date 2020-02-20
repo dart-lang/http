@@ -19,8 +19,8 @@ void main() {
 
     group('stream-message-queue-out', () {
       test('window-big-enough', () {
-        dynamic connectionQueueMock = MockConnectionMessageQueueOut();
-        dynamic windowMock = MockOutgoingStreamWindowHandler();
+        var connectionQueueMock = MockConnectionMessageQueueOut();
+        var windowMock = MockOutgoingStreamWindowHandler();
 
         windowMock.positiveWindow.markUnBuffered();
         var queue =
@@ -37,14 +37,14 @@ void main() {
                 .captured
                 .single;
         expect(capturedMessage, const TypeMatcher<DataMessage>());
-        DataMessage capturedDataMessage = capturedMessage;
+        var capturedDataMessage = capturedMessage as DataMessage;
         expect(capturedDataMessage.bytes, BYTES);
         expect(capturedDataMessage.endStream, isTrue);
       });
 
       test('window-smaller-than-necessary', () {
-        dynamic connectionQueueMock = MockConnectionMessageQueueOut();
-        dynamic windowMock = MockOutgoingStreamWindowHandler();
+        var connectionQueueMock = MockConnectionMessageQueueOut();
+        var windowMock = MockOutgoingStreamWindowHandler();
 
         windowMock.positiveWindow.markUnBuffered();
         var queue =
@@ -65,7 +65,7 @@ void main() {
         expect(messages, hasLength(BYTES.length));
         for (var counter = 0; counter < messages.length; counter++) {
           expect(messages[counter], const TypeMatcher<DataMessage>());
-          DataMessage dataMessage = messages[counter];
+          var dataMessage = messages[counter] as DataMessage;
           expect(dataMessage.bytes, BYTES.sublist(counter, counter + 1));
           expect(dataMessage.endStream, counter == BYTES.length - 1);
         }
@@ -94,14 +94,14 @@ void main() {
 
     group('stream-message-queue-in', () {
       test('data-end-of-stream', () {
-        dynamic windowMock = MockIncomingWindowHandler();
-        dynamic queue = StreamMessageQueueIn(windowMock);
+        var windowMock = MockIncomingWindowHandler();
+        var queue = StreamMessageQueueIn(windowMock);
 
         expect(queue.pendingMessages, 0);
         queue.messages.listen(expectAsync1((StreamMessage message) {
           expect(message is DataStreamMessage, isTrue);
 
-          DataStreamMessage dataMessage = message;
+          var dataMessage = message as DataStreamMessage;
           expect(dataMessage.bytes, BYTES);
         }), onDone: expectAsync0(() {}));
         queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
@@ -118,8 +118,8 @@ void main() {
       const STREAM_ID = 99;
       final bytes = [1, 2, 3];
 
-      dynamic windowMock = MockIncomingWindowHandler();
-      dynamic queue = StreamMessageQueueIn(windowMock);
+      var windowMock = MockIncomingWindowHandler();
+      var queue = StreamMessageQueueIn(windowMock);
 
       var sub = queue.messages.listen(expectAsync1((_) {}, count: 0),
           onDone: expectAsync0(() {}, count: 0));

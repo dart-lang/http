@@ -126,7 +126,7 @@ void main() {
 
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
-          var pushes = [];
+          var pushes = <ServerTransportStream>[];
           for (var i = 0; i < kDefaultStreamLimit; i++) {
             expect(stream.canPush, true);
             pushes.add(stream.push([Header.ascii('a', 'b')]));
@@ -139,7 +139,7 @@ void main() {
               throwsA(const TypeMatcher<StateError>()));
 
           // Finish the pushes
-          for (ServerTransportStream pushedStream in pushes) {
+          for (var pushedStream in pushes) {
             pushedStream
                 .sendHeaders([Header.ascii('e', 'nd')], endStream: true);
             await pushedStream.incomingMessages.toList();
@@ -471,7 +471,7 @@ void main() {
               gotHeadersFrame = true;
             } else {
               expect(message is DataStreamMessage, true);
-              DataStreamMessage dataMessage = message;
+              var dataMessage = message as DataStreamMessage;
 
               // We're just testing the first byte, to make the test faster.
               expect(dataMessage.bytes[0],

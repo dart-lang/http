@@ -23,7 +23,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is DataFrame, isTrue);
 
-        DataFrame dataFrame = frames[0];
+        var dataFrame = frames[0] as DataFrame;
         expect(dataFrame.header.streamId, 99);
         expect(dataFrame.hasPaddedFlag, isFalse);
         expect(dataFrame.padLength, 0);
@@ -39,7 +39,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is HeadersFrame, isTrue);
 
-        HeadersFrame headersFrame = frames[0];
+        var headersFrame = frames[0] as HeadersFrame;
         expect(headersFrame.header.streamId, 99);
         expect(headersFrame.hasPaddedFlag, isFalse);
         expect(headersFrame.padLength, 0);
@@ -63,7 +63,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is PriorityFrame, isTrue);
 
-        PriorityFrame priorityFrame = frames[0];
+        var priorityFrame = frames[0] as PriorityFrame;
         expect(priorityFrame.header.streamId, 99);
         expect(priorityFrame.exclusiveDependency, isTrue);
         expect(priorityFrame.streamDependency, 44);
@@ -78,7 +78,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is RstStreamFrame, isTrue);
 
-        RstStreamFrame rstFrame = frames[0];
+        var rstFrame = frames[0] as RstStreamFrame;
         expect(rstFrame.header.streamId, 99);
         expect(rstFrame.errorCode, 42);
       });
@@ -91,7 +91,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is SettingsFrame, isTrue);
 
-        SettingsFrame settingsFrame = frames[0];
+        var settingsFrame = frames[0] as SettingsFrame;
         expect(settingsFrame.hasAckFlag, false);
         expect(settingsFrame.header.streamId, 0);
         expect(settingsFrame.settings, hasLength(1));
@@ -108,7 +108,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is SettingsFrame, isTrue);
 
-        SettingsFrame settingsFrame = frames[0];
+        var settingsFrame = frames[0] as SettingsFrame;
         expect(settingsFrame.hasAckFlag, true);
         expect(settingsFrame.header.streamId, 0);
         expect(settingsFrame.settings, hasLength(0));
@@ -122,7 +122,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is PushPromiseFrame, isTrue);
 
-        PushPromiseFrame pushPromiseFrame = frames[0];
+        var pushPromiseFrame = frames[0] as PushPromiseFrame;
         expect(pushPromiseFrame.header.streamId, 99);
         expect(pushPromiseFrame.hasEndHeadersFlag, isTrue);
         expect(pushPromiseFrame.hasPaddedFlag, isFalse);
@@ -142,7 +142,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is PingFrame, isTrue);
 
-        PingFrame pingFrame = frames[0];
+        var pingFrame = frames[0] as PingFrame;
         expect(pingFrame.header.streamId, 0);
         expect(pingFrame.opaqueData, 44);
         expect(pingFrame.hasAckFlag, isTrue);
@@ -156,7 +156,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is GoawayFrame, isTrue);
 
-        GoawayFrame goawayFrame = frames[0];
+        var goawayFrame = frames[0] as GoawayFrame;
         expect(goawayFrame.header.streamId, 0);
         expect(goawayFrame.lastStreamId, 44);
         expect(goawayFrame.errorCode, 33);
@@ -171,7 +171,7 @@ void main() {
         expect(frames, hasLength(1));
         expect(frames[0] is WindowUpdateFrame, isTrue);
 
-        WindowUpdateFrame windowUpdateFrame = frames[0];
+        var windowUpdateFrame = frames[0] as WindowUpdateFrame;
         expect(windowUpdateFrame.header.streamId, 99);
         expect(windowUpdateFrame.windowSizeIncrement, 55);
       });
@@ -189,7 +189,7 @@ void main() {
         expect(frames[0] is HeadersFrame, isTrue);
         expect(frames[1] is ContinuationFrame, isTrue);
 
-        HeadersFrame headersFrame = frames[0];
+        var headersFrame = frames[0] as HeadersFrame;
         expect(headersFrame.header.streamId, 99);
         expect(headersFrame.hasPaddedFlag, isFalse);
         expect(headersFrame.padLength, 0);
@@ -197,7 +197,7 @@ void main() {
         expect(headersFrame.hasEndStreamFlag, isTrue);
         expect(headersFrame.hasPriorityFlag, isFalse);
 
-        ContinuationFrame contFrame = frames[1];
+        var contFrame = frames[1] as ContinuationFrame;
         expect(contFrame.header.streamId, 99);
         expect(contFrame.hasEndHeadersFlag, isTrue);
 
@@ -229,5 +229,5 @@ void writerReaderTest(String name,
 
 Future<List<Frame>> finishWriting(FrameWriter writer, FrameReader reader) {
   return Future.wait([writer.close(), reader.startDecoding().toList()])
-      .then((results) => results.last);
+      .then((results) => results.last as List<Frame>);
 }

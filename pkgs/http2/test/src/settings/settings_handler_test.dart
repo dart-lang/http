@@ -18,7 +18,7 @@ void main() {
     var setMaxTable256 = [Setting(Setting.SETTINGS_HEADER_TABLE_SIZE, 256)];
 
     test('successful-setting', () async {
-      dynamic writer = FrameWriterMock();
+      var writer = FrameWriterMock();
       var sh = SettingsHandler(
           HPackEncoder(), writer, ActiveSettings(), ActiveSettings());
 
@@ -42,7 +42,7 @@ void main() {
     });
 
     test('ack-remote-settings-change', () {
-      dynamic writer = FrameWriterMock();
+      var writer = FrameWriterMock();
       var sh = SettingsHandler(
           HPackEncoder(), writer, ActiveSettings(), ActiveSettings());
 
@@ -91,8 +91,8 @@ void main() {
     });
 
     test('change-max-header-table-size', () {
-      dynamic writer = FrameWriterMock();
-      dynamic mock = HPackEncoderMock();
+      var writer = FrameWriterMock();
+      var mock = HPackEncoderMock();
       var sh =
           SettingsHandler(mock, writer, ActiveSettings(), ActiveSettings());
 

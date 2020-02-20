@@ -54,7 +54,7 @@ void main() {
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
         expect(defrag.tryDefragmentFrame(f2), isNull);
-        HeadersFrame h = defrag.tryDefragmentFrame(f3);
+        var h = defrag.tryDefragmentFrame(f3) as HeadersFrame;
         expect(h.hasEndHeadersFlag, isTrue);
         expect(h.hasEndStreamFlag, isFalse);
         expect(h.hasPaddedFlag, isFalse);
@@ -71,7 +71,7 @@ void main() {
 
         expect(defrag.tryDefragmentFrame(f1), isNull);
         expect(defrag.tryDefragmentFrame(f2), isNull);
-        PushPromiseFrame h = defrag.tryDefragmentFrame(f3);
+        var h = defrag.tryDefragmentFrame(f3) as PushPromiseFrame;
         expect(h.hasEndHeadersFlag, isTrue);
         expect(h.hasPaddedFlag, isFalse);
         expect(h.padLength, 0);

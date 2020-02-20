@@ -19,7 +19,7 @@ void main() {
         sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
-          HeadersStreamMessage headersMsg = msg;
+          var headersMsg = msg as HeadersStreamMessage;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
         }), onDone: expectAsync0(() {}));
         sStream.outgoingMessages.close();
@@ -40,7 +40,7 @@ void main() {
             expectAsync1((StreamMessage msg) {
               expect(msg is HeadersStreamMessage, isTrue);
 
-              HeadersStreamMessage headersMsg = msg;
+              var headersMsg = msg as HeadersStreamMessage;
               expectHeadersEqual(headersMsg.headers, expectedHeaders);
             }, count: 3),
             onDone: expectAsync0(() {}));
@@ -73,12 +73,12 @@ void main() {
                 isFirst = false;
                 expect(msg is HeadersStreamMessage, isTrue);
 
-                HeadersStreamMessage headersMsg = msg;
+                var headersMsg = msg as HeadersStreamMessage;
                 expectHeadersEqual(headersMsg.headers, expectedHeaders);
               } else {
                 expect(msg is DataStreamMessage, isTrue);
 
-                DataStreamMessage dataMsg = msg;
+                var dataMsg = msg as DataStreamMessage;
                 receivedChunks.add(dataMsg.bytes);
               }
             }, count: 1 + chunks.length), onDone: expectAsync0(() {
@@ -102,7 +102,7 @@ void main() {
         sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
-          HeadersStreamMessage headersMsg = msg;
+          var headersMsg = msg as HeadersStreamMessage;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
         }), onDone: expectAsync0(() {}));
         sStream.sendHeaders(expectedHeaders, endStream: true);
@@ -114,7 +114,7 @@ void main() {
       cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
         expect(msg is HeadersStreamMessage, isTrue);
 
-        HeadersStreamMessage headersMsg = msg;
+        var headersMsg = msg as HeadersStreamMessage;
         expectHeadersEqual(headersMsg.headers, expectedHeaders);
       }), onDone: expectAsync0(() {}));
     });
@@ -128,7 +128,7 @@ void main() {
         sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
-          HeadersStreamMessage headersMsg = msg;
+          var headersMsg = msg as HeadersStreamMessage;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
         }), onDone: expectAsync0(() {}));
 
@@ -143,7 +143,7 @@ void main() {
       cStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
         expect(msg is HeadersStreamMessage, isTrue);
 
-        HeadersStreamMessage headersMsg = msg;
+        var headersMsg = msg as HeadersStreamMessage;
         expectHeadersEqual(headersMsg.headers, expectedHeaders);
       }, count: 3));
     });
@@ -162,7 +162,7 @@ void main() {
         sStream.incomingMessages.listen(expectAsync1((StreamMessage msg) {
           expect(msg is HeadersStreamMessage, isTrue);
 
-          HeadersStreamMessage headersMsg = msg;
+          var headersMsg = msg as HeadersStreamMessage;
           expectHeadersEqual(headersMsg.headers, expectedHeaders);
         }), onDone: expectAsync0(() {}));
 
@@ -197,14 +197,14 @@ void main() {
               expect(msg is HeadersStreamMessage, isTrue);
               expect(msg.endStream, false);
 
-              HeadersStreamMessage headersMsg = msg;
+              var headersMsg = msg as HeadersStreamMessage;
               expectHeadersEqual(headersMsg.headers, expectedHeaders);
             } else {
               expect(msg is DataStreamMessage, isTrue);
               expect(msg.endStream, true);
               expect(receivedChunk, null);
 
-              DataStreamMessage dataMsg = msg;
+              var dataMsg = msg as DataStreamMessage;
               receivedChunk = dataMsg.bytes;
             }
           }, count: 2), onDone: expectAsync0(() {
