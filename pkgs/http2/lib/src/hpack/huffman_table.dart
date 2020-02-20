@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library http2.hpack.huffman_table;
-
 import 'huffman.dart';
 
 /// The huffman codec for encoding/decoding HTTP/2 header blocks.

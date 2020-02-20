@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library http2.src.window;
-
 class Window {
   static const int MAX_WINDOW_SIZE = (1 << 31) - 1;
 

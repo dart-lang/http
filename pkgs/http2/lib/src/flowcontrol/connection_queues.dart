@@ -5,7 +5,6 @@
 // TODO: Take priorities into account.
 // TODO: Properly fragment large data frames, so they are not taking up too much
 // bandwidth.
-library http2.src.flowcontrol.connection_flow_controller;
 
 import 'dart:async';
 import 'dart:collection';

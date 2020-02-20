@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library http2.src.flowcontrol.queue_messages;
-
 import '../../transport.dart';
 
 /// The subclasses of [Message] are objects that are coming from the
