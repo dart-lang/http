@@ -1,6 +1,7 @@
 ## 0.1.2
 
 * Fix a number of lints affecting package maintenance score.
+* Update minimum Dart SDK to `2.1.0`.
 
 ## 0.1.1+3
 
