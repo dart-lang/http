@@ -11,16 +11,19 @@ underlying [`http.Client`][Client]:
 import 'package:http/http.dart' as http;
 import 'package:http_retry/http_retry.dart';
 
-main() async {
-  var client = new RetryClient(new http.Client());
-  print(await client.read("http://example.org"));
-  await client.close();
+Future<void> main() async {
+  final client = RetryClient(http.Client());
+  try {
+    print(await client.read('http://example.org'));
+  } finally {
+    client.close();
+  }
 }
 ```
 
 By default, this retries any request whose response has status code 503
 Temporary Failure up to three retries. It waits 500ms before the first retry,
 and increases the delay by 1.5x each time. All of this can be customized using
-the [`new RetryClient()`][new RetryClient] constructor.
+the [`RetryClient()`][new RetryClient] constructor.
 
 [new RetryClient]: https://pub.dev/documentation/http_retry/latest/http_retry/RetryClient/RetryClient.html
