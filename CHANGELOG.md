@@ -1,3 +1,7 @@
+## 0.1.2
+
+* Fix a number of lints affecting package maintenance score.
+
 ## 0.1.1+3
 
 * Support the latest `pkg:http` release.
