@@ -3,3 +3,4 @@
 // BSD-style license that can be found in the LICENSE file.
 
 export 'src/io_client.dart' show IOClient;
+export 'src/io_streamed_response.dart' show IOStreamedResponse;
