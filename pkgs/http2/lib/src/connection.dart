@@ -165,9 +165,7 @@ abstract class Connection {
 
     // Setup frame writing.
     _frameWriter = FrameWriter(_hpackContext.encoder, outgoing, peerSettings);
-    _frameWriter.doneFuture.then((_) {
-      _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
-    }).catchError((error, stack) {
+    _frameWriter.doneFuture.whenComplete(() {
       _terminate(ErrorCode.CONNECT_ERROR, causedByTransportError: true);
     });
 
