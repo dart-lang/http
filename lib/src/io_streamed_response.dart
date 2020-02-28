@@ -1,4 +1,4 @@
-// Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2020, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -10,7 +10,7 @@ import 'streamed_response.dart';
 /// An HTTP response where the response body is received asynchronously after
 /// the headers have been received.
 class IOStreamedResponse extends StreamedResponse {
-  HttpClientResponse _inner;
+  final HttpClientResponse _inner;
 
   /// Creates a new streaming response.
   ///
@@ -23,18 +23,15 @@ class IOStreamedResponse extends StreamedResponse {
       bool persistentConnection = true,
       String reasonPhrase,
       HttpClientResponse inner})
-      : super(stream, statusCode,
+      : _inner = inner,
+        super(stream, statusCode,
             contentLength: contentLength,
             request: request,
             headers: headers,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
-            reasonPhrase: reasonPhrase) {
-    _inner = inner;
-  }
+            reasonPhrase: reasonPhrase);
 
   /// Detaches the underlying socket from the HTTP server.
-  Future<Socket> detachSocket() async {
-    return await _inner.detachSocket();
-  }
+  Future<Socket> detachSocket() async => _inner.detachSocket();
 }

@@ -9,6 +9,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/src/io_client.dart' as http_io;
+import 'package:http/src/io_streamed_response.dart' as http_io_response;
 import 'package:test/test.dart';
 
 import 'utils.dart';
@@ -120,5 +121,24 @@ void main() {
     var headers = jsonDecode(bytesString)['headers'] as Map<String, dynamic>;
     var contentType = (headers['content-type'] as List).single;
     expect(contentType, startsWith('multipart/form-data; boundary='));
+  });
+
+  test('recieve an IOStreamedResponse', () async {
+    var client = http.Client();
+    var request = http.Request('GET', serverUrl);
+
+    var response = await client.send(request);
+
+    expect(response, isA<http_io_response.IOStreamedResponse>());
+  });
+
+  test('detachSocket returns a socket from an IOStreamedResponse', () async {
+    var client = http.Client();
+    var request = http.Request('GET', serverUrl);
+
+    var response = await client.send(request) as http_io_response.IOStreamedResponse;
+    var socket = await response.detachSocket();
+    
+    expect(socket, isNotNull);
   });
 }
