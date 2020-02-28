@@ -136,9 +136,10 @@ void main() {
     var client = http.Client();
     var request = http.Request('GET', serverUrl);
 
-    var response = await client.send(request) as http_io_response.IOStreamedResponse;
+    var response =
+        await client.send(request) as http_io_response.IOStreamedResponse;
     var socket = await response.detachSocket();
-    
+
     expect(socket, isNotNull);
   });
 }
