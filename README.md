@@ -67,3 +67,17 @@ class UserAgentClient extends http.BaseClient {
   }
 }
 ```
+
+## Flutter Desktop (macOS)
+
+Remember that access to the Internet must be allowed in the entitlements.
+
+* macos/Runner/DebugProfile.entitlements
+* macos/Runner/Release.entitlements
+
+```
+  <key>com.apple.security.network.client</key>
+	<true/>
+```
+
+
