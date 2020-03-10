@@ -1,15 +1,8 @@
-## 0.12.1
-
-### New Features
-
-* Adds a new return type for `IOClient` that includes the ability to detach a 
-  socket. To use or reference `IOStreamedResponse` directly, you will need to 
-  import the new `package:http/io_streamed_response.dart` import. Then cast 
-  a `StreamedResponse` as an `IOStreamedReesponse` to call the `detachSocket()`
-  method. 
-
 ## 0.12.1-dev
 
+* Add `IOStreamedResponse` which includes the ability to detach the socket.
+  When sending a request with an `IOClient` the response will be an 
+  `IOStreamedResponse`.
 * Remove dependency on `package:async`.
 
 ## 0.12.0+4
