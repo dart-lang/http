@@ -1,5 +1,8 @@
 ## 0.12.1-dev
 
+* Add `IOStreamedResponse` which includes the ability to detach the socket.
+  When sending a request with an `IOClient` the response will be an 
+  `IOStreamedResponse`.
 * Remove dependency on `package:async`.
 
 ## 0.12.0+4
