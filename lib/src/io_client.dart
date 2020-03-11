@@ -8,7 +8,7 @@ import 'dart:io';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
-import 'streamed_response.dart';
+import 'io_streamed_response.dart';
 
 /// Create an [IOClient].
 ///
@@ -24,7 +24,7 @@ class IOClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<IOStreamedResponse> send(BaseRequest request) async {
     var stream = request.finalize();
 
     try {
@@ -44,7 +44,7 @@ class IOClient extends BaseClient {
         headers[key] = values.join(',');
       });
 
-      return StreamedResponse(
+      return IOStreamedResponse(
           response.handleError(
               (HttpException error) =>
                   throw ClientException(error.message, error.uri),
@@ -56,7 +56,8 @@ class IOClient extends BaseClient {
           headers: headers,
           isRedirect: response.isRedirect,
           persistentConnection: response.persistentConnection,
-          reasonPhrase: response.reasonPhrase);
+          reasonPhrase: response.reasonPhrase,
+          inner: response);
     } on HttpException catch (error) {
       throw ClientException(error.message, error.uri);
     }
