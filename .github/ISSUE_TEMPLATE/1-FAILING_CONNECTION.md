@@ -16,8 +16,8 @@ This package is a wrapper around the HttpClient from dart:io and HttpRequest
 from dart:html. Before filing a bug here verify that the issue is not surfaced
 when using those interfaces directly.
 
-https://api.dartlang.org/stable/dart-io/HttpClient-class.html
-https://api.dartlang.org/stable/dart-html/HttpRequest-class.html
+https://api.dart.dev/stable/dart-io/HttpClient-class.html
+https://api.dart.dev/stable/dart-html/HttpRequest-class.html
 
 # Common problems:
 
