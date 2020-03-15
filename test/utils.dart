@@ -9,7 +9,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:test/test.dart';
 
 /// A dummy URL for constructing requests that won't be sent.
-Uri get dummyUrl => Uri.parse('http://dartlang.org/');
+Uri get dummyUrl => Uri.parse('http://dart.dev/');
 
 /// Removes eight spaces of leading indentation from a multiline string.
 ///
