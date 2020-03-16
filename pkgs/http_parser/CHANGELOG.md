@@ -46,7 +46,7 @@
   [the `web_socket_channel` package][web_socket_channel]. The implementation
   here is now deprecated.
 
-[web_socket_channel]: https://pub.dartlang.org/packages/web_socket_channel
+[web_socket_channel]: https://pub.dev/packages/web_socket_channel
 
 ## 2.1.0
 
