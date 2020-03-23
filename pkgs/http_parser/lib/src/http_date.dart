@@ -34,7 +34,7 @@ final _digitRegExp = RegExp(r'\d+');
 /// [RFC 1123](http://tools.ietf.org/html/rfc1123).
 String formatHttpDate(DateTime date) {
   date = date.toUtc();
-  var buffer = StringBuffer()
+  final buffer = StringBuffer()
     ..write(_weekdays[date.weekday - 1])
     ..write(', ')
     ..write(date.day <= 9 ? '0' : '')
@@ -59,18 +59,18 @@ String formatHttpDate(DateTime date) {
 /// It will throw a [FormatException] if [date] is invalid.
 DateTime parseHttpDate(String date) {
   return wrapFormatException('HTTP date', date, () {
-    var scanner = StringScanner(date);
+    final scanner = StringScanner(date);
 
     if (scanner.scan(_longWeekdayRegExp)) {
       // RFC 850 starts with a long weekday.
       scanner.expect(', ');
-      var day = _parseInt(scanner, 2);
+      final day = _parseInt(scanner, 2);
       scanner.expect('-');
-      var month = _parseMonth(scanner);
+      final month = _parseMonth(scanner);
       scanner.expect('-');
-      var year = 1900 + _parseInt(scanner, 2);
+      final year = 1900 + _parseInt(scanner, 2);
       scanner.expect(' ');
-      var time = _parseTime(scanner);
+      final time = _parseTime(scanner);
       scanner.expect(' GMT');
       scanner.expectDone();
 
@@ -81,13 +81,13 @@ DateTime parseHttpDate(String date) {
     scanner.expect(_shortWeekdayRegExp);
     if (scanner.scan(', ')) {
       // RFC 1123 follows the weekday with a comma.
-      var day = _parseInt(scanner, 2);
+      final day = _parseInt(scanner, 2);
       scanner.expect(' ');
-      var month = _parseMonth(scanner);
+      final month = _parseMonth(scanner);
       scanner.expect(' ');
-      var year = _parseInt(scanner, 4);
+      final year = _parseInt(scanner, 4);
       scanner.expect(' ');
-      var time = _parseTime(scanner);
+      final time = _parseTime(scanner);
       scanner.expect(' GMT');
       scanner.expectDone();
 
@@ -96,13 +96,14 @@ DateTime parseHttpDate(String date) {
 
     // asctime follows the weekday with a space.
     scanner.expect(' ');
-    var month = _parseMonth(scanner);
+    final month = _parseMonth(scanner);
     scanner.expect(' ');
-    var day = scanner.scan(' ') ? _parseInt(scanner, 1) : _parseInt(scanner, 2);
+    final day =
+        scanner.scan(' ') ? _parseInt(scanner, 1) : _parseInt(scanner, 2);
     scanner.expect(' ');
-    var time = _parseTime(scanner);
+    final time = _parseTime(scanner);
     scanner.expect(' ');
-    var year = _parseInt(scanner, 4);
+    final year = _parseInt(scanner, 4);
     scanner.expectDone();
 
     return _makeDateTime(year, month, day, time);
@@ -128,15 +129,15 @@ int _parseInt(StringScanner scanner, int digits) {
 
 /// Parses an timestamp of the form "HH:MM:SS" on a 24-hour clock.
 DateTime _parseTime(StringScanner scanner) {
-  var hours = _parseInt(scanner, 2);
+  final hours = _parseInt(scanner, 2);
   if (hours >= 24) scanner.error('hours may not be greater than 24.');
   scanner.expect(':');
 
-  var minutes = _parseInt(scanner, 2);
+  final minutes = _parseInt(scanner, 2);
   if (minutes >= 60) scanner.error('minutes may not be greater than 60.');
   scanner.expect(':');
 
-  var seconds = _parseInt(scanner, 2);
+  final seconds = _parseInt(scanner, 2);
   if (seconds >= 60) scanner.error('seconds may not be greater than 60.');
 
   return DateTime(1, 1, 1, hours, minutes, seconds);
@@ -147,7 +148,7 @@ DateTime _parseTime(StringScanner scanner) {
 /// Validates that [day] is a valid day for [month]. If it's not, throws a
 /// [FormatException].
 DateTime _makeDateTime(int year, int month, int day, DateTime time) {
-  var dateTime =
+  final dateTime =
       DateTime.utc(year, month, day, time.hour, time.minute, time.second);
 
   // If [day] was too large, it will cause [month] to overflow.

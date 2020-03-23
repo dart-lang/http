@@ -18,7 +18,7 @@ void main() {
     });
 
     test('uses hex for chunk size', () {
-      var data = Iterable<int>.generate(0xA7).toList();
+      final data = Iterable<int>.generate(0xA7).toList();
       expect(
           chunkedCoding.encode(data),
           equals(
@@ -34,7 +34,7 @@ void main() {
       ByteConversionSink sink;
       setUp(() {
         results = [];
-        var controller = StreamController<List<int>>(sync: true);
+        final controller = StreamController<List<int>>(sync: true);
         controller.stream.listen(results.add);
         sink = chunkedCoding.encoder.startChunkedConversion(controller.sink);
       });
@@ -175,7 +175,7 @@ void main() {
     });
 
     test('parses hex size', () {
-      var data = Iterable<int>.generate(0xA7).toList();
+      final data = Iterable<int>.generate(0xA7).toList();
       expect(
           chunkedCoding.decode(
               [$a, $7, $cr, $lf, ...data, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
@@ -183,7 +183,7 @@ void main() {
     });
 
     test('parses capital hex size', () {
-      var data = Iterable<int>.generate(0xA7).toList();
+      final data = Iterable<int>.generate(0xA7).toList();
       expect(
           chunkedCoding.decode(
               [$A, $7, $cr, $lf, ...data, $cr, $lf, $0, $cr, $lf, $cr, $lf]),
@@ -259,7 +259,7 @@ void main() {
       ByteConversionSink sink;
       setUp(() {
         results = [];
-        var controller = StreamController<List<int>>(sync: true);
+        final controller = StreamController<List<int>>(sync: true);
         controller.stream.listen(results.add);
         sink = chunkedCoding.decoder.startChunkedConversion(controller.sink);
       });
@@ -327,7 +327,7 @@ void main() {
           sink.add([$a]);
           expect(results, isEmpty);
 
-          var data = Iterable<int>.generate(0xA7).toList();
+          final data = Iterable<int>.generate(0xA7).toList();
           sink.add([$7, $cr, $lf, ...data]);
           expect(results, equals([data]));
         });

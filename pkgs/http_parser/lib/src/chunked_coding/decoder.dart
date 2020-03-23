@@ -18,8 +18,8 @@ class ChunkedCodingDecoder extends Converter<List<int>, List<int>> {
 
   @override
   List<int> convert(List<int> input) {
-    var sink = _Sink(null);
-    var output = sink._decode(input, 0, input.length);
+    final sink = _Sink(null);
+    final output = sink._decode(input, 0, input.length);
     if (sink._state == _State.end) return output;
 
     throw FormatException('Input ended unexpectedly.', input, input.length);
@@ -50,7 +50,7 @@ class _Sink extends ByteConversionSinkBase {
   @override
   void addSlice(List<int> chunk, int start, int end, bool isLast) {
     RangeError.checkValidRange(start, end, chunk.length);
-    var output = _decode(chunk, start, end);
+    final output = _decode(chunk, start, end);
     if (output.isNotEmpty) _sink.add(output);
     if (isLast) _close(chunk, end);
   }
@@ -78,7 +78,7 @@ class _Sink extends ByteConversionSinkBase {
       }
     }
 
-    var buffer = Uint8Buffer();
+    final buffer = Uint8Buffer();
     while (start != end) {
       switch (_state) {
         case _State.boundary:
@@ -105,7 +105,7 @@ class _Sink extends ByteConversionSinkBase {
           break;
 
         case _State.body:
-          var chunkEnd = math.min(end, start + _size);
+          final chunkEnd = math.min(end, start + _size);
           buffer.addAll(bytes, start, chunkEnd);
           _size -= chunkEnd - start;
           start = chunkEnd;
@@ -156,8 +156,8 @@ class _Sink extends ByteConversionSinkBase {
     // We check for digits first because it ensures there's only a single branch
     // for 10 out of 16 of the expected cases. We don't count the `digit >= 0`
     // check because branch prediction will always work on it for valid data.
-    var byte = bytes[index];
-    var digit = $0 ^ byte;
+    final byte = bytes[index];
+    final digit = $0 ^ byte;
     if (digit <= 9) {
       if (digit >= 0) return digit;
     } else {
@@ -165,7 +165,7 @@ class _Sink extends ByteConversionSinkBase {
       // because uppercase letters in ASCII are exactly `0b100000 = 0x20` less
       // than lowercase letters, so if we ensure that that bit is 1 we ensure that
       // the letter is lowercase.
-      var letter = 0x20 | byte;
+      final letter = 0x20 | byte;
       if ($a <= letter && letter <= $f) return letter - $a + 10;
     }
 

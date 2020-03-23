@@ -44,20 +44,20 @@ class MediaType {
     // This parsing is based on sections 3.6 and 3.7 of the HTTP spec:
     // http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html.
     return wrapFormatException('media type', mediaType, () {
-      var scanner = StringScanner(mediaType);
+      final scanner = StringScanner(mediaType);
       scanner.scan(whitespace);
       scanner.expect(token);
-      var type = scanner.lastMatch[0];
+      final type = scanner.lastMatch[0];
       scanner.expect('/');
       scanner.expect(token);
-      var subtype = scanner.lastMatch[0];
+      final subtype = scanner.lastMatch[0];
       scanner.scan(whitespace);
 
-      var parameters = <String, String>{};
+      final parameters = <String, String>{};
       while (scanner.scan(';')) {
         scanner.scan(whitespace);
         scanner.expect(token);
-        var attribute = scanner.lastMatch[0];
+        final attribute = scanner.lastMatch[0];
         scanner.expect('=');
 
         String value;
@@ -105,7 +105,7 @@ class MediaType {
             '[mimeType].');
       }
 
-      var segments = mimeType.split('/');
+      final segments = mimeType.split('/');
       if (segments.length != 2) {
         throw FormatException('Invalid mime type "$mimeType".');
       }
@@ -119,7 +119,7 @@ class MediaType {
     parameters ??= {};
 
     if (!clearParameters) {
-      var newParameters = parameters;
+      final newParameters = parameters;
       parameters = Map.from(this.parameters);
       parameters.addAll(newParameters);
     }
@@ -132,7 +132,7 @@ class MediaType {
   /// This will produce a valid HTTP media type.
   @override
   String toString() {
-    var buffer = StringBuffer()..write(type)..write('/')..write(subtype);
+    final buffer = StringBuffer()..write(type)..write('/')..write(subtype);
 
     parameters.forEach((attribute, value) {
       buffer.write('; $attribute=');

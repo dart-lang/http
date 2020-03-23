@@ -35,14 +35,14 @@ class AuthenticationChallenge {
   /// Throws a [FormatException] if the header is invalid.
   static List<AuthenticationChallenge> parseHeader(String header) {
     return wrapFormatException('authentication header', header, () {
-      var scanner = StringScanner(header);
+      final scanner = StringScanner(header);
       scanner.scan(whitespace);
-      var challenges = parseList(scanner, () {
-        var scheme = _scanScheme(scanner, whitespaceName: '" " or "="');
+      final challenges = parseList(scanner, () {
+        final scheme = _scanScheme(scanner, whitespaceName: '" " or "="');
 
         // Manually parse the inner list. We need to do some lookahead to
         // disambiguate between an auth param and another challenge.
-        var params = <String, String>{};
+        final params = <String, String>{};
 
         // Consume initial empty values.
         while (scanner.scan(',')) {
@@ -59,7 +59,7 @@ class AuthenticationChallenge {
           if (scanner.matches(',') || scanner.isDone) continue;
 
           scanner.expect(token, name: 'a token');
-          var name = scanner.lastMatch[0];
+          final name = scanner.lastMatch[0];
           scanner.scan(whitespace);
 
           // If there's no "=", then this is another challenge rather than a
@@ -95,11 +95,11 @@ class AuthenticationChallenge {
   /// Throws a [FormatException] if the challenge is invalid.
   factory AuthenticationChallenge.parse(String challenge) {
     return wrapFormatException('authentication challenge', challenge, () {
-      var scanner = StringScanner(challenge);
+      final scanner = StringScanner(challenge);
       scanner.scan(whitespace);
-      var scheme = _scanScheme(scanner);
+      final scheme = _scanScheme(scanner);
 
-      var params = <String, String>{};
+      final params = <String, String>{};
       parseList(scanner, () => _scanAuthParam(scanner, params));
 
       scanner.expectDone();
@@ -113,7 +113,7 @@ class AuthenticationChallenge {
   /// due to invalid trailing whitespace.
   static String _scanScheme(StringScanner scanner, {String whitespaceName}) {
     scanner.expect(token, name: 'a token');
-    var scheme = scanner.lastMatch[0].toLowerCase();
+    final scheme = scanner.lastMatch[0].toLowerCase();
 
     scanner.scan(whitespace);
 
@@ -129,7 +129,7 @@ class AuthenticationChallenge {
   /// Scans a single authentication parameter and stores its result in [params].
   static void _scanAuthParam(StringScanner scanner, Map params) {
     scanner.expect(token, name: 'a token');
-    var name = scanner.lastMatch[0];
+    final name = scanner.lastMatch[0];
     scanner.scan(whitespace);
     scanner.expect('=');
     scanner.scan(whitespace);

@@ -40,7 +40,7 @@ linter:
     - package_names
     - package_prefixed_library_names
     - prefer_const_constructors
-    #- prefer_final_locals
+    - prefer_final_locals
     - prefer_initializing_formals
     - prefer_interpolation_to_compose_strings
     - prefer_null_aware_operators

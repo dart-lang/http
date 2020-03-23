@@ -60,12 +60,12 @@ class _Sink extends ByteConversionSinkBase {
 List<int> _convert(List<int> bytes, int start, int end, {bool isLast = false}) {
   if (end == start) return isLast ? _doneChunk : const [];
 
-  var size = end - start;
-  var sizeInHex = size.toRadixString(16);
-  var footerSize = isLast ? _doneChunk.length : 0;
+  final size = end - start;
+  final sizeInHex = size.toRadixString(16);
+  final footerSize = isLast ? _doneChunk.length : 0;
 
   // Add 4 for the CRLF sequences that follow the size header and the bytes.
-  var list = Uint8List(sizeInHex.length + 4 + size + footerSize);
+  final list = Uint8List(sizeInHex.length + 4 + size + footerSize);
   list.setRange(0, sizeInHex.length, sizeInHex.codeUnits);
 
   var cursor = sizeInHex.length;

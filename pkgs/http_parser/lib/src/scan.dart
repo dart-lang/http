@@ -31,7 +31,7 @@ final whitespace = RegExp('(?:${_lws.pattern})*');
 /// Once this is finished, [scanner] will be at the next non-LWS character in
 /// the string, or the end of the string.
 List<T> parseList<T>(StringScanner scanner, T Function() parseElement) {
-  var result = <T>[];
+  final result = <T>[];
 
   // Consume initial empty values.
   while (scanner.scan(',')) {
@@ -61,7 +61,7 @@ List<T> parseList<T>(StringScanner scanner, T Function() parseElement) {
 String expectQuotedString(StringScanner scanner, {String name}) {
   name ??= 'quoted string';
   scanner.expect(_quotedString, name: name);
-  var string = scanner.lastMatch[0];
+  final string = scanner.lastMatch[0];
   return string
       .substring(1, string.length - 1)
       .replaceAllMapped(_quotedPair, (match) => match[1]);

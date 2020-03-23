@@ -8,7 +8,7 @@ import 'package:test/test.dart';
 void main() {
   group('parse', () {
     test('parses a simple MIME type', () {
-      var type = MediaType.parse('text/plain');
+      final type = MediaType.parse('text/plain');
       expect(type.type, equals('text'));
       expect(type.subtype, equals('plain'));
     });
@@ -34,13 +34,13 @@ void main() {
     });
 
     test('parses parameters', () {
-      var type = MediaType.parse('text/plain;foo=bar;baz=bang');
+      final type = MediaType.parse('text/plain;foo=bar;baz=bang');
       expect(type.mimeType, equals('text/plain'));
       expect(type.parameters, equals({'foo': 'bar', 'baz': 'bang'}));
     });
 
     test('allows whitespace around the semicolon', () {
-      var type = MediaType.parse('text/plain ; foo=bar ; baz=bang');
+      final type = MediaType.parse('text/plain ; foo=bar ; baz=bang');
       expect(type.mimeType, equals('text/plain'));
       expect(type.parameters, equals({'foo': 'bar', 'baz': 'bang'}));
     });
@@ -60,7 +60,7 @@ void main() {
     });
 
     test('parses quoted parameters', () {
-      var type =
+      final type =
           MediaType.parse('text/plain; foo="bar space"; baz="bang\\\\escape"');
       expect(type.mimeType, equals('text/plain'));
       expect(
@@ -68,14 +68,14 @@ void main() {
     });
 
     test('lower-cases type and subtype', () {
-      var type = MediaType.parse('TeXt/pLaIn');
+      final type = MediaType.parse('TeXt/pLaIn');
       expect(type.type, equals('text'));
       expect(type.subtype, equals('plain'));
       expect(type.mimeType, equals('text/plain'));
     });
 
     test('records parameters as case-insensitive', () {
-      var type = MediaType.parse('test/plain;FoO=bar;bAz=bang');
+      final type = MediaType.parse('test/plain;FoO=bar;bAz=bang');
       expect(type.parameters, equals({'FoO': 'bar', 'bAz': 'bang'}));
       expect(type.parameters, containsPair('foo', 'bar'));
       expect(type.parameters, containsPair('baz', 'bang'));
@@ -89,7 +89,7 @@ void main() {
     });
 
     test('uses the existing fields by default', () {
-      var newType = type.change();
+      final newType = type.change();
       expect(newType.type, equals('text'));
       expect(newType.subtype, equals('plain'));
       expect(newType.parameters, equals({'foo': 'bar', 'baz': 'bang'}));
@@ -104,7 +104,7 @@ void main() {
     });
 
     test('[mimeType] overrides the existing type and subtype', () {
-      var newType = type.change(mimeType: 'image/png');
+      final newType = type.change(mimeType: 'image/png');
       expect(newType.type, equals('image'));
       expect(newType.subtype, equals('png'));
     });
@@ -120,7 +120,7 @@ void main() {
     });
 
     test('[clearParameters] with [parameters] removes before adding', () {
-      var newType =
+      final newType =
           type.change(parameters: {'foo': 'zap'}, clearParameters: true);
       expect(newType.parameters, equals({'foo': 'zap'}));
     });

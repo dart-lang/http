@@ -14,14 +14,14 @@ void main() {
   group('parseHeader', () {
     group('with a single challenge', () {
       _singleChallengeTests((challenge) {
-        var challenges = AuthenticationChallenge.parseHeader(challenge);
+        final challenges = AuthenticationChallenge.parseHeader(challenge);
         expect(challenges, hasLength(1));
         return challenges.single;
       });
     });
 
     test('parses multiple challenges', () {
-      var challenges = AuthenticationChallenge.parseHeader(
+      final challenges = AuthenticationChallenge.parseHeader(
           'scheme1 realm=fblthp, scheme2 realm=asdfg');
       expect(challenges, hasLength(2));
       expect(challenges.first.scheme, equals('scheme1'));
@@ -31,7 +31,7 @@ void main() {
     });
 
     test('parses multiple challenges with multiple parameters', () {
-      var challenges = AuthenticationChallenge.parseHeader(
+      final challenges = AuthenticationChallenge.parseHeader(
           'scheme1 realm=fblthp, foo=bar, scheme2 realm=asdfg, baz=bang');
       expect(challenges, hasLength(2));
 
@@ -54,65 +54,66 @@ void main() {
 void _singleChallengeTests(
     AuthenticationChallenge Function(String challenge) parseChallenge) {
   test('parses a simple challenge', () {
-    var challenge = parseChallenge('scheme realm=fblthp');
+    final challenge = parseChallenge('scheme realm=fblthp');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, equals({'realm': 'fblthp'}));
   });
 
   test('parses multiple parameters', () {
-    var challenge = parseChallenge('scheme realm=fblthp, foo=bar, baz=qux');
+    final challenge = parseChallenge('scheme realm=fblthp, foo=bar, baz=qux');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters,
         equals({'realm': 'fblthp', 'foo': 'bar', 'baz': 'qux'}));
   });
 
   test('parses quoted string parameters', () {
-    var challenge = parseChallenge('scheme realm="fblthp, foo=bar", baz="qux"');
+    final challenge =
+        parseChallenge('scheme realm="fblthp, foo=bar", baz="qux"');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters,
         equals({'realm': 'fblthp, foo=bar', 'baz': 'qux'}));
   });
 
   test('normalizes the case of the scheme', () {
-    var challenge = parseChallenge('ScHeMe realm=fblthp');
+    final challenge = parseChallenge('ScHeMe realm=fblthp');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, equals({'realm': 'fblthp'}));
   });
 
   test('normalizes the case of the parameter name', () {
-    var challenge = parseChallenge('scheme ReAlM=fblthp');
+    final challenge = parseChallenge('scheme ReAlM=fblthp');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, containsPair('realm', 'fblthp'));
   });
 
   test("doesn't normalize the case of the parameter value", () {
-    var challenge = parseChallenge('scheme realm=FbLtHp');
+    final challenge = parseChallenge('scheme realm=FbLtHp');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, containsPair('realm', 'FbLtHp'));
     expect(challenge.parameters, isNot(containsPair('realm', 'fblthp')));
   });
 
   test('allows extra whitespace', () {
-    var challenge = parseChallenge(
+    final challenge = parseChallenge(
         '  scheme\t \trealm\t = \tfblthp\t, \tfoo\t\r\n =\tbar\t');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, equals({'realm': 'fblthp', 'foo': 'bar'}));
   });
 
   test('allows an empty parameter', () {
-    var challenge = parseChallenge('scheme realm=fblthp, , foo=bar');
+    final challenge = parseChallenge('scheme realm=fblthp, , foo=bar');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, equals({'realm': 'fblthp', 'foo': 'bar'}));
   });
 
   test('allows a leading comma', () {
-    var challenge = parseChallenge('scheme , realm=fblthp, foo=bar,');
+    final challenge = parseChallenge('scheme , realm=fblthp, foo=bar,');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, equals({'realm': 'fblthp', 'foo': 'bar'}));
   });
 
   test('allows a trailing comma', () {
-    var challenge = parseChallenge('scheme realm=fblthp, foo=bar, ,');
+    final challenge = parseChallenge('scheme realm=fblthp, foo=bar, ,');
     expect(challenge.scheme, equals('scheme'));
     expect(challenge.parameters, equals({'realm': 'fblthp', 'foo': 'bar'}));
   });

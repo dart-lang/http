@@ -8,31 +8,31 @@ import 'package:test/test.dart';
 void main() {
   group('format', () {
     test('many values with 9', () {
-      var date = DateTime.utc(2014, 9, 9, 9, 9, 9);
-      var formatted = formatHttpDate(date);
+      final date = DateTime.utc(2014, 9, 9, 9, 9, 9);
+      final formatted = formatHttpDate(date);
 
       expect(formatted, 'Tue, 09 Sep 2014 09:09:09 GMT');
-      var parsed = parseHttpDate(formatted);
+      final parsed = parseHttpDate(formatted);
 
       expect(parsed, date);
     });
 
     test('end of year', () {
-      var date = DateTime.utc(1999, 12, 31, 23, 59, 59);
-      var formatted = formatHttpDate(date);
+      final date = DateTime.utc(1999, 12, 31, 23, 59, 59);
+      final formatted = formatHttpDate(date);
 
       expect(formatted, 'Fri, 31 Dec 1999 23:59:59 GMT');
-      var parsed = parseHttpDate(formatted);
+      final parsed = parseHttpDate(formatted);
 
       expect(parsed, date);
     });
 
     test('start of year', () {
-      var date = DateTime.utc(2000, 1, 1, 0, 0, 0);
-      var formatted = formatHttpDate(date);
+      final date = DateTime.utc(2000, 1, 1, 0, 0, 0);
+      final formatted = formatHttpDate(date);
 
       expect(formatted, 'Sat, 01 Jan 2000 00:00:00 GMT');
-      var parsed = parseHttpDate(formatted);
+      final parsed = parseHttpDate(formatted);
 
       expect(parsed, date);
     });
@@ -41,7 +41,7 @@ void main() {
   group('parse', () {
     group('RFC 1123', () {
       test('parses the example date', () {
-        var date = parseHttpDate('Sun, 06 Nov 1994 08:49:37 GMT');
+        final date = parseHttpDate('Sun, 06 Nov 1994 08:49:37 GMT');
         expect(date.day, equals(6));
         expect(date.month, equals(DateTime.november));
         expect(date.year, equals(1994));
@@ -145,7 +145,7 @@ void main() {
 
     group('RFC 850', () {
       test('parses the example date', () {
-        var date = parseHttpDate('Sunday, 06-Nov-94 08:49:37 GMT');
+        final date = parseHttpDate('Sunday, 06-Nov-94 08:49:37 GMT');
         expect(date.day, equals(6));
         expect(date.month, equals(DateTime.november));
         expect(date.year, equals(1994));
@@ -237,7 +237,7 @@ void main() {
 
     group('asctime()', () {
       test('parses the example date', () {
-        var date = parseHttpDate('Sun Nov  6 08:49:37 1994');
+        final date = parseHttpDate('Sun Nov  6 08:49:37 1994');
         expect(date.day, equals(6));
         expect(date.month, equals(DateTime.november));
         expect(date.year, equals(1994));
@@ -248,7 +248,7 @@ void main() {
       });
 
       test('parses a date with a two-digit day', () {
-        var date = parseHttpDate('Sun Nov 16 08:49:37 1994');
+        final date = parseHttpDate('Sun Nov 16 08:49:37 1994');
         expect(date.day, equals(16));
         expect(date.month, equals(DateTime.november));
         expect(date.year, equals(1994));
