@@ -30,8 +30,8 @@ final _digitRegExp = RegExp(r'\d+');
 
 /// Return a HTTP-formatted string representation of [date].
 ///
-/// This follows [RFC 822](http://tools.ietf.org/html/rfc822) as updated by [RFC
-/// 1123](http://tools.ietf.org/html/rfc1123).
+/// This follows [RFC 822](http://tools.ietf.org/html/rfc822) as updated by
+/// [RFC 1123](http://tools.ietf.org/html/rfc1123).
 String formatHttpDate(DateTime date) {
   date = date.toUtc();
   var buffer = StringBuffer()
@@ -55,9 +55,8 @@ String formatHttpDate(DateTime date) {
 
 /// Parses an HTTP-formatted date into a UTC [DateTime].
 ///
-/// This follows [RFC
-/// 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3). It will
-/// throw a [FormatException] if [date] is invalid.
+/// This follows [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3).
+/// It will throw a [FormatException] if [date] is invalid.
 DateTime parseHttpDate(String date) {
   return wrapFormatException('HTTP date', date, () {
     var scanner = StringScanner(date);

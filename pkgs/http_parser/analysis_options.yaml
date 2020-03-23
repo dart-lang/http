@@ -19,8 +19,7 @@ linter:
     - await_only_futures
     - camel_case_types
     - cancel_subscriptions
-    #- cascade_invocations
-    #- comment_references
+    - comment_references
     - constant_identifier_names
     - control_flow_in_finally
     - directives_ordering
@@ -43,7 +42,7 @@ linter:
     - prefer_const_constructors
     #- prefer_final_locals
     - prefer_initializing_formals
-    #- prefer_interpolation_to_compose_strings
+    - prefer_interpolation_to_compose_strings
     - prefer_null_aware_operators
     - prefer_typing_uninitialized_variables
     - test_types_in_equals

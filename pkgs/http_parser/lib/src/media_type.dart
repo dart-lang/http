@@ -140,7 +140,7 @@ class MediaType {
         buffer
           ..write('"')
           ..write(
-              value.replaceAllMapped(_escapedChar, (match) => '\\' + match[0]))
+              value.replaceAllMapped(_escapedChar, (match) => '\\${match[0]}'))
           ..write('"');
       } else {
         buffer.write(value);
