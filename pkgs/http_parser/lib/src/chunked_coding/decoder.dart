@@ -163,8 +163,8 @@ class _Sink extends ByteConversionSinkBase {
     } else {
       // If the byte is an uppercase letter, convert it to lowercase. This works
       // because uppercase letters in ASCII are exactly `0b100000 = 0x20` less
-      // than lowercase letters, so if we ensure that that bit is 1 we ensure that
-      // the letter is lowercase.
+      // than lowercase letters, so if we ensure that that bit is 1 we ensure
+      // that the letter is lowercase.
       final letter = 0x20 | byte;
       if ($a <= letter && letter <= $f) return letter - $a + 10;
     }

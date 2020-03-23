@@ -33,79 +33,77 @@ class AuthenticationChallenge {
   /// challenges.
   ///
   /// Throws a [FormatException] if the header is invalid.
-  static List<AuthenticationChallenge> parseHeader(String header) {
-    return wrapFormatException('authentication header', header, () {
-      final scanner = StringScanner(header);
-      scanner.scan(whitespace);
-      final challenges = parseList(scanner, () {
-        final scheme = _scanScheme(scanner, whitespaceName: '" " or "="');
+  static List<AuthenticationChallenge> parseHeader(String header) =>
+      wrapFormatException('authentication header', header, () {
+        final scanner = StringScanner(header);
+        scanner.scan(whitespace);
+        final challenges = parseList(scanner, () {
+          final scheme = _scanScheme(scanner, whitespaceName: '" " or "="');
 
-        // Manually parse the inner list. We need to do some lookahead to
-        // disambiguate between an auth param and another challenge.
-        final params = <String, String>{};
+          // Manually parse the inner list. We need to do some lookahead to
+          // disambiguate between an auth param and another challenge.
+          final params = <String, String>{};
 
-        // Consume initial empty values.
-        while (scanner.scan(',')) {
-          scanner.scan(whitespace);
-        }
-
-        _scanAuthParam(scanner, params);
-
-        var beforeComma = scanner.position;
-        while (scanner.scan(',')) {
-          scanner.scan(whitespace);
-
-          // Empty elements are allowed, but excluded from the results.
-          if (scanner.matches(',') || scanner.isDone) continue;
-
-          scanner.expect(token, name: 'a token');
-          final name = scanner.lastMatch[0];
-          scanner.scan(whitespace);
-
-          // If there's no "=", then this is another challenge rather than a
-          // parameter for the current challenge.
-          if (!scanner.scan('=')) {
-            scanner.position = beforeComma;
-            break;
+          // Consume initial empty values.
+          while (scanner.scan(',')) {
+            scanner.scan(whitespace);
           }
 
-          scanner.scan(whitespace);
+          _scanAuthParam(scanner, params);
 
-          if (scanner.scan(token)) {
-            params[name] = scanner.lastMatch[0];
-          } else {
-            params[name] =
-                expectQuotedString(scanner, name: 'a token or a quoted string');
+          var beforeComma = scanner.position;
+          while (scanner.scan(',')) {
+            scanner.scan(whitespace);
+
+            // Empty elements are allowed, but excluded from the results.
+            if (scanner.matches(',') || scanner.isDone) continue;
+
+            scanner.expect(token, name: 'a token');
+            final name = scanner.lastMatch[0];
+            scanner.scan(whitespace);
+
+            // If there's no "=", then this is another challenge rather than a
+            // parameter for the current challenge.
+            if (!scanner.scan('=')) {
+              scanner.position = beforeComma;
+              break;
+            }
+
+            scanner.scan(whitespace);
+
+            if (scanner.scan(token)) {
+              params[name] = scanner.lastMatch[0];
+            } else {
+              params[name] = expectQuotedString(scanner,
+                  name: 'a token or a quoted string');
+            }
+
+            scanner.scan(whitespace);
+            beforeComma = scanner.position;
           }
 
-          scanner.scan(whitespace);
-          beforeComma = scanner.position;
-        }
+          return AuthenticationChallenge(scheme, params);
+        });
 
-        return AuthenticationChallenge(scheme, params);
+        scanner.expectDone();
+        return challenges;
       });
-
-      scanner.expectDone();
-      return challenges;
-    });
-  }
 
   /// Parses a single WWW-Authenticate challenge value.
   ///
   /// Throws a [FormatException] if the challenge is invalid.
-  factory AuthenticationChallenge.parse(String challenge) {
-    return wrapFormatException('authentication challenge', challenge, () {
-      final scanner = StringScanner(challenge);
-      scanner.scan(whitespace);
-      final scheme = _scanScheme(scanner);
+  factory AuthenticationChallenge.parse(String challenge) =>
+      wrapFormatException('authentication challenge', challenge, () {
+        final scanner = StringScanner(challenge);
+        scanner.scan(whitespace);
+        final scheme = _scanScheme(scanner);
 
-      final params = <String, String>{};
-      parseList(scanner, () => _scanAuthParam(scanner, params));
+        final params = <String, String>{};
+        parseList(scanner, () => _scanAuthParam(scanner, params));
 
-      scanner.expectDone();
-      return AuthenticationChallenge(scheme, params);
-    });
-  }
+        scanner.expectDone();
+        return AuthenticationChallenge(scheme, params);
+      });
 
   /// Scans a single scheme name and asserts that it's followed by a space.
   ///

@@ -40,41 +40,40 @@ class MediaType {
   /// Parses a media type.
   ///
   /// This will throw a FormatError if the media type is invalid.
-  factory MediaType.parse(String mediaType) {
-    // This parsing is based on sections 3.6 and 3.7 of the HTTP spec:
-    // http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html.
-    return wrapFormatException('media type', mediaType, () {
-      final scanner = StringScanner(mediaType);
-      scanner.scan(whitespace);
-      scanner.expect(token);
-      final type = scanner.lastMatch[0];
-      scanner.expect('/');
-      scanner.expect(token);
-      final subtype = scanner.lastMatch[0];
-      scanner.scan(whitespace);
-
-      final parameters = <String, String>{};
-      while (scanner.scan(';')) {
+  factory MediaType.parse(String mediaType) =>
+      // This parsing is based on sections 3.6 and 3.7 of the HTTP spec:
+      // http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html.
+      wrapFormatException('media type', mediaType, () {
+        final scanner = StringScanner(mediaType);
         scanner.scan(whitespace);
         scanner.expect(token);
-        final attribute = scanner.lastMatch[0];
-        scanner.expect('=');
+        final type = scanner.lastMatch[0];
+        scanner.expect('/');
+        scanner.expect(token);
+        final subtype = scanner.lastMatch[0];
+        scanner.scan(whitespace);
 
-        String value;
-        if (scanner.scan(token)) {
-          value = scanner.lastMatch[0];
-        } else {
-          value = expectQuotedString(scanner);
+        final parameters = <String, String>{};
+        while (scanner.scan(';')) {
+          scanner.scan(whitespace);
+          scanner.expect(token);
+          final attribute = scanner.lastMatch[0];
+          scanner.expect('=');
+
+          String value;
+          if (scanner.scan(token)) {
+            value = scanner.lastMatch[0];
+          } else {
+            value = expectQuotedString(scanner);
+          }
+
+          scanner.scan(whitespace);
+          parameters[attribute] = value;
         }
 
-        scanner.scan(whitespace);
-        parameters[attribute] = value;
-      }
-
-      scanner.expectDone();
-      return MediaType(type, subtype, parameters);
-    });
-  }
+        scanner.expectDone();
+        return MediaType(type, subtype, parameters);
+      });
 
   MediaType(String type, String subtype, [Map<String, String> parameters])
       : type = type.toLowerCase(),

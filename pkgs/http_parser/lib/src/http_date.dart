@@ -57,58 +57,57 @@ String formatHttpDate(DateTime date) {
 ///
 /// This follows [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3).
 /// It will throw a [FormatException] if [date] is invalid.
-DateTime parseHttpDate(String date) {
-  return wrapFormatException('HTTP date', date, () {
-    final scanner = StringScanner(date);
+DateTime parseHttpDate(String date) =>
+    wrapFormatException('HTTP date', date, () {
+      final scanner = StringScanner(date);
 
-    if (scanner.scan(_longWeekdayRegExp)) {
-      // RFC 850 starts with a long weekday.
-      scanner.expect(', ');
-      final day = _parseInt(scanner, 2);
-      scanner.expect('-');
+      if (scanner.scan(_longWeekdayRegExp)) {
+        // RFC 850 starts with a long weekday.
+        scanner.expect(', ');
+        final day = _parseInt(scanner, 2);
+        scanner.expect('-');
+        final month = _parseMonth(scanner);
+        scanner.expect('-');
+        final year = 1900 + _parseInt(scanner, 2);
+        scanner.expect(' ');
+        final time = _parseTime(scanner);
+        scanner.expect(' GMT');
+        scanner.expectDone();
+
+        return _makeDateTime(year, month, day, time);
+      }
+
+      // RFC 1123 and asctime both start with a short weekday.
+      scanner.expect(_shortWeekdayRegExp);
+      if (scanner.scan(', ')) {
+        // RFC 1123 follows the weekday with a comma.
+        final day = _parseInt(scanner, 2);
+        scanner.expect(' ');
+        final month = _parseMonth(scanner);
+        scanner.expect(' ');
+        final year = _parseInt(scanner, 4);
+        scanner.expect(' ');
+        final time = _parseTime(scanner);
+        scanner.expect(' GMT');
+        scanner.expectDone();
+
+        return _makeDateTime(year, month, day, time);
+      }
+
+      // asctime follows the weekday with a space.
+      scanner.expect(' ');
       final month = _parseMonth(scanner);
-      scanner.expect('-');
-      final year = 1900 + _parseInt(scanner, 2);
+      scanner.expect(' ');
+      final day =
+          scanner.scan(' ') ? _parseInt(scanner, 1) : _parseInt(scanner, 2);
       scanner.expect(' ');
       final time = _parseTime(scanner);
-      scanner.expect(' GMT');
-      scanner.expectDone();
-
-      return _makeDateTime(year, month, day, time);
-    }
-
-    // RFC 1123 and asctime both start with a short weekday.
-    scanner.expect(_shortWeekdayRegExp);
-    if (scanner.scan(', ')) {
-      // RFC 1123 follows the weekday with a comma.
-      final day = _parseInt(scanner, 2);
-      scanner.expect(' ');
-      final month = _parseMonth(scanner);
       scanner.expect(' ');
       final year = _parseInt(scanner, 4);
-      scanner.expect(' ');
-      final time = _parseTime(scanner);
-      scanner.expect(' GMT');
       scanner.expectDone();
 
       return _makeDateTime(year, month, day, time);
-    }
-
-    // asctime follows the weekday with a space.
-    scanner.expect(' ');
-    final month = _parseMonth(scanner);
-    scanner.expect(' ');
-    final day =
-        scanner.scan(' ') ? _parseInt(scanner, 1) : _parseInt(scanner, 2);
-    scanner.expect(' ');
-    final time = _parseTime(scanner);
-    scanner.expect(' ');
-    final year = _parseInt(scanner, 4);
-    scanner.expectDone();
-
-    return _makeDateTime(year, month, day, time);
-  });
-}
+    });
 
 /// Parses a short-form month name to a form accepted by [DateTime].
 int _parseMonth(StringScanner scanner) {
