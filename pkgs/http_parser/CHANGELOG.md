@@ -1,3 +1,8 @@
+## 3.1.4
+
+* Fixed lints affecting package health score.
+* Added an example.
+
 ## 3.1.3
 
 * Set max SDK version to `<3.0.0`, and adjust other dependencies.

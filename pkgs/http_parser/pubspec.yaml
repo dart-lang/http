@@ -1,6 +1,5 @@
 name: http_parser
-version: 3.1.4-dev
-
+version: 3.1.4
 description: >-
   A platform-independent package for parsing and serializing HTTP formats.
 homepage: https://github.com/dart-lang/http_parser
