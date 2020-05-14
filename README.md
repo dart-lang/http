@@ -4,8 +4,8 @@ A composable, Future-based library for making HTTP requests.
 [![Build Status](https://travis-ci.org/dart-lang/http.svg?branch=master)](https://travis-ci.org/dart-lang/http)
 
 This package contains a set of high-level functions and classes that make it
-easy to consume HTTP resources. It's platform-independent, and can be used on
-both the command-line and the browser.
+easy to consume HTTP resources. It's multi-platform, and supports mobile, desktop,
+and the browser.
 
 ## Using
 
