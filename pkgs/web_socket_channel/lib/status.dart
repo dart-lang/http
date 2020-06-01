@@ -7,11 +7,11 @@
 /// This library is intended to be imported with a prefix.
 ///
 /// ```dart
-/// import 'package:web_socket_channel/io.dart';
+/// import 'package:web_socket_channel/web_socket_channel.dart';
 /// import 'package:web_socket_channel/status.dart' as status;
 ///
-/// main() async {
-///   var channel = await IOWebSocketChannel.connect("ws://localhost:1234");
+/// void main() async {
+///   var channel = WebSocketChannel.connect(Uri.parse('ws://localhost:1234'));
 ///   // ...
 ///   channel.close(status.goingAway);
 /// }
