@@ -28,7 +28,7 @@ void main() {
     });
 
     test('start of year', () {
-      final date = DateTime.utc(2000, 1, 1, 0, 0, 0);
+      final date = DateTime.utc(2000);
       final formatted = formatHttpDate(date);
 
       expect(formatted, 'Sat, 01 Jan 2000 00:00:00 GMT');
