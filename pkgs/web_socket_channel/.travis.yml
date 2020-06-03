@@ -6,7 +6,7 @@ dart:
 
 dart_task:
   - test: --platform vm
-  - test: --platform firefox -j 1
+  - test: --platform chrome -j 1
   - dartanalyzer: --fatal-infos --fatal-warnings .
   - dartfmt
 
