@@ -61,7 +61,7 @@ class UserAgentClient extends http.BaseClient {
 
   UserAgentClient(this.userAgent, this._inner);
 
-  Future<StreamedResponse> send(BaseRequest request) {
+  Future<IOStreamedResponse> send(BaseRequest request) {
     request.headers['user-agent'] = userAgent;
     return _inner.send(request);
   }
