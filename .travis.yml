@@ -5,8 +5,7 @@ dart:
   - 2.4.0
 
 dart_task:
-  - test: --platform vm
-  - test: --platform chrome -j 1
+  - test: --platform vm,chrome
   - dartanalyzer: --fatal-infos --fatal-warnings .
 
 matrix:
