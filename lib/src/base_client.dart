@@ -42,8 +42,9 @@ abstract class BaseClient implements Client {
       _sendUnstreamed('PATCH', url, headers, body, encoding);
 
   @override
-  Future<Response> delete(url, {Map<String, String> headers}) =>
+  Future<Response> delete(url, {Map<String, String> headers, body}) =>
       _sendUnstreamed('DELETE', url, headers);
+
   @override
   Future<String> read(url, {Map<String, String> headers}) async {
     final response = await get(url, headers: headers);
