@@ -1,3 +1,7 @@
+## 3.1.5-dev
+
+* Require minimum Dart SDK of `2.7.0`.
+
 ## 3.1.4
 
 * Fixed lints affecting package health score.
