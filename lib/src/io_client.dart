@@ -45,10 +45,10 @@ class IOClient extends BaseClient {
       });
 
       return IOStreamedResponse(
-          response.handleError(
-              (HttpException error) =>
-                  throw ClientException(error.message, error.uri),
-              test: (error) => error is HttpException),
+          response.handleError((error) {
+            final httpException = error as HttpException;
+            throw ClientException(httpException.message, httpException.uri);
+          }, test: (error) => error is HttpException),
           response.statusCode,
           contentLength:
               response.contentLength == -1 ? null : response.contentLength,
