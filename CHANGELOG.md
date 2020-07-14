@@ -1,3 +1,8 @@
+## 0.12.2
+
+* Fix error handler callback type for response stream errors to avoid masking
+  root causes.
+
 ## 0.12.1
 
 * Add `IOStreamedResponse` which includes the ability to detach the socket.
