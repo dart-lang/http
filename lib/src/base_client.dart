@@ -18,108 +18,32 @@ import 'streamed_response.dart';
 /// This is a mixin-style class; subclasses only need to implement [send] and
 /// maybe [close], and then they get various convenience methods for free.
 abstract class BaseClient implements Client {
-  /// Sends an HTTP HEAD request with the given headers to the given URL, which
-  /// can be a [Uri] or a [String].
-  ///
-  /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> head(url, {Map<String, String> headers}) =>
       _sendUnstreamed('HEAD', url, headers);
 
-  /// Sends an HTTP GET request with the given headers to the given URL, which
-  /// can be a [Uri] or a [String].
-  ///
-  /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> get(url, {Map<String, String> headers}) =>
       _sendUnstreamed('GET', url, headers);
 
-  /// Sends an HTTP POST request with the given headers and body to the given
-  /// URL, which can be a [Uri] or a [String].
-  ///
-  /// [body] sets the body of the request. It can be a [String], a [List<int>]
-  /// or a [Map<String, String>]. If it's a String, it's encoded using
-  /// [encoding] and used as the body of the request. The content-type of the
-  /// request will default to "text/plain".
-  ///
-  /// If [body] is a List, it's used as a list of bytes for the body of the
-  /// request.
-  ///
-  /// If [body] is a Map, it's encoded as form fields using [encoding]. The
-  /// content-type of the request will be set to
-  /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
-  ///
-  /// [encoding] defaults to UTF-8.
-  ///
-  /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> post(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
       _sendUnstreamed('POST', url, headers, body, encoding);
 
-  /// Sends an HTTP PUT request with the given headers and body to the given
-  /// URL, which can be a [Uri] or a [String].
-  ///
-  /// [body] sets the body of the request. It can be a [String], a [List<int>]
-  /// or a [Map<String, String>]. If it's a String, it's encoded using
-  /// [encoding] and used as the body of the request. The content-type of the
-  /// request will default to "text/plain".
-  ///
-  /// If [body] is a List, it's used as a list of bytes for the body of the
-  /// request.
-  ///
-  /// If [body] is a Map, it's encoded as form fields using [encoding]. The
-  /// content-type of the request will be set to
-  /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
-  ///
-  /// [encoding] defaults to UTF-8.
-  ///
-  /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> put(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
       _sendUnstreamed('PUT', url, headers, body, encoding);
 
-  /// Sends an HTTP PATCH request with the given headers and body to the given
-  /// URL, which can be a [Uri] or a [String].
-  ///
-  /// [body] sets the body of the request. It can be a [String], a [List<int>]
-  /// or a [Map<String, String>]. If it's a String, it's encoded using
-  /// [encoding] and used as the body of the request. The content-type of the
-  /// request will default to "text/plain".
-  ///
-  /// If [body] is a List, it's used as a list of bytes for the body of the
-  /// request.
-  ///
-  /// If [body] is a Map, it's encoded as form fields using [encoding]. The
-  /// content-type of the request will be set to
-  /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
-  ///
-  /// [encoding] defaults to UTF-8.
-  ///
-  /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> patch(url,
           {Map<String, String> headers, body, Encoding encoding}) =>
       _sendUnstreamed('PATCH', url, headers, body, encoding);
 
-  /// Sends an HTTP DELETE request with the given headers to the given URL,
-  /// which can be a [Uri] or a [String].
-  ///
-  /// For more fine-grained control over the request, use [send] instead.
   @override
   Future<Response> delete(url, {Map<String, String> headers}) =>
       _sendUnstreamed('DELETE', url, headers);
-
-  /// Sends an HTTP GET request with the given headers to the given URL, which
-  /// can be a [Uri] or a [String], and returns a Future that completes to the
-  /// body of the response as a String.
-  ///
-  /// The Future will emit a [ClientException] if the response doesn't have a
-  /// success status code.
-  ///
-  /// For more fine-grained control over the request and response, use [send] or
-  /// [get] instead.
   @override
   Future<String> read(url, {Map<String, String> headers}) async {
     final response = await get(url, headers: headers);
@@ -127,15 +51,6 @@ abstract class BaseClient implements Client {
     return response.body;
   }
 
-  /// Sends an HTTP GET request with the given headers to the given URL, which
-  /// can be a [Uri] or a [String], and returns a Future that completes to the
-  /// body of the response as a list of bytes.
-  ///
-  /// The Future will emit an [ClientException] if the response doesn't have a
-  /// success status code.
-  ///
-  /// For more fine-grained control over the request and response, use [send] or
-  /// [get] instead.
   @override
   Future<Uint8List> readBytes(url, {Map<String, String> headers}) async {
     final response = await get(url, headers: headers);
@@ -186,10 +101,6 @@ abstract class BaseClient implements Client {
     throw ClientException('$message.', _fromUriOrString(url));
   }
 
-  /// Closes the client and cleans up any resources associated with it.
-  ///
-  /// It's important to close each client when it's done being used; failing to
-  /// do so can cause the Dart process to hang.
   @override
   void close() {}
 }
