@@ -59,4 +59,4 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 
 [tracker]: https://github.com/dart-lang/http2/issues
 [api]: https://pub.dev/documentation/http2/latest/
-[example]: https://github.com/dart-lang/http2/blob/master/example/display_headers.dart.
+[example]: https://github.com/dart-lang/http2/blob/master/example/display_headers.dart
