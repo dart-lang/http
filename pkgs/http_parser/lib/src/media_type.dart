@@ -47,22 +47,22 @@ class MediaType {
         final scanner = StringScanner(mediaType);
         scanner.scan(whitespace);
         scanner.expect(token);
-        final type = scanner.lastMatch[0];
+        final type = scanner.lastMatch![0]!;
         scanner.expect('/');
         scanner.expect(token);
-        final subtype = scanner.lastMatch[0];
+        final subtype = scanner.lastMatch![0]!;
         scanner.scan(whitespace);
 
         final parameters = <String, String>{};
         while (scanner.scan(';')) {
           scanner.scan(whitespace);
           scanner.expect(token);
-          final attribute = scanner.lastMatch[0];
+          final attribute = scanner.lastMatch![0]!;
           scanner.expect('=');
 
           String value;
           if (scanner.scan(token)) {
-            value = scanner.lastMatch[0];
+            value = scanner.lastMatch![0]!;
           } else {
             value = expectQuotedString(scanner);
           }
@@ -75,7 +75,7 @@ class MediaType {
         return MediaType(type, subtype, parameters);
       });
 
-  MediaType(String type, String subtype, [Map<String, String> parameters])
+  MediaType(String type, String subtype, [Map<String, String>? parameters])
       : type = type.toLowerCase(),
         subtype = subtype.toLowerCase(),
         parameters = UnmodifiableMapView(
@@ -91,10 +91,10 @@ class MediaType {
   /// [clearParameters] is passed, it replaces the corresponding field entirely
   /// instead.
   MediaType change(
-      {String type,
-      String subtype,
-      String mimeType,
-      Map<String, String> parameters,
+      {String? type,
+      String? subtype,
+      String? mimeType,
+      Map<String, String>? parameters,
       bool clearParameters = false}) {
     if (mimeType != null) {
       if (type != null) {

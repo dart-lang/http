@@ -30,8 +30,8 @@ void main() {
     });
 
     group('with chunked conversion', () {
-      List<List<int>> results;
-      ByteConversionSink sink;
+      late List<List<int>> results;
+      late ByteConversionSink sink;
       setUp(() {
         results = [];
         final controller = StreamController<List<int>>(sync: true);
@@ -255,8 +255,8 @@ void main() {
     });
 
     group('with chunked conversion', () {
-      List<List<int>> results;
-      ByteConversionSink sink;
+      late List<List<int>> results;
+      late ByteConversionSink sink;
       setUp(() {
         results = [];
         final controller = StreamController<List<int>>(sync: true);

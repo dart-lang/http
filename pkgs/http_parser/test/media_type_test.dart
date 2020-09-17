@@ -83,7 +83,7 @@ void main() {
   });
 
   group('change', () {
-    MediaType type;
+    late MediaType type;
     setUp(() {
       type = MediaType.parse('text/plain; foo=bar; baz=bang');
     });

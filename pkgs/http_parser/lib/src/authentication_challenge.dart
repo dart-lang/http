@@ -59,7 +59,7 @@ class AuthenticationChallenge {
             if (scanner.matches(',') || scanner.isDone) continue;
 
             scanner.expect(token, name: 'a token');
-            final name = scanner.lastMatch[0];
+            final name = scanner.lastMatch![0]!;
             scanner.scan(whitespace);
 
             // If there's no "=", then this is another challenge rather than a
@@ -72,7 +72,7 @@ class AuthenticationChallenge {
             scanner.scan(whitespace);
 
             if (scanner.scan(token)) {
-              params[name] = scanner.lastMatch[0];
+              params[name] = scanner.lastMatch![0]!;
             } else {
               params[name] = expectQuotedString(scanner,
                   name: 'a token or a quoted string');
@@ -109,15 +109,15 @@ class AuthenticationChallenge {
   ///
   /// If [whitespaceName] is passed, it's used as the name for exceptions thrown
   /// due to invalid trailing whitespace.
-  static String _scanScheme(StringScanner scanner, {String whitespaceName}) {
+  static String _scanScheme(StringScanner scanner, {String? whitespaceName}) {
     scanner.expect(token, name: 'a token');
-    final scheme = scanner.lastMatch[0].toLowerCase();
+    final scheme = scanner.lastMatch![0]!.toLowerCase();
 
     scanner.scan(whitespace);
 
     // The spec specifically requires a space between the scheme and its
     // params.
-    if (scanner.lastMatch == null || !scanner.lastMatch[0].contains(' ')) {
+    if (scanner.lastMatch == null || !scanner.lastMatch![0]!.contains(' ')) {
       scanner.expect(' ', name: whitespaceName);
     }
 
@@ -127,13 +127,13 @@ class AuthenticationChallenge {
   /// Scans a single authentication parameter and stores its result in [params].
   static void _scanAuthParam(StringScanner scanner, Map params) {
     scanner.expect(token, name: 'a token');
-    final name = scanner.lastMatch[0];
+    final name = scanner.lastMatch![0];
     scanner.scan(whitespace);
     scanner.expect('=');
     scanner.scan(whitespace);
 
     if (scanner.scan(token)) {
-      params[name] = scanner.lastMatch[0];
+      params[name] = scanner.lastMatch![0];
     } else {
       params[name] =
           expectQuotedString(scanner, name: 'a token or a quoted string');

@@ -58,11 +58,11 @@ List<T> parseList<T>(StringScanner scanner, T Function() parseElement) {
 ///
 /// If [name] is passed, it's used to describe the expected value if it's not
 /// found.
-String expectQuotedString(StringScanner scanner, {String name}) {
+String expectQuotedString(StringScanner scanner, {String? name}) {
   name ??= 'quoted string';
   scanner.expect(_quotedString, name: name);
-  final string = scanner.lastMatch[0];
+  final string = scanner.lastMatch![0]!;
   return string
       .substring(1, string.length - 1)
-      .replaceAllMapped(_quotedPair, (match) => match[1]);
+      .replaceAllMapped(_quotedPair, (match) => match[1]!);
 }

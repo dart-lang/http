@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 import 'dart:typed_data';
@@ -18,7 +19,7 @@ class ChunkedCodingDecoder extends Converter<List<int>, List<int>> {
 
   @override
   List<int> convert(List<int> input) {
-    final sink = _Sink(null);
+    final sink = _Sink(StreamController());
     final output = sink._decode(input, 0, input.length);
     if (sink._state == _State.end) return output;
 
@@ -38,9 +39,10 @@ class _Sink extends ByteConversionSinkBase {
   /// The current state of the sink's parsing.
   var _state = _State.boundary;
 
-  /// The size of the chunk being parsed, or `null` if the size hasn't been
-  /// parsed yet.
-  int _size;
+  /// The size of the chunk being parsed.
+  ///
+  /// Only assigned and used within [_decode].
+  late int _size;
 
   _Sink(this._sink);
 
@@ -60,7 +62,7 @@ class _Sink extends ByteConversionSinkBase {
 
   /// Like [close], but includes [chunk] and [index] in the [FormatException] if
   /// one is thrown.
-  void _close([List<int> chunk, int index]) {
+  void _close([List<int>? chunk, int? index]) {
     if (_state != _State.end) {
       throw FormatException('Input ended unexpectedly.', chunk, index);
     }

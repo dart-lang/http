@@ -8,10 +8,8 @@ import 'package:collection/collection.dart';
 ///
 /// Much of HTTP is case-insensitive, so this is useful to have pre-defined.
 class CaseInsensitiveMap<V> extends CanonicalizedMap<String, String, V> {
-  CaseInsensitiveMap()
-      : super((key) => key.toLowerCase(), isValidKey: (key) => key != null);
+  CaseInsensitiveMap() : super((key) => key.toLowerCase());
 
   CaseInsensitiveMap.from(Map<String, V> other)
-      : super.from(other, (key) => key.toLowerCase(),
-            isValidKey: (key) => key != null);
+      : super.from(other, (key) => key.toLowerCase());
 }

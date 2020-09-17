@@ -113,17 +113,17 @@ DateTime parseHttpDate(String date) =>
 int _parseMonth(StringScanner scanner) {
   scanner.expect(_monthRegExp);
   // DateTime uses 1-indexed months.
-  return _months.indexOf(scanner.lastMatch[0]) + 1;
+  return _months.indexOf(scanner.lastMatch![0]!) + 1;
 }
 
 /// Parses an int an enforces that it has exactly [digits] digits.
 int _parseInt(StringScanner scanner, int digits) {
   scanner.expect(_digitRegExp);
-  if (scanner.lastMatch[0].length != digits) {
+  if (scanner.lastMatch![0]!.length != digits) {
     scanner.error('expected a $digits-digit number.');
   }
 
-  return int.parse(scanner.lastMatch[0]);
+  return int.parse(scanner.lastMatch![0]!);
 }
 
 /// Parses an timestamp of the form "HH:MM:SS" on a 24-hour clock.

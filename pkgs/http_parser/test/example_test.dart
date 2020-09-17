@@ -6,7 +6,10 @@ void main() {
   test('validate example', () {
     final result = Process.runSync(
       Platform.executable,
-      ['example/example.dart'],
+      [
+        '--enable-experiment=non-nullable',
+        'example/example.dart',
+      ],
     );
 
     expect(result.exitCode, 0);
