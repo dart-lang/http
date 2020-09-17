@@ -28,7 +28,7 @@ stages:
 
 # Only building master means that we don't run two builds for each pull request.
 branches:
-  only: [master, null_safety]
+  only: [master]
 
 cache:
   directories:
