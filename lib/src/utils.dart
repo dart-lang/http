@@ -16,7 +16,7 @@ String mapToQuery(Map<String, String> map, {Encoding encoding}) {
   var pairs = <List<String>>[];
   map.forEach((key, value) => pairs.add([
         Uri.encodeQueryComponent(key, encoding: encoding),
-        Uri.encodeQueryComponent(value, encoding: encoding)
+        Uri.encodeQueryComponent(value ?? '', encoding: encoding)
       ]));
   return pairs.map((pair) => '${pair[0]}=${pair[1]}').join('&');
 }
