@@ -97,6 +97,13 @@ abstract class Connection {
   /// Active state handler for this connection.
   ActiveStateHandler onActiveStateChanged;
 
+  final Completer<void> _onInitialPeerSettingsReceived = Completer<void>();
+
+  /// Future which completes when the first SETTINGS frame is received from
+  /// the peer.
+  Future<void> get onInitialPeerSettingsReceived =>
+      _onInitialPeerSettingsReceived.future;
+
   /// The HPack context for this connection.
   final HPackContext _hpackContext = HPackContext();
 
@@ -322,6 +329,7 @@ abstract class Connection {
         return;
       }
       _state.state = ConnectionState.Operational;
+      _onInitialPeerSettingsReceived.complete();
     }
 
     // Try to defragment [frame] if it is a Headers/PushPromise frame.

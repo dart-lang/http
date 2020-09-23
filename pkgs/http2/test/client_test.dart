@@ -63,6 +63,92 @@ void main() {
       });
     });
 
+    group('connection-operational', () {
+      clientTest('on-connection-operational-fires',
+          (ClientTransportConnection client,
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> Function() nextFrame) async {
+        final settingsDone = Completer();
+
+        Future serverFun() async {
+          serverWriter.writeSettingsFrame([]);
+          settingsDone.complete();
+          expect(await nextFrame() is SettingsFrame, true);
+          serverWriter.writeSettingsAckFrame();
+          expect(await nextFrame() is SettingsFrame, true);
+
+          // Make sure we get the graceful shutdown message.
+          expect(
+              await nextFrame(),
+              isA<GoawayFrame>()
+                  .having((f) => f.errorCode, 'errorCode', ErrorCode.NO_ERROR));
+
+          // Make sure the client ended the connection.
+          expect(await serverReader.moveNext(), false);
+        }
+
+        Future clientFun() async {
+          await settingsDone.future;
+          await client.onInitialPeerSettingsReceived
+              .timeout(Duration(milliseconds: 20)); // Should complete
+
+          expect(client.isOpen, true);
+
+          // Try to gracefully finish the connection.
+          var future = client.finish();
+
+          expect(client.isOpen, false);
+
+          await future;
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+
+      clientTest('on-connection-operational-does-not-fire',
+          (ClientTransportConnection client,
+              FrameWriter serverWriter,
+              StreamIterator<Frame> serverReader,
+              Future<Frame> Function() nextFrame) async {
+        final goawayReceived = Completer();
+        Future serverFun() async {
+          serverWriter.writePingFrame(42);
+          expect(await nextFrame() is SettingsFrame, true);
+          expect(await nextFrame() is GoawayFrame, true);
+          goawayReceived.complete();
+          expect(await serverReader.moveNext(), false);
+        }
+
+        Future clientFun() async {
+          expect(client.isOpen, true);
+
+          expect(
+              client.onInitialPeerSettingsReceived
+                  .timeout(Duration(seconds: 1)),
+              throwsA(isA<TimeoutException>()));
+
+          // We wait until the server received the error (it's actually later
+          // than necessary, but we can't make a deterministic test otherwise).
+          await goawayReceived.future;
+
+          expect(client.isOpen, false);
+
+          var error;
+          try {
+            client.makeRequest([Header.ascii('a', 'b')]);
+          } catch (e) {
+            error = '$e';
+          }
+          expect(error, contains('no longer active'));
+
+          await client.finish();
+        }
+
+        await Future.wait([serverFun(), clientFun()]);
+      });
+    });
+
     group('server-errors', () {
       clientTest('no-settings-frame-at-beginning-immediate-error',
           (ClientTransportConnection client,

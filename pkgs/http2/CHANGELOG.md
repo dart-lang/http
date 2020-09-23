@@ -1,5 +1,8 @@
 ## 1.0.1-dev
 
+* Add `TransportConnection.onInitialPeerSettingsReceived` which fires when
+  intial SETTINGS frame is received from the peer.
+
 ## 1.0.0
 
 * Graduate package to 1.0.

@@ -60,6 +60,10 @@ abstract class TransportConnection {
   /// from active to idle).
   set onActiveStateChanged(ActiveStateHandler callback);
 
+  /// Future which completes when the first SETTINGS frame is received from
+  /// the peer.
+  Future<void> get onInitialPeerSettingsReceived;
+
   /// Finish this connection.
   ///
   /// No new streams will be accepted or can be created.
