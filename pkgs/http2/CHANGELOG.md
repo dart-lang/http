@@ -1,7 +1,9 @@
-## 1.0.1-dev
+## 1.0.2-dev
+
+## 1.0.1
 
 * Add `TransportConnection.onInitialPeerSettingsReceived` which fires when
-  intial SETTINGS frame is received from the peer.
+  initial SETTINGS frame is received from the peer.
 
 ## 1.0.0
 
