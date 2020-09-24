@@ -115,7 +115,8 @@ void stopServer() {
 }
 
 /// A matcher for functions that throw HttpException.
-Matcher get throwsClientException => throwsA(TypeMatcher<ClientException>());
+Matcher get throwsClientException =>
+    throwsA(const TypeMatcher<ClientException>());
 
 /// A matcher for functions that throw SocketException.
 final Matcher throwsSocketException =
