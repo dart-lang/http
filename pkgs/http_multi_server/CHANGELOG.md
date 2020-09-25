@@ -87,4 +87,4 @@
   particular, this works around [issue 19815][] on some Windows machines where
   IPv6 failure isn't discovered until we try to connect to the socket.
 
-[issue 19815]: http://code.google.com/p/dart/issues/detail?id=19815
+[issue 19815]: https://code.google.com/p/dart/issues/detail?id=19815
