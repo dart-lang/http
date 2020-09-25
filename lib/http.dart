@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// A composable, [Future]-based library for making HTTP requests.
-import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
