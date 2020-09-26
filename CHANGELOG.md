@@ -1,3 +1,7 @@
+## 0.12.3
+
+* Remove unnecessary dart:async imports.
+
 ## 0.12.2
 
 * Fix error handler callback type for response stream errors to avoid masking
