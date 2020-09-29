@@ -30,7 +30,7 @@ export 'src/streamed_response.dart';
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> head(url, {Map<String, String> headers}) =>
+Future<Response> head(Object url, {Map<String, String>? headers}) =>
     _withClient((client) => client.head(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
@@ -41,7 +41,7 @@ Future<Response> head(url, {Map<String, String> headers}) =>
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> get(url, {Map<String, String> headers}) =>
+Future<Response> get(Object url, {Map<String, String>? headers}) =>
     _withClient((client) => client.get(url, headers: headers));
 
 /// Sends an HTTP POST request with the given headers and body to the given URL,
@@ -63,8 +63,8 @@ Future<Response> get(url, {Map<String, String> headers}) =>
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> post(url,
-        {Map<String, String> headers, body, Encoding encoding}) =>
+Future<Response> post(Object url,
+        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
     _withClient((client) =>
         client.post(url, headers: headers, body: body, encoding: encoding));
 
@@ -87,8 +87,8 @@ Future<Response> post(url,
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> put(url,
-        {Map<String, String> headers, body, Encoding encoding}) =>
+Future<Response> put(Object url,
+        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
     _withClient((client) =>
         client.put(url, headers: headers, body: body, encoding: encoding));
 
@@ -111,8 +111,8 @@ Future<Response> put(url,
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> patch(url,
-        {Map<String, String> headers, body, Encoding encoding}) =>
+Future<Response> patch(Object url,
+        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
     _withClient((client) =>
         client.patch(url, headers: headers, body: body, encoding: encoding));
 
@@ -124,7 +124,7 @@ Future<Response> patch(url,
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> delete(url, {Map<String, String> headers}) =>
+Future<Response> delete(Object url, {Map<String, String>? headers}) =>
     _withClient((client) => client.delete(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
@@ -140,7 +140,7 @@ Future<Response> delete(url, {Map<String, String> headers}) =>
 ///
 /// For more fine-grained control over the request and response, use [Request]
 /// instead.
-Future<String> read(url, {Map<String, String> headers}) =>
+Future<String> read(Object url, {Map<String, String>? headers}) =>
     _withClient((client) => client.read(url, headers: headers));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
@@ -156,7 +156,7 @@ Future<String> read(url, {Map<String, String> headers}) =>
 ///
 /// For more fine-grained control over the request and response, use [Request]
 /// instead.
-Future<Uint8List> readBytes(url, {Map<String, String> headers}) =>
+Future<Uint8List> readBytes(Object url, {Map<String, String>? headers}) =>
     _withClient((client) => client.readBytes(url, headers: headers));
 
 Future<T> _withClient<T>(Future<T> Function(Client) fn) async {

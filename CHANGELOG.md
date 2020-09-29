@@ -1,3 +1,16 @@
+## 0.13.0-nullsafety-dev
+
+Pre-release for the null safety migration of this package.
+
+Note that 0.12.3 may not be the final stable null safety release version, we
+reserve the right to release it as a 0.13.0 breaking change.
+
+This release will be pinned to only allow pre-release sdk versions starting from
+2.10.0-2.0.dev, which is the first version where this package will appear in the
+null safety allow list.
+
+- Added `const` constructor to `ByteStream`.
+
 ## 0.12.2
 
 * Fix error handler callback type for response stream errors to avoid masking

@@ -76,7 +76,7 @@ class MultipartRequest extends BaseRequest {
   }
 
   @override
-  set contentLength(int value) {
+  set contentLength(int? value) {
     throw UnsupportedError('Cannot set the contentLength property of '
         'multipart requests.');
   }
@@ -135,7 +135,7 @@ class MultipartRequest extends BaseRequest {
         'content-disposition: form-data; name="${_browserEncode(file.field)}"';
 
     if (file.filename != null) {
-      header = '$header; filename="${_browserEncode(file.filename)}"';
+      header = '$header; filename="${_browserEncode(file.filename!)}"';
     }
     return '$header\r\n\r\n';
   }
