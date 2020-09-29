@@ -52,16 +52,17 @@ class BrowserClient extends BaseClient {
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = Completer<StreamedResponse>();
+
+    // TODO(kevmoo): Waiting on  https://github.com/dart-lang/linter/issues/2185
+    // ignore: void_checks
     unawaited(xhr.onLoad.first.then((_) {
-      // TODO(nweiz): Set the response type to "arraybuffer" when issue 18542
-      // is fixed.
-      var blob = xhr.response as Blob ?? Blob([]);
+      var blob = xhr.response as Blob;
       var reader = FileReader();
 
       reader.onLoad.first.then((_) {
         var body = reader.result as Uint8List;
         completer.complete(StreamedResponse(
-            ByteStream.fromBytes(body), xhr.status,
+            ByteStream.fromBytes(body), xhr.status!,
             contentLength: body.length,
             request: request,
             headers: xhr.responseHeaders,
@@ -76,6 +77,8 @@ class BrowserClient extends BaseClient {
       reader.readAsArrayBuffer(blob);
     }));
 
+    // TODO(kevmoo): Waiting on  https://github.com/dart-lang/linter/issues/2185
+    // ignore: void_checks
     unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.

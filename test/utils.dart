@@ -48,7 +48,7 @@ class _Parse extends Matcher {
   _Parse(this._matcher);
 
   @override
-  bool matches(item, Map matchState) {
+  bool matches(Object? item, Map matchState) {
     if (item is String) {
       dynamic parsed;
       try {
@@ -83,7 +83,7 @@ class _BodyMatches extends Matcher {
   _BodyMatches(this._pattern);
 
   @override
-  bool matches(item, Map matchState) {
+  bool matches(Object? item, Map matchState) {
     if (item is http.MultipartRequest) {
       return completes.matches(_checks(item), matchState);
     }
@@ -94,8 +94,8 @@ class _BodyMatches extends Matcher {
   Future<void> _checks(http.MultipartRequest item) async {
     var bodyBytes = await item.finalize().toBytes();
     var body = utf8.decode(bodyBytes);
-    var contentType = MediaType.parse(item.headers['content-type']);
-    var boundary = contentType.parameters['boundary'];
+    var contentType = MediaType.parse(item.headers['content-type']!);
+    var boundary = contentType.parameters['boundary']!;
     var expected = cleanUpLiteral(_pattern)
         .replaceAll('\n', '\r\n')
         .replaceAll('{{boundary}}', boundary);

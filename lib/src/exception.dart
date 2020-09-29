@@ -7,7 +7,7 @@ class ClientException implements Exception {
   final String message;
 
   /// The URL of the HTTP request or response that failed.
-  final Uri uri;
+  final Uri? uri;
 
   ClientException(this.message, [this.uri]);
 

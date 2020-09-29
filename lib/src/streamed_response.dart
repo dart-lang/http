@@ -19,12 +19,12 @@ class StreamedResponse extends BaseResponse {
   ///
   /// [stream] should be a single-subscription stream.
   StreamedResponse(Stream<List<int>> stream, int statusCode,
-      {int contentLength,
-      BaseRequest request,
+      {int? contentLength,
+      BaseRequest? request,
       Map<String, String> headers = const {},
       bool isRedirect = false,
       bool persistentConnection = true,
-      String reasonPhrase})
+      String? reasonPhrase})
       : stream = toByteStream(stream),
         super(statusCode,
             contentLength: contentLength,

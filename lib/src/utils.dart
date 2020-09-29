@@ -12,11 +12,11 @@ import 'byte_stream.dart';
 ///
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
-String mapToQuery(Map<String, String> map, {Encoding encoding}) {
+String mapToQuery(Map<String, String> map, {Encoding? encoding}) {
   var pairs = <List<String>>[];
   map.forEach((key, value) => pairs.add([
-        Uri.encodeQueryComponent(key, encoding: encoding),
-        Uri.encodeQueryComponent(value, encoding: encoding)
+        Uri.encodeQueryComponent(key, encoding: encoding ?? utf8),
+        Uri.encodeQueryComponent(value, encoding: encoding ?? utf8)
       ]));
   return pairs.map((pair) => '${pair[0]}=${pair[1]}').join('&');
 }
@@ -25,7 +25,7 @@ String mapToQuery(Map<String, String> map, {Encoding encoding}) {
 ///
 /// Returns [fallback] if [charset] is null or if no [Encoding] was found that
 /// corresponds to [charset].
-Encoding encodingForCharset(String charset, [Encoding fallback = latin1]) {
+Encoding encodingForCharset(String? charset, [Encoding fallback = latin1]) {
   if (charset == null) return fallback;
   return Encoding.getByName(charset) ?? fallback;
 }

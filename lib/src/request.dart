@@ -22,7 +22,7 @@ class Request extends BaseRequest {
   int get contentLength => bodyBytes.length;
 
   @override
-  set contentLength(int value) {
+  set contentLength(int? value) {
     throw UnsupportedError('Cannot set the contentLength property of '
         'non-streaming Request objects.');
   }
@@ -50,10 +50,10 @@ class Request extends BaseRequest {
   /// charset parameter on that header.
   Encoding get encoding {
     if (_contentType == null ||
-        !_contentType.parameters.containsKey('charset')) {
+        !_contentType!.parameters.containsKey('charset')) {
       return _defaultEncoding;
     }
-    return requiredEncodingForCharset(_contentType.parameters['charset']);
+    return requiredEncodingForCharset(_contentType!.parameters['charset']!);
   }
 
   set encoding(Encoding value) {
@@ -151,14 +151,18 @@ class Request extends BaseRequest {
   }
 
   /// The `Content-Type` header of the request (if it exists) as a [MediaType].
-  MediaType get _contentType {
+  MediaType? get _contentType {
     var contentType = headers['content-type'];
     if (contentType == null) return null;
     return MediaType.parse(contentType);
   }
 
-  set _contentType(MediaType value) {
-    headers['content-type'] = value.toString();
+  set _contentType(MediaType? value) {
+    if (value == null) {
+      headers.remove('content-type');
+    } else {
+      headers['content-type'] = value.toString();
+    }
   }
 
   /// Throw an error if this request has been finalized.

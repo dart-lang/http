@@ -18,9 +18,9 @@ BaseClient createClient() => IOClient();
 /// A `dart:io`-based HTTP client.
 class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
-  HttpClient _inner;
+  HttpClient? _inner;
 
-  IOClient([HttpClient inner]) : _inner = inner ?? HttpClient();
+  IOClient([HttpClient? inner]) : _inner = inner ?? HttpClient();
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
@@ -28,10 +28,10 @@ class IOClient extends BaseClient {
     var stream = request.finalize();
 
     try {
-      var ioRequest = (await _inner.openUrl(request.method, request.url))
+      var ioRequest = (await _inner!.openUrl(request.method, request.url))
         ..followRedirects = request.followRedirects
         ..maxRedirects = request.maxRedirects
-        ..contentLength = (request?.contentLength ?? -1)
+        ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
@@ -70,7 +70,7 @@ class IOClient extends BaseClient {
   @override
   void close() {
     if (_inner != null) {
-      _inner.close(force: true);
+      _inner!.close(force: true);
       _inner = null;
     }
   }
