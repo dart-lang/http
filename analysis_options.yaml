@@ -27,7 +27,6 @@ linter:
   - avoid_single_cascade_in_expression_statements
   - avoid_types_as_parameter_names
   - avoid_unused_constructor_parameters
-  - avoid_void_async
   - await_only_futures
   - camel_case_types
   - cascade_invocations
