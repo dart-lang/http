@@ -8,6 +8,7 @@ import 'package:http_parser/http_parser.dart';
 
 import 'byte_stream.dart';
 import 'multipart_file_stub.dart' if (dart.library.io) 'multipart_file_io.dart';
+import 'multipart_request.dart';
 import 'utils.dart';
 
 /// A file to be uploaded as part of a [MultipartRequest].

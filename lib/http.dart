@@ -7,7 +7,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'src/client.dart';
+import 'src/exception.dart';
+import 'src/request.dart';
 import 'src/response.dart';
+import 'src/streamed_request.dart';
 
 export 'src/base_client.dart';
 export 'src/base_request.dart';

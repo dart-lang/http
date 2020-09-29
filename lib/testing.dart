@@ -22,4 +22,8 @@
 ///           200,
 ///           headers: {'content-type': 'application/json'});
 ///     });
+library http.testing;
+
+import 'src/mock_client.dart';
+
 export 'src/mock_client.dart';
