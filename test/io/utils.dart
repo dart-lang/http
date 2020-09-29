@@ -14,10 +14,10 @@ import 'package:test/test.dart';
 export '../utils.dart';
 
 /// The current server instance.
-HttpServer _server;
+HttpServer? _server;
 
 /// The URL for the current server instance.
-Uri get serverUrl => Uri.parse('http://localhost:${_server.port}');
+Uri get serverUrl => Uri.parse('http://localhost:${_server!.port}');
 
 /// Starts a new HTTP server.
 Future<void> startServer() async {
@@ -78,7 +78,7 @@ Future<void> startServer() async {
         requestBody = null;
       } else if (request.headers.contentType?.charset != null) {
         var encoding =
-            requiredEncodingForCharset(request.headers.contentType.charset);
+            requiredEncodingForCharset(request.headers.contentType!.charset!);
         requestBody = encoding.decode(requestBodyBytes);
       } else {
         requestBody = requestBodyBytes;
@@ -109,7 +109,7 @@ Future<void> startServer() async {
 /// Stops the current HTTP server.
 void stopServer() {
   if (_server != null) {
-    _server.close();
+    _server!.close();
     _server = null;
   }
 }

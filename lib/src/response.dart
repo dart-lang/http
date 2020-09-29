@@ -29,11 +29,11 @@ class Response extends BaseResponse {
 
   /// Creates a new HTTP response with a string body.
   Response(String body, int statusCode,
-      {BaseRequest request,
+      {BaseRequest? request,
       Map<String, String> headers = const {},
       bool isRedirect = false,
       bool persistentConnection = true,
-      String reasonPhrase})
+      String? reasonPhrase})
       : this.bytes(_encodingForHeaders(headers).encode(body), statusCode,
             request: request,
             headers: headers,
@@ -43,11 +43,11 @@ class Response extends BaseResponse {
 
   /// Create a new HTTP response with a byte array body.
   Response.bytes(List<int> bodyBytes, int statusCode,
-      {BaseRequest request,
+      {BaseRequest? request,
       Map<String, String> headers = const {},
       bool isRedirect = false,
       bool persistentConnection = true,
-      String reasonPhrase})
+      String? reasonPhrase})
       : bodyBytes = toUint8List(bodyBytes),
         super(statusCode,
             contentLength: bodyBytes.length,
