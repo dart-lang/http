@@ -20,7 +20,7 @@ void main() {
   });
 
   test('boundary characters', () {
-    var testBoundary = String.fromCharCodes(BOUNDARY_CHARACTERS);
+    var testBoundary = String.fromCharCodes(boundaryCharacters);
     var contentType = MediaType.parse('text/plain; boundary=$testBoundary');
     var boundary = contentType.parameters['boundary'];
     expect(boundary, testBoundary);
