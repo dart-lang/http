@@ -1,13 +1,6 @@
-## 3.2.0-nullsafety
+## 4.0.0-nullsafety-dev
 
-Pre-release for the null safety migration of this package.
-
-Note that 3.2.0 may not be the final stable null safety release version, we
-reserve the right to release it as a 4.0.0 breaking change.
-
-This release will be pinned to only allow pre-release sdk versions starting from
-2.10.0-2.0.dev, which is the first version where this package will appear in the
-null safety allow list.
+* Migrate to null safety.
 
 ## 3.1.4
 

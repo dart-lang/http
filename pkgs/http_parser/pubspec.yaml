@@ -1,11 +1,15 @@
 name: http_parser
-version: 3.2.0-nullsafety
+version: 3.2.0-nullsafety-dev
 description: >-
   A platform-independent package for parsing and serializing HTTP formats.
 homepage: https://github.com/dart-lang/http_parser
 
+# Unsafe to publish until null safety is stable or this package is in
+# the allow list
+publish_to: none
+
 environment:
-  sdk: '>=2.10.0-0 <2.11.0'
+  sdk: '>=2.11.0-0 <2.11.0'
 
 dependencies:
   charcode: ^1.2.0-nullsafety
