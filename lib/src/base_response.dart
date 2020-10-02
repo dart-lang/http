@@ -2,8 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'base_request.dart';
+import 'dart:io';
 
+import 'base_request.dart';
 /// The base class for HTTP responses.
 ///
 /// Subclasses of [BaseResponse] are usually not constructed manually; instead,
@@ -28,6 +29,8 @@ abstract class BaseResponse {
   // TODO(nweiz): make this a HttpHeaders object.
   final Map<String, String> headers;
 
+  final HttpHeaders? rawHeaders;
+
   final bool isRedirect;
 
   /// Whether the server requested that a persistent connection be maintained.
@@ -36,6 +39,7 @@ abstract class BaseResponse {
   BaseResponse(this.statusCode,
       {this.contentLength,
       this.request,
+      this.rawHeaders,
       this.headers = const {},
       this.isRedirect = false,
       this.persistentConnection = true,

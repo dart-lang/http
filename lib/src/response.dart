@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:http_parser/http_parser.dart';
@@ -30,12 +31,14 @@ class Response extends BaseResponse {
   /// Creates a new HTTP response with a string body.
   Response(String body, int statusCode,
       {BaseRequest? request,
+      HttpHeaders? rawHeaders,
       Map<String, String> headers = const {},
       bool isRedirect = false,
       bool persistentConnection = true,
       String? reasonPhrase})
       : this.bytes(_encodingForHeaders(headers).encode(body), statusCode,
             request: request,
+            rawHeaders: rawHeaders,
             headers: headers,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
@@ -44,6 +47,7 @@ class Response extends BaseResponse {
   /// Create a new HTTP response with a byte array body.
   Response.bytes(List<int> bodyBytes, int statusCode,
       {BaseRequest? request,
+      HttpHeaders? rawHeaders,
       Map<String, String> headers = const {},
       bool isRedirect = false,
       bool persistentConnection = true,
@@ -52,6 +56,7 @@ class Response extends BaseResponse {
         super(statusCode,
             contentLength: bodyBytes.length,
             request: request,
+            rawHeaders: rawHeaders,
             headers: headers,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
@@ -63,6 +68,7 @@ class Response extends BaseResponse {
     final body = await response.stream.toBytes();
     return Response.bytes(body, response.statusCode,
         request: response.request,
+        rawHeaders: response.rawHeaders,
         headers: response.headers,
         isRedirect: response.isRedirect,
         persistentConnection: response.persistentConnection,
