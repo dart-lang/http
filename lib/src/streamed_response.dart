@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'base_request.dart';
 import 'base_response.dart';
 import 'byte_stream.dart';
@@ -21,6 +23,7 @@ class StreamedResponse extends BaseResponse {
   StreamedResponse(Stream<List<int>> stream, int statusCode,
       {int? contentLength,
       BaseRequest? request,
+      HttpHeaders? rawHeaders,
       Map<String, String> headers = const {},
       bool isRedirect = false,
       bool persistentConnection = true,
@@ -29,6 +32,7 @@ class StreamedResponse extends BaseResponse {
         super(statusCode,
             contentLength: contentLength,
             request: request,
+            rawHeaders: rawHeaders,
             headers: headers,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
