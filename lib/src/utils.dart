@@ -15,11 +15,25 @@ import 'byte_stream.dart';
 String mapToQuery(Map<String, String> map, bool passNull,
     {Encoding? encoding}) {
   var pairs = <List<String>>[];
-  map.forEach((key, value) => pairs.add([
-        Uri.encodeQueryComponent(key, encoding: encoding ?? utf8),
-        Uri.encodeQueryComponent(value ?? (passNull ? value = '' : value),
-            encoding: encoding ?? utf8)
-      ]));
+  map.forEach((key, value) {
+    if (value == null) {
+      if (passNull) {
+        pairs.add([
+          Uri.encodeQueryComponent(key, encoding: encoding ?? utf8),
+          Uri.encodeQueryComponent('', encoding: encoding ?? utf8)
+        ]);
+      } else {
+        throw ArgumentError.notNull(
+            'values inside body should not be null. Or pass argument passNull as true');
+      }
+    } else {
+      map.forEach((key, value) => pairs.add([
+            Uri.encodeQueryComponent(key, encoding: encoding ?? utf8),
+            Uri.encodeQueryComponent(value, encoding: encoding ?? utf8)
+          ]));
+    }
+  });
+
   return pairs.map((pair) => '${pair[0]}=${pair[1]}').join('&');
 }
 
