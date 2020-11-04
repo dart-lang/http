@@ -12,11 +12,13 @@ import 'byte_stream.dart';
 ///
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
-String mapToQuery(Map<String, String> map, {Encoding? encoding}) {
+String mapToQuery(Map<String, String> map, bool passNull,
+    {Encoding? encoding}) {
   var pairs = <List<String>>[];
   map.forEach((key, value) => pairs.add([
         Uri.encodeQueryComponent(key, encoding: encoding ?? utf8),
-        Uri.encodeQueryComponent(value, encoding: encoding ?? utf8)
+        Uri.encodeQueryComponent(value ?? (passNull ? value = '' : value),
+            encoding: encoding ?? utf8)
       ]));
   return pairs.map((pair) => '${pair[0]}=${pair[1]}').join('&');
 }

@@ -27,18 +27,23 @@ abstract class BaseClient implements Client {
 
   @override
   Future<Response> post(Object url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('POST', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          bool? passNull,
+          Encoding? encoding}) =>
+      _sendUnstreamed('POST', url, headers, body, passNull, encoding);
 
   @override
   Future<Response> put(Object url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PUT', url, headers, body, encoding);
+      {Map<String,
+          String>? headers, Object? body, bool? passNull, Encoding? encoding}) =>
+      _sendUnstreamed('PUT', url, headers, body, passNull, encoding);
 
   @override
   Future<Response> patch(Object url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PATCH', url, headers, body, encoding);
+      {Map<String,
+          String>? headers, Object? body, bool? passNull, Encoding? encoding}) =>
+      _sendUnstreamed('PATCH', url, headers, body, passNull, encoding);
 
   @override
   Future<Response> delete(Object url, {Map<String, String>? headers}) =>
@@ -70,13 +75,21 @@ abstract class BaseClient implements Client {
   Future<StreamedResponse> send(BaseRequest request);
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
-  Future<Response> _sendUnstreamed(
-      String method, url, Map<String, String>? headers,
-      [body, Encoding? encoding]) async {
-    var request = Request(method, _fromUriOrString(url));
+  Future<Response> _sendUnstreamed(String method, url,
+      Map<String, String>? headers,
+      [body, bool? passNull, Encoding? encoding]) async {
+    var request = Request(method, _fromUriOrString(url), passNull ?? false);
 
-    if (headers != null) request.headers.addAll(headers);
-    if (encoding != null) request.encoding = encoding;
+    if (headers != null) {
+      request.headers.addAll(headers);
+    } else {
+      throw ArgumentError.notNull('Header should not be null.');
+    }
+    if (encoding != null) {
+      request.encoding = encoding;
+    } else {
+      throw ArgumentError.notNull('Encoding should not be null.');
+    }
     if (body != null) {
       if (body is String) {
         request.body = body;

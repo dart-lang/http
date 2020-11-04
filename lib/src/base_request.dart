@@ -26,6 +26,7 @@ abstract class BaseRequest {
 
   /// The URL to which the request will be sent.
   final Uri url;
+  final bool passNull;
 
   /// The size of the request body, in bytes.
   ///
@@ -85,7 +86,7 @@ abstract class BaseRequest {
   bool get finalized => _finalized;
   bool _finalized = false;
 
-  BaseRequest(this.method, this.url)
+  BaseRequest(this.method, this.url, this.passNull)
       : headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
             hashCode: (key) => key.toLowerCase().hashCode);
@@ -140,5 +141,5 @@ abstract class BaseRequest {
   }
 
   @override
-  String toString() => '$method $url';
+  String toString() => '$method $url $passNull';
 }

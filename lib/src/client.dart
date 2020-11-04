@@ -61,7 +61,10 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> post(Object url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+      {Map<String, String>? headers,
+      Object? body,
+      bool? passNull,
+      Encoding? encoding});
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -82,7 +85,8 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> put(Object url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+      {Map<String,
+          String>? headers, Object? body, bool? passNull, Encoding? encoding});
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL, which can be a [Uri] or a [String].
@@ -103,7 +107,8 @@ abstract class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> patch(Object url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+      {Map<String,
+          String>? headers, Object? body, bool? passNull, Encoding? encoding});
 
   /// Sends an HTTP DELETE request with the given headers to the given URL,
   /// which can be a [Uri] or a [String].

@@ -64,7 +64,10 @@ Future<Response> get(Object url, {Map<String, String>? headers}) =>
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
 Future<Response> post(Object url,
-        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
+        {Map<String, String>? headers,
+        Object? body,
+        bool? passNull,
+        Encoding? encoding}) =>
     _withClient((client) =>
         client.post(url, headers: headers, body: body, encoding: encoding));
 
