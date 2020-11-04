@@ -134,7 +134,7 @@ class Request extends BaseRequest {
           'content-type "${contentType.mimeType}".');
     }
 
-    body = mapToQuery(fields, encoding: encoding);
+    body = mapToQuery(fields, passNull, encoding: encoding);
   }
 
   Request(String method, Uri url, bool passNull)
