@@ -47,7 +47,7 @@ class BrowserClient extends BaseClient {
     _xhrs.add(xhr);
     xhr
       ..open(request.method, '${request.url}', async: true)
-      ..responseType = 'blob'
+      ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
     request.headers.forEach(xhr.setRequestHeader);
 
@@ -56,25 +56,13 @@ class BrowserClient extends BaseClient {
     // TODO(kevmoo): Waiting on  https://github.com/dart-lang/linter/issues/2185
     // ignore: void_checks
     unawaited(xhr.onLoad.first.then((_) {
-      var blob = xhr.response as Blob;
-      var reader = FileReader();
-
-      reader.onLoad.first.then((_) {
-        var body = reader.result as Uint8List;
-        completer.complete(StreamedResponse(
-            ByteStream.fromBytes(body), xhr.status!,
-            contentLength: body.length,
-            request: request,
-            headers: xhr.responseHeaders,
-            reasonPhrase: xhr.statusText));
-      });
-
-      reader.onError.first.then((error) {
-        completer.completeError(
-            ClientException(error.toString(), request.url), StackTrace.current);
-      });
-
-      reader.readAsArrayBuffer(blob);
+      var body = (xhr.response as ByteBuffer).asUint8List();
+      completer.complete(StreamedResponse(
+          ByteStream.fromBytes(body), xhr.status!,
+          contentLength: body.length,
+          request: request,
+          headers: xhr.responseHeaders,
+          reasonPhrase: xhr.statusText));
     }));
 
     // TODO(kevmoo): Waiting on  https://github.com/dart-lang/linter/issues/2185
