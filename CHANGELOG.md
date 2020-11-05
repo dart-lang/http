@@ -9,7 +9,8 @@ This release will be pinned to only allow pre-release sdk versions starting from
 2.10.0-2.0.dev, which is the first version where this package will appear in the
 null safety allow list.
 
-- Added `const` constructor to `ByteStream`.
+* Add `const` constructor to `ByteStream`.
+* Migrate `BrowserClient` from `blob` to `arraybuffer`.
 
 ## 0.12.2
 
