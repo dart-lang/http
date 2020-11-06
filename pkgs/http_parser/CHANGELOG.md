@@ -1,4 +1,4 @@
-## 4.0.0-nullsafety-dev
+## 4.0.0-nullsafety
 
 * Migrate to null safety.
 
