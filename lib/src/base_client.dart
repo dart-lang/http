@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'base_request.dart';
+import 'byte_stream.dart';
 import 'client.dart';
 import 'exception.dart';
 import 'request.dart';

@@ -10,6 +10,7 @@ import 'base_request.dart';
 import 'client_stub.dart'
     if (dart.library.html) 'browser_client.dart'
     if (dart.library.io) 'io_client.dart';
+import 'exception.dart';
 import 'response.dart';
 import 'streamed_response.dart';
 
