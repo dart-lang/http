@@ -6,8 +6,9 @@ import 'dart:collection';
 
 import 'package:meta/meta.dart';
 
-import '../http.dart';
+import '../http.dart' show get;
 import 'base_client.dart';
+import 'base_response.dart';
 import 'byte_stream.dart';
 import 'client.dart';
 import 'streamed_response.dart';
