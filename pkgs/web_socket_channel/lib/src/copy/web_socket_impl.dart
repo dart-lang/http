@@ -20,7 +20,6 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import '../exception.dart';
-import 'bytes_builder.dart';
 import 'io_sink.dart';
 import 'web_socket.dart';
 
