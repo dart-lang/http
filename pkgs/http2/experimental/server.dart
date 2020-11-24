@@ -26,9 +26,9 @@ void main() async {
   var server = await SecureServerSocket.bind(HOSTNAME, PORT, context);
   print('HTTP/2 server listening on https://$HOSTNAME:$PORT');
 
-  runZoned(() {
+  runZonedGuarded(() {
     server.listen(handleClient);
-  }, onError: (e, s) {
+  }, (e, s) {
     print('Unexpected error: $e');
     print('Unexpected error - stack: $s');
   });

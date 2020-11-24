@@ -1,5 +1,7 @@
 ## 1.0.2-dev
 
+* Update minimum Dart SDK to `2.8.4`.
+
 ## 1.0.1
 
 * Add `TransportConnection.onInitialPeerSettingsReceived` which fires when
