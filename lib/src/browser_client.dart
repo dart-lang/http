@@ -53,8 +53,6 @@ class BrowserClient extends BaseClient {
 
     var completer = Completer<StreamedResponse>();
 
-    // TODO(kevmoo): Waiting on  https://github.com/dart-lang/linter/issues/2185
-    // ignore: void_checks
     unawaited(xhr.onLoad.first.then((_) {
       var body = (xhr.response as ByteBuffer).asUint8List();
       completer.complete(StreamedResponse(
@@ -65,8 +63,6 @@ class BrowserClient extends BaseClient {
           reasonPhrase: xhr.statusText));
     }));
 
-    // TODO(kevmoo): Waiting on  https://github.com/dart-lang/linter/issues/2185
-    // ignore: void_checks
     unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
