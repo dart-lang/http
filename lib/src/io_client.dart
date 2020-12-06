@@ -19,7 +19,16 @@ class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
   HttpClient? _inner;
 
-  IOClient([HttpClient? inner]) : _inner = inner ?? HttpClient();
+  IOClient([HttpClient? inner]): _inner = inner ?? HttpClient();
+
+  @override
+  void setBadCertificateCallback (
+      BadCertificateCallback? badCertificateCallback) {
+
+    if(_inner != null) {
+      _inner!.badCertificateCallback = badCertificateCallback;
+    }
+  }
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override

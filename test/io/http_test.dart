@@ -16,13 +16,13 @@ void main() {
     tearDown(stopServer);
 
     test('head', () async {
-      var response = await http.head(serverUrl);
+      var response = await http.head(httpServerUrl);
       expect(response.statusCode, equals(200));
       expect(response.body, equals(''));
     });
 
     test('get', () async {
-      var response = await http.get(serverUrl, headers: {
+      var response = await http.get(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -44,7 +44,7 @@ void main() {
     });
 
     test('post', () async {
-      var response = await http.post(serverUrl, headers: {
+      var response = await http.post(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'Content-Type': 'text/plain',
@@ -68,7 +68,7 @@ void main() {
     });
 
     test('post with string', () async {
-      var response = await http.post(serverUrl,
+      var response = await http.post(httpServerUrl,
           headers: {
             'X-Random-Header': 'Value',
             'X-Other-Header': 'Other Value',
@@ -94,7 +94,7 @@ void main() {
     });
 
     test('post with bytes', () async {
-      var response = await http.post(serverUrl, headers: {
+      var response = await http.post(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -123,7 +123,7 @@ void main() {
     });
 
     test('post with fields', () async {
-      var response = await http.post(serverUrl, headers: {
+      var response = await http.post(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -152,7 +152,7 @@ void main() {
     });
 
     test('put', () async {
-      var response = await http.put(serverUrl, headers: {
+      var response = await http.put(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'Content-Type': 'text/plain',
@@ -176,7 +176,7 @@ void main() {
     });
 
     test('put with string', () async {
-      var response = await http.put(serverUrl,
+      var response = await http.put(httpServerUrl,
           headers: {
             'X-Random-Header': 'Value',
             'X-Other-Header': 'Other Value',
@@ -202,7 +202,7 @@ void main() {
     });
 
     test('put with bytes', () async {
-      var response = await http.put(serverUrl, headers: {
+      var response = await http.put(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -231,7 +231,7 @@ void main() {
     });
 
     test('put with fields', () async {
-      var response = await http.put(serverUrl, headers: {
+      var response = await http.put(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -260,7 +260,7 @@ void main() {
     });
 
     test('patch', () async {
-      var response = await http.patch(serverUrl, headers: {
+      var response = await http.patch(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'Content-Type': 'text/plain',
@@ -284,7 +284,7 @@ void main() {
     });
 
     test('patch with string', () async {
-      var response = await http.patch(serverUrl,
+      var response = await http.patch(httpServerUrl,
           headers: {
             'X-Random-Header': 'Value',
             'X-Other-Header': 'Other Value',
@@ -310,7 +310,7 @@ void main() {
     });
 
     test('patch with bytes', () async {
-      var response = await http.patch(serverUrl, headers: {
+      var response = await http.patch(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -339,7 +339,7 @@ void main() {
     });
 
     test('patch with fields', () async {
-      var response = await http.patch(serverUrl, headers: {
+      var response = await http.patch(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -368,7 +368,7 @@ void main() {
     });
 
     test('delete', () async {
-      var response = await http.delete(serverUrl, headers: {
+      var response = await http.delete(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -390,7 +390,7 @@ void main() {
     });
 
     test('read', () async {
-      var response = await http.read(serverUrl, headers: {
+      var response = await http.read(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -411,11 +411,11 @@ void main() {
     });
 
     test('read throws an error for a 4** status code', () {
-      expect(http.read(serverUrl.resolve('/error')), throwsClientException);
+      expect(http.read(httpServerUrl.resolve('/error')), throwsClientException);
     });
 
     test('readBytes', () async {
-      var bytes = await http.readBytes(serverUrl, headers: {
+      var bytes = await http.readBytes(httpServerUrl, headers: {
         'X-Random-Header': 'Value',
         'X-Other-Header': 'Other Value',
         'User-Agent': 'Dart'
@@ -438,7 +438,7 @@ void main() {
 
     test('readBytes throws an error for a 4** status code', () {
       expect(
-          http.readBytes(serverUrl.resolve('/error')), throwsClientException);
+          http.readBytes(httpServerUrl.resolve('/error')), throwsClientException);
     });
   });
 }

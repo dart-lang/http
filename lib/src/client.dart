@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'base_client.dart';
@@ -142,4 +143,12 @@ abstract class Client {
   /// It's important to close each client when it's done being used; failing to
   /// do so can cause the Dart process to hang.
   void close();
+
+  /// Sets the [BadCertificateCallback] which is invoked if a bad certificate
+  /// is presented while establishing a connection
+  ///
+  /// if [badCertificateCallback] is null the function is reset
+  void setBadCertificateCallback (
+      BadCertificateCallback? badCertificateCallback) {
+  }
 }

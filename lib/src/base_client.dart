@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'base_request.dart';
@@ -101,6 +102,12 @@ abstract class BaseClient implements Client {
       message = '$message: ${response.reasonPhrase}';
     }
     throw ClientException('$message.', _fromUriOrString(url));
+  }
+
+
+  @override
+  void setBadCertificateCallback(badCertificateCallback) {
+    throw UnimplementedError('This method is only implemented for `IOClient´');
   }
 
   @override

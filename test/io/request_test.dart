@@ -15,7 +15,7 @@ void main() {
   tearDown(stopServer);
 
   test('send happy case', () async {
-    final request = http.Request('GET', serverUrl)
+    final request = http.Request('GET', httpServerUrl)
       ..body = 'hello'
       ..headers['User-Agent'] = 'Dart';
 
@@ -39,7 +39,7 @@ void main() {
   });
 
   test('without redirects', () async {
-    final request = http.Request('GET', serverUrl.resolve('/redirect'))
+    final request = http.Request('GET', httpServerUrl.resolve('/redirect'))
       ..followRedirects = false;
     final response = await request.send();
 
@@ -47,7 +47,7 @@ void main() {
   });
 
   test('with redirects', () async {
-    final request = http.Request('GET', serverUrl.resolve('/redirect'));
+    final request = http.Request('GET', httpServerUrl.resolve('/redirect'));
     final response = await request.send();
 
     expect(response.statusCode, equals(200));
@@ -56,7 +56,7 @@ void main() {
   });
 
   test('exceeding max redirects', () async {
-    final request = http.Request('GET', serverUrl.resolve('/loop?1'))
+    final request = http.Request('GET', httpServerUrl.resolve('/loop?1'))
       ..maxRedirects = 2;
     expect(
         request.send(),

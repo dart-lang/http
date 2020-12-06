@@ -18,7 +18,7 @@ void main() {
 
   group('contentLength', () {
     test('controls the Content-Length header', () async {
-      var request = http.StreamedRequest('POST', serverUrl)
+      var request = http.StreamedRequest('POST', httpServerUrl)
         ..contentLength = 10
         ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         ..sink.close();
@@ -31,7 +31,7 @@ void main() {
     });
 
     test('defaults to sending no Content-Length', () async {
-      var request = http.StreamedRequest('POST', serverUrl);
+      var request = http.StreamedRequest('POST', httpServerUrl);
       request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       request.sink.close();
 
@@ -44,7 +44,7 @@ void main() {
   // Regression test.
   test('.send() with a response with no content length', () async {
     var request =
-        http.StreamedRequest('GET', serverUrl.resolve('/no-content-length'));
+        http.StreamedRequest('GET', httpServerUrl.resolve('/no-content-length'));
     request.sink.close();
     var response = await request.send();
     expect(await utf8.decodeStream(response.stream), equals('body'));
