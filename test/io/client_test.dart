@@ -158,12 +158,19 @@ void main() {
         throwsHandshakeException);
 
     // Set global callback, should not raise even on new clients
-    ioClient.setBadCertificateCallback((cr, host, port) => true, false);
+    ioClient.setBadCertificateCallback((cr, host, port) => true);
 
     // this will create a new client transparently
     response = await http.get(httpsServerUrl);
 
     // ... which still should remember the old setting
     expect(response.statusCode, 200);
+
+    // Test case for explicitly rejecting bad certificates
+    ioClient.setBadCertificateCallback((cr, host, port) => false);
+
+    expect(ioClient.get(
+        httpsServerUrl.toString()),
+        throwsHandshakeException);
   });
 }
