@@ -105,10 +105,8 @@ abstract class BaseClient implements Client {
   }
 
   @override
-  void setBadCertificateCallback(
-      BadCertificateCallback? badCertificateCallback,
-      [bool onlyForInstance=false]) {
-
+  void setBadCertificateCallback(BadCertificateCallback? badCertificateCallback,
+      [bool onlyForInstance = false]) {
     throw UnimplementedError('This method is only implemented for `IOClient´');
   }
 

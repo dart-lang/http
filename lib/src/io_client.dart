@@ -31,17 +31,15 @@ class IOClient extends BaseClient {
   }
 
   @override
-  void setBadCertificateCallback (
-      BadCertificateCallback? badCertificateCallback,
-      [bool onlyForInstance=false]) {
-
+  void setBadCertificateCallback(BadCertificateCallback? badCertificateCallback,
+      [bool onlyForInstance = false]) {
     // store the callback to apply it on all future calls to IOClient
     // if requested
-    if (!onlyForInstance){
+    if (!onlyForInstance) {
       IOClient.badCertificateCallback = badCertificateCallback;
     }
 
-    if(_inner != null) {
+    if (_inner != null) {
       _inner!.badCertificateCallback = badCertificateCallback;
     }
   }
@@ -75,7 +73,7 @@ class IOClient extends BaseClient {
           }, test: (error) => error is HttpException),
           response.statusCode,
           contentLength:
-          response.contentLength == -1 ? null : response.contentLength,
+              response.contentLength == -1 ? null : response.contentLength,
           request: request,
           headers: headers,
           isRedirect: response.isRedirect,

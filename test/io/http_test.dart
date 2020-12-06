@@ -10,7 +10,6 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
-
   setUp(startServer);
   tearDown(stopServer);
 
@@ -445,8 +444,7 @@ void main() {
       });
 
       test('readBytes throws an error for a 4** status code', () {
-        expect(
-            http.readBytes(httpServerUrl.resolve('/error')),
+        expect(http.readBytes(httpServerUrl.resolve('/error')),
             throwsClientException);
       });
     });

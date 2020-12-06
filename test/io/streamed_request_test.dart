@@ -43,8 +43,8 @@ void main() {
 
   // Regression test.
   test('.send() with a response with no content length', () async {
-    var request =
-        http.StreamedRequest('GET', httpServerUrl.resolve('/no-content-length'));
+    var request = http.StreamedRequest(
+        'GET', httpServerUrl.resolve('/no-content-length'));
     request.sink.close();
     var response = await request.send();
     expect(await utf8.decodeStream(response.stream), equals('body'));

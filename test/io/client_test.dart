@@ -134,13 +134,10 @@ void main() {
   });
 
   test('bad certificate callback', () async {
-
     /// Default state: bad certificate should raise an exception
     var ioClient = http.Client();
 
-    expect(ioClient.get(
-        httpsServerUrl.toString()),
-        throwsHandshakeException);
+    expect(ioClient.get(httpsServerUrl.toString()), throwsHandshakeException);
 
     /// Override default behaviour to accept bad certificates
     /// (only THIS instance)
@@ -153,9 +150,7 @@ void main() {
     ioClient = http.Client();
 
     // should raise again, since setting was not global
-    expect(ioClient.get(
-        httpsServerUrl.toString()),
-        throwsHandshakeException);
+    expect(ioClient.get(httpsServerUrl.toString()), throwsHandshakeException);
 
     // Set global callback, should not raise even on new clients
     ioClient.setBadCertificateCallback((cr, host, port) => true);
@@ -169,8 +164,6 @@ void main() {
     // Test case for explicitly rejecting bad certificates
     ioClient.setBadCertificateCallback((cr, host, port) => false);
 
-    expect(ioClient.get(
-        httpsServerUrl.toString()),
-        throwsHandshakeException);
+    expect(ioClient.get(httpsServerUrl.toString()), throwsHandshakeException);
   });
 }

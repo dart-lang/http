@@ -73,7 +73,7 @@ void stopServer() {
 ///
 /// the general logic for secured and non-secured requests is the same
 /// if you need to adjust the behaviour, usr [isHttps]
-Future<void> handleRequest(HttpRequest request, [bool isHttps=false]) async {
+Future<void> handleRequest(HttpRequest request, [bool isHttps = false]) async {
   var path = request.uri.path;
   var response = request.response;
 
@@ -116,9 +116,8 @@ Future<void> handleRequest(HttpRequest request, [bool isHttps=false]) async {
 
   var requestBodyBytes = await ByteStream(request).toBytes();
   var encodingName = request.uri.queryParameters['response-encoding'];
-  var outputEncoding = encodingName == null
-      ? ascii
-      : requiredEncodingForCharset(encodingName);
+  var outputEncoding =
+      encodingName == null ? ascii : requiredEncodingForCharset(encodingName);
 
   response.headers.contentType =
       ContentType('application', 'json', charset: outputEncoding.name);
@@ -129,7 +128,7 @@ Future<void> handleRequest(HttpRequest request, [bool isHttps=false]) async {
     requestBody = null;
   } else if (request.headers.contentType?.charset != null) {
     var encoding =
-    requiredEncodingForCharset(request.headers.contentType!.charset!);
+        requiredEncodingForCharset(request.headers.contentType!.charset!);
     requestBody = encoding.decode(requestBodyBytes);
   } else {
     requestBody = requestBodyBytes;
@@ -164,7 +163,6 @@ Matcher get throwsClientException =>
 /// A matcher for functions that throw SocketException.
 final Matcher throwsSocketException =
     throwsA(const TypeMatcher<SocketException>());
-
 
 /// A matcher for functions that throw [HandshakeException].
 final Matcher throwsHandshakeException =
