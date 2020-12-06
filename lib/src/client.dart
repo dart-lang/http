@@ -148,7 +148,9 @@ abstract class Client {
   /// is presented while establishing a connection
   ///
   /// if [badCertificateCallback] is null the function is reset
-  void setBadCertificateCallback (
-      BadCertificateCallback? badCertificateCallback) {
-  }
+  /// if [onlyForInstance] is `false´ (default) the callback will be applied
+  /// for all future calls, otherwise only the current [Client] is affected
+  void setBadCertificateCallback(
+      BadCertificateCallback? badCertificateCallback,
+      [bool onlyForInstance=false]);
 }

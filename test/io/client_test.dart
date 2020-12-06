@@ -140,13 +140,30 @@ void main() {
 
     expect(ioClient.get(
         httpsServerUrl.toString()),
-        throwsHandshakeException
-        );
+        throwsHandshakeException);
 
     /// Override default behaviour to accept bad certificates
-    ioClient.setBadCertificateCallback((cert, host, port) => true);
+    /// (only THIS instance)
+    ioClient.setBadCertificateCallback((cert, host, port) => true, true);
 
-    var response = await ioClient.get(httpsServerUrl.toString());
+    var response = await ioClient.get(httpsServerUrl);
+    expect(response.statusCode, 200);
+
+    // Create a new client callback should not be set
+    ioClient = http.Client();
+
+    // should raise again, since setting was not global
+    expect(ioClient.get(
+        httpsServerUrl.toString()),
+        throwsHandshakeException);
+
+    // Set global callback, should not raise even on new clients
+    ioClient.setBadCertificateCallback((cr, host, port) => true, false);
+
+    // this will create a new client transparently
+    response = await http.get(httpsServerUrl);
+
+    // ... which still should remember the old setting
     expect(response.statusCode, 200);
   });
 }

@@ -24,11 +24,22 @@ Uri get httpServerUrl => Uri.parse('http://localhost:${_httpServer!.port}');
 /// The URL for the current https server instance.
 Uri get httpsServerUrl => Uri.parse('https://localhost:${_httpsServer!.port}');
 
+/// Gets the `http´ or `https´ server url
+///
+/// [serverType] can be either `http´ or `https´
+Uri getServerUrl(String serverType) {
+  if (serverType == 'http') {
+    return httpServerUrl;
+  } else {
+    return httpsServerUrl;
+  }
+}
+
 /// Starts a new HTTP server.
 Future<void> startServer() async {
   _httpServer = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
-      handleRequest(request);
+      await handleRequest(request);
     });
 
   // build a secured server

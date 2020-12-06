@@ -104,9 +104,11 @@ abstract class BaseClient implements Client {
     throw ClientException('$message.', _fromUriOrString(url));
   }
 
-
   @override
-  void setBadCertificateCallback(badCertificateCallback) {
+  void setBadCertificateCallback(
+      badCertificateCallback,
+      [bool onlyForInstance=false]) {
+
     throw UnimplementedError('This method is only implemented for `IOClient´');
   }
 
