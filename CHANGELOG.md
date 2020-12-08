@@ -11,6 +11,8 @@ null safety allow list.
 
 * Add `const` constructor to `ByteStream`.
 * Migrate `BrowserClient` from `blob` to `arraybuffer`.
+* **BREAKING** All APIs which previously allowed a `String` or `Uri` to be
+  passed now require a `Uri`.
 
 ## 0.12.2
 
