@@ -171,12 +171,12 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(http.read('http://127.0.0.1:${server.port}/'),
+        expect(http.read(Uri.http('127.0.0.1:${server.port}', '/')),
             completion(equals('got request')));
       }
 
       if (await supportsIPv6) {
-        expect(http.read('http://[::1]:${server.port}/'),
+        expect(http.read(Uri.http('[::1]:${server.port}', '/')),
             completion(equals('got request')));
       }
     });
@@ -191,12 +191,12 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(http.read('http://127.0.0.1:${server.port}/'),
+        expect(http.read(Uri.http('127.0.0.1:${server.port}', '/')),
             completion(equals('got request')));
       }
 
       if (await supportsIPv6) {
-        expect(http.read('http://[::1]:${server.port}/'),
+        expect(http.read(Uri.http('[::1]:${server.port}', '/')),
             completion(equals('got request')));
       }
     });
@@ -209,12 +209,12 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(http.read('http://127.0.0.1:${server.port}/'),
+        expect(http.read(Uri.http('127.0.0.1:${server.port}', '/')),
             completion(equals('got request')));
       }
 
       if (await supportsIPv6) {
-        expect(http.read('http://[::1]:${server.port}/'),
+        expect(http.read(Uri.http('[::1]:${server.port}', '/')),
             completion(equals('got request')));
       }
     });
@@ -227,12 +227,12 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(http.read('http://127.0.0.1:${server.port}/'),
+        expect(http.read(Uri.http('127.0.0.1:${server.port}', '/')),
             completion(equals('got request')));
       }
 
       if (await supportsIPv6) {
-        expect(http.read('http://[::1]:${server.port}/'),
+        expect(http.read(Uri.http('[::1]:${server.port}', '/')),
             throwsA(isA<SocketException>()));
       }
     });
@@ -246,5 +246,5 @@ Future<http.Response> _get(HttpServer server) => http.get(_urlFor(server));
 Future<String> _read(HttpServer server) => http.read(_urlFor(server));
 
 /// Returns the URL for the root of [server].
-String _urlFor(HttpServer server) =>
-    'http://${server.address.host}:${server.port}/';
+Uri _urlFor(HttpServer server) =>
+    Uri.http('${server.address.host}:${server.port}', '/');
