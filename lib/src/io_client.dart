@@ -58,7 +58,7 @@ class IOClient extends BaseClient {
           reasonPhrase: response.reasonPhrase,
           inner: response);
     } on SocketException catch (error) {
-      throw ClientException(error.message, request.uri);
+      throw ClientException(error.message, request.url);
     } on HttpException catch (error) {
       throw ClientException(error.message, error.uri);
     }
