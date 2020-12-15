@@ -166,6 +166,8 @@ Future<T> _withClient<T>(Future<T> Function(Client) fn) async {
   var client = Client();
   try {
     return await fn(client);
+  } catch (e) {
+    rethrow;
   } finally {
     client.close();
   }
