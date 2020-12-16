@@ -57,8 +57,8 @@ class IOClient extends BaseClient {
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase,
           inner: response);
-    } on SocketException catch (error) {
-      throw ClientException(error.message, request.url);
+    } on SocketException catch (_) {
+      rethrow;
     } on HttpException catch (error) {
       throw ClientException(error.message, error.uri);
     }
