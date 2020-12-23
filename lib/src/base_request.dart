@@ -89,7 +89,7 @@ abstract class BaseRequest {
   bool _finalized = false;
 
   BaseRequest(String method, this.url)
-      : this.method = [
+      : method = [
           'HEAD',
           'GET',
           'POST',
@@ -98,7 +98,7 @@ abstract class BaseRequest {
           'DELETE',
         ].contains(method)
             ? method
-            : throw StateError("invalid HTTP method."),
+            : throw StateError('invalid HTTP method.'),
         headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
             hashCode: (key) => key.toLowerCase().hashCode);
