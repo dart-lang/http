@@ -334,4 +334,10 @@ void main() {
       expect(request.toString(), 'POST $dummyUrl');
     });
   });
+
+  group('#invalid method', () {
+    test('Invalid method', () {
+      expect(() => http.Request('LLAMA', dummyUrl), throwsStateError);
+    });
+  });
 }
