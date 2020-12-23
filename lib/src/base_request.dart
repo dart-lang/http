@@ -88,8 +88,18 @@ abstract class BaseRequest {
   bool get finalized => _finalized;
   bool _finalized = false;
 
-  BaseRequest(this.method, this.url)
-      : headers = LinkedHashMap(
+  BaseRequest(String method, this.url)
+      : this.method = [
+          'HEAD',
+          'GET',
+          'POST',
+          'PUT',
+          'PATCH',
+          'DELETE',
+        ].contains(method)
+            ? method
+            : throw StateError("invalid HTTP method."),
+        headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
             hashCode: (key) => key.toLowerCase().hashCode);
 
