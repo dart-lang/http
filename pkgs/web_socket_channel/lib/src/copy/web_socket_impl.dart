@@ -92,7 +92,7 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
   EventSink<dynamic /*List<int>|_WebSocketPing|_WebSocketPong*/ > _eventSink;
 
   final bool _serverSide;
-  final List _maskingBytes = List(4);
+  final List<int> _maskingBytes = List.filled(4, 0);
   final BytesBuilder _payload = BytesBuilder(copy: false);
 
   _WebSocketProtocolTransformer([this._serverSide = false]);
