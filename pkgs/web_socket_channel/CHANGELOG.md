@@ -1,7 +1,8 @@
-## 1.2.0-dev
+## 1.2.0
 
 * Add `protocols` argument to `WebSocketChannel.connect`. See the docs for
   `WebSocket.connet`.
+* Allow the latest crypto release (`3.x`).
 
 ## 1.1.0
 
