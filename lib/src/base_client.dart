@@ -44,7 +44,7 @@ abstract class BaseClient implements Client {
   @override
   Future<Response> delete(Object url,
           {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('DELETE', url, headers);
+      _sendUnstreamed('DELETE', url, headers, body, encoding);
 
   @override
   Future<String> read(Object url, {Map<String, String>? headers}) async {
