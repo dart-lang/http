@@ -2,9 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
 import 'dart:collection';
 
+import 'package:meta/meta.dart';
+
+import '../http.dart' show get;
+import 'base_client.dart';
+import 'base_response.dart';
 import 'byte_stream.dart';
 import 'client.dart';
 import 'streamed_response.dart';
@@ -30,10 +34,10 @@ abstract class BaseRequest {
   ///
   /// This defaults to `null`, which indicates that the size of the request is
   /// not known in advance. May not be assigned a negative value.
-  int get contentLength => _contentLength;
-  int _contentLength;
+  int? get contentLength => _contentLength;
+  int? _contentLength;
 
-  set contentLength(int value) {
+  set contentLength(int? value) {
     if (value != null && value < 0) {
       throw ArgumentError('Invalid content length $value.');
     }
@@ -66,7 +70,7 @@ abstract class BaseRequest {
   /// The maximum number of redirects to follow when [followRedirects] is true.
   ///
   /// If this number is exceeded the [BaseResponse] future will signal a
-  /// [RedirectException]. Defaults to 5.
+  /// `RedirectException`. Defaults to 5.
   int get maxRedirects => _maxRedirects;
   int _maxRedirects = 5;
 
@@ -94,16 +98,17 @@ abstract class BaseRequest {
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that emits the body of the request.
   ///
-  /// The base implementation of this returns null rather than a [ByteStream];
+  /// The base implementation of this returns an empty [ByteStream];
   /// subclasses are responsible for creating the return value, which should be
   /// single-subscription to ensure that no data is dropped. They should also
   /// freeze any additional mutable fields they add that don't make sense to
   /// change after the request headers are sent.
+  @mustCallSuper
   ByteStream finalize() {
     // TODO(nweiz): freeze headers
     if (finalized) throw StateError("Can't finalize a finalized Request.");
     _finalized = true;
-    return null;
+    return const ByteStream(Stream.empty());
   }
 
   /// Sends this request.

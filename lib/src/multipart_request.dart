@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -77,7 +76,7 @@ class MultipartRequest extends BaseRequest {
   }
 
   @override
-  set contentLength(int value) {
+  set contentLength(int? value) {
     throw UnsupportedError('Cannot set the contentLength property of '
         'multipart requests.');
   }
@@ -136,20 +135,19 @@ class MultipartRequest extends BaseRequest {
         'content-disposition: form-data; name="${_browserEncode(file.field)}"';
 
     if (file.filename != null) {
-      header = '$header; filename="${_browserEncode(file.filename)}"';
+      header = '$header; filename="${_browserEncode(file.filename!)}"';
     }
     return '$header\r\n\r\n';
   }
 
   /// Encode [value] in the same way browsers do.
-  String _browserEncode(String value) {
-    // http://tools.ietf.org/html/rfc2388 mandates some complex encodings for
-    // field names and file names, but in practice user agents seem not to
-    // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
-    // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
-    // characters). We follow their behavior.
-    return value.replaceAll(_newlineRegExp, '%0D%0A').replaceAll('"', '%22');
-  }
+  String _browserEncode(String value) =>
+      // http://tools.ietf.org/html/rfc2388 mandates some complex encodings for
+      // field names and file names, but in practice user agents seem not to
+      // follow this at all. Instead, they URL-encode `\r`, `\n`, and `\r\n` as
+      // `\r\n`; URL-encode `"`; and do nothing else (even for `%` or non-ASCII
+      // characters). We follow their behavior.
+      value.replaceAll(_newlineRegExp, '%0D%0A').replaceAll('"', '%22');
 
   /// Returns a randomly-generated multipart boundary string
   String _boundaryString() {
@@ -157,7 +155,7 @@ class MultipartRequest extends BaseRequest {
     var list = List<int>.generate(
         _boundaryLength - prefix.length,
         (index) =>
-            BOUNDARY_CHARACTERS[_random.nextInt(BOUNDARY_CHARACTERS.length)],
+            boundaryCharacters[_random.nextInt(boundaryCharacters.length)],
         growable: false);
     return '$prefix${String.fromCharCodes(list)}';
   }

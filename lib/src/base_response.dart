@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'base_client.dart';
 import 'base_request.dart';
 
 /// The base class for HTTP responses.
@@ -10,18 +11,18 @@ import 'base_request.dart';
 /// they're returned by [BaseClient.send] or other HTTP client methods.
 abstract class BaseResponse {
   /// The (frozen) request that triggered this response.
-  final BaseRequest request;
+  final BaseRequest? request;
 
   /// The HTTP status code for this response.
   final int statusCode;
 
   /// The reason phrase associated with the status code.
-  final String reasonPhrase;
+  final String? reasonPhrase;
 
   /// The size of the response body, in bytes.
   ///
   /// If the size of the request is not known in advance, this is `null`.
-  final int contentLength;
+  final int? contentLength;
 
   // TODO(nweiz): automatically parse cookies from headers
 
@@ -42,7 +43,7 @@ abstract class BaseResponse {
       this.reasonPhrase}) {
     if (statusCode < 100) {
       throw ArgumentError('Invalid status code $statusCode.');
-    } else if (contentLength != null && contentLength < 0) {
+    } else if (contentLength != null && contentLength! < 0) {
       throw ArgumentError('Invalid content length $contentLength.');
     }
   }

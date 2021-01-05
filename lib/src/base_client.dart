@@ -2,11 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
 import 'base_request.dart';
+import 'byte_stream.dart';
 import 'client.dart';
 import 'exception.dart';
 import 'request.dart';
@@ -19,42 +19,43 @@ import 'streamed_response.dart';
 /// maybe [close], and then they get various convenience methods for free.
 abstract class BaseClient implements Client {
   @override
-  Future<Response> head(url, {Map<String, String> headers}) =>
+  Future<Response> head(Object url, {Map<String, String>? headers}) =>
       _sendUnstreamed('HEAD', url, headers);
 
   @override
-  Future<Response> get(url, {Map<String, String> headers}) =>
+  Future<Response> get(Object url, {Map<String, String>? headers}) =>
       _sendUnstreamed('GET', url, headers);
 
   @override
-  Future<Response> post(url,
-          {Map<String, String> headers, body, Encoding encoding}) =>
+  Future<Response> post(Object url,
+          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('POST', url, headers, body, encoding);
 
   @override
-  Future<Response> put(url,
-          {Map<String, String> headers, body, Encoding encoding}) =>
+  Future<Response> put(Object url,
+          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('PUT', url, headers, body, encoding);
 
   @override
-  Future<Response> patch(url,
-          {Map<String, String> headers, body, Encoding encoding}) =>
+  Future<Response> patch(Object url,
+          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('PATCH', url, headers, body, encoding);
 
   @override
-  Future<Response> delete(url,
-          {Map<String, String> headers, body, Encoding encoding}) =>
-      _sendUnstreamed('DELETE', url, headers, body, encoding);
+  Future<Response> delete(Object url,
+          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
+      _sendUnstreamed('DELETE', url, headers);
 
   @override
-  Future<String> read(url, {Map<String, String> headers}) async {
+  Future<String> read(Object url, {Map<String, String>? headers}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.body;
   }
 
   @override
-  Future<Uint8List> readBytes(url, {Map<String, String> headers}) async {
+  Future<Uint8List> readBytes(Object url,
+      {Map<String, String>? headers}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.bodyBytes;
@@ -72,8 +73,8 @@ abstract class BaseClient implements Client {
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(
-      String method, url, Map<String, String> headers,
-      [body, Encoding encoding]) async {
+      String method, url, Map<String, String>? headers,
+      [body, Encoding? encoding]) async {
     var request = Request(method, _fromUriOrString(url));
 
     if (headers != null) request.headers.addAll(headers);

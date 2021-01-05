@@ -2,13 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
 import 'request.dart';
 import 'response.dart';
+import 'streamed_request.dart';
 import 'streamed_response.dart';
 
 // TODO(nweiz): once Dart has some sort of Rack- or WSGI-like standard for
