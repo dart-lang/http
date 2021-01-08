@@ -110,7 +110,8 @@ abstract class Client {
   /// which can be a [Uri] or a [String].
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> delete(Object url, {Map<String, String>? headers});
+  Future<Response> delete(Object url,
+      {Map<String, String>? headers, Object? body, Encoding? encoding});
 
   /// Sends an HTTP GET request with the given headers to the given URL, which
   /// can be a [Uri] or a [String], and returns a Future that completes to the
