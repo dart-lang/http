@@ -127,8 +127,10 @@ Future<Response> patch(Object url,
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> delete(Object url, {Map<String, String>? headers}) =>
-    _withClient((client) => client.delete(url, headers: headers));
+Future<Response> delete(Object url,
+        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
+    _withClient((client) =>
+        client.delete(url, headers: headers, body: body, encoding: encoding));
 
 /// Sends an HTTP GET request with the given headers to the given URL, which can
 /// be a [Uri] or a [String], and returns a Future that completes to the body of

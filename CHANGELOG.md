@@ -11,6 +11,8 @@ null safety allow list.
 
 * Add `const` constructor to `ByteStream`.
 * Migrate `BrowserClient` from `blob` to `arraybuffer`.
+* **Breaking** Added a `body` and `encoding` argument to `Client.delete`. This
+  is only breaking for implementations which override that method.
 
 ## 0.12.2
 
