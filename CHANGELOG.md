@@ -13,6 +13,8 @@ null safety allow list.
 * Migrate `BrowserClient` from `blob` to `arraybuffer`.
 * **BREAKING** All APIs which previously allowed a `String` or `Uri` to be
   passed now require a `Uri`.
+* **Breaking** Added a `body` and `encoding` argument to `Client.delete`. This
+  is only breaking for implementations which override that method.
 
 ## 0.12.2
 

@@ -107,7 +107,8 @@ abstract class Client {
   /// Sends an HTTP DELETE request with the given headers to the given URL.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> delete(Uri url, {Map<String, String>? headers});
+  Future<Response> delete(Uri url,
+      {Map<String, String>? headers, Object? body, Encoding? encoding});
 
   /// Sends an HTTP GET request with the given headers to the given URL and
   /// returns a Future that completes to the body of the response as a String.
