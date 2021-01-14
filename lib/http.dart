@@ -25,30 +25,27 @@ export 'src/response.dart';
 export 'src/streamed_request.dart';
 export 'src/streamed_response.dart';
 
-/// Sends an HTTP HEAD request with the given headers to the given URL, which
-/// can be a [Uri] or a [String].
+/// Sends an HTTP HEAD request with the given headers to the given URL.
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> head(Object url, {Map<String, String>? headers}) =>
+Future<Response> head(Uri url, {Map<String, String>? headers}) =>
     _withClient((client) => client.head(url, headers: headers));
 
-/// Sends an HTTP GET request with the given headers to the given URL, which can
-/// be a [Uri] or a [String].
+/// Sends an HTTP GET request with the given headers to the given URL.
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> get(Object url, {Map<String, String>? headers}) =>
+Future<Response> get(Uri url, {Map<String, String>? headers}) =>
     _withClient((client) => client.get(url, headers: headers));
 
-/// Sends an HTTP POST request with the given headers and body to the given URL,
-/// which can be a [Uri] or a [String].
+/// Sends an HTTP POST request with the given headers and body to the given URL.
 ///
 /// [body] sets the body of the request. It can be a [String], a [List<int>] or
 /// a [Map<String, String>]. If it's a String, it's encoded using [encoding] and
@@ -66,13 +63,12 @@ Future<Response> get(Object url, {Map<String, String>? headers}) =>
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> post(Object url,
+Future<Response> post(Uri url,
         {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
     _withClient((client) =>
         client.post(url, headers: headers, body: body, encoding: encoding));
 
-/// Sends an HTTP PUT request with the given headers and body to the given URL,
-/// which can be a [Uri] or a [String].
+/// Sends an HTTP PUT request with the given headers and body to the given URL.
 ///
 /// [body] sets the body of the request. It can be a [String], a [List<int>] or
 /// a [Map<String, String>]. If it's a String, it's encoded using [encoding] and
@@ -90,13 +86,13 @@ Future<Response> post(Object url,
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> put(Object url,
+Future<Response> put(Uri url,
         {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
     _withClient((client) =>
         client.put(url, headers: headers, body: body, encoding: encoding));
 
 /// Sends an HTTP PATCH request with the given headers and body to the given
-/// URL, which can be a [Uri] or a [String].
+/// URL.
 ///
 /// [body] sets the body of the request. It can be a [String], a [List<int>] or
 /// a [Map<String, String>]. If it's a String, it's encoded using [encoding] and
@@ -114,27 +110,25 @@ Future<Response> put(Object url,
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> patch(Object url,
+Future<Response> patch(Uri url,
         {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
     _withClient((client) =>
         client.patch(url, headers: headers, body: body, encoding: encoding));
 
-/// Sends an HTTP DELETE request with the given headers to the given URL, which
-/// can be a [Uri] or a [String].
+/// Sends an HTTP DELETE request with the given headers to the given URL.
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
 ///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> delete(Object url,
+Future<Response> delete(Uri url,
         {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
     _withClient((client) =>
         client.delete(url, headers: headers, body: body, encoding: encoding));
 
-/// Sends an HTTP GET request with the given headers to the given URL, which can
-/// be a [Uri] or a [String], and returns a Future that completes to the body of
-/// the response as a [String].
+/// Sends an HTTP GET request with the given headers to the given URL and
+/// returns a Future that completes to the body of the response as a [String].
 ///
 /// The Future will emit a [ClientException] if the response doesn't have a
 /// success status code.
@@ -145,12 +139,12 @@ Future<Response> delete(Object url,
 ///
 /// For more fine-grained control over the request and response, use [Request]
 /// instead.
-Future<String> read(Object url, {Map<String, String>? headers}) =>
+Future<String> read(Uri url, {Map<String, String>? headers}) =>
     _withClient((client) => client.read(url, headers: headers));
 
-/// Sends an HTTP GET request with the given headers to the given URL, which can
-/// be a [Uri] or a [String], and returns a Future that completes to the body of
-/// the response as a list of bytes.
+/// Sends an HTTP GET request with the given headers to the given URL and
+/// returns a Future that completes to the body of the response as a list of
+/// bytes.
 ///
 /// The Future will emit a [ClientException] if the response doesn't have a
 /// success status code.
@@ -161,7 +155,7 @@ Future<String> read(Object url, {Map<String, String>? headers}) =>
 ///
 /// For more fine-grained control over the request and response, use [Request]
 /// instead.
-Future<Uint8List> readBytes(Object url, {Map<String, String>? headers}) =>
+Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) =>
     _withClient((client) => client.readBytes(url, headers: headers));
 
 Future<T> _withClient<T>(Future<T> Function(Client) fn) async {

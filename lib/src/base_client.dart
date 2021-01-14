@@ -19,43 +19,42 @@ import 'streamed_response.dart';
 /// maybe [close], and then they get various convenience methods for free.
 abstract class BaseClient implements Client {
   @override
-  Future<Response> head(Object url, {Map<String, String>? headers}) =>
+  Future<Response> head(Uri url, {Map<String, String>? headers}) =>
       _sendUnstreamed('HEAD', url, headers);
 
   @override
-  Future<Response> get(Object url, {Map<String, String>? headers}) =>
+  Future<Response> get(Uri url, {Map<String, String>? headers}) =>
       _sendUnstreamed('GET', url, headers);
 
   @override
-  Future<Response> post(Object url,
+  Future<Response> post(Uri url,
           {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('POST', url, headers, body, encoding);
 
   @override
-  Future<Response> put(Object url,
+  Future<Response> put(Uri url,
           {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('PUT', url, headers, body, encoding);
 
   @override
-  Future<Response> patch(Object url,
+  Future<Response> patch(Uri url,
           {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('PATCH', url, headers, body, encoding);
 
   @override
-  Future<Response> delete(Object url,
+  Future<Response> delete(Uri url,
           {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('DELETE', url, headers, body, encoding);
 
   @override
-  Future<String> read(Object url, {Map<String, String>? headers}) async {
+  Future<String> read(Uri url, {Map<String, String>? headers}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.body;
   }
 
   @override
-  Future<Uint8List> readBytes(Object url,
-      {Map<String, String>? headers}) async {
+  Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.bodyBytes;
@@ -73,9 +72,9 @@ abstract class BaseClient implements Client {
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(
-      String method, url, Map<String, String>? headers,
+      String method, Uri url, Map<String, String>? headers,
       [body, Encoding? encoding]) async {
-    var request = Request(method, _fromUriOrString(url));
+    var request = Request(method, url);
 
     if (headers != null) request.headers.addAll(headers);
     if (encoding != null) request.encoding = encoding;
@@ -95,17 +94,15 @@ abstract class BaseClient implements Client {
   }
 
   /// Throws an error if [response] is not successful.
-  void _checkResponseSuccess(url, Response response) {
+  void _checkResponseSuccess(Uri url, Response response) {
     if (response.statusCode < 400) return;
     var message = 'Request to $url failed with status ${response.statusCode}';
     if (response.reasonPhrase != null) {
       message = '$message: ${response.reasonPhrase}';
     }
-    throw ClientException('$message.', _fromUriOrString(url));
+    throw ClientException('$message.', url);
   }
 
   @override
   void close() {}
 }
-
-Uri _fromUriOrString(uri) => uri is String ? Uri.parse(uri) : uri as Uri;
