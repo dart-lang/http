@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dart-lang/web_socket_channel.svg?branch=master)](https://travis-ci.org/dart-lang/web_socket_channel)
+[![Build Status](https://github.com/dart-lang/web_socket_channel/workflows/Dart%20CI/badge.svg)](https://github.com/dart-lang/web_socket_channel/actions?query=workflow%3A"Dart+CI"+branch%3Amaster)
 
 The `web_socket_channel` package provides [`StreamChannel`][stream_channel]
 wrappers for WebSocket connections. It provides a cross-platform
