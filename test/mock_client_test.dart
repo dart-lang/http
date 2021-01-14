@@ -16,7 +16,7 @@ void main() {
         json.encode(request.bodyFields), 200,
         request: request, headers: {'content-type': 'application/json'}));
 
-    var response = await client.post('http://example.com/foo',
+    var response = await client.post(Uri.http('example.com', '/foo'),
         body: {'field1': 'value1', 'field2': 'value2'});
     expect(
         response.body, parse(equals({'field1': 'value1', 'field2': 'value2'})));
@@ -30,7 +30,7 @@ void main() {
       return http.StreamedResponse(stream, 200);
     });
 
-    var uri = Uri.parse('http://example.com/foo');
+    var uri = Uri.http('example.com', '/foo');
     var request = http.Request('POST', uri)..body = 'hello, world';
     var streamedResponse = await client.send(request);
     var response = await http.Response.fromStream(streamedResponse);
@@ -40,6 +40,7 @@ void main() {
   test('handles a request with no body', () async {
     var client = MockClient((_) async => http.Response('you did it', 200));
 
-    expect(await client.read('http://example.com/foo'), equals('you did it'));
+    expect(await client.read(Uri.http('example.com', '/foo')),
+        equals('you did it'));
   });
 }
