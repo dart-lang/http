@@ -61,17 +61,17 @@ class Http2StreamImpl extends TransportStream
 
   // Error code from RST_STREAM frame, if the stream has been terminated
   // remotely.
-  int _terminatedErrorCode;
+  int? _terminatedErrorCode;
 
   // Termination handler. Invoked if the stream receives an RST_STREAM frame.
-  void Function(int) _onTerminated;
+  void Function(int)? _onTerminated;
 
   final ZoneUnaryCallback<bool, Http2StreamImpl> _canPushFun;
   final ZoneBinaryCallback<ServerTransportStream, Http2StreamImpl, List<Header>>
       _pushStreamFun;
   final ZoneUnaryCallback<dynamic, Http2StreamImpl> _terminateStreamFun;
 
-  StreamSubscription _outgoingCSubscription;
+  late StreamSubscription _outgoingCSubscription;
 
   Http2StreamImpl(
       this.incomingQueue,
@@ -113,14 +113,14 @@ class Http2StreamImpl extends TransportStream
   set onTerminated(void Function(int) handler) {
     _onTerminated = handler;
     if (_terminatedErrorCode != null && _onTerminated != null) {
-      _onTerminated(_terminatedErrorCode);
+      _onTerminated!(_terminatedErrorCode!);
     }
   }
 
   void _handleTerminated(int errorCode) {
     _terminatedErrorCode = errorCode;
     if (_onTerminated != null) {
-      _onTerminated(_terminatedErrorCode);
+      _onTerminated!(_terminatedErrorCode!);
     }
   }
 }
@@ -767,7 +767,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     }
   }
 
-  void _closeStreamAbnormally(Http2StreamImpl stream, Object exception,
+  void _closeStreamAbnormally(Http2StreamImpl stream, Object? exception,
       {bool propagateException = false}) {
     incomingQueue.removeStreamMessageQueue(stream.id);
 

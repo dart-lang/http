@@ -20,7 +20,7 @@ class TerminatableMixin {
 
   bool get wasTerminated => _terminated;
 
-  void onTerminated(error) {
+  void onTerminated(Object? error) {
     // Subclasses can override this method if they want.
   }
 

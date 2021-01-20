@@ -18,22 +18,22 @@ import 'transport.dart' as http2;
 ///   * one handles HTTP/2 clients (called with a [http2.ServerTransportStream])
 class MultiProtocolHttpServer {
   final SecureServerSocket _serverSocket;
-  final http2.ServerSettings _settings;
+  final http2.ServerSettings? _settings;
 
-  _ServerSocketController _http11Controller;
-  HttpServer _http11Server;
+  late _ServerSocketController _http11Controller;
+  late HttpServer _http11Server;
 
-  StreamController<http2.ServerTransportStream> _http2Controller;
-  Stream<http2.ServerTransportStream> _http2Server;
+  final StreamController<http2.ServerTransportStream> _http2Controller =
+      StreamController();
+  Stream<http2.ServerTransportStream> get _http2Server =>
+      _http2Controller.stream;
+
   final _http2Connections = <http2.ServerTransportConnection>{};
 
   MultiProtocolHttpServer._(this._serverSocket, this._settings) {
     _http11Controller =
         _ServerSocketController(_serverSocket.address, _serverSocket.port);
     _http11Server = HttpServer.listenOn(_http11Controller.stream);
-
-    _http2Controller = StreamController();
-    _http2Server = _http2Controller.stream;
   }
 
   /// Binds a new [SecureServerSocket] with a security [context] at [port] and
@@ -46,7 +46,7 @@ class MultiProtocolHttpServer {
   /// See also [startServing].
   static Future<MultiProtocolHttpServer> bind(
       address, int port, SecurityContext context,
-      {http2.ServerSettings settings}) async {
+      {http2.ServerSettings? settings}) async {
     context.setAlpnProtocols(['h2', 'h2-14', 'http/1.1'], true);
     var secureServer = await SecureServerSocket.bind(address, port, context);
     return MultiProtocolHttpServer._(secureServer, settings);
@@ -65,7 +65,7 @@ class MultiProtocolHttpServer {
   /// an exception (i.e. these must take care of error handling themselves).
   void startServing(void Function(HttpRequest) callbackHttp11,
       void Function(http2.ServerTransportStream) callbackHttp2,
-      {void Function(dynamic error, StackTrace) onError}) {
+      {void Function(dynamic error, StackTrace)? onError}) {
     // 1. Start listening on the real [SecureServerSocket].
     _serverSocket.listen((SecureSocket socket) {
       var protocol = socket.selectedProtocol;

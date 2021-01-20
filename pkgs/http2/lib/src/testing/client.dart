@@ -36,7 +36,7 @@ class ClientConnection {
   /// Assumes the protocol on [socket] was negogiated to be http/2.
   ///
   /// If [settings] are omitted, the default [ClientSettings] will be used.
-  ClientConnection(Socket socket, {ClientSettings settings})
+  ClientConnection(Socket socket, {ClientSettings? settings})
       : connection =
             ClientTransportConnection.viaSocket(socket, settings: settings);
 
@@ -123,7 +123,7 @@ class ClientConnection {
 /// client. The maximum number of concurrent server pushes can be configured via
 /// [maxConcurrentPushes] (default is `null` meaning no limit).
 Future<ClientConnection> connect(Uri uri,
-    {bool allowServerPushes = false, int maxConcurrentPushes}) async {
+    {bool allowServerPushes = false, int? maxConcurrentPushes}) async {
   const Http2AlpnProtocols = <String>['h2-14', 'h2-15', 'h2-16', 'h2-17', 'h2'];
 
   var useSSL = uri.scheme == 'https';

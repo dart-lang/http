@@ -204,7 +204,7 @@ void main() {
           expect(client.isOpen, true);
           var stream = client.makeRequest([Header.ascii('a', 'b')]);
 
-          String error;
+          String? error;
           try {
             await stream.incomingMessages.toList();
           } catch (e) {
@@ -639,7 +639,7 @@ void main() {
           var stream = client.makeRequest([Header.ascii('a', 'b')]);
           var sub = stream.incomingMessages.listen(
               expectAsync1((StreamMessage msg) {}, count: 0),
-              onError: expectAsync1((error) {}));
+              onError: expectAsync1((Object error) {}));
           sub.pause();
           await Future.delayed(const Duration(milliseconds: 40));
           sub.resume();
@@ -757,6 +757,7 @@ void main() {
                 '$e',
                 contains('This stream was not processed and can '
                     'therefore be retried'));
+            return <StreamMessage>[];
           })));
           expect(await stream.peerPushes.toList(), isEmpty);
 

@@ -16,18 +16,18 @@ typedef ActiveStateHandler = void Function(bool isActive);
 abstract class Settings {
   /// The maximum number of concurrent streams the remote end can open
   /// (defaults to being unlimited).
-  final int concurrentStreamLimit;
+  final int? concurrentStreamLimit;
 
   /// The default stream window size the remote peer can use when creating new
   /// streams (defaults to 65535 bytes).
-  final int streamWindowSize;
+  final int? streamWindowSize;
 
   const Settings({this.concurrentStreamLimit, this.streamWindowSize});
 }
 
 /// Settings for a [TransportConnection] a server can make.
 class ServerSettings extends Settings {
-  const ServerSettings({int concurrentStreamLimit, int streamWindowSize})
+  const ServerSettings({int? concurrentStreamLimit, int? streamWindowSize})
       : super(
             concurrentStreamLimit: concurrentStreamLimit,
             streamWindowSize: streamWindowSize);
@@ -39,8 +39,8 @@ class ClientSettings extends Settings {
   final bool allowServerPushes;
 
   const ClientSettings(
-      {int concurrentStreamLimit,
-      int streamWindowSize,
+      {int? concurrentStreamLimit,
+      int? streamWindowSize,
       this.allowServerPushes = false})
       : super(
             concurrentStreamLimit: concurrentStreamLimit,
@@ -75,12 +75,12 @@ abstract class TransportConnection {
 
 abstract class ClientTransportConnection extends TransportConnection {
   factory ClientTransportConnection.viaSocket(Socket socket,
-          {ClientSettings settings}) =>
+          {ClientSettings? settings}) =>
       ClientTransportConnection.viaStreams(socket, socket, settings: settings);
 
   factory ClientTransportConnection.viaStreams(
       Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
-      {ClientSettings settings}) {
+      {ClientSettings? settings}) {
     settings ??= const ClientSettings();
     return ClientConnection(incoming, outgoing, settings);
   }
@@ -96,14 +96,14 @@ abstract class ClientTransportConnection extends TransportConnection {
 
 abstract class ServerTransportConnection extends TransportConnection {
   factory ServerTransportConnection.viaSocket(Socket socket,
-      {ServerSettings settings}) {
+      {ServerSettings? settings}) {
     return ServerTransportConnection.viaStreams(socket, socket,
         settings: settings);
   }
 
   factory ServerTransportConnection.viaStreams(
       Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
-      {ServerSettings settings =
+      {ServerSettings? settings =
           const ServerSettings(concurrentStreamLimit: 1000)}) {
     settings ??= const ServerSettings();
     return ServerConnection(incoming, outgoing, settings);
@@ -130,7 +130,7 @@ abstract class TransportStream {
   /// Sets the termination handler on this stream.
   ///
   /// The handler will be called if the stream receives an RST_STREAM frame.
-  set onTerminated(void Function(int) value);
+  set onTerminated(void Function(int?) value);
 
   /// Terminates this HTTP/2 stream in an un-normal way.
   ///
@@ -178,14 +178,15 @@ abstract class ServerTransportStream extends TransportStream {
 abstract class StreamMessage {
   final bool endStream;
 
-  StreamMessage({bool endStream}) : endStream = endStream ?? false;
+  StreamMessage({bool? endStream}) : endStream = endStream ?? false;
 }
 
 /// Represents a data message which can be sent over a HTTP/2 stream.
 class DataStreamMessage extends StreamMessage {
   final List<int> bytes;
 
-  DataStreamMessage(this.bytes, {bool endStream}) : super(endStream: endStream);
+  DataStreamMessage(this.bytes, {bool? endStream})
+      : super(endStream: endStream);
 
   @override
   String toString() => 'DataStreamMessage(${bytes.length} bytes)';
@@ -195,7 +196,7 @@ class DataStreamMessage extends StreamMessage {
 class HeadersStreamMessage extends StreamMessage {
   final List<Header> headers;
 
-  HeadersStreamMessage(this.headers, {bool endStream})
+  HeadersStreamMessage(this.headers, {bool? endStream})
       : super(endStream: endStream);
 
   @override

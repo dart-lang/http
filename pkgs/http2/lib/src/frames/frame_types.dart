@@ -95,8 +95,8 @@ class HeadersFrame extends Frame {
   final int padLength;
 
   final bool exclusiveDependency;
-  final int streamDependency;
-  final int weight;
+  final int? streamDependency;
+  final int? weight;
   final List<int> headerBlockFragment;
 
   HeadersFrame(FrameHeader header, this.padLength, this.exclusiveDependency,
@@ -104,7 +104,7 @@ class HeadersFrame extends Frame {
       : super(header);
 
   /// This will be set from the outside after decoding.
-  List<Header> decodedHeaders;
+  late List<Header> decodedHeaders;
 
   bool get hasEndStreamFlag => _isFlagSet(header.flags, FLAG_END_STREAM);
   bool get hasEndHeadersFlag => _isFlagSet(header.flags, FLAG_END_HEADERS);
@@ -223,7 +223,7 @@ class PushPromiseFrame extends Frame {
   final List<int> headerBlockFragment;
 
   /// This will be set from the outside after decoding.
-  List<Header> decodedHeaders;
+  late List<Header> decodedHeaders;
 
   PushPromiseFrame(FrameHeader header, this.padLength, this.promisedStreamId,
       this.headerBlockFragment)

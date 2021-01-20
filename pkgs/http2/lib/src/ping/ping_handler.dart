@@ -21,10 +21,11 @@ class PingHandler extends Object with TerminatableMixin {
   PingHandler(this._frameWriter);
 
   @override
-  void onTerminated(error) {
+  void onTerminated(Object? error) {
     var values = _remainingPings.values.toList();
     _remainingPings.clear();
-    values.forEach((Completer c) => c.completeError(error));
+    values.forEach(
+        (Completer c) => c.completeError(error ?? 'Unspecified error'));
   }
 
   void processPingFrame(PingFrame frame) {

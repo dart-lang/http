@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:http2/transport.dart';
 
 void main(List<String> args) async {
-  if (args == null || args.length != 1) {
+  if (args.length != 1) {
     print('Usage: dart display_headers.dart <HTTPS_URI>');
     exit(1);
   }

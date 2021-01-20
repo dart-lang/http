@@ -60,7 +60,7 @@ void main() async {
                         'request.');
 
                 return readBody(response).then((String body) {
-                  return [push.requestHeaders[':path'].join(''), body];
+                  return [push.requestHeaders[':path']!.join(''), body];
                 });
               }));
             })
@@ -119,7 +119,7 @@ void dumpHeaders(Uri uri, Map<String, List<String>> headers,
   print('[$uri]  $msg');
   for (var key in headers.keys.toList()..sort()) {
     var spaces = ' ' * (20 - key.length);
-    print('$key   $spaces ${headers[key].join(', ')}');
+    print('$key   $spaces ${headers[key]!.join(', ')}');
   }
   print('');
 }

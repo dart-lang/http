@@ -22,7 +22,8 @@ void main() {
 
     transportTest('terminated-client-ping',
         (TransportConnection client, TransportConnection server) async {
-      var clientError = client.ping().catchError(expectAsync2((e, s) {
+      var clientError =
+          client.ping().catchError(expectAsync2((Object e, StackTrace s) {
         expect(e, isA<TransportException>());
       }));
       await client.terminate();
@@ -30,17 +31,18 @@ void main() {
 
       // NOTE: Now the connection is dead and client/server should complete
       // with [TransportException]s when doing work (e.g. ping).
-      unawaited(client.ping().catchError(expectAsync2((e, s) {
+      unawaited(client.ping().catchError(expectAsync2((Object e, StackTrace s) {
         expect(e, isA<TransportException>());
       })));
-      unawaited(server.ping().catchError(expectAsync2((e, s) {
+      unawaited(server.ping().catchError(expectAsync2((Object e, StackTrace s) {
         expect(e, isA<TransportException>());
       })));
     });
 
     transportTest('terminated-server-ping',
         (TransportConnection client, TransportConnection server) async {
-      var clientError = client.ping().catchError(expectAsync2((e, s) {
+      var clientError =
+          client.ping().catchError(expectAsync2((Object e, StackTrace s) {
         expect(e, isA<TransportException>());
       }));
       await server.terminate();
@@ -48,10 +50,10 @@ void main() {
 
       // NOTE: Now the connection is dead and the client/server should complete
       // with [TransportException]s when doing work (e.g. ping).
-      unawaited(client.ping().catchError(expectAsync2((e, s) {
+      unawaited(client.ping().catchError(expectAsync2((Object e, StackTrace s) {
         expect(e, isA<TransportException>());
       })));
-      unawaited(server.ping().catchError(expectAsync2((e, s) {
+      unawaited(server.ping().catchError(expectAsync2((Object e, StackTrace s) {
         expect(e, isA<TransportException>());
       })));
     });
@@ -223,7 +225,7 @@ void main() {
           stream.incomingMessages.listen(expectAsync1((msg) {
             expect(msg, isA<HeadersStreamMessage>());
             readyForError.complete();
-          }), onError: expectAsync1((error) {
+          }), onError: expectAsync1((Object error) {
             expect('$error', contains('Stream was terminated by peer'));
           }));
         }
@@ -253,8 +255,10 @@ void main() {
       Future clientFun() async {
         var headers = [Header.ascii('a', 'b')];
         var stream = client.makeRequest(headers, endStream: true);
-        await stream.incomingMessages.toList().catchError(expectAsync1((error) {
+        var messageList = stream.incomingMessages.toList();
+        await messageList.catchError(expectAsync1((Object error) {
           expect('$error', contains('Stream was terminated by peer'));
+          return <StreamMessage>[];
         }));
         await client.finish();
       }
@@ -269,7 +273,7 @@ void main() {
 
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
-          stream.onTerminated = expectAsync1((errorCode) {
+          stream.onTerminated = expectAsync1((Object? errorCode) {
             expect(errorCode, 8);
           }, count: 1);
           stream.sendHeaders([Header.ascii('x', 'y')], endStream: false);
@@ -277,7 +281,7 @@ void main() {
             expectAsync1((msg) {
               expect(msg, isA<HeadersStreamMessage>());
             }),
-            onError: expectAsync1((_) {}, count: 0),
+            onError: expectAsync1((Object _) {}, count: 0),
             onDone: expectAsync0(() {
               readyForError.complete();
             }, count: 1),
@@ -312,7 +316,7 @@ void main() {
               await readyForError.future;
               stream.terminate();
             }),
-            onError: expectAsync1((_) {}, count: 0),
+            onError: expectAsync1((Object _) {}, count: 0),
             onDone: expectAsync0(() {}, count: 1),
           );
         }
@@ -322,7 +326,7 @@ void main() {
       Future clientFun() async {
         var headers = [Header.ascii('a', 'b')];
         var stream = client.makeRequest(headers, endStream: false);
-        stream.onTerminated = expectAsync1((errorCode) {
+        stream.onTerminated = expectAsync1((Object? errorCode) {
           expect(errorCode, 8);
         }, count: 1);
         readyForError.complete();
@@ -414,7 +418,7 @@ void main() {
             stream.sendHeaders([Header.ascii('x', 'y')]);
 
             var messageNr = 0;
-            StreamController<StreamMessage> controller;
+            var controller = StreamController<StreamMessage>();
             void addData() {
               if (!controller.isPaused) {
                 if (messageNr < kNumberOfMessages) {
@@ -434,23 +438,23 @@ void main() {
               }
             }
 
-            controller = StreamController(
-                onListen: () {
-                  addData();
-                },
-                onPause: expectAsync0(() {
-                  // Assert that we're now at the place (since the granularity
-                  // of adding is [kChunkSize], it could be that we added
-                  // [kChunkSize - 1] bytes more than allowed, before getting
-                  // the pause event).
-                  expect((serverSentBytes - kChunkSize + 1),
-                      lessThan(expectedStreamFlowcontrolWindow));
-                  flowcontrolWindowFull.complete();
-                }),
-                onResume: () {
-                  addData();
-                },
-                onCancel: () {});
+            controller
+              ..onListen = () {
+                addData();
+              }
+              ..onPause = expectAsync0(() {
+                // Assert that we're now at the place (since the granularity
+                // of adding is [kChunkSize], it could be that we added
+                // [kChunkSize - 1] bytes more than allowed, before getting
+                // the pause event).
+                expect((serverSentBytes - kChunkSize + 1),
+                    lessThan(expectedStreamFlowcontrolWindow));
+                flowcontrolWindowFull.complete();
+              })
+              ..onResume = () {
+                addData();
+              }
+              ..onCancel = () {};
 
             await stream.outgoingMessages.addStream(controller.stream);
             await stream.outgoingMessages.close();
@@ -512,8 +516,8 @@ void transportTest(
     String name,
     Future<void> Function(ClientTransportConnection, ServerTransportConnection)
         func,
-    {ClientSettings clientSettings,
-    ServerSettings serverSettings}) {
+    {ClientSettings? clientSettings,
+    ServerSettings? serverSettings}) {
   return test(name, () {
     var bidirectional = BidirectionalConnection();
     bidirectional.clientSettings = clientSettings;
@@ -525,8 +529,8 @@ void transportTest(
 }
 
 class BidirectionalConnection {
-  ClientSettings clientSettings;
-  ServerSettings serverSettings;
+  ClientSettings? clientSettings;
+  ServerSettings? serverSettings;
 
   final StreamController<List<int>> writeA = StreamController();
   final StreamController<List<int>> writeB = StreamController();

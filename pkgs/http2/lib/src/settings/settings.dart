@@ -41,7 +41,7 @@ class ActiveSettings {
   /// active streams. Servers SHOULD only set a zero value for short durations;
   /// if a server does not wish to accept requests, closing the connection is
   /// more appropriate.
-  int maxConcurrentStreams;
+  int? maxConcurrentStreams;
 
   /// Indicates the sender's initial window size (in octets) for stream level
   /// flow control. The initial value is 2^16-1 (65,535) octets.
@@ -69,7 +69,7 @@ class ActiveSettings {
   ///
   /// For any given request, a lower limit than what is advertised MAY be
   /// enforced. The initial value of this setting is unlimited.
-  int maxHeaderListSize;
+  int? maxHeaderListSize;
 
   ActiveSettings(
       {this.headerTableSize = 4096,
@@ -152,10 +152,10 @@ class SettingsHandler extends Object with TerminatableMixin {
   }
 
   @override
-  void onTerminated(error) {
+  void onTerminated(Object? error) {
     _toBeAcknowledgedSettings.clear();
     _toBeAcknowledgedCompleters
-        .forEach((Completer c) => c.completeError(error));
+        .forEach((Completer c) => c.completeError(error!));
   }
 
   Future changeSettings(List<Setting> changes) {

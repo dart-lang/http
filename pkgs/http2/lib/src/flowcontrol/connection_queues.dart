@@ -293,8 +293,8 @@ class ConnectionMessageQueueIn extends Object
 
     // TODO: Do we need to do a runtime check here and
     // raise a protocol error if we cannot find the registered stream?
-    var streamMQ = _stream2messageQueue[streamId];
-    var pendingMessages = _stream2pendingMessages[streamId];
+    var streamMQ = _stream2messageQueue[streamId]!;
+    var pendingMessages = _stream2pendingMessages[streamId]!;
     pendingMessages.addLast(message);
     _tryDispatch(streamId, streamMQ, pendingMessages);
   }
@@ -304,7 +304,7 @@ class ConnectionMessageQueueIn extends Object
 
     // TODO: Do we need to do a runtime check here and
     // raise a protocol error if we cannot find the registered stream?
-    var streamMQ = _stream2messageQueue[streamId];
+    var streamMQ = _stream2messageQueue[streamId]!;
     streamMQ.enqueueMessage(message);
   }
 
@@ -336,7 +336,7 @@ class ConnectionMessageQueueIn extends Object
   void forceDispatchIncomingMessages() {
     final toBeRemoved = <int>{};
     _stream2pendingMessages.forEach((int streamId, Queue<Message> messages) {
-      final mq = _stream2messageQueue[streamId];
+      final mq = _stream2messageQueue[streamId]!;
       while (messages.isNotEmpty) {
         _count--;
         final message = messages.removeFirst();

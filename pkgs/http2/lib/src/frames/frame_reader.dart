@@ -12,8 +12,7 @@ class FrameReader {
   /// complying with.
   final ActiveSettings _localSettings;
 
-  StreamSubscription<List<int>> _subscription;
-  StreamController<Frame> _framesController;
+  final _framesController = StreamController<Frame>();
 
   FrameReader(this._inputStream, this._localSettings);
 
@@ -22,7 +21,7 @@ class FrameReader {
     var bufferedData = <List<int>>[];
     var bufferedLength = 0;
 
-    FrameHeader tryReadHeader() {
+    FrameHeader? tryReadHeader() {
       if (bufferedLength >= FRAME_HEADER_SIZE) {
         // Get at least FRAME_HEADER_SIZE bytes in the first byte array.
         _mergeLists(bufferedData, FRAME_HEADER_SIZE);
@@ -33,7 +32,7 @@ class FrameReader {
       return null;
     }
 
-    Frame tryReadFrame(FrameHeader header) {
+    Frame? tryReadFrame(FrameHeader header) {
       var totalFrameLen = FRAME_HEADER_SIZE + header.length;
       if (bufferedLength >= totalFrameLen) {
         // Get the whole frame in the first byte array.
@@ -57,59 +56,62 @@ class FrameReader {
       return null;
     }
 
-    _framesController = StreamController(
-        onListen: () {
-          FrameHeader header;
+    _framesController.onListen = () {
+      FrameHeader? header;
 
-          void terminateWithError(error, [StackTrace stack]) {
-            header = null;
-            _framesController.addError(error, stack);
-            _subscription.cancel();
-            _framesController.close();
-          }
+      late StreamSubscription<List<int>> subscription;
 
-          _subscription = _inputStream.listen((List<int> data) {
-            bufferedData.add(data);
-            bufferedLength += data.length;
+      void terminateWithError(Object error, [StackTrace? stack]) {
+        header = null;
+        _framesController.addError(error, stack);
+        subscription.cancel();
+        _framesController.close();
+      }
 
-            try {
-              while (true) {
-                header ??= tryReadHeader();
-                if (header != null) {
-                  if (header.length > _localSettings.maxFrameSize) {
-                    terminateWithError(
-                        FrameSizeException('Incoming frame is too big.'));
-                    return;
-                  }
+      subscription = _inputStream.listen((List<int> data) {
+        bufferedData.add(data);
+        bufferedLength += data.length;
 
-                  var frame = tryReadFrame(header);
-
-                  if (frame != null) {
-                    _framesController.add(frame);
-                    header = null;
-                  } else {
-                    break;
-                  }
-                } else {
-                  break;
-                }
+        try {
+          while (true) {
+            header ??= tryReadHeader();
+            if (header != null) {
+              if (header!.length > _localSettings.maxFrameSize) {
+                terminateWithError(
+                    FrameSizeException('Incoming frame is too big.'));
+                return;
               }
-            } catch (error, stack) {
-              terminateWithError(error, stack);
-            }
-          }, onError: (error, StackTrace stack) {
-            terminateWithError(error, stack);
-          }, onDone: () {
-            if (bufferedLength == 0) {
-              _framesController.close();
+
+              var frame = tryReadFrame(header!);
+
+              if (frame != null) {
+                _framesController.add(frame);
+                header = null;
+              } else {
+                break;
+              }
             } else {
-              terminateWithError(FrameSizeException(
-                  'Incoming byte stream ended with incomplete frame'));
+              break;
             }
-          });
-        },
-        onPause: () => _subscription.pause(),
-        onResume: () => _subscription.resume());
+          }
+        } catch (error, stack) {
+          terminateWithError(error, stack);
+        }
+      }, onError: (Object error, StackTrace stack) {
+        terminateWithError(error, stack);
+      }, onDone: () {
+        if (bufferedLength == 0) {
+          _framesController.close();
+        } else {
+          terminateWithError(FrameSizeException(
+              'Incoming byte stream ended with incomplete frame'));
+        }
+      });
+
+      _framesController
+        ..onPause = subscription.pause
+        ..onResume = subscription.resume;
+    };
 
     return _framesController.stream;
   }
@@ -173,9 +175,9 @@ class FrameReader {
           _checkFrameLengthCondition((frameEnd - offset) >= 1);
           padLength = bytes[offset++];
         }
-        int streamDependency;
+        int? streamDependency;
         var exclusiveDependency = false;
-        int weight;
+        int? weight;
         if (_isFlagSet(header.flags, HeadersFrame.FLAG_PRIORITY)) {
           _checkFrameLengthCondition((frameEnd - offset) >= 5);
           exclusiveDependency = (bytes[offset] & 0x80) == 0x80;
@@ -211,11 +213,11 @@ class FrameReader {
             message: 'Settings frame length must be a multiple of 6 bytes.');
 
         var count = header.length ~/ 6;
-        var settings = List<Setting>(count);
+        var settings = <Setting>[];
         for (var i = 0; i < count; i++) {
           var identifier = readInt16(bytes, offset + 6 * i);
           var value = readInt32(bytes, offset + 6 * i + 2);
-          settings[i] = Setting(identifier, value);
+          settings.add(Setting(identifier, value));
         }
         var frame = SettingsFrame(header, settings);
         if (frame.hasAckFlag) {

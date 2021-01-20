@@ -121,7 +121,7 @@ Future _pipeAndCopy(Stream<List<int>> from, StreamSink to, StreamSink to2) {
   from.listen((List<int> data) {
     to.add(data);
     to2.add(data);
-  }, onError: (e, StackTrace s) {
+  }, onError: (Object e, StackTrace s) {
     to.addError(e, s);
     to2.addError(e, s);
   }, onDone: () {

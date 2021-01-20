@@ -2,16 +2,24 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:http2/src/async_utils/async_utils.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'package:http2/transport.dart';
-import 'package:http2/src/async_utils/async_utils.dart';
 import 'package:http2/src/flowcontrol/queue_messages.dart';
 import 'package:http2/src/flowcontrol/stream_queues.dart';
 import 'package:http2/src/flowcontrol/window_handler.dart';
 import 'package:http2/src/flowcontrol/connection_queues.dart';
 
+import 'stream_queues_test.mocks.dart';
+
+@GenerateMocks([
+  ConnectionMessageQueueOut,
+  IncomingWindowHandler,
+  OutgoingStreamWindowHandler
+])
 void main() {
   group('flowcontrol', () {
     const STREAM_ID = 99;
@@ -20,7 +28,10 @@ void main() {
     group('stream-message-queue-out', () {
       test('window-big-enough', () {
         var connectionQueueMock = MockConnectionMessageQueueOut();
+        when(connectionQueueMock.enqueueMessage(any)).thenReturn(null);
         var windowMock = MockOutgoingStreamWindowHandler();
+        when(windowMock.positiveWindow).thenReturn(BufferIndicator());
+        when(windowMock.decreaseWindow(any)).thenReturn(null);
 
         windowMock.positiveWindow.markUnBuffered();
         var queue =
@@ -28,8 +39,8 @@ void main() {
 
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         expect(queue.pendingMessages, 0);
+        when(windowMock.peerWindowSize).thenReturn(BYTES.length);
 
-        windowMock.peerWindowSize = BYTES.length;
         queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         verify(windowMock.decreaseWindow(BYTES.length)).called(1);
         final capturedMessage =
@@ -44,8 +55,10 @@ void main() {
 
       test('window-smaller-than-necessary', () {
         var connectionQueueMock = MockConnectionMessageQueueOut();
+        when(connectionQueueMock.enqueueMessage(any)).thenReturn(null);
         var windowMock = MockOutgoingStreamWindowHandler();
-
+        when(windowMock.positiveWindow).thenReturn(BufferIndicator());
+        when(windowMock.decreaseWindow(any)).thenReturn(null);
         windowMock.positiveWindow.markUnBuffered();
         var queue =
             StreamMessageQueueOut(STREAM_ID, windowMock, connectionQueueMock);
@@ -55,7 +68,7 @@ void main() {
 
         // We set the window size fixed to 1, which means all the data messages
         // will get fragmented to 1 byte.
-        windowMock.peerWindowSize = 1;
+        when(windowMock.peerWindowSize).thenReturn(1);
         queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
 
         expect(queue.pendingMessages, 0);
@@ -69,13 +82,15 @@ void main() {
           expect(dataMessage.bytes, BYTES.sublist(counter, counter + 1));
           expect(dataMessage.endStream, counter == BYTES.length - 1);
         }
+        verify(windowMock.positiveWindow).called(greaterThan(0));
+        verify(windowMock.peerWindowSize).called(greaterThan(0));
         verifyNoMoreInteractions(windowMock);
       });
 
       test('window-empty', () {
         var connectionQueueMock = MockConnectionMessageQueueOut();
         var windowMock = MockOutgoingStreamWindowHandler();
-
+        when(windowMock.positiveWindow).thenReturn(BufferIndicator());
         windowMock.positiveWindow.markUnBuffered();
         var queue =
             StreamMessageQueueOut(STREAM_ID, windowMock, connectionQueueMock);
@@ -83,11 +98,13 @@ void main() {
         expect(queue.bufferIndicator.wouldBuffer, isFalse);
         expect(queue.pendingMessages, 0);
 
-        windowMock.peerWindowSize = 0;
+        when(windowMock.peerWindowSize).thenReturn(0);
         queue.enqueueMessage(DataMessage(STREAM_ID, BYTES, true));
         expect(queue.bufferIndicator.wouldBuffer, isTrue);
         expect(queue.pendingMessages, 1);
-        verifyZeroInteractions(windowMock);
+        verify(windowMock.positiveWindow).called(greaterThan(0));
+        verify(windowMock.peerWindowSize).called(greaterThan(0));
+        verifyNoMoreInteractions(windowMock);
         verifyZeroInteractions(connectionQueueMock);
       });
     });
@@ -95,6 +112,8 @@ void main() {
     group('stream-message-queue-in', () {
       test('data-end-of-stream', () {
         var windowMock = MockIncomingWindowHandler();
+        when(windowMock.gotData(any)).thenReturn(null);
+        when(windowMock.dataProcessed(any)).thenReturn(null);
         var queue = StreamMessageQueueIn(windowMock);
 
         expect(queue.pendingMessages, 0);
@@ -119,6 +138,7 @@ void main() {
       final bytes = [1, 2, 3];
 
       var windowMock = MockIncomingWindowHandler();
+      when(windowMock.gotData(any)).thenReturn(null);
       var queue = StreamMessageQueueIn(windowMock);
 
       var sub = queue.messages.listen(expectAsync1((_) {}, count: 0),
@@ -131,22 +151,9 @@ void main() {
       expect(queue.bufferIndicator.wouldBuffer, isTrue);
       // We assert that we got the data, but it wasn't processed.
       verify(windowMock.gotData(bytes.length)).called(1);
-      verifyNever(windowMock.dataProcessed(any));
+      // verifyNever(windowMock.dataProcessed(any));
     });
 
     // TODO: Add tests for Headers/HeadersPush messages.
   });
-}
-
-class MockConnectionMessageQueueOut extends Mock
-    implements ConnectionMessageQueueOut {}
-
-class MockIncomingWindowHandler extends Mock implements IncomingWindowHandler {}
-
-class MockOutgoingStreamWindowHandler extends Mock
-    implements OutgoingStreamWindowHandler {
-  @override
-  final BufferIndicator positiveWindow = BufferIndicator();
-  @override
-  int peerWindowSize;
 }

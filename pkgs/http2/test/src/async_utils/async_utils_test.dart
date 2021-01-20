@@ -67,7 +67,7 @@ void main() {
 
       expect(writer.bufferIndicator.wouldBuffer, true);
 
-      var bytesFuture = c.stream.fold([], (b, d) => b..addAll(d));
+      var bytesFuture = c.stream.fold<List<int>>([], (b, d) => b..addAll(d));
 
       expect(writer.bufferIndicator.wouldBuffer, false);
 

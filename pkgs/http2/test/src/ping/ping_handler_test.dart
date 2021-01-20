@@ -64,7 +64,7 @@ void main() {
 
       // Ensure outstanding pings will be completed with an error once we call
       // `pingHandler.terminate()`.
-      unawaited(future.catchError(expectAsync2((error, _) {
+      unawaited(future.catchError(expectAsync2((Object error, Object _) {
         expect(error, 'hello world');
       })));
       pingHandler.terminate('hello world');
@@ -76,7 +76,9 @@ void main() {
       var pingHandler = PingHandler(writer);
 
       pingHandler.terminate('hello world');
-      expect(() => pingHandler.processPingFrame(null),
+      expect(
+          () => pingHandler.processPingFrame(PingFrame(
+              FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1), 1)),
           throwsA(isTerminatedException));
       expect(pingHandler.ping(), throwsA(isTerminatedException));
       verifyZeroInteractions(writer);

@@ -1,3 +1,7 @@
+## 2.0.0-nullsafety.0
+
+* Migrate to null safety.
+
 ## 1.0.2-dev
 
 * Update minimum Dart SDK to `2.8.4`.

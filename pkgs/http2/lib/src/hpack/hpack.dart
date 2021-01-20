@@ -55,7 +55,7 @@ class Header {
 
 /// A stateful HPACK decoder.
 class HPackDecoder {
-  int _maxHeaderTableSize;
+  late int _maxHeaderTableSize;
 
   final IndexTable _table = IndexTable();
 
@@ -221,7 +221,7 @@ class HPackEncoder {
 }
 
 class IndexTable {
-  static final List<Header> _staticTable = [
+  static final List<Header?> _staticTable = [
     null,
     Header(ascii.encode(':authority'), const []),
     Header(ascii.encode(':method'), ascii.encode('GET')),
@@ -310,7 +310,7 @@ class IndexTable {
           'Invalid index (was: $index) for table lookup.');
     }
     if (index < _staticTable.length) {
-      return _staticTable[index];
+      return _staticTable[index]!;
     }
     index -= _staticTable.length;
     if (index < _dynamicTable.length) {

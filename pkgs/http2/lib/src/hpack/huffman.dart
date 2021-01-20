@@ -45,9 +45,9 @@ class HuffmanDecoder {
       for (var currentBit = 7; currentBit >= 0; currentBit--) {
         var right = (byte >> currentBit) & 1 == 1;
         if (right) {
-          node = node.right;
+          node = node.right!;
         } else {
-          node = node.left;
+          node = node.left!;
         }
         currentDepth++;
         if (node.value != null) {
@@ -56,7 +56,7 @@ class HuffmanDecoder {
                 'More than 7 bit padding is not allowed. Found entire EOS '
                 'encoding');
           }
-          buffer.addByte(node.value);
+          buffer.addByte(node.value!);
           node = _root;
           currentDepth = 0;
         }
@@ -71,7 +71,7 @@ class HuffmanDecoder {
       }
 
       while (node.right != null) {
-        node = node.right;
+        node = node.right!;
       }
 
       if (node.value != 256) {
@@ -147,9 +147,9 @@ class EncodedHuffmanValue {
 
 /// A node in the huffman tree.
 class HuffmanTreeNode {
-  HuffmanTreeNode left;
-  HuffmanTreeNode right;
-  int value;
+  HuffmanTreeNode? left;
+  HuffmanTreeNode? right;
+  int? value;
 }
 
 /// Generates a huffman decoding tree.
@@ -166,10 +166,10 @@ HuffmanTreeNode generateHuffmanTree(List<EncodedHuffmanValue> valueEncodings) {
 
       if (right) {
         current.right ??= HuffmanTreeNode();
-        current = current.right;
+        current = current.right!;
       } else {
         current.left ??= HuffmanTreeNode();
-        current = current.left;
+        current = current.left!;
       }
     }
 

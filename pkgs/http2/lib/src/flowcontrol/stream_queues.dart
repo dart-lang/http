@@ -166,42 +166,42 @@ class StreamMessageQueueIn extends Object
   final Queue<Message> _pendingMessages = Queue<Message>();
 
   /// The [StreamController] used for producing the [messages] stream.
-  StreamController<StreamMessage> _incomingMessagesC;
+  final _incomingMessagesC = StreamController<StreamMessage>();
 
   /// The [StreamController] used for producing the [serverPushes] stream.
-  StreamController<TransportStreamPush> _serverPushStreamsC;
+  final _serverPushStreamsC = StreamController<TransportStreamPush>();
 
   StreamMessageQueueIn(this.windowHandler) {
     // We start by marking it as buffered, since no one is listening yet and
     // incoming messages will get buffered.
     bufferIndicator.markBuffered();
 
-    _incomingMessagesC = StreamController(
-        onListen: () {
-          if (!wasClosed && !wasTerminated) {
-            _tryDispatch();
-            _tryUpdateBufferIndicator();
-          }
-        },
-        onPause: () {
+    _incomingMessagesC
+      ..onListen = () {
+        if (!wasClosed && !wasTerminated) {
+          _tryDispatch();
           _tryUpdateBufferIndicator();
-          // TODO: Would we ever want to decrease the window size in this
-          // situation?
-        },
-        onResume: () {
-          if (!wasClosed && !wasTerminated) {
-            _tryDispatch();
-            _tryUpdateBufferIndicator();
-          }
-        },
-        onCancel: cancel);
+        }
+      }
+      ..onPause = () {
+        _tryUpdateBufferIndicator();
+        // TODO: Would we ever want to decrease the window size in this
+        // situation?
+      }
+      ..onResume = () {
+        if (!wasClosed && !wasTerminated) {
+          _tryDispatch();
+          _tryUpdateBufferIndicator();
+        }
+      }
+      ..onCancel = cancel;
 
-    _serverPushStreamsC = StreamController(onListen: () {
+    _serverPushStreamsC.onListen = () {
       if (!wasClosed && !wasTerminated) {
         _tryDispatch();
         _tryUpdateBufferIndicator();
       }
-    });
+    };
   }
 
   /// Debugging data: the number of pending messages in this queue.

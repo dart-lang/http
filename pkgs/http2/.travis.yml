@@ -1,22 +1,26 @@
 language: dart
 
 dart:
-  - 2.8.4
   - dev
 
-dart_task:
-  - test: --exclude-tags flaky
-  - test: --tags flaky
-  - dartanalyzer: --fatal-infos --fatal-warnings .
-
-matrix:
+jobs:
   include:
-    # Only validate formatting using the dev release
-    - dart: dev
-      dart_task: dartfmt
+    - name: "Analyzer"
+      os: linux
+      script: dart analyze --fatal-warnings --fatal-infos .
+    - name: "Format"
+      os: linux
+      script: dartfmt -n --set-exit-if-changed .
+    - name: "Tests"
+      os: linux
+      script: dart test --exclude-tags flaky
+    - name: "Flaky Tests"
+      os: linux
+      script: dart test --tags flaky
   allow_failures:
-    - dart_task:
-        test: --tags flaky
+    - name: "Flaky Tests"
+      os: linux
+      script: dart test --tags flaky
 
 # Only building master means that we don't run two builds for each pull request.
 branches:

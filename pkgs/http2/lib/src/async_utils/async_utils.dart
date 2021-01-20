@@ -47,34 +47,33 @@ class BufferIndicator {
 /// whether the underlying stream cannot handle more data and would buffer.
 class BufferedSink {
   /// The indicator whether the underlying sink is buffering at the moment.
-  final BufferIndicator bufferIndicator = BufferIndicator();
+  final bufferIndicator = BufferIndicator();
 
   /// A intermediate [StreamController] used to catch pause signals and to
   /// propagate the change via [bufferIndicator].
-  StreamController<List<int>> _controller;
+  final _controller = StreamController<List<int>>(sync: true);
 
   /// A future which completes once the sink has been closed.
-  Future _doneFuture;
+  late final Future _doneFuture;
 
   BufferedSink(StreamSink<List<int>> dataSink) {
     bufferIndicator.markBuffered();
 
-    _controller = StreamController<List<int>>(
-        onListen: () {
-          bufferIndicator.markUnBuffered();
-        },
-        onPause: () {
-          bufferIndicator.markBuffered();
-        },
-        onResume: () {
-          bufferIndicator.markUnBuffered();
-        },
-        onCancel: () {
-          // TODO: We may want to propagate cancel events as errors.
-          // Currently `_doneFuture` will just complete normally if the sink
-          // cancelled.
-        },
-        sync: true);
+    _controller
+      ..onListen = () {
+        bufferIndicator.markUnBuffered();
+      }
+      ..onPause = () {
+        bufferIndicator.markBuffered();
+      }
+      ..onResume = () {
+        bufferIndicator.markUnBuffered();
+      }
+      ..onCancel = () {
+        // TODO: We may want to propagate cancel events as errors.
+        // Currently `_doneFuture` will just complete normally if the sink
+        // cancelled.
+      };
     _doneFuture =
         Future.wait([_controller.stream.pipe(dataSink), dataSink.done]);
   }

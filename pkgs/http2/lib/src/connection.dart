@@ -95,7 +95,7 @@ abstract class Connection {
   final bool isClientConnection;
 
   /// Active state handler for this connection.
-  ActiveStateHandler onActiveStateChanged;
+  ActiveStateHandler? onActiveStateChanged;
 
   final Completer<void> _onInitialPeerSettingsReceived = Completer<void>();
 
@@ -117,32 +117,32 @@ abstract class Connection {
   final FrameDefragmenter _defragmenter = FrameDefragmenter();
 
   /// The outgoing frames of this connection;
-  FrameWriter _frameWriter;
+  late FrameWriter _frameWriter;
 
   /// A subscription of incoming [Frame]s.
-  StreamSubscription<Frame> _frameReaderSubscription;
+  late StreamSubscription<Frame> _frameReaderSubscription;
 
   /// The incoming connection-level message queue.
-  ConnectionMessageQueueIn _incomingQueue;
+  late ConnectionMessageQueueIn _incomingQueue;
 
   /// The outgoing connection-level message queue.
-  ConnectionMessageQueueOut _outgoingQueue;
+  late ConnectionMessageQueueOut _outgoingQueue;
 
   /// The ping handler used for making pings & handling remote pings.
-  PingHandler _pingHandler;
+  late PingHandler _pingHandler;
 
   /// The settings handler used for changing settings & for handling remote
   /// setting changes.
-  SettingsHandler _settingsHandler;
+  late SettingsHandler _settingsHandler;
 
   /// The set of active streams this connection has.
-  StreamHandler _streams;
+  late StreamHandler _streams;
 
   /// The connection-level flow control window handler for outgoing messages.
-  OutgoingConnectionWindowHandler _connectionWindowHandler;
+  late OutgoingConnectionWindowHandler _connectionWindowHandler;
 
   /// The state of this connection.
-  ConnectionState _state;
+  late ConnectionState _state;
 
   Connection(Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
       Settings settings,
@@ -238,22 +238,23 @@ abstract class Connection {
   List<Setting> _decodeSettings(Settings settings) {
     var settingsList = <Setting>[];
 
-    // By default a endpoitn can make an unlimited number of concurrent streams.
-    if (settings.concurrentStreamLimit != null) {
-      settingsList.add(Setting(Setting.SETTINGS_MAX_CONCURRENT_STREAMS,
-          settings.concurrentStreamLimit));
+    // By default a endpoint can make an unlimited number of concurrent streams.
+    var concurrentStreamLimit = settings.concurrentStreamLimit;
+    if (concurrentStreamLimit != null) {
+      settingsList.add(Setting(
+          Setting.SETTINGS_MAX_CONCURRENT_STREAMS, concurrentStreamLimit));
     }
 
     // By default the stream level flow control window is 64 KiB.
-    if (settings.streamWindowSize != null) {
-      settingsList.add(Setting(
-          Setting.SETTINGS_INITIAL_WINDOW_SIZE, settings.streamWindowSize));
+    var streamWindowSize = settings.streamWindowSize;
+    if (streamWindowSize != null) {
+      settingsList
+          .add(Setting(Setting.SETTINGS_INITIAL_WINDOW_SIZE, streamWindowSize));
     }
 
     if (settings is ClientSettings) {
       // By default the server is allowed to do server pushes.
-      if (settings.allowServerPushes == null ||
-          settings.allowServerPushes == false) {
+      if (!settings.allowServerPushes) {
         settingsList.add(Setting(Setting.SETTINGS_ENABLE_PUSH, 0));
       }
     } else if (settings is ServerSettings) {
@@ -278,12 +279,8 @@ abstract class Connection {
     _finishing(active: true);
 
     // TODO: There is probably more we need to wait for.
-    return _streams.done.whenComplete(() {
-      var futures = [_frameWriter.close()];
-      var f = _frameReaderSubscription.cancel();
-      if (f != null) futures.add(f);
-      return Future.wait(futures);
-    });
+    return _streams.done.whenComplete(() =>
+        Future.wait([_frameWriter.close(), _frameReaderSubscription.cancel()]));
   }
 
   /// Terminates this connection forcefully.
@@ -291,11 +288,8 @@ abstract class Connection {
     return _terminate(ErrorCode.NO_ERROR);
   }
 
-  void _activeStateHandler(bool isActive) {
-    if (onActiveStateChanged != null) {
-      onActiveStateChanged(isActive);
-    }
-  }
+  void _activeStateHandler(bool isActive) =>
+      onActiveStateChanged?.call(isActive);
 
   /// Invokes the passed in closure and catches any exceptions.
   void _catchProtocolErrors(void Function() fn) {
@@ -319,7 +313,7 @@ abstract class Connection {
     }
   }
 
-  void _handleFrameImpl(Frame frame) {
+  void _handleFrameImpl(Frame? frame) {
     // The first frame from the other side must be a [SettingsFrame], otherwise
     // we terminate the connection.
     if (_state.isInitialized) {
@@ -369,7 +363,7 @@ abstract class Connection {
     }
   }
 
-  void _finishing({bool active = true, String message}) {
+  void _finishing({bool active = true, String? message}) {
     // If this connection is already dead, we return.
     if (_state.isTerminated) return;
 
@@ -407,7 +401,7 @@ abstract class Connection {
   ///
   /// The returned future will never complete with an error.
   Future _terminate(int errorCode,
-      {bool causedByTransportError = false, String message}) {
+      {bool causedByTransportError = false, String? message}) {
     // TODO: When do we complete here?
     if (_state.state != ConnectionState.Terminated) {
       _state.state = ConnectionState.Terminated;
