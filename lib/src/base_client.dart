@@ -19,43 +19,63 @@ import 'streamed_response.dart';
 /// maybe [close], and then they get various convenience methods for free.
 abstract class BaseClient implements Client {
   @override
-  Future<Response> head(Uri url, {Map<String, String>? headers}) =>
-      _sendUnstreamed('HEAD', url, headers);
+  Future<Response> head(Uri url,
+          {Map<String, String>? headers, Duration? timeout}) =>
+      _sendUnstreamed('HEAD', url, headers, timeout: timeout);
 
   @override
-  Future<Response> get(Uri url, {Map<String, String>? headers}) =>
-      _sendUnstreamed('GET', url, headers);
+  Future<Response> get(Uri url,
+          {Map<String, String>? headers, Duration? timeout}) =>
+      _sendUnstreamed('GET', url, headers, timeout: timeout);
 
   @override
   Future<Response> post(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('POST', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          Duration? timeout}) =>
+      _sendUnstreamed('POST', url, headers,
+          body: body, encoding: encoding, timeout: timeout);
 
   @override
   Future<Response> put(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PUT', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          Duration? timeout}) =>
+      _sendUnstreamed('PUT', url, headers,
+          body: body, encoding: encoding, timeout: timeout);
 
   @override
   Future<Response> patch(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PATCH', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          Duration? timeout}) =>
+      _sendUnstreamed('PATCH', url, headers,
+          body: body, encoding: encoding, timeout: timeout);
 
   @override
   Future<Response> delete(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('DELETE', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          Duration? timeout}) =>
+      _sendUnstreamed('DELETE', url, headers,
+          body: body, encoding: encoding, timeout: timeout);
 
   @override
-  Future<String> read(Uri url, {Map<String, String>? headers}) async {
-    final response = await get(url, headers: headers);
+  Future<String> read(Uri url,
+      {Map<String, String>? headers, Duration? timeout}) async {
+    final response = await get(url, headers: headers, timeout: timeout);
     _checkResponseSuccess(url, response);
     return response.body;
   }
 
   @override
-  Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
-    final response = await get(url, headers: headers);
+  Future<Uint8List> readBytes(Uri url,
+      {Map<String, String>? headers, Duration? timeout}) async {
+    final response = await get(url, headers: headers, timeout: timeout);
     _checkResponseSuccess(url, response);
     return response.bodyBytes;
   }
@@ -68,12 +88,12 @@ abstract class BaseClient implements Client {
   /// later point, or it could already be closed when it's returned. Any
   /// internal HTTP errors should be wrapped as [ClientException]s.
   @override
-  Future<StreamedResponse> send(BaseRequest request);
+  Future<StreamedResponse> send(BaseRequest request, {Duration? timeout});
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(
       String method, Uri url, Map<String, String>? headers,
-      [body, Encoding? encoding]) async {
+      {dynamic body, Encoding? encoding, Duration? timeout}) async {
     var request = Request(method, url);
 
     if (headers != null) request.headers.addAll(headers);
@@ -90,7 +110,7 @@ abstract class BaseClient implements Client {
       }
     }
 
-    return Response.fromStream(await send(request));
+    return Response.fromStream(await send(request, timeout: timeout));
   }
 
   /// Throws an error if [response] is not successful.

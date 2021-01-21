@@ -41,7 +41,24 @@ class BrowserClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<StreamedResponse> send(BaseRequest request, {Duration? timeout}) {
+    final completer = Completer<StreamedResponse>();
+    _send(request, timeout, completer);
+    return completer.future;
+  }
+
+  Future<void> _send(BaseRequest request, Duration? timeout,
+      Completer<StreamedResponse> completer) async {
+    Timer? timer;
+    late void Function() onTimeout;
+    if (timeout != null) {
+      timer = Timer(timeout, () {
+        onTimeout();
+      });
+      onTimeout = () {
+        completer.completeError(TimeoutException('Request aborted', timeout));
+      };
+    }
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
     _xhrs.add(xhr);
@@ -50,34 +67,36 @@ class BrowserClient extends BaseClient {
       ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
     request.headers.forEach(xhr.setRequestHeader);
-
-    var completer = Completer<StreamedResponse>();
+    if (timeout != null) {
+      onTimeout = () {
+        xhr.abort();
+        completer.completeError(TimeoutException('Request aborted', timeout));
+      };
+    }
 
     unawaited(xhr.onLoad.first.then((_) {
       var body = (xhr.response as ByteBuffer).asUint8List();
+      timer?.cancel();
       completer.complete(StreamedResponse(
           ByteStream.fromBytes(body), xhr.status!,
           contentLength: body.length,
           request: request,
           headers: xhr.responseHeaders,
           reasonPhrase: xhr.statusText));
+      _xhrs.remove(xhr);
     }));
 
     unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
+      timer?.cancel();
       completer.completeError(
           ClientException('XMLHttpRequest error.', request.url),
           StackTrace.current);
+      _xhrs.remove(xhr);
     }));
 
     xhr.send(bytes);
-
-    try {
-      return await completer.future;
-    } finally {
-      _xhrs.remove(xhr);
-    }
   }
 
   /// Closes the client.
