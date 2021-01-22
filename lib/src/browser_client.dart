@@ -62,6 +62,9 @@ class BrowserClient extends BaseClient {
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
     _xhrs.add(xhr);
+    unawaited(completer.future.whenComplete(() {
+      _xhrs.remove(xhr);
+    }));
     xhr
       ..open(request.method, '${request.url}', async: true)
       ..responseType = 'arraybuffer'
@@ -83,7 +86,6 @@ class BrowserClient extends BaseClient {
           request: request,
           headers: xhr.responseHeaders,
           reasonPhrase: xhr.statusText));
-      _xhrs.remove(xhr);
     }));
 
     unawaited(xhr.onError.first.then((_) {
@@ -93,7 +95,6 @@ class BrowserClient extends BaseClient {
       completer.completeError(
           ClientException('XMLHttpRequest error.', request.url),
           StackTrace.current);
-      _xhrs.remove(xhr);
     }));
 
     xhr.send(bytes);
