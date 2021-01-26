@@ -9,7 +9,7 @@ import '../web_socket_channel.dart';
 /// Connects to [uri] using and returns a channel that can be used to
 /// communicate over the resulting socket.
 ///
-/// The optional [protocols] parameter is the same as [WebSocket.connect].
+/// The optional [protocols] parameter is the same as `WebSocket.connect`.
 WebSocketChannel connect(Uri uri, {Iterable<String> protocols}) {
   throw UnsupportedError('No implementation of the connect api provided');
 }

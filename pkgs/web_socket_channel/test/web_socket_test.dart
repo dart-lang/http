@@ -14,7 +14,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 void main() {
   group('using WebSocketChannel', () {
     test('a client can communicate with a WebSocket server', () async {
-      var server = await HttpServer.bind('localhost', 0);
+      final server = await HttpServer.bind('localhost', 0);
       server.transform(WebSocketTransformer()).listen((webSocket) {
         webSocket.add('hello!');
         webSocket.listen((request) {
@@ -24,8 +24,8 @@ void main() {
         });
       });
 
-      var client = HttpClient();
-      var request = await client.openUrl(
+      final client = HttpClient();
+      final request = await client.openUrl(
           'GET', Uri.parse('http://localhost:${server.port}'));
       request.headers
         ..set('Connection', 'Upgrade')
@@ -33,10 +33,10 @@ void main() {
         ..set('Sec-WebSocket-Key', 'x3JJHMbDL1EzLkh9GBhXDw==')
         ..set('Sec-WebSocket-Version', '13');
 
-      var response = await request.close();
-      var socket = await response.detachSocket();
-      var innerChannel = StreamChannel<List<int>>(socket, socket);
-      var webSocket = WebSocketChannel(innerChannel, serverSide: false);
+      final response = await request.close();
+      final socket = await response.detachSocket();
+      final innerChannel = StreamChannel<List<int>>(socket, socket);
+      final webSocket = WebSocketChannel(innerChannel, serverSide: false);
 
       var n = 0;
       await webSocket.stream.listen((message) {
@@ -55,9 +55,9 @@ void main() {
     });
 
     test('a server can communicate with a WebSocket client', () async {
-      var server = await HttpServer.bind('localhost', 0);
+      final server = await HttpServer.bind('localhost', 0);
       server.listen((request) async {
-        var response = request.response;
+        final response = request.response;
         response.statusCode = 101;
         response.headers
           ..set('Connection', 'Upgrade')
@@ -68,18 +68,19 @@ void main() {
                   request.headers.value('Sec-WebSocket-Key')));
         response.contentLength = 0;
 
-        var socket = await response.detachSocket();
-        var innerChannel = StreamChannel<List<int>>(socket, socket);
-        var webSocket = WebSocketChannel(innerChannel);
+        final socket = await response.detachSocket();
+        final innerChannel = StreamChannel<List<int>>(socket, socket);
+        final webSocket = WebSocketChannel(innerChannel);
         webSocket.sink.add('hello!');
 
-        var message = await webSocket.stream.first;
+        final message = await webSocket.stream.first;
         expect(message, equals('ping'));
         webSocket.sink.add('pong');
         await webSocket.sink.close();
       });
 
-      var webSocket = await WebSocket.connect('ws://localhost:${server.port}');
+      final webSocket =
+          await WebSocket.connect('ws://localhost:${server.port}');
       var n = 0;
       await webSocket.listen((message) {
         if (n == 0) {

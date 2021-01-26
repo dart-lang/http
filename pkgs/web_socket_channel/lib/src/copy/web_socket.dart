@@ -11,6 +11,8 @@
 // This is up-to-date as of sdk revision
 // 365f7b5a8b6ef900a5ee23913b7203569b81b175.
 
+// ignore_for_file: constant_identifier_names
+
 /// Web socket status codes used when closing a web socket connection.
 abstract class WebSocketStatus {
   static const int NORMAL_CLOSURE = 1000;

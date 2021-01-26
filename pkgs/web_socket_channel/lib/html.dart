@@ -70,7 +70,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       : this(WebSocket(url.toString(), protocols)
           ..binaryType = (binaryType ?? BinaryType.list).value);
 
-  /// Creates a channel wrapping [webSocket].
+  /// Creates a channel wrapping [_webSocket].
   HtmlWebSocketChannel(this._webSocket) {
     _sink = _HtmlWebSocketSink(this);
 
@@ -109,8 +109,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
   /// Pipes user events to [_webSocket].
   void _listen() {
-    _controller.local.stream.listen((message) => _webSocket.send(message),
-        onDone: () {
+    _controller.local.stream.listen(_webSocket.send, onDone: () {
       // On Chrome and possibly other browsers, `null` can't be passed as the
       // default here. The actual arity of the function call must be correct or
       // it will fail.

@@ -51,7 +51,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
     if (_hasError) return done;
 
     _isBound = true;
-    var future = _controllerCompleter == null
+    final future = _controllerCompleter == null
         ? _target.addStream(stream)
         : _controllerCompleter.future.then((_) => _target.addStream(stream));
     _controllerInstance?.close();
@@ -71,7 +71,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
     // Adding an empty stream-controller will return a future that will complete
     // when all data is done.
     _isBound = true;
-    var future = _controllerCompleter.future;
+    final future = _controllerCompleter.future;
     _controllerInstance.close();
     return future.whenComplete(() {
       _isBound = false;
@@ -134,7 +134,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
           // No new stream, .close was called. Close _target.
           _closeTarget();
         }
-      }, onError: (error, stackTrace) {
+      }, onError: (error, StackTrace stackTrace) {
         if (_isBound) {
           // A new stream takes over - forward errors to that stream.
           _controllerCompleter.completeError(error, stackTrace);

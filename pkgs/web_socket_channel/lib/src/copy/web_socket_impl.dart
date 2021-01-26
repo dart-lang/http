@@ -12,7 +12,7 @@
 // This is up-to-date as of sdk revision
 // 365f7b5a8b6ef900a5ee23913b7203569b81b175.
 
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, constant_identifier_names
 
 import 'dart:async';
 import 'dart:convert';
@@ -99,15 +99,14 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
 
   @override
   Stream<dynamic /*List<int>|_WebSocketPing|_WebSocketPong*/ > bind(
-      Stream<List<int>> stream) {
-    return Stream.eventTransformed(stream, (EventSink eventSink) {
-      if (_eventSink != null) {
-        throw StateError('WebSocket transformer already used.');
-      }
-      _eventSink = eventSink;
-      return this;
-    });
-  }
+          Stream<List<int>> stream) =>
+      Stream.eventTransformed(stream, (EventSink eventSink) {
+        if (_eventSink != null) {
+          throw StateError('WebSocket transformer already used.');
+        }
+        _eventSink = eventSink;
+        return this;
+      });
 
   @override
   void addError(Object error, [StackTrace stackTrace]) {
@@ -122,9 +121,9 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
   /// Process data received from the underlying communication channel.
   @override
   void add(List<int> bytes) {
-    var buffer = bytes is Uint8List ? bytes : Uint8List.fromList(bytes);
+    final buffer = bytes is Uint8List ? bytes : Uint8List.fromList(bytes);
     var index = 0;
-    var lastIndex = buffer.length;
+    final lastIndex = buffer.length;
     if (_state == CLOSED) {
       throw WebSocketChannelException('Data on closed connection');
     }
@@ -132,7 +131,7 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
       throw WebSocketChannelException('Data on failed connection');
     }
     while ((index < lastIndex) && _state != CLOSED && _state != FAILURE) {
-      var byte = buffer[index];
+      final byte = buffer[index];
       if (_state <= LEN_REST) {
         if (_state == START) {
           _fin = (byte & FIN) != 0;
@@ -142,7 +141,7 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
             throw WebSocketChannelException('Protocol error');
           }
 
-          _opcode = (byte & OPCODE);
+          _opcode = byte & OPCODE;
 
           if (_opcode <= _WebSocketOpcode.BINARY) {
             if (_opcode == _WebSocketOpcode.CONTINUATION) {
@@ -200,7 +199,7 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
         } else {
           assert(_state == PAYLOAD);
           // The payload is not handled one byte at a time but in blocks.
-          var payloadLength = min(lastIndex - index, _remainingPayloadBytes);
+          final payloadLength = min(lastIndex - index, _remainingPayloadBytes);
           _remainingPayloadBytes -= payloadLength;
           // Unmask payload if masked.
           if (_masked) {
@@ -248,8 +247,8 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
         for (var i = 3; i >= 0; i--) {
           mask = (mask << 8) | _maskingBytes[(_unmaskingIndex + i) & 3];
         }
-        var blockMask = Int32x4(mask, mask, mask, mask);
-        var blockBuffer = Int32x4List.view(buffer.buffer, index, blockCount);
+        final blockMask = Int32x4(mask, mask, mask, mask);
+        final blockBuffer = Int32x4List.view(buffer.buffer, index, blockCount);
         for (var i = 0; i < blockBuffer.length; i++) {
           blockBuffer[i] ^= blockMask;
         }
@@ -313,7 +312,7 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
 
   void _messageFrameEnd() {
     if (_fin) {
-      var bytes = _payload.takeBytes();
+      final bytes = _payload.takeBytes();
 
       switch (_currentMessageType) {
         case _WebSocketMessageType.TEXT:
@@ -332,7 +331,7 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
     switch (_opcode) {
       case _WebSocketOpcode.CLOSE:
         closeCode = WebSocketStatus.NO_STATUS_RECEIVED;
-        var payload = _payload.takeBytes();
+        final payload = _payload.takeBytes();
         if (payload.isNotEmpty) {
           if (payload.length == 1) {
             throw WebSocketChannelException('Protocol error');
@@ -360,11 +359,10 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
     _prepareForNextFrame();
   }
 
-  bool _isControlFrame() {
-    return _opcode == _WebSocketOpcode.CLOSE ||
-        _opcode == _WebSocketOpcode.PING ||
-        _opcode == _WebSocketOpcode.PONG;
-  }
+  bool _isControlFrame() =>
+      _opcode == _WebSocketOpcode.CLOSE ||
+      _opcode == _WebSocketOpcode.PING ||
+      _opcode == _WebSocketOpcode.PONG;
 
   void _prepareForNextFrame() {
     if (_state != CLOSED && _state != FAILURE) _state = START;
@@ -380,11 +378,13 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
 
 class _WebSocketPing {
   final List<int> payload;
+
   _WebSocketPing([this.payload]);
 }
 
 class _WebSocketPong {
   final List<int> payload;
+
   _WebSocketPong([this.payload]);
 }
 
@@ -397,16 +397,15 @@ class _WebSocketOutgoingTransformer
   _WebSocketOutgoingTransformer(this.webSocket);
 
   @override
-  Stream<List<int>> bind(Stream stream) {
-    return Stream<List<int>>.eventTransformed(stream,
-        (EventSink<List<int>> eventSink) {
-      if (_eventSink != null) {
-        throw StateError('WebSocket transformer already used');
-      }
-      _eventSink = eventSink;
-      return this;
-    });
-  }
+  Stream<List<int>> bind(Stream stream) =>
+      Stream<List<int>>.eventTransformed(stream,
+          (EventSink<List<int>> eventSink) {
+        if (_eventSink != null) {
+          throw StateError('WebSocket transformer already used');
+        }
+        _eventSink = eventSink;
+        return this;
+      });
 
   @override
   void add(message) {
@@ -443,8 +442,8 @@ class _WebSocketOutgoingTransformer
 
   @override
   void close() {
-    var code = webSocket._outCloseCode;
-    var reason = webSocket._outCloseReason;
+    final code = webSocket._outCloseCode;
+    final reason = webSocket._outCloseReason;
     List<int> data;
     if (code != null) {
       data = <int>[];
@@ -463,8 +462,8 @@ class _WebSocketOutgoingTransformer
             opcode,
             data,
             webSocket._serverSide,
-            // Logic around _deflateHelper was removed here, since ther ewill never
-            // be a deflate helper for a cross-platform WebSocket client.
+            // Logic around _deflateHelper was removed here, since there will
+            // never be a deflate helper for a cross-platform WebSocket client.
             false)
         .forEach((e) {
       _eventSink.add(e);
@@ -473,20 +472,20 @@ class _WebSocketOutgoingTransformer
 
   static Iterable<List<int>> createFrame(
       int opcode, List<int> data, bool serverSide, bool compressed) {
-    var mask = !serverSide; // Masking not implemented for server.
-    var dataLength = data == null ? 0 : data.length;
+    final mask = !serverSide; // Masking not implemented for server.
+    final dataLength = data == null ? 0 : data.length;
     // Determine the header size.
-    var headerSize = (mask) ? 6 : 2;
+    var headerSize = mask ? 6 : 2;
     if (dataLength > 65535) {
       headerSize += 8;
     } else if (dataLength > 125) {
       headerSize += 2;
     }
-    var header = Uint8List(headerSize);
+    final header = Uint8List(headerSize);
     var index = 0;
 
     // Set FIN and opcode.
-    var hoc = _WebSocketProtocolTransformer.FIN |
+    final hoc = _WebSocketProtocolTransformer.FIN |
         (compressed ? _WebSocketProtocolTransformer.RSV1 : 0) |
         (opcode & _WebSocketProtocolTransformer.OPCODE);
 
@@ -506,7 +505,7 @@ class _WebSocketOutgoingTransformer
     }
     if (mask) {
       header[1] |= 1 << 7;
-      var maskBytes = [
+      final maskBytes = [
         _random.nextInt(256),
         _random.nextInt(256),
         _random.nextInt(256),
@@ -535,15 +534,15 @@ class _WebSocketOutgoingTransformer
           }
         }
         const BLOCK_SIZE = 16;
-        var blockCount = list.length ~/ BLOCK_SIZE;
+        final blockCount = list.length ~/ BLOCK_SIZE;
         if (blockCount > 0) {
           // Create mask block.
           var mask = 0;
           for (var i = 3; i >= 0; i--) {
             mask = (mask << 8) | maskBytes[i];
           }
-          var blockMask = Int32x4(mask, mask, mask, mask);
-          var blockBuffer = Int32x4List.view(list.buffer, 0, blockCount);
+          final blockMask = Int32x4(mask, mask, mask, mask);
+          final blockBuffer = Int32x4List.view(list.buffer, 0, blockCount);
           for (var i = 0; i < blockBuffer.length; i++) {
             blockBuffer[i] ^= blockMask;
           }
@@ -600,7 +599,7 @@ class _WebSocketConsumer implements StreamConsumer {
 
   void _cancel() {
     if (_subscription != null) {
-      var subscription = _subscription;
+      final subscription = _subscription;
       _subscription = null;
       subscription.cancel();
     }
@@ -613,7 +612,7 @@ class _WebSocketConsumer implements StreamConsumer {
         onPause: _onPause,
         onResume: _onResume,
         onCancel: _onListen);
-    var stream =
+    final stream =
         _WebSocketOutgoingTransformer(webSocket).bind(_controller.stream);
     sink.addStream(stream).then((_) {
       _done();
@@ -664,9 +663,8 @@ class _WebSocketConsumer implements StreamConsumer {
   @override
   Future close() {
     _ensureController();
-    Future closeSocket() {
-      return sink.close().catchError((_) {}).then((_) => webSocket);
-    }
+    Future closeSocket() =>
+        sink.close().catchError((_) {}).then((_) => webSocket);
 
     _controller.close();
     return _closeCompleter.future.then((_) => closeSocket());
@@ -717,7 +715,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
     _sink = StreamSinkImpl(_consumer);
     _readyState = WebSocket.OPEN;
 
-    var transformer = _WebSocketProtocolTransformer(_serverSide);
+    final transformer = _WebSocketProtocolTransformer(_serverSide);
     _subscription = transformer.bind(stream).listen((data) {
       if (data is _WebSocketPing) {
         if (!_writeClosed) _consumer.add(_WebSocketPong(data.payload));
@@ -770,10 +768,9 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
 
   @override
   StreamSubscription listen(void Function(dynamic) onData,
-      {Function onError, void Function() onDone, bool cancelOnError}) {
-    return _controller.stream.listen(onData,
-        onError: onError, onDone: onDone, cancelOnError: cancelOnError);
-  }
+          {Function onError, void Function() onDone, bool cancelOnError}) =>
+      _controller.stream.listen(onData,
+          onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
   Duration get pingInterval => _pingInterval;
 
@@ -797,7 +794,9 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   int get readyState => _readyState;
 
   String get extensions => null;
+
   int get closeCode => _closeCode;
+
   String get closeReason => _closeReason;
 
   @override
@@ -812,6 +811,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
 
   @override
   Future addStream(Stream stream) => _sink.addStream(stream);
+
   @override
   Future get done => _sink.done;
 
@@ -861,16 +861,15 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   // deleted for web_socket_channel. The methods were unused in WebSocket code
   // and produced warnings.
 
-  static bool _isReservedStatusCode(int code) {
-    return code != null &&
-        (code < WebSocketStatus.NORMAL_CLOSURE ||
-            code == WebSocketStatus.RESERVED_1004 ||
-            code == WebSocketStatus.NO_STATUS_RECEIVED ||
-            code == WebSocketStatus.ABNORMAL_CLOSURE ||
-            (code > WebSocketStatus.INTERNAL_SERVER_ERROR &&
-                code < WebSocketStatus.RESERVED_1015) ||
-            (code >= WebSocketStatus.RESERVED_1015 && code < 3000));
-  }
+  static bool _isReservedStatusCode(int code) =>
+      code != null &&
+      (code < WebSocketStatus.NORMAL_CLOSURE ||
+          code == WebSocketStatus.RESERVED_1004 ||
+          code == WebSocketStatus.NO_STATUS_RECEIVED ||
+          code == WebSocketStatus.ABNORMAL_CLOSURE ||
+          (code > WebSocketStatus.INTERNAL_SERVER_ERROR &&
+              code < WebSocketStatus.RESERVED_1015) ||
+          (code >= WebSocketStatus.RESERVED_1015 && code < 3000));
 }
 
 // The following code is from sdk/lib/io/service_object.dart.
@@ -880,12 +879,13 @@ int _nextServiceId = 1;
 // TODO(ajohnsen): Use other way of getting a uniq id.
 abstract class _ServiceObject {
   int __serviceId = 0;
+
   int get _serviceId {
     if (__serviceId == 0) __serviceId = _nextServiceId++;
     return __serviceId;
   }
 
-  // The _toJSON, _servicePath, _serviceTypePath, _serviceTypeName, and
-  // _serviceType methods have been deleted for http_parser. The methods were
-  // unused in WebSocket code and produced warnings.
+// The _toJSON, _servicePath, _serviceTypePath, _serviceTypeName, and
+// _serviceType methods have been deleted for http_parser. The methods were
+// unused in WebSocket code and produced warnings.
 }

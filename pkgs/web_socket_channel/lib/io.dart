@@ -23,8 +23,10 @@ class IOWebSocketChannel extends StreamChannelMixin
 
   @override
   String get protocol => _webSocket?.protocol;
+
   @override
   int get closeCode => _webSocket?.closeCode;
+
   @override
   String get closeReason => _webSocket?.closeReason;
 
@@ -51,23 +53,28 @@ class IOWebSocketChannel extends StreamChannelMixin
   ///
   /// If there's an error connecting, the channel's stream emits a
   /// [WebSocketChannelException] wrapping that error and then closes.
-  factory IOWebSocketChannel.connect(url,
-      {Iterable<String> protocols,
-      Map<String, dynamic> headers,
-      Duration pingInterval}) {
-    var channel;
-    var sinkCompleter = WebSocketSinkCompleter();
-    var stream = StreamCompleter.fromFuture(WebSocket.connect(url.toString(),
-            headers: headers, protocols: protocols)
-        .then((webSocket) {
-      webSocket.pingInterval = pingInterval;
-      channel._webSocket = webSocket;
-      sinkCompleter.setDestinationSink(_IOWebSocketSink(webSocket));
-      return webSocket;
-    }).catchError((error) => throw WebSocketChannelException.from(error)));
+  factory IOWebSocketChannel.connect(
+    Object url, {
+    Iterable<String> protocols,
+    Map<String, dynamic> headers,
+    Duration pingInterval,
+  }) {
+    IOWebSocketChannel channel;
+    final sinkCompleter = WebSocketSinkCompleter();
+    final stream = StreamCompleter.fromFuture(
+      WebSocket.connect(url.toString(), headers: headers, protocols: protocols)
+          .then((webSocket) {
+        webSocket.pingInterval = pingInterval;
+        channel._webSocket = webSocket;
+        sinkCompleter.setDestinationSink(_IOWebSocketSink(webSocket));
+        return webSocket;
+      }).catchError(
+        (Object error) => throw WebSocketChannelException.from(error),
+      ),
+    );
 
-    channel = IOWebSocketChannel._withoutSocket(stream, sinkCompleter.sink);
-    return channel;
+    return channel =
+        IOWebSocketChannel._withoutSocket(stream, sinkCompleter.sink);
   }
 
   /// Creates a channel wrapping [socket].
@@ -79,7 +86,7 @@ class IOWebSocketChannel extends StreamChannelMixin
 
   /// Creates a channel without a socket.
   ///
-  /// This is used with [connect] to synchronously provide a channel that later
+  /// This is used with `connect` to synchronously provide a channel that later
   /// has a socket added.
   IOWebSocketChannel._withoutSocket(Stream stream, this.sink)
       : _webSocket = null,

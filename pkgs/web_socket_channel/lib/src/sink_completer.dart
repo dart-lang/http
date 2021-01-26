@@ -8,8 +8,8 @@ import 'channel.dart';
 
 /// A [WebSocketSink] where the destination is provided later.
 ///
-/// This is like a [StreamSinkCompleter], except that it properly forwards
-/// paramters to [WebSocketSink.close].
+/// This is like a `StreamSinkCompleter`, except that it properly forwards
+/// parameters to [WebSocketSink.close].
 class WebSocketSinkCompleter {
   /// The sink for this completer.
   ///
@@ -21,7 +21,7 @@ class WebSocketSinkCompleter {
   final WebSocketSink sink = _CompleterSink();
 
   /// Returns [sink] typed as a [_CompleterSink].
-  _CompleterSink get _sink => sink;
+  _CompleterSink get _sink => sink as _CompleterSink;
 
   /// Sets a sink as the destination for events from the
   /// [WebSocketSinkCompleter]'s [sink].
