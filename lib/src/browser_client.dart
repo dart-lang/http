@@ -50,17 +50,15 @@ class BrowserClient extends BaseClient {
   Future<void> _send(BaseRequest request, Duration? timeout,
       Completer<StreamedResponse> completer) async {
     Timer? timer;
-    late void Function() onTimeout;
+    HttpRequest? toAbort;
     if (timeout != null) {
       timer = Timer(timeout, () {
-        onTimeout();
-      });
-      onTimeout = () {
+        toAbort?.abort();
         completer.completeError(TimeoutException('Request aborted', timeout));
-      };
+      });
     }
     var bytes = await request.finalize().toBytes();
-    var xhr = HttpRequest();
+    var xhr = toAbort = HttpRequest();
     _xhrs.add(xhr);
     unawaited(completer.future.whenComplete(() {
       _xhrs.remove(xhr);
@@ -70,12 +68,6 @@ class BrowserClient extends BaseClient {
       ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
     request.headers.forEach(xhr.setRequestHeader);
-    if (timeout != null) {
-      onTimeout = () {
-        xhr.abort();
-        completer.completeError(TimeoutException('Request aborted', timeout));
-      };
-    }
 
     unawaited(xhr.onLoad.first.then((_) {
       var body = (xhr.response as ByteBuffer).asUint8List();
