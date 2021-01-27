@@ -21,12 +21,12 @@ abstract class BaseClient implements Client {
   @override
   Future<Response> head(Uri url,
           {Map<String, String>? headers, Duration? timeout}) =>
-      _sendUnstreamed('HEAD', url, headers, timeout: timeout);
+      _sendUnstreamed('HEAD', url, headers, null, null, timeout);
 
   @override
   Future<Response> get(Uri url,
           {Map<String, String>? headers, Duration? timeout}) =>
-      _sendUnstreamed('GET', url, headers, timeout: timeout);
+      _sendUnstreamed('GET', url, headers, null, null, timeout);
 
   @override
   Future<Response> post(Uri url,
@@ -34,8 +34,7 @@ abstract class BaseClient implements Client {
           Object? body,
           Encoding? encoding,
           Duration? timeout}) =>
-      _sendUnstreamed('POST', url, headers,
-          body: body, encoding: encoding, timeout: timeout);
+      _sendUnstreamed('POST', url, headers, body, encoding, timeout);
 
   @override
   Future<Response> put(Uri url,
@@ -43,8 +42,7 @@ abstract class BaseClient implements Client {
           Object? body,
           Encoding? encoding,
           Duration? timeout}) =>
-      _sendUnstreamed('PUT', url, headers,
-          body: body, encoding: encoding, timeout: timeout);
+      _sendUnstreamed('PUT', url, headers, body, encoding, timeout);
 
   @override
   Future<Response> patch(Uri url,
@@ -52,8 +50,7 @@ abstract class BaseClient implements Client {
           Object? body,
           Encoding? encoding,
           Duration? timeout}) =>
-      _sendUnstreamed('PATCH', url, headers,
-          body: body, encoding: encoding, timeout: timeout);
+      _sendUnstreamed('PATCH', url, headers, body, encoding, timeout);
 
   @override
   Future<Response> delete(Uri url,
@@ -61,8 +58,7 @@ abstract class BaseClient implements Client {
           Object? body,
           Encoding? encoding,
           Duration? timeout}) =>
-      _sendUnstreamed('DELETE', url, headers,
-          body: body, encoding: encoding, timeout: timeout);
+      _sendUnstreamed('DELETE', url, headers, body, encoding, timeout);
 
   @override
   Future<String> read(Uri url,
@@ -92,8 +88,12 @@ abstract class BaseClient implements Client {
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(
-      String method, Uri url, Map<String, String>? headers,
-      {dynamic body, Encoding? encoding, Duration? timeout}) async {
+      String method,
+      Uri url,
+      Map<String, String>? headers,
+      dynamic body,
+      Encoding? encoding,
+      Duration? timeout) async {
     var request = Request(method, url);
 
     if (headers != null) request.headers.addAll(headers);
