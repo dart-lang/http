@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// A composable, [Future]-based library for making HTTP requests.
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -27,6 +28,10 @@ export 'src/streamed_response.dart';
 
 /// Sends an HTTP HEAD request with the given headers to the given URL.
 ///
+/// If [timeout] is not null the request will be aborted if it takes longer than
+/// the given duration to complete, and the returned future will complete as an
+/// error with a [TimeoutException].
+///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
@@ -38,6 +43,10 @@ Future<Response> head(Uri url,
         (client) => client.head(url, headers: headers, timeout: timeout));
 
 /// Sends an HTTP GET request with the given headers to the given URL.
+///
+/// If [timeout] is not null the request will be aborted if it takes longer than
+/// the given duration to complete, and the returned future will complete as an
+/// error with a [TimeoutException].
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
@@ -65,6 +74,10 @@ Future<Response> get(Uri url,
 ///
 /// [encoding] defaults to [utf8].
 ///
+/// If [timeout] is not null the request will be aborted if it takes longer than
+/// the given duration to complete, and the returned future will complete as an
+/// error with a [TimeoutException].
+///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
 Future<Response> post(Uri url,
@@ -90,6 +103,10 @@ Future<Response> post(Uri url,
 /// `"application/x-www-form-urlencoded"`; this cannot be overridden.
 ///
 /// [encoding] defaults to [utf8].
+///
+/// If [timeout] is not null the request will be aborted if it takes longer than
+/// the given duration to complete, and the returned future will complete as an
+/// error with a [TimeoutException].
 ///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
@@ -118,6 +135,10 @@ Future<Response> put(Uri url,
 ///
 /// [encoding] defaults to [utf8].
 ///
+/// If [timeout] is not null the request will be aborted if it takes longer than
+/// the given duration to complete, and the returned future will complete as an
+/// error with a [TimeoutException].
+///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
 Future<Response> patch(Uri url,
@@ -129,6 +150,10 @@ Future<Response> patch(Uri url,
         headers: headers, body: body, encoding: encoding, timeout: timeout));
 
 /// Sends an HTTP DELETE request with the given headers to the given URL.
+///
+/// If [timeout] is not null the request will be aborted if it takes longer than
+/// the given duration to complete, and the returned future will complete as an
+/// error with a [TimeoutException].
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
@@ -149,6 +174,10 @@ Future<Response> delete(Uri url,
 /// The Future will emit a [ClientException] if the response doesn't have a
 /// success status code.
 ///
+/// If [timeout] is not null the request will be aborted if it takes longer than
+/// the given duration to complete, and the returned future will complete as an
+/// error with a [TimeoutException].
+///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
@@ -166,6 +195,10 @@ Future<String> read(Uri url,
 ///
 /// The Future will emit a [ClientException] if the response doesn't have a
 /// success status code.
+///
+/// If [timeout] is not null the request will be aborted if it takes longer than
+/// the given duration to complete, and the returned future will complete as an
+/// error with a [TimeoutException].
 ///
 /// This automatically initializes a new [Client] and closes that client once
 /// the request is complete. If you're planning on making multiple requests to
