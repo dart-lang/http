@@ -69,21 +69,24 @@ class IOClient extends BaseClient {
       response.headers.forEach((key, values) {
         headers[key] = values.join(',');
       });
+      var wasTimedOut = false;
+      if (timeout != null) {
+        onTimeout = () {
+          wasTimedOut = true;
+          response.detachSocket().then((socket) => socket.destroy());
+        };
+      }
       var responseStream = response.handleError((error) {
         final httpException = error as HttpException;
         throw ClientException(httpException.message, httpException.uri);
       }, test: (error) => error is HttpException).transform<List<int>>(
           StreamTransformer.fromHandlers(handleDone: (sink) {
         timer?.cancel();
+        if (wasTimedOut) {
+          sink.addError(TimeoutException('Request aborted', timeout));
+        }
         sink.close();
       }));
-
-      if (timeout != null) {
-        onTimeout = () {
-          // TODO, is this necessary? How will it surface?
-          response.detachSocket().then((socket) => socket.destroy());
-        };
-      }
 
       completer.complete(IOStreamedResponse(responseStream, response.statusCode,
           contentLength:
