@@ -13,8 +13,8 @@ dependencies:
   pedantic: ^1.10.0-nullsafety
 
 dev_dependencies:
-  test: ^1.16.0-nullsafety.4
   shelf: any
+  test: ^1.16.0-nullsafety.4
 
 dependency_overrides:
   shelf:
