@@ -39,8 +39,10 @@ class IOClient extends BaseClient {
     void Function() onTimeout;
     if (contentTimeout != null) {
       onTimeout = () {
-        completer
-            .completeError(TimeoutException('Request aborted', contentTimeout));
+        if (!completer.isCompleted) {
+          completer.completeError(
+              TimeoutException('Request aborted', contentTimeout));
+        }
       };
       timer = Timer(contentTimeout, () {
         onTimeout();
@@ -60,8 +62,10 @@ class IOClient extends BaseClient {
       if (contentTimeout != null) {
         onTimeout = () {
           ioRequest.abort();
-          completer.completeError(
-              TimeoutException('Request aborted', contentTimeout));
+          if (!completer.isCompleted) {
+            completer.completeError(
+                TimeoutException('Request aborted', contentTimeout));
+          }
         };
       }
 
@@ -91,15 +95,18 @@ class IOClient extends BaseClient {
         sink.close();
       }));
 
-      completer.complete(IOStreamedResponse(responseStream, response.statusCode,
-          contentLength:
-              response.contentLength == -1 ? null : response.contentLength,
-          request: request,
-          headers: headers,
-          isRedirect: response.isRedirect,
-          persistentConnection: response.persistentConnection,
-          reasonPhrase: response.reasonPhrase,
-          inner: response));
+      if (!completer.isCompleted) {
+        completer.complete(IOStreamedResponse(
+            responseStream, response.statusCode,
+            contentLength:
+                response.contentLength == -1 ? null : response.contentLength,
+            request: request,
+            headers: headers,
+            isRedirect: response.isRedirect,
+            persistentConnection: response.persistentConnection,
+            reasonPhrase: response.reasonPhrase,
+            inner: response));
+      }
     } on HttpException catch (error) {
       if (completer.isCompleted) return;
       completer.completeError(ClientException(error.message, error.uri));
