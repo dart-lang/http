@@ -60,9 +60,12 @@ class BrowserClient extends BaseClient {
     var bytes = await request.finalize().toBytes();
     var xhr = toAbort = HttpRequest();
     _xhrs.add(xhr);
-    unawaited(completer.future.whenComplete(() {
-      _xhrs.remove(xhr);
-    }));
+    unawaited(completer.future
+        .whenComplete(() {
+          _xhrs.remove(xhr);
+        })
+        .then<void>((_) {})
+        .catchError((_) {}));
     xhr
       ..open(request.method, '${request.url}', async: true)
       ..responseType = 'arraybuffer'
