@@ -41,9 +41,10 @@ class BrowserClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<StreamedResponse> send(BaseRequest request, {Duration? timeout}) {
+  Future<StreamedResponse> send(BaseRequest request,
+      {Duration? contentTimeout}) {
     final completer = Completer<StreamedResponse>();
-    _send(request, timeout, completer);
+    _send(request, contentTimeout, completer);
     return completer.future;
   }
 

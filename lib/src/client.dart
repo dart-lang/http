@@ -182,13 +182,14 @@ abstract class Client {
 
   /// Sends an HTTP request and asynchronously returns the response.
   ///
-  /// If [timeout] is not null the request will be aborted if it takes longer
-  /// than the given duration to complete. If the timeout occurs before any
-  /// reply is received from the server the returned future will as an error
-  /// with a [TimeoutException]. If the timout occurs after the reply has been
-  /// started but before the entire body has been read the response stream will
-  /// emit a [TimeoutException] and close.
-  Future<StreamedResponse> send(BaseRequest request, {Duration? timeout});
+  /// If [contentTimeout] is not null the request will be aborted if it takes
+  /// longer than the given duration to receive the entire response. If the
+  /// timeout occurs before any reply is received from the server the returned
+  /// future will as an error with a [TimeoutException]. If the timout occurs
+  /// after the reply has been started but before the entire body has been read
+  /// the response stream will emit a [TimeoutException] and close.
+  Future<StreamedResponse> send(BaseRequest request, {Duration?
+    contentTimeout});
 
   /// Closes the client and cleans up any resources associated with it.
   ///

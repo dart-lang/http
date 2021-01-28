@@ -66,7 +66,7 @@ class MockClient extends BaseClient {
 
   @override
   Future<StreamedResponse> send(BaseRequest request,
-      {Duration? timeout}) async {
+      {Duration? contentTimeout}) async {
     var bodyStream = request.finalize();
     return await _handler(request, bodyStream);
   }

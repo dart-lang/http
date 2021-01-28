@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:collection';
 
 import 'package:meta/meta.dart';
@@ -117,11 +118,18 @@ abstract class BaseRequest {
   /// the request is complete. If you're planning on making multiple requests to
   /// the same server, you should use a single [Client] for all of those
   /// requests.
-  Future<StreamedResponse> send({Duration? timeout}) async {
+  ///
+  /// If [contentTimeout] is not null the request will be aborted if it takes
+  /// longer than the given duration to receive the entire response. If the
+  /// timeout occurs before any reply is received from the server the returned
+  /// future will as an error with a [TimeoutException]. If the timout occurs
+  /// after the reply has been started but before the entire body has been read
+  /// the response stream will emit a [TimeoutException] and close.
+  Future<StreamedResponse> send({Duration? contentTimeout}) async {
     var client = Client();
 
     try {
-      var response = await client.send(this, timeout: timeout);
+      var response = await client.send(this, contentTimeout: contentTimeout);
       var stream = onDone(response.stream, client.close);
       return StreamedResponse(ByteStream(stream), response.statusCode,
           contentLength: response.contentLength,

@@ -84,7 +84,8 @@ abstract class BaseClient implements Client {
   /// later point, or it could already be closed when it's returned. Any
   /// internal HTTP errors should be wrapped as [ClientException]s.
   @override
-  Future<StreamedResponse> send(BaseRequest request, {Duration? timeout});
+  Future<StreamedResponse> send(BaseRequest request,
+      {Duration? contentTimeout});
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(
@@ -110,7 +111,7 @@ abstract class BaseClient implements Client {
       }
     }
 
-    return Response.fromStream(await send(request, timeout: timeout));
+    return Response.fromStream(await send(request, contentTimeout: timeout));
   }
 
   /// Throws an error if [response] is not successful.

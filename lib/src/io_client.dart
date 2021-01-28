@@ -24,23 +24,25 @@ class IOClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<IOStreamedResponse> send(BaseRequest request, {Duration? timeout}) {
+  Future<IOStreamedResponse> send(BaseRequest request,
+      {Duration? contentTimeout}) {
     final completer = Completer<IOStreamedResponse>();
-    _send(request, timeout, completer);
+    _send(request, contentTimeout, completer);
     return completer.future;
   }
 
-  Future<void> _send(BaseRequest request, Duration? timeout,
+  Future<void> _send(BaseRequest request, Duration? contentTimeout,
       Completer<IOStreamedResponse> completer) async {
     var stream = request.finalize();
 
     Timer? timer;
     void Function() onTimeout;
-    if (timeout != null) {
+    if (contentTimeout != null) {
       onTimeout = () {
-        completer.completeError(TimeoutException('Request aborted', timeout));
+        completer
+            .completeError(TimeoutException('Request aborted', contentTimeout));
       };
-      timer = Timer(timeout, () {
+      timer = Timer(contentTimeout, () {
         onTimeout();
       });
     }
@@ -55,10 +57,11 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      if (timeout != null) {
+      if (contentTimeout != null) {
         onTimeout = () {
           ioRequest.abort();
-          completer.completeError(TimeoutException('Request aborted', timeout));
+          completer.completeError(
+              TimeoutException('Request aborted', contentTimeout));
         };
       }
 
@@ -70,7 +73,7 @@ class IOClient extends BaseClient {
         headers[key] = values.join(',');
       });
       var wasTimedOut = false;
-      if (timeout != null) {
+      if (contentTimeout != null) {
         onTimeout = () {
           wasTimedOut = true;
           response.detachSocket().then((socket) => socket.destroy());
@@ -83,7 +86,7 @@ class IOClient extends BaseClient {
           StreamTransformer.fromHandlers(handleDone: (sink) {
         timer?.cancel();
         if (wasTimedOut) {
-          sink.addError(TimeoutException('Request aborted', timeout));
+          sink.addError(TimeoutException('Request aborted', contentTimeout));
         }
         sink.close();
       }));
