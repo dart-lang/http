@@ -35,14 +35,14 @@ class IOClient extends BaseClient {
     var stream = request.finalize();
 
     Timer? timer;
-    late void Function() onTimeout;
+    void Function() onTimeout;
     if (timeout != null) {
-      timer = Timer(timeout, () {
-        onTimeout();
-      });
       onTimeout = () {
         completer.completeError(TimeoutException('Request aborted', timeout));
       };
+      timer = Timer(timeout, () {
+        onTimeout();
+      });
     }
     try {
       var ioRequest = (await _inner!.openUrl(request.method, request.url))
