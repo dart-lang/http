@@ -55,7 +55,9 @@ class BrowserClient extends BaseClient {
     if (timeout != null) {
       timer = Timer(timeout, () {
         toAbort?.abort();
-        completer.completeError(TimeoutException('Request aborted', timeout));
+        if (!completer.isCompleted) {
+          completer.completeError(TimeoutException('Request aborted', timeout));
+        }
       });
     }
     var bytes = await request.finalize().toBytes();
@@ -76,21 +78,25 @@ class BrowserClient extends BaseClient {
     unawaited(xhr.onLoad.first.then((_) {
       var body = (xhr.response as ByteBuffer).asUint8List();
       timer?.cancel();
-      completer.complete(StreamedResponse(
-          ByteStream.fromBytes(body), xhr.status!,
-          contentLength: body.length,
-          request: request,
-          headers: xhr.responseHeaders,
-          reasonPhrase: xhr.statusText));
+      if (!completer.isCompleted) {
+        completer.complete(StreamedResponse(
+            ByteStream.fromBytes(body), xhr.status!,
+            contentLength: body.length,
+            request: request,
+            headers: xhr.responseHeaders,
+            reasonPhrase: xhr.statusText));
+      }
     }));
 
     unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
       timer?.cancel();
-      completer.completeError(
-          ClientException('XMLHttpRequest error.', request.url),
-          StackTrace.current);
+      if (!completer.isCompleted) {
+        completer.completeError(
+            ClientException('XMLHttpRequest error.', request.url),
+            StackTrace.current);
+      }
     }));
 
     xhr.send(bytes);
