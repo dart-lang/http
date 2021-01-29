@@ -1,17 +1,9 @@
-## 0.13.0-nullsafety-dev
+## 0.13.0-nullsafety.0
 
-Pre-release for the null safety migration of this package.
-
-Note that 0.12.3 may not be the final stable null safety release version, we
-reserve the right to release it as a 0.13.0 breaking change.
-
-This release will be pinned to only allow pre-release sdk versions starting from
-2.10.0-2.0.dev, which is the first version where this package will appear in the
-null safety allow list.
-
+* Migrate to null safety.
 * Add `const` constructor to `ByteStream`.
 * Migrate `BrowserClient` from `blob` to `arraybuffer`.
-* **BREAKING** All APIs which previously allowed a `String` or `Uri` to be
+* **Breaking** All APIs which previously allowed a `String` or `Uri` to be
   passed now require a `Uri`.
 * **Breaking** Added a `body` and `encoding` argument to `Client.delete`. This
   is only breaking for implementations which override that method.
