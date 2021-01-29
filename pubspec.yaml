@@ -13,9 +13,9 @@ dependencies:
   pedantic: ^1.10.0-nullsafety
 
 dev_dependencies:
+  shelf: any
   test: ^1.16.0-nullsafety.4
 
 dependency_overrides:
-  http_parser: ^4.0.0-nullsafety
-  # Because pkg:test does not support pkg:http ^0.13.0
-  test: ^1.16.0-nullsafety.5
+  shelf:
+    git: git://github.com/dart-lang/shelf.git
