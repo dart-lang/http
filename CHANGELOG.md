@@ -1,3 +1,7 @@
+## 0.13.0
+
+* Stable null safety release.
+
 ## 0.13.0-nullsafety.0
 
 * Migrate to null safety.
