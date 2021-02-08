@@ -70,6 +70,6 @@ class GoawayMessage extends Message {
       : super(0, false);
 
   @override
-  String toString() => 'GoawayMessage(lastStreamId: ${lastStreamId}, '
-      'errorCode: ${errorCode}, debugData: ${debugData.length})';
+  String toString() => 'GoawayMessage(lastStreamId: $lastStreamId, '
+      'errorCode: $errorCode, debugData: ${debugData.length})';
 }

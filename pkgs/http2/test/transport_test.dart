@@ -447,7 +447,7 @@ void main() {
                 // of adding is [kChunkSize], it could be that we added
                 // [kChunkSize - 1] bytes more than allowed, before getting
                 // the pause event).
-                expect((serverSentBytes - kChunkSize + 1),
+                expect(serverSentBytes - kChunkSize + 1,
                     lessThan(expectedStreamFlowcontrolWindow));
                 flowcontrolWindowFull.complete();
               })
@@ -534,7 +534,9 @@ class BidirectionalConnection {
 
   final StreamController<List<int>> writeA = StreamController();
   final StreamController<List<int>> writeB = StreamController();
+
   Stream<List<int>> get readA => writeA.stream;
+
   Stream<List<int>> get readB => writeB.stream;
 
   ClientTransportConnection get clientConnection =>

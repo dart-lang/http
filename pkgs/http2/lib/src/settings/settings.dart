@@ -76,7 +76,7 @@ class ActiveSettings {
       this.enablePush = true,
       this.maxConcurrentStreams,
       this.initialWindowSize = (1 << 16) - 1,
-      this.maxFrameSize = (1 << 14),
+      this.maxFrameSize = 1 << 14,
       this.maxHeaderListSize});
 }
 

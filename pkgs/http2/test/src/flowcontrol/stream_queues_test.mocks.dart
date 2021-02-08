@@ -24,31 +24,43 @@ class MockConnectionMessageQueueOut extends _i1.Mock
 
   @override
   int get pendingMessages =>
-      (super.noSuchMethod(Invocation.getter(#pendingMessages), 0) as int);
+      (super.noSuchMethod(Invocation.getter(#pendingMessages), returnValue: 0)
+          as int);
+
   @override
   bool get wasTerminated =>
-      (super.noSuchMethod(Invocation.getter(#wasTerminated), false) as bool);
+      (super.noSuchMethod(Invocation.getter(#wasTerminated), returnValue: false)
+          as bool);
+
   @override
-  _i4.Future<dynamic> get done =>
-      (super.noSuchMethod(Invocation.getter(#done), Future.value(null))
-          as _i4.Future<dynamic>);
+  _i4.Future<dynamic> get done => (super.noSuchMethod(Invocation.getter(#done),
+      returnValue: Future.value(null)) as _i4.Future<dynamic>);
+
   @override
   bool get isClosing =>
-      (super.noSuchMethod(Invocation.getter(#isClosing), false) as bool);
+      (super.noSuchMethod(Invocation.getter(#isClosing), returnValue: false)
+          as bool);
+
   @override
   bool get wasClosed =>
-      (super.noSuchMethod(Invocation.getter(#wasClosed), false) as bool);
+      (super.noSuchMethod(Invocation.getter(#wasClosed), returnValue: false)
+          as bool);
+
   @override
   void enqueueMessage(_i5.Message? message) =>
       super.noSuchMethod(Invocation.method(#enqueueMessage, [message]));
+
   @override
-  T ensureNotTerminatedSync<T>(T Function()? f) => (super.noSuchMethod(
-      Invocation.method(#ensureNotTerminatedSync, [f]), null) as T);
+  T ensureNotTerminatedSync<T>(T Function()? f) =>
+      (super.noSuchMethod(Invocation.method(#ensureNotTerminatedSync, [f]),
+          returnValue: null) as T);
+
   @override
   _i4.Future<dynamic> ensureNotTerminatedAsync(
           _i4.Future<dynamic> Function()? f) =>
       (super.noSuchMethod(Invocation.method(#ensureNotTerminatedAsync, [f]),
-          Future.value(null)) as _i4.Future<dynamic>);
+          returnValue: Future.value(null)) as _i4.Future<dynamic>);
+
   @override
   dynamic ensureNotClosingSync(dynamic Function()? f) =>
       super.noSuchMethod(Invocation.method(#ensureNotClosingSync, [f]));
@@ -65,10 +77,13 @@ class MockIncomingWindowHandler extends _i1.Mock
 
   @override
   int get localWindowSize =>
-      (super.noSuchMethod(Invocation.getter(#localWindowSize), 0) as int);
+      (super.noSuchMethod(Invocation.getter(#localWindowSize), returnValue: 0)
+          as int);
+
   @override
   void gotData(int? numberOfBytes) =>
       super.noSuchMethod(Invocation.method(#gotData, [numberOfBytes]));
+
   @override
   void dataProcessed(int? numberOfBytes) =>
       super.noSuchMethod(Invocation.method(#dataProcessed, [numberOfBytes]));
@@ -84,19 +99,24 @@ class MockOutgoingStreamWindowHandler extends _i1.Mock
   }
 
   @override
-  _i2.BufferIndicator get positiveWindow => (super.noSuchMethod(
-          Invocation.getter(#positiveWindow), _FakeBufferIndicator())
-      as _i2.BufferIndicator);
+  _i2.BufferIndicator get positiveWindow =>
+      (super.noSuchMethod(Invocation.getter(#positiveWindow),
+          returnValue: _FakeBufferIndicator()) as _i2.BufferIndicator);
+
   @override
   int get peerWindowSize =>
-      (super.noSuchMethod(Invocation.getter(#peerWindowSize), 0) as int);
+      (super.noSuchMethod(Invocation.getter(#peerWindowSize), returnValue: 0)
+          as int);
+
   @override
   void processInitialWindowSizeSettingChange(int? difference) =>
       super.noSuchMethod(Invocation.method(
           #processInitialWindowSizeSettingChange, [difference]));
+
   @override
   void processWindowUpdate(_i7.WindowUpdateFrame? frame) =>
       super.noSuchMethod(Invocation.method(#processWindowUpdate, [frame]));
+
   @override
   void decreaseWindow(int? numberOfBytes) =>
       super.noSuchMethod(Invocation.method(#decreaseWindow, [numberOfBytes]));

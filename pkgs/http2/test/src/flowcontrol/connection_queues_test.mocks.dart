@@ -27,60 +27,72 @@ class MockFrameWriter extends _i1.Mock implements _i4.FrameWriter {
   }
 
   @override
-  _i2.BufferIndicator get bufferIndicator => (super.noSuchMethod(
-          Invocation.getter(#bufferIndicator), _FakeBufferIndicator())
-      as _i2.BufferIndicator);
+  _i2.BufferIndicator get bufferIndicator =>
+      (super.noSuchMethod(Invocation.getter(#bufferIndicator),
+          returnValue: _FakeBufferIndicator()) as _i2.BufferIndicator);
+
   @override
   int get highestWrittenStreamId =>
-      (super.noSuchMethod(Invocation.getter(#highestWrittenStreamId), 0)
-          as int);
+      (super.noSuchMethod(Invocation.getter(#highestWrittenStreamId),
+          returnValue: 0) as int);
+
   @override
   _i5.Future<dynamic> get doneFuture =>
-      (super.noSuchMethod(Invocation.getter(#doneFuture), Future.value(null))
-          as _i5.Future<dynamic>);
+      (super.noSuchMethod(Invocation.getter(#doneFuture),
+          returnValue: Future.value(null)) as _i5.Future<dynamic>);
+
   @override
   void writeDataFrame(int? streamId, List<int>? data,
           {bool? endStream = false}) =>
       super.noSuchMethod(Invocation.method(
           #writeDataFrame, [streamId, data], {#endStream: endStream}));
+
   @override
   void writeHeadersFrame(int? streamId, List<_i6.Header>? headers,
           {bool? endStream = true}) =>
       super.noSuchMethod(Invocation.method(
           #writeHeadersFrame, [streamId, headers], {#endStream: endStream}));
+
   @override
   void writePriorityFrame(int? streamId, int? streamDependency, int? weight,
           {bool? exclusive = false}) =>
       super.noSuchMethod(Invocation.method(#writePriorityFrame,
           [streamId, streamDependency, weight], {#exclusive: exclusive}));
+
   @override
   void writeRstStreamFrame(int? streamId, int? errorCode) => super.noSuchMethod(
       Invocation.method(#writeRstStreamFrame, [streamId, errorCode]));
+
   @override
   void writeSettingsFrame(List<_i4.Setting>? settings) =>
       super.noSuchMethod(Invocation.method(#writeSettingsFrame, [settings]));
+
   @override
   void writePushPromiseFrame(
           int? streamId, int? promisedStreamId, List<_i6.Header>? headers) =>
       super.noSuchMethod(Invocation.method(
           #writePushPromiseFrame, [streamId, promisedStreamId, headers]));
+
   @override
   void writePingFrame(int? opaqueData, {bool? ack = false}) =>
       super.noSuchMethod(
           Invocation.method(#writePingFrame, [opaqueData], {#ack: ack}));
+
   @override
   void writeGoawayFrame(
           int? lastStreamId, int? errorCode, List<int>? debugData) =>
       super.noSuchMethod(Invocation.method(
           #writeGoawayFrame, [lastStreamId, errorCode, debugData]));
+
   @override
   void writeWindowUpdate(int? sizeIncrement, {int? streamId = 0}) =>
       super.noSuchMethod(Invocation.method(
           #writeWindowUpdate, [sizeIncrement], {#streamId: streamId}));
+
   @override
   _i5.Future<dynamic> close() =>
-      (super.noSuchMethod(Invocation.method(#close, []), Future.value(null))
-          as _i5.Future<dynamic>);
+      (super.noSuchMethod(Invocation.method(#close, []),
+          returnValue: Future.value(null)) as _i5.Future<dynamic>);
 }
 
 /// A class which mocks [IncomingWindowHandler].
@@ -94,10 +106,13 @@ class MockIncomingWindowHandler extends _i1.Mock
 
   @override
   int get localWindowSize =>
-      (super.noSuchMethod(Invocation.getter(#localWindowSize), 0) as int);
+      (super.noSuchMethod(Invocation.getter(#localWindowSize), returnValue: 0)
+          as int);
+
   @override
   void gotData(int? numberOfBytes) =>
       super.noSuchMethod(Invocation.method(#gotData, [numberOfBytes]));
+
   @override
   void dataProcessed(int? numberOfBytes) =>
       super.noSuchMethod(Invocation.method(#dataProcessed, [numberOfBytes]));
@@ -114,55 +129,75 @@ class MockStreamMessageQueueIn extends _i1.Mock
 
   @override
   _i3.IncomingWindowHandler get windowHandler => (super.noSuchMethod(
-          Invocation.getter(#windowHandler), _FakeIncomingWindowHandler())
-      as _i3.IncomingWindowHandler);
+      Invocation.getter(#windowHandler),
+      returnValue: _FakeIncomingWindowHandler()) as _i3.IncomingWindowHandler);
+
   @override
-  _i2.BufferIndicator get bufferIndicator => (super.noSuchMethod(
-          Invocation.getter(#bufferIndicator), _FakeBufferIndicator())
-      as _i2.BufferIndicator);
+  _i2.BufferIndicator get bufferIndicator =>
+      (super.noSuchMethod(Invocation.getter(#bufferIndicator),
+          returnValue: _FakeBufferIndicator()) as _i2.BufferIndicator);
+
   @override
   int get pendingMessages =>
-      (super.noSuchMethod(Invocation.getter(#pendingMessages), 0) as int);
+      (super.noSuchMethod(Invocation.getter(#pendingMessages), returnValue: 0)
+          as int);
+
   @override
-  _i5.Stream<_i8.StreamMessage> get messages => (super.noSuchMethod(
-          Invocation.getter(#messages), Stream<_i8.StreamMessage>.empty())
-      as _i5.Stream<_i8.StreamMessage>);
+  _i5.Stream<_i8.StreamMessage> get messages =>
+      (super.noSuchMethod(Invocation.getter(#messages),
+              returnValue: Stream<_i8.StreamMessage>.empty())
+          as _i5.Stream<_i8.StreamMessage>);
+
   @override
-  _i5.Stream<_i8.TransportStreamPush> get serverPushes => (super.noSuchMethod(
-          Invocation.getter(#serverPushes),
-          Stream<_i8.TransportStreamPush>.empty())
-      as _i5.Stream<_i8.TransportStreamPush>);
+  _i5.Stream<_i8.TransportStreamPush> get serverPushes =>
+      (super.noSuchMethod(Invocation.getter(#serverPushes),
+              returnValue: Stream<_i8.TransportStreamPush>.empty())
+          as _i5.Stream<_i8.TransportStreamPush>);
+
   @override
   bool get wasTerminated =>
-      (super.noSuchMethod(Invocation.getter(#wasTerminated), false) as bool);
+      (super.noSuchMethod(Invocation.getter(#wasTerminated), returnValue: false)
+          as bool);
+
   @override
-  _i5.Future<dynamic> get done =>
-      (super.noSuchMethod(Invocation.getter(#done), Future.value(null))
-          as _i5.Future<dynamic>);
+  _i5.Future<dynamic> get done => (super.noSuchMethod(Invocation.getter(#done),
+      returnValue: Future.value(null)) as _i5.Future<dynamic>);
+
   @override
   bool get isClosing =>
-      (super.noSuchMethod(Invocation.getter(#isClosing), false) as bool);
+      (super.noSuchMethod(Invocation.getter(#isClosing), returnValue: false)
+          as bool);
+
   @override
   bool get wasClosed =>
-      (super.noSuchMethod(Invocation.getter(#wasClosed), false) as bool);
+      (super.noSuchMethod(Invocation.getter(#wasClosed), returnValue: false)
+          as bool);
+
   @override
   _i5.Future<void> get onCancel =>
-      (super.noSuchMethod(Invocation.getter(#onCancel), Future.value(null))
-          as _i5.Future<void>);
+      (super.noSuchMethod(Invocation.getter(#onCancel),
+          returnValue: Future.value(null)) as _i5.Future<void>);
+
   @override
   bool get wasCancelled =>
-      (super.noSuchMethod(Invocation.getter(#wasCancelled), false) as bool);
+      (super.noSuchMethod(Invocation.getter(#wasCancelled), returnValue: false)
+          as bool);
+
   @override
   void enqueueMessage(_i9.Message? message) =>
       super.noSuchMethod(Invocation.method(#enqueueMessage, [message]));
+
   @override
-  T ensureNotTerminatedSync<T>(T Function()? f) => (super.noSuchMethod(
-      Invocation.method(#ensureNotTerminatedSync, [f]), null) as T);
+  T ensureNotTerminatedSync<T>(T Function()? f) =>
+      (super.noSuchMethod(Invocation.method(#ensureNotTerminatedSync, [f]),
+          returnValue: null) as T);
+
   @override
   _i5.Future<dynamic> ensureNotTerminatedAsync(
           _i5.Future<dynamic> Function()? f) =>
       (super.noSuchMethod(Invocation.method(#ensureNotTerminatedAsync, [f]),
-          Future.value(null)) as _i5.Future<dynamic>);
+          returnValue: Future.value(null)) as _i5.Future<dynamic>);
+
   @override
   dynamic ensureNotClosingSync(dynamic Function()? f) =>
       super.noSuchMethod(Invocation.method(#ensureNotClosingSync, [f]));

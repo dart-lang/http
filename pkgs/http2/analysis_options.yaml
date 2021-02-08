@@ -1,4 +1,5 @@
 include: package:pedantic/analysis_options.yaml
+
 analyzer:
   strong-mode:
     implicit-casts: false
@@ -7,8 +8,10 @@ analyzer:
     unused_import: error
     unused_local_variable: error
     dead_code: error
+
 linter:
   rules:
+    - avoid_unused_constructor_parameters
     - await_only_futures
     - camel_case_types
     - comment_references
@@ -17,7 +20,15 @@ linter:
     - empty_statements
     - hash_and_equals
     - implementation_imports
+    - iterable_contains_unrelated_type
+    - list_remove_unrelated_type
     - non_constant_identifier_names
     - only_throw_errors
+    - overridden_fields
+    - package_api_docs
+    - package_names
+    - package_prefixed_library_names
     - test_types_in_equals
     - throw_in_finally
+    - unnecessary_parenthesis
+    - unnecessary_brace_in_string_interps

@@ -357,8 +357,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   bool _canPush(Http2StreamImpl stream) {
-    var openState = (stream.state == StreamState.Open ||
-        stream.state == StreamState.HalfClosedRemote);
+    var openState = stream.state == StreamState.Open ||
+        stream.state == StreamState.HalfClosedRemote;
     var pushEnabled = _peerSettings.enablePush;
     return openState &&
         pushEnabled &&
