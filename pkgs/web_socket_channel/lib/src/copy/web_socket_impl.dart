@@ -89,7 +89,7 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
   int closeCode = WebSocketStatus.NO_STATUS_RECEIVED;
   String closeReason = '';
 
-  EventSink<dynamic /*List<int>|_WebSocketPing|_WebSocketPong*/ > _eventSink;
+  EventSink<dynamic /*List<int>|_WebSocketPing|_WebSocketPong*/ >? _eventSink;
 
   final bool _serverSide;
   final List<int> _maskingBytes = List.filled(4, 0);
@@ -109,13 +109,13 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
       });
 
   @override
-  void addError(Object error, [StackTrace stackTrace]) {
-    _eventSink.addError(error, stackTrace);
+  void addError(Object error, [StackTrace? stackTrace]) {
+    _eventSink!.addError(error, stackTrace);
   }
 
   @override
   void close() {
-    _eventSink.close();
+    _eventSink!.close();
   }
 
   /// Process data received from the underlying communication channel.
@@ -292,13 +292,13 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
         switch (_opcode) {
           case _WebSocketOpcode.CLOSE:
             _state = CLOSED;
-            _eventSink.close();
+            _eventSink!.close();
             break;
           case _WebSocketOpcode.PING:
-            _eventSink.add(_WebSocketPing());
+            _eventSink!.add(_WebSocketPing());
             break;
           case _WebSocketOpcode.PONG:
-            _eventSink.add(_WebSocketPong());
+            _eventSink!.add(_WebSocketPong());
             break;
         }
         _prepareForNextFrame();
@@ -316,10 +316,10 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
 
       switch (_currentMessageType) {
         case _WebSocketMessageType.TEXT:
-          _eventSink.add(utf8.decode(bytes));
+          _eventSink!.add(utf8.decode(bytes));
           break;
         case _WebSocketMessageType.BINARY:
-          _eventSink.add(bytes);
+          _eventSink!.add(bytes);
           break;
       }
       _currentMessageType = _WebSocketMessageType.NONE;
@@ -345,15 +345,15 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
           }
         }
         _state = CLOSED;
-        _eventSink.close();
+        _eventSink!.close();
         break;
 
       case _WebSocketOpcode.PING:
-        _eventSink.add(_WebSocketPing(_payload.takeBytes()));
+        _eventSink!.add(_WebSocketPing(_payload.takeBytes()));
         break;
 
       case _WebSocketOpcode.PONG:
-        _eventSink.add(_WebSocketPong(_payload.takeBytes()));
+        _eventSink!.add(_WebSocketPong(_payload.takeBytes()));
         break;
     }
     _prepareForNextFrame();
@@ -377,13 +377,13 @@ class _WebSocketProtocolTransformer extends StreamTransformerBase<List<int>,
 }
 
 class _WebSocketPing {
-  final List<int> payload;
+  final List<int>? payload;
 
   _WebSocketPing([this.payload]);
 }
 
 class _WebSocketPong {
-  final List<int> payload;
+  final List<int>? payload;
 
   _WebSocketPong([this.payload]);
 }
@@ -392,7 +392,7 @@ class _WebSocketPong {
 class _WebSocketOutgoingTransformer
     extends StreamTransformerBase<dynamic, List<int>> implements EventSink {
   final WebSocketImpl webSocket;
-  EventSink<List<int>> _eventSink;
+  EventSink<List<int>>? _eventSink;
 
   _WebSocketOutgoingTransformer(this.webSocket);
 
@@ -417,7 +417,7 @@ class _WebSocketOutgoingTransformer
       addFrame(_WebSocketOpcode.PING, message.payload);
       return;
     }
-    List<int> data;
+    List<int>? data;
     int opcode;
     if (message != null) {
       if (message is String) {
@@ -436,15 +436,15 @@ class _WebSocketOutgoingTransformer
   }
 
   @override
-  void addError(Object error, [StackTrace stackTrace]) {
-    _eventSink.addError(error, stackTrace);
+  void addError(Object error, [StackTrace? stackTrace]) {
+    _eventSink!.addError(error, stackTrace);
   }
 
   @override
   void close() {
     final code = webSocket._outCloseCode;
     final reason = webSocket._outCloseReason;
-    List<int> data;
+    List<int>? data;
     if (code != null) {
       data = <int>[];
       data.add((code >> 8) & 0xFF);
@@ -454,10 +454,10 @@ class _WebSocketOutgoingTransformer
       }
     }
     addFrame(_WebSocketOpcode.CLOSE, data);
-    _eventSink.close();
+    _eventSink!.close();
   }
 
-  void addFrame(int opcode, List<int> data) {
+  void addFrame(int opcode, List<int>? data) {
     createFrame(
             opcode,
             data,
@@ -466,12 +466,12 @@ class _WebSocketOutgoingTransformer
             // never be a deflate helper for a cross-platform WebSocket client.
             false)
         .forEach((e) {
-      _eventSink.add(e);
+      _eventSink!.add(e);
     });
   }
 
   static Iterable<List<int>> createFrame(
-      int opcode, List<int> data, bool serverSide, bool compressed) {
+      int opcode, List<int>? data, bool serverSide, bool compressed) {
     final mask = !serverSide; // Masking not implemented for server.
     final dataLength = data == null ? 0 : data.length;
     // Determine the header size.
@@ -566,24 +566,26 @@ class _WebSocketOutgoingTransformer
 class _WebSocketConsumer implements StreamConsumer {
   final WebSocketImpl webSocket;
   final StreamSink<List<int>> sink;
-  StreamController _controller;
-  StreamSubscription _subscription;
+  StreamController? _controller;
+
+  // ignore: cancel_subscriptions
+  StreamSubscription? _subscription;
   bool _issuedPause = false;
   bool _closed = false;
   final Completer _closeCompleter = Completer<WebSocketImpl>();
-  Completer _completer;
+  Completer<WebSocketImpl>? _completer;
 
   _WebSocketConsumer(this.webSocket, this.sink);
 
   void _onListen() {
     if (_subscription != null) {
-      _subscription.cancel();
+      _subscription!.cancel();
     }
   }
 
   void _onPause() {
     if (_subscription != null) {
-      _subscription.pause();
+      _subscription!.pause();
     } else {
       _issuedPause = true;
     }
@@ -591,7 +593,7 @@ class _WebSocketConsumer implements StreamConsumer {
 
   void _onResume() {
     if (_subscription != null) {
-      _subscription.resume();
+      _subscription!.resume();
     } else {
       _issuedPause = false;
     }
@@ -601,7 +603,7 @@ class _WebSocketConsumer implements StreamConsumer {
     if (_subscription != null) {
       final subscription = _subscription;
       _subscription = null;
-      subscription.cancel();
+      subscription!.cancel();
     }
   }
 
@@ -613,7 +615,7 @@ class _WebSocketConsumer implements StreamConsumer {
         onResume: _onResume,
         onCancel: _onListen);
     final stream =
-        _WebSocketOutgoingTransformer(webSocket).bind(_controller.stream);
+        _WebSocketOutgoingTransformer(webSocket).bind(_controller!.stream);
     sink.addStream(stream).then((_) {
       _done();
       _closeCompleter.complete(webSocket);
@@ -631,12 +633,12 @@ class _WebSocketConsumer implements StreamConsumer {
     });
   }
 
-  bool _done([error, StackTrace stackTrace]) {
+  bool _done([Object? error, StackTrace? stackTrace]) {
     if (_completer == null) return false;
     if (error != null) {
-      _completer.completeError(error, stackTrace);
+      _completer!.completeError(error, stackTrace);
     } else {
-      _completer.complete(webSocket);
+      _completer!.complete(webSocket);
     }
     _completer = null;
     return true;
@@ -651,13 +653,13 @@ class _WebSocketConsumer implements StreamConsumer {
     _ensureController();
     _completer = Completer();
     _subscription = stream.listen((data) {
-      _controller.add(data);
+      _controller!.add(data);
     }, onDone: _done, onError: _done, cancelOnError: true);
     if (_issuedPause) {
-      _subscription.pause();
+      _subscription!.pause();
       _issuedPause = false;
     }
-    return _completer.future;
+    return _completer!.future;
   }
 
   @override
@@ -666,14 +668,14 @@ class _WebSocketConsumer implements StreamConsumer {
     Future closeSocket() =>
         sink.close().catchError((_) {}).then((_) => webSocket);
 
-    _controller.close();
+    _controller!.close();
     return _closeCompleter.future.then((_) => closeSocket());
   }
 
   void add(data) {
     if (_closed) return;
     _ensureController();
-    _controller.add(data);
+    _controller!.add(data);
   }
 
   void closeSocket() {
@@ -689,24 +691,26 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   static const int DEFAULT_WINDOW_BITS = 15;
   static const String PER_MESSAGE_DEFLATE = 'permessage-deflate';
 
-  final String protocol;
+  final String? protocol;
 
-  StreamController _controller;
-  StreamSubscription _subscription;
-  StreamSink _sink;
+  late final StreamController _controller;
+
+  // ignore: cancel_subscriptions
+  StreamSubscription? _subscription;
+  late final StreamSink _sink;
 
   final bool _serverSide;
   int _readyState = WebSocket.CONNECTING;
   bool _writeClosed = false;
-  int _closeCode;
-  String _closeReason;
-  Duration _pingInterval;
-  Timer _pingTimer;
-  _WebSocketConsumer _consumer;
+  int? _closeCode;
+  String? _closeReason;
+  Duration? _pingInterval;
+  Timer? _pingTimer;
+  late final _WebSocketConsumer _consumer;
 
-  int _outCloseCode;
-  String _outCloseReason;
-  Timer _closeTimer;
+  int? _outCloseCode;
+  String? _outCloseReason;
+  Timer? _closeTimer;
 
   WebSocketImpl.fromSocket(
       Stream<List<int>> stream, StreamSink<List<int>> sink, this.protocol,
@@ -726,7 +730,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
         _controller.add(data);
       }
     }, onError: (error, stackTrace) {
-      if (_closeTimer != null) _closeTimer.cancel();
+      if (_closeTimer != null) _closeTimer!.cancel();
       if (error is FormatException) {
         _close(WebSocketStatus.INVALID_FRAME_PAYLOAD_DATA);
       } else {
@@ -737,7 +741,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
       _closeReason = _outCloseReason;
       _controller.close();
     }, onDone: () {
-      if (_closeTimer != null) _closeTimer.cancel();
+      if (_closeTimer != null) _closeTimer!.cancel();
       if (_readyState == WebSocket.OPEN) {
         _readyState = WebSocket.CLOSING;
         if (!_isReservedStatusCode(transformer.closeCode)) {
@@ -752,39 +756,39 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
       _closeReason = transformer.closeReason;
       _controller.close();
     }, cancelOnError: true);
-    _subscription.pause();
+    _subscription!.pause();
     _controller = StreamController(
         sync: true,
-        onListen: () => _subscription.resume(),
+        onListen: () => _subscription!.resume(),
         onCancel: () {
-          _subscription.cancel();
+          _subscription!.cancel();
           _subscription = null;
         },
-        onPause: _subscription.pause,
-        onResume: _subscription.resume);
+        onPause: _subscription!.pause,
+        onResume: _subscription!.resume);
 
     _webSockets[_serviceId] = this;
   }
 
   @override
-  StreamSubscription listen(void Function(dynamic) onData,
-          {Function onError, void Function() onDone, bool cancelOnError}) =>
+  StreamSubscription listen(void Function(dynamic)? onData,
+          {Function? onError, void Function()? onDone, bool? cancelOnError}) =>
       _controller.stream.listen(onData,
           onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
-  Duration get pingInterval => _pingInterval;
+  Duration? get pingInterval => _pingInterval;
 
-  set pingInterval(Duration interval) {
+  set pingInterval(Duration? interval) {
     if (_writeClosed) return;
-    if (_pingTimer != null) _pingTimer.cancel();
+    if (_pingTimer != null) _pingTimer!.cancel();
     _pingInterval = interval;
 
     if (_pingInterval == null) return;
 
-    _pingTimer = Timer(_pingInterval, () {
+    _pingTimer = Timer(_pingInterval!, () {
       if (_writeClosed) return;
       _consumer.add(_WebSocketPing());
-      _pingTimer = Timer(_pingInterval, () {
+      _pingTimer = Timer(_pingInterval!, () {
         // No pong received.
         _close(WebSocketStatus.GOING_AWAY);
       });
@@ -793,11 +797,11 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
 
   int get readyState => _readyState;
 
-  String get extensions => null;
+  String? get extensions => null;
 
-  int get closeCode => _closeCode;
+  int? get closeCode => _closeCode;
 
-  String get closeReason => _closeReason;
+  String? get closeReason => _closeReason;
 
   @override
   void add(data) {
@@ -805,7 +809,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   }
 
   @override
-  void addError(error, [StackTrace stackTrace]) {
+  void addError(Object error, [StackTrace? stackTrace]) {
     _sink.addError(error, stackTrace);
   }
 
@@ -816,7 +820,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   Future get done => _sink.done;
 
   @override
-  Future close([int code, String reason]) {
+  Future close([int? code, String? reason]) {
     if (_isReservedStatusCode(code)) {
       throw WebSocketChannelException('Reserved status code $code');
     }
@@ -838,7 +842,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
         // Reuse code and reason from the local close.
         _closeCode = _outCloseCode;
         _closeReason = _outCloseReason;
-        if (_subscription != null) _subscription.cancel();
+        if (_subscription != null) _subscription!.cancel();
         _controller.close();
         _webSockets.remove(_serviceId);
       });
@@ -846,7 +850,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
     return _sink.close();
   }
 
-  void _close([int code, String reason]) {
+  void _close([int? code, String? reason]) {
     if (_writeClosed) return;
     if (_outCloseCode == null) {
       _outCloseCode = code;
@@ -861,7 +865,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   // deleted for web_socket_channel. The methods were unused in WebSocket code
   // and produced warnings.
 
-  static bool _isReservedStatusCode(int code) =>
+  static bool _isReservedStatusCode(int? code) =>
       code != null &&
       (code < WebSocketStatus.NORMAL_CLOSURE ||
           code == WebSocketStatus.RESERVED_1004 ||

@@ -14,7 +14,7 @@ env:
 
 jobs:
   # Check code formatting and static analysis on a single OS (linux)
-  # against Dart dev and stable.
+  # against Dart dev.
   analyze:
     runs-on: ubuntu-latest
     strategy:
@@ -42,7 +42,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        sdk: [stable, dev]
+        # TODO: beta -> 2.12.0 once it's stable!
+        sdk: [beta, dev]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.5

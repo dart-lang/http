@@ -19,31 +19,31 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   final WebSocket _webSocket;
 
   @override
-  String get protocol => _webSocket.protocol;
+  String? get protocol => _webSocket.protocol;
 
   @override
-  int get closeCode => _closeCode;
-  int _closeCode;
+  int? get closeCode => _closeCode;
+  int? _closeCode;
 
   @override
-  String get closeReason => _closeReason;
-  String _closeReason;
+  String? get closeReason => _closeReason;
+  String? _closeReason;
 
   /// The number of bytes of data that have been queued but not yet transmitted
   /// to the network.
-  int get bufferedAmount => _webSocket.bufferedAmount;
+  int? get bufferedAmount => _webSocket.bufferedAmount;
 
   /// The close code set by the local user.
   ///
   /// To ensure proper ordering, this is stored until we get a done event on
   /// [_controller.local.stream].
-  int _localCloseCode;
+  int? _localCloseCode;
 
   /// The close reason set by the local user.
   ///
   /// To ensure proper ordering, this is stored until we get a done event on
   /// [_controller.local.stream].
-  String _localCloseReason;
+  String? _localCloseReason;
 
   @override
   Stream get stream => _controller.foreign.stream;
@@ -51,8 +51,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       StreamChannelController(sync: true, allowForeignErrors: false);
 
   @override
-  WebSocketSink get sink => _sink;
-  WebSocketSink _sink;
+  late final WebSocketSink sink = _HtmlWebSocketSink(this);
 
   /// Creates a new WebSocket connection.
   ///
@@ -66,14 +65,12 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// binary messages to be delivered as [Uint8List]s. If it's
   /// [BinaryType.blob], they're delivered as [Blob]s instead.
   HtmlWebSocketChannel.connect(url,
-      {Iterable<String> protocols, BinaryType binaryType})
+      {Iterable<String>? protocols, BinaryType? binaryType})
       : this(WebSocket(url.toString(), protocols)
           ..binaryType = (binaryType ?? BinaryType.list).value);
 
   /// Creates a channel wrapping [_webSocket].
   HtmlWebSocketChannel(this._webSocket) {
-    _sink = _HtmlWebSocketSink(this);
-
     if (_webSocket.readyState == WebSocket.OPEN) {
       _listen();
     } else {
@@ -134,7 +131,7 @@ class _HtmlWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
         super(channel._controller.foreign.sink);
 
   @override
-  Future close([int closeCode, String closeReason]) {
+  Future close([int? closeCode, String? closeReason]) {
     _channel._localCloseCode = closeCode;
     _channel._localCloseReason = closeReason;
     return super.close();

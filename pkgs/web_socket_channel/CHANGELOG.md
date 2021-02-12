@@ -1,3 +1,8 @@
+## 2.0.0-dev
+
+- Support null safety.
+- Require Dart 2.12.
+
 ## 1.2.0
 
 * Add `protocols` argument to `WebSocketChannel.connect`. See the docs for

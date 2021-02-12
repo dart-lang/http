@@ -6,10 +6,10 @@ import 'channel.dart';
 
 /// An exception thrown by a [WebSocketChannel].
 class WebSocketChannelException implements Exception {
-  final String message;
+  final String? message;
 
   /// The exception that caused this one, if available.
-  final Object inner;
+  final Object? inner;
 
   WebSocketChannelException([this.message]) : inner = null;
 

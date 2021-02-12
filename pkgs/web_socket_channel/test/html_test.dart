@@ -3,19 +3,17 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('browser')
-
 import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:test/test.dart';
-
 import 'package:web_socket_channel/html.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() {
-  int port;
+  late int port;
   setUpAll(() async {
     final channel = spawnHybridCode(r'''
       // @dart=2.7
@@ -37,14 +35,10 @@ void main() {
     port = await channel.stream.first as int;
   });
 
-  WebSocketChannel channel;
-  tearDown(() {
-    if (channel != null) channel.sink.close();
-  });
-
   test('communicates using an existing WebSocket', () async {
     final webSocket = WebSocket('ws://localhost:$port');
-    channel = HtmlWebSocketChannel(webSocket);
+    final channel = HtmlWebSocketChannel(webSocket);
+    addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
     channel.sink.add('foo');
@@ -65,7 +59,8 @@ void main() {
     final webSocket = WebSocket('ws://localhost:$port');
     await webSocket.onOpen.first;
 
-    channel = HtmlWebSocketChannel(webSocket);
+    final channel = HtmlWebSocketChannel(webSocket);
+    addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
     channel.sink.add('foo');
@@ -73,7 +68,8 @@ void main() {
   });
 
   test('.connect defaults to binary lists', () async {
-    channel = HtmlWebSocketChannel.connect('ws://localhost:$port');
+    final channel = HtmlWebSocketChannel.connect('ws://localhost:$port');
+    addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
     channel.sink.add('foo');
@@ -85,7 +81,8 @@ void main() {
 
   test('.connect defaults to binary lists using platform independent api',
       () async {
-    channel = WebSocketChannel.connect(Uri.parse('ws://localhost:$port'));
+    final channel = WebSocketChannel.connect(Uri.parse('ws://localhost:$port'));
+    addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
     channel.sink.add('foo');
@@ -96,8 +93,9 @@ void main() {
   });
 
   test('.connect can use blobs', () async {
-    channel = HtmlWebSocketChannel.connect('ws://localhost:$port',
+    final channel = HtmlWebSocketChannel.connect('ws://localhost:$port',
         binaryType: BinaryType.blob);
+    addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
     channel.sink.add('foo');

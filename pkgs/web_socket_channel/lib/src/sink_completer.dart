@@ -49,24 +49,24 @@ class _CompleterSink implements WebSocketSink {
   ///
   /// Created if the user adds events to this sink before the destination sink
   /// is set.
-  StreamController _controller;
+  StreamController? _controller;
 
   /// Completer for [done].
   ///
   /// Created if the user requests the [done] future before the destination sink
   /// is set.
-  Completer _doneCompleter;
+  Completer? _doneCompleter;
 
   /// Destination sink for the events added to this sink.
   ///
   /// Set when [WebSocketSinkCompleter.setDestinationSink] is called.
-  WebSocketSink _destinationSink;
+  WebSocketSink? _destinationSink;
 
   /// The close code passed to [close].
-  int _closeCode;
+  int? _closeCode;
 
   /// The close reason passed to [close].
-  String _closeReason;
+  String? _closeReason;
 
   /// Whether events should be sent directly to [_destinationSink], as opposed
   /// to going through [_controller].
@@ -74,59 +74,55 @@ class _CompleterSink implements WebSocketSink {
 
   @override
   Future get done {
-    if (_doneCompleter != null) return _doneCompleter.future;
+    if (_doneCompleter != null) return _doneCompleter!.future;
     if (_destinationSink == null) {
       _doneCompleter = Completer.sync();
-      return _doneCompleter.future;
+      return _doneCompleter!.future;
     }
-    return _destinationSink.done;
+    return _destinationSink!.done;
   }
 
   @override
   void add(event) {
     if (_canSendDirectly) {
-      _destinationSink.add(event);
+      _destinationSink!.add(event);
     } else {
-      _ensureController();
-      _controller.add(event);
+      _ensureController().add(event);
     }
   }
 
   @override
-  void addError(error, [StackTrace stackTrace]) {
+  void addError(Object error, [StackTrace? stackTrace]) {
     if (_canSendDirectly) {
-      _destinationSink.addError(error, stackTrace);
+      _destinationSink!.addError(error, stackTrace);
     } else {
-      _ensureController();
-      _controller.addError(error, stackTrace);
+      _ensureController().addError(error, stackTrace);
     }
   }
 
   @override
   Future addStream(Stream stream) {
-    if (_canSendDirectly) return _destinationSink.addStream(stream);
+    if (_canSendDirectly) return _destinationSink!.addStream(stream);
 
-    _ensureController();
-    return _controller.addStream(stream, cancelOnError: false);
+    final controller = _ensureController();
+    return controller.addStream(stream, cancelOnError: false);
   }
 
   @override
-  Future close([int closeCode, String closeReason]) {
+  Future close([int? closeCode, String? closeReason]) {
     if (_canSendDirectly) {
-      _destinationSink.close(closeCode, closeReason);
+      _destinationSink!.close(closeCode, closeReason);
     } else {
       _closeCode = closeCode;
       _closeReason = closeReason;
-      _ensureController();
-      _controller.close();
+      _ensureController().close();
     }
     return done;
   }
 
   /// Create [_controller] if it doesn't yet exist.
-  void _ensureController() {
-    _controller ??= StreamController(sync: true);
-  }
+  StreamController _ensureController() =>
+      _controller ??= StreamController(sync: true);
 
   /// Sets the destination sink to which events from this sink will be provided.
   ///
@@ -144,7 +140,7 @@ class _CompleterSink implements WebSocketSink {
       // Catch any error that may come from [addStream] or [sink.close]. They'll
       // be reported through [done] anyway.
       sink
-          .addStream(_controller.stream)
+          .addStream(_controller!.stream)
           .whenComplete(() => sink.close(_closeCode, _closeReason))
           .catchError((_) {});
     }
@@ -152,7 +148,7 @@ class _CompleterSink implements WebSocketSink {
     // If the user has already asked when the sink is done, connect the sink's
     // done callback to that completer.
     if (_doneCompleter != null) {
-      _doneCompleter.complete(sink.done);
+      _doneCompleter!.complete(sink.done);
     }
   }
 }

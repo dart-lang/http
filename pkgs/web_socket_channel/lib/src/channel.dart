@@ -35,21 +35,21 @@ class WebSocketChannel extends StreamChannelMixin {
   /// For a client socket, this is initially `null`. After the WebSocket
   /// connection is established the value is set to the subprotocol selected by
   /// the server. If no subprotocol is negotiated the value will remain `null`.
-  String get protocol => _webSocket.protocol;
+  String? get protocol => _webSocket.protocol;
 
   /// The [close code][] set when the WebSocket connection is closed.
   ///
   /// [close code]: https://tools.ietf.org/html/rfc6455#section-7.1.5
   ///
   /// Before the connection has been closed, this will be `null`.
-  int get closeCode => _webSocket.closeCode;
+  int? get closeCode => _webSocket.closeCode;
 
   /// The [close reason][] set when the WebSocket connection is closed.
   ///
   /// [close reason]: https://tools.ietf.org/html/rfc6455#section-7.1.6
   ///
   /// Before the connection has been closed, this will be `null`.
-  String get closeReason => _webSocket.closeReason;
+  String? get closeReason => _webSocket.closeReason;
 
   @override
   Stream get stream => StreamView(_webSocket);
@@ -96,7 +96,7 @@ class WebSocketChannel extends StreamChannelMixin {
   ///
   /// [WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4
   WebSocketChannel(StreamChannel<List<int>> channel,
-      {String protocol, Duration pingInterval, bool serverSide = true})
+      {String? protocol, Duration? pingInterval, bool serverSide = true})
       : _webSocket = WebSocketImpl.fromSocket(
             channel.stream, channel.sink, protocol, serverSide)
           ..pingInterval = pingInterval;
@@ -107,7 +107,7 @@ class WebSocketChannel extends StreamChannelMixin {
   /// communicate over the resulting socket.
   ///
   /// The optional [protocols] parameter is the same as `WebSocket.connect`.
-  factory WebSocketChannel.connect(Uri uri, {Iterable<String> protocols}) =>
+  factory WebSocketChannel.connect(Uri uri, {Iterable<String>? protocols}) =>
       platform.connect(uri, protocols: protocols);
 }
 
@@ -131,6 +131,6 @@ class WebSocketSink extends DelegatingStreamSink {
   /// [close code]: https://tools.ietf.org/html/rfc6455#section-7.1.5
   /// [reason]: https://tools.ietf.org/html/rfc6455#section-7.1.6
   @override
-  Future close([int closeCode, String closeReason]) =>
+  Future close([int? closeCode, String? closeReason]) =>
       _webSocket.close(closeCode, closeReason);
 }

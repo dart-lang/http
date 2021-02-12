@@ -65,7 +65,7 @@ void main() {
           ..set(
               'Sec-WebSocket-Accept',
               WebSocketChannel.signKey(
-                  request.headers.value('Sec-WebSocket-Key')));
+                  request.headers.value('Sec-WebSocket-Key')!));
         response.contentLength = 0;
 
         final socket = await response.detachSocket();

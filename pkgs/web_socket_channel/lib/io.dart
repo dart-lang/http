@@ -19,16 +19,16 @@ class IOWebSocketChannel extends StreamChannelMixin
   ///
   /// If the channel was constructed with [IOWebSocketChannel.connect], this is
   /// `null` until the [WebSocket.connect] future completes.
-  WebSocket _webSocket;
+  WebSocket? _webSocket;
 
   @override
-  String get protocol => _webSocket?.protocol;
+  String? get protocol => _webSocket?.protocol;
 
   @override
-  int get closeCode => _webSocket?.closeCode;
+  int? get closeCode => _webSocket?.closeCode;
 
   @override
-  String get closeReason => _webSocket?.closeReason;
+  String? get closeReason => _webSocket?.closeReason;
 
   @override
   final Stream stream;
@@ -55,11 +55,11 @@ class IOWebSocketChannel extends StreamChannelMixin
   /// [WebSocketChannelException] wrapping that error and then closes.
   factory IOWebSocketChannel.connect(
     Object url, {
-    Iterable<String> protocols,
-    Map<String, dynamic> headers,
-    Duration pingInterval,
+    Iterable<String>? protocols,
+    Map<String, dynamic>? headers,
+    Duration? pingInterval,
   }) {
-    IOWebSocketChannel channel;
+    late IOWebSocketChannel channel;
     final sinkCompleter = WebSocketSinkCompleter();
     final stream = StreamCompleter.fromFuture(
       WebSocket.connect(url.toString(), headers: headers, protocols: protocols)
@@ -104,6 +104,6 @@ class _IOWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
         super(webSocket);
 
   @override
-  Future close([int closeCode, String closeReason]) =>
+  Future close([int? closeCode, String? closeReason]) =>
       _webSocket.close(closeCode, closeReason);
 }

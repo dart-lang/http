@@ -11,12 +11,10 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() {
   HttpServer server;
-  tearDown(() async {
-    if (server != null) await server.close();
-  });
 
   test('communicates using existing WebSockets', () async {
     server = await HttpServer.bind('localhost', 0);
+    addTearDown(server.close);
     server.transform(WebSocketTransformer()).listen((WebSocket webSocket) {
       final channel = IOWebSocketChannel(webSocket);
       channel.sink.add('hello!');
