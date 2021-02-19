@@ -1,5 +1,5 @@
 name: web_socket_channel
-version: 2.0.0-dev
+version: 2.0.0
 
 description: >-
   StreamChannel wrappers for WebSockets. Provides a cross-platform
@@ -17,9 +17,4 @@ dependencies:
 
 dev_dependencies:
   pedantic: ^1.10.0
-  test: ^1.16.0
-
-dependency_overrides:
-  # Need to update dependencies on these to allow v2 of this package
-  shelf_web_socket: ^0.2.4
   test: ^1.16.0

@@ -1,4 +1,4 @@
-## 2.0.0-dev
+## 2.0.0
 
 - Support null safety.
 - Require Dart 2.12.
