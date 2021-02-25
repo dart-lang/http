@@ -29,45 +29,45 @@ class MultiHeaders implements HttpHeaders {
   }
 
   @override
-  ContentType get contentType => _headers.first.contentType;
+  ContentType? get contentType => _headers.first.contentType;
   @override
-  set contentType(ContentType value) {
+  set contentType(ContentType? value) {
     for (var headers in _headers) {
       headers.contentType = value;
     }
   }
 
   @override
-  DateTime get date => _headers.first.date;
+  DateTime? get date => _headers.first.date;
   @override
-  set date(DateTime value) {
+  set date(DateTime? value) {
     for (var headers in _headers) {
       headers.date = value;
     }
   }
 
   @override
-  DateTime get expires => _headers.first.expires;
+  DateTime? get expires => _headers.first.expires;
   @override
-  set expires(DateTime value) {
+  set expires(DateTime? value) {
     for (var headers in _headers) {
       headers.expires = value;
     }
   }
 
   @override
-  String get host => _headers.first.host;
+  String? get host => _headers.first.host;
   @override
-  set host(String value) {
+  set host(String? value) {
     for (var headers in _headers) {
       headers.host = value;
     }
   }
 
   @override
-  DateTime get ifModifiedSince => _headers.first.ifModifiedSince;
+  DateTime? get ifModifiedSince => _headers.first.ifModifiedSince;
   @override
-  set ifModifiedSince(DateTime value) {
+  set ifModifiedSince(DateTime? value) {
     for (var headers in _headers) {
       headers.ifModifiedSince = value;
     }
@@ -83,9 +83,9 @@ class MultiHeaders implements HttpHeaders {
   }
 
   @override
-  int get port => _headers.first.port;
+  int? get port => _headers.first.port;
   @override
-  set port(int value) {
+  set port(int? value) {
     for (var headers in _headers) {
       headers.port = value;
     }
@@ -133,10 +133,10 @@ class MultiHeaders implements HttpHeaders {
   }
 
   @override
-  String value(String name) => _headers.first.value(name);
+  String? value(String name) => _headers.first.value(name);
 
   @override
-  List<String> operator [](String name) => _headers.first[name];
+  List<String>? operator [](String name) => _headers.first[name];
 
   @override
   void clear() {

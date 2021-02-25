@@ -13,9 +13,9 @@ import 'package:test/test.dart';
 void main() {
   group('with multiple HttpServers', () {
     var multiServer;
-    HttpServer subServer1;
-    HttpServer subServer2;
-    HttpServer subServer3;
+    late HttpServer subServer1;
+    late HttpServer subServer2;
+    late HttpServer subServer3;
     setUp(() {
       return Future.wait([
         HttpServer.bind('localhost', 0).then((server) => subServer1 = server),

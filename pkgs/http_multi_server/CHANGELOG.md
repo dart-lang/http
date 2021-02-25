@@ -1,8 +1,10 @@
-## 2.2.1-dev
+## 3.0.0-dev
+
+* Migrate to null safety.
 
 ## 2.2.0
 
-- Preparation for [HttpHeaders change]. Update signature of `MultiHeaders.add()`
+* Preparation for [HttpHeaders change]. Update signature of `MultiHeaders.add()`
   and `MultiHeaders.set()` to match new signature of `HttpHeaders`. The
   parameter is not yet forwarded and will not behave as expected.
 
@@ -10,11 +12,10 @@
 
 ## 2.1.0
 
-- Add `HttpMultiServer.bind` static which centralizes logic around common local
+* Add `HttpMultiServer.bind` static which centralizes logic around common local
   serving scenarios - handling a more flexible 'localhost' and listening on
   'any' hostname.
-- Update SDK constraints to `>=2.1.0 <3.0.0`.
-
+* Update SDK constraints to `>=2.1.0 <3.0.0`.
 
 ## 2.0.6
 
