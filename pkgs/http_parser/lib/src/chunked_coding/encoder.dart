@@ -5,7 +5,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:charcode/ascii.dart';
+import 'charcodes.dart';
 
 /// The canonical instance of [ChunkedCodingEncoder].
 const chunkedCodingEncoder = ChunkedCodingEncoder._();
