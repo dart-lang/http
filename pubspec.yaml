@@ -1,18 +1,18 @@
 name: http_retry
-version: 0.1.2-dev
+version: 0.2.0-dev
 
 description: >-
   A wrapper for package:http clients that automatically retries requests
 homepage: https://github.com/dart-lang/http_retry
 
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  async: ^2.0.7
-  http: '>=0.11.0 <0.13.0'
-  pedantic: ^1.0.0
+  async: ^2.5.0
+  http: ^0.13.0
 
 dev_dependencies:
-  fake_async: ^1.0.0
-  test: ^1.2.0
+  fake_async: ^1.2.0
+  pedantic: ^1.10.0
+  test: ^1.16.0

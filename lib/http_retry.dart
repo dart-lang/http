@@ -7,7 +7,6 @@ import 'dart:math' as math;
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
-import 'package:pedantic/pedantic.dart';
 
 /// An HTTP client wrapper that automatically retries failing requests.
 class RetryClient extends BaseClient {
@@ -21,13 +20,13 @@ class RetryClient extends BaseClient {
   final bool Function(BaseResponse) _when;
 
   /// The callback that determines whether a request when an error is thrown.
-  final bool Function(dynamic, StackTrace) _whenError;
+  final bool Function(Object, StackTrace) _whenError;
 
   /// The callback that determines how long to wait before retrying a request.
   final Duration Function(int) _delay;
 
   /// The callback to call to indicate that a request is being retried.
-  final void Function(BaseRequest, BaseResponse, int) _onRetry;
+  final void Function(BaseRequest, BaseResponse?, int)? _onRetry;
 
   /// Creates a client wrapping [_inner] that retries HTTP requests.
   ///
@@ -50,17 +49,15 @@ class RetryClient extends BaseClient {
   /// error for which [whenError] returned `true`.
   RetryClient(
     this._inner, {
-    int retries,
-    bool Function(BaseResponse) when,
-    bool Function(Object, StackTrace) whenError,
-    Duration Function(int retryCount) delay,
-    void Function(BaseRequest, BaseResponse, int retryCount) onRetry,
-  })  : _retries = retries ?? 3,
-        _when = when ?? ((response) => response.statusCode == 503),
-        _whenError = whenError ?? ((_, __) => false),
-        _delay = delay ??
-            ((retryCount) =>
-                const Duration(milliseconds: 500) * math.pow(1.5, retryCount)),
+    int retries = 3,
+    bool Function(BaseResponse) when = _defaultWhen,
+    bool Function(Object, StackTrace) whenError = _defaultWhenError,
+    Duration Function(int retryCount) delay = _defaultDelay,
+    void Function(BaseRequest, BaseResponse?, int retryCount)? onRetry,
+  })  : _retries = retries,
+        _when = when,
+        _whenError = whenError,
+        _delay = delay,
         _onRetry = onRetry {
     RangeError.checkNotNegative(_retries, 'retries');
   }
@@ -74,9 +71,9 @@ class RetryClient extends BaseClient {
   RetryClient.withDelays(
     Client inner,
     Iterable<Duration> delays, {
-    bool Function(BaseResponse) when,
-    bool Function(Object, StackTrace) whenError,
-    void Function(BaseRequest, BaseResponse, int retryCount) onRetry,
+    bool Function(BaseResponse) when = _defaultWhen,
+    bool Function(Object, StackTrace) whenError = _defaultWhenError,
+    void Function(BaseRequest, BaseResponse?, int retryCount)? onRetry,
   }) : this._withDelays(
           inner,
           delays.toList(),
@@ -88,9 +85,9 @@ class RetryClient extends BaseClient {
   RetryClient._withDelays(
     Client inner,
     List<Duration> delays, {
-    bool Function(BaseResponse) when,
-    bool Function(Object, StackTrace) whenError,
-    void Function(BaseRequest, BaseResponse, int) onRetry,
+    required bool Function(BaseResponse) when,
+    required bool Function(Object, StackTrace) whenError,
+    required void Function(BaseRequest, BaseResponse?, int)? onRetry,
   }) : this(
           inner,
           retries: delays.length,
@@ -106,7 +103,7 @@ class RetryClient extends BaseClient {
 
     var i = 0;
     for (;;) {
-      StreamedResponse response;
+      StreamedResponse? response;
       try {
         response = await _inner.send(_copyRequest(request, splitter.split()));
       } catch (error, stackTrace) {
@@ -118,11 +115,11 @@ class RetryClient extends BaseClient {
 
         // Make sure the response stream is listened to so that we don't leave
         // dangling connections.
-        unawaited(response.stream.listen((_) {}).cancel()?.catchError((_) {}));
+        _unawaited(response.stream.listen((_) {}).cancel().catchError((_) {}));
       }
 
       await Future.delayed(_delay(i));
-      if (_onRetry != null) _onRetry(request, response, i);
+      _onRetry?.call(request, response, i);
       i++;
     }
   }
@@ -147,3 +144,12 @@ class RetryClient extends BaseClient {
   @override
   void close() => _inner.close();
 }
+
+bool _defaultWhen(BaseResponse response) => response.statusCode == 503;
+
+bool _defaultWhenError(Object error, StackTrace stackTrace) => false;
+
+Duration _defaultDelay(int retryCount) =>
+    const Duration(milliseconds: 500) * math.pow(1.5, retryCount);
+
+void _unawaited(Future<void>? f) {}
