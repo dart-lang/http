@@ -1,7 +1,9 @@
-## 0.1.2
+## 0.2.0-dev
 
+* Migrate to null safety.
 * Fix a number of lints affecting package maintenance score.
-* Update minimum Dart SDK to `2.1.0`.
+* **BREAKING** `null` may not be passed for most named arguments, instead the
+  argument must be omitted.
 
 ## 0.1.1+3
 
