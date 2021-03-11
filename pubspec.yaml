@@ -1,5 +1,5 @@
 name: http_retry
-version: 0.2.0-dev
+version: 0.2.0
 
 description: >-
   A wrapper for package:http clients that automatically retries requests

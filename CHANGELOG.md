@@ -1,4 +1,4 @@
-## 0.2.0-dev
+## 0.2.0
 
 * Migrate to null safety.
 * Fix a number of lints affecting package maintenance score.
