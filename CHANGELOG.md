@@ -1,4 +1,6 @@
-## 0.13.1-dev
+## 0.13.1
+
+* Fix code samples in `README` to pass a `Uri` instance.
 
 ## 0.13.0
 
