@@ -47,4 +47,7 @@ abstract class BaseResponse {
       throw ArgumentError('Invalid content length $contentLength.');
     }
   }
+
+  bool isSuccessful() => statusCode >= 200 && statusCode < 300;
+
 }
