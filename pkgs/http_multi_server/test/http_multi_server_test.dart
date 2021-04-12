@@ -222,11 +222,9 @@ void main() {
     test("uses the correct server address for 'any'", () async {
       final server = await HttpMultiServer.bind('any', 0);
 
-      if (await supportsIPv4) {
+      if (!await supportsIPv6) {
         expect(server.address, InternetAddress.anyIPv4);
-      }
-
-      if (await supportsIPv6) {
+      } else {
         expect(server.address, InternetAddress.anyIPv6);
       }
     });
