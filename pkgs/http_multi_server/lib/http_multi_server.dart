@@ -163,6 +163,38 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
         backlog: backlog, v6Only: v6Only, shared: shared);
   }
 
+  /// Bind a secure [HttpServer] with handling for special addresses 'localhost'
+  /// and 'any'.
+  ///
+  /// For address 'localhost' behaves like [loopback].
+  ///
+  /// For 'any' listens on [InternetAddress.anyIPv6] if the system supports IPv6
+  /// otherwise [InternetAddress.anyIPv4]. Note [InternetAddress.anyIPv6]
+  /// listens on all hostnames for both IPv4 and IPv6.
+  ///
+  /// See [HttpServer.bindSecure].
+  static Future<HttpServer> bindSecure(
+      dynamic address, int port, SecurityContext context,
+      {int backlog = 0, bool v6Only = false, bool shared = false}) async {
+    if (address == 'localhost') {
+      return await HttpMultiServer.loopbackSecure(port, context,
+          backlog: backlog, v6Only: v6Only, shared: shared);
+    }
+    if (address == 'any') {
+      return await HttpServer.bindSecure(
+          await supportsIPv6
+              ? InternetAddress.anyIPv6
+              : InternetAddress.anyIPv4,
+          port,
+          context,
+          backlog: backlog,
+          v6Only: v6Only,
+          shared: shared);
+    }
+    return await HttpServer.bindSecure(address, port, context,
+        backlog: backlog, v6Only: v6Only, shared: shared);
+  }
+
   /// A helper method for initializing loopback servers.
   ///
   /// [bind] should forward to either [HttpServer.bind] or
