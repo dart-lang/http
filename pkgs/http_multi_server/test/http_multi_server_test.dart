@@ -219,6 +219,16 @@ void main() {
       }
     });
 
+    test("uses the correct server address for 'any'", () async {
+      final server = await HttpMultiServer.bind('any', 0);
+
+      if (!await supportsIPv6) {
+        expect(server.address, InternetAddress.anyIPv4);
+      } else {
+        expect(server.address, InternetAddress.anyIPv6);
+      }
+    });
+
     test('listens on specified hostname', () async {
       if (!await supportsIPv4) return;
       final server = await HttpMultiServer.bind(InternetAddress.anyIPv4, 0);

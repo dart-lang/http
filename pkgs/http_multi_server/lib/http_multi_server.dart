@@ -133,21 +133,31 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// Bind an [HttpServer] with handling for special addresses 'localhost' and
   /// 'any'.
   ///
-  /// For address 'localhost' behaves like [loopback]. For 'any' listens on
-  /// [InternetAddress.anyIPv6] which listens on all hostnames for both IPv4 and
-  /// IPV6. For any other address forwards directly to `HttpServer.bind` where
+  /// For address 'localhost' behaves like [loopback].
+  ///
+  /// For 'any' listens on [InternetAddress.anyIPv6] if the system supports IPv6
+  /// otherwise [InternetAddress.anyIPv4]. Note [InternetAddress.anyIPv6]
+  /// listens on all hostnames for both IPv4 and IPv6.
+  ///
+  /// For any other address forwards directly to `HttpServer.bind` where
   /// the IPvX support may vary.
   ///
   /// See [HttpServer.bind].
   static Future<HttpServer> bind(dynamic address, int port,
-      {int backlog = 0, bool v6Only = false, bool shared = false}) {
+      {int backlog = 0, bool v6Only = false, bool shared = false}) async {
     if (address == 'localhost') {
       return HttpMultiServer.loopback(port,
           backlog: backlog, v6Only: v6Only, shared: shared);
     }
     if (address == 'any') {
-      return HttpServer.bind(InternetAddress.anyIPv6, port,
-          backlog: backlog, v6Only: v6Only, shared: shared);
+      return HttpServer.bind(
+          await supportsIPv6
+              ? InternetAddress.anyIPv6
+              : InternetAddress.anyIPv4,
+          port,
+          backlog: backlog,
+          v6Only: v6Only,
+          shared: shared);
     }
     return HttpServer.bind(address, port,
         backlog: backlog, v6Only: v6Only, shared: shared);

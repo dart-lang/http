@@ -1,3 +1,8 @@
+## 3.0.1
+
+* Fix an issue where `bind` would bind to the `anyIPv6` address in unsupported
+  environments.
+
 ## 3.0.0
 
 * Migrate to null safety.
