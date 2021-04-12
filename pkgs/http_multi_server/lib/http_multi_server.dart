@@ -137,7 +137,7 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// For 'any' listens on [InternetAddress.anyIPv6] if the system supports IPv6
   /// otherwise [InternetAddress.anyIPv4]. Note [InternetAddress.anyIPv6]
-  /// listens on all hostnames for both IPv4 and IPV6.
+  /// listens on all hostnames for both IPv4 and IPv6.
   ///
   /// For any other address forwards directly to `HttpServer.bind` where
   /// the IPvX support may vary.
