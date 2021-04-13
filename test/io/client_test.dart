@@ -20,7 +20,7 @@ void main() {
 
   test('#send a StreamedRequest', () async {
     var client = http.Client();
-    var request = http.StreamedRequest('POST', serverUrl)
+    var request = http.StreamedRequest('POST', httpServerUrl)
       ..headers[HttpHeaders.contentTypeHeader] =
           'application/json; charset=utf-8'
       ..headers[HttpHeaders.userAgentHeader] = 'Dart';
@@ -59,7 +59,7 @@ void main() {
   test('#send a StreamedRequest with a custom client', () async {
     var ioClient = HttpClient();
     var client = http_io.IOClient(ioClient);
-    var request = http.StreamedRequest('POST', serverUrl)
+    var request = http.StreamedRequest('POST', httpServerUrl)
       ..headers[HttpHeaders.contentTypeHeader] =
           'application/json; charset=utf-8'
       ..headers[HttpHeaders.userAgentHeader] = 'Dart';
@@ -110,7 +110,7 @@ void main() {
 
   test('sends a MultipartRequest with correct content-type header', () async {
     var client = http.Client();
-    var request = http.MultipartRequest('POST', serverUrl);
+    var request = http.MultipartRequest('POST', httpServerUrl);
 
     var response = await client.send(request);
 
@@ -125,11 +125,45 @@ void main() {
   test('detachSocket returns a socket from an IOStreamedResponse', () async {
     var ioClient = HttpClient();
     var client = http_io.IOClient(ioClient);
-    var request = http.Request('GET', serverUrl);
+    var request = http.Request('GET', httpServerUrl);
 
     var response = await client.send(request);
     var socket = await response.detachSocket();
 
     expect(socket, isNotNull);
+  });
+
+  test('bad certificate callback', () async {
+    /// Default state: bad certificate should raise an exception
+    var ioClient = http.Client();
+
+    expect(ioClient.get(httpsServerUrl.toString()), throwsHandshakeException);
+
+    /// Override default behaviour to accept bad certificates
+    /// (only THIS instance)
+    ioClient.setBadCertificateCallback((cert, host, port) => true, true);
+
+    var response = await ioClient.get(httpsServerUrl);
+    expect(response.statusCode, 200);
+
+    // Create a new client callback should not be set
+    ioClient = http.Client();
+
+    // should raise again, since setting was not global
+    expect(ioClient.get(httpsServerUrl.toString()), throwsHandshakeException);
+
+    // Set global callback, should not raise even on new clients
+    ioClient.setBadCertificateCallback((cr, host, port) => true);
+
+    // this will create a new client transparently
+    response = await http.get(httpsServerUrl);
+
+    // ... which still should remember the old setting
+    expect(response.statusCode, 200);
+
+    // Test case for explicitly rejecting bad certificates
+    ioClient.setBadCertificateCallback((cr, host, port) => false);
+
+    expect(ioClient.get(httpsServerUrl.toString()), throwsHandshakeException);
   });
 }

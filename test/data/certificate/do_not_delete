@@ -1,0 +1,8 @@
+These are self signed certificates ONLY used for the purpose of testing the package by
+using them in a [SecureContext].
+
+They will only match to "localhost", also they will throw a [HandshakeException], due to being
+self-signed.
+
+Created using following command (openssl on windows;  `openssl version -v´: OpenSSL 1.1.1g  21 Apr 2020):
+C:\OpenSSL-Win64\bin\openssl.exe req -x509 -config C:\OpenSSL-Win64\bin\cnf\openssl.cnf -sha256 -days 3650 -nodes -out localhost.crt -keyout localhost.key
