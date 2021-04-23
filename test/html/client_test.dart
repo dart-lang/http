@@ -3,9 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('browser')
-
-import 'package:http/http.dart' as http;
 import 'package:http/browser_client.dart';
+import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
 import 'utils.dart';
