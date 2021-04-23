@@ -1,5 +1,5 @@
 name: http
-version: 0.13.1
+version: 0.13.2-dev
 homepage: https://github.com/dart-lang/http
 description: A composable, multi-platform, Future-based API for HTTP requests.
 

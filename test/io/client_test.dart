@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-
 import 'dart:convert';
 import 'dart:io';
 
@@ -117,7 +116,8 @@ void main() {
     var bytesString = await response.stream.bytesToString();
     client.close();
 
-    var headers = jsonDecode(bytesString)['headers'] as Map<String, dynamic>;
+    var headers = (jsonDecode(bytesString) as Map<String, dynamic>)['headers']
+        as Map<String, dynamic>;
     var contentType = (headers['content-type'] as List).single;
     expect(contentType, startsWith('multipart/form-data; boundary='));
   });
