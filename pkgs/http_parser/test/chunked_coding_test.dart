@@ -5,9 +5,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:http_parser/http_parser.dart';
-
 import 'package:charcode/charcode.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:test/test.dart';
 
 void main() {
