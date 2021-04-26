@@ -88,20 +88,16 @@ abstract class BaseRequest {
   bool get finalized => _finalized;
   bool _finalized = false;
 
+  static final _tokenRE = RegExp(r"^[\w!#%&'*+\-.^`|~]+$");
+  static String _validateMethod(String method) {
+    if (!_tokenRE.hasMatch(method)) {
+      throw ArgumentError.value(method, 'method', 'Not a valid method');
+    }
+    return method;
+  }
+
   BaseRequest(String method, this.url)
-      : method = [
-          'GET',
-          'HEAD',
-          'POST',
-          'PUT',
-          'PATCH',
-          'DELETE',
-          'CONNECT',
-          'OPTIONS',
-          'TRACE',
-        ].contains(method)
-            ? method
-            : throw ArgumentError('invalid HTTP method.'),
+      : method = _validateMethod(method),
         headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
             hashCode: (key) => key.toLowerCase().hashCode);
