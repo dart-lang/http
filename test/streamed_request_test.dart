@@ -24,9 +24,10 @@ void main() {
       expect(() => request.contentLength = 10, throwsStateError);
     });
   });
-  group('#invalid method', () {
-    test('Invalid method', () {
-      expect(() => http.StreamedRequest('LLAMA', dummyUrl), throwsStateError);
+  group('#method', () {
+    test('must be a token', () {
+      expect(
+          () => http.StreamedRequest('LLAMA', dummyUrl), throwsArgumentError);
     });
   });
 }

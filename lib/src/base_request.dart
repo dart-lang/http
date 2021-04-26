@@ -90,15 +90,18 @@ abstract class BaseRequest {
 
   BaseRequest(String method, this.url)
       : method = [
-          'HEAD',
           'GET',
+          'HEAD',
           'POST',
           'PUT',
           'PATCH',
           'DELETE',
+          'CONNECT',
+          'OPTIONS',
+          'TRACE',
         ].contains(method)
             ? method
-            : throw StateError('invalid HTTP method.'),
+            : throw ArgumentError('invalid HTTP method.'),
         headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
             hashCode: (key) => key.toLowerCase().hashCode);

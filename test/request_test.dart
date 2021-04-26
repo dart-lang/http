@@ -335,9 +335,9 @@ void main() {
     });
   });
 
-  group('#invalid method', () {
-    test('Invalid method', () {
-      expect(() => http.Request('LLAMA', dummyUrl), throwsStateError);
+  group('#method', () {
+    test('must be a token', () {
+      expect(() => http.Request('LLAMA[0]', dummyUrl), throwsArgumentError);
     });
   });
 }
