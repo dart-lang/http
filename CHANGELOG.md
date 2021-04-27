@@ -1,4 +1,8 @@
-## 0.13.2-dev
+## 0.13.3-dev
+
+## 0.13.2
+
+* Fix `CRLF` in `BaseRequest`
 
 ## 0.13.1
 
