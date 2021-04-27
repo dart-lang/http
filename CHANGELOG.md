@@ -2,7 +2,7 @@
 
 ## 0.13.2
 
-* Fix `CRLF` in `BaseRequest`
+* Validate the method parameter of BaseRequest. Must now be a valid "token".
 
 ## 0.13.1
 
