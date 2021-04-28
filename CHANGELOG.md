@@ -1,4 +1,7 @@
-## 0.13.2-dev
+## 0.13.2
+
+* Add `package:http/retry.dart` with `RetryClient`. This is the same
+  implementation as `package:http_retry` which will be discontinued.
 
 ## 0.13.1
 
