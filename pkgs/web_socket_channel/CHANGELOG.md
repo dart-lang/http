@@ -1,3 +1,8 @@
+## 2.1.0-dev
+
+- Add `IOWebSocketChannel.innerWebSocket` getter to access features not exposed
+  through the shared `WebSocketChannel` interface.
+
 ## 2.0.0
 
 - Support null safety.

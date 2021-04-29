@@ -35,7 +35,11 @@ class IOWebSocketChannel extends StreamChannelMixin
   @override
   final WebSocketSink sink;
 
-  // TODO(nweiz): Add a compression parameter after the initial release.
+  /// The underlying [WebSocket], if this channel has connected.
+  ///
+  /// `If the future returned from [WebSocket.connect] has not yet completed, or
+  /// completed as an error, this will be null.
+  WebSocket? get innerWebSocket => _webSocket;
 
   /// Creates a new WebSocket connection.
   ///
