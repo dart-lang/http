@@ -30,17 +30,16 @@ void main() {
       expect(response.statusCode, equals(200));
       expect(
           response.body,
-          parse(equals({
-            'method': 'GET',
-            'path': '/',
-            'headers': {
-              'content-length': ['0'],
-              'accept-encoding': ['gzip'],
-              'user-agent': ['Dart'],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
-            },
-          })));
+          parse(allOf(
+              containsPair('method', 'GET'),
+              containsPair('path', '/'),
+              containsPair(
+                  'headers',
+                  allOf(
+                      containsPair('accept-encoding', ['gzip']),
+                      containsPair('user-agent', ['Dart']),
+                      containsPair('x-random-header', ['Value']),
+                      containsPair('x-other-header', ['Other Value']))))));
     });
 
     test('post', () async {
@@ -397,17 +396,16 @@ void main() {
       });
       expect(
           response,
-          parse(equals({
-            'method': 'GET',
-            'path': '/',
-            'headers': {
-              'content-length': ['0'],
-              'accept-encoding': ['gzip'],
-              'user-agent': ['Dart'],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
-            },
-          })));
+          parse(allOf(
+              containsPair('method', 'GET'),
+              containsPair('path', '/'),
+              containsPair(
+                  'headers',
+                  allOf(
+                      containsPair('accept-encoding', ['gzip']),
+                      containsPair('user-agent', ['Dart']),
+                      containsPair('x-random-header', ['Value']),
+                      containsPair('x-other-header', ['Other Value']))))));
     });
 
     test('read throws an error for a 4** status code', () {
@@ -423,17 +421,16 @@ void main() {
 
       expect(
           String.fromCharCodes(bytes),
-          parse(equals({
-            'method': 'GET',
-            'path': '/',
-            'headers': {
-              'content-length': ['0'],
-              'accept-encoding': ['gzip'],
-              'user-agent': ['Dart'],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
-            },
-          })));
+          parse(allOf(
+              containsPair('method', 'GET'),
+              containsPair('path', '/'),
+              containsPair(
+                  'headers',
+                  allOf(
+                      containsPair('accept-encoding', ['gzip']),
+                      containsPair('user-agent', ['Dart']),
+                      containsPair('x-random-header', ['Value']),
+                      containsPair('x-other-header', ['Other Value']))))));
     });
 
     test('readBytes throws an error for a 4** status code', () {
