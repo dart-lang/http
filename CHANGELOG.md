@@ -1,5 +1,7 @@
 ## 0.13.3-dev
 
+* Validate that the `method` parameter of BaseRequest is a valid "token".
+
 ## 0.13.2
 
 * Add `package:http/retry.dart` with `RetryClient`. This is the same
