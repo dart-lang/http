@@ -334,4 +334,10 @@ void main() {
       expect(request.toString(), 'POST $dummyUrl');
     });
   });
+
+  group('#method', () {
+    test('must be a token', () {
+      expect(() => http.Request('LLAMA[0]', dummyUrl), throwsArgumentError);
+    });
+  });
 }

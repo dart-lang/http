@@ -88,8 +88,17 @@ abstract class BaseRequest {
   bool get finalized => _finalized;
   bool _finalized = false;
 
-  BaseRequest(this.method, this.url)
-      : headers = LinkedHashMap(
+  static final _tokenRE = RegExp(r"^[\w!#%&'*+\-.^`|~]+$");
+  static String _validateMethod(String method) {
+    if (!_tokenRE.hasMatch(method)) {
+      throw ArgumentError.value(method, 'method', 'Not a valid method');
+    }
+    return method;
+  }
+
+  BaseRequest(String method, this.url)
+      : method = _validateMethod(method),
+        headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
             hashCode: (key) => key.toLowerCase().hashCode);
 
