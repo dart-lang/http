@@ -37,7 +37,7 @@ class IOWebSocketChannel extends StreamChannelMixin
 
   /// The underlying [WebSocket], if this channel has connected.
   ///
-  /// `If the future returned from [WebSocket.connect] has not yet completed, or
+  /// If the future returned from [WebSocket.connect] has not yet completed, or
   /// completed as an error, this will be null.
   WebSocket? get innerWebSocket => _webSocket;
 
