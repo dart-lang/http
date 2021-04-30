@@ -296,6 +296,7 @@ void main() {
     });
 
     test('listens on specified hostname', () async {
+      if (!await supportsIPv4) return;
       final server =
           await HttpMultiServer.bindSecure(InternetAddress.anyIPv4, 0, context);
       server.listen((request) {
@@ -303,10 +304,8 @@ void main() {
         request.response.close();
       });
 
-      if (await supportsIPv4) {
-        expect(client.read(Uri.https('127.0.0.1:${server.port}', '')),
-            completion(equals('got request')));
-      }
+      expect(client.read(Uri.https('127.0.0.1:${server.port}', '')),
+          completion(equals('got request')));
 
       if (await supportsIPv6) {
         expect(client.read(Uri.https('[::1]:${server.port}', '')),
