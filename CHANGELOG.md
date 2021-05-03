@@ -1,4 +1,4 @@
-## 0.13.3-dev
+## 0.13.3
 
 * Validate that the `method` parameter of BaseRequest is a valid "token".
 
