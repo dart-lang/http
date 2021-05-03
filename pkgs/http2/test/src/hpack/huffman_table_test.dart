@@ -4,9 +4,9 @@
 
 import 'dart:convert' show ascii;
 
-import 'package:test/test.dart';
 import 'package:http2/src/hpack/huffman.dart';
 import 'package:http2/src/hpack/huffman_table.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('hpack', () {

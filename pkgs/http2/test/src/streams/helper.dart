@@ -4,9 +4,8 @@
 
 import 'dart:async';
 
-import 'package:test/test.dart';
-
 import 'package:http2/transport.dart';
+import 'package:test/test.dart';
 
 void expectHeadersEqual(List<Header> headers, List<Header> expectedHeaders) {
   expect(headers, hasLength(expectedHeaders.length));
@@ -38,7 +37,9 @@ class BidirectionalConnection {
   ClientSettings? settings;
   final StreamController<List<int>> writeA = StreamController();
   final StreamController<List<int>> writeB = StreamController();
+
   Stream<List<int>> get readA => writeA.stream;
+
   Stream<List<int>> get readB => writeB.stream;
 
   ClientTransportConnection get clientConnection =>

@@ -6,15 +6,14 @@ import 'dart:async';
 import 'dart:convert' show ascii;
 import 'dart:typed_data';
 
-import 'package:pedantic/pedantic.dart';
-import 'package:test/test.dart';
-
 import 'package:http2/src/connection_preface.dart';
 import 'package:http2/src/flowcontrol/window.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/settings/settings.dart';
 import 'package:http2/transport.dart';
+import 'package:pedantic/pedantic.dart';
+import 'package:test/test.dart';
 
 import 'src/hpack/hpack_test.dart' show isHeader;
 

@@ -11,12 +11,11 @@
 ///
 /// without this patch this test will run for a _long_ time.
 /// ---------------------------------------------------------------------------
-
 import 'dart:async';
 
-import 'package:test/test.dart';
-import 'package:http2/transport.dart';
 import 'package:http2/src/streams/stream_handler.dart';
+import 'package:http2/transport.dart';
+import 'package:test/test.dart';
 
 import '../test/transport_test.dart';
 

@@ -4,10 +4,9 @@
 
 import 'dart:async';
 
-import 'package:test/test.dart';
-
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/settings/settings.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('frames', () {

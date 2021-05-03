@@ -4,8 +4,8 @@
 
 import 'dart:async';
 
-import 'package:test/test.dart';
 import 'package:http2/src/async_utils/async_utils.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('async_utils', () {

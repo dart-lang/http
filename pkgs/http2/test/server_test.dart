@@ -4,13 +4,12 @@
 
 import 'dart:async';
 
-import 'package:test/test.dart';
-
-import 'package:http2/transport.dart';
 import 'package:http2/src/connection_preface.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/settings/settings.dart';
+import 'package:http2/transport.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('server-tests', () {

@@ -3,15 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:http2/src/async_utils/async_utils.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-import 'package:test/test.dart';
-
-import 'package:http2/transport.dart';
+import 'package:http2/src/flowcontrol/connection_queues.dart';
 import 'package:http2/src/flowcontrol/queue_messages.dart';
 import 'package:http2/src/flowcontrol/stream_queues.dart';
 import 'package:http2/src/flowcontrol/window_handler.dart';
-import 'package:http2/src/flowcontrol/connection_queues.dart';
+import 'package:http2/transport.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:test/test.dart';
 
 import 'stream_queues_test.mocks.dart';
 

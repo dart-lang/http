@@ -6,10 +6,9 @@ import 'dart:async';
 import 'dart:convert' show ascii, utf8;
 import 'dart:io';
 
-import 'package:test/test.dart';
-
-import 'package:http2/transport.dart';
 import 'package:http2/multiprotocol_server.dart';
+import 'package:http2/transport.dart';
+import 'package:test/test.dart';
 
 void main() {
   var context = SecurityContext()

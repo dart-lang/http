@@ -4,8 +4,8 @@
 
 import 'dart:async';
 
-import 'package:test/test.dart';
 import 'package:http2/transport.dart';
+import 'package:test/test.dart';
 
 import 'helper.dart';
 
