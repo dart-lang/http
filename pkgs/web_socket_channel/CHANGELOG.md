@@ -1,4 +1,4 @@
-## 2.1.0-dev
+## 2.1.0
 
 - Add `IOWebSocketChannel.innerWebSocket` getter to access features not exposed
   through the shared `WebSocketChannel` interface.
