@@ -1,3 +1,5 @@
+## 0.13.4-dev
+
 ## 0.13.3
 
 * Validate that the `method` parameter of BaseRequest is a valid "token".
@@ -12,10 +14,6 @@
 * Fix code samples in `README` to pass a `Uri` instance.
 
 ## 0.13.0
-
-* Stable null safety release.
-
-## 0.13.0-nullsafety.0
 
 * Migrate to null safety.
 * Add `const` constructor to `ByteStream`.
