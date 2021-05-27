@@ -53,6 +53,18 @@ class BrowserClient extends BaseClient {
       ..open(request.method, '${request.url}', async: true)
       ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
+
+    if (onSendProgress != null) {
+      xhr.upload.addEventListener('progress', (event) {
+        if (event is ProgressEvent && event.lengthComputable) {
+          onSendProgress(
+            event.loaded,
+            event.total,
+          );
+        }
+      });
+    }
+
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = Completer<StreamedResponse>();
