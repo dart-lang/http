@@ -8,6 +8,7 @@ import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
 import 'io_streamed_response.dart';
+import 'progress.dart';
 
 /// Create an [IOClient].
 ///
@@ -23,7 +24,10 @@ class IOClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<IOStreamedResponse> send(BaseRequest request) async {
+  Future<IOStreamedResponse> send(
+    BaseRequest request, {
+    Progress? onSendProgress,
+  }) async {
     var stream = request.finalize();
 
     try {

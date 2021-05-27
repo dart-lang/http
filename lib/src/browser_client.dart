@@ -12,6 +12,7 @@ import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
+import 'progress.dart';
 import 'streamed_response.dart';
 
 /// Create a [BrowserClient].
@@ -41,7 +42,10 @@ class BrowserClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<StreamedResponse> send(
+    BaseRequest request, {
+    Progress? onSendProgress,
+  }) async {
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
     _xhrs.add(xhr);
