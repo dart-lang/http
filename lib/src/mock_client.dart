@@ -5,6 +5,7 @@
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
+import 'progress.dart';
 import 'request.dart';
 import 'response.dart';
 import 'streamed_request.dart';
@@ -65,7 +66,10 @@ class MockClient extends BaseClient {
         });
 
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<StreamedResponse> send(
+    BaseRequest request, {
+    Progress? onSendProgress,
+  }) async {
     var bodyStream = request.finalize();
     return await _handler(request, bodyStream);
   }

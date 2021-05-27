@@ -11,6 +11,7 @@ import 'client_stub.dart'
     if (dart.library.html) 'browser_client.dart'
     if (dart.library.io) 'io_client.dart';
 import 'exception.dart';
+import 'progress.dart';
 import 'response.dart';
 import 'streamed_response.dart';
 
@@ -58,9 +59,17 @@ abstract class Client {
   ///
   /// [encoding] defaults to [utf8].
   ///
+  /// If [onSendProgress] is provided it will be called to indicate
+  /// the upload progress
+  ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> post(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+  Future<Response> post(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Progress? onSendProgress,
+  });
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL.
@@ -79,9 +88,17 @@ abstract class Client {
   ///
   /// [encoding] defaults to [utf8].
   ///
+  /// If [onSendProgress] is provided it will be called to indicate
+  /// the upload progress
+  ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> put(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+  Future<Response> put(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Progress? onSendProgress,
+  });
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL.
@@ -100,15 +117,31 @@ abstract class Client {
   ///
   /// [encoding] defaults to [utf8].
   ///
+  /// If [onSendProgress] is provided it will be called to indicate
+  /// the upload progress
+  ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> patch(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+  Future<Response> patch(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Progress? onSendProgress,
+  });
 
   /// Sends an HTTP DELETE request with the given headers to the given URL.
   ///
+  /// If [onSendProgress] is provided it will be called to indicate
+  /// the upload progress
+  ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> delete(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+  Future<Response> delete(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Progress? onSendProgress,
+  });
 
   /// Sends an HTTP GET request with the given headers to the given URL and
   /// returns a Future that completes to the body of the response as a String.
@@ -132,7 +165,14 @@ abstract class Client {
   Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers});
 
   /// Sends an HTTP request and asynchronously returns the response.
-  Future<StreamedResponse> send(BaseRequest request);
+  ///
+  /// If [onSendProgress] is provided it will be called to indicate
+  /// the upload progress
+  ///
+  Future<StreamedResponse> send(
+    BaseRequest request, {
+    Progress? onSendProgress,
+  });
 
   /// Closes the client and cleans up any resources associated with it.
   ///
