@@ -127,7 +127,24 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      var response = await stream.pipe(ioRequest) as HttpClientResponse;
+      HttpClientResponse response;
+      if (onSendProgress != null) {
+        var loaded = 0;
+        onSendProgress(loaded, request.contentLength);
+
+        await ioRequest.addStream(
+          stream.map(
+            (chunk) {
+              loaded += chunk.length;
+              onSendProgress(loaded, request.contentLength);
+              return chunk;
+            },
+          ),
+        );
+        response = await ioRequest.close();
+      } else {
+        response = await stream.pipe(ioRequest) as HttpClientResponse;
+      }
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
