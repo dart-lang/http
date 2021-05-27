@@ -62,6 +62,8 @@
 * Throw a more useful error when a client is used after it has been closed.
 * Require Dart 2.14.
 
+* Add `onSendProgress` callback
+
 ## 0.13.3
 
 * Validate that the `method` parameter of BaseRequest is a valid "token".
