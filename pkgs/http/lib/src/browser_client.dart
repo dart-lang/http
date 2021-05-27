@@ -66,6 +66,18 @@ class BrowserClient extends BaseClient {
       ..open(request.method, '${request.url}', true)
       ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
+
+    if (onSendProgress != null) {
+      xhr.upload.addEventListener('progress', (event) {
+        if (event is ProgressEvent && event.lengthComputable) {
+          onSendProgress(
+            event.loaded,
+            event.total,
+          );
+        }
+      });
+    }
+
     for (var header in request.headers.entries) {
       xhr.setRequestHeader(header.key, header.value);
     }
