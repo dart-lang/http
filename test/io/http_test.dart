@@ -375,17 +375,16 @@ void main() {
       expect(response.statusCode, equals(200));
       expect(
           response.body,
-          parse(equals({
-            'method': 'DELETE',
-            'path': '/',
-            'headers': {
-              'content-length': ['0'],
-              'accept-encoding': ['gzip'],
-              'user-agent': ['Dart'],
-              'x-random-header': ['Value'],
-              'x-other-header': ['Other Value']
-            }
-          })));
+          parse(allOf(
+              containsPair('method', 'DELETE'),
+              containsPair('path', '/'),
+              containsPair(
+                  'headers',
+                  allOf(
+                      containsPair('accept-encoding', ['gzip']),
+                      containsPair('user-agent', ['Dart']),
+                      containsPair('x-random-header', ['Value']),
+                      containsPair('x-other-header', ['Other Value']))))));
     });
 
     test('read', () async {
