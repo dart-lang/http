@@ -23,7 +23,7 @@ jobs:
         sdk: [dev]
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.3
+      - uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -47,10 +47,10 @@ jobs:
       matrix:
         # Add macos-latest and/or windows-latest if relevant for this package.
         os: [ubuntu-latest]
-        sdk: [dev]
+        sdk: [2.12.0, dev]
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.3
+      - uses: dart-lang/setup-dart@v1
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
