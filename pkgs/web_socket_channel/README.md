@@ -15,7 +15,7 @@ class, and [a similar implementation][HtmlWebSocketChannel] that wraps
 
 It also provides constants for the WebSocket protocol's pre-defined status codes
 in the [`status.dart` library][status]. It's strongly recommended that users
-import this library should be imported with the prefix `status`.
+import this library with the prefix `status`.
 
 [status]: https://pub.dev/documentation/web_socket_channel/latest/status/status-library.html
 
