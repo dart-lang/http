@@ -26,6 +26,8 @@ class IOClient extends BaseClient {
   Future<IOStreamedResponse> send(BaseRequest request) async {
     var stream = request.finalize();
 
+    _inner ??= HttpClient();
+
     try {
       var ioRequest = (await _inner!.openUrl(request.method, request.url))
         ..followRedirects = request.followRedirects
