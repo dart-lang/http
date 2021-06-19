@@ -24,6 +24,12 @@ class IOClient extends BaseClient {
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<IOStreamedResponse> send(BaseRequest request) async {
+    if (_inner == null) {
+      throw ClientException(
+          "HTTP send request failed, can't send data after client got closed.",
+          request.url);
+    }
+
     var stream = request.finalize();
 
     try {
