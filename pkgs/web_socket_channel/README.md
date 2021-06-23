@@ -20,7 +20,7 @@ import this library with the prefix `status`.
 [status]: https://pub.dev/documentation/web_socket_channel/latest/status/status-library.html
 
 ```dart
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
 main() async {
