@@ -26,8 +26,7 @@ class IOClient extends BaseClient {
   Future<IOStreamedResponse> send(BaseRequest request) async {
     if (_inner == null) {
       throw ClientException(
-          "HTTP send request failed, can't send data after client got closed.",
-          request.url);
+          'HTTP request failed. Client is already closed.', request.url);
     }
 
     var stream = request.finalize();
