@@ -1,6 +1,7 @@
-## 0.13.4-dev
+## 0.13.4
 
 * Throw a more useful error when a client is used after it has been closed.
+* Update `meta` constraint to `>=1.3.0 <3.0.0`.
 
 ## 0.13.3
 
