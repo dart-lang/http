@@ -131,7 +131,10 @@ class MediaType {
   /// This will produce a valid HTTP media type.
   @override
   String toString() {
-    final buffer = StringBuffer()..write(type)..write('/')..write(subtype);
+    final buffer = StringBuffer()
+      ..write(type)
+      ..write('/')
+      ..write(subtype);
 
     parameters.forEach((attribute, value) {
       buffer.write('; $attribute=');
