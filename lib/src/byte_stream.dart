@@ -13,7 +13,7 @@ class ByteStream extends StreamView<List<int>> {
   /// Returns a single-subscription byte stream that will emit the given bytes
   /// in a single chunk.
   factory ByteStream.fromBytes(List<int> bytes) =>
-      ByteStream(Stream.fromIterable([bytes]));
+      ByteStream(Stream.value(bytes));
 
   /// Collects the data of this stream in a [Uint8List].
   Future<Uint8List> toBytes() {
