@@ -30,9 +30,12 @@ If you do this, make sure to close the client when you're done:
 ```dart
 var client = http.Client();
 try {
-  var uriResponse = await client.post(Uri.parse('https://example.com/whatsit/create'),
+  var response = await client.post(
+      Uri.https('example.com', 'whatsit/create'),
       body: {'name': 'doodle', 'color': 'blue'});
-  print(await client.get(uriResponse.bodyFields['uri']));
+  var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+  var uri = Uri.parse(decodedResponse['uri'] as String);
+  print(await client.get(uri));
 } finally {
   client.close();
 }
