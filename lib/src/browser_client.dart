@@ -39,6 +39,9 @@ class BrowserClient extends BaseClient {
   /// Defaults to `false`.
   bool withCredentials = false;
 
+  /// Creates a new HTTP client.
+  BrowserClient({this.withCredentials});
+
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
