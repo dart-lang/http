@@ -7,6 +7,20 @@ This package contains a set of high-level functions and classes that make it
 easy to consume HTTP resources. It's multi-platform, and supports mobile, desktop,
 and the browser.
 
+## Installation
+
+In the `pubspec.yaml` of your flutter project, add the following dependency:
+
+```yaml
+dependencies:
+  ...
+  http: <latest_version>
+```
+Or Run this command in `Root` directory
+```
+flutter pub add http
+```
+
 ## Using
 
 The easiest way to use this library is via the top-level functions. They allow
