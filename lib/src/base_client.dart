@@ -89,8 +89,11 @@ abstract class BaseClient implements Client {
         throw ArgumentError('Invalid request body "$body".');
       }
     }
-
-    return Response.fromStream(await send(request));
+    try {
+      return Response.fromStream(await send(request));
+    } catch (e) {
+      rethrow;
+    }
   }
 
   /// Throws an error if [response] is not successful.
