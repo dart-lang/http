@@ -6,13 +6,12 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:typed_data';
 
-import 'package:pedantic/pedantic.dart' show unawaited;
-
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
+import 'utils.dart' show unawaited;
 
 /// Create a [BrowserClient].
 ///

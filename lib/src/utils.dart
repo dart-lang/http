@@ -74,3 +74,6 @@ Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
       sink.close();
       onDone();
     }));
+
+// TODO: Remove after Dart 2.14 is stable
+void unawaited<T>(Future<T> future) {}
