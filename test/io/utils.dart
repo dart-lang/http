@@ -7,7 +7,6 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:http/src/utils.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 export '../utils.dart';
