@@ -9,6 +9,7 @@ import 'dart:typed_data';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
+import 'cancelation_token.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
 import 'utils.dart' show unawaited;
@@ -30,7 +31,7 @@ class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
   /// These are aborted if the client is closed.
-  final _xhrs = <HttpRequest>{};
+  final _xhrs = <CancellationToken>{};
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
@@ -43,7 +44,14 @@ class BrowserClient extends BaseClient {
   Future<StreamedResponse> send(BaseRequest request) async {
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
-    _xhrs.add(xhr);
+
+    final cancellationToken =
+        request.cancellationToken ?? CancellationToken(autoDispose: true);
+
+    await cancellationToken.registerRequest(xhr);
+
+    _xhrs.add(cancellationToken);
+
     xhr
       ..open(request.method, '${request.url}', async: true)
       ..responseType = 'arraybuffer'
@@ -75,7 +83,8 @@ class BrowserClient extends BaseClient {
     try {
       return await completer.future;
     } finally {
-      _xhrs.remove(xhr);
+      await cancellationToken.completeRequest(request);
+      _xhrs.remove(cancellationToken);
     }
   }
 
@@ -85,7 +94,7 @@ class BrowserClient extends BaseClient {
   @override
   void close() {
     for (var xhr in _xhrs) {
-      xhr.abort();
+      xhr.disposeToken();
     }
   }
 }

@@ -39,15 +39,22 @@ class MockClient extends BaseClient {
             ..bodyBytes = bodyBytes
             ..finalize();
 
-          final response = await fn(request);
-          return StreamedResponse(
-              ByteStream.fromBytes(response.bodyBytes), response.statusCode,
-              contentLength: response.contentLength,
-              request: baseRequest,
-              headers: response.headers,
-              isRedirect: response.isRedirect,
-              persistentConnection: response.persistentConnection,
-              reasonPhrase: response.reasonPhrase);
+          await baseRequest.cancellationToken?.registerRequest(request);
+
+          try {
+            final response = await fn(request);
+
+            return StreamedResponse(
+                ByteStream.fromBytes(response.bodyBytes), response.statusCode,
+                contentLength: response.contentLength,
+                request: baseRequest,
+                headers: response.headers,
+                isRedirect: response.isRedirect,
+                persistentConnection: response.persistentConnection,
+                reasonPhrase: response.reasonPhrase);
+          } finally {
+            await baseRequest.cancellationToken?.completeRequest(request);
+          }
         });
 
   /// Creates a [MockClient] with a handler that receives [StreamedRequest]s and

@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import 'base_request.dart';
 import 'byte_stream.dart';
+import 'cancelation_token.dart';
 import 'client.dart';
 import 'exception.dart';
 import 'request.dart';
@@ -19,43 +20,66 @@ import 'streamed_response.dart';
 /// maybe [close], and then they get various convenience methods for free.
 abstract class BaseClient implements Client {
   @override
-  Future<Response> head(Uri url, {Map<String, String>? headers}) =>
-      _sendUnstreamed('HEAD', url, headers);
+  Future<Response> head(Uri url,
+          {Map<String, String>? headers,
+          CancellationToken? cancellationToken}) =>
+      _sendUnstreamed('HEAD', url, headers, cancellationToken);
 
   @override
-  Future<Response> get(Uri url, {Map<String, String>? headers}) =>
-      _sendUnstreamed('GET', url, headers);
+  Future<Response> get(Uri url,
+          {Map<String, String>? headers,
+          CancellationToken? cancellationToken}) =>
+      _sendUnstreamed('GET', url, headers, cancellationToken);
 
   @override
   Future<Response> post(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('POST', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          CancellationToken? cancellationToken}) =>
+      _sendUnstreamed('POST', url, headers, cancellationToken, body, encoding);
 
   @override
   Future<Response> put(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PUT', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          CancellationToken? cancellationToken}) =>
+      _sendUnstreamed('PUT', url, headers, cancellationToken, body, encoding);
 
   @override
   Future<Response> patch(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PATCH', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          CancellationToken? cancellationToken}) =>
+      _sendUnstreamed('PATCH', url, headers, cancellationToken, body, encoding);
 
   @override
   Future<Response> delete(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('DELETE', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          CancellationToken? cancellationToken}) =>
+      _sendUnstreamed(
+          'DELETE', url, headers, cancellationToken, body, encoding);
 
   @override
-  Future<String> read(Uri url, {Map<String, String>? headers}) async {
-    final response = await get(url, headers: headers);
+  Future<String> read(Uri url,
+      {Map<String, String>? headers,
+      CancellationToken? cancellationToken}) async {
+    final response =
+        await get(url, headers: headers, cancellationToken: cancellationToken);
     _checkResponseSuccess(url, response);
     return response.body;
   }
 
   @override
-  Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
-    final response = await get(url, headers: headers);
+  Future<Uint8List> readBytes(Uri url,
+      {Map<String, String>? headers,
+      CancellationToken? cancellationToken}) async {
+    final response =
+        await get(url, headers: headers, cancellationToken: cancellationToken);
     _checkResponseSuccess(url, response);
     return response.bodyBytes;
   }
@@ -71,10 +95,10 @@ abstract class BaseClient implements Client {
   Future<StreamedResponse> send(BaseRequest request);
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
-  Future<Response> _sendUnstreamed(
-      String method, Uri url, Map<String, String>? headers,
+  Future<Response> _sendUnstreamed(String method, Uri url,
+      Map<String, String>? headers, CancellationToken? cancellationToken,
       [body, Encoding? encoding]) async {
-    var request = Request(method, url);
+    var request = Request(method, url, cancellationToken: cancellationToken);
 
     if (headers != null) request.headers.addAll(headers);
     if (encoding != null) request.encoding = encoding;

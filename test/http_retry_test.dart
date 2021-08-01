@@ -5,6 +5,7 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
+import 'package:http/src/cancelation_token.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
@@ -13,7 +14,8 @@ void main() {
     test('a request has a non-503 error code', () async {
       final client = RetryClient(
           MockClient(expectAsync1((_) async => Response('', 502), count: 1)));
-      final response = await client.get(Uri.http('example.org', ''));
+      final response = await client.get(Uri.http('example.org', ''),
+          cancellationToken: CancellationToken(autoDispose: false));
       expect(response.statusCode, equals(502));
     });
 
@@ -21,7 +23,8 @@ void main() {
       final client = RetryClient(
           MockClient(expectAsync1((_) async => Response('', 503), count: 1)),
           when: (_) => false);
-      final response = await client.get(Uri.http('example.org', ''));
+      final response = await client.get(Uri.http('example.org', ''),
+          cancellationToken: CancellationToken(autoDispose: false));
       expect(response.statusCode, equals(503));
     });
 
@@ -29,7 +32,8 @@ void main() {
       final client = RetryClient(
           MockClient(expectAsync1((_) async => Response('', 503), count: 1)),
           retries: 0);
-      final response = await client.get(Uri.http('example.org', ''));
+      final response = await client.get(Uri.http('example.org', ''),
+          cancellationToken: CancellationToken(autoDispose: false));
       expect(response.statusCode, equals(503));
     });
   });
@@ -43,7 +47,8 @@ void main() {
         }, count: 2)),
         delay: (_) => Duration.zero);
 
-    final response = await client.get(Uri.http('example.org', ''));
+    final response = await client.get(Uri.http('example.org', ''),
+        cancellationToken: CancellationToken(autoDispose: false));
     expect(response.statusCode, equals(200));
   });
 
@@ -58,7 +63,8 @@ void main() {
         when: (response) => response.headers['retry'] == 'true',
         delay: (_) => Duration.zero);
 
-    final response = await client.get(Uri.http('example.org', ''));
+    final response = await client.get(Uri.http('example.org', ''),
+        cancellationToken: CancellationToken(autoDispose: false));
     expect(response.headers, containsPair('retry', 'false'));
     expect(response.statusCode, equals(503));
   });
@@ -75,7 +81,8 @@ void main() {
             error is StateError && error.message == 'oh no',
         delay: (_) => Duration.zero);
 
-    final response = await client.get(Uri.http('example.org', ''));
+    final response = await client.get(Uri.http('example.org', ''),
+        cancellationToken: CancellationToken(autoDispose: false));
     expect(response.statusCode, equals(200));
   });
 
@@ -85,7 +92,9 @@ void main() {
         whenError: (error, _) => error == 'oh yeah',
         delay: (_) => Duration.zero);
 
-    expect(client.get(Uri.http('example.org', '')),
+    expect(
+        client.get(Uri.http('example.org', ''),
+            cancellationToken: CancellationToken(autoDispose: false)),
         throwsA(isStateError.having((e) => e.message, 'message', 'oh no')));
   });
 
@@ -93,7 +102,8 @@ void main() {
     final client = RetryClient(
         MockClient(expectAsync1((_) async => Response('', 503), count: 4)),
         delay: (_) => Duration.zero);
-    final response = await client.get(Uri.http('example.org', ''));
+    final response = await client.get(Uri.http('example.org', ''),
+        cancellationToken: CancellationToken(autoDispose: false));
     expect(response.statusCode, equals(503));
   });
 
@@ -102,7 +112,8 @@ void main() {
         MockClient(expectAsync1((_) async => Response('', 503), count: 13)),
         retries: 12,
         delay: (_) => Duration.zero);
-    final response = await client.get(Uri.http('example.org', ''));
+    final response = await client.get(Uri.http('example.org', ''),
+        cancellationToken: CancellationToken(autoDispose: false));
     expect(response.statusCode, equals(503));
   });
 
@@ -124,7 +135,10 @@ void main() {
         return Response('', 503);
       }, count: 4)));
 
-      expect(client.get(Uri.http('example.org', '')), completes);
+      expect(
+          client.get(Uri.http('example.org', ''),
+              cancellationToken: CancellationToken(autoDispose: false)),
+          completes);
       fake.elapse(const Duration(minutes: 10));
     });
   });
@@ -149,7 +163,10 @@ void main() {
           }, count: 4)),
           delay: (requestCount) => Duration(seconds: requestCount));
 
-      expect(client.get(Uri.http('example.org', '')), completes);
+      expect(
+          client.get(Uri.http('example.org', ''),
+              cancellationToken: CancellationToken(autoDispose: false)),
+          completes);
       fake.elapse(const Duration(minutes: 10));
     });
   });
@@ -178,7 +195,10 @@ void main() {
             Duration(seconds: 12)
           ]);
 
-      expect(client.get(Uri.http('example.org', '')), completes);
+      expect(
+          client.get(Uri.http('example.org', ''),
+              cancellationToken: CancellationToken(autoDispose: false)),
+          completes);
       fake.elapse(const Duration(minutes: 10));
     });
   });
@@ -195,7 +215,8 @@ void main() {
           expect(retryCount, equals(count));
           count++;
         }, count: 2));
-    final response = await client.get(Uri.http('example.org', ''));
+    final response = await client.get(Uri.http('example.org', ''),
+        cancellationToken: CancellationToken(autoDispose: false));
     expect(response.statusCode, equals(503));
   });
 
@@ -214,7 +235,8 @@ void main() {
         }, count: 2)),
         [Duration.zero]);
 
-    final request = Request('POST', Uri.parse('http://example.org'))
+    final request = Request('POST', Uri.parse('http://example.org'),
+        cancellationToken: CancellationToken(autoDispose: false))
       ..body = 'hello'
       ..followRedirects = false
       ..headers['foo'] = 'bar'

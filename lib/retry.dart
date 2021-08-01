@@ -100,6 +100,9 @@ class RetryClient extends BaseClient {
 
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
+    assert(request.cancellationToken?.autoDispose == false,
+        'Auto-dispose Tokens are not allowed for retrys');
+
     final splitter = StreamSplitter(request.finalize());
 
     var i = 0;

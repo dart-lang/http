@@ -10,6 +10,7 @@ import '../http.dart' show get;
 import 'base_client.dart';
 import 'base_response.dart';
 import 'byte_stream.dart';
+import 'cancelation_token.dart';
 import 'client.dart';
 import 'streamed_response.dart';
 import 'utils.dart';
@@ -29,6 +30,8 @@ abstract class BaseRequest {
 
   /// The URL to which the request will be sent.
   final Uri url;
+
+  final CancellationToken? cancellationToken;
 
   /// The size of the request body, in bytes.
   ///
@@ -96,7 +99,7 @@ abstract class BaseRequest {
     return method;
   }
 
-  BaseRequest(String method, this.url)
+  BaseRequest(String method, this.url, {this.cancellationToken})
       : method = _validateMethod(method),
         headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),

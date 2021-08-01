@@ -30,17 +30,23 @@ class IOClient extends BaseClient {
     }
 
     var stream = request.finalize();
+    HttpClientRequest? ioRequest;
 
     try {
-      var ioRequest = (await _inner!.openUrl(request.method, request.url))
+      ioRequest = (await _inner!.openUrl(request.method, request.url))
         ..followRedirects = request.followRedirects
         ..maxRedirects = request.maxRedirects
         ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
-        ioRequest.headers.set(name, value);
+        ioRequest!.headers.set(name, value);
       });
+    } on HttpException catch (error) {
+      throw ClientException(error.message, error.uri);
+    }
 
+    try {
+      await request.cancellationToken?.registerRequest(ioRequest);
       var response = await stream.pipe(ioRequest) as HttpClientResponse;
 
       var headers = <String, String>{};
@@ -64,6 +70,8 @@ class IOClient extends BaseClient {
           inner: response);
     } on HttpException catch (error) {
       throw ClientException(error.message, error.uri);
+    } finally {
+      await request.cancellationToken?.completeRequest(ioRequest);
     }
   }
 

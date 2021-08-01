@@ -7,6 +7,7 @@ import 'dart:async';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
+import 'cancelation_token.dart';
 
 /// An HTTP request where the request body is sent asynchronously after the
 /// connection has been established and the headers have been sent.
@@ -29,9 +30,10 @@ class StreamedRequest extends BaseRequest {
   final StreamController<List<int>> _controller;
 
   /// Creates a new streaming request.
-  StreamedRequest(String method, Uri url)
+  StreamedRequest(String method, Uri url,
+      {CancellationToken? cancellationToken})
       : _controller = StreamController<List<int>>(sync: true),
-        super(method, url);
+        super(method, url, cancellationToken: cancellationToken);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that emits the data being written to [sink].

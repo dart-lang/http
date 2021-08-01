@@ -8,6 +8,7 @@ import 'dart:math';
 import 'base_request.dart';
 import 'boundary_characters.dart';
 import 'byte_stream.dart';
+import 'cancelation_token.dart';
 import 'multipart_file.dart';
 import 'utils.dart';
 
@@ -45,7 +46,9 @@ class MultipartRequest extends BaseRequest {
   /// The list of files to upload for this request.
   final files = <MultipartFile>[];
 
-  MultipartRequest(String method, Uri url) : super(method, url);
+  MultipartRequest(String method, Uri url,
+      {CancellationToken? cancellationToken})
+      : super(method, url, cancellationToken: cancellationToken);
 
   /// The total length of the request body, in bytes.
   ///

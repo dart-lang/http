@@ -9,6 +9,7 @@ import 'package:http_parser/http_parser.dart';
 
 import 'base_request.dart';
 import 'byte_stream.dart';
+import 'cancelation_token.dart';
 import 'utils.dart';
 
 /// An HTTP request where the entire request body is known in advance.
@@ -137,10 +138,10 @@ class Request extends BaseRequest {
     body = mapToQuery(fields, encoding: encoding);
   }
 
-  Request(String method, Uri url)
+  Request(String method, Uri url, {CancellationToken? cancellationToken})
       : _defaultEncoding = utf8,
         _bodyBytes = Uint8List(0),
-        super(method, url);
+        super(method, url, cancellationToken: cancellationToken);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// containing the request body.
