@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'base_request.dart';
 import 'exception.dart';
 
-typedef _AbortFunc = void Function();
+typedef AbortFunc = void Function();
 
 class CancellationToken {
   /// Will automatically dispose the token after a request has been completed.
@@ -22,6 +23,9 @@ class CancellationToken {
 
   /// If token is not disposed yet
   bool get isDisposed => _cancellationStreamController.isClosed;
+
+  /// If cancellation has been requested for token
+  bool get isCancellationPending => _cancellationPending;
 
   Future _cancel() {
     _cancellationPending = true;
@@ -45,46 +49,35 @@ class CancellationToken {
     throw CancellationTokenException('Token already disposed', this);
   }
 
-  _AbortFunc? _getAbortOfRequest(dynamic request) {
-    //We have to do this completely dynamically, because no imports for
-    //typechecking are possible
-    try {
-      // ignore: avoid_dynamic_calls
-      return request.abort as _AbortFunc;
-      // ignore: avoid_catching_errors
-    } on Error catch (_) {
-      return null;
-    }
-  }
-
-  /// Check if a request and it's type is supported by the token
-  bool isRequestSupported(dynamic request) =>
-      _getAbortOfRequest(request) != null;
-
   /// Registers a request
   ///
   /// You only have to call this, when you are manually working with `Request`'s
   /// yourself. Elsewise it is handled by `Client`.
-  Future registerRequest(dynamic request) {
-    if (!isDisposed) {
-      final abortFunc = _getAbortOfRequest(request);
-      if (abortFunc != null) {
-        _requestSubscriptions.putIfAbsent(
-            request,
-            () =>
-                _cancellationStreamController.stream.listen((_) => abortFunc));
+  Future registerRequest(AbortFunc requestAbort,
+      {dynamic debugRequest, BaseRequest? baseRequest, Completer? completer}) {
+    Future cancel() {
+      //TODO: Debugging web abort()
+      //print('Abort for ${baseRequest?.url} at ${debugRequest.readyState}');
+      requestAbort.call();
 
-        if (_cancellationPending) {
-          abortFunc.call();
-          return completeRequest(request);
-        }
-
-        return Future.value();
+      if (completer?.isCompleted == false) {
+        completer!.completeError(
+            ClientException('Request has been aborted', baseRequest?.url),
+            StackTrace.current);
       }
 
-      throw UnsupportedError(
-          '$CancellationToken does not support ${request.runtimeType}'
-          ' as request');
+      return completeRequest(requestAbort);
+    }
+
+    if (!isDisposed) {
+      _requestSubscriptions.putIfAbsent(requestAbort,
+          () => _cancellationStreamController.stream.listen((_) => cancel()));
+
+      if (_cancellationPending) {
+        return cancel();
+      }
+
+      return Future.value();
     }
 
     throw CancellationTokenException('Token already disposed', this);

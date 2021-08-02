@@ -29,6 +29,10 @@ class IOClient extends BaseClient {
           'HTTP request failed. Client is already closed.', request.url);
     }
 
+    if (request.cancellationToken?.isCancellationPending == true) {
+      throw ClientException('Request has been aborted', request.url);
+    }
+
     var stream = request.finalize();
     HttpClientRequest? ioRequest;
 
@@ -46,7 +50,8 @@ class IOClient extends BaseClient {
     }
 
     try {
-      await request.cancellationToken?.registerRequest(ioRequest);
+      await request.cancellationToken
+          ?.registerRequest(ioRequest.abort, baseRequest: request);
       var response = await stream.pipe(ioRequest) as HttpClientResponse;
 
       var headers = <String, String>{};

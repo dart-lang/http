@@ -42,13 +42,15 @@ class BrowserClient extends BaseClient {
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
+    if (request.cancellationToken?.isCancellationPending == true) {
+      throw ClientException('Request has been aborted', request.url);
+    }
+
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
 
     final cancellationToken =
         request.cancellationToken ?? CancellationToken(autoDispose: true);
-
-    await cancellationToken.registerRequest(xhr);
 
     _xhrs.add(cancellationToken);
 
@@ -60,22 +62,31 @@ class BrowserClient extends BaseClient {
 
     var completer = Completer<StreamedResponse>();
 
+    unawaited(xhr.onReadyStateChange
+        .firstWhere((_) => xhr.readyState >= HttpRequest.LOADING)
+        .then((value) => cancellationToken.registerRequest(xhr.abort,
+            completer: completer, debugRequest: xhr, baseRequest: request)));
+
     unawaited(xhr.onLoad.first.then((_) {
-      var body = (xhr.response as ByteBuffer).asUint8List();
-      completer.complete(StreamedResponse(
-          ByteStream.fromBytes(body), xhr.status!,
-          contentLength: body.length,
-          request: request,
-          headers: xhr.responseHeaders,
-          reasonPhrase: xhr.statusText));
+      if (!completer.isCompleted) {
+        var body = (xhr.response as ByteBuffer).asUint8List();
+        completer.complete(StreamedResponse(
+            ByteStream.fromBytes(body), xhr.status!,
+            contentLength: body.length,
+            request: request,
+            headers: xhr.responseHeaders,
+            reasonPhrase: xhr.statusText));
+      }
     }));
 
     unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
-      completer.completeError(
-          ClientException('XMLHttpRequest error.', request.url),
-          StackTrace.current);
+      if (!completer.isCompleted) {
+        completer.completeError(
+            ClientException('XMLHttpRequest error.', request.url),
+            StackTrace.current);
+      }
     }));
 
     xhr.send(bytes);

@@ -5,6 +5,7 @@
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
+import 'exception.dart';
 import 'request.dart';
 import 'response.dart';
 import 'streamed_request.dart';
@@ -30,16 +31,19 @@ class MockClient extends BaseClient {
   /// [Response]s.
   MockClient(MockClientHandler fn)
       : this._((baseRequest, bodyStream) async {
+          if (baseRequest.cancellationToken?.isCancellationPending == true) {
+            throw ClientException('Request has been aborted', baseRequest.url);
+          }
+
           final bodyBytes = await bodyStream.toBytes();
-          var request = Request(baseRequest.method, baseRequest.url)
+          var request = Request(baseRequest.method, baseRequest.url,
+              cancellationToken: baseRequest.cancellationToken)
             ..persistentConnection = baseRequest.persistentConnection
             ..followRedirects = baseRequest.followRedirects
             ..maxRedirects = baseRequest.maxRedirects
             ..headers.addAll(baseRequest.headers)
             ..bodyBytes = bodyBytes
             ..finalize();
-
-          await baseRequest.cancellationToken?.registerRequest(request);
 
           try {
             final response = await fn(request);
