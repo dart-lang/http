@@ -5,18 +5,15 @@
 import 'package:http2/src/async_utils/async_utils.dart';
 import 'package:http2/src/flowcontrol/connection_queues.dart';
 import 'package:http2/src/flowcontrol/queue_messages.dart';
-import 'package:http2/src/flowcontrol/stream_queues.dart';
 import 'package:http2/src/flowcontrol/window.dart';
 import 'package:http2/src/flowcontrol/window_handler.dart';
 import 'package:http2/src/frames/frames.dart';
 import 'package:http2/transport.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-import 'connection_queues_test.mocks.dart';
+import 'mocks.mocks.dart';
 
-@GenerateMocks([FrameWriter, IncomingWindowHandler, StreamMessageQueueIn])
 void main() {
   group('flowcontrol', () {
     test('connection-message-queue-out', () {
