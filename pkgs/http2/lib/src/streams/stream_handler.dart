@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:math';
 
 import '../../transport.dart';
-
 import '../connection.dart';
 import '../error_handler.dart';
 import '../flowcontrol/connection_queues.dart';
@@ -15,7 +14,6 @@ import '../flowcontrol/stream_queues.dart';
 import '../flowcontrol/window.dart';
 import '../flowcontrol/window_handler.dart';
 import '../frames/frames.dart';
-import '../hpack/hpack.dart';
 import '../settings/settings.dart';
 import '../sync_errors.dart';
 
