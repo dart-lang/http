@@ -24,12 +24,14 @@ class IOStreamedResponse extends StreamedResponse {
       bool isRedirect = false,
       bool persistentConnection = true,
       String? reasonPhrase,
+      String? url,
       HttpClientResponse? inner})
       : _inner = inner,
         super(stream, statusCode,
             contentLength: contentLength,
             request: request,
             headers: headers,
+            url: url,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);
