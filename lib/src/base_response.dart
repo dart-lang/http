@@ -30,6 +30,7 @@ abstract class BaseResponse {
   final Map<String, String> headers;
 
   final bool isRedirect;
+  final String? url;
 
   /// Whether the server requested that a persistent connection be maintained.
   final bool persistentConnection;
@@ -39,6 +40,7 @@ abstract class BaseResponse {
       this.request,
       this.headers = const {},
       this.isRedirect = false,
+      this.url,
       this.persistentConnection = true,
       this.reasonPhrase}) {
     if (statusCode < 100) {
