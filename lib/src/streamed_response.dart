@@ -23,6 +23,7 @@ class StreamedResponse extends BaseResponse {
       BaseRequest? request,
       Map<String, String> headers = const {},
       bool isRedirect = false,
+      String? url,
       bool persistentConnection = true,
       String? reasonPhrase})
       : stream = toByteStream(stream),
@@ -30,6 +31,7 @@ class StreamedResponse extends BaseResponse {
             contentLength: contentLength,
             request: request,
             headers: headers,
+            url: url,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);
