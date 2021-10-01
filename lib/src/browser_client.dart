@@ -11,7 +11,6 @@ import 'base_request.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
-import 'utils.dart' show unawaited;
 
 /// Create a [BrowserClient].
 ///
