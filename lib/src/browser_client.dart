@@ -12,7 +12,6 @@ import 'byte_stream.dart';
 import 'cancelation_token.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
-import 'utils.dart' show unawaited;
 
 /// Create a [BrowserClient].
 ///

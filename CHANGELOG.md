@@ -1,6 +1,7 @@
-## 0.13.4-dev
+## 0.13.4
 
 * Throw a more useful error when a client is used after it has been closed.
+* Require Dart 2.14.
 
 ## 0.13.3
 
