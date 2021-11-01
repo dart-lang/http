@@ -19,35 +19,50 @@ import 'streamed_response.dart';
 /// maybe [close], and then they get various convenience methods for free.
 abstract class BaseClient implements Client {
   @override
-  Future<Response> head(Uri url, {Map<String, String>? headers}) =>
-      _sendUnstreamed('HEAD', url, headers);
+  Future<Response> head(Uri url,
+          {Map<String, String>? headers, bool followRedirects = true}) =>
+      _sendUnstreamed('HEAD', url, headers, followRedirects);
 
   @override
-  Future<Response> get(Uri url, {Map<String, String>? headers}) =>
-      _sendUnstreamed('GET', url, headers);
+  Future<Response> get(Uri url,
+          {Map<String, String>? headers, bool followRedirects = true}) =>
+      _sendUnstreamed('GET', url, headers, followRedirects);
 
   @override
   Future<Response> post(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('POST', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          bool followRedirects = false}) =>
+      _sendUnstreamed('POST', url, headers, followRedirects, body, encoding);
 
   @override
   Future<Response> put(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PUT', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          bool followRedirects = true}) =>
+      _sendUnstreamed('PUT', url, headers, followRedirects, body, encoding);
 
   @override
   Future<Response> patch(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PATCH', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          bool followRedirects = true}) =>
+      _sendUnstreamed('PATCH', url, headers, followRedirects, body, encoding);
 
   @override
   Future<Response> delete(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('DELETE', url, headers, body, encoding);
+          {Map<String, String>? headers,
+          Object? body,
+          Encoding? encoding,
+          bool followRedirects = true}) =>
+      _sendUnstreamed('DELETE', url, headers, followRedirects, body, encoding);
 
   @override
-  Future<String> read(Uri url, {Map<String, String>? headers}) async {
+  Future<String> read(Uri url,
+      {Map<String, String>? headers, bool followRedirects = true}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.body;
@@ -71,11 +86,10 @@ abstract class BaseClient implements Client {
   Future<StreamedResponse> send(BaseRequest request);
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
-  Future<Response> _sendUnstreamed(
-      String method, Uri url, Map<String, String>? headers,
+  Future<Response> _sendUnstreamed(String method, Uri url,
+      Map<String, String>? headers, bool followRedirects,
       [body, Encoding? encoding]) async {
-    var request = Request(method, url);
-
+    var request = Request(method, url)..followRedirects = followRedirects;
     if (headers != null) request.headers.addAll(headers);
     if (encoding != null) request.encoding = encoding;
     if (body != null) {
