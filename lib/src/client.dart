@@ -29,7 +29,7 @@ abstract class Client {
   ///
   /// Creates an `IOClient` if `dart:io` is available and a `BrowserClient` if
   /// `dart:html` is available, otherwise it will throw an unsupported error.
-  factory Client() => createClient();
+  factory Client([String? proxyString]) => createClient(proxyString);
 
   /// Sends an HTTP HEAD request with the given headers to the given URL.
   ///
