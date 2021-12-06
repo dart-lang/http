@@ -62,7 +62,7 @@ class BrowserClient extends BaseClient {
     var completer = Completer<StreamedResponse>();
 
     unawaited(xhr.onReadyStateChange
-        .firstWhere((_) => xhr.readyState >= HttpRequest.LOADING)
+        .firstWhere((_) => xhr.readyState >= HttpRequest.HEADERS_RECEIVED)
         .then((value) => cancellationToken.registerRequest(xhr.abort,
             completer: completer, debugRequest: xhr, baseRequest: request)));
 
