@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:brotli/brotli.dart';
 import 'package:http_parser/http_parser.dart';
 
 import 'base_request.dart';
@@ -25,7 +26,18 @@ class Response extends BaseResponse {
   /// [RFC 2616][].
   ///
   /// [RFC 2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html
-  String get body => _encodingForHeaders(headers).decode(bodyBytes);
+  String parseBody() {
+    List<int> newBodyBytes = [];
+    if (headers['content-encoding'] == 'br' ||
+        headers['Content-Encoding'] == 'br') {
+      newBodyBytes = brotli.decode(bodyBytes);
+    } else {
+      newBodyBytes = bodyBytes;
+    }
+    return _encodingForHeaders(headers).decode(newBodyBytes);
+  }
+
+  String get body => parseBody();
 
   /// Creates a new HTTP response with a string body.
   Response(String body, int statusCode,
