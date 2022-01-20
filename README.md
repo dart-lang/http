@@ -63,10 +63,18 @@ class UserAgentClient extends http.BaseClient {
   final http.Client _inner;
 
   UserAgentClient(this.userAgent, this._inner);
-
+  
+  @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
     request.headers['user-agent'] = userAgent;
     return _inner.send(request);
+  }
+  
+  @override
+  Future<http.Response> sendUnstreamed(String method, Uri url, Map<String, String>? headers, [body, Encoding? encoding]) async {
+    http.Response response = await super.sendUnstreamed(method, url, headers);
+    // do something with the response
+    return response;
   }
 }
 ```
