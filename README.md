@@ -72,7 +72,7 @@ class UserAgentClient extends http.BaseClient {
   
   @override
   Future<http.Response> sendUnstreamed(String method, Uri url, Map<String, String>? headers, [body, Encoding? encoding]) async {
-    http.Response response = await super.sendUnstreamed(method, url, headers);
+    http.Response response = await super.sendUnstreamed(method, url, headers, body, encoding);
     // do something with the response
     return response;
   }
