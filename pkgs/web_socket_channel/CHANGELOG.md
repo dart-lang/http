@@ -1,3 +1,8 @@
+## 2.2.0
+
+- Add `HtmlWebSocketChannel.innerWebSocket` getter to access features not exposed
+  through the shared `WebSocketChannel` interface.
+
 ## 2.1.0
 
 - Add `IOWebSocketChannel.innerWebSocket` getter to access features not exposed

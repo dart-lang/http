@@ -16,10 +16,10 @@ import 'src/exception.dart';
 class HtmlWebSocketChannel extends StreamChannelMixin
     implements WebSocketChannel {
   /// The underlying `dart:html` [WebSocket].
-  final WebSocket _webSocket;
+  final WebSocket innerWebSocket;
 
   @override
-  String? get protocol => _webSocket.protocol;
+  String? get protocol => innerWebSocket.protocol;
 
   @override
   int? get closeCode => _closeCode;
@@ -31,7 +31,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
   /// The number of bytes of data that have been queued but not yet transmitted
   /// to the network.
-  int? get bufferedAmount => _webSocket.bufferedAmount;
+  int? get bufferedAmount => innerWebSocket.bufferedAmount;
 
   /// The close code set by the local user.
   ///
@@ -69,27 +69,27 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       : this(WebSocket(url.toString(), protocols)
           ..binaryType = (binaryType ?? BinaryType.list).value);
 
-  /// Creates a channel wrapping [_webSocket].
-  HtmlWebSocketChannel(this._webSocket) {
-    if (_webSocket.readyState == WebSocket.OPEN) {
+  /// Creates a channel wrapping [innerWebSocket].
+  HtmlWebSocketChannel(this.innerWebSocket) {
+    if (innerWebSocket.readyState == WebSocket.OPEN) {
       _listen();
     } else {
       // The socket API guarantees that only a single open event will be
       // emitted.
-      _webSocket.onOpen.first.then((_) {
+      innerWebSocket.onOpen.first.then((_) {
         _listen();
       });
     }
 
     // The socket API guarantees that only a single error event will be emitted,
     // and that once it is no open or message events will be emitted.
-    _webSocket.onError.first.then((_) {
+    innerWebSocket.onError.first.then((_) {
       _controller.local.sink
           .addError(WebSocketChannelException('WebSocket connection failed.'));
       _controller.local.sink.close();
     });
 
-    _webSocket.onMessage.listen((event) {
+    innerWebSocket.onMessage.listen((event) {
       var data = event.data;
       if (data is ByteBuffer) data = data.asUint8List();
       _controller.local.sink.add(data);
@@ -97,25 +97,25 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
     // The socket API guarantees that only a single error event will be emitted,
     // and that once it is no other events will be emitted.
-    _webSocket.onClose.first.then((event) {
+    innerWebSocket.onClose.first.then((event) {
       _closeCode = event.code;
       _closeReason = event.reason;
       _controller.local.sink.close();
     });
   }
 
-  /// Pipes user events to [_webSocket].
+  /// Pipes user events to [innerWebSocket].
   void _listen() {
-    _controller.local.stream.listen(_webSocket.send, onDone: () {
+    _controller.local.stream.listen(innerWebSocket.send, onDone: () {
       // On Chrome and possibly other browsers, `null` can't be passed as the
       // default here. The actual arity of the function call must be correct or
       // it will fail.
       if (_localCloseCode != null && _localCloseReason != null) {
-        _webSocket.close(_localCloseCode, _localCloseReason);
+        innerWebSocket.close(_localCloseCode, _localCloseReason);
       } else if (_localCloseCode != null) {
-        _webSocket.close(_localCloseCode);
+        innerWebSocket.close(_localCloseCode);
       } else {
-        _webSocket.close();
+        innerWebSocket.close();
       }
     });
   }
