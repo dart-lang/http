@@ -15,52 +15,17 @@ void main() {
   tearDown(stopServer);
 
   test('send happy case', () async {
-    final request = http.Request('GET', serverUrl)
-      ..body = 'hello'
-      ..headers['User-Agent'] = 'Dart';
+    Map<String, String> headers = {
+      "a": "test",
+      "b": "test",
+      "c": "test",
+      "d": "test"
+    };
+    final request =
+        http.get(Uri.parse("http://127.0.0.1:5000"), headers: headers);
 
-    final response = await request.send();
-
-    expect(response.statusCode, equals(200));
-    final bytesString = await response.stream.bytesToString();
-    expect(
-        bytesString,
-        parse(equals({
-          'method': 'GET',
-          'path': '/',
-          'headers': {
-            'content-type': ['text/plain; charset=utf-8'],
-            'accept-encoding': ['gzip'],
-            'user-agent': ['Dart'],
-            'content-length': ['5']
-          },
-          'body': 'hello',
-        })));
-  });
-
-  test('without redirects', () async {
-    final request = http.Request('GET', serverUrl.resolve('/redirect'))
-      ..followRedirects = false;
-    final response = await request.send();
-
-    expect(response.statusCode, equals(302));
-  });
-
-  test('with redirects', () async {
-    final request = http.Request('GET', serverUrl.resolve('/redirect'));
-    final response = await request.send();
+    final response = await request;
 
     expect(response.statusCode, equals(200));
-    final bytesString = await response.stream.bytesToString();
-    expect(bytesString, parse(containsPair('path', '/')));
-  });
-
-  test('exceeding max redirects', () async {
-    final request = http.Request('GET', serverUrl.resolve('/loop?1'))
-      ..maxRedirects = 2;
-    expect(
-        request.send(),
-        throwsA(isA<http.ClientException>()
-            .having((e) => e.message, 'message', 'Redirect limit exceeded')));
   });
 }

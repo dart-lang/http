@@ -24,6 +24,10 @@ class IOClient extends BaseClient {
     _inner = inner ?? HttpClient();
     if (proxyString != null) {
       print('HTTP: Got proxy string: $proxyString');
+      _inner!.badCertificateCallback = (cert, host, port) {
+        print("Bad cert");
+        return true;
+      };
       _inner!.findProxy = (url) {
         null;
         return HttpClient.findProxyFromEnvironment(
@@ -42,7 +46,9 @@ class IOClient extends BaseClient {
   Future<IOStreamedResponse> send(BaseRequest request) async {
     if (_inner == null) {
       throw ClientException(
-          'HTTP request failed. Client is already closed.', request.url);
+        'HTTP request failed. Client is already closed.',
+        request.url,
+      );
     }
 
     var stream = request.finalize();
@@ -54,9 +60,13 @@ class IOClient extends BaseClient {
         ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
-        ioRequest.headers.set(name, value);
+        print("Setting $name");
+        ioRequest.headers.set(
+          name,
+          value,
+          preserveHeaderCase: true,
+        );
       });
-
       var response = await stream.pipe(ioRequest) as HttpClientResponse;
 
       var headers = <String, String>{};
