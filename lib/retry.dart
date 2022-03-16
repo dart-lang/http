@@ -18,16 +18,16 @@ class RetryClient extends BaseClient {
   final int _retries;
 
   /// The callback that determines whether a request should be retried.
-  final bool Function(BaseResponse) _when;
+  final FutureOr<bool> Function(BaseResponse) _when;
 
   /// The callback that determines whether a request when an error is thrown.
-  final bool Function(Object, StackTrace) _whenError;
+  final FutureOr<bool> Function(Object, StackTrace) _whenError;
 
   /// The callback that determines how long to wait before retrying a request.
   final Duration Function(int) _delay;
 
   /// The callback to call to indicate that a request is being retried.
-  final void Function(BaseRequest, BaseResponse?, int)? _onRetry;
+  final FutureOr<void> Function(BaseRequest, BaseResponse?, int)? _onRetry;
 
   /// Creates a client wrapping [_inner] that retries HTTP requests.
   ///
@@ -51,10 +51,11 @@ class RetryClient extends BaseClient {
   RetryClient(
     this._inner, {
     int retries = 3,
-    bool Function(BaseResponse) when = _defaultWhen,
-    bool Function(Object, StackTrace) whenError = _defaultWhenError,
+    FutureOr<bool> Function(BaseResponse) when = _defaultWhen,
+    FutureOr<bool> Function(Object, StackTrace) whenError = _defaultWhenError,
     Duration Function(int retryCount) delay = _defaultDelay,
-    void Function(BaseRequest, BaseResponse?, int retryCount)? onRetry,
+    FutureOr<void> Function(BaseRequest, BaseResponse?, int retryCount)?
+        onRetry,
   })  : _retries = retries,
         _when = when,
         _whenError = whenError,
@@ -72,9 +73,10 @@ class RetryClient extends BaseClient {
   RetryClient.withDelays(
     Client inner,
     Iterable<Duration> delays, {
-    bool Function(BaseResponse) when = _defaultWhen,
-    bool Function(Object, StackTrace) whenError = _defaultWhenError,
-    void Function(BaseRequest, BaseResponse?, int retryCount)? onRetry,
+    FutureOr<bool> Function(BaseResponse) when = _defaultWhen,
+    FutureOr<bool> Function(Object, StackTrace) whenError = _defaultWhenError,
+    FutureOr<void> Function(BaseRequest, BaseResponse?, int retryCount)?
+        onRetry,
   }) : this._withDelays(
           inner,
           delays.toList(),
@@ -86,9 +88,9 @@ class RetryClient extends BaseClient {
   RetryClient._withDelays(
     Client inner,
     List<Duration> delays, {
-    required bool Function(BaseResponse) when,
-    required bool Function(Object, StackTrace) whenError,
-    required void Function(BaseRequest, BaseResponse?, int)? onRetry,
+    required FutureOr<bool> Function(BaseResponse) when,
+    required FutureOr<bool> Function(Object, StackTrace) whenError,
+    required FutureOr<void> Function(BaseRequest, BaseResponse?, int)? onRetry,
   }) : this(
           inner,
           retries: delays.length,
@@ -108,11 +110,11 @@ class RetryClient extends BaseClient {
       try {
         response = await _inner.send(_copyRequest(request, splitter.split()));
       } catch (error, stackTrace) {
-        if (i == _retries || !_whenError(error, stackTrace)) rethrow;
+        if (i == _retries || !await _whenError(error, stackTrace)) rethrow;
       }
 
       if (response != null) {
-        if (i == _retries || !_when(response)) return response;
+        if (i == _retries || !await _when(response)) return response;
 
         // Make sure the response stream is listened to so that we don't leave
         // dangling connections.
@@ -120,7 +122,7 @@ class RetryClient extends BaseClient {
       }
 
       await Future<void>.delayed(_delay(i));
-      _onRetry?.call(request, response, i);
+      await _onRetry?.call(request, response, i);
       i++;
     }
   }
