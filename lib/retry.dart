@@ -119,7 +119,7 @@ class RetryClient extends BaseClient {
         _unawaited(response.stream.listen((_) {}).cancel().catchError((_) {}));
       }
 
-      await Future.delayed(_delay(i));
+      await Future<void>.delayed(_delay(i));
       _onRetry?.call(request, response, i);
       i++;
     }
