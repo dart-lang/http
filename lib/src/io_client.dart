@@ -60,7 +60,6 @@ class IOClient extends BaseClient {
         ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
-        print("Setting $name");
         ioRequest.headers.set(
           name,
           value,
