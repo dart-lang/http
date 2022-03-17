@@ -244,6 +244,6 @@ void main() {
     var file = http.MultipartFile(
         'file', Future<List<int>>.error('error').asStream(), 1);
     var request = http.MultipartRequest('POST', dummyUrl)..files.add(file);
-    expect(request.finalize().drain(), throwsA('error'));
+    expect(request.finalize().drain<void>(), throwsA('error'));
   });
 }

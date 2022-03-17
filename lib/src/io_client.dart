@@ -74,7 +74,7 @@ class IOClient extends BaseClient {
       });
 
       return IOStreamedResponse(
-          response.handleError((error) {
+          response.handleError((Object error) {
             final httpException = error as HttpException;
             throw ClientException(httpException.message, httpException.uri);
           }, test: (error) => error is HttpException),
