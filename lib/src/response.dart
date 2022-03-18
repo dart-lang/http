@@ -1,7 +1,7 @@
 // Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
-
+import 'package:brotli/brotli.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -25,7 +25,17 @@ class Response extends BaseResponse {
   /// [RFC 2616][].
   ///
   /// [RFC 2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html
-  String get body => _encodingForHeaders(headers).decode(bodyBytes);
+
+  String decodeBody() {
+    List<int> newBodyBytes = bodyBytes;
+    if (headers['content-encoding'] == 'br' ||
+        headers['Content-Encoding'] == 'br') {
+      newBodyBytes = brotli.decode(bodyBytes);
+    }
+    return _encodingForHeaders(headers).decode(newBodyBytes);
+  }
+
+  String get body => decodeBody();
 
   /// Creates a new HTTP response with a string body.
   Response(String body, int statusCode,
