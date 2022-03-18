@@ -48,7 +48,7 @@ class _Parse extends Matcher {
   _Parse(this._matcher);
 
   @override
-  bool matches(Object? item, Map matchState) {
+  bool matches(Object? item, Map<dynamic, dynamic> matchState) {
     if (item is String) {
       dynamic parsed;
       try {
@@ -80,7 +80,7 @@ class _BodyMatches extends Matcher {
   _BodyMatches(this._pattern);
 
   @override
-  bool matches(Object? item, Map matchState) {
+  bool matches(Object? item, Map<dynamic, dynamic> matchState) {
     if (item is http.MultipartRequest) {
       return completes.matches(_checks(item), matchState);
     }
