@@ -1,3 +1,7 @@
+## 0.13.5-dev
+
+* Allow async callbacks in RetryClient.
+
 ## 0.13.4
 
 * Throw a more useful error when a client is used after it has been closed.
