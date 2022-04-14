@@ -224,4 +224,32 @@ void main() {
     final response = await client.send(request);
     expect(response.statusCode, equals(503));
   });
+
+  test('async when, whenError and onRetry', () async {
+    final client = RetryClient(
+      MockClient(expectAsync1(
+          (request) async => request.headers['Authorization'] != null
+              ? Response('', 200)
+              : Response('', 401),
+          count: 2)),
+      retries: 1,
+      delay: (_) => Duration.zero,
+      when: (response) async {
+        await Future<void>.delayed(const Duration(milliseconds: 500));
+        return response.statusCode == 401;
+      },
+      whenError: (error, stackTrace) async {
+        await Future<void>.delayed(const Duration(milliseconds: 500));
+        return false;
+      },
+      onRetry: (request, response, retryCount) async {
+        expect(response?.statusCode, equals(401));
+        await Future<void>.delayed(const Duration(milliseconds: 500));
+        request.headers['Authorization'] = 'Bearer TOKEN';
+      },
+    );
+
+    final response = await client.get(Uri.http('example.org', ''));
+    expect(response.statusCode, equals(200));
+  });
 }
