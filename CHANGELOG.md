@@ -1,6 +1,9 @@
 ## 0.13.5-dev
 
 * Allow async callbacks in RetryClient.
+* Use callback returned Response.request instead of the passed request to give
+  more control. This may be breaking for callbacks which return incomplete
+  Responses and relied on the default.
 
 ## 0.13.4
 
