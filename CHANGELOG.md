@@ -1,6 +1,9 @@
 ## 0.13.5-dev
 
 * Allow async callbacks in RetryClient.
+* In `MockHttpClient` use the callback returned `Response.request` instead of
+  the argument value to give more control to the callback. This may be breaking
+  for callbacks which return incomplete Responses and relied on the default.
 
 ## 0.13.4
 

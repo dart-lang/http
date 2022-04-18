@@ -43,7 +43,7 @@ class MockClient extends BaseClient {
           return StreamedResponse(
               ByteStream.fromBytes(response.bodyBytes), response.statusCode,
               contentLength: response.contentLength,
-              request: baseRequest,
+              request: response.request,
               headers: response.headers,
               isRedirect: response.isRedirect,
               persistentConnection: response.persistentConnection,
@@ -57,7 +57,7 @@ class MockClient extends BaseClient {
           final response = await fn(request, bodyStream);
           return StreamedResponse(response.stream, response.statusCode,
               contentLength: response.contentLength,
-              request: request,
+              request: response.request,
               headers: response.headers,
               isRedirect: response.isRedirect,
               persistentConnection: response.persistentConnection,
