@@ -2,8 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:io';
 
+import '../http.dart' show ByteStream;
 import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
@@ -23,25 +25,41 @@ class IOClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<IOStreamedResponse> send(BaseRequest request) async {
+  Future<IOStreamedResponse> send(BaseRequest request,
+      {void Function(int total, int loaded)? onUploadProgress}) async {
     if (_inner == null) {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
     }
 
     var stream = request.finalize();
+    ByteStream? _stream2;
+
+    var contentLength = request.contentLength;
+    if (onUploadProgress != null && contentLength != null) {
+      var load = 0;
+      _stream2 =
+          ByteStream(stream.transform(StreamTransformer.fromBind((d) async* {
+        await for (var data in d) {
+          load += data.length;
+          onUploadProgress(contentLength, load);
+          yield data;
+        }
+      })));
+    }
 
     try {
       var ioRequest = (await _inner!.openUrl(request.method, request.url))
         ..followRedirects = request.followRedirects
         ..maxRedirects = request.maxRedirects
-        ..contentLength = (request.contentLength ?? -1)
+        ..contentLength = (contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
       });
 
-      var response = await stream.pipe(ioRequest) as HttpClientResponse;
+      var response =
+          await (_stream2 ?? stream).pipe(ioRequest) as HttpClientResponse;
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {

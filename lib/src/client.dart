@@ -132,7 +132,8 @@ abstract class Client {
   Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers});
 
   /// Sends an HTTP request and asynchronously returns the response.
-  Future<StreamedResponse> send(BaseRequest request);
+  Future<StreamedResponse> send(BaseRequest request,
+      {void Function(int total, int loaded)? onUploadProgress});
 
   /// Closes the client and cleans up any resources associated with it.
   ///

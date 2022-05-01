@@ -39,8 +39,10 @@ class BrowserClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<StreamedResponse> send(BaseRequest request,
+      {void Function(int total, int loaded)? onUploadProgress}) async {
     var bytes = await request.finalize().toBytes();
+
     var xhr = HttpRequest();
     _xhrs.add(xhr);
     xhr
@@ -50,6 +52,14 @@ class BrowserClient extends BaseClient {
     request.headers.forEach(xhr.setRequestHeader);
 
     var completer = Completer<StreamedResponse>();
+
+    if (onUploadProgress != null) {
+      xhr.upload.onLoad.listen((event) {
+        if (event.lengthComputable) {
+          onUploadProgress(event.total!, event.loaded!);
+        }
+      });
+    }
 
     unawaited(xhr.onLoad.first.then((_) {
       var body = (xhr.response as ByteBuffer).asUint8List();

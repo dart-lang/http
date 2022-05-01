@@ -45,7 +45,15 @@ class MultipartRequest extends BaseRequest {
   /// The list of files to upload for this request.
   final files = <MultipartFile>[];
 
-  MultipartRequest(String method, Uri url) : super(method, url);
+  /// If [onUploadProgress] callback is provided and length is computable,
+  /// [onUploadProgress] will execute for each chunk was sent.
+  ///
+  /// lengthComputable :
+  ///     library.html : xhr.lengthComputable
+  ///     library.io : content-length is provided (MultipartRequest provide)
+  MultipartRequest(String method, Uri url,
+      {void Function(int? total, int? loaded)? onUploadProgress})
+      : super(method, url, onUploadProgress: onUploadProgress);
 
   /// The total length of the request body, in bytes.
   ///

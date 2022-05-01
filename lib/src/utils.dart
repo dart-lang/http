@@ -69,8 +69,12 @@ ByteStream toByteStream(Stream<List<int>> stream) {
 ///
 /// The return value, also a single-subscription [Stream] should be used in
 /// place of [stream] after calling this method.
-Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
-    stream.transform(StreamTransformer.fromHandlers(handleDone: (sink) {
-      sink.close();
-      onDone();
-    }));
+Stream<T> onDone<T>(Stream<T> stream, void Function() onDone,
+    {void Function(int load)? onLoadProgress, int? length}) {
+  assert(onLoadProgress == null || length != null);
+
+  return stream.transform(StreamTransformer.fromHandlers(handleDone: (sink) {
+    sink.close();
+    onDone();
+  }));
+}
