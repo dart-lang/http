@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
+
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
@@ -65,9 +67,27 @@ class MockClient extends BaseClient {
         });
 
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<StreamedResponse> send(BaseRequest request,
+      {void Function(int total, int loaded)? onUploadProgress}) async {
     var bodyStream = request.finalize();
-    return await _handler(request, bodyStream);
+
+    ByteStream? _stream2;
+
+    var contentLength = request.contentLength;
+
+    if (onUploadProgress != null && contentLength != null) {
+      var load = 0;
+      _stream2 = ByteStream(
+          bodyStream.transform(StreamTransformer.fromBind((d) async* {
+        await for (var data in d) {
+          load += data.length;
+          onUploadProgress(contentLength, load);
+          yield data;
+        }
+      })));
+    }
+
+    return await _handler(request, _stream2 ?? bodyStream);
   }
 }
 

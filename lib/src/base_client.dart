@@ -68,7 +68,8 @@ abstract class BaseClient implements Client {
   /// later point, or it could already be closed when it's returned. Any
   /// internal HTTP errors should be wrapped as [ClientException]s.
   @override
-  Future<StreamedResponse> send(BaseRequest request);
+  Future<StreamedResponse> send(BaseRequest request,
+      {void Function(int total, int loaded)? onUploadProgress});
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(

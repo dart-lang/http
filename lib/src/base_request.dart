@@ -89,6 +89,7 @@ abstract class BaseRequest {
   bool _finalized = false;
 
   static final _tokenRE = RegExp(r"^[\w!#%&'*+\-.^`|~]+$");
+
   static String _validateMethod(String method) {
     if (!_tokenRE.hasMatch(method)) {
       throw ArgumentError.value(method, 'method', 'Not a valid method');
@@ -96,7 +97,9 @@ abstract class BaseRequest {
     return method;
   }
 
-  BaseRequest(String method, this.url)
+  void Function(int? total, int? loaded)? onUploadProgress;
+
+  BaseRequest(String method, this.url, {this.onUploadProgress})
       : method = _validateMethod(method),
         headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
@@ -130,7 +133,8 @@ abstract class BaseRequest {
     var client = Client();
 
     try {
-      var response = await client.send(this);
+      var response =
+          await client.send(this, onUploadProgress: onUploadProgress);
       var stream = onDone(response.stream, client.close);
       return StreamedResponse(ByteStream(stream), response.statusCode,
           contentLength: response.contentLength,

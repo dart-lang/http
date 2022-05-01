@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
-
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
@@ -62,5 +61,33 @@ void main() {
         request.send(),
         throwsA(isA<http.ClientException>()
             .having((e) => e.message, 'message', 'Redirect limit exceeded')));
+  });
+
+  test('multipart_request_on_progress', () async {
+    var totalLoaded = 0;
+
+    var loadedNotifications = <int>[];
+
+    int? contentLength;
+
+    final request =
+        http.MultipartRequest('GET', serverUrl.resolve('/multipart'),
+            onUploadProgress: (total, loaded) {
+      contentLength = total;
+      if (loaded != null) {
+        totalLoaded = loaded;
+        loadedNotifications.add(loaded);
+      }
+    });
+    request.files.add(http.MultipartFile.fromBytes(
+        'file', List.generate(1500, (index) => 100)));
+
+    var response = await (await request.send()).stream.bytesToString();
+
+    expect(response, '1739');
+    expect(contentLength, 1739);
+    expect(totalLoaded, 1739);
+    expect(loadedNotifications.length, 5);
+    expect(loadedNotifications, [74, 161, 1661, 1663, 1739]);
   });
 }

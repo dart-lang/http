@@ -101,14 +101,16 @@ class RetryClient extends BaseClient {
         );
 
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<StreamedResponse> send(BaseRequest request,
+      {void Function(int total, int loaded)? onUploadProgress}) async {
     final splitter = StreamSplitter(request.finalize());
 
     var i = 0;
     for (;;) {
       StreamedResponse? response;
       try {
-        response = await _inner.send(_copyRequest(request, splitter.split()));
+        response = await _inner.send(_copyRequest(request, splitter.split()),
+            onUploadProgress: onUploadProgress);
       } catch (error, stackTrace) {
         if (i == _retries || !await _whenError(error, stackTrace)) rethrow;
       }

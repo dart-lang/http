@@ -62,6 +62,21 @@ Future<void> startServer() async {
         return;
       }
 
+      if (path == '/multipart') {
+        var completer = Completer<void>();
+        var length = 0;
+        request.listen((event) {
+          length += event.length;
+        }).onDone(completer.complete);
+        await completer.future;
+        response
+          ..statusCode = 200
+          ..contentLength = length.toString().codeUnits.length
+          ..write(length.toString());
+        unawaited(response.close());
+        return;
+      }
+
       var requestBodyBytes = await ByteStream(request).toBytes();
       var encodingName = request.uri.queryParameters['response-encoding'];
       var outputEncoding = encodingName == null
