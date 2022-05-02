@@ -1,3 +1,5 @@
+## 3.2.1-dev
+
 ## 3.2.0
 
 * Honor the `preserveHeaderCase` argument to `MultiHeaders.set` and `.add`.
