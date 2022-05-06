@@ -69,5 +69,15 @@ void main() {
       var response = await http.Response.fromStream(streamResponse);
       expect(response.bodyBytes, equals([104, 101, 108, 108, 111]));
     });
+
+    test('sets url', () async {
+      var controller = StreamController<List<int>>(sync: true);
+      var streamResponse = http.StreamedResponse(controller.stream, 302,
+          contentLength: 5, url: 'https://example.com');
+      controller.add([104, 101, 108, 108, 111]);
+      unawaited(controller.close());
+      var response = await http.Response.fromStream(streamResponse);
+      expect(response.url, equals('https://example.com'));
+    });
   });
 }

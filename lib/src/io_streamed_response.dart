@@ -21,6 +21,7 @@ class IOStreamedResponse extends StreamedResponse {
       {int? contentLength,
       BaseRequest? request,
       Map<String, String> headers = const {},
+      String? url,
       bool isRedirect = false,
       bool persistentConnection = true,
       String? reasonPhrase,
@@ -30,6 +31,7 @@ class IOStreamedResponse extends StreamedResponse {
             contentLength: contentLength,
             request: request,
             headers: headers,
+            url: url,
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);

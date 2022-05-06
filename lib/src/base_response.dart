@@ -29,6 +29,9 @@ abstract class BaseResponse {
   // TODO(nweiz): make this a HttpHeaders object.
   final Map<String, String> headers;
 
+  /// The url of the final response(possibly after redirections).
+  final String? url;
+
   final bool isRedirect;
 
   /// Whether the server requested that a persistent connection be maintained.
@@ -38,6 +41,7 @@ abstract class BaseResponse {
       {this.contentLength,
       this.request,
       this.headers = const {},
+      this.url,
       this.isRedirect = false,
       this.persistentConnection = true,
       this.reasonPhrase}) {

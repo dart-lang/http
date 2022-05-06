@@ -136,6 +136,7 @@ abstract class BaseRequest {
           contentLength: response.contentLength,
           request: response.request,
           headers: response.headers,
+          url: response.url,
           isRedirect: response.isRedirect,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase);
