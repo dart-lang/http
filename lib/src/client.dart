@@ -48,7 +48,7 @@ abstract class Client {
   /// or a [Map<String, String>].
   ///
   /// If [body] is a String, it's encoded using [encoding] and used as the body
-  /// of the request. The content-type of the request will default to 
+  /// of the request. The content-type of the request will default to
   /// "text/plain".
   ///
   /// If [body] is a List, it's used as a list of bytes for the body of the
