@@ -7,7 +7,6 @@ import 'dart:typed_data';
 
 import 'package:http2/src/flowcontrol/window.dart';
 import 'package:http2/transport.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 import 'src/hpack/hpack_test.dart' show isHeader;

@@ -2,8 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
+
 import 'package:http2/transport.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 import 'helper.dart';
@@ -191,7 +192,7 @@ void main() {
 
     server.incomingStreams.listen(expectAsync1((TransportStream sStream) async {
       var isFirst = true;
-      var receivedChunk;
+      List<int>? receivedChunk;
       sStream.incomingMessages.listen(
           expectAsync1((StreamMessage msg) {
             if (isFirst) {

@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:convert' show utf8;
 
 import 'package:http2/transport.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 import 'helper.dart';

@@ -2,6 +2,8 @@
 // in http2/test/src/flowcontrol/mocks.dart.
 // Do not manually edit this file.
 
+// ignore_for_file: unnecessary_overrides
+
 import 'dart:async' as _i5;
 
 import 'package:http2/src/async_utils/async_utils.dart' as _i2;
