@@ -93,14 +93,11 @@ class MultiProtocolHttpServer {
   /// Closes this [MultiProtocolHttpServer].
   ///
   /// Completes once everything has been successfully shut down.
-  Future close({bool force = false}) {
-    return _serverSocket.close().whenComplete(() async {
-      var done1 = _http11Server.close(force: force);
-      Future done2 = Future.wait(
-          _http2Connections.map((c) => force ? c.terminate() : c.finish()));
-      await Future.wait([done1, done2]);
-    });
-  }
+  Future close({bool force = false}) =>
+      _serverSocket.close().whenComplete(() => Future.wait([
+            _http11Server.close(force: force),
+            for (var c in _http2Connections) force ? c.terminate() : c.finish()
+          ]));
 }
 
 /// An internal helper class.
