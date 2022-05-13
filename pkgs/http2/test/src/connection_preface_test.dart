@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:math' show min;
 
 import 'package:http2/src/connection_preface.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 void main() {

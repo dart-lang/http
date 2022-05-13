@@ -12,7 +12,6 @@ import 'package:http2/src/frames/frames.dart';
 import 'package:http2/src/hpack/hpack.dart';
 import 'package:http2/src/settings/settings.dart';
 import 'package:http2/transport.dart';
-import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 
 import 'src/hpack/hpack_test.dart' show isHeader;
@@ -133,7 +132,7 @@ void main() {
 
           expect(client.isOpen, false);
 
-          var error;
+          String? error;
           try {
             client.makeRequest([Header.ascii('a', 'b')]);
           } catch (e) {
@@ -172,7 +171,7 @@ void main() {
 
           expect(client.isOpen, false);
 
-          var error;
+          String? error;
           try {
             client.makeRequest([Header.ascii('a', 'b')]);
           } catch (e) {
