@@ -11,6 +11,7 @@ import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
+import 'progress.dart';
 import 'streamed_response.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
@@ -50,7 +51,10 @@ class BrowserClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<StreamedResponse> send(
+    BaseRequest request,
+    Progress? onSendProgress,
+  ) async {
     if (_isClosed) {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
