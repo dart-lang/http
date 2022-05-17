@@ -56,13 +56,12 @@
 * In `MockHttpClient` use the callback returned `Response.request` instead of
   the argument value to give more control to the callback. This may be breaking
   for callbacks which return incomplete Responses and relied on the default.
+* Add `onSendProgress` callback
 
 ## 0.13.4
 
 * Throw a more useful error when a client is used after it has been closed.
 * Require Dart 2.14.
-
-* Add `onSendProgress` callback
 
 ## 0.13.3
 
