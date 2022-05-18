@@ -14,10 +14,11 @@ import 'package:test/test.dart';
 
 void main() {
   group('with multiple HttpServers', () {
-    var multiServer;
+    late HttpMultiServer multiServer;
     late HttpServer subServer1;
     late HttpServer subServer2;
     late HttpServer subServer3;
+
     setUp(() {
       return Future.wait([
         HttpServer.bind('localhost', 0).then((server) => subServer1 = server),
@@ -159,7 +160,8 @@ void main() {
   });
 
   group('HttpMultiServer.loopback', () {
-    var server;
+    late HttpServer server;
+
     setUp(() {
       return HttpMultiServer.loopback(0).then((s) => server = s);
     });
