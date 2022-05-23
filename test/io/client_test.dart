@@ -12,6 +12,13 @@ import 'package:test/test.dart';
 
 import 'utils.dart';
 
+class TestClient extends http.BaseClient {
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    throw UnimplementedError();
+  }
+}
+
 void main() {
   setUp(startServer);
 
@@ -131,5 +138,11 @@ void main() {
     var socket = await response.detachSocket();
 
     expect(socket, isNotNull);
+  });
+
+  test('runClientZoned', () {
+    late http.Client client;
+    http.runClientZoned(() => client = http.Client(), TestClient());
+    expect(client, isA<TestClient>());
   });
 }

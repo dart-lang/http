@@ -16,7 +16,7 @@ export 'src/base_client.dart';
 export 'src/base_request.dart';
 export 'src/base_response.dart';
 export 'src/byte_stream.dart';
-export 'src/client.dart';
+export 'src/client.dart' hide getZonedClient;
 export 'src/exception.dart';
 export 'src/multipart_file.dart';
 export 'src/multipart_request.dart';
@@ -159,7 +159,7 @@ Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) =>
     _withClient((client) => client.readBytes(url, headers: headers));
 
 Future<T> _withClient<T>(Future<T> Function(Client) fn) async {
-  var client = Client();
+  var client = getZonedClient() ?? Client();
   try {
     return await fn(client);
   } finally {

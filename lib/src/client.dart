@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -140,3 +141,48 @@ abstract class Client {
   /// do so can cause the Dart process to hang.
   void close();
 }
+
+const _clientToken = Object();
+
+/// Return the [Client] for the current [Zone], if one has been set.
+///
+/// NOTE: This function is explicitly hidden from the public API.
+Client? getZonedClient() => Zone.current[_clientToken] != null
+    ? Zone.current[_clientToken] as Client
+    : null;
+
+/// Runs [body] in its own [Zone] with [client] set as the default [Client].
+///
+/// For example:
+///
+/// ```
+/// class MyHttpClient extends http.BaseClient {
+///   @override
+///   Future<http.StreamedResponse> send(http.BaseRequest request) {
+///     // your implementation here
+///   }
+/// }
+///
+/// void main() {
+///  late Client client;
+///  if (Platform.isAndroid) {
+///    client = MyHttpClient();
+///  } else {
+///    client = Client();  // Use the default client.
+///  }
+///  runClientZoned(myFunction, client);
+/// }
+///
+/// myFunction() {
+///   // Uses the `Client` configured in `main`.
+///   final response = await get(Uri.parse("https://www.example.com/"));
+///   final client = Client();
+/// }
+/// ```
+///
+/// The [client] influences functions (e.g. `get`) and the [Client.new] factory.
+R runClientZoned<R>(R Function() body, Client client,
+        {ZoneSpecification? zoneSpecification}) =>
+    runZoned(body,
+        zoneValues: {_clientToken: client},
+        zoneSpecification: zoneSpecification);

@@ -6,13 +6,14 @@ import 'dart:io';
 
 import 'base_client.dart';
 import 'base_request.dart';
+import 'client.dart';
 import 'exception.dart';
 import 'io_streamed_response.dart';
 
 /// Create an [IOClient].
 ///
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
-BaseClient createClient() => IOClient();
+Client createClient() => getZonedClient() ?? IOClient();
 
 /// A `dart:io`-based HTTP client.
 class IOClient extends BaseClient {
