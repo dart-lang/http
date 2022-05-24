@@ -170,7 +170,7 @@ Client? get zoneClient => Zone.current[_clientToken] != null
 ///  } else {
 ///    client = Client();  // Use the default client.
 ///  }
-///  runClientZoned(myFunction, client);
+///  runWithClient(myFunction, () => client);
 /// }
 ///
 /// myFunction() {
