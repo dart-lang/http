@@ -19,6 +19,13 @@ class TestClient extends http.BaseClient {
   }
 }
 
+class TestClient2 extends http.BaseClient {
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    throw UnimplementedError();
+  }
+}
+
 void main() {
   setUp(startServer);
 
@@ -140,9 +147,21 @@ void main() {
     expect(socket, isNotNull);
   });
 
-  test('runClientZoned', () {
+  test('runWithClient', () {
     late http.Client client;
-    http.runClientZoned(() => client = http.Client(), TestClient());
+    http.runWithClient(() => client = http.Client(), () => TestClient());
     expect(client, isA<TestClient>());
+  });
+
+  test('runWithClient nested', () {
+    late http.Client client;
+    late http.Client nestedClient;
+    http.runWithClient(() {
+      http.runWithClient(
+          () => nestedClient = http.Client(), () => TestClient2());
+      client = http.Client();
+    }, () => TestClient());
+    expect(client, isA<TestClient>());
+    expect(nestedClient, isA<TestClient2>());
   });
 }

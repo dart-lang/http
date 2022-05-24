@@ -28,9 +28,10 @@ void main() {
       expect(response.body, equals(''));
     });
 
-    test('head runClientZoned', () {
+    test('head runWithClient', () {
       expect(
-          () => http.runClientZoned(() => http.head(serverUrl), TestClient()),
+          () => http.runWithClient(
+              () => http.head(serverUrl), () => TestClient()),
           throwsUnimplementedError);
     });
 
@@ -55,8 +56,10 @@ void main() {
                       containsPair('x-other-header', ['Other Value']))))));
     });
 
-    test('get runClientZoned', () {
-      expect(() => http.runClientZoned(() => http.get(serverUrl), TestClient()),
+    test('get runWithClient', () {
+      expect(
+          () =>
+              http.runWithClient(() => http.get(serverUrl), () => TestClient()),
           throwsUnimplementedError);
     });
 
@@ -168,10 +171,10 @@ void main() {
           })));
     });
 
-    test('post runClientZoned', () {
+    test('post runWithClient', () {
       expect(
-          () => http.runClientZoned(
-              () => http.post(serverUrl, body: 'testing'), TestClient()),
+          () => http.runWithClient(
+              () => http.post(serverUrl, body: 'testing'), () => TestClient()),
           throwsUnimplementedError);
     });
 
@@ -283,10 +286,10 @@ void main() {
           })));
     });
 
-    test('put runClientZoned', () {
+    test('put runWithClient', () {
       expect(
-          () => http.runClientZoned(
-              () => http.put(serverUrl, body: 'testing'), TestClient()),
+          () => http.runWithClient(
+              () => http.put(serverUrl, body: 'testing'), () => TestClient()),
           throwsUnimplementedError);
     });
 
@@ -419,10 +422,10 @@ void main() {
                       containsPair('x-other-header', ['Other Value']))))));
     });
 
-    test('patch runClientZoned', () {
+    test('patch runWithClient', () {
       expect(
-          () => http.runClientZoned(
-              () => http.patch(serverUrl, body: 'testing'), TestClient()),
+          () => http.runWithClient(
+              () => http.patch(serverUrl, body: 'testing'), () => TestClient()),
           throwsUnimplementedError);
     });
 
@@ -450,9 +453,10 @@ void main() {
       expect(http.read(serverUrl.resolve('/error')), throwsClientException);
     });
 
-    test('read runClientZoned', () {
+    test('read runWithClient', () {
       expect(
-          () => http.runClientZoned(() => http.read(serverUrl), TestClient()),
+          () => http.runWithClient(
+              () => http.read(serverUrl), () => TestClient()),
           throwsUnimplementedError);
     });
 
@@ -482,10 +486,10 @@ void main() {
           http.readBytes(serverUrl.resolve('/error')), throwsClientException);
     });
 
-    test('readBytes runClientZoned', () {
+    test('readBytes runWithClient', () {
       expect(
-          () => http.runClientZoned(
-              () => http.readBytes(serverUrl), TestClient()),
+          () => http.runWithClient(
+              () => http.readBytes(serverUrl), () => TestClient()),
           throwsUnimplementedError);
     });
   });

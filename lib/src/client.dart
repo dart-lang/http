@@ -147,7 +147,7 @@ const _clientToken = Object();
 /// Return the [Client] for the current [Zone], if one has been set.
 ///
 /// NOTE: This function is explicitly hidden from the public API.
-Client? getZonedClient() => Zone.current[_clientToken] != null
+Client? get zoneClient => Zone.current[_clientToken] != null
     ? Zone.current[_clientToken] as Client
     : null;
 
@@ -181,8 +181,8 @@ Client? getZonedClient() => Zone.current[_clientToken] != null
 /// ```
 ///
 /// The [client] influences functions (e.g. `get`) and the [Client.new] factory.
-R runClientZoned<R>(R Function() body, Client client,
+R runWithClient<R>(R Function() body, Client Function() client,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
-        zoneValues: {_clientToken: client},
+        zoneValues: {_clientToken: client()},
         zoneSpecification: zoneSpecification);

@@ -16,7 +16,7 @@ import 'streamed_response.dart';
 /// Create a [BrowserClient].
 ///
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
-Client createClient() => getZonedClient() ?? BrowserClient();
+Client createClient() => zoneClient ?? BrowserClient();
 
 /// A `dart:html`-based HTTP client that runs in the browser and is backed by
 /// XMLHttpRequests.
