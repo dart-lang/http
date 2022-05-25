@@ -53,10 +53,15 @@ class BrowserClient extends BaseClient {
 
     unawaited(xhr.onLoad.first.then((_) {
       var body = (xhr.response as ByteBuffer).asUint8List();
+      var responseUrl = xhr.responseUrl;
+      var url = (responseUrl != null && responseUrl.isNotEmpty)
+          ? Uri.parse(responseUrl)
+          : null;
       completer.complete(StreamedResponse(
           ByteStream.fromBytes(body), xhr.status!,
           contentLength: body.length,
           request: request,
+          url: url,
           headers: xhr.responseHeaders,
           reasonPhrase: xhr.statusText));
     }));

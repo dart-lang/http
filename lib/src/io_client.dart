@@ -59,6 +59,9 @@ class IOClient extends BaseClient {
           request: request,
           headers: headers,
           isRedirect: response.isRedirect,
+          url: response.redirects.isNotEmpty
+              ? response.redirects.last.location
+              : request.url,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase,
           inner: response);

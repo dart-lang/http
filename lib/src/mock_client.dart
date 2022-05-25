@@ -46,6 +46,7 @@ class MockClient extends BaseClient {
               request: response.request,
               headers: response.headers,
               isRedirect: response.isRedirect,
+              url: response.url,
               persistentConnection: response.persistentConnection,
               reasonPhrase: response.reasonPhrase);
         });
@@ -60,6 +61,7 @@ class MockClient extends BaseClient {
               request: response.request,
               headers: response.headers,
               isRedirect: response.isRedirect,
+              url: response.url,
               persistentConnection: response.persistentConnection,
               reasonPhrase: response.reasonPhrase);
         });

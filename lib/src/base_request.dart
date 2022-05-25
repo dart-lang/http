@@ -137,6 +137,7 @@ abstract class BaseRequest {
           request: response.request,
           headers: response.headers,
           isRedirect: response.isRedirect,
+          url: response.url,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase);
     } catch (_) {

@@ -32,12 +32,14 @@ class Response extends BaseResponse {
       {BaseRequest? request,
       Map<String, String> headers = const {},
       bool isRedirect = false,
+      Uri? url,
       bool persistentConnection = true,
       String? reasonPhrase})
       : this.bytes(_encodingForHeaders(headers).encode(body), statusCode,
             request: request,
             headers: headers,
             isRedirect: isRedirect,
+            url: url,
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);
 
@@ -46,6 +48,7 @@ class Response extends BaseResponse {
       {BaseRequest? request,
       Map<String, String> headers = const {},
       bool isRedirect = false,
+      Uri? url,
       bool persistentConnection = true,
       String? reasonPhrase})
       : bodyBytes = toUint8List(bodyBytes),
@@ -54,6 +57,7 @@ class Response extends BaseResponse {
             request: request,
             headers: headers,
             isRedirect: isRedirect,
+            url: url,
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);
 
