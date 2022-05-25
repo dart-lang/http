@@ -30,7 +30,7 @@ abstract class Client {
   ///
   /// Creates an `IOClient` if `dart:io` is available and a `BrowserClient` if
   /// `dart:html` is available, otherwise it will throw an unsupported error.
-  factory Client() => createClient();
+  factory Client() => zoneClient ?? createClient();
 
   /// Sends an HTTP HEAD request with the given headers to the given URL.
   ///
@@ -142,21 +142,23 @@ abstract class Client {
   void close();
 }
 
-const _clientToken = Object();
+final _clientToken = Object();
 
 /// Return the [Client] for the current [Zone], if one has been set.
 ///
 /// NOTE: This function is explicitly hidden from the public API.
-Client? get zoneClient => Zone.current[_clientToken] != null
-    ? Zone.current[_clientToken] as Client
-    : null;
+Client? get zoneClient {
+  final client = Zone.current[#_clientToken];
+  return client == null ? null : (client as Client Function())();
+}
 
-/// Runs [body] in its own [Zone] with [client] set as the default [Client].
+/// Runs [body] in its own [Zone] with the [Client] returned by [clientFactory]
+/// set as the default [Client].
 ///
 /// For example:
 ///
 /// ```
-/// class MyHttpClient extends http.BaseClient {
+/// class MyAndroidHttpClient extends http.BaseClient {
 ///   @override
 ///   Future<http.StreamedResponse> send(http.BaseRequest request) {
 ///     // your implementation here
@@ -164,25 +166,21 @@ Client? get zoneClient => Zone.current[_clientToken] != null
 /// }
 ///
 /// void main() {
-///  late Client client;
-///  if (Platform.isAndroid) {
-///    client = MyHttpClient();
-///  } else {
-///    client = Client();  // Use the default client.
-///  }
-///  runWithClient(myFunction, () => client);
+///   Client client =  Platform.isAndroid ? MyAndroidHttpClient() : Client();
+///   runWithClient(myFunction, () => client);
 /// }
 ///
-/// myFunction() {
+/// void myFunction() {
 ///   // Uses the `Client` configured in `main`.
 ///   final response = await get(Uri.parse("https://www.example.com/"));
 ///   final client = Client();
 /// }
 /// ```
 ///
-/// The [client] influences functions (e.g. `get`) and the [Client.new] factory.
-R runWithClient<R>(R Function() body, Client Function() client,
+/// The [Client] returned by [clientFactory] influences functions (e.g. [get])
+/// and the [Client.new] factory.
+R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
-        zoneValues: {_clientToken: client()},
+        zoneValues: {#_clientToken: Zone.current.bindCallback(clientFactory)},
         zoneSpecification: zoneSpecification);

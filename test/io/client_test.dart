@@ -148,14 +148,14 @@ void main() {
   });
 
   test('runWithClient', () {
-    late http.Client client;
-    http.runWithClient(() => client = http.Client(), () => TestClient());
+    http.Client client =
+        http.runWithClient(() => http.Client(), () => TestClient());
     expect(client, isA<TestClient>());
   });
 
   test('runWithClient nested', () {
-    late http.Client client;
-    late http.Client nestedClient;
+    late final http.Client client;
+    late final http.Client nestedClient;
     http.runWithClient(() {
       http.runWithClient(
           () => nestedClient = http.Client(), () => TestClient2());
@@ -163,5 +163,13 @@ void main() {
     }, () => TestClient());
     expect(client, isA<TestClient>());
     expect(nestedClient, isA<TestClient2>());
+  });
+
+  test('runWithClient recursion', () {
+    // Verify that calling the http.Client() factory inside nested Zones does
+    // not provoke an infinite recursion.
+    http.runWithClient(() {
+      http.runWithClient(() => http.Client(), () => http.Client());
+    }, () => http.Client());
   });
 }
