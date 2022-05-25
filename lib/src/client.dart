@@ -175,8 +175,8 @@ Client? get zoneClient {
 /// }
 /// ```
 ///
-/// The [Client] returned by [clientFactory] influences functions (e.g. `get`)
-/// and the [Client.new] factory.
+/// The [Client] returned by [clientFactory] is used by the [Client.new] factory
+/// and the convenience HTTP functions (e.g. `get`)
 R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
