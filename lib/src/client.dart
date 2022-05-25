@@ -142,9 +142,9 @@ abstract class Client {
   void close();
 }
 
-/// Return the [Client] for the current [Zone], if one has been set.
+/// The [Client] for the current [Zone], if one has been set.
 ///
-/// NOTE: This function is explicitly hidden from the public API.
+/// NOTE: This property is explicitly hidden from the public API.
 Client? get zoneClient {
   final client = Zone.current[#_clientToken];
   return client == null ? null : (client as Client Function())();
@@ -175,7 +175,7 @@ Client? get zoneClient {
 /// }
 /// ```
 ///
-/// The [Client] returned by [clientFactory] influences functions (e.g. [get])
+/// The [Client] returned by [clientFactory] influences functions (e.g. `get`)
 /// and the [Client.new] factory.
 R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
