@@ -7,14 +7,15 @@
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 void main() {
+  late Uri serverUrl;
+  setUpAll(() async {
+    serverUrl = await startServer();
+  });
+
   group('http.', () {
-    setUp(startServer);
-
-    tearDown(stopServer);
-
     test('head', () async {
       var response = await http.head(serverUrl);
       expect(response.statusCode, equals(200));
@@ -408,7 +409,7 @@ void main() {
     });
 
     test('read throws an error for a 4** status code', () {
-      expect(http.read(serverUrl.resolve('/error')), throwsClientException);
+      expect(http.read(serverUrl.resolve('/error')), throwsClientException());
     });
 
     test('readBytes', () async {
@@ -434,7 +435,7 @@ void main() {
 
     test('readBytes throws an error for a 4** status code', () {
       expect(
-          http.readBytes(serverUrl.resolve('/error')), throwsClientException);
+          http.readBytes(serverUrl.resolve('/error')), throwsClientException());
     });
   });
 }
