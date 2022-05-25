@@ -2,8 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'client.dart';
+import 'base_client.dart';
 
 /// Implemented in `browser_client.dart` and `io_client.dart`.
-Client createClient() => throw UnsupportedError(
+BaseClient createClient() => throw UnsupportedError(
     'Cannot create a client without dart:html or dart:io.');

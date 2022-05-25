@@ -6,6 +6,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:meta/meta.dart';
+
 import 'base_client.dart';
 import 'base_request.dart';
 import 'client_stub.dart'
@@ -145,6 +147,7 @@ abstract class Client {
 /// The [Client] for the current [Zone], if one has been set.
 ///
 /// NOTE: This property is explicitly hidden from the public API.
+@internal
 Client? get zoneClient {
   final client = Zone.current[#_clientToken];
   return client == null ? null : (client as Client Function())();
