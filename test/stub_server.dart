@@ -12,7 +12,7 @@ import 'package:stream_channel/stream_channel.dart';
 
 void hybridMain(StreamChannel<dynamic> channel) async {
   final server = await HttpServer.bind('localhost', 0);
-  final url = Uri.http('localhost:${server.port}','');
+  final url = Uri.http('localhost:${server.port}', '');
   server.listen((request) async {
     var path = request.uri.path;
     var response = request.response;
