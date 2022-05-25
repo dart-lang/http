@@ -142,8 +142,6 @@ abstract class Client {
   void close();
 }
 
-final _clientToken = Object();
-
 /// Return the [Client] for the current [Zone], if one has been set.
 ///
 /// NOTE: This function is explicitly hidden from the public API.
