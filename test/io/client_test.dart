@@ -10,12 +10,13 @@ import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart' as http_io;
 import 'package:test/test.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 void main() {
-  setUp(startServer);
-
-  tearDown(stopServer);
+  late Uri serverUrl;
+  setUpAll(() async {
+    serverUrl = await startServer();
+  });
 
   test('#send a StreamedRequest', () async {
     var client = http.Client();
@@ -101,7 +102,7 @@ void main() {
     request.headers[HttpHeaders.contentTypeHeader] =
         'application/json; charset=utf-8';
 
-    expect(client.send(request), throwsSocketException);
+    expect(client.send(request), throwsA(isA<SocketException>()));
 
     request.sink.add('{"hello": "world"}'.codeUnits);
     request.sink.close();
