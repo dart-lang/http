@@ -110,5 +110,19 @@ class _BodyMatches extends Matcher {
 /// [http.ClientException] with the given [message].
 ///
 /// [message] can be a String or a [Matcher].
-Matcher throwsClientException(String message) => throwsA(
-    isA<http.ClientException>().having((e) => e.message, 'message', message));
+Matcher throwsClientException([String? message]) {
+  var exception = isA<http.ClientException>();
+  if (message != null) {
+    exception = exception.having((e) => e.message, 'message', message);
+  }
+  return throwsA(exception);
+}
+
+/// Spawn an isolate in the test runner with an http server.
+///
+/// The server isolate will be killed on teardown.
+Future<Uri> startServer() async {
+  final channel = spawnHybridUri(Uri(path: '/test/stub_server.dart'));
+  final port = await channel.stream.first as int;
+  return Uri.http('localhost:$port', '');
+}
