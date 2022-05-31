@@ -7,12 +7,13 @@
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 void main() {
-  setUp(startServer);
-
-  tearDown(stopServer);
+  late Uri serverUrl;
+  setUpAll(() async {
+    serverUrl = await startServer();
+  });
 
   test('send happy case', () async {
     final request = http.Request('GET', serverUrl)

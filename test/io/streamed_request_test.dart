@@ -9,12 +9,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
 void main() {
-  setUp(startServer);
-
-  tearDown(stopServer);
+  late Uri serverUrl;
+  setUpAll(() async {
+    serverUrl = await startServer();
+  });
 
   group('contentLength', () {
     test('controls the Content-Length header', () async {

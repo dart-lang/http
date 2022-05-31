@@ -8,6 +8,7 @@ import 'dart:typed_data';
 
 import 'package:meta/meta.dart';
 
+import '../http.dart' as http;
 import 'base_client.dart';
 import 'base_request.dart';
 import 'client_stub.dart'
@@ -21,7 +22,8 @@ import 'streamed_response.dart';
 /// connections across multiple requests to the same server.
 ///
 /// If you only need to send a single request, it's usually easier to use
-/// [head], [get], [post], [put], [patch], or [delete] instead.
+/// [http.head], [http.get], [http.post], [http.put], [http.patch], or
+/// [http.delete] instead.
 ///
 /// When creating an HTTP client class with additional functionality, you must
 /// extend [BaseClient] rather than [Client]. In most cases, you can wrap
@@ -48,9 +50,11 @@ abstract class Client {
   /// URL.
   ///
   /// [body] sets the body of the request. It can be a [String], a [List<int>]
-  /// or a [Map<String, String>]. If it's a String, it's encoded using
-  /// [encoding] and used as the body of the request. The content-type of the
-  /// request will default to "text/plain".
+  /// or a [Map<String, String>].
+  ///
+  /// If [body] is a String, it's encoded using [encoding] and used as the body
+  /// of the request. The content-type of the request will default to
+  /// "text/plain".
   ///
   /// If [body] is a List, it's used as a list of bytes for the body of the
   /// request.
@@ -179,7 +183,7 @@ Client? get zoneClient {
 /// ```
 ///
 /// The [Client] returned by [clientFactory] is used by the [Client.new] factory
-/// and the convenience HTTP functions (e.g. `get`)
+/// and the convenience HTTP functions (e.g. [http.get])
 R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
