@@ -149,8 +149,7 @@ void main() {
   });
 
   test('runWithClient', () {
-    http.Client client =
-        http.runWithClient(() => http.Client(), () => TestClient());
+    final client = http.runWithClient(() => http.Client(), () => TestClient());
     expect(client, isA<TestClient>());
   });
 
