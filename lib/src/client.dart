@@ -5,6 +5,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import '../http.dart' as http;
+
 import 'base_client.dart';
 import 'base_request.dart';
 import 'client_stub.dart'
@@ -18,7 +20,8 @@ import 'streamed_response.dart';
 /// connections across multiple requests to the same server.
 ///
 /// If you only need to send a single request, it's usually easier to use
-/// [head], [get], [post], [put], [patch], or [delete] instead.
+/// [http.head], [http.get], [http.post], [http.put], [http.patch], or
+/// [http.delete] instead.
 ///
 /// When creating an HTTP client class with additional functionality, you must
 /// extend [BaseClient] rather than [Client]. In most cases, you can wrap
