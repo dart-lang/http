@@ -12,6 +12,20 @@ import 'package:test/test.dart';
 
 import '../utils.dart';
 
+class TestClient extends http.BaseClient {
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    throw UnimplementedError();
+  }
+}
+
+class TestClient2 extends http.BaseClient {
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    throw UnimplementedError();
+  }
+}
+
 void main() {
   late Uri serverUrl;
   setUpAll(() async {
@@ -132,5 +146,31 @@ void main() {
     var socket = await response.detachSocket();
 
     expect(socket, isNotNull);
+  });
+
+  test('runWithClient', () {
+    http.Client client =
+        http.runWithClient(() => http.Client(), () => TestClient());
+    expect(client, isA<TestClient>());
+  });
+
+  test('runWithClient nested', () {
+    late final http.Client client;
+    late final http.Client nestedClient;
+    http.runWithClient(() {
+      http.runWithClient(
+          () => nestedClient = http.Client(), () => TestClient2());
+      client = http.Client();
+    }, () => TestClient());
+    expect(client, isA<TestClient>());
+    expect(nestedClient, isA<TestClient2>());
+  });
+
+  test('runWithClient recursion', () {
+    // Verify that calling the http.Client() factory inside nested Zones does
+    // not provoke an infinite recursion.
+    http.runWithClient(() {
+      http.runWithClient(() => http.Client(), () => http.Client());
+    }, () => http.Client());
   });
 }
