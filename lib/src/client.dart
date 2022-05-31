@@ -2,11 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import '../http.dart' as http;
+import 'package:meta/meta.dart';
 
+import '../http.dart' as http;
 import 'base_client.dart';
 import 'base_request.dart';
 import 'client_stub.dart'
@@ -32,7 +34,7 @@ abstract class Client {
   ///
   /// Creates an `IOClient` if `dart:io` is available and a `BrowserClient` if
   /// `dart:html` is available, otherwise it will throw an unsupported error.
-  factory Client() => createClient();
+  factory Client() => zoneClient ?? createClient();
 
   /// Sends an HTTP HEAD request with the given headers to the given URL.
   ///
@@ -145,3 +147,45 @@ abstract class Client {
   /// do so can cause the Dart process to hang.
   void close();
 }
+
+/// The [Client] for the current [Zone], if one has been set.
+///
+/// NOTE: This property is explicitly hidden from the public API.
+@internal
+Client? get zoneClient {
+  final client = Zone.current[#_clientToken];
+  return client == null ? null : (client as Client Function())();
+}
+
+/// Runs [body] in its own [Zone] with the [Client] returned by [clientFactory]
+/// set as the default [Client].
+///
+/// For example:
+///
+/// ```
+/// class MyAndroidHttpClient extends BaseClient {
+///   @override
+///   Future<http.StreamedResponse> send(http.BaseRequest request) {
+///     // your implementation here
+///   }
+/// }
+///
+/// void main() {
+///   Client client =  Platform.isAndroid ? MyAndroidHttpClient() : Client();
+///   runWithClient(myFunction, () => client);
+/// }
+///
+/// void myFunction() {
+///   // Uses the `Client` configured in `main`.
+///   final response = await get(Uri.parse("https://www.example.com/"));
+///   final client = Client();
+/// }
+/// ```
+///
+/// The [Client] returned by [clientFactory] is used by the [Client.new] factory
+/// and the convenience HTTP functions (e.g. [http.get])
+R runWithClient<R>(R Function() body, Client Function() clientFactory,
+        {ZoneSpecification? zoneSpecification}) =>
+    runZoned(body,
+        zoneValues: {#_clientToken: Zone.current.bindCallback(clientFactory)},
+        zoneSpecification: zoneSpecification);

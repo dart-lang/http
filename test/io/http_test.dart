@@ -9,6 +9,13 @@ import 'package:test/test.dart';
 
 import '../utils.dart';
 
+class TestClient extends http.BaseClient {
+  @override
+  Future<http.StreamedResponse> send(http.BaseRequest request) {
+    throw UnimplementedError();
+  }
+}
+
 void main() {
   late Uri serverUrl;
   setUpAll(() async {
@@ -20,6 +27,13 @@ void main() {
       var response = await http.head(serverUrl);
       expect(response.statusCode, equals(200));
       expect(response.body, equals(''));
+    });
+
+    test('head runWithClient', () {
+      expect(
+          () => http.runWithClient(
+              () => http.head(serverUrl), () => TestClient()),
+          throwsUnimplementedError);
     });
 
     test('get', () async {
@@ -41,6 +55,13 @@ void main() {
                       containsPair('user-agent', ['Dart']),
                       containsPair('x-random-header', ['Value']),
                       containsPair('x-other-header', ['Other Value']))))));
+    });
+
+    test('get runWithClient', () {
+      expect(
+          () =>
+              http.runWithClient(() => http.get(serverUrl), () => TestClient()),
+          throwsUnimplementedError);
     });
 
     test('post', () async {
@@ -151,6 +172,13 @@ void main() {
           })));
     });
 
+    test('post runWithClient', () {
+      expect(
+          () => http.runWithClient(
+              () => http.post(serverUrl, body: 'testing'), () => TestClient()),
+          throwsUnimplementedError);
+    });
+
     test('put', () async {
       var response = await http.put(serverUrl, headers: {
         'X-Random-Header': 'Value',
@@ -257,6 +285,13 @@ void main() {
             },
             'body': 'some-field=value&other-field=other+value'
           })));
+    });
+
+    test('put runWithClient', () {
+      expect(
+          () => http.runWithClient(
+              () => http.put(serverUrl, body: 'testing'), () => TestClient()),
+          throwsUnimplementedError);
     });
 
     test('patch', () async {
@@ -388,6 +423,13 @@ void main() {
                       containsPair('x-other-header', ['Other Value']))))));
     });
 
+    test('patch runWithClient', () {
+      expect(
+          () => http.runWithClient(
+              () => http.patch(serverUrl, body: 'testing'), () => TestClient()),
+          throwsUnimplementedError);
+    });
+
     test('read', () async {
       var response = await http.read(serverUrl, headers: {
         'X-Random-Header': 'Value',
@@ -410,6 +452,13 @@ void main() {
 
     test('read throws an error for a 4** status code', () {
       expect(http.read(serverUrl.resolve('/error')), throwsClientException());
+    });
+
+    test('read runWithClient', () {
+      expect(
+          () => http.runWithClient(
+              () => http.read(serverUrl), () => TestClient()),
+          throwsUnimplementedError);
     });
 
     test('readBytes', () async {
@@ -436,6 +485,13 @@ void main() {
     test('readBytes throws an error for a 4** status code', () {
       expect(
           http.readBytes(serverUrl.resolve('/error')), throwsClientException());
+    });
+
+    test('readBytes runWithClient', () {
+      expect(
+          () => http.runWithClient(
+              () => http.readBytes(serverUrl), () => TestClient()),
+          throwsUnimplementedError);
     });
   });
 }
