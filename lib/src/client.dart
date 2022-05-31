@@ -163,7 +163,7 @@ Client? get zoneClient {
 /// For example:
 ///
 /// ```
-/// class MyAndroidHttpClient extends http.BaseClient {
+/// class MyAndroidHttpClient extends BaseClient {
 ///   @override
 ///   Future<http.StreamedResponse> send(http.BaseRequest request) {
 ///     // your implementation here
