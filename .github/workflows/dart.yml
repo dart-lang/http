@@ -14,16 +14,16 @@ env:
 
 jobs:
   job_001:
-    name: "analyze_and_format; Dart 2.14.0; `dart analyze --fatal-infos`"
+    name: "analyze_and_format; Dart 2.14.0; PKGS: pkgs/http, pkgs/http_client_conformance_tests; `dart analyze --fatal-infos`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0;packages:pkgs/http;commands:analyze"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0;packages:pkgs/http-pkgs/http_client_conformance_tests;commands:analyze"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0;packages:pkgs/http-pkgs/http_client_conformance_tests
             os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -41,17 +41,26 @@ jobs:
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
         run: dart analyze --fatal-infos
+      - id: pkgs_http_client_conformance_tests_pub_upgrade
+        name: pkgs/http_client_conformance_tests; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: dart pub upgrade
+      - name: "pkgs/http_client_conformance_tests; dart analyze --fatal-infos"
+        if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: dart analyze --fatal-infos
   job_002:
-    name: "analyze_and_format; Dart dev; `dart analyze --fatal-infos`"
+    name: "analyze_and_format; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests; `dart analyze --fatal-infos`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:analyze"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests;commands:analyze"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -69,17 +78,26 @@ jobs:
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
         run: dart analyze --fatal-infos
+      - id: pkgs_http_client_conformance_tests_pub_upgrade
+        name: pkgs/http_client_conformance_tests; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: dart pub upgrade
+      - name: "pkgs/http_client_conformance_tests; dart analyze --fatal-infos"
+        if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: dart analyze --fatal-infos
   job_003:
-    name: "analyze_and_format; Dart dev; `dart format --output=none --set-exit-if-changed .`"
+    name: "analyze_and_format; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests; `dart format --output=none --set-exit-if-changed .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:format"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests;commands:format"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -97,8 +115,17 @@ jobs:
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
         run: "dart format --output=none --set-exit-if-changed ."
+      - id: pkgs_http_client_conformance_tests_pub_upgrade
+        name: pkgs/http_client_conformance_tests; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: dart pub upgrade
+      - name: "pkgs/http_client_conformance_tests; dart format --output=none --set-exit-if-changed ."
+        if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: "dart format --output=none --set-exit-if-changed ."
   job_004:
-    name: "unit_test; Dart 2.14.0; `dart test --platform chrome`"
+    name: "unit_test; Dart 2.14.0; PKG: pkgs/http; `dart test --platform chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -130,16 +157,16 @@ jobs:
       - job_002
       - job_003
   job_005:
-    name: "unit_test; Dart 2.14.0; `dart test --platform vm`"
+    name: "unit_test; Dart 2.14.0; PKGS: pkgs/http, pkgs/http_client_conformance_tests; `dart test --platform vm`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0;packages:pkgs/http;commands:test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0;packages:pkgs/http-pkgs/http_client_conformance_tests;commands:test_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0;packages:pkgs/http-pkgs/http_client_conformance_tests
             os:ubuntu-latest;pub-cache-hosted;sdk:2.14.0
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -157,12 +184,21 @@ jobs:
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
         run: dart test --platform vm
+      - id: pkgs_http_client_conformance_tests_pub_upgrade
+        name: pkgs/http_client_conformance_tests; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: dart pub upgrade
+      - name: "pkgs/http_client_conformance_tests; dart test --platform vm"
+        if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: dart test --platform vm
     needs:
       - job_001
       - job_002
       - job_003
   job_006:
-    name: "unit_test; Dart dev; `dart test --platform chrome`"
+    name: "unit_test; Dart dev; PKG: pkgs/http; `dart test --platform chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -194,16 +230,16 @@ jobs:
       - job_002
       - job_003
   job_007:
-    name: "unit_test; Dart dev; `dart test --platform vm`"
+    name: "unit_test; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests; `dart test --platform vm`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@v3
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests;commands:test_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -220,6 +256,15 @@ jobs:
       - name: "pkgs/http; dart test --platform vm"
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
+        run: dart test --platform vm
+      - id: pkgs_http_client_conformance_tests_pub_upgrade
+        name: pkgs/http_client_conformance_tests; dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
+        run: dart pub upgrade
+      - name: "pkgs/http_client_conformance_tests; dart test --platform vm"
+        if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/http_client_conformance_tests
         run: dart test --platform vm
     needs:
       - job_001
