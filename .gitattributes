@@ -1,0 +1,2 @@
+.github/workflows/dart.yml linguist-generated=true
+tool/ci.sh linguist-generated=true

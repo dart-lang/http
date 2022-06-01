@@ -1,0 +1,3 @@
+merge_stages:
+  - analyze_and_format
+  - unit_test
