@@ -15,12 +15,12 @@ you to make individual HTTP requests with minimal hassle:
 ```dart
 import 'package:http/http.dart' as http;
 
-var url = Uri.parse('https://example.com/whatsit/create');
+var url = Uri.https('example.com', 'whatsit/create');
 var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
 print('Response status: ${response.statusCode}');
 print('Response body: ${response.body}');
 
-print(await http.read(Uri.parse('https://example.com/foobar.txt')));
+print(await http.read(Uri.https('example.com', 'foobar.txt')));
 ```
 
 If you're making multiple requests to the same server, you can keep open a
@@ -87,7 +87,7 @@ import 'package:http/retry.dart';
 Future<void> main() async {
   final client = RetryClient(http.Client());
   try {
-    print(await client.read(Uri.parse('http://example.org')));
+    print(await client.read(Uri.http('example.org', '')));
   } finally {
     client.close();
   }
