@@ -21,7 +21,7 @@ void testResponseHeaders(Client client) async {
           unawaited(response.close());
         });
       final response =
-          await client.get(Uri.parse('http://localhost:${server.port}'));
+          await client.get(Uri.http('localhost:${server.port}', ''));
       expect(response.headers['foo'], 'bar');
       await server.close();
     });
@@ -37,7 +37,7 @@ void testResponseHeaders(Client client) async {
       // RFC 2616 14.44 states that header field names are case-insensive.
       // http.Client canonicalizes field names into lower case.
       final response =
-          await client.get(Uri.parse('http://localhost:${server.port}'));
+          await client.get(Uri.http('localhost:${server.port}', ''));
       expect(response.headers['foo'], 'BAR');
       await server.close();
     });
@@ -54,7 +54,7 @@ void testResponseHeaders(Client client) async {
           unawaited(response.close());
         });
       final response =
-          await client.get(Uri.parse('http://localhost:${server.port}'));
+          await client.get(Uri.http('localhost:${server.port}', ''));
       expect(response.headers['field1'], 'value1');
       expect(response.headers['field2'], 'value2');
       expect(response.headers['field3'], 'value3');
@@ -74,7 +74,7 @@ void testResponseHeaders(Client client) async {
           unawaited(response.close());
         });
       final response =
-          await client.get(Uri.parse('http://localhost:${server.port}'));
+          await client.get(Uri.http('localhost:${server.port}', ''));
       expect(response.headers['list'], 'apple, orange, banana');
       await server.close();
     });

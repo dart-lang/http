@@ -27,7 +27,7 @@ void testResponseBody(Client client,
           await request.response.close();
         });
       final response =
-          await client.get(Uri.parse('http://localhost:${server.port}'));
+          await client.get(Uri.http('localhost:${server.port}', ''));
       expect(response.body, message);
       expect(response.bodyBytes, message.codeUnits);
       expect(response.contentLength, message.length);
@@ -44,8 +44,7 @@ void testResponseBody(Client client,
           request.response.write(message);
           await request.response.close();
         });
-      final request =
-          Request('GET', Uri.parse('http://localhost:${server.port}'));
+      final request = Request('GET', Uri.http('localhost:${server.port}', ''));
       final response = await client.send(request);
       expect(await response.stream.bytesToString(), message);
       expect(response.contentLength, null);
@@ -74,8 +73,7 @@ void testResponseBody(Client client,
           }
           await request.response.close();
         });
-      final request =
-          Request('GET', Uri.parse('http://localhost:${server.port}'));
+      final request = Request('GET', Uri.http('localhost:${server.port}', ''));
       final response = await client.send(request);
       var lastReceived = 0;
       await const LineSplitter()

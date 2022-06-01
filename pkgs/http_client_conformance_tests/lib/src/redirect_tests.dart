@@ -27,40 +27,37 @@ void testRedirect(Client client) async {
             unawaited(request.response.close());
           } else if (request.requestedUri.pathSegments.last == 'loop') {
             unawaited(request.response
-                .redirect(Uri.parse('http://localhost:${server.port}/loop')));
+                .redirect(Uri.http('localhost:${server.port}', '/loop')));
           } else {
             final n = int.parse(request.requestedUri.pathSegments.last);
             final nextPath = n - 1 == 0 ? '' : '${n - 1}';
-            unawaited(request.response.redirect(
-                Uri.parse('http://localhost:${server.port}/$nextPath')));
+            unawaited(request.response
+                .redirect(Uri.http('localhost:${server.port}', '/$nextPath')));
           }
         });
     });
     tearDown(() => server.close);
 
     test('disallow redirect', () async {
-      final request =
-          Request('GET', Uri.parse('http://localhost:${server.port}/1'))
-            ..followRedirects = false;
+      final request = Request('GET', Uri.http('localhost:${server.port}', '/1'))
+        ..followRedirects = false;
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
     });
 
     test('allow redirect', () async {
-      final request =
-          Request('GET', Uri.parse('http://localhost:${server.port}/1'))
-            ..followRedirects = true;
+      final request = Request('GET', Uri.http('localhost:${server.port}', '/1'))
+        ..followRedirects = true;
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
     });
 
     test('allow redirect, 0 maxRedirects, ', () async {
-      final request =
-          Request('GET', Uri.parse('http://localhost:${server.port}/1'))
-            ..followRedirects = true
-            ..maxRedirects = 0;
+      final request = Request('GET', Uri.http('localhost:${server.port}', '/1'))
+        ..followRedirects = true
+        ..maxRedirects = 0;
       expect(
           client.send(request),
           throwsA(isA<ClientException>()
@@ -70,20 +67,18 @@ void testRedirect(Client client) async {
             'is fixed');
 
     test('exactly the right number of allowed redirects', () async {
-      final request =
-          Request('GET', Uri.parse('http://localhost:${server.port}/5'))
-            ..followRedirects = true
-            ..maxRedirects = 5;
+      final request = Request('GET', Uri.http('localhost:${server.port}', '/5'))
+        ..followRedirects = true
+        ..maxRedirects = 5;
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
     });
 
     test('too many redirects', () async {
-      final request =
-          Request('GET', Uri.parse('http://localhost:${server.port}/6'))
-            ..followRedirects = true
-            ..maxRedirects = 5;
+      final request = Request('GET', Uri.http('localhost:${server.port}', '/6'))
+        ..followRedirects = true
+        ..maxRedirects = 5;
       expect(
           client.send(request),
           throwsA(isA<ClientException>()
@@ -92,7 +87,7 @@ void testRedirect(Client client) async {
 
     test('loop', () async {
       final request =
-          Request('GET', Uri.parse('http://localhost:${server.port}/loop'))
+          Request('GET', Uri.http('localhost:${server.port}', '/loop'))
             ..followRedirects = true
             ..maxRedirects = 5;
       expect(

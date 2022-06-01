@@ -54,7 +54,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
               .fold('', (p, e) => '$p$e');
           unawaited(request.response.close());
         });
-      await client.post(Uri.parse('http://localhost:${server.port}'),
+      await client.post(Uri.http('localhost:${server.port}', ''),
           body: 'Hello World!');
 
       expect(serverReceivedContentType, ['text/plain; charset=utf-8']);
@@ -75,7 +75,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
               .fold('', (p, e) => '$p$e');
           unawaited(request.response.close());
         });
-      await client.post(Uri.parse('http://localhost:${server.port}'),
+      await client.post(Uri.http('localhost:${server.port}', ''),
           body: 'Hello', encoding: _Plus2Encoding());
 
       expect(serverReceivedContentType, ['text/plain; charset=plus2']);
@@ -96,7 +96,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
               .fold('', (p, e) => '$p$e');
           unawaited(request.response.close());
         });
-      await client.post(Uri.parse('http://localhost:${server.port}'),
+      await client.post(Uri.http('localhost:${server.port}', ''),
           body: {'key': 'value'});
       expect(serverReceivedContentType,
           ['application/x-www-form-urlencoded; charset=utf-8']);
@@ -117,7 +117,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
               .fold('', (p, e) => '$p$e');
           unawaited(request.response.close());
         });
-      await client.post(Uri.parse('http://localhost:${server.port}'),
+      await client.post(Uri.http('localhost:${server.port}', ''),
           body: {'key': 'value'}, encoding: _Plus2Encoding());
       expect(serverReceivedContentType,
           ['application/x-www-form-urlencoded; charset=plus2']);
@@ -135,7 +135,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
               .fold('', (p, e) => '$p$e');
           unawaited(request.response.close());
         });
-      await client.post(Uri.parse('http://localhost:${server.port}'),
+      await client.post(Uri.http('localhost:${server.port}', ''),
           body: [1, 2, 3, 4, 5]);
 
       // RFC 2616 7.2.1 says that:
@@ -160,7 +160,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
               .fold('', (p, e) => '$p$e');
           unawaited(request.response.close());
         });
-      await client.post(Uri.parse('http://localhost:${server.port}'),
+      await client.post(Uri.http('localhost:${server.port}', ''),
           headers: {HttpHeaders.contentTypeHeader: 'image/png'},
           body: [1, 2, 3, 4, 5]);
 
@@ -180,7 +180,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
               .fold('', (p, e) => '$p$e');
           unawaited(request.response.close());
         });
-      await client.post(Uri.parse('http://localhost:${server.port}'),
+      await client.post(Uri.http('localhost:${server.port}', ''),
           body: [1, 2, 3, 4, 5], encoding: _Plus2Encoding());
 
       // RFC 2616 7.2.1 says that:
@@ -208,7 +208,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
               .fold('', (p, e) => '$p$e');
           unawaited(request.response.close());
         });
-      await client.post(Uri.parse('http://localhost:${server.port}'),
+      await client.post(Uri.http('localhost:${server.port}', ''),
           headers: {HttpHeaders.contentTypeHeader: 'image/png'},
           body: [1, 2, 3, 4, 5],
           encoding: _Plus2Encoding());
@@ -251,7 +251,7 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
       }
 
       final request =
-          StreamedRequest('POST', Uri.parse('http://localhost:${server.port}'));
+          StreamedRequest('POST', Uri.http('localhost:${server.port}', ''));
       const Utf8Encoder()
           .bind(count())
           .listen(request.sink.add, onDone: request.sink.close);

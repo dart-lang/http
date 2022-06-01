@@ -19,7 +19,7 @@ void testRequestHeaders(Client client) async {
           requestHeaders = request.headers;
           unawaited(request.response.close());
         });
-      await client.get(Uri.parse('http://localhost:${server.port}'),
+      await client.get(Uri.http('localhost:${server.port}', ''),
           headers: {'foo': 'bar'});
       expect(requestHeaders['foo'], ['bar']);
       await server.close();
@@ -33,7 +33,7 @@ void testRequestHeaders(Client client) async {
           requestHeaders = request.headers;
           unawaited(request.response.close());
         });
-      await client.get(Uri.parse('http://localhost:${server.port}'),
+      await client.get(Uri.http('localhost:${server.port}', ''),
           headers: {'FOO': 'BAR'});
       // RFC 2616 14.44 states that header field names are case-insensive.
       // http.Client canonicalizes field names into lower case.
@@ -50,7 +50,7 @@ void testRequestHeaders(Client client) async {
           requestHeaders = request.headers;
           unawaited(request.response.close());
         });
-      await client.get(Uri.parse('http://localhost:${server.port}'),
+      await client.get(Uri.http('localhost:${server.port}', ''),
           headers: {'foo': 'bar', 'Foo': 'Bar'});
       expect(requestHeaders['foo']!.first, isIn(['bar', 'Bar']));
       await server.close();
@@ -66,7 +66,7 @@ void testRequestHeaders(Client client) async {
         });
       // The `http.Client` API does not offer a way of sending the name field
       // more than once.
-      await client.get(Uri.parse('http://localhost:${server.port}'),
+      await client.get(Uri.http('localhost:${server.port}', ''),
           headers: {'list': 'apple, orange'});
       expect(requestHeaders['list'], ['apple, orange']);
       await server.close();
@@ -82,7 +82,7 @@ void testRequestHeaders(Client client) async {
         });
       // The `http.Client` API does not offer a way of sending the same field
       // more than once.
-      await client.get(Uri.parse('http://localhost:${server.port}'),
+      await client.get(Uri.http('localhost:${server.port}', ''),
           headers: {'list': 'apple, orange'});
 
       expect(requestHeaders['list'], ['apple, orange']);
