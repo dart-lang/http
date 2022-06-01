@@ -52,7 +52,7 @@ void testRequestHeaders(Client client) async {
         });
       await client.get(Uri.http('localhost:${server.port}', ''),
           headers: {'foo': 'bar', 'Foo': 'Bar'});
-      expect(requestHeaders['foo']!.first, isIn(['bar', 'Bar']));
+      expect(requestHeaders['foo']!.single, isIn(['bar', 'Bar']));
       await server.close();
     });
 
@@ -67,8 +67,9 @@ void testRequestHeaders(Client client) async {
       // The `http.Client` API does not offer a way of sending the name field
       // more than once.
       await client.get(Uri.http('localhost:${server.port}', ''),
-          headers: {'list': 'apple, orange'});
-      expect(requestHeaders['list'], ['apple, orange']);
+          headers: {'fruit': 'apple', 'color': 'red'});
+      expect(requestHeaders['fruit'], ['apple']);
+      expect(requestHeaders['color'], ['red']);
       await server.close();
     });
 
