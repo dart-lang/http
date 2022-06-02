@@ -24,7 +24,7 @@ void testRedirect(Client client) async {
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
-    }, onPlatform: {'browser': const Skip('not passing')});
+    }, onPlatform: const {'browser': Skip('not passing')});
 
     test('allow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
@@ -63,7 +63,7 @@ void testRedirect(Client client) async {
           client.send(request),
           throwsA(isA<ClientException>()
               .having((e) => e.message, 'message', 'Redirect limit exceeded')));
-    }, onPlatform: {'browser': const Skip('not passing')});
+    }, onPlatform: const {'browser': Skip('not passing')});
 
     test('loop', () async {
       final request = Request('GET', Uri.http(host, '/loop'))
@@ -73,6 +73,6 @@ void testRedirect(Client client) async {
           client.send(request),
           throwsA(isA<ClientException>().having((e) => e.message, 'message',
               isIn(['Redirect loop detected', 'Redirect limit exceeded']))));
-    }, onPlatform: {'browser': const Skip('not passing')});
+    }, onPlatform: const {'browser': Skip('not passing')});
   });
 }
