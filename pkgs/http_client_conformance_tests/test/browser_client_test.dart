@@ -13,5 +13,6 @@ void main() {
 
   group('testAll', () {
     testRedirect(client);
+    testRequestBody(client);
   });
 }

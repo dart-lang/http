@@ -5,6 +5,7 @@
 import 'package:http/http.dart';
 
 import 'src/redirect_tests.dart';
+import 'src/request_body_streamed_tests.dart';
 import 'src/request_body_tests.dart';
 import 'src/request_headers_tests.dart';
 import 'src/response_body_tests.dart';
@@ -27,7 +28,10 @@ export 'src/response_headers_tests.dart' show testResponseHeaders;
 /// be skipped
 void testAll(Client client,
     {bool canStreamRequestBody = true, bool canStreamResponseBody = true}) {
-  testRequestBody(client, canStreamRequestBody: canStreamRequestBody);
+  testRequestBody(client);
+  if (canStreamRequestBody) {
+    testRequestBodyStreamed(client);
+  }
   testResponseBody(client, canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(client);
   testResponseHeaders(client);

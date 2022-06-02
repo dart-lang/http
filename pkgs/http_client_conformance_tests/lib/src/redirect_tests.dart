@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
+
+import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
@@ -11,10 +14,12 @@ void testRedirect(Client client) async {
   group('redirects', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
+    late StreamQueue<Object?> httpServerQueue;
 
     setUp(() async {
       httpServerChannel = spawnHybridUri('../lib/src/redirect_server.dart');
-      host = 'localhost:${await httpServerChannel.stream.first as int}';
+      httpServerQueue = StreamQueue(httpServerChannel.stream);
+      host = 'localhost:${await httpServerQueue.next}';
     });
     tearDown(() => httpServerChannel.sink.add(null));
 

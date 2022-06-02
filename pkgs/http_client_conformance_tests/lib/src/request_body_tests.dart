@@ -2,11 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:http/http.dart';
+import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 class _Plus2Decoder extends Converter<List<int>, String> {
@@ -35,108 +35,68 @@ class _Plus2Encoding extends Encoding {
 
 /// Tests that the [Client] correctly implements HTTP requests with bodies e.g.
 /// 'POST'.
-///
-/// If [canStreamRequestBody] is `false` then tests that assume that the
-/// [Client] supports sending HTTP requests with unbounded body sizes will be
-/// skipped.
-void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
+void testRequestBody(Client client) {
   group('request body', () {
-    test('client.post() with string body', () async {
-      late List<String>? serverReceivedContentType;
-      late String serverReceivedBody;
+    late String host;
+    late StreamChannel<Object?> httpServerChannel;
+    late StreamQueue<Object?> httpServerQueue;
 
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          serverReceivedContentType =
-              request.headers[HttpHeaders.contentTypeHeader];
-          serverReceivedBody = await const Utf8Decoder()
-              .bind(request)
-              .fold('', (p, e) => '$p$e');
-          unawaited(request.response.close());
-        });
-      await client.post(Uri.http('localhost:${server.port}', ''),
-          body: 'Hello World!');
+    setUp(() async {
+      httpServerChannel = spawnHybridUri('../lib/src/request_body_server.dart');
+      httpServerQueue = StreamQueue(httpServerChannel.stream);
+      host = 'localhost:${await httpServerQueue.next}';
+    });
+    tearDown(() => httpServerChannel.sink.add(null));
+
+    test('client.post() with string body', () async {
+      await client.post(Uri.http(host, ''), body: 'Hello World!');
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next;
 
       expect(serverReceivedContentType, ['text/plain; charset=utf-8']);
       expect(serverReceivedBody, 'Hello World!');
-      await server.close();
     });
 
     test('client.post() with string body and custom encoding', () async {
-      late List<String>? serverReceivedContentType;
-      late String serverReceivedBody;
-
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          serverReceivedContentType =
-              request.headers[HttpHeaders.contentTypeHeader];
-          serverReceivedBody = await const Utf8Decoder()
-              .bind(request)
-              .fold('', (p, e) => '$p$e');
-          unawaited(request.response.close());
-        });
-      await client.post(Uri.http('localhost:${server.port}', ''),
+      await client.post(Uri.http(host, ''),
           body: 'Hello', encoding: _Plus2Encoding());
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next;
 
       expect(serverReceivedContentType, ['text/plain; charset=plus2']);
       expect(serverReceivedBody, 'Fcjjm');
-      await server.close();
     });
 
     test('client.post() with map body', () async {
-      late List<String>? serverReceivedContentType;
-      late String serverReceivedBody;
+      await client.post(Uri.http(host, ''), body: {'key': 'value'});
 
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          serverReceivedContentType =
-              request.headers[HttpHeaders.contentTypeHeader];
-          serverReceivedBody = await const Utf8Decoder()
-              .bind(request)
-              .fold('', (p, e) => '$p$e');
-          unawaited(request.response.close());
-        });
-      await client.post(Uri.http('localhost:${server.port}', ''),
-          body: {'key': 'value'});
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next;
+
       expect(serverReceivedContentType,
           ['application/x-www-form-urlencoded; charset=utf-8']);
       expect(serverReceivedBody, 'key=value');
-      await server.close();
     });
 
     test('client.post() with map body and encoding', () async {
-      late List<String>? serverReceivedContentType;
-      late String serverReceivedBody;
-
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          serverReceivedContentType =
-              request.headers[HttpHeaders.contentTypeHeader];
-          serverReceivedBody = await const Utf8Decoder()
-              .bind(request)
-              .fold('', (p, e) => '$p$e');
-          unawaited(request.response.close());
-        });
-      await client.post(Uri.http('localhost:${server.port}', ''),
+      await client.post(Uri.http(host, ''),
           body: {'key': 'value'}, encoding: _Plus2Encoding());
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next;
+
       expect(serverReceivedContentType,
           ['application/x-www-form-urlencoded; charset=plus2']);
       expect(serverReceivedBody, 'gau;r]hqa'); // key=value
-      await server.close();
     });
 
     test('client.post() with List<int>', () async {
-      late String serverReceivedBody;
+      await client.post(Uri.http(host, ''), body: [1, 2, 3, 4, 5]);
 
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          serverReceivedBody = await const Utf8Decoder()
-              .bind(request)
-              .fold('', (p, e) => '$p$e');
-          unawaited(request.response.close());
-        });
-      await client.post(Uri.http('localhost:${server.port}', ''),
-          body: [1, 2, 3, 4, 5]);
+      await httpServerQueue.next; // Content-Type.
+      final serverReceivedBody = await httpServerQueue.next as String;
 
       // RFC 2616 7.2.1 says that:
       //   Any HTTP/1.1 message containing an entity-body SHOULD include a
@@ -144,44 +104,26 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
       // But we didn't set one explicitly so don't verify what the server
       // received.
       expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
-      await server.close();
     });
 
     test('client.post() with List<int> and content-type', () async {
-      late List<String>? serverReceivedContentType;
-      late String serverReceivedBody;
+      await client.post(Uri.http(host, ''),
+          headers: {'Content-Type': 'image/png'}, body: [1, 2, 3, 4, 5]);
 
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          serverReceivedContentType =
-              request.headers[HttpHeaders.contentTypeHeader];
-          serverReceivedBody = await const Utf8Decoder()
-              .bind(request)
-              .fold('', (p, e) => '$p$e');
-          unawaited(request.response.close());
-        });
-      await client.post(Uri.http('localhost:${server.port}', ''),
-          headers: {HttpHeaders.contentTypeHeader: 'image/png'},
-          body: [1, 2, 3, 4, 5]);
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next as String;
 
       expect(serverReceivedContentType, ['image/png']);
       expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
-      await server.close();
     });
 
     test('client.post() with List<int> with encoding', () async {
       // Encoding should not affect binary payloads.
-      late String serverReceivedBody;
-
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          serverReceivedBody = await const Utf8Decoder()
-              .bind(request)
-              .fold('', (p, e) => '$p$e');
-          unawaited(request.response.close());
-        });
-      await client.post(Uri.http('localhost:${server.port}', ''),
+      await client.post(Uri.http(host, ''),
           body: [1, 2, 3, 4, 5], encoding: _Plus2Encoding());
+
+      await httpServerQueue.next; // Content-Type.
+      final serverReceivedBody = await httpServerQueue.next as String;
 
       // RFC 2616 7.2.1 says that:
       //   Any HTTP/1.1 message containing an entity-body SHOULD include a
@@ -189,35 +131,25 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
       // But we didn't set one explicitly so don't verify what the server
       // received.
       expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
-      await server.close();
     });
 
     test('client.post() with List<int> with encoding and content-type',
         () async {
       // Encoding should not affect the payload but it should affect the
       // content-type.
-      late List<String>? serverReceivedContentType;
-      late String serverReceivedBody;
 
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          serverReceivedContentType =
-              request.headers[HttpHeaders.contentTypeHeader];
-          serverReceivedBody = await const Utf8Decoder()
-              .bind(request)
-              .fold('', (p, e) => '$p$e');
-          unawaited(request.response.close());
-        });
-      await client.post(Uri.http('localhost:${server.port}', ''),
-          headers: {HttpHeaders.contentTypeHeader: 'image/png'},
+      await client.post(Uri.http(host, ''),
+          headers: {'Content-Type': 'image/png'},
           body: [1, 2, 3, 4, 5],
           encoding: _Plus2Encoding());
 
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next as String;
+
       expect(serverReceivedContentType, ['image/png; charset=plus2']);
       expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
-      await server.close();
     });
-
+/*
     test('client.send() with StreamedRequest', () async {
       // The client continuously streams data to the server until
       // instructed to stop (by setting `clientWriting` to `false`).
@@ -260,5 +192,6 @@ void testRequestBody(Client client, {bool canStreamRequestBody = true}) {
       expect(lastReceived, greaterThanOrEqualTo(1000));
       await server.close();
     }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
+    */
   });
 }
