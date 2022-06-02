@@ -10,13 +10,13 @@ import 'package:test/test.dart';
 void testRedirect(Client client) async {
   group('redirects', () {
     late String host;
-    late StreamChannel<Object?> channel;
+    late StreamChannel<Object?> httpServerChannel;
 
     setUp(() async {
-      channel = spawnHybridUri('../lib/src/redirect_server.dart');
-      host = 'localhost:${await channel.stream.first as int}';
+      httpServerChannel = spawnHybridUri('../lib/src/redirect_server.dart');
+      host = 'localhost:${await httpServerChannel.stream.first as int}';
     });
-    tearDown(() => channel.sink.add(null));
+    tearDown(() => httpServerChannel.sink.add(null));
 
     test('disallow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
