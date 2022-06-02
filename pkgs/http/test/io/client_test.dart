@@ -111,7 +111,7 @@ void main() {
 
   test('#send with an invalid URL', () {
     var client = http.Client();
-    var url = Uri.parse('http://http.invalid');
+    var url = Uri.http('http.invalid', '');
     var request = http.StreamedRequest('POST', url);
     request.headers[HttpHeaders.contentTypeHeader] =
         'application/json; charset=utf-8';

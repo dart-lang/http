@@ -208,13 +208,13 @@ void main() {
           expect(request.maxRedirects, equals(12));
           expect(request.method, equals('POST'));
           expect(request.persistentConnection, isFalse);
-          expect(request.url, equals(Uri.parse('http://example.org')));
+          expect(request.url, equals(Uri.http('example.org', '')));
           expect(request.body, equals('hello'));
           return Response('', 503);
         }, count: 2)),
         [Duration.zero]);
 
-    final request = Request('POST', Uri.parse('http://example.org'))
+    final request = Request('POST', Uri.http('example.org', ''))
       ..body = 'hello'
       ..followRedirects = false
       ..headers['foo'] = 'bar'

@@ -12,7 +12,7 @@ void main() {
   final client = BrowserClient();
 
   group('testAll', () {
-    testRedirect(client);
     testRequestBody(client);
+    testRedirect(client, redirectAlwaysAllowed: true);
   });
 }
