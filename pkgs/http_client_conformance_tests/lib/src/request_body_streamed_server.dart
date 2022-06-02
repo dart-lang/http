@@ -14,9 +14,8 @@ import 'package:stream_channel/stream_channel.dart';
 /// Channel protocol:
 ///    On Startup:
 ///     - send port
-///    On Request Received:
-///     - send "Content-Type" header
-///     - send request body
+///    On Integer == 1000 received:
+///     - send 1000
 ///    When Receive Anything:
 ///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
@@ -25,18 +24,14 @@ void hybridMain(StreamChannel<Object?> channel) async {
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
-      if (request.method == 'OPTIONS') {
-        // Handle a CORS preflight request:
-        // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#preflighted_requests
-        request.response.headers
-          ..set('Access-Control-Allow-Methods', 'POST, DELETE')
-          ..set('Access-Control-Allow-Headers', 'Content-Type');
-      } else {
-        channel.sink.add(request.headers[HttpHeaders.contentTypeHeader]);
-        final serverReceivedBody =
-            await const Utf8Decoder().bind(request).fold('', (p, e) => '$p$e');
-        channel.sink.add(serverReceivedBody);
-      }
+      await const LineSplitter()
+          .bind(const Utf8Decoder().bind(request))
+          .forEach((s) {
+        final lastReceived = int.parse(s.trim());
+        if (lastReceived == 1000) {
+          channel.sink.add(lastReceived);
+        }
+      });
       unawaited(request.response.close());
     });
 

@@ -12,6 +12,7 @@ import 'src/response_body_tests.dart';
 import 'src/response_headers_tests.dart';
 
 export 'src/redirect_tests.dart' show testRedirect;
+export 'src/request_body_streamed_tests.dart' show testRequestBodyStreamed;
 export 'src/request_body_tests.dart' show testRequestBody;
 export 'src/request_headers_tests.dart' show testRequestHeaders;
 export 'src/response_body_tests.dart' show testResponseBody;
@@ -34,9 +35,7 @@ void testAll(Client client,
     bool canStreamResponseBody = true,
     bool redirectAlwaysAllowed = false}) {
   testRequestBody(client);
-  if (canStreamRequestBody) {
-    testRequestBodyStreamed(client);
-  }
+  testRequestBodyStreamed(client, canStreamRequestBody: canStreamRequestBody);
   testRequestBody(client);
   testResponseBody(client, canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(client);

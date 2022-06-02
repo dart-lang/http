@@ -30,7 +30,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : '');
+    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test('allow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
@@ -59,7 +59,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : '');
+    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test('too many redirects', () async {
       final request = Request('GET', Uri.http(host, '/6'))
@@ -69,7 +69,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
           client.send(request),
           throwsA(isA<ClientException>()
               .having((e) => e.message, 'message', 'Redirect limit exceeded')));
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : '');
+    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test(
       'loop',

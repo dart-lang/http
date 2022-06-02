@@ -4,15 +4,33 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:http/http.dart';
+import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 /// Tests that the [Client] correctly implements streamed request body
 /// uploading.
-void testRequestBodyStreamed(Client client) {
-  group('request body', () {
+///
+/// If [canStreamRequestBody] is `false` then tests that assume that the
+/// [Client] supports sending HTTP requests with unbounded body sizes will be
+/// skipped.
+void testRequestBodyStreamed(Client client,
+    {bool canStreamRequestBody = true}) {
+  group('streamed requests', () {
+    late String host;
+    late StreamChannel<Object?> httpServerChannel;
+    late StreamQueue<Object?> httpServerQueue;
+
+    setUp(() async {
+      httpServerChannel =
+          spawnHybridUri('../lib/src/request_body_streamed_server.dart');
+      httpServerQueue = StreamQueue(httpServerChannel.stream);
+      host = 'localhost:${await httpServerQueue.next}';
+    });
+    tearDown(() => httpServerChannel.sink.add(null));
+
     test('client.send() with StreamedRequest', () async {
       // The client continuously streams data to the server until
       // instructed to stop (by setting `clientWriting` to `false`).
@@ -21,39 +39,25 @@ void testRequestBodyStreamed(Client client) {
       //
       // This ensures that the client supports streamed data sends.
       var lastReceived = 0;
-      var clientWriting = true;
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          await const LineSplitter()
-              .bind(const Utf8Decoder().bind(request))
-              .forEach((s) {
-            lastReceived = int.parse(s.trim());
-            if (lastReceived < 1000) {
-              expect(clientWriting, true);
-            } else {
-              clientWriting = false;
-            }
-          });
-          unawaited(request.response.close());
-        });
+
       Stream<String> count() async* {
         var i = 0;
-        while (clientWriting) {
+        unawaited(
+            httpServerQueue.next.then((value) => lastReceived = value as int));
+        do {
           yield '${i++}\n';
           // Let the event loop run.
           await Future<void>.delayed(const Duration());
-        }
+        } while (lastReceived < 1000);
       }
 
-      final request =
-          StreamedRequest('POST', Uri.http('localhost:${server.port}', ''));
+      final request = StreamedRequest('POST', Uri.http(host, ''));
       const Utf8Encoder()
           .bind(count())
           .listen(request.sink.add, onDone: request.sink.close);
       await client.send(request);
 
       expect(lastReceived, greaterThanOrEqualTo(1000));
-      await server.close();
     });
-  });
+  }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
 }
