@@ -21,7 +21,7 @@ final _newlineRegExp = RegExp(r'\r\n|\r|\n');
 /// This request automatically sets the Content-Type header to
 /// `multipart/form-data`. This value will override any value set by the user.
 ///
-///     var uri = Uri.parse('https://example.com/create');
+///     var uri = Uri.https('example.com', 'create');
 ///     var request = http.MultipartRequest('POST', uri)
 ///       ..fields['user'] = 'nweiz@google.com'
 ///       ..files.add(await http.MultipartFile.fromPath(
