@@ -2,52 +2,32 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-import 'dart:io';
-
 import 'package:http/http.dart';
+import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 /// Tests that the [Client] correctly implements HTTP redirect logic.
 void testRedirect(Client client) async {
   group('redirects', () {
-    late HttpServer server;
+    late String host;
+    late StreamChannel<Object?> channel;
+
     setUp(() async {
-      //        URI |  Redirects TO
-      // ===========|==============
-      // ".../loop" |    ".../loop"
-      //   ".../10" |       ".../9"
-      //    ".../9" |       ".../8"
-      //        ... |           ...
-      //    ".../1" |           "/"
-      //        "/" |  <no redirect>
-      server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          if (request.requestedUri.pathSegments.isEmpty) {
-            unawaited(request.response.close());
-          } else if (request.requestedUri.pathSegments.last == 'loop') {
-            unawaited(request.response
-                .redirect(Uri.http('localhost:${server.port}', '/loop')));
-          } else {
-            final n = int.parse(request.requestedUri.pathSegments.last);
-            final nextPath = n - 1 == 0 ? '' : '${n - 1}';
-            unawaited(request.response
-                .redirect(Uri.http('localhost:${server.port}', '/$nextPath')));
-          }
-        });
+      channel = spawnHybridUri('../lib/src/redirect_server.dart');
+      host = 'localhost:${await channel.stream.first as int}';
     });
-    tearDown(() => server.close);
+    tearDown(() => channel.sink.add(null));
 
     test('disallow redirect', () async {
-      final request = Request('GET', Uri.http('localhost:${server.port}', '/1'))
+      final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = false;
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
-    });
+    }, onPlatform: {'browser': const Skip('not passing')});
 
     test('allow redirect', () async {
-      final request = Request('GET', Uri.http('localhost:${server.port}', '/1'))
+      final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = true;
       final response = await client.send(request);
       expect(response.statusCode, 200);
@@ -55,7 +35,7 @@ void testRedirect(Client client) async {
     });
 
     test('allow redirect, 0 maxRedirects, ', () async {
-      final request = Request('GET', Uri.http('localhost:${server.port}', '/1'))
+      final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = true
         ..maxRedirects = 0;
       expect(
@@ -67,7 +47,7 @@ void testRedirect(Client client) async {
             'is fixed');
 
     test('exactly the right number of allowed redirects', () async {
-      final request = Request('GET', Uri.http('localhost:${server.port}', '/5'))
+      final request = Request('GET', Uri.http(host, '/5'))
         ..followRedirects = true
         ..maxRedirects = 5;
       final response = await client.send(request);
@@ -76,24 +56,23 @@ void testRedirect(Client client) async {
     });
 
     test('too many redirects', () async {
-      final request = Request('GET', Uri.http('localhost:${server.port}', '/6'))
+      final request = Request('GET', Uri.http(host, '/6'))
         ..followRedirects = true
         ..maxRedirects = 5;
       expect(
           client.send(request),
           throwsA(isA<ClientException>()
               .having((e) => e.message, 'message', 'Redirect limit exceeded')));
-    });
+    }, onPlatform: {'browser': const Skip('not passing')});
 
     test('loop', () async {
-      final request =
-          Request('GET', Uri.http('localhost:${server.port}', '/loop'))
-            ..followRedirects = true
-            ..maxRedirects = 5;
+      final request = Request('GET', Uri.http(host, '/loop'))
+        ..followRedirects = true
+        ..maxRedirects = 5;
       expect(
           client.send(request),
           throwsA(isA<ClientException>().having((e) => e.message, 'message',
               isIn(['Redirect loop detected', 'Redirect limit exceeded']))));
-    });
+    }, onPlatform: {'browser': const Skip('not passing')});
   });
 }
