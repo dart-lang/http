@@ -28,7 +28,7 @@ void main() {
 
   test('#send with an invalid URL', () {
     var client = BrowserClient();
-    var url = Uri.parse('http://http.invalid');
+    var url = Uri.http('http.invalid', '');
     var request = http.StreamedRequest('POST', url);
 
     expect(

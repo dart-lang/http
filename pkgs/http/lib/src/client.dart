@@ -177,7 +177,7 @@ Client? get zoneClient {
 ///
 /// void myFunction() {
 ///   // Uses the `Client` configured in `main`.
-///   final response = await get(Uri.parse("https://www.example.com/"));
+///   final response = await get(Uri.https('www.example.com', ''));
 ///   final client = Client();
 /// }
 /// ```
