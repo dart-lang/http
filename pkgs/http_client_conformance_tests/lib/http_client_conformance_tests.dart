@@ -25,11 +25,16 @@ export 'src/response_headers_tests.dart' show testResponseHeaders;
 /// If [canStreamResponseBody] is `false` then tests that assume that the
 /// [Client] supports receiving HTTP responses with unbounded body sizes will
 /// be skipped
+///
+/// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
+/// to limit redirects will be skipped.
 void testAll(Client client,
-    {bool canStreamRequestBody = true, bool canStreamResponseBody = true}) {
+    {bool canStreamRequestBody = true,
+    bool canStreamResponseBody = true,
+    bool redirectAlwaysAllowed = false}) {
   testRequestBody(client, canStreamRequestBody: canStreamRequestBody);
   testResponseBody(client, canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(client);
   testResponseHeaders(client);
-  testRedirect(client);
+  testRedirect(client, redirectAlwaysAllowed: redirectAlwaysAllowed);
 }

@@ -12,3 +12,6 @@ stages:
   - test: --platform vm
     os:
     - linux
+  - test: --platform chrome
+    os:
+    - linux
