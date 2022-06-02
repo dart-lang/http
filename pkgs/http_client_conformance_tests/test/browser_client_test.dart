@@ -12,6 +12,6 @@ void main() {
   final client = BrowserClient();
 
   group('testAll', () {
-    testRedirect(client);
+    testRedirect(client, redirectAlwaysAllowed: true);
   });
 }
