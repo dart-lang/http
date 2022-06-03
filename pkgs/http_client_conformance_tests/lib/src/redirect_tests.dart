@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
@@ -12,14 +13,16 @@ import 'package:test/test.dart';
 /// to limit redirects will be skipped.
 void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
   group('redirects', () {
-    late String host;
-    late StreamChannel<Object?> httpServerChannel;
+    late final String host;
+    late final StreamChannel<Object?> httpServerChannel;
+    late final StreamQueue<Object?> httpServerQueue;
 
-    setUp(() async {
+    setUpAll(() async {
       httpServerChannel = spawnHybridUri('../lib/src/redirect_server.dart');
-      host = 'localhost:${await httpServerChannel.stream.first as int}';
+      httpServerQueue = StreamQueue(httpServerChannel.stream);
+      host = 'localhost:${await httpServerQueue.next}';
     });
-    tearDown(() => httpServerChannel.sink.add(null));
+    tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('disallow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
@@ -27,7 +30,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : '');
+    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test('allow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
@@ -56,7 +59,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : '');
+    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test('too many redirects', () async {
       final request = Request('GET', Uri.http(host, '/6'))
@@ -66,7 +69,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
           client.send(request),
           throwsA(isA<ClientException>()
               .having((e) => e.message, 'message', 'Redirect limit exceeded')));
-    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : '');
+    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test(
       'loop',
