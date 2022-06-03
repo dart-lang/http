@@ -37,16 +37,16 @@ class _Plus2Encoding extends Encoding {
 /// 'POST'.
 void testRequestBody(Client client) {
   group('request body', () {
-    late String host;
-    late StreamChannel<Object?> httpServerChannel;
-    late StreamQueue<Object?> httpServerQueue;
+    late final String host;
+    late final StreamChannel<Object?> httpServerChannel;
+    late final StreamQueue<Object?> httpServerQueue;
 
-    setUp(() async {
+    setUpAll(() async {
       httpServerChannel = spawnHybridUri('../lib/src/request_body_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
-    tearDown(() => httpServerChannel.sink.add(null));
+    tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('client.post() with string body', () async {
       await client.post(Uri.http(host, ''), body: 'Hello World!');

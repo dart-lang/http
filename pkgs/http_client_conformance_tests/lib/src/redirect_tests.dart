@@ -13,16 +13,16 @@ import 'package:test/test.dart';
 /// to limit redirects will be skipped.
 void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
   group('redirects', () {
-    late String host;
-    late StreamChannel<Object?> httpServerChannel;
-    late StreamQueue<Object?> httpServerQueue;
+    late final String host;
+    late final StreamChannel<Object?> httpServerChannel;
+    late final StreamQueue<Object?> httpServerQueue;
 
-    setUp(() async {
+    setUpAll(() async {
       httpServerChannel = spawnHybridUri('../lib/src/redirect_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
-    tearDown(() => httpServerChannel.sink.add(null));
+    tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('disallow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
