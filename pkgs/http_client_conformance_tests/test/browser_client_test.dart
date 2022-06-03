@@ -12,6 +12,9 @@ void main() {
   final client = BrowserClient();
 
   group('testAll', () {
+    // TODO: Replace this with `testAll` when all tests support browser testing.
+    testRequestBody(client);
     testRedirect(client, redirectAlwaysAllowed: true);
+    testRequestBodyStreamed(client, canStreamRequestBody: false);
   });
 }
