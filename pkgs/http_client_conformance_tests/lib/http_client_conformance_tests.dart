@@ -36,7 +36,6 @@ void testAll(Client client,
     bool redirectAlwaysAllowed = false}) {
   testRequestBody(client);
   testRequestBodyStreamed(client, canStreamRequestBody: canStreamRequestBody);
-  testRequestBody(client);
   testResponseBody(client, canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(client);
   testResponseHeaders(client);
