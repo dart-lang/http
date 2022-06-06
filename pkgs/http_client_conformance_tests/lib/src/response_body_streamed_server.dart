@@ -31,7 +31,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
         request.response.write('$i\n');
         await request.response.flush();
         // Let the event loop run.
-        await Future<void>.delayed(const Duration());
+        await Future(() {});
       }
       await request.response.close();
       unawaited(server.close());
