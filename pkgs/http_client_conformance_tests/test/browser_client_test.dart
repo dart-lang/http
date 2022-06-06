@@ -16,5 +16,7 @@ void main() {
     testRequestBody(client);
     testRedirect(client, redirectAlwaysAllowed: true);
     testRequestBodyStreamed(client, canStreamRequestBody: false);
+    testResponseBody(client, canStreamResponseBody: false);
+    testResponseBodyStreamed(client, canStreamResponseBody: false);
   });
 }

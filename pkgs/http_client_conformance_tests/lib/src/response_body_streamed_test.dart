@@ -2,53 +2,53 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
-/// Tests that the [Client] correctly implements HTTP responses with bodies.
+/// Tests that the [Client] correctly implements HTTP responses with bodies of
+/// unbounded size.
 ///
 /// If [canStreamResponseBody] is `false` then tests that assume that the
 /// [Client] supports receiving HTTP responses with unbounded body sizes will
 /// be skipped
-void testResponseBody(Client client,
+void testResponseBodyStreamed(Client client,
     {bool canStreamResponseBody = true}) async {
-  group('response body', () {
+  group('streamed response body', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
-    const message = 'Hello World!';
 
     setUpAll(() async {
       httpServerChannel =
-          spawnHybridUri('../lib/src/response_body_server.dart');
+          spawnHybridUri('../lib/src/response_body_streamed_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 
-    test('small response with content length', () async {
-      final response = await client.get(Uri.http(host, ''));
-      expect(response.body, message);
-      expect(response.bodyBytes, message.codeUnits);
-      expect(response.contentLength, message.length);
-      expect(response.headers['content-type'], 'text/plain');
-    });
+    test('large response streamed without content length', () async {
+      // The server continuously streams data to the client until
+      // instructed to stop.
+      //
+      // This ensures that the client supports streamed responses.
 
-    test('small response streamed without content length', () async {
       final request = Request('GET', Uri.http(host, ''));
       final response = await client.send(request);
-      expect(await response.stream.bytesToString(), message);
-      if (canStreamResponseBody) {
-        expect(response.contentLength, null);
-      } else {
-        // If the response body is small then the Client can emulate a streamed
-        // response without streaming. But `response.contentLength` may or
-        // may not be set.
-        expect(response.contentLength, isIn([null, 12]));
-      }
+      var lastReceived = 0;
+      await const LineSplitter()
+          .bind(const Utf8Decoder().bind(response.stream))
+          .forEach((s) {
+        lastReceived = int.parse(s.trim());
+        if (lastReceived == 1000) {
+          httpServerChannel.sink.add(true);
+        }
+      });
       expect(response.headers['content-type'], 'text/plain');
-    });
+      expect(lastReceived, greaterThanOrEqualTo(1000));
+    }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
   });
 }
