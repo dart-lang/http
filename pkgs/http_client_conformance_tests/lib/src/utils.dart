@@ -3,6 +3,10 @@ import 'dart:isolate';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
+/// Starts a test server using a relative path name e.g.
+/// 'redirect_server.dart'.
+///
+/// See [spawnHybridUri].
 Future<StreamChannel<Object?>> startServer(String fileName) async {
   try {
     final fileUri = await Isolate.resolvePackageUri(Uri(
