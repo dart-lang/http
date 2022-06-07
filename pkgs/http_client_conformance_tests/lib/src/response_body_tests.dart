@@ -7,6 +7,8 @@ import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
+import 'utils.dart';
+
 /// Tests that the [Client] correctly implements HTTP responses with bodies.
 ///
 /// If [canStreamResponseBody] is `false` then tests that assume that the
@@ -21,8 +23,7 @@ void testResponseBody(Client client,
     const message = 'Hello World!';
 
     setUpAll(() async {
-      httpServerChannel =
-          spawnHybridUri('../lib/src/response_body_server.dart');
+      httpServerChannel = await startServer('response_body_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });

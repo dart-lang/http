@@ -7,6 +7,8 @@ import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
+import 'utils.dart';
+
 /// Tests that the [Client] correctly implements HTTP redirect logic.
 ///
 /// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
@@ -18,7 +20,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
     late final StreamQueue<Object?> httpServerQueue;
 
     setUpAll(() async {
-      httpServerChannel = spawnHybridUri('../lib/src/redirect_server.dart');
+      httpServerChannel = await startServer('redirect_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
