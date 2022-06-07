@@ -10,6 +10,8 @@ import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
+import 'utils.dart';
+
 /// Tests that the [Client] correctly implements streamed request body
 /// uploading.
 ///
@@ -25,7 +27,7 @@ void testRequestBodyStreamed(Client client,
 
     setUp(() async {
       httpServerChannel =
-          spawnHybridUri('../lib/src/request_body_streamed_server.dart');
+          await startServer('request_body_streamed_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });

@@ -9,6 +9,8 @@ import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
+import 'utils.dart';
+
 class _Plus2Decoder extends Converter<List<int>, String> {
   @override
   String convert(List<int> input) =>
@@ -42,7 +44,7 @@ void testRequestBody(Client client) {
     late final StreamQueue<Object?> httpServerQueue;
 
     setUpAll(() async {
-      httpServerChannel = spawnHybridUri('../lib/src/request_body_server.dart');
+      httpServerChannel = await startServer('request_body_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
