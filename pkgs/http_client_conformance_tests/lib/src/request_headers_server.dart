@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:stream_channel/stream_channel.dart';
@@ -30,7 +29,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
           ..set('Access-Control-Allow-Methods', 'GET')
           ..set('Access-Control-Allow-Headers', '*');
       } else {
-        final headers = Map<String, List<String>>();
+        final headers = <String, List<String>>{};
         request.headers.forEach((field, value) {
           headers[field] = value;
         });
