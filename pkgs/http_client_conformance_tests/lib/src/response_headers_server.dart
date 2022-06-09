@@ -5,8 +5,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:stream_channel/stream_channel.dart';
 import 'package:async/async.dart';
+import 'package:stream_channel/stream_channel.dart';
 
 /// Starts an HTTP server that returns custom headers.
 ///
