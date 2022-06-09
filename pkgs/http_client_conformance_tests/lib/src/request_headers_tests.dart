@@ -2,92 +2,70 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
-import 'dart:io';
-
+import 'package:async/async.dart';
 import 'package:http/http.dart';
+import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
+
+import 'utils.dart';
 
 /// Tests that the [Client] correctly sends headers in the request.
 void testRequestHeaders(Client client) async {
   group('client headers', () {
+    late final String host;
+    late final StreamChannel<Object?> httpServerChannel;
+    late final StreamQueue<Object?> httpServerQueue;
+
+    setUpAll(() async {
+      httpServerChannel = await startServer('request_headers_server.dart');
+      httpServerQueue = StreamQueue(httpServerChannel.stream);
+      host = 'localhost:${await httpServerQueue.next}';
+    });
+    tearDownAll(() => httpServerChannel.sink.add(null));
+
     test('single header', () async {
-      late HttpHeaders requestHeaders;
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          await request.drain<void>();
-          requestHeaders = request.headers;
-          unawaited(request.response.close());
-        });
-      await client.get(Uri.http('localhost:${server.port}', ''),
-          headers: {'foo': 'bar'});
-      expect(requestHeaders['foo'], ['bar']);
-      await server.close();
+      await client.get(Uri.http(host, ''), headers: {'foo': 'bar'});
+
+      final headers = await httpServerQueue.next as Map;
+      expect(headers['foo'], ['bar']);
     });
 
     test('UPPER case header', () async {
-      late HttpHeaders requestHeaders;
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          await request.drain<void>();
-          requestHeaders = request.headers;
-          unawaited(request.response.close());
-        });
-      await client.get(Uri.http('localhost:${server.port}', ''),
-          headers: {'FOO': 'BAR'});
+      await client.get(Uri.http(host, ''), headers: {'FOO': 'BAR'});
+
+      final headers = await httpServerQueue.next as Map;
       // RFC 2616 14.44 states that header field names are case-insensive.
       // http.Client canonicalizes field names into lower case.
-      expect(requestHeaders['foo'], ['BAR']);
-      await server.close();
+      expect(headers['foo'], ['BAR']);
     });
 
     test('test headers different only in case', () async {
-      // RFC 2616 14.44 states that header field names are case-insensive.
-      late HttpHeaders requestHeaders;
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          await request.drain<void>();
-          requestHeaders = request.headers;
-          unawaited(request.response.close());
-        });
-      await client.get(Uri.http('localhost:${server.port}', ''),
-          headers: {'foo': 'bar', 'Foo': 'Bar'});
-      expect(requestHeaders['foo']!.single, isIn(['bar', 'Bar']));
-      await server.close();
+      await client
+          .get(Uri.http(host, ''), headers: {'foo': 'bar', 'Foo': 'Bar'});
+
+      final headers = await httpServerQueue.next as Map;
+      // ignore: avoid_dynamic_calls
+      expect(headers['foo']!.single, isIn(['bar', 'Bar']));
     });
 
     test('multiple headers', () async {
-      late HttpHeaders requestHeaders;
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          await request.drain<void>();
-          requestHeaders = request.headers;
-          unawaited(request.response.close());
-        });
       // The `http.Client` API does not offer a way of sending the name field
       // more than once.
-      await client.get(Uri.http('localhost:${server.port}', ''),
-          headers: {'fruit': 'apple', 'color': 'red'});
-      expect(requestHeaders['fruit'], ['apple']);
-      expect(requestHeaders['color'], ['red']);
-      await server.close();
+      await client
+          .get(Uri.http(host, ''), headers: {'fruit': 'apple', 'color': 'red'});
+
+      final headers = await httpServerQueue.next as Map;
+      expect(headers['fruit'], ['apple']);
+      expect(headers['color'], ['red']);
     });
 
     test('multiple values per header', () async {
-      late HttpHeaders requestHeaders;
-      final server = (await HttpServer.bind('localhost', 0))
-        ..listen((request) async {
-          await request.drain<void>();
-          requestHeaders = request.headers;
-          unawaited(request.response.close());
-        });
       // The `http.Client` API does not offer a way of sending the same field
       // more than once.
-      await client.get(Uri.http('localhost:${server.port}', ''),
-          headers: {'list': 'apple, orange'});
+      await client.get(Uri.http(host, ''), headers: {'list': 'apple, orange'});
 
-      expect(requestHeaders['list'], ['apple, orange']);
-      await server.close();
+      final headers = await httpServerQueue.next as Map;
+      expect(headers['list'], ['apple, orange']);
     });
   });
 }

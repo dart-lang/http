@@ -18,5 +18,6 @@ void main() {
     testRequestBodyStreamed(client, canStreamRequestBody: false);
     testResponseBody(client, canStreamResponseBody: false);
     testResponseBodyStreamed(client, canStreamResponseBody: false);
+    testRequestHeaders(client);
   });
 }
