@@ -1,0 +1,12 @@
+name: native_library
+version: 0.0.1
+
+publish_to: none
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  args: ^2.1.0
+  logging: ^1.0.2
+  package_config: ^2.0.2
