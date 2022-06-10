@@ -28,7 +28,7 @@ jobs:
           sdk: ${{ matrix.sdk }}
       - id: install
         name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
         working-directory: pkgs/cupertinohttp
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
@@ -58,7 +58,7 @@ jobs:
           sdk: ${{ matrix.sdk }}
       - id: install
         name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
         working-directory: pkgs/cupertinohttp
       - id: build
         name: Build Objective-C component
