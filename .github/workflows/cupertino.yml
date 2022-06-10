@@ -27,11 +27,11 @@ jobs:
         run: flutter pub get
         working-directory: pkgs/cupertinohttp
       - name: Check formatting
-        run: dart format --output=none --set-exit-if-changed .
+        run: flutter format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
         working-directory: pkgs/cupertinohttp
       - name: Analyze code
-        run: dart analyze --fatal-infos
+        run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
         working-directory: pkgs/cupertinohttp
 
