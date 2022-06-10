@@ -732,8 +732,7 @@ void _setupDelegation(
 class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // Provide our own native delegate to `NSURLSession` because delegates can be
   // called on arbitrary threads and Dart code cannot be.
-  static late ncb.CUPHTTPClientDelegate _delegate =
-      ncb.CUPHTTPClientDelegate.new1(helperLibs);
+  static final _delegate = ncb.CUPHTTPClientDelegate.new1(helperLibs);
 
   URLRequest? Function(URLSession session, URLSessionTask task,
       HTTPURLResponse response, URLRequest newRequest)? _onRedirect;
