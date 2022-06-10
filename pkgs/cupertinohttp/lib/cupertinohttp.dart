@@ -98,14 +98,12 @@ class Error extends _ObjectHolder<ncb.NSError> {
       toStringOrNull(_nsObject.localizedRecoverySuggestion);
 
   @override
-  String toString() {
-    return "[Error "
-        "code=$code "
-        "localizedDescription=$localizedDescription "
-        "localizedFailureReason=$localizedFailureReason "
-        "localizedRecoverySuggestion=$localizedRecoverySuggestion "
-        "]";
-  }
+  String toString() => '[Error '
+      'code=$code '
+      'localizedDescription=$localizedDescription '
+      'localizedFailureReason=$localizedFailureReason '
+      'localizedRecoverySuggestion=$localizedRecoverySuggestion '
+      ']';
 }
 
 /// Controls the behavior of a URLSession.
@@ -119,29 +117,26 @@ class URLSessionConfiguration
   /// the background.
   ///
   /// See [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1407496-backgroundsessionconfigurationwi)
-  factory URLSessionConfiguration.backgroundSession(String identifier) {
-    return URLSessionConfiguration._(ncb.NSURLSessionConfiguration
-        .backgroundSessionConfigurationWithIdentifier_(
-            linkedLibs, identifier.toNSString(linkedLibs)));
-  }
+  factory URLSessionConfiguration.backgroundSession(String identifier) =>
+      URLSessionConfiguration._(ncb.NSURLSessionConfiguration
+          .backgroundSessionConfigurationWithIdentifier_(
+              linkedLibs, identifier.toNSString(linkedLibs)));
 
   /// A configuration that uses caching and saves cookies and credentials.
   ///
   /// See [NSURLSessionConfiguration defaultSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411560-defaultsessionconfiguration)
-  factory URLSessionConfiguration.defaultSessionConfiguration() {
-    return URLSessionConfiguration._(ncb.NSURLSessionConfiguration.castFrom(
-        ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(
-            linkedLibs)!));
-  }
+  factory URLSessionConfiguration.defaultSessionConfiguration() =>
+      URLSessionConfiguration._(ncb.NSURLSessionConfiguration.castFrom(
+          ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(
+              linkedLibs)!));
 
   /// A configuration that uses caching and saves cookies and credentials.
   ///
   /// See [NSURLSessionConfiguration ephemeralSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1410529-ephemeralsessionconfiguration)
-  factory URLSessionConfiguration.ephemeralSessionConfiguration() {
-    return URLSessionConfiguration._(ncb.NSURLSessionConfiguration.castFrom(
-        ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration(
-            linkedLibs)!));
-  }
+  factory URLSessionConfiguration.ephemeralSessionConfiguration() =>
+      URLSessionConfiguration._(ncb.NSURLSessionConfiguration.castFrom(
+          ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration(
+              linkedLibs)!));
 
   /// Whether connections over a cellular network are allowed.
   ///
@@ -212,12 +207,10 @@ class URLSessionConfiguration
   /// The timeout interval if data is not received.
   ///
   /// See [NSURLSessionConfiguration.timeoutIntervalForRequest](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408259-timeoutintervalforrequest)
-  Duration get timeoutIntervalForRequest {
-    return Duration(
-        microseconds: (_nsObject.timeoutIntervalForRequest *
-                Duration.microsecondsPerSecond)
-            .round());
-  }
+  Duration get timeoutIntervalForRequest => Duration(
+      microseconds:
+          (_nsObject.timeoutIntervalForRequest * Duration.microsecondsPerSecond)
+              .round());
 
   set timeoutIntervalForRequest(Duration interval) {
     _nsObject.timeoutIntervalForRequest =
@@ -232,21 +225,19 @@ class URLSessionConfiguration
       _nsObject.waitsForConnectivity = value;
 
   @override
-  String toString() {
-    return "[URLSessionConfiguration "
-        "allowsCellularAccess=$allowsCellularAccess "
-        "allowsConstrainedNetworkAccess=$allowsConstrainedNetworkAccess "
-        "allowsExpensiveNetworkAccess=$allowsExpensiveNetworkAccess "
-        "discretionary=$discretionary "
-        "httpCookieAcceptPolicy=$httpCookieAcceptPolicy "
-        "httpShouldSetCookies=$httpShouldSetCookies "
-        "httpShouldUsePipelining=$httpShouldUsePipelining "
-        "sessionSendsLaunchEvents=$sessionSendsLaunchEvents "
-        "shouldUseExtendedBackgroundIdleMode=$shouldUseExtendedBackgroundIdleMode "
-        "timeoutIntervalForRequest=$timeoutIntervalForRequest "
-        "waitsForConnectivity=$waitsForConnectivity"
-        "]";
-  }
+  String toString() => '[URLSessionConfiguration '
+      'allowsCellularAccess=$allowsCellularAccess '
+      'allowsConstrainedNetworkAccess=$allowsConstrainedNetworkAccess '
+      'allowsExpensiveNetworkAccess=$allowsExpensiveNetworkAccess '
+      'discretionary=$discretionary '
+      'httpCookieAcceptPolicy=$httpCookieAcceptPolicy '
+      'httpShouldSetCookies=$httpShouldSetCookies '
+      'httpShouldUsePipelining=$httpShouldUsePipelining '
+      'sessionSendsLaunchEvents=$sessionSendsLaunchEvents '
+      'shouldUseExtendedBackgroundIdleMode=$shouldUseExtendedBackgroundIdleMode '
+      'timeoutIntervalForRequest=$timeoutIntervalForRequest '
+      'waitsForConnectivity=$waitsForConnectivity'
+      ']';
 }
 
 /// A container for byte data.
@@ -258,9 +249,8 @@ class Data extends _ObjectHolder<ncb.NSData> {
   // A new [Data] from an existing one.
   //
   // See [NSData dataWithData:](https://developer.apple.com/documentation/foundation/nsdata/1547230-datawithdata)
-  factory Data.fromData(Data d) {
-    return Data._(ncb.NSData.dataWithData_(linkedLibs, d._nsObject));
-  }
+  factory Data.fromData(Data d) =>
+      Data._(ncb.NSData.dataWithData_(linkedLibs, d._nsObject));
 
   /// A new [Data] object containing the given bytes.
   factory Data.fromUint8List(Uint8List l) {
@@ -301,7 +291,7 @@ class Data extends _ObjectHolder<ncb.NSData> {
     final subrange =
         length == 0 ? Uint8List(0) : bytes.sublist(0, min(length - 1, 20));
     final b = subrange.map((e) => e.toRadixString(16)).join();
-    return "[Data " + "length=$length " + "bytes=0x$b..." + "]";
+    return '[Data length=$length bytes=0x$b...]';
   }
 }
 
@@ -316,9 +306,8 @@ class MutableData extends Data {
         super._(c);
 
   /// A new empty [MutableData].
-  factory MutableData.empty() {
-    return MutableData._(ncb.NSMutableData.dataWithCapacity_(linkedLibs, 0));
-  }
+  factory MutableData.empty() =>
+      MutableData._(ncb.NSMutableData.dataWithCapacity_(linkedLibs, 0));
 
   /// Appends the given data.
   ///
@@ -338,7 +327,7 @@ class MutableData extends Data {
     final subrange =
         length == 0 ? Uint8List(0) : bytes.sublist(0, min(length - 1, 20));
     final b = subrange.map((e) => e.toRadixString(16)).join();
-    return "[MutableData " + "length=$length " + "bytes=0x$b..." + "]";
+    return '[MutableData length=$length bytes=0x$b...]';
   }
 }
 
@@ -366,12 +355,10 @@ class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
   String? get mimeType => toStringOrNull(_nsObject.MIMEType);
 
   @override
-  String toString() {
-    return "[URLResponse " +
-        "mimeType=$mimeType " +
-        "expectedContentLength=$expectedContentLength" +
-        "]";
-  }
+  String toString() => '[URLResponse '
+      'mimeType=$mimeType '
+      'expectedContentLength=$expectedContentLength'
+      ']';
 }
 
 /// The response associated with loading a HTTP URL.
@@ -395,17 +382,15 @@ class HTTPURLResponse extends URLResponse {
   Map<String, String> get allHeaderFields {
     final headers =
         ncb.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields!);
-    return (stringDictToMap(headers));
+    return stringDictToMap(headers);
   }
 
   @override
-  String toString() {
-    return "[HTTPURLResponse " +
-        "statusCode=$statusCode " +
-        "mimeType=$mimeType " +
-        "expectedContentLength=$expectedContentLength" +
-        "]";
-  }
+  String toString() => '[HTTPURLResponse '
+      'statusCode=$statusCode '
+      'mimeType=$mimeType '
+      'expectedContentLength=$expectedContentLength'
+      ']';
 }
 
 /// The possible states of a [URLSessionTask].
@@ -481,14 +466,12 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
       _nsObject.countOfBytesExpectedToReceive;
 
   @override
-  String toString() {
-    return "[URLSessionTask "
-        "taskIdentifider=$taskIdentifider "
-        "countOfBytesExpectedToReceive=$countOfBytesExpectedToReceive "
-        "countOfBytesReceived=$countOfBytesReceived "
-        "state=$state"
-        "]";
-  }
+  String toString() => '[URLSessionTask '
+      'taskIdentifider=$taskIdentifider '
+      'countOfBytesExpectedToReceive=$countOfBytesExpectedToReceive '
+      'countOfBytesReceived=$countOfBytesReceived '
+      'state=$state'
+      ']';
 }
 
 /// A request to load a URL.
@@ -538,9 +521,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// NOTE: The documentation for `NSURLRequest.HTTPMethod` says that the
   /// property is nullable but, in practice, assigning it to null will produce
   /// an error.
-  String get httpMethod {
-    return toStringOrNull(_nsObject.HTTPMethod)!;
-  }
+  String get httpMethod => toStringOrNull(_nsObject.HTTPMethod)!;
 
   /// The requested URL.
   ///
@@ -556,14 +537,12 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   }
 
   @override
-  String toString() {
-    return "[URLRequest "
-        "allHttpHeaderFields=$allHttpHeaderFields "
-        "httpBody=$httpBody "
-        "httpMethod=$httpMethod "
-        "url=$url "
-        "]";
-  }
+  String toString() => '[URLRequest '
+      'allHttpHeaderFields=$allHttpHeaderFields '
+      'httpBody=$httpBody '
+      'httpMethod=$httpMethod '
+      'url=$url '
+      ']';
 }
 
 /// A mutable request to load a URL.
@@ -603,13 +582,11 @@ class MutableURLRequest extends URLRequest {
   }
 
   @override
-  String toString() {
-    return "[MutableURLRequest "
-        "allHttpHeaderFields=$allHttpHeaderFields "
-        "httpBody=$httpBody "
-        "httpMethod=$httpMethod "
-        "]";
-  }
+  String toString() => '[MutableURLRequest '
+      'allHttpHeaderFields=$allHttpHeaderFields '
+      'httpBody=$httpBody '
+      'httpMethod=$httpMethod '
+      ']';
 }
 
 /// Setup delegation for the given [task] to the given methods.
@@ -787,10 +764,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// A client with reasonable default behavior.
   ///
   /// See [NSURLSession.sharedSession](https://developer.apple.com/documentation/foundation/nsurlsession/1409000-sharedsession)
-  factory URLSession.sharedSession() {
-    return URLSession.sessionWithConfiguration(
-        URLSessionConfiguration.defaultSessionConfiguration());
-  }
+  factory URLSession.sharedSession() => URLSession.sessionWithConfiguration(
+      URLSessionConfiguration.defaultSessionConfiguration());
 
   /// A client with a given configuration.
   ///
@@ -819,32 +794,29 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   ///
   /// See [sessionWithConfiguration:delegate:delegateQueue:](https://developer.apple.com/documentation/foundation/nsurlsession/1411597-sessionwithconfiguration)
   factory URLSession.sessionWithConfiguration(URLSessionConfiguration config,
-      {URLRequest? Function(URLSession session, URLSessionTask task,
-              HTTPURLResponse response, URLRequest newRequest)?
-          onRedirect,
-      URLSessionResponseDisposition Function(
-              URLSession session, URLSessionTask task, URLResponse response)?
-          onResponse,
-      void Function(URLSession session, URLSessionTask task, Data error)?
-          onData,
-      void Function(URLSession session, URLSessionTask task, Error? error)?
-          onComplete}) {
-    return URLSession._(
-        ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
-            linkedLibs, config._nsObject, _delegate, null),
-        onRedirect: onRedirect,
-        onResponse: onResponse,
-        onData: onData,
-        onComplete: onComplete);
-  }
+          {URLRequest? Function(URLSession session, URLSessionTask task,
+                  HTTPURLResponse response, URLRequest newRequest)?
+              onRedirect,
+          URLSessionResponseDisposition Function(URLSession session,
+                  URLSessionTask task, URLResponse response)?
+              onResponse,
+          void Function(URLSession session, URLSessionTask task, Data error)?
+              onData,
+          void Function(URLSession session, URLSessionTask task, Error? error)?
+              onComplete}) =>
+      URLSession._(
+          ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
+              linkedLibs, config._nsObject, _delegate, null),
+          onRedirect: onRedirect,
+          onResponse: onResponse,
+          onData: onData,
+          onComplete: onComplete);
 
   // A **copy** of the configuration for this sesion.
   //
   // See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
-  URLSessionConfiguration get configuration {
-    return URLSessionConfiguration._(
-        ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration!));
-  }
+  URLSessionConfiguration get configuration => URLSessionConfiguration._(
+      ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration!));
 
   // Create a [URLSessionTask] that accesses a server URL.
   //
@@ -891,9 +863,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           HTTPURLResponse._(ncb.NSHTTPURLResponse.castFrom(response._nsObject));
       return URLSessionResponseDisposition.urlSessionResponseAllow;
     }, onData: (URLSession session, URLSessionTask task, Data data) {
-      if (allData == null) {
-        allData = MutableData.empty();
-      }
+      allData ??= MutableData.empty();
       allData!.appendBytes(data.bytes);
     }, onComplete: (URLSession session, URLSessionTask task, Error? error) {
       completion(allData == null ? null : Data.fromData(allData!),
