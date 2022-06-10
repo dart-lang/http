@@ -17,15 +17,11 @@ jobs:
   # against Dart dev.
   analyze:
     runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        flutter: [dev]
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          sdk: ${{ matrix.flutter }}
+          channel: 'stable'
       - id: install
         name: Install dependencies
         run: flutter pub get
