@@ -52,7 +52,7 @@ jobs:
         working-directory: pkgs/cupertinohttp
       - id: build
         name: Build Objective-C component
-        run: flutter run bin/setup.dart build
+        run: dart run bin/setup.dart build
         working-directory: pkgs/cupertinohttp        
       - name: Run VM tests
         run: dart test --platform vm
