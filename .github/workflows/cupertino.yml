@@ -1,4 +1,4 @@
-name: Dart CI
+name: package:cupertinohttp CI
 
 on:
   # Run on PRs and pushes to the default branch.
@@ -13,10 +13,9 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
-  # Check code formatting and static analysis on a MacOS
-  # against Dart dev.
   analyze:
-    runs-on: macos-latest
+    name: Lint and static analysis
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -35,9 +34,6 @@ jobs:
         if: always() && steps.install.outcome == 'success'
         working-directory: pkgs/cupertinohttp
 
-  # Run tests on a matrix consisting of two dimensions:
-  # 1. OS: ubuntu-latest, (macos-latest, windows-latest)
-  # 2. release channel: dev
   test:
     needs: analyze
     runs-on: macos-latest
@@ -54,7 +50,7 @@ jobs:
         name: Build Objective-C component
         run: dart run bin/setup.dart build
         working-directory: pkgs/cupertinohttp        
-      - name: Run VM tests
+      - name: Run tests
         run: dart test --platform vm
         if: always() && steps.install.outcome == 'success'
         working-directory: pkgs/cupertinohttp
