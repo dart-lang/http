@@ -13,7 +13,7 @@ class _TaskTracker {
   final responseCompleter = Completer<URLResponse>();
   final BaseRequest request;
   final responseController = StreamController<Uint8List>();
-  var numRedirects = 0;
+  int numRedirects = 0;
 
   _TaskTracker(this.request);
 
@@ -35,7 +35,8 @@ class _TaskTracker {
 ///     throw HttpException('bad response: ${response.statusCode}');
 ///   }
 ///
-///   final decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+///   final decodedResponse =
+///       jsonDecode(utf8.decode(response.bodyBytes)) as Map;
 ///
 ///   final itemCount = decodedResponse['totalItems'];
 ///   print('Number of books about http: $itemCount.');
@@ -51,9 +52,8 @@ class CupertinoClient extends BaseClient {
 
   CupertinoClient._(this._urlSession);
 
-  static _TaskTracker _getTracker(URLSessionTask task) {
-    return tasks[task.taskIdentifider]!;
-  }
+  static _TaskTracker _getTracker(URLSessionTask task) =>
+      tasks[task.taskIdentifider]!;
 
   static void _onComplete(
       URLSession session, URLSessionTask task, Error? error) {
@@ -69,7 +69,7 @@ class CupertinoClient extends BaseClient {
       }
     } else if (!t.responseCompleter.isCompleted) {
       t.responseCompleter.completeError(
-          new StateError('task completed without an error or response'));
+          StateError('task completed without an error or response'));
     }
     t.close();
     tasks.remove(task.taskIdentifider);
@@ -99,8 +99,7 @@ class CupertinoClient extends BaseClient {
 
   /// A [Client] with the default configuration.
   factory CupertinoClient.defaultSessionConfiguration() {
-    final URLSessionConfiguration config =
-        URLSessionConfiguration.defaultSessionConfiguration();
+    final config = URLSessionConfiguration.defaultSessionConfiguration();
     return CupertinoClient.fromSessionConfiguration(config);
   }
 
@@ -134,13 +133,12 @@ class CupertinoClient extends BaseClient {
     final bytes = await stream.toBytes();
     final d = Data.fromUint8List(bytes);
 
-    MutableURLRequest urlRequest = MutableURLRequest.fromUrl(request.url)
+    final urlRequest = MutableURLRequest.fromUrl(request.url)
       ..httpMethod = request.method
       ..httpBody = d;
 
     // This will preserve Apple default headers - is that what we want?
-    request.headers.forEach(
-        (key, value) => urlRequest.setValueForHttpHeaderField(key, value));
+    request.headers.forEach(urlRequest.setValueForHttpHeaderField);
 
     final task = _urlSession.dataTaskWithRequest(urlRequest);
     final t = _TaskTracker(request);

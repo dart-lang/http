@@ -10,7 +10,8 @@
 /// void main() {
 ///   final url = Uri.https('www.example.com', '/');
 ///   final session = URLSession.sharedSession();
-///   final task = session.dataTaskWithCompletionHandler(URLRequest.fromUrl(url),
+///   final task = session.dataTaskWithCompletionHandler(
+///     URLRequest.fromUrl(url),
 ///       (data, response, error) {
 ///     if (error == null) {
 ///       if (response != null && response.statusCode == 200) {
@@ -73,7 +74,7 @@ class Error extends _ObjectHolder<ncb.NSError> {
   /// [`kCFErrorDomainCFNetwork`](https://developer.apple.com/documentation/cfnetwork/kcferrordomaincfnetwork).
   ///
   /// See [NSError.code](https://developer.apple.com/documentation/foundation/nserror/1409165-code)
-  int get code => this._nsObject.code;
+  int get code => _nsObject.code;
 
   // TODO(https://github.com/dart-lang/ffigen/issues/386): expose
   // `NSError.domain` when correct type aliases are available.
@@ -234,7 +235,8 @@ class URLSessionConfiguration
       'httpShouldSetCookies=$httpShouldSetCookies '
       'httpShouldUsePipelining=$httpShouldUsePipelining '
       'sessionSendsLaunchEvents=$sessionSendsLaunchEvents '
-      'shouldUseExtendedBackgroundIdleMode=$shouldUseExtendedBackgroundIdleMode '
+      'shouldUseExtendedBackgroundIdleMode='
+      '$shouldUseExtendedBackgroundIdleMode '
       'timeoutIntervalForRequest=$timeoutIntervalForRequest '
       'waitsForConnectivity=$waitsForConnectivity'
       ']';
@@ -323,6 +325,7 @@ class MutableData extends Data {
     }
   }
 
+  @override
   String toString() {
     final subrange =
         length == 0 ? Uint8List(0) : bytes.sublist(0, min(length - 1, 20));
@@ -413,21 +416,21 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   ///
   /// See [NSURLSessionTask cancel](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411591-cancel)
   void cancel() {
-    this._nsObject.cancel();
+    _nsObject.cancel();
   }
 
   /// Resumes a suspended task (new tasks start as suspended).
   ///
   /// See [NSURLSessionTask resume](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411121-resume)
   void resume() {
-    this._nsObject.resume();
+    _nsObject.resume();
   }
 
   /// Suspends a task (prevents it from transfering data).
   ///
   /// See [NSURLSessionTask suspend](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411565-suspend)
   void suspend() {
-    this._nsObject.suspend();
+    _nsObject.suspend();
   }
 
   /// The current state of the task.
@@ -459,7 +462,8 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   /// [NSURLSessionTask.countOfBytesReceived](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411581-countofbytesreceived)
   int get countOfBytesReceived => _nsObject.countOfBytesReceived;
 
-  /// The number of content bytes that are expected to be received from the server.
+  /// The number of content bytes that are expected to be received from the
+  /// server.
   ///
   /// [NSURLSessionTask.countOfBytesReceived](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1410663-countofbytesexpectedtoreceive)
   int get countOfBytesExpectedToReceive =>
@@ -608,15 +612,15 @@ void _setupDelegation(
     void Function(URLSession session, URLSessionTask task, Error? error)?
         onComplete}) {
   final responsePort = ReceivePort();
-  responsePort.listen((message) {
+  responsePort.listen((d) {
+    final message = d as List;
     final messageType = message[0];
-    final dp = Pointer<ncb.ObjCObject>.fromAddress(message[1]);
+    final dp = Pointer<ncb.ObjCObject>.fromAddress(message[1] as int);
 
     final forwardedDelegate =
         ncb.CUPHTTPForwardedDelegate.castFromPointer(helperLibs, dp,
             // `CUPHTTPForwardedDelegate` was retained in the delegate so it
             // only needs to be released.
-            retain: false,
             release: true);
 
     switch (messageType) {

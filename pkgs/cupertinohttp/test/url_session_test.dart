@@ -5,10 +5,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:test/test.dart';
 import 'package:cupertinohttp/cupertinohttp.dart';
+import 'package:test/test.dart';
 
-testDataTaskWithCompletionHandler(URLSession session) {
+void testDataTaskWithCompletionHandler(URLSession session) {
   group('dataTaskWithCompletionHandler', () {
     late HttpServer successServer;
     late HttpServer failureServer;
@@ -17,17 +17,17 @@ testDataTaskWithCompletionHandler(URLSession session) {
     setUp(() async {
       successServer = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
       failureServer = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.statusCode = 500;
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
       //        URI |  Redirects TO
@@ -43,7 +43,7 @@ testDataTaskWithCompletionHandler(URLSession session) {
             unawaited(request.response.close());
           } else {
             final n = int.parse(request.requestedUri.pathSegments.last);
-            String nextPath = n - 1 == 0 ? '' : '${n - 1}';
+            final nextPath = n - 1 == 0 ? '' : '${n - 1}';
             unawaited(request.response.redirect(Uri.parse(
                 'http://localhost:${redirectServer.port}/$nextPath')));
           }
@@ -61,19 +61,17 @@ testDataTaskWithCompletionHandler(URLSession session) {
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${successServer.port}')), (d, r, e) {
         data = d;
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
-      expect(data!.bytes, "Hello World".codeUnits);
+      expect(data!.bytes, 'Hello World'.codeUnits);
       expect(response!.statusCode, 200);
       expect(error, null);
     });
@@ -85,16 +83,15 @@ testDataTaskWithCompletionHandler(URLSession session) {
       Error? error;
 
       final request = MutableURLRequest.fromUrl(
-          Uri.parse('http://localhost:${successServer.port}'));
-      request.httpMethod = 'HEAD';
+          Uri.parse('http://localhost:${successServer.port}'))
+        ..httpMethod = 'HEAD';
 
-      final task = session.dataTaskWithCompletionHandler(request, (d, r, e) {
+      session.dataTaskWithCompletionHandler(request, (d, r, e) {
         data = d;
         response = r;
         error = e;
         c.complete();
-      });
-      task.resume();
+      }).resume();
       await c.future;
 
       expect(data, null);
@@ -108,19 +105,17 @@ testDataTaskWithCompletionHandler(URLSession session) {
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${failureServer.port}')), (d, r, e) {
         data = d;
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
-      expect(data!.bytes, "Hello World".codeUnits);
+      expect(data!.bytes, 'Hello World'.codeUnits);
       expect(response!.statusCode, 500);
       expect(error, null);
     });
@@ -133,7 +128,7 @@ testDataTaskWithCompletionHandler(URLSession session) {
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${redirectServer.port}/100')),
           (d, r, e) {
@@ -141,9 +136,7 @@ testDataTaskWithCompletionHandler(URLSession session) {
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
       expect(response, null);
@@ -157,17 +150,16 @@ testDataTaskWithCompletionHandler(URLSession session) {
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(Uri.parse('http://this is not a valid URL')),
           (d, r, e) {
         data = d;
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
+
       expect(data, null);
       expect(response, null);
       expect(error!.code, -1003); // kCFURLErrorCannotFindHost
@@ -176,15 +168,15 @@ testDataTaskWithCompletionHandler(URLSession session) {
   });
 }
 
-testURLSession(URLSession session) {
+void testURLSession(URLSession session) {
   group('URLSession', () {
     late HttpServer server;
     setUp(() async {
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
     });
@@ -194,12 +186,11 @@ testURLSession(URLSession session) {
 
     test('dataTask', () async {
       final task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')));
-
-      task.resume();
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+        ..resume();
       while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
         // Let the event loop run.
-        await Future.delayed(const Duration());
+        await Future<void>.delayed(const Duration());
       }
       final response = task.response as HTTPURLResponse;
       expect(response.statusCode, 200);

@@ -108,7 +108,6 @@ Future<void> runProcess(String executable, List<String> arguments) async {
     executable,
     arguments,
     runInShell: true,
-    includeParentEnvironment: true,
   ).then((process) {
     process.stdout.transform(utf8.decoder).forEach(_logger.fine);
     process.stderr.transform(utf8.decoder).forEach(_logger.severe);

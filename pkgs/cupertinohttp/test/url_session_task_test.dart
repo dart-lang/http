@@ -4,8 +4,8 @@
 
 import 'dart:io';
 
-import 'package:test/test.dart';
 import 'package:cupertinohttp/cupertinohttp.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('task states', () {
@@ -14,9 +14,9 @@ void main() {
     setUp(() async {
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
       final session = URLSession.sharedSession();
@@ -51,7 +51,7 @@ void main() {
       task.resume();
       while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
         // Let the event loop run.
-        await Future.delayed(const Duration());
+        await Future<void>.delayed(const Duration());
       }
     });
   });
@@ -62,19 +62,19 @@ void main() {
     setUp(() async {
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
       final session = URLSession.sharedSession();
       task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')));
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+        ..resume();
 
-      task.resume();
       while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
         // Let the event loop run.
-        await Future.delayed(const Duration());
+        await Future<void>.delayed(const Duration());
       }
     });
     tearDown(() {

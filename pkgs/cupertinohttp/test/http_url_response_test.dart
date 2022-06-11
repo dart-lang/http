@@ -4,8 +4,8 @@
 
 import 'dart:io';
 
-import 'package:test/test.dart';
 import 'package:cupertinohttp/cupertinohttp.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('response', () {
@@ -14,21 +14,20 @@ void main() {
     setUp(() async {
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.statusCode = 211;
           request.response.headers.set('Content-Type', 'text/fancy');
           request.response.headers.set('custom-header', 'custom-header-value');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
       final session = URLSession.sharedSession();
       final task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')));
-
-      task.resume();
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+        ..resume();
       while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
         // Let the event loop run.
-        await Future.delayed(const Duration());
+        await Future<void>.delayed(const Duration());
       }
       response = task.response as HTTPURLResponse;
     });

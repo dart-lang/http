@@ -4,9 +4,8 @@
 
 import 'dart:typed_data';
 
-import 'package:test/test.dart';
-
 import 'package:cupertinohttp/cupertinohttp.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('headers', () {
@@ -36,8 +35,9 @@ void main() {
       request.toString(); // Just verify that there is no crash.
     });
     test('set to null', () {
-      request.httpBody = Data.fromUint8List(Uint8List.fromList([1, 2, 3]));
-      request.httpBody = null;
+      request
+        ..httpBody = Data.fromUint8List(Uint8List.fromList([1, 2, 3]))
+        ..httpBody = null;
       expect(request.httpBody, null);
     });
   });

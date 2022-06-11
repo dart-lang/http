@@ -26,4 +26,5 @@ dev_dependencies:
     git:
       url: http://github.com/dart-lang/http.git
       path: pkgs/http_client_conformance_tests/
+  lints: ^1.0.0
   test: ">=1.21.1<2.0.0"

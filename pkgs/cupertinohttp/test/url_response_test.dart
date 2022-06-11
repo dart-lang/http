@@ -2,8 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:test/test.dart';
 import 'package:cupertinohttp/cupertinohttp.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('response', () {
@@ -11,11 +11,11 @@ void main() {
     setUp(() async {
       final session = URLSession.sharedSession();
       final task = session.dataTaskWithRequest(URLRequest.fromUrl(
-          Uri.parse('data:text/fancy;charset=utf-8,Hello%20World')));
-      task.resume();
+          Uri.parse('data:text/fancy;charset=utf-8,Hello%20World')))
+        ..resume();
       while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
         // Let the event loop run.
-        await Future.delayed(const Duration());
+        await Future<void>.delayed(const Duration());
       }
 
       response = task.response!;

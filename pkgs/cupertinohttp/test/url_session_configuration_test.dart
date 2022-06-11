@@ -2,8 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:test/test.dart';
 import 'package:cupertinohttp/cupertinohttp.dart';
+import 'package:test/test.dart';
 
 void testProperties(URLSessionConfiguration config) {
   group('properties', () {
@@ -67,9 +67,9 @@ void testProperties(URLSessionConfiguration config) {
     });
     test('timeoutIntervalForRequest', () {
       config.timeoutIntervalForRequest =
-          Duration(seconds: 15, microseconds: 23);
+          const Duration(seconds: 15, microseconds: 23);
       expect(config.timeoutIntervalForRequest,
-          Duration(seconds: 15, microseconds: 23));
+          const Duration(seconds: 15, microseconds: 23));
     });
     test('waitsForConnectivity', () {
       config.waitsForConnectivity = true;

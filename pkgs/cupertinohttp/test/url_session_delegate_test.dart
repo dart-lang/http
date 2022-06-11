@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cupertinohttp/cupertinohttp.dart';
-import 'package:cupertinohttp/src/native_cupertino_bindings.dart';
 import 'package:test/test.dart';
 
 void testOnComplete() {
@@ -12,9 +11,9 @@ void testOnComplete() {
     setUp(() async {
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
     });
@@ -23,12 +22,12 @@ void testOnComplete() {
     });
 
     test('success', () async {
-      final c = Completer();
+      final c = Completer<void>();
       Error? actualError;
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      late URLSession session = URLSession.sessionWithConfiguration(
+      final session = URLSession.sessionWithConfiguration(
           URLSessionConfiguration.defaultSessionConfiguration(),
           onComplete: (s, t, e) {
         actualSession = s;
@@ -38,22 +37,22 @@ void testOnComplete() {
       });
 
       final task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')));
-
-      task.resume();
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+        ..resume();
       await c.future;
+
       expect(actualSession, session);
       expect(actualTask, task);
       expect(actualError, null);
     });
 
     test('bad host', () async {
-      final c = Completer();
+      final c = Completer<void>();
       Error? actualError;
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      late URLSession session = URLSession.sessionWithConfiguration(
+      final session = URLSession.sessionWithConfiguration(
           URLSessionConfiguration.defaultSessionConfiguration(),
           onComplete: (s, t, e) {
         actualSession = s;
@@ -63,9 +62,8 @@ void testOnComplete() {
       });
 
       final task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.https('does-not-exist', '')));
-
-      task.resume();
+          URLRequest.fromUrl(Uri.https('does-not-exist', '')))
+        ..resume();
       await c.future;
       expect(actualSession, session);
       expect(actualTask, task);
@@ -81,9 +79,9 @@ void testOnResponse() {
     setUp(() async {
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
     });
@@ -92,12 +90,12 @@ void testOnResponse() {
     });
 
     test('success', () async {
-      final c = Completer();
+      final c = Completer<void>();
       late HTTPURLResponse actualResponse;
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      late URLSession session = URLSession.sessionWithConfiguration(
+      final session = URLSession.sessionWithConfiguration(
           URLSessionConfiguration.defaultSessionConfiguration(),
           onResponse: (s, t, r) {
         actualSession = s;
@@ -108,9 +106,8 @@ void testOnResponse() {
       });
 
       final task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')));
-
-      task.resume();
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+        ..resume();
       await c.future;
       expect(actualSession, session);
       expect(actualTask, task);
@@ -119,10 +116,10 @@ void testOnResponse() {
 
     test('bad host', () async {
       // `onResponse` should not be called because there was no valid response.
-      final c = Completer();
+      final c = Completer<void>();
       var called = false;
 
-      late URLSession session = URLSession.sessionWithConfiguration(
+      final session = URLSession.sessionWithConfiguration(
           URLSessionConfiguration.defaultSessionConfiguration(),
           onComplete: (session, task, error) => c.complete(),
           onResponse: (s, t, r) {
@@ -130,10 +127,10 @@ void testOnResponse() {
             return URLSessionResponseDisposition.urlSessionResponseAllow;
           });
 
-      final task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.https('does-not-exist', '')));
-
-      task.resume();
+      session
+          .dataTaskWithRequest(
+              URLRequest.fromUrl(Uri.https('does-not-exist', '')))
+          .resume();
       await c.future;
       expect(called, false);
     });
@@ -147,9 +144,9 @@ void testOnData() {
     setUp(() async {
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
-          request.drain();
+          await request.drain<void>();
           request.response.headers.set('Content-Type', 'text/plain');
-          request.response.write("Hello World");
+          request.response.write('Hello World');
           await request.response.close();
         });
     });
@@ -158,12 +155,12 @@ void testOnData() {
     });
 
     test('success', () async {
-      final c = Completer();
+      final c = Completer<void>();
       final actualData = MutableData.empty();
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      late URLSession session = URLSession.sessionWithConfiguration(
+      final session = URLSession.sessionWithConfiguration(
           URLSessionConfiguration.defaultSessionConfiguration(),
           onComplete: (s, t, r) => c.complete(),
           onData: (s, t, d) {
@@ -173,13 +170,12 @@ void testOnData() {
           });
 
       final task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')));
-
-      task.resume();
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+        ..resume();
       await c.future;
       expect(actualSession, session);
       expect(actualTask, task);
-      expect(actualData.bytes, "Hello World".codeUnits);
+      expect(actualData.bytes, 'Hello World'.codeUnits);
     });
   });
 }
@@ -202,7 +198,7 @@ void testOnRedirect() {
             unawaited(request.response.close());
           } else {
             final n = int.parse(request.requestedUri.pathSegments.last);
-            String nextPath = n - 1 == 0 ? '' : '${n - 1}';
+            final nextPath = n - 1 == 0 ? '' : '${n - 1}';
             unawaited(request.response.redirect(Uri.parse(
                 'http://localhost:${redirectServer.port}/$nextPath')));
           }
@@ -214,27 +210,22 @@ void testOnRedirect() {
 
     test('disallow redirect', () async {
       final config = URLSessionConfiguration.defaultSessionConfiguration();
-      final session = URLSession.sessionWithConfiguration(
-        config,
-        onRedirect:
-            (redirectSession, redirectTask, redirectResponse, newRequest) {
-          return null;
-        },
-      );
+      final session = URLSession.sessionWithConfiguration(config,
+          onRedirect:
+              (redirectSession, redirectTask, redirectResponse, newRequest) =>
+                  null);
       final c = Completer<void>();
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${redirectServer.port}/100')),
           (d, r, e) {
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
       expect(response!.statusCode, 302);
@@ -245,27 +236,22 @@ void testOnRedirect() {
 
     test('use preposed redirect request', () async {
       final config = URLSessionConfiguration.defaultSessionConfiguration();
-      final session = URLSession.sessionWithConfiguration(
-        config,
-        onRedirect:
-            (redirectSession, redirectTask, redirectResponse, newRequest) {
-          return newRequest;
-        },
-      );
+      final session = URLSession.sessionWithConfiguration(config,
+          onRedirect:
+              (redirectSession, redirectTask, redirectResponse, newRequest) =>
+                  newRequest);
       final c = Completer<void>();
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${redirectServer.port}/1')),
           (d, r, e) {
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
       expect(response!.statusCode, 200);
@@ -276,26 +262,23 @@ void testOnRedirect() {
       final config = URLSessionConfiguration.defaultSessionConfiguration();
       final session = URLSession.sessionWithConfiguration(
         config,
-        onRedirect:
-            (redirectSession, redirectTask, redirectResponse, newRequest) {
-          return URLRequest.fromUrl(
-              Uri.parse("http://localhost:${redirectServer.port}/"));
-        },
+        onRedirect: (redirectSession, redirectTask, redirectResponse,
+                newRequest) =>
+            URLRequest.fromUrl(
+                Uri.parse('http://localhost:${redirectServer.port}/')),
       );
       final c = Completer<void>();
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${redirectServer.port}/100')),
           (d, r, e) {
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
       expect(response!.statusCode, 200);
@@ -313,28 +296,27 @@ void testOnRedirect() {
       );
       final c = Completer<void>();
       HTTPURLResponse? response;
+      // ignore: unused_local_variable
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${redirectServer.port}/100')),
           (d, r, e) {
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
       expect(response!.statusCode, 302);
       // TODO(https://github.com/dart-lang/ffigen/issues/386): Check that the
       // error is set.
-    }, skip: "Error not set for redirect exceptions.");
+    }, skip: 'Error not set for redirect exceptions.');
 
     test('3 redirects', () async {
       final config = URLSessionConfiguration.defaultSessionConfiguration();
-      int redirectCounter = 0;
+      var redirectCounter = 0;
       final session = URLSession.sessionWithConfiguration(
         config,
         onRedirect:
@@ -368,16 +350,14 @@ void testOnRedirect() {
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${redirectServer.port}/3')),
           (d, r, e) {
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
       expect(response!.statusCode, 200);
@@ -391,24 +371,21 @@ void testOnRedirect() {
       final session = URLSession.sessionWithConfiguration(
         config,
         onRedirect:
-            (redirectSession, redirectTask, redirectResponse, newRequest) {
-          return newRequest;
-        },
+            (redirectSession, redirectTask, redirectResponse, newRequest) =>
+                newRequest,
       );
       final c = Completer<void>();
       HTTPURLResponse? response;
       Error? error;
 
-      final task = session.dataTaskWithCompletionHandler(
+      session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
               Uri.parse('http://localhost:${redirectServer.port}/100')),
           (d, r, e) {
         response = r;
         error = e;
         c.complete();
-      });
-
-      task.resume();
+      }).resume();
       await c.future;
 
       expect(response, null);

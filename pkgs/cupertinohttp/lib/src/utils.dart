@@ -9,7 +9,7 @@ import 'package:native_library/native_library.dart';
 
 import 'native_cupertino_bindings.dart' as ncb;
 
-const _packageName = "cupertinohttp";
+const _packageName = 'cupertinohttp';
 const _libName = _packageName;
 
 /// Access to symbols that are linked into the process. The "Foundation"
@@ -27,11 +27,12 @@ late ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
 DynamicLibrary _loadHelperDynamicLibrary() {
   DynamicLibrary? _jit() {
     if (Platform.isMacOS) {
-      final Uri dylibPath = sharedLibrariesLocationBuilt(_packageName)
+      final dylibPath = sharedLibrariesLocationBuilt(_packageName)
           .resolve('lib$_libName.dylib');
-      final File file = File.fromUri(dylibPath);
+      final file = File.fromUri(dylibPath);
       if (!file.existsSync()) {
-        throw "Dynamic library '${dylibPath.toFilePath()}' does not exist.";
+        throw StateError(
+            "Dynamic library '${dylibPath.toFilePath()}' does not exist.");
       }
       return DynamicLibrary.open(dylibPath.path);
     }
@@ -47,7 +48,7 @@ DynamicLibrary _loadHelperDynamicLibrary() {
           }
           break;
         case FlutterRuntimeMode.test:
-          final DynamicLibrary? result = _jit();
+          final result = _jit();
           if (result != null) {
             return result;
           }
@@ -57,7 +58,8 @@ DynamicLibrary _loadHelperDynamicLibrary() {
     case Embedder.standalone:
       switch (StandaloneRuntimeModes.current) {
         case StandaloneRuntimeMode.jit:
-          final DynamicLibrary? result = _jit();
+          final result = _jit();
+          // ignore: invariant_booleans
           if (result != null) {
             return result;
           }
@@ -78,12 +80,11 @@ DynamicLibrary _loadHelperDynamicLibrary() {
 ncb.NativeCupertinoHttp _loadHelperLibrary() {
   final lib = _loadHelperDynamicLibrary();
 
-  final int Function(Pointer<Void>) initializeApi = lib.lookupFunction<
-      IntPtr Function(Pointer<Void>),
-      int Function(Pointer<Void>)>("Dart_InitializeApiDL");
-  final int initializeResult = initializeApi(NativeApi.initializeApiDLData);
+  final initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
+      int Function(Pointer<Void>)>('Dart_InitializeApiDL');
+  final initializeResult = initializeApi(NativeApi.initializeApiDLData);
   if (initializeResult != 0) {
-    throw 'failed to init API.';
+    throw StateError('failed to init API.');
   }
 
   return ncb.NativeCupertinoHttp(lib);
@@ -106,7 +107,7 @@ Map<String, String> stringDictToMap(ncb.NSDictionary d) {
   // function type safe. Currently it will unconditionally cast both keys and
   // values to NSString with a likely crash down the line if that isn't their
   // true types.
-  final m = Map<String, String>();
+  final m = <String, String>{};
 
   final keys = ncb.NSArray.castFrom(d.allKeys!);
   for (var i = 0; i < keys.count; ++i) {
