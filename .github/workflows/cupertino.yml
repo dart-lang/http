@@ -55,6 +55,6 @@ jobs:
         run: flutter run bin/setup.dart build
         working-directory: pkgs/cupertinohttp        
       - name: Run VM tests
-        run: flutter test --platform vm
+        run: dart test --platform vm
         if: always() && steps.install.outcome == 'success'
         working-directory: pkgs/cupertinohttp
