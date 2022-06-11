@@ -40,26 +40,21 @@ jobs:
   # 2. release channel: dev
   test:
     needs: analyze
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        # Add macos-latest and/or windows-latest if relevant for this package.
-        os: [ubuntu-latest]
-        sdk: [2.16.0, dev]
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@v1.3
+      - uses: subosito/flutter-action@v2
         with:
-          sdk: ${{ matrix.sdk }}
+          channel: 'stable'
       - id: install
         name: Install dependencies
         run: flutter pub get
         working-directory: pkgs/cupertinohttp
       - id: build
         name: Build Objective-C component
-        run: dart run bin/setup.dart build
+        run: flutter run bin/setup.dart build
         working-directory: pkgs/cupertinohttp        
       - name: Run VM tests
-        run: dart test --platform vm
+        run: flutter test --platform vm
         if: always() && steps.install.outcome == 'success'
+        working-directory: pkgs/cupertinohttp
