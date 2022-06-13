@@ -36,7 +36,11 @@ jobs:
 
   test:
     needs: analyze
+    name: "Build and test"
     runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: pkgs/cupertinohttp
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
