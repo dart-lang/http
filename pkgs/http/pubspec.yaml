@@ -14,6 +14,8 @@ dependencies:
 
 dev_dependencies:
   fake_async: ^1.2.0
+  http_client_conformance_tests:
+    path: ../http_client_conformance_tests/
   lints: ^1.0.0
   shelf: ^1.1.0
   stream_channel: ^2.1.0
