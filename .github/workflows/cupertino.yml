@@ -16,6 +16,9 @@ jobs:
   analyze:
     name: Lint and static analysis
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkgs/cupertinohttp
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -24,15 +27,12 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-        working-directory: pkgs/cupertinohttp
       - name: Check formatting
         run: flutter format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
-        working-directory: pkgs/cupertinohttp
       - name: Analyze code
         run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
-        working-directory: pkgs/cupertinohttp
 
   test:
     needs: analyze
@@ -45,12 +45,9 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-        working-directory: pkgs/cupertinohttp
       - id: build
         name: Build Objective-C component
         run: dart run bin/setup.dart build
-        working-directory: pkgs/cupertinohttp        
       - name: Run tests
         run: dart test --platform vm
         if: always() && steps.install.outcome == 'success'
-        working-directory: pkgs/cupertinohttp
