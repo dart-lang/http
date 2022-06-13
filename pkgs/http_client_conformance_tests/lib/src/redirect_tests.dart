@@ -11,16 +11,24 @@ import 'utils.dart';
 
 /// Tests that the [Client] correctly implements HTTP redirect logic.
 ///
+/// If [packageRoot] is set then it will be used as the filesystem root
+/// directory of `package:http_client_conformance_tests`. If it is not set then
+/// `Isolate.resolvePackageUri` will be used to discover the package root.
+/// NOTE: Setting this parameter is only needed in the browser environment,
+/// where `Isolate.resolvePackageUri` doesn't work.
+///
 /// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
 /// to limit redirects will be skipped.
-void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
+void testRedirect(Client client,
+    {String? packageRoot, bool redirectAlwaysAllowed = false}) async {
   group('redirects', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
 
     setUpAll(() async {
-      httpServerChannel = await startServer('redirect_server.dart');
+      httpServerChannel =
+          await startServer('redirect_server.dart', packageRoot);
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });

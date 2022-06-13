@@ -15,11 +15,17 @@ import 'utils.dart';
 /// Tests that the [Client] correctly implements streamed request body
 /// uploading.
 ///
+/// If [packageRoot] is set then it will be used as the filesystem root
+/// directory of `package:http_client_conformance_tests`. If it is not set then
+/// `Isolate.resolvePackageUri` will be used to discover the package root.
+/// NOTE: Setting this parameter is only needed in the browser environment,
+/// where `Isolate.resolvePackageUri` doesn't work.
+///
 /// If [canStreamRequestBody] is `false` then tests that assume that the
 /// [Client] supports sending HTTP requests with unbounded body sizes will be
 /// skipped.
 void testRequestBodyStreamed(Client client,
-    {bool canStreamRequestBody = true}) {
+    {String? packageRoot, bool canStreamRequestBody = true}) {
   group('streamed requests', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
@@ -27,7 +33,7 @@ void testRequestBodyStreamed(Client client,
 
     setUp(() async {
       httpServerChannel =
-          await startServer('request_body_streamed_server.dart');
+          await startServer('request_body_streamed_server.dart', packageRoot);
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });

@@ -4,10 +4,15 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 /// Starts a test server using a relative path name e.g.
-/// 'redirect_server.dart'.
+/// 'redirect_server.dart'. If [packageRoot] is set then [fileName] will be
+/// interpreted as relative to it.
 ///
 /// See [spawnHybridUri].
-Future<StreamChannel<Object?>> startServer(String fileName) async {
+Future<StreamChannel<Object?>> startServer(
+    String fileName, String? packageRoot) async {
+  if (packageRoot != null) {
+    return spawnHybridUri('$packageRoot/lib/src/$fileName');
+  }
   try {
     final fileUri = await Isolate.resolvePackageUri(Uri(
         scheme: 'package',
@@ -18,9 +23,8 @@ Future<StreamChannel<Object?>> startServer(String fileName) async {
     return spawnHybridUri(fileUri);
     // ignore: avoid_catching_errors
   } on UnsupportedError {
-    // The current runtime environment (probably browser) does not support
-    // `Isolate.resolvePackageUri` so try to use a relative path. This will
-    // *not* work if `http_client_conformance_tests` is used as a package.
-    return spawnHybridUri('../lib/src/$fileName');
+    throw StateError(
+        'The path for package:http_client_conformance_tests could not be '
+        'found in the current environment');
   }
 }
