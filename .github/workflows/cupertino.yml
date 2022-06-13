@@ -35,6 +35,8 @@ jobs:
         if: always() && steps.install.outcome == 'success'
 
   test:
+    # package:cupertinohttp is a flutter plugin that is also usable from
+    # the Dart CLI with a build step.
     needs: analyze
     name: "Build and test"
     runs-on: macos-latest
