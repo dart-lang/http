@@ -108,11 +108,10 @@ Future<void> runProcess(String executable, List<String> arguments) async {
     executable,
     arguments,
     runInShell: true,
-  ).then((process) {
-    process.stdout.transform(utf8.decoder).forEach(_logger.fine);
-    process.stderr.transform(utf8.decoder).forEach(_logger.severe);
-    return process;
-  });
+  );
+  process
+    ..stdout.transform(utf8.decoder).forEach(_logger.fine)
+    ..stderr.transform(utf8.decoder).forEach(_logger.severe);
   final exitCode = await process.exitCode;
   if (exitCode != 0) {
     final message = 'Command `$commandString` failed with exit code $exitCode.';
