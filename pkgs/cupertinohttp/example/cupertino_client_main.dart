@@ -17,7 +17,7 @@ void main() async {
   final itemCount = decodedResponse['totalItems'] as int;
   print('Number of books about http: $itemCount.');
   for (var i = 0; i < min(itemCount, 10); ++i) {
-    // ignore_for_file: avoid_dynamic_calls
+    // ignore: avoid_dynamic_calls
     print(decodedResponse['items'][i]['volumeInfo']['title']);
   }
 }
