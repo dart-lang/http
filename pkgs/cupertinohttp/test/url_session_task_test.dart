@@ -74,7 +74,7 @@ void main() {
 
       while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
         // Let the event loop run.
-        await Future<void>.delayed(const Duration());
+        await Future<void>(() {});
       }
     });
     tearDown(() {
