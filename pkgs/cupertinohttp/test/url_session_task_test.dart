@@ -94,8 +94,8 @@ void main() {
       expect(task.countOfBytesReceived, 11);
     });
 
-    test('taskIdentifider', () {
-      task.taskIdentifider; // Just verify that there is no crash.
+    test('taskIdentifier', () {
+      task.taskIdentifier; // Just verify that there is no crash.
     });
 
     test('toString', () {

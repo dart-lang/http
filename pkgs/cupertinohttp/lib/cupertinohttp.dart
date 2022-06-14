@@ -441,7 +441,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   // A unique ID for the [URLSessionTask] in a [URLSession].
   //
   // See [NSURLSessionTask.taskIdentifier](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411231-taskidentifier)
-  int get taskIdentifider => _nsObject.taskIdentifier;
+  int get taskIdentifier => _nsObject.taskIdentifier;
 
   /// The server response to the request associated with this task.
   ///
@@ -471,7 +471,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
 
   @override
   String toString() => '[URLSessionTask '
-      'taskIdentifider=$taskIdentifider '
+      'taskIdentifier=$taskIdentifier '
       'countOfBytesExpectedToReceive=$countOfBytesExpectedToReceive '
       'countOfBytesReceived=$countOfBytesReceived '
       'state=$state'
