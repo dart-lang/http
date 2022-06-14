@@ -9,6 +9,7 @@
 ///   dart bin/setup.dart build
 /// ```
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -109,9 +110,8 @@ Future<void> runProcess(String executable, List<String> arguments) async {
     arguments,
     runInShell: true,
   );
-  process
-    ..stdout.transform(utf8.decoder).forEach(_logger.fine)
-    ..stderr.transform(utf8.decoder).forEach(_logger.severe);
+  unawaited(process.stdout.transform(utf8.decoder).forEach(_logger.fine));
+  unawaited(process.stderr.transform(utf8.decoder).forEach(_logger.severe));
   final exitCode = await process.exitCode;
   if (exitCode != 0) {
     final message = 'Command `$commandString` failed with exit code $exitCode.';
