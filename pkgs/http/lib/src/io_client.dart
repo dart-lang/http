@@ -14,6 +14,28 @@ import 'io_streamed_response.dart';
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
 BaseClient createClient() => IOClient();
 
+/// Exception thrown when the underlying [HttpClient] throws a
+/// [SocketException].
+///
+/// Implemenents [SocketException] to avoid breaking existing users of
+/// [IOClient] that may catch that exception.
+class _ClientSocketException extends ClientException
+    implements SocketException {
+  final SocketException cause;
+  _ClientSocketException(SocketException e, Uri url)
+      : cause = e,
+        super(e.message, url);
+
+  @override
+  InternetAddress? get address => cause.address;
+
+  @override
+  OSError? get osError => cause.osError;
+
+  @override
+  int? get port => cause.port;
+}
+
 /// A `dart:io`-based HTTP client.
 class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
@@ -62,6 +84,8 @@ class IOClient extends BaseClient {
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase,
           inner: response);
+    } on SocketException catch (error) {
+      throw _ClientSocketException(error, request.url);
     } on HttpException catch (error) {
       throw ClientException(error.message, error.uri);
     }
