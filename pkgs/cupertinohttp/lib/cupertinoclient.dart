@@ -52,7 +52,7 @@ class CupertinoClient extends BaseClient {
 
   CupertinoClient._(this._urlSession);
 
-  static _TaskTracker _getTracker(URLSessionTask task) =>
+  static _TaskTracker _tracker(URLSessionTask task) =>
       tasks[task.taskIdentifider]!;
 
   static void _onComplete(
