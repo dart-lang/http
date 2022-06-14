@@ -57,34 +57,35 @@ class CupertinoClient extends BaseClient {
 
   static void _onComplete(
       URLSession session, URLSessionTask task, Error? error) {
-    final t = _tracker(task);
+    final taskTracker = _tracker(task);
 
     if (error != null) {
       final exception =
           ClientException(error.localizedDescription ?? 'Unknown');
-      if (t.responseCompleter.isCompleted) {
-        t.responseController.addError(exception);
+      if (taskTracker.responseCompleter.isCompleted) {
+        taskTracker.responseController.addError(exception);
       } else {
-        t.responseCompleter.completeError(exception);
+        taskTracker.responseCompleter.completeError(exception);
       }
-    } else if (!t.responseCompleter.isCompleted) {
-      t.responseCompleter.completeError(
+    } else if (!taskTracker.responseCompleter.isCompleted) {
+      taskTracker.responseCompleter.completeError(
           StateError('task completed without an error or response'));
     }
-    t.close();
+    taskTracker.close();
     tasks.remove(task.taskIdentifier);
   }
 
   static void _onData(URLSession session, URLSessionTask task, Data data) {
-    final t = _tracker(task);
-    t.responseController.add(data.bytes);
+    final taskTracker = _tracker(task);
+    taskTracker.responseController.add(data.bytes);
   }
 
   static URLRequest? _onRedirect(URLSession session, URLSessionTask task,
       HTTPURLResponse response, URLRequest request) {
-    final t = _tracker(task);
-    ++t.numRedirects;
-    if (t.request.followRedirects && t.numRedirects <= t.request.maxRedirects) {
+    final taskTracker = _tracker(task);
+    ++taskTracker.numRedirects;
+    if (taskTracker.request.followRedirects &&
+        taskTracker.numRedirects <= taskTracker.request.maxRedirects) {
       return request;
     }
     return null;
@@ -92,8 +93,8 @@ class CupertinoClient extends BaseClient {
 
   static URLSessionResponseDisposition _onResponse(
       URLSession session, URLSessionTask task, URLResponse response) {
-    final t = _tracker(task);
-    t.responseCompleter.complete(response);
+    final taskTracker = _tracker(task);
+    taskTracker.responseCompleter.complete(response);
     return URLSessionResponseDisposition.urlSessionResponseAllow;
   }
 
@@ -141,26 +142,26 @@ class CupertinoClient extends BaseClient {
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
 
     final task = _urlSession.dataTaskWithRequest(urlRequest);
-    final t = _TaskTracker(request);
-    tasks[task.taskIdentifier] = t;
+    final taskTracker = _TaskTracker(request);
+    tasks[task.taskIdentifier] = taskTracker;
     task.resume();
 
     final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
 
-    final result = await t.responseCompleter.future;
+    final result = await taskTracker.responseCompleter.future;
     final response = result as HTTPURLResponse;
 
-    if (request.followRedirects && t.numRedirects > maxRedirects) {
+    if (request.followRedirects && taskTracker.numRedirects > maxRedirects) {
       throw ClientException('Redirect limit exceeded', request.url);
     }
 
     return StreamedResponse(
-      t.responseController.stream,
+      taskTracker.responseController.stream,
       response.statusCode,
       contentLength: response.expectedContentLength == -1
           ? null
           : response.expectedContentLength,
-      isRedirect: !request.followRedirects && t.numRedirects > 0,
+      isRedirect: !request.followRedirects && taskTracker.numRedirects > 0,
       headers: response.allHeaderFields
           .map((key, value) => MapEntry(key.toLowerCase(), value)),
     );

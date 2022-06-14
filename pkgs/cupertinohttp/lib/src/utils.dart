@@ -12,9 +12,10 @@ import 'native_cupertino_bindings.dart' as ncb;
 const _packageName = 'cupertinohttp';
 const _libName = _packageName;
 
-/// Access to symbols that are linked into the process. The "Foundation"
-/// framework is linked to Dart so no additional libraries need to be loaded
-/// to access those symbols.
+/// Access to symbols that are linked into the process.
+///
+/// The "Foundation" framework is linked to Dart so no additional
+/// libraries need to be loaded to access those symbols.
 late ncb.NativeCupertinoHttp linkedLibs = () {
   final lib = DynamicLibrary.process();
   return ncb.NativeCupertinoHttp(lib);
