@@ -1,4 +1,6 @@
-## 3.2.1-dev
+## 3.2.1
+
+* Populate the pubspec `repository` field.
 
 ## 3.2.0
 
