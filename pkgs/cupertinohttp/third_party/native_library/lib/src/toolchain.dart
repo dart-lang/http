@@ -1,3 +1,7 @@
+// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -35,6 +39,7 @@ class NativeTool {
       bool searchOnPath: true,
       Future<Uri?> Function(List<Uri>)? searchUris,
       bool lookupVersion: true,
+      bool versionLastPathSegment = false,
       String? lookupVersionArgument,
       int lookupVersionExitCode = 0,
       String? extraInfo}) async {
@@ -58,6 +63,10 @@ class NativeTool {
             argument: lookupVersionArgument,
             expectedExitCode: lookupVersionExitCode);
       }
+    }
+    if (versionLastPathSegment && uri != null) {
+      final versionString = uri.pathSegments.where((e) => e != '').last;
+      version = SemanticVersion.fromString(versionString);
     }
     return NativeTool._(
         name, uri, version, searchOnPath, searchedInUris, extraInfo);
@@ -165,8 +174,26 @@ final Future<NativeTool> ninja = NativeTool.search(
 
 final Future<NativeTool> androidNdk = NativeTool.search(
   'Android NDK',
+  versionLastPathSegment: true,
   searchUris: (List<Uri> urisSearched) async {
     if (Platform.isMacOS) {
+      if (_homeDir != null) {
+        final ndkVersionsUri =
+            Directory(_homeDir!).uri.resolve('Library/Android/sdk/ndk/');
+        final ndkVersionsDir = Directory.fromUri(ndkVersionsUri);
+        final ndkVersions = (await ndkVersionsDir.list().toList())
+            .whereType<Directory>()
+            .toList();
+        if (ndkVersions.isNotEmpty) {
+          final uri = ndkVersions.last.uri;
+          final toolchainUri =
+              uri.resolve('build/cmake/android.toolchain.cmake');
+          urisSearched.add(toolchainUri);
+          if (await File.fromUri(toolchainUri).exists()) {
+            return uri;
+          }
+        }
+      }
       for (final path in _homebrewNdkPaths) {
         final uri = Uri.directory(path);
         final dir = Directory.fromUri(uri);
@@ -352,14 +379,7 @@ extension UriExtension on Uri {
           '`$executablePath $argument` returned unexpected exit code: '
           '${process.exitCode}.');
     }
-    final match = _semverRegex.firstMatch(process.stdout)!;
-    final semver = SemanticVersion(
-        int.parse(match.group(1)!),
-        int.parse(match.group(2)!),
-        int.parse(match.group(3)!),
-        match.group(4),
-        match.group(5));
-    return semver;
+    return SemanticVersion.fromString(process.stdout)!;
   }
 }
 
@@ -392,12 +412,42 @@ class SemanticVersion {
   final String? metaData;
 
   const SemanticVersion(
-      this.major, this.minor, this.patch, this.preRelease, this.metaData);
+    this.major, [
+    this.minor = 0,
+    this.patch = 0,
+    this.preRelease,
+    this.metaData,
+  ]);
+
+  static SemanticVersion? fromString(String containsVersion) {
+    final match = _semverRegex.firstMatch(containsVersion);
+    if (match == null) {
+      return null;
+    }
+    return SemanticVersion(
+        int.parse(match.group(1)!),
+        int.parse(match.group(2)!),
+        int.parse(match.group(3)!),
+        match.group(4),
+        match.group(5));
+  }
 
   String get _preReleaseString => preRelease != null ? '-$preRelease' : '';
   String get _metaDataString => metaData != null ? '+$metaData' : '';
 
   String toString() => '$major.$minor.$patch$_preReleaseString$_metaDataString';
+
+  bool operator <(SemanticVersion other) {
+    if (major < other.major) return true;
+    if (major > other.major) return false;
+    if (minor < other.minor) return true;
+    if (minor > other.minor) return false;
+    if (patch < other.patch) return true;
+    if (patch > other.patch) return false;
+    return false;
+  }
+
+  bool operator >=(SemanticVersion other) => other < this;
 }
 
 /// The operation could not be performed due to a configuration error on the

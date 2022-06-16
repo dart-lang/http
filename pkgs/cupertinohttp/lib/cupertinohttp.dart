@@ -256,15 +256,15 @@ class Data extends _ObjectHolder<ncb.NSData> {
 
   /// A new [Data] object containing the given bytes.
   factory Data.fromUint8List(Uint8List l) {
-    final f = calloc<Uint8>(l.length);
+    final buffer = calloc<Uint8>(l.length);
     try {
-      f.asTypedList(l.length).setAll(0, l);
+      buffer.asTypedList(l.length).setAll(0, l);
 
       final data =
-          ncb.NSData.dataWithBytes_length_(linkedLibs, f.cast(), l.length);
+          ncb.NSData.dataWithBytes_length_(linkedLibs, buffer.cast(), l.length);
       return Data._(data);
     } finally {
-      calloc.free(f);
+      calloc.free(buffer);
     }
   }
 

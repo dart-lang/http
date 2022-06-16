@@ -1,10 +1,16 @@
+// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
+import 'dart:io';
+
 import 'package:args/args.dart';
-import 'package:native_library/src/abi.dart';
+import 'package:native_library/src/target.dart';
 import 'package:logging/logging.dart';
 
 /// Default [ArgParser] for command line tools for compiling native libraries.
 ///
-/// It has built in support for dealing with [Abi]s, logging [Level], common
+/// It has built in support for dealing with [Target]s, logging [Level], common
 /// commands for `build`ing and `clean`ing and displaying the help message.
 final ArgParser argParser = () {
   final argParser = ArgParser();
@@ -15,50 +21,58 @@ final ArgParser argParser = () {
   argParser.addMultiOption(
     'arch',
     abbr: 'a',
-    help: 'Target architectures to invoke the commands for.',
-    allowed: [...architectureStrings.values, 'all'],
-    defaultsTo: [Abi.current.architecture.dartPlatform],
+    help: 'Target architectures to invoke the commands for. '
+        'Selects all targets in the cross product with --os.',
+    allowed: [...Architecture.values.map((e) => e.dartPlatform), 'all'],
+    defaultsTo: [Target.current.architecture.dartPlatform],
   );
 
   argParser.addMultiOption(
     'os',
     abbr: 'o',
-    help: 'Target OSes to invoke the commands for.',
-    allowed: [...osStrings.values, 'all'],
-    defaultsTo: [Abi.current.os.dartPlatform],
+    help: 'Target OSes to invoke the commands for. '
+        'Selects all targets in the cross product with --arch',
+    allowed: [...OS.values.map((e) => e.dartPlatform), 'all'],
+    defaultsTo: [Target.current.os.dartPlatform],
   );
 
   argParser.addMultiOption(
-    'abi',
-    abbr: 'b',
-    help:
-        'Target ABIs to invoke the commands for. This overrides `arch` and `os` flags.',
-    allowed: [...supportedTargetAbis().map((abi) => abi.toString()), 'all'],
+    'target',
+    abbr: 't',
+    help: 'Targets to invoke the commands for. Overrides --arch and --os.',
+    allowed: [
+      ...Target.current
+          .supportedTargetTargets()
+          .map((target) => target.toString()),
+      'all'
+    ],
     defaultsTo: [],
   );
 
   argParser.addOption('verbosity',
       allowed: Level.LEVELS.map((l) => l.name.toLowerCase()),
       defaultsTo: _defaultLevel.name.toLowerCase(),
-      help: 'Sets the verbosity level of logging to standard out.');
+      help: 'Verbosity level of logging to standard out.');
+
+  argParser.addOption('code-sign-identity',
+      help: 'The code signing identity to use for iOS device builds.');
 
   argParser.addFlag('verbose',
       abbr: 'v',
-      help: "Sets --verbosity to '${_verboseLevel.name.toLowerCase()}'. "
+      help: "Equal to --verbosity ${_verboseLevel.name.toLowerCase()}. "
           'Overrides --verbosity and --silent.',
       negatable: false);
 
   argParser.addFlag('silent',
       abbr: 's',
-      help: "Sets --verbosity to '${_silentLevel.name.toLowerCase()}'. "
+      help: "Equal to --verbosity ${_silentLevel.name.toLowerCase()}. "
           'Overrides --verbosity.',
       negatable: false);
 
   argParser.addCommand(
       'build',
       ArgParser()
-        ..addFlag('clean',
-            help: 'First run the clean command.', defaultsTo: false)
+        ..addFlag('clean', help: 'Clean before building.', defaultsTo: false)
         ..addFlag('help',
             help: 'Show additional diagnostic info.', defaultsTo: false));
 
@@ -95,22 +109,22 @@ extension ArgParserRecursive on ArgParser {
 
 /// Helper methods that go together with [argParser].
 extension NativeLibraryArgResults on ArgResults {
-  /// The [Abi]s passed in as argument.
-  List<Abi> get abis {
-    final validTargets = supportedTargetAbis();
-    final abis = _allOrSpecified(
-        this['abi'] as List<String>, validTargets, (s) => stringToAbi[s]!);
-    if (abis.isNotEmpty) {
-      return abis.toList();
+  /// The [Target]s passed in as argument.
+  List<Target> get targets {
+    final validTargets = Target.current.supportedTargetTargets();
+    final targets = _allOrSpecified(this['target'] as List<String>,
+        validTargets, (s) => Target.fromString(s));
+    if (targets.isNotEmpty) {
+      return targets.toList();
     }
     final oses = _allOrSpecified(
-        this['os'] as List<String>, OS.values, (s) => stringToOs[s]!);
+        this['os'] as List<String>, OS.values, (s) => OS.fromDartPlatform(s));
     final archs = _allOrSpecified(this['arch'] as List<String>,
-        Architecture.values, (s) => stringToArchitecture[s]!);
+        Architecture.values, (s) => Architecture.fromDartPlatform(s));
     return [
       for (final os in oses)
         for (final arch in archs)
-          if (Abi.isValid(os, arch)) Abi(os, arch)
+          if (Target.isValid(os, arch)) Target(os, arch)
     ];
   }
 
@@ -127,6 +141,15 @@ extension NativeLibraryArgResults on ArgResults {
     }
     return Level.LEVELS
         .firstWhere((l) => l.name.toLowerCase() == this['verbosity']);
+  }
+
+  String? get codeSignIdentity {
+    var result = this['code-sign-identity'] as String?;
+    if (result != null) {
+      return result;
+    }
+    result = Platform.environment['CODE_SIGN_IDENTITY'];
+    return result;
   }
 }
 
