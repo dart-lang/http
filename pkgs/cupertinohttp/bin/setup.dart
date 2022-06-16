@@ -35,26 +35,23 @@ void main(List<String> args) async {
   await taskRunner.run(task);
 }
 
-Task buildTask(Iterable<Target> targets, ArgResults arguments) {
-  return Task.parallel([
-    for (final target in targets)
-      CMakeBuild(
-        srcUri: srcUri,
-        buildUri: buildUri(target),
-        targetUri: targetUri(target),
-        target: target,
-        dynamicLibraryNames: [sharedLibraryName],
-        codeSignIdentity: arguments.codeSignIdentity,
-      ),
-  ]);
-}
+Task buildTask(Iterable<Target> targets, ArgResults arguments) =>
+    Task.parallel([
+      for (final target in targets)
+        CMakeBuild(
+          srcUri: srcUri,
+          buildUri: buildUri(target),
+          targetUri: targetUri(target),
+          target: target,
+          dynamicLibraryNames: [sharedLibraryName],
+          codeSignIdentity: arguments.codeSignIdentity,
+        ),
+    ]);
 
-Task cleanTask(List<Target> targets) {
-  return Task.serial([
-    Log.info('Deleting built artifacts for $targets.'),
-    Delete.multiple([
-      // [buildUri] is subfolder of [targetUri].
-      ...targets.map(targetUri),
-    ]),
-  ]);
-}
+Task cleanTask(List<Target> targets) => Task.serial([
+      Log.info('Deleting built artifacts for $targets.'),
+      Delete.multiple([
+        // [buildUri] is subfolder of [targetUri].
+        ...targets.map(targetUri),
+      ]),
+    ]);
