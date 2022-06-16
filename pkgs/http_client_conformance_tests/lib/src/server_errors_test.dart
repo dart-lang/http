@@ -24,7 +24,7 @@ void testServerErrors(Client client,
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 
-    test('not such host', () async {
+    test('no such host', () async {
       expect(
           client.get(Uri.http('thisisnotahost', '')),
           throwsA(isA<ClientException>()
