@@ -11,7 +11,7 @@ environment:
 dependencies:
   async: ^2.8.2
   http: ^0.13.4
-  test: ^1.21.1
+  test: ^1.21.2
 
 dev_dependencies:
   lints: ^1.0.0

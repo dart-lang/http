@@ -11,10 +11,8 @@ import 'package:test/test.dart';
 void main() {
   final client = BrowserClient();
 
-  group('testAll', () {
-    testAll(client,
-        redirectAlwaysAllowed: true,
-        canStreamRequestBody: false,
-        canStreamResponseBody: false);
-  });
+  testAll(client,
+      redirectAlwaysAllowed: true,
+      canStreamRequestBody: false,
+      canStreamResponseBody: false);
 }
