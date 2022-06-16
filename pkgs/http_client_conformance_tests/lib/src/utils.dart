@@ -1,30 +1,15 @@
-import 'dart:isolate';
+// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 /// Starts a test server using a relative path name e.g.
-/// 'redirect_server.dart'. If [packageRoot] is set then [fileName] will be
-/// interpreted as relative to it.
+/// 'redirect_server.dart'.
 ///
 /// See [spawnHybridUri].
-Future<StreamChannel<Object?>> startServer(
-    String fileName, String? packageRoot) async {
-  if (packageRoot != null) {
-    return spawnHybridUri('$packageRoot/lib/src/$fileName');
-  }
-  try {
-    final fileUri = await Isolate.resolvePackageUri(Uri(
+Future<StreamChannel<Object?>> startServer(String fileName) async =>
+    spawnHybridUri(Uri(
         scheme: 'package',
         path: 'http_client_conformance_tests/src/$fileName'));
-    if (fileUri == null) {
-      throw StateError('The package could not be resolved');
-    }
-    return spawnHybridUri(fileUri);
-    // ignore: avoid_catching_errors
-  } on UnsupportedError {
-    throw StateError(
-        'The path for package:http_client_conformance_tests could not be '
-        'found in the current environment');
-  }
-}

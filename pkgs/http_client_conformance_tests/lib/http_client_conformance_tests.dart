@@ -22,12 +22,6 @@ export 'src/response_headers_tests.dart' show testResponseHeaders;
 
 /// Runs the entire test suite against the given [Client].
 ///
-/// If [packageRoot] is set then it will be used as the filesystem root
-/// directory of `package:http_client_conformance_tests`. If it is not set then
-/// `Isolate.resolvePackageUri` will be used to discover the package root.
-/// NOTE: Setting this parameter is only needed in the browser environment,
-/// where `Isolate.resolvePackageUri` doesn't work.
-///
 /// If [canStreamRequestBody] is `false` then tests that assume that the
 /// [Client] supports sending HTTP requests with unbounded body sizes will be
 /// skipped.
@@ -39,19 +33,15 @@ export 'src/response_headers_tests.dart' show testResponseHeaders;
 /// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
 /// to limit redirects will be skipped.
 void testAll(Client client,
-    {String? packageRoot,
-    bool canStreamRequestBody = true,
+    {bool canStreamRequestBody = true,
     bool canStreamResponseBody = true,
     bool redirectAlwaysAllowed = false}) {
-  testRequestBody(client, packageRoot: packageRoot);
-  testRequestBodyStreamed(client,
-      packageRoot: packageRoot, canStreamRequestBody: canStreamRequestBody);
-  testResponseBody(client,
-      packageRoot: packageRoot, canStreamResponseBody: canStreamResponseBody);
+  testRequestBody(client);
+  testRequestBodyStreamed(client, canStreamRequestBody: canStreamRequestBody);
+  testResponseBody(client, canStreamResponseBody: canStreamResponseBody);
   testResponseBodyStreamed(client,
-      packageRoot: packageRoot, canStreamResponseBody: canStreamResponseBody);
-  testRequestHeaders(client, packageRoot: packageRoot);
-  testResponseHeaders(client, packageRoot: packageRoot);
-  testRedirect(client,
-      packageRoot: packageRoot, redirectAlwaysAllowed: redirectAlwaysAllowed);
+      canStreamResponseBody: canStreamResponseBody);
+  testRequestHeaders(client);
+  testResponseHeaders(client);
+  testRedirect(client, redirectAlwaysAllowed: redirectAlwaysAllowed);
 }

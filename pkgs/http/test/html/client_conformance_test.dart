@@ -12,7 +12,6 @@ void main() {
   final client = BrowserClient();
 
   testAll(client,
-      packageRoot: '../../../http_client_conformance_tests',
       redirectAlwaysAllowed: true,
       canStreamRequestBody: false,
       canStreamResponseBody: false);

@@ -11,17 +11,11 @@ import 'utils.dart';
 
 /// Tests that the [Client] correctly implements HTTP responses with bodies.
 ///
-/// If [packageRoot] is set then it will be used as the filesystem root
-/// directory of `package:http_client_conformance_tests`. If it is not set then
-/// `Isolate.resolvePackageUri` will be used to discover the package root.
-/// NOTE: Setting this parameter is only needed in the browser environment,
-/// where `Isolate.resolvePackageUri` doesn't work.
-///
 /// If [canStreamResponseBody] is `false` then tests that assume that the
 /// [Client] supports receiving HTTP responses with unbounded body sizes will
 /// be skipped
 void testResponseBody(Client client,
-    {String? packageRoot, bool canStreamResponseBody = true}) async {
+    {bool canStreamResponseBody = true}) async {
   group('response body', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
@@ -29,8 +23,7 @@ void testResponseBody(Client client,
     const message = 'Hello World!';
 
     setUpAll(() async {
-      httpServerChannel =
-          await startServer('response_body_server.dart', packageRoot);
+      httpServerChannel = await startServer('response_body_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
