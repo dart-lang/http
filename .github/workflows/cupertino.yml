@@ -24,6 +24,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.0.2'
       - id: install
         name: Install dependencies
         run: flutter pub get
@@ -48,6 +49,7 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+          flutter-version: '3.0.2'
       - id: install
         name: Install dependencies
         run: flutter pub get
