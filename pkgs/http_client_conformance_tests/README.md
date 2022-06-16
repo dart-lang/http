@@ -34,3 +34,6 @@ void main() {
   });
 }
 ```
+
+**Note**: This package does not have it's own tests, instead it is
+exercised by the tests in `package:http`.

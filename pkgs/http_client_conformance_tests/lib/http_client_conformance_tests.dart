@@ -11,6 +11,7 @@ import 'src/request_headers_tests.dart';
 import 'src/response_body_streamed_test.dart';
 import 'src/response_body_tests.dart';
 import 'src/response_headers_tests.dart';
+import 'src/server_errors_test.dart';
 
 export 'src/redirect_tests.dart' show testRedirect;
 export 'src/request_body_streamed_tests.dart' show testRequestBodyStreamed;
@@ -44,4 +45,5 @@ void testAll(Client client,
   testRequestHeaders(client);
   testResponseHeaders(client);
   testRedirect(client, redirectAlwaysAllowed: redirectAlwaysAllowed);
+  testServerErrors(client);
 }
