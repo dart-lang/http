@@ -1,4 +1,6 @@
-import 'dart:isolate';
+// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
@@ -7,20 +9,7 @@ import 'package:test/test.dart';
 /// 'redirect_server.dart'.
 ///
 /// See [spawnHybridUri].
-Future<StreamChannel<Object?>> startServer(String fileName) async {
-  try {
-    final fileUri = await Isolate.resolvePackageUri(Uri(
+Future<StreamChannel<Object?>> startServer(String fileName) async =>
+    spawnHybridUri(Uri(
         scheme: 'package',
         path: 'http_client_conformance_tests/src/$fileName'));
-    if (fileUri == null) {
-      throw StateError('The package could not be resolved');
-    }
-    return spawnHybridUri(fileUri);
-    // ignore: avoid_catching_errors
-  } on UnsupportedError {
-    // The current runtime environment (probably browser) does not support
-    // `Isolate.resolvePackageUri` so try to use a relative path. This will
-    // *not* work if `http_client_conformance_tests` is used as a package.
-    return spawnHybridUri('../lib/src/$fileName');
-  }
-}
