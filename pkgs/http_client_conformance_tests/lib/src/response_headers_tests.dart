@@ -10,21 +10,14 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 /// Tests that the [Client] correctly processes response headers.
-///
-/// If [packageRoot] is set then it will be used as the filesystem root
-/// directory of `package:http_client_conformance_tests`. If it is not set then
-/// `Isolate.resolvePackageUri` will be used to discover the package root.
-/// NOTE: Setting this parameter is only needed in the browser environment,
-/// where `Isolate.resolvePackageUri` doesn't work.
-void testResponseHeaders(Client client, {String? packageRoot}) async {
+void testResponseHeaders(Client client) async {
   group('server headers', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
     late StreamQueue<Object?> httpServerQueue;
 
     setUp(() async {
-      httpServerChannel =
-          await startServer('response_headers_server.dart', packageRoot);
+      httpServerChannel = await startServer('response_headers_server.dart');
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
