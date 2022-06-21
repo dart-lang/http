@@ -8,6 +8,7 @@ project(cupertinohttp_library VERSION 0.0.1 LANGUAGES C)
 add_library(cupertinohttp SHARED
   "CUPHTTPClientDelegate.m"
   "CUPHTTPForwardedDelegate.m"
+  "${CMAKE_CURRENT_LIST_DIR}/dart-sdk/include/dart_api_dl.c"
 )
 
 set_target_properties(cupertinohttp PROPERTIES
