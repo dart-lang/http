@@ -23,10 +23,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   http_client_conformance_tests:
-    git:
-      url: http://github.com/dart-lang/http.git
-      path: pkgs/http_client_conformance_tests/
+    path: ../http_client_conformance_tests/
   lints: ^1.0.0
   test: ^1.21.1
-dev_dependency_overrides:
-  test_api: "0.4.10"
