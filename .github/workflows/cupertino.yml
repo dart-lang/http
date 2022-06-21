@@ -3,9 +3,9 @@ name: package:cupertinohttp CI
 on:
   # Run on PRs and pushes to the default branch.
   push:
-    branches: [ master ]
+    branches: [ cupertino ]
   pull_request:
-    branches: [ master ]
+    branches: [ cupertino ]
   schedule:
     - cron: "0 0 * * 0"
 
