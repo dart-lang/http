@@ -1,4 +1,4 @@
-import 'package:cupertino_http/cupertinoclient.dart';
+import 'package:cupertino_http/cupertino_client.dart';
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:http_client_conformance_tests/http_client_conformance_tests.dart';
 import 'package:test/test.dart';
