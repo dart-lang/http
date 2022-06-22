@@ -43,12 +43,14 @@ static Dart_CObject MessageTypeToCObject(MessageType messageType) {
   self = [super init];
   if (self != nil) {
     taskConfigurations = [NSMapTable strongToStrongObjectsMapTable];
+   os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "Alloc %lld", taskConfigurations);
   }
   return self;
 }
 
 - (void)dealloc {
-  [taskConfigurations release];
+   os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "Dealloc");
+//  [taskConfigurations release];
   [super dealloc];
 }
 
@@ -65,6 +67,7 @@ static Dart_CObject MessageTypeToCObject(MessageType messageType) {
 willPerformHTTPRedirection:(NSHTTPURLResponse *)response
         newRequest:(NSURLRequest *)request
  completionHandler:(void (^)(NSURLRequest *))completionHandler {
+   os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "redirect");
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
 
@@ -97,6 +100,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
 didReceiveResponse:(NSURLResponse *)response
  completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler
 {
+   os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "completionHandler");
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
   
@@ -131,6 +135,7 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)task
     didReceiveData:(NSData *)data {
+   os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "didReceiveData");
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
   
@@ -161,6 +166,7 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)URLSession:(NSURLSession *)session
               task:(NSURLSessionTask *)task
 didCompleteWithError:(NSError *)error {
+   os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "didCompleteWithError: %lld", taskConfigurations);
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
   

@@ -17,6 +17,7 @@ dependencies:
   meta: ^1.7.0
   native_library:
     path: ./third_party/native_library
+  plugin_platform_interface: ^2.0.2
 
 dev_dependencies:
   ffigen: ^6.0.0
@@ -31,3 +32,11 @@ dev_dependencies:
       path: pkgs/http_client_conformance_tests/
   lints: ^1.0.0
   test: ^1.21.1
+
+flutter:
+  plugin:
+    platforms:
+      ios:
+        ffiPlugin: true
+      macos:
+        ffiPlugin: true
