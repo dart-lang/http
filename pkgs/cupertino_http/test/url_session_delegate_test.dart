@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:cupertinohttp/cupertinohttp.dart';
+import 'package:cupertino_http/cupertino_http.dart';
 import 'package:test/test.dart';
 
 void testOnComplete() {

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:cupertinohttp/cupertinohttp.dart';
+import 'package:cupertino_http/cupertino_http.dart';
 
 void main() {
   final url =

@@ -6,8 +6,8 @@ import 'package:args/args.dart';
 
 import 'package:native_library/native_library.dart';
 
-const sharedLibraryName = 'cupertinohttp';
-const packageName = 'cupertinohttp';
+const sharedLibraryName = 'cupertino_http';
+const packageName = 'cupertino_http';
 final srcUri = packageLocation(packageName).resolve('src/');
 Uri targetUri(Target target) =>
     sharedLibrariesLocationBuilt(packageName, target: target);

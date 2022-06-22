@@ -9,7 +9,7 @@ import 'package:native_library/native_library.dart';
 
 import 'native_cupertino_bindings.dart' as ncb;
 
-const _packageName = 'cupertinohttp';
+const _packageName = 'cupertino_http';
 const _libName = _packageName;
 
 /// Access to symbols that are linked into the process.
@@ -21,7 +21,7 @@ late ncb.NativeCupertinoHttp linkedLibs = () {
   return ncb.NativeCupertinoHttp(lib);
 }();
 
-/// Access to symbols that are available in the cupertinohttp helper shared
+/// Access to symbols that are available in the cupertino_http helper shared
 /// library.
 late ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
 

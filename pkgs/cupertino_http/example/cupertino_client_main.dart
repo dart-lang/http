@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:cupertinohttp/cupertinoclient.dart';
+import 'package:cupertino_http/cupertinoclient.dart';
 
 void main() async {
   var client = CupertinoClient.defaultSessionConfiguration();
