@@ -1,6 +1,6 @@
 ---
-name: `package:cupertinohttp` ⟶ I'd like a new feature.
-about: You are using `package:cupertinohttp` and would like a new feature to
+name: `package:cupertino_http` ⟶ I'd like a new feature.
+about: You are using `package:cupertino_http` and would like a new feature to
   make it easier to make http requests.
 
 ---
