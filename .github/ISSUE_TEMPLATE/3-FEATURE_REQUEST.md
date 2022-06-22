@@ -1,5 +1,5 @@
 ---
-name: I'd like a new feature.
+name: `package:http` ⟶ I'd like a new feature.
 about: You are using `package:http` and would like a new feature to make it
   easier to make http requests.
 

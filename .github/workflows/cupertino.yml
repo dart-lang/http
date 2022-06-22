@@ -1,0 +1,61 @@
+name: package:cupertinohttp CI
+
+on:
+  # Run on PRs and pushes to the default branch.
+  push:
+    branches: [ cupertino ]
+  pull_request:
+    branches: [ cupertino ]
+  schedule:
+    - cron: "0 0 * * 0"
+
+env:
+  PUB_ENVIRONMENT: bot.github
+
+jobs:
+  analyze:
+    name: Lint and static analysis
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkgs/cupertinohttp
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.0.2'
+      - id: install
+        name: Install dependencies
+        run: flutter pub get
+      - name: Check formatting
+        run: flutter format --output=none --set-exit-if-changed .
+        if: always() && steps.install.outcome == 'success'
+      - name: Analyze code
+        run: flutter analyze --fatal-infos
+        if: always() && steps.install.outcome == 'success'
+
+  test:
+    # package:cupertinohttp is a flutter plugin that is also usable from
+    # the Dart CLI with a build step.
+    needs: analyze
+    name: "Build and test"
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: pkgs/cupertinohttp
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.0.2'
+      - id: install
+        name: Install dependencies
+        run: flutter pub get
+      - id: build
+        name: Build Objective-C component
+        run: dart run bin/setup.dart build
+      - name: Run tests
+        run: dart test --platform vm
+        if: always() && steps.install.outcome == 'success'
