@@ -1,4 +1,4 @@
-name: package:cupertinohttp CI
+name: package:cupertino_http CI
 
 on:
   # Run on PRs and pushes to the default branch.
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: pkgs/cupertinohttp
+        working-directory: pkgs/cupertino_http
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -36,14 +36,14 @@ jobs:
         if: always() && steps.install.outcome == 'success'
 
   test:
-    # package:cupertinohttp is a flutter plugin that is also usable from
+    # package:cupertino_http is a flutter plugin that is also usable from
     # the Dart CLI with a build step.
     needs: analyze
     name: "Build and test"
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: pkgs/cupertinohttp
+        working-directory: pkgs/cupertino_http
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
