@@ -50,7 +50,7 @@ class _BookListState extends State<MyApp> {
       ),
       DataColumn(
         label: Text(
-          'Published Date',
+          'Published',
           style: TextStyle(fontStyle: FontStyle.italic),
         ),
       ),
