@@ -5,13 +5,13 @@
 Pod::Spec.new do |s|
   s.name             = 'cupertino_http'
   s.version          = '0.0.1'
-  s.summary          = 'A new Flutter FFI plugin project.'
+  s.summary          = 'Flutter Foundation URL Loading System'
   s.description      = <<-DESC
-A new Flutter FFI plugin project.
+  A Flutter plugin for accessing the Foundation URL Loading System.
                        DESC
-  s.homepage         = 'http://example.com'
-  s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.homepage         = 'https://github.com/dart-lang/http/tree/master/pkgs/cupertino_http'
+  s.license          = { :type => 'BSD', :file => '../LICENSE' }
+  s.author           = { 'Flutter Dev Team' => 'flutter-dev@googlegroups.com' }
 
   # This will ensure the source files in Classes/ are included in the native
   # builds of apps using this FFI plugin. Podspec does not support relative
