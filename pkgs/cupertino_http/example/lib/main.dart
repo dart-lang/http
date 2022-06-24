@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _BookListState extends State<MyApp> {
-  late CupertinoClient client;
+  late Client client;
   late Future<Response> response;
 
   @override
