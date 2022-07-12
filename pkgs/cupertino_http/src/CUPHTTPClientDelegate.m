@@ -42,7 +42,7 @@ static Dart_CObject MessageTypeToCObject(MessageType messageType) {
 - (instancetype)init {
   self = [super init];
   if (self != nil) {
-    taskConfigurations = [NSMapTable strongToStrongObjectsMapTable];
+    taskConfigurations = [[NSMapTable strongToStrongObjectsMapTable] retain];
   }
   return self;
 }
