@@ -67,7 +67,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
  completionHandler:(void (^)(NSURLRequest *))completionHandler {
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
-  
+
   CUPHTTPForwardedRedirect *forwardedRedirect = [[CUPHTTPForwardedRedirect alloc]
                                                  initWithSession:session task:task
                                                  response:response request:request];
