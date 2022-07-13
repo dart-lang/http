@@ -42,7 +42,7 @@ static Dart_CObject MessageTypeToCObject(MessageType messageType) {
 - (instancetype)init {
   self = [super init];
   if (self != nil) {
-    taskConfigurations = [NSMapTable strongToStrongObjectsMapTable];
+    taskConfigurations = [[NSMapTable strongToStrongObjectsMapTable] retain];
   }
   return self;
 }
@@ -67,7 +67,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
  completionHandler:(void (^)(NSURLRequest *))completionHandler {
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
-
+  
   CUPHTTPForwardedRedirect *forwardedRedirect = [[CUPHTTPForwardedRedirect alloc]
                                                  initWithSession:session task:task
                                                  response:response request:request];
@@ -156,6 +156,33 @@ didReceiveResponse:(NSURLResponse *)response
   //
   // See the @interface description for CUPHTTPRedirect.
   [forwardedData.lock lock];
+}
+
+- (void)URLSession:(NSURLSession *)session 
+      downloadTask:(NSURLSessionDownloadTask *)downloadTask 
+didFinishDownloadingToURL:(NSURL *)location {
+  CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:downloadTask];
+  NSAssert(config != nil, @"No configuration for task.");
+  
+  CUPHTTPForwardedFinishedDownloading *forwardedFinishedDownload = [
+    [CUPHTTPForwardedFinishedDownloading alloc]
+    initWithSession:session downloadTask:downloadTask url: location];
+  
+  Dart_CObject ctype = MessageTypeToCObject(FinishedDownloading);
+  Dart_CObject cReceiveData = NSObjectToCObject(forwardedFinishedDownload);
+  Dart_CObject* message_carray[] = { &ctype, &cReceiveData };
+  
+  Dart_CObject message_cobj;
+  message_cobj.type = Dart_CObject_kArray;
+  message_cobj.value.as_array.length = 2;
+  message_cobj.value.as_array.values = message_carray;
+
+  // After this line, any attempt to acquire the lock will wait.
+  [forwardedFinishedDownload.lock lock];
+  const bool success = Dart_PostCObject_DL(config.sendPort, &message_cobj);
+  NSAssert(success, @"Dart_PostCObject_DL failed.");
+  
+  [forwardedFinishedDownload.lock lock];
 }
 
 - (void)URLSession:(NSURLSession *)session

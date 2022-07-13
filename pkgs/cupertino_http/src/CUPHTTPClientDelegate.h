@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, MessageType) {
   DataMessage = 1,
   CompletedMessage = 2,
   RedirectMessage = 3,
+  FinishedDownloading = 4,
 };
 
 /**

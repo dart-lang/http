@@ -196,6 +196,18 @@ void testURLSession(URLSession session) {
       expect(response.statusCode, 200);
     });
 
+    test('downloadTask', () async {
+      final task = session.downloadTaskWithRequest(
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+        ..resume();
+      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+        // Let the event loop run.
+        await Future<void>.delayed(const Duration());
+      }
+      final response = task.response as HTTPURLResponse;
+      expect(response.statusCode, 200);
+    });
+
     testDataTaskWithCompletionHandler(session);
   });
 }

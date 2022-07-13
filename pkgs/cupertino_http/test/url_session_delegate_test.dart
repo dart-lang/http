@@ -184,6 +184,49 @@ void testOnData() {
   });
 }
 
+void testOnFinishedDownloading() {
+  group('onFinishedDownloading', () {
+    late HttpServer server;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          request.response.headers.set('Content-Type', 'text/plain');
+          request.response.write('Hello World');
+          await request.response.close();
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('success', () async {
+      final c = Completer<void>();
+      late URLSession actualSession;
+      late URLSessionDownloadTask actualTask;
+      late String actualContent;
+
+      final session = URLSession.sessionWithConfiguration(
+          URLSessionConfiguration.defaultSessionConfiguration(),
+          onComplete: (s, t, r) => c.complete(),
+          onFinishedDownloading: (s, t, uri) {
+            actualSession = s;
+            actualTask = t;
+            actualContent = File.fromUri(uri).readAsStringSync();
+          });
+
+      final task = session.downloadTaskWithRequest(
+          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+        ..resume();
+      await c.future;
+      expect(actualSession, session);
+      expect(actualTask, task);
+      expect(actualContent, 'Hello World');
+    });
+  });
+}
+
 void testOnRedirect() {
   group('onRedirect', () {
     late HttpServer redirectServer;
@@ -403,4 +446,5 @@ void main() {
   testOnResponse();
   testOnData();
   testOnRedirect();
+  testOnFinishedDownloading();
 }

@@ -478,6 +478,21 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
       ']';
 }
 
+/// A task associated with downloading a URI to a file.
+///
+/// See [NSURLSessionDownloadTask](https://developer.apple.com/documentation/foundation/nsurlsessiondownloadtask)
+class URLSessionDownloadTask extends URLSessionTask {
+  URLSessionDownloadTask._(ncb.NSURLSessionDownloadTask c) : super._(c);
+
+  @override
+  String toString() => '[URLSessionDownloadTask '
+      'taskIdentifier=$taskIdentifier '
+      'countOfBytesExpectedToReceive=$countOfBytesExpectedToReceive '
+      'countOfBytesReceived=$countOfBytesReceived '
+      'state=$state'
+      ']';
+}
+
 /// A request to load a URL.
 ///
 /// See [NSURLRequest](https://developer.apple.com/documentation/foundation/nsurlrequest)
@@ -490,8 +505,8 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   factory URLRequest.fromUrl(Uri uri) {
     // TODO(https://github.com/dart-lang/ffigen/issues/373): remove NSObject
     // cast when precise type signatures are generated.
-    final url = ncb.NSURL.URLWithString_(linkedLibs,
-        ncb.NSObject.castFrom(uri.toString().toNSString(linkedLibs)));
+    final url = ncb.NSURL
+        .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
     return URLRequest._(ncb.NSURLRequest.requestWithURL_(linkedLibs, url));
   }
 
@@ -609,6 +624,8 @@ void _setupDelegation(
             URLSession session, URLSessionTask task, URLResponse response)?
         onResponse,
     void Function(URLSession session, URLSessionTask task, Data error)? onData,
+    void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
+        onFinishedDownloading,
     void Function(URLSession session, URLSessionTask task, Error? error)?
         onComplete}) {
   final responsePort = ReceivePort();
@@ -697,6 +714,28 @@ void _setupDelegation(
           forwardedData.finish();
         }
         break;
+      case ncb.MessageType.FinishedDownloading:
+        final finishedDownloading =
+            ncb.CUPHTTPForwardedFinishedDownloading.castFrom(forwardedDelegate);
+        try {
+          if (onFinishedDownloading == null) {
+            break;
+          }
+          try {
+            onFinishedDownloading(
+                session,
+                task as URLSessionDownloadTask,
+                Uri.parse(
+                    finishedDownloading.location!.absoluteString!.toString()));
+          } catch (e) {
+            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
+            // this exception as an `Error` and call the completion function
+            // with it.
+          }
+        } finally {
+          finishedDownloading.finish();
+        }
+        break;
       case ncb.MessageType.CompletedMessage:
         final forwardedComplete =
             ncb.CUPHTTPForwardedComplete.castFrom(forwardedDelegate);
@@ -746,6 +785,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   void Function(URLSession session, URLSessionTask task, Data error)? _onData;
   void Function(URLSession session, URLSessionTask task, Error? error)?
       _onComplete;
+  void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
+      _onFinishedDownloading;
 
   URLSession._(ncb.NSURLSession c,
       {URLRequest? Function(URLSession session, URLSessionTask task,
@@ -756,11 +797,14 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           onResponse,
       void Function(URLSession session, URLSessionTask task, Data error)?
           onData,
+      void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
+          onFinishedDownloading,
       void Function(URLSession session, URLSessionTask task, Error? error)?
           onComplete})
       : _onRedirect = onRedirect,
         _onResponse = onResponse,
         _onData = onData,
+        _onFinishedDownloading = onFinishedDownloading,
         _onComplete = onComplete,
         super(c);
 
@@ -791,6 +835,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// called more than once. See
   /// [URLSession:dataTask:didReceiveData:](https://developer.apple.com/documentation/foundation/nsurlsessiondatadelegate/1411528-urlsession)
   ///
+  /// If [onFinishedDownloading] is set then it will be called whenever a
+  /// [URLSessionDownloadTask] has finished downloading.
+  ///
   /// If [onComplete] is set then it will be called when a task completes. If
   /// `error` is `null` then the request completed successfully. See
   /// [URLSession:task:didCompleteWithError:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411610-urlsession)
@@ -805,6 +852,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
               onResponse,
           void Function(URLSession session, URLSessionTask task, Data error)?
               onData,
+          void Function(
+                  URLSession session, URLSessionDownloadTask task, Uri uri)?
+              onFinishedDownloading,
           void Function(URLSession session, URLSessionTask task, Error? error)?
               onComplete}) =>
       URLSession._(
@@ -813,6 +863,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           onRedirect: onRedirect,
           onResponse: onResponse,
           onData: onData,
+          onFinishedDownloading: onFinishedDownloading,
           onComplete: onComplete);
 
   // A **copy** of the configuration for this sesion.
@@ -830,13 +881,14 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     _setupDelegation(_delegate, this, task,
         onComplete: _onComplete,
         onData: _onData,
+        onFinishedDownloading: _onFinishedDownloading,
         onRedirect: _onRedirect,
         onResponse: _onResponse);
     return task;
   }
 
-  /// Creates a [URLSessionTask] accesses a server URL and calls [completion]
-  /// when done.
+  /// Creates a [URLSessionTask] that accesses a server URL and calls
+  /// [completion] when done.
   ///
   /// See [NSURLSession dataTaskWithRequest:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsession/1407613-datataskwithrequest)
   URLSessionTask dataTaskWithCompletionHandler(
@@ -874,5 +926,24 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     });
 
     return URLSessionTask._(task._nsObject);
+  }
+
+  /// Creates a [URLSessionDownloadTask] that downloads the data from a server
+  /// URL.
+  ///
+  /// Provide a `onFinishedDownloading` handler in the [URLSession] factory to
+  /// received notifications when the data has completed downloaded.
+  ///
+  /// See [NSURLSession downloadTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1411481-downloadtaskwithrequest)
+  URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) {
+    final task = URLSessionDownloadTask._(
+        _nsObject.downloadTaskWithRequest_(request._nsObject));
+    _setupDelegation(_delegate, this, task,
+        onComplete: _onComplete,
+        onData: _onData,
+        onFinishedDownloading: _onFinishedDownloading,
+        onRedirect: _onRedirect,
+        onResponse: _onResponse);
+    return task;
   }
 }
