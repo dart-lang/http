@@ -930,7 +930,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// URL.
   ///
   /// Provide a `onFinishedDownloading` handler in the [URLSession] factory to
-  /// received notifications when the data has completed downloaded.
+  /// receive notifications when the data has completed downloaded.
   ///
   /// See [NSURLSession downloadTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1411481-downloadtaskwithrequest)
   URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) {
