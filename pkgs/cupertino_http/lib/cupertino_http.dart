@@ -503,8 +503,6 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   ///
   /// See [NSURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsurlrequest/1528603-requestwithurl)
   factory URLRequest.fromUrl(Uri uri) {
-    // TODO(https://github.com/dart-lang/ffigen/issues/373): remove NSObject
-    // cast when precise type signatures are generated.
     final url = ncb.NSURL
         .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
     return URLRequest._(ncb.NSURLRequest.requestWithURL_(linkedLibs, url));
