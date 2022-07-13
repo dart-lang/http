@@ -7,7 +7,8 @@ import 'dart:io';
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:test/test.dart';
 
-void main() {
+void testURLSessionTask(
+    URLSessionTask Function(URLSession session, Uri url) f) {
   group('task states', () {
     late HttpServer server;
     late URLSessionTask task;
@@ -20,8 +21,7 @@ void main() {
           await request.response.close();
         });
       final session = URLSession.sharedSession();
-      task = session.dataTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')));
+      task = f(session, Uri.parse('http://localhost:${server.port}'));
     });
     tearDown(() {
       task.cancel();
@@ -101,5 +101,17 @@ void main() {
     test('toString', () {
       task.toString(); // Just verify that there is no crash.
     });
+  });
+}
+
+void main() {
+  group('data task', () {
+    testURLSessionTask(
+        (session, uri) => session.dataTaskWithRequest(URLRequest.fromUrl(uri)));
+  });
+
+  group('download task', () {
+    testURLSessionTask((session, uri) =>
+        session.downloadTaskWithRequest(URLRequest.fromUrl(uri)));
   });
 }

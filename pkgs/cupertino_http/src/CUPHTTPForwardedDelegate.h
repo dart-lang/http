@@ -96,3 +96,13 @@
 @property (readonly) NSError* error;
 
 @end
+
+@interface CUPHTTPForwardedFinishedDownloading : CUPHTTPForwardedDelegate
+
+- (id) initWithSession:(NSURLSession *)session
+          downloadTask:(NSURLSessionDownloadTask *)downloadTask
+                   url:(NSURL *)location;
+
+@property (readonly) NSURL* location;
+
+@end
