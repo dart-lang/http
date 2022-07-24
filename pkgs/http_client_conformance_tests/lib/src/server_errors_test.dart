@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
+import 'server_errors_server.dart' as server;
 import 'utils.dart';
 
 /// Tests that the [Client] correctly handles server errors.
@@ -18,7 +19,8 @@ void testServerErrors(Client client,
     late final StreamQueue<Object?> httpServerQueue;
 
     setUpAll(() async {
-      httpServerChannel = await startServer('server_errors_server.dart');
+      httpServerChannel =
+          await startServer('server_errors_server.dart', server.hybridMain);
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });

@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
+import 'response_headers_server.dart' as server;
 import 'utils.dart';
 
 /// Tests that the [Client] correctly processes response headers.
@@ -17,7 +18,8 @@ void testResponseHeaders(Client client) async {
     late StreamQueue<Object?> httpServerQueue;
 
     setUp(() async {
-      httpServerChannel = await startServer('response_headers_server.dart');
+      httpServerChannel =
+          await startServer('response_headers_server.dart', server.hybridMain);
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
