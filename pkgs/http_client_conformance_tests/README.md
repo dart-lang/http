@@ -8,6 +8,11 @@ This package is intended to be used in the tests of packages that implement
 `package:http`
 [`Client`](https://pub.dev/documentation/http/latest/http/Client-class.html).
 
+The tests work by starting a series of test servers and running the provided
+`package:http`
+[`Client`](https://pub.dev/documentation/http/latest/http/Client-class.html)
+against them.
+
 ## Usage
 
 `package:http_client_conformance_tests` is meant to be used in the tests suite
