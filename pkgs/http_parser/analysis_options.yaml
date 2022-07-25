@@ -31,7 +31,6 @@ linter:
     - file_names
     - hash_and_equals
     - implementation_imports
-    - invariant_booleans
     - iterable_contains_unrelated_type
     - join_return_with_assignment
     - lines_longer_than_80_chars
