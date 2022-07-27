@@ -121,3 +121,22 @@
 }
 
 @end
+
+@implementation CUPHTTPForwardedFinishedDownloading
+
+- (id) initWithSession:(NSURLSession *)session
+          downloadTask:(NSURLSessionDownloadTask *)downloadTask
+                   url:(NSURL *)location {
+  self = [super initWithSession: session task: downloadTask];
+  if (self != nil) {
+    self->_location = [location retain];
+  }
+  return self;
+}
+
+- (void) dealloc {
+  [self->_location release];
+  [super dealloc];
+}
+
+@end
