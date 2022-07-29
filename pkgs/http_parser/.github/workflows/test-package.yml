@@ -11,6 +11,7 @@ on:
 
 env:
   PUB_ENVIRONMENT: bot.github
+permissions: read-all
 
 jobs:
   # Check code formatting and static analysis on a single OS (linux)
