@@ -5,8 +5,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:charcode/charcode.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:http_parser/src/chunked_coding/charcodes.dart';
 import 'package:test/test.dart';
 
 void main() {

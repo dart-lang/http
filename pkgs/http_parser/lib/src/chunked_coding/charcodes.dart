@@ -11,8 +11,23 @@ const int $cr = 0x0d;
 /// Character `0`.
 const int $0 = 0x30;
 
-/// Character `9`.
-const int $9 = 0x39;
+/// Character `1`.
+const int $1 = 0x31;
+
+/// Character `3`.
+const int $3 = 0x33;
+
+/// Character `4`.
+const int $4 = 0x34;
+
+/// Character `7`.
+const int $7 = 0x37;
+
+/// Character `A`.
+const int $A = 0x41;
+
+/// Character `q`.
+const int $q = 0x71;
 
 /// Character `a`.
 const int $a = 0x61;
