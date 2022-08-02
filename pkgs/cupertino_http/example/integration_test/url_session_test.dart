@@ -10,8 +10,6 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testDataTaskWithCompletionHandler(URLSession session) {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('dataTaskWithCompletionHandler', () {
     late HttpServer successServer;
     late HttpServer failureServer;
@@ -216,6 +214,8 @@ void testURLSession(URLSession session) {
 }
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   group('sharedSession', () {
     final session = URLSession.sharedSession();
 

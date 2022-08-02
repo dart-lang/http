@@ -10,8 +10,6 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testOnComplete() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('onComplete', () {
     late HttpServer server;
 
@@ -445,6 +443,8 @@ void testOnRedirect() {
 }
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   testOnComplete();
   testOnResponse();
   testOnData();

@@ -10,8 +10,6 @@ import 'package:test/test.dart';
 
 void testURLSessionTask(
     URLSessionTask Function(URLSession session, Uri url) f) {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('task states', () {
     late HttpServer server;
     late URLSessionTask task;
@@ -108,6 +106,8 @@ void testURLSessionTask(
 }
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   group('data task', () {
     testURLSessionTask(
         (session, uri) => session.dataTaskWithRequest(URLRequest.fromUrl(uri)));

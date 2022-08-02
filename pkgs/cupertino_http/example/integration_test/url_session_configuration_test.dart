@@ -7,8 +7,6 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testProperties(URLSessionConfiguration config) {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('properties', () {
     test('allowsCellularAccess', () {
       config.allowsCellularAccess = true;
@@ -84,6 +82,8 @@ void testProperties(URLSessionConfiguration config) {
 }
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   group('backgroundSession', () {
     final config = URLSessionConfiguration.backgroundSession('myid');
 
