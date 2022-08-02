@@ -31,3 +31,11 @@ dev_dependencies:
       path: pkgs/http_client_conformance_tests/
   lints: ^1.0.0
   test: ^1.21.1
+
+flutter:
+  plugin:
+    platforms:
+      ios:
+        ffiPlugin: true
+      macos:
+        ffiPlugin: true
