@@ -56,4 +56,3 @@ jobs:
           channel: 'master'
       - name: Run tests
         run: flutter test integration_test/
-        if: always() && steps.install.outcome == 'success'
