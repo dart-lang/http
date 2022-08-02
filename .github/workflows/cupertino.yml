@@ -23,8 +23,9 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
-          flutter-version: '3.0.2'
+          # TODO: Change to 'stable' when a release version of flutter
+          # pins version 1.21.1 or later of 'package:test'
+          channel: 'master'
       - id: install
         name: Install dependencies
         run: flutter pub get
@@ -36,26 +37,22 @@ jobs:
         if: always() && steps.install.outcome == 'success'
 
   test:
-    # package:cupertino_http is a flutter plugin that is also usable from
-    # the Dart CLI with a build step.
+    # Test package:cupertino_http use flutter integration tests.
     needs: analyze
     name: "Build and test"
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: pkgs/cupertino_http
+        working-directory: pkgs/cupertino_http/example
     steps:
       - uses: actions/checkout@v3
+      - uses: futureware-tech/simulator-action@v1
+        with:
+          model: 'iPhone 8'
       - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
-          flutter-version: '3.0.2'
-      - id: install
-        name: Install dependencies
-        run: flutter pub get
-      - id: build
-        name: Build Objective-C component
-        run: dart run bin/setup.dart build
+          # TODO: Change to 'stable' when a release version of flutter
+          # pins version 1.21.1 or later of 'package:test'
+          channel: 'master'
       - name: Run tests
-        run: dart test --platform vm
-        if: always() && steps.install.outcome == 'success'
+        run: flutter test integration_test/

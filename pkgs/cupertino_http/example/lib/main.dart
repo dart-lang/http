@@ -1,105 +1,152 @@
-import 'dart:async';
+import 'package:flutter/material.dart';
+import 'dart:io';
 import 'dart:convert';
 
 import 'package:cupertino_http/cupertino_client.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:http/io_client.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const BookSearchApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Book {
+  String title;
+  String description;
+  String imageUrl;
 
-  @override
-  State<MyApp> createState() => _BookListState();
+  Book(this.title, this.description, this.imageUrl);
 }
 
-class _BookListState extends State<MyApp> {
-  late Client client;
-  late Future<Response> response;
+class BookSearchApp extends StatelessWidget {
+  const BookSearchApp({Key? key}) : super(key: key);
 
   @override
-  void initState() {
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      // Remove the debug banner
+      debugShowCheckedModeBanner: false,
+      title: 'Book Search',
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<Book> _books = [];
+
+  @override
+  initState() {
     super.initState();
-    client = CupertinoClient.defaultSessionConfiguration();
-    response = client.get(
-        Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'}));
   }
 
-  Widget _dataTable(Response response) {
-    final decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+  void _runSearch(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        _books = [];
+      });
+      return;
+    }
 
-    final items = decodedResponse['items'] as List<dynamic>;
+    // TODO: Set this up in main when runWithClient is released with package
+    // HTTP.
+    late Client client;
+    if (Platform.isIOS) {
+      client = CupertinoClient.defaultSessionConfiguration();
+    } else {
+      client = IOClient();
+    }
+    client
+        .get(Uri.https('www.googleapis.com', '/books/v1/volumes',
+            {'q': query, 'maxResults': '40', 'printType': 'books'}))
+        .then((response) {
+      final List<Book> books = [];
+      final jsonPayload = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
 
-    final rows = List<DataRow>.from(items.map((i) => DataRow(cells: <DataCell>[
-          DataCell(Text(i['volumeInfo']['title'])),
-          i['volumeInfo']['publishedDate'] == null
-              ? DataCell.empty
-              : DataCell(Text(i['volumeInfo']['publishedDate'])),
-          DataCell(Text(i['volumeInfo']['description'])),
-        ])));
+      if (jsonPayload['items'] is List<dynamic>) {
+        final items = jsonPayload['items'] as List<dynamic>;
 
-    return DataTable(columns: const <DataColumn>[
-      DataColumn(
-        label: Text(
-          'Title',
-          style: TextStyle(fontStyle: FontStyle.italic),
-        ),
-      ),
-      DataColumn(
-        label: Text(
-          'Published',
-          style: TextStyle(fontStyle: FontStyle.italic),
-        ),
-      ),
-      DataColumn(
-        label: Text(
-          'Description',
-          style: TextStyle(fontStyle: FontStyle.italic),
-        ),
-      ),
-    ], rows: rows);
+        for (final Map item in items) {
+          if (item.containsKey('volumeInfo')) {
+            final volumeInfo = item['volumeInfo'] as Map;
+            if (volumeInfo['title'] is String &&
+                volumeInfo['description'] is String &&
+                volumeInfo['imageLinks'] is Map &&
+                volumeInfo['imageLinks']['smallThumbnail'] is String) {
+              books.add(Book(volumeInfo['title'], volumeInfo['description'],
+                  volumeInfo['imageLinks']['smallThumbnail']));
+            }
+          }
+        }
+      }
+      setState(() {
+        _books = books;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    const textStyle = TextStyle(fontSize: 25);
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Book Search'),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                FutureBuilder<Response>(
-                  future: response,
-                  builder:
-                      (BuildContext context, AsyncSnapshot<Response> value) {
-                    if (value.hasData) {
-                      return _dataTable(value.data!);
-                    } else if (value.hasError) {
-                      return Text(
-                        value.error.toString(),
-                        style: textStyle,
-                        textAlign: TextAlign.center,
-                      );
-                    } else {
-                      return const Text(
-                        'Loading...',
-                        style: textStyle,
-                        textAlign: TextAlign.center,
-                      );
-                    }
-                  },
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Book Search'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
             ),
-          ),
+            TextField(
+              onChanged: (value) => _runSearch(value),
+              decoration: const InputDecoration(
+                  labelText: 'Search', suffixIcon: Icon(Icons.search)),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: _books.isNotEmpty
+                  ? BookList(_books)
+                  : const Text(
+                      'No results found',
+                      style: TextStyle(fontSize: 24),
+                    ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BookList extends StatefulWidget {
+  final List<Book> books;
+  const BookList(this.books, {Key? key}) : super(key: key);
+
+  @override
+  State<BookList> createState() => _BookListState();
+}
+
+class _BookListState extends State<BookList> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: widget.books.length,
+      itemBuilder: (context, index) => Card(
+        key: ValueKey(widget.books[index].title),
+        child: ListTile(
+          leading: Image.network(widget.books[index].imageUrl),
+          title: Text(widget.books[index].title),
+          subtitle: Text(widget.books[index].description),
         ),
       ),
     );

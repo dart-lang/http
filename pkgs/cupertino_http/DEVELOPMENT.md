@@ -17,18 +17,7 @@
 ## Running the tests
 
 ```shell
-dart run bin/setup.dart build  # Build the native helper library
-dart test  # NOTE: this must be the dart binary bundled with flutter
+cd example
+flutter test integration_test
 ```
 
-**NOTE**: [cmake](https://cmake.org/) must be installed for this to work!
-
-## Tips
-
-You can develop the [native helper library](src/) using
-[Xcode](https://developer.apple.com/xcode/) by running:
-
-```shell
-cmake -G Xcode -Hsrc -Bbuild
-open build/cupertino_http_library.xcodeproj
-```

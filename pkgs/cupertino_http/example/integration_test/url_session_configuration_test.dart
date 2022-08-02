@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:cupertino_http/cupertino_http.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testProperties(URLSessionConfiguration config) {
@@ -81,6 +82,8 @@ void testProperties(URLSessionConfiguration config) {
 }
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   group('backgroundSession', () {
     final config = URLSessionConfiguration.backgroundSession('myid');
 
