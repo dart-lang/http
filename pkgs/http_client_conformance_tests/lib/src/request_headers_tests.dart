@@ -7,8 +7,8 @@ import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
-import 'request_headers_server.dart' as server;
-import 'utils.dart';
+import 'request_headers_server_vm.dart'
+    if (dart.library.html) 'request_headers_server_web.dart';
 
 /// Tests that the [Client] correctly sends headers in the request.
 void testRequestHeaders(Client client) async {
@@ -18,8 +18,7 @@ void testRequestHeaders(Client client) async {
     late final StreamQueue<Object?> httpServerQueue;
 
     setUpAll(() async {
-      httpServerChannel =
-          await startServer('request_headers_server.dart', server.hybridMain);
+      httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
