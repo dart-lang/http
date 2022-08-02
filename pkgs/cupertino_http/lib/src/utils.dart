@@ -5,8 +5,6 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'package:native_library/native_library.dart';
-
 import 'native_cupertino_bindings.dart' as ncb;
 
 const _packageName = 'cupertino_http';
@@ -17,8 +15,12 @@ const _libName = _packageName;
 /// The "Foundation" framework is linked to Dart so no additional
 /// libraries need to be loaded to access those symbols.
 late ncb.NativeCupertinoHttp linkedLibs = () {
-  final lib = DynamicLibrary.process();
-  return ncb.NativeCupertinoHttp(lib);
+  if (Platform.isMacOS || Platform.isIOS) {
+    final lib = DynamicLibrary.process();
+    return ncb.NativeCupertinoHttp(lib);
+  }
+  throw UnsupportedError(
+      'Platform ${Platform.operatingSystem} is not supported');
 }();
 
 /// Access to symbols that are available in the cupertino_http helper shared
@@ -26,56 +28,12 @@ late ncb.NativeCupertinoHttp linkedLibs = () {
 late ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
 
 DynamicLibrary _loadHelperDynamicLibrary() {
-  DynamicLibrary? _jit() {
-    if (Platform.isMacOS) {
-      final dylibPath = sharedLibrariesLocationBuilt(_packageName)
-          .resolve('lib$_libName.dylib');
-      final file = File.fromUri(dylibPath);
-      if (!file.existsSync()) {
-        throw StateError(
-            "Dynamic library '${dylibPath.toFilePath()}' does not exist.");
-      }
-      return DynamicLibrary.open(dylibPath.path);
-    }
-    return null;
+  if (Platform.isMacOS || Platform.isIOS) {
+    return DynamicLibrary.open('$_libName.framework/$_libName');
   }
 
-  switch (Embedders.current) {
-    case Embedder.flutter:
-      switch (FlutterRuntimeModes.current) {
-        case FlutterRuntimeMode.app:
-          if (Platform.isMacOS || Platform.isIOS) {
-            return DynamicLibrary.open('$_libName.framework/$_libName');
-          }
-          break;
-        case FlutterRuntimeMode.test:
-          final result = _jit();
-          if (result != null) {
-            return result;
-          }
-          break;
-      }
-      break;
-    case Embedder.standalone:
-      switch (StandaloneRuntimeModes.current) {
-        case StandaloneRuntimeMode.jit:
-          final result = _jit();
-          // ignore: invariant_booleans
-          if (result != null) {
-            return result;
-          }
-          break;
-        case StandaloneRuntimeMode.executable:
-          // When running from executable, we expect the person assembling the
-          // final executable to locate the dynamic library next to the
-          // executable.
-          if (Platform.isMacOS) {
-            return DynamicLibrary.open('lib$_libName.dylib');
-          }
-          break;
-      }
-  }
-  throw UnsupportedError('Unimplemented!');
+  throw UnsupportedError(
+      'Platform ${Platform.operatingSystem} is not supported');
 }
 
 ncb.NativeCupertinoHttp _loadHelperLibrary() {
