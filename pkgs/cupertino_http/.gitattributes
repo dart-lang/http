@@ -1,0 +1,5 @@
+# ffigen generated code
+lib/src/native_cupertino_bindings.dart linguist-generated
+
+# vendored Dart API code
+src/dart-sdk/** linguist-vendored
