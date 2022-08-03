@@ -1,5 +1,5 @@
 name: http
-version: 0.13.5
+version: 0.13.6-dev
 description: A composable, multi-platform, Future-based API for HTTP requests.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http
 
@@ -16,7 +16,7 @@ dev_dependencies:
   fake_async: ^1.2.0
   http_client_conformance_tests:
     path: ../http_client_conformance_tests/
-  lints: ^1.0.0
+  lints: ^2.0.0
   shelf: ^1.1.0
   stream_channel: ^2.1.0
   test: ^1.16.0
