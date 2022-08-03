@@ -9,7 +9,8 @@ import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
-import 'utils.dart';
+import 'response_body_streamed_server_vm.dart'
+    if (dart.library.html) 'response_body_streamed_server_web.dart';
 
 /// Tests that the [Client] correctly implements HTTP responses with bodies of
 /// unbounded size.
@@ -25,8 +26,7 @@ void testResponseBodyStreamed(Client client,
     late final StreamQueue<Object?> httpServerQueue;
 
     setUpAll(() async {
-      httpServerChannel =
-          await startServer('response_body_streamed_server.dart');
+      httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
