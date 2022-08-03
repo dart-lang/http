@@ -3,6 +3,3 @@ lib/src/native_cupertino_bindings.dart linguist-generated
 
 # vendored Dart API code
 src/dart-sdk/** linguist-vendored
-
-# vendored third-party code
-third_party/** linguist-vendored
