@@ -35,7 +35,8 @@ class ResponseStarted {
   static ResponseStarted decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return ResponseStarted(
-      headers: (pigeonMap['headers'] as Map<Object?, Object?>?)!.cast<String?, List<String?>?>(),
+      headers: (pigeonMap['headers'] as Map<Object?, Object?>?)!
+          .cast<String?, List<String?>?>(),
       statusCode: pigeonMap['statusCode']! as int,
       isRedirect: pigeonMap['isRedirect']! as bool,
     );
@@ -85,8 +86,7 @@ class EventMessage {
   static EventMessage decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return EventMessage(
-      type: EventMessageType.values[pigeonMap['type']! as int]
-,
+      type: EventMessageType.values[pigeonMap['type']! as int],
       responseStarted: pigeonMap['responseStarted'] != null
           ? ResponseStarted.decode(pigeonMap['responseStarted']!)
           : null,
@@ -130,7 +130,8 @@ class StartRequest {
     return StartRequest(
       url: pigeonMap['url']! as String,
       method: pigeonMap['method']! as String,
-      headers: (pigeonMap['headers'] as Map<Object?, Object?>?)!.cast<String?, String?>(),
+      headers: (pigeonMap['headers'] as Map<Object?, Object?>?)!
+          .cast<String?, String?>(),
       body: pigeonMap['body']! as Uint8List,
       maxRedirects: pigeonMap['maxRedirects']! as int,
       followRedirects: pigeonMap['followRedirects']! as bool,
@@ -166,48 +167,43 @@ class _HttpApiCodec extends StandardMessageCodec {
     if (value is EventMessage) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
-    } else 
-    if (value is ReadCompleted) {
+    } else if (value is ReadCompleted) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else 
-    if (value is ResponseStarted) {
+    } else if (value is ResponseStarted) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else 
-    if (value is StartRequest) {
+    } else if (value is StartRequest) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else 
-    if (value is StartResponse) {
+    } else if (value is StartResponse) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else 
-{
+    } else {
       super.writeValue(buffer, value);
     }
   }
+
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128:       
+      case 128:
         return EventMessage.decode(readValue(buffer)!);
-      
-      case 129:       
+
+      case 129:
         return ReadCompleted.decode(readValue(buffer)!);
-      
-      case 130:       
+
+      case 130:
         return ResponseStarted.decode(readValue(buffer)!);
-      
-      case 131:       
+
+      case 131:
         return StartRequest.decode(readValue(buffer)!);
-      
-      case 132:       
+
+      case 132:
         return StartResponse.decode(readValue(buffer)!);
-      
-      default:      
+
+      default:
         return super.readValueOfType(type, buffer);
-      
     }
   }
 }
@@ -216,7 +212,8 @@ class HttpApi {
   /// Constructor for [HttpApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
   /// BinaryMessenger will be used which routes to the host platform.
-  HttpApi({BinaryMessenger? binaryMessenger}) : _binaryMessenger = binaryMessenger;
+  HttpApi({BinaryMessenger? binaryMessenger})
+      : _binaryMessenger = binaryMessenger;
 
   final BinaryMessenger? _binaryMessenger;
 
@@ -224,7 +221,8 @@ class HttpApi {
 
   Future<StartResponse> start(StartRequest arg_request) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.HttpApi.start', codec, binaryMessenger: _binaryMessenger);
+        'dev.flutter.pigeon.HttpApi.start', codec,
+        binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap =
         await channel.send(<Object?>[arg_request]) as Map<Object?, Object?>?;
     if (replyMap == null) {
@@ -233,7 +231,8 @@ class HttpApi {
         message: 'Unable to establish connection on channel.',
       );
     } else if (replyMap['error'] != null) {
-      final Map<Object?, Object?> error = (replyMap['error'] as Map<Object?, Object?>?)!;
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
       throw PlatformException(
         code: (error['code'] as String?)!,
         message: error['message'] as String?,
@@ -251,7 +250,8 @@ class HttpApi {
 
   Future<void> dummy(EventMessage arg_message) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.HttpApi.dummy', codec, binaryMessenger: _binaryMessenger);
+        'dev.flutter.pigeon.HttpApi.dummy', codec,
+        binaryMessenger: _binaryMessenger);
     final Map<Object?, Object?>? replyMap =
         await channel.send(<Object?>[arg_message]) as Map<Object?, Object?>?;
     if (replyMap == null) {
@@ -260,7 +260,8 @@ class HttpApi {
         message: 'Unable to establish connection on channel.',
       );
     } else if (replyMap['error'] != null) {
-      final Map<Object?, Object?> error = (replyMap['error'] as Map<Object?, Object?>?)!;
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
       throw PlatformException(
         code: (error['code'] as String?)!,
         message: error['message'] as String?,
