@@ -23,14 +23,13 @@ dependencies:
   http: ^0.13.4
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
   http_client_conformance_tests:
     path: ../../http_client_conformance_tests/
   integration_test:
     sdk: flutter
-  lints: ^1.0.0
 
 flutter:
   uses-material-design: true
