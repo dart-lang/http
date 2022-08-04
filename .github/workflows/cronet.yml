@@ -47,9 +47,6 @@ jobs:
     needs: analyze
     name: "Build and test"
     runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: pkgs/cronet_http/example
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -58,7 +55,7 @@ jobs:
           # pins version 1.21.1 or later of 'package:test'
           channel: 'master'
       - name: Run tests
-        uses: reactivecircus/android-emulator-runner@v1
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: flutter test integration_test/
+          script: cd ./pkgs/cronet_http/example && flutter test integration_test/
