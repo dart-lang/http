@@ -62,4 +62,4 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: cd ./pkgs/cronet_http/example && flutter test integration_test/
+          script: cd ./pkgs/cronet_http/example && flutter pub upgrade && flutter test integration_test/
