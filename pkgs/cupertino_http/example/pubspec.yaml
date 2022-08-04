@@ -32,6 +32,7 @@ dev_dependencies:
     path: ../../http_client_conformance_tests/
   integration_test:
     sdk: flutter
+  test: ^1.21.1
 
 flutter:
   uses-material-design: true
