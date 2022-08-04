@@ -5,7 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cupertino_http/cupertino_client.dart';
+import 'package:cronet_http/cronet_client.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
@@ -60,8 +60,8 @@ class _HomePageState extends State<HomePage> {
     // TODO: Set this up in main when runWithClient is released with package
     // HTTP.
     late Client client;
-    if (Platform.isIOS) {
-      client = CupertinoClient.defaultSessionConfiguration();
+    if (Platform.isAndroid) {
+      client = CronetClient();
     } else {
       client = IOClient();
     }

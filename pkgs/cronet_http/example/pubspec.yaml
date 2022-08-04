@@ -1,0 +1,35 @@
+name: cronet_http_example
+description: Demonstrates how to use the cronet_http plugin.
+
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.17.5 <3.0.0"
+
+dependencies:
+  cronet_http:
+    # When depending on this package from a real application you should use:
+    #   cronet_http: ^x.y.z
+    # See https://dart.dev/tools/pub/dependencies#version-constraints
+    # The flutter app is bundled with the plugin so we use a path dependency on
+    # the parent directory to use the current plugin's version.
+    path: ../
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  http: ^0.13.4
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  http_client_conformance_tests:
+    path: ../../http_client_conformance_tests/
+  integration_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
