@@ -54,6 +54,9 @@ jobs:
           # TODO: Change to 'stable' when a release version of flutter
           # pins version 1.21.1 or later of 'package:test'
           channel: 'master'
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
