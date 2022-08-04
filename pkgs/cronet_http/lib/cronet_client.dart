@@ -98,7 +98,7 @@ class CronetClient extends BaseClient {
 
     final result = await responseCompleter.future;
     final responseHeaders = (result.headers.cast<String, List<Object?>>())
-        .map((key, value) => MapEntry(key.toLowerCase(), value.join(",")));
+        .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
 
     return StreamedResponse(responseDataController.stream, result.statusCode,
         contentLength: responseHeaders['content-lenght'] as int?,
