@@ -30,6 +30,7 @@ dev_dependencies:
     path: ../../http_client_conformance_tests/
   integration_test:
     sdk: flutter
+  lints: ^1.0.0
 
 flutter:
   uses-material-design: true
