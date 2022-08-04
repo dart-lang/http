@@ -1,2 +1,3 @@
 # pigeon generated code
 lib/src/messages.dart linguist-generated
+android/src/main/java/io/flutter/plugins/cronet_http/Messages.java
