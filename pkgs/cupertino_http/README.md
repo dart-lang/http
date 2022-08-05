@@ -39,6 +39,35 @@ final response = await client.get(Uri.https(
     {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
 ```
 
+[package:http runWithClient][] can be used to configure the
+[package:http Client][] for the entire application.
+
+```dart
+void main() {
+  late Client client;
+  if (Platform.isIOS) {
+    client = CupertinoClient.defaultSessionConfiguration();
+  } else {
+    client = IOClient();
+  }
+
+  runWithClient(() => runApp(const MyApp()), () => client);
+}
+
+...
+
+class MainPageState extends State<MainPage> {
+  void someMethod() {
+    // Will use the Client configured in main.
+    final response = await get(Uri.https(
+        'www.googleapis.com',
+        '/books/v1/volumes',
+        {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
+  }
+  ...
+}
+```
+
 You can also use the [Foundation URL Loading System] API directly.
 
 ```dart
@@ -57,5 +86,6 @@ task.resume();
 ```
 
 [package:http Client]: https://pub.dev/documentation/http/latest/http/Client-class.html
+[package:http runWithClient]: https://pub.dev/documentation/http/latest/http/runWithClient.html
 [Foundation URL Loading System]: https://developer.apple.com/documentation/foundation/url_loading_system
 [dart:io HttpClient]: https://api.dart.dev/stable/dart-io/HttpClient-class.html
