@@ -1,5 +1,5 @@
 ---
-name: An HTTP request fails when made through this client.
+name: `package:http` ⟶ An HTTP request fails when made through this client.
 about: You are attempting to make a GET or POST and getting an unexpected
   exception or status code.
 

@@ -1,5 +1,5 @@
 ---
-name: I found a bug.
+name: `package:http` ⟶ I found a bug.
 about: You found that something which is expected to work, doesn't. The same
   capability works when using `dart:io` or `dart:html` directly.
 

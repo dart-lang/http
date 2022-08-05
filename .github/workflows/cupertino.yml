@@ -1,0 +1,64 @@
+name: package:cupertino_http CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'pkgs/cupertino_http/**'
+      - 'pkgs/http_client_conformance_tests/**'
+  pull_request:
+    paths:
+      - 'pkgs/cupertino_http/**'
+      - 'pkgs/http_client_conformance_tests/**'
+  schedule:
+    - cron: "0 0 * * 0"
+
+env:
+  PUB_ENVIRONMENT: bot.github
+
+jobs:
+  analyze:
+    name: Lint and static analysis
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkgs/cupertino_http
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          # TODO: Change to 'stable' when a release version of flutter
+          # pins version 1.21.1 or later of 'package:test'
+          channel: 'master'
+      - id: install
+        name: Install dependencies
+        run: flutter pub get
+      - name: Check formatting
+        run: flutter format --output=none --set-exit-if-changed .
+        if: always() && steps.install.outcome == 'success'
+      - name: Analyze code
+        run: flutter analyze --fatal-infos
+        if: always() && steps.install.outcome == 'success'
+
+  test:
+    # Test package:cupertino_http use flutter integration tests.
+    needs: analyze
+    name: "Build and test"
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: pkgs/cupertino_http/example
+    steps:
+      - uses: actions/checkout@v3
+      - uses: futureware-tech/simulator-action@v1
+        with:
+          model: 'iPhone 8'
+      - uses: subosito/flutter-action@v2
+        with:
+          # TODO: Change to 'stable' when a release version of flutter
+          # pins version 1.21.1 or later of 'package:test'
+          channel: 'master'
+      - name: Run tests
+        run: flutter test integration_test/

@@ -33,6 +33,10 @@ export 'src/response_headers_tests.dart' show testResponseHeaders;
 ///
 /// If [redirectAlwaysAllowed] is `true` then tests that require the [Client]
 /// to limit redirects will be skipped.
+///
+/// The tests are run against a series of HTTP servers that are started by the
+/// tests. If the tests are run in the browser, then the test servers are
+/// started in another process. Otherwise, the test servers are run in-process.
 void testAll(Client client,
     {bool canStreamRequestBody = true,
     bool canStreamResponseBody = true,

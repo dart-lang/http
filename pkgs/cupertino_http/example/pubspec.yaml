@@ -1,0 +1,30 @@
+name: cupertino_http_example
+description: Demonstrates how to use the cupertino_http plugin.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.3 <3.0.0"
+
+dependencies:
+  cupertino_http:
+    path: ../
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  http: ^0.13.5
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  http_client_conformance_tests:
+    path: ../../http_client_conformance_tests/
+  integration_test:
+    sdk: flutter
+  test: ^1.21.1
+
+flutter:
+  uses-material-design: true
