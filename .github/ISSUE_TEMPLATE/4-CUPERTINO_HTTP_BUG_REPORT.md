@@ -1,5 +1,5 @@
 ---
-name: `package:cupertino_http` ⟶ I found a bug.
+name: `package:cupertino_http` - I found a bug.
 about: You found that something which is expected to work, doesn't.
 
 ---

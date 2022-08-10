@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+/// A [Client] implementation based on the
+/// [Foundation URL Loading System](https://developer.apple.com/documentation/foundation/url_loading_system).
+
 import 'dart:async';
 import 'dart:typed_data';
 
