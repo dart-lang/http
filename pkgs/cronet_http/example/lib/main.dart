@@ -11,7 +11,14 @@ import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 
 void main() {
-  runApp(const BookSearchApp());
+  late Client client;
+  if (Platform.isIOS) {
+    client = CronetClient();
+  } else {
+    client = IOClient();
+  }
+
+  runWithClient(() => runApp(const BookSearchApp()), () => client);
 }
 
 class Book {
@@ -57,23 +64,18 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    // TODO: Set this up in main when runWithClient is released with package
-    // HTTP.
-    late Client client;
-    if (Platform.isAndroid) {
-      client = CronetClient();
-    } else {
-      client = IOClient();
-    }
-    client
-        .get(Uri.https('www.googleapis.com', '/books/v1/volumes',
-            {'q': query, 'maxResults': '40', 'printType': 'books'}))
-        .then((response) {
+    // `get` will use the `Client` configured in main.
+    get(Uri.https('www.googleapis.com', '/books/v1/volumes', {
+      'q': query,
+      'maxResults': '40',
+      'printType': 'books'
+    })).then((response) {
       final books = <Book>[];
       final jsonPayload = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
 
       if (jsonPayload['items'] is List<dynamic>) {
-        final items = jsonPayload['items'] as List<Map>;
+        final items =
+            (jsonPayload['items'] as List).cast<Map<String, Object?>>();
 
         for (final item in items) {
           if (item.containsKey('volumeInfo')) {
