@@ -4,6 +4,14 @@
 A macOS/iOS Flutter plugin that provides access to the
 [Foundation URL Loading System][].
 
+## Experiment warning
+
+**NOTE**: This package is experimental, and shared for feedback.
+Breaking changes may be made without announcement.
+The whole package may get discontinued.
+
+## Motivation
+
 Using the [Foundation URL Loading System][], rather than the socket-based
 [dart:io HttpClient][] implemententation, has several advantages:
 
