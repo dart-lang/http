@@ -9,8 +9,6 @@ import 'package:http/http.dart';
 
 import 'src/messages.dart';
 
-late final _api = HttpApi();
-
 /// A HTTP [Client] based on the
 /// [Cronet](https://developer.android.com/guide/topics/connectivity/cronet)
 /// network stack.
@@ -36,6 +34,8 @@ late final _api = HttpApi();
 /// }
 /// ```
 class CronetClient extends BaseClient {
+  static late final HttpApi _api = HttpApi();
+
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     final stream = request.finalize();
