@@ -46,6 +46,11 @@ abstract class Client {
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> get(Uri url, {Map<String, String>? headers});
 
+  /// Sends an HTTP OPTIONS request with the given headers to the given URL.
+  ///
+  /// For more fine-grained control over the request, use [send] instead.
+  Future<Response> options(Uri url, {Map<String, String>? headers});
+
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL.
   ///

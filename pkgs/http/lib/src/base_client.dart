@@ -27,6 +27,11 @@ abstract class BaseClient implements Client {
       _sendUnstreamed('GET', url, headers);
 
   @override
+  Future<Response> options(Uri url,
+      {Map<String, String>? headers}) =>
+      _sendUnstreamed('OPTIONS', url, headers);
+
+  @override
   Future<Response> post(Uri url,
           {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
       _sendUnstreamed('POST', url, headers, body, encoding);
