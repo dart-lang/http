@@ -61,7 +61,7 @@ jobs:
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 32
           target: playstore
           arch: x86_64
           profile: pixel
