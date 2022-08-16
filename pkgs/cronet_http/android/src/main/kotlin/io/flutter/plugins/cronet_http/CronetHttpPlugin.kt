@@ -20,7 +20,6 @@ import io.flutter.plugin.common.EventChannel;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
 
 class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
     private lateinit var flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
@@ -29,11 +28,8 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
     private val executor = Executors.newCachedThreadPool()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
     private val channelId = AtomicInteger(0)
-    private val LOG = Logger.getLogger(CronetHttpPlugin::class.java.name) 
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-//        throw NotImplementedError("Called")
-        LOG.warning("Attaching to engine!")
         Messages.HttpApi.setup(flutterPluginBinding.binaryMessenger, this);
         this.flutterPluginBinding = flutterPluginBinding
         val context = flutterPluginBinding.getApplicationContext()
