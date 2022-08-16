@@ -19,7 +19,8 @@ import android.os.Looper;
 import io.flutter.plugin.common.EventChannel;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Executor;
-import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
     private lateinit var flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
@@ -28,13 +29,20 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
     private val executor = Executors.newCachedThreadPool()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
     private val channelId = AtomicInteger(0)
+    private val LOG = Logger.getLogger(CronetHttpPlugin::class.java.name) 
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        this.flutterPluginBinding = flutterPluginBinding;
+//        throw NotImplementedError("Called")
+        LOG.warning("Attaching to engine!")
+        Messages.HttpApi.setup(flutterPluginBinding.binaryMessenger, this);
+        this.flutterPluginBinding = flutterPluginBinding
         val context = flutterPluginBinding.getApplicationContext()
         val builder = CronetEngine.Builder(context)
         cronetEngine = builder.build();
-        Messages.HttpApi.setup(flutterPluginBinding.binaryMessenger, this);
+    }
+
+    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
+        Messages.HttpApi.setup(binding.binaryMessenger, null)
     }
 
     override fun start(startRequest: Messages.StartRequest): Messages.StartResponse {
@@ -183,9 +191,5 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
 
 
     override fun dummy(arg1: Messages.EventMessage) {
-    }
-
-    override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
-        Messages.HttpApi.setup(binding.binaryMessenger, null)
     }
 }
