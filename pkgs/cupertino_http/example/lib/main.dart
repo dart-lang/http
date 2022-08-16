@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cupertino_http/cupertino_client.dart';
@@ -10,7 +11,6 @@ import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 
 import 'book.dart';
-import 'get_books.dart';
 
 void main() {
   late Client client;
@@ -50,6 +50,19 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  Future<List<Book>> _getBooks(String query) async {
+    final response = await get(
+      Uri.https(
+        'www.googleapis.com',
+        '/books/v1/volumes',
+        {'q': query, 'maxResults': '40', 'printType': 'books'},
+      ),
+    );
+
+    final json = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    return Book.listFromJson(json);
+  }
+
   void _runSearch(String query) async {
     if (query.isEmpty) {
       setState(() {
@@ -58,7 +71,7 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    final books = await getBooks(query);
+    final books = await _getBooks(query);
     setState(() {
       _books = books;
     });
