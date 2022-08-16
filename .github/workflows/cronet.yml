@@ -62,6 +62,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
+          target: playstore
           arch: x86_64
           profile: pixel
           script: cd ./pkgs/cronet_http/example && flutter pub get && flutter --version && flutter -v test integration_test/
