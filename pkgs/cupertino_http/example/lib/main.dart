@@ -14,12 +14,14 @@ import 'book.dart';
 
 void main() {
   late Client client;
+  // Use Cupertino Http on iOS and macOS.
   if (Platform.isIOS || Platform.isMacOS) {
     client = CupertinoClient.defaultSessionConfiguration();
   } else {
     client = IOClient();
   }
 
+  // Run the app with the default `client` set to the one assigned above.
   runWithClient(() => runApp(const BookSearchApp()), () => client);
 }
 
@@ -28,7 +30,7 @@ class BookSearchApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const MaterialApp(
-        // Remove the debug banner
+        // Remove the debug banner.
         debugShowCheckedModeBanner: false,
         title: 'Book Search',
         home: HomePage(),
@@ -50,6 +52,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  // Get the list of books matching `query`.
+  // The `get` call will automatically use the `client` configurated in `main`.
   Future<List<Book>> _getBooks(String query) async {
     final response = await get(
       Uri.https(
