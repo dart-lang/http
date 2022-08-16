@@ -10,23 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 
+import 'book.dart';
+
 void main() {
   late Client client;
-  if (Platform.isIOS) {
+  // Use Cupertino Http on iOS and macOS.
+  if (Platform.isAndroid) {
     client = CronetClient();
   } else {
     client = IOClient();
   }
 
+  // Run the app with the default `client` set to the one assigned above.
   runWithClient(() => runApp(const BookSearchApp()), () => client);
-}
-
-class Book {
-  String title;
-  String description;
-  String imageUrl;
-
-  Book(this.title, this.description, this.imageUrl);
 }
 
 class BookSearchApp extends StatelessWidget {
@@ -34,7 +30,7 @@ class BookSearchApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const MaterialApp(
-        // Remove the debug banner
+        // Remove the debug banner.
         debugShowCheckedModeBanner: false,
         title: 'Book Search',
         home: HomePage(),
@@ -49,88 +45,71 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Book> _books = [];
+  List<Book>? _books;
 
   @override
   void initState() {
     super.initState();
   }
 
-  void _runSearch(String query) {
+  // Get the list of books matching `query`.
+  // The `get` call will automatically use the `client` configurated in `main`.
+  Future<List<Book>> _getBooks(String query) async {
+    final response = await get(
+      Uri.https(
+        'www.googleapis.com',
+        '/books/v1/volumes',
+        {'q': query, 'maxResults': '40', 'printType': 'books'},
+      ),
+    );
+
+    final json = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    return Book.listFromJson(json);
+  }
+
+  void _runSearch(String query) async {
     if (query.isEmpty) {
       setState(() {
-        _books = [];
+        _books = null;
       });
       return;
     }
 
-    // `get` will use the `Client` configured in main.
-    get(Uri.https('www.googleapis.com', '/books/v1/volumes', {
-      'q': query,
-      'maxResults': '40',
-      'printType': 'books'
-    })).then((response) {
-      final books = <Book>[];
-      final jsonPayload = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-
-      if (jsonPayload['items'] is List<dynamic>) {
-        final items =
-            (jsonPayload['items'] as List).cast<Map<String, Object?>>();
-
-        for (final item in items) {
-          if (item.containsKey('volumeInfo')) {
-            final volumeInfo = item['volumeInfo'] as Map;
-            if (volumeInfo['title'] is String &&
-                volumeInfo['description'] is String &&
-                volumeInfo['imageLinks'] is Map &&
-                (volumeInfo['imageLinks'] as Map)['smallThumbnail'] is String) {
-              books.add(Book(
-                  volumeInfo['title'] as String,
-                  volumeInfo['description'] as String,
-                  (volumeInfo['imageLinks'] as Map)['smallThumbnail']
-                      as String));
-            }
-          }
-        }
-      }
-      setState(() {
-        _books = books;
-      });
+    final books = await _getBooks(query);
+    setState(() {
+      _books = books;
     });
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Book Search'),
+  Widget build(BuildContext context) {
+    final searchResult = _books == null
+        ? const Text('Please enter a query', style: TextStyle(fontSize: 24))
+        : _books!.isNotEmpty
+            ? BookList(_books!)
+            : const Text('No results found', style: TextStyle(fontSize: 24));
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Book Search')),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            TextField(
+              onChanged: _runSearch,
+              decoration: const InputDecoration(
+                labelText: 'Search',
+                suffixIcon: Icon(Icons.search),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(child: searchResult),
+          ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              TextField(
-                onChanged: _runSearch,
-                decoration: const InputDecoration(
-                    labelText: 'Search', suffixIcon: Icon(Icons.search)),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: _books.isNotEmpty
-                    ? BookList(_books)
-                    : const Text(
-                        'No results found',
-                        style: TextStyle(fontSize: 24),
-                      ),
-              ),
-            ],
-          ),
-        ),
-      );
+      ),
+    );
+  }
 }
 
 class BookList extends StatefulWidget {
