@@ -14,7 +14,6 @@ import 'book.dart';
 
 void main() {
   late Client client;
-  // Use Cupertino Http on iOS and macOS.
   if (Platform.isAndroid) {
     client = CronetClient();
   } else {
