@@ -47,8 +47,7 @@ class CronetClient extends BaseClient {
         !headers.keys.any((h) => h.toLowerCase() == 'content-type')) {
       // Cronet requires that requests containing upload data set a
       // 'Content-Type' header.
-      headers = Map.from(headers);
-      headers['content-type'] = 'application/octet-stream';
+      headers = {...headers, 'content-type': 'application/octet-stream'};
     }
 
     final response = await _api.start(StartRequest(
