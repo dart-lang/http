@@ -50,6 +50,18 @@ enum HTTPCookieAcceptPolicy {
   httpCookieAcceptPolicyOnlyFromMainDocumentDomain,
 }
 
+// Controls how response data is cached.
+//
+// See [URLRequestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequestcachepolicy).
+enum URLRequestCachePolicy {
+  useProtocolCachePolicy,
+  reloadIgnoringLocalCacheData,
+  returnCacheDataElseLoad,
+  returnCacheDataDontLoad,
+  reloadIgnoringLocalAndRemoteCacheData,
+  reloadRevalidatingCacheData,
+}
+
 // Controls how [URLSessionTask] execute will proceed after the response is
 // received.
 //
@@ -190,6 +202,14 @@ class URLSessionConfiguration
   set httpShouldUsePipelining(bool value) =>
       _nsObject.HTTPShouldUsePipelining = value;
 
+  // Controls how to deal with response caching.
+  //
+  // See [NSURLSessionConfiguration.requestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411655-requestcachepolicy)
+  URLRequestCachePolicy get requestCachePolicy =>
+      URLRequestCachePolicy.values[_nsObject.requestCachePolicy];
+  set requestCachePolicy(URLRequestCachePolicy value) =>
+      _nsObject.requestCachePolicy = value.index;
+
   /// Whether the app should be resumed when background tasks complete.
   ///
   /// See [NSURLSessionConfiguration.sessionSendsLaunchEvents](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1617174-sessionsendslaunchevents)
@@ -234,6 +254,7 @@ class URLSessionConfiguration
       'httpCookieAcceptPolicy=$httpCookieAcceptPolicy '
       'httpShouldSetCookies=$httpShouldSetCookies '
       'httpShouldUsePipelining=$httpShouldUsePipelining '
+      'requestCachePolicy=$requestCachePolicy '
       'sessionSendsLaunchEvents=$sessionSendsLaunchEvents '
       'shouldUseExtendedBackgroundIdleMode='
       '$shouldUseExtendedBackgroundIdleMode '

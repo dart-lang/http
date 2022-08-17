@@ -54,6 +54,15 @@ void testProperties(URLSessionConfiguration config) {
       config.httpShouldUsePipelining = false;
       expect(config.httpShouldUsePipelining, false);
     });
+    test('requestCachePolicy', () {
+      config.requestCachePolicy = URLRequestCachePolicy.returnCacheDataDontLoad;
+      expect(config.requestCachePolicy,
+          URLRequestCachePolicy.returnCacheDataDontLoad);
+      config.requestCachePolicy =
+          URLRequestCachePolicy.reloadIgnoringLocalCacheData;
+      expect(config.requestCachePolicy,
+          URLRequestCachePolicy.reloadIgnoringLocalCacheData);
+    });
     test('sessionSendsLaunchEvents', () {
       config.sessionSendsLaunchEvents = true;
       expect(config.sessionSendsLaunchEvents, true);
