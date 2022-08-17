@@ -1,3 +1,7 @@
+## 2.2.1-dev
+
+- Use platform agnostic code in README example.
+
 ## 2.2.0
 
 - Add `HtmlWebSocketChannel.innerWebSocket` getter to access features not exposed
