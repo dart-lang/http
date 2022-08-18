@@ -20,6 +20,7 @@ export 'src/request_headers_tests.dart' show testRequestHeaders;
 export 'src/response_body_streamed_test.dart' show testResponseBodyStreamed;
 export 'src/response_body_tests.dart' show testResponseBody;
 export 'src/response_headers_tests.dart' show testResponseHeaders;
+export 'src/server_errors_test.dart' show testServerErrors;
 
 /// Runs the entire test suite against the given [Client].
 ///
