@@ -219,7 +219,7 @@ void main() {
   group('sharedSession', () {
     final session = URLSession.sharedSession();
 
-    test('configration', () {
+    test('configuration', () {
       expect(session.configuration, isA<URLSessionConfiguration>());
     });
 
@@ -231,7 +231,20 @@ void main() {
       ..allowsCellularAccess = false;
     final session = URLSession.sessionWithConfiguration(config);
 
-    test('configration', () {
+    test('configuration', () {
+      expect(session.configuration.allowsCellularAccess, false);
+    });
+
+    testURLSession(session);
+  });
+
+  group('backgroundSession', () {
+    final config =
+        URLSessionConfiguration.backgroundSession('backgroundSession')
+          ..allowsCellularAccess = false;
+    final session = URLSession.sessionWithConfiguration(config);
+
+    test('configuration', () {
       expect(session.configuration.allowsCellularAccess, false);
     });
 
