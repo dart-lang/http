@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.AtomicInteger
 
 class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
     private lateinit var flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
-    private lateinit var cronetEngine: CronetEngine
 
     private val executor = Executors.newCachedThreadPool()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
@@ -31,26 +30,38 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
     ) {
         Messages.HttpApi.setup(flutterPluginBinding.binaryMessenger, this)
         this.flutterPluginBinding = flutterPluginBinding
-        val context = flutterPluginBinding.getApplicationContext()
-
-        // TODO: Move the Cronet initialization elsewhere so that failures (e.g. because the device
-        // doesn't have Google Play services) can be communicated to the Dart client.
-        val builder = CronetEngine.Builder(context)
-        cronetEngine = builder.build()
     }
 
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         Messages.HttpApi.setup(binding.binaryMessenger, null)
     }
 
-    override fun start(startRequest: Messages.StartRequest): Messages.StartResponse {
-        // Create a unique channel to communicate Cronet events to the Dart client code with.
-        val channelName = "plugins.flutter.io/cronet_event/" + channelId.incrementAndGet()
-        val eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, channelName)
-        lateinit var eventSink: EventChannel.EventSink
-        var numRedirects = 0
+    private fun createCronetEngine(startRequest: Messages.StartRequest) : CronetEngine {
+        val builder = CronetEngine.Builder(flutterPluginBinding.getApplicationContext())
 
-        val cronetRequest =
+        if (startRequest.getEnableBrotli() != null) {
+            builder.enableBrotli(startRequest.getEnableBrotli()!!)
+        }
+
+        if (startRequest.getEnableHttp2() != null) {
+            builder.enableHttp2(startRequest.getEnableHttp2()!!)
+        }
+
+        if (startRequest.getEnablePublicKeyPinningBypassForLocalTrustAnchors() != null) {
+            builder.enablePublicKeyPinningBypassForLocalTrustAnchors(startRequest.getEnablePublicKeyPinningBypassForLocalTrustAnchors()!!)
+        }
+
+        if (startRequest.getEnableQuic() != null) {
+            builder.enableQuic(startRequest.getEnableQuic()!!)
+        }
+
+        return builder.build()
+    }
+
+    private fun createRequest(startRequest: Messages.StartRequest, cronetEngine: CronetEngine, eventSink: EventChannel.EventSink) : UrlRequest {
+        var numRedirects = 0
+        
+        val cronetRequest =  
             cronetEngine.newUrlRequestBuilder(
                 startRequest.url,
                 object : UrlRequest.Callback() {
@@ -158,16 +169,24 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
         for ((key, value) in startRequest.getHeaders()) {
             cronetRequest.addHeader(key, value)
         }
+        return cronetRequest.build();
+    }
+
+    override fun start(startRequest: Messages.StartRequest): Messages.StartResponse {
+        // Create a unique channel to communicate Cronet events to the Dart client code with.
+        val channelName = "plugins.flutter.io/cronet_event/" + channelId.incrementAndGet()
+        val eventChannel = EventChannel(flutterPluginBinding.binaryMessenger, channelName)
 
         // Don't start the Cronet request until the Dart client code is listening for events.
         val streamHandler =
             object : EventChannel.StreamHandler {
                 override fun onListen(arguments: Any?, events: EventChannel.EventSink) {
-                    eventSink = events
                     try {
-                        cronetRequest.build().start()
+                        val cronetEngine = createCronetEngine(startRequest)
+                        val cronetRequest = createRequest(startRequest, cronetEngine, events)
+                        cronetRequest.start()
                     } catch (e: Exception) {
-                        mainThreadHandler.post({ eventSink.error("CronetException", e.toString(), null) })
+                        mainThreadHandler.post({ events.error("CronetException", e.toString(), null) })
                     }
                 }
 

@@ -6,6 +6,13 @@
 
 import 'package:pigeon/pigeon.dart';
 
+enum CacheMode {
+  disabled,
+  memory,
+  diskNoHttp,
+  disk,
+}
+
 /// An event message sent when the response headers are received.
 ///
 /// If [StartRequest.followRedirects] was false, then the first response,
@@ -48,6 +55,15 @@ class StartRequest {
   Uint8List body;
   int maxRedirects;
   bool followRedirects;
+
+  CacheMode? cacheMode;
+  int? cacheMaxSize;
+  bool? enableBrotli;
+  bool? enableHttp2;
+  bool? enablePublicKeyPinningBypassForLocalTrustAnchors;
+  bool? enableQuic;
+  String? storagePath;
+  String? userAgent;
 }
 
 class StartResponse {

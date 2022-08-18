@@ -33,6 +33,18 @@ import 'src/messages.dart';
 ///   }
 /// }
 /// ```
+
+class CronetEngineBuilder {
+  CacheMode? cacheMode;
+  int? cacheMaxSize;
+  bool? enableBrotli;
+  bool? enableHttp2;
+  bool? enablePublicKeyPinningBypassForLocalTrustAnchors;
+  bool? enableQuic;
+  String? storagePath;
+  String? userAgent;
+}
+
 class CronetClient extends BaseClient {
   static late final HttpApi _api = HttpApi();
 

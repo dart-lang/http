@@ -22,6 +22,18 @@ import java.util.HashMap;
 @SuppressWarnings({"unused", "unchecked", "CodeBlock2Expr", "RedundantSuppression"})
 public class Messages {
 
+  public enum CacheMode {
+    disabled(0),
+    memory(1),
+    diskNoHttp(2),
+    disk(3);
+
+    private int index;
+    private CacheMode(final int index) {
+      this.index = index;
+    }
+  }
+
   public enum EventMessageType {
     responseStarted(0),
     readCompleted(1),
@@ -269,6 +281,54 @@ public class Messages {
       this.followRedirects = setterArg;
     }
 
+    private @Nullable CacheMode cacheMode;
+    public @Nullable CacheMode getCacheMode() { return cacheMode; }
+    public void setCacheMode(@Nullable CacheMode setterArg) {
+      this.cacheMode = setterArg;
+    }
+
+    private @Nullable Long cacheMaxSize;
+    public @Nullable Long getCacheMaxSize() { return cacheMaxSize; }
+    public void setCacheMaxSize(@Nullable Long setterArg) {
+      this.cacheMaxSize = setterArg;
+    }
+
+    private @Nullable Boolean enableBrotli;
+    public @Nullable Boolean getEnableBrotli() { return enableBrotli; }
+    public void setEnableBrotli(@Nullable Boolean setterArg) {
+      this.enableBrotli = setterArg;
+    }
+
+    private @Nullable Boolean enableHttp2;
+    public @Nullable Boolean getEnableHttp2() { return enableHttp2; }
+    public void setEnableHttp2(@Nullable Boolean setterArg) {
+      this.enableHttp2 = setterArg;
+    }
+
+    private @Nullable Boolean enableQuic;
+    public @Nullable Boolean getEnableQuic() { return enableQuic; }
+    public void setEnableQuic(@Nullable Boolean setterArg) {
+      this.enableQuic = setterArg;
+    }
+
+    private @Nullable Boolean enablePublicKeyPinningBypassForLocalTrustAnchors;
+    public @Nullable Boolean getEnablePublicKeyPinningBypassForLocalTrustAnchors() { return enablePublicKeyPinningBypassForLocalTrustAnchors; }
+    public void setEnablePublicKeyPinningBypassForLocalTrustAnchors(@Nullable Boolean setterArg) {
+      this.enablePublicKeyPinningBypassForLocalTrustAnchors = setterArg;
+    }
+
+    private @Nullable String storagePath;
+    public @Nullable String getStoragePath() { return storagePath; }
+    public void setStoragePath(@Nullable String setterArg) {
+      this.storagePath = setterArg;
+    }
+
+    private @Nullable String userAgent;
+    public @Nullable String getUserAgent() { return userAgent; }
+    public void setUserAgent(@Nullable String setterArg) {
+      this.userAgent = setterArg;
+    }
+
     /** Constructor is private to enforce null safety; use Builder. */
     private StartRequest() {}
     public static final class Builder {
@@ -302,6 +362,46 @@ public class Messages {
         this.followRedirects = setterArg;
         return this;
       }
+      private @Nullable CacheMode cacheMode;
+      public @NonNull Builder setCacheMode(@Nullable CacheMode setterArg) {
+        this.cacheMode = setterArg;
+        return this;
+      }
+      private @Nullable Long cacheMaxSize;
+      public @NonNull Builder setCacheMaxSize(@Nullable Long setterArg) {
+        this.cacheMaxSize = setterArg;
+        return this;
+      }
+      private @Nullable Boolean enableBrotli;
+      public @NonNull Builder setEnableBrotli(@Nullable Boolean setterArg) {
+        this.enableBrotli = setterArg;
+        return this;
+      }
+      private @Nullable Boolean enableHttp2;
+      public @NonNull Builder setEnableHttp2(@Nullable Boolean setterArg) {
+        this.enableHttp2 = setterArg;
+        return this;
+      }
+      private @Nullable Boolean enableQuic;
+      public @NonNull Builder setEnableQuic(@Nullable Boolean setterArg) {
+        this.enableQuic = setterArg;
+        return this;
+      }
+      private @Nullable Boolean enablePublicKeyPinningBypassForLocalTrustAnchors;
+      public @NonNull Builder setEnablePublicKeyPinningBypassForLocalTrustAnchors(@Nullable Boolean setterArg) {
+        this.enablePublicKeyPinningBypassForLocalTrustAnchors = setterArg;
+        return this;
+      }
+      private @Nullable String storagePath;
+      public @NonNull Builder setStoragePath(@Nullable String setterArg) {
+        this.storagePath = setterArg;
+        return this;
+      }
+      private @Nullable String userAgent;
+      public @NonNull Builder setUserAgent(@Nullable String setterArg) {
+        this.userAgent = setterArg;
+        return this;
+      }
       public @NonNull StartRequest build() {
         StartRequest pigeonReturn = new StartRequest();
         pigeonReturn.setUrl(url);
@@ -310,6 +410,14 @@ public class Messages {
         pigeonReturn.setBody(body);
         pigeonReturn.setMaxRedirects(maxRedirects);
         pigeonReturn.setFollowRedirects(followRedirects);
+        pigeonReturn.setCacheMode(cacheMode);
+        pigeonReturn.setCacheMaxSize(cacheMaxSize);
+        pigeonReturn.setEnableBrotli(enableBrotli);
+        pigeonReturn.setEnableHttp2(enableHttp2);
+        pigeonReturn.setEnableQuic(enableQuic);
+        pigeonReturn.setEnablePublicKeyPinningBypassForLocalTrustAnchors(enablePublicKeyPinningBypassForLocalTrustAnchors);
+        pigeonReturn.setStoragePath(storagePath);
+        pigeonReturn.setUserAgent(userAgent);
         return pigeonReturn;
       }
     }
@@ -321,6 +429,14 @@ public class Messages {
       toMapResult.put("body", body);
       toMapResult.put("maxRedirects", maxRedirects);
       toMapResult.put("followRedirects", followRedirects);
+      toMapResult.put("cacheMode", cacheMode == null ? null : cacheMode.index);
+      toMapResult.put("cacheMaxSize", cacheMaxSize);
+      toMapResult.put("enableBrotli", enableBrotli);
+      toMapResult.put("enableHttp2", enableHttp2);
+      toMapResult.put("enableQuic", enableQuic);
+      toMapResult.put("enablePublicKeyPinningBypassForLocalTrustAnchors", enablePublicKeyPinningBypassForLocalTrustAnchors);
+      toMapResult.put("storagePath", storagePath);
+      toMapResult.put("userAgent", userAgent);
       return toMapResult;
     }
     static @NonNull StartRequest fromMap(@NonNull Map<String, Object> map) {
@@ -337,6 +453,22 @@ public class Messages {
       pigeonResult.setMaxRedirects((maxRedirects == null) ? null : ((maxRedirects instanceof Integer) ? (Integer)maxRedirects : (Long)maxRedirects));
       Object followRedirects = map.get("followRedirects");
       pigeonResult.setFollowRedirects((Boolean)followRedirects);
+      Object cacheMode = map.get("cacheMode");
+      pigeonResult.setCacheMode(cacheMode == null ? null : CacheMode.values()[(int)cacheMode]);
+      Object cacheMaxSize = map.get("cacheMaxSize");
+      pigeonResult.setCacheMaxSize((cacheMaxSize == null) ? null : ((cacheMaxSize instanceof Integer) ? (Integer)cacheMaxSize : (Long)cacheMaxSize));
+      Object enableBrotli = map.get("enableBrotli");
+      pigeonResult.setEnableBrotli((Boolean)enableBrotli);
+      Object enableHttp2 = map.get("enableHttp2");
+      pigeonResult.setEnableHttp2((Boolean)enableHttp2);
+      Object enableQuic = map.get("enableQuic");
+      pigeonResult.setEnableQuic((Boolean)enableQuic);
+      Object enablePublicKeyPinningBypassForLocalTrustAnchors = map.get("enablePublicKeyPinningBypassForLocalTrustAnchors");
+      pigeonResult.setEnablePublicKeyPinningBypassForLocalTrustAnchors((Boolean)enablePublicKeyPinningBypassForLocalTrustAnchors);
+      Object storagePath = map.get("storagePath");
+      pigeonResult.setStoragePath((String)storagePath);
+      Object userAgent = map.get("userAgent");
+      pigeonResult.setUserAgent((String)userAgent);
       return pigeonResult;
     }
   }

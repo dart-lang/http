@@ -7,6 +7,13 @@ import 'dart:typed_data' show Uint8List, Int32List, Int64List, Float64List;
 import 'package:flutter/foundation.dart' show WriteBuffer, ReadBuffer;
 import 'package:flutter/services.dart';
 
+enum CacheMode {
+  disabled,
+  memory,
+  diskNoHttp,
+  disk,
+}
+
 enum EventMessageType {
   responseStarted,
   readCompleted,
@@ -105,6 +112,14 @@ class StartRequest {
     required this.body,
     required this.maxRedirects,
     required this.followRedirects,
+    this.cacheMode,
+    this.cacheMaxSize,
+    this.enableBrotli,
+    this.enableHttp2,
+    this.enableQuic,
+    this.enablePublicKeyPinningBypassForLocalTrustAnchors,
+    this.storagePath,
+    this.userAgent,
   });
 
   String url;
@@ -113,6 +128,14 @@ class StartRequest {
   Uint8List body;
   int maxRedirects;
   bool followRedirects;
+  CacheMode? cacheMode;
+  int? cacheMaxSize;
+  bool? enableBrotli;
+  bool? enableHttp2;
+  bool? enableQuic;
+  bool? enablePublicKeyPinningBypassForLocalTrustAnchors;
+  String? storagePath;
+  String? userAgent;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
@@ -122,6 +145,15 @@ class StartRequest {
     pigeonMap['body'] = body;
     pigeonMap['maxRedirects'] = maxRedirects;
     pigeonMap['followRedirects'] = followRedirects;
+    pigeonMap['cacheMode'] = cacheMode?.index;
+    pigeonMap['cacheMaxSize'] = cacheMaxSize;
+    pigeonMap['enableBrotli'] = enableBrotli;
+    pigeonMap['enableHttp2'] = enableHttp2;
+    pigeonMap['enableQuic'] = enableQuic;
+    pigeonMap['enablePublicKeyPinningBypassForLocalTrustAnchors'] =
+        enablePublicKeyPinningBypassForLocalTrustAnchors;
+    pigeonMap['storagePath'] = storagePath;
+    pigeonMap['userAgent'] = userAgent;
     return pigeonMap;
   }
 
@@ -135,6 +167,18 @@ class StartRequest {
       body: pigeonMap['body']! as Uint8List,
       maxRedirects: pigeonMap['maxRedirects']! as int,
       followRedirects: pigeonMap['followRedirects']! as bool,
+      cacheMode: pigeonMap['cacheMode'] != null
+          ? CacheMode.values[pigeonMap['cacheMode']! as int]
+          : null,
+      cacheMaxSize: pigeonMap['cacheMaxSize'] as int?,
+      enableBrotli: pigeonMap['enableBrotli'] as bool?,
+      enableHttp2: pigeonMap['enableHttp2'] as bool?,
+      enableQuic: pigeonMap['enableQuic'] as bool?,
+      enablePublicKeyPinningBypassForLocalTrustAnchors:
+          pigeonMap['enablePublicKeyPinningBypassForLocalTrustAnchors']
+              as bool?,
+      storagePath: pigeonMap['storagePath'] as String?,
+      userAgent: pigeonMap['userAgent'] as String?,
     );
   }
 }
