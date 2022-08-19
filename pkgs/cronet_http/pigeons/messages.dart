@@ -35,6 +35,11 @@ class ReadCompleted {
   Uint8List data;
 }
 
+enum ExceptionType {
+  illegalArgumentException,
+  otherException,
+}
+
 enum EventMessageType { responseStarted, readCompleted, tooManyRedirects }
 
 /// Encapsulates a message sent from Cronet to the Dart client.
@@ -48,14 +53,7 @@ class EventMessage {
   ReadCompleted? readCompleted;
 }
 
-class StartRequest {
-  String url;
-  String method;
-  Map<String?, String?> headers;
-  Uint8List body;
-  int maxRedirects;
-  bool followRedirects;
-
+class CreateEngineRequest {
   CacheMode? cacheMode;
   int? cacheMaxSize;
   bool? enableBrotli;
@@ -66,6 +64,22 @@ class StartRequest {
   String? userAgent;
 }
 
+class CreateEngineResponse {
+  String? engineId;
+  String? errorString;
+  ExceptionType? errorType;
+}
+
+class StartRequest {
+  String engineId;
+  String url;
+  String method;
+  Map<String?, String?> headers;
+  Uint8List body;
+  int maxRedirects;
+  bool followRedirects;
+}
+
 class StartResponse {
   // The channel that the caller should listen to for events related to the
   // HTTP request.
@@ -74,8 +88,14 @@ class StartResponse {
 
 @HostApi()
 abstract class HttpApi {
-  /// Starts an HTTP request and returns a channel where future results will
-  /// be streamed.
+  // Create a new CronetEngine with the given properties and returns it's id.
+  CreateEngineResponse createEngine(CreateEngineRequest request);
+
+  // Free the resources associated with the CronetEngine.
+  void freeEngine(String engineId);
+
+  /// Starts an HTTP request using an existing CronetEngine and returns a
+  /// channel where future results will be streamed.
   StartResponse start(StartRequest request);
 
   // Pigeon does not generate code for classes that are not used in an API.

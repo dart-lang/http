@@ -21,9 +21,11 @@ import java.util.concurrent.atomic.AtomicInteger
 class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
     private lateinit var flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
 
+    private val engineIdToEngine = HashMap<String, CronetEngine>()
     private val executor = Executors.newCachedThreadPool()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
     private val channelId = AtomicInteger(0)
+    private val engineId = AtomicInteger(0)
 
     override fun onAttachedToEngine(
         @NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding
@@ -36,26 +38,61 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
         Messages.HttpApi.setup(binding.binaryMessenger, null)
     }
 
-    private fun createCronetEngine(startRequest: Messages.StartRequest): CronetEngine {
-        val builder = CronetEngine.Builder(flutterPluginBinding.getApplicationContext())
+    override fun createEngine(createRequest: Messages.CreateEngineRequest): Messages.CreateEngineResponse {
+        try {
+            val builder = CronetEngine.Builder(flutterPluginBinding.getApplicationContext())
 
-        if (startRequest.getEnableBrotli() != null) {
-            builder.enableBrotli(startRequest.getEnableBrotli()!!)
+            if (createRequest.getStoragePath() != null) {
+                builder.setStoragePath(createRequest.getStoragePath()!!)
+            }
+
+            if (createRequest.getCacheMode() == Messages.CacheMode.disabled) {
+                builder.enableHttpCache(createRequest.getCacheMode()!!.ordinal, 0)
+            } else if (createRequest.getCacheMode() != null && createRequest.getCacheMaxSize() != null) {
+                builder.enableHttpCache(createRequest.getCacheMode()!!.ordinal, createRequest.getCacheMaxSize()!!)
+            }
+
+            if (createRequest.getEnableBrotli() != null) {
+                builder.enableBrotli(createRequest.getEnableBrotli()!!)
+            }
+
+            if (createRequest.getEnableHttp2() != null) {
+                builder.enableHttp2(createRequest.getEnableHttp2()!!)
+            }
+
+            if (createRequest.getEnablePublicKeyPinningBypassForLocalTrustAnchors() != null) {
+                builder.enablePublicKeyPinningBypassForLocalTrustAnchors(createRequest.getEnablePublicKeyPinningBypassForLocalTrustAnchors()!!)
+            }
+
+            if (createRequest.getEnableQuic() != null) {
+                builder.enableQuic(createRequest.getEnableQuic()!!)
+            }
+
+            if (createRequest.getUserAgent() != null) {
+                builder.setUserAgent(createRequest.getUserAgent()!!)
+            }
+
+            val engine = builder.build()
+            val engineName = "cronet_engine_" + engineId.incrementAndGet()
+            engineIdToEngine.put(engineName, engine)
+            return Messages.CreateEngineResponse.Builder()
+                .setEngineId(engineName)
+                .build()
+        } catch (e: IllegalArgumentException) {
+            return Messages.CreateEngineResponse.Builder()
+                .setErrorString(e.message)
+                .setErrorType(Messages.ExceptionType.illegalArgumentException)
+                .build()
+        } catch (e: Exception) {
+            return Messages.CreateEngineResponse.Builder()
+                .setErrorString(e.message)
+                .setErrorType(Messages.ExceptionType.otherException)
+                .build()
         }
+    }
 
-        if (startRequest.getEnableHttp2() != null) {
-            builder.enableHttp2(startRequest.getEnableHttp2()!!)
-        }
-
-        if (startRequest.getEnablePublicKeyPinningBypassForLocalTrustAnchors() != null) {
-            builder.enablePublicKeyPinningBypassForLocalTrustAnchors(startRequest.getEnablePublicKeyPinningBypassForLocalTrustAnchors()!!)
-        }
-
-        if (startRequest.getEnableQuic() != null) {
-            builder.enableQuic(startRequest.getEnableQuic()!!)
-        }
-
-        return builder.build()
+    override fun freeEngine(engineId: String) {
+        engineIdToEngine.remove(engineId)
     }
 
     private fun createRequest(startRequest: Messages.StartRequest, cronetEngine: CronetEngine, eventSink: EventChannel.EventSink): UrlRequest {
@@ -181,7 +218,7 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
             object : EventChannel.StreamHandler {
                 override fun onListen(arguments: Any?, events: EventChannel.EventSink) {
                     try {
-                        val cronetEngine = createCronetEngine(startRequest)
+                        val cronetEngine = engineIdToEngine.getValue(startRequest.engineId)
                         val cronetRequest = createRequest(startRequest, cronetEngine, events)
                         cronetRequest.start()
                     } catch (e: Exception) {
