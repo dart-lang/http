@@ -841,7 +841,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// a follow-up request that would honor the server's redirect. If the return
   /// value of this function is `null` then the redirect will not occur.
   /// Otherwise, the returned [URLRequest] (usually `newRequest`) will be
-  /// executed. See
+  /// executed. [onRedirect] will not be called for background sessions, which
+  /// automatically follow redirects. See
   /// [URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411626-urlsession)
   ///
   /// If [onResponse] is set then it will be called whenever a valid response

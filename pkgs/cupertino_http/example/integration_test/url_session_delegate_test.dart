@@ -9,7 +9,7 @@ import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
-void testOnComplete() {
+void testOnComplete(URLSessionConfiguration config) {
   group('onComplete', () {
     late HttpServer server;
 
@@ -32,9 +32,8 @@ void testOnComplete() {
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      final session = URLSession.sessionWithConfiguration(
-          URLSessionConfiguration.defaultSessionConfiguration(),
-          onComplete: (s, t, e) {
+      final session =
+          URLSession.sessionWithConfiguration(config, onComplete: (s, t, e) {
         actualSession = s;
         actualTask = t;
         actualError = e;
@@ -57,9 +56,8 @@ void testOnComplete() {
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      final session = URLSession.sessionWithConfiguration(
-          URLSessionConfiguration.defaultSessionConfiguration(),
-          onComplete: (s, t, e) {
+      final session =
+          URLSession.sessionWithConfiguration(config, onComplete: (s, t, e) {
         actualSession = s;
         actualTask = t;
         actualError = e;
@@ -72,12 +70,17 @@ void testOnComplete() {
       await c.future;
       expect(actualSession, session);
       expect(actualTask, task);
-      expect(actualError!.code, -1003); // kCFURLErrorCannotFindHost
+      expect(
+          actualError!.code,
+          anyOf(
+            -1001, // kCFURLErrorTimedOut
+            -1003, // kCFURLErrorCannotFindHost
+          ));
     });
   });
 }
 
-void testOnResponse() {
+void testOnResponse(URLSessionConfiguration config) {
   group('onResponse', () {
     late HttpServer server;
 
@@ -100,9 +103,8 @@ void testOnResponse() {
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      final session = URLSession.sessionWithConfiguration(
-          URLSessionConfiguration.defaultSessionConfiguration(),
-          onResponse: (s, t, r) {
+      final session =
+          URLSession.sessionWithConfiguration(config, onResponse: (s, t, r) {
         actualSession = s;
         actualTask = t;
         actualResponse = r as HTTPURLResponse;
@@ -124,8 +126,7 @@ void testOnResponse() {
       final c = Completer<void>();
       var called = false;
 
-      final session = URLSession.sessionWithConfiguration(
-          URLSessionConfiguration.defaultSessionConfiguration(),
+      final session = URLSession.sessionWithConfiguration(config,
           onComplete: (session, task, error) => c.complete(),
           onResponse: (s, t, r) {
             called = true;
@@ -142,7 +143,7 @@ void testOnResponse() {
   });
 }
 
-void testOnData() {
+void testOnData(URLSessionConfiguration config) {
   group('onData', () {
     late HttpServer server;
 
@@ -165,8 +166,7 @@ void testOnData() {
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      final session = URLSession.sessionWithConfiguration(
-          URLSessionConfiguration.defaultSessionConfiguration(),
+      final session = URLSession.sessionWithConfiguration(config,
           onComplete: (s, t, r) => c.complete(),
           onData: (s, t, d) {
             actualSession = s;
@@ -185,7 +185,7 @@ void testOnData() {
   });
 }
 
-void testOnFinishedDownloading() {
+void testOnFinishedDownloading(URLSessionConfiguration config) {
   group('onFinishedDownloading', () {
     late HttpServer server;
 
@@ -208,8 +208,7 @@ void testOnFinishedDownloading() {
       late URLSessionDownloadTask actualTask;
       late String actualContent;
 
-      final session = URLSession.sessionWithConfiguration(
-          URLSessionConfiguration.defaultSessionConfiguration(),
+      final session = URLSession.sessionWithConfiguration(config,
           onComplete: (s, t, r) => c.complete(),
           onFinishedDownloading: (s, t, uri) {
             actualSession = s;
@@ -228,7 +227,7 @@ void testOnFinishedDownloading() {
   });
 }
 
-void testOnRedirect() {
+void testOnRedirect(URLSessionConfiguration config) {
   group('onRedirect', () {
     late HttpServer redirectServer;
 
@@ -257,7 +256,6 @@ void testOnRedirect() {
     });
 
     test('disallow redirect', () async {
-      final config = URLSessionConfiguration.defaultSessionConfiguration();
       final session = URLSession.sessionWithConfiguration(config,
           onRedirect:
               (redirectSession, redirectTask, redirectResponse, newRequest) =>
@@ -283,7 +281,6 @@ void testOnRedirect() {
     });
 
     test('use preposed redirect request', () async {
-      final config = URLSessionConfiguration.defaultSessionConfiguration();
       final session = URLSession.sessionWithConfiguration(config,
           onRedirect:
               (redirectSession, redirectTask, redirectResponse, newRequest) =>
@@ -307,7 +304,6 @@ void testOnRedirect() {
     });
 
     test('use custom redirect request', () async {
-      final config = URLSessionConfiguration.defaultSessionConfiguration();
       final session = URLSession.sessionWithConfiguration(
         config,
         onRedirect: (redirectSession, redirectTask, redirectResponse,
@@ -334,7 +330,6 @@ void testOnRedirect() {
     });
 
     test('exception in http redirection', () async {
-      final config = URLSessionConfiguration.defaultSessionConfiguration();
       final session = URLSession.sessionWithConfiguration(
         config,
         onRedirect:
@@ -363,7 +358,6 @@ void testOnRedirect() {
     }, skip: 'Error not set for redirect exceptions.');
 
     test('3 redirects', () async {
-      final config = URLSessionConfiguration.defaultSessionConfiguration();
       var redirectCounter = 0;
       final session = URLSession.sessionWithConfiguration(
         config,
@@ -415,7 +409,6 @@ void testOnRedirect() {
     test('allow too many redirects', () async {
       // The Foundation URL Loading System limits the number of redirects
       // even when a redirect delegate is present and allows the redirect.
-      final config = URLSessionConfiguration.defaultSessionConfiguration();
       final session = URLSession.sessionWithConfiguration(
         config,
         onRedirect:
@@ -445,9 +438,31 @@ void testOnRedirect() {
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testOnComplete();
-  testOnResponse();
-  testOnData();
-  testOnRedirect();
-  testOnFinishedDownloading();
+  group('backgroundSession', () {
+    final config =
+        URLSessionConfiguration.backgroundSession('backgroundSession');
+    testOnComplete(config);
+    testOnResponse(config);
+    testOnData(config);
+    // onRedirect is not called for background sessions.
+    testOnFinishedDownloading(config);
+  });
+
+  group('defaultSessionConfiguration', () {
+    final config = URLSessionConfiguration.defaultSessionConfiguration();
+    testOnComplete(config);
+    testOnResponse(config);
+    testOnData(config);
+    testOnRedirect(config);
+    testOnFinishedDownloading(config);
+  });
+
+  group('ephemeralSessionConfiguration', () {
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration();
+    testOnComplete(config);
+    testOnResponse(config);
+    testOnData(config);
+    testOnRedirect(config);
+    testOnFinishedDownloading(config);
+  });
 }
