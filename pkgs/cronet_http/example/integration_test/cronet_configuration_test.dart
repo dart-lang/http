@@ -81,7 +81,6 @@ void testInvalidConfigurations() {
           () async => await CronetEngine.build(
               cacheMode: CacheMode.disk, cacheMaxSize: 1024 * 1024),
           throwsArgumentError);
-      ;
     });
 
     test('non-existing storagePath', () async {
