@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
 
   // Get the list of books matching `query`.
   // The `get` call will automatically use the `client` configurated in `main`.
-  Future<List<Book>> _getBooks(String query) async {
+  Future<List<Book>> _findMatchingBooks(String query) async {
     final response = await get(
       Uri.https(
         'www.googleapis.com',
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
       return;
     }
 
-    final books = await _getBooks(query);
+    final books = await _findMatchingBooks(query);
     setState(() {
       _books = books;
     });
