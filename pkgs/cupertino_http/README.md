@@ -15,8 +15,10 @@ the package into a supported publisher (dart.dev, tools.dart.dev) after a period
 of feedback and iteration, or discontinue the package. These packages have a
 much higher expected rate of API and breaking changes.
 
-Your feedback is valuable and will help us evolve this package. For general
-feedback, suggestions, and comments, please file an issue in the 
+Your feedback is valuable and will help us evolve this package. 
+For general feedback and suggestions please comment in the
+[feedback issue](https://github.com/dart-lang/http/issues/764).
+For bugs, please file an issue in the 
 [bug tracker](https://github.com/dart-lang/http/issues).
 
 ## Motivation
