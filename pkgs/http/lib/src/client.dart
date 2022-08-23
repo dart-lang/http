@@ -154,7 +154,7 @@ abstract class Client {
 @internal
 Client? get zoneClient {
   final client = Zone.current[#_clientToken];
-  return client == null ? null : (client as Client Function())();
+  return client == null ? null : (client as Client? Function())();
 }
 
 /// Runs [body] in its own [Zone] with the [Client] returned by [clientFactory]
@@ -171,7 +171,7 @@ Client? get zoneClient {
 /// }
 ///
 /// void main() {
-///   Client client =  Platform.isAndroid ? MyAndroidHttpClient() : Client();
+///   Client? client =  Platform.isAndroid ? MyAndroidHttpClient() : null;
 ///   runWithClient(myFunction, () => client);
 /// }
 ///
@@ -183,8 +183,10 @@ Client? get zoneClient {
 /// ```
 ///
 /// The [Client] returned by [clientFactory] is used by the [Client.new] factory
-/// and the convenience HTTP functions (e.g. [http.get])
-R runWithClient<R>(R Function() body, Client Function() clientFactory,
+/// and the convenience HTTP functions (e.g. [http.get]). If [clientFactory]
+/// returns `null` then the default [Client] is used i.e. `BrowserClient` on
+/// the web and `IOClient` on other platforms.
+R runWithClient<R>(R Function() body, Client? Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
         zoneValues: {#_clientToken: Zone.current.bindCallback(clientFactory)},

@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart' as http_io;
+import 'package:http/src/io_client.dart';
 import 'package:test/test.dart';
 
 import '../utils.dart';
@@ -151,6 +152,11 @@ void main() {
   test('runWithClient', () {
     final client = http.runWithClient(() => http.Client(), () => TestClient());
     expect(client, isA<TestClient>());
+  });
+
+  test('runWithClient null return', () {
+    final client = http.runWithClient(() => http.Client(), () => null);
+    expect(client, isA<IOClient>());
   });
 
   test('runWithClient nested', () {
