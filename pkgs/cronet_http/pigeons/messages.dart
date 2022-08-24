@@ -6,6 +6,13 @@
 
 import 'package:pigeon/pigeon.dart';
 
+enum CacheMode {
+  disabled,
+  memory,
+  diskNoHttp,
+  disk,
+}
+
 /// An event message sent when the response headers are received.
 ///
 /// If [StartRequest.followRedirects] was false, then the first response,
@@ -28,6 +35,11 @@ class ReadCompleted {
   Uint8List data;
 }
 
+enum ExceptionType {
+  illegalArgumentException,
+  otherException,
+}
+
 enum EventMessageType { responseStarted, readCompleted, tooManyRedirects }
 
 /// Encapsulates a message sent from Cronet to the Dart client.
@@ -41,7 +53,25 @@ class EventMessage {
   ReadCompleted? readCompleted;
 }
 
+class CreateEngineRequest {
+  CacheMode? cacheMode;
+  int? cacheMaxSize;
+  bool? enableBrotli;
+  bool? enableHttp2;
+  bool? enablePublicKeyPinningBypassForLocalTrustAnchors;
+  bool? enableQuic;
+  String? storagePath;
+  String? userAgent;
+}
+
+class CreateEngineResponse {
+  String? engineId;
+  String? errorString;
+  ExceptionType? errorType;
+}
+
 class StartRequest {
+  String engineId;
   String url;
   String method;
   Map<String?, String?> headers;
@@ -58,8 +88,14 @@ class StartResponse {
 
 @HostApi()
 abstract class HttpApi {
-  /// Starts an HTTP request and returns a channel where future results will
-  /// be streamed.
+  // Create a new CronetEngine with the given properties and returns it's id.
+  CreateEngineResponse createEngine(CreateEngineRequest request);
+
+  // Free the resources associated with the CronetEngine.
+  void freeEngine(String engineId);
+
+  /// Starts an HTTP request using an existing CronetEngine and returns a
+  /// channel where future results will be streamed.
   StartResponse start(StartRequest request);
 
   // Pigeon does not generate code for classes that are not used in an API.

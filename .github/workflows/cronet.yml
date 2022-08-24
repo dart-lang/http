@@ -61,8 +61,8 @@ jobs:
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 32
+          api-level: 28
           target: playstore
           arch: x86_64
           profile: pixel
-          script: cd ./pkgs/cronet_http/example && flutter pub get && flutter --version && flutter -v test integration_test/
+          script: cd ./pkgs/cronet_http/example && flutter test --timeout=1200s integration_test/
