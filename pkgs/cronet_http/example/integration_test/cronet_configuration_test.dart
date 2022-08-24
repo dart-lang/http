@@ -33,40 +33,40 @@ void testCache() {
     });
 
     test('disabled', () async {
-      final builder = await CronetEngine.build(cacheMode: CacheMode.disabled);
-      final client = CronetClient(builder);
+      final engine = await CronetEngine.build(cacheMode: CacheMode.disabled);
+      final client = CronetClient(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
       await client.get(Uri.parse('http://localhost:${server.port}'));
       expect(numRequests, 2);
     });
 
     test('memory', () async {
-      final builder = await CronetEngine.build(
+      final engine = await CronetEngine.build(
           cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024);
-      final client = CronetClient(builder);
+      final client = CronetClient(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
       await client.get(Uri.parse('http://localhost:${server.port}'));
       expect(numRequests, 1);
     });
 
     test('disk', () async {
-      final builder = await CronetEngine.build(
+      final engine = await CronetEngine.build(
           cacheMode: CacheMode.disk,
           cacheMaxSize: 1024 * 1024,
           storagePath: (await Directory.systemTemp.createTemp()).absolute.path);
-      final client = CronetClient(builder);
+      final client = CronetClient(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
       await client.get(Uri.parse('http://localhost:${server.port}'));
       expect(numRequests, 1);
     });
 
     test('diskNoHttp', () async {
-      final builder = await CronetEngine.build(
+      final engine = await CronetEngine.build(
           cacheMode: CacheMode.diskNoHttp,
           cacheMaxSize: 1024 * 1024,
           storagePath: (await Directory.systemTemp.createTemp()).absolute.path);
 
-      final client = CronetClient(builder);
+      final client = CronetClient(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
       await client.get(Uri.parse('http://localhost:${server.port}'));
       expect(numRequests, 2);
@@ -114,8 +114,8 @@ void testUserAgent() {
     });
 
     test('userAgent', () async {
-      final builder = await CronetEngine.build(userAgent: 'fake-agent');
-      await CronetClient(builder)
+      final engine = await CronetEngine.build(userAgent: 'fake-agent');
+      await CronetClient(engine)
           .get(Uri.parse('http://localhost:${server.port}'));
       expect(requestHeaders['user-agent'], ['fake-agent']);
     });
