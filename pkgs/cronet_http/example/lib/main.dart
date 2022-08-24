@@ -12,10 +12,11 @@ import 'package:http/io_client.dart';
 
 import 'book.dart';
 
-void main() {
+void main() async {
   late Client client;
   if (Platform.isAndroid) {
-    client = CronetClient();
+    client = CronetClient(await CronetEngine.build(
+        cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024));
   } else {
     client = IOClient();
   }
