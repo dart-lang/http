@@ -14,6 +14,7 @@ import 'book.dart';
 void main() async {
   Client? client;
   if (Platform.isAndroid) {
+    WidgetsFlutterBinding.ensureInitialized();
     client = CronetClient(await CronetEngine.build(
         cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024));
   }
