@@ -8,20 +8,17 @@ import 'dart:io';
 import 'package:cronet_http/cronet_client.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:http/io_client.dart';
 
 import 'book.dart';
 
 void main() {
-  late Client client;
+  Client? client;
   if (Platform.isAndroid) {
     client = CronetClient();
-  } else {
-    client = IOClient();
   }
 
-  // Run the app with the default `client` set to the one assigned above.
-  runWithClient(() => runApp(const BookSearchApp()), () => client);
+  // Use `client` if set, otherwise use the default Client.
+  runWithClient(() => runApp(const BookSearchApp()), () => client ?? Client());
 }
 
 class BookSearchApp extends StatelessWidget {
