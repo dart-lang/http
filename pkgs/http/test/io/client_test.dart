@@ -154,8 +154,8 @@ void main() {
     expect(client, isA<TestClient>());
   });
 
-  test('runWithClient null return', () {
-    final client = http.runWithClient(() => http.Client(), () => null);
+  test('runWithClient Client() return', () {
+    final client = http.runWithClient(() => http.Client(), () => http.Client());
     expect(client, isA<IOClient>());
   });
 
