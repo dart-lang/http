@@ -7,6 +7,18 @@ import 'dart:typed_data' show Uint8List, Int32List, Int64List, Float64List;
 import 'package:flutter/foundation.dart' show WriteBuffer, ReadBuffer;
 import 'package:flutter/services.dart';
 
+enum CacheMode {
+  disabled,
+  memory,
+  diskNoHttp,
+  disk,
+}
+
+enum ExceptionType {
+  illegalArgumentException,
+  otherException,
+}
+
 enum EventMessageType {
   responseStarted,
   readCompleted,
@@ -97,8 +109,94 @@ class EventMessage {
   }
 }
 
+class CreateEngineRequest {
+  CreateEngineRequest({
+    this.cacheMode,
+    this.cacheMaxSize,
+    this.enableBrotli,
+    this.enableHttp2,
+    this.enablePublicKeyPinningBypassForLocalTrustAnchors,
+    this.enableQuic,
+    this.storagePath,
+    this.userAgent,
+  });
+
+  CacheMode? cacheMode;
+  int? cacheMaxSize;
+  bool? enableBrotli;
+  bool? enableHttp2;
+  bool? enablePublicKeyPinningBypassForLocalTrustAnchors;
+  bool? enableQuic;
+  String? storagePath;
+  String? userAgent;
+
+  Object encode() {
+    final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
+    pigeonMap['cacheMode'] = cacheMode?.index;
+    pigeonMap['cacheMaxSize'] = cacheMaxSize;
+    pigeonMap['enableBrotli'] = enableBrotli;
+    pigeonMap['enableHttp2'] = enableHttp2;
+    pigeonMap['enablePublicKeyPinningBypassForLocalTrustAnchors'] =
+        enablePublicKeyPinningBypassForLocalTrustAnchors;
+    pigeonMap['enableQuic'] = enableQuic;
+    pigeonMap['storagePath'] = storagePath;
+    pigeonMap['userAgent'] = userAgent;
+    return pigeonMap;
+  }
+
+  static CreateEngineRequest decode(Object message) {
+    final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
+    return CreateEngineRequest(
+      cacheMode: pigeonMap['cacheMode'] != null
+          ? CacheMode.values[pigeonMap['cacheMode']! as int]
+          : null,
+      cacheMaxSize: pigeonMap['cacheMaxSize'] as int?,
+      enableBrotli: pigeonMap['enableBrotli'] as bool?,
+      enableHttp2: pigeonMap['enableHttp2'] as bool?,
+      enablePublicKeyPinningBypassForLocalTrustAnchors:
+          pigeonMap['enablePublicKeyPinningBypassForLocalTrustAnchors']
+              as bool?,
+      enableQuic: pigeonMap['enableQuic'] as bool?,
+      storagePath: pigeonMap['storagePath'] as String?,
+      userAgent: pigeonMap['userAgent'] as String?,
+    );
+  }
+}
+
+class CreateEngineResponse {
+  CreateEngineResponse({
+    this.engineId,
+    this.errorString,
+    this.errorType,
+  });
+
+  String? engineId;
+  String? errorString;
+  ExceptionType? errorType;
+
+  Object encode() {
+    final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
+    pigeonMap['engineId'] = engineId;
+    pigeonMap['errorString'] = errorString;
+    pigeonMap['errorType'] = errorType?.index;
+    return pigeonMap;
+  }
+
+  static CreateEngineResponse decode(Object message) {
+    final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
+    return CreateEngineResponse(
+      engineId: pigeonMap['engineId'] as String?,
+      errorString: pigeonMap['errorString'] as String?,
+      errorType: pigeonMap['errorType'] != null
+          ? ExceptionType.values[pigeonMap['errorType']! as int]
+          : null,
+    );
+  }
+}
+
 class StartRequest {
   StartRequest({
+    required this.engineId,
     required this.url,
     required this.method,
     required this.headers,
@@ -107,6 +205,7 @@ class StartRequest {
     required this.followRedirects,
   });
 
+  String engineId;
   String url;
   String method;
   Map<String?, String?> headers;
@@ -116,6 +215,7 @@ class StartRequest {
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
+    pigeonMap['engineId'] = engineId;
     pigeonMap['url'] = url;
     pigeonMap['method'] = method;
     pigeonMap['headers'] = headers;
@@ -128,6 +228,7 @@ class StartRequest {
   static StartRequest decode(Object message) {
     final Map<Object?, Object?> pigeonMap = message as Map<Object?, Object?>;
     return StartRequest(
+      engineId: pigeonMap['engineId']! as String,
       url: pigeonMap['url']! as String,
       method: pigeonMap['method']! as String,
       headers: (pigeonMap['headers'] as Map<Object?, Object?>?)!
@@ -164,20 +265,26 @@ class _HttpApiCodec extends StandardMessageCodec {
   const _HttpApiCodec();
   @override
   void writeValue(WriteBuffer buffer, Object? value) {
-    if (value is EventMessage) {
+    if (value is CreateEngineRequest) {
       buffer.putUint8(128);
       writeValue(buffer, value.encode());
-    } else if (value is ReadCompleted) {
+    } else if (value is CreateEngineResponse) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else if (value is ResponseStarted) {
+    } else if (value is EventMessage) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else if (value is StartRequest) {
+    } else if (value is ReadCompleted) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else if (value is StartResponse) {
+    } else if (value is ResponseStarted) {
       buffer.putUint8(132);
+      writeValue(buffer, value.encode());
+    } else if (value is StartRequest) {
+      buffer.putUint8(133);
+      writeValue(buffer, value.encode());
+    } else if (value is StartResponse) {
+      buffer.putUint8(134);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -188,18 +295,24 @@ class _HttpApiCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 128:
-        return EventMessage.decode(readValue(buffer)!);
+        return CreateEngineRequest.decode(readValue(buffer)!);
 
       case 129:
-        return ReadCompleted.decode(readValue(buffer)!);
+        return CreateEngineResponse.decode(readValue(buffer)!);
 
       case 130:
-        return ResponseStarted.decode(readValue(buffer)!);
+        return EventMessage.decode(readValue(buffer)!);
 
       case 131:
-        return StartRequest.decode(readValue(buffer)!);
+        return ReadCompleted.decode(readValue(buffer)!);
 
       case 132:
+        return ResponseStarted.decode(readValue(buffer)!);
+
+      case 133:
+        return StartRequest.decode(readValue(buffer)!);
+
+      case 134:
         return StartResponse.decode(readValue(buffer)!);
 
       default:
@@ -218,6 +331,60 @@ class HttpApi {
   final BinaryMessenger? _binaryMessenger;
 
   static const MessageCodec<Object?> codec = _HttpApiCodec();
+
+  Future<CreateEngineResponse> createEngine(
+      CreateEngineRequest arg_request) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.HttpApi.createEngine', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap =
+        await channel.send(<Object?>[arg_request]) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else if (replyMap['result'] == null) {
+      throw PlatformException(
+        code: 'null-error',
+        message: 'Host platform returned null value for non-null return value.',
+      );
+    } else {
+      return (replyMap['result'] as CreateEngineResponse?)!;
+    }
+  }
+
+  Future<void> freeEngine(String arg_engineId) async {
+    final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.HttpApi.freeEngine', codec,
+        binaryMessenger: _binaryMessenger);
+    final Map<Object?, Object?>? replyMap =
+        await channel.send(<Object?>[arg_engineId]) as Map<Object?, Object?>?;
+    if (replyMap == null) {
+      throw PlatformException(
+        code: 'channel-error',
+        message: 'Unable to establish connection on channel.',
+      );
+    } else if (replyMap['error'] != null) {
+      final Map<Object?, Object?> error =
+          (replyMap['error'] as Map<Object?, Object?>?)!;
+      throw PlatformException(
+        code: (error['code'] as String?)!,
+        message: error['message'] as String?,
+        details: error['details'],
+      );
+    } else {
+      return;
+    }
+  }
 
   Future<StartResponse> start(StartRequest arg_request) async {
     final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(

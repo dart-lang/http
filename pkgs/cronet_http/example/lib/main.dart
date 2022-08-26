@@ -14,7 +14,8 @@ import 'book.dart';
 void main() {
   Client? client;
   if (Platform.isAndroid) {
-    client = CronetClient();
+    client = CronetClient(await CronetEngine.build(
+        cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024));
   }
 
   // Use `client` if set, otherwise use the default Client.
