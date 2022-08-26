@@ -153,6 +153,11 @@ void main() {
     expect(client, isA<TestClient>());
   });
 
+  test('runWithClient Client() return', () {
+    final client = http.runWithClient(() => http.Client(), () => http.Client());
+    expect(client, isA<http_io.IOClient>());
+  });
+
   test('runWithClient nested', () {
     late final http.Client client;
     late final http.Client nestedClient;

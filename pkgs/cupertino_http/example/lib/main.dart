@@ -8,21 +8,15 @@ import 'dart:io';
 import 'package:cupertino_http/cupertino_client.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:http/io_client.dart';
 
 import 'book.dart';
 
 void main() {
-  late Client client;
-  // Use Cupertino Http on iOS and macOS.
+  var clientFactory = Client.new; // The default Client.
   if (Platform.isIOS || Platform.isMacOS) {
-    client = CupertinoClient.defaultSessionConfiguration();
-  } else {
-    client = IOClient();
+    clientFactory = CupertinoClient.defaultSessionConfiguration.call;
   }
-
-  // Run the app with the default `client` set to the one assigned above.
-  runWithClient(() => runApp(const BookSearchApp()), () => client);
+  runWithClient(() => runApp(const BookSearchApp()), clientFactory);
 }
 
 class BookSearchApp extends StatelessWidget {
