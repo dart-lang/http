@@ -171,11 +171,11 @@ Client? get zoneClient {
 /// }
 ///
 /// void main() {
-///   Client? client;
-///   if (Platform.isAndroid) {
-///     client = MyAndroidHttpClient();
-///   }
-///   runWithClient(myFunction, () => client ?? Client());
+///  var clientFactory = Client.new; // Constructs the default client.
+///  if (Platform.isAndroid) {
+///     clientFactory = MyAndroidHttpClient.new;
+///  }
+///  runWithClient(myFunction, clientFactory);
 /// }
 ///
 /// void myFunction() {

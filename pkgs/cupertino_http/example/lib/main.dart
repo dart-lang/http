@@ -12,14 +12,11 @@ import 'package:http/http.dart';
 import 'book.dart';
 
 void main() {
-  Client? client;
-  // Use Cupertino Http on iOS and macOS.
+  var clientFactory = Client.new; // The default Client.
   if (Platform.isIOS || Platform.isMacOS) {
-    client = CupertinoClient.defaultSessionConfiguration();
+    clientFactory = CupertinoClient.defaultSessionConfiguration.call;
   }
-
-  // Use `client` if set, otherwise use the default Client.
-  runWithClient(() => runApp(const BookSearchApp()), () => client ?? Client());
+  runWithClient(() => runApp(const BookSearchApp()), clientFactory);
 }
 
 class BookSearchApp extends StatelessWidget {

@@ -11,16 +11,13 @@ import 'package:http/http.dart';
 
 import 'book.dart';
 
-void main() async {
-  Client? client;
+void main() {
+  var clientFactory = Client.new; // Constructs the default client.
   if (Platform.isAndroid) {
     WidgetsFlutterBinding.ensureInitialized();
-    client = CronetClient(await CronetEngine.build(
-        cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024));
+    clientFactory = CronetClient.new;
   }
-
-  // Use `client` if set, otherwise use the default Client.
-  runWithClient(() => runApp(const BookSearchApp()), () => client ?? Client());
+  runWithClient(() => runApp(const BookSearchApp()), clientFactory);
 }
 
 class BookSearchApp extends StatelessWidget {
