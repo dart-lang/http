@@ -11,7 +11,7 @@ import 'package:http/http.dart';
 
 import 'book.dart';
 
-void main() {
+void main() async {
   Client? client;
   if (Platform.isAndroid) {
     client = CronetClient(await CronetEngine.build(
