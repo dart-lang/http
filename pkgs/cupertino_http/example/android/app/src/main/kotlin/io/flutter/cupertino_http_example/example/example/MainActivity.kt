@@ -1,4 +1,4 @@
-package com.example.example
+package io.flutter.cupertino_http_example
 
 import io.flutter.embedding.android.FlutterActivity
 
