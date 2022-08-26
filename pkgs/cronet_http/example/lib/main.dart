@@ -8,21 +8,16 @@ import 'dart:io';
 import 'package:cronet_http/cronet_client.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:http/io_client.dart';
 
 import 'book.dart';
 
-void main() async {
-  late Client client;
+void main() {
+  var clientFactory = Client.new; // Constructs the default client.
   if (Platform.isAndroid) {
-    client = CronetClient(await CronetEngine.build(
-        cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024));
-  } else {
-    client = IOClient();
+    WidgetsFlutterBinding.ensureInitialized();
+    clientFactory = CronetClient.new;
   }
-
-  // Run the app with the default `client` set to the one assigned above.
-  runWithClient(() => runApp(const BookSearchApp()), () => client);
+  runWithClient(() => runApp(const BookSearchApp()), clientFactory);
 }
 
 class BookSearchApp extends StatelessWidget {
