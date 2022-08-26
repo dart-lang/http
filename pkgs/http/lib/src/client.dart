@@ -171,8 +171,11 @@ Client? get zoneClient {
 /// }
 ///
 /// void main() {
-///   Client client =  Platform.isAndroid ? MyAndroidHttpClient() : Client();
-///   runWithClient(myFunction, () => client);
+///  var clientFactory = Client.new; // Constructs the default client.
+///  if (Platform.isAndroid) {
+///     clientFactory = MyAndroidHttpClient.new;
+///  }
+///  runWithClient(myFunction, clientFactory);
 /// }
 ///
 /// void myFunction() {
@@ -183,7 +186,8 @@ Client? get zoneClient {
 /// ```
 ///
 /// The [Client] returned by [clientFactory] is used by the [Client.new] factory
-/// and the convenience HTTP functions (e.g. [http.get])
+/// and the convenience HTTP functions (e.g. [http.get]). If [clientFactory]
+/// returns `Client()` then the default [Client] is used.
 R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
