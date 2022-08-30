@@ -12,5 +12,5 @@ and the browser.
 |---|---|---|
 | [http](pkgs/http/) | A composable, multi-platform, Future-based API for HTTP requests. | [![pub package](https://img.shields.io/pub/v/http.svg)](https://pub.dev/packages/http) |
 | [http_client_conformance_tests](pkgs/http_client_conformance_tests/) | A library that tests whether implementations of package:http's `Client` class behave as expected. | |
-| [cronet_http](pkgs/cronet_http/) | An Android Flutter plugin that provides access to the [Cronet](https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/package-summary) HTTP client. | |
+| [cronet_http](pkgs/cronet_http/) | An Android Flutter plugin that provides access to the [Cronet](https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/package-summary) HTTP client. | [![pub package](https://img.shields.io/pub/v/cronet_http.svg)](https://pub.dev/packages/cronet_http) |
 | [cupertino_http](pkgs/cupertino_http/) | A macOS/iOS Flutter plugin that provides access to the [Foundation URL Loading System](https://developer.apple.com/documentation/foundation/url_loading_system). | [![pub package](https://img.shields.io/pub/v/cupertino_http.svg)](https://pub.dev/packages/cupertino_http) |
