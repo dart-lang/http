@@ -62,6 +62,16 @@ enum URLRequestCachePolicy {
   reloadRevalidatingCacheData,
 }
 
+// Controls how multipath TCP should be used.
+//
+// See [NSURLSessionMultipathServiceType](https://developer.apple.com/documentation/foundation/nsurlsessionmultipathservicetype).
+enum URLSessionMultipathServiceType {
+  multipathServiceTypeNone,
+  multipathServiceTypeHandover,
+  multipathServiceTypeInteractive,
+  multipathServiceTypeAggregate,
+}
+
 // Controls how [URLSessionTask] execute will proceed after the response is
 // received.
 //
@@ -201,6 +211,14 @@ class URLSessionConfiguration
   bool get httpShouldUsePipelining => _nsObject.HTTPShouldUsePipelining;
   set httpShouldUsePipelining(bool value) =>
       _nsObject.HTTPShouldUsePipelining = value;
+
+  /// What type of Multipath TCP connections to use.
+  ///
+  /// See [NSURLSessionConfiguration.multipathServiceType](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/2875967-multipathservicetype)
+  URLSessionMultipathServiceType get multipathServiceType =>
+      URLSessionMultipathServiceType.values[_nsObject.multipathServiceType];
+  set multipathServiceType(URLSessionMultipathServiceType value) =>
+      _nsObject.multipathServiceType = value.index;
 
   // Controls how to deal with response caching.
   //

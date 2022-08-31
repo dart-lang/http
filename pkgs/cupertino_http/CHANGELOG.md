@@ -1,6 +1,7 @@
 ## 0.0.4
 
 * Add the ability to control caching policy.
+* Add the ability to control multipath TCP connections.
 
 ## 0.0.3
 

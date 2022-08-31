@@ -54,6 +54,18 @@ void testProperties(URLSessionConfiguration config) {
       config.httpShouldUsePipelining = false;
       expect(config.httpShouldUsePipelining, false);
     });
+    test('multipathServiceType', () {
+      expect(config.multipathServiceType,
+          URLSessionMultipathServiceType.multipathServiceTypeNone);
+      config.multipathServiceType =
+          URLSessionMultipathServiceType.multipathServiceTypeAggregate;
+      expect(config.multipathServiceType,
+          URLSessionMultipathServiceType.multipathServiceTypeAggregate);
+      config.multipathServiceType =
+          URLSessionMultipathServiceType.multipathServiceTypeNone;
+      expect(config.multipathServiceType,
+          URLSessionMultipathServiceType.multipathServiceTypeNone);
+    });
     test('requestCachePolicy', () {
       config.requestCachePolicy = URLRequestCachePolicy.returnCacheDataDontLoad;
       expect(config.requestCachePolicy,
