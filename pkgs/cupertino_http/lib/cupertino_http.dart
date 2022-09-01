@@ -50,9 +50,9 @@ enum HTTPCookieAcceptPolicy {
   httpCookieAcceptPolicyOnlyFromMainDocumentDomain,
 }
 
-// Controls how response data is cached.
-//
-// See [URLRequestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequestcachepolicy).
+/// Controls how response data is cached.
+///
+/// See [URLRequestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequestcachepolicy).
 enum URLRequestCachePolicy {
   useProtocolCachePolicy,
   reloadIgnoringLocalCacheData,
@@ -72,15 +72,31 @@ enum URLSessionMultipathServiceType {
   multipathServiceTypeAggregate,
 }
 
-// Controls how [URLSessionTask] execute will proceed after the response is
-// received.
-//
-// See [NSURLSessionResponseDisposition](https://developer.apple.com/documentation/foundation/nsurlsessionresponsedisposition).
+/// Controls how [URLSessionTask] execute will proceed after the response is
+/// received.
+///
+/// See [NSURLSessionResponseDisposition](https://developer.apple.com/documentation/foundation/nsurlsessionresponsedisposition).
 enum URLSessionResponseDisposition {
   urlSessionResponseCancel,
   urlSessionResponseAllow,
   urlSessionResponseBecomeDownload,
   urlSessionResponseBecomeStream
+}
+
+/// Provides in indication to the operating system on what type of requests
+/// are being sent.
+///
+/// See [NSURLRequestNetworkServiceType](https://developer.apple.com/documentation/foundation/nsurlrequestnetworkservicetype).
+enum URLRequestNetworkService {
+  networkServiceTypeDefault,
+  networkServiceTypeVoIP,
+  networkServiceTypeVideo,
+  networkServiceTypeBackground,
+  networkServiceTypeVoice,
+  networkServiceTypeResponsiveData,
+  networkServiceTypeAVStreaming,
+  networkServiceTypeResponsiveAV,
+  networkServiceTypeCallSignaling
 }
 
 /// Information about a failure.
@@ -219,6 +235,15 @@ class URLSessionConfiguration
       URLSessionMultipathServiceType.values[_nsObject.multipathServiceType];
   set multipathServiceType(URLSessionMultipathServiceType value) =>
       _nsObject.multipathServiceType = value.index;
+
+  /// Provides in indication to the operating system on what type of requests
+  /// are being sent.
+  ///
+  /// See [NSURLSessionConfiguration.networkServiceType](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411606-networkservicetype).
+  URLRequestNetworkService get networkServiceType =>
+      URLRequestNetworkService.values[_nsObject.networkServiceType];
+  set networkServiceType(URLRequestNetworkService value) =>
+      _nsObject.networkServiceType = value.index;
 
   // Controls how to deal with response caching.
   //
