@@ -66,6 +66,18 @@ void testProperties(URLSessionConfiguration config) {
       expect(config.multipathServiceType,
           URLSessionMultipathServiceType.multipathServiceTypeNone);
     });
+    test('networkServiceType', () {
+      expect(config.networkServiceType,
+          URLRequestNetworkService.networkServiceTypeDefault);
+      config.networkServiceType =
+          URLRequestNetworkService.networkServiceTypeResponsiveData;
+      expect(config.networkServiceType,
+          URLRequestNetworkService.networkServiceTypeResponsiveData);
+      config.networkServiceType =
+          URLRequestNetworkService.networkServiceTypeDefault;
+      expect(config.networkServiceType,
+          URLRequestNetworkService.networkServiceTypeDefault);
+    });
     test('requestCachePolicy', () {
       config.requestCachePolicy = URLRequestCachePolicy.returnCacheDataDontLoad;
       expect(config.requestCachePolicy,
