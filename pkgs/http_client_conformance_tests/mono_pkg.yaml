@@ -1,5 +1,5 @@
 sdk:
-- 2.14.0
+- pubspec
 - dev
 
 stages:
