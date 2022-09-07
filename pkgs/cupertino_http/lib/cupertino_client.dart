@@ -6,6 +6,7 @@
 /// [Foundation URL Loading System](https://developer.apple.com/documentation/foundation/url_loading_system).
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:http/http.dart';
@@ -54,6 +55,93 @@ class CupertinoClient extends BaseClient {
   URLSession _urlSession;
 
   CupertinoClient._(this._urlSession);
+
+  String? _findReasonPhrase(int statusCode) {
+    switch (statusCode) {
+      case HttpStatus.continue_:
+        return 'Continue';
+      case HttpStatus.switchingProtocols:
+        return 'Switching Protocols';
+      case HttpStatus.ok:
+        return 'OK';
+      case HttpStatus.created:
+        return 'Created';
+      case HttpStatus.accepted:
+        return 'Accepted';
+      case HttpStatus.nonAuthoritativeInformation:
+        return 'Non-Authoritative Information';
+      case HttpStatus.noContent:
+        return 'No Content';
+      case HttpStatus.resetContent:
+        return 'Reset Content';
+      case HttpStatus.partialContent:
+        return 'Partial Content';
+      case HttpStatus.multipleChoices:
+        return 'Multiple Choices';
+      case HttpStatus.movedPermanently:
+        return 'Moved Permanently';
+      case HttpStatus.found:
+        return 'Found';
+      case HttpStatus.seeOther:
+        return 'See Other';
+      case HttpStatus.notModified:
+        return 'Not Modified';
+      case HttpStatus.useProxy:
+        return 'Use Proxy';
+      case HttpStatus.temporaryRedirect:
+        return 'Temporary Redirect';
+      case HttpStatus.badRequest:
+        return 'Bad Request';
+      case HttpStatus.unauthorized:
+        return 'Unauthorized';
+      case HttpStatus.paymentRequired:
+        return 'Payment Required';
+      case HttpStatus.forbidden:
+        return 'Forbidden';
+      case HttpStatus.notFound:
+        return 'Not Found';
+      case HttpStatus.methodNotAllowed:
+        return 'Method Not Allowed';
+      case HttpStatus.notAcceptable:
+        return 'Not Acceptable';
+      case HttpStatus.proxyAuthenticationRequired:
+        return 'Proxy Authentication Required';
+      case HttpStatus.requestTimeout:
+        return 'Request Time-out';
+      case HttpStatus.conflict:
+        return 'Conflict';
+      case HttpStatus.gone:
+        return 'Gone';
+      case HttpStatus.lengthRequired:
+        return 'Length Required';
+      case HttpStatus.preconditionFailed:
+        return 'Precondition Failed';
+      case HttpStatus.requestEntityTooLarge:
+        return 'Request Entity Too Large';
+      case HttpStatus.requestUriTooLong:
+        return 'Request-URI Too Long';
+      case HttpStatus.unsupportedMediaType:
+        return 'Unsupported Media Type';
+      case HttpStatus.requestedRangeNotSatisfiable:
+        return 'Requested range not satisfiable';
+      case HttpStatus.expectationFailed:
+        return 'Expectation Failed';
+      case HttpStatus.internalServerError:
+        return 'Internal Server Error';
+      case HttpStatus.notImplemented:
+        return 'Not Implemented';
+      case HttpStatus.badGateway:
+        return 'Bad Gateway';
+      case HttpStatus.serviceUnavailable:
+        return 'Service Unavailable';
+      case HttpStatus.gatewayTimeout:
+        return 'Gateway Time-out';
+      case HttpStatus.httpVersionNotSupported:
+        return 'Http Version not supported';
+      default:
+        return null;
+    }
+  }
 
   static _TaskTracker _tracker(URLSessionTask task) =>
       _tasks[task.taskIdentifier]!;
@@ -164,6 +252,8 @@ class CupertinoClient extends BaseClient {
       contentLength: response.expectedContentLength == -1
           ? null
           : response.expectedContentLength,
+      reasonPhrase: _findReasonPhrase(response.statusCode),
+      request: request,
       isRedirect: !request.followRedirects && taskTracker.numRedirects > 0,
       headers: response.allHeaderFields
           .map((key, value) => MapEntry(key.toLowerCase(), value)),
