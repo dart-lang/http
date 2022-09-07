@@ -208,6 +208,8 @@ class CronetClient extends BaseClient {
 
     return StreamedResponse(responseDataController.stream, result.statusCode,
         contentLength: responseHeaders['content-lenght'] as int?,
+        reasonPhrase: result.statusText,
+        request: request,
         isRedirect: result.isRedirect,
         headers: responseHeaders);
   }

@@ -24,6 +24,7 @@ enum CacheMode {
 class ResponseStarted {
   Map<String?, List<String?>?> headers;
   int statusCode;
+  String statusText;
   bool isRedirect;
 }
 

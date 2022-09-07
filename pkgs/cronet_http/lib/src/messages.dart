@@ -29,17 +29,20 @@ class ResponseStarted {
   ResponseStarted({
     required this.headers,
     required this.statusCode,
+    required this.statusText,
     required this.isRedirect,
   });
 
   Map<String?, List<String?>?> headers;
   int statusCode;
+  String statusText;
   bool isRedirect;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
     pigeonMap['headers'] = headers;
     pigeonMap['statusCode'] = statusCode;
+    pigeonMap['statusText'] = statusText;
     pigeonMap['isRedirect'] = isRedirect;
     return pigeonMap;
   }
@@ -50,6 +53,7 @@ class ResponseStarted {
       headers: (pigeonMap['headers'] as Map<Object?, Object?>?)!
           .cast<String?, List<String?>?>(),
       statusCode: pigeonMap['statusCode']! as int,
+      statusText: pigeonMap['statusText']! as String,
       isRedirect: pigeonMap['isRedirect']! as bool,
     );
   }

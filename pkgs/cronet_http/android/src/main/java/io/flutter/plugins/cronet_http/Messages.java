@@ -75,6 +75,15 @@ public class Messages {
       this.statusCode = setterArg;
     }
 
+    private @NonNull String statusText;
+    public @NonNull String getStatusText() { return statusText; }
+    public void setStatusText(@NonNull String setterArg) {
+      if (setterArg == null) {
+        throw new IllegalStateException("Nonnull field \"statusText\" is null.");
+      }
+      this.statusText = setterArg;
+    }
+
     private @NonNull Boolean isRedirect;
     public @NonNull Boolean getIsRedirect() { return isRedirect; }
     public void setIsRedirect(@NonNull Boolean setterArg) {
@@ -97,6 +106,11 @@ public class Messages {
         this.statusCode = setterArg;
         return this;
       }
+      private @Nullable String statusText;
+      public @NonNull Builder setStatusText(@NonNull String setterArg) {
+        this.statusText = setterArg;
+        return this;
+      }
       private @Nullable Boolean isRedirect;
       public @NonNull Builder setIsRedirect(@NonNull Boolean setterArg) {
         this.isRedirect = setterArg;
@@ -106,6 +120,7 @@ public class Messages {
         ResponseStarted pigeonReturn = new ResponseStarted();
         pigeonReturn.setHeaders(headers);
         pigeonReturn.setStatusCode(statusCode);
+        pigeonReturn.setStatusText(statusText);
         pigeonReturn.setIsRedirect(isRedirect);
         return pigeonReturn;
       }
@@ -114,6 +129,7 @@ public class Messages {
       Map<String, Object> toMapResult = new HashMap<>();
       toMapResult.put("headers", headers);
       toMapResult.put("statusCode", statusCode);
+      toMapResult.put("statusText", statusText);
       toMapResult.put("isRedirect", isRedirect);
       return toMapResult;
     }
@@ -123,6 +139,8 @@ public class Messages {
       pigeonResult.setHeaders((Map<String, List<String>>)headers);
       Object statusCode = map.get("statusCode");
       pigeonResult.setStatusCode((statusCode == null) ? null : ((statusCode instanceof Integer) ? (Integer)statusCode : (Long)statusCode));
+      Object statusText = map.get("statusText");
+      pigeonResult.setStatusText((String)statusText);
       Object isRedirect = map.get("isRedirect");
       pigeonResult.setIsRedirect((Boolean)isRedirect);
       return pigeonResult;
