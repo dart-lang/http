@@ -36,6 +36,10 @@ void testResponseBody(Client client,
       expect(response.bodyBytes, message.codeUnits);
       expect(response.contentLength, message.length);
       expect(response.headers['content-type'], 'text/plain');
+      expect(response.isRedirect, isFalse);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.request!.method, 'GET');
+      expect(response.statusCode, 200);
     });
 
     test('small response streamed without content length', () async {
@@ -51,6 +55,10 @@ void testResponseBody(Client client,
         expect(response.contentLength, isIn([null, 12]));
       }
       expect(response.headers['content-type'], 'text/plain');
+      expect(response.isRedirect, isFalse);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.request!.method, 'GET');
+      expect(response.statusCode, 200);
     });
   });
 }

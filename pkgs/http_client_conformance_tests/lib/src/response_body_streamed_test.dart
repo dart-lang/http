@@ -51,6 +51,10 @@ void testResponseBodyStreamed(Client client,
       });
       expect(response.headers['content-type'], 'text/plain');
       expect(lastReceived, greaterThanOrEqualTo(1000));
+      expect(response.isRedirect, isFalse);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.request!.method, 'GET');
+      expect(response.statusCode, 200);
     }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
   });
 }

@@ -115,6 +115,7 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
                                     .setResponseStarted(
                                         Messages.ResponseStarted.Builder()
                                             .setStatusCode(info.getHttpStatusCode().toLong())
+                                            .setStatusText(info.getHttpStatusText())
                                             .setHeaders(info.getAllHeaders())
                                             .setIsRedirect(true)
                                             .build()
@@ -148,6 +149,7 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
                                 .setResponseStarted(
                                     Messages.ResponseStarted.Builder()
                                         .setStatusCode(info.getHttpStatusCode().toLong())
+                                        .setStatusText(info.getHttpStatusText())
                                         .setHeaders(info.getAllHeaders())
                                         .setIsRedirect(false)
                                         .build()
