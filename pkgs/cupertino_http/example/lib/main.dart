@@ -20,7 +20,7 @@ void main() {
 }
 
 class BookSearchApp extends StatelessWidget {
-  const BookSearchApp({Key? key}) : super(key: key);
+  const BookSearchApp({super.key});
 
   @override
   Widget build(BuildContext context) => const MaterialApp(
@@ -32,7 +32,7 @@ class BookSearchApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
 
 class BookList extends StatefulWidget {
   final List<Book> books;
-  const BookList(this.books, {Key? key}) : super(key: key);
+  const BookList(this.books, {super.key});
 
   @override
   State<BookList> createState() => _BookListState();
