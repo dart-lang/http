@@ -2,6 +2,9 @@
 
 * Add the ability to set network service type.
 * Add the ability to control multipath TCP connections.
+* Set `StreamedResponse.reasonPhrase` and `StreamedResponse.request`. 
+  Fixes
+  [cupertino_http: BaseResponse.request is null](https://github.com/dart-lang/http/issues/782).
 
 ## 0.0.4
 
