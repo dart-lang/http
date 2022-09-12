@@ -42,6 +42,12 @@ void testProperties(URLSessionConfiguration config) {
       expect(config.httpCookieAcceptPolicy,
           HTTPCookieAcceptPolicy.httpCookieAcceptPolicyNever);
     });
+    test('httpMaximumConnectionsPerHost', () {
+      config.httpMaximumConnectionsPerHost = 6;
+      expect(config.httpMaximumConnectionsPerHost, 6);
+      config.httpMaximumConnectionsPerHost = 23;
+      expect(config.httpMaximumConnectionsPerHost, 23);
+    });
     test('httpShouldSetCookies', () {
       config.httpShouldSetCookies = true;
       expect(config.httpShouldSetCookies, true);
