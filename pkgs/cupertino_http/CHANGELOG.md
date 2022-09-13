@@ -2,6 +2,8 @@
 
 * Make the number of simulateous connections allowed to the same host
   configurable.
+* Fixes
+  [cupertino_http: Failure calling Dart_PostCObject_DL](https://github.com/dart-lang/http/issues/785).
 
 ## 0.0.5
 
