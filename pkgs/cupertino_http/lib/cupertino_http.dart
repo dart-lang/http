@@ -929,7 +929,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           onFinishedDownloading,
       void Function(URLSession session, URLSessionTask task, Error? error)?
           onComplete}) {
-    // Avoid the complexity of simultaenous or out-of-order delegate callbacks
+    // Avoid the complexity of simultaneous or out-of-order delegate callbacks
     // by only allowing callbacks to execute sequentially.
     // See https://developer.apple.com/forums/thread/47252
     // NOTE: this is likely to reduce throughput when there are multiple
