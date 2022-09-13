@@ -917,28 +917,38 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   ///
   /// See [sessionWithConfiguration:delegate:delegateQueue:](https://developer.apple.com/documentation/foundation/nsurlsession/1411597-sessionwithconfiguration)
   factory URLSession.sessionWithConfiguration(URLSessionConfiguration config,
-          {URLRequest? Function(URLSession session, URLSessionTask task,
-                  HTTPURLResponse response, URLRequest newRequest)?
-              onRedirect,
-          URLSessionResponseDisposition Function(URLSession session,
-                  URLSessionTask task, URLResponse response)?
-              onResponse,
-          void Function(URLSession session, URLSessionTask task, Data error)?
-              onData,
-          void Function(
-                  URLSession session, URLSessionDownloadTask task, Uri uri)?
-              onFinishedDownloading,
-          void Function(URLSession session, URLSessionTask task, Error? error)?
-              onComplete}) =>
-      URLSession._(
-          ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
-              linkedLibs, config._nsObject, _delegate, null),
-          onRedirect: onRedirect,
-          onResponse: onResponse,
-          onData: onData,
-          onFinishedDownloading: onFinishedDownloading,
-          onComplete: onComplete);
+      {URLRequest? Function(URLSession session, URLSessionTask task,
+              HTTPURLResponse response, URLRequest newRequest)?
+          onRedirect,
+      URLSessionResponseDisposition Function(
+              URLSession session, URLSessionTask task, URLResponse response)?
+          onResponse,
+      void Function(URLSession session, URLSessionTask task, Data error)?
+          onData,
+      void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
+          onFinishedDownloading,
+      void Function(URLSession session, URLSessionTask task, Error? error)?
+          onComplete}) {
+    // Avoid the complexity of simultaenous or out-of-order delegate callbacks
+    // by only allowing callbacks to execute sequentially.
+    // See https://developer.apple.com/forums/thread/47252
+    // NOTE: this is likely to reduce throughput when there are multiple
+    // requests in flight because each call to a delegate waits on a lock
+    // that is unlocked by Dart code.
+    final queue = ncb.NSOperationQueue.new1(linkedLibs)
+      ..maxConcurrentOperationCount = 1
+      ..name =
+          'cupertino_http.NSURLSessionDelegateQueue'.toNSString(linkedLibs);
 
+    return URLSession._(
+        ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
+            linkedLibs, config._nsObject, _delegate, queue),
+        onRedirect: onRedirect,
+        onResponse: onResponse,
+        onData: onData,
+        onFinishedDownloading: onFinishedDownloading,
+        onComplete: onComplete);
+  }
   // A **copy** of the configuration for this sesion.
   //
   // See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
