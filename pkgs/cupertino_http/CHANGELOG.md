@@ -1,3 +1,8 @@
+## 0.0.6
+
+* Make the number of simulateous connections allowed to the same host
+  configurable.
+
 ## 0.0.5
 
 * Add the ability to set network service type.

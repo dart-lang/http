@@ -214,6 +214,15 @@ class URLSessionConfiguration
   set httpCookieAcceptPolicy(HTTPCookieAcceptPolicy value) =>
       _nsObject.HTTPCookieAcceptPolicy = value.index;
 
+  // The maximun number of connections that a URLSession can have open to the
+  // same host.
+  //
+  // See [NSURLSessionConfiguration.HTTPMaximumConnectionsPerHost](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1407597-httpmaximumconnectionsperhost).
+  int get httpMaximumConnectionsPerHost =>
+      _nsObject.HTTPMaximumConnectionsPerHost;
+  set httpMaximumConnectionsPerHost(int value) =>
+      _nsObject.HTTPMaximumConnectionsPerHost = value;
+
   /// Whether requests should include cookies from the cookie store.
   ///
   /// See [NSURLSessionConfiguration.HTTPShouldSetCookies](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411589-httpshouldsetcookies)
@@ -296,6 +305,7 @@ class URLSessionConfiguration
       'discretionary=$discretionary '
       'httpCookieAcceptPolicy=$httpCookieAcceptPolicy '
       'httpShouldSetCookies=$httpShouldSetCookies '
+      'httpMaximumConnectionsPerHost=$httpMaximumConnectionsPerHost '
       'httpShouldUsePipelining=$httpShouldUsePipelining '
       'requestCachePolicy=$requestCachePolicy '
       'sessionSendsLaunchEvents=$sessionSendsLaunchEvents '
