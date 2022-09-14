@@ -1,3 +1,7 @@
+## 0.0.7
+
+* Upgrade `ffi` dependency.
+
 ## 0.0.6
 
 * Make the number of simulateous connections allowed to the same host
