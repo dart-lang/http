@@ -8,7 +8,7 @@
 library http2.hpack;
 
 import 'dart:convert' show ascii;
-import 'dart:io';
+import 'dart:typed_data';
 
 import '../byte_utils.dart';
 

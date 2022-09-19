@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io';
+import 'dart:typed_data';
 
 /// An interface for `StreamSink`-like classes to indicate whether adding data
 /// would be buffered and when the buffer is empty again.
