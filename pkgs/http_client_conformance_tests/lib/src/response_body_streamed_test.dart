@@ -25,12 +25,12 @@ void testResponseBodyStreamed(Client client,
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
 
-    setUpAll(() async {
+    setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
-    tearDownAll(() => httpServerChannel.sink.add(null));
+    tearDown(() => httpServerChannel.sink.add(null));
 
     test('large response streamed without content length', () async {
       // The server continuously streams data to the client until
