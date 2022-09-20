@@ -27,7 +27,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
       if (request.requestedUri.pathSegments.last == 'length') {
-        request.response.contentLength = 5000;
+        request.response.contentLength = 1000;
       }
       serverWriting = true;
       for (var i = 0; serverWriting; ++i) {

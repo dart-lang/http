@@ -20,6 +20,10 @@ void hybridMain(StreamChannel<Object?> channel) async {
       await request.drain<void>();
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
+      if (request.requestedUri.pathSegments.last == 'length') {
+        request.response.contentLength = 'Hello World!'.length;
+      }
+
       request.response.write('Hello World!');
       await request.response.close();
     });
