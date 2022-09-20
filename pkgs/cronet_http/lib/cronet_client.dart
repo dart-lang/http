@@ -207,7 +207,7 @@ class CronetClient extends BaseClient {
         .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
 
     return StreamedResponse(responseDataController.stream, result.statusCode,
-        contentLength: responseHeaders['content-lenght'] as int?,
+        contentLength: responseHeaders['content-length'] as int?,
         reasonPhrase: result.statusText,
         request: request,
         isRedirect: result.isRedirect,
