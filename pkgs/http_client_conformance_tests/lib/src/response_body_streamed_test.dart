@@ -40,6 +40,7 @@ void testResponseBodyStreamed(Client client,
 
       final request = Request('GET', Uri.http(host, ''));
       final response = await client.send(request);
+      expect(response.contentLength, null);
       var lastReceived = 0;
       await const LineSplitter()
           .bind(const Utf8Decoder().bind(response.stream))
