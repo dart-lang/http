@@ -17,14 +17,15 @@ import 'package:stream_channel/stream_channel.dart';
 void hybridMain(StreamChannel<Object?> channel) async {
   final server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
+      const message = 'Hello World!';
       await request.drain<void>();
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
       if (request.requestedUri.pathSegments.isNotEmpty &&
           request.requestedUri.pathSegments.last == 'length') {
-        request.response.contentLength = 'Hello World!'.length;
+        request.response.contentLength = message.length;
       }
-      request.response.write('Hello World!');
+      request.response.write(message);
       await request.response.close();
     });
 
