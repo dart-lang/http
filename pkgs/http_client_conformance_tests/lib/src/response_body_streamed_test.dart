@@ -40,6 +40,33 @@ void testResponseBodyStreamed(Client client,
 
       final request = Request('GET', Uri.http(host, ''));
       final response = await client.send(request);
+      expect(response.contentLength, null);
+      var lastReceived = 0;
+      await const LineSplitter()
+          .bind(const Utf8Decoder().bind(response.stream))
+          .forEach((s) {
+        lastReceived = int.parse(s.trim());
+        if (lastReceived == 1000) {
+          httpServerChannel.sink.add(true);
+        }
+      });
+      expect(response.headers['content-type'], 'text/plain');
+      expect(lastReceived, greaterThanOrEqualTo(1000));
+      expect(response.isRedirect, isFalse);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.request!.method, 'GET');
+      expect(response.statusCode, 200);
+    }, skip: canStreamResponseBody ? false : 'does not stream response bodies');
+
+    test('large response streamed with content length', () async {
+      // The server continuously streams data to the client until
+      // instructed to stop.
+      //
+      // This ensures that the client supports streamed responses.
+
+      final request = Request('GET', Uri.http(host, 'length'));
+      final response = await client.send(request);
+      expect(response.contentLength, 5000);
       var lastReceived = 0;
       await const LineSplitter()
           .bind(const Utf8Decoder().bind(response.stream))
