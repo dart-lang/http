@@ -21,16 +21,16 @@ import 'response_body_streamed_server_vm.dart'
 void testResponseBodyStreamed(Client client,
     {bool canStreamResponseBody = true}) async {
   group('streamed response body', () {
-    late String host;
-    late StreamChannel<Object?> httpServerChannel;
-    late StreamQueue<Object?> httpServerQueue;
+    late final String host;
+    late final StreamChannel<Object?> httpServerChannel;
+    late final StreamQueue<Object?> httpServerQueue;
 
-    setUp(() async {
+    setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
-    tearDown(() => httpServerChannel.sink.add(null));
+    tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('large response streamed without content length', () async {
       // The server continuously streams data to the client until

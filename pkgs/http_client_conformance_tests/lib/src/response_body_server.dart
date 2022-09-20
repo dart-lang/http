@@ -24,7 +24,6 @@ void hybridMain(StreamChannel<Object?> channel) async {
           request.requestedUri.pathSegments.last == 'length') {
         request.response.contentLength = 'Hello World!'.length;
       }
-
       request.response.write('Hello World!');
       await request.response.close();
     });
