@@ -21,9 +21,9 @@ import 'response_body_streamed_server_vm.dart'
 void testResponseBodyStreamed(Client client,
     {bool canStreamResponseBody = true}) async {
   group('streamed response body', () {
-    late final String host;
-    late final StreamChannel<Object?> httpServerChannel;
-    late final StreamQueue<Object?> httpServerQueue;
+    late String host;
+    late StreamChannel<Object?> httpServerChannel;
+    late StreamQueue<Object?> httpServerQueue;
 
     setUp(() async {
       httpServerChannel = await startServer();
