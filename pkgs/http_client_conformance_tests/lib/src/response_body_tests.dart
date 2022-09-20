@@ -60,5 +60,17 @@ void testResponseBody(Client client,
       expect(response.request!.method, 'GET');
       expect(response.statusCode, 200);
     });
+
+    test('small response streamed with content length', () async {
+      final request = Request('GET', Uri.http(host, 'length'));
+      final response = await client.send(request);
+      expect(await response.stream.bytesToString(), message);
+      expect(response.contentLength, 12);
+      expect(response.headers['content-type'], 'text/plain');
+      expect(response.isRedirect, isFalse);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.request!.method, 'GET');
+      expect(response.statusCode, 200);
+    });
   });
 }

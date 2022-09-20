@@ -206,8 +206,11 @@ class CronetClient extends BaseClient {
     final responseHeaders = (result.headers.cast<String, List<Object?>>())
         .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
 
+    final contentLengthHeader = responseHeaders['content-length'];
     return StreamedResponse(responseDataController.stream, result.statusCode,
-        contentLength: responseHeaders['content-lenght'] as int?,
+        contentLength: contentLengthHeader == null
+            ? null
+            : int.tryParse(contentLengthHeader),
         reasonPhrase: result.statusText,
         request: request,
         isRedirect: result.isRedirect,
