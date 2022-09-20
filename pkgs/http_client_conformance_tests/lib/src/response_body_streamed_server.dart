@@ -26,7 +26,8 @@ void hybridMain(StreamChannel<Object?> channel) async {
       await request.drain<void>();
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
-      if (request.requestedUri.pathSegments.last == 'length') {
+      if (request.requestedUri.pathSegments.isNotEmpty &&
+          request.requestedUri.pathSegments.last == 'length') {
         request.response.contentLength = 1000;
       }
       serverWriting = true;
