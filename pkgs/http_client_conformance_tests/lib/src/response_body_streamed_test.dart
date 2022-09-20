@@ -66,7 +66,7 @@ void testResponseBodyStreamed(Client client,
 
       final request = Request('GET', Uri.http(host, 'length'));
       final response = await client.send(request);
-      expect(response.contentLength, 5000);
+      expect(response.contentLength, 1000);
       var lastReceived = 0;
       await const LineSplitter()
           .bind(const Utf8Decoder().bind(response.stream))
