@@ -66,7 +66,6 @@ void testResponseBody(Client client,
       final response = await client.send(request);
       expect(await response.stream.bytesToString(), message);
       expect(response.contentLength, 12);
-      expect(response.contentLength, null);
       expect(response.headers['content-type'], 'text/plain');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');
