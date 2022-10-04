@@ -1,4 +1,6 @@
-## 4.0.2-dev
+## 4.0.2
+
+* Remove `package:charcode` from dev_dependencies.
 
 ## 4.0.1
 
