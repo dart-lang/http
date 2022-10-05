@@ -241,15 +241,15 @@ class StreamMessageQueueIn extends Object
   }
 
   @override
-  void onTerminated(exception) {
+  void onTerminated(Object? error) {
     _pendingMessages.clear();
     if (!wasClosed) {
-      if (exception != null) {
-        _incomingMessagesC.addError(exception);
+      if (error != null) {
+        _incomingMessagesC.addError(error);
       }
       _incomingMessagesC.close();
       _serverPushStreamsC.close();
-      closeWithError(exception);
+      closeWithError(error);
     }
   }
 

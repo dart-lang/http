@@ -770,13 +770,11 @@ void main() {
 }
 
 void clientTest(
-    String name,
-    Future<Null> Function(
-            ClientTransportConnection,
-            FrameWriter,
-            StreamIterator<Frame> frameReader,
-            Future<Frame> Function() readNext)
-        func) {
+  String name,
+  Future Function(ClientTransportConnection, FrameWriter,
+          StreamIterator<Frame> frameReader, Future<Frame> Function() readNext)
+      func,
+) {
   return test(name, () {
     var streams = ClientStreams();
     var serverReader = streams.serverConnectionFrameReader;

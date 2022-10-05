@@ -193,9 +193,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   }
 
   @override
-  void onTerminated(exception) {
+  void onTerminated(Object? error) {
     _openStreams.values.toList().forEach((stream) =>
-        _closeStreamAbnormally(stream, exception, propagateException: true));
+        _closeStreamAbnormally(stream, error, propagateException: true));
     startClosing();
   }
 
@@ -212,9 +212,9 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
   void processInitialWindowSizeSettingChange(int difference) {
     // If the initialFlowWindow size was changed via a SettingsFrame, all
     // existing streams must be updated to reflect this change.
-    _openStreams.values.forEach((Http2StreamImpl stream) {
+    for (var stream in _openStreams.values) {
       stream.windowHandler.processInitialWindowSizeSettingChange(difference);
-    });
+    }
   }
 
   void processGoawayFrame(GoawayFrame frame) {
@@ -512,7 +512,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
       if (frame is DataFrame) {
         incomingQueue.processIgnoredDataFrame(frame);
       }
-      return null;
+      return;
     }
 
     // TODO: Consider splitting this method into client/server handling.

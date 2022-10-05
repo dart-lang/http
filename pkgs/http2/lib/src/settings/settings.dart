@@ -154,8 +154,9 @@ class SettingsHandler extends Object with TerminatableMixin {
   @override
   void onTerminated(Object? error) {
     _toBeAcknowledgedSettings.clear();
-    _toBeAcknowledgedCompleters
-        .forEach((Completer c) => c.completeError(error!));
+    for (var completer in _toBeAcknowledgedCompleters) {
+      completer.completeError(error!);
+    }
   }
 
   Future changeSettings(List<Setting> changes) {

@@ -1,11 +1,13 @@
-# HTTP/2 for Dart
+[![Dart CI](https://github.com/dart-lang/http2/actions/workflows/test-package.yml/badge.svg)](https://github.com/dart-lang/http2/actions/workflows/test-package.yml)
+[![pub package](https://img.shields.io/pub/v/http2.svg)](https://pub.dev/packages/http2)
+[![package publisher](https://img.shields.io/pub/publisher/http2.svg)](https://pub.dev/packages/http2/publisher)
 
 This library provides an http/2 interface on top of a bidirectional stream of bytes.
 
-## Usage:
+## Usage
 
-Here is a minimal example of connecting to a http/2 capable server, requesting a resource and
-iterating over the response.
+Here is a minimal example of connecting to a http/2 capable server, requesting
+a resource and iterating over the response.
 
 ```dart
 import 'dart:convert';

@@ -1,4 +1,4 @@
-include: package:lints/core.yaml
+include: package:lints/recommended.yaml
 
 analyzer:
   strong-mode:
@@ -8,3 +8,8 @@ analyzer:
     unused_import: error
     unused_local_variable: error
     dead_code: error
+
+linter:
+  rules:
+    # Disabled as there are several dozen violations.
+    constant_identifier_names: false

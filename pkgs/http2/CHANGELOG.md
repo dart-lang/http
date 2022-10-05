@@ -1,5 +1,7 @@
-## 2.0.1-dev
+## 2.0.1
 
+- Simplify the implementation of `MultiProtocolHttpServer.close`.
+- Require Dart `2.15.0`.
 
 ## 2.0.0
 

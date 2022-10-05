@@ -232,9 +232,8 @@ class TransportException implements Exception {
 class TransportConnectionException extends TransportException {
   final int errorCode;
 
-  TransportConnectionException(int errorCode, String details)
-      : errorCode = errorCode,
-        super('Connection error: $details (errorCode: $errorCode)');
+  TransportConnectionException(this.errorCode, String details)
+      : super('Connection error: $details (errorCode: $errorCode)');
 }
 
 /// An exception thrown when a HTTP/2 stream error occured.
