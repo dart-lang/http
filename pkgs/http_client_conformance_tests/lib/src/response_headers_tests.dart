@@ -55,5 +55,21 @@ void testResponseHeaders(Client client) async {
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['list'], 'apple, orange, banana');
     });
+
+    test('content length', () async {
+      httpServerChannel.sink.add({'content-length': '23'});
+
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.headers['content-length'], '23');
+      expect(response.contentLength, 23);
+    });
+
+    test('content length - not string', () async {
+      httpServerChannel.sink.add({'content-length': 'cat'});
+
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.headers['content-length'], 'cat');
+      expect(response.contentLength, null);
+    });
   });
 }
