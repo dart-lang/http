@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
@@ -57,27 +59,11 @@ void testResponseHeaders(Client client) async {
     });
 
     test('content length', () async {
-      httpServerChannel.sink.add({'content-length': '23'});
+      httpServerChannel.sink.add({'content-length': '0'});
 
       final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['content-length'], '23');
-      expect(response.contentLength, 23);
-    });
-
-    test('content length - not string', () async {
-      httpServerChannel.sink.add({'content-length': 'cat'});
-
-      final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['content-length'], 'cat');
-      expect(response.contentLength, null);
-    });
-
-    test('content length - multiple strings', () async {
-      httpServerChannel.sink.add({'content-length': '0, 23'});
-
-      final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['content-length'], '0, 23');
-      expect(response.contentLength, null);
+      expect(response.headers['content-length'], '0');
+      expect(response.contentLength, 0);
     });
   });
 }
