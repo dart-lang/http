@@ -16,7 +16,6 @@ void main() {
   late int port;
   setUpAll(() async {
     final channel = spawnHybridCode(r'''
-      // @dart=2.7
       import 'dart:io';
 
       import 'package:stream_channel/stream_channel.dart';
