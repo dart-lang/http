@@ -71,5 +71,13 @@ void testResponseHeaders(Client client) async {
       expect(response.headers['content-length'], 'cat');
       expect(response.contentLength, null);
     });
+
+    test('content length - multiple strings', () async {
+      httpServerChannel.sink.add({'content-length': '0, 23'});
+
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.headers['content-length'], '0, 23');
+      expect(response.contentLength, null);
+    });
   });
 }
