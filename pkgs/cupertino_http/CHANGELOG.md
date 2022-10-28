@@ -1,3 +1,7 @@
+## 0.0.8
+
+* Make timeout and caching policy configurable on a per-request basis.
+
 ## 0.0.7
 
 * Upgrade `ffi` dependency.

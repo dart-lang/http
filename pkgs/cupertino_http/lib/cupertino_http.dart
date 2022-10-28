@@ -594,6 +594,12 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     }
   }
 
+  // Controls how to deal with caching for the request.
+  //
+  // See [NSURLSession.cachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequest/1407944-cachepolicy)
+  URLRequestCachePolicy get cachePolicy =>
+      URLRequestCachePolicy.values[_nsObject.cachePolicy];
+
   /// The body of the request.
   ///
   /// See [NSURLRequest.HTTPBody](https://developer.apple.com/documentation/foundation/nsurlrequest/1411317-httpbody)
@@ -614,6 +620,13 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// an error.
   String get httpMethod => toStringOrNull(_nsObject.HTTPMethod)!;
 
+  /// The timeout interval during the connection attempt.
+  ///
+  /// See [NSURLSession.timeoutInterval](https://developer.apple.com/documentation/foundation/nsurlrequest/1418229-timeoutinterval)
+  Duration get timeoutInterval => Duration(
+      microseconds:
+          (_nsObject.timeoutInterval * Duration.microsecondsPerSecond).round());
+
   /// The requested URL.
   ///
   /// See [URLRequest.URL](https://developer.apple.com/documentation/foundation/nsurlrequest/1408996-url)
@@ -630,8 +643,10 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   @override
   String toString() => '[URLRequest '
       'allHttpHeaderFields=$allHttpHeaderFields '
+      'cachePolicy=$cachePolicy '
       'httpBody=$httpBody '
       'httpMethod=$httpMethod '
+      'timeoutInterval=$timeoutInterval '
       'url=$url '
       ']';
 }
@@ -656,12 +671,20 @@ class MutableURLRequest extends URLRequest {
         ncb.NSMutableURLRequest.requestWithURL_(linkedLibs, url));
   }
 
+  set cachePolicy(URLRequestCachePolicy value) =>
+      _mutableUrlRequest.cachePolicy = value.index;
+
   set httpBody(Data? data) {
     _mutableUrlRequest.HTTPBody = data?._nsObject;
   }
 
   set httpMethod(String method) {
     _mutableUrlRequest.HTTPMethod = method.toNSString(linkedLibs);
+  }
+
+  set timeoutInterval(Duration interval) {
+    _mutableUrlRequest.timeoutInterval =
+        interval.inMicroseconds.toDouble() / Duration.microsecondsPerSecond;
   }
 
   /// Set the value of a header field.
@@ -675,8 +698,11 @@ class MutableURLRequest extends URLRequest {
   @override
   String toString() => '[MutableURLRequest '
       'allHttpHeaderFields=$allHttpHeaderFields '
+      'cachePolicy=$cachePolicy '
       'httpBody=$httpBody '
       'httpMethod=$httpMethod '
+      'timeoutInterval=$timeoutInterval '
+      'url=$url '
       ']';
 }
 
