@@ -20,10 +20,10 @@ import 'byte_stream.dart';
 /// ```dart
 /// final request = http.StreamedRequest('POST', Uri.http('example.com', ''))
 ///     ..contentLength = 10
-///     ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])  // Add the content.
-///     ..sink.close();  // End the request.
+///     ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+///     ..sink.close();
 ///
-/// final response = await request.send(); // Send headers.
+/// final response = await request.send();
 /// ```
 class StreamedRequest extends BaseRequest {
   /// The sink to which to write data that will be sent as the request body.
