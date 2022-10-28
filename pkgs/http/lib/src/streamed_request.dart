@@ -21,7 +21,7 @@ import 'byte_stream.dart';
 /// final request = http.StreamedRequest('POST', Uri.http('example.com', ''))
 ///     ..contentLength = 10
 ///     ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-///     ..sink.close();
+///     ..sink.close();  // The sink must be closed to end the request.
 ///
 /// final response = await request.send();
 /// ```
