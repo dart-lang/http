@@ -15,6 +15,16 @@ import 'byte_stream.dart';
 /// whatever data has already been written to [StreamedRequest.sink] will be
 /// sent immediately. More data will be sent as soon as it's written to
 /// [StreamedRequest.sink], and when the sink is closed the request will end.
+///
+/// For example:
+/// ```dart
+/// final request = http.StreamedRequest('POST', Uri.http('example.com', ''))
+///     ..contentLength = 10
+///     ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+///     ..sink.close();  // The sink must be closed to end the request.
+///
+/// final response = await request.send();
+/// ```
 class StreamedRequest extends BaseRequest {
   /// The sink to which to write data that will be sent as the request body.
   ///
