@@ -11,6 +11,20 @@ import 'package:test/test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  group('cachePolicy', () {
+    final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');
+    late MutableURLRequest request;
+
+    setUp(() => request = MutableURLRequest.fromUrl(uri));
+
+    test('set', () {
+      request.cachePolicy = URLRequestCachePolicy.returnCacheDataDontLoad;
+      expect(
+          request.cachePolicy, URLRequestCachePolicy.returnCacheDataDontLoad);
+      request.toString(); // Just verify that there is no crash.
+    });
+  });
+
   group('headers', () {
     final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');
     late MutableURLRequest request;
@@ -55,6 +69,19 @@ void main() {
     test('set', () {
       request.httpMethod = 'POST';
       expect(request.httpMethod, 'POST');
+      request.toString(); // Just verify that there is no crash.
+    });
+  });
+
+  group('timeoutInterval', () {
+    final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');
+    late MutableURLRequest request;
+
+    setUp(() => request = MutableURLRequest.fromUrl(uri));
+
+    test('set', () {
+      request.timeoutInterval = const Duration(seconds: 23);
+      expect(request.timeoutInterval, const Duration(seconds: 23));
       request.toString(); // Just verify that there is no crash.
     });
   });
