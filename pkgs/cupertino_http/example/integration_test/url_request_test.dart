@@ -17,6 +17,10 @@ void main() {
       expect(request.httpMethod, 'GET');
       expect(request.allHttpHeaderFields, null);
       expect(request.httpBody, null);
+
+      expect(request.timeoutInterval, const Duration(minutes: 1));
+      expect(request.cachePolicy, URLRequestCachePolicy.useProtocolCachePolicy);
+
       request.toString(); // Just verify that there is no crash.
     });
 
@@ -27,6 +31,10 @@ void main() {
       expect(request.httpMethod, 'GET');
       expect(request.allHttpHeaderFields, null);
       expect(request.httpBody, null);
+
+      expect(request.timeoutInterval, const Duration(minutes: 1));
+      expect(request.cachePolicy, URLRequestCachePolicy.useProtocolCachePolicy);
+
       request.toString(); // Just verify that there is no crash.
     });
 
@@ -37,6 +45,10 @@ void main() {
       expect(request.httpMethod, 'GET');
       expect(request.allHttpHeaderFields, null);
       expect(request.httpBody, null);
+
+      expect(request.timeoutInterval, const Duration(minutes: 1));
+      expect(request.cachePolicy, URLRequestCachePolicy.useProtocolCachePolicy);
+
       request.toString(); // Just verify that there is no crash.
     });
   });
