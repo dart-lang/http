@@ -1,11 +1,9 @@
-# Set update schedule for GitHub Actions
-# See https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-actions-up-to-date-with-dependabot
-
+# Dependabot configuration file.
+# See https://docs.github.com/en/code-security/dependabot/dependabot-version-updates
 version: 2
-updates:
 
-- package-ecosystem: "github-actions"
-  directory: "/"
-  schedule:
-    # Check for updates to GitHub Actions every weekday
-    interval: "daily"
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
