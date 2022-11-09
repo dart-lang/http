@@ -1,3 +1,18 @@
+## 0.0.9
+
+* Add a more complete implementation for `URLSessionTask`:
+  * `priority` property - hint for host prioritization.
+  * `currentRequest` property - the current request for the task (will be
+    different than `originalRequest` in the face of redirects).
+  * `originalRequest` property - the original request for the task. 
+  * `error` property - an `Error` object if the request failed.
+  * `taskDescription` property - a developer-set description of the task.
+  * `countOfBytesExpectedToSend` property - the size of the body bytes that
+    will be sent.
+  * `countOfBytesSent` property - the number of body bytes sent in the request.
+  * `prefersIncrementalDelivery` property - whether to deliver the response
+    body in one chunk (if possible) or many.
+
 ## 0.0.8
 
 * Make timeout and caching policy configurable on a per-request basis.
