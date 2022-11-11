@@ -558,14 +558,11 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   ///
   /// See [NSURLSessionTask.response](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1410586-response)
   URLResponse? get response {
-    if (_nsObject.response == null) {
+    final nsResponse = _nsObject.response;
+    if (nsResponse == null) {
       return null;
-    } else {
-      // TODO(https://github.com/dart-lang/ffigen/issues/373): remove cast
-      // when precise type signatures are generated.
-      return URLResponse._exactURLResponseType(
-          ncb.NSURLResponse.castFrom(_nsObject.response!));
     }
+    return URLResponse._exactURLResponseType(nsResponse);
   }
 
   /// An error indicating why the task failed or `null` on success.
@@ -706,7 +703,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// NOTE: The documentation for `NSURLRequest.HTTPMethod` says that the
   /// property is nullable but, in practice, assigning it to null will produce
   /// an error.
-  String get httpMethod => toStringOrNull(_nsObject.HTTPMethod)!;
+  String get httpMethod => _nsObject.HTTPMethod!.toString();
 
   /// The timeout interval during the connection attempt.
   ///
@@ -723,9 +720,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     if (nsUrl == null) {
       return null;
     }
-    // TODO(https://github.com/dart-lang/ffigen/issues/373): remove NSObject
-    // cast when precise type signatures are generated.
-    return Uri.parse(toStringOrNull(ncb.NSURL.castFrom(nsUrl).absoluteString)!);
+    return Uri.parse(nsUrl.absoluteString!.toString());
   }
 
   @override
@@ -864,10 +859,8 @@ void _setupDelegation(
             disposition = URLSessionResponseDisposition.urlSessionResponseAllow;
             break;
           }
-          // TODO(https://github.com/dart-lang/ffigen/issues/373): remove cast
-          // when precise type signatures are generated.
-          final response = URLResponse._exactURLResponseType(
-              ncb.NSURLResponse.castFrom(forwardedResponse.response!));
+          final response =
+              URLResponse._exactURLResponseType(forwardedResponse.response!);
 
           try {
             disposition = onResponse(session, task, response);

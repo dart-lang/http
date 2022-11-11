@@ -12,6 +12,7 @@
   * `countOfBytesSent` property - the number of body bytes sent in the request.
   * `prefersIncrementalDelivery` property - whether to deliver the response
     body in one chunk (if possible) or many.
+* Upgrade to ffigen ^7.2.0 and remove unnecessary casts.
 
 ## 0.0.8
 
