@@ -49,14 +49,12 @@ ncb.NativeCupertinoHttp _loadHelperLibrary() {
   return ncb.NativeCupertinoHttp(lib);
 }
 
-// TODO(https://github.com/dart-lang/ffigen/issues/373): Change to
-// ncb.NSString.
-String? toStringOrNull(ncb.NSObject? o) {
-  if (o == null) {
+String? toStringOrNull(ncb.NSString? s) {
+  if (s == null) {
     return null;
   }
 
-  return ncb.NSString.castFrom(o).toString();
+  return s.toString();
 }
 
 /// Converts a NSDictionary containing NSString keys and NSString values into
@@ -71,8 +69,9 @@ Map<String, String> stringDictToMap(ncb.NSDictionary d) {
   final keys = ncb.NSArray.castFrom(d.allKeys!);
   for (var i = 0; i < keys.count; ++i) {
     final nsKey = keys.objectAtIndex_(i);
-    final key = toStringOrNull(nsKey)!;
-    final value = toStringOrNull(d.objectForKey_(nsKey))!;
+    final key = toStringOrNull(ncb.NSString.castFrom(nsKey))!;
+    final value =
+        toStringOrNull(ncb.NSString.castFrom(d.objectForKey_(nsKey)))!;
     m[key] = value;
   }
 

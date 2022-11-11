@@ -17,7 +17,7 @@ dependencies:
   meta: ^1.7.0
 
 dev_dependencies:
-  ffigen: ^6.0.0
+  ffigen: ^7.2.0
   lints: ^1.0.0
 
 flutter:
