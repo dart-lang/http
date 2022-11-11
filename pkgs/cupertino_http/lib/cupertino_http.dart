@@ -512,10 +512,47 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   /// See [NSURLSessionTask.state](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1409888-state)
   URLSessionTaskState get state => URLSessionTaskState.values[_nsObject.state];
 
-  // A unique ID for the [URLSessionTask] in a [URLSession].
-  //
-  // See [NSURLSessionTask.taskIdentifier](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411231-taskidentifier)
-  int get taskIdentifier => _nsObject.taskIdentifier;
+  /// The relative priority [0, 1] that the host should use to handle the
+  /// request.
+  ///
+  /// See [NSURLSessionTask.priority](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1410569-priority)
+  double get priority => _nsObject.priority;
+
+  /// The relative priority [0, 1] that the host should use to handle the
+  /// request.
+  ///
+  /// See [NSURLSessionTask.priority](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1410569-priority)
+  set priority(double value) => _nsObject.priority = value;
+
+  /// The request currently being handled by the task.
+  ///
+  /// May be different from [originalRequest] if the server responds with a
+  /// redirect.
+  ///
+  /// See [NSURLSessionTask.currentRequest](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411649-currentrequest)
+  URLRequest? get currentRequest {
+    final request = _nsObject.currentRequest;
+    if (request == null) {
+      return null;
+    } else {
+      return URLRequest._(request);
+    }
+  }
+
+  /// The original request associated with the task.
+  ///
+  /// May be different from [currentRequest] if the server responds with a
+  /// redirect.
+  ///
+  /// See [NSURLSessionTask.originalRequest](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411572-originalrequest)
+  URLRequest? get originalRequest {
+    final request = _nsObject.originalRequest;
+    if (request == null) {
+      return null;
+    } else {
+      return URLRequest._(request);
+    }
+  }
 
   /// The server response to the request associated with this task.
   ///
@@ -531,10 +568,33 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
     }
   }
 
-  /// The number of content bytes that have been received from the server.
+  /// An error indicating why the task failed or `null` on success.
   ///
-  /// [NSURLSessionTask.countOfBytesReceived](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411581-countofbytesreceived)
-  int get countOfBytesReceived => _nsObject.countOfBytesReceived;
+  /// See [NSURLSessionTask.error](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1408145-error)
+  Error? get error {
+    final error = _nsObject.error;
+    if (error == null) {
+      return null;
+    } else {
+      return Error._(error);
+    }
+  }
+
+  /// The user-assigned description for the task.
+  ///
+  /// See [NSURLSessionTask.taskDescription](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1409798-taskdescription)
+  String get taskDescription => _nsObject.taskDescription.toString();
+
+  /// The user-assigned description for the task.
+  ///
+  /// See [NSURLSessionTask.taskDescription](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1409798-taskdescription)
+  set taskDescription(String value) =>
+      _nsObject.taskDescription = value.toNSString(linkedLibs);
+
+  /// A unique ID for the [URLSessionTask] in a [URLSession].
+  ///
+  /// See [NSURLSessionTask.taskIdentifier](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411231-taskidentifier)
+  int get taskIdentifier => _nsObject.taskIdentifier;
 
   /// The number of content bytes that are expected to be received from the
   /// server.
@@ -543,13 +603,46 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   int get countOfBytesExpectedToReceive =>
       _nsObject.countOfBytesExpectedToReceive;
 
-  @override
-  String toString() => '[URLSessionTask '
+  /// The number of content bytes that have been received from the server.
+  ///
+  /// [NSURLSessionTask.countOfBytesReceived](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411581-countofbytesreceived)
+  int get countOfBytesReceived => _nsObject.countOfBytesReceived;
+
+  /// The number of content bytes that the task expects to send to the server.
+  ///
+  /// [NSURLSessionTask.countOfBytesExpectedToSend](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411534-countofbytesexpectedtosend)
+  int get countOfBytesExpectedToSend => _nsObject.countOfBytesExpectedToSend;
+
+  /// Whether the body of the response should be delivered incrementally or not.
+  ///
+  /// [NSURLSessionTask.countOfBytesSent](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1410444-countofbytessent)
+  int get countOfBytesSent => _nsObject.countOfBytesSent;
+
+  /// Whether the body of the response should be delivered incrementally or not.
+  ///
+  /// [NSURLSessionTask.prefersIncrementalDelivery](https://developer.apple.com/documentation/foundation/nsurlsessiontask/3735881-prefersincrementaldelivery)
+  bool get prefersIncrementalDelivery => _nsObject.prefersIncrementalDelivery;
+
+  /// Whether the body of the response should be delivered incrementally or not.
+  ///
+  /// [NSURLSessionTask.prefersIncrementalDelivery](https://developer.apple.com/documentation/foundation/nsurlsessiontask/3735881-prefersincrementaldelivery)
+  set prefersIncrementalDelivery(bool value) =>
+      _nsObject.prefersIncrementalDelivery = value;
+
+  String _toStringHelper(String className) => '[$className '
+      'taskDescription=$taskDescription '
       'taskIdentifier=$taskIdentifier '
       'countOfBytesExpectedToReceive=$countOfBytesExpectedToReceive '
       'countOfBytesReceived=$countOfBytesReceived '
-      'state=$state'
+      'countOfBytesExpectedToSend=$countOfBytesExpectedToSend '
+      'countOfBytesSent=$countOfBytesSent '
+      'priority=$priority '
+      'state=$state '
+      'prefersIncrementalDelivery=$prefersIncrementalDelivery'
       ']';
+
+  @override
+  String toString() => _toStringHelper('URLSessionTask');
 }
 
 /// A task associated with downloading a URI to a file.
@@ -559,12 +652,7 @@ class URLSessionDownloadTask extends URLSessionTask {
   URLSessionDownloadTask._(ncb.NSURLSessionDownloadTask c) : super._(c);
 
   @override
-  String toString() => '[URLSessionDownloadTask '
-      'taskIdentifier=$taskIdentifier '
-      'countOfBytesExpectedToReceive=$countOfBytesExpectedToReceive '
-      'countOfBytesReceived=$countOfBytesReceived '
-      'state=$state'
-      ']';
+  String toString() => _toStringHelper('URLSessionDownloadTask');
 }
 
 /// A request to load a URL.
