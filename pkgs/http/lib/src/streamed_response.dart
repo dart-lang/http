@@ -33,4 +33,12 @@ class StreamedResponse extends BaseResponse {
             isRedirect: isRedirect,
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);
+
+  /// Closes the underlying HTTP Request
+  ///
+  /// This will throw an [UnimplementedError] for the base [StreamedResponse]
+  /// class
+  Future<void> close() {
+    throw UnimplementedError();
+  }
 }

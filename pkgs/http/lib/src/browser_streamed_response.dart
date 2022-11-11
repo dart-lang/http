@@ -2,29 +2,27 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
+import 'dart:html';
 
 import 'base_request.dart';
 import 'streamed_response.dart';
 
 /// An HTTP response where the response body is received asynchronously after
 /// the headers have been received.
-class IOStreamedResponse extends StreamedResponse {
-  final HttpClientResponse? _inner;
+class BrowserStreamedResponse extends StreamedResponse {
+  final HttpRequest? _inner;
 
   /// Creates a new streaming response.
   ///
   /// [stream] should be a single-subscription stream.
-  ///
-  /// If [inner] is not provided, [detachSocket] will throw.
-  IOStreamedResponse(Stream<List<int>> stream, int statusCode,
+  BrowserStreamedResponse(Stream<List<int>> stream, int statusCode,
       {int? contentLength,
       BaseRequest? request,
       Map<String, String> headers = const {},
       bool isRedirect = false,
       bool persistentConnection = true,
       String? reasonPhrase,
-      HttpClientResponse? inner})
+      HttpRequest? inner})
       : _inner = inner,
         super(stream, statusCode,
             contentLength: contentLength,
@@ -34,16 +32,11 @@ class IOStreamedResponse extends StreamedResponse {
             persistentConnection: persistentConnection,
             reasonPhrase: reasonPhrase);
 
-  /// Detaches the underlying socket from the HTTP server.
-  ///
-  /// Will throw if `inner` was not set or `null` when `this` was created.
-  Future<Socket> detachSocket() async => _inner!.detachSocket();
-
   /// Closes the underlying HTTP Request
   ///
   /// Will throw if `inner` was not set or `null` when `this` was created.
   @override
   Future<void> close() async {
-    (await detachSocket()).destroy();
+    _inner!.abort();
   }
 }

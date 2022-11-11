@@ -8,9 +8,9 @@ import 'dart:typed_data';
 
 import 'base_client.dart';
 import 'base_request.dart';
+import 'browser_streamed_response.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
-import 'streamed_response.dart';
 
 /// Create a [BrowserClient].
 ///
@@ -39,7 +39,7 @@ class BrowserClient extends BaseClient {
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
-  Future<StreamedResponse> send(BaseRequest request) async {
+  Future<BrowserStreamedResponse> send(BaseRequest request) async {
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
     _xhrs.add(xhr);
@@ -49,16 +49,17 @@ class BrowserClient extends BaseClient {
       ..withCredentials = withCredentials;
     request.headers.forEach(xhr.setRequestHeader);
 
-    var completer = Completer<StreamedResponse>();
+    var completer = Completer<BrowserStreamedResponse>();
 
     unawaited(xhr.onLoad.first.then((_) {
       var body = (xhr.response as ByteBuffer).asUint8List();
-      completer.complete(StreamedResponse(
+      completer.complete(BrowserStreamedResponse(
           ByteStream.fromBytes(body), xhr.status!,
           contentLength: body.length,
           request: request,
           headers: xhr.responseHeaders,
-          reasonPhrase: xhr.statusText));
+          reasonPhrase: xhr.statusText,
+          inner: xhr));
     }));
 
     unawaited(xhr.onError.first.then((_) {
