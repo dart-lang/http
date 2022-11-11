@@ -1,9 +1,9 @@
-# Run with `dart run ffigen --config ffigen.yaml`.
+# Run with `flutter packages pub run ffigen --config ffigen.yaml`.
 name: NativeCupertinoHttp
 description: |
   Bindings for the Foundation URL Loading System and supporting libraries.
 
-  Regenerate bindings with `dart run ffigen --config ffigen.yaml`.
+  Regenerate bindings with `flutter packages pub run ffigen --config ffigen.yaml`.
 language: 'objc'
 output: 'lib/src/native_cupertino_bindings.dart'
 headers:
