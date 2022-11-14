@@ -433,7 +433,8 @@ abstract class Connection {
       _pingHandler.terminate(exception);
       _settingsHandler.terminate(exception);
 
-      return Future.wait([cancelFuture, closeFuture]).catchError((_) {});
+      return Future.wait([cancelFuture, closeFuture])
+          .catchError((_) => const []);
     }
     return Future.value();
   }

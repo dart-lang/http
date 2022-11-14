@@ -319,8 +319,8 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
 
     incomingQueue.insertNewStreamMessageQueue(streamId, streamQueueIn);
 
-    var _outgoingC = StreamController<StreamMessage>();
-    var stream = Http2StreamImpl(streamQueueIn, streamQueueOut, _outgoingC,
+    var outgoingC = StreamController<StreamMessage>();
+    var stream = Http2StreamImpl(streamQueueIn, streamQueueOut, outgoingC,
         streamId, windowOutHandler, _canPush, _push, _terminateStream);
     final wasIdle = _openStreams.isEmpty;
     _openStreams[stream.id] = stream;
@@ -343,7 +343,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     // NOTE: We are not interested whether the streams were normally finished
     // or abnormally terminated. Therefore we use 'catchError((_) {})'!
     var streamDone = [streamQueueIn.done, streamQueueOut.done];
-    Future.wait(streamDone).catchError((_) {}).whenComplete(() {
+    Future.wait(streamDone).catchError((_) => const []).whenComplete(() {
       _cleanupClosedStream(stream);
     });
 
