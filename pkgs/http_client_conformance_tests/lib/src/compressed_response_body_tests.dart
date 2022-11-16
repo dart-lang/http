@@ -20,7 +20,8 @@ void testCompressedResponseBody(Client client) async {
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
     const message = 'Hello World!';
-    final contents = gzip.encode(message.codeUnits);
+    final gzipContents = gzip.encode(message.codeUnits);
+    final upperContents = message.toUpperCase().codeUnits;
 
     setUpAll(() async {
       httpServerChannel = await startServer();
@@ -29,8 +30,13 @@ void testCompressedResponseBody(Client client) async {
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 
-    test('small response with content length', () async {
-      final response = await client.get(Uri.http(host, ''));
+    test('gzip: small response with content length', () async {
+      // Test a supported content encoding.
+      final response = await client.get(Uri.http(host, '/gzip'));
+      final requestHeaders =
+          (await httpServerQueue.next as Map).cast<String, List<String>>();
+
+      expect(requestHeaders['accept-encoding']!.join(', '), contains('gzip'));
       expect(response.body, message);
       expect(response.bodyBytes, message.codeUnits);
       expect(response.contentLength, message.length);
@@ -42,14 +48,36 @@ void testCompressedResponseBody(Client client) async {
       expect(response.statusCode, 200);
     });
 
-    test('small response streamed with content length', () async {
-      final request = Request('GET', Uri.http(host, '', {'length': ''}));
+    test('gzip: small response streamed with content length', () async {
+      // Test a supported content encoding.
+      final request = Request('GET', Uri.http(host, '/gzip', {'length': ''}));
       final response = await client.send(request);
+      final requestHeaders =
+          (await httpServerQueue.next as Map).cast<String, List<String>>();
+
+      expect(requestHeaders['accept-encoding']!.join(', '), contains('gzip'));
       expect(await response.stream.bytesToString(), message);
-      expect(response.contentLength, contents.length);
+      expect(response.contentLength, gzipContents.length);
       expect(response.headers['content-type'], 'text/plain');
       expect(response.headers['content-encoding'], 'gzip');
-      expect(response.headers['content-length'], '${contents.length}');
+      expect(response.headers['content-length'], '${gzipContents.length}');
+      expect(response.isRedirect, isFalse);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.request!.method, 'GET');
+      expect(response.statusCode, 200);
+    });
+
+    test('upper: small response streamed with content length', () async {
+      // Test an unsupported content encoding.
+      final request = Request('GET', Uri.http(host, '/upper', {'length': ''}));
+      final response = await client.send(request);
+      await httpServerQueue.next;
+
+      expect(await response.stream.bytesToString(), message.toUpperCase());
+      expect(response.contentLength, upperContents.length);
+      expect(response.headers['content-type'], 'text/plain');
+      expect(response.headers['content-encoding'], 'upper');
+      expect(response.headers['content-length'], '${upperContents.length}');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');
       expect(response.request!.method, 'GET');
