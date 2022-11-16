@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io' show gzip;
-
 import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
@@ -20,7 +18,8 @@ void testCompressedResponseBody(Client client) async {
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
     const message = 'Hello World!';
-    final gzipContents = gzip.encode(message.codeUnits);
+    const gzipContentsLength = 32; // gzip.encode(message.codeUnits).length;
+
     final upperContents = message.toUpperCase().codeUnits;
 
     setUpAll(() async {
@@ -57,10 +56,10 @@ void testCompressedResponseBody(Client client) async {
 
       expect(requestHeaders['accept-encoding']!.join(', '), contains('gzip'));
       expect(await response.stream.bytesToString(), message);
-      expect(response.contentLength, gzipContents.length);
+      expect(response.contentLength, gzipContentsLength);
       expect(response.headers['content-type'], 'text/plain');
       expect(response.headers['content-encoding'], 'gzip');
-      expect(response.headers['content-length'], '${gzipContents.length}');
+      expect(response.headers['content-length'], '$gzipContentsLength');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');
       expect(response.request!.method, 'GET');
