@@ -2,6 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+import 'dart:io' show gzip;
+
 import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:stream_channel/stream_channel.dart';
@@ -22,6 +25,7 @@ void testCompressedResponseBody(Client client,
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
     const message = 'Hello World!';
+    final contents = gzip.encode(message.codeUnits);
 
     setUpAll(() async {
       httpServerChannel = await startServer();
@@ -35,6 +39,18 @@ void testCompressedResponseBody(Client client,
       expect(response.body, message);
       expect(response.bodyBytes, message.codeUnits);
       expect(response.contentLength, message.length);
+      expect(response.headers['content-type'], 'text/plain');
+      expect(response.isRedirect, isFalse);
+      expect(response.reasonPhrase, 'OK');
+      expect(response.request!.method, 'GET');
+      expect(response.statusCode, 200);
+    });
+
+    test('small response streamed with content length', () async {
+      final request = Request('GET', Uri.http(host, 'length'));
+      final response = await client.send(request);
+      expect(await response.stream.bytesToString(), message);
+      expect(response.contentLength, contents.length);
       expect(response.headers['content-type'], 'text/plain');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');

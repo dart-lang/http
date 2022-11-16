@@ -18,12 +18,18 @@ void hybridMain(StreamChannel<Object?> channel) async {
   final server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       const message = 'Hello World!';
+      final contents = gzip.encode(message.codeUnits);
+
       await request.drain<void>();
+
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
       request.response.headers.set('Content-Encoding', 'gzip');
-
-      print(gzip.encode(message.codeUnits));
+      if (request.requestedUri.pathSegments.isNotEmpty &&
+          request.requestedUri.pathSegments.last == 'length') {
+        request.response.contentLength = contents.length;
+      }
+      request.response.add(contents);
       await request.response.close();
     });
 
