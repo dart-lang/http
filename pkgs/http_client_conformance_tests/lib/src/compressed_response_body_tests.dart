@@ -8,19 +8,26 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'compressed_response_body_server_vm.dart'
-    if (dart.library.html) 'compressed_response_body_server_vm.dart';
+    if (dart.library.html) 'compressed_response_body_server_web.dart';
 
 /// Tests that the [Client] correctly implements HTTP responses with compressed
 /// bodies.
+///
+/// If the response is encoded using a recognized 'Content-Encoding' then the
+/// [Client] must decode it. Otherwise it must return the content unchanged.
+///
+/// The 'Content-Encoding' and 'Content-Length' headers may be absent for
+/// responses with a 'Content-Encoding' and, if present, their values are
+/// undefined.
+///
+/// The value of [StreamedResponse.contentLength] is not defined for responses
+/// with a 'Content-Encoding' header.
 void testCompressedResponseBody(Client client) async {
   group('response body', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
     const message = 'Hello World!';
-    const gzipContentsLength = 32; // gzip.encode(message.codeUnits).length;
-
-    final upperContents = message.toUpperCase().codeUnits;
 
     setUpAll(() async {
       httpServerChannel = await startServer();
@@ -32,15 +39,14 @@ void testCompressedResponseBody(Client client) async {
     test('gzip: small response with content length', () async {
       // Test a supported content encoding.
       final response = await client.get(Uri.http(host, '/gzip'));
-      final requestHeaders =
-          (await httpServerQueue.next as Map).cast<String, List<String>>();
+      final requestHeaders = await httpServerQueue.next as Map;
 
-      expect(requestHeaders['accept-encoding']!.join(', '), contains('gzip'));
+      expect((requestHeaders['accept-encoding'] as List).join(', '),
+          contains('gzip'));
       expect(response.body, message);
       expect(response.bodyBytes, message.codeUnits);
       expect(response.contentLength, message.length);
       expect(response.headers['content-type'], 'text/plain');
-      expect(response.headers['content-encoding'], 'gzip');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');
       expect(response.request!.method, 'GET');
@@ -51,15 +57,12 @@ void testCompressedResponseBody(Client client) async {
       // Test a supported content encoding.
       final request = Request('GET', Uri.http(host, '/gzip', {'length': ''}));
       final response = await client.send(request);
-      final requestHeaders =
-          (await httpServerQueue.next as Map).cast<String, List<String>>();
+      final requestHeaders = await httpServerQueue.next as Map;
 
-      expect(requestHeaders['accept-encoding']!.join(', '), contains('gzip'));
+      expect((requestHeaders['accept-encoding'] as List).join(', '),
+          contains('gzip'));
       expect(await response.stream.bytesToString(), message);
-      expect(response.contentLength, gzipContentsLength);
       expect(response.headers['content-type'], 'text/plain');
-      expect(response.headers['content-encoding'], 'gzip');
-      expect(response.headers['content-length'], '$gzipContentsLength');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');
       expect(response.request!.method, 'GET');
@@ -73,10 +76,7 @@ void testCompressedResponseBody(Client client) async {
       await httpServerQueue.next;
 
       expect(await response.stream.bytesToString(), message.toUpperCase());
-      expect(response.contentLength, upperContents.length);
       expect(response.headers['content-type'], 'text/plain');
-      expect(response.headers['content-encoding'], 'upper');
-      expect(response.headers['content-length'], '${upperContents.length}');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');
       expect(response.request!.method, 'GET');

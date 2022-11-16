@@ -246,19 +246,17 @@ class CupertinoClient extends BaseClient {
       throw ClientException('Redirect limit exceeded', request.url);
     }
 
-    final headers = response.allHeaderFields
-        .map((key, value) => MapEntry(key.toLowerCase(), value));
-
-    final contentLengthHeader = headers['content-length'];
-
     return StreamedResponse(
-        taskTracker.responseController.stream, response.statusCode,
-        contentLength: contentLengthHeader == null
-            ? null
-            : int.tryParse(contentLengthHeader),
-        reasonPhrase: _findReasonPhrase(response.statusCode),
-        request: request,
-        isRedirect: !request.followRedirects && taskTracker.numRedirects > 0,
-        headers: headers);
+      taskTracker.responseController.stream,
+      response.statusCode,
+      contentLength: response.expectedContentLength == -1
+          ? null
+          : response.expectedContentLength,
+      reasonPhrase: _findReasonPhrase(response.statusCode),
+      request: request,
+      isRedirect: !request.followRedirects && taskTracker.numRedirects > 0,
+      headers: response.allHeaderFields
+          .map((key, value) => MapEntry(key.toLowerCase(), value)),
+    );
   }
 }
