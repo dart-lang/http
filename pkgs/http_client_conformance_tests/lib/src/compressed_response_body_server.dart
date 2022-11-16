@@ -25,8 +25,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
       request.response.headers.set('Content-Type', 'text/plain');
       request.response.headers.set('Content-Encoding', 'gzip');
-      if (request.requestedUri.pathSegments.isNotEmpty &&
-          request.requestedUri.pathSegments.last == 'length') {
+      if (request.requestedUri.queryParameters.containsKey('length')) {
         request.response.contentLength = contents.length;
       }
       request.response.add(contents);

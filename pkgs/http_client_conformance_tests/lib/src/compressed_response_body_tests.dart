@@ -39,6 +39,7 @@ void testCompressedResponseBody(Client client,
       expect(response.bodyBytes, message.codeUnits);
       expect(response.contentLength, message.length);
       expect(response.headers['content-type'], 'text/plain');
+      expect(response.headers['content-encoding'], 'gzip');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');
       expect(response.request!.method, 'GET');
@@ -46,11 +47,13 @@ void testCompressedResponseBody(Client client,
     });
 
     test('small response streamed with content length', () async {
-      final request = Request('GET', Uri.http(host, 'length'));
+      final request = Request('GET', Uri.http(host, '', {'length': ''}));
       final response = await client.send(request);
       expect(await response.stream.bytesToString(), message);
-      expect(response.contentLength, contents.length);
+//      expect(response.contentLength, contents.length);
       expect(response.headers['content-type'], 'text/plain');
+      expect(response.headers['content-encoding'], 'gzip');
+      expect(response.headers['content-length'], '${contents.length}');
       expect(response.isRedirect, isFalse);
       expect(response.reasonPhrase, 'OK');
       expect(response.request!.method, 'GET');
