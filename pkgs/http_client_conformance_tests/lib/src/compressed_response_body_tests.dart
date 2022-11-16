@@ -20,7 +20,7 @@ import 'compressed_response_body_server_vm.dart'
 /// responses with a 'Content-Encoding' and, if present, their values are
 /// undefined.
 ///
-/// The value of [StreamedResponse.contentLength] is not defined for responses
+/// The value of `StreamedResponse.contentLength` is not defined for responses
 /// with a 'Content-Encoding' header.
 void testCompressedResponseBody(Client client) async {
   group('response body', () {
