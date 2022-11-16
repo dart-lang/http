@@ -12,13 +12,9 @@ import 'package:test/test.dart';
 import 'compressed_response_body_server_vm.dart'
     if (dart.library.html) 'compressed_response_body_server_vm.dart';
 
-/// Tests that the [Client] correctly implements HTTP responses with bodies.
-///
-/// If [canStreamResponseBody] is `false` then tests that assume that the
-/// [Client] supports receiving HTTP responses with unbounded body sizes will
-/// be skipped
-void testCompressedResponseBody(Client client,
-    {bool canStreamResponseBody = true}) async {
+/// Tests that the [Client] correctly implements HTTP responses with compressed
+/// bodies.
+void testCompressedResponseBody(Client client) async {
   group('response body', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
@@ -50,7 +46,7 @@ void testCompressedResponseBody(Client client,
       final request = Request('GET', Uri.http(host, '', {'length': ''}));
       final response = await client.send(request);
       expect(await response.stream.bytesToString(), message);
-//      expect(response.contentLength, contents.length);
+      expect(response.contentLength, contents.length);
       expect(response.headers['content-type'], 'text/plain');
       expect(response.headers['content-encoding'], 'gzip');
       expect(response.headers['content-length'], '${contents.length}');
