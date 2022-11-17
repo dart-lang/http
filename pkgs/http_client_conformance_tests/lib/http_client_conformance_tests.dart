@@ -4,6 +4,7 @@
 
 import 'package:http/http.dart';
 
+import 'src/compressed_response_body_tests.dart';
 import 'src/redirect_tests.dart';
 import 'src/request_body_streamed_tests.dart';
 import 'src/request_body_tests.dart';
@@ -13,6 +14,8 @@ import 'src/response_body_tests.dart';
 import 'src/response_headers_tests.dart';
 import 'src/server_errors_test.dart';
 
+export 'src/compressed_response_body_tests.dart'
+    show testCompressedResponseBody;
 export 'src/redirect_tests.dart' show testRedirect;
 export 'src/request_body_streamed_tests.dart' show testRequestBodyStreamed;
 export 'src/request_body_tests.dart' show testRequestBody;
@@ -51,4 +54,5 @@ void testAll(Client client,
   testResponseHeaders(client);
   testRedirect(client, redirectAlwaysAllowed: redirectAlwaysAllowed);
   testServerErrors(client);
+  testCompressedResponseBody(client);
 }
