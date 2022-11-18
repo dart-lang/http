@@ -143,12 +143,11 @@ class CupertinoClient extends BaseClient {
     }
   }
 
-  static _TaskTracker _tracker(URLSession session, URLSessionTask task) =>
-      _tasks[task]!;
+  static _TaskTracker _tracker(URLSessionTask task) => _tasks[task]!;
 
   static void _onComplete(
       URLSession session, URLSessionTask task, Error? error) {
-    final taskTracker = _tracker(session, task);
+    final taskTracker = _tracker(task);
 
     if (error != null) {
       final exception = ClientException(
@@ -167,13 +166,13 @@ class CupertinoClient extends BaseClient {
   }
 
   static void _onData(URLSession session, URLSessionTask task, Data data) {
-    final taskTracker = _tracker(session, task);
+    final taskTracker = _tracker(task);
     taskTracker.responseController.add(data.bytes);
   }
 
   static URLRequest? _onRedirect(URLSession session, URLSessionTask task,
       HTTPURLResponse response, URLRequest request) {
-    final taskTracker = _tracker(session, task);
+    final taskTracker = _tracker(task);
     ++taskTracker.numRedirects;
     if (taskTracker.request.followRedirects &&
         taskTracker.numRedirects <= taskTracker.request.maxRedirects) {
@@ -184,7 +183,7 @@ class CupertinoClient extends BaseClient {
 
   static URLSessionResponseDisposition _onResponse(
       URLSession session, URLSessionTask task, URLResponse response) {
-    final taskTracker = _tracker(session, task);
+    final taskTracker = _tracker(task);
     taskTracker.responseCompleter.complete(response);
     return URLSessionResponseDisposition.urlSessionResponseAllow;
   }
