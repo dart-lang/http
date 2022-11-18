@@ -12,12 +12,12 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('defaultSessionConfiguration', () {
-    testAll(CupertinoClient.defaultSessionConfiguration(),
+    testAll(CupertinoClient.defaultSessionConfiguration,
         canStreamRequestBody: false);
   });
   group('fromSessionConfiguration', () {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration();
-    testAll(CupertinoClient.fromSessionConfiguration(config),
+    testAll(() => CupertinoClient.fromSessionConfiguration(config),
         canStreamRequestBody: false);
   });
 }

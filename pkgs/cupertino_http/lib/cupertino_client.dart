@@ -50,7 +50,7 @@ class _TaskTracker {
 /// }
 /// ```
 class CupertinoClient extends BaseClient {
-  static final Map<int, _TaskTracker> _tasks = {};
+  static final Map<URLSessionTask, _TaskTracker> _tasks = {};
 
   URLSession _urlSession;
 
@@ -143,12 +143,12 @@ class CupertinoClient extends BaseClient {
     }
   }
 
-  static _TaskTracker _tracker(URLSessionTask task) =>
-      _tasks[task.taskIdentifier]!;
+  static _TaskTracker _tracker(URLSession session, URLSessionTask task) =>
+      _tasks[task]!;
 
   static void _onComplete(
       URLSession session, URLSessionTask task, Error? error) {
-    final taskTracker = _tracker(task);
+    final taskTracker = _tracker(session, task);
 
     if (error != null) {
       final exception = ClientException(
@@ -163,17 +163,17 @@ class CupertinoClient extends BaseClient {
           StateError('task completed without an error or response'));
     }
     taskTracker.close();
-    _tasks.remove(task.taskIdentifier);
+    _tasks.remove(task);
   }
 
   static void _onData(URLSession session, URLSessionTask task, Data data) {
-    final taskTracker = _tracker(task);
+    final taskTracker = _tracker(session, task);
     taskTracker.responseController.add(data.bytes);
   }
 
   static URLRequest? _onRedirect(URLSession session, URLSessionTask task,
       HTTPURLResponse response, URLRequest request) {
-    final taskTracker = _tracker(task);
+    final taskTracker = _tracker(session, task);
     ++taskTracker.numRedirects;
     if (taskTracker.request.followRedirects &&
         taskTracker.numRedirects <= taskTracker.request.maxRedirects) {
@@ -184,7 +184,7 @@ class CupertinoClient extends BaseClient {
 
   static URLSessionResponseDisposition _onResponse(
       URLSession session, URLSessionTask task, URLResponse response) {
-    final taskTracker = _tracker(task);
+    final taskTracker = _tracker(session, task);
     taskTracker.responseCompleter.complete(response);
     return URLSessionResponseDisposition.urlSessionResponseAllow;
   }
@@ -234,7 +234,7 @@ class CupertinoClient extends BaseClient {
 
     final task = _urlSession.dataTaskWithRequest(urlRequest);
     final taskTracker = _TaskTracker(request);
-    _tasks[task.taskIdentifier] = taskTracker;
+    _tasks[task] = taskTracker;
     task.resume();
 
     final maxRedirects = request.followRedirects ? request.maxRedirects : 0;

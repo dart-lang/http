@@ -9,9 +9,7 @@ import 'package:http_client_conformance_tests/http_client_conformance_tests.dart
 import 'package:test/test.dart';
 
 void main() {
-  final client = BrowserClient();
-
-  testAll(client,
+  testAll(() => BrowserClient(),
       redirectAlwaysAllowed: true,
       canStreamRequestBody: false,
       canStreamResponseBody: false);
