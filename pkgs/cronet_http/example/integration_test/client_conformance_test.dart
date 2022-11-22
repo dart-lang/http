@@ -17,6 +17,8 @@ void main() {
   testRequestHeaders(client);
   testResponseHeaders(client);
   testRedirect(client);
+  testCompressedResponseBody(client);
+  testMultipleClients(CronetClient.new);
 
   // TODO: Use `testAll` when `testServerErrors` passes i.e.
   // testAll(CronetClient(), canStreamRequestBody: false);

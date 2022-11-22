@@ -39,6 +39,17 @@ abstract class _ObjectHolder<T extends ncb.NSObject> {
   final T _nsObject;
 
   _ObjectHolder(this._nsObject);
+
+  @override
+  bool operator ==(Object other) {
+    if (other is _ObjectHolder) {
+      return _nsObject == other._nsObject;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => _nsObject.hashCode;
 }
 
 /// Settings for controlling whether cookies will be accepted.

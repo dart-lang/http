@@ -1,3 +1,7 @@
+## 0.0.10
+
+* Fix [Use of multiple CupertinoClients can result in cancelled requests](https://github.com/dart-lang/http/issues/826)
+
 ## 0.0.9
 
 * Add a more complete implementation for `URLSessionTask`:
