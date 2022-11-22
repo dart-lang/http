@@ -50,7 +50,7 @@ class _TaskTracker {
 /// }
 /// ```
 class CupertinoClient extends BaseClient {
-  static final Map<int, _TaskTracker> _tasks = {};
+  static final Map<URLSessionTask, _TaskTracker> _tasks = {};
 
   URLSession _urlSession;
 
@@ -143,8 +143,7 @@ class CupertinoClient extends BaseClient {
     }
   }
 
-  static _TaskTracker _tracker(URLSessionTask task) =>
-      _tasks[task.taskIdentifier]!;
+  static _TaskTracker _tracker(URLSessionTask task) => _tasks[task]!;
 
   static void _onComplete(
       URLSession session, URLSessionTask task, Error? error) {
@@ -163,7 +162,7 @@ class CupertinoClient extends BaseClient {
           StateError('task completed without an error or response'));
     }
     taskTracker.close();
-    _tasks.remove(task.taskIdentifier);
+    _tasks.remove(task);
   }
 
   static void _onData(URLSession session, URLSessionTask task, Data data) {
@@ -234,7 +233,7 @@ class CupertinoClient extends BaseClient {
 
     final task = _urlSession.dataTaskWithRequest(urlRequest);
     final taskTracker = _TaskTracker(request);
-    _tasks[task.taskIdentifier] = taskTracker;
+    _tasks[task] = taskTracker;
     task.resume();
 
     final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
