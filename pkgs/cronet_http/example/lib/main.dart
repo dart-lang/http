@@ -5,6 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cronet_http/cronet_client.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -14,7 +15,6 @@ import 'book.dart';
 void main() {
   var clientFactory = Client.new; // Constructs the default client.
   if (Platform.isAndroid) {
-    WidgetsFlutterBinding.ensureInitialized();
     clientFactory = CronetClient.new;
   }
   runWithClient(() => runApp(const BookSearchApp()), clientFactory);
@@ -122,7 +122,10 @@ class _BookListState extends State<BookList> {
         itemBuilder: (context, index) => Card(
           key: ValueKey(widget.books[index].title),
           child: ListTile(
-            leading: Image.network(widget.books[index].imageUrl),
+            leading: CachedNetworkImage(
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                imageUrl: widget.books[index].imageUrl),
             title: Text(widget.books[index].title),
             subtitle: Text(widget.books[index].description),
           ),
