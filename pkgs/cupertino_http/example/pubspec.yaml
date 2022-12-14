@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.17.3 <3.0.0"
 
 dependencies:
+  cached_network_image: ^3.2.3
   cupertino_http:
     path: ../
   cupertino_icons: ^1.0.2
