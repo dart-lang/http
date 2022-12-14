@@ -1,6 +1,6 @@
 @Skip('example test that is brittle because if requires network access')
 
-import 'package:cupertino_http_example/main.dart' as app;
+import 'package:cronet_http_example/main.dart' as app;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
