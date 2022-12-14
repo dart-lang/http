@@ -1,6 +1,7 @@
 ## 0.0.11
 
-* Fix a bug where the images would be loaded using `dart:io` `HttpClient`.
+* Fix a bug where the images in the example would be loaded using `dart:io`
+  `HttpClient`.
 
 ## 0.0.10
 

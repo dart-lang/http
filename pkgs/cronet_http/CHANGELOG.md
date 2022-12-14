@@ -2,7 +2,8 @@
 
 * Fix a bug where the example would not use the configured `package:http`
   `Client` for Books API calls in some circumstances.
-* Fix a bug where the images would be loaded using `dart:io` `HttpClient`.
+* Fix a bug where the images in the example would be loaded using `dart:io`
+  `HttpClient`.
 
 ## 0.0.3
 
