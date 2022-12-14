@@ -1,3 +1,8 @@
+## 0.0.11
+
+* Fix a bug where the images in the example would be loaded using `dart:io`
+  `HttpClient`.
+
 ## 0.0.10
 
 * Fix [Use of multiple CupertinoClients can result in cancelled requests](https://github.com/dart-lang/http/issues/826)
