@@ -37,6 +37,9 @@ void main() {
   test('communicates using an existing WebSocket', () async {
     final webSocket = WebSocket('ws://localhost:$port');
     final channel = HtmlWebSocketChannel(webSocket);
+
+    expect(channel.ready, completes);
+
     addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
@@ -59,6 +62,9 @@ void main() {
     await webSocket.onOpen.first;
 
     final channel = HtmlWebSocketChannel(webSocket);
+
+    expect(channel.ready, completes);
+
     addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
@@ -66,8 +72,29 @@ void main() {
     expect(await queue.next, equals('foo'));
   });
 
+  test('communicates using an connecting WebSocket', () async {
+    final webSocket = WebSocket('ws://localhost:$port');
+
+    final channel = HtmlWebSocketChannel(webSocket);
+
+    expect(channel.ready, completes);
+
+    addTearDown(channel.sink.close);
+  });
+
+  test('communicates using an existing closed WebSocket', () async {
+    final webSocket = WebSocket('ws://localhost:$port');
+    webSocket.close();
+
+    final channel = HtmlWebSocketChannel(webSocket);
+    expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
+  });
+
   test('.connect defaults to binary lists', () async {
     final channel = HtmlWebSocketChannel.connect('ws://localhost:$port');
+
+    expect(channel.ready, completes);
+
     addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
@@ -81,6 +108,9 @@ void main() {
   test('.connect defaults to binary lists using platform independent api',
       () async {
     final channel = WebSocketChannel.connect(Uri.parse('ws://localhost:$port'));
+
+    expect(channel.ready, completes);
+
     addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
@@ -94,6 +124,9 @@ void main() {
   test('.connect can use blobs', () async {
     final channel = HtmlWebSocketChannel.connect('ws://localhost:$port',
         binaryType: BinaryType.blob);
+
+    expect(channel.ready, completes);
+
     addTearDown(channel.sink.close);
 
     final queue = StreamQueue(channel.stream);
@@ -126,6 +159,7 @@ void main() {
     // invalid.
     final channel = HtmlWebSocketChannel.connect(
         'ws://localhost:${await serverChannel.stream.first}');
+    expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
     expect(channel.stream.toList(), throwsA(isA<WebSocketChannelException>()));
   });
 }

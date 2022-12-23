@@ -45,8 +45,15 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// [_controller.local.stream].
   String? _localCloseReason;
 
+  /// Completer for [ready].
+  late Completer<void> _readyCompleter;
+
+  @override
+  Future<void> get ready => _readyCompleter.future;
+
   @override
   Stream get stream => _controller.foreign.stream;
+
   final _controller =
       StreamChannelController(sync: true, allowForeignErrors: false);
 
@@ -71,12 +78,20 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
   /// Creates a channel wrapping [innerWebSocket].
   HtmlWebSocketChannel(this.innerWebSocket) {
+    _readyCompleter = Completer();
     if (innerWebSocket.readyState == WebSocket.OPEN) {
+      _readyCompleter.complete();
       _listen();
     } else {
+      if (innerWebSocket.readyState == WebSocket.CLOSING ||
+          innerWebSocket.readyState == WebSocket.CLOSED) {
+        _readyCompleter.completeError(WebSocketChannelException(
+            'WebSocket state error: ${innerWebSocket.readyState}'));
+      }
       // The socket API guarantees that only a single open event will be
       // emitted.
       innerWebSocket.onOpen.first.then((_) {
+        _readyCompleter.complete();
         _listen();
       });
     }
@@ -84,8 +99,9 @@ class HtmlWebSocketChannel extends StreamChannelMixin
     // The socket API guarantees that only a single error event will be emitted,
     // and that once it is no open or message events will be emitted.
     innerWebSocket.onError.first.then((_) {
-      _controller.local.sink
-          .addError(WebSocketChannelException('WebSocket connection failed.'));
+      final error = WebSocketChannelException('WebSocket connection failed.');
+      _readyCompleter.completeError(error);
+      _controller.local.sink.addError(error);
       _controller.local.sink.close();
     });
 

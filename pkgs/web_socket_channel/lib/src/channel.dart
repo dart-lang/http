@@ -51,6 +51,10 @@ class WebSocketChannel extends StreamChannelMixin {
   /// Before the connection has been closed, this will be `null`.
   String? get closeReason => _webSocket.closeReason;
 
+  /// Future indicating if the connection has been established.
+  /// It completes on successful connection to the websocket.
+  final Future<void> ready = Future.value();
+
   @override
   Stream get stream => StreamView(_webSocket);
 
