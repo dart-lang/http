@@ -12,10 +12,15 @@ import 'package:http/http.dart';
 
 import 'book.dart';
 
-void main() {
+void main() async {
   var clientFactory = Client.new; // Constructs the default client.
   if (Platform.isAndroid) {
-    clientFactory = CronetClient.new;
+    Future<CronetEngine>? engine;
+    clientFactory = () {
+      engine ??= CronetEngine.build(
+          cacheMode: CacheMode.memory, userAgent: 'Book Agent');
+      return CronetClient.fromCronetEngineFuture(engine!);
+    };
   }
   runWithClient(() => runApp(const BookSearchApp()), clientFactory);
 }
