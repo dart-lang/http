@@ -180,9 +180,9 @@ class CronetClient extends BaseClient {
     if (_engine == null) {
       try {
         if (_engineFuture == null) {
-          // Create the future here rather than in the constructor so that
-          // [close] does not have to await the future just to close it in the
-          // case where [send] is never called.
+          // Create the future here rather than in the [fromCronetEngineFuture]
+          // factory so that [close] does not have to await the future just to
+          // close it in the case where [send] is never called.
           _engine = await CronetEngine.build();
         } else {
           _engine = await _engineFuture;
