@@ -52,7 +52,7 @@ void testRequestBody(Client client) {
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('client.post() with string body', () async {
-      await client.post(Uri.http(host, ''), body: 'Hello World!');
+      await client.post(Uri.http(host), body: 'Hello World!');
 
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next;
@@ -62,7 +62,7 @@ void testRequestBody(Client client) {
     });
 
     test('client.post() with string body and custom encoding', () async {
-      await client.post(Uri.http(host, ''),
+      await client.post(Uri.http(host),
           body: 'Hello', encoding: _Plus2Encoding());
 
       final serverReceivedContentType = await httpServerQueue.next;
@@ -73,7 +73,7 @@ void testRequestBody(Client client) {
     });
 
     test('client.post() with map body', () async {
-      await client.post(Uri.http(host, ''), body: {'key': 'value'});
+      await client.post(Uri.http(host), body: {'key': 'value'});
 
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next;
@@ -84,7 +84,7 @@ void testRequestBody(Client client) {
     });
 
     test('client.post() with map body and encoding', () async {
-      await client.post(Uri.http(host, ''),
+      await client.post(Uri.http(host),
           body: {'key': 'value'}, encoding: _Plus2Encoding());
 
       final serverReceivedContentType = await httpServerQueue.next;
@@ -96,7 +96,7 @@ void testRequestBody(Client client) {
     });
 
     test('client.post() with List<int>', () async {
-      await client.post(Uri.http(host, ''), body: [1, 2, 3, 4, 5]);
+      await client.post(Uri.http(host), body: [1, 2, 3, 4, 5]);
 
       await httpServerQueue.next; // Content-Type.
       final serverReceivedBody = await httpServerQueue.next as String;
@@ -110,7 +110,7 @@ void testRequestBody(Client client) {
     });
 
     test('client.post() with List<int> and content-type', () async {
-      await client.post(Uri.http(host, ''),
+      await client.post(Uri.http(host),
           headers: {'Content-Type': 'image/png'}, body: [1, 2, 3, 4, 5]);
 
       final serverReceivedContentType = await httpServerQueue.next;
@@ -122,7 +122,7 @@ void testRequestBody(Client client) {
 
     test('client.post() with List<int> with encoding', () async {
       // Encoding should not affect binary payloads.
-      await client.post(Uri.http(host, ''),
+      await client.post(Uri.http(host),
           body: [1, 2, 3, 4, 5], encoding: _Plus2Encoding());
 
       await httpServerQueue.next; // Content-Type.
@@ -141,7 +141,7 @@ void testRequestBody(Client client) {
       // Encoding should not affect the payload but it should affect the
       // content-type.
 
-      await client.post(Uri.http(host, ''),
+      await client.post(Uri.http(host),
           headers: {'Content-Type': 'image/png'},
           body: [1, 2, 3, 4, 5],
           encoding: _Plus2Encoding());

@@ -53,7 +53,7 @@ void testRequestBodyStreamed(Client client,
         } while (lastReceived < 1000);
       }
 
-      final request = StreamedRequest('POST', Uri.http(host, ''));
+      final request = StreamedRequest('POST', Uri.http(host));
       const Utf8Encoder()
           .bind(count())
           .listen(request.sink.add, onDone: request.sink.close);

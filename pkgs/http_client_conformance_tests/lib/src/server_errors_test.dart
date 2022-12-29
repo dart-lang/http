@@ -27,16 +27,16 @@ void testServerErrors(Client client,
 
     test('no such host', () async {
       expect(
-          client.get(Uri.http('thisisnotahost', '')),
+          client.get(Uri.http('thisisnotahost')),
           throwsA(isA<ClientException>()
-              .having((e) => e.uri, 'uri', Uri.http('thisisnotahost', ''))));
+              .having((e) => e.uri, 'uri', Uri.http('thisisnotahost'))));
     });
 
     test('disconnect', () async {
       expect(
-          client.get(Uri.http(host, '')),
+          client.get(Uri.http(host)),
           throwsA(isA<ClientException>()
-              .having((e) => e.uri, 'uri', Uri.http(host, ''))));
+              .having((e) => e.uri, 'uri', Uri.http(host))));
     });
   });
 }

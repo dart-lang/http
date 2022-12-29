@@ -38,7 +38,7 @@ void testResponseBodyStreamed(Client client,
       //
       // This ensures that the client supports streamed responses.
 
-      final request = Request('GET', Uri.http(host, ''));
+      final request = Request('GET', Uri.http(host));
       final response = await client.send(request);
       expect(response.contentLength, null);
       var lastReceived = 0;
