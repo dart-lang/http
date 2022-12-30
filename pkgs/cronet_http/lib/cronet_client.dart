@@ -178,15 +178,16 @@ class CronetClient extends BaseClient {
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     if (_engine == null) {
+      // Create the future here rather than in the [fromCronetEngineFuture]
+      // factory so that [close] does not have to await the future just to
+      // close it in the case where [send] is never called.
+      //
+      // Assign to _engineFuture instead of just `await`ing the result of
+      // `CronetEngine.build()` to prevent concurrent executions of `send`
+      // from creating multiple [CronetEngine]s.
+      _engineFuture ??= CronetEngine.build();
       try {
-        if (_engineFuture == null) {
-          // Create the future here rather than in the [fromCronetEngineFuture]
-          // factory so that [close] does not have to await the future just to
-          // close it in the case where [send] is never called.
-          _engine = await CronetEngine.build();
-        } else {
-          _engine = await _engineFuture;
-        }
+        _engine = await _engineFuture;
       } catch (e) {
         throw ClientException(
             'Exception building CronetEngine: ${e.toString()}', request.url);
