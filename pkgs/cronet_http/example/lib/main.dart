@@ -12,7 +12,7 @@ import 'package:http/http.dart';
 
 import 'book.dart';
 
-void main() async {
+void main() {
   var clientFactory = Client.new; // Constructs the default client.
   if (Platform.isAndroid) {
     Future<CronetEngine>? engine;
