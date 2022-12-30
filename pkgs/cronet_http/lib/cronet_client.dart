@@ -155,7 +155,7 @@ class CronetClient extends BaseClient {
   /// required but you want to configure the [CronetClient] with a custom
   /// [CronetEngine]. For example:
   /// ```
-  /// void main() async {
+  /// void main() {
   ///   Client clientFactory() {
   ///     final engine = CronetEngine.build(
   ///         cacheMode: CacheMode.memory, userAgent: 'Book Agent');
