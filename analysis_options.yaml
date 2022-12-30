@@ -13,7 +13,6 @@ linter:
   - avoid_classes_with_only_static_members
   - avoid_dynamic_calls
   - avoid_private_typedef_functions
-  - avoid_redundant_argument_values
   - avoid_returning_this
   - avoid_unused_constructor_parameters
   - cascade_invocations
