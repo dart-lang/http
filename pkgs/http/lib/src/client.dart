@@ -188,6 +188,24 @@ Client? get zoneClient {
 /// The [Client] returned by [clientFactory] is used by the [Client.new] factory
 /// and the convenience HTTP functions (e.g. [http.get]). If [clientFactory]
 /// returns `Client()` then the default [Client] is used.
+///
+/// When used in the context of Flutter, [runWithClient] should be called before
+/// [`WidgetsFlutterBinding.ensureInitialized`](https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html)
+/// because Flutter runs in whatever [Zone] was current at the time that the
+/// bindings were initialized.
+///
+/// [`runApp`](https://api.flutter.dev/flutter/widgets/runApp.html) calls
+/// [`WidgetsFlutterBinding.ensureInitialized`](https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html)
+/// so the easiest approach is to call that in [body]:
+/// ```
+/// void main() {
+///  var clientFactory = Client.new; // Constructs the default client.
+///  if (Platform.isAndroid) {
+///     clientFactory = MyAndroidHttpClient.new;
+///  }
+///  runWithClient(() => runApp(const MyApp()), clientFactory);
+/// }
+/// ```
 R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
