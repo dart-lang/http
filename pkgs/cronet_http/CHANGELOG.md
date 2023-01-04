@@ -1,3 +1,8 @@
+## 0.1.1
+
+* Use no GMS-based cronet (`org.chromium.net:cronet-embedded`)
+  instead of GMS-based (`com.google.android.gms:play-services-cronet`).
+
 ## 0.1.0
 
 * Add a CronetClient that accepts a `Future<CronetEngine>`.
@@ -6,8 +11,6 @@
 
 ## 0.0.4
 
-* Use no GMS-based cronet (`org.chromium.net:cronet-embedded`)
-  instead of GMS-based (`com.google.android.gms:play-services-cronet`).
 * Fix a bug where the example would not use the configured `package:http`
   `Client` for Books API calls in some circumstances.
 * Fix a bug where the images in the example would be loaded using `dart:io`
