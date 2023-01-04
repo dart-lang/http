@@ -1,3 +1,9 @@
+## 0.1.0
+
+* Add a CronetClient that accepts a `Future<CronetEngine>`.
+* Modify the example application to create a `CronetClient` using a
+  `Future<CronetEngine>`.
+
 ## 0.0.4
 
 * Use no GMS-based cronet (`org.chromium.net:cronet-embedded`)
