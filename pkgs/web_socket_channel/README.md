@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/dart-lang/web_socket_channel/workflows/Dart%20CI/badge.svg)](https://github.com/dart-lang/web_socket_channel/actions?query=workflow%3A"Dart+CI"+branch%3Amaster)
+[![CI](https://github.com/dart-lang/web_socket_channel/actions/workflows/test-package.yml/badge.svg?branch=master)](https://github.com/dart-lang/web_socket_channel/actions/workflows/test-package.yml)
 
 The `web_socket_channel` package provides [`StreamChannel`][stream_channel]
 wrappers for WebSocket connections. It provides a cross-platform
