@@ -29,7 +29,7 @@ void testClose(Client client) {
     });
 
     test('close after request', () async {
-      await client.post(Uri.http(host, ''), body: 'Hello')
+      await client.post(Uri.http(host, ''), body: 'Hello');
       client.close();
     });
 
