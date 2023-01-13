@@ -62,5 +62,5 @@ void testAll(Client Function() clientFactory,
   testServerErrors(clientFactory());
   testCompressedResponseBody(clientFactory());
   testMultipleClients(clientFactory);
-  testClose(clientFactory());
+  testClose(clientFactory);
 }

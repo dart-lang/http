@@ -11,8 +11,8 @@ import 'request_body_server_vm.dart'
     if (dart.library.html) 'request_body_server_web.dart';
 
 /// Tests that the [Client] correctly implements [Client.close].
-void testClose(Client client) {
-  group('request body', () {
+void testClose(Client Function() clientFactory) {
+  group('close', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;
@@ -25,15 +25,17 @@ void testClose(Client client) {
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('close no request', () async {
-      client.close();
+      clientFactory().close();
     });
 
     test('close after request', () async {
+      final client = clientFactory();
       await client.post(Uri.http(host, ''), body: 'Hello');
       client.close();
     });
 
     test('multiple close after request', () async {
+      final client = clientFactory();
       await client.post(Uri.http(host, ''), body: 'Hello');
       client
         ..close()
@@ -41,9 +43,10 @@ void testClose(Client client) {
     });
 
     test('request after close', () async {
+      final client = clientFactory();
       await client.post(Uri.http(host, ''), body: 'Hello');
       client.close();
-      expect(() => client.post(Uri.http(host, ''), body: 'Hello'),
+      expect(() async => await client.post(Uri.http(host, ''), body: 'Hello'),
           throwsA(isA<ClientException>()));
     });
   });
