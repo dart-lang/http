@@ -171,10 +171,10 @@ class CronetClient extends BaseClient {
 
   @override
   void close() {
-    _isClosed = true;
     if (!_isClosed && _ownedEngine) {
       _engine?.close();
     }
+    _isClosed = true;
   }
 
   @override
