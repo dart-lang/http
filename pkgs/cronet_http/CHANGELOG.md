@@ -1,6 +1,6 @@
 ## 0.1.1
 
-* `BrowserClient` throws an exception if `send` is called after `close`.
+* `CronetClient` throws an exception if `send` is called after `close`.
 
 ## 0.1.0
 
