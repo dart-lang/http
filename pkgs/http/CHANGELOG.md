@@ -1,6 +1,6 @@
 ## 0.13.6-dev
 
-* `BrownserClient` throws an exception if `send` is called after `close`.
+* `BrowserClient` throws an exception if `send` is called after `close`.
 
 ## 0.13.5
 
