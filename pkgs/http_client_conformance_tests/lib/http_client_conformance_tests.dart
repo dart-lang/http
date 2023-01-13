@@ -4,6 +4,7 @@
 
 import 'package:http/http.dart';
 
+import 'src/close_tests.dart';
 import 'src/compressed_response_body_tests.dart';
 import 'src/multiple_clients_tests.dart';
 import 'src/redirect_tests.dart';
@@ -15,6 +16,7 @@ import 'src/response_body_tests.dart';
 import 'src/response_headers_tests.dart';
 import 'src/server_errors_test.dart';
 
+export 'src/close_tests.dart' show testClose;
 export 'src/compressed_response_body_tests.dart'
     show testCompressedResponseBody;
 export 'src/multiple_clients_tests.dart' show testMultipleClients;
@@ -60,4 +62,5 @@ void testAll(Client Function() clientFactory,
   testServerErrors(clientFactory());
   testCompressedResponseBody(clientFactory());
   testMultipleClients(clientFactory);
+  testClose(clientFactory());
 }

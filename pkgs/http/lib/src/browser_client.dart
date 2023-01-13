@@ -37,9 +37,15 @@ class BrowserClient extends BaseClient {
   /// Defaults to `false`.
   bool withCredentials = false;
 
+  bool _isClosed = false;
+
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
+    if (_isClosed) {
+      throw ClientException(
+          'HTTP request failed. Client is already closed.', request.url);
+    }
     var bytes = await request.finalize().toBytes();
     var xhr = HttpRequest();
     _xhrs.add(xhr);
@@ -83,8 +89,10 @@ class BrowserClient extends BaseClient {
   /// This terminates all active requests.
   @override
   void close() {
+    _isClosed = true;
     for (var xhr in _xhrs) {
       xhr.abort();
     }
+    _xhrs.clear();
   }
 }

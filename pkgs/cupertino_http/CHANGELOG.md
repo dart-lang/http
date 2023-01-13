@@ -2,6 +2,7 @@
 
 * Fix a bug where the images in the example would be loaded using `dart:io`
   `HttpClient`.
+* `CupertinoClient` throws an exception if `send` is called after `close`.
 
 ## 0.0.10
 

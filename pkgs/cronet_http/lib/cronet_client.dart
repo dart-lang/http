@@ -134,6 +134,7 @@ class CronetEngine {
 class CronetClient extends BaseClient {
   CronetEngine? _engine;
   Future<CronetEngine>? _engineFuture;
+  bool _isClosed = false;
 
   /// Indicates that [_engine] was constructed as an implementation detail for
   /// this [CronetClient] (i.e. was not provided as a constructor argument) and
@@ -170,13 +171,19 @@ class CronetClient extends BaseClient {
 
   @override
   void close() {
-    if (_ownedEngine) {
+    _isClosed = true;
+    if (!_isClosed && _ownedEngine) {
       _engine?.close();
     }
   }
 
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
+    if (_isClosed) {
+      throw ClientException(
+          'HTTP request failed. Client is already closed.', request.url);
+    }
+
     if (_engine == null) {
       // Create the future here rather than in the [fromCronetEngineFuture]
       // factory so that [close] does not have to await the future just to
