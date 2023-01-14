@@ -22,6 +22,7 @@ void testClientConformance(CronetClient Function() clientFactory) {
   testRedirect(client);
   testCompressedResponseBody(client);
   testMultipleClients(clientFactory);
+  testClose(clientFactory);
 }
 
 Future<void> testConformance() async {

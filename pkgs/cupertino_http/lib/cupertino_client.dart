@@ -52,9 +52,9 @@ class _TaskTracker {
 class CupertinoClient extends BaseClient {
   static final Map<URLSessionTask, _TaskTracker> _tasks = {};
 
-  URLSession _urlSession;
+  URLSession? _urlSession;
 
-  CupertinoClient._(this._urlSession);
+  CupertinoClient._(URLSession urlSession) : _urlSession = urlSession;
 
   String? _findReasonPhrase(int statusCode) {
     switch (statusCode) {
@@ -206,6 +206,11 @@ class CupertinoClient extends BaseClient {
   }
 
   @override
+  void close() {
+    _urlSession = null;
+  }
+
+  @override
   Future<StreamedResponse> send(BaseRequest request) async {
     // The expected sucess case flow (without redirects) is:
     // 1. send is called by BaseClient
@@ -219,6 +224,12 @@ class CupertinoClient extends BaseClient {
     //    StreamController that controls the Stream<UInt8List>
     // 7. _onComplete is called after all the data is read and closes the
     //    StreamController
+    if (_urlSession == null) {
+      throw ClientException(
+          'HTTP request failed. Client is already closed.', request.url);
+    }
+    final urlSession = _urlSession!;
+
     final stream = request.finalize();
 
     final bytes = await stream.toBytes();
@@ -231,7 +242,7 @@ class CupertinoClient extends BaseClient {
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
 
-    final task = _urlSession.dataTaskWithRequest(urlRequest);
+    final task = urlSession.dataTaskWithRequest(urlRequest);
     final taskTracker = _TaskTracker(request);
     _tasks[task] = taskTracker;
     task.resume();

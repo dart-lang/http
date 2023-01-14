@@ -145,6 +145,10 @@ abstract class Client {
   ///
   /// It's important to close each client when it's done being used; failing to
   /// do so can cause the Dart process to hang.
+  ///
+  /// Once [close] is called, no other methods should be called. If [close] is
+  /// called while other asynchronous methods are running, the behavior is
+  /// undefined.
   void close();
 }
 

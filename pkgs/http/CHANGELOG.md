@@ -1,5 +1,7 @@
 ## 0.13.6-dev
 
+* `BrowserClient` throws an exception if `send` is called after `close`.
+
 ## 0.13.5
 
 * Allow async callbacks in RetryClient.

@@ -1,3 +1,7 @@
+## 0.1.1
+
+* `CronetClient` throws an exception if `send` is called after `close`.
+
 ## 0.1.0
 
 * Add a CronetClient that accepts a `Future<CronetEngine>`.
