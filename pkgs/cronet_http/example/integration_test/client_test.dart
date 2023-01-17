@@ -9,20 +9,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testClientConformance(CronetClient Function() clientFactory) {
-  // TODO: Use `testAll` when `testServerErrors` passes i.e.
-  // testAll(CronetClient(), canStreamRequestBody: false);
-
-  final client = clientFactory();
-  testRequestBody(client);
-  testRequestBodyStreamed(client, canStreamRequestBody: false);
-  testResponseBody(client);
-  testResponseBodyStreamed(client);
-  testRequestHeaders(client);
-  testResponseHeaders(client);
-  testRedirect(client);
-  testCompressedResponseBody(client);
-  testMultipleClients(clientFactory);
-  testClose(clientFactory);
+  testAll(clientFactory, canStreamRequestBody: false);
 }
 
 Future<void> testConformance() async {

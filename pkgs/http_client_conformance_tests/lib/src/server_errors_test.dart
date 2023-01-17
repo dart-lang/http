@@ -11,8 +11,7 @@ import 'server_errors_server_vm.dart'
     if (dart.library.html) 'server_errors_server_web.dart';
 
 /// Tests that the [Client] correctly handles server errors.
-void testServerErrors(Client client,
-    {bool redirectAlwaysAllowed = false}) async {
+void testServerErrors(Client client, {bool redirectAlwaysAllowed = false}) {
   group('server errors', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
