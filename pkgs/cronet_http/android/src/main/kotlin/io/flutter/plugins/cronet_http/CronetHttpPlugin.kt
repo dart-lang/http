@@ -188,7 +188,7 @@ class CronetHttpPlugin : FlutterPlugin, Messages.HttpApi {
 
                 override fun onFailed(
                     request: UrlRequest,
-                    info: UrlResponseInfo,
+                    info: UrlResponseInfo?,
                     error: CronetException
                 ) {
                     mainThreadHandler.post({ eventSink.error("CronetException", error.toString(), null) })

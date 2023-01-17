@@ -1,3 +1,7 @@
+## 0.1.2
+
+* Fix a NPE that occurs when an error occurs before a response is received.
+
 ## 0.1.1
 
 * `CronetClient` throws an exception if `send` is called after `close`.
