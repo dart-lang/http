@@ -23,7 +23,7 @@ Future<String> _getLatestVersion() async {
       .singleWhere((e) => e is XmlElement)
       .children
       .singleWhere((e) => e is XmlElement && e.name.local == 'cronet-embedded');
-  final stableVersionReg = RegExp(r'^(\d+).(\d+).(\d+)$');
+  final stableVersionReg = RegExp(r'^\d+.\d+.\d+$');
   final versions = embeddedNode.attributes
       .singleWhere((e) => e.name.local == 'versions')
       .value
@@ -41,9 +41,9 @@ void _writeImplementationToTheFile(String latestVersion) {
   final fBuildGradle = File('${dir.path}/android/build.gradle');
   final gradleContent = fBuildGradle.readAsStringSync();
   final implementationRegExp = RegExp(
-    '^(\\s*)implementation [\'"]'
+    '^\\s*implementation [\'"]'
     'com.google.android.gms:play-services-cronet'
-    ':(\\d+.\\d+.\\d+)[\'"]',
+    ':\\d+.\\d+.\\d+[\'"]',
     multiLine: true,
   );
   final newGradleContent = gradleContent.replaceAll(
