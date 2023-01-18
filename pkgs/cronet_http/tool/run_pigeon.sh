@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Generate the platform messages used by cronet_http.
+cd ../
 
 flutter pub run pigeon \
   --input pigeons/messages.dart \
