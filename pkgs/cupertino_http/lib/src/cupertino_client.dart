@@ -11,7 +11,7 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart';
 
-import 'cupertino_http.dart';
+import 'cupertino_api.dart';
 
 class _TaskTracker {
   final responseCompleter = Completer<URLResponse>();
