@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Restructure `package:cupertino_http` to offer a single `import`.
+
 ## 0.0.11
 
 * Fix a bug where the images in the example would be loaded using `dart:io`

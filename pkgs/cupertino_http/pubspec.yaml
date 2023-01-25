@@ -2,7 +2,7 @@ name: cupertino_http
 description: >
   A macOS/iOS Flutter plugin that provides access to the Foundation URL
   Loading System.
-version: 0.0.11
+version: 0.1.0
 repository: https://github.com/dart-lang/http/tree/master/pkgs/cupertino_http
 
 environment:
