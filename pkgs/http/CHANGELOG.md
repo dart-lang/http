@@ -1,6 +1,7 @@
 ## 0.13.6-dev
 
 * `BrowserClient` throws an exception if `send` is called after `close`.
+* No longer depends on package:path.
 
 ## 0.13.5
 
