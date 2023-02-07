@@ -20,9 +20,9 @@ void main() {
   tearDown(() => tempDir.deleteSync(recursive: true));
 
   test('with a file from disk', () async {
-    var filePath = tempDir.uri.resolve('test-file');
-    File.fromUri(filePath).writeAsStringSync('hello');
-    var file = await http.MultipartFile.fromPath('file', filePath.toFilePath());
+    var fileUri = tempDir.uri.resolve('test-file');
+    File.fromUri(fileUri).writeAsStringSync('hello');
+    var file = await http.MultipartFile.fromPath('file', fileUri.toFilePath());
     var request = http.MultipartRequest('POST', dummyUrl);
     request.files.add(file);
 
