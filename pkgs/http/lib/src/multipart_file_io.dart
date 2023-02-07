@@ -11,7 +11,7 @@ import 'multipart_file.dart';
 
 Future<MultipartFile> multipartFileFromPath(String field, String filePath,
     {String? filename, MediaType? contentType}) async {
-  late var segments = File(filePath).uri.pathSegments;
+  late var segments = Uri.file(filePath).pathSegments;
   filename ??= segments.isEmpty ? '' : segments.last;
   var file = File(filePath);
   var length = await file.length();
