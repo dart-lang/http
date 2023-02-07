@@ -7,7 +7,6 @@
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart' as path;
 import 'package:test/test.dart';
 
 import '../utils.dart';
@@ -21,9 +20,9 @@ void main() {
   tearDown(() => tempDir.deleteSync(recursive: true));
 
   test('with a file from disk', () async {
-    var filePath = path.join(tempDir.path, 'test-file');
-    File(filePath).writeAsStringSync('hello');
-    var file = await http.MultipartFile.fromPath('file', filePath);
+    var filePath = tempDir.uri.resolve('test-file');
+    File.fromUri(filePath).writeAsStringSync('hello');
+    var file = await http.MultipartFile.fromPath('file', filePath.toFilePath());
     var request = http.MultipartRequest('POST', dummyUrl);
     request.files.add(file);
 
