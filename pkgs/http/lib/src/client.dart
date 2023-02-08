@@ -210,6 +210,13 @@ Client? get zoneClient {
 ///  runWithClient(() => runApp(const MyApp()), clientFactory);
 /// }
 /// ```
+///
+/// If [runWithClient] is used and the environment defines
+/// `no_default_http_client=true` then generated binaries may be smaller e.g.
+/// ```shell
+/// $ flutter build appbundle --dart-define=no_default_http_client=true ...
+/// $ dart compile exe --define=no_default_http_client=true ...
+/// ```
 R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,

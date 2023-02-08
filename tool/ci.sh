@@ -83,6 +83,14 @@ for PKG in ${PKGS}; do
         echo 'dart test --platform chrome'
         dart test --platform chrome || EXIT_CODE=$?
         ;;
+      test_2)
+        echo 'dart test --platform vm --define=no_default_http_client=true test/no_default_http_client_test.dart'
+        dart test --platform vm --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
+        ;;
+      test_3)
+        echo 'dart test --platform chrome --define=no_default_http_client=true test/no_default_http_client_test.dart'
+        dart test --platform chrome --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
+        ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"
         exit 64
