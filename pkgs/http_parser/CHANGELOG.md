@@ -1,3 +1,7 @@
+## 4.0.3-dev
+
+* Require Dart 2.17
+
 ## 4.0.2
 
 * Remove `package:charcode` from dev_dependencies.

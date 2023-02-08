@@ -61,10 +61,10 @@ void main() {
 
     test('parses quoted parameters', () {
       final type =
-          MediaType.parse('text/plain; foo="bar space"; baz="bang\\\\escape"');
+          MediaType.parse(r'text/plain; foo="bar space"; baz="bang\\escape"');
       expect(type.mimeType, equals('text/plain'));
       expect(
-          type.parameters, equals({'foo': 'bar space', 'baz': 'bang\\escape'}));
+          type.parameters, equals({'foo': 'bar space', 'baz': r'bang\escape'}));
     });
 
     test('lower-cases type and subtype', () {

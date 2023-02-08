@@ -125,15 +125,16 @@ class AuthenticationChallenge {
   }
 
   /// Scans a single authentication parameter and stores its result in [params].
-  static void _scanAuthParam(StringScanner scanner, Map params) {
+  static void _scanAuthParam(
+      StringScanner scanner, Map<String, String> params) {
     scanner.expect(token, name: 'a token');
-    final name = scanner.lastMatch![0];
+    final name = scanner.lastMatch![0]!;
     scanner.scan(whitespace);
     scanner.expect('=');
     scanner.scan(whitespace);
 
     if (scanner.scan(token)) {
-      params[name] = scanner.lastMatch![0];
+      params[name] = scanner.lastMatch![0]!;
     } else {
       params[name] =
           expectQuotedString(scanner, name: 'a token or a quoted string');

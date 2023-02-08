@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('provides case-insensitive access to the map', () {
-    final map = CaseInsensitiveMap();
+    final map = CaseInsensitiveMap<String>();
     map['fOo'] = 'bAr';
     expect(map, containsPair('FoO', 'bAr'));
 
@@ -16,7 +16,7 @@ void main() {
   });
 
   test('stores the original key cases', () {
-    final map = CaseInsensitiveMap();
+    final map = CaseInsensitiveMap<String>();
     map['fOo'] = 'bAr';
     expect(map, equals({'fOo': 'bAr'}));
   });

@@ -66,13 +66,13 @@ void main() {
 
       test('handles empty chunks', () {
         sink.add([]);
-        expect(results, equals([[]]));
+        expect(results, equals([<int>[]]));
 
         sink.add([1, 2, 3]);
         expect(
             results,
             equals([
-              [],
+              <int>[],
               [$3, $cr, $lf, 1, 2, 3, $cr, $lf]
             ]));
 
@@ -80,18 +80,18 @@ void main() {
         expect(
             results,
             equals([
-              [],
+              <int>[],
               [$3, $cr, $lf, 1, 2, 3, $cr, $lf],
-              []
+              <int>[]
             ]));
 
         sink.close();
         expect(
             results,
             equals([
-              [],
+              <int>[],
               [$3, $cr, $lf, 1, 2, 3, $cr, $lf],
-              [],
+              <int>[],
               [$0, $cr, $lf, $cr, $lf],
             ]));
       });
@@ -108,7 +108,7 @@ void main() {
 
         test("doesn't add a header if the slice is empty", () {
           sink.addSlice([1, 2, 3, 4, 5], 1, 1, false);
-          expect(results, equals([[]]));
+          expect(results, equals([<int>[]]));
         });
 
         test('adds a footer if isLast is true', () {

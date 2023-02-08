@@ -7,8 +7,7 @@ import 'package:test/test.dart';
 
 void main() {
   group('parse', () {
-    _singleChallengeTests(
-        (challenge) => AuthenticationChallenge.parse(challenge));
+    _singleChallengeTests(AuthenticationChallenge.parse);
   });
 
   group('parseHeader', () {
