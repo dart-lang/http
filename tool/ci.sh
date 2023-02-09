@@ -71,6 +71,10 @@ for PKG in ${PKGS}; do
         echo 'dart analyze --fatal-infos'
         dart analyze --fatal-infos || EXIT_CODE=$?
         ;;
+      command)
+        echo 'dart run --define=no_default_http_client=true test/no_default_http_client_test.dart'
+        dart run --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
+        ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
@@ -86,10 +90,6 @@ for PKG in ${PKGS}; do
       test_2)
         echo 'dart test --platform vm --define=no_default_http_client=true test/no_default_http_client_test.dart'
         dart test --platform vm --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
-        ;;
-      test_3)
-        echo 'dart test --platform chrome --define=no_default_http_client=true test/no_default_http_client_test.dart'
-        dart test --platform chrome --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
         ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"
