@@ -217,6 +217,10 @@ Client? get zoneClient {
 /// $ flutter build appbundle --dart-define=no_default_http_client=true ...
 /// $ dart compile exe --define=no_default_http_client=true ...
 /// ```
+///
+/// If `no_default_http_client=true` is set then any call to the [Client]
+/// factory (i.e. `Client()`) outside of the [Zone] created by [runWithClient]
+/// will throw [StateError].
 R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
