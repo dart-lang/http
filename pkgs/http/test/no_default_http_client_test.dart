@@ -10,6 +10,6 @@ import 'package:test/test.dart';
 
 void main() {
   test('Client()', () {
-    expect(http.Client, throwsA(isA<StateError>()));
+    expect(() => http.Client(), throwsA(isA<StateError>()));
   });
 }
