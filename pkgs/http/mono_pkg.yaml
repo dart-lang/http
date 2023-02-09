@@ -18,6 +18,6 @@ stages:
   - test: --platform vm --define=no_default_http_client=true test/no_default_http_client_test.dart
     os:
     - linux
-  - test: --platform chrome --define=no_default_http_client=true test/no_default_http_client_test.dart
+  - command: dart run --define=no_default_http_client=true test/no_default_http_client_test.dart
     os:
     - linux
