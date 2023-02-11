@@ -82,7 +82,7 @@ abstract class BaseRequest {
   // TODO(nweiz): automatically parse cookies from headers
 
   // TODO(nweiz): make this a HttpHeaders object
-  final Map<String, String> headers;
+  Map<String, String> headers;
 
   /// Whether [finalize] has been called.
   bool get finalized => _finalized;
