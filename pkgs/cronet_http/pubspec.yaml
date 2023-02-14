@@ -17,6 +17,7 @@ dev_dependencies:
   lints: ^1.0.0
   pigeon: ^3.2.3
   xml: ^6.1.0
+  yaml_edit: ^2.0.3
 
 flutter:
   plugin:

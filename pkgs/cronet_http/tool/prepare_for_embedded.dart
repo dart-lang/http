@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
+import 'package:yaml_edit/yaml_edit.dart';
 
 void main() async {
   final latestVersion = await _getLatestVersion();
@@ -53,10 +54,14 @@ void _writeImplementationToTheFile(String latestVersion) {
   fBuildGradle.writeAsStringSync(newGradleContent);
   // Update pubspec.yaml
   final fPubspec = File('${dir.path}/pubspec.yaml');
-  fPubspec.writeAsStringSync(
-    fPubspec.readAsStringSync().replaceAll(
-          RegExp(r'^name: cronet_http$'),
-          'name: cronet_http_embedded',
-        ),
-  );
+  final yamlEditor = YamlEditor(fPubspec.readAsStringSync())
+    ..update(['name'], 'cronet_http_embedded')
+    ..update(
+      ['description'],
+      'An Android Flutter plugin that '
+      'provides access to the Cronet HTTP client. '
+      'Identical to package:cronet_http except that it embeds Cronet '
+      'rather than relying on Google Play Services.',
+    );
+  fPubspec.writeAsStringSync(yamlEditor.toString());
 }
