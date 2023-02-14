@@ -11,6 +11,7 @@ import 'package:yaml_edit/yaml_edit.dart';
 void main() async {
   final latestVersion = await _getLatestVersion();
   _writeImplementationToTheFile(latestVersion);
+  _replaceREADME();
 }
 
 Future<String> _getLatestVersion() async {
@@ -66,4 +67,13 @@ void _writeImplementationToTheFile(String latestVersion) {
       'rather than relying on Google Play Services.',
     );
   fPubspec.writeAsStringSync(yamlEditor.toString());
+}
+
+void _replaceREADME() {
+  var dir = Directory.current;
+  if (dir.path.endsWith('tool')) {
+    dir = dir.parent;
+  }
+  File('${dir.path}/README.md').deleteSync();
+  File('${dir.path}/README_EMBEDDED.md').renameSync('${dir.path}/README.md');
 }
