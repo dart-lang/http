@@ -47,9 +47,11 @@ void _writeImplementationToTheFile(String latestVersion) {
     ':\\d+.\\d+.\\d+[\'"]',
     multiLine: true,
   );
+  final newImplementation = 'org.chromium.net:cronet-embedded:$latestVersion';
+  print('Patching $newImplementation');
   final newGradleContent = gradleContent.replaceAll(
     implementationRegExp,
-    '    implementation "org.chromium.net:cronet-embedded:$latestVersion"',
+    '    implementation $newImplementation',
   );
   fBuildGradle.writeAsStringSync(newGradleContent);
   // Update pubspec.yaml
