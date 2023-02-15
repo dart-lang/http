@@ -1,6 +1,7 @@
 // Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+// ignore_for_file: lines_longer_than_80_chars
 
 import 'dart:io';
 
@@ -8,18 +9,49 @@ import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
+/// The cronet_http directory is used to produce two packages:
+/// - `cronet_http`, which uses the Google Play Services version of Cronet.
+/// - `cronet_http_embedded`, which embeds Cronet.
+///
+/// The default configuration of this code is to use the Google Play Services version of Cronet.
+///
+/// The script transforms the configuration into one that embeds Cronet by:
+/// 1. Modifying the Gradle build file to reference the embedded version of Cronet.
+/// 2. Modifying the *name* and *description* in `pubspec.yaml`.
+/// 3. Replaying `README.md` with `README_EMBEDDED.md`.
+///
+/// After running this script, `flutter pub publish` can be run to update package:cronet_http_embedded.
+///
+/// NOTE: This script modifies the above files in place.
+late final Directory _directory;
+
+const String _gmsDependencyName = 'com.google.android.gms:play-services-cronet';
+const String _embeddedDependencyName = 'org.chromium.net:cronet-embedded';
+const String _packageName = 'cronet_http_embedded';
+const String _packageDescription = 'An Android Flutter plugin that '
+    'provides access to the Cronet HTTP client. '
+    'Identical to package:cronet_http except that it embeds Cronet '
+    'rather than relying on Google Play Services.';
+final Uri _cronetVersionUri = Uri.https(
+  'dl.google.com',
+  'android/maven2/org/chromium/net/group-index.xml',
+);
+
 void main() async {
-  final latestVersion = await _getLatestVersion();
-  _writeImplementationToTheFile(latestVersion);
-  _replaceREADME();
+  if (Directory.current.path.endsWith('tool')) {
+    _directory = Directory.current.parent;
+  } else {
+    _directory = Directory.current;
+  }
+
+  final latestVersion = await _getLatestCronetVersion();
+  updateCronetDependency(latestVersion);
+  updatePubSpec();
+  updateReadme();
 }
 
-Future<String> _getLatestVersion() async {
-  final url = Uri.https(
-    'dl.google.com',
-    'android/maven2/org/chromium/net/group-index.xml',
-  );
-  final response = await http.get(url);
+Future<String> _getLatestCronetVersion() async {
+  final response = await http.get(_cronetVersionUri);
   final parsedXml = XmlDocument.parse(response.body);
   final embeddedNode = parsedXml.children
       .singleWhere((e) => e is XmlElement)
@@ -34,46 +66,37 @@ Future<String> _getLatestVersion() async {
   return versions.last;
 }
 
-void _writeImplementationToTheFile(String latestVersion) {
-  var dir = Directory.current;
-  if (dir.path.endsWith('tool')) {
-    dir = dir.parent;
-  }
-  // Update android/build.gradle
-  final fBuildGradle = File('${dir.path}/android/build.gradle');
+/// Update android/build.gradle
+void updateCronetDependency(String latestVersion) {
+  final fBuildGradle = File('${_directory.path}/android/build.gradle');
   final gradleContent = fBuildGradle.readAsStringSync();
   final implementationRegExp = RegExp(
     '^\\s*implementation [\'"]'
-    'com.google.android.gms:play-services-cronet'
+    '$_gmsDependencyName'
     ':\\d+.\\d+.\\d+[\'"]',
     multiLine: true,
   );
-  final newImplementation = 'org.chromium.net:cronet-embedded:$latestVersion';
+  final newImplementation = '$_embeddedDependencyName:$latestVersion';
   print('Patching $newImplementation');
   final newGradleContent = gradleContent.replaceAll(
     implementationRegExp,
     '    implementation $newImplementation',
   );
   fBuildGradle.writeAsStringSync(newGradleContent);
-  // Update pubspec.yaml
-  final fPubspec = File('${dir.path}/pubspec.yaml');
+}
+
+/// Update pubspec.yaml
+void updatePubSpec() {
+  final fPubspec = File('${_directory.path}/pubspec.yaml');
   final yamlEditor = YamlEditor(fPubspec.readAsStringSync())
-    ..update(['name'], 'cronet_http_embedded')
-    ..update(
-      ['description'],
-      'An Android Flutter plugin that '
-      'provides access to the Cronet HTTP client. '
-      'Identical to package:cronet_http except that it embeds Cronet '
-      'rather than relying on Google Play Services.',
-    );
+    ..update(['name'], _packageName)
+    ..update(['description'], _packageDescription);
   fPubspec.writeAsStringSync(yamlEditor.toString());
 }
 
-void _replaceREADME() {
-  var dir = Directory.current;
-  if (dir.path.endsWith('tool')) {
-    dir = dir.parent;
-  }
-  File('${dir.path}/README.md').deleteSync();
-  File('${dir.path}/README_EMBEDDED.md').renameSync('${dir.path}/README.md');
+/// Move README_EMBEDDED.md to replace README.md
+void updateReadme() {
+  File('${_directory.path}/README.md').deleteSync();
+  File('${_directory.path}/README_EMBEDDED.md')
+      .renameSync('${_directory.path}/README.md');
 }
