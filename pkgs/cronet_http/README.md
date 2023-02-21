@@ -5,6 +5,14 @@ HTTP client.
 Cronet is available as part of
 [Google Play Services](https://developers.google.com/android/guides/overview). 
 
+This package depends on
+[Google Play Services](https://developers.google.com/android/guides/overview)
+for its Cronet implementation.
+[`package:cronet_http_embedded`](https://pub.dev/packages/cronet_http_embedded)
+is functionally identical to this package but embeds Cronet directly instead
+of relying on
+[Google Play Services](https://developers.google.com/android/guides/overview).
+
 ## Status: Experimental
 
 **NOTE**: This package is currently experimental and published under the
