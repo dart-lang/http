@@ -1,0 +1,16 @@
+# Configuration for .github/workflows/pull_request_label.yml. 
+
+'infra':
+  - '.github/**'
+
+'package:cronet_http':
+  - 'pkgs/cronet_http/**'
+
+'package:cupertino_http':
+  - 'pkgs/cupertino_http/**'
+
+'package:http':
+  - 'pkgs/http/**'
+
+'package:http_client_conformance_tests':
+  - 'pkgs/http_client_conformance_tests/**'
