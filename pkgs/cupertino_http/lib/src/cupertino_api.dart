@@ -180,7 +180,8 @@ class URLSessionConfiguration
           ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(
               linkedLibs)!));
 
-  /// A configuration that uses caching and saves cookies and credentials.
+  /// A session configuration that uses no persistent storage for caches,
+  /// cookies, or credentials.
   ///
   /// See [NSURLSessionConfiguration ephemeralSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1410529-ephemeralsessionconfiguration)
   factory URLSessionConfiguration.ephemeralSessionConfiguration() =>
