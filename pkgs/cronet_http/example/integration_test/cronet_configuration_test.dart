@@ -6,7 +6,7 @@
 
 import 'dart:io';
 
-import 'package:cronet_http/cronet_client.dart';
+import 'package:cronet_http/cronet_http.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 

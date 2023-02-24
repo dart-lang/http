@@ -17,7 +17,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 
-import 'src/messages.dart' as messages;
+import 'messages.dart' as messages;
 
 late final _api = messages.HttpApi();
 

@@ -1076,7 +1076,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
   /// A description of the session that may be useful for debugging.
   ///
-  /// See [NSURLSession.sessionDescription](https://developer.apple.com/documentation/foundation/nsurlsession/1408277-sessiondescription)
+  /// See [NSURLSession.
+  ](https://developer.apple.com/documentation/foundation/nsurlsession/1408277-sessiondescription)
   String? get sessionDescription =>
       toStringOrNull(_nsObject.sessionDescription);
   set sessionDescription(String? value) =>
