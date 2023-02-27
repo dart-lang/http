@@ -185,6 +185,13 @@ void testURLSession(URLSession session) {
       server.close();
     });
 
+    test('sessionDescription', () async {
+      session.sessionDescription = null;
+      expect(session.sessionDescription, null);
+      session.sessionDescription = 'Happy Days!';
+      expect(session.sessionDescription, 'Happy Days!');
+    });
+
     test('dataTask', () async {
       final task = session.dataTaskWithRequest(
           URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))

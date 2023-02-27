@@ -1,3 +1,7 @@
+## 0.1.1
+
+* Add a `URLSession.sessionDescription` field.
+
 ## 0.1.0
 
 * Restructure `package:cupertino_http` to offer a single `import`.

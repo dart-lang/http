@@ -1067,15 +1067,24 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         onFinishedDownloading: onFinishedDownloading,
         onComplete: onComplete);
   }
-  // A **copy** of the configuration for this sesion.
-  //
-  // See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
+
+  /// A **copy** of the configuration for this sesion.
+  ///
+  /// See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
   URLSessionConfiguration get configuration => URLSessionConfiguration._(
       ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration!));
 
-  // Create a [URLSessionTask] that accesses a server URL.
-  //
-  // See [NSURLSession dataTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1410592-datataskwithrequest)
+  /// A description of the session that may be useful for debugging.
+  ///
+  /// See [NSURLSession.sessionDescription](https://developer.apple.com/documentation/foundation/nsurlsession/1408277-sessiondescription)
+  String? get sessionDescription =>
+      toStringOrNull(_nsObject.sessionDescription);
+  set sessionDescription(String? value) =>
+      _nsObject.sessionDescription = value?.toNSString(linkedLibs);
+
+  /// Create a [URLSessionTask] that accesses a server URL.
+  ///
+  /// See [NSURLSession dataTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1410592-datataskwithrequest)
   URLSessionTask dataTaskWithRequest(URLRequest request) {
     final task =
         URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
