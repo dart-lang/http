@@ -1,3 +1,7 @@
+## 0.2.1-dev
+
+* Require Dart 2.19
+
 ## 0.2.0
 
 * Restructure `package:cronet_http` to offer a

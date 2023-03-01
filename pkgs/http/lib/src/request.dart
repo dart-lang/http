@@ -137,10 +137,9 @@ class Request extends BaseRequest {
     body = mapToQuery(fields, encoding: encoding);
   }
 
-  Request(String method, Uri url)
+  Request(super.method, super.url)
       : _defaultEncoding = utf8,
-        _bodyBytes = Uint8List(0),
-        super(method, url);
+        _bodyBytes = Uint8List(0);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// containing the request body.

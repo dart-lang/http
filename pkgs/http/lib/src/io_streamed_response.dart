@@ -4,7 +4,6 @@
 
 import 'dart:io';
 
-import 'base_request.dart';
 import 'streamed_response.dart';
 
 /// An HTTP response where the response body is received asynchronously after
@@ -17,22 +16,15 @@ class IOStreamedResponse extends StreamedResponse {
   /// [stream] should be a single-subscription stream.
   ///
   /// If [inner] is not provided, [detachSocket] will throw.
-  IOStreamedResponse(Stream<List<int>> stream, int statusCode,
-      {int? contentLength,
-      BaseRequest? request,
-      Map<String, String> headers = const {},
-      bool isRedirect = false,
-      bool persistentConnection = true,
-      String? reasonPhrase,
+  IOStreamedResponse(super.stream, super.statusCode,
+      {super.contentLength,
+      super.request,
+      super.headers,
+      super.isRedirect,
+      super.persistentConnection,
+      super.reasonPhrase,
       HttpClientResponse? inner})
-      : _inner = inner,
-        super(stream, statusCode,
-            contentLength: contentLength,
-            request: request,
-            headers: headers,
-            isRedirect: isRedirect,
-            persistentConnection: persistentConnection,
-            reasonPhrase: reasonPhrase);
+      : _inner = inner;
 
   /// Detaches the underlying socket from the HTTP server.
   ///

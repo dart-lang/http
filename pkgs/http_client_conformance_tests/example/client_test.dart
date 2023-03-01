@@ -12,6 +12,6 @@ class MyHttpClient extends BaseClient {
 
 void main() {
   group('client conformance tests', () {
-    testAll(() => MyHttpClient());
+    testAll(MyHttpClient.new);
   });
 }
