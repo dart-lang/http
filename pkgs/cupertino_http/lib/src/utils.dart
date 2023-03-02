@@ -14,7 +14,7 @@ const _libName = _packageName;
 ///
 /// The "Foundation" framework is linked to Dart so no additional
 /// libraries need to be loaded to access those symbols.
-late ncb.NativeCupertinoHttp linkedLibs = () {
+final ncb.NativeCupertinoHttp linkedLibs = () {
   if (Platform.isMacOS || Platform.isIOS) {
     final lib = DynamicLibrary.process();
     return ncb.NativeCupertinoHttp(lib);
@@ -25,7 +25,7 @@ late ncb.NativeCupertinoHttp linkedLibs = () {
 
 /// Access to symbols that are available in the cupertino_http helper shared
 /// library.
-late ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
+final ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
 
 DynamicLibrary _loadHelperDynamicLibrary() {
   if (Platform.isMacOS || Platform.isIOS) {
