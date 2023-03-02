@@ -21,7 +21,7 @@
 * Add a more complete implementation for `URLSessionTask`:
   * `priority` property - hint for host prioritization.
   * `currentRequest` property - the current request for the task (will be
-    different than `originalRequest` in the face of redirects).
+    different then `originalRequest` in the face of redirects).
   * `originalRequest` property - the original request for the task. 
   * `error` property - an `Error` object if the request failed.
   * `taskDescription` property - a developer-set description of the task.
@@ -42,7 +42,7 @@
 
 ## 0.0.6
 
-* Make the number of simulateous connections allowed to the same host
+* Make the number of simultaneous connections allowed to the same host
   configurable.
 * Fixes
   [cupertino_http: Failure calling Dart_PostCObject_DL](https://github.com/dart-lang/http/issues/785).
