@@ -8,7 +8,7 @@ import 'dart:io';
 
 import 'package:stream_channel/stream_channel.dart';
 
-/// Starts an HTTP server that absorbes a request stream of integers and
+/// Starts an HTTP server that absorbs a request stream of integers and
 /// signals the client to quit after 1000 have been received.
 ///
 /// Channel protocol:
