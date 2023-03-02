@@ -74,6 +74,8 @@
 ///   task.resume();
 /// }
 /// ```
+library;
+
 import 'package:http/http.dart';
 
 import 'src/cupertino_client.dart';

@@ -18,6 +18,7 @@
 /// can be run to update package:cronet_http_embedded.
 ///
 /// NOTE: This script modifies the above files in place.
+library;
 
 import 'dart:io';
 

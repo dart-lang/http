@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// Tests various [CronetEngine] configurations.
+library;
 
 import 'dart:io';
 
