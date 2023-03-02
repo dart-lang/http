@@ -35,7 +35,7 @@ Future<void> testClientFromFutureFails() async {
   test('cronet engine future fails', () async {
     final engineFuture = CronetEngine.build(
         cacheMode: CacheMode.disk,
-        storagePath: '/non-existant-path/', // Will cause `build` to throw.
+        storagePath: '/non-existent-path/', // Will cause `build` to throw.
         userAgent: 'Test Agent (Future)');
 
     final client = CronetClient.fromCronetEngineFuture(engineFuture);
