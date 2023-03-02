@@ -21,7 +21,7 @@
 * Add a more complete implementation for `URLSessionTask`:
   * `priority` property - hint for host prioritization.
   * `currentRequest` property - the current request for the task (will be
-    different then `originalRequest` in the face of redirects).
+    different than `originalRequest` in the face of redirects).
   * `originalRequest` property - the original request for the task. 
   * `error` property - an `Error` object if the request failed.
   * `taskDescription` property - a developer-set description of the task.
