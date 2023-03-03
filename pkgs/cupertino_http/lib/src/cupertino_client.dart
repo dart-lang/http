@@ -213,7 +213,7 @@ class CupertinoClient extends BaseClient {
 
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
-    // The expected sucess case flow (without redirects) is:
+    // The expected success case flow (without redirects) is:
     // 1. send is called by BaseClient
     // 2. send starts the request with UrlSession.dataTaskWithRequest and waits
     //    on a Completer
