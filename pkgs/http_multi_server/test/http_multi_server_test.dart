@@ -19,13 +19,11 @@ void main() {
     late HttpServer subServer2;
     late HttpServer subServer3;
 
-    setUp(() {
-      return Future.wait([
-        HttpServer.bind('localhost', 0).then((server) => subServer1 = server),
-        HttpServer.bind('localhost', 0).then((server) => subServer2 = server),
-        HttpServer.bind('localhost', 0).then((server) => subServer3 = server)
-      ]).then((servers) => multiServer = HttpMultiServer(servers));
-    });
+    setUp(() => Future.wait([
+          HttpServer.bind('localhost', 0).then((server) => subServer1 = server),
+          HttpServer.bind('localhost', 0).then((server) => subServer2 = server),
+          HttpServer.bind('localhost', 0).then((server) => subServer3 = server)
+        ]).then((servers) => multiServer = HttpMultiServer(servers)));
 
     tearDown(() => multiServer.close());
 
@@ -41,12 +39,12 @@ void main() {
     });
 
     test('serverHeader= sets the value for all servers', () {
-      multiServer.serverHeader = 'http_multi_server test';
-
-      multiServer.listen((request) {
-        request.response.write('got request');
-        request.response.close();
-      });
+      multiServer
+        ..serverHeader = 'http_multi_server test'
+        ..listen((request) {
+          request.response.write('got request');
+          request.response.close();
+        });
 
       expect(
           _get(subServer1).then((response) {
@@ -71,12 +69,12 @@ void main() {
     });
 
     test('autoCompress= sets the value for all servers', () {
-      multiServer.autoCompress = true;
-
-      multiServer.listen((request) {
-        request.response.write('got request');
-        request.response.close();
-      });
+      multiServer
+        ..autoCompress = true
+        ..listen((request) {
+          request.response.write('got request');
+          request.response.close();
+        });
 
       expect(
           _get(subServer1).then((response) {
@@ -130,8 +128,8 @@ void main() {
 
     test('connectionsInfo sums the values for all servers', () {
       var pendingRequests = 0;
-      var awaitingResponseCompleter = Completer();
-      var sendResponseCompleter = Completer();
+      final awaitingResponseCompleter = Completer();
+      final sendResponseCompleter = Completer();
       multiServer.listen((request) {
         sendResponseCompleter.future.then((_) {
           request.response.write('got request');
@@ -148,7 +146,7 @@ void main() {
       expect(_get(subServer2), completes);
 
       return awaitingResponseCompleter.future.then((_) {
-        var info = multiServer.connectionsInfo();
+        final info = multiServer.connectionsInfo();
         expect(info.total, equals(2));
         expect(info.active, equals(2));
         expect(info.idle, equals(0));
@@ -162,9 +160,7 @@ void main() {
   group('HttpMultiServer.loopback', () {
     late HttpServer server;
 
-    setUp(() {
-      return HttpMultiServer.loopback(0).then((s) => server = s);
-    });
+    setUp(() => HttpMultiServer.loopback(0).then((s) => server = s));
 
     tearDown(() => server.close());
 
@@ -269,12 +265,12 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(client.read(Uri.https('127.0.0.1:${server.port}', '')),
+        expect(client.read(Uri.https('127.0.0.1:${server.port}')),
             completion(equals('got request')));
       }
 
       if (await supportsIPv6) {
-        expect(client.read(Uri.https('[::1]:${server.port}', '')),
+        expect(client.read(Uri.https('[::1]:${server.port}')),
             completion(equals('got request')));
       }
     });
@@ -287,12 +283,12 @@ void main() {
       });
 
       if (await supportsIPv4) {
-        expect(client.read(Uri.https('127.0.0.1:${server.port}', '')),
+        expect(client.read(Uri.https('127.0.0.1:${server.port}')),
             completion(equals('got request')));
       }
 
       if (await supportsIPv6) {
-        expect(client.read(Uri.https('[::1]:${server.port}', '')),
+        expect(client.read(Uri.https('[::1]:${server.port}')),
             completion(equals('got request')));
       }
     });
@@ -306,11 +302,11 @@ void main() {
         request.response.close();
       });
 
-      expect(client.read(Uri.https('127.0.0.1:${server.port}', '')),
+      expect(client.read(Uri.https('127.0.0.1:${server.port}')),
           completion(equals('got request')));
 
       if (await supportsIPv6) {
-        expect(client.read(Uri.https('[::1]:${server.port}', '')),
+        expect(client.read(Uri.https('[::1]:${server.port}')),
             throwsA(isA<SocketException>()));
       }
     });

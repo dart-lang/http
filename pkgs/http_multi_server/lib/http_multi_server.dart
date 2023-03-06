@@ -106,29 +106,27 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   ///
   /// See [HttpServer.bind].
   static Future<HttpServer> loopback(int port,
-      {int backlog = 0, bool v6Only = false, bool shared = false}) {
-    return _loopback(
-        port,
-        (address, port) => HttpServer.bind(address, port,
-            backlog: backlog, v6Only: v6Only, shared: shared));
-  }
+          {int backlog = 0, bool v6Only = false, bool shared = false}) =>
+      _loopback(
+          port,
+          (address, port) => HttpServer.bind(address, port,
+              backlog: backlog, v6Only: v6Only, shared: shared));
 
   /// Like [loopback], but supports HTTPS requests.
   ///
   /// See [HttpServer.bindSecure].
   static Future<HttpServer> loopbackSecure(int port, SecurityContext context,
-      {int backlog = 0,
-      bool v6Only = false,
-      bool requestClientCertificate = false,
-      bool shared = false}) {
-    return _loopback(
-        port,
-        (address, port) => HttpServer.bindSecure(address, port, context,
-            backlog: backlog,
-            v6Only: v6Only,
-            shared: shared,
-            requestClientCertificate: requestClientCertificate));
-  }
+          {int backlog = 0,
+          bool v6Only = false,
+          bool requestClientCertificate = false,
+          bool shared = false}) =>
+      _loopback(
+          port,
+          (address, port) => HttpServer.bindSecure(address, port, context,
+              backlog: backlog,
+              v6Only: v6Only,
+              shared: shared,
+              requestClientCertificate: requestClientCertificate));
 
   /// Bind an [HttpServer] with handling for special addresses 'localhost' and
   /// 'any'.
@@ -206,13 +204,13 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
       return await bind(InternetAddress.loopbackIPv6, port);
     }
 
-    var v4Server = await bind(InternetAddress.loopbackIPv4, port);
+    final v4Server = await bind(InternetAddress.loopbackIPv4, port);
     if (!await supportsIPv6) return v4Server;
 
     try {
       // Reuse the IPv4 server's port so that if [port] is 0, both servers use
       // the same ephemeral port.
-      var v6Server = await bind(InternetAddress.loopbackIPv6, v4Server.port);
+      final v6Server = await bind(InternetAddress.loopbackIPv6, v4Server.port);
       return HttpMultiServer([v4Server, v6Server]);
     } on SocketException catch (error) {
       // If there is already a server listening we'll lose the reference on a
@@ -238,13 +236,14 @@ class HttpMultiServer extends StreamView<HttpRequest> implements HttpServer {
   /// current connections handled by all the servers.
   @override
   HttpConnectionsInfo connectionsInfo() {
-    var info = HttpConnectionsInfo();
+    final info = HttpConnectionsInfo();
     for (var server in _servers) {
-      var subInfo = server.connectionsInfo();
-      info.total += subInfo.total;
-      info.active += subInfo.active;
-      info.idle += subInfo.idle;
-      info.closing += subInfo.closing;
+      final subInfo = server.connectionsInfo();
+      info
+        ..total += subInfo.total
+        ..active += subInfo.active
+        ..idle += subInfo.idle
+        ..closing += subInfo.closing;
     }
     return info;
   }
