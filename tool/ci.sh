@@ -71,6 +71,10 @@ for PKG in ${PKGS}; do
         echo 'dart analyze --fatal-infos'
         dart analyze --fatal-infos || EXIT_CODE=$?
         ;;
+      command)
+        echo 'dart run --define=no_default_http_client=true test/no_default_http_client_test.dart'
+        dart run --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
+        ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?

@@ -827,11 +827,9 @@ void _setupDelegation(
     final messageType = message[0];
     final dp = Pointer<ncb.ObjCObject>.fromAddress(message[1] as int);
 
-    final forwardedDelegate =
-        ncb.CUPHTTPForwardedDelegate.castFromPointer(helperLibs, dp,
-            // `CUPHTTPForwardedDelegate` was retained in the delegate so it
-            // only needs to be released.
-            release: true);
+    final forwardedDelegate = ncb.CUPHTTPForwardedDelegate.castFromPointer(
+        helperLibs, dp,
+        retain: true, release: true);
 
     switch (messageType) {
       case ncb.MessageType.RedirectMessage:
