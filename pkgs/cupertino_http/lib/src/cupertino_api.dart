@@ -24,6 +24,7 @@
 ///   task.resume();
 /// }
 /// ```
+library;
 
 import 'dart:ffi';
 import 'dart:isolate';
@@ -114,7 +115,7 @@ enum URLRequestNetworkService {
 ///
 /// See [NSError](https://developer.apple.com/documentation/foundation/nserror)
 class Error extends _ObjectHolder<ncb.NSError> {
-  Error._(ncb.NSError c) : super(c);
+  Error._(super.c);
 
   /// The numeric code for the error e.g. -1003 (kCFURLErrorCannotFindHost).
   ///
@@ -161,7 +162,7 @@ class Error extends _ObjectHolder<ncb.NSError> {
 /// See [NSURLSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration)
 class URLSessionConfiguration
     extends _ObjectHolder<ncb.NSURLSessionConfiguration> {
-  URLSessionConfiguration._(ncb.NSURLSessionConfiguration c) : super(c);
+  URLSessionConfiguration._(super.c);
 
   /// A configuration suitable for performing HTTP uploads and downloads in
   /// the background.
@@ -331,7 +332,7 @@ class URLSessionConfiguration
 ///
 /// See [NSData](https://developer.apple.com/documentation/foundation/nsdata)
 class Data extends _ObjectHolder<ncb.NSData> {
-  Data._(ncb.NSData c) : super(c);
+  Data._(super.c);
 
   // A new [Data] from an existing one.
   //
@@ -388,9 +389,9 @@ class Data extends _ObjectHolder<ncb.NSData> {
 class MutableData extends Data {
   final ncb.NSMutableData _mutableData;
 
-  MutableData._(ncb.NSMutableData c)
+  MutableData._(ncb.NSMutableData super.c)
       : _mutableData = c,
-        super._(c);
+        super._();
 
   /// A new empty [MutableData].
   factory MutableData.empty() =>
@@ -423,7 +424,7 @@ class MutableData extends Data {
 ///
 /// See [NSURLResponse](https://developer.apple.com/documentation/foundation/nsurlresponse)
 class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
-  URLResponse._(ncb.NSURLResponse c) : super(c);
+  URLResponse._(super.c);
 
   factory URLResponse._exactURLResponseType(ncb.NSURLResponse response) {
     if (ncb.NSHTTPURLResponse.isInstance(response)) {
@@ -455,9 +456,9 @@ class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
 class HTTPURLResponse extends URLResponse {
   final ncb.NSHTTPURLResponse _httpUrlResponse;
 
-  HTTPURLResponse._(ncb.NSHTTPURLResponse c)
+  HTTPURLResponse._(ncb.NSHTTPURLResponse super.c)
       : _httpUrlResponse = c,
-        super._(c);
+        super._();
 
   /// The HTTP status code of the response (e.g. 200).
   ///
@@ -495,7 +496,7 @@ enum URLSessionTaskState {
 ///
 /// See [NSURLSessionTask](https://developer.apple.com/documentation/foundation/nsurlsessiontask)
 class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
-  URLSessionTask._(ncb.NSURLSessionTask c) : super(c);
+  URLSessionTask._(super.c);
 
   /// Cancels the task.
   ///
@@ -657,7 +658,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
 ///
 /// See [NSURLSessionDownloadTask](https://developer.apple.com/documentation/foundation/nsurlsessiondownloadtask)
 class URLSessionDownloadTask extends URLSessionTask {
-  URLSessionDownloadTask._(ncb.NSURLSessionDownloadTask c) : super._(c);
+  URLSessionDownloadTask._(ncb.NSURLSessionDownloadTask super.c) : super._();
 
   @override
   String toString() => _toStringHelper('URLSessionDownloadTask');
@@ -667,7 +668,7 @@ class URLSessionDownloadTask extends URLSessionTask {
 ///
 /// See [NSURLRequest](https://developer.apple.com/documentation/foundation/nsurlrequest)
 class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
-  URLRequest._(ncb.NSURLRequest c) : super(c);
+  URLRequest._(super.c);
 
   /// Creates a request for a URL.
   ///
@@ -751,9 +752,9 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
 class MutableURLRequest extends URLRequest {
   final ncb.NSMutableURLRequest _mutableUrlRequest;
 
-  MutableURLRequest._(ncb.NSMutableURLRequest c)
+  MutableURLRequest._(ncb.NSMutableURLRequest super.c)
       : _mutableUrlRequest = c,
-        super._(c);
+        super._();
 
   /// Creates a request for a URL.
   ///
@@ -826,11 +827,9 @@ void _setupDelegation(
     final messageType = message[0];
     final dp = Pointer<ncb.ObjCObject>.fromAddress(message[1] as int);
 
-    final forwardedDelegate =
-        ncb.CUPHTTPForwardedDelegate.castFromPointer(helperLibs, dp,
-            // `CUPHTTPForwardedDelegate` was retained in the delegate so it
-            // only needs to be released.
-            release: true);
+    final forwardedDelegate = ncb.CUPHTTPForwardedDelegate.castFromPointer(
+        helperLibs, dp,
+        retain: true, release: true);
 
     switch (messageType) {
       case ncb.MessageType.RedirectMessage:
@@ -978,7 +977,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
       _onFinishedDownloading;
 
-  URLSession._(ncb.NSURLSession c,
+  URLSession._(super.c,
       {URLRequest? Function(URLSession session, URLSessionTask task,
               HTTPURLResponse response, URLRequest newRequest)?
           onRedirect,
@@ -995,8 +994,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         _onResponse = onResponse,
         _onData = onData,
         _onFinishedDownloading = onFinishedDownloading,
-        _onComplete = onComplete,
-        super(c);
+        _onComplete = onComplete;
 
   /// A client with reasonable default behavior.
   ///
@@ -1067,15 +1065,24 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         onFinishedDownloading: onFinishedDownloading,
         onComplete: onComplete);
   }
-  // A **copy** of the configuration for this sesion.
-  //
-  // See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
+
+  /// A **copy** of the configuration for this sesion.
+  ///
+  /// See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
   URLSessionConfiguration get configuration => URLSessionConfiguration._(
       ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration!));
 
-  // Create a [URLSessionTask] that accesses a server URL.
-  //
-  // See [NSURLSession dataTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1410592-datataskwithrequest)
+  /// A description of the session that may be useful for debugging.
+  ///
+  /// See [NSURLSession.sessionDescription](https://developer.apple.com/documentation/foundation/nsurlsession/1408277-sessiondescription)
+  String? get sessionDescription =>
+      toStringOrNull(_nsObject.sessionDescription);
+  set sessionDescription(String? value) =>
+      _nsObject.sessionDescription = value?.toNSString(linkedLibs);
+
+  /// Create a [URLSessionTask] that accesses a server URL.
+  ///
+  /// See [NSURLSession dataTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1410592-datataskwithrequest)
   URLSessionTask dataTaskWithRequest(URLRequest request) {
     final task =
         URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));

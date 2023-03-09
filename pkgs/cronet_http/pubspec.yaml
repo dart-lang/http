@@ -1,11 +1,11 @@
 name: cronet_http
 description: >
   An Android Flutter plugin that provides access to the Cronet HTTP client.
-version: 0.2.0
+version: 0.2.1-dev
 repository: https://github.com/dart-lang/http/tree/master/pkgs/cronet_http
 
 environment:
-  sdk: ">=2.17.5 <3.0.0"
+  sdk: ">=2.19.0 <3.0.0"
   flutter: ">=3.0.0"
 
 dependencies:
@@ -14,8 +14,10 @@ dependencies:
   http: ^0.13.4
 
 dev_dependencies:
-  lints: ^1.0.0
+  dart_flutter_team_lints: ^1.0.0
   pigeon: ^3.2.3
+  xml: ^6.1.0
+  yaml_edit: ^2.0.3
 
 flutter:
   plugin:

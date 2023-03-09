@@ -1,3 +1,12 @@
+## 0.1.2
+
+* Require Dart 2.19
+* Fix a [reference count race with forwarded delegates](https://github.com/dart-lang/http/issues/887).
+
+## 0.1.1
+
+* Add a `URLSession.sessionDescription` field.
+
 ## 0.1.0
 
 * Restructure `package:cupertino_http` to offer a single `import`.
@@ -38,7 +47,7 @@
 
 ## 0.0.6
 
-* Make the number of simulateous connections allowed to the same host
+* Make the number of simultaneous connections allowed to the same host
   configurable.
 * Fixes
   [cupertino_http: Failure calling Dart_PostCObject_DL](https://github.com/dart-lang/http/issues/785).

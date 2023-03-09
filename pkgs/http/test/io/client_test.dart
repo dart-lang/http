@@ -3,6 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
+library;
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -149,12 +151,12 @@ void main() {
   });
 
   test('runWithClient', () {
-    final client = http.runWithClient(() => http.Client(), () => TestClient());
+    final client = http.runWithClient(http.Client.new, TestClient.new);
     expect(client, isA<TestClient>());
   });
 
   test('runWithClient Client() return', () {
-    final client = http.runWithClient(() => http.Client(), () => http.Client());
+    final client = http.runWithClient(http.Client.new, http.Client.new);
     expect(client, isA<http_io.IOClient>());
   });
 
@@ -162,10 +164,9 @@ void main() {
     late final http.Client client;
     late final http.Client nestedClient;
     http.runWithClient(() {
-      http.runWithClient(
-          () => nestedClient = http.Client(), () => TestClient2());
+      http.runWithClient(() => nestedClient = http.Client(), TestClient2.new);
       client = http.Client();
-    }, () => TestClient());
+    }, TestClient.new);
     expect(client, isA<TestClient>());
     expect(nestedClient, isA<TestClient2>());
   });
@@ -174,7 +175,7 @@ void main() {
     // Verify that calling the http.Client() factory inside nested Zones does
     // not provoke an infinite recursion.
     http.runWithClient(() {
-      http.runWithClient(() => http.Client(), () => http.Client());
-    }, () => http.Client());
+      http.runWithClient(http.Client.new, http.Client.new);
+    }, http.Client.new);
   });
 }

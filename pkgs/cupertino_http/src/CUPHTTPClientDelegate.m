@@ -91,6 +91,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)response
   [forwardedRedirect.lock lock];
   
   completionHandler(forwardedRedirect.redirectRequest);
+  [forwardedRedirect release];
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)task
@@ -124,8 +125,8 @@ didReceiveResponse:(NSURLResponse *)response
   //
   // See the @interface description for CUPHTTPRedirect.
   [forwardedResponse.lock lock];
-  
   completionHandler(forwardedResponse.disposition);
+  [forwardedResponse release];
 }
 
 
@@ -156,6 +157,7 @@ didReceiveResponse:(NSURLResponse *)response
   //
   // See the @interface description for CUPHTTPRedirect.
   [forwardedData.lock lock];
+  [forwardedData release];
 }
 
 - (void)URLSession:(NSURLSession *)session 
@@ -183,6 +185,7 @@ didFinishDownloadingToURL:(NSURL *)location {
   NSAssert(success, @"Dart_PostCObject_DL failed.");
   
   [forwardedFinishedDownload.lock lock];
+  [forwardedFinishedDownload release];
 }
 
 - (void)URLSession:(NSURLSession *)session
@@ -213,6 +216,7 @@ didCompleteWithError:(NSError *)error {
   //
   // See the @interface description for CUPHTTPRedirect.
   [forwardedComplete.lock lock];
+  [forwardedComplete release];
 }
 
 @end
