@@ -15,7 +15,13 @@ import 'streamed_response.dart';
 /// Create a [BrowserClient].
 ///
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
-BaseClient createClient() => BrowserClient();
+BaseClient createClient() {
+  if (const bool.fromEnvironment('no_default_http_client')) {
+    throw StateError('no_default_http_client was defined but runWithClient '
+        'was not used to configure a Client implementation.');
+  }
+  return BrowserClient();
+}
 
 /// A `dart:html`-based HTTP client that runs in the browser and is backed by
 /// XMLHttpRequests.
