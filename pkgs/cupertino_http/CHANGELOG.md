@@ -1,6 +1,7 @@
-## 0.1.2-dev
+## 0.1.2
 
 * Require Dart 2.19
+* Fix a [reference count race with forwarded delegates](https://github.com/dart-lang/http/issues/887).
 
 ## 0.1.1
 
