@@ -298,21 +298,29 @@ class _HttpApiCodec extends StandardMessageCodec {
   @override
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
-      case 128: return CreateEngineRequest.decode(readValue(buffer)!);
+      case 128:
+        return CreateEngineRequest.decode(readValue(buffer)!);
 
-      case 129: return CreateEngineResponse.decode(readValue(buffer)!);
+      case 129:
+        return CreateEngineResponse.decode(readValue(buffer)!);
 
-      case 130: return EventMessage.decode(readValue(buffer)!);
+      case 130:
+        return EventMessage.decode(readValue(buffer)!);
 
-      case 131: return ReadCompleted.decode(readValue(buffer)!);
+      case 131:
+        return ReadCompleted.decode(readValue(buffer)!);
 
-      case 132: return ResponseStarted.decode(readValue(buffer)!);
+      case 132:
+        return ResponseStarted.decode(readValue(buffer)!);
 
-      case 133: return StartRequest.decode(readValue(buffer)!);
+      case 133:
+        return StartRequest.decode(readValue(buffer)!);
 
-      case 134: return StartResponse.decode(readValue(buffer)!);
+      case 134:
+        return StartResponse.decode(readValue(buffer)!);
 
-      default: return super.readValueOfType(type, buffer);
+      default:
+        return super.readValueOfType(type, buffer);
     }
   }
 }

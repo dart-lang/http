@@ -9,7 +9,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testClientConformance(CronetClient Function() clientFactory) {
-  testAll(clientFactory, canStreamRequestBody: false);
+  testAll(clientFactory, canStreamRequestBody: false, canWorkInIsolates: false);
 }
 
 Future<void> testConformance() async {
