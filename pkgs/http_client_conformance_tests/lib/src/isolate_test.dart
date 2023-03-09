@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:isolate';
+import 'dart:isolate' if (dart.library.html) 'dummy_isolate.dart';
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
