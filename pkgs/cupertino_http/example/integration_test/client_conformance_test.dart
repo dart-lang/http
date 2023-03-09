@@ -17,6 +17,6 @@ void main() {
   group('fromSessionConfiguration', () {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration();
     testAll(() => CupertinoClient.fromSessionConfiguration(config),
-        canStreamRequestBody: false);
+        canStreamRequestBody: false, canWorkInIsolates: false);
   });
 }
