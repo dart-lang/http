@@ -12,10 +12,9 @@ import 'package:test/test.dart';
 import 'request_body_server_vm.dart'
     if (dart.library.html) 'request_body_server_web.dart';
 
-void _testPost(List<Object> message) async {
-  final clientFactory = message[0] as Client Function();
-  final host = message[1] as String;
-  await clientFactory().post(Uri.http(host, ''), body: 'Hello World!');
+Future<void> _testPost(Client Function() clientFactory, String host) async {
+  await Isolate.run(
+      () => clientFactory().post(Uri.http(host, ''), body: 'Hello World!'));
 }
 
 /// Tests that the [Client] is useable from Isolates other than the main
@@ -37,7 +36,7 @@ void testIsolate(Client Function() clientFactory,
     tearDownAll(() => httpServerChannel.sink.add(null));
 
     test('client.post() with string body', () async {
-      await Isolate.spawn(_testPost, [clientFactory, host]);
+      await _testPost(clientFactory, host);
 
       final serverReceivedContentType = await httpServerQueue.next;
       final serverReceivedBody = await httpServerQueue.next;
