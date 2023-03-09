@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 void main() {
   test('Client()', () {
     if (const bool.fromEnvironment('no_default_http_client')) {
-      expect(http.Client, throwsA(isA<StateError>()));
+      expect(http.Client.new, throwsA(isA<StateError>()));
     } else {
       expect(http.Client(), isA<http.Client>());
     }
