@@ -50,6 +50,7 @@
 /// After the above setup, calling [Client] methods or any of the
 /// `package:http` convenient functions (e.g. [get]) will result in
 /// [CronetClient] being used on Android.
+library;
 
 import 'package:http/http.dart';
 

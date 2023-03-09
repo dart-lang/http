@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.3 <3.0.0"
+  sdk: ">=2.19.0 <3.0.0"
 
 dependencies:
   cached_network_image: ^3.2.3
@@ -18,7 +18,7 @@ dependencies:
   http: ^0.13.5
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  dart_flutter_team_lints: ^1.0.0
   flutter_test:
     sdk: flutter
   http_client_conformance_tests:

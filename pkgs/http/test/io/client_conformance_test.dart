@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
+library;
 
 import 'package:http/io_client.dart';
 import 'package:http_client_conformance_tests/http_client_conformance_tests.dart';
