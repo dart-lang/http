@@ -34,7 +34,7 @@ void testResponseHeaders(Client client) async {
       httpServerChannel.sink.add({'foo': 'BAR'});
 
       final response = await client.get(Uri.http(host, ''));
-      // RFC 2616 14.44 states that header field names are case-insensive.
+      // RFC 2616 14.44 states that header field names are case-insensitive.
       // http.Client canonicalizes field names into lower case.
       expect(response.headers['foo'], 'BAR');
     });

@@ -42,20 +42,14 @@ class Response extends BaseResponse {
             reasonPhrase: reasonPhrase);
 
   /// Create a new HTTP response with a byte array body.
-  Response.bytes(List<int> bodyBytes, int statusCode,
-      {BaseRequest? request,
-      Map<String, String> headers = const {},
-      bool isRedirect = false,
-      bool persistentConnection = true,
-      String? reasonPhrase})
+  Response.bytes(List<int> bodyBytes, super.statusCode,
+      {super.request,
+      super.headers,
+      super.isRedirect,
+      super.persistentConnection,
+      super.reasonPhrase})
       : bodyBytes = toUint8List(bodyBytes),
-        super(statusCode,
-            contentLength: bodyBytes.length,
-            request: request,
-            headers: headers,
-            isRedirect: isRedirect,
-            persistentConnection: persistentConnection,
-            reasonPhrase: reasonPhrase);
+        super(contentLength: bodyBytes.length);
 
   /// Creates a new HTTP response by waiting for the full body to become
   /// available from a [StreamedResponse].

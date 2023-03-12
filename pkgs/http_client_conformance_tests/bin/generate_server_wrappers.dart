@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// Generates the '*_server_vm.dart' and '*_server_web.dart' support files.
+library;
 
 import 'dart:core';
 import 'dart:io';

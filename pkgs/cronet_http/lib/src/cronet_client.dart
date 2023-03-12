@@ -11,6 +11,7 @@
 /// [`WidgetsFlutterBinding.ensureInitialized`](https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html)
 /// or
 /// [`runApp`](https://api.flutter.dev/flutter/widgets/runApp.html).
+library;
 
 import 'dart:async';
 
@@ -19,7 +20,7 @@ import 'package:http/http.dart';
 
 import 'messages.dart' as messages;
 
-late final _api = messages.HttpApi();
+final _api = messages.HttpApi();
 
 final Finalizer<String> _cronetEngineFinalizer = Finalizer(_api.freeEngine);
 

@@ -12,12 +12,18 @@ import 'io_streamed_response.dart';
 /// Create an [IOClient].
 ///
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
-BaseClient createClient() => IOClient();
+BaseClient createClient() {
+  if (const bool.fromEnvironment('no_default_http_client')) {
+    throw StateError('no_default_http_client was defined but runWithClient '
+        'was not used to configure a Client implementation.');
+  }
+  return IOClient();
+}
 
 /// Exception thrown when the underlying [HttpClient] throws a
 /// [SocketException].
 ///
-/// Implemenents [SocketException] to avoid breaking existing users of
+/// Implements [SocketException] to avoid breaking existing users of
 /// [IOClient] that may catch that exception.
 class _ClientSocketException extends ClientException
     implements SocketException {

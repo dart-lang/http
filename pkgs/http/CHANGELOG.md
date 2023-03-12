@@ -1,7 +1,9 @@
 ## 0.13.6-dev
 
 * `BrowserClient` throws an exception if `send` is called after `close`.
-* No longer depends on package:path.
+* If `no_default_http_client=true` is set in the environment then disk usage
+  is reduced in some circumstances.
+* Require Dart 2.19
 
 ## 0.13.5
 

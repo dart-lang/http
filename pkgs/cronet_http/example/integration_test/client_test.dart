@@ -9,7 +9,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testClientConformance(CronetClient Function() clientFactory) {
-  testAll(clientFactory, canStreamRequestBody: false);
+  testAll(clientFactory, canStreamRequestBody: false, canWorkInIsolates: false);
 }
 
 Future<void> testConformance() async {
@@ -35,7 +35,7 @@ Future<void> testClientFromFutureFails() async {
   test('cronet engine future fails', () async {
     final engineFuture = CronetEngine.build(
         cacheMode: CacheMode.disk,
-        storagePath: '/non-existant-path/', // Will cause `build` to throw.
+        storagePath: '/non-existent-path/', // Will cause `build` to throw.
         userAgent: 'Test Agent (Future)');
 
     final client = CronetClient.fromCronetEngineFuture(engineFuture);
