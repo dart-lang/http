@@ -43,7 +43,7 @@ class MultipartRequest extends BaseRequest {
   final fields = <String, String>{};
 
   /// The list of files to upload for this request.
-  final files = <MultipartFile>[];
+  final files = List<MultipartFile>.empty(growable: true);
 
   MultipartRequest(super.method, super.url);
 
