@@ -6,7 +6,7 @@ import 'dart:collection';
 
 import 'package:meta/meta.dart';
 
-import '../http.dart' show get;
+import '../http.dart' show ClientException, get;
 import 'base_client.dart';
 import 'base_response.dart';
 import 'byte_stream.dart';
@@ -70,7 +70,7 @@ abstract class BaseRequest {
   /// The maximum number of redirects to follow when [followRedirects] is true.
   ///
   /// If this number is exceeded the [BaseResponse] future will signal a
-  /// `RedirectException`. Defaults to 5.
+  /// [ClientException]. Defaults to 5.
   int get maxRedirects => _maxRedirects;
   int _maxRedirects = 5;
 
