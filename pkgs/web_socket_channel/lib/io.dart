@@ -74,6 +74,7 @@ class IOWebSocketChannel extends StreamChannelMixin
     Map<String, dynamic>? headers,
     Duration? pingInterval,
     Duration? connectTimeout,
+    HttpClient? customClient,
   }) {
     late IOWebSocketChannel channel;
     final sinkCompleter = WebSocketSinkCompleter();
@@ -81,6 +82,7 @@ class IOWebSocketChannel extends StreamChannelMixin
       url.toString(),
       headers: headers,
       protocols: protocols,
+      customClient: customClient,
     );
     if (connectTimeout != null) {
       future = future.timeout(connectTimeout);

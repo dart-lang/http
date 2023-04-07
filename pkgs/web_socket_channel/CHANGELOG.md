@@ -1,3 +1,10 @@
+## 2.4.0
+
+- Add a `customClient` parameter to the `IOWebSocketChannel.connect` factory,
+  which allows the user to provide a custom `HttpClient` instance to use for the
+  WebSocket connection
+- Bump minimum Dart version to 2.15.0
+
 ## 2.3.0
 
 - Added a Future `ready` property to `WebSocketChannel`, which completes when
