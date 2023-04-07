@@ -62,10 +62,10 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
   /// Creates a new WebSocket connection.
   ///
-  /// Connects to [url] using [new WebSocket] and returns a channel that can be
+  /// Connects to [url] using [WebSocket.new] and returns a channel that can be
   /// used to communicate over the resulting socket. The [url] may be either a
   /// [String] or a [Uri]. The [protocols] parameter is the same as for
-  /// [new WebSocket].
+  /// [WebSocket.new].
   ///
   /// The [binaryType] parameter controls what type is used for binary messages
   /// received by this socket. It defaults to [BinaryType.list], which causes
