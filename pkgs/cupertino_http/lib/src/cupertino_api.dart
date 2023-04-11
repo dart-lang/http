@@ -132,7 +132,7 @@ class Error extends _ObjectHolder<ncb.NSError> {
   /// A description of the error in the current locale e.g.
   /// 'A server with the specified hostname could not be found.'
   ///
-  /// See [NSError.locaizedDescription](https://developer.apple.com/documentation/foundation/nserror/1414418-localizeddescription)
+  /// See [NSError.localizedDescription](https://developer.apple.com/documentation/foundation/nserror/1414418-localizeddescription)
   String? get localizedDescription =>
       toStringOrNull(_nsObject.localizedDescription);
 
@@ -227,7 +227,7 @@ class URLSessionConfiguration
   set httpCookieAcceptPolicy(HTTPCookieAcceptPolicy value) =>
       _nsObject.HTTPCookieAcceptPolicy = value.index;
 
-  // The maximun number of connections that a URLSession can have open to the
+  // The maximum number of connections that a URLSession can have open to the
   // same host.
   //
   // See [NSURLSessionConfiguration.HTTPMaximumConnectionsPerHost](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1407597-httpmaximumconnectionsperhost).
@@ -513,7 +513,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
     _nsObject.resume();
   }
 
-  /// Suspends a task (prevents it from transfering data).
+  /// Suspends a task (prevents it from transferring data).
   ///
   /// See [NSURLSessionTask suspend](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1411565-suspend)
   void suspend() {
@@ -1067,7 +1067,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         onComplete: onComplete);
   }
 
-  /// A **copy** of the configuration for this sesion.
+  /// A **copy** of the configuration for this session.
   ///
   /// See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
   URLSessionConfiguration get configuration => URLSessionConfiguration._(
