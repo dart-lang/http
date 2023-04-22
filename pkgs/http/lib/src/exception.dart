@@ -14,3 +14,23 @@ class ClientException implements Exception {
   @override
   String toString() => message;
 }
+
+
+class HttpException implements Exception {
+  final String message;
+  final Uri? uri;
+
+  const HttpException(this.message, {this.uri});
+
+  @override
+  String toString() {
+    var b = StringBuffer()
+      ..write('HttpException: ')
+      ..write(message);
+    var uri = this.uri;
+    if (uri != null) {
+      b.write(', uri = $uri');
+    }
+    return b.toString();
+  }
+}
