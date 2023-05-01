@@ -10,6 +10,10 @@ import 'package:async/async.dart';
 import 'http.dart';
 
 /// An HTTP client wrapper that automatically retries failing requests.
+///
+/// NOTE: [RetryClient] makes a copy of the request data in order to support
+/// resending it. This can cause a lot of memory usage when sending a large
+/// [StreamedRequest].
 class RetryClient extends BaseClient {
   /// The wrapped client.
   final Client _inner;
