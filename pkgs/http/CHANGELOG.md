@@ -1,4 +1,4 @@
-## 0.13.6-dev
+## 0.13.6
 
 * `BrowserClient` throws an exception if `send` is called after `close`.
 * If `no_default_http_client=true` is set in the environment then disk usage
