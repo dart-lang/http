@@ -1,4 +1,3 @@
-
 /// Annotation class marking the version where SDK API was added.
 ///
 /// A `Since` annotation can be applied to a library declaration,

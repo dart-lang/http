@@ -10,9 +10,8 @@ void main(List<String> arguments) async {
       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'});
 
   // Await the http get response, then decode the json-formatted response.
-  var response = await http.get(url,headers: {
-    HttpHeaders.contentTypeHeader : ContentType.json.charset!
-  });
+  var response = await http.get(url,
+      headers: {HttpHeaders.contentTypeHeader: ContentType.json.charset!});
   if (response.statusCode == 200) {
     var jsonResponse =
         convert.jsonDecode(response.body) as Map<String, dynamic>;

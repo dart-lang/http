@@ -15,7 +15,6 @@ class ClientException implements Exception {
   String toString() => message;
 }
 
-
 class HttpException implements Exception {
   final String message;
   final Uri? uri;

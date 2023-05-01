@@ -1,4 +1,3 @@
-
 import 'dart:collection';
 import 'dart:io';
 
@@ -345,8 +344,9 @@ class _HeaderValue {
               var codeUnit = value.codeUnitAt(i);
               if (codeUnit == 92 /* backslash */ ||
                   codeUnit == 34 /* double quote */) {
-                sb..write(value.substring(start, i))
-                ..write(r'\');
+                sb
+                  ..write(value.substring(start, i))
+                  ..write(r'\');
                 start = i;
               }
             }
@@ -359,6 +359,7 @@ class _HeaderValue {
     }
     return sb.toString();
   }
+
   void _parse(String s, String parameterSeparator, String? valueSeparator,
       bool preserveBackslash) {
     var index = 0;
@@ -514,8 +515,8 @@ abstract class ContentType implements _HeaderValue {
   /// converted to lower case. The `charset` entry, whether passed as `charset`
   /// or in `parameters`, will have its value converted to lower-case.
   factory ContentType(String primaryType, String subType,
-      {String? charset, Map<String, String?> parameters = const {}})
-  => _ContentType(primaryType, subType, charset, parameters);
+          {String? charset, Map<String, String?> parameters = const {}}) =>
+      _ContentType(primaryType, subType, charset, parameters);
 
   /// Creates a new content type object from parsing a Content-Type
   /// header value. As primary type, sub type and parameter names and
@@ -555,6 +556,7 @@ abstract class ContentType implements _HeaderValue {
   /// the [charset] value is the string `utf-8`.
   String? get charset;
 }
+
 class _ContentType extends _HeaderValue implements ContentType {
   String _primaryType = '';
   String _subType = '';
@@ -592,9 +594,9 @@ class _ContentType extends _HeaderValue implements ContentType {
     if (index == -1 || index == (result._value.length - 1)) {
       result._primaryType = result._value.trim().toLowerCase();
     } else {
-      result.._primaryType =
-          result._value.substring(0, index).trim().toLowerCase()
-      .._subType = result._value.substring(index + 1).trim().toLowerCase();
+      result
+        .._primaryType = result._value.substring(0, index).trim().toLowerCase()
+        .._subType = result._value.substring(index + 1).trim().toLowerCase();
     }
     return result;
   }
