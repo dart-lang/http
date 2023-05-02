@@ -11,14 +11,83 @@ import 'package:test/test.dart';
 
 void test2() {
   group('websocket', () {
-    test('name', () async {
+    late HttpServer server;
+
+    setUp(() async {
+      server = await HttpServer.bind('localhost', 0)
+        ..listen((request) {
+          if (request.uri.path.endsWith('error')) {
+            request.response.statusCode = 500;
+            request.response.close();
+          } else {
+            WebSocketTransformer.upgrade(request)
+                .then((websocket) => websocket.listen((event) {
+                      websocket
+                        ..add(event)
+                        ..close();
+                    }));
+          }
+        });
+    });
+
+    tearDown(() async {
+      await server.close();
+    });
+
+    test('send failure', () async {
       final session = URLSession.sharedSession();
       final task = session.webSocketTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('wss://ws.postman-echo.com/raw')));
-      task.resume();
+          URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}/error')))
+        ..resume();
+      await expectLater(
+          task.sendMessage(
+              URLSessionWebSocketMessage.fromString('Hello World!')),
+          throwsA(isA<Error>().having(
+              (e) => e.code, 'code', -1011 // NSURLErrorBadServerResponse
+              )));
+      task.cancel();
+    });
+
+    test('receive failure', () async {
+      final session = URLSession.sharedSession();
+      final task = session.webSocketTaskWithRequest(
+          URLRequest.fromUrl(Uri.parse('ws://notarealhost')))
+        ..resume();
+      await expectLater(
+          task.receiveMessage(),
+          throwsA(isA<Error>()
+              .having((e) => e.code, 'code', -1003 // NSURLErrorCannotFindHost
+                  )));
+      task.cancel();
+    });
+
+    test('data message', () async {
+      final session = URLSession.sharedSession();
+      final task = session.webSocketTaskWithRequest(
+          URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}')))
+        ..resume();
+      await task.sendMessage(URLSessionWebSocketMessage.fromData(
+          Data.fromUint8List(Uint8List.fromList([1, 2, 3]))));
+      final receivedMessage = await task.receiveMessage();
+      expect(receivedMessage.type,
+          URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeData);
+      expect(receivedMessage.data!.bytes, [1, 2, 3]);
+      expect(receivedMessage.string, null);
+      task.cancel();
+    });
+
+    test('text message', () async {
+      final session = URLSession.sharedSession();
+      final task = session.webSocketTaskWithRequest(
+          URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}')))
+        ..resume();
       await task
-          .sendMessage(URLSessionWebSocketMessage.fromString('this is a test'));
-      print('Received:${await task.receiveMessage()}');
+          .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
+      final receivedMessage = await task.receiveMessage();
+      expect(receivedMessage.type,
+          URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeString);
+      expect(receivedMessage.data, null);
+      expect(receivedMessage.string, 'Hello World!');
       task.cancel();
     });
   });

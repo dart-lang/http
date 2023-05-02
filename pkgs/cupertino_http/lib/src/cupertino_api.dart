@@ -681,14 +681,12 @@ class URLSessionWebSocketTask extends URLSessionTask {
     final completer = Completer<void>();
     final completionPort = ReceivePort();
     completionPort.listen((message) {
-      print('Received sendMessageResponse: $message');
       final ep = Pointer<ncb.ObjCObject>.fromAddress(message as int);
       if (ep.address == 0) {
         completer.complete();
       } else {
         final error = Error._(ncb.NSError.castFromPointer(linkedLibs, ep,
             retain: false, release: true));
-        print('error: $error');
         completer.completeError(error);
       }
       completionPort.close();
@@ -696,7 +694,6 @@ class URLSessionWebSocketTask extends URLSessionTask {
 
     helperLibs.CUPHTTPSendMessage(_nsObject.pointer, message._nsObject.pointer,
         completionPort.sendPort.nativePort);
-    print('Message sent!');
     await completer.future;
   }
 
@@ -704,7 +701,6 @@ class URLSessionWebSocketTask extends URLSessionTask {
     final completer = Completer<URLSessionWebSocketMessage>();
     final completionPort = ReceivePort();
     completionPort.listen((d) {
-      print('Received message: $d');
       final mp = Pointer<ncb.ObjCObject>.fromAddress(d[0] as int);
       final ep = Pointer<ncb.ObjCObject>.fromAddress(d[1] as int);
 
@@ -728,7 +724,6 @@ class URLSessionWebSocketTask extends URLSessionTask {
 
     helperLibs.CUPHTTPReceiveMessage(
         _nsObject.pointer, completionPort.sendPort.nativePort);
-    print('Waiting for message!');
     return completer.future;
   }
 }
