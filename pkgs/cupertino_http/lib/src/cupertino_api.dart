@@ -26,6 +26,7 @@
 /// ```
 library;
 
+import 'dart:async';
 import 'dart:ffi';
 import 'dart:isolate';
 import 'dart:math';
@@ -51,6 +52,12 @@ abstract class _ObjectHolder<T extends ncb.NSObject> {
 
   @override
   int get hashCode => _nsObject.hashCode;
+}
+
+// https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessagetype
+enum URLSessionWebSocketMessageType {
+  urlSessionWebSocketMessageTypeData,
+  urlSessionWebSocketMessageTypeString,
 }
 
 /// Settings for controlling whether cookies will be accepted.
@@ -114,7 +121,7 @@ enum URLRequestNetworkService {
 /// Information about a failure.
 ///
 /// See [NSError](https://developer.apple.com/documentation/foundation/nserror)
-class Error extends _ObjectHolder<ncb.NSError> {
+class Error extends _ObjectHolder<ncb.NSError> implements Exception {
   Error._(super.c);
 
   /// The numeric code for the error e.g. -1003 (kCFURLErrorCannotFindHost).
@@ -664,6 +671,94 @@ class URLSessionDownloadTask extends URLSessionTask {
   String toString() => _toStringHelper('URLSessionDownloadTask');
 }
 
+class URLSessionWebSocketTask extends URLSessionTask {
+  URLSessionWebSocketTask._(ncb.NSURLSessionWebSocketTask super.c) : super._();
+
+  @override
+  String toString() => _toStringHelper('NSURLSessionWebSocketTask');
+
+  Future<void> sendMessage(URLSessionWebSocketMessage message) async {
+    final completer = Completer<void>();
+    final completionPort = ReceivePort();
+    completionPort.listen((message) {
+      print('Received sendMessageResponse: $message');
+      final ep = Pointer<ncb.ObjCObject>.fromAddress(message as int);
+      if (ep.address == 0) {
+        completer.complete();
+      } else {
+        final error = Error._(ncb.NSError.castFromPointer(linkedLibs, ep,
+            retain: false, release: true));
+        print('error: $error');
+        completer.completeError(error);
+      }
+      completionPort.close();
+    });
+
+    helperLibs.CUPHTTPSendMessage(_nsObject.pointer, message._nsObject.pointer,
+        completionPort.sendPort.nativePort);
+    print('Message sent!');
+    await completer.future;
+  }
+
+  Future<URLSessionWebSocketMessage> receiveMessage() async {
+    final completer = Completer<URLSessionWebSocketMessage>();
+    final completionPort = ReceivePort();
+    completionPort.listen((d) {
+      print('Received message: $d');
+      final mp = Pointer<ncb.ObjCObject>.fromAddress(d[0] as int);
+      final ep = Pointer<ncb.ObjCObject>.fromAddress(d[1] as int);
+
+      final error = ep.address == 0
+          ? null
+          : Error._(ncb.NSError.castFromPointer(linkedLibs, ep,
+              retain: false, release: true));
+      final message = mp.address == 0
+          ? null
+          : URLSessionWebSocketMessage._(
+              ncb.NSURLSessionWebSocketMessage.castFromPointer(linkedLibs, mp,
+                  retain: false, release: true));
+
+      if (error != null) {
+        completer.completeError(error);
+      } else {
+        completer.complete(message);
+      }
+      completionPort.close();
+    });
+
+    helperLibs.CUPHTTPReceiveMessage(
+        _nsObject.pointer, completionPort.sendPort.nativePort);
+    print('Waiting for message!');
+    return completer.future;
+  }
+}
+
+class URLSessionWebSocketMessage
+    extends _ObjectHolder<ncb.NSURLSessionWebSocketMessage> {
+  URLSessionWebSocketMessage._(super.nsObject);
+
+  factory URLSessionWebSocketMessage.fromData(Data d) =>
+      URLSessionWebSocketMessage._(
+          ncb.NSURLSessionWebSocketMessage.alloc(linkedLibs)
+              .initWithData_(d._nsObject));
+
+  factory URLSessionWebSocketMessage.fromString(String s) =>
+      URLSessionWebSocketMessage._(
+          ncb.NSURLSessionWebSocketMessage.alloc(linkedLibs)
+              .initWithString_(s.toNSString(linkedLibs)));
+
+  Data? get data => _nsObject.data == null ? null : Data._(_nsObject.data!);
+
+  String? get string => toStringOrNull(_nsObject.string);
+
+  URLSessionWebSocketMessageType get type =>
+      URLSessionWebSocketMessageType.values[_nsObject.type];
+
+  @override
+  String toString() =>
+      '[URLSessionWebSocketMessage type=$type string=$string data=$data]';
+}
+
 /// A request to load a URL.
 ///
 /// See [NSURLRequest](https://developer.apple.com/documentation/foundation/nsurlrequest)
@@ -1146,6 +1241,18 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) {
     final task = URLSessionDownloadTask._(
         _nsObject.downloadTaskWithRequest_(request._nsObject));
+    _setupDelegation(_delegate, this, task,
+        onComplete: _onComplete,
+        onData: _onData,
+        onFinishedDownloading: _onFinishedDownloading,
+        onRedirect: _onRedirect,
+        onResponse: _onResponse);
+    return task;
+  }
+
+  URLSessionWebSocketTask webSocketTaskWithRequest(URLRequest request) {
+    final task = URLSessionWebSocketTask._(
+        _nsObject.webSocketTaskWithRequest_(request._nsObject));
     _setupDelegation(_delegate, this, task,
         onComplete: _onComplete,
         onData: _onData,

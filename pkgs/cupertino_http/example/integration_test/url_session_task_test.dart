@@ -9,6 +9,21 @@ import 'package:flutter/foundation.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
+void test2() {
+  group('websocket', () {
+    test('name', () async {
+      final session = URLSession.sharedSession();
+      final task = session.webSocketTaskWithRequest(
+          URLRequest.fromUrl(Uri.parse('wss://ws.postman-echo.com/raw')));
+      task.resume();
+      await task
+          .sendMessage(URLSessionWebSocketMessage.fromString('this is a test'));
+      print('Received:${await task.receiveMessage()}');
+      task.cancel();
+    });
+  });
+}
+
 void testURLSessionTask(
     URLSessionTask Function(URLSession session, Uri url) f) {
   group('task states', () {
@@ -222,6 +237,7 @@ void testURLSessionTask(
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  test2();
   group('data task', () {
     testURLSessionTask(
         (session, uri) => session.dataTaskWithRequest(URLRequest.fromUrl(uri)));
