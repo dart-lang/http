@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
-void test2() {
+void testWebSocketTask() {
   group('websocket', () {
     late HttpServer server;
     int? lastCloseCode;
@@ -59,7 +59,7 @@ void test2() {
 
       // Allow the server to run and save the close code.
       while (lastCloseCode == null) {
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future<void>.delayed(const Duration(milliseconds: 10));
       }
       expect(lastCloseCode, 4998);
       expect(lastCloseReason, 'Bye');
@@ -355,7 +355,6 @@ void testURLSessionTask(
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  test2();
   group('data task', () {
     testURLSessionTask(
         (session, uri) => session.dataTaskWithRequest(URLRequest.fromUrl(uri)));
@@ -365,4 +364,6 @@ void main() {
     testURLSessionTask((session, uri) =>
         session.downloadTaskWithRequest(URLRequest.fromUrl(uri)));
   });
+
+  testWebSocketTask();
 }
