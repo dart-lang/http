@@ -1,7 +1,7 @@
 ## 1.0.0
 
 * Requires Dart 3.0 or later.
-* Add `base` and `interface` modifiers to some classes.
+* Add `base`, `final`, and `interface` modifiers to some classes.
 
 ## 0.13.6
 
