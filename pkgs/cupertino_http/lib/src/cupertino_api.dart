@@ -764,18 +764,20 @@ class URLSessionWebSocketTask extends URLSessionTask {
     final completer = Completer<URLSessionWebSocketMessage>();
     final completionPort = ReceivePort();
     completionPort.listen((d) {
-      final mp = Pointer<ncb.ObjCObject>.fromAddress(d[0] as int);
-      final ep = Pointer<ncb.ObjCObject>.fromAddress(d[1] as int);
+      final messageAndError = d as List<int>;
 
-      final error = ep.address == 0
-          ? null
-          : Error._(ncb.NSError.castFromPointer(linkedLibs, ep,
-              retain: false, release: true));
+      final mp = Pointer<ncb.ObjCObject>.fromAddress(messageAndError[0]);
+      final ep = Pointer<ncb.ObjCObject>.fromAddress(messageAndError[1]);
+
       final message = mp.address == 0
           ? null
           : URLSessionWebSocketMessage._(
               ncb.NSURLSessionWebSocketMessage.castFromPointer(linkedLibs, mp,
                   retain: false, release: true));
+      final error = ep.address == 0
+          ? null
+          : Error._(ncb.NSError.castFromPointer(linkedLibs, ep,
+              retain: false, release: true));
 
       if (error != null) {
         completer.completeError(error);
