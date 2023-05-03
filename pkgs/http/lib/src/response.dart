@@ -13,7 +13,7 @@ import 'streamed_response.dart';
 import 'utils.dart';
 
 /// An HTTP response where the entire response body is known in advance.
-class Response extends BaseResponse {
+base class Response extends BaseResponse {
   /// The bytes comprising the body of this response.
   final Uint8List bodyBytes;
 

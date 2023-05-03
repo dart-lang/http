@@ -29,7 +29,7 @@ import 'streamed_response.dart';
 /// extend [BaseClient] rather than [Client]. In most cases, you can wrap
 /// another instance of [Client] and add functionality on top of that. This
 /// allows all classes implementing [Client] to be mutually composable.
-abstract class Client {
+abstract interface class Client {
   /// Creates a new platform appropriate client.
   ///
   /// Creates an `IOClient` if `dart:io` is available and a `BrowserClient` if

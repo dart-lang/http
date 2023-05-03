@@ -1,3 +1,8 @@
+## 1.0.0
+
+* Requires Dart 3.0 or later.
+* Add `base` and `interface` modifiers to some classes.
+
 ## 0.13.6
 
 * `BrowserClient` throws an exception if `send` is called after `close`.

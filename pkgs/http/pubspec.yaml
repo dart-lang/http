@@ -4,7 +4,7 @@ description: A composable, multi-platform, Future-based API for HTTP requests.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: '>=3.0.0-417 <4.0.0'
 
 dependencies:
   async: ^2.5.0

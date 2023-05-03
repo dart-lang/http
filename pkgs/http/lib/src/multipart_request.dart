@@ -29,7 +29,7 @@ final _newlineRegExp = RegExp(r'\r\n|\r|\n');
 ///           contentType: MediaType('application', 'x-tar')));
 ///     var response = await request.send();
 ///     if (response.statusCode == 200) print('Uploaded!');
-class MultipartRequest extends BaseRequest {
+base class MultipartRequest extends BaseRequest {
   /// The total length of the multipart boundaries used when building the
   /// request body.
   ///

@@ -14,7 +14,7 @@ import 'http.dart';
 /// NOTE: [RetryClient] makes a copy of the request data in order to support
 /// resending it. This can cause a lot of memory usage when sending a large
 /// [StreamedRequest].
-class RetryClient extends BaseClient {
+base class RetryClient extends BaseClient {
   /// The wrapped client.
   final Client _inner;
 

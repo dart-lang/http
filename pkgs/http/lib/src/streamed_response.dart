@@ -8,7 +8,7 @@ import 'utils.dart';
 
 /// An HTTP response where the response body is received asynchronously after
 /// the headers have been received.
-class StreamedResponse extends BaseResponse {
+base class StreamedResponse extends BaseResponse {
   /// The stream from which the response body data can be read.
   ///
   /// This should always be a single-subscription stream.

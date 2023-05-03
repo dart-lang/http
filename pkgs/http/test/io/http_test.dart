@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 
 import '../utils.dart';
 
-class TestClient extends http.BaseClient {
+base class TestClient extends http.BaseClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
     throw UnimplementedError();

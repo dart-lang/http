@@ -25,7 +25,7 @@ import 'byte_stream.dart';
 ///
 /// final response = await request.send();
 /// ```
-class StreamedRequest extends BaseRequest {
+base class StreamedRequest extends BaseRequest {
   /// The sink to which to write data that will be sent as the request body.
   ///
   /// This may be safely written to before the request is sent; the data will be
