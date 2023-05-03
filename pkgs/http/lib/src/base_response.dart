@@ -9,7 +9,7 @@ import 'base_request.dart';
 ///
 /// Subclasses of [BaseResponse] are usually not constructed manually; instead,
 /// they're returned by [BaseClient.send] or other HTTP client methods.
-abstract base class BaseResponse {
+abstract class BaseResponse {
   /// The (frozen) request that triggered this response.
   final BaseRequest? request;
 

@@ -20,7 +20,7 @@ import 'utils.dart';
 /// [BaseClient.send], which allows the user to provide fine-grained control
 /// over the request properties. However, usually it's easier to use convenience
 /// methods like [get] or [BaseClient.get].
-abstract base class BaseRequest {
+abstract class BaseRequest {
   /// The HTTP method of the request.
   ///
   /// Most commonly "GET" or "POST", less commonly "HEAD", "PUT", or "DELETE".

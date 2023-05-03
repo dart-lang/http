@@ -12,7 +12,7 @@ import 'byte_stream.dart';
 import 'utils.dart';
 
 /// An HTTP request where the entire request body is known in advance.
-base class Request extends BaseRequest {
+class Request extends BaseRequest {
   /// The size of the request body, in bytes. This is calculated from
   /// [bodyBytes].
   ///

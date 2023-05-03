@@ -19,7 +19,7 @@ import 'streamed_response.dart';
 /// This client allows you to define a handler callback for all requests that
 /// are made through it so that you can mock a server without having to send
 /// real HTTP requests.
-base class MockClient extends BaseClient {
+class MockClient extends BaseClient {
   /// The handler for receiving [StreamedRequest]s and sending
   /// [StreamedResponse]s.
   final MockClientStreamHandler _handler;

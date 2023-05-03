@@ -8,7 +8,7 @@ import 'streamed_response.dart';
 
 /// An HTTP response where the response body is received asynchronously after
 /// the headers have been received.
-base class IOStreamedResponse extends StreamedResponse {
+class IOStreamedResponse extends StreamedResponse {
   final HttpClientResponse? _inner;
 
   /// Creates a new streaming response.

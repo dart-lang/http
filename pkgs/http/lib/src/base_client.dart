@@ -17,7 +17,7 @@ import 'streamed_response.dart';
 ///
 /// This is a mixin-style class; subclasses only need to implement [send] and
 /// maybe [close], and then they get various convenience methods for free.
-abstract base class BaseClient implements Client {
+abstract class BaseClient implements Client {
   @override
   Future<Response> head(Uri url, {Map<String, String>? headers}) =>
       _sendUnstreamed('HEAD', url, headers);
