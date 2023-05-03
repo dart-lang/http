@@ -12,8 +12,12 @@ import 'package:test/test.dart';
 void test2() {
   group('websocket', () {
     late HttpServer server;
+    int? lastCloseCode;
+    String? lastCloseReason;
 
     setUp(() async {
+      lastCloseCode = null;
+      lastCloseReason = null;
       server = await HttpServer.bind('localhost', 0)
         ..listen((request) {
           if (request.uri.path.endsWith('error')) {
@@ -22,9 +26,17 @@ void test2() {
           } else {
             WebSocketTransformer.upgrade(request)
                 .then((websocket) => websocket.listen((event) {
-                      websocket
-                        ..add(event)
-                        ..close();
+                      final code = request.uri.queryParameters['code'];
+                      final reason = request.uri.queryParameters['reason'];
+
+                      websocket.add(event);
+                      if (!request.uri.queryParameters.containsKey('noclose')) {
+                        websocket.close(
+                            code == null ? null : int.parse(code), reason);
+                      }
+                    }, onDone: () {
+                      lastCloseCode = websocket.closeCode;
+                      lastCloseReason = websocket.closeReason;
                     }));
           }
         });
@@ -34,30 +46,39 @@ void test2() {
       await server.close();
     });
 
-    test('send failure', () async {
+    test('client code and reason', () async {
       final session = URLSession.sharedSession();
-      final task = session.webSocketTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}/error')))
+      final task = session.webSocketTaskWithRequest(URLRequest.fromUrl(
+          Uri.parse('ws://localhost:${server.port}/?noclose')))
         ..resume();
-      await expectLater(
-          task.sendMessage(
-              URLSessionWebSocketMessage.fromString('Hello World!')),
-          throwsA(isA<Error>().having(
-              (e) => e.code, 'code', -1011 // NSURLErrorBadServerResponse
-              )));
-      task.cancel();
+      await task
+          .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
+      await task.receiveMessage();
+      task.cancelWithCloseCode(
+          4998, Data.fromUint8List(Uint8List.fromList('Bye'.codeUnits)));
+
+      // Allow the server to run and save the close code.
+      while (lastCloseCode == null) {
+        await Future.delayed(const Duration(milliseconds: 10));
+      }
+      expect(lastCloseCode, 4998);
+      expect(lastCloseReason, 'Bye');
     });
 
-    test('receive failure', () async {
+    test('server code and reason', () async {
       final session = URLSession.sharedSession();
-      final task = session.webSocketTaskWithRequest(
-          URLRequest.fromUrl(Uri.parse('ws://notarealhost')))
+      final task = session.webSocketTaskWithRequest(URLRequest.fromUrl(
+          Uri.parse('ws://localhost:${server.port}/?code=4999&reason=fun')))
         ..resume();
-      await expectLater(
-          task.receiveMessage(),
-          throwsA(isA<Error>()
-              .having((e) => e.code, 'code', -1003 // NSURLErrorCannotFindHost
-                  )));
+      await task
+          .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
+      await task.receiveMessage();
+      await expectLater(task.receiveMessage(),
+          throwsA(isA<Error>().having((e) => e.code, 'code', 57 // NOT_CONNECTED
+              )));
+
+      expect(task.closeCode, 4999);
+      expect(task.closeReason!.bytes, 'fun'.codeUnits);
       task.cancel();
     });
 
@@ -88,6 +109,34 @@ void test2() {
           URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeString);
       expect(receivedMessage.data, null);
       expect(receivedMessage.string, 'Hello World!');
+      task.cancel();
+    });
+
+    test('send failure', () async {
+      final session = URLSession.sharedSession();
+      final task = session.webSocketTaskWithRequest(
+          URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}/error')))
+        ..resume();
+      await expectLater(
+          task.sendMessage(
+              URLSessionWebSocketMessage.fromString('Hello World!')),
+          throwsA(isA<Error>().having(
+              (e) => e.code, 'code', -1011 // NSURLErrorBadServerResponse
+              )));
+      task.cancel();
+    });
+
+    test('receive failure', () async {
+      final session = URLSession.sharedSession();
+      final task = session.webSocketTaskWithRequest(
+          URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}')))
+        ..resume();
+      await task
+          .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
+      await task.receiveMessage();
+      await expectLater(task.receiveMessage(),
+          throwsA(isA<Error>().having((e) => e.code, 'code', 57 // NOT_CONNECTED
+              )));
       task.cancel();
     });
   });

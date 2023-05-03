@@ -671,8 +671,21 @@ class URLSessionDownloadTask extends URLSessionTask {
   String toString() => _toStringHelper('URLSessionDownloadTask');
 }
 
+
 class URLSessionWebSocketTask extends URLSessionTask {
-  URLSessionWebSocketTask._(ncb.NSURLSessionWebSocketTask super.c) : super._();
+  final ncb.NSURLSessionWebSocketTask _urlSessionWebSocketTask;
+
+  URLSessionWebSocketTask._(ncb.NSURLSessionWebSocketTask super.c) : _urlSessionWebSocketTask = c, super._();
+
+  int get closeCode => _urlSessionWebSocketTask.closeCode;
+  Data? get closeReason {
+    final reason = _urlSessionWebSocketTask.closeReason;
+    if (reason == null) {
+      return null;
+    } else {
+      return Data._(reason);
+    }
+  }
 
   @override
   String toString() => _toStringHelper('NSURLSessionWebSocketTask');
@@ -692,7 +705,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
       completionPort.close();
     });
 
-    helperLibs.CUPHTTPSendMessage(_nsObject.pointer, message._nsObject.pointer,
+    helperLibs.CUPHTTPSendMessage(_urlSessionWebSocketTask.pointer, message._nsObject.pointer,
         completionPort.sendPort.nativePort);
     await completer.future;
   }
@@ -723,8 +736,12 @@ class URLSessionWebSocketTask extends URLSessionTask {
     });
 
     helperLibs.CUPHTTPReceiveMessage(
-        _nsObject.pointer, completionPort.sendPort.nativePort);
+        _urlSessionWebSocketTask.pointer, completionPort.sendPort.nativePort);
     return completer.future;
+  }
+
+  void cancelWithCloseCode(int closeCode, Data? reason) {
+    _urlSessionWebSocketTask.cancelWithCloseCode_reason_(closeCode, reason?._nsObject);
   }
 }
 
