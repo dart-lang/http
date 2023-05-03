@@ -70,23 +70,23 @@ jobs:
         if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http_client_conformance_tests
   job_003:
-    name: "analyze_and_format; Dart 3.0.0-417; PKG: pkgs/http; `dart analyze --fatal-infos`"
+    name: "analyze_and_format; Dart 3.0.0-417.4.beta; PKG: pkgs/http; `dart analyze --fatal-infos`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417;packages:pkgs/http;commands:analyze"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta;packages:pkgs/http;commands:analyze"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417;packages:pkgs/http
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: "3.0.0-417"
+          sdk: "3.0.0-417.4.beta"
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
@@ -178,23 +178,23 @@ jobs:
         if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http_client_conformance_tests
   job_006:
-    name: "unit_test; Dart 3.0.0-417; PKG: pkgs/http; `dart run --define=no_default_http_client=true test/no_default_http_client_test.dart`"
+    name: "unit_test; Dart 3.0.0-417.4.beta; PKG: pkgs/http; `dart run --define=no_default_http_client=true test/no_default_http_client_test.dart`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417;packages:pkgs/http;commands:command"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta;packages:pkgs/http;commands:command"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417;packages:pkgs/http
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: "3.0.0-417"
+          sdk: "3.0.0-417.4.beta"
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
@@ -214,23 +214,23 @@ jobs:
       - job_004
       - job_005
   job_007:
-    name: "unit_test; Dart 3.0.0-417; PKG: pkgs/http; `dart test --platform chrome`"
+    name: "unit_test; Dart 3.0.0-417.4.beta; PKG: pkgs/http; `dart test --platform chrome`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417;packages:pkgs/http;commands:test_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta;packages:pkgs/http;commands:test_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417;packages:pkgs/http
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: "3.0.0-417"
+          sdk: "3.0.0-417.4.beta"
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
@@ -250,23 +250,23 @@ jobs:
       - job_004
       - job_005
   job_008:
-    name: "unit_test; Dart 3.0.0-417; PKG: pkgs/http; `dart test --platform vm`"
+    name: "unit_test; Dart 3.0.0-417.4.beta; PKG: pkgs/http; `dart test --platform vm`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@88522ab9f39a2ea568f7027eddc7d8d8bc9d59c8
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417;packages:pkgs/http;commands:test_0"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta;packages:pkgs/http;commands:test_0"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417;packages:pkgs/http
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.0.0-417.4.beta
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@d6a63dab3335f427404425de0fbfed4686d93c4f
         with:
-          sdk: "3.0.0-417"
+          sdk: "3.0.0-417.4.beta"
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
