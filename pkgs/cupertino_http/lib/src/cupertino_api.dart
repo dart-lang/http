@@ -501,27 +501,44 @@ enum URLSessionTaskState {
   urlSessionTaskStateCompleted,
 }
 
-/// A WebSocket
+/// A WebSocket message.
 ///
 /// See [NSURLSessionWebSocketMessage](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage)
 class URLSessionWebSocketMessage
     extends _ObjectHolder<ncb.NSURLSessionWebSocketMessage> {
   URLSessionWebSocketMessage._(super.nsObject);
 
+  /// Create a WebSocket data message.
+  ///
+  /// See [NSURLSessionWebSocketMessage initWithData:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181192-initwithdata)
   factory URLSessionWebSocketMessage.fromData(Data d) =>
       URLSessionWebSocketMessage._(
           ncb.NSURLSessionWebSocketMessage.alloc(linkedLibs)
               .initWithData_(d._nsObject));
 
+  /// Create a WebSocket string message.
+  ///
+  /// See [NSURLSessionWebSocketMessage initWitString:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181193-initwithstring)
   factory URLSessionWebSocketMessage.fromString(String s) =>
       URLSessionWebSocketMessage._(
           ncb.NSURLSessionWebSocketMessage.alloc(linkedLibs)
               .initWithString_(s.toNSString(linkedLibs)));
 
+  /// The data associated with the WebSocket message.
+  ///
+  /// Will be `null` if the [URLSessionWebSocketMessage] is a string message.
+  ///
+  /// See [NSURLSessionWebSocketMessage.data](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181191-data)
   Data? get data => _nsObject.data == null ? null : Data._(_nsObject.data!);
 
+  /// The string associated with the WebSocket message.
+  ///
+  /// Will be `null` if the [URLSessionWebSocketMessage] is a data message.
+  ///
+  /// See [NSURLSessionWebSocketMessage.string](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181194-string)
   String? get string => toStringOrNull(_nsObject.string);
 
+  /// The type of the WebSocket message.
   URLSessionWebSocketMessageType get type =>
       URLSessionWebSocketMessageType.values[_nsObject.type];
 
