@@ -783,10 +783,10 @@ class URLSessionWebSocketTask extends URLSessionTask {
     final completer = Completer<URLSessionWebSocketMessage>();
     final completionPort = ReceivePort();
     completionPort.listen((d) {
-      final messageAndError = d as List<int>;
+      final messageAndError = d as List;
 
-      final mp = Pointer<ncb.ObjCObject>.fromAddress(messageAndError[0]);
-      final ep = Pointer<ncb.ObjCObject>.fromAddress(messageAndError[1]);
+      final mp = Pointer<ncb.ObjCObject>.fromAddress(messageAndError[0] as int);
+      final ep = Pointer<ncb.ObjCObject>.fromAddress(messageAndError[1] as int);
 
       final message = mp.address == 0
           ? null
