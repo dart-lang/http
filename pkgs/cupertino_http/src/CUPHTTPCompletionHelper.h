@@ -10,7 +10,22 @@
 
 #include "dart-sdk/include/dart_api_dl.h"
 
+/**
+ * Creates a `Dart_CObject` containing the given `NSObject` pointer as an int.
+ */
 Dart_CObject NSObjectToCObject(NSObject* n);
 
-extern void CUPHTTPSendMessage(NSURLSessionWebSocketTask *task, NSURLSessionWebSocketMessage *message, Dart_Port sendPort);
-extern void CUPHTTPReceiveMessage(NSURLSessionWebSocketTask *task,  Dart_Port sendPort);
+/**
+ * Executes [NSURLSessionWebSocketTask sendMessage:completionHandler:] and
+ * sends the results of the completion handler to the given `Dart_Port`.
+ */
+extern void CUPHTTPSendMessage(NSURLSessionWebSocketTask *task,
+                               NSURLSessionWebSocketMessage *message,
+                               Dart_Port sendPort);
+
+/**
+ * Executes [NSURLSessionWebSocketTask receiveMessageWithCompletionHandler:]
+ * and sends the results of the completion handler to the given `Dart_Port`.
+ */
+extern void CUPHTTPReceiveMessage(NSURLSessionWebSocketTask *task,
+                                  Dart_Port sendPort);

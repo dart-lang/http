@@ -26,10 +26,10 @@ void CUPHTTPSendMessage(NSURLSessionWebSocketTask *task, NSURLSessionWebSocketMe
 
 void CUPHTTPReceiveMessage(NSURLSessionWebSocketTask *task,  Dart_Port sendPort) {
   [task
-  receiveMessageWithCompletionHandler: ^(NSURLSessionWebSocketMessage *message, NSError *error) {
+   receiveMessageWithCompletionHandler: ^(NSURLSessionWebSocketMessage *message, NSError *error) {
     [message retain];
     [error retain];
-
+    
     Dart_CObject cmessage = NSObjectToCObject(message);
     Dart_CObject cerror = NSObjectToCObject(error);
     Dart_CObject* message_carray[] = { &cmessage, &cerror };
@@ -38,7 +38,7 @@ void CUPHTTPReceiveMessage(NSURLSessionWebSocketTask *task,  Dart_Port sendPort)
     message_cobj.type = Dart_CObject_kArray;
     message_cobj.value.as_array.length = 2;
     message_cobj.value.as_array.values = message_carray;
-
+    
     const bool success = Dart_PostCObject_DL(sendPort, &message_cobj);
     NSCAssert(success, @"Dart_PostCObject_DL failed.");
   }];
