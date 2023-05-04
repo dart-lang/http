@@ -539,6 +539,8 @@ class URLSessionWebSocketMessage
   String? get string => toStringOrNull(_nsObject.string);
 
   /// The type of the WebSocket message.
+  ///
+  /// See [NSURLSessionWebSocketMessage.type](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181195-type)
   URLSessionWebSocketMessageType get type =>
       URLSessionWebSocketMessageType.values[_nsObject.type];
 
