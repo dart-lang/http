@@ -9,4 +9,4 @@ flutter pub run pigeon \
   --java_out android/src/main/java/io/flutter/plugins/cronet_http/Messages.java \
   --java_package "io.flutter.plugins.cronet_http"
 
-flutter format lib/src/messages.dart
+dart format lib/src/messages.dart
