@@ -14,14 +14,14 @@ import 'package:test/test.dart';
 
 import '../utils.dart';
 
-base class TestClient extends http.BaseClient {
+class TestClient extends http.BaseClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
     throw UnimplementedError();
   }
 }
 
-base class TestClient2 extends http.BaseClient {
+class TestClient2 extends http.BaseClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) {
     throw UnimplementedError();

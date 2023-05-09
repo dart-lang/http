@@ -43,7 +43,7 @@ class _ClientSocketException extends ClientException
 }
 
 /// A `dart:io`-based HTTP client.
-base class IOClient extends BaseClient {
+class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
   HttpClient? _inner;
 
