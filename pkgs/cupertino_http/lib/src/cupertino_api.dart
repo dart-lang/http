@@ -751,7 +751,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
 
   /// Sends a single WebSocket message.
   ///
-  /// Throws an [Error] on failure.
+  /// The returned future will complete successfully when the message is sent
+  /// and with an [Error] on failure.
   ///
   /// See [NSURLSessionWebSocketTask.sendMessage:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181205-sendmessage)
   Future<void> sendMessage(URLSessionWebSocketMessage message) async {
