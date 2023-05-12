@@ -50,8 +50,6 @@ jobs:
     defaults:
       run:
         working-directory: pkgs/cupertino_http/example
-
-
     strategy:
       fail-fast: true
       matrix:
@@ -66,4 +64,4 @@ jobs:
         with:
           channel: 'stable'
       - name: Run tests
-        run: flutter test --total-shards=${{ matrix.total_shards }} -shard-index=${{ matrix.shard_index }} integration_test/
+        run: flutter test --total-shards=${{ matrix.total_shards }} --shard-index=${{ matrix.shard_index }} integration_test/
