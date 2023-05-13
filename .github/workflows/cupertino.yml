@@ -64,4 +64,4 @@ jobs:
         with:
           channel: 'stable'
       - name: Run tests
-        run: flutter test --total-shards=${{ matrix.total_shards }} --shard-index=${{ matrix.shard_index }} integration_test/
+        run: flutter -v test --total-shards=${{ matrix.total_shards }} --shard-index=${{ matrix.shard_index }} integration_test/
