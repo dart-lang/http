@@ -50,15 +50,18 @@ jobs:
     defaults:
       run:
         working-directory: pkgs/cupertino_http/example
+    strategy:
+      fail-fast: true
+      matrix:
+        shard_index: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+        total_shards: [20]
     steps:
       - uses: actions/checkout@v3
-      - uses: futureware-tech/simulator-action@v1
+      - uses: futureware-tech/simulator-action@v2
         with:
           model: 'iPhone 8'
       - uses: subosito/flutter-action@v2
         with:
-          # TODO: Change to 'stable' when a release version of flutter
-          # pins version 1.21.1 or later of 'package:test'
-          channel: 'master'
+          channel: 'stable'
       - name: Run tests
-        run: flutter test integration_test/
+        run: flutter -v test --total-shards=${{ matrix.total_shards }} --shard-index=${{ matrix.shard_index }} integration_test/
