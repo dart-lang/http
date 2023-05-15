@@ -64,6 +64,7 @@ jobs:
           model: 'iPhone 8'
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.7.12'
           channel: 'stable'
       - name: Run tests
         run: flutter -v test --total-shards=${{ matrix.total_shards }} --shard-index=${{ matrix.shard_index }} integration_test/
