@@ -5,7 +5,6 @@
 @Skip('Error tests cannot currently be written. See comments in this file.')
 library;
 
-import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void main() {
