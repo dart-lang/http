@@ -6,7 +6,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
-import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testOnComplete(URLSessionConfiguration config) {
@@ -436,8 +435,6 @@ void testOnRedirect(URLSessionConfiguration config) {
 }
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('backgroundSession', () {
     final config =
         URLSessionConfiguration.backgroundSession('backgroundSession');

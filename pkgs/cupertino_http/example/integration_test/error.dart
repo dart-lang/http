@@ -9,8 +9,6 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   // TODO(https://github.com/dart-lang/ffigen/issues/386): Implement tests
   // when an initializer is callable.
 }

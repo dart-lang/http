@@ -4,12 +4,9 @@
 
 import 'package:cupertino_http/src/native_cupertino_bindings.dart' as ncb;
 import 'package:cupertino_http/src/utils.dart';
-import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('toStringOrNull', () {
     test('null input', () {
       expect(toStringOrNull(null), null);

@@ -353,8 +353,6 @@ void testURLSessionTask(
 }
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('data task', () {
     testURLSessionTask(
         (session, uri) => session.dataTaskWithRequest(URLRequest.fromUrl(uri)));
