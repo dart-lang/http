@@ -1,3 +1,5 @@
+import 'package:integration_test/integration_test.dart';
+
 import 'client_conformance.dart' as client_conformance;
 import 'data.dart' as data;
 import 'error.dart' as error;
@@ -6,13 +8,11 @@ import 'mutable_data.dart' as mutable_data;
 import 'mutable_url_request.dart' as mutable_url_request;
 import 'url_request.dart' as url_request;
 import 'url_response.dart' as url_response;
+import 'url_session.dart' as url_session;
 import 'url_session_configuration.dart' as url_session_configuration;
 import 'url_session_delegate.dart' as url_session_delegate;
 import 'url_session_task.dart' as url_session_task;
-import 'url_session.dart' as url_session;
 import 'utils.dart' as utils;
-
-import 'package:integration_test/integration_test.dart';
 
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
