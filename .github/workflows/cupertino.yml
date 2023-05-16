@@ -62,4 +62,4 @@ jobs:
           flutter-version: '3.7.12'
           channel: 'stable'
       - name: Run tests
-        run: flutter -v test integration_test/
+        run: flutter test integration_test/
