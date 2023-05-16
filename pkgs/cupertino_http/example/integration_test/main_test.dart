@@ -1,3 +1,7 @@
+// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'package:integration_test/integration_test.dart';
 
 import 'client_conformance.dart' as client_conformance;
@@ -14,6 +18,11 @@ import 'url_session_delegate.dart' as url_session_delegate;
 import 'url_session_task.dart' as url_session_task;
 import 'utils.dart' as utils;
 
+/// The single entry point for all `package:cupertino_http` tests.
+///
+/// Each "_test.dart" file requires that the example application be launched.
+/// At the time of this commit, having a single test file reduces the local test
+/// execution time from ~5 minutes to ~1 minute.
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
