@@ -61,4 +61,4 @@ jobs:
         with:
           channel: 'stable'
       - name: Run tests
-        run: flutter test integration_test/
+        run: flutter -v test integration_test/
