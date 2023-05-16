@@ -8,12 +8,10 @@ on:
     paths:
       - 'pkgs/cupertino_http/**'
       - 'pkgs/http_client_conformance_tests/**'
-      - '.github/workflows/cupertino.yml'
   pull_request:
     paths:
       - 'pkgs/cupertino_http/**'
       - 'pkgs/http_client_conformance_tests/**'
-      - '.github/workflows/cupertino.yml'
   schedule:
     - cron: "0 0 * * 0"
 
@@ -54,8 +52,11 @@ jobs:
         working-directory: pkgs/cupertino_http/example
     steps:
       - uses: actions/checkout@v3
+      - uses: futureware-tech/simulator-action@v1
+        with:
+          model: 'iPhone 8'
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
       - name: Run tests
-        run: flutter -v test --device-id=macos integration_test/
+        run: flutter test integration_test/
