@@ -50,7 +50,7 @@ void testOnComplete(URLSessionConfiguration config) {
       expect(actualError, null);
     });
 
-    /*test('bad host', () async {
+    test('bad host', () async {
       final c = Completer<void>();
       Error? actualError;
       late URLSession actualSession;
@@ -76,7 +76,7 @@ void testOnComplete(URLSessionConfiguration config) {
             -1001, // kCFURLErrorTimedOut
             -1003, // kCFURLErrorCannotFindHost
           ));
-    });*/
+    });
   });
 }
 
@@ -121,7 +121,7 @@ void testOnResponse(URLSessionConfiguration config) {
       expect(actualResponse.statusCode, 200);
     });
 
-    /*test('bad host', () async {
+    test('bad host', () async {
       // `onResponse` should not be called because there was no valid response.
       final c = Completer<void>();
       var called = false;
@@ -139,7 +139,7 @@ void testOnResponse(URLSessionConfiguration config) {
           .resume();
       await c.future;
       expect(called, false);
-    });*/
+    });
   });
 }
 
