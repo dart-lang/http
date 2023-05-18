@@ -63,4 +63,4 @@ jobs:
           # pins version 1.21.1 or later of 'package:test'
           channel: 'master'
       - name: Run tests
-        run: flutter test integration_test/
+        run: flutter test --verbose integration_test/
