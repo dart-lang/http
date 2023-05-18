@@ -8,9 +8,10 @@ import 'package:http_client_conformance_tests/http_client_conformance_tests.dart
 import 'package:integration_test/integration_test.dart';
 
 void main() {
+  print('client_conformance_test - entered');
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  print('Client conformance tests initialized');
+  print('client_conformance_test - widgets initialized');
   group('defaultSessionConfiguration', () {
     testAll(CupertinoClient.defaultSessionConfiguration,
         canStreamRequestBody: false);

@@ -7,9 +7,10 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void main() {
+  print('url_request_test - entered');
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  print('url_request_test - widgets initialized');
 
-  print('url_request_test initialized');
   group('fromUrl', () {
     test('absolute URL', () {
       final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');

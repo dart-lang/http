@@ -7,8 +7,9 @@ import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void main() {
+  print('url_response_test - entered');
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  print('url_response_test initialized');
+  print('url_response_test - widgets initialized');
 
   group('response', () {
     late URLResponse response;
