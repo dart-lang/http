@@ -10,6 +10,7 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  print('Client conformance tests initialized');
   group('defaultSessionConfiguration', () {
     testAll(CupertinoClient.defaultSessionConfiguration,
         canStreamRequestBody: false);

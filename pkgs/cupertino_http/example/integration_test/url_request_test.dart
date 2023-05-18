@@ -9,6 +9,7 @@ import 'package:test/test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  print('url_request_test initialized');
   group('fromUrl', () {
     test('absolute URL', () {
       final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');

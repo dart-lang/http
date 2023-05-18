@@ -8,6 +8,7 @@ import 'package:test/test.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  print('url_response_test initialized');
 
   group('response', () {
     late URLResponse response;
