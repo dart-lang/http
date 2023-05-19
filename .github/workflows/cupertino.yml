@@ -63,6 +63,6 @@ jobs:
           # pins version 1.21.1 or later of 'package:test'
           channel: 'master'
       - name: Update flutter
-        run: cp simulators.dart /System/Volumes/Data/Users/runner/hostedtoolcache/flutter/master-master-x64/packages/flutter_tools/lib/src/ios/simulators.dart
+        run: cp simulators.foo /System/Volumes/Data/Users/runner/hostedtoolcache/flutter/master-master-x64/packages/flutter_tools/lib/src/ios/simulators.dart
       - name: Run tests
         run: flutter test --verbose integration_test/
