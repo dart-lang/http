@@ -434,7 +434,7 @@ class IOSSimulator extends Device {
     return _supportMessage ?? 'Unknown';
   }
 
-  @override
+ @override
   Future<LaunchResult> startApp(
     IOSApp package, {
     String? mainPath,
@@ -449,8 +449,7 @@ class IOSSimulator extends Device {
       globals.printTrace('Building ${package.name} for $id.');
 
       try {
-        await _setupUpdatedApplicationBundle(
-            package, debuggingOptions.buildInfo, mainPath);
+        await _setupUpdatedApplicationBundle(package, debuggingOptions.buildInfo, mainPath);
       } on ToolExit catch (e) {
         globals.printError('${e.message}');
         return LaunchResult.failed();
@@ -479,20 +478,18 @@ class IOSSimulator extends Device {
       );
     }
 
+    final Future<Uri?>? futureDeviceUri = vmServiceDiscovery?.uri;
+
     // Launch the updated application in the simulator.
     try {
       // Use the built application's Info.plist to get the bundle identifier,
       // which should always yield the correct value and does not require
       // parsing the xcodeproj or configuration files.
       // See https://github.com/flutter/flutter/issues/31037 for more information.
-      final String plistPath =
-          globals.fs.path.join(package.simulatorBundlePath, 'Info.plist');
-      final String? bundleIdentifier = globals.plistParser
-          .getValueFromFile<String>(
-              plistPath, PlistParser.kCFBundleIdentifierKey);
+      final String plistPath = globals.fs.path.join(package.simulatorBundlePath, 'Info.plist');
+      final String? bundleIdentifier = globals.plistParser.getValueFromFile<String>(plistPath, PlistParser.kCFBundleIdentifierKey);
       if (bundleIdentifier == null) {
-        globals.printError(
-            'Invalid prebuilt iOS app. Info.plist does not contain bundle identifier');
+        globals.printError('Invalid prebuilt iOS app. Info.plist does not contain bundle identifier');
         return LaunchResult.failed();
       }
 
@@ -511,7 +508,7 @@ class IOSSimulator extends Device {
     globals.printTrace('Waiting for VM Service port to be available...');
 
     try {
-      final Uri? deviceUri = await vmServiceDiscovery?.uri;
+      final Uri? deviceUri = await futureDeviceUri;
       if (deviceUri != null) {
         return LaunchResult.succeeded(vmServiceUri: deviceUri);
       }
