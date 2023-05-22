@@ -13,7 +13,7 @@ dependencies:
   ffi: ^2.0.1
   flutter:
     sdk: flutter
-  http: ^0.13.4
+  http: '>=0.13.4 <2.0.0'
   meta: ^1.7.0
 
 dev_dependencies:
