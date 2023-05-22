@@ -1,3 +1,7 @@
+## 0.1.3
+
+* Require Dart 3.0
+
 ## 0.1.2
 
 * Require Dart 2.19
