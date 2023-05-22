@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.4
+  http: '>=0.13.4 <2.0.0'
 
 dev_dependencies:
   dart_flutter_team_lints: ^1.0.0
