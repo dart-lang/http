@@ -83,7 +83,7 @@ void updateCronetDependency(String latestVersion) {
   print('Patching $newImplementation');
   final newGradleContent = gradleContent.replaceAll(
     implementationRegExp,
-    '    implementation $newImplementation',
+    '    implementation "$newImplementation"',
   );
   fBuildGradle.writeAsStringSync(newGradleContent);
 }
