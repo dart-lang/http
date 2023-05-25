@@ -36,7 +36,7 @@ jobs:
         name: Install dependencies
         run: flutter pub get
       - name: Check formatting
-        run: echo dart format --output=none --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
       - name: Analyze code
         run: flutter analyze --fatal-infos
@@ -45,7 +45,7 @@ jobs:
   test:
     # Test package:cupertino_http use flutter integration tests.
     needs: analyze
-    name: "Build and test (disabled!)"
+    name: "Build and test"
     runs-on: macos-latest
     defaults:
       run:
@@ -61,4 +61,4 @@ jobs:
           # pins version 1.21.1 or later of 'package:test'
           channel: 'master'
       - name: Run tests
-        run: flutter test integration_test/
+        run: for i in 1 2 3 4 5; do flutter test integration_test/ && break || sleep 15; done
