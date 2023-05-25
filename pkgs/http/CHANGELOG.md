@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Add better error messages for `SocketException`s when using `IOClient`. 
+ 
 ## 1.0.0
 
 * Requires Dart 3.0 or later.
