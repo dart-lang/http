@@ -26,8 +26,8 @@ import 'streamed_response.dart';
 /// [http.delete] instead.
 ///
 /// All methods will emit a [ClientException] if there is a transport-level
-/// failure when communication with the server, e.g., if the server could not
-/// be reached.
+/// failure when communication with the server. For example, if the server could
+/// not be reached.
 ///
 /// When creating an HTTP client class with additional functionality, you must
 /// extend [BaseClient] rather than [Client]. In most cases, you can wrap

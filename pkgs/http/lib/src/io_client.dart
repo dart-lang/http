@@ -49,8 +49,8 @@ class _ClientSocketException extends ClientException
 /// A `dart:io`-based HTTP [Client].
 ///
 /// If there is a socket-level failure when communicating with the server
-/// (e.g. if the server could not be reached), [IOClient] will emit a
-/// [ClientException] that is also implements [SocketException]. This allows
+/// (for example, if the server could not be reached), [IOClient] will emit a
+/// [ClientException] that also implements [SocketException]. This allows
 /// callers to get more detailed exception information for socket-level
 /// failures, if desired.
 ///
