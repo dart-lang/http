@@ -3,12 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:cupertino_http/cupertino_http.dart';
-import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('fromUrl', () {
     test('absolute URL', () {
       final uri = Uri.parse('http://www.example.com/foo?baz=3#bar');

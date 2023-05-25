@@ -61,6 +61,4 @@ jobs:
           # pins version 1.21.1 or later of 'package:test'
           channel: 'master'
       - name: Run tests
-        # TODO: Renable tests when https://github.com/dart-lang/http/issues/938
-        # is fixed.
         run: echo flutter test integration_test/

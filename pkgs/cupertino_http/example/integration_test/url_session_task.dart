@@ -6,7 +6,6 @@ import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:flutter/foundation.dart';
-import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void testURLSessionTask(
@@ -220,8 +219,6 @@ void testURLSessionTask(
 }
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('data task', () {
     testURLSessionTask(
         (session, uri) => session.dataTaskWithRequest(URLRequest.fromUrl(uri)));

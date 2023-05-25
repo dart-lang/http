@@ -5,12 +5,9 @@
 import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
-import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-
   group('response', () {
     late HttpServer server;
     late HTTPURLResponse response;
