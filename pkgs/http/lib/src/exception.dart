@@ -12,5 +12,11 @@ class ClientException implements Exception {
   ClientException(this.message, [this.uri]);
 
   @override
-  String toString() => message;
+  String toString() {
+    if (uri != null) {
+      return 'ClientException: $message, uri=$uri';
+    } else {
+      return 'ClientException: $message';
+    }
+  }
 }
