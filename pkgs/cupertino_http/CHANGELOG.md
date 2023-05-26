@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Add support for `NSURLSessionWebSocketTask`.
+
 ## 0.1.3
 
 * Require Dart 3.0
