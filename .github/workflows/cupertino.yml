@@ -55,10 +55,6 @@ jobs:
           model: 'iPhone 8'
       - uses: subosito/flutter-action@v2
         with:
-          # TODO: Change to 'stable' when a release version of flutter
-          # pins version 1.21.1 or later of 'package:test'
-          channel: 'master'
+          channel: 'stable'
       - name: Run tests
-        run: for i in 1 2 3 4 5; do flutter test integration_test/ && break || sleep 15; done
-      - name: Set status
-        run: echo "### Hello world! :rocket:" >> $GITHUB_STEP_SUMMARY
+        run: for i in {1..4}; do flutter test integration_test/ && break || echo "### Retry $i">$GITHUB_STEP_SUMMARY; done
