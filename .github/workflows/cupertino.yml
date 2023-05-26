@@ -31,7 +31,7 @@ jobs:
         with:
           # TODO: Change to 'stable' when a release version of flutter
           # pins version 1.21.1 or later of 'package:test'
-          channel: 'master'
+          channel: 'stable'
       - id: install
         name: Install dependencies
         run: flutter pub get
