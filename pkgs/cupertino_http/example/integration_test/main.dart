@@ -18,6 +18,11 @@ import 'url_session_task_test.dart' as url_session_task_test;
 import 'url_session_test.dart' as url_session_test;
 import 'utils_test.dart' as utils_test;
 
+/// Execute all the tests in this directory.
+///
+/// This is faster than running each test individually using
+/// `flutter test integration_test/` because only one compilation step and
+/// application launch is required.
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 

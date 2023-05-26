@@ -57,4 +57,7 @@ jobs:
         with:
           channel: 'stable'
       - name: Run tests
-        run: for i in {1..4}; do flutter test integration_test/main_test.dart && break || echo "### Retry $i">$GITHUB_STEP_SUMMARY; done
+        # TODO: Remove the retries when
+        # https://github.com/flutter/flutter/issues/121231 is fixed.
+        # See https://github.com/dart-lang/http/issues/938 for context.
+        run: for i in {1..5}; do flutter test integration_test/main.dart && break || echo "Retry $i"; done
