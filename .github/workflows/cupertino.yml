@@ -8,10 +8,12 @@ on:
     paths:
       - 'pkgs/cupertino_http/**'
       - 'pkgs/http_client_conformance_tests/**'
+      - '.github/workflows/cupertino.yml'
   pull_request:
     paths:
       - 'pkgs/cupertino_http/**'
       - 'pkgs/http_client_conformance_tests/**'
+      - '.github/workflows/cupertino.yml'
   schedule:
     - cron: "0 0 * * 0"
 
