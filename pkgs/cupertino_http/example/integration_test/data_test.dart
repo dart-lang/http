@@ -5,9 +5,12 @@
 import 'dart:typed_data';
 
 import 'package:cupertino_http/cupertino_http.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   group('empty data', () {
     final data = Data.fromUint8List(Uint8List(0));
 

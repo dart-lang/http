@@ -57,4 +57,4 @@ jobs:
         with:
           channel: 'stable'
       - name: Run tests
-        run: for i in {1..4}; do flutter test integration_test/ && break || echo "### Retry $i">$GITHUB_STEP_SUMMARY; done
+        run: for i in {1..4}; do flutter test integration_test/main_test.dart && break || echo "### Retry $i">$GITHUB_STEP_SUMMARY; done

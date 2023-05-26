@@ -5,8 +5,11 @@
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_client_conformance_tests/http_client_conformance_tests.dart';
+import 'package:integration_test/integration_test.dart';
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   group('defaultSessionConfiguration', () {
     testAll(CupertinoClient.defaultSessionConfiguration,
         canStreamRequestBody: false);
