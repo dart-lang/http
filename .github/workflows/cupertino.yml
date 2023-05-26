@@ -66,4 +66,13 @@ jobs:
         # TODO: Remove the retries when
         # https://github.com/flutter/flutter/issues/121231 is fixed.
         # See https://github.com/dart-lang/http/issues/938 for context.
-        run: for i in {1..5}; do flutter test integration_test/main.dart && break || echo "Retry $i"; done
+        run: |
+          for i in {1..6}
+          do
+            flutter test integration_test/main.dart && break
+            if [ $i -eq 6 ]
+            then
+              exit 1
+            fi
+            echo "Retry $i"
+          done
