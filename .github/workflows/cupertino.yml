@@ -60,3 +60,5 @@ jobs:
           channel: 'master'
       - name: Run tests
         run: for i in 1 2 3 4 5; do flutter test integration_test/ && break || sleep 15; done
+      - name: Set status
+        run: echo "### Hello world! :rocket:" >> $GITHUB_STEP_SUMMARY
