@@ -1,6 +1,7 @@
 ## 1.2.3-wip
 
 * Fixed unintended HTML tags in doc comments. 
+* Added `onSendProgress` callback
 
 ## 1.2.2
 
@@ -56,7 +57,6 @@
 * In `MockHttpClient` use the callback returned `Response.request` instead of
   the argument value to give more control to the callback. This may be breaking
   for callbacks which return incomplete Responses and relied on the default.
-* Add `onSendProgress` callback
 
 ## 0.13.4
 
