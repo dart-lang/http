@@ -13,9 +13,9 @@ import '../utils.dart';
 class TestClient extends http.BaseClient {
   @override
   Future<http.StreamedResponse> send(
-    http.BaseRequest request,
+    http.BaseRequest request, {
     http.Progress? onSendProgress,
-  ) {
+  }) {
     throw UnimplementedError();
   }
 }

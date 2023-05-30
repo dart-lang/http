@@ -52,9 +52,9 @@ class BrowserClient extends BaseClient {
   /// Sends an HTTP request and asynchronously returns the response.
   @override
   Future<StreamedResponse> send(
-    BaseRequest request,
+    BaseRequest request, {
     Progress? onSendProgress,
-  ) async {
+  }) async {
     if (_isClosed) {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
