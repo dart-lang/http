@@ -8,10 +8,12 @@ on:
     paths:
       - 'pkgs/cupertino_http/**'
       - 'pkgs/http_client_conformance_tests/**'
+      - '.github/workflows/cupertino.yml'
   pull_request:
     paths:
       - 'pkgs/cupertino_http/**'
       - 'pkgs/http_client_conformance_tests/**'
+      - '.github/workflows/cupertino.yml'
   schedule:
     - cron: "0 0 * * 0"
 
@@ -29,9 +31,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
         with:
-          # TODO: Change to 'stable' when a release version of flutter
-          # pins version 1.21.1 or later of 'package:test'
-          channel: 'master'
+          channel: 'stable'
       - id: install
         name: Install dependencies
         run: flutter pub get
@@ -45,7 +45,7 @@ jobs:
   test:
     # Test package:cupertino_http use flutter integration tests.
     needs: analyze
-    name: "Build and test (disabled!)"
+    name: "Build and test"
     runs-on: macos-latest
     defaults:
       run:
@@ -57,10 +57,18 @@ jobs:
           model: 'iPhone 8'
       - uses: subosito/flutter-action@v2
         with:
-          # TODO: Change to 'stable' when a release version of flutter
-          # pins version 1.21.1 or later of 'package:test'
-          channel: 'master'
+          channel: 'stable'
       - name: Run tests
-        # TODO: Renable tests when https://github.com/dart-lang/http/issues/938
-        # is fixed.
-        run: echo flutter test integration_test/
+        # TODO: Remove the retries when
+        # https://github.com/flutter/flutter/issues/121231 is fixed.
+        # See https://github.com/dart-lang/http/issues/938 for context.
+        run: |
+          for i in {1..6}
+          do
+            flutter test integration_test/main.dart && break
+            if [ $i -eq 6 ]
+            then
+              exit 1
+            fi
+            echo "Retry $i"
+          done
