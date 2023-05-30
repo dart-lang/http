@@ -18,7 +18,7 @@ dependencies:
 
 dev_dependencies:
   dart_flutter_team_lints: ^1.0.0
-  ffigen: ^7.2.0
+  ffigen: ^8.0.2
 
 flutter:
   plugin:
