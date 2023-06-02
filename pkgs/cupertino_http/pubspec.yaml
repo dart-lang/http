@@ -6,8 +6,8 @@ version: 1.1.0-wip
 repository: https://github.com/dart-lang/http/tree/master/pkgs/cupertino_http
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
-  flutter: ">=3.0.0"
+  sdk: ^3.0.0
+  flutter: '>=3.10.0'  # If changed, update test matrix.
 
 dependencies:
   ffi: ^2.0.1
@@ -18,7 +18,7 @@ dependencies:
 
 dev_dependencies:
   dart_flutter_team_lints: ^1.0.0
-  ffigen: ^7.2.0
+  ffigen: ^8.0.2
 
 flutter:
   plugin:
