@@ -1,3 +1,7 @@
+## 1.1.0
+
+* Add websocket support to `cupertino_api`.
+
 ## 1.0.1
 
 * Remove experimental status from "Readme"

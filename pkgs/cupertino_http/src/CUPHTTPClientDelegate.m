@@ -7,14 +7,8 @@
 #import <Foundation/Foundation.h>
 #include <os/log.h>
 
+#import "CUPHTTPCompletionHelper.h"
 #import "CUPHTTPForwardedDelegate.h"
-
-static Dart_CObject NSObjectToCObject(NSObject* n) {
-  Dart_CObject cobj;
-  cobj.type = Dart_CObject_kInt64;
-  cobj.value.as_int64 = (int64_t) n;
-  return cobj;
-}
 
 static Dart_CObject MessageTypeToCObject(MessageType messageType) {
   Dart_CObject cobj;
