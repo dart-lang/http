@@ -58684,6 +58684,61 @@ class NativeCupertinoHttp {
           ffi.Pointer<ObjCObject>)>();
 
   late final _sel_location1 = _registerName1("location");
+
+  /// Creates a `Dart_CObject` containing the given `NSObject` pointer as an int.
+  Dart_CObject NSObjectToCObject(
+    ffi.Pointer<ObjCObject> n,
+  ) {
+    return _NSObjectToCObject(
+      n,
+    );
+  }
+
+  late final _NSObjectToCObjectPtr = _lookup<
+          ffi.NativeFunction<Dart_CObject Function(ffi.Pointer<ObjCObject>)>>(
+      'NSObjectToCObject');
+  late final _NSObjectToCObject = _NSObjectToCObjectPtr.asFunction<
+      Dart_CObject Function(ffi.Pointer<ObjCObject>)>();
+
+  /// Executes [NSURLSessionWebSocketTask sendMessage:completionHandler:] and
+  /// sends the results of the completion handler to the given `Dart_Port`.
+  void CUPHTTPSendMessage(
+    ffi.Pointer<ObjCObject> task,
+    ffi.Pointer<ObjCObject> message,
+    int sendPort,
+  ) {
+    return _CUPHTTPSendMessage(
+      task,
+      message,
+      sendPort,
+    );
+  }
+
+  late final _CUPHTTPSendMessagePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCObject>,
+              Dart_Port)>>('CUPHTTPSendMessage');
+  late final _CUPHTTPSendMessage = _CUPHTTPSendMessagePtr.asFunction<
+      void Function(ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCObject>, int)>();
+
+  /// Executes [NSURLSessionWebSocketTask receiveMessageWithCompletionHandler:]
+  /// and sends the results of the completion handler to the given `Dart_Port`.
+  void CUPHTTPReceiveMessage(
+    ffi.Pointer<ObjCObject> task,
+    int sendPort,
+  ) {
+    return _CUPHTTPReceiveMessage(
+      task,
+      sendPort,
+    );
+  }
+
+  late final _CUPHTTPReceiveMessagePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<ObjCObject>, Dart_Port)>>('CUPHTTPReceiveMessage');
+  late final _CUPHTTPReceiveMessage = _CUPHTTPReceiveMessagePtr.asFunction<
+      void Function(ffi.Pointer<ObjCObject>, int)>();
 }
 
 final class __mbstate_t extends ffi.Union {
