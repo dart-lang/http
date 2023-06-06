@@ -92,6 +92,8 @@ void main() {
           clientWriter.writeDataFrame(3, [1, 2, 3]);
 
           // Make sure the client gets a [RstStreamFrame] frame.
+          var frame = await nextFrame();
+          expect(frame is WindowUpdateFrame, true);
           expect(
               await nextFrame(),
               isA<RstStreamFrame>()

@@ -260,7 +260,7 @@ class ConnectionMessageQueueIn extends Object
   /// If a [DataFrame] will be ignored, this method will take the minimal
   /// action necessary.
   void processIgnoredDataFrame(DataFrame frame) {
-    _windowUpdateHandler.gotData(frame.bytes.length);
+    _windowUpdateHandler.dataProcessed(frame.bytes.length);
   }
 
   /// Processes an incoming [HeadersFrame] which is addressed to a specific

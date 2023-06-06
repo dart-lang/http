@@ -155,7 +155,7 @@ void main() {
       var header = FrameHeader(0, 0, 0, STREAM_ID);
       queue.processIgnoredDataFrame(DataFrame(header, 0, bytes));
       expect(queue.pendingMessages, 0);
-      verify(windowMock.gotData(bytes.length)).called(1);
+      verify(windowMock.dataProcessed(bytes.length)).called(1);
       verifyNoMoreInteractions(windowMock);
     });
   });
