@@ -970,18 +970,24 @@ class MutableURLRequest extends URLRequest {
 /// to send a [ncb.CUPHTTPForwardedDelegate] object to a send port, which is
 /// then processed by [_setupDelegation] and forwarded to the given methods.
 void _setupDelegation(
-    ncb.CUPHTTPClientDelegate delegate, URLSession session, URLSessionTask task,
-    {URLRequest? Function(URLSession session, URLSessionTask task,
-            HTTPURLResponse response, URLRequest newRequest)?
-        onRedirect,
-    URLSessionResponseDisposition Function(
-            URLSession session, URLSessionTask task, URLResponse response)?
-        onResponse,
-    void Function(URLSession session, URLSessionTask task, Data error)? onData,
-    void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
-        onFinishedDownloading,
-    void Function(URLSession session, URLSessionTask task, Error? error)?
-        onComplete}) {
+  ncb.CUPHTTPClientDelegate delegate,
+  URLSession session,
+  URLSessionTask task, {
+  URLRequest? Function(URLSession session, URLSessionTask task,
+          HTTPURLResponse response, URLRequest newRequest)?
+      onRedirect,
+  URLSessionResponseDisposition Function(
+          URLSession session, URLSessionTask task, URLResponse response)?
+      onResponse,
+  void Function(URLSession session, URLSessionTask task, Data error)? onData,
+  void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
+      onFinishedDownloading,
+  void Function(URLSession session, URLSessionTask task, Error? error)?
+      onComplete,
+  void Function(
+          URLSession session, URLSessionWebSocketTask task, String? protocol)?
+      onWebSocketTaskOpenedWithProtocol,
+}) {
   final responsePort = ReceivePort();
   responsePort.listen((d) {
     final message = d as List;
@@ -1110,6 +1116,33 @@ void _setupDelegation(
           responsePort.close();
         }
         break;
+      case ncb.MessageType.WebSocketOpenedWithProtocol:
+        print('Handling message: $onWebSocketTaskOpenedWithProtocol');
+        final webSocketOpened =
+            ncb.CUPHTTPForwardedWebSocketOpenedWithProtocol.castFrom(
+                forwardedDelegate);
+
+        try {
+          if (onWebSocketTaskOpenedWithProtocol == null) {
+            break;
+          }
+          print("$session, $task, ${webSocketOpened.protocol.toString()}");
+          try {
+            onWebSocketTaskOpenedWithProtocol(
+                session,
+                task as URLSessionWebSocketTask,
+                webSocketOpened.protocol?.toString());
+          } catch (e) {
+            print(e);
+            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
+            // this exception as an `Error` and call the completion function
+            // with it.
+          }
+        } finally {
+          print('Finishing.');
+          webSocketOpened.finish();
+        }
+        break;
     }
   });
   final config = ncb.CUPHTTPTaskConfiguration.castFrom(
@@ -1137,6 +1170,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       _onComplete;
   void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
       _onFinishedDownloading;
+  void Function(
+          URLSession session, URLSessionWebSocketTask task, String? protocol)?
+      _onWebSocketTaskOpenedWithProtocol;
 
   URLSession._(super.c,
       {URLRequest? Function(URLSession session, URLSessionTask task,
@@ -1150,12 +1186,16 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
           onFinishedDownloading,
       void Function(URLSession session, URLSessionTask task, Error? error)?
-          onComplete})
+          onComplete,
+      void Function(URLSession session, URLSessionWebSocketTask task,
+              String? protocol)?
+          onWebSocketTaskOpenedWithProtocol})
       : _onRedirect = onRedirect,
         _onResponse = onResponse,
         _onData = onData,
         _onFinishedDownloading = onFinishedDownloading,
-        _onComplete = onComplete;
+        _onComplete = onComplete,
+        _onWebSocketTaskOpenedWithProtocol = onWebSocketTaskOpenedWithProtocol;
 
   /// A client with reasonable default behavior.
   ///
@@ -1205,7 +1245,10 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
           onFinishedDownloading,
       void Function(URLSession session, URLSessionTask task, Error? error)?
-          onComplete}) {
+          onComplete,
+      void Function(URLSession session, URLSessionWebSocketTask task,
+              String? protocol)?
+          onWebSocketTaskOpenedWithProtocol}) {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
     // by only allowing callbacks to execute sequentially.
     // See https://developer.apple.com/forums/thread/47252
@@ -1224,7 +1267,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         onResponse: onResponse,
         onData: onData,
         onFinishedDownloading: onFinishedDownloading,
-        onComplete: onComplete);
+        onComplete: onComplete,
+        onWebSocketTaskOpenedWithProtocol: onWebSocketTaskOpenedWithProtocol);
   }
 
   /// A **copy** of the configuration for this session.
@@ -1331,7 +1375,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         onData: _onData,
         onFinishedDownloading: _onFinishedDownloading,
         onRedirect: _onRedirect,
-        onResponse: _onResponse);
+        onResponse: _onResponse,
+        onWebSocketTaskOpenedWithProtocol: _onWebSocketTaskOpenedWithProtocol);
     return task;
   }
 }

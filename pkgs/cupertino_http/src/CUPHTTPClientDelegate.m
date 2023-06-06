@@ -213,4 +213,42 @@ didCompleteWithError:(NSError *)error {
   [forwardedComplete release];
 }
 
+// https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketdelegate?language=objc
+
+
+- (void)URLSession:(NSURLSession *)session 
+     webSocketTask:(NSURLSessionWebSocketTask *)task 
+didOpenWithProtocol:(NSString *)protocol {
+  CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
+  NSAssert(config != nil, @"No configuration for task.");
+  
+  CUPHTTPForwardedWebSocketOpenedWithProtocol *forwardedComplete = [[CUPHTTPForwardedWebSocketOpenedWithProtocol alloc]
+                                                 initWithSession:session webSocketTask:task didOpenWithProtocol: protocol];
+  
+  
+  Dart_CObject ctype = MessageTypeToCObject(WebSocketOpenedWithProtocol);
+  Dart_CObject cComplete = NSObjectToCObject(forwardedComplete);
+  Dart_CObject* message_carray[] = { &ctype, &cComplete };
+  
+  Dart_CObject message_cobj;
+  message_cobj.type = Dart_CObject_kArray;
+  message_cobj.value.as_array.length = 2;
+  message_cobj.value.as_array.values = message_carray;
+  
+  [forwardedComplete.lock lock];  // After this line, any attempt to acquire the lock will wait.
+  const bool success = Dart_PostCObject_DL(config.sendPort, &message_cobj);
+  NSAssert(success, @"Dart_PostCObject_DL failed.");
+  
+  [forwardedComplete.lock lock];
+  [forwardedComplete release];
+}
+
+
+- (void)URLSession:(NSURLSession *)session 
+     webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask 
+  didCloseWithCode:(NSURLSessionWebSocketCloseCode)closeCode 
+            reason:(NSData *)reason {
+
+}
+
 @end

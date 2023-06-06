@@ -435,6 +435,115 @@ void testOnRedirect(URLSessionConfiguration config) {
   });
 }
 
+void testOnWebSocketTaskOpenedWithProtocol(URLSessionConfiguration config) {
+  group('OnWebSocketTaskOpenedWithProtocol', () {
+    late HttpServer server;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          if (request.requestedUri.queryParameters.containsKey('error')) {
+            request.response.statusCode = 500;
+            return;
+          }
+          final webSocket = await WebSocketTransformer.upgrade(
+            request,
+            protocolSelector: (l) {
+              print('protocolSelector: $l');
+              return 'myprotocol';
+            },
+          );
+          await webSocket.close();
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('with protocol', () async {
+      print('Doing the websocket test');
+      final c = Completer<void>();
+      late String? actualProtocol;
+      late URLSession actualSession;
+      late URLSessionWebSocketTask actualTask;
+
+      final session = URLSession.sessionWithConfiguration(config,
+          onWebSocketTaskOpenedWithProtocol: (s, t, p) {
+        print('$s $t $p');
+        actualSession = s;
+        actualTask = t;
+        actualProtocol = p;
+        c.complete();
+      });
+
+      final request = MutableURLRequest.fromUrl(
+          Uri.parse('http://localhost:${server.port}'))
+        ..setValueForHttpHeaderField('Sec-WebSocket-Protocol', 'myprotocol');
+
+      final task = session.webSocketTaskWithRequest(request)..resume();
+      await c.future;
+      expect(actualSession, session);
+      expect(actualTask, task);
+      expect(actualProtocol, 'myprotocol');
+    });
+
+    test('without protocol', () async {
+      print('Doing the websocket test');
+      final c = Completer<void>();
+      late String? actualProtocol;
+      late URLSession actualSession;
+      late URLSessionWebSocketTask actualTask;
+
+      final session = URLSession.sessionWithConfiguration(config,
+          onWebSocketTaskOpenedWithProtocol: (s, t, p) {
+        print('$s $t $p');
+        actualSession = s;
+        actualTask = t;
+        actualProtocol = p;
+        c.complete();
+      });
+
+      final request = MutableURLRequest.fromUrl(
+          Uri.parse('http://localhost:${server.port}'));
+      final task = session.webSocketTaskWithRequest(request)..resume();
+      await c.future;
+      expect(actualSession, session);
+      expect(actualTask, task);
+      expect(actualProtocol, null);
+    });
+
+    test('failure', () async {
+      print('Doing the websocket test');
+      final c = Completer<void>();
+      var onWebSocketTaskOpenedWithProtocolCalled = false;
+
+      final session = URLSession.sessionWithConfiguration(config,
+          onWebSocketTaskOpenedWithProtocol: (s, t, p) {
+        onWebSocketTaskOpenedWithProtocolCalled = true;
+        c.complete();
+      }, onResponse: (s, t, e) {
+        c.complete();
+        print(e);
+        return URLSessionResponseDisposition.urlSessionResponseAllow;
+      });
+
+      final request = MutableURLRequest.fromUrl(
+          Uri.parse('http://localhost:${server.port}?error=1'));
+      final task = session.webSocketTaskWithRequest(request)..resume();
+//      await c.future;
+      while (task.state == URLSessionTaskState.urlSessionTaskStateRunning) {
+        print(task.error);
+        print(task.response);
+        print(task.originalRequest);
+        print(task.closeCode);
+        await Future.delayed(Duration(seconds: 2));
+      }
+      print(task.state);
+      expect(onWebSocketTaskOpenedWithProtocolCalled, false);
+    });
+  });
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
@@ -446,6 +555,7 @@ void main() {
     testOnData(config);
     // onRedirect is not called for background sessions.
     testOnFinishedDownloading(config);
+//    testOnWebSocketTaskOpenedWithProtocol(config);
   });
 
   group('defaultSessionConfiguration', () {
@@ -455,6 +565,7 @@ void main() {
     testOnData(config);
     testOnRedirect(config);
     testOnFinishedDownloading(config);
+    testOnWebSocketTaskOpenedWithProtocol(config);
   });
 
   group('ephemeralSessionConfiguration', () {
@@ -464,5 +575,6 @@ void main() {
     testOnData(config);
     testOnRedirect(config);
     testOnFinishedDownloading(config);
+//    testOnWebSocketTaskOpenedWithProtocol(config);
   });
 }

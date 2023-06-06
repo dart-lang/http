@@ -106,3 +106,13 @@
 @property (readonly) NSURL* location;
 
 @end
+
+@interface CUPHTTPForwardedWebSocketOpenedWithProtocol : CUPHTTPForwardedDelegate
+
+- (id) initWithSession:(NSURLSession *)session
+webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
+didOpenWithProtocol:(NSString *)protocol;
+
+@property (readonly) NSString* protocol;
+
+@end

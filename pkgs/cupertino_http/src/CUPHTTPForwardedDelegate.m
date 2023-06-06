@@ -140,3 +140,24 @@
 }
 
 @end
+
+@implementation CUPHTTPForwardedWebSocketOpenedWithProtocol
+
+- (id) initWithSession:(NSURLSession *)session
+webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
+didOpenWithProtocol:(NSString *)protocol {
+  self = [super initWithSession: session task: webSocketTask];
+  if (self != nil) {
+    self->_protocol = [protocol retain];
+  }
+  return self;
+
+}
+
+- (void) dealloc {
+  [self->_protocol release];
+  [super dealloc];
+}
+
+@end
+
