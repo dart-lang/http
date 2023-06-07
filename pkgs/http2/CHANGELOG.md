@@ -1,5 +1,6 @@
-## 2.0.2-dev
+## 2.1.0
 
+- Require Dart `3.0.0`
 - Require Dart `2.17.0`.
 - Send `WINDOW_UPDATE` frames for the connection to account for data being sent on closed streams until the `RST_STREAM` has been processed.
 
