@@ -1,3 +1,7 @@
+## 2.1.0-dev
+
+- Transform headers to lowercase.
+
 ## 2.1.0
 
 - Require Dart `3.0.0`

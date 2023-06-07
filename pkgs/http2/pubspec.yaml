@@ -1,5 +1,5 @@
 name: http2
-version: 2.1.0
+version: 2.1.0-dev
 description: A HTTP/2 implementation in Dart.
 repository: https://github.com/dart-lang/http2
 
