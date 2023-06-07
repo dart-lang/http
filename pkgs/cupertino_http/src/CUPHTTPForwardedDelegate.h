@@ -107,12 +107,24 @@
 
 @end
 
-@interface CUPHTTPForwardedWebSocketOpenedWithProtocol : CUPHTTPForwardedDelegate
+@interface CUPHTTPForwardedWebSocketOpened : CUPHTTPForwardedDelegate
 
 - (id) initWithSession:(NSURLSession *)session
-webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
-didOpenWithProtocol:(NSString *)protocol;
+         webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
+   didOpenWithProtocol:(NSString *)protocol;
 
 @property (readonly) NSString* protocol;
+
+@end
+
+@interface CUPHTTPForwardedWebSocketClosed : CUPHTTPForwardedDelegate
+
+- (id) initWithSession:(NSURLSession *)session
+         webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
+      didCloseWithCode:(NSURLSessionWebSocketCloseCode)closeCode
+                reason:(NSData *)reason;
+
+@property (readonly) NSURLSessionWebSocketCloseCode closeCode;
+@property (readonly) NSData* reason;
 
 @end

@@ -141,21 +141,41 @@
 
 @end
 
-@implementation CUPHTTPForwardedWebSocketOpenedWithProtocol
+@implementation CUPHTTPForwardedWebSocketOpened
 
 - (id) initWithSession:(NSURLSession *)session
-webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
-didOpenWithProtocol:(NSString *)protocol {
+         webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
+   didOpenWithProtocol:(NSString *)protocol {
   self = [super initWithSession: session task: webSocketTask];
   if (self != nil) {
     self->_protocol = [protocol retain];
   }
   return self;
-
 }
 
 - (void) dealloc {
   [self->_protocol release];
+  [super dealloc];
+}
+
+@end
+
+@implementation CUPHTTPForwardedWebSocketClosed
+
+- (id) initWithSession:(NSURLSession *)session
+         webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
+                  code:(NSURLSessionWebSocketCloseCode)closeCode
+                reason:(NSData *)reason {
+  self = [super initWithSession: session task: webSocketTask];
+  if (self != nil) {
+    self->_closeCode = closeCode;
+    self->_reason = [reason retain];
+  }
+  return self;
+}
+
+- (void) dealloc {
+  [self->_reason release];
   [super dealloc];
 }
 

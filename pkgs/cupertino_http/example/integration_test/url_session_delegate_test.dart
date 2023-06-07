@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
@@ -435,8 +436,8 @@ void testOnRedirect(URLSessionConfiguration config) {
   });
 }
 
-void testOnWebSocketTaskOpenedWithProtocol(URLSessionConfiguration config) {
-  group('OnWebSocketTaskOpenedWithProtocol', () {
+void testOnWebSocketTaskOpened(URLSessionConfiguration config) {
+  group('onWebSocketTaskOpened', () {
     late HttpServer server;
 
     setUp(() async {
@@ -444,14 +445,12 @@ void testOnWebSocketTaskOpenedWithProtocol(URLSessionConfiguration config) {
         ..listen((request) async {
           if (request.requestedUri.queryParameters.containsKey('error')) {
             request.response.statusCode = 500;
+            unawaited(request.response.close());
             return;
           }
           final webSocket = await WebSocketTransformer.upgrade(
             request,
-            protocolSelector: (l) {
-              print('protocolSelector: $l');
-              return 'myprotocol';
-            },
+            protocolSelector: (l) => 'myprotocol',
           );
           await webSocket.close();
         });
@@ -461,15 +460,13 @@ void testOnWebSocketTaskOpenedWithProtocol(URLSessionConfiguration config) {
     });
 
     test('with protocol', () async {
-      print('Doing the websocket test');
       final c = Completer<void>();
       late String? actualProtocol;
       late URLSession actualSession;
       late URLSessionWebSocketTask actualTask;
 
       final session = URLSession.sessionWithConfiguration(config,
-          onWebSocketTaskOpenedWithProtocol: (s, t, p) {
-        print('$s $t $p');
+          onWebSocketTaskOpened: (s, t, p) {
         actualSession = s;
         actualTask = t;
         actualProtocol = p;
@@ -488,15 +485,13 @@ void testOnWebSocketTaskOpenedWithProtocol(URLSessionConfiguration config) {
     });
 
     test('without protocol', () async {
-      print('Doing the websocket test');
       final c = Completer<void>();
       late String? actualProtocol;
       late URLSession actualSession;
       late URLSessionWebSocketTask actualTask;
 
       final session = URLSession.sessionWithConfiguration(config,
-          onWebSocketTaskOpenedWithProtocol: (s, t, p) {
-        print('$s $t $p');
+          onWebSocketTaskOpened: (s, t, p) {
         actualSession = s;
         actualTask = t;
         actualProtocol = p;
@@ -512,34 +507,160 @@ void testOnWebSocketTaskOpenedWithProtocol(URLSessionConfiguration config) {
       expect(actualProtocol, null);
     });
 
-    test('failure', () async {
-      print('Doing the websocket test');
+    test('server failure', () async {
       final c = Completer<void>();
-      var onWebSocketTaskOpenedWithProtocolCalled = false;
+      var onWebSocketTaskOpenedCalled = false;
 
       final session = URLSession.sessionWithConfiguration(config,
-          onWebSocketTaskOpenedWithProtocol: (s, t, p) {
-        onWebSocketTaskOpenedWithProtocolCalled = true;
+          onWebSocketTaskOpened: (s, t, p) {
+        onWebSocketTaskOpenedCalled = true;
+      }, onComplete: (s, t, e) {
+        expect(e, isNotNull);
         c.complete();
-      }, onResponse: (s, t, e) {
-        c.complete();
-        print(e);
-        return URLSessionResponseDisposition.urlSessionResponseAllow;
       });
 
       final request = MutableURLRequest.fromUrl(
           Uri.parse('http://localhost:${server.port}?error=1'));
+      session.webSocketTaskWithRequest(request).resume();
+      await c.future;
+      expect(onWebSocketTaskOpenedCalled, false);
+    });
+  });
+}
+
+void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
+  group('testOnWebSocketTaskClosed', () {
+    late HttpServer server;
+    late int? serverCode;
+    late String? serverReason;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          if (request.requestedUri.queryParameters.containsKey('error')) {
+            request.response.statusCode = 500;
+            unawaited(request.response.close());
+            return;
+          }
+          final webSocket = await WebSocketTransformer.upgrade(
+            request,
+          );
+          await webSocket.close(serverCode, serverReason);
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('close no code', () async {
+      final c = Completer<void>();
+      late int actualCloseCode;
+      late String? actualReason;
+      late URLSession actualSession;
+      late URLSessionWebSocketTask actualTask;
+
+      serverCode = null;
+      serverReason = null;
+
+      final session = URLSession.sessionWithConfiguration(config,
+          onWebSocketTaskOpened: (session, task, protocol) {},
+          onWebSocketTaskClosed: (session, task, closeCode, reason) {
+        actualSession = session;
+        actualTask = task;
+        actualCloseCode = closeCode!;
+        actualReason = utf8.decode(reason!.bytes);
+        c.complete();
+      });
+
+      final request = MutableURLRequest.fromUrl(
+          Uri.parse('http://localhost:${server.port}'));
+
       final task = session.webSocketTaskWithRequest(request)..resume();
-//      await c.future;
-      while (task.state == URLSessionTaskState.urlSessionTaskStateRunning) {
-        print(task.error);
-        print(task.response);
-        print(task.originalRequest);
-        print(task.closeCode);
-        await Future.delayed(Duration(seconds: 2));
-      }
-      print(task.state);
-      expect(onWebSocketTaskOpenedWithProtocolCalled, false);
+
+      expect(
+          task.receiveMessage(),
+          throwsA(isA<Error>()
+              .having((e) => e.code, 'code', 57 // Socket is not connected.
+                  )));
+      await c.future;
+      expect(actualSession, session);
+      expect(actualTask, task);
+      expect(actualCloseCode, 1005);
+      expect(actualReason, '');
+    });
+
+    test('close code', () async {
+      final c = Completer<void>();
+      late int actualCloseCode;
+      late String? actualReason;
+      late URLSession actualSession;
+      late URLSessionWebSocketTask actualTask;
+
+      serverCode = 4000;
+      serverReason = null;
+
+      final session = URLSession.sessionWithConfiguration(config,
+          onWebSocketTaskOpened: (session, task, protocol) {},
+          onWebSocketTaskClosed: (session, task, closeCode, reason) {
+        actualSession = session;
+        actualTask = task;
+        actualCloseCode = closeCode!;
+        actualReason = utf8.decode(reason!.bytes);
+        c.complete();
+      });
+
+      final request = MutableURLRequest.fromUrl(
+          Uri.parse('http://localhost:${server.port}'));
+
+      final task = session.webSocketTaskWithRequest(request)..resume();
+
+      expect(
+          task.receiveMessage(),
+          throwsA(isA<Error>()
+              .having((e) => e.code, 'code', 57 // Socket is not connected.
+                  )));
+      await c.future;
+      expect(actualSession, session);
+      expect(actualTask, task);
+      expect(actualCloseCode, serverCode);
+      expect(actualReason, '');
+    });
+
+    test('close code and reason', () async {
+      final c = Completer<void>();
+      late int actualCloseCode;
+      late String? actualReason;
+      late URLSession actualSession;
+      late URLSessionWebSocketTask actualTask;
+
+      serverCode = 4000;
+      serverReason = 'no real reason';
+
+      final session = URLSession.sessionWithConfiguration(config,
+          onWebSocketTaskOpened: (session, task, protocol) {},
+          onWebSocketTaskClosed: (session, task, closeCode, reason) {
+        actualSession = session;
+        actualTask = task;
+        actualCloseCode = closeCode!;
+        actualReason = utf8.decode(reason!.bytes);
+        c.complete();
+      });
+
+      final request = MutableURLRequest.fromUrl(
+          Uri.parse('http://localhost:${server.port}'));
+
+      final task = session.webSocketTaskWithRequest(request)..resume();
+
+      expect(
+          task.receiveMessage(),
+          throwsA(isA<Error>()
+              .having((e) => e.code, 'code', 57 // Socket is not connected.
+                  )));
+      await c.future;
+      expect(actualSession, session);
+      expect(actualTask, task);
+      expect(actualCloseCode, serverCode);
+      expect(actualReason, serverReason);
     });
   });
 }
@@ -555,7 +676,7 @@ void main() {
     testOnData(config);
     // onRedirect is not called for background sessions.
     testOnFinishedDownloading(config);
-//    testOnWebSocketTaskOpenedWithProtocol(config);
+    // WebSocket tasks are not supported in background sessions.
   });
 
   group('defaultSessionConfiguration', () {
@@ -565,7 +686,8 @@ void main() {
     testOnData(config);
     testOnRedirect(config);
     testOnFinishedDownloading(config);
-    testOnWebSocketTaskOpenedWithProtocol(config);
+    testOnWebSocketTaskOpened(config);
+    testOnWebSocketTaskClosed(config);
   });
 
   group('ephemeralSessionConfiguration', () {
@@ -575,6 +697,7 @@ void main() {
     testOnData(config);
     testOnRedirect(config);
     testOnFinishedDownloading(config);
-//    testOnWebSocketTaskOpenedWithProtocol(config);
+    testOnWebSocketTaskOpened(config);
+    testOnWebSocketTaskClosed(config);
   });
 }

@@ -46,7 +46,8 @@ static Dart_CObject MessageTypeToCObject(MessageType messageType) {
   [super dealloc];
 }
 
-- (void)registerTask:(NSURLSessionTask *) task withConfiguration:(CUPHTTPTaskConfiguration *)config {
+- (void)registerTask:(NSURLSessionTask *) task
+   withConfiguration:(CUPHTTPTaskConfiguration *)config {
   [taskConfigurations setObject:config forKey:task];
 }
 
@@ -155,7 +156,7 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 - (void)URLSession:(NSURLSession *)session 
-      downloadTask:(NSURLSessionDownloadTask *)downloadTask 
+      downloadTask:(NSURLSessionDownloadTask *)downloadTask
 didFinishDownloadingToURL:(NSURL *)location {
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:downloadTask];
   NSAssert(config != nil, @"No configuration for task.");
@@ -217,17 +218,17 @@ didCompleteWithError:(NSError *)error {
 
 
 - (void)URLSession:(NSURLSession *)session 
-     webSocketTask:(NSURLSessionWebSocketTask *)task 
+     webSocketTask:(NSURLSessionWebSocketTask *)task
 didOpenWithProtocol:(NSString *)protocol {
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
   
-  CUPHTTPForwardedWebSocketOpenedWithProtocol *forwardedComplete = [[CUPHTTPForwardedWebSocketOpenedWithProtocol alloc]
-                                                 initWithSession:session webSocketTask:task didOpenWithProtocol: protocol];
-  
-  
-  Dart_CObject ctype = MessageTypeToCObject(WebSocketOpenedWithProtocol);
-  Dart_CObject cComplete = NSObjectToCObject(forwardedComplete);
+  CUPHTTPForwardedWebSocketOpened *opened = [[CUPHTTPForwardedWebSocketOpened alloc]
+                                             initWithSession:session webSocketTask:task
+                                             didOpenWithProtocol: protocol];
+
+  Dart_CObject ctype = MessageTypeToCObject(WebSocketOpened);
+  Dart_CObject cComplete = NSObjectToCObject(opened);
   Dart_CObject* message_carray[] = { &ctype, &cComplete };
   
   Dart_CObject message_cobj;
@@ -235,20 +236,42 @@ didOpenWithProtocol:(NSString *)protocol {
   message_cobj.value.as_array.length = 2;
   message_cobj.value.as_array.values = message_carray;
   
-  [forwardedComplete.lock lock];  // After this line, any attempt to acquire the lock will wait.
+  [opened.lock lock];  // After this line, any attempt to acquire the lock will wait.
   const bool success = Dart_PostCObject_DL(config.sendPort, &message_cobj);
   NSAssert(success, @"Dart_PostCObject_DL failed.");
   
-  [forwardedComplete.lock lock];
-  [forwardedComplete release];
+  [opened.lock lock];
+  [opened release];
 }
 
 
 - (void)URLSession:(NSURLSession *)session 
-     webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask 
-  didCloseWithCode:(NSURLSessionWebSocketCloseCode)closeCode 
+     webSocketTask:(NSURLSessionWebSocketTask *)task
+  didCloseWithCode:(NSURLSessionWebSocketCloseCode)closeCode
             reason:(NSData *)reason {
-
+  CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
+  NSAssert(config != nil, @"No configuration for task.");
+  
+  CUPHTTPForwardedWebSocketClosed *closed = [[CUPHTTPForwardedWebSocketClosed alloc]
+                                             initWithSession:session webSocketTask:task
+                                             code: closeCode
+                                             reason: reason];
+  
+  Dart_CObject ctype = MessageTypeToCObject(WebSocketClosed);
+  Dart_CObject cComplete = NSObjectToCObject(closed);
+  Dart_CObject* message_carray[] = { &ctype, &cComplete };
+  
+  Dart_CObject message_cobj;
+  message_cobj.type = Dart_CObject_kArray;
+  message_cobj.value.as_array.length = 2;
+  message_cobj.value.as_array.values = message_carray;
+  
+  [closed.lock lock];  // After this line, any attempt to acquire the lock will wait.
+  const bool success = Dart_PostCObject_DL(config.sendPort, &message_cobj);
+  NSAssert(success, @"Dart_PostCObject_DL failed.");
+  
+  [closed.lock lock];
+  [closed release];
 }
 
 @end
