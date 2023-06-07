@@ -171,8 +171,12 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
 /// See [NSURLSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration)
 class URLSessionConfiguration
     extends _ObjectHolder<ncb.NSURLSessionConfiguration> {
-  final bool isBackground;
-  URLSessionConfiguration._(super.c, {required this.isBackground});
+  // A configuration created with
+  // [`backgroundSessionConfigurationWithIdentifier`](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1407496-backgroundsessionconfigurationwi)
+  final bool _isBackground;
+
+  URLSessionConfiguration._(super.c, {required bool isBackground})
+      : _isBackground = isBackground;
 
   /// A configuration suitable for performing HTTP uploads and downloads in
   /// the background.
@@ -994,8 +998,8 @@ void _setupDelegation(
   void Function(
           URLSession session, URLSessionWebSocketTask task, String? protocol)?
       onWebSocketTaskOpened,
-  void Function(URLSession session, URLSessionWebSocketTask task,
-          int? closeCode, Data? reason)?
+  void Function(URLSession session, URLSessionWebSocketTask task, int closeCode,
+          Data? reason)?
       onWebSocketTaskClosed,
 }) {
   final responsePort = ReceivePort();
@@ -1187,7 +1191,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // Provide our own native delegate to `NSURLSession` because delegates can be
   // called on arbitrary threads and Dart code cannot be.
   static final _delegate = ncb.CUPHTTPClientDelegate.new1(helperLibs);
-  final bool isBackground;
+  // Indicates if the session is a background session. Copied from the
+  // [URLSessionConfiguration._isBackground] associated with this [URLSession].
+  final bool _isBackground;
 
   final URLRequest? Function(URLSession session, URLSessionTask task,
       HTTPURLResponse response, URLRequest newRequest)? _onRedirect;
@@ -1204,11 +1210,11 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           URLSession session, URLSessionWebSocketTask task, String? protocol)?
       _onWebSocketTaskOpened;
   final void Function(URLSession session, URLSessionWebSocketTask task,
-      int? closeCode, Data? reason)? _onWebSocketTaskClosed;
+      int closeCode, Data? reason)? _onWebSocketTaskClosed;
 
   URLSession._(
     super.c, {
-    required this.isBackground,
+    required bool isBackground,
     URLRequest? Function(URLSession session, URLSessionTask task,
             HTTPURLResponse response, URLRequest newRequest)?
         onRedirect,
@@ -1224,9 +1230,10 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             URLSession session, URLSessionWebSocketTask task, String? protocol)?
         onWebSocketTaskOpened,
     void Function(URLSession session, URLSessionWebSocketTask task,
-            int? closeCode, Data? reason)?
+            int closeCode, Data? reason)?
         onWebSocketTaskClosed,
-  })  : _onRedirect = onRedirect,
+  })  : _isBackground = isBackground,
+        _onRedirect = onRedirect,
         _onResponse = onResponse,
         _onData = onData,
         _onFinishedDownloading = onFinishedDownloading,
@@ -1313,7 +1320,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     return URLSession._(
         ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
             linkedLibs, config._nsObject, _delegate, queue),
-        isBackground: config.isBackground,
+        isBackground: config._isBackground,
         onRedirect: onRedirect,
         onResponse: onResponse,
         onData: onData,
@@ -1328,7 +1335,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
   URLSessionConfiguration get configuration => URLSessionConfiguration._(
       ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration!),
-      isBackground: isBackground);
+      isBackground: _isBackground);
 
   /// A description of the session that may be useful for debugging.
   ///
@@ -1421,7 +1428,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   ///
   /// See [NSURLSession webSocketTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/3235750-websockettaskwithrequest)
   URLSessionWebSocketTask webSocketTaskWithRequest(URLRequest request) {
-    if (isBackground) {
+    if (_isBackground) {
       throw UnsupportedError(
           'WebSocket tasks are not supported in background sessions');
     }
