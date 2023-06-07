@@ -2,43 +2,21 @@ PODS:
   - cupertino_http (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
-  - FMDB (2.7.5):
-    - FMDB/standard (= 2.7.5)
-  - FMDB/standard (2.7.5)
-  - path_provider_foundation (0.0.1):
-    - Flutter
-    - FlutterMacOS
-  - sqflite (0.0.2):
-    - FlutterMacOS
-    - FMDB (>= 2.7.5)
 
 DEPENDENCIES:
   - cupertino_http (from `Flutter/ephemeral/.symlinks/plugins/cupertino_http/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
-  - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
-  - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
-
-SPEC REPOS:
-  trunk:
-    - FMDB
 
 EXTERNAL SOURCES:
   cupertino_http:
     :path: Flutter/ephemeral/.symlinks/plugins/cupertino_http/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
-  path_provider_foundation:
-    :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
-  sqflite:
-    :path: Flutter/ephemeral/.symlinks/plugins/sqflite/macos
 
 SPEC CHECKSUMS:
   cupertino_http: afa11b9e2786b62da2671e4ddd32caf792503748
-  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
-  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
-  sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
+  FlutterMacOS: 85f90bfb3f1703249cf1539e4dfbff31e8584698
 
-PODFILE CHECKSUM: 353c8bcc5d5b0994e508d035b5431cfe18c1dea7
+PODFILE CHECKSUM: a884f6dd3f7494f3892ee6c81feea3a3abbf9153
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2
