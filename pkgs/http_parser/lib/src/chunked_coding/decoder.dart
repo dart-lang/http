@@ -88,7 +88,6 @@ class _Sink extends ByteConversionSinkBase {
           _size = _digitForByte(bytes, start);
           _state = _State.size;
           start++;
-          break;
 
         case _State.size:
           if (bytes[start] == $cr) {
@@ -99,13 +98,11 @@ class _Sink extends ByteConversionSinkBase {
             _size = (_size << 4) + _digitForByte(bytes, start);
           }
           start++;
-          break;
 
         case _State.sizeBeforeLF:
           assertCurrentChar($lf, 'LF');
           _state = _size == 0 ? _State.endBeforeCR : _State.body;
           start++;
-          break;
 
         case _State.body:
           final chunkEnd = math.min(end, start + _size);
@@ -113,31 +110,26 @@ class _Sink extends ByteConversionSinkBase {
           _size -= chunkEnd - start;
           start = chunkEnd;
           if (_size == 0) _state = _State.bodyBeforeCR;
-          break;
 
         case _State.bodyBeforeCR:
           assertCurrentChar($cr, 'CR');
           _state = _State.bodyBeforeLF;
           start++;
-          break;
 
         case _State.bodyBeforeLF:
           assertCurrentChar($lf, 'LF');
           _state = _State.boundary;
           start++;
-          break;
 
         case _State.endBeforeCR:
           assertCurrentChar($cr, 'CR');
           _state = _State.endBeforeLF;
           start++;
-          break;
 
         case _State.endBeforeLF:
           assertCurrentChar($lf, 'LF');
           _state = _State.end;
           start++;
-          break;
 
         case _State.end:
           throw FormatException('Expected no more data.', bytes, start);
