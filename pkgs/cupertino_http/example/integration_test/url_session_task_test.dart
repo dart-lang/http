@@ -151,8 +151,9 @@ void testWebSocketTask() {
   });
 }
 
-void testURLSessionTask(
-    URLSessionTask Function(URLSession session, Uri url) f) {
+void testURLSessionTaskCommon(
+    URLSessionTask Function(URLSession session, Uri url) f,
+    {bool suspendedAfterCancel = false}) {
   group('task states', () {
     late HttpServer server;
     late URLSessionTask task;
@@ -186,7 +187,11 @@ void testURLSessionTask(
 
     test('cancel', () {
       task.cancel();
-      expect(task.state, URLSessionTaskState.urlSessionTaskStateCanceling);
+      if (suspendedAfterCancel) {
+        expect(task.state, URLSessionTaskState.urlSessionTaskStateSuspended);
+      } else {
+        expect(task.state, URLSessionTaskState.urlSessionTaskStateCanceling);
+      }
       expect(task.response, null);
       task.toString(); // Just verify that there is no crash.
     });
@@ -365,13 +370,20 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('data task', () {
-    testURLSessionTask(
+    testURLSessionTaskCommon(
         (session, uri) => session.dataTaskWithRequest(URLRequest.fromUrl(uri)));
   });
 
   group('download task', () {
-    testURLSessionTask((session, uri) =>
+    testURLSessionTaskCommon((session, uri) =>
         session.downloadTaskWithRequest(URLRequest.fromUrl(uri)));
+  });
+
+  group('websocket task', () {
+    testURLSessionTaskCommon(
+        (session, uri) =>
+            session.webSocketTaskWithRequest(URLRequest.fromUrl(uri)),
+        suspendedAfterCancel: true);
   });
 
   testWebSocketTask();
