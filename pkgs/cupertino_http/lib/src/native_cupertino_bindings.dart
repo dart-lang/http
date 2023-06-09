@@ -58684,6 +58684,82 @@ class NativeCupertinoHttp {
           ffi.Pointer<ObjCObject>)>();
 
   late final _sel_location1 = _registerName1("location");
+  late final _class_CUPHTTPForwardedWebSocketOpened1 =
+      _getClass1("CUPHTTPForwardedWebSocketOpened");
+  late final _sel_initWithSession_webSocketTask_didOpenWithProtocol_1 =
+      _registerName1("initWithSession:webSocketTask:didOpenWithProtocol:");
+  ffi.Pointer<ObjCObject> _objc_msgSend_491(
+    ffi.Pointer<ObjCObject> obj,
+    ffi.Pointer<ObjCSel> sel,
+    ffi.Pointer<ObjCObject> session,
+    ffi.Pointer<ObjCObject> webSocketTask,
+    ffi.Pointer<ObjCObject> protocol,
+  ) {
+    return __objc_msgSend_491(
+      obj,
+      sel,
+      session,
+      webSocketTask,
+      protocol,
+    );
+  }
+
+  late final __objc_msgSend_491Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ObjCObject> Function(
+              ffi.Pointer<ObjCObject>,
+              ffi.Pointer<ObjCSel>,
+              ffi.Pointer<ObjCObject>,
+              ffi.Pointer<ObjCObject>,
+              ffi.Pointer<ObjCObject>)>>('objc_msgSend');
+  late final __objc_msgSend_491 = __objc_msgSend_491Ptr.asFunction<
+      ffi.Pointer<ObjCObject> Function(
+          ffi.Pointer<ObjCObject>,
+          ffi.Pointer<ObjCSel>,
+          ffi.Pointer<ObjCObject>,
+          ffi.Pointer<ObjCObject>,
+          ffi.Pointer<ObjCObject>)>();
+
+  late final _sel_protocol1 = _registerName1("protocol");
+  late final _class_CUPHTTPForwardedWebSocketClosed1 =
+      _getClass1("CUPHTTPForwardedWebSocketClosed");
+  late final _sel_initWithSession_webSocketTask_didCloseWithCode_reason_1 =
+      _registerName1("initWithSession:webSocketTask:didCloseWithCode:reason:");
+  ffi.Pointer<ObjCObject> _objc_msgSend_492(
+    ffi.Pointer<ObjCObject> obj,
+    ffi.Pointer<ObjCSel> sel,
+    ffi.Pointer<ObjCObject> session,
+    ffi.Pointer<ObjCObject> webSocketTask,
+    int closeCode,
+    ffi.Pointer<ObjCObject> reason,
+  ) {
+    return __objc_msgSend_492(
+      obj,
+      sel,
+      session,
+      webSocketTask,
+      closeCode,
+      reason,
+    );
+  }
+
+  late final __objc_msgSend_492Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ObjCObject> Function(
+              ffi.Pointer<ObjCObject>,
+              ffi.Pointer<ObjCSel>,
+              ffi.Pointer<ObjCObject>,
+              ffi.Pointer<ObjCObject>,
+              ffi.Int32,
+              ffi.Pointer<ObjCObject>)>>('objc_msgSend');
+  late final __objc_msgSend_492 = __objc_msgSend_492Ptr.asFunction<
+      ffi.Pointer<ObjCObject> Function(
+          ffi.Pointer<ObjCObject>,
+          ffi.Pointer<ObjCSel>,
+          ffi.Pointer<ObjCObject>,
+          ffi.Pointer<ObjCObject>,
+          int,
+          ffi.Pointer<ObjCObject>)>();
 
   /// Creates a `Dart_CObject` containing the given `NSObject` pointer as an int.
   Dart_CObject NSObjectToCObject(
@@ -83755,6 +83831,8 @@ abstract class MessageType {
   static const int CompletedMessage = 2;
   static const int RedirectMessage = 3;
   static const int FinishedDownloading = 4;
+  static const int WebSocketOpened = 5;
+  static const int WebSocketClosed = 6;
 }
 
 /// The configuration associated with a NSURLSessionTask.
@@ -84301,6 +84379,136 @@ class CUPHTTPForwardedFinishedDownloading extends CUPHTTPForwardedDelegate {
     final _ret = _lib._objc_msgSend_2(
         _lib._class_CUPHTTPForwardedFinishedDownloading1, _lib._sel_alloc1);
     return CUPHTTPForwardedFinishedDownloading._(_ret, _lib,
+        retain: false, release: true);
+  }
+}
+
+class CUPHTTPForwardedWebSocketOpened extends CUPHTTPForwardedDelegate {
+  CUPHTTPForwardedWebSocketOpened._(
+      ffi.Pointer<ObjCObject> id, NativeCupertinoHttp lib,
+      {bool retain = false, bool release = false})
+      : super._(id, lib, retain: retain, release: release);
+
+  /// Returns a [CUPHTTPForwardedWebSocketOpened] that points to the same underlying object as [other].
+  static CUPHTTPForwardedWebSocketOpened castFrom<T extends _ObjCWrapper>(
+      T other) {
+    return CUPHTTPForwardedWebSocketOpened._(other._id, other._lib,
+        retain: true, release: true);
+  }
+
+  /// Returns a [CUPHTTPForwardedWebSocketOpened] that wraps the given raw object pointer.
+  static CUPHTTPForwardedWebSocketOpened castFromPointer(
+      NativeCupertinoHttp lib, ffi.Pointer<ObjCObject> other,
+      {bool retain = false, bool release = false}) {
+    return CUPHTTPForwardedWebSocketOpened._(other, lib,
+        retain: retain, release: release);
+  }
+
+  /// Returns whether [obj] is an instance of [CUPHTTPForwardedWebSocketOpened].
+  static bool isInstance(_ObjCWrapper obj) {
+    return obj._lib._objc_msgSend_0(obj._id, obj._lib._sel_isKindOfClass_1,
+        obj._lib._class_CUPHTTPForwardedWebSocketOpened1);
+  }
+
+  NSObject initWithSession_webSocketTask_didOpenWithProtocol_(
+      NSURLSession? session,
+      NSURLSessionWebSocketTask? webSocketTask,
+      NSString? protocol) {
+    final _ret = _lib._objc_msgSend_491(
+        _id,
+        _lib._sel_initWithSession_webSocketTask_didOpenWithProtocol_1,
+        session?._id ?? ffi.nullptr,
+        webSocketTask?._id ?? ffi.nullptr,
+        protocol?._id ?? ffi.nullptr);
+    return NSObject._(_ret, _lib, retain: true, release: true);
+  }
+
+  NSString? get protocol {
+    final _ret = _lib._objc_msgSend_32(_id, _lib._sel_protocol1);
+    return _ret.address == 0
+        ? null
+        : NSString._(_ret, _lib, retain: true, release: true);
+  }
+
+  static CUPHTTPForwardedWebSocketOpened new1(NativeCupertinoHttp _lib) {
+    final _ret = _lib._objc_msgSend_2(
+        _lib._class_CUPHTTPForwardedWebSocketOpened1, _lib._sel_new1);
+    return CUPHTTPForwardedWebSocketOpened._(_ret, _lib,
+        retain: false, release: true);
+  }
+
+  static CUPHTTPForwardedWebSocketOpened alloc(NativeCupertinoHttp _lib) {
+    final _ret = _lib._objc_msgSend_2(
+        _lib._class_CUPHTTPForwardedWebSocketOpened1, _lib._sel_alloc1);
+    return CUPHTTPForwardedWebSocketOpened._(_ret, _lib,
+        retain: false, release: true);
+  }
+}
+
+class CUPHTTPForwardedWebSocketClosed extends CUPHTTPForwardedDelegate {
+  CUPHTTPForwardedWebSocketClosed._(
+      ffi.Pointer<ObjCObject> id, NativeCupertinoHttp lib,
+      {bool retain = false, bool release = false})
+      : super._(id, lib, retain: retain, release: release);
+
+  /// Returns a [CUPHTTPForwardedWebSocketClosed] that points to the same underlying object as [other].
+  static CUPHTTPForwardedWebSocketClosed castFrom<T extends _ObjCWrapper>(
+      T other) {
+    return CUPHTTPForwardedWebSocketClosed._(other._id, other._lib,
+        retain: true, release: true);
+  }
+
+  /// Returns a [CUPHTTPForwardedWebSocketClosed] that wraps the given raw object pointer.
+  static CUPHTTPForwardedWebSocketClosed castFromPointer(
+      NativeCupertinoHttp lib, ffi.Pointer<ObjCObject> other,
+      {bool retain = false, bool release = false}) {
+    return CUPHTTPForwardedWebSocketClosed._(other, lib,
+        retain: retain, release: release);
+  }
+
+  /// Returns whether [obj] is an instance of [CUPHTTPForwardedWebSocketClosed].
+  static bool isInstance(_ObjCWrapper obj) {
+    return obj._lib._objc_msgSend_0(obj._id, obj._lib._sel_isKindOfClass_1,
+        obj._lib._class_CUPHTTPForwardedWebSocketClosed1);
+  }
+
+  NSObject initWithSession_webSocketTask_didCloseWithCode_reason_(
+      NSURLSession? session,
+      NSURLSessionWebSocketTask? webSocketTask,
+      int closeCode,
+      NSData? reason) {
+    final _ret = _lib._objc_msgSend_492(
+        _id,
+        _lib._sel_initWithSession_webSocketTask_didCloseWithCode_reason_1,
+        session?._id ?? ffi.nullptr,
+        webSocketTask?._id ?? ffi.nullptr,
+        closeCode,
+        reason?._id ?? ffi.nullptr);
+    return NSObject._(_ret, _lib, retain: true, release: true);
+  }
+
+  int get closeCode {
+    return _lib._objc_msgSend_424(_id, _lib._sel_closeCode1);
+  }
+
+  NSData? get reason {
+    final _ret = _lib._objc_msgSend_51(_id, _lib._sel_reason1);
+    return _ret.address == 0
+        ? null
+        : NSData._(_ret, _lib, retain: true, release: true);
+  }
+
+  static CUPHTTPForwardedWebSocketClosed new1(NativeCupertinoHttp _lib) {
+    final _ret = _lib._objc_msgSend_2(
+        _lib._class_CUPHTTPForwardedWebSocketClosed1, _lib._sel_new1);
+    return CUPHTTPForwardedWebSocketClosed._(_ret, _lib,
+        retain: false, release: true);
+  }
+
+  static CUPHTTPForwardedWebSocketClosed alloc(NativeCupertinoHttp _lib) {
+    final _ret = _lib._objc_msgSend_2(
+        _lib._class_CUPHTTPForwardedWebSocketClosed1, _lib._sel_alloc1);
+    return CUPHTTPForwardedWebSocketClosed._(_ret, _lib,
         retain: false, release: true);
   }
 }

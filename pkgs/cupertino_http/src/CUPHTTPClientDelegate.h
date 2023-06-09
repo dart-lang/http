@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, MessageType) {
   CompletedMessage = 2,
   RedirectMessage = 3,
   FinishedDownloading = 4,
+  WebSocketOpened = 5,
+  WebSocketClosed = 6,
 };
 
 /**

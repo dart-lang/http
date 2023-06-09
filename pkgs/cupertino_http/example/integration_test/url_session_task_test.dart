@@ -46,6 +46,15 @@ void testWebSocketTask() {
       await server.close();
     });
 
+    test('background session', () {
+      final session = URLSession.sessionWithConfiguration(
+          URLSessionConfiguration.backgroundSession('background'));
+      expect(
+          () => session.webSocketTaskWithRequest(URLRequest.fromUrl(
+              Uri.parse('ws://localhost:${server.port}/?noclose'))),
+          throwsUnsupportedError);
+    });
+
     test('client code and reason', () async {
       final session = URLSession.sharedSession();
       final task = session.webSocketTaskWithRequest(URLRequest.fromUrl(
