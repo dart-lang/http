@@ -1,7 +1,8 @@
-## 1.0.1
+## 1.1.0-wip
 
-* Add better error messages for `SocketException`s when using `IOClient`. 
- 
+* Add better error messages for `SocketException`s when using `IOClient`.
+* Make `StreamedRequest.sink` a `StreamSink`.
+
 ## 1.0.0
 
 * Requires Dart 3.0 or later.
