@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
 import 'dart:io';
 
 import 'base_client.dart';
@@ -95,9 +94,7 @@ class IOClient extends BaseClient {
         ioRequest.headers.set(name, value);
       });
 
-      // var response = await stream.pipe(ioRequest) as HttpClientResponse;
-      unawaited(stream.pipe(ioRequest));
-      var response = await ioRequest.done;
+      var response = await stream.pipe(ioRequest) as HttpClientResponse;
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
