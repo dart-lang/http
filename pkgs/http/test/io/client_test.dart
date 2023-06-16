@@ -42,9 +42,8 @@ void main() {
       ..headers[HttpHeaders.userAgentHeader] = 'Dart';
 
     var responseFuture = client.send(request);
-    request
-      ..sink.add('{"hello": "world"}'.codeUnits)
-      ..sink.close();
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    await request.sink.close();
 
     var response = await responseFuture;
 
@@ -81,9 +80,8 @@ void main() {
       ..headers[HttpHeaders.userAgentHeader] = 'Dart';
 
     var responseFuture = client.send(request);
-    request
-      ..sink.add('{"hello": "world"}'.codeUnits)
-      ..sink.close();
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    await request.sink.close();
 
     var response = await responseFuture;
 

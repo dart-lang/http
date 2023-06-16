@@ -22,8 +22,8 @@ void main() {
     test('controls the Content-Length header', () async {
       var request = http.StreamedRequest('POST', serverUrl)
         ..contentLength = 10
-        ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-        ..sink.close();
+        ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+      await request.sink.close();
 
       var response = await request.send();
       expect(
@@ -35,7 +35,7 @@ void main() {
     test('defaults to sending no Content-Length', () async {
       var request = http.StreamedRequest('POST', serverUrl);
       request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-      request.sink.close();
+      await request.sink.close();
 
       var response = await request.send();
       expect(await utf8.decodeStream(response.stream),
@@ -47,7 +47,7 @@ void main() {
   test('.send() with a response with no content length', () async {
     var request =
         http.StreamedRequest('GET', serverUrl.resolve('/no-content-length'));
-    request.sink.close();
+    await request.sink.close();
     var response = await request.send();
     expect(await utf8.decodeStream(response.stream), equals('body'));
   });

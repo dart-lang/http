@@ -17,9 +17,8 @@ void main() {
     var request = http.StreamedRequest('POST', echoUrl);
 
     var responseFuture = client.send(request);
-    request.sink
-      ..add('{"hello": "world"}'.codeUnits)
-      ..close();
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    await request.sink.close();
 
     var response = await responseFuture;
     var bytesString = await response.stream.bytesToString();
