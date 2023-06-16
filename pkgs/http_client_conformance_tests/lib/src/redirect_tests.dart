@@ -51,9 +51,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
           client.send(request),
           throwsA(isA<ClientException>()
               .having((e) => e.message, 'message', 'Redirect limit exceeded')));
-    },
-        skip: 'Re-enable after https://github.com/dart-lang/sdk/issues/49012 '
-            'is fixed');
+    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test('exactly the right number of allowed redirects', () async {
       final request = Request('GET', Uri.http(host, '/5'))
