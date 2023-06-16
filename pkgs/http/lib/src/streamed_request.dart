@@ -20,11 +20,17 @@ import 'byte_stream.dart';
 /// ```dart
 /// final request = http.StreamedRequest('POST', Uri.http('example.com', ''))
 ///     ..contentLength = 10
-///     ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-///     ..sink.close();  // The sink must be closed to end the request.
+///     ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 ///
+/// // The sink must be closed to end the request.
+/// // The Future returned from `close()` may not complete until after the
+/// request is sent, an it generally should not be awaited.
+/// unawaited(request.sink.close());
 /// final response = await request.send();
 /// ```
+///
+/// The `Future` returned from calling `sink.close()` will not complete until
+/// the request has been sent.
 class StreamedRequest extends BaseRequest {
   /// The sink to which to write data that will be sent as the request body.
   ///

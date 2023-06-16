@@ -25,7 +25,6 @@ void main() {
         ..contentLength = 10
         ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       unawaited(request.sink.close());
-
       var response = await request.send();
       expect(
           await utf8.decodeStream(response.stream),
@@ -37,7 +36,6 @@ void main() {
       var request = http.StreamedRequest('POST', serverUrl);
       request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       unawaited(request.sink.close());
-
       var response = await request.send();
       expect(await utf8.decodeStream(response.stream),
           parse(containsPair('headers', isNot(contains('content-length')))));
