@@ -16,9 +16,10 @@ import '../sync_errors.dart';
 class PingHandler extends Object with TerminatableMixin {
   final FrameWriter _frameWriter;
   final Map<int, Completer> _remainingPings = {};
+  final Sink<int>? pingReceived;
   int _nextId = 1;
 
-  PingHandler(this._frameWriter);
+  PingHandler(this._frameWriter, [this.pingReceived]);
 
   @override
   void onTerminated(Object? error) {
@@ -36,6 +37,7 @@ class PingHandler extends Object with TerminatableMixin {
       }
 
       if (!frame.hasAckFlag) {
+        pingReceived?.add(frame.opaqueData);
         _frameWriter.writePingFrame(frame.opaqueData, ack: true);
       } else {
         var c = _remainingPings.remove(frame.opaqueData);

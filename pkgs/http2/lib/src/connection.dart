@@ -99,6 +99,10 @@ abstract class Connection {
 
   final Completer<void> _onInitialPeerSettingsReceived = Completer<void>();
 
+  final StreamController<int> _pingReceived = StreamController<int>();
+
+  final StreamController<void> _receivedFrame = StreamController<void>();
+
   /// Future which completes when the first SETTINGS frame is received from
   /// the peer.
   Future<void> get onInitialPeerSettingsReceived =>
@@ -179,7 +183,7 @@ abstract class Connection {
     // Setup handlers.
     _settingsHandler = SettingsHandler(_hpackContext.encoder, _frameWriter,
         acknowledgedSettings, peerSettings);
-    _pingHandler = PingHandler(_frameWriter);
+    _pingHandler = PingHandler(_frameWriter, _pingReceived.sink);
 
     var settings = _decodeSettings(settingsObject);
 
@@ -284,8 +288,8 @@ abstract class Connection {
   }
 
   /// Terminates this connection forcefully.
-  Future terminate() {
-    return _terminate(ErrorCode.NO_ERROR);
+  Future terminate([int? errorCode]) {
+    return _terminate(errorCode ?? ErrorCode.NO_ERROR);
   }
 
   void _activeStateHandler(bool isActive) =>
@@ -340,6 +344,7 @@ abstract class Connection {
       frame.decodedHeaders =
           _hpackContext.decoder.decode(frame.headerBlockFragment);
     }
+    _receivedFrame.add(null);
 
     // Handle the frame as either a connection or a stream frame.
     if (frame.header.streamId == 0) {
@@ -473,6 +478,12 @@ class ClientConnection extends Connection implements ClientTransportConnection {
     }
     return hStream;
   }
+
+  @override
+  Stream<int> get onPingReceived => _pingReceived.stream;
+
+  @override
+  Stream<void> get onFrameReceived => _receivedFrame.stream;
 }
 
 class ServerConnection extends Connection implements ServerTransportConnection {
@@ -489,4 +500,10 @@ class ServerConnection extends Connection implements ServerTransportConnection {
   @override
   Stream<ServerTransportStream> get incomingStreams =>
       _streams.incomingStreams.cast<ServerTransportStream>();
+
+  @override
+  Stream<int> get onPingReceived => _pingReceived.stream;
+
+  @override
+  Stream<void> get onFrameReceived => _receivedFrame.stream;
 }

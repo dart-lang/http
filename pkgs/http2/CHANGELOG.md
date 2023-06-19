@@ -1,6 +1,7 @@
 ## 2.1.1-wip
 
 - Transform headers to lowercase.
+- Expose pings to connection to enable the KEEPALIVE feature for gRPC.
 
 ## 2.1.0
 

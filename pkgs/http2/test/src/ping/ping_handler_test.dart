@@ -93,6 +93,18 @@ void main() {
           throwsA(isProtocolException));
       verifyZeroInteractions(writer);
     });
+
+    test('receiving-ping-calls-stream', () async {
+      var writer = FrameWriterMock();
+      var streamController = StreamController<int>();
+      var pingHandler = PingHandler(writer, streamController.sink);
+
+      var header = FrameHeader(8, FrameType.PING, 0, 0);
+      pingHandler.processPingFrame(PingFrame(header, 1));
+      var header2 = FrameHeader(8, FrameType.PING, 0, 0);
+      pingHandler.processPingFrame(PingFrame(header2, 2));
+      await expectLater(streamController.stream, emitsInOrder([1, 2]));
+    });
   });
 }
 
