@@ -20,9 +20,12 @@ import 'byte_stream.dart';
 /// ```dart
 /// final request = http.StreamedRequest('POST', Uri.http('example.com', ''))
 ///     ..contentLength = 10
-///     ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-///     ..sink.close();  // The sink must be closed to end the request.
+///     ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 ///
+/// // The sink must be closed to end the request.
+/// // The Future returned from `close()` may not complete until after the
+/// // request is sent, and it should not be awaited.
+/// unawaited(request.sink.close());
 /// final response = await request.send();
 /// ```
 class StreamedRequest extends BaseRequest {
@@ -32,7 +35,7 @@ class StreamedRequest extends BaseRequest {
   /// buffered.
   ///
   /// Closing this signals the end of the request.
-  EventSink<List<int>> get sink => _controller.sink;
+  StreamSink<List<int>> get sink => _controller.sink;
 
   /// The controller for [sink], from which [BaseRequest] will read data for
   /// [finalize].

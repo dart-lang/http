@@ -1,7 +1,11 @@
-## 1.0.1
+## 1.1.0-wip
 
-* Add better error messages for `SocketException`s when using `IOClient`. 
- 
+* Add better error messages for `SocketException`s when using `IOClient`.
+* Make `StreamedRequest.sink` a `StreamSink`. This makes `request.sink.close()`
+  return a `Future` instead of `void`, but the returned future should _not_ be
+  awaited. The Future returned from `sink.close()` may only complete after the
+  request has been sent.
+
 ## 1.0.0
 
 * Requires Dart 3.0 or later.
