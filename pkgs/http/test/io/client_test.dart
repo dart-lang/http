@@ -5,6 +5,7 @@
 @TestOn('vm')
 library;
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -42,9 +43,8 @@ void main() {
       ..headers[HttpHeaders.userAgentHeader] = 'Dart';
 
     var responseFuture = client.send(request);
-    request
-      ..sink.add('{"hello": "world"}'.codeUnits)
-      ..sink.close();
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    unawaited(request.sink.close());
 
     var response = await responseFuture;
 
@@ -81,9 +81,8 @@ void main() {
       ..headers[HttpHeaders.userAgentHeader] = 'Dart';
 
     var responseFuture = client.send(request);
-    request
-      ..sink.add('{"hello": "world"}'.codeUnits)
-      ..sink.close();
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    unawaited(request.sink.close());
 
     var response = await responseFuture;
 

@@ -5,6 +5,8 @@
 @TestOn('browser')
 library;
 
+import 'dart:async';
+
 import 'package:http/browser_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
@@ -17,9 +19,8 @@ void main() {
     var request = http.StreamedRequest('POST', echoUrl);
 
     var responseFuture = client.send(request);
-    request.sink
-      ..add('{"hello": "world"}'.codeUnits)
-      ..close();
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    unawaited(request.sink.close());
 
     var response = await responseFuture;
     var bytesString = await response.stream.bytesToString();
