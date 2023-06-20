@@ -51,8 +51,31 @@ class WebSocketChannel extends StreamChannelMixin {
   /// Before the connection has been closed, this will be `null`.
   String? get closeReason => _webSocket.closeReason;
 
-  /// Future indicating if the connection has been established.
-  /// It completes on successful connection to the websocket.
+  /// A future that will complete when the WebSocket connection has been
+  /// established.
+  ///
+  /// This future must be complete before before data can be sent using
+  /// [WebSocketChannel.sink].
+  ///
+  /// If a connection could not be established (e.g. because of a network
+  /// issue), then this future will complete with an error.
+  ///
+  /// For example:
+  /// ```
+  /// final channel = WebSocketChannel.connect(Uri.parse('ws://example.com'));
+  ///
+  /// try {
+  ///   await channel.ready;
+  /// } on SocketException catch (e) {
+  ///   // Handle the exception.
+  /// } on WebSocketChannelException catch (e) {
+  ///   // Handle the exception.
+  /// }
+  ///
+  /// // If `ready` completes without an error then the channel is ready to
+  /// // send data.
+  /// channel.sink.add('Hello World');
+  /// ```
   final Future<void> ready = Future.value();
 
   @override

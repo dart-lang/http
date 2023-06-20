@@ -1,3 +1,9 @@
+## 2.4.1
+
+- Update the examples to use `WebSocketChannel.ready` and clarify that
+  `WebSocketChannel.ready` should be awaited before sending data over the
+  `WebSocketChannel`.
+
 ## 2.4.0
 
 - Add a `customClient` parameter to the `IOWebSocketChannel.connect` factory,
