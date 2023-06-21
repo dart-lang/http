@@ -99,6 +99,8 @@ class HtmlWebSocketChannel extends StreamChannelMixin
     // The socket API guarantees that only a single error event will be emitted,
     // and that once it is no open or message events will be emitted.
     innerWebSocket.onError.first.then((_) {
+      // Unfortunately, the underlying WebSocket API doesn't expose any
+      // specific information about the error itself.
       final error = WebSocketChannelException('WebSocket connection failed.');
       _readyCompleter.completeError(error);
       _controller.local.sink.addError(error);
