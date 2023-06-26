@@ -1,0 +1,14 @@
+name: java_http
+description: A Dart package for making HTTP requests using java.net.HttpURLConnection.
+version: 0.0.1
+repository: https://github.com/dart-lang/http/tree/master/pkgs/java_http
+publish_to: none
+
+environment:
+  sdk: ^3.0.0
+
+dependencies:
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.21.0
