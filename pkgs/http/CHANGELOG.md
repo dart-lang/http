@@ -1,4 +1,4 @@
-## 1.1.0-wip
+## 1.1.0
 
 * Add better error messages for `SocketException`s when using `IOClient`.
 * Make `StreamedRequest.sink` a `StreamSink`. This makes `request.sink.close()`
