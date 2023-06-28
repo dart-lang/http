@@ -10,6 +10,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:http/http.dart';
 
 import 'cupertino_api.dart';
@@ -151,6 +152,7 @@ class CupertinoClient extends BaseClient {
     final taskTracker = _tracker(task);
 
     if (error != null) {
+      print(error);
       final exception = ClientException(
           error.localizedDescription ?? 'Unknown', taskTracker.request.url);
       if (taskTracker.responseCompleter.isCompleted) {
@@ -211,6 +213,20 @@ class CupertinoClient extends BaseClient {
     _urlSession = null;
   }
 
+  /// Returns true if [stream] includes at least one list with an element.
+  ///
+  /// Since [_hasData] consumes [stream], returns a new stream containing the
+  /// equivalent data.
+  static Future<(bool, Stream<List<int>>)> _hasData(
+      Stream<List<int>> stream) async {
+    final queue = StreamQueue(stream);
+    while (await queue.hasNext && (await queue.peek).isEmpty) {
+      await queue.next;
+    }
+
+    return (await queue.hasNext, queue.rest);
+  }
+
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     // The expected success case flow (without redirects) is:
@@ -233,12 +249,12 @@ class CupertinoClient extends BaseClient {
 
     final stream = request.finalize();
 
-    final bytes = await stream.toBytes();
-    final d = Data.fromUint8List(bytes);
-
     final urlRequest = MutableURLRequest.fromUrl(request.url)
-      ..httpMethod = request.method
-      ..httpBody = d;
+      ..httpMethod = request.method;
+
+    if (await _hasData(stream) case (true, final s)) {
+      urlRequest.httpBodyStream = s;
+    }
 
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);

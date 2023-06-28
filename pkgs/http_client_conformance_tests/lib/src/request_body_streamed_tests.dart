@@ -61,5 +61,20 @@ void testRequestBodyStreamed(Client client,
 
       expect(lastReceived, greaterThanOrEqualTo(1000));
     });
+
+    test('client.send() with StreamedRequest that raises', () async {
+      Stream<String> count() async* {
+        yield '0\n';
+        yield '1\n';
+        throw ArgumentError('this is a test');
+      }
+
+      final request = StreamedRequest('POST', Uri.http(host, ''));
+      const Utf8Encoder().bind(count()).listen(request.sink.add,
+          onError: request.sink.addError, onDone: request.sink.close);
+
+      await expectLater(client.send(request),
+          throwsA(anyOf(isA<ArgumentError>(), isA<ClientException>())));
+    });
   }, skip: canStreamRequestBody ? false : 'does not stream request bodies');
 }

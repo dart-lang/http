@@ -10,6 +10,7 @@ environment:
   flutter: '>=3.10.0'  # If changed, update test matrix.
 
 dependencies:
+  async: ^2.5.0
   ffi: ^2.0.1
   flutter:
     sdk: flutter

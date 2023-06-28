@@ -32,6 +32,7 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:ffi/ffi.dart';
 
 import 'native_cupertino_bindings.dart' as ncb;
@@ -126,6 +127,23 @@ enum URLSessionWebSocketMessageType {
 class Error extends _ObjectHolder<ncb.NSError> implements Exception {
   Error._(super.c);
 
+  /// Create an Error from a custom domain.
+  factory Error.fromCustomDomain(String domain, int code,
+      {String? localizedDescription}) {
+    final d = ncb.NSMutableDictionary.alloc(linkedLibs).init();
+
+    if (localizedDescription != null) {
+      d.setObject_forKey_(
+        localizedDescription.toNSString(linkedLibs),
+        ncb.NSString.castFromPointer(
+            linkedLibs, linkedLibs.NSLocalizedDescriptionKey),
+      );
+    }
+    final e = ncb.NSError.alloc(linkedLibs).initWithDomain_code_userInfo_(
+        domain.toNSString(linkedLibs).pointer, code, d);
+    return Error._(e);
+  }
+
   /// The numeric code for the error e.g. -1003 (kCFURLErrorCannotFindHost).
   ///
   /// The interpretation of this code will depend on the domain of the error
@@ -135,8 +153,11 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
   /// See [NSError.code](https://developer.apple.com/documentation/foundation/nserror/1409165-code)
   int get code => _nsObject.code;
 
-  // TODO(https://github.com/dart-lang/ffigen/issues/386): expose
-  // `NSError.domain` when correct type aliases are available.
+  /// The error domain, for example `"NSPOSIXErrorDomain"`.
+  ///
+  /// See [NSError.domain](https://developer.apple.com/documentation/foundation/nserror/1413924-domain)
+  String get domain =>
+      ncb.NSString.castFromPointer(linkedLibs, _nsObject.domain).toString();
 
   /// A description of the error in the current locale e.g.
   /// 'A server with the specified hostname could not be found.'
@@ -159,6 +180,7 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
 
   @override
   String toString() => '[Error '
+      'domain=$domain '
       'code=$code '
       'localizedDescription=$localizedDescription '
       'localizedFailureReason=$localizedFailureReason '
@@ -360,6 +382,9 @@ class Data extends _ObjectHolder<ncb.NSData> {
   // See [NSData dataWithData:](https://developer.apple.com/documentation/foundation/nsdata/1547230-datawithdata)
   factory Data.fromData(Data d) =>
       Data._(ncb.NSData.dataWithData_(linkedLibs, d._nsObject));
+
+  factory Data.fromList(List<int> l) =>
+      Data.fromUint8List(Uint8List.fromList(l));
 
   /// A new [Data] object containing the given bytes.
   factory Data.fromUint8List(Uint8List l) {
@@ -943,6 +968,49 @@ class MutableURLRequest extends URLRequest {
 
   set httpBody(Data? data) {
     _mutableUrlRequest.HTTPBody = data?._nsObject;
+  }
+
+  set httpBodyStream(Stream<List<int>> stream) {
+    const maxReadAheadSize = 4096;
+    final queue = StreamQueue(stream);
+    final port = ReceivePort();
+    final inputStream =
+        ncb.CUPHTTPStreamToNSInputStreamAdapter.alloc(helperLibs)
+            .initWithPort_(port.sendPort.nativePort);
+    _mutableUrlRequest.HTTPBodyStream = ncb.NSInputStream.castFrom(inputStream);
+
+    late StreamSubscription<dynamic> s;
+    s = port.listen((_) async {
+      if (inputStream.streamStatus == ncb.NSStreamStatus.NSStreamStatusClosed) {
+        return;
+      }
+
+      // Prevent multiple executions of this code to be in flight at once.
+      s.pause();
+      while (await queue.hasNext) {
+        late final List<int> next;
+        try {
+          next = await queue.next;
+        } catch (e) {
+          inputStream.setError_(Error.fromCustomDomain('DartError', 0,
+                  localizedDescription: e.toString())
+              ._nsObject);
+          break;
+        }
+        // In practice the read length request will be large (>1MB) so,
+        // instead of adding that much data, try to keep the buffer
+        // at least `maxReadAheadSize`.
+        if (inputStream.addData_(Data.fromList(next)._nsObject) >
+            maxReadAheadSize) {
+          break;
+        }
+      }
+      if (!await queue.hasNext) {
+        inputStream.setDone();
+      } else {
+        s.resume();
+      }
+    });
   }
 
   set httpMethod(String method) {
