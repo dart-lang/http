@@ -40,16 +40,16 @@ class _Plus2Encoding extends Encoding {
 /// 'POST'.
 void testRequestBody(Client client) {
   group('request body', () {
-    late final String host;
-    late final StreamChannel<Object?> httpServerChannel;
-    late final StreamQueue<Object?> httpServerQueue;
+    late String host;
+    late StreamChannel<Object?> httpServerChannel;
+    late StreamQueue<Object?> httpServerQueue;
 
-    setUpAll(() async {
+    setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       host = 'localhost:${await httpServerQueue.next}';
     });
-    tearDownAll(() => httpServerChannel.sink.add(null));
+    tearDown(() => httpServerChannel.sink.add(null));
 
     test('client.post() with string body', () async {
       await client.post(Uri.http(host, ''), body: 'Hello World!');
@@ -152,5 +152,132 @@ void testRequestBody(Client client) {
       expect(serverReceivedContentType, ['image/png; charset=plus2']);
       expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
     });
+
+    test('client.send() with stream containing empty lists', () async {
+      Stream<List<int>> stream() async* {
+        yield [];
+        yield [];
+        yield [1];
+        yield [2];
+        yield [];
+        yield [3, 4];
+        yield [];
+        yield [5];
+      }
+
+      final request = StreamedRequest('POST', Uri.http(host, ''));
+      request.headers['Content-Type'] = 'image/png';
+
+      stream().listen(request.sink.add,
+          onError: request.sink.addError, onDone: request.sink.close);
+      await client.send(request);
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next as String;
+
+      expect(serverReceivedContentType, ['image/png']);
+      expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5]);
+    });
+
+    test('client.send() with slow stream', () async {
+      Stream<List<int>> stream() async* {
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        yield [1];
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        yield [2];
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        yield [3];
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        yield [4];
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        yield [5];
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        yield [6, 7, 8];
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+        yield [9, 10];
+        await Future<void>.delayed(const Duration(milliseconds: 100));
+      }
+
+      final request = StreamedRequest('POST', Uri.http(host, ''));
+      request.headers['Content-Type'] = 'image/png';
+
+      stream().listen(request.sink.add,
+          onError: request.sink.addError, onDone: request.sink.close);
+      await client.send(request);
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next as String;
+
+      expect(serverReceivedContentType, ['image/png']);
+      expect(serverReceivedBody.codeUnits, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    });
+
+    test('client.send() with stream that raises', () async {
+      Stream<List<int>> stream() async* {
+        yield [0];
+        yield [1];
+        throw ArgumentError('this is a test');
+      }
+
+      final request = StreamedRequest('POST', Uri.http(host, ''));
+      request.headers['Content-Type'] = 'image/png';
+
+      stream().listen(request.sink.add,
+          onError: request.sink.addError, onDone: request.sink.close);
+
+      await expectLater(client.send(request),
+          throwsA(anyOf(isA<ArgumentError>(), isA<ClientException>())));
+    });
+
+    test('client.send() GET with empty stream', () async {
+      final request = StreamedRequest('GET', Uri.http(host, ''));
+      request.headers['Content-Type'] = 'image/png';
+      request.sink.close();
+
+      final response = await client.send(request);
+      expect(response.statusCode, 200);
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next as String;
+
+      expect(serverReceivedContentType, ['image/png']);
+      expect(serverReceivedBody.codeUnits, <int>[]);
+    });
+
+    test('client.send() GET with stream containing only empty lists', () async {
+      final request = StreamedRequest('GET', Uri.http(host, ''));
+      request.headers['Content-Type'] = 'image/png';
+      request.sink.add([]);
+      request.sink.add([]);
+      request.sink.add([]);
+      request.sink.close();
+
+      final response = await client.send(request);
+      expect(response.statusCode, 200);
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next as String;
+
+      expect(serverReceivedContentType, ['image/png']);
+      expect(serverReceivedBody.codeUnits, <int>[]);
+    });
+
+    test('client.send() GET with non-empty stream', () async {
+      final request = StreamedRequest('GET', Uri.http(host, ''));
+      request.headers['Content-Type'] = 'image/png';
+      request.sink.add('Hello World!'.codeUnits);
+      request.sink.close();
+
+      final response = await client.send(request);
+      expect(response.statusCode, 200);
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next as String;
+
+      expect(serverReceivedContentType, ['image/png']);
+      expect(serverReceivedBody, 'Hello World!');
+      // using io passes, on web body is not transmitted, on cupertino_http
+      // exception.
+    }, skip: 'unclear semantics for GET requests with body');
   });
 }

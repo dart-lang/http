@@ -1,4 +1,4 @@
-// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -12,8 +12,7 @@
 
 
 /**
- * The configuration associated with a NSURLSessionTask.
- * See CUPHTTPClientDelegate.
+ * A helper to convert a Dart Stream<List<int>> into an Objective-C input stream.
  */
 @interface CUPHTTPStreamToNSInputStreamAdapter : NSInputStream <NSStreamDelegate>
 

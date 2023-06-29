@@ -18,7 +18,6 @@
 }
 
 - (instancetype) initWithPort:(Dart_Port)sendPort {
-  os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "PREFIX:initWithPort");
   self = [super init];
   if (self != nil) {
     _sendPort = sendPort;
@@ -40,7 +39,6 @@
 }
 
 - (NSUInteger) addData:(NSData *) data {
-  os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "PREFIX:addData");
   [_dataCondition lock];
   [_data appendData: data];
   [_dataCondition broadcast];
@@ -51,7 +49,6 @@
 // _status = NSStreamStatusError;
 
 - (void) setDone {
-  os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "PREFIX:done");
   [_dataCondition lock];
   _done = YES;
   [_dataCondition broadcast];
@@ -59,9 +56,12 @@
 }
 
 - (void) setError:(NSError *) error {
+  [_dataCondition lock];
   [_error release];
   _error = [error retain];
   _status = NSStreamStatusError;
+  [_dataCondition broadcast];
+  [_dataCondition unlock];
 }
 
 
@@ -75,18 +75,20 @@
 
 - (void)open
 {
-  os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "PREFIX:open");
+  [_dataCondition lock];
   _status = NSStreamStatusOpen;
+  [_dataCondition unlock];
 }
 
 - (void)close
 {
-  os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "PREFIX:close");
+  [_dataCondition lock];
   _status = NSStreamStatusClosed;
   Dart_CObject message_cobj;
   message_cobj.type = Dart_CObject_kNull;
   const bool success = Dart_PostCObject_DL(_sendPort, &message_cobj);
   NSCAssert(success, @"Dart_PostCObject_DL failed.");
+  [_dataCondition unlock];
 }
 
 - (id)propertyForKey:(NSStreamPropertyKey)key {
@@ -110,19 +112,20 @@
 }
 
 - (NSError*)streamError {
-  os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "PREFIX:streamError");
   return _error;
 }
 
 - (NSStreamStatus)streamStatus
 {
-  os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "PREFIX:streamStatus");
   return _status;
 }
 
 #pragma mark - NSInputStream
 
 - (NSInteger)read:(uint8_t*)buffer maxLength:(NSUInteger)len {
+  os_log_with_type(OS_LOG_DEFAULT,
+                   OS_LOG_TYPE_DEBUG,
+                   "CUPHTTPStreamToNSInputStreamAdapter: read len=%tu", len);
   [_dataCondition lock];
 
   while ([_data length] == 0 && !_done && _error == nil) {
@@ -167,7 +170,9 @@
 - (void)stream:(NSStream *)theStream handleEvent:(NSStreamEvent)streamEvent {
   id<NSStreamDelegate> delegate = _delegate;
   if (delegate != self) {
-    os_log_with_type(OS_LOG_DEFAULT, OS_LOG_TYPE_ERROR, "non-self delegate was invoked");
+    os_log_with_type(OS_LOG_DEFAULT,
+                     OS_LOG_TYPE_ERROR,
+                     "CUPHTTPStreamToNSInputStreamAdapter: non-self delegate was invoked");
   }
 }
 

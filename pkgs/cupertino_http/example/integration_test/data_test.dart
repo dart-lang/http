@@ -12,7 +12,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('empty data', () {
-    final data = Data.fromUint8List(Uint8List(0));
+    final data = Data.fromList(<int>[]);
 
     test('length', () => expect(data.length, 0));
     test('bytes', () => expect(data.bytes, Uint8List(0)));
@@ -20,7 +20,7 @@ void main() {
   });
 
   group('non-empty data', () {
-    final data = Data.fromUint8List(Uint8List.fromList([1, 2, 3, 4, 5]));
+    final data = Data.fromList([1, 2, 3, 4, 5]);
     test('length', () => expect(data.length, 5));
     test(
         'bytes', () => expect(data.bytes, Uint8List.fromList([1, 2, 3, 4, 5])));
@@ -29,12 +29,12 @@ void main() {
 
   group('Data.fromData', () {
     test('from empty', () {
-      final from = Data.fromUint8List(Uint8List(0));
-      expect(Data.fromData(from).bytes, Uint8List.fromList([]));
+      final from = Data.fromList(<int>[]);
+      expect(Data.fromData(from).bytes, Uint8List(0));
     });
 
     test('from non-empty', () {
-      final from = Data.fromUint8List(Uint8List.fromList([1, 2, 3, 4, 5]));
+      final from = Data.fromList([1, 2, 3, 4, 5]);
       expect(Data.fromData(from).bytes, Uint8List.fromList([1, 2, 3, 4, 5]));
     });
   });

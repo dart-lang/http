@@ -34,6 +34,7 @@ import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:ffi/ffi.dart';
+import 'package:meta/meta.dart';
 
 import 'native_cupertino_bindings.dart' as ncb;
 import 'utils.dart';
@@ -119,6 +120,50 @@ enum URLRequestNetworkService {
 enum URLSessionWebSocketMessageType {
   urlSessionWebSocketMessageTypeData,
   urlSessionWebSocketMessageTypeString,
+}
+
+ncb.CUPHTTPStreamToNSInputStreamAdapter _streamToNSInputStream(
+    Stream<List<int>> stream) {
+  const maxReadAheadSize = 4096;
+  final queue = StreamQueue(stream);
+  final port = ReceivePort();
+  final inputStream = ncb.CUPHTTPStreamToNSInputStreamAdapter.alloc(helperLibs)
+      .initWithPort_(port.sendPort.nativePort);
+
+  late StreamSubscription<dynamic> s;
+  s = port.listen((_) async {
+    if (inputStream.streamStatus == ncb.NSStreamStatus.NSStreamStatusClosed) {
+      return;
+    }
+
+    // Prevent multiple executions of this code to be in flight at once.
+    s.pause();
+    while (await queue.hasNext &&
+        inputStream.streamStatus != ncb.NSStreamStatus.NSStreamStatusClosed) {
+      late final List<int> next;
+      try {
+        next = await queue.next;
+      } catch (e) {
+        inputStream.setError_(Error.fromCustomDomain('DartError', 0,
+                localizedDescription: e.toString())
+            ._nsObject);
+        break;
+      }
+      // In practice the read length request will be large (>1MB) so,
+      // instead of adding that much data, try to keep the buffer
+      // at least `maxReadAheadSize`.
+      if (inputStream.addData_(Data.fromList(next)._nsObject) >
+          maxReadAheadSize) {
+        break;
+      }
+    }
+    if (!await queue.hasNext) {
+      inputStream.setDone();
+    } else {
+      s.resume();
+    }
+  });
+  return inputStream;
 }
 
 /// Information about a failure.
@@ -383,11 +428,8 @@ class Data extends _ObjectHolder<ncb.NSData> {
   factory Data.fromData(Data d) =>
       Data._(ncb.NSData.dataWithData_(linkedLibs, d._nsObject));
 
-  factory Data.fromList(List<int> l) =>
-      Data.fromUint8List(Uint8List.fromList(l));
-
   /// A new [Data] object containing the given bytes.
-  factory Data.fromUint8List(Uint8List l) {
+  factory Data.fromList(List<int> l) {
     final buffer = calloc<Uint8>(l.length);
     try {
       buffer.asTypedList(l.length).setAll(0, l);
@@ -399,6 +441,10 @@ class Data extends _ObjectHolder<ncb.NSData> {
       calloc.free(buffer);
     }
   }
+
+  /// A new [Data] object containing the given bytes.
+  @Deprecated('Use Data.fromBytes instead')
+  factory Data.fromUint8List(Uint8List l) = Data.fromList;
 
   /// The number of bytes contained in the object.
   ///
@@ -446,7 +492,7 @@ class MutableData extends Data {
   /// Appends the given data.
   ///
   /// See [NSMutableData appendBytes:length:](https://developer.apple.com/documentation/foundation/nsmutabledata/1407704-appendbytes)
-  void appendBytes(Uint8List l) {
+  void appendBytes(List<int> l) {
     final f = calloc<Uint8>(l.length);
     try {
       f.asTypedList(l.length).setAll(0, l);
@@ -971,46 +1017,7 @@ class MutableURLRequest extends URLRequest {
   }
 
   set httpBodyStream(Stream<List<int>> stream) {
-    const maxReadAheadSize = 4096;
-    final queue = StreamQueue(stream);
-    final port = ReceivePort();
-    final inputStream =
-        ncb.CUPHTTPStreamToNSInputStreamAdapter.alloc(helperLibs)
-            .initWithPort_(port.sendPort.nativePort);
-    _mutableUrlRequest.HTTPBodyStream = ncb.NSInputStream.castFrom(inputStream);
-
-    late StreamSubscription<dynamic> s;
-    s = port.listen((_) async {
-      if (inputStream.streamStatus == ncb.NSStreamStatus.NSStreamStatusClosed) {
-        return;
-      }
-
-      // Prevent multiple executions of this code to be in flight at once.
-      s.pause();
-      while (await queue.hasNext) {
-        late final List<int> next;
-        try {
-          next = await queue.next;
-        } catch (e) {
-          inputStream.setError_(Error.fromCustomDomain('DartError', 0,
-                  localizedDescription: e.toString())
-              ._nsObject);
-          break;
-        }
-        // In practice the read length request will be large (>1MB) so,
-        // instead of adding that much data, try to keep the buffer
-        // at least `maxReadAheadSize`.
-        if (inputStream.addData_(Data.fromList(next)._nsObject) >
-            maxReadAheadSize) {
-          break;
-        }
-      }
-      if (!await queue.hasNext) {
-        inputStream.setDone();
-      } else {
-        s.resume();
-      }
-    });
+    _mutableUrlRequest.HTTPBodyStream = _streamToNSInputStream(stream);
   }
 
   set httpMethod(String method) {

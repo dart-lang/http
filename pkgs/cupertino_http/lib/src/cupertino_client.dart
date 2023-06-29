@@ -152,7 +152,6 @@ class CupertinoClient extends BaseClient {
     final taskTracker = _tracker(task);
 
     if (error != null) {
-      print(error);
       final exception = ClientException(
           error.localizedDescription ?? 'Unknown', taskTracker.request.url);
       if (taskTracker.responseCompleter.isCompleted) {
