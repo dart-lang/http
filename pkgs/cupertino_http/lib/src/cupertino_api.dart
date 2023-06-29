@@ -34,7 +34,6 @@ import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:ffi/ffi.dart';
-import 'package:meta/meta.dart';
 
 import 'native_cupertino_bindings.dart' as ncb;
 import 'utils.dart';
