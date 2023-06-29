@@ -232,7 +232,7 @@ void testRequestBody(Client client) {
     test('client.send() GET with empty stream', () async {
       final request = StreamedRequest('GET', Uri.http(host, ''));
       request.headers['Content-Type'] = 'image/png';
-      request.sink.close();
+      await request.sink.close();
 
       final response = await client.send(request);
       expect(response.statusCode, 200);
@@ -250,7 +250,7 @@ void testRequestBody(Client client) {
       request.sink.add([]);
       request.sink.add([]);
       request.sink.add([]);
-      request.sink.close();
+      await request.sink.close();
 
       final response = await client.send(request);
       expect(response.statusCode, 200);
@@ -266,7 +266,7 @@ void testRequestBody(Client client) {
       final request = StreamedRequest('GET', Uri.http(host, ''));
       request.headers['Content-Type'] = 'image/png';
       request.sink.add('Hello World!'.codeUnits);
-      request.sink.close();
+      await request.sink.close();
 
       final response = await client.send(request);
       expect(response.statusCode, 200);
