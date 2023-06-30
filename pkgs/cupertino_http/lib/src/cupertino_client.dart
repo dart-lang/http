@@ -251,10 +251,14 @@ class CupertinoClient extends BaseClient {
     final urlRequest = MutableURLRequest.fromUrl(request.url)
       ..httpMethod = request.method;
 
-    // If the request is supposed to be bodyless (e.g. for GET requests)
-    // then setting `httpBodyStream` will cause the request to fail -
-    // even if the stream is empty.
-    if (await _hasData(stream) case (true, final s)) {
+    if (request is Request) {
+      // Optimize the (typical) `Request` case since assigning to
+      // `httpBodyStream` requires a lot of expensive setup and data passing.
+      urlRequest.httpBody = Data.fromList(request.bodyBytes);
+    } else if (await _hasData(stream) case (true, final s)) {
+      // If the request is supposed to be bodyless (e.g. GET requests)
+      // then setting `httpBodyStream` will cause the request to fail -
+      // even if the stream is empty.
       urlRequest.httpBodyStream = s;
     }
 
