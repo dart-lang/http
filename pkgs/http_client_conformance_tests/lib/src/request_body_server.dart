@@ -39,6 +39,9 @@ void hybridMain(StreamChannel<Object?> channel) async {
               .fold('', (p, e) => '$p$e');
           channel.sink.add(serverReceivedBody);
         } on HttpException catch (e) {
+          // The server may through if the client disconnections.
+          // This can happen if there is an error in the request
+          // stream.
           print('Request Body Server Exception: $e');
           return;
         }

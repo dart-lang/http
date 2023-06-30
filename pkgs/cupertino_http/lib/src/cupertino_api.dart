@@ -121,8 +121,7 @@ enum URLSessionWebSocketMessageType {
   urlSessionWebSocketMessageTypeString,
 }
 
-ncb.CUPHTTPStreamToNSInputStreamAdapter _streamToNSInputStream(
-    Stream<List<int>> stream) {
+ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
   const maxReadAheadSize = 4096;
   final queue = StreamQueue(stream);
   final port = ReceivePort();
@@ -442,7 +441,7 @@ class Data extends _ObjectHolder<ncb.NSData> {
   }
 
   /// A new [Data] object containing the given bytes.
-  @Deprecated('Use Data.fromBytes instead')
+  @Deprecated('Use Data.fromList instead')
   factory Data.fromUint8List(Uint8List l) = Data.fromList;
 
   /// The number of bytes contained in the object.
@@ -1015,6 +1014,9 @@ class MutableURLRequest extends URLRequest {
     _mutableUrlRequest.HTTPBody = data?._nsObject;
   }
 
+  /// Sets the body of the request to the given [Stream].
+  ///
+  /// See [NSMutableURLRequest.HTTPBodyStream](https://developer.apple.com/documentation/foundation/nsurlrequest/1407341-httpbodystream).
   set httpBodyStream(Stream<List<int>> stream) {
     _mutableUrlRequest.HTTPBodyStream = _streamToNSInputStream(stream);
   }

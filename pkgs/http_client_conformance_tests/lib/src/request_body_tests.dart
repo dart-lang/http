@@ -154,22 +154,18 @@ void testRequestBody(Client client) {
     });
 
     test('client.send() with stream containing empty lists', () async {
-      Stream<List<int>> stream() async* {
-        yield [];
-        yield [];
-        yield [1];
-        yield [2];
-        yield [];
-        yield [3, 4];
-        yield [];
-        yield [5];
-      }
-
       final request = StreamedRequest('POST', Uri.http(host, ''));
       request.headers['Content-Type'] = 'image/png';
-
-      stream().listen(request.sink.add,
-          onError: request.sink.addError, onDone: request.sink.close);
+      request.sink.add([]);
+      request.sink.add([]);
+      request.sink.add([1]);
+      request.sink.add([2]);
+      request.sink.add([]);
+      request.sink.add([3, 4]);
+      request.sink.add([]);
+      request.sink.add([5]);
+      // ignore: unawaited_futures
+      request.sink.close();
       await client.send(request);
 
       final serverReceivedContentType = await httpServerQueue.next;

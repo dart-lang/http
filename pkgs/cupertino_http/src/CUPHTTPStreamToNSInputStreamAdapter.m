@@ -14,10 +14,10 @@
   NSStreamStatus _status;
   BOOL _done;
   NSError* _error;
-  id<NSStreamDelegate> _delegate;  // __weak can't be!
+  id<NSStreamDelegate> _delegate;  // This is a week reference.
 }
 
-- (instancetype) initWithPort:(Dart_Port)sendPort {
+- (instancetype)initWithPort:(Dart_Port)sendPort {
   self = [super init];
   if (self != nil) {
     _sendPort = sendPort;
@@ -38,7 +38,7 @@
   [super dealloc];
 }
 
-- (NSUInteger) addData:(NSData *) data {
+- (NSUInteger)addData:(NSData *)data {
   [_dataCondition lock];
   [_data appendData: data];
   [_dataCondition broadcast];
@@ -48,14 +48,14 @@
 
 // _status = NSStreamStatusError;
 
-- (void) setDone {
+- (void)setDone {
   [_dataCondition lock];
   _done = YES;
   [_dataCondition broadcast];
   [_dataCondition unlock];
 }
 
-- (void) setError:(NSError *) error {
+- (void)setError:(NSError *)error {
   [_dataCondition lock];
   [_error release];
   _error = [error retain];
@@ -73,21 +73,15 @@
 - (void)removeFromRunLoop:(NSRunLoop*)runLoop forMode:(NSString*)mode {
 }
 
-- (void)open
-{
+- (void)open {
   [_dataCondition lock];
   _status = NSStreamStatusOpen;
   [_dataCondition unlock];
 }
 
-- (void)close
-{
+- (void)close {
   [_dataCondition lock];
   _status = NSStreamStatusClosed;
-  Dart_CObject message_cobj;
-  message_cobj.type = Dart_CObject_kNull;
-  const bool success = Dart_PostCObject_DL(_sendPort, &message_cobj);
-  NSCAssert(success, @"Dart_PostCObject_DL failed.");
   [_dataCondition unlock];
 }
 
@@ -115,8 +109,7 @@
   return _error;
 }
 
-- (NSStreamStatus)streamStatus
-{
+- (NSStreamStatus)streamStatus {
   return _status;
 }
 
@@ -144,6 +137,7 @@
     copySize = MIN(len, [_data length]);
     NSRange readRange = NSMakeRange(0, copySize);
     [_data getBytes:(void *)buffer range: readRange];
+    // Shift the remaining data over to the beginning of the buffer.
     [_data replaceBytesInRange: readRange withBytes: NULL length: 0];
 
     if (_done && [_data length] == 0) {

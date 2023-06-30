@@ -1,6 +1,9 @@
 ## 1.1.0
 
 * Add websocket support to `cupertino_api`.
+* Add streaming upload support.
+* Deprecate `Data.fromUint8List` in favor of `Data.fromList`, which accepts
+  any `List<int>`.
 
 ## 1.0.1
 

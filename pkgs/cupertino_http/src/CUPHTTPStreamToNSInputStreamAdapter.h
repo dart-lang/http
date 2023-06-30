@@ -10,15 +10,14 @@
 
 #include "dart-sdk/include/dart_api_dl.h"
 
-
 /**
  * A helper to convert a Dart Stream<List<int>> into an Objective-C input stream.
  */
 @interface CUPHTTPStreamToNSInputStreamAdapter : NSInputStream <NSStreamDelegate>
 
-- (instancetype) initWithPort:(Dart_Port)sendPort;
-- (NSUInteger) addData:(NSData *) data;
-- (void) setDone;
-- (void) setError:(NSError *) error;
+- (instancetype)initWithPort:(Dart_Port)sendPort;
+- (NSUInteger)addData:(NSData *)data;
+- (void)setDone;
+- (void)setError:(NSError *)error;
 
 @end

@@ -24,16 +24,14 @@ void hybridMain(StreamChannel<Object?> channel) async {
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
-      if (request.method == 'POST') {
-        await const LineSplitter()
-            .bind(const Utf8Decoder().bind(request))
-            .forEach((s) {
-          final lastReceived = int.parse(s.trim());
-          if (lastReceived == 1000) {
-            channel.sink.add(lastReceived);
-          }
-        });
-      }
+      await const LineSplitter()
+          .bind(const Utf8Decoder().bind(request))
+          .forEach((s) {
+        final lastReceived = int.parse(s.trim());
+        if (lastReceived == 1000) {
+          channel.sink.add(lastReceived);
+        }
+      });
       unawaited(request.response.close());
     });
 
