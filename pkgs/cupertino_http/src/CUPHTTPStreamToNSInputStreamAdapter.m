@@ -122,6 +122,8 @@
   [_dataCondition lock];
 
   while ([_data length] == 0 && !_done && _error == nil) {
+    // There is no data to return so signal the Dart code that it should add more data through
+    // [self addData:].
     Dart_CObject message_cobj;
     message_cobj.type = Dart_CObject_kInt64;
     message_cobj.value.as_int64 = len;

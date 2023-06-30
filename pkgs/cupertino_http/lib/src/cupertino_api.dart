@@ -129,6 +129,8 @@ ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
       .initWithPort_(port.sendPort.nativePort);
 
   late StreamSubscription<dynamic> s;
+  // Messages from `CUPHTTPStreamToNSInputStreamAdapter` indicate that the task
+  // is attempting to read more data but there is none available.
   s = port.listen((_) async {
     if (inputStream.streamStatus == ncb.NSStreamStatus.NSStreamStatusClosed) {
       return;
