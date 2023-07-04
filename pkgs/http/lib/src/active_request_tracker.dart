@@ -50,14 +50,23 @@ class ActiveRequestTracker {
   ActiveRequestTracker(
     this.request, {
     required this.isStreaming,
-  });
+    Duration? timeout,
+  }) {
+    // If an overall timeout is specified, apply it to the completer for the
+    // request and cancel the request if it times out.
+    if (timeout != null) {
+      _inProgressCompleter.future.timeout(timeout, onTimeout: () {
+        _cancelWith(TimeoutException(null, timeout));
+      });
+    }
+  }
 
   RequestController get controller => request.controller!;
 
-  /// Whether the request is still in progress.
-  bool _inProgress = true;
+  final Completer<void> _inProgressCompleter = Completer<void>();
 
-  bool get inProgress => _inProgress;
+  /// Whether the request is still in progress.
+  bool get inProgress => !_inProgressCompleter.isCompleted;
 
   Future<T> trackRequestState<T>(
     final Future<T> future, {
@@ -65,7 +74,7 @@ class ActiveRequestTracker {
     void Function(Exception?)? onCancel,
   }) {
     // If the request is not being processed, simply ignore any tracking.
-    if (!_inProgress) {
+    if (!inProgress) {
       return future;
     }
 
@@ -87,6 +96,15 @@ class ActiveRequestTracker {
     }
 
     cancellable
+      // If the cancellable future succeeds, and the state was the receiving
+      // state, mark the request as no longer in progress.
+      ..then((value) {
+        if (state == RequestLifecycleState.receiving) {
+          _inProgressCompleter.complete();
+        }
+
+        return value;
+      })
       // Handle timeouts by simply calling [onCancel] and rethrowing the
       // timeout exception.
       ..onError<TimeoutException>(
@@ -113,11 +131,17 @@ class ActiveRequestTracker {
   }
 
   /// Cancels the request by expiring all pending request actions.
-  void cancel([final String message = 'Request cancelled']) {
-    _inProgress = false;
+  ///
+  /// Does nothing if the request is not in progress.
+  void cancel([final String message = 'Request cancelled']) =>
+      _cancelWith(CancelledException(message));
+
+  void _cancelWith(Exception exception) {
+    if (!inProgress) return;
+    _inProgressCompleter.complete();
 
     for (final pendingAction in _pendingRequestActions) {
-      pendingAction.completeError(CancelledException(message));
+      pendingAction.completeError(exception);
     }
   }
 }

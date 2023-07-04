@@ -157,6 +157,8 @@ class RequestController {
     return activeRequest;
   }
 
+  // Fetches a tracker for an existing request.
+  @internal
   ActiveRequestTracker? getExistingTracker(BaseRequest request) =>
       _activeRequests.where((r) => r.request == request).singleOrNull;
 
