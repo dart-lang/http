@@ -15,6 +15,7 @@ import 'client_stub.dart'
     if (dart.library.html) 'browser_client.dart'
     if (dart.library.io) 'io_client.dart';
 import 'exception.dart';
+import 'request_controller.dart';
 import 'response.dart';
 import 'streamed_response.dart';
 
@@ -43,12 +44,14 @@ abstract interface class Client {
   /// Sends an HTTP HEAD request with the given headers to the given URL.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> head(Uri url, {Map<String, String>? headers});
+  Future<Response> head(Uri url,
+      {Map<String, String>? headers, RequestController? controller});
 
   /// Sends an HTTP GET request with the given headers to the given URL.
   ///
   /// For more fine-grained control over the request, use [send] instead.
-  Future<Response> get(Uri url, {Map<String, String>? headers});
+  Future<Response> get(Uri url,
+      {Map<String, String>? headers, RequestController? controller});
 
   /// Sends an HTTP POST request with the given headers and body to the given
   /// URL.
@@ -71,7 +74,10 @@ abstract interface class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> post(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+      {Map<String, String>? headers,
+      Object? body,
+      Encoding? encoding,
+      RequestController? controller});
 
   /// Sends an HTTP PUT request with the given headers and body to the given
   /// URL.
@@ -92,7 +98,10 @@ abstract interface class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> put(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+      {Map<String, String>? headers,
+      Object? body,
+      Encoding? encoding,
+      RequestController? controller});
 
   /// Sends an HTTP PATCH request with the given headers and body to the given
   /// URL.
@@ -113,13 +122,19 @@ abstract interface class Client {
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> patch(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+      {Map<String, String>? headers,
+      Object? body,
+      Encoding? encoding,
+      RequestController? controller});
 
   /// Sends an HTTP DELETE request with the given headers to the given URL.
   ///
   /// For more fine-grained control over the request, use [send] instead.
   Future<Response> delete(Uri url,
-      {Map<String, String>? headers, Object? body, Encoding? encoding});
+      {Map<String, String>? headers,
+      Object? body,
+      Encoding? encoding,
+      RequestController? controller});
 
   /// Sends an HTTP GET request with the given headers to the given URL and
   /// returns a Future that completes to the body of the response as a String.
@@ -129,7 +144,8 @@ abstract interface class Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  Future<String> read(Uri url, {Map<String, String>? headers});
+  Future<String> read(Uri url,
+      {Map<String, String>? headers, RequestController? controller});
 
   /// Sends an HTTP GET request with the given headers to the given URL and
   /// returns a Future that completes to the body of the response as a list of
@@ -140,7 +156,8 @@ abstract interface class Client {
   ///
   /// For more fine-grained control over the request and response, use [send] or
   /// [get] instead.
-  Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers});
+  Future<Uint8List> readBytes(Uri url,
+      {Map<String, String>? headers, RequestController? controller});
 
   /// Sends an HTTP request and asynchronously returns the response.
   Future<StreamedResponse> send(BaseRequest request);
@@ -153,7 +170,12 @@ abstract interface class Client {
   /// Once [close] is called, no other methods should be called. If [close] is
   /// called while other asynchronous methods are running, the behavior is
   /// undefined.
-  void close();
+  ///
+  /// Optionally, [force] can be set to `false` to specify that the client
+  /// should wait for any pending or in-progress requests to complete before
+  /// closing, (otherwise, the client will immediately close, terminating all
+  /// connections immediately to avoid further resource consumption).
+  void close({bool force = true});
 }
 
 /// The [Client] for the current [Zone], if one has been set.

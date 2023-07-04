@@ -26,3 +26,19 @@ class StreamedResponse extends BaseResponse {
       super.reasonPhrase})
       : stream = toByteStream(stream);
 }
+
+abstract class ClosableStreamedResponse extends StreamedResponse {
+  ClosableStreamedResponse(super.stream, super.statusCode,
+      {super.contentLength,
+      super.request,
+      super.headers,
+      super.isRedirect,
+      super.persistentConnection,
+      super.reasonPhrase});
+
+  /// Closes the response body.
+  ///
+  /// This should be called when the body is no longer needed in order to free
+  /// up underlying resources (e.g. sockets).
+  Future<void> close();
+}

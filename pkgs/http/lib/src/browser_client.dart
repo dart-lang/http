@@ -10,6 +10,7 @@ import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
+import 'request_controller.dart';
 import 'streamed_response.dart';
 
 /// Create a [BrowserClient].
@@ -52,8 +53,107 @@ class BrowserClient extends BaseClient {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
     }
+
     var bytes = await request.finalize().toBytes();
+
     var xhr = HttpRequest();
+
+    // Life-cycle tracking is implemented using three completers and the
+    // onReadyStateChange event. The three completers are:
+    //
+    // - connectCompleter (completes when OPENED) (initiates sendingCompleter)
+    // - sendingCompleter (completes when HEADERS_RECEIVED)
+    // (initiates receivingCompleter)
+    // - receivingCompleter (completes when DONE)
+    //
+    // connectCompleter is initiated immediately and on completion initiates
+    // sendingCompleter, and so on.
+    //
+    // Note 'initiated' is not 'initialized' - initiated refers to a timeout
+    // being set on the completer, to ensure the step completes within the
+    // specified timeout.
+    final controller = request.controller;
+
+    if (controller != null) {
+      if (controller.hasLifecycleTimeouts) {
+        // The browser client (which uses XHR) seems not to be able to work with
+        // partial (streamed) requests or responses, so the receive timeout is
+        // handled by the browser client itself.
+        final tracker = controller.track(request, isStreaming: false);
+
+        // Returns a completer for the given state if a timeout is specified
+        // for it, otherwise returns null.
+        Completer<void>? completer(RequestLifecycleState state) =>
+            controller.hasTimeoutForLifecycleState(state)
+                ? Completer<void>()
+                : null;
+
+        final connectCompleter = completer(RequestLifecycleState.connecting);
+        final sendingCompleter = completer(RequestLifecycleState.sending);
+        final receivingCompleter = completer(RequestLifecycleState.receiving);
+
+        // Simply abort the XHR if a timeout or cancellation occurs.
+        void handleCancel(_) => xhr.abort();
+
+        // If a connect timeout is specified, initiate the connectCompleter.
+        if (connectCompleter != null) {
+          unawaited(tracker.trackRequestState(
+            connectCompleter.future,
+            state: RequestLifecycleState.connecting,
+            onCancel: handleCancel,
+          ));
+        }
+
+        xhr.onReadyStateChange.listen((_) {
+          // If the connection is at the OPENED stage and the
+          // connectCompleter has not yet been marked as completed, complete it.
+          if (xhr.readyState == HttpRequest.OPENED) {
+            if (connectCompleter != null) {
+              connectCompleter.complete();
+            }
+
+            // Initiate the sendingCompleter if there is a timeout specified for
+            // it.
+            if (sendingCompleter != null) {
+              unawaited(tracker.trackRequestState(
+                sendingCompleter.future,
+                state: RequestLifecycleState.sending,
+                onCancel: handleCancel,
+              ));
+            }
+          }
+
+          // If the connection is at the HEADERS_RECEIVED stage and
+          // the sendingCompleter has not yet been marked as completed,
+          // complete it.
+          if (xhr.readyState == HttpRequest.HEADERS_RECEIVED) {
+            if (sendingCompleter != null) {
+              sendingCompleter.complete();
+            }
+
+            // Initiate the receivingCompleter if there is a timeout specified
+            // for it.
+            if (receivingCompleter != null) {
+              unawaited(tracker.trackRequestState(
+                receivingCompleter.future,
+                state: RequestLifecycleState.receiving,
+                onCancel: handleCancel,
+              ));
+            }
+          }
+
+          // If the connection is at least at the DONE stage and the
+          // receivingCompleter has not yet been marked as completed, complete
+          // it.
+          if (xhr.readyState == HttpRequest.DONE) {
+            if (receivingCompleter != null) {
+              receivingCompleter.complete();
+            }
+          }
+        });
+      }
+    }
+
     _xhrs.add(xhr);
     xhr
       ..open(request.method, '${request.url}', async: true)
@@ -94,11 +194,16 @@ class BrowserClient extends BaseClient {
   ///
   /// This terminates all active requests.
   @override
-  void close() {
+  void close({bool force = true}) {
     _isClosed = true;
-    for (var xhr in _xhrs) {
-      xhr.abort();
+
+    // If the close is forced (default) then abort all pending requests.
+    if (force) {
+      for (var xhr in _xhrs) {
+        xhr.abort();
+      }
     }
+
     _xhrs.clear();
   }
 }

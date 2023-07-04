@@ -4,11 +4,13 @@
 
 import 'dart:io';
 
+import 'active_request_tracker.dart';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'client.dart';
 import 'exception.dart';
 import 'io_streamed_response.dart';
+import 'request_controller.dart';
 
 /// Create an [IOClient].
 ///
@@ -85,17 +87,43 @@ class IOClient extends BaseClient {
     var stream = request.finalize();
 
     try {
-      var ioRequest = (await _inner!.openUrl(request.method, request.url))
+      final tracker = request.controller?.track(request, isStreaming: true);
+
+      // Open a connection to the server.
+      // If the connection times out, this will simply throw a
+      // CancelledException and we needn't do anything else as there's no
+      // resulting HttpClientRequest to close.
+      var ioRequest = (await maybeTrack(
+        _inner!.openUrl(request.method, request.url),
+        tracker: tracker,
+        state: RequestLifecycleState.connecting,
+      ))
         ..followRedirects = request.followRedirects
         ..maxRedirects = request.maxRedirects
         ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
+
+      // Pass-thru all request headers from the BaseRequest.
       request.headers.forEach((name, value) {
         ioRequest.headers.set(name, value);
       });
 
-      var response = await stream.pipe(ioRequest) as HttpClientResponse;
+      // Pipe the byte stream of request body data into the HttpClientRequest.
+      // This will send the request to the server and call .done() on the
+      // HttpClientRequest when the stream is done. At which point, the future
+      // will complete once the response is available.
+      //
+      // If the step or the request times out or is cancelled, this will abort
+      // with the corresponding error.
+      var response = await maybeTrack(
+        stream.pipe(ioRequest),
+        tracker: tracker,
+        state: RequestLifecycleState.sending,
+        onCancel: (error) => ioRequest.abort(error),
+      ) as HttpClientResponse;
 
+      // Read all the response headers into a map, comma-concatenating any
+      // duplicate values for a single header name.
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
         headers[key] = values.join(',');
@@ -127,9 +155,9 @@ class IOClient extends BaseClient {
   /// Terminates all active connections. If a client remains unclosed, the Dart
   /// process may not terminate.
   @override
-  void close() {
+  void close({bool force = true}) {
     if (_inner != null) {
-      _inner!.close(force: true);
+      _inner!.close(force: force);
       _inner = null;
     }
   }

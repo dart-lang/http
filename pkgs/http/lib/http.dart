@@ -23,6 +23,7 @@ export 'src/exception.dart';
 export 'src/multipart_file.dart';
 export 'src/multipart_request.dart';
 export 'src/request.dart';
+export 'src/request_controller.dart';
 export 'src/response.dart';
 export 'src/streamed_request.dart';
 export 'src/streamed_response.dart';

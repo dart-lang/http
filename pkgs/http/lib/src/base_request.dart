@@ -11,6 +11,7 @@ import 'base_client.dart';
 import 'base_response.dart';
 import 'byte_stream.dart';
 import 'client.dart';
+import 'request_controller.dart';
 import 'streamed_response.dart';
 import 'utils.dart';
 
@@ -21,6 +22,12 @@ import 'utils.dart';
 /// over the request properties. However, usually it's easier to use convenience
 /// methods like [get] or [BaseClient.get].
 abstract class BaseRequest {
+  /// The [RequestController] of the request.
+  ///
+  /// Used to manage the lifecycle of the request. If this is `null`, the
+  /// request is assumed to be unmanaged and it cannot be cancelled.
+  final RequestController? controller;
+
   /// The HTTP method of the request.
   ///
   /// Most commonly "GET" or "POST", less commonly "HEAD", "PUT", or "DELETE".
@@ -96,7 +103,7 @@ abstract class BaseRequest {
     return method;
   }
 
-  BaseRequest(String method, this.url)
+  BaseRequest(String method, this.url, {this.controller})
       : method = _validateMethod(method),
         headers = LinkedHashMap(
             equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),

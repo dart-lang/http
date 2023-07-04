@@ -7,8 +7,10 @@ import 'dart:typed_data';
 
 import 'package:http_parser/http_parser.dart';
 
+import 'active_request_tracker.dart';
 import 'base_request.dart';
 import 'base_response.dart';
+import 'request_controller.dart';
 import 'streamed_response.dart';
 import 'utils.dart';
 
@@ -54,7 +56,32 @@ class Response extends BaseResponse {
   /// Creates a new HTTP response by waiting for the full body to become
   /// available from a [StreamedResponse].
   static Future<Response> fromStream(StreamedResponse response) async {
-    final body = await response.stream.toBytes();
+    // Future that collects the body bytes from the response stream.
+    final collectBodyBytes = response.stream.toBytes();
+
+    // We can automatically track a response timeout here, if there is one
+    // specified.
+    late final Uint8List body;
+
+    if (response.request?.controller != null &&
+        response.request!.controller!
+            .hasTimeoutForLifecycleState(RequestLifecycleState.receiving)) {
+      body = await maybeTrack(
+        collectBodyBytes.timeout(response.request!.controller!
+            .timeoutForLifecycleState(RequestLifecycleState.receiving)!),
+        tracker:
+            response.request!.controller!.getExistingTracker(response.request!),
+        state: RequestLifecycleState.receiving,
+        onCancel: (_) {
+          if (response is ClosableStreamedResponse) {
+            response.close();
+          }
+        },
+      );
+    } else {
+      body = await collectBodyBytes;
+    }
+
     return Response.bytes(body, response.statusCode,
         request: response.request,
         headers: response.headers,

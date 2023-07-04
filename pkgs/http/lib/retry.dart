@@ -149,7 +149,7 @@ final class RetryClient extends BaseClient {
   }
 
   @override
-  void close() => _inner.close();
+  void close({bool force = true}) => _inner.close(force: force);
 }
 
 bool _defaultWhen(BaseResponse response) => response.statusCode == 503;

@@ -8,7 +8,7 @@ import 'streamed_response.dart';
 
 /// An HTTP response where the response body is received asynchronously after
 /// the headers have been received.
-class IOStreamedResponse extends StreamedResponse {
+class IOStreamedResponse extends ClosableStreamedResponse {
   final HttpClientResponse? _inner;
 
   /// Creates a new streaming response.
@@ -30,4 +30,10 @@ class IOStreamedResponse extends StreamedResponse {
   ///
   /// Will throw if `inner` was not set or `null` when `this` was created.
   Future<Socket> detachSocket() async => _inner!.detachSocket();
+
+  @override
+  Future<void> close() async {
+    // Detach the socket and then destroy it in both directions.
+    (await detachSocket()).destroy();
+  }
 }

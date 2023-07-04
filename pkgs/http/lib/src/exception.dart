@@ -20,3 +20,19 @@ class ClientException implements Exception {
     }
   }
 }
+
+/// An exception caused by a request being cancelled programmatically.
+// This is a separate exception to allow distinguishing between a request being
+// cancelled and a request being aborted due to an error.
+class CancelledException extends ClientException {
+  CancelledException(super.message, [super.uri]);
+
+  @override
+  String toString() {
+    if (uri != null) {
+      return 'CancelledException: $message, uri=$uri';
+    } else {
+      return 'CancelledException: $message';
+    }
+  }
+}

@@ -137,7 +137,7 @@ class Request extends BaseRequest {
     body = mapToQuery(fields, encoding: encoding);
   }
 
-  Request(super.method, super.url)
+  Request(super.method, super.url, {super.controller})
       : _defaultEncoding = utf8,
         _bodyBytes = Uint8List(0);
 

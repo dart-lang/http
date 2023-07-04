@@ -35,21 +35,21 @@ class StreamedRequest extends BaseRequest {
   /// buffered.
   ///
   /// Closing this signals the end of the request.
-  StreamSink<List<int>> get sink => _controller.sink;
+  StreamSink<List<int>> get sink => _streamController.sink;
 
   /// The controller for [sink], from which [BaseRequest] will read data for
   /// [finalize].
-  final StreamController<List<int>> _controller;
+  final StreamController<List<int>> _streamController;
 
   /// Creates a new streaming request.
-  StreamedRequest(super.method, super.url)
-      : _controller = StreamController<List<int>>(sync: true);
+  StreamedRequest(super.method, super.url, {super.controller})
+      : _streamController = StreamController<List<int>>(sync: true);
 
   /// Freezes all mutable fields and returns a single-subscription [ByteStream]
   /// that emits the data being written to [sink].
   @override
   ByteStream finalize() {
     super.finalize();
-    return ByteStream(_controller.stream);
+    return ByteStream(_streamController.stream);
   }
 }
