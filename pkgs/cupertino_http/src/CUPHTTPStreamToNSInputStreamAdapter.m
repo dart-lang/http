@@ -14,7 +14,7 @@
   NSStreamStatus _status;
   BOOL _done;
   NSError* _error;
-  id<NSStreamDelegate> _delegate;  // This is a week reference.
+  id<NSStreamDelegate> _delegate;  // This is a weak reference.
 }
 
 - (instancetype)initWithPort:(Dart_Port)sendPort {
@@ -45,8 +45,6 @@
   [_dataCondition unlock];
   return [_data length];
 }
-
-// _status = NSStreamStatusError;
 
 - (void)setDone {
   [_dataCondition lock];
