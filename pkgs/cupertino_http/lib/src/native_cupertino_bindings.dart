@@ -58978,8 +58978,8 @@ class NativeCupertinoHttp {
   late final _sel_protocol1 = _registerName1("protocol");
   late final _class_CUPHTTPForwardedWebSocketClosed1 =
       _getClass1("CUPHTTPForwardedWebSocketClosed");
-  late final _sel_initWithSession_webSocketTask_didCloseWithCode_reason_1 =
-      _registerName1("initWithSession:webSocketTask:didCloseWithCode:reason:");
+  late final _sel_initWithSession_webSocketTask_code_reason_1 =
+      _registerName1("initWithSession:webSocketTask:code:reason:");
   ffi.Pointer<ObjCObject> _objc_msgSend_500(
     ffi.Pointer<ObjCObject> obj,
     ffi.Pointer<ObjCSel> sel,
@@ -85460,14 +85460,11 @@ class CUPHTTPForwardedWebSocketClosed extends CUPHTTPForwardedDelegate {
         obj._lib._class_CUPHTTPForwardedWebSocketClosed1);
   }
 
-  NSObject initWithSession_webSocketTask_didCloseWithCode_reason_(
-      NSURLSession? session,
-      NSURLSessionWebSocketTask? webSocketTask,
-      int closeCode,
-      NSData? reason) {
+  NSObject initWithSession_webSocketTask_code_reason_(NSURLSession? session,
+      NSURLSessionWebSocketTask? webSocketTask, int closeCode, NSData? reason) {
     final _ret = _lib._objc_msgSend_500(
         _id,
-        _lib._sel_initWithSession_webSocketTask_didCloseWithCode_reason_1,
+        _lib._sel_initWithSession_webSocketTask_code_reason_1,
         session?._id ?? ffi.nullptr,
         webSocketTask?._id ?? ffi.nullptr,
         closeCode,
@@ -85516,8 +85513,7 @@ typedef NSStreamSOCKSProxyVersion = ffi.Pointer<ObjCObject>;
 typedef NSErrorDomain1 = ffi.Pointer<ObjCObject>;
 typedef NSStreamNetworkServiceTypeValue = ffi.Pointer<ObjCObject>;
 
-/// The configuration associated with a NSURLSessionTask.
-/// See CUPHTTPClientDelegate.
+/// A helper to convert a Dart Stream<List<int>> into an Objective-C input stream.
 class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
   CUPHTTPStreamToNSInputStreamAdapter._(
       ffi.Pointer<ObjCObject> id, NativeCupertinoHttp lib,
