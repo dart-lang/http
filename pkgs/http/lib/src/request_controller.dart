@@ -151,8 +151,11 @@ class RequestController {
       return _activeRequests.firstWhere((r) => r.request == request);
     }
 
-    final activeRequest =
-        ActiveRequestTracker(request, isStreaming: isStreaming);
+    final activeRequest = ActiveRequestTracker(
+      request,
+      isStreaming: isStreaming,
+      timeout: timeout,
+    );
     _activeRequests.add(activeRequest);
     return activeRequest;
   }
