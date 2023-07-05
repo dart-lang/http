@@ -18,7 +18,7 @@ enum RequestLifecycleState {
 }
 
 /// Encapsulates timeouts for individual parts of a request's lifecycle.
-class PartialTimeouts {
+final class PartialTimeouts {
   /// The duration to wait for a connection to be successfully opened with a
   /// server before aborting the request.
   final Duration? connectTimeout;

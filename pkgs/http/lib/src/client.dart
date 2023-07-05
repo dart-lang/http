@@ -35,6 +35,13 @@ import 'streamed_response.dart';
 /// another instance of [Client] and add functionality on top of that. This
 /// allows all classes implementing [Client] to be mutually composable.
 abstract interface class Client {
+  /// Whether this client supports the [RequestController] API.
+  ///
+  /// If this is `true`, [send] will use the supplied [RequestController] and
+  /// will allow cancelling the request and specifying a timeout. Otherwise,
+  /// a specified [RequestController] will be ignored.
+  bool get supportsController;
+
   /// Creates a new platform appropriate client.
   ///
   /// Creates an `IOClient` if `dart:io` is available and a `BrowserClient` if

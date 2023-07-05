@@ -20,6 +20,9 @@ import 'streamed_response.dart';
 /// maybe [close], and then they get various convenience methods for free.
 abstract mixin class BaseClient implements Client {
   @override
+  bool get supportsController => false;
+
+  @override
   Future<Response> head(Uri url,
           {Map<String, String>? headers, RequestController? controller}) =>
       _sendUnstreamed('HEAD', url, headers, controller: controller);

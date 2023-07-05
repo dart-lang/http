@@ -71,6 +71,9 @@ class _ClientSocketException extends ClientException
 /// }
 /// ```
 class IOClient extends BaseClient {
+  @override
+  final bool supportsController = true;
+
   /// The underlying `dart:io` HTTP client.
   HttpClient? _inner;
 

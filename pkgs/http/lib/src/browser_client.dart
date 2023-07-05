@@ -33,6 +33,9 @@ BaseClient createClient() {
 /// also unable to stream requests or responses; a request will only be sent and
 /// a response will only be returned once all the data is available.
 class BrowserClient extends BaseClient {
+  @override
+  final bool supportsController = true;
+
   /// The currently active XHRs.
   ///
   /// These are aborted if the client is closed.

@@ -35,7 +35,7 @@ Future<T> maybeTrack<T>(
 /// Used internally to track a request's lifecycle.
 /// See [RequestController] for the public API.
 @internal
-class ActiveRequestTracker {
+final class ActiveRequestTracker {
   final BaseRequest request;
 
   /// Whether the [ActiveRequestTracker] is tracking a streaming request.

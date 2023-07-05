@@ -1,3 +1,8 @@
+## 1.2.0
+
+* Add a `RequestController` class which can be used to manage the lifecycle of an 
+HTTP request (e.g., for timeouts and request cancellation).
+
 ## 1.1.0
 
 * Add better error messages for `SocketException`s when using `IOClient`.

@@ -20,6 +20,9 @@ import 'streamed_response.dart';
 /// are made through it so that you can mock a server without having to send
 /// real HTTP requests.
 class MockClient extends BaseClient {
+  @override
+  bool get supportsController => false;
+
   /// The handler for receiving [StreamedRequest]s and sending
   /// [StreamedResponse]s.
   final MockClientStreamHandler _handler;

@@ -15,6 +15,9 @@ import 'http.dart';
 /// resending it. This can cause a lot of memory usage when sending a large
 /// [StreamedRequest].
 final class RetryClient extends BaseClient {
+  @override
+  bool get supportsController => _inner.supportsController;
+
   /// The wrapped client.
   final Client _inner;
 
