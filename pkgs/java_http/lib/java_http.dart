@@ -4,4 +4,5 @@
 
 library;
 
+export 'src/java_client.dart';
 export 'src/java_http_base.dart';
