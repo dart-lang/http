@@ -19,7 +19,10 @@ dependencies:
   http: ^0.13.5
 
 dev_dependencies:
+  convert: ^3.1.1
+  crypto: ^3.0.3
   dart_flutter_team_lints: ^1.0.0
+  ffi: ^2.0.1
   flutter_test:
     sdk: flutter
   http_client_conformance_tests:
