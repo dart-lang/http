@@ -75,7 +75,7 @@ class ActiveRequestTracker {
   }) {
     // If the request is not being processed, simply ignore any tracking.
     if (!inProgress) {
-      return future;
+      return _inProgressCompleter.future.then((_) => future);
     }
 
     // Create a completer to track the request (and allow it to be cancelled).
@@ -138,7 +138,7 @@ class ActiveRequestTracker {
 
   void _cancelWith(Exception exception) {
     if (!inProgress) return;
-    _inProgressCompleter.complete();
+    _inProgressCompleter.completeError(exception);
 
     for (final pendingAction in _pendingRequestActions) {
       pendingAction.completeError(exception);

@@ -18,7 +18,7 @@ enum RequestLifecycleState {
 }
 
 /// Encapsulates timeouts for individual parts of a request's lifecycle.
-class RequestLifecycleTimeouts {
+class PartialTimeouts {
   /// The duration to wait for a connection to be successfully opened with a
   /// server before aborting the request.
   final Duration? connectTimeout;
@@ -31,16 +31,16 @@ class RequestLifecycleTimeouts {
   /// before aborting the request.
   final Duration? receiveTimeout;
 
-  /// Creates a new [RequestLifecycleTimeouts].
-  const RequestLifecycleTimeouts({
+  /// Creates a new [PartialTimeouts].
+  const PartialTimeouts({
     this.connectTimeout,
     this.sendTimeout,
     this.receiveTimeout,
   });
 
-  /// Creates a new [RequestLifecycleTimeouts] with all timeouts set to the
+  /// Creates a new [PartialTimeouts] with all timeouts set to the
   /// specified [timeout].
-  const RequestLifecycleTimeouts.all(Duration timeout)
+  const PartialTimeouts.all(Duration timeout)
       : connectTimeout = timeout,
         sendTimeout = timeout,
         receiveTimeout = timeout;
@@ -86,7 +86,7 @@ class RequestController {
   /// If a request times out, it will throw a [TimeoutException].
   final Duration? timeout;
 
-  final RequestLifecycleTimeouts? _lifecycleTimeouts;
+  final PartialTimeouts? _lifecycleTimeouts;
 
   final List<ActiveRequestTracker> _activeRequests = [];
 
@@ -130,7 +130,7 @@ class RequestController {
   /// For instance, you may wish to abort a request if it takes too long to
   /// connect, but once it has connected, you may wish to allow the request
   /// to take as long as it needs to send and receive data.
-  RequestController({this.timeout, RequestLifecycleTimeouts? partialTimeouts})
+  RequestController({this.timeout, PartialTimeouts? partialTimeouts})
       : _lifecycleTimeouts = partialTimeouts;
 
   /// Tracks a request with this controller.

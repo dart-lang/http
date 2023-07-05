@@ -27,7 +27,7 @@ abstract mixin class BaseClient implements Client {
   @override
   Future<Response> get(Uri url,
           {Map<String, String>? headers, RequestController? controller}) =>
-      _sendUnstreamed('GET', url, headers);
+      _sendUnstreamed('GET', url, headers, controller: controller);
 
   @override
   Future<Response> post(Uri url,
