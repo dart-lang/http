@@ -121,7 +121,7 @@
 
 - (id) initWithSession:(NSURLSession *)session
          webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
-      didCloseWithCode:(NSURLSessionWebSocketCloseCode)closeCode
+                  code:(NSURLSessionWebSocketCloseCode)closeCode
                 reason:(NSData *)reason;
 
 @property (readonly) NSURLSessionWebSocketCloseCode closeCode;
