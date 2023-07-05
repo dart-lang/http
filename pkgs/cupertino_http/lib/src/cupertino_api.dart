@@ -32,6 +32,7 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:ffi/ffi.dart';
 
 import 'native_cupertino_bindings.dart' as ncb;
@@ -120,11 +121,73 @@ enum URLSessionWebSocketMessageType {
   urlSessionWebSocketMessageTypeString,
 }
 
+ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
+  const maxReadAheadSize = 4096;
+  final queue = StreamQueue(stream);
+  final port = ReceivePort();
+  final inputStream = ncb.CUPHTTPStreamToNSInputStreamAdapter.alloc(helperLibs)
+      .initWithPort_(port.sendPort.nativePort);
+
+  late StreamSubscription<dynamic> s;
+  // Messages from `CUPHTTPStreamToNSInputStreamAdapter` indicate that the task
+  // is attempting to read more data but there is none available.
+  s = port.listen((_) async {
+    if (inputStream.streamStatus == ncb.NSStreamStatus.NSStreamStatusClosed) {
+      return;
+    }
+
+    // Prevent multiple executions of this code to be in flight at once.
+    s.pause();
+    while (await queue.hasNext &&
+        inputStream.streamStatus != ncb.NSStreamStatus.NSStreamStatusClosed) {
+      late final List<int> next;
+      try {
+        next = await queue.next;
+      } catch (e) {
+        inputStream.setError_(Error.fromCustomDomain('DartError', 0,
+                localizedDescription: e.toString())
+            ._nsObject);
+        break;
+      }
+      // In practice the read length request will be large (>1MB) so,
+      // instead of adding that much data, try to keep the buffer
+      // at least `maxReadAheadSize`.
+      if (inputStream.addData_(Data.fromList(next)._nsObject) >
+          maxReadAheadSize) {
+        break;
+      }
+    }
+    if (!await queue.hasNext) {
+      inputStream.setDone();
+    } else {
+      s.resume();
+    }
+  });
+  return inputStream;
+}
+
 /// Information about a failure.
 ///
 /// See [NSError](https://developer.apple.com/documentation/foundation/nserror)
 class Error extends _ObjectHolder<ncb.NSError> implements Exception {
   Error._(super.c);
+
+  /// Create an Error from a custom domain.
+  factory Error.fromCustomDomain(String domain, int code,
+      {String? localizedDescription}) {
+    final d = ncb.NSMutableDictionary.alloc(linkedLibs).init();
+
+    if (localizedDescription != null) {
+      d.setObject_forKey_(
+        localizedDescription.toNSString(linkedLibs),
+        ncb.NSString.castFromPointer(
+            linkedLibs, linkedLibs.NSLocalizedDescriptionKey),
+      );
+    }
+    final e = ncb.NSError.alloc(linkedLibs).initWithDomain_code_userInfo_(
+        domain.toNSString(linkedLibs).pointer, code, d);
+    return Error._(e);
+  }
 
   /// The numeric code for the error e.g. -1003 (kCFURLErrorCannotFindHost).
   ///
@@ -135,8 +198,11 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
   /// See [NSError.code](https://developer.apple.com/documentation/foundation/nserror/1409165-code)
   int get code => _nsObject.code;
 
-  // TODO(https://github.com/dart-lang/ffigen/issues/386): expose
-  // `NSError.domain` when correct type aliases are available.
+  /// The error domain, for example `"NSPOSIXErrorDomain"`.
+  ///
+  /// See [NSError.domain](https://developer.apple.com/documentation/foundation/nserror/1413924-domain)
+  String get domain =>
+      ncb.NSString.castFromPointer(linkedLibs, _nsObject.domain).toString();
 
   /// A description of the error in the current locale e.g.
   /// 'A server with the specified hostname could not be found.'
@@ -159,6 +225,7 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
 
   @override
   String toString() => '[Error '
+      'domain=$domain '
       'code=$code '
       'localizedDescription=$localizedDescription '
       'localizedFailureReason=$localizedFailureReason '
@@ -362,7 +429,7 @@ class Data extends _ObjectHolder<ncb.NSData> {
       Data._(ncb.NSData.dataWithData_(linkedLibs, d._nsObject));
 
   /// A new [Data] object containing the given bytes.
-  factory Data.fromUint8List(Uint8List l) {
+  factory Data.fromList(List<int> l) {
     final buffer = calloc<Uint8>(l.length);
     try {
       buffer.asTypedList(l.length).setAll(0, l);
@@ -374,6 +441,10 @@ class Data extends _ObjectHolder<ncb.NSData> {
       calloc.free(buffer);
     }
   }
+
+  /// A new [Data] object containing the given bytes.
+  @Deprecated('Use Data.fromList instead')
+  factory Data.fromUint8List(Uint8List l) = Data.fromList;
 
   /// The number of bytes contained in the object.
   ///
@@ -421,7 +492,7 @@ class MutableData extends Data {
   /// Appends the given data.
   ///
   /// See [NSMutableData appendBytes:length:](https://developer.apple.com/documentation/foundation/nsmutabledata/1407704-appendbytes)
-  void appendBytes(Uint8List l) {
+  void appendBytes(List<int> l) {
     final f = calloc<Uint8>(l.length);
     try {
       f.asTypedList(l.length).setAll(0, l);
@@ -943,6 +1014,13 @@ class MutableURLRequest extends URLRequest {
 
   set httpBody(Data? data) {
     _mutableUrlRequest.HTTPBody = data?._nsObject;
+  }
+
+  /// Sets the body of the request to the given [Stream].
+  ///
+  /// See [NSMutableURLRequest.HTTPBodyStream](https://developer.apple.com/documentation/foundation/nsurlrequest/1407341-httpbodystream).
+  set httpBodyStream(Stream<List<int>> stream) {
+    _mutableUrlRequest.HTTPBodyStream = _streamToNSInputStream(stream);
   }
 
   set httpMethod(String method) {

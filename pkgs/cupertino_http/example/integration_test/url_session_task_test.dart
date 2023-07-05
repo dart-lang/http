@@ -5,7 +5,6 @@
 import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
-import 'package:flutter/foundation.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
@@ -63,8 +62,7 @@ void testWebSocketTask() {
       await task
           .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
       await task.receiveMessage();
-      task.cancelWithCloseCode(
-          4998, Data.fromUint8List(Uint8List.fromList('Bye'.codeUnits)));
+      task.cancelWithCloseCode(4998, Data.fromList('Bye'.codeUnits));
 
       // Allow the server to run and save the close code.
       while (lastCloseCode == null) {
@@ -96,8 +94,8 @@ void testWebSocketTask() {
       final task = session.webSocketTaskWithRequest(
           URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}')))
         ..resume();
-      await task.sendMessage(URLSessionWebSocketMessage.fromData(
-          Data.fromUint8List(Uint8List.fromList([1, 2, 3]))));
+      await task.sendMessage(
+          URLSessionWebSocketMessage.fromData(Data.fromList([1, 2, 3])));
       final receivedMessage = await task.receiveMessage();
       expect(receivedMessage.type,
           URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeData);
@@ -221,7 +219,7 @@ void testURLSessionTaskCommon(
           MutableURLRequest.fromUrl(
               Uri.parse('http://localhost:${server.port}/mypath'))
             ..httpMethod = 'POST'
-            ..httpBody = Data.fromUint8List(Uint8List.fromList([1, 2, 3])))
+            ..httpBody = Data.fromList([1, 2, 3]))
         ..prefersIncrementalDelivery = false
         ..priority = 0.2
         ..taskDescription = 'my task description'

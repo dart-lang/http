@@ -10,11 +10,11 @@ environment:
   flutter: '>=3.10.0'  # If changed, update test matrix.
 
 dependencies:
+  async: ^2.5.0
   ffi: ^2.0.1
   flutter:
     sdk: flutter
   http: '>=0.13.4 <2.0.0'
-  meta: ^1.7.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^1.0.0
