@@ -23,6 +23,7 @@ headers:
     - 'src/CUPHTTPClientDelegate.h'
     - 'src/CUPHTTPForwardedDelegate.h'
     - 'src/CUPHTTPCompletionHelper.h'
+    - 'src/CUPHTTPStreamToNSInputStreamAdapter.h'
 preamble: |
   // ignore_for_file: always_specify_types
   // ignore_for_file: camel_case_types

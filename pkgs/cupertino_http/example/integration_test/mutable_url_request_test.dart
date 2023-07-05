@@ -47,13 +47,13 @@ void main() {
 
     test('empty', () => expect(request.httpBody, null));
     test('set', () {
-      request.httpBody = Data.fromUint8List(Uint8List.fromList([1, 2, 3]));
+      request.httpBody = Data.fromList([1, 2, 3]);
       expect(request.httpBody!.bytes, Uint8List.fromList([1, 2, 3]));
       request.toString(); // Just verify that there is no crash.
     });
     test('set to null', () {
       request
-        ..httpBody = Data.fromUint8List(Uint8List.fromList([1, 2, 3]))
+        ..httpBody = Data.fromList([1, 2, 3])
         ..httpBody = null;
       expect(request.httpBody, null);
     });

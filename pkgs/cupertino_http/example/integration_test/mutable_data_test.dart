@@ -21,16 +21,15 @@ void main() {
 
   group('appendBytes', () {
     test('append no bytes', () {
-      final data = MutableData.empty()..appendBytes(Uint8List(0));
+      final data = MutableData.empty()..appendBytes(<int>[]);
       expect(data.bytes, Uint8List(0));
       data.toString(); // Just verify that there is no crash.
     });
 
     test('append some bytes', () {
-      final data = MutableData.empty()
-        ..appendBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
+      final data = MutableData.empty()..appendBytes([1, 2, 3, 4, 5]);
       expect(data.bytes, Uint8List.fromList([1, 2, 3, 4, 5]));
-      data.appendBytes(Uint8List.fromList([6, 7, 8, 9, 10]));
+      data.appendBytes([6, 7, 8, 9, 10]);
       expect(data.bytes, Uint8List.fromList([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
       data.toString(); // Just verify that there is no crash.
     });

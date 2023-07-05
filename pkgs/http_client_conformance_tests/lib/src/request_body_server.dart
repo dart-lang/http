@@ -33,9 +33,18 @@ void hybridMain(StreamChannel<Object?> channel) async {
           ..set('Access-Control-Allow-Headers', 'Content-Type');
       } else {
         channel.sink.add(request.headers[HttpHeaders.contentTypeHeader]);
-        final serverReceivedBody =
-            await const Utf8Decoder().bind(request).fold('', (p, e) => '$p$e');
-        channel.sink.add(serverReceivedBody);
+        try {
+          final serverReceivedBody = await const Utf8Decoder()
+              .bind(request)
+              .fold('', (p, e) => '$p$e');
+          channel.sink.add(serverReceivedBody);
+        } on HttpException catch (e) {
+          // The server may through if the client disconnections.
+          // This can happen if there is an error in the request
+          // stream.
+          print('Request Body Server Exception: $e');
+          return;
+        }
       }
       unawaited(request.response.close());
     });
