@@ -20,6 +20,8 @@ class JavaClient extends BaseClient {
 
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
+    // TODO: Move the call to _initJVM() to the JavaClient constructor.
+    // See https://github.com/dart-lang/http/pull/980#discussion_r1253700470.
     _initJVM();
 
     final javaUrl = URL.ctor3(request.url.toString().toJString());
