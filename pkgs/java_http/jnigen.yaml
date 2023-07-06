@@ -1,3 +1,5 @@
+# Regenerate bindings with `dart run jnigen --config jnigen.yaml`.
+
 summarizer:
   backend: asm
 
