@@ -7,7 +7,7 @@ output:
     path: 'lib/src/third_party/'
 
 class_path:
-  - 'classes.jar' 
-   
+  - 'classes.jar'
+
 classes:
   - 'java.net.URL'
