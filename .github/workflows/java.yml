@@ -46,9 +46,9 @@ jobs:
         run: dart analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
 
-  build:
+  test:
     needs: analyze
-    name: Build
+    name: Build and test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -62,20 +62,6 @@ jobs:
 
       - name: Build jni dynamic libraries
         run: dart run jni:setup
-
-  test:
-    needs: build
-    name: Test
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pkgs/java_http
-
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
 
       - name: Run tests
         run: dart test
