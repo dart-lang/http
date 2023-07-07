@@ -11,6 +11,10 @@ import 'package:path/path.dart';
 
 import 'third_party/java/net/URL.dart';
 
+// TODO: Add a description of the implementation.
+// Look at the description of cronet_client.dart and cupertino_client.dart for
+// examples.
+// See https://github.com/dart-lang/http/pull/980#discussion_r1253697461.
 class JavaClient extends BaseClient {
   void _initJVM() {
     if (!Platform.isAndroid) {
