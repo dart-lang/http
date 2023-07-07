@@ -1,0 +1,15 @@
+# Regenerate bindings with `dart run jnigen --config jnigen.yaml`.
+
+summarizer:
+  backend: asm
+
+output:
+  bindings_type: dart_only
+  dart:
+    path: 'lib/src/third_party/'
+
+class_path:
+  - 'classes.jar'
+
+classes:
+  - 'java.net.URL'
