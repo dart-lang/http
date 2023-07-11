@@ -6,6 +6,8 @@
   incrementally.
 * Deprecate `Data.fromUint8List` in favor of `Data.fromList`, which accepts
   any `List<int>`.
+* Disable additional analyses for generated Objective-C bindings to prevent
+  errors from `dart analyze`.
 
 ## 1.0.1
 

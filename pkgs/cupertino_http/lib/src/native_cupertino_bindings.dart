@@ -1,6 +1,9 @@
 // ignore_for_file: always_specify_types
 // ignore_for_file: camel_case_types
 // ignore_for_file: non_constant_identifier_names
+// ignore_for_file: unused_element
+// ignore_for_file: unused_field
+// ignore_for_file: return_of_invalid_type
 
 // AUTO GENERATED FILE, DO NOT EDIT.
 //
