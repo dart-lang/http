@@ -39,11 +39,11 @@ class JavaClient extends BaseClient {
           .openConnection()
           .castTo(HttpURLConnection.type, deleteOriginal: true);
 
-      try {
-        httpUrlConnection.connect();
-      } on Exception catch (e) {
-        print(e);
-      }
+      // try {
+      //   httpUrlConnection.connect();
+      // } on Exception catch (e) {
+      //   print(e);
+      // }
 
       request.headers.forEach((headerName, headerValue) {
         httpUrlConnection.setRequestProperty(
