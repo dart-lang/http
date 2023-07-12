@@ -50,6 +50,7 @@ jobs:
     needs: analyze
     name: Build and test
     runs-on: ubuntu-latest
+    container: ubuntu
     defaults:
       run:
         working-directory: pkgs/java_http
