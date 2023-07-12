@@ -39,6 +39,8 @@ class JavaClient extends BaseClient {
           .openConnection()
           .castTo(HttpURLConnection.type, deleteOriginal: true);
 
+      httpUrlConnection.connect();
+
       request.headers.forEach((headerName, headerValue) {
         httpUrlConnection.setRequestProperty(
             headerName.toJString(), headerValue.toJString());
