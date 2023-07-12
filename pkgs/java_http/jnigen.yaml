@@ -12,4 +12,7 @@ class_path:
   - 'classes.jar'
 
 classes:
+  - 'java.io.InputStream'
+  - 'java.net.HttpURLConnection'
   - 'java.net.URL'
+  - 'java.net.URLConnection'
