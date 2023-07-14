@@ -10,6 +10,7 @@ import 'package:http/http.dart';
 import 'package:jni/jni.dart';
 import 'package:path/path.dart';
 
+import 'third_party/java/lang/System.dart';
 import 'third_party/java/net/HttpURLConnection.dart';
 import 'third_party/java/net/URL.dart';
 
@@ -22,6 +23,8 @@ class JavaClient extends BaseClient {
     if (!Platform.isAndroid) {
       Jni.spawnIfNotExists(dylibDir: join('build', 'jni_libs'));
     }
+    System.setProperty(
+        'java.net.preferIPv6Addresses'.toJString(), 'true'.toJString());
   }
 
   @override
