@@ -40,7 +40,7 @@ abstract interface class Client {
   /// If this is `true`, [send] will use the supplied [RequestController] and
   /// will allow cancelling the request and specifying a timeout. Otherwise,
   /// a specified [RequestController] will be ignored.
-  bool get supportsController;
+  bool get supportsController => false;
 
   /// Creates a new platform appropriate client.
   ///
