@@ -23,6 +23,10 @@ class JavaClient extends BaseClient {
     if (!Platform.isAndroid) {
       Jni.spawnIfNotExists(dylibDir: join('build', 'jni_libs'));
     }
+
+    // TODO: Determine if we can remove this.
+    // It's a workaround to fix the tests not passing on GitHub CI.
+    // See https://github.com/dart-lang/http/pull/987#issuecomment-1636170371.
     System.setProperty(
         'java.net.preferIPv6Addresses'.toJString(), 'true'.toJString());
   }
