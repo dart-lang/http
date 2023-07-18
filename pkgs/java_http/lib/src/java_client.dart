@@ -65,9 +65,8 @@ class JavaClient extends BaseClient {
     });
 
     final contentLengthHeader = responseHeaders['content-length'];
-    final contentLength = (contentLengthHeader == null)
-        ? null
-        : int.tryParse(contentLengthHeader);
+    final contentLength =
+        (contentLengthHeader == null) ? null : int.parse(contentLengthHeader);
 
     return StreamedResponse(Stream.value(responseBody), statusCode,
         contentLength: contentLength,
