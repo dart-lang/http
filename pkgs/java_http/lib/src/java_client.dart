@@ -68,12 +68,8 @@ class JavaClient extends BaseClient {
       );
     });
 
-    final contentLengthHeader = responseHeaders['content-length'];
-    final contentLength =
-        (contentLengthHeader == null) ? null : int.parse(contentLengthHeader);
-
     return StreamedResponse(Stream.value(responseBody), statusCode,
-        contentLength: contentLength,
+        contentLength: _contentLengthHeader(request, responseHeaders),
         request: request,
         headers: responseHeaders,
         reasonPhrase: reasonPhrase);
@@ -122,6 +118,25 @@ class JavaClient extends BaseClient {
 
     return headers
         .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
+  }
+
+  int? _contentLengthHeader(BaseRequest request, Map<String, String> headers) {
+    final contentLengthHeader = headers['content-length'];
+
+    // Return null if the content length header is not set.
+    if (contentLengthHeader == null) return null;
+
+    // Throw ClientException if the content length header is not an integer.
+    final contentLength = int.tryParse(contentLengthHeader);
+    if (contentLength == null) {
+      throw ClientException(
+        'Invalid content-length header: $contentLengthHeader. '
+        'Content-length must be a non-negative integer.',
+        request.url,
+      );
+    }
+
+    return contentLength;
   }
 
   Uint8List _responseBody(HttpURLConnection httpUrlConnection) {
