@@ -102,14 +102,14 @@ void testResponseHeaders(Client client) async {
     group('content length', () {
       test('surrounded in spaces', () async {
         // RFC-2616 4.2 says:
-        // "The field value MAY be preceded by any amount of LWS, though a single
-        // SP is preferred." and
+        // "The field value MAY be preceded by any amount of LWS, though a
+        // single SP is preferred." and
         // "The field-content does not include any leading or trailing LWS ..."
         httpServerChannel.sink.add('content-length: \t 0 \t \r\n');
         final response = await client.get(Uri.http(host, ''));
         expect(response.contentLength, 0);
       },
-          skip: 'Enable after https://github.com/dart-lang/sdk/issues/51532'
+          skip: 'Enable after https://github.com/dart-lang/sdk/issues/51532 '
               'is fixed');
 
       test('non-integer', () async {
