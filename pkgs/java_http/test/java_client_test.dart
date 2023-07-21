@@ -9,5 +9,8 @@ import 'package:test/test.dart';
 void main() {
   group('java_http client conformance tests', () {
     testResponseBody(JavaClient(), canStreamResponseBody: false);
+    testResponseHeaders(JavaClient());
+    testRequestHeaders(JavaClient());
+    testMultipleClients(JavaClient.new);
   });
 }

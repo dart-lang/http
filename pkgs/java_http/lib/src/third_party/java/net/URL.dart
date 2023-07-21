@@ -19,6 +19,10 @@ import "dart:ffi" as ffi;
 import "package:jni/internal_helpers_for_jnigen.dart";
 import "package:jni/jni.dart" as jni;
 
+import "URLConnection.dart" as urlconnection_;
+
+import "../io/InputStream.dart" as inputstream_;
+
 /// from: java.net.URL
 class URL extends jni.JObject {
   @override
@@ -299,9 +303,10 @@ class URL extends jni.JObject {
 
   /// from: public java.net.URLConnection openConnection()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject openConnection() {
-    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_openConnection, jni.JniCallType.objectType, []).object);
+  urlconnection_.URLConnection openConnection() {
+    return const urlconnection_.$URLConnectionType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_openConnection,
+            jni.JniCallType.objectType, []).object);
   }
 
   static final _id_openConnection1 = jni.Jni.accessors.getMethodIDOf(
@@ -311,14 +316,12 @@ class URL extends jni.JObject {
 
   /// from: public java.net.URLConnection openConnection(java.net.Proxy proxy)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject openConnection1(
+  urlconnection_.URLConnection openConnection1(
     jni.JObject proxy,
   ) {
-    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_openConnection1,
-        jni.JniCallType.objectType,
-        [proxy.reference]).object);
+    return const urlconnection_.$URLConnectionType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_openConnection1,
+            jni.JniCallType.objectType, [proxy.reference]).object);
   }
 
   static final _id_openStream = jni.Jni.accessors.getMethodIDOf(
@@ -326,9 +329,10 @@ class URL extends jni.JObject {
 
   /// from: public final java.io.InputStream openStream()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject openStream() {
-    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_openStream, jni.JniCallType.objectType, []).object);
+  inputstream_.InputStream openStream() {
+    return const inputstream_.$InputStreamType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(
+            reference, _id_openStream, jni.JniCallType.objectType, []).object);
   }
 
   static final _id_getContent = jni.Jni.accessors
