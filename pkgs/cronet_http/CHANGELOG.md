@@ -1,6 +1,7 @@
 ## 0.2.2
 
 * Require Dart 3.0
+* Throw `ClientException` when the `'Content-Length'` header is invalid.
 
 ## 0.2.1
 

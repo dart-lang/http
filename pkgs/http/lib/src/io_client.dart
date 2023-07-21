@@ -98,7 +98,10 @@ class IOClient extends BaseClient {
 
       var headers = <String, String>{};
       response.headers.forEach((key, values) {
-        headers[key] = values.join(',');
+        // TODO: Remove trimRight() when
+        // https://github.com/dart-lang/sdk/issues/53005 is resolved and the
+        // package:http SDK constraint requires that version or later.
+        headers[key] = values.map((value) => value.trimRight()).join(',');
       });
 
       return IOStreamedResponse(

@@ -24,14 +24,23 @@ void testResponseHeaders(Client client) async {
     });
 
     test('single header', () async {
-      httpServerChannel.sink.add({'foo': 'bar'});
+      httpServerChannel.sink.add('foo: bar\r\n');
 
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['foo'], 'bar');
     });
 
-    test('UPPERCASE header', () async {
-      httpServerChannel.sink.add({'foo': 'BAR'});
+    test('UPPERCASE header value', () async {
+      httpServerChannel.sink.add('foo: BAR\r\n');
+
+      final response = await client.get(Uri.http(host, ''));
+      // RFC 2616 14.44 states that header field names are case-insensitive.
+      // http.Client canonicalizes field names into lower case.
+      expect(response.headers['foo'], 'BAR');
+    });
+
+    test('space surrounding header value', () async {
+      httpServerChannel.sink.add('foo: \t BAR \t \r\n');
 
       final response = await client.get(Uri.http(host, ''));
       // RFC 2616 14.44 states that header field names are case-insensitive.
@@ -41,7 +50,7 @@ void testResponseHeaders(Client client) async {
 
     test('multiple headers', () async {
       httpServerChannel.sink
-          .add({'field1': 'value1', 'field2': 'value2', 'field3': 'value3'});
+          .add('field1: value1\r\n' 'field2: value2\r\n' 'field3: value3\r\n');
 
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['field1'], 'value1');
@@ -50,10 +59,76 @@ void testResponseHeaders(Client client) async {
     });
 
     test('multiple values per header', () async {
-      httpServerChannel.sink.add({'list': 'apple, orange, banana'});
+      // RFC-2616 4.2 says:
+      // "The field value MAY be preceded by any amount of LWS, though a single
+      // SP is preferred." and
+      // "The field-content does not include any leading or trailing LWS ..."
+      httpServerChannel.sink.add('list: apple, orange, banana\r\n');
 
       final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['list'], 'apple, orange, banana');
+      expect(response.headers['list'],
+          matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+    });
+
+    test('multiple values per header surrounded with spaces', () async {
+      httpServerChannel.sink
+          .add('list: \t apple \t, \t orange \t , \t banana\t \t \r\n');
+
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.headers['list'],
+          matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+    });
+
+    test('multiple headers with the same name', () async {
+      httpServerChannel.sink.add('list: apple\r\n'
+          'list: orange\r\n'
+          'list: banana\r\n');
+
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.headers['list'],
+          matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+    });
+
+    test('multiple headers with the same name but different cases', () async {
+      httpServerChannel.sink.add('list: apple\r\n'
+          'LIST: orange\r\n'
+          'List: banana\r\n');
+
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.headers['list'],
+          matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+    });
+
+    group('content length', () {
+      test('surrounded in spaces', () async {
+        // RFC-2616 4.2 says:
+        // "The field value MAY be preceded by any amount of LWS, though a
+        // single SP is preferred." and
+        // "The field-content does not include any leading or trailing LWS ..."
+        httpServerChannel.sink.add('content-length: \t 0 \t \r\n');
+        final response = await client.get(Uri.http(host, ''));
+        expect(response.contentLength, 0);
+      },
+          skip: 'Enable after https://github.com/dart-lang/sdk/issues/51532 '
+              'is fixed');
+
+      test('non-integer', () async {
+        httpServerChannel.sink.add('content-length: cat\r\n');
+        await expectLater(
+            client.get(Uri.http(host, '')), throwsA(isA<ClientException>()));
+      });
+
+      test('negative', () async {
+        httpServerChannel.sink.add('content-length: -5\r\n');
+        await expectLater(
+            client.get(Uri.http(host, '')), throwsA(isA<ClientException>()));
+      });
+
+      test('bigger than actual body', () async {
+        httpServerChannel.sink.add('content-length: 100\r\n');
+        await expectLater(
+            client.get(Uri.http(host, '')), throwsA(isA<ClientException>()));
+      });
     });
   });
 }
