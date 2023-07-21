@@ -269,14 +269,15 @@ class CronetClient extends BaseClient {
     final contentLengthHeader = responseHeaders['content-length'];
     int? contentLength;
     if (contentLengthHeader != null) {
-      contentLength = int.tryParse(contentLengthHeader);
-      if (contentLength == null || contentLength < 0) {
+      if (!RegExp(r'^\d+$').hasMatch(contentLengthHeader)) {
         throw ClientException(
           'Invalid content-length header [$contentLengthHeader].',
           request.url,
         );
       }
+      contentLength = int.parse(contentLengthHeader);
     }
+
     return StreamedResponse(responseDataController.stream, result.statusCode,
         contentLength: contentLength,
         reasonPhrase: result.statusText,

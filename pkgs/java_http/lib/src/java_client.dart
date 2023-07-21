@@ -122,19 +122,18 @@ class JavaClient extends BaseClient {
   int? _contentLengthHeader(BaseRequest request, Map<String, String> headers) {
     final contentLengthHeader = headers['content-length'];
 
-    // Return null if the content length header is not set.
-    if (contentLengthHeader == null) return null;
+    if (contentLengthHeader == null) {
+      return null;
+    }
 
-    // Throw ClientException if the content length header is not an integer.
-    final contentLength = int.tryParse(contentLengthHeader);
-    if (contentLength == null) {
+    if (!RegExp(r'^\d+$').hasMatch(contentLengthHeader)) {
       throw ClientException(
         'Invalid content-length header [$contentLengthHeader}].',
         request.url,
       );
     }
 
-    return contentLength;
+    return int.parse(contentLengthHeader);
   }
 
   Uint8List _responseBody(HttpURLConnection httpUrlConnection) {
