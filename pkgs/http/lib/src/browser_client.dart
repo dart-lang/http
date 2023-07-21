@@ -65,8 +65,7 @@ class BrowserClient extends BaseClient {
 
     unawaited(xhr.onLoad.first.then((_) {
       final contentLengthHeader = xhr.responseHeaders['content-length'];
-      if (contentLengthHeader != null &&
-          !RegExp(r'^\d+$').hasMatch(contentLengthHeader)) {
+      if (!RegExp(r'^\d+$').hasMatch(contentLengthHeader ?? '0')) {
         completer.completeError(ClientException(
           'Invalid content-length header [$contentLengthHeader].',
           request.url,
