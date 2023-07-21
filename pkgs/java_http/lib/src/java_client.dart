@@ -130,8 +130,7 @@ class JavaClient extends BaseClient {
     final contentLength = int.tryParse(contentLengthHeader);
     if (contentLength == null) {
       throw ClientException(
-        'Invalid content-length header: $contentLengthHeader. '
-        'Content-length must be a non-negative integer.',
+        'Invalid content-length header [$contentLengthHeader}].',
         request.url,
       );
     }

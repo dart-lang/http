@@ -64,6 +64,16 @@ class BrowserClient extends BaseClient {
     var completer = Completer<StreamedResponse>();
 
     unawaited(xhr.onLoad.first.then((_) {
+      if (xhr.responseHeaders.containsKey('content-length') &&
+          !RegExp(r'^\s*\d+\s*$')
+              .hasMatch(xhr.responseHeaders['content-length']!)) {
+        completer.completeError(ClientException(
+          'Invalid content-length header '
+          '[${xhr.responseHeaders['content-length']}].',
+          request.url,
+        ));
+        return;
+      }
       var body = (xhr.response as ByteBuffer).asUint8List();
       completer.complete(StreamedResponse(
           ByteStream.fromBytes(body), xhr.status!,
