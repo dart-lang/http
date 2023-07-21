@@ -69,7 +69,8 @@ class JavaClient extends BaseClient {
     });
 
     return StreamedResponse(Stream.value(responseBody), statusCode,
-        contentLength: _contentLengthHeader(request, responseHeaders),
+        contentLength:
+            _contentLengthHeader(request, responseHeaders, responseBody.length),
         request: request,
         headers: responseHeaders,
         reasonPhrase: reasonPhrase);
@@ -119,7 +120,8 @@ class JavaClient extends BaseClient {
     return headers.map((key, value) => MapEntry(key, value.join(',')));
   }
 
-  int? _contentLengthHeader(BaseRequest request, Map<String, String> headers) {
+  int? _contentLengthHeader(
+      BaseRequest request, Map<String, String> headers, int bodyLength) {
     final contentLengthHeader = headers['content-length'];
 
     if (contentLengthHeader == null) {
@@ -128,12 +130,16 @@ class JavaClient extends BaseClient {
 
     if (!RegExp(r'^\d+$').hasMatch(contentLengthHeader)) {
       throw ClientException(
-        'Invalid content-length header [$contentLengthHeader}].',
-        request.url,
-      );
+          'Invalid content-length header [$contentLengthHeader}].',
+          request.url);
     }
 
-    return int.parse(contentLengthHeader);
+    final contentLength = int.parse(contentLengthHeader);
+    if (bodyLength > contentLength) {
+      throw ClientException('Unexpected end of body', request.url);
+    }
+
+    return contentLength;
   }
 
   Uint8List _responseBody(HttpURLConnection httpUrlConnection) {
