@@ -112,12 +112,11 @@ class JavaClient extends BaseClient {
       if (headerName.isNull) continue;
 
       headers
-          .putIfAbsent(headerName.toDartString(), () => [])
+          .putIfAbsent(headerName.toDartString().toLowerCase(), () => [])
           .add(headerValue.toDartString());
     }
 
-    return headers
-        .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
+    return headers.map((key, value) => MapEntry(key, value.join(',')));
   }
 
   int? _contentLengthHeader(BaseRequest request, Map<String, String> headers) {
