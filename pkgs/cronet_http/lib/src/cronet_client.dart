@@ -266,9 +266,8 @@ class CronetClient extends BaseClient {
         .cast<String, List<Object?>>()
         .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
 
-    final contentLengthHeader = responseHeaders['content-length'];
     int? contentLength;
-    if (contentLengthHeader != null) {
+    if (responseHeaders['content-length'] case final contentLengthHeader?) {
       if (!RegExp(r'^\d+$').hasMatch(contentLengthHeader)) {
         throw ClientException(
           'Invalid content-length header [$contentLengthHeader].',
