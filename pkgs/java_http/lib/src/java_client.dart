@@ -135,7 +135,7 @@ class JavaClient extends BaseClient {
     }
 
     final contentLength = int.parse(contentLengthHeader);
-    if (bodyLength > contentLength) {
+    if (bodyLength < contentLength) {
       throw ClientException('Unexpected end of body', request.url);
     }
 
