@@ -14,6 +14,8 @@ import 'third_party/java/lang/System.dart';
 import 'third_party/java/net/HttpURLConnection.dart';
 import 'third_party/java/net/URL.dart';
 
+final _digitRegex = RegExp(r'^\d+$');
+
 // TODO: Add a description of the implementation.
 // Look at the description of cronet_client.dart and cupertino_client.dart for
 // examples.
@@ -122,21 +124,19 @@ class JavaClient extends BaseClient {
 
   int? _contentLengthHeader(
       BaseRequest request, Map<String, String> headers, int bodyLength) {
-    final contentLengthHeader = headers['content-length'];
-
-    if (contentLengthHeader == null) {
-      return null;
-    }
-
-    if (!RegExp(r'^\d+$').hasMatch(contentLengthHeader)) {
-      throw ClientException(
-          'Invalid content-length header [$contentLengthHeader}].',
-          request.url);
-    }
-
-    final contentLength = int.parse(contentLengthHeader);
-    if (bodyLength < contentLength) {
-      throw ClientException('Unexpected end of body', request.url);
+    int? contentLength;
+    switch (headers['content-length']) {
+      case final contentLengthHeader?
+          when !_digitRegex.hasMatch(contentLengthHeader):
+        throw ClientException(
+          'Invalid content-length header [$contentLengthHeader].',
+          request.url,
+        );
+      case final contentLengthHeader?:
+        contentLength = int.parse(contentLengthHeader);
+        if (bodyLength < contentLength) {
+          throw ClientException('Unexpected end of body', request.url);
+        }
     }
 
     return contentLength;

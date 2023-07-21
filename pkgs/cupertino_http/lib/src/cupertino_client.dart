@@ -15,6 +15,8 @@ import 'package:http/http.dart';
 
 import 'cupertino_api.dart';
 
+final _digitRegex = RegExp(r'^\d+$');
+
 class _TaskTracker {
   final responseCompleter = Completer<URLResponse>();
   final BaseRequest request;
@@ -279,11 +281,13 @@ class CupertinoClient extends BaseClient {
       throw ClientException('Redirect limit exceeded', request.url);
     }
 
-    final headers = response.allHeaderFields
+    final responseHeaders = response.allHeaderFields
         .map((key, value) => MapEntry(key.toLowerCase(), value));
-    if (!RegExp(r'^\d+$').hasMatch(headers['content-length'] ?? '0')) {
+
+    if (responseHeaders['content-length'] case final contentLengthHeader?
+        when !_digitRegex.hasMatch(contentLengthHeader)) {
       throw ClientException(
-        'Invalid content-length header [${headers['content-length']}].',
+        'Invalid content-length header [$contentLengthHeader].',
         request.url,
       );
     }
@@ -297,7 +301,7 @@ class CupertinoClient extends BaseClient {
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
       isRedirect: !request.followRedirects && taskTracker.numRedirects > 0,
-      headers: headers,
+      headers: responseHeaders,
     );
   }
 }
