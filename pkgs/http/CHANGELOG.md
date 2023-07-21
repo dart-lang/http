@@ -1,4 +1,5 @@
 ## 1.1.1
+
 * `BrowserClient` throws `ClientException` when the `'Content-Length'` header
   is invalid.
 * `IOClient` trims trailing whitespace on header values.
