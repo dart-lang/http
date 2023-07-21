@@ -14,6 +14,8 @@ import 'third_party/java/lang/System.dart';
 import 'third_party/java/net/HttpURLConnection.dart';
 import 'third_party/java/net/URL.dart';
 
+final _digitRegex = RegExp(r'^\d+$');
+
 // TODO: Add a description of the implementation.
 // Look at the description of cronet_client.dart and cupertino_client.dart for
 // examples.
@@ -69,7 +71,8 @@ class JavaClient extends BaseClient {
     });
 
     return StreamedResponse(Stream.value(responseBody), statusCode,
-        contentLength: _contentLengthHeader(request, responseHeaders),
+        contentLength:
+            _contentLengthHeader(request, responseHeaders, responseBody.length),
         request: request,
         headers: responseHeaders,
         reasonPhrase: reasonPhrase);
@@ -112,28 +115,28 @@ class JavaClient extends BaseClient {
       if (headerName.isNull) continue;
 
       headers
-          .putIfAbsent(headerName.toDartString(), () => [])
+          .putIfAbsent(headerName.toDartString().toLowerCase(), () => [])
           .add(headerValue.toDartString());
     }
 
-    return headers
-        .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
+    return headers.map((key, value) => MapEntry(key, value.join(',')));
   }
 
-  int? _contentLengthHeader(BaseRequest request, Map<String, String> headers) {
-    final contentLengthHeader = headers['content-length'];
-
-    // Return null if the content length header is not set.
-    if (contentLengthHeader == null) return null;
-
-    // Throw ClientException if the content length header is not an integer.
-    final contentLength = int.tryParse(contentLengthHeader);
-    if (contentLength == null) {
-      throw ClientException(
-        'Invalid content-length header: $contentLengthHeader. '
-        'Content-length must be a non-negative integer.',
-        request.url,
-      );
+  int? _contentLengthHeader(
+      BaseRequest request, Map<String, String> headers, int bodyLength) {
+    int? contentLength;
+    switch (headers['content-length']) {
+      case final contentLengthHeader?
+          when !_digitRegex.hasMatch(contentLengthHeader):
+        throw ClientException(
+          'Invalid content-length header [$contentLengthHeader].',
+          request.url,
+        );
+      case final contentLengthHeader?:
+        contentLength = int.parse(contentLengthHeader);
+        if (bodyLength < contentLength) {
+          throw ClientException('Unexpected end of body', request.url);
+        }
     }
 
     return contentLength;

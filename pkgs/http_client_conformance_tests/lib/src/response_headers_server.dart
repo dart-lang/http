@@ -22,14 +22,21 @@ void hybridMain(StreamChannel<Object?> channel) async {
 
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
-      request.response.headers.set('Access-Control-Allow-Origin', '*');
-      request.response.headers.set('Access-Control-Expose-Headers', '*');
+      await request.drain<void>();
+      final socket = await request.response.detachSocket(writeHeaders: false);
 
-      (await clientQueue.next as Map).forEach((key, value) => request
-          .response.headers
-          .set(key as String, value as String, preserveHeaderCase: true));
-
-      await request.response.close();
+      final headers = (await clientQueue.next) as String;
+      socket
+        ..writeAll([
+          'HTTP/1.1 200 OK',
+          'Access-Control-Allow-Origin: *',
+          'Access-Control-Expose-Headers: *',
+          'Content-Type: text/plain',
+          '', // Add \r\n at the end of this header section.
+        ], '\r\n')
+        ..write(headers)
+        ..write('Connection: Closed\r\n\r\n');
+      await socket.close();
       unawaited(server.close());
     });
 

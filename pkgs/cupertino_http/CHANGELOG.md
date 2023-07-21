@@ -8,6 +8,7 @@
   any `List<int>`.
 * Disable additional analyses for generated Objective-C bindings to prevent
   errors from `dart analyze`.
+* Throw `ClientException` when the `'Content-Length'` header is invalid.
 
 ## 1.0.1
 

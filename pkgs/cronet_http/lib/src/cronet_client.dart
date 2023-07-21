@@ -21,6 +21,7 @@ import 'package:http/http.dart';
 import 'messages.dart' as messages;
 
 final _api = messages.HttpApi();
+final _digitRegex = RegExp(r'^\d+$');
 
 final Finalizer<String> _cronetEngineFinalizer = Finalizer(_api.freeEngine);
 
@@ -266,11 +267,20 @@ class CronetClient extends BaseClient {
         .cast<String, List<Object?>>()
         .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
 
-    final contentLengthHeader = responseHeaders['content-length'];
+    int? contentLength;
+    switch (responseHeaders['content-length']) {
+      case final contentLengthHeader?
+          when !_digitRegex.hasMatch(contentLengthHeader):
+        throw ClientException(
+          'Invalid content-length header [$contentLengthHeader].',
+          request.url,
+        );
+      case final contentLengthHeader?:
+        contentLength = int.parse(contentLengthHeader);
+    }
+
     return StreamedResponse(responseDataController.stream, result.statusCode,
-        contentLength: contentLengthHeader == null
-            ? null
-            : int.tryParse(contentLengthHeader),
+        contentLength: contentLength,
         reasonPhrase: result.statusText,
         request: request,
         isRedirect: result.isRedirect,
