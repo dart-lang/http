@@ -40,8 +40,8 @@ class JavaClient extends BaseClient {
     _initJVM();
 
     final (statusCode, reasonPhrase, responseHeaders, responseBody) =
-        await Isolate.run(() {
-      request.finalize();
+        await Isolate.run(() async {
+      final requestBody = await request.finalize().toBytes();
 
       final httpUrlConnection = URL
           .ctor3(request.url.toString().toJString())
