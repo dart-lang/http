@@ -10,6 +10,7 @@ void main() {
   group('java_http client conformance tests', () {
     testResponseBody(JavaClient(), canStreamResponseBody: false);
     testResponseHeaders(JavaClient());
+    testRequestBody(JavaClient());
     testRequestHeaders(JavaClient());
     testMultipleClients(JavaClient.new);
   });
