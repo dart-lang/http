@@ -54,6 +54,7 @@ class JavaClient extends BaseClient {
       });
 
       httpUrlConnection.setRequestMethod(request.method.toJString());
+      _setRequestBody(httpUrlConnection, requestBody);
 
       final statusCode = _statusCode(request, httpUrlConnection);
       final reasonPhrase = _reasonPhrase(httpUrlConnection);
@@ -76,6 +77,22 @@ class JavaClient extends BaseClient {
         request: request,
         headers: responseHeaders,
         reasonPhrase: reasonPhrase);
+  }
+
+  void _setRequestBody(
+    HttpURLConnection httpUrlConnection,
+    Uint8List requestBody,
+  ) {
+    if (requestBody.isEmpty) return;
+
+    httpUrlConnection.setDoOutput(true);
+
+    final outputStream = httpUrlConnection.getOutputStream();
+    requestBody.forEach(outputStream.write);
+
+    outputStream
+      ..flush()
+      ..close();
   }
 
   int _statusCode(BaseRequest request, HttpURLConnection httpUrlConnection) {
