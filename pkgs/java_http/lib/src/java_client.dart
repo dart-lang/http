@@ -91,10 +91,12 @@ class JavaClient extends BaseClient {
     if (requestBody.isEmpty) return;
 
     httpUrlConnection.setDoOutput(true);
-    final outputStream = httpUrlConnection.getOutputStream();
-    requestBody.forEach(outputStream.write);
 
-    outputStream
+    final bodyArray = JArray(jbyte.type, requestBody.length)
+      ..setRange(0, requestBody.length, requestBody);
+
+    httpUrlConnection.getOutputStream()
+      ..write1(bodyArray)
       ..flush()
       ..close();
   }
