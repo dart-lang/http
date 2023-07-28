@@ -92,11 +92,8 @@ class JavaClient extends BaseClient {
 
     httpUrlConnection.setDoOutput(true);
 
-    final bodyArray = JArray(jbyte.type, requestBody.length)
-      ..setRange(0, requestBody.length, requestBody);
-
     httpUrlConnection.getOutputStream()
-      ..write1(bodyArray)
+      ..write1(requestBody.toJArray())
       ..flush()
       ..close();
   }
@@ -182,4 +179,9 @@ class JavaClient extends BaseClient {
 
     return Uint8List.fromList(bytes);
   }
+}
+
+extension on Uint8List {
+  JArray<jbyte> toJArray() =>
+      JArray(jbyte.type, length)..setRange(0, length, this);
 }
