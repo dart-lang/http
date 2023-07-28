@@ -10,8 +10,6 @@ import 'package:http/http.dart';
 import 'package:jni/jni.dart';
 import 'package:path/path.dart';
 
-import 'extensions/uint8_list.dart';
-
 import 'third_party/java/lang/System.dart';
 import 'third_party/java/net/HttpURLConnection.dart';
 import 'third_party/java/net/URL.dart';
@@ -94,8 +92,11 @@ class JavaClient extends BaseClient {
 
     httpUrlConnection.setDoOutput(true);
 
+    final bodyArray = JArray(jbyte.type, requestBody.length)
+      ..setRange(0, requestBody.length, requestBody);
+
     httpUrlConnection.getOutputStream()
-      ..write1(requestBody.toJArray())
+      ..write1(bodyArray)
       ..flush()
       ..close();
   }
