@@ -5,6 +5,12 @@
 /// Provides access to the
 /// [Foundation URL Loading System](https://developer.apple.com/documentation/foundation/url_loading_system).
 ///
+/// **NOTE**: If sandboxed with the App Sandbox (the default Flutter
+/// configuration on macOS) then the
+/// [`com.apple.security.network.client`](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_network_client)
+/// entitlement is required to use `package:cupertino_http`. See
+/// [Entitlements and the App Sandbox](https://docs.flutter.dev/platform-integration/macos/building#entitlements-and-the-app-sandbox).
+///
 /// # CupertinoClient
 ///
 /// The most convenient way to `package:cupertino_http` it is through

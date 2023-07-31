@@ -10,9 +10,12 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:http/http.dart';
 
 import 'cupertino_api.dart';
+
+final _digitRegex = RegExp(r'^\d+$');
 
 class _TaskTracker {
   final responseCompleter = Completer<URLResponse>();
@@ -211,6 +214,20 @@ class CupertinoClient extends BaseClient {
     _urlSession = null;
   }
 
+  /// Returns true if [stream] includes at least one list with an element.
+  ///
+  /// Since [_hasData] consumes [stream], returns a new stream containing the
+  /// equivalent data.
+  static Future<(bool, Stream<List<int>>)> _hasData(
+      Stream<List<int>> stream) async {
+    final queue = StreamQueue(stream);
+    while (await queue.hasNext && (await queue.peek).isEmpty) {
+      await queue.next;
+    }
+
+    return (await queue.hasNext, queue.rest);
+  }
+
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     // The expected success case flow (without redirects) is:
@@ -233,12 +250,19 @@ class CupertinoClient extends BaseClient {
 
     final stream = request.finalize();
 
-    final bytes = await stream.toBytes();
-    final d = Data.fromUint8List(bytes);
-
     final urlRequest = MutableURLRequest.fromUrl(request.url)
-      ..httpMethod = request.method
-      ..httpBody = d;
+      ..httpMethod = request.method;
+
+    if (request is Request) {
+      // Optimize the (typical) `Request` case since assigning to
+      // `httpBodyStream` requires a lot of expensive setup and data passing.
+      urlRequest.httpBody = Data.fromList(request.bodyBytes);
+    } else if (await _hasData(stream) case (true, final s)) {
+      // If the request is supposed to be bodyless (e.g. GET requests)
+      // then setting `httpBodyStream` will cause the request to fail -
+      // even if the stream is empty.
+      urlRequest.httpBodyStream = s;
+    }
 
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
@@ -257,6 +281,17 @@ class CupertinoClient extends BaseClient {
       throw ClientException('Redirect limit exceeded', request.url);
     }
 
+    final responseHeaders = response.allHeaderFields
+        .map((key, value) => MapEntry(key.toLowerCase(), value));
+
+    if (responseHeaders['content-length'] case final contentLengthHeader?
+        when !_digitRegex.hasMatch(contentLengthHeader)) {
+      throw ClientException(
+        'Invalid content-length header [$contentLengthHeader].',
+        request.url,
+      );
+    }
+
     return StreamedResponse(
       taskTracker.responseController.stream,
       response.statusCode,
@@ -266,8 +301,7 @@ class CupertinoClient extends BaseClient {
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
       isRedirect: !request.followRedirects && taskTracker.numRedirects > 0,
-      headers: response.allHeaderFields
-          .map((key, value) => MapEntry(key.toLowerCase(), value)),
+      headers: responseHeaders,
     );
   }
 }

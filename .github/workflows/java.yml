@@ -1,0 +1,67 @@
+name: package:java_http CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'pkgs/java_http/**'
+      - 'pkgs/http_client_conformance_tests/**'
+      - '.github/workflows/java.yml'
+  pull_request:
+    paths:
+      - 'pkgs/java_http/**'
+      - 'pkgs/http_client_conformance_tests/**'
+      - '.github/workflows/java.yml'
+  schedule:
+    # Runs every Sunday at midnight (00:00 UTC).
+    - cron: "0 0 * * 0"
+
+env:
+  PUB_ENVIRONMENT: bot.github
+
+jobs:
+  analyze:
+    name: Lint and static analysis
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkgs/java_http
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - id: install
+        name: Install dependencies
+        run: dart pub get
+
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed .
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Analyze code
+        run: dart analyze --fatal-infos
+        if: always() && steps.install.outcome == 'success'
+
+  test:
+    needs: analyze
+    name: Build and test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkgs/java_http
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Build jni dynamic libraries
+        run: dart run jni:setup
+
+      - name: Run tests
+        run: dart test

@@ -3,6 +3,12 @@
 * Add a `RequestController` class which can be used to manage the lifecycle of an 
 HTTP request (e.g., for timeouts and request cancellation).
 
+## 1.1.1
+
+* `BrowserClient` throws `ClientException` when the `'Content-Length'` header
+  is invalid.
+* `IOClient` trims trailing whitespace on header values.
+
 ## 1.1.0
 
 * Add better error messages for `SocketException`s when using `IOClient`.

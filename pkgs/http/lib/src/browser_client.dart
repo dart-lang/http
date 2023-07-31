@@ -13,6 +13,8 @@ import 'exception.dart';
 import 'request_controller.dart';
 import 'streamed_response.dart';
 
+final _digitRegex = RegExp(r'^\d+$');
+
 /// Create a [BrowserClient].
 ///
 /// Used from conditional imports, matches the definition in `client_stub.dart`.
@@ -167,6 +169,14 @@ class BrowserClient extends BaseClient {
     var completer = Completer<StreamedResponse>();
 
     unawaited(xhr.onLoad.first.then((_) {
+      if (xhr.responseHeaders['content-length'] case final contentLengthHeader?
+          when !_digitRegex.hasMatch(contentLengthHeader)) {
+        completer.completeError(ClientException(
+          'Invalid content-length header [$contentLengthHeader].',
+          request.url,
+        ));
+        return;
+      }
       var body = (xhr.response as ByteBuffer).asUint8List();
       completer.complete(StreamedResponse(
           ByteStream.fromBytes(body), xhr.status!,

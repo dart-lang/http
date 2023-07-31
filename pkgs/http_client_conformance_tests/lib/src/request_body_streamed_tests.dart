@@ -54,9 +54,8 @@ void testRequestBodyStreamed(Client client,
       }
 
       final request = StreamedRequest('POST', Uri.http(host, ''));
-      const Utf8Encoder()
-          .bind(count())
-          .listen(request.sink.add, onDone: request.sink.close);
+      const Utf8Encoder().bind(count()).listen(request.sink.add,
+          onError: request.sink.addError, onDone: request.sink.close);
       await client.send(request);
 
       expect(lastReceived, greaterThanOrEqualTo(1000));
