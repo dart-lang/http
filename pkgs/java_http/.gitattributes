@@ -1,0 +1,2 @@
+# Hides jnigen generated code in GitHub diffs.
+lib/src/third_party/** linguist-generated
