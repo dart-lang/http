@@ -39,23 +39,29 @@ class JavaClient extends BaseClient {
     // See https://github.com/dart-lang/http/pull/980#discussion_r1253700470.
     _initJVM();
 
-    final (statusCode, reasonPhrase, responseHeaders, responseBody) =
-        await Isolate.run(() {
-      request.finalize();
+    // We can't send a StreamedRequest to another Isolate.
+    // But we can send Map<String, String>, String, UInt8List, Uri.
+    final requestBody = await request.finalize().toBytes();
+    final requestHeaders = request.headers;
+    final requestMethod = request.method;
+    final requestUrl = request.url;
 
+    final (statusCode, reasonPhrase, responseHeaders, responseBody) =
+        await Isolate.run(() async {
       final httpUrlConnection = URL
-          .ctor3(request.url.toString().toJString())
+          .ctor3(requestUrl.toString().toJString())
           .openConnection()
           .castTo(HttpURLConnection.type, deleteOriginal: true);
 
-      request.headers.forEach((headerName, headerValue) {
+      requestHeaders.forEach((headerName, headerValue) {
         httpUrlConnection.setRequestProperty(
             headerName.toJString(), headerValue.toJString());
       });
 
-      httpUrlConnection.setRequestMethod(request.method.toJString());
+      httpUrlConnection.setRequestMethod(requestMethod.toJString());
+      _setRequestBody(httpUrlConnection, requestBody);
 
-      final statusCode = _statusCode(request, httpUrlConnection);
+      final statusCode = _statusCode(requestUrl, httpUrlConnection);
       final reasonPhrase = _reasonPhrase(httpUrlConnection);
       final responseHeaders = _responseHeaders(httpUrlConnection);
       final responseBody = _responseBody(httpUrlConnection);
@@ -78,12 +84,26 @@ class JavaClient extends BaseClient {
         reasonPhrase: reasonPhrase);
   }
 
-  int _statusCode(BaseRequest request, HttpURLConnection httpUrlConnection) {
+  void _setRequestBody(
+    HttpURLConnection httpUrlConnection,
+    Uint8List requestBody,
+  ) {
+    if (requestBody.isEmpty) return;
+
+    httpUrlConnection.setDoOutput(true);
+
+    httpUrlConnection.getOutputStream()
+      ..write1(requestBody.toJArray())
+      ..flush()
+      ..close();
+  }
+
+  int _statusCode(Uri requestUrl, HttpURLConnection httpUrlConnection) {
     final statusCode = httpUrlConnection.getResponseCode();
 
     if (statusCode == -1) {
       throw ClientException(
-          'Status code can not be discerned from the response.', request.url);
+          'Status code can not be discerned from the response.', requestUrl);
     }
 
     return statusCode;
@@ -159,4 +179,9 @@ class JavaClient extends BaseClient {
 
     return Uint8List.fromList(bytes);
   }
+}
+
+extension on Uint8List {
+  JArray<jbyte> toJArray() =>
+      JArray(jbyte.type, length)..setRange(0, length, this);
 }

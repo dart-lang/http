@@ -13,6 +13,7 @@ class_path:
 
 classes:
   - 'java.io.InputStream'
+  - 'java.io.OutputStream'
   - 'java.lang.System'
   - 'java.net.HttpURLConnection'
   - 'java.net.URL'
