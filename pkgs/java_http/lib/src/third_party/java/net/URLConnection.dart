@@ -23,6 +23,8 @@ import "URL.dart" as url_;
 
 import "../io/InputStream.dart" as inputstream_;
 
+import "../io/OutputStream.dart" as outputstream_;
+
 /// from: java.net.URLConnection
 class URLConnection extends jni.JObject {
   @override
@@ -467,9 +469,10 @@ class URLConnection extends jni.JObject {
 
   /// from: public java.io.OutputStream getOutputStream()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject getOutputStream() {
-    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getOutputStream, jni.JniCallType.objectType, []).object);
+  outputstream_.OutputStream getOutputStream() {
+    return const outputstream_.$OutputStreamType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_getOutputStream,
+            jni.JniCallType.objectType, []).object);
   }
 
   static final _id_toString1 = jni.Jni.accessors
