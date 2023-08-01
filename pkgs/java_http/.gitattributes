@@ -1,2 +1,2 @@
-# Hides jnigen generated code in GitHub diffs.
-lib/src/third_party/** linguist-generated
+# Vendored code is excluded from language stats in the GitHub repo.
+lib/src/third_party/** linguist-vendored
