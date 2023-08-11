@@ -2,10 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 import 'dart:typed_data';
 
+import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:jni/jni.dart';
 import 'package:path/path.dart';
@@ -29,8 +31,8 @@ class JavaClient extends BaseClient {
     // TODO: Determine if we can remove this.
     // It's a workaround to fix the tests not passing on GitHub CI.
     // See https://github.com/dart-lang/http/pull/987#issuecomment-1636170371.
-    System.setProperty(
-        'java.net.preferIPv6Addresses'.toJString(), 'true'.toJString());
+    // System.setProperty(
+    //     'java.net.preferIPv6Addresses'.toJString(), 'true'.toJString());
   }
 
   @override
@@ -39,49 +41,96 @@ class JavaClient extends BaseClient {
     // See https://github.com/dart-lang/http/pull/980#discussion_r1253700470.
     _initJVM();
 
+    final receivePort = ReceivePort();
+    final events = StreamQueue<dynamic>(receivePort);
+
     // We can't send a StreamedRequest to another Isolate.
     // But we can send Map<String, String>, String, UInt8List, Uri.
-    final requestBody = await request.finalize().toBytes();
-    final requestHeaders = request.headers;
-    final requestMethod = request.method;
-    final requestUrl = request.url;
+    final isolateRequest = (
+      sendPort: receivePort.sendPort,
+      url: request.url,
+      method: request.method,
+      headers: request.headers,
+      body: await request.finalize().toBytes(),
+    );
 
-    final (statusCode, reasonPhrase, responseHeaders, responseBody) =
-        await Isolate.run(() async {
-      final httpUrlConnection = URL
-          .ctor3(requestUrl.toString().toJString())
-          .openConnection()
-          .castTo(HttpURLConnection.type, deleteOriginal: true);
+    // Could create a new class to hold the data for the isolate instead
+    // of using a record.
+    final httpRequestIsolate = await Isolate.spawn(
+      _isolateMethod,
+      isolateRequest,
+    );
+    //httpRequestIsolate.errors.listen(print);
 
-      requestHeaders.forEach((headerName, headerValue) {
-        httpUrlConnection.setRequestProperty(
-            headerName.toJString(), headerValue.toJString());
-      });
+    final statusCode = await events.next as int;
+    final reasonPhrase = await events.next as String?;
+    final responseHeaders = await events.next as Map<String, String>;
+    final responseBody = events.rest
+        .handleError((Object error) {
+          print('error is not being caught');
+        })
+        .cast<List<int>>()
+        .takeWhile((bytes) => !(bytes.length == 1 && bytes[0] == -1));
 
-      httpUrlConnection.setRequestMethod(requestMethod.toJString());
-      _setRequestBody(httpUrlConnection, requestBody);
-
-      final statusCode = _statusCode(requestUrl, httpUrlConnection);
-      final reasonPhrase = _reasonPhrase(httpUrlConnection);
-      final responseHeaders = _responseHeaders(httpUrlConnection);
-      final responseBody = _responseBody(httpUrlConnection);
-
-      httpUrlConnection.disconnect();
-
-      return (
-        statusCode,
-        reasonPhrase,
-        responseHeaders,
-        responseBody,
-      );
-    });
-
-    return StreamedResponse(Stream.value(responseBody), statusCode,
-        contentLength:
-            _contentLengthHeader(request, responseHeaders, responseBody.length),
+    return StreamedResponse(responseBody, statusCode,
+        contentLength: _parseContentLengthHeader(request.url, responseHeaders),
         request: request,
         headers: responseHeaders,
         reasonPhrase: reasonPhrase);
+  }
+
+  // TODO: Rename _isolateMethod to something more descriptive.
+  void _isolateMethod(
+    ({
+      SendPort sendPort,
+      Uint8List body,
+      Map<String, String> headers,
+      String method,
+      Uri url,
+    }) request,
+  ) {
+    final httpUrlConnection = URL
+        .ctor3(request.url.toString().toJString())
+        .openConnection()
+        .castTo(HttpURLConnection.type, deleteOriginal: true);
+
+    request.headers.forEach((headerName, headerValue) {
+      httpUrlConnection.setRequestProperty(
+          headerName.toJString(), headerValue.toJString());
+    });
+
+    httpUrlConnection.setRequestMethod(request.method.toJString());
+    _setRequestBody(httpUrlConnection, request.body);
+
+    final statusCode = _statusCode(request.url, httpUrlConnection);
+    request.sendPort.send(statusCode);
+
+    final reasonPhrase = _reasonPhrase(httpUrlConnection);
+    request.sendPort.send(reasonPhrase);
+
+    final responseHeaders = _responseHeaders(httpUrlConnection);
+    request.sendPort.send(responseHeaders);
+
+    final receivedBytes = _responseBody(httpUrlConnection, request.sendPort);
+    final contentLengthHeader = _parseContentLengthHeader(
+      request.url,
+      responseHeaders,
+    );
+
+    if (contentLengthHeader != null && contentLengthHeader != receivedBytes) {
+      request.sendPort.send(ClientException(
+        'Unexpected end of body',
+        request.url,
+      ));
+    }
+
+    httpUrlConnection.disconnect();
+  }
+
+  Stream<int> testStream() async* {
+    yield 1;
+    yield 2;
+    yield 3;
   }
 
   void _setRequestBody(
@@ -142,42 +191,50 @@ class JavaClient extends BaseClient {
     return headers.map((key, value) => MapEntry(key, value.join(',')));
   }
 
-  int? _contentLengthHeader(
-      BaseRequest request, Map<String, String> headers, int bodyLength) {
+  int? _parseContentLengthHeader(
+    Uri requestUrl,
+    Map<String, String> headers,
+  ) {
     int? contentLength;
     switch (headers['content-length']) {
       case final contentLengthHeader?
           when !_digitRegex.hasMatch(contentLengthHeader):
         throw ClientException(
           'Invalid content-length header [$contentLengthHeader].',
-          request.url,
+          requestUrl,
         );
       case final contentLengthHeader?:
         contentLength = int.parse(contentLengthHeader);
-        if (bodyLength < contentLength) {
-          throw ClientException('Unexpected end of body', request.url);
-        }
     }
 
     return contentLength;
   }
 
-  Uint8List _responseBody(HttpURLConnection httpUrlConnection) {
+  int _responseBody(
+    HttpURLConnection httpUrlConnection,
+    SendPort sendPort,
+  ) {
     final responseCode = httpUrlConnection.getResponseCode();
 
     final inputStream = (responseCode >= 200 && responseCode <= 299)
         ? httpUrlConnection.getInputStream()
         : httpUrlConnection.getErrorStream();
 
-    final bytes = <int>[];
+    var receievedBytes = -1;
     int byte;
-    while ((byte = inputStream.read()) != -1) {
-      bytes.add(byte);
-    }
+    do {
+      // Sending -1 over the SendPort marks the end of the response body stream.
+      byte = inputStream.read(); // IOException could be thrown here.
+      sendPort.send([byte]);
+      receievedBytes++;
+    } while (byte != -1);
 
+    // int byte;
+    // while ((byte = inputStream.read()) != -1) {
+    //   sendPort.send([byte]);
+    // }
     inputStream.close();
-
-    return Uint8List.fromList(bytes);
+    return receievedBytes;
   }
 }
 
