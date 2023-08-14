@@ -62,12 +62,13 @@ void testResponseHeaders(Client client) async {
 
     test('multiple spaces in header value', () async {
       // RFC 2616 4.2 allows LWS between header values to be replace with a
-      // single space but clients do not do this in practice.
+      // single space.
       // See https://datatracker.ietf.org/doc/html/rfc2616#section-4.2
       httpServerChannel.sink.add('foo: BAR  \t   BAZ\r\n');
 
       final response = await client.get(Uri.http(host, ''));
-      expect(response.headers['foo'], 'BAR  \t   BAZ');
+      expect(
+          response.headers['foo'], matches(RegExp('BAR {0,2}[ \t] {0,3}BAZ')));
     });
 
     test('multiple headers', () async {
@@ -171,8 +172,10 @@ void testResponseHeaders(Client client) async {
         final response = await client.get(Uri.http(host, ''));
         // RFC 2616 4.2 allows LWS between header values to be replace with a
         // single space.
-        expect(response.headers['foo'],
-            matches(RegExp(r'BAR {0,3}[ \t]? {1,7}[ \t]? {0,3}BAZ')));
+        expect(
+            response.headers['foo'],
+            allOf(matches(RegExp(r'BAR {0,3}[ \t]? {0,7}[ \t]? {0,3}BAZ')),
+                contains(' ')));
       });
     });
   });
