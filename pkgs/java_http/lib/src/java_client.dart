@@ -57,19 +57,26 @@ class JavaClient extends BaseClient {
     // Could create a new class to hold the data for the isolate instead
     // of using a record.
     await Isolate.spawn(_isolateMethod, isolateRequest);
-    //httpRequestIsolate.errors.listen(print);
 
     final statusCode = await events.next as int;
     final reasonPhrase = await events.next as String?;
     final responseHeaders = await events.next as Map<String, String>;
-    final responseBody = events.rest
-        .handleError((Object error) {
-          print('error is not being caught');
-        })
-        .cast<List<int>>()
-        .takeWhile((bytes) => !(bytes.length == 1 && bytes[0] == -1));
 
-    return StreamedResponse(responseBody, statusCode,
+    Stream<List<int>> responseBodyStream(Stream<dynamic> events) async* {
+      await for (final event in events) {
+        if (event is ClientException) {
+          throw event;
+        } else if (event is List<int>) {
+          if (event.length == 1 && event[0] == -1) {
+            receivePort.close();
+            return;
+          }
+          yield event;
+        }
+      }
+    }
+
+    return StreamedResponse(responseBodyStream(events.rest), statusCode,
         contentLength: _parseContentLengthHeader(request.url, responseHeaders),
         request: request,
         headers: responseHeaders,
@@ -108,26 +115,24 @@ class JavaClient extends BaseClient {
     final responseHeaders = _responseHeaders(httpUrlConnection);
     request.sendPort.send(responseHeaders);
 
-    final receivedBytes = _responseBody(httpUrlConnection, request.sendPort);
+    // TODO: Throws a ClientException if the content length header is invalid.
+    // I think we need to send the ClientException over the SendPort.
     final contentLengthHeader = _parseContentLengthHeader(
       request.url,
       responseHeaders,
     );
 
-    if (contentLengthHeader != null && contentLengthHeader != receivedBytes) {
-      request.sendPort.send(ClientException(
-        'Unexpected end of body',
-        request.url,
-      ));
-    }
+    _responseBody(
+      request.url,
+      httpUrlConnection,
+      request.sendPort,
+      contentLengthHeader,
+    );
 
     httpUrlConnection.disconnect();
-  }
 
-  Stream<int> testStream() async* {
-    yield 1;
-    yield 2;
-    yield 3;
+    // Signals to the receiving isolate that we are done sending events.
+    request.sendPort.send([-1]);
   }
 
   void _setRequestBody(
@@ -207,9 +212,11 @@ class JavaClient extends BaseClient {
     return contentLength;
   }
 
-  int _responseBody(
+  void _responseBody(
+    Uri requestUrl,
     HttpURLConnection httpUrlConnection,
     SendPort sendPort,
+    int? expectedBodyLength,
   ) {
     final responseCode = httpUrlConnection.getResponseCode();
 
@@ -217,21 +224,19 @@ class JavaClient extends BaseClient {
         ? httpUrlConnection.getInputStream()
         : httpUrlConnection.getErrorStream();
 
-    var receievedBytes = -1;
     int byte;
-    do {
-      // Sending -1 over the SendPort marks the end of the response body stream.
-      byte = inputStream.read(); // IOException could be thrown here.
+    var actualBodyLength = 0;
+    // TODO: inputStream.read() could throw IOException.
+    while ((byte = inputStream.read()) != -1) {
       sendPort.send([byte]);
-      receievedBytes++;
-    } while (byte != -1);
+      actualBodyLength++;
+    }
 
-    // int byte;
-    // while ((byte = inputStream.read()) != -1) {
-    //   sendPort.send([byte]);
-    // }
+    if (expectedBodyLength != null && actualBodyLength < expectedBodyLength) {
+      sendPort.send(ClientException('Unexpected end of body', requestUrl));
+    }
+
     inputStream.close();
-    return receievedBytes;
   }
 }
 
