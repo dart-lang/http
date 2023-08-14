@@ -31,8 +31,8 @@ class JavaClient extends BaseClient {
     // TODO: Determine if we can remove this.
     // It's a workaround to fix the tests not passing on GitHub CI.
     // See https://github.com/dart-lang/http/pull/987#issuecomment-1636170371.
-    // System.setProperty(
-    //     'java.net.preferIPv6Addresses'.toJString(), 'true'.toJString());
+    System.setProperty(
+        'java.net.preferIPv6Addresses'.toJString(), 'true'.toJString());
   }
 
   @override
@@ -56,10 +56,7 @@ class JavaClient extends BaseClient {
 
     // Could create a new class to hold the data for the isolate instead
     // of using a record.
-    final httpRequestIsolate = await Isolate.spawn(
-      _isolateMethod,
-      isolateRequest,
-    );
+    await Isolate.spawn(_isolateMethod, isolateRequest);
     //httpRequestIsolate.errors.listen(print);
 
     final statusCode = await events.next as int;
