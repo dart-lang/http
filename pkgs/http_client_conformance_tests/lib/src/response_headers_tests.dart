@@ -172,7 +172,7 @@ void testResponseHeaders(Client client) async {
         // RFC 2616 4.2 allows LWS between header values to be replace with a
         // single space.
         expect(response.headers['foo'],
-            matches(RegExp(r'BAR\s{0,3}\t?\s{1,7}\t?\s{0,3}BAZ')));
+            matches(RegExp(r'BAR {0,3}[ \t]? {1,7}[ \t]? {0,3}BAZ')));
       });
     });
   });
