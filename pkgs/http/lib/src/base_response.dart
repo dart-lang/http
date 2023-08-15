@@ -26,6 +26,26 @@ abstract class BaseResponse {
 
   // TODO(nweiz): automatically parse cookies from headers
 
+  /// The HTTP headers returned by the server.
+  ///
+  /// The header names are converted to lowercase and stored with their
+  /// associated header values.
+  ///
+  /// If the server returns multiple headers with the same name then the header
+  /// values will be associated with a single key and seperated by commas and
+  /// possibly whitespace. For example:
+  /// ```dart
+  /// // HTTP/1.1 200 OK
+  /// // Fruit: Apple
+  /// // Fruit: Banana
+  /// // Fruit: Grape
+  /// final values = response.headers['fruit']!.split(RegExp(r'\s*,\s*'));
+  /// // values = ['Apple', 'Banana', 'Grape']
+  /// ```
+  ///
+  /// If a header value contains whitespace then that whitespace may be replaced
+  /// by a single space. Leading and trailing whitespace in header values are
+  /// always removed.
   // TODO(nweiz): make this a HttpHeaders object.
   final Map<String, String> headers;
 
