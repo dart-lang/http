@@ -63,16 +63,19 @@ class JavaClient extends BaseClient {
     final responseHeaders = await events.next as Map<String, String>;
 
     Stream<List<int>> responseBodyStream(Stream<dynamic> events) async* {
-      await for (final event in events) {
-        if (event is ClientException) {
-          throw event;
-        } else if (event is List<int>) {
-          if (event.length == 1 && event[0] == -1) {
-            receivePort.close();
+      try {
+        await for (final event in events) {
+          if (event is List<int>) {
+            yield event;
+          } else if (event is ClientException) {
+            throw event;
+          } else if (event == null) {
             return;
           }
-          yield event;
         }
+      } finally {
+        // TODO: Should we kill the isolate here?
+        receivePort.close();
       }
     }
 
@@ -132,7 +135,7 @@ class JavaClient extends BaseClient {
     httpUrlConnection.disconnect();
 
     // Signals to the receiving isolate that we are done sending events.
-    request.sendPort.send([-1]);
+    request.sendPort.send(null);
   }
 
   void _setRequestBody(
@@ -153,6 +156,7 @@ class JavaClient extends BaseClient {
     final statusCode = httpUrlConnection.getResponseCode();
 
     if (statusCode == -1) {
+      // TODO: Send exception instead of throw.
       throw ClientException(
           'Status code can not be discerned from the response.', requestUrl);
     }
