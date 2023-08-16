@@ -11,6 +11,7 @@ void main() {
     testIsolate(JavaClient.new);
     testResponseBody(JavaClient(), canStreamResponseBody: false);
     testResponseHeaders(JavaClient());
+    testResponseStatusLine(JavaClient());
     testRequestBody(JavaClient());
     testRequestHeaders(JavaClient());
     testMultipleClients(JavaClient.new);
