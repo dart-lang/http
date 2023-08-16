@@ -58,7 +58,16 @@ class JavaClient extends BaseClient {
     // of using a record.
     await Isolate.spawn(_isolateMethod, isolateRequest);
 
-    final statusCode = await events.next as int;
+    final statusCodeEvent = await events.next;
+    late int statusCode;
+    if (statusCodeEvent is ClientException) {
+      // Do we need to close the ReceivePort here as well?
+      receivePort.close();
+      throw statusCodeEvent;
+    } else {
+      statusCode = statusCodeEvent as int;
+    }
+
     final reasonPhrase = await events.next as String?;
     final responseHeaders = await events.next as Map<String, String>;
 
@@ -109,8 +118,14 @@ class JavaClient extends BaseClient {
     httpUrlConnection.setRequestMethod(request.method.toJString());
     _setRequestBody(httpUrlConnection, request.body);
 
-    final statusCode = _statusCode(request.url, httpUrlConnection);
-    request.sendPort.send(statusCode);
+    try {
+      final statusCode = _statusCode(request.url, httpUrlConnection);
+      request.sendPort.send(statusCode);
+    } on ClientException catch (e) {
+      request.sendPort.send(e);
+      httpUrlConnection.disconnect();
+      return;
+    }
 
     final reasonPhrase = _reasonPhrase(httpUrlConnection);
     request.sendPort.send(reasonPhrase);
@@ -156,7 +171,6 @@ class JavaClient extends BaseClient {
     final statusCode = httpUrlConnection.getResponseCode();
 
     if (statusCode == -1) {
-      // TODO: Send exception instead of throw.
       throw ClientException(
           'Status code can not be discerned from the response.', requestUrl);
     }
