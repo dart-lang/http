@@ -8,6 +8,7 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
+  async: ^2.11.0
   http: '>=0.13.4 <2.0.0'
   jni: ^0.5.0
   path: ^1.8.0
