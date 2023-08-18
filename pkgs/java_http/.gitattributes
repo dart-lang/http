@@ -1,0 +1,5 @@
+# Vendored code is excluded from language stats in the GitHub repo.
+lib/src/third_party/** linguist-vendored
+
+# jnigen generated code is hidden in GitHub diffs.
+lib/src/third_party/java/** linguist-generated
