@@ -12,6 +12,7 @@ import 'package:http/http.dart';
 import 'package:jni/jni.dart';
 import 'package:path/path.dart';
 
+import 'third_party/java/io/BufferedInputStream.dart';
 import 'third_party/java/lang/System.dart';
 import 'third_party/java/net/HttpURLConnection.dart';
 import 'third_party/java/net/URL.dart';
@@ -241,13 +242,24 @@ class JavaClient extends BaseClient {
     final inputStream = (responseCode >= 200 && responseCode <= 299)
         ? httpUrlConnection.getInputStream()
         : httpUrlConnection.getErrorStream();
+    final bufferedInputStream = BufferedInputStream(inputStream);
+    print(bufferedInputStream.available());
 
-    int byte;
+    int bytesRead;
     var actualBodyLength = 0;
-    // TODO: inputStream.read() could throw IOException.
-    while ((byte = inputStream.read()) != -1) {
-      sendPort.send([byte]);
-      actualBodyLength++;
+    final buffer = JArray(jbyte.type, 4096);
+    // TODO: bufferedInputStream.read() could throw IOException.
+    while ((bytesRead = bufferedInputStream.read1(buffer, 0, buffer.length)) !=
+        -1) {
+      if (bytesRead == 0) continue;
+
+      // Convert from Java array to Dart Uint8List
+      final byteArray = Uint8List(bytesRead);
+      for (var i = 0; i < bytesRead; i++) {
+        byteArray[i] = buffer[i];
+      }
+      sendPort.send(byteArray);
+      actualBodyLength += bytesRead;
     }
 
     if (expectedBodyLength != null && actualBodyLength < expectedBodyLength) {
