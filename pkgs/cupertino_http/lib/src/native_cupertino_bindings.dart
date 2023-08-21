@@ -305,8 +305,9 @@ class NativeCupertinoHttp {
   }
 
   late final _callocPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>>('calloc');
+          ffi
+          .NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>>(
+      'calloc');
   late final _calloc =
       _callocPtr.asFunction<ffi.Pointer<ffi.Void> Function(int, int)>();
 
@@ -366,8 +367,9 @@ class NativeCupertinoHttp {
   }
 
   late final _aligned_allocPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>>('aligned_alloc');
+          ffi
+          .NativeFunction<ffi.Pointer<ffi.Void> Function(ffi.Size, ffi.Size)>>(
+      'aligned_alloc');
   late final _aligned_alloc =
       _aligned_allocPtr.asFunction<ffi.Pointer<ffi.Void> Function(int, int)>();
 
@@ -624,8 +626,9 @@ class NativeCupertinoHttp {
   }
 
   late final _mblenPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size)>>('mblen');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size)>>(
+      'mblen');
   late final _mblen =
       _mblenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
@@ -883,8 +886,9 @@ class NativeCupertinoHttp {
   }
 
   late final _wctombPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.WChar)>>('wctomb');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.WChar)>>(
+      'wctomb');
   late final _wctomb =
       _wctombPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
@@ -952,8 +956,9 @@ class NativeCupertinoHttp {
   }
 
   late final _erand48Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Double Function(ffi.Pointer<ffi.UnsignedShort>)>>('erand48');
+          ffi
+          .NativeFunction<ffi.Double Function(ffi.Pointer<ffi.UnsignedShort>)>>(
+      'erand48');
   late final _erand48 =
       _erand48Ptr.asFunction<double Function(ffi.Pointer<ffi.UnsignedShort>)>();
 
@@ -1062,8 +1067,9 @@ class NativeCupertinoHttp {
   }
 
   late final _jrand48Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Long Function(ffi.Pointer<ffi.UnsignedShort>)>>('jrand48');
+          ffi
+          .NativeFunction<ffi.Long Function(ffi.Pointer<ffi.UnsignedShort>)>>(
+      'jrand48');
   late final _jrand48 =
       _jrand48Ptr.asFunction<int Function(ffi.Pointer<ffi.UnsignedShort>)>();
 
@@ -1089,8 +1095,9 @@ class NativeCupertinoHttp {
   }
 
   late final _lcong48Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.UnsignedShort>)>>('lcong48');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.UnsignedShort>)>>(
+      'lcong48');
   late final _lcong48 =
       _lcong48Ptr.asFunction<void Function(ffi.Pointer<ffi.UnsignedShort>)>();
 
@@ -1147,8 +1154,9 @@ class NativeCupertinoHttp {
   }
 
   late final _nrand48Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Long Function(ffi.Pointer<ffi.UnsignedShort>)>>('nrand48');
+          ffi
+          .NativeFunction<ffi.Long Function(ffi.Pointer<ffi.UnsignedShort>)>>(
+      'nrand48');
   late final _nrand48 =
       _nrand48Ptr.asFunction<int Function(ffi.Pointer<ffi.UnsignedShort>)>();
 
@@ -1401,9 +1409,9 @@ class NativeCupertinoHttp {
   }
 
   late final _arc4random_bufPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>, ffi.Size)>>('arc4random_buf');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Size)>>(
+      'arc4random_buf');
   late final _arc4random_buf = _arc4random_bufPtr
       .asFunction<void Function(ffi.Pointer<ffi.Void>, int)>();
 
@@ -1788,8 +1796,9 @@ class NativeCupertinoHttp {
   }
 
   late final _getloadavgPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Double>, ffi.Int)>>('getloadavg');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Double>, ffi.Int)>>(
+      'getloadavg');
   late final _getloadavg =
       _getloadavgPtr.asFunction<int Function(ffi.Pointer<ffi.Double>, int)>();
 
@@ -2378,9 +2387,9 @@ class NativeCupertinoHttp {
   }
 
   late final _objc_retainedObjectPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ObjCObject> Function(
-              objc_objectptr_t)>>('objc_retainedObject');
+          ffi
+          .NativeFunction<ffi.Pointer<ObjCObject> Function(objc_objectptr_t)>>(
+      'objc_retainedObject');
   late final _objc_retainedObject = _objc_retainedObjectPtr
       .asFunction<ffi.Pointer<ObjCObject> Function(objc_objectptr_t)>();
 
@@ -2393,9 +2402,9 @@ class NativeCupertinoHttp {
   }
 
   late final _objc_unretainedObjectPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ObjCObject> Function(
-              objc_objectptr_t)>>('objc_unretainedObject');
+          ffi
+          .NativeFunction<ffi.Pointer<ObjCObject> Function(objc_objectptr_t)>>(
+      'objc_unretainedObject');
   late final _objc_unretainedObject = _objc_unretainedObjectPtr
       .asFunction<ffi.Pointer<ObjCObject> Function(objc_objectptr_t)>();
 
@@ -2408,9 +2417,9 @@ class NativeCupertinoHttp {
   }
 
   late final _objc_unretainedPointerPtr = _lookup<
-      ffi.NativeFunction<
-          objc_objectptr_t Function(
-              ffi.Pointer<ObjCObject>)>>('objc_unretainedPointer');
+          ffi
+          .NativeFunction<objc_objectptr_t Function(ffi.Pointer<ObjCObject>)>>(
+      'objc_unretainedPointer');
   late final _objc_unretainedPointer = _objc_unretainedPointerPtr
       .asFunction<objc_objectptr_t Function(ffi.Pointer<ObjCObject>)>();
 
@@ -10290,8 +10299,9 @@ class NativeCupertinoHttp {
   }
 
   late final _NSLogvPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ObjCObject>, va_list)>>('NSLogv');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ObjCObject>, va_list)>>(
+      'NSLogv');
   late final _NSLogv =
       _NSLogvPtr.asFunction<void Function(ffi.Pointer<ObjCObject>, va_list)>();
 
@@ -10361,9 +10371,9 @@ class NativeCupertinoHttp {
   }
 
   late final __Block_object_disposePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>, ffi.Int)>>('_Block_object_dispose');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Int)>>(
+      '_Block_object_dispose');
   late final __Block_object_dispose = __Block_object_disposePtr
       .asFunction<void Function(ffi.Pointer<ffi.Void>, int)>();
 
@@ -10919,9 +10929,9 @@ class NativeCupertinoHttp {
   }
 
   late final _NSZoneFromPointerPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<NSZone> Function(
-              ffi.Pointer<ffi.Void>)>>('NSZoneFromPointer');
+          ffi
+          .NativeFunction<ffi.Pointer<NSZone> Function(ffi.Pointer<ffi.Void>)>>(
+      'NSZoneFromPointer');
   late final _NSZoneFromPointer = _NSZoneFromPointerPtr.asFunction<
       ffi.Pointer<NSZone> Function(ffi.Pointer<ffi.Void>)>();
 
@@ -14517,9 +14527,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFArrayGetValueAtIndexPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              CFArrayRef, CFIndex)>>('CFArrayGetValueAtIndex');
+          ffi
+          .NativeFunction<ffi.Pointer<ffi.Void> Function(CFArrayRef, CFIndex)>>(
+      'CFArrayGetValueAtIndex');
   late final _CFArrayGetValueAtIndex = _CFArrayGetValueAtIndexPtr.asFunction<
       ffi.Pointer<ffi.Void> Function(CFArrayRef, int)>();
 
@@ -15646,8 +15656,9 @@ class NativeCupertinoHttp {
   }
 
   late final _frexpfPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Float Function(ffi.Float, ffi.Pointer<ffi.Int>)>>('frexpf');
+          ffi
+          .NativeFunction<ffi.Float Function(ffi.Float, ffi.Pointer<ffi.Int>)>>(
+      'frexpf');
   late final _frexpf =
       _frexpfPtr.asFunction<double Function(double, ffi.Pointer<ffi.Int>)>();
 
@@ -16515,8 +16526,9 @@ class NativeCupertinoHttp {
   }
 
   late final _fmafPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Float Function(ffi.Float, ffi.Float, ffi.Float)>>('fmaf');
+          ffi
+          .NativeFunction<ffi.Float Function(ffi.Float, ffi.Float, ffi.Float)>>(
+      'fmaf');
   late final _fmaf =
       _fmafPtr.asFunction<double Function(double, double, double)>();
 
@@ -16932,8 +16944,8 @@ class NativeCupertinoHttp {
           ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Int)>> Function(
               ffi.Int,
               ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(ffi.Int)>>)>>('bsd_signal');
+                  ffi
+                  .NativeFunction<ffi.Void Function(ffi.Int)>>)>>('bsd_signal');
   late final _bsd_signal = _bsd_signalPtr.asFunction<
       ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Int)>> Function(
           int, ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>)>();
@@ -18316,8 +18328,9 @@ class NativeCupertinoHttp {
   }
 
   late final _fseekoPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<FILE>, off_t, ffi.Int)>>('fseeko');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<FILE>, off_t, ffi.Int)>>(
+      'fseeko');
   late final _fseeko =
       _fseekoPtr.asFunction<int Function(ffi.Pointer<FILE>, int, int)>();
 
@@ -19387,8 +19400,9 @@ class NativeCupertinoHttp {
   }
 
   late final _strnlenPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Size)>>('strnlen');
+          ffi
+          .NativeFunction<ffi.Size Function(ffi.Pointer<ffi.Char>, ffi.Size)>>(
+      'strnlen');
   late final _strnlen =
       _strnlenPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
@@ -19593,8 +19607,9 @@ class NativeCupertinoHttp {
   }
 
   late final _strmodePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>)>>('strmode');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Int, ffi.Pointer<ffi.Char>)>>(
+      'strmode');
   late final _strmode =
       _strmodePtr.asFunction<void Function(int, ffi.Pointer<ffi.Char>)>();
 
@@ -19722,8 +19737,9 @@ class NativeCupertinoHttp {
   }
 
   late final _bzeroPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Size)>>('bzero');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Size)>>(
+      'bzero');
   late final _bzero =
       _bzeroPtr.asFunction<void Function(ffi.Pointer<ffi.Void>, int)>();
 
@@ -19926,8 +19942,9 @@ class NativeCupertinoHttp {
   }
 
   late final _ctimePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Char> Function(ffi.Pointer<time_t>)>>('ctime');
+          ffi
+          .NativeFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<time_t>)>>(
+      'ctime');
   late final _ctime = _ctimePtr
       .asFunction<ffi.Pointer<ffi.Char> Function(ffi.Pointer<time_t>)>();
 
@@ -19969,8 +19986,8 @@ class NativeCupertinoHttp {
   }
 
   late final _gmtimePtr = _lookup<
-          ffi.NativeFunction<ffi.Pointer<tm> Function(ffi.Pointer<time_t>)>>(
-      'gmtime');
+      ffi
+      .NativeFunction<ffi.Pointer<tm> Function(ffi.Pointer<time_t>)>>('gmtime');
   late final _gmtime =
       _gmtimePtr.asFunction<ffi.Pointer<tm> Function(ffi.Pointer<time_t>)>();
 
@@ -20217,8 +20234,9 @@ class NativeCupertinoHttp {
   }
 
   late final _clock_getresPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int32, ffi.Pointer<timespec>)>>('clock_getres');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Int32, ffi.Pointer<timespec>)>>(
+      'clock_getres');
   late final _clock_getres =
       _clock_getresPtr.asFunction<int Function(int, ffi.Pointer<timespec>)>();
 
@@ -20233,8 +20251,9 @@ class NativeCupertinoHttp {
   }
 
   late final _clock_gettimePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int32, ffi.Pointer<timespec>)>>('clock_gettime');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Int32, ffi.Pointer<timespec>)>>(
+      'clock_gettime');
   late final _clock_gettime =
       _clock_gettimePtr.asFunction<int Function(int, ffi.Pointer<timespec>)>();
 
@@ -20263,8 +20282,9 @@ class NativeCupertinoHttp {
   }
 
   late final _clock_settimePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Int32, ffi.Pointer<timespec>)>>('clock_settime');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Int32, ffi.Pointer<timespec>)>>(
+      'clock_settime');
   late final _clock_settime =
       _clock_settimePtr.asFunction<int Function(int, ffi.Pointer<timespec>)>();
 
@@ -20511,9 +20531,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFBagGetCountOfValuePtr = _lookup<
-      ffi.NativeFunction<
-          CFIndex Function(
-              CFBagRef, ffi.Pointer<ffi.Void>)>>('CFBagGetCountOfValue');
+          ffi
+          .NativeFunction<CFIndex Function(CFBagRef, ffi.Pointer<ffi.Void>)>>(
+      'CFBagGetCountOfValue');
   late final _CFBagGetCountOfValue = _CFBagGetCountOfValuePtr.asFunction<
       int Function(CFBagRef, ffi.Pointer<ffi.Void>)>();
 
@@ -20528,9 +20548,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFBagContainsValuePtr = _lookup<
-      ffi.NativeFunction<
-          Boolean Function(
-              CFBagRef, ffi.Pointer<ffi.Void>)>>('CFBagContainsValue');
+          ffi
+          .NativeFunction<Boolean Function(CFBagRef, ffi.Pointer<ffi.Void>)>>(
+      'CFBagContainsValue');
   late final _CFBagContainsValue = _CFBagContainsValuePtr.asFunction<
       int Function(CFBagRef, ffi.Pointer<ffi.Void>)>();
 
@@ -21131,9 +21151,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFBitVectorSetCountPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFMutableBitVectorRef, CFIndex)>>('CFBitVectorSetCount');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableBitVectorRef, CFIndex)>>(
+      'CFBitVectorSetCount');
   late final _CFBitVectorSetCount = _CFBitVectorSetCountPtr.asFunction<
       void Function(CFMutableBitVectorRef, int)>();
 
@@ -21148,9 +21168,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFBitVectorFlipBitAtIndexPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFMutableBitVectorRef, CFIndex)>>('CFBitVectorFlipBitAtIndex');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableBitVectorRef, CFIndex)>>(
+      'CFBitVectorFlipBitAtIndex');
   late final _CFBitVectorFlipBitAtIndex = _CFBitVectorFlipBitAtIndexPtr
       .asFunction<void Function(CFMutableBitVectorRef, int)>();
 
@@ -21165,9 +21185,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFBitVectorFlipBitsPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFMutableBitVectorRef, CFRange)>>('CFBitVectorFlipBits');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableBitVectorRef, CFRange)>>(
+      'CFBitVectorFlipBits');
   late final _CFBitVectorFlipBits = _CFBitVectorFlipBitsPtr.asFunction<
       void Function(CFMutableBitVectorRef, CFRange)>();
 
@@ -22073,9 +22093,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFLocaleCreateCopyPtr = _lookup<
-      ffi.NativeFunction<
-          CFLocaleRef Function(
-              CFAllocatorRef, CFLocaleRef)>>('CFLocaleCreateCopy');
+          ffi
+          .NativeFunction<CFLocaleRef Function(CFAllocatorRef, CFLocaleRef)>>(
+      'CFLocaleCreateCopy');
   late final _CFLocaleCreateCopy = _CFLocaleCreateCopyPtr.asFunction<
       CFLocaleRef Function(CFAllocatorRef, CFLocaleRef)>();
 
@@ -22467,8 +22487,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFDateCreatePtr = _lookup<
-      ffi.NativeFunction<
-          CFDateRef Function(CFAllocatorRef, CFAbsoluteTime)>>('CFDateCreate');
+          ffi
+          .NativeFunction<CFDateRef Function(CFAllocatorRef, CFAbsoluteTime)>>(
+      'CFDateCreate');
   late final _CFDateCreate =
       _CFDateCreatePtr.asFunction<CFDateRef Function(CFAllocatorRef, double)>();
 
@@ -22745,9 +22766,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFDataCreateMutablePtr = _lookup<
-      ffi.NativeFunction<
-          CFMutableDataRef Function(
-              CFAllocatorRef, CFIndex)>>('CFDataCreateMutable');
+          ffi
+          .NativeFunction<CFMutableDataRef Function(CFAllocatorRef, CFIndex)>>(
+      'CFDataCreateMutable');
   late final _CFDataCreateMutable = _CFDataCreateMutablePtr.asFunction<
       CFMutableDataRef Function(CFAllocatorRef, int)>();
 
@@ -22975,9 +22996,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFCharacterSetCreateWithCharactersInRangePtr = _lookup<
-      ffi.NativeFunction<
-          CFCharacterSetRef Function(CFAllocatorRef,
-              CFRange)>>('CFCharacterSetCreateWithCharactersInRange');
+          ffi
+          .NativeFunction<CFCharacterSetRef Function(CFAllocatorRef, CFRange)>>(
+      'CFCharacterSetCreateWithCharactersInRange');
   late final _CFCharacterSetCreateWithCharactersInRange =
       _CFCharacterSetCreateWithCharactersInRangePtr.asFunction<
           CFCharacterSetRef Function(CFAllocatorRef, CFRange)>();
@@ -23079,9 +23100,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFCharacterSetCreateMutablePtr = _lookup<
-      ffi.NativeFunction<
-          CFMutableCharacterSetRef Function(
-              CFAllocatorRef)>>('CFCharacterSetCreateMutable');
+          ffi
+          .NativeFunction<CFMutableCharacterSetRef Function(CFAllocatorRef)>>(
+      'CFCharacterSetCreateMutable');
   late final _CFCharacterSetCreateMutable = _CFCharacterSetCreateMutablePtr
       .asFunction<CFMutableCharacterSetRef Function(CFAllocatorRef)>();
 
@@ -23776,9 +23797,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFStringCreateCopyPtr = _lookup<
-      ffi.NativeFunction<
-          CFStringRef Function(
-              CFAllocatorRef, CFStringRef)>>('CFStringCreateCopy');
+          ffi
+          .NativeFunction<CFStringRef Function(CFAllocatorRef, CFStringRef)>>(
+      'CFStringCreateCopy');
   late final _CFStringCreateCopy = _CFStringCreateCopyPtr.asFunction<
       CFStringRef Function(CFAllocatorRef, CFStringRef)>();
 
@@ -24685,9 +24706,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFStringAppendPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFMutableStringRef, CFStringRef)>>('CFStringAppend');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableStringRef, CFStringRef)>>(
+      'CFStringAppend');
   late final _CFStringAppend = _CFStringAppendPtr.asFunction<
       void Function(CFMutableStringRef, CFStringRef)>();
 
@@ -24856,9 +24877,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFStringReplaceAllPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFMutableStringRef, CFStringRef)>>('CFStringReplaceAll');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableStringRef, CFStringRef)>>(
+      'CFStringReplaceAll');
   late final _CFStringReplaceAll = _CFStringReplaceAllPtr.asFunction<
       void Function(CFMutableStringRef, CFStringRef)>();
 
@@ -24940,8 +24961,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFStringTrimPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(CFMutableStringRef, CFStringRef)>>('CFStringTrim');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableStringRef, CFStringRef)>>(
+      'CFStringTrim');
   late final _CFStringTrim = _CFStringTrimPtr.asFunction<
       void Function(CFMutableStringRef, CFStringRef)>();
 
@@ -24970,9 +24992,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFStringLowercasePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFMutableStringRef, CFLocaleRef)>>('CFStringLowercase');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableStringRef, CFLocaleRef)>>(
+      'CFStringLowercase');
   late final _CFStringLowercase = _CFStringLowercasePtr.asFunction<
       void Function(CFMutableStringRef, CFLocaleRef)>();
 
@@ -24987,9 +25009,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFStringUppercasePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFMutableStringRef, CFLocaleRef)>>('CFStringUppercase');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableStringRef, CFLocaleRef)>>(
+      'CFStringUppercase');
   late final _CFStringUppercase = _CFStringUppercasePtr.asFunction<
       void Function(CFMutableStringRef, CFLocaleRef)>();
 
@@ -25004,9 +25026,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFStringCapitalizePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFMutableStringRef, CFLocaleRef)>>('CFStringCapitalize');
+          ffi
+          .NativeFunction<ffi.Void Function(CFMutableStringRef, CFLocaleRef)>>(
+      'CFStringCapitalize');
   late final _CFStringCapitalize = _CFStringCapitalizePtr.asFunction<
       void Function(CFMutableStringRef, CFLocaleRef)>();
 
@@ -25593,9 +25615,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFTimeZoneCopyAbbreviationPtr = _lookup<
-      ffi.NativeFunction<
-          CFStringRef Function(
-              CFTimeZoneRef, CFAbsoluteTime)>>('CFTimeZoneCopyAbbreviation');
+          ffi
+          .NativeFunction<CFStringRef Function(CFTimeZoneRef, CFAbsoluteTime)>>(
+      'CFTimeZoneCopyAbbreviation');
   late final _CFTimeZoneCopyAbbreviation = _CFTimeZoneCopyAbbreviationPtr
       .asFunction<CFStringRef Function(CFTimeZoneRef, double)>();
 
@@ -26195,9 +26217,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFDateFormatterSetFormatPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              CFDateFormatterRef, CFStringRef)>>('CFDateFormatterSetFormat');
+          ffi
+          .NativeFunction<ffi.Void Function(CFDateFormatterRef, CFStringRef)>>(
+      'CFDateFormatterSetFormat');
   late final _CFDateFormatterSetFormat = _CFDateFormatterSetFormatPtr
       .asFunction<void Function(CFDateFormatterRef, CFStringRef)>();
 
@@ -28671,9 +28693,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFURLSetTemporaryResourcePropertyForKeyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(CFURLRef, CFStringRef,
-              CFTypeRef)>>('CFURLSetTemporaryResourcePropertyForKey');
+          ffi
+          .NativeFunction<ffi.Void Function(CFURLRef, CFStringRef, CFTypeRef)>>(
+      'CFURLSetTemporaryResourcePropertyForKey');
   late final _CFURLSetTemporaryResourcePropertyForKey =
       _CFURLSetTemporaryResourcePropertyForKeyPtr.asFunction<
           void Function(CFURLRef, CFStringRef, CFTypeRef)>();
@@ -28689,9 +28711,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFURLResourceIsReachablePtr = _lookup<
-      ffi.NativeFunction<
-          Boolean Function(
-              CFURLRef, ffi.Pointer<CFErrorRef>)>>('CFURLResourceIsReachable');
+          ffi
+          .NativeFunction<Boolean Function(CFURLRef, ffi.Pointer<CFErrorRef>)>>(
+      'CFURLResourceIsReachable');
   late final _CFURLResourceIsReachable = _CFURLResourceIsReachablePtr
       .asFunction<int Function(CFURLRef, ffi.Pointer<CFErrorRef>)>();
 
@@ -32061,8 +32083,9 @@ class NativeCupertinoHttp {
   }
 
   late final _pathconfPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Long Function(ffi.Pointer<ffi.Char>, ffi.Int)>>('pathconf');
+          ffi
+          .NativeFunction<ffi.Long Function(ffi.Pointer<ffi.Char>, ffi.Int)>>(
+      'pathconf');
   late final _pathconf =
       _pathconfPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
@@ -32403,8 +32426,9 @@ class NativeCupertinoHttp {
   }
 
   late final _encryptPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Int)>>('encrypt');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Char>, ffi.Int)>>(
+      'encrypt');
   late final _encrypt =
       _encryptPtr.asFunction<void Function(ffi.Pointer<ffi.Char>, int)>();
 
@@ -32731,8 +32755,9 @@ class NativeCupertinoHttp {
   }
 
   late final _getlogin_rPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size)>>('getlogin_r');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size)>>(
+      'getlogin_r');
   late final _getlogin_r =
       _getlogin_rPtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
@@ -32764,8 +32789,9 @@ class NativeCupertinoHttp {
   }
 
   late final _gethostnamePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size)>>('gethostname');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>, ffi.Size)>>(
+      'gethostname');
   late final _gethostname =
       _gethostnamePtr.asFunction<int Function(ffi.Pointer<ffi.Char>, int)>();
 
@@ -34747,9 +34773,9 @@ class NativeCupertinoHttp {
   }
 
   late final _dispatch_get_contextPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              dispatch_object_t)>>('dispatch_get_context');
+          ffi
+          .NativeFunction<ffi.Pointer<ffi.Void> Function(dispatch_object_t)>>(
+      'dispatch_get_context');
   late final _dispatch_get_context = _dispatch_get_contextPtr
       .asFunction<ffi.Pointer<ffi.Void> Function(dispatch_object_t)>();
 
@@ -36037,9 +36063,9 @@ class NativeCupertinoHttp {
   }
 
   late final _dispatch_source_merge_dataPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              dispatch_source_t, ffi.UintPtr)>>('dispatch_source_merge_data');
+          ffi
+          .NativeFunction<ffi.Void Function(dispatch_source_t, ffi.UintPtr)>>(
+      'dispatch_source_merge_data');
   late final _dispatch_source_merge_data = _dispatch_source_merge_dataPtr
       .asFunction<void Function(dispatch_source_t, int)>();
 
@@ -36684,9 +36710,9 @@ class NativeCupertinoHttp {
   }
 
   late final _dispatch_io_barrierPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              dispatch_io_t, dispatch_block_t)>>('dispatch_io_barrier');
+          ffi
+          .NativeFunction<ffi.Void Function(dispatch_io_t, dispatch_block_t)>>(
+      'dispatch_io_barrier');
   late final _dispatch_io_barrier = _dispatch_io_barrierPtr
       .asFunction<void Function(dispatch_io_t, dispatch_block_t)>();
 
@@ -36764,9 +36790,9 @@ class NativeCupertinoHttp {
   }
 
   late final _dispatch_workloop_createPtr = _lookup<
-      ffi.NativeFunction<
-          dispatch_workloop_t Function(
-              ffi.Pointer<ffi.Char>)>>('dispatch_workloop_create');
+          ffi
+          .NativeFunction<dispatch_workloop_t Function(ffi.Pointer<ffi.Char>)>>(
+      'dispatch_workloop_create');
   late final _dispatch_workloop_create = _dispatch_workloop_createPtr
       .asFunction<dispatch_workloop_t Function(ffi.Pointer<ffi.Char>)>();
 
@@ -36779,9 +36805,9 @@ class NativeCupertinoHttp {
   }
 
   late final _dispatch_workloop_create_inactivePtr = _lookup<
-      ffi.NativeFunction<
-          dispatch_workloop_t Function(
-              ffi.Pointer<ffi.Char>)>>('dispatch_workloop_create_inactive');
+          ffi
+          .NativeFunction<dispatch_workloop_t Function(ffi.Pointer<ffi.Char>)>>(
+      'dispatch_workloop_create_inactive');
   late final _dispatch_workloop_create_inactive =
       _dispatch_workloop_create_inactivePtr
           .asFunction<dispatch_workloop_t Function(ffi.Pointer<ffi.Char>)>();
@@ -36797,9 +36823,9 @@ class NativeCupertinoHttp {
   }
 
   late final _dispatch_workloop_set_autorelease_frequencyPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(dispatch_workloop_t,
-              ffi.Int32)>>('dispatch_workloop_set_autorelease_frequency');
+          ffi
+          .NativeFunction<ffi.Void Function(dispatch_workloop_t, ffi.Int32)>>(
+      'dispatch_workloop_set_autorelease_frequency');
   late final _dispatch_workloop_set_autorelease_frequency =
       _dispatch_workloop_set_autorelease_frequencyPtr
           .asFunction<void Function(dispatch_workloop_t, int)>();
@@ -36922,9 +36948,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFReadStreamCreateWithFilePtr = _lookup<
-      ffi.NativeFunction<
-          CFReadStreamRef Function(
-              CFAllocatorRef, CFURLRef)>>('CFReadStreamCreateWithFile');
+          ffi
+          .NativeFunction<CFReadStreamRef Function(CFAllocatorRef, CFURLRef)>>(
+      'CFReadStreamCreateWithFile');
   late final _CFReadStreamCreateWithFile = _CFReadStreamCreateWithFilePtr
       .asFunction<CFReadStreamRef Function(CFAllocatorRef, CFURLRef)>();
 
@@ -36939,9 +36965,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFWriteStreamCreateWithFilePtr = _lookup<
-      ffi.NativeFunction<
-          CFWriteStreamRef Function(
-              CFAllocatorRef, CFURLRef)>>('CFWriteStreamCreateWithFile');
+          ffi
+          .NativeFunction<CFWriteStreamRef Function(CFAllocatorRef, CFURLRef)>>(
+      'CFWriteStreamCreateWithFile');
   late final _CFWriteStreamCreateWithFile = _CFWriteStreamCreateWithFilePtr
       .asFunction<CFWriteStreamRef Function(CFAllocatorRef, CFURLRef)>();
 
@@ -38112,9 +38138,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFSetGetCountOfValuePtr = _lookup<
-      ffi.NativeFunction<
-          CFIndex Function(
-              CFSetRef, ffi.Pointer<ffi.Void>)>>('CFSetGetCountOfValue');
+          ffi
+          .NativeFunction<CFIndex Function(CFSetRef, ffi.Pointer<ffi.Void>)>>(
+      'CFSetGetCountOfValue');
   late final _CFSetGetCountOfValue = _CFSetGetCountOfValuePtr.asFunction<
       int Function(CFSetRef, ffi.Pointer<ffi.Void>)>();
 
@@ -38129,9 +38155,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFSetContainsValuePtr = _lookup<
-      ffi.NativeFunction<
-          Boolean Function(
-              CFSetRef, ffi.Pointer<ffi.Void>)>>('CFSetContainsValue');
+          ffi
+          .NativeFunction<Boolean Function(CFSetRef, ffi.Pointer<ffi.Void>)>>(
+      'CFSetContainsValue');
   late final _CFSetContainsValue = _CFSetContainsValuePtr.asFunction<
       int Function(CFSetRef, ffi.Pointer<ffi.Void>)>();
 
@@ -40465,9 +40491,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFPlugInInstanceGetInstanceDataPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ffi.Void> Function(
-              CFPlugInInstanceRef)>>('CFPlugInInstanceGetInstanceData');
+          ffi
+          .NativeFunction<ffi.Pointer<ffi.Void> Function(CFPlugInInstanceRef)>>(
+      'CFPlugInInstanceGetInstanceData');
   late final _CFPlugInInstanceGetInstanceData =
       _CFPlugInInstanceGetInstanceDataPtr.asFunction<
           ffi.Pointer<ffi.Void> Function(CFPlugInInstanceRef)>();
@@ -41510,9 +41536,9 @@ class NativeCupertinoHttp {
   }
 
   late final _acl_maximal_permset_mask_npPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<acl_permset_mask_t>)>>('acl_maximal_permset_mask_np');
+          ffi
+          .NativeFunction<ffi.Int Function(ffi.Pointer<acl_permset_mask_t>)>>(
+      'acl_maximal_permset_mask_np');
   late final _acl_maximal_permset_mask_np = _acl_maximal_permset_mask_npPtr
       .asFunction<int Function(ffi.Pointer<acl_permset_mask_t>)>();
 
@@ -41544,9 +41570,9 @@ class NativeCupertinoHttp {
   }
 
   late final _acl_set_permset_mask_npPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int Function(
-              acl_entry_t, acl_permset_mask_t)>>('acl_set_permset_mask_np');
+          ffi
+          .NativeFunction<ffi.Int Function(acl_entry_t, acl_permset_mask_t)>>(
+      'acl_set_permset_mask_np');
   late final _acl_set_permset_mask_np =
       _acl_set_permset_mask_npPtr.asFunction<int Function(acl_entry_t, int)>();
 
@@ -42304,9 +42330,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFStringTokenizerGoToTokenAtIndexPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Int32 Function(CFStringTokenizerRef,
-              CFIndex)>>('CFStringTokenizerGoToTokenAtIndex');
+          ffi
+          .NativeFunction<ffi.Int32 Function(CFStringTokenizerRef, CFIndex)>>(
+      'CFStringTokenizerGoToTokenAtIndex');
   late final _CFStringTokenizerGoToTokenAtIndex =
       _CFStringTokenizerGoToTokenAtIndexPtr.asFunction<
           int Function(CFStringTokenizerRef, int)>();
@@ -42985,9 +43011,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFXMLNodeCreateCopyPtr = _lookup<
-      ffi.NativeFunction<
-          CFXMLNodeRef Function(
-              CFAllocatorRef, CFXMLNodeRef)>>('CFXMLNodeCreateCopy');
+          ffi
+          .NativeFunction<CFXMLNodeRef Function(CFAllocatorRef, CFXMLNodeRef)>>(
+      'CFXMLNodeCreateCopy');
   late final _CFXMLNodeCreateCopy = _CFXMLNodeCreateCopyPtr.asFunction<
       CFXMLNodeRef Function(CFAllocatorRef, CFXMLNodeRef)>();
 
@@ -43058,9 +43084,9 @@ class NativeCupertinoHttp {
   }
 
   late final _CFXMLTreeCreateWithNodePtr = _lookup<
-      ffi.NativeFunction<
-          CFXMLTreeRef Function(
-              CFAllocatorRef, CFXMLNodeRef)>>('CFXMLTreeCreateWithNode');
+          ffi
+          .NativeFunction<CFXMLTreeRef Function(CFAllocatorRef, CFXMLNodeRef)>>(
+      'CFXMLTreeCreateWithNode');
   late final _CFXMLTreeCreateWithNode = _CFXMLTreeCreateWithNodePtr.asFunction<
       CFXMLTreeRef Function(CFAllocatorRef, CFXMLNodeRef)>();
 
@@ -44089,8 +44115,9 @@ class NativeCupertinoHttp {
   }
 
   late final _cssmAlgToOidPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<SecAsn1Oid> Function(CSSM_ALGORITHMS)>>('cssmAlgToOid');
+          ffi
+          .NativeFunction<ffi.Pointer<SecAsn1Oid> Function(CSSM_ALGORITHMS)>>(
+      'cssmAlgToOid');
   late final _cssmAlgToOid =
       _cssmAlgToOidPtr.asFunction<ffi.Pointer<SecAsn1Oid> Function(int)>();
 
@@ -44481,9 +44508,9 @@ class NativeCupertinoHttp {
   }
 
   late final _SecCertificateGetDataPtr = _lookup<
-      ffi.NativeFunction<
-          OSStatus Function(
-              SecCertificateRef, CSSM_DATA_PTR)>>('SecCertificateGetData');
+          ffi
+          .NativeFunction<OSStatus Function(SecCertificateRef, CSSM_DATA_PTR)>>(
+      'SecCertificateGetData');
   late final _SecCertificateGetData = _SecCertificateGetDataPtr.asFunction<
       int Function(SecCertificateRef, CSSM_DATA_PTR)>();
 
@@ -44612,9 +44639,9 @@ class NativeCupertinoHttp {
   }
 
   late final _SecCertificateCopyPreferredPtr = _lookup<
-      ffi.NativeFunction<
-          SecCertificateRef Function(
-              CFStringRef, CFArrayRef)>>('SecCertificateCopyPreferred');
+          ffi
+          .NativeFunction<SecCertificateRef Function(CFStringRef, CFArrayRef)>>(
+      'SecCertificateCopyPreferred');
   late final _SecCertificateCopyPreferred = _SecCertificateCopyPreferredPtr
       .asFunction<SecCertificateRef Function(CFStringRef, CFArrayRef)>();
 
@@ -45117,9 +45144,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_identity_create_with_certificatesPtr = _lookup<
-      ffi.NativeFunction<
-          sec_identity_t Function(SecIdentityRef,
-              CFArrayRef)>>('sec_identity_create_with_certificates');
+          ffi
+          .NativeFunction<sec_identity_t Function(SecIdentityRef, CFArrayRef)>>(
+      'sec_identity_create_with_certificates');
   late final _sec_identity_create_with_certificates =
       _sec_identity_create_with_certificatesPtr
           .asFunction<sec_identity_t Function(SecIdentityRef, CFArrayRef)>();
@@ -45224,8 +45251,8 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_metadata_copy_peer_public_keyPtr = _lookup<
-          ffi.NativeFunction<
-              dispatch_data_t Function(sec_protocol_metadata_t)>>(
+          ffi
+          .NativeFunction<dispatch_data_t Function(sec_protocol_metadata_t)>>(
       'sec_protocol_metadata_copy_peer_public_key');
   late final _sec_protocol_metadata_copy_peer_public_key =
       _sec_protocol_metadata_copy_peer_public_keyPtr
@@ -45903,9 +45930,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_options_set_tls_tickets_enabledPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(sec_protocol_options_t,
-              ffi.Bool)>>('sec_protocol_options_set_tls_tickets_enabled');
+          ffi
+          .NativeFunction<ffi.Void Function(sec_protocol_options_t, ffi.Bool)>>(
+      'sec_protocol_options_set_tls_tickets_enabled');
   late final _sec_protocol_options_set_tls_tickets_enabled =
       _sec_protocol_options_set_tls_tickets_enabledPtr
           .asFunction<void Function(sec_protocol_options_t, bool)>();
@@ -45921,9 +45948,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_options_set_tls_is_fallback_attemptPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(sec_protocol_options_t,
-              ffi.Bool)>>('sec_protocol_options_set_tls_is_fallback_attempt');
+          ffi
+          .NativeFunction<ffi.Void Function(sec_protocol_options_t, ffi.Bool)>>(
+      'sec_protocol_options_set_tls_is_fallback_attempt');
   late final _sec_protocol_options_set_tls_is_fallback_attempt =
       _sec_protocol_options_set_tls_is_fallback_attemptPtr
           .asFunction<void Function(sec_protocol_options_t, bool)>();
@@ -45939,9 +45966,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_options_set_tls_resumption_enabledPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(sec_protocol_options_t,
-              ffi.Bool)>>('sec_protocol_options_set_tls_resumption_enabled');
+          ffi
+          .NativeFunction<ffi.Void Function(sec_protocol_options_t, ffi.Bool)>>(
+      'sec_protocol_options_set_tls_resumption_enabled');
   late final _sec_protocol_options_set_tls_resumption_enabled =
       _sec_protocol_options_set_tls_resumption_enabledPtr
           .asFunction<void Function(sec_protocol_options_t, bool)>();
@@ -45957,9 +45984,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_options_set_tls_false_start_enabledPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(sec_protocol_options_t,
-              ffi.Bool)>>('sec_protocol_options_set_tls_false_start_enabled');
+          ffi
+          .NativeFunction<ffi.Void Function(sec_protocol_options_t, ffi.Bool)>>(
+      'sec_protocol_options_set_tls_false_start_enabled');
   late final _sec_protocol_options_set_tls_false_start_enabled =
       _sec_protocol_options_set_tls_false_start_enabledPtr
           .asFunction<void Function(sec_protocol_options_t, bool)>();
@@ -45975,9 +46002,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_options_set_tls_ocsp_enabledPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(sec_protocol_options_t,
-              ffi.Bool)>>('sec_protocol_options_set_tls_ocsp_enabled');
+          ffi
+          .NativeFunction<ffi.Void Function(sec_protocol_options_t, ffi.Bool)>>(
+      'sec_protocol_options_set_tls_ocsp_enabled');
   late final _sec_protocol_options_set_tls_ocsp_enabled =
       _sec_protocol_options_set_tls_ocsp_enabledPtr
           .asFunction<void Function(sec_protocol_options_t, bool)>();
@@ -45993,9 +46020,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_options_set_tls_sct_enabledPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(sec_protocol_options_t,
-              ffi.Bool)>>('sec_protocol_options_set_tls_sct_enabled');
+          ffi
+          .NativeFunction<ffi.Void Function(sec_protocol_options_t, ffi.Bool)>>(
+      'sec_protocol_options_set_tls_sct_enabled');
   late final _sec_protocol_options_set_tls_sct_enabled =
       _sec_protocol_options_set_tls_sct_enabledPtr
           .asFunction<void Function(sec_protocol_options_t, bool)>();
@@ -46011,9 +46038,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_options_set_tls_renegotiation_enabledPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(sec_protocol_options_t,
-              ffi.Bool)>>('sec_protocol_options_set_tls_renegotiation_enabled');
+          ffi
+          .NativeFunction<ffi.Void Function(sec_protocol_options_t, ffi.Bool)>>(
+      'sec_protocol_options_set_tls_renegotiation_enabled');
   late final _sec_protocol_options_set_tls_renegotiation_enabled =
       _sec_protocol_options_set_tls_renegotiation_enabledPtr
           .asFunction<void Function(sec_protocol_options_t, bool)>();
@@ -46086,9 +46113,9 @@ class NativeCupertinoHttp {
   }
 
   late final _sec_protocol_options_set_quic_use_legacy_codepointPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(sec_protocol_options_t,
-              ffi.Bool)>>('sec_protocol_options_set_quic_use_legacy_codepoint');
+          ffi
+          .NativeFunction<ffi.Void Function(sec_protocol_options_t, ffi.Bool)>>(
+      'sec_protocol_options_set_quic_use_legacy_codepoint');
   late final _sec_protocol_options_set_quic_use_legacy_codepoint =
       _sec_protocol_options_set_quic_use_legacy_codepointPtr
           .asFunction<void Function(sec_protocol_options_t, bool)>();
@@ -46574,9 +46601,9 @@ class NativeCupertinoHttp {
   }
 
   late final _SSLSetConnectionPtr = _lookup<
-      ffi.NativeFunction<
-          OSStatus Function(
-              SSLContextRef, SSLConnectionRef)>>('SSLSetConnection');
+          ffi
+          .NativeFunction<OSStatus Function(SSLContextRef, SSLConnectionRef)>>(
+      'SSLSetConnection');
   late final _SSLSetConnection = _SSLSetConnectionPtr.asFunction<
       int Function(SSLContextRef, SSLConnectionRef)>();
 
@@ -51888,9 +51915,9 @@ class NativeCupertinoHttp {
   }
 
   late final _NSGetUncaughtExceptionHandlerPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<NSUncaughtExceptionHandler>
-              Function()>>('NSGetUncaughtExceptionHandler');
+          ffi
+          .NativeFunction<ffi.Pointer<NSUncaughtExceptionHandler> Function()>>(
+      'NSGetUncaughtExceptionHandler');
   late final _NSGetUncaughtExceptionHandler = _NSGetUncaughtExceptionHandlerPtr
       .asFunction<ffi.Pointer<NSUncaughtExceptionHandler> Function()>();
 
@@ -52938,9 +52965,9 @@ class NativeCupertinoHttp {
   }
 
   late final _Dart_IsolateFlagsInitializePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              ffi.Pointer<Dart_IsolateFlags>)>>('Dart_IsolateFlagsInitialize');
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<Dart_IsolateFlags>)>>(
+      'Dart_IsolateFlagsInitialize');
   late final _Dart_IsolateFlagsInitialize = _Dart_IsolateFlagsInitializePtr
       .asFunction<void Function(ffi.Pointer<Dart_IsolateFlags>)>();
 
@@ -56428,9 +56455,9 @@ class NativeCupertinoHttp {
   }
 
   late final _Dart_GetNativeArgumentPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Handle Function(
-              Dart_NativeArguments, ffi.Int)>>('Dart_GetNativeArgument');
+          ffi
+          .NativeFunction<ffi.Handle Function(Dart_NativeArguments, ffi.Int)>>(
+      'Dart_GetNativeArgument');
   late final _Dart_GetNativeArgument = _Dart_GetNativeArgumentPtr.asFunction<
       Object Function(Dart_NativeArguments, int)>();
 
@@ -56621,9 +56648,9 @@ class NativeCupertinoHttp {
   }
 
   late final _Dart_SetReturnValuePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              Dart_NativeArguments, ffi.Handle)>>('Dart_SetReturnValue');
+          ffi
+          .NativeFunction<ffi.Void Function(Dart_NativeArguments, ffi.Handle)>>(
+      'Dart_SetReturnValue');
   late final _Dart_SetReturnValue = _Dart_SetReturnValuePtr.asFunction<
       void Function(Dart_NativeArguments, Object)>();
 
@@ -56656,9 +56683,9 @@ class NativeCupertinoHttp {
   }
 
   late final _Dart_SetBooleanReturnValuePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              Dart_NativeArguments, ffi.Bool)>>('Dart_SetBooleanReturnValue');
+          ffi
+          .NativeFunction<ffi.Void Function(Dart_NativeArguments, ffi.Bool)>>(
+      'Dart_SetBooleanReturnValue');
   late final _Dart_SetBooleanReturnValue = _Dart_SetBooleanReturnValuePtr
       .asFunction<void Function(Dart_NativeArguments, bool)>();
 
@@ -56673,9 +56700,9 @@ class NativeCupertinoHttp {
   }
 
   late final _Dart_SetIntegerReturnValuePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              Dart_NativeArguments, ffi.Int64)>>('Dart_SetIntegerReturnValue');
+          ffi
+          .NativeFunction<ffi.Void Function(Dart_NativeArguments, ffi.Int64)>>(
+      'Dart_SetIntegerReturnValue');
   late final _Dart_SetIntegerReturnValue = _Dart_SetIntegerReturnValuePtr
       .asFunction<void Function(Dart_NativeArguments, int)>();
 
@@ -56690,9 +56717,9 @@ class NativeCupertinoHttp {
   }
 
   late final _Dart_SetDoubleReturnValuePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(
-              Dart_NativeArguments, ffi.Double)>>('Dart_SetDoubleReturnValue');
+          ffi
+          .NativeFunction<ffi.Void Function(Dart_NativeArguments, ffi.Double)>>(
+      'Dart_SetDoubleReturnValue');
   late final _Dart_SetDoubleReturnValue = _Dart_SetDoubleReturnValuePtr
       .asFunction<void Function(Dart_NativeArguments, double)>();
 
@@ -59374,7 +59401,7 @@ final class __mbstate_t extends ffi.Union {
 
 final class __darwin_pthread_handler_rec extends ffi.Struct {
   external ffi
-          .Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>
+      .Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>
       __routine;
 
   external ffi.Pointer<ffi.Void> __arg;
@@ -60561,8 +60588,8 @@ class ObjCBlock extends _ObjCBlockBase {
   void call() {
     return _id.ref.invoke
         .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<_ObjCBlock> block)>>()
+            ffi
+            .NativeFunction<ffi.Void Function(ffi.Pointer<_ObjCBlock> block)>>()
         .asFunction<void Function(ffi.Pointer<_ObjCBlock> block)>()(_id);
   }
 }
@@ -66495,19 +66522,26 @@ class ObjCBlock11 extends _ObjCBlockBase {
   /// Creates a block from a C function pointer.
   ObjCBlock11.fromFunctionPointer(
       NativeCupertinoHttp lib,
-      ffi.Pointer<ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<ObjCObject> arg0, ffi.Pointer<ObjCObject> arg1, ffi.Pointer<ffi.Bool> arg2)>>
+      ffi.Pointer<
+              ffi
+              .NativeFunction<
+                  ffi.Bool Function(
+                      ffi.Pointer<ObjCObject> arg0,
+                      ffi.Pointer<ObjCObject> arg1,
+                      ffi.Pointer<ffi.Bool> arg2)>>
           ptr)
       : this._(
-            lib._newBlock1(
-                _cFuncTrampoline ??= ffi.Pointer.fromFunction<
-                            ffi.Bool Function(
-                                ffi.Pointer<_ObjCBlock> block,
-                                ffi.Pointer<ObjCObject> arg0,
-                                ffi.Pointer<ObjCObject> arg1,
-                                ffi.Pointer<ffi.Bool> arg2)>(
-                        _ObjCBlock11_fnPtrTrampoline, false)
-                    .cast(),
-                ptr.cast()),
+            lib
+                ._newBlock1(
+                    _cFuncTrampoline ??= ffi.Pointer.fromFunction<
+                                ffi.Bool Function(
+                                    ffi.Pointer<_ObjCBlock> block,
+                                    ffi.Pointer<ObjCObject> arg0,
+                                    ffi.Pointer<ObjCObject> arg1,
+                                    ffi.Pointer<ffi.Bool> arg2)>(
+                            _ObjCBlock11_fnPtrTrampoline, false)
+                        .cast(),
+                    ptr.cast()),
             lib);
   static ffi.Pointer<ffi.Void>? _cFuncTrampoline;
 
@@ -66917,16 +66951,17 @@ class ObjCBlock13 extends _ObjCBlockBase {
                       ffi.Pointer<ffi.Bool> arg2)>>
           ptr)
       : this._(
-            lib._newBlock1(
-                _cFuncTrampoline ??= ffi.Pointer.fromFunction<
-                            ffi.Void Function(
-                                ffi.Pointer<_ObjCBlock> block,
-                                ffi.Pointer<ffi.Void> arg0,
-                                NSRange arg1,
-                                ffi.Pointer<ffi.Bool> arg2)>(
-                        _ObjCBlock13_fnPtrTrampoline)
-                    .cast(),
-                ptr.cast()),
+            lib
+                ._newBlock1(
+                    _cFuncTrampoline ??= ffi.Pointer.fromFunction<
+                                ffi.Void Function(
+                                    ffi.Pointer<_ObjCBlock> block,
+                                    ffi.Pointer<ffi.Void> arg0,
+                                    NSRange arg1,
+                                    ffi.Pointer<ffi.Bool> arg2)>(
+                            _ObjCBlock13_fnPtrTrampoline)
+                        .cast(),
+                    ptr.cast()),
             lib);
   static ffi.Pointer<ffi.Void>? _cFuncTrampoline;
 
@@ -69552,8 +69587,8 @@ class ObjCBlock19 extends _ObjCBlockBase {
   ObjCBlock19.fromFunctionPointer(
       NativeCupertinoHttp lib,
       ffi.Pointer<
-              ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ObjCObject> arg0)>>
+              ffi
+              .NativeFunction<ffi.Void Function(ffi.Pointer<ObjCObject> arg0)>>
           ptr)
       : this._(
             lib._newBlock1(
@@ -71881,8 +71916,8 @@ class ObjCBlock20 extends _ObjCBlockBase {
   ObjCBlock20.fromFunctionPointer(
       NativeCupertinoHttp lib,
       ffi.Pointer<
-              ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ObjCObject> arg0)>>
+              ffi
+              .NativeFunction<ffi.Void Function(ffi.Pointer<ObjCObject> arg0)>>
           ptr)
       : this._(
             lib._newBlock1(
@@ -72268,7 +72303,7 @@ final class __sFILE extends ffi.Struct {
   external ffi.Pointer<ffi.Void> _cookie;
 
   external ffi
-          .Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Void>)>>
+      .Pointer<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Void>)>>
       _close;
 
   external ffi.Pointer<
@@ -73307,15 +73342,14 @@ class ObjCBlock21 extends _ObjCBlockBase {
                   ffi.Void Function(CFRunLoopObserverRef arg0, ffi.Int32 arg1)>>
           ptr)
       : this._(
-            lib
-                ._newBlock1(
-                    _cFuncTrampoline ??= ffi.Pointer.fromFunction<
-                            ffi.Void Function(
-                                ffi.Pointer<_ObjCBlock> block,
-                                CFRunLoopObserverRef arg0,
-                                ffi.Int32 arg1)>(_ObjCBlock21_fnPtrTrampoline)
-                        .cast(),
-                    ptr.cast()),
+            lib._newBlock1(
+                _cFuncTrampoline ??= ffi.Pointer.fromFunction<
+                        ffi.Void Function(
+                            ffi.Pointer<_ObjCBlock> block,
+                            CFRunLoopObserverRef arg0,
+                            ffi.Int32 arg1)>(_ObjCBlock21_fnPtrTrampoline)
+                    .cast(),
+                ptr.cast()),
             lib);
   static ffi.Pointer<ffi.Void>? _cFuncTrampoline;
 
@@ -74436,8 +74470,8 @@ class ObjCBlock27 extends _ObjCBlockBase {
       NativeCupertinoHttp lib,
       ffi.Pointer<
               ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Bool arg0, dispatch_data_t arg1, ffi.Int arg2)>>
+                  ffi.Void Function(ffi.Bool arg0, dispatch_data_t arg1,
+                      ffi.Int arg2)>>
           ptr)
       : this._(
             lib._newBlock1(
@@ -78174,15 +78208,16 @@ class ObjCBlock35 extends _ObjCBlockBase {
                       sec_protocol_challenge_complete_t arg1)>>
           ptr)
       : this._(
-            lib._newBlock1(
-                _cFuncTrampoline ??= ffi.Pointer.fromFunction<
-                            ffi.Void Function(
-                                ffi.Pointer<_ObjCBlock> block,
-                                sec_protocol_metadata_t arg0,
-                                sec_protocol_challenge_complete_t arg1)>(
-                        _ObjCBlock35_fnPtrTrampoline)
-                    .cast(),
-                ptr.cast()),
+            lib
+                ._newBlock1(
+                    _cFuncTrampoline ??= ffi.Pointer.fromFunction<
+                                ffi.Void Function(
+                                    ffi.Pointer<_ObjCBlock> block,
+                                    sec_protocol_metadata_t arg0,
+                                    sec_protocol_challenge_complete_t arg1)>(
+                            _ObjCBlock35_fnPtrTrampoline)
+                        .cast(),
+                    ptr.cast()),
             lib);
   static ffi.Pointer<ffi.Void>? _cFuncTrampoline;
 
@@ -78262,22 +78297,22 @@ class ObjCBlock36 extends _ObjCBlockBase {
   ObjCBlock36.fromFunctionPointer(
       NativeCupertinoHttp lib,
       ffi.Pointer<
-              ffi.NativeFunction<
+              ffi
+              .NativeFunction<
                   ffi.Void Function(sec_protocol_metadata_t arg0,
                       sec_trust_t arg1, sec_protocol_verify_complete_t arg2)>>
           ptr)
       : this._(
-            lib
-                ._newBlock1(
-                    _cFuncTrampoline ??= ffi.Pointer.fromFunction<
-                                ffi.Void Function(
-                                    ffi.Pointer<_ObjCBlock> block,
-                                    sec_protocol_metadata_t arg0,
-                                    sec_trust_t arg1,
-                                    sec_protocol_verify_complete_t arg2)>(
-                            _ObjCBlock36_fnPtrTrampoline)
-                        .cast(),
-                    ptr.cast()),
+            lib._newBlock1(
+                _cFuncTrampoline ??= ffi.Pointer.fromFunction<
+                            ffi.Void Function(
+                                ffi.Pointer<_ObjCBlock> block,
+                                sec_protocol_metadata_t arg0,
+                                sec_trust_t arg1,
+                                sec_protocol_verify_complete_t arg2)>(
+                        _ObjCBlock36_fnPtrTrampoline)
+                    .cast(),
+                ptr.cast()),
             lib);
   static ffi.Pointer<ffi.Void>? _cFuncTrampoline;
 
@@ -79702,8 +79737,8 @@ class ObjCBlock39 extends _ObjCBlockBase {
   ObjCBlock39.fromFunctionPointer(
       NativeCupertinoHttp lib,
       ffi.Pointer<
-              ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ObjCObject> arg0)>>
+              ffi
+              .NativeFunction<ffi.Void Function(ffi.Pointer<ObjCObject> arg0)>>
           ptr)
       : this._(
             lib._newBlock1(
@@ -79995,8 +80030,8 @@ class ObjCBlock41 extends _ObjCBlockBase {
   ObjCBlock41.fromFunctionPointer(
       NativeCupertinoHttp lib,
       ffi.Pointer<
-              ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<ObjCObject> arg0)>>
+              ffi
+              .NativeFunction<ffi.Void Function(ffi.Pointer<ObjCObject> arg0)>>
           ptr)
       : this._(
             lib._newBlock1(
@@ -84443,8 +84478,8 @@ typedef Dart_NativeFunction = ffi.Pointer<
 ///
 /// See Dart_SetNativeResolver.
 typedef Dart_NativeEntrySymbol = ffi.Pointer<
-    ffi.NativeFunction<
-        ffi.Pointer<ffi.Uint8> Function(Dart_NativeFunction nf)>>;
+    ffi
+    .NativeFunction<ffi.Pointer<ffi.Uint8> Function(Dart_NativeFunction nf)>>;
 
 /// FFI Native C function pointer resolver callback.
 ///
