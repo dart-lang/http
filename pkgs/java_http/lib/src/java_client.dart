@@ -97,7 +97,7 @@ class JavaClient extends BaseClient {
   }
 
   // TODO: Rename _isolateMethod to something more descriptive.
-  void _isolateMethod(
+  Future<void> _isolateMethod(
     ({
       SendPort sendPort,
       Uint8List body,
@@ -105,7 +105,7 @@ class JavaClient extends BaseClient {
       String method,
       Uri url,
     }) request,
-  ) {
+  ) async {
     final httpUrlConnection = URL
         .ctor3(request.url.toString().toJString())
         .openConnection()
@@ -141,7 +141,7 @@ class JavaClient extends BaseClient {
       responseHeaders,
     );
 
-    _responseBody(
+    await _responseBody(
       request.url,
       httpUrlConnection,
       request.sendPort,
@@ -231,12 +231,12 @@ class JavaClient extends BaseClient {
     return contentLength;
   }
 
-  void _responseBody(
+  Future<void> _responseBody(
     Uri requestUrl,
     HttpURLConnection httpUrlConnection,
     SendPort sendPort,
     int? expectedBodyLength,
-  ) {
+  ) async {
     final responseCode = httpUrlConnection.getResponseCode();
 
     final inputStream = (responseCode >= 200 && responseCode <= 299)
@@ -251,7 +251,11 @@ class JavaClient extends BaseClient {
     // TODO: bufferedInputStream.read() could throw IOException.
     while ((bytesRead = bufferedInputStream.read1(buffer, 0, buffer.length)) !=
         -1) {
-      if (bytesRead == 0) continue;
+      if (bytesRead == 0) {
+        // No more data is available without blocking so give other Isolates an
+        // opportunity to run.
+        await Future<void>.delayed(Duration.zero);
+      }
 
       // Convert from Java array to Dart Uint8List
       final byteArray = Uint8List(bytesRead);
