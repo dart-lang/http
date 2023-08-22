@@ -256,12 +256,7 @@ class JavaClient extends BaseClient {
         await Future<void>.delayed(Duration.zero);
       }
 
-      // Convert from Java array to Dart Uint8List
-      final byteArray = Uint8List(bytesRead);
-      for (var i = 0; i < bytesRead; i++) {
-        byteArray[i] = buffer[i];
-      }
-      sendPort.send(byteArray);
+      sendPort.send(buffer.toUint8List(length: bytesRead));
       actualBodyLength += bytesRead;
     }
 
@@ -276,4 +271,15 @@ class JavaClient extends BaseClient {
 extension on Uint8List {
   JArray<jbyte> toJArray() =>
       JArray(jbyte.type, length)..setRange(0, length, this);
+}
+
+extension on JArray<jbyte> {
+  Uint8List toUint8List({int? length}) {
+    length ??= this.length;
+    final list = Uint8List(length);
+    for (var i = 0; i < length; i++) {
+      list[i] = this[i];
+    }
+    return list;
+  }
 }
