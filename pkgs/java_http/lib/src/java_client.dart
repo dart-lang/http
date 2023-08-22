@@ -239,7 +239,7 @@ class JavaClient extends BaseClient {
   ) async {
     final responseCode = httpUrlConnection.getResponseCode();
 
-    final bufferedInputStream = (responseCode >= 200 && responseCode <= 299)
+    final responseBodyStream = (responseCode >= 200 && responseCode <= 299)
         ? BufferedInputStream(httpUrlConnection.getInputStream())
         : BufferedInputStream(httpUrlConnection.getErrorStream());
 
@@ -247,7 +247,7 @@ class JavaClient extends BaseClient {
     var actualBodyLength = 0;
     final bytesBuffer = JArray(jbyte.type, 4096);
     // TODO: bufferedInputStream.read() could throw IOException.
-    while ((bytesCount = bufferedInputStream.read1(bytesBuffer, 0, bytesBuffer.length)) !=
+    while ((bytesCount = responseBodyStream.read1(bytesBuffer, 0, bytesBuffer.length)) !=
         -1) {
       if (bytesCount == 0) {
         // No more data is available without blocking so give other Isolates an
@@ -263,7 +263,7 @@ class JavaClient extends BaseClient {
       sendPort.send(ClientException('Unexpected end of body', requestUrl));
     }
 
-    bufferedInputStream.close();
+    responseBodyStream.close();
   }
 }
 
