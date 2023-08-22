@@ -239,10 +239,9 @@ class JavaClient extends BaseClient {
   ) async {
     final responseCode = httpUrlConnection.getResponseCode();
 
-    final inputStream = (responseCode >= 200 && responseCode <= 299)
-        ? httpUrlConnection.getInputStream()
-        : httpUrlConnection.getErrorStream();
-    final bufferedInputStream = BufferedInputStream(inputStream);
+    final bufferedInputStream = (responseCode >= 200 && responseCode <= 299)
+        ? BufferedInputStream(httpUrlConnection.getInputStream())
+        : BufferedInputStream(httpUrlConnection.getErrorStream());
 
     int bytesCount;
     var actualBodyLength = 0;
@@ -264,7 +263,7 @@ class JavaClient extends BaseClient {
       sendPort.send(ClientException('Unexpected end of body', requestUrl));
     }
 
-    inputStream.close();
+    bufferedInputStream.close();
   }
 }
 
