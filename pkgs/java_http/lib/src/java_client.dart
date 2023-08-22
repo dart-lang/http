@@ -243,7 +243,6 @@ class JavaClient extends BaseClient {
         ? httpUrlConnection.getInputStream()
         : httpUrlConnection.getErrorStream();
     final bufferedInputStream = BufferedInputStream(inputStream);
-    print(bufferedInputStream.available());
 
     int bytesRead;
     var actualBodyLength = 0;
