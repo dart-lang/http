@@ -244,20 +244,20 @@ class JavaClient extends BaseClient {
         : httpUrlConnection.getErrorStream();
     final bufferedInputStream = BufferedInputStream(inputStream);
 
-    int bytesRead;
+    int bytesCount;
     var actualBodyLength = 0;
     final buffer = JArray(jbyte.type, 4096);
     // TODO: bufferedInputStream.read() could throw IOException.
-    while ((bytesRead = bufferedInputStream.read1(buffer, 0, buffer.length)) !=
+    while ((bytesCount = bufferedInputStream.read1(buffer, 0, buffer.length)) !=
         -1) {
-      if (bytesRead == 0) {
+      if (bytesCount == 0) {
         // No more data is available without blocking so give other Isolates an
         // opportunity to run.
         await Future<void>.delayed(Duration.zero);
       }
 
-      sendPort.send(buffer.toUint8List(length: bytesRead));
-      actualBodyLength += bytesRead;
+      sendPort.send(buffer.toUint8List(length: bytesCount));
+      actualBodyLength += bytesCount;
     }
 
     if (expectedBodyLength != null && actualBodyLength < expectedBodyLength) {
