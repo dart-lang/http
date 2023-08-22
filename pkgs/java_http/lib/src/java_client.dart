@@ -243,12 +243,13 @@ class JavaClient extends BaseClient {
         ? BufferedInputStream(httpUrlConnection.getInputStream())
         : BufferedInputStream(httpUrlConnection.getErrorStream());
 
-    int bytesCount;
     var actualBodyLength = 0;
     final bytesBuffer = JArray(jbyte.type, 4096);
-    // TODO: bufferedInputStream.read() could throw IOException.
-    while ((bytesCount = responseBodyStream.read1(bytesBuffer, 0, bytesBuffer.length)) !=
-        -1) {
+    // TODO: read1() could throw IOException.
+    var bytesCount =
+        responseBodyStream.read1(bytesBuffer, 0, bytesBuffer.length);
+
+    while (bytesCount != -1) {
       if (bytesCount == 0) {
         // No more data is available without blocking so give other Isolates an
         // opportunity to run.
@@ -257,6 +258,9 @@ class JavaClient extends BaseClient {
 
       sendPort.send(bytesBuffer.toUint8List(length: bytesCount));
       actualBodyLength += bytesCount;
+
+      // TODO: read1() could throw IOException.
+      bytesCount = responseBodyStream.read1(bytesBuffer, 0, bytesBuffer.length);
     }
 
     if (expectedBodyLength != null && actualBodyLength < expectedBodyLength) {
