@@ -246,9 +246,9 @@ class JavaClient extends BaseClient {
 
     int bytesCount;
     var actualBodyLength = 0;
-    final buffer = JArray(jbyte.type, 4096);
+    final bytesBuffer = JArray(jbyte.type, 4096);
     // TODO: bufferedInputStream.read() could throw IOException.
-    while ((bytesCount = bufferedInputStream.read1(buffer, 0, buffer.length)) !=
+    while ((bytesCount = bufferedInputStream.read1(bytesBuffer, 0, bytesBuffer.length)) !=
         -1) {
       if (bytesCount == 0) {
         // No more data is available without blocking so give other Isolates an
@@ -256,7 +256,7 @@ class JavaClient extends BaseClient {
         await Future<void>.delayed(Duration.zero);
       }
 
-      sendPort.send(buffer.toUint8List(length: bytesCount));
+      sendPort.send(bytesBuffer.toUint8List(length: bytesCount));
       actualBodyLength += bytesCount;
     }
 
