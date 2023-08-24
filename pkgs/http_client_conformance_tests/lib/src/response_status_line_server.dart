@@ -5,6 +5,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
 
 /// Starts an HTTP server that returns a custom status line.
@@ -13,20 +14,26 @@ import 'package:stream_channel/stream_channel.dart';
 ///    On Startup:
 ///     - send port
 ///    On Request Received:
+///     - load response status line from channel
 ///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;
+  final clientQueue = StreamQueue(channel.stream);
 
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       await request.drain<void>();
       final socket = await request.response.detachSocket(writeHeaders: false);
 
-      socket.writeAll([
-        'HTTP/1.1 OK',
-        'Content-Length: 0',
-        '', // Add \r\n at the end of this header section.
-      ], '\r\n');
+      final statusLine = (await clientQueue.next) as String;
+      socket.writeAll(
+        [
+          statusLine,
+          'Content-Length: 0',
+          '\r\n', // Add \r\n at the end of this header section.
+        ],
+        '\r\n', // Separate each field by \r\n.
+      );
       await socket.close();
       unawaited(server.close());
     });

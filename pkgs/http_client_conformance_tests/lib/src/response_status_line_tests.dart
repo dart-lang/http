@@ -24,6 +24,7 @@ void testResponseStatusLine(Client client) async {
     });
 
     test('without status code', () async {
+      httpServerChannel.sink.add('HTTP/1.1 OK');
       await expectLater(
         client.get(Uri.http(host, '')),
         throwsA(isA<ClientException>()),
