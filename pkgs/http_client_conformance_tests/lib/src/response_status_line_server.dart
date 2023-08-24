@@ -7,13 +7,12 @@ import 'dart:io';
 
 import 'package:stream_channel/stream_channel.dart';
 
-/// Starts an HTTP server that returns custom headers.
+/// Starts an HTTP server that returns a custom status line.
 ///
 /// Channel protocol:
 ///    On Startup:
 ///     - send port
 ///    On Request Received:
-///     - load response header map from channel
 ///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;

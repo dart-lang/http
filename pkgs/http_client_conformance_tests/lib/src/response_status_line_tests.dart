@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 import 'response_status_line_server_vm.dart'
     if (dart.library.html) 'response_status_line_server_web.dart';
 
-/// Tests that the [Client] correctly processes response headers.
+/// Tests that the [Client] correctly processes the response status line.
 void testResponseStatusLine(Client client) async {
   group('response status line', () {
     late String host;
