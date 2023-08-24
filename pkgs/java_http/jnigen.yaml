@@ -12,6 +12,7 @@ class_path:
   - 'classes.jar'
 
 classes:
+  - 'java.io.BufferedInputStream'
   - 'java.io.InputStream'
   - 'java.io.OutputStream'
   - 'java.lang.System'

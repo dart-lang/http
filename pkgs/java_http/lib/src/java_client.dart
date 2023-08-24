@@ -12,6 +12,7 @@ import 'package:http/http.dart';
 import 'package:jni/jni.dart';
 import 'package:path/path.dart';
 
+import 'third_party/java/io/BufferedInputStream.dart';
 import 'third_party/java/lang/System.dart';
 import 'third_party/java/net/HttpURLConnection.dart';
 import 'third_party/java/net/URL.dart';
@@ -96,7 +97,7 @@ class JavaClient extends BaseClient {
   }
 
   // TODO: Rename _isolateMethod to something more descriptive.
-  void _isolateMethod(
+  Future<void> _isolateMethod(
     ({
       SendPort sendPort,
       Uint8List body,
@@ -104,7 +105,7 @@ class JavaClient extends BaseClient {
       String method,
       Uri url,
     }) request,
-  ) {
+  ) async {
     final httpUrlConnection = URL
         .ctor3(request.url.toString().toJString())
         .openConnection()
@@ -140,7 +141,7 @@ class JavaClient extends BaseClient {
       responseHeaders,
     );
 
-    _responseBody(
+    await _responseBody(
       request.url,
       httpUrlConnection,
       request.sendPort,
@@ -230,35 +231,61 @@ class JavaClient extends BaseClient {
     return contentLength;
   }
 
-  void _responseBody(
+  Future<void> _responseBody(
     Uri requestUrl,
     HttpURLConnection httpUrlConnection,
     SendPort sendPort,
     int? expectedBodyLength,
-  ) {
+  ) async {
     final responseCode = httpUrlConnection.getResponseCode();
 
-    final inputStream = (responseCode >= 200 && responseCode <= 299)
-        ? httpUrlConnection.getInputStream()
-        : httpUrlConnection.getErrorStream();
+    final responseBodyStream = (responseCode >= 200 && responseCode <= 299)
+        ? BufferedInputStream(httpUrlConnection.getInputStream())
+        : BufferedInputStream(httpUrlConnection.getErrorStream());
 
-    int byte;
     var actualBodyLength = 0;
-    // TODO: inputStream.read() could throw IOException.
-    while ((byte = inputStream.read()) != -1) {
-      sendPort.send([byte]);
-      actualBodyLength++;
+    final bytesBuffer = JArray(jbyte.type, 4096);
+
+    while (true) {
+      // TODO: read1() could throw IOException.
+      final bytesCount =
+          responseBodyStream.read1(bytesBuffer, 0, bytesBuffer.length);
+
+      if (bytesCount == -1) {
+        break;
+      }
+
+      if (bytesCount == 0) {
+        // No more data is available without blocking so give other Isolates an
+        // opportunity to run.
+        await Future<void>.delayed(Duration.zero);
+        continue;
+      }
+
+      sendPort.send(bytesBuffer.toUint8List(length: bytesCount));
+      actualBodyLength += bytesCount;
     }
 
     if (expectedBodyLength != null && actualBodyLength < expectedBodyLength) {
       sendPort.send(ClientException('Unexpected end of body', requestUrl));
     }
 
-    inputStream.close();
+    responseBodyStream.close();
   }
 }
 
 extension on Uint8List {
   JArray<jbyte> toJArray() =>
       JArray(jbyte.type, length)..setRange(0, length, this);
+}
+
+extension on JArray<jbyte> {
+  Uint8List toUint8List({int? length}) {
+    length ??= this.length;
+    final list = Uint8List(length);
+    for (var i = 0; i < length; i++) {
+      list[i] = this[i];
+    }
+    return list;
+  }
 }
