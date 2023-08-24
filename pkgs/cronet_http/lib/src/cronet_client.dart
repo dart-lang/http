@@ -15,12 +15,16 @@ library;
 
 import 'dart:async';
 
+import 'package:cronet_http/src/third_party/org/chromium/net/UrlRequest.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
+import 'package:jni/jni.dart';
 
-import 'messages.dart' as messages;
+import 'third_party/org/chromium/net/CronetEngine.dart' as foo;
+import 'third_party/org/chromium/net/CronetException.dart';
+import 'third_party/org/chromium/net/UrlRequest.dart';
+import 'third_party/org/chromium/net/UrlResponseInfo.dart';
 
-final _api = messages.HttpApi();
 final _digitRegex = RegExp(r'^\d+$');
 
 final Finalizer<String> _cronetEngineFinalizer = Finalizer(_api.freeEngine);
@@ -35,9 +39,9 @@ enum CacheMode {
 
 /// An environment that can be used to make HTTP requests.
 class CronetEngine {
-  final String _engineId;
+  late final foo.CronetEngine _engine;
 
-  CronetEngine._(String engineId) : _engineId = engineId;
+  CronetEngine._(this._engine);
 
   /// Construct a new [CronetEngine] with the given configuration.
   ///
@@ -70,7 +74,7 @@ class CronetEngine {
   /// should be used per [CronetEngine].
   ///
   /// [userAgent] controls the `User-Agent` header.
-  static Future<CronetEngine> build(
+  static CronetEngine build(
       {CacheMode? cacheMode,
       int? cacheMaxSize,
       bool? enableBrotli,
@@ -78,34 +82,19 @@ class CronetEngine {
       bool? enablePublicKeyPinningBypassForLocalTrustAnchors,
       bool? enableQuic,
       String? storagePath,
-      String? userAgent}) async {
-    final response = await _api.createEngine(messages.CreateEngineRequest(
-        cacheMode: cacheMode != null
-            ? messages.CacheMode.values[cacheMode.index]
-            : null,
-        cacheMaxSize: cacheMaxSize,
-        enableBrotli: enableBrotli,
-        enableHttp2: enableHttp2,
-        enablePublicKeyPinningBypassForLocalTrustAnchors:
-            enablePublicKeyPinningBypassForLocalTrustAnchors,
-        enableQuic: enableQuic,
-        storagePath: storagePath,
-        userAgent: userAgent));
-    if (response.errorString != null) {
-      if (response.errorType ==
-          messages.ExceptionType.illegalArgumentException) {
-        throw ArgumentError(response.errorString);
-      }
-      throw Exception(response.errorString);
+      String? userAgent}) {
+    final builder = foo.CronetEngine_Builder(
+        JObject.fromRef(Jni.getCachedApplicationContext()));
+
+    if (enableBrotli != null) {
+      builder.enableBrotli(enableBrotli);
     }
-    final engine = CronetEngine._(response.engineId!);
-    _cronetEngineFinalizer.attach(engine, engine._engineId);
-    return engine;
+
+    return CronetEngine._(builder.build());
   }
 
   void close() {
-    _cronetEngineFinalizer.detach(this);
-    _api.freeEngine(_engineId);
+    _engine.delete();
   }
 }
 
@@ -133,6 +122,44 @@ class CronetEngine {
 ///   }
 /// }
 /// ```
+///
+
+class Callback extends UrlRequest_Callback {
+  @override
+  void onCanceled(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
+    // TODO: implement onCanceled
+  }
+
+  @override
+  void onFailed(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
+      CronetException cronetException) {
+    // TODO: implement onFailed
+  }
+
+  @override
+  void onReadCompleted(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
+      JObject byteBuffer) {
+    // TODO: implement onReadCompleted
+  }
+
+  @override
+  void onRedirectReceived(
+      UrlRequest urlRequest, UrlResponseInfo urlResponseInfo, JString string) {
+    // TODO: implement onRedirectReceived
+  }
+
+  @override
+  void onResponseStarted(
+      UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
+    // TODO: implement onResponseStarted
+  }
+
+  @override
+  void onSucceeded(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
+    // TODO: implement onSucceeded
+  }
+}
+
 class CronetClient extends BaseClient {
   CronetEngine? _engine;
   Future<CronetEngine>? _engineFuture;
@@ -185,6 +212,11 @@ class CronetClient extends BaseClient {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
     }
+
+    final engine = CronetEngine.build();
+
+    engine._engine.newUrlRequestBuilder(
+        request.url.toString().toJString(), callback, executor);
 
     if (_engine == null) {
       // Create the future here rather than in the [fromCronetEngineFuture]

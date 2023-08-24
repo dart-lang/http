@@ -1,0 +1,26 @@
+# Regenerate bindings with `dart run jnigen --config jnigen.yaml`.
+
+summarizer:
+  backend: asm
+
+output:
+  bindings_type: dart_only
+  dart:
+    path: 'lib/src/third_party/'
+    
+class_path:
+  - '/Users/bquinlan/Downloads/cronet-api-113.5672.61/classes.jar'
+
+enable_experiment:
+  - interface_implementation
+
+classes:
+  - 'java.util.concurrent.Executors'
+  - 'org.chromium.net.CronetEngine'
+  - 'org.chromium.net.CronetEngine$Builder'
+  - 'org.chromium.net.CronetException'
+  - 'org.chromium.net.UploadDataProviders'
+  - 'org.chromium.net.UrlRequest'
+  - 'org.chromium.net.UrlRequest$Callback'
+  - 'org.chromium.net.UrlResponseInfo'
+
