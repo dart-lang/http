@@ -23,12 +23,17 @@ void testResponseStatusLine(Client client) async {
       host = 'localhost:${await httpServerQueue.next}';
     });
 
-    test('without status code', () async {
-      httpServerChannel.sink.add('HTTP/1.1 OK');
-      await expectLater(
-        client.get(Uri.http(host, '')),
-        throwsA(isA<ClientException>()),
-      );
-    });
+    test(
+      'without status code',
+      () async {
+        httpServerChannel.sink.add('HTTP/1.1 OK');
+        await expectLater(
+          client.get(Uri.http(host, '')),
+          throwsA(isA<ClientException>()),
+        );
+      },
+      skip:
+          'Enable after https://github.com/dart-lang/http/issues/1013 is fixed',
+    );
   });
 }
