@@ -15,6 +15,7 @@ import 'src/request_headers_tests.dart';
 import 'src/response_body_streamed_test.dart';
 import 'src/response_body_tests.dart';
 import 'src/response_headers_tests.dart';
+import 'src/response_status_line_tests.dart';
 import 'src/server_errors_test.dart';
 
 export 'src/close_tests.dart' show testClose;
@@ -29,6 +30,7 @@ export 'src/request_headers_tests.dart' show testRequestHeaders;
 export 'src/response_body_streamed_test.dart' show testResponseBodyStreamed;
 export 'src/response_body_tests.dart' show testResponseBody;
 export 'src/response_headers_tests.dart' show testResponseHeaders;
+export 'src/response_status_line_tests.dart' show testResponseStatusLine;
 export 'src/server_errors_test.dart' show testServerErrors;
 
 /// Runs the entire test suite against the given [Client].
@@ -64,6 +66,7 @@ void testAll(Client Function() clientFactory,
       canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(clientFactory());
   testResponseHeaders(clientFactory());
+  testResponseStatusLine(clientFactory());
   testRedirect(clientFactory(), redirectAlwaysAllowed: redirectAlwaysAllowed);
   testServerErrors(clientFactory());
   testCompressedResponseBody(clientFactory());

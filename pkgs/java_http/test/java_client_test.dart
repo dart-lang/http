@@ -12,6 +12,7 @@ void main() {
     testResponseBody(JavaClient());
     testResponseBodyStreamed(JavaClient());
     testResponseHeaders(JavaClient());
+    testResponseStatusLine(JavaClient());
     testRequestBody(JavaClient());
     testRequestHeaders(JavaClient());
     testMultipleClients(JavaClient.new);
