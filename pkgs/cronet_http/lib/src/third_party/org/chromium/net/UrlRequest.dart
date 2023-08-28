@@ -12,6 +12,7 @@
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
+// ignore_for_file: unused_local_variable
 // ignore_for_file: unused_shown_name
 
 import "dart:isolate" show ReceivePort;
@@ -23,96 +24,220 @@ import "UrlResponseInfo.dart" as urlresponseinfo_;
 
 import "CronetException.dart" as cronetexception_;
 
-/// from: org.chromium.net.UrlRequest
-class UrlRequest extends jni.JObject {
+/// from: org.chromium.net.UrlRequest$Builder
+class UrlRequest_Builder extends jni.JObject {
   @override
-  late final jni.JObjType<UrlRequest> $type = type;
+  late final jni.JObjType<UrlRequest_Builder> $type = type;
 
-  UrlRequest.fromRef(
+  UrlRequest_Builder.fromRef(
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
-  static final _class = jni.Jni.findJClass(r"org/chromium/net/UrlRequest");
+  static final _class =
+      jni.Jni.findJClass(r"org/chromium/net/UrlRequest$Builder");
 
   /// The type which includes information such as the signature of this class.
-  static const type = $UrlRequestType();
-  static final _id_ctor =
+  static const type = $UrlRequest_BuilderType();
+
+  /// from: static public final int REQUEST_PRIORITY_IDLE
+  static const REQUEST_PRIORITY_IDLE = 0;
+
+  /// from: static public final int REQUEST_PRIORITY_LOWEST
+  static const REQUEST_PRIORITY_LOWEST = 1;
+
+  /// from: static public final int REQUEST_PRIORITY_LOW
+  static const REQUEST_PRIORITY_LOW = 2;
+
+  /// from: static public final int REQUEST_PRIORITY_MEDIUM
+  static const REQUEST_PRIORITY_MEDIUM = 3;
+
+  /// from: static public final int REQUEST_PRIORITY_HIGHEST
+  static const REQUEST_PRIORITY_HIGHEST = 4;
+
+  static final _id_new0 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory UrlRequest() {
-    return UrlRequest.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_ctor, []).object);
+  factory UrlRequest_Builder() {
+    return UrlRequest_Builder.fromRef(jni.Jni.accessors
+        .newObjectWithArgs(_class.reference, _id_new0, []).object);
   }
 
-  static final _id_start =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r"start", r"()V");
+  static final _id_setHttpMethod = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"setHttpMethod",
+      r"(Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;");
 
-  /// from: public abstract void start()
-  void start() {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_start, jni.JniCallType.voidType, []).check();
-  }
-
-  static final _id_followRedirect = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"followRedirect", r"()V");
-
-  /// from: public abstract void followRedirect()
-  void followRedirect() {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_followRedirect, jni.JniCallType.voidType, []).check();
-  }
-
-  static final _id_read = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"read", r"(Ljava/nio/ByteBuffer;)V");
-
-  /// from: public abstract void read(java.nio.ByteBuffer byteBuffer)
-  void read(
-    jni.JObject byteBuffer,
+  /// from: public abstract org.chromium.net.UrlRequest$Builder setHttpMethod(java.lang.String string)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder setHttpMethod(
+    jni.JString string,
   ) {
-    return jni.Jni.accessors.callMethodWithArgs(reference, _id_read,
-        jni.JniCallType.voidType, [byteBuffer.reference]).check();
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_setHttpMethod,
+            jni.JniCallType.objectType, [string.reference]).object);
   }
 
-  static final _id_cancel =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r"cancel", r"()V");
+  static final _id_addHeader = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"addHeader",
+      r"(Ljava/lang/String;Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;");
 
-  /// from: public abstract void cancel()
-  void cancel() {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_cancel, jni.JniCallType.voidType, []).check();
-  }
-
-  static final _id_isDone =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r"isDone", r"()Z");
-
-  /// from: public abstract boolean isDone()
-  bool isDone() {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_isDone, jni.JniCallType.booleanType, []).boolean;
-  }
-
-  static final _id_getStatus = jni.Jni.accessors.getMethodIDOf(_class.reference,
-      r"getStatus", r"(Lorg/chromium/net/UrlRequest$StatusListener;)V");
-
-  /// from: public abstract void getStatus(org.chromium.net.UrlRequest$StatusListener statusListener)
-  void getStatus(
-    jni.JObject statusListener,
+  /// from: public abstract org.chromium.net.UrlRequest$Builder addHeader(java.lang.String string, java.lang.String string1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder addHeader(
+    jni.JString string,
+    jni.JString string1,
   ) {
-    return jni.Jni.accessors.callMethodWithArgs(reference, _id_getStatus,
-        jni.JniCallType.voidType, [statusListener.reference]).check();
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(
+            reference,
+            _id_addHeader,
+            jni.JniCallType.objectType,
+            [string.reference, string1.reference]).object);
+  }
+
+  static final _id_disableCache = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"disableCache",
+      r"()Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public abstract org.chromium.net.UrlRequest$Builder disableCache()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder disableCache() {
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_disableCache,
+            jni.JniCallType.objectType, []).object);
+  }
+
+  static final _id_setPriority = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"setPriority",
+      r"(I)Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public abstract org.chromium.net.UrlRequest$Builder setPriority(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder setPriority(
+    int i,
+  ) {
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_setPriority,
+            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  }
+
+  static final _id_setUploadDataProvider = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"setUploadDataProvider",
+      r"(Lorg/chromium/net/UploadDataProvider;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public abstract org.chromium.net.UrlRequest$Builder setUploadDataProvider(org.chromium.net.UploadDataProvider uploadDataProvider, java.util.concurrent.Executor executor)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder setUploadDataProvider(
+    jni.JObject uploadDataProvider,
+    jni.JObject executor,
+  ) {
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(
+            reference,
+            _id_setUploadDataProvider,
+            jni.JniCallType.objectType,
+            [uploadDataProvider.reference, executor.reference]).object);
+  }
+
+  static final _id_allowDirectExecutor = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"allowDirectExecutor",
+      r"()Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public abstract org.chromium.net.UrlRequest$Builder allowDirectExecutor()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder allowDirectExecutor() {
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_allowDirectExecutor,
+            jni.JniCallType.objectType, []).object);
+  }
+
+  static final _id_addRequestAnnotation = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"addRequestAnnotation",
+      r"(Ljava/lang/Object;)Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public org.chromium.net.UrlRequest$Builder addRequestAnnotation(java.lang.Object object)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder addRequestAnnotation(
+    jni.JObject object,
+  ) {
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_addRequestAnnotation,
+            jni.JniCallType.objectType, [object.reference]).object);
+  }
+
+  static final _id_setTrafficStatsTag = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"setTrafficStatsTag",
+      r"(I)Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public org.chromium.net.UrlRequest$Builder setTrafficStatsTag(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder setTrafficStatsTag(
+    int i,
+  ) {
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_setTrafficStatsTag,
+            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  }
+
+  static final _id_setTrafficStatsUid = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"setTrafficStatsUid",
+      r"(I)Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public org.chromium.net.UrlRequest$Builder setTrafficStatsUid(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder setTrafficStatsUid(
+    int i,
+  ) {
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_setTrafficStatsUid,
+            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  }
+
+  static final _id_setRequestFinishedListener = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"setRequestFinishedListener",
+      r"(Lorg/chromium/net/RequestFinishedInfo$Listener;)Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public org.chromium.net.UrlRequest$Builder setRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest_Builder setRequestFinishedListener(
+    jni.JObject listener,
+  ) {
+    return const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_setRequestFinishedListener,
+            jni.JniCallType.objectType, [listener.reference]).object);
+  }
+
+  static final _id_build = jni.Jni.accessors.getMethodIDOf(
+      _class.reference, r"build", r"()Lorg/chromium/net/UrlRequest;");
+
+  /// from: public abstract org.chromium.net.UrlRequest build()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  UrlRequest build() {
+    return const $UrlRequestType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_build, jni.JniCallType.objectType, []).object);
   }
 }
 
-class $UrlRequestType extends jni.JObjType<UrlRequest> {
-  const $UrlRequestType();
+class $UrlRequest_BuilderType extends jni.JObjType<UrlRequest_Builder> {
+  const $UrlRequest_BuilderType();
 
   @override
-  String get signature => r"Lorg/chromium/net/UrlRequest;";
+  String get signature => r"Lorg/chromium/net/UrlRequest$Builder;";
 
   @override
-  UrlRequest fromRef(jni.JObjectPtr ref) => UrlRequest.fromRef(ref);
+  UrlRequest_Builder fromRef(jni.JObjectPtr ref) =>
+      UrlRequest_Builder.fromRef(ref);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -121,11 +246,12 @@ class $UrlRequestType extends jni.JObjType<UrlRequest> {
   final superCount = 1;
 
   @override
-  int get hashCode => ($UrlRequestType).hashCode;
+  int get hashCode => ($UrlRequest_BuilderType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == ($UrlRequestType) && other is $UrlRequestType;
+    return other.runtimeType == ($UrlRequest_BuilderType) &&
+        other is $UrlRequest_BuilderType;
   }
 }
 
@@ -143,14 +269,14 @@ class UrlRequest_Callback extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlRequest_CallbackType();
-  static final _id_ctor =
+  static final _id_new0 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory UrlRequest_Callback() {
     return UrlRequest_Callback.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_ctor, []).object);
+        .newObjectWithArgs(_class.reference, _id_new0, []).object);
   }
 
   static final _id_onRedirectReceived = jni.Jni.accessors.getMethodIDOf(
@@ -285,5 +411,264 @@ class $UrlRequest_CallbackType extends jni.JObjType<UrlRequest_Callback> {
   bool operator ==(Object other) {
     return other.runtimeType == ($UrlRequest_CallbackType) &&
         other is $UrlRequest_CallbackType;
+  }
+}
+
+/// from: org.chromium.net.UrlRequest$Status
+class UrlRequest_Status extends jni.JObject {
+  @override
+  late final jni.JObjType<UrlRequest_Status> $type = type;
+
+  UrlRequest_Status.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _class =
+      jni.Jni.findJClass(r"org/chromium/net/UrlRequest$Status");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $UrlRequest_StatusType();
+
+  /// from: static public final int INVALID
+  static const INVALID = -1;
+
+  /// from: static public final int IDLE
+  static const IDLE = 0;
+
+  /// from: static public final int WAITING_FOR_STALLED_SOCKET_POOL
+  static const WAITING_FOR_STALLED_SOCKET_POOL = 1;
+
+  /// from: static public final int WAITING_FOR_AVAILABLE_SOCKET
+  static const WAITING_FOR_AVAILABLE_SOCKET = 2;
+
+  /// from: static public final int WAITING_FOR_DELEGATE
+  static const WAITING_FOR_DELEGATE = 3;
+
+  /// from: static public final int WAITING_FOR_CACHE
+  static const WAITING_FOR_CACHE = 4;
+
+  /// from: static public final int DOWNLOADING_PAC_FILE
+  static const DOWNLOADING_PAC_FILE = 5;
+
+  /// from: static public final int RESOLVING_PROXY_FOR_URL
+  static const RESOLVING_PROXY_FOR_URL = 6;
+
+  /// from: static public final int RESOLVING_HOST_IN_PAC_FILE
+  static const RESOLVING_HOST_IN_PAC_FILE = 7;
+
+  /// from: static public final int ESTABLISHING_PROXY_TUNNEL
+  static const ESTABLISHING_PROXY_TUNNEL = 8;
+
+  /// from: static public final int RESOLVING_HOST
+  static const RESOLVING_HOST = 9;
+
+  /// from: static public final int CONNECTING
+  static const CONNECTING = 10;
+
+  /// from: static public final int SSL_HANDSHAKE
+  static const SSL_HANDSHAKE = 11;
+
+  /// from: static public final int SENDING_REQUEST
+  static const SENDING_REQUEST = 12;
+
+  /// from: static public final int WAITING_FOR_RESPONSE
+  static const WAITING_FOR_RESPONSE = 13;
+
+  /// from: static public final int READING_RESPONSE
+  static const READING_RESPONSE = 14;
+}
+
+class $UrlRequest_StatusType extends jni.JObjType<UrlRequest_Status> {
+  const $UrlRequest_StatusType();
+
+  @override
+  String get signature => r"Lorg/chromium/net/UrlRequest$Status;";
+
+  @override
+  UrlRequest_Status fromRef(jni.JObjectPtr ref) =>
+      UrlRequest_Status.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($UrlRequest_StatusType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequest_StatusType) &&
+        other is $UrlRequest_StatusType;
+  }
+}
+
+/// from: org.chromium.net.UrlRequest$StatusListener
+class UrlRequest_StatusListener extends jni.JObject {
+  @override
+  late final jni.JObjType<UrlRequest_StatusListener> $type = type;
+
+  UrlRequest_StatusListener.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _class =
+      jni.Jni.findJClass(r"org/chromium/net/UrlRequest$StatusListener");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $UrlRequest_StatusListenerType();
+  static final _id_new0 =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory UrlRequest_StatusListener() {
+    return UrlRequest_StatusListener.fromRef(jni.Jni.accessors
+        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  }
+
+  static final _id_onStatus =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"onStatus", r"(I)V");
+
+  /// from: public abstract void onStatus(int i)
+  void onStatus(
+    int i,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(reference, _id_onStatus,
+        jni.JniCallType.voidType, [jni.JValueInt(i)]).check();
+  }
+}
+
+class $UrlRequest_StatusListenerType
+    extends jni.JObjType<UrlRequest_StatusListener> {
+  const $UrlRequest_StatusListenerType();
+
+  @override
+  String get signature => r"Lorg/chromium/net/UrlRequest$StatusListener;";
+
+  @override
+  UrlRequest_StatusListener fromRef(jni.JObjectPtr ref) =>
+      UrlRequest_StatusListener.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($UrlRequest_StatusListenerType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequest_StatusListenerType) &&
+        other is $UrlRequest_StatusListenerType;
+  }
+}
+
+/// from: org.chromium.net.UrlRequest
+class UrlRequest extends jni.JObject {
+  @override
+  late final jni.JObjType<UrlRequest> $type = type;
+
+  UrlRequest.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _class = jni.Jni.findJClass(r"org/chromium/net/UrlRequest");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $UrlRequestType();
+  static final _id_new0 =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory UrlRequest() {
+    return UrlRequest.fromRef(jni.Jni.accessors
+        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  }
+
+  static final _id_start =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"start", r"()V");
+
+  /// from: public abstract void start()
+  void start() {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_start, jni.JniCallType.voidType, []).check();
+  }
+
+  static final _id_followRedirect = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"followRedirect", r"()V");
+
+  /// from: public abstract void followRedirect()
+  void followRedirect() {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_followRedirect, jni.JniCallType.voidType, []).check();
+  }
+
+  static final _id_read = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"read", r"(Ljava/nio/ByteBuffer;)V");
+
+  /// from: public abstract void read(java.nio.ByteBuffer byteBuffer)
+  void read(
+    jni.JObject byteBuffer,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(reference, _id_read,
+        jni.JniCallType.voidType, [byteBuffer.reference]).check();
+  }
+
+  static final _id_cancel =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"cancel", r"()V");
+
+  /// from: public abstract void cancel()
+  void cancel() {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_cancel, jni.JniCallType.voidType, []).check();
+  }
+
+  static final _id_isDone =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"isDone", r"()Z");
+
+  /// from: public abstract boolean isDone()
+  bool isDone() {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_isDone, jni.JniCallType.booleanType, []).boolean;
+  }
+
+  static final _id_getStatus = jni.Jni.accessors.getMethodIDOf(_class.reference,
+      r"getStatus", r"(Lorg/chromium/net/UrlRequest$StatusListener;)V");
+
+  /// from: public abstract void getStatus(org.chromium.net.UrlRequest$StatusListener statusListener)
+  void getStatus(
+    UrlRequest_StatusListener statusListener,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(reference, _id_getStatus,
+        jni.JniCallType.voidType, [statusListener.reference]).check();
+  }
+}
+
+class $UrlRequestType extends jni.JObjType<UrlRequest> {
+  const $UrlRequestType();
+
+  @override
+  String get signature => r"Lorg/chromium/net/UrlRequest;";
+
+  @override
+  UrlRequest fromRef(jni.JObjectPtr ref) => UrlRequest.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($UrlRequestType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequestType) && other is $UrlRequestType;
   }
 }

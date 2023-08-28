@@ -12,6 +12,7 @@
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
+// ignore_for_file: unused_local_variable
 // ignore_for_file: unused_shown_name
 
 import "dart:isolate" show ReceivePort;
@@ -32,7 +33,7 @@ class CronetException extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $CronetExceptionType();
-  static final _id_ctor = jni.Jni.accessors.getMethodIDOf(_class.reference,
+  static final _id_new0 = jni.Jni.accessors.getMethodIDOf(_class.reference,
       r"<init>", r"(Ljava/lang/String;Ljava/lang/Throwable;)V");
 
   /// from: protected void <init>(java.lang.String string, java.lang.Throwable throwable)
@@ -43,7 +44,7 @@ class CronetException extends jni.JObject {
   ) {
     return CronetException.fromRef(jni.Jni.accessors.newObjectWithArgs(
         _class.reference,
-        _id_ctor,
+        _id_new0,
         [string.reference, throwable.reference]).object);
   }
 }

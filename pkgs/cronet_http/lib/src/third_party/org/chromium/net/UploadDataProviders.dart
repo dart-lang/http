@@ -12,6 +12,7 @@
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
+// ignore_for_file: unused_local_variable
 // ignore_for_file: unused_shown_name
 
 import "dart:isolate" show ReceivePort;

@@ -12,6 +12,7 @@
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
+// ignore_for_file: unused_local_variable
 // ignore_for_file: unused_shown_name
 
 import "dart:isolate" show ReceivePort;
@@ -21,341 +22,53 @@ import "package:jni/jni.dart" as jni;
 
 import "UrlRequest.dart" as urlrequest_;
 
-/// from: org.chromium.net.CronetEngine
-class CronetEngine extends jni.JObject {
+/// from: org.chromium.net.CronetEngine$Builder$LibraryLoader
+class CronetEngine_Builder_LibraryLoader extends jni.JObject {
   @override
-  late final jni.JObjType<CronetEngine> $type = type;
+  late final jni.JObjType<CronetEngine_Builder_LibraryLoader> $type = type;
 
-  CronetEngine.fromRef(
+  CronetEngine_Builder_LibraryLoader.fromRef(
     jni.JObjectPtr ref,
   ) : super.fromRef(ref);
 
-  static final _class = jni.Jni.findJClass(r"org/chromium/net/CronetEngine");
+  static final _class = jni.Jni.findJClass(
+      r"org/chromium/net/CronetEngine$Builder$LibraryLoader");
 
   /// The type which includes information such as the signature of this class.
-  static const type = $CronetEngineType();
-
-  /// from: static public final int ACTIVE_REQUEST_COUNT_UNKNOWN
-  static const ACTIVE_REQUEST_COUNT_UNKNOWN = -1;
-
-  /// from: static public final int CONNECTION_METRIC_UNKNOWN
-  static const CONNECTION_METRIC_UNKNOWN = -1;
-
-  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_UNKNOWN
-  static const EFFECTIVE_CONNECTION_TYPE_UNKNOWN = 0;
-
-  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_OFFLINE
-  static const EFFECTIVE_CONNECTION_TYPE_OFFLINE = 1;
-
-  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_SLOW_2G
-  static const EFFECTIVE_CONNECTION_TYPE_SLOW_2G = 2;
-
-  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_2G
-  static const EFFECTIVE_CONNECTION_TYPE_2G = 3;
-
-  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_3G
-  static const EFFECTIVE_CONNECTION_TYPE_3G = 4;
-
-  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_4G
-  static const EFFECTIVE_CONNECTION_TYPE_4G = 5;
-
-  static final _id_ctor =
+  static const type = $CronetEngine_Builder_LibraryLoaderType();
+  static final _id_new0 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory CronetEngine() {
-    return CronetEngine.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_ctor, []).object);
+  factory CronetEngine_Builder_LibraryLoader() {
+    return CronetEngine_Builder_LibraryLoader.fromRef(jni.Jni.accessors
+        .newObjectWithArgs(_class.reference, _id_new0, []).object);
   }
 
-  static final _id_getVersionString = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r"getVersionString", r"()Ljava/lang/String;");
+  static final _id_loadLibrary = jni.Jni.accessors.getMethodIDOf(
+      _class.reference, r"loadLibrary", r"(Ljava/lang/String;)V");
 
-  /// from: public abstract java.lang.String getVersionString()
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getVersionString() {
-    return const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_getVersionString,
-        jni.JniCallType.objectType, []).object);
-  }
-
-  static final _id_shutdown =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r"shutdown", r"()V");
-
-  /// from: public abstract void shutdown()
-  void shutdown() {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_shutdown, jni.JniCallType.voidType, []).check();
-  }
-
-  static final _id_startNetLogToFile = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r"startNetLogToFile", r"(Ljava/lang/String;Z)V");
-
-  /// from: public abstract void startNetLogToFile(java.lang.String string, boolean z)
-  void startNetLogToFile(
+  /// from: public abstract void loadLibrary(java.lang.String string)
+  void loadLibrary(
     jni.JString string,
-    bool z,
   ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_startNetLogToFile,
-        jni.JniCallType.voidType,
-        [string.reference, z ? 1 : 0]).check();
-  }
-
-  static final _id_stopNetLog =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r"stopNetLog", r"()V");
-
-  /// from: public abstract void stopNetLog()
-  void stopNetLog() {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_stopNetLog, jni.JniCallType.voidType, []).check();
-  }
-
-  static final _id_getGlobalMetricsDeltas = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"getGlobalMetricsDeltas", r"()[B");
-
-  /// from: public abstract byte[] getGlobalMetricsDeltas()
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JArray<jni.jbyte> getGlobalMetricsDeltas() {
-    return const jni.JArrayType(jni.jbyteType()).fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_getGlobalMetricsDeltas,
-            jni.JniCallType.objectType, []).object);
-  }
-
-  static final _id_openConnection = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r"openConnection",
-      r"(Ljava/net/URL;)Ljava/net/URLConnection;");
-
-  /// from: public abstract java.net.URLConnection openConnection(java.net.URL uRL)
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject openConnection(
-    jni.JObject uRL,
-  ) {
-    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_openConnection,
-        jni.JniCallType.objectType,
-        [uRL.reference]).object);
-  }
-
-  static final _id_createURLStreamHandlerFactory = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"createURLStreamHandlerFactory",
-          r"()Ljava/net/URLStreamHandlerFactory;");
-
-  /// from: public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory()
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject createURLStreamHandlerFactory() {
-    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_createURLStreamHandlerFactory,
-        jni.JniCallType.objectType, []).object);
-  }
-
-  static final _id_newUrlRequestBuilder = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r"newUrlRequestBuilder",
-      r"(Ljava/lang/String;Lorg/chromium/net/UrlRequest$Callback;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;");
-
-  /// from: public abstract org.chromium.net.UrlRequest$Builder newUrlRequestBuilder(java.lang.String string, org.chromium.net.UrlRequest$Callback callback, java.util.concurrent.Executor executor)
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject newUrlRequestBuilder(
-    jni.JString string,
-    urlrequest_.UrlRequest_Callback callback,
-    jni.JObject executor,
-  ) {
-    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_newUrlRequestBuilder,
-        jni.JniCallType.objectType,
-        [string.reference, callback.reference, executor.reference]).object);
-  }
-
-  static final _id_getActiveRequestCount = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"getActiveRequestCount", r"()I");
-
-  /// from: public int getActiveRequestCount()
-  int getActiveRequestCount() {
-    return jni.Jni.accessors.callMethodWithArgs(reference,
-        _id_getActiveRequestCount, jni.JniCallType.intType, []).integer;
-  }
-
-  static final _id_addRequestFinishedListener = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r"addRequestFinishedListener",
-      r"(Lorg/chromium/net/RequestFinishedInfo$Listener;)V");
-
-  /// from: public void addRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)
-  void addRequestFinishedListener(
-    jni.JObject listener,
-  ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_addRequestFinishedListener,
-        jni.JniCallType.voidType,
-        [listener.reference]).check();
-  }
-
-  static final _id_removeRequestFinishedListener = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"removeRequestFinishedListener",
-          r"(Lorg/chromium/net/RequestFinishedInfo$Listener;)V");
-
-  /// from: public void removeRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)
-  void removeRequestFinishedListener(
-    jni.JObject listener,
-  ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_removeRequestFinishedListener,
-        jni.JniCallType.voidType,
-        [listener.reference]).check();
-  }
-
-  static final _id_getHttpRttMs = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"getHttpRttMs", r"()I");
-
-  /// from: public int getHttpRttMs()
-  int getHttpRttMs() {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getHttpRttMs, jni.JniCallType.intType, []).integer;
-  }
-
-  static final _id_getTransportRttMs = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"getTransportRttMs", r"()I");
-
-  /// from: public int getTransportRttMs()
-  int getTransportRttMs() {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getTransportRttMs, jni.JniCallType.intType, []).integer;
-  }
-
-  static final _id_getDownstreamThroughputKbps = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"getDownstreamThroughputKbps", r"()I");
-
-  /// from: public int getDownstreamThroughputKbps()
-  int getDownstreamThroughputKbps() {
-    return jni.Jni.accessors.callMethodWithArgs(reference,
-        _id_getDownstreamThroughputKbps, jni.JniCallType.intType, []).integer;
-  }
-
-  static final _id_startNetLogToDisk = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r"startNetLogToDisk", r"(Ljava/lang/String;ZI)V");
-
-  /// from: public void startNetLogToDisk(java.lang.String string, boolean z, int i)
-  void startNetLogToDisk(
-    jni.JString string,
-    bool z,
-    int i,
-  ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_startNetLogToDisk,
-        jni.JniCallType.voidType,
-        [string.reference, z ? 1 : 0, jni.JValueInt(i)]).check();
-  }
-
-  static final _id_getEffectiveConnectionType = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r"getEffectiveConnectionType", r"()I");
-
-  /// from: public int getEffectiveConnectionType()
-  int getEffectiveConnectionType() {
-    return jni.Jni.accessors.callMethodWithArgs(reference,
-        _id_getEffectiveConnectionType, jni.JniCallType.intType, []).integer;
-  }
-
-  static final _id_configureNetworkQualityEstimatorForTesting =
-      jni.Jni.accessors.getMethodIDOf(_class.reference,
-          r"configureNetworkQualityEstimatorForTesting", r"(ZZZ)V");
-
-  /// from: public void configureNetworkQualityEstimatorForTesting(boolean z, boolean z1, boolean z2)
-  void configureNetworkQualityEstimatorForTesting(
-    bool z,
-    bool z1,
-    bool z2,
-  ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_configureNetworkQualityEstimatorForTesting,
-        jni.JniCallType.voidType,
-        [z ? 1 : 0, z1 ? 1 : 0, z2 ? 1 : 0]).check();
-  }
-
-  static final _id_addRttListener = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r"addRttListener",
-      r"(Lorg/chromium/net/NetworkQualityRttListener;)V");
-
-  /// from: public void addRttListener(org.chromium.net.NetworkQualityRttListener networkQualityRttListener)
-  void addRttListener(
-    jni.JObject networkQualityRttListener,
-  ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_addRttListener,
-        jni.JniCallType.voidType,
-        [networkQualityRttListener.reference]).check();
-  }
-
-  static final _id_removeRttListener = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r"removeRttListener",
-      r"(Lorg/chromium/net/NetworkQualityRttListener;)V");
-
-  /// from: public void removeRttListener(org.chromium.net.NetworkQualityRttListener networkQualityRttListener)
-  void removeRttListener(
-    jni.JObject networkQualityRttListener,
-  ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_removeRttListener,
-        jni.JniCallType.voidType,
-        [networkQualityRttListener.reference]).check();
-  }
-
-  static final _id_addThroughputListener = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r"addThroughputListener",
-      r"(Lorg/chromium/net/NetworkQualityThroughputListener;)V");
-
-  /// from: public void addThroughputListener(org.chromium.net.NetworkQualityThroughputListener networkQualityThroughputListener)
-  void addThroughputListener(
-    jni.JObject networkQualityThroughputListener,
-  ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_addThroughputListener,
-        jni.JniCallType.voidType,
-        [networkQualityThroughputListener.reference]).check();
-  }
-
-  static final _id_removeThroughputListener = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r"removeThroughputListener",
-      r"(Lorg/chromium/net/NetworkQualityThroughputListener;)V");
-
-  /// from: public void removeThroughputListener(org.chromium.net.NetworkQualityThroughputListener networkQualityThroughputListener)
-  void removeThroughputListener(
-    jni.JObject networkQualityThroughputListener,
-  ) {
-    return jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_removeThroughputListener,
-        jni.JniCallType.voidType,
-        [networkQualityThroughputListener.reference]).check();
+    return jni.Jni.accessors.callMethodWithArgs(reference, _id_loadLibrary,
+        jni.JniCallType.voidType, [string.reference]).check();
   }
 }
 
-class $CronetEngineType extends jni.JObjType<CronetEngine> {
-  const $CronetEngineType();
+class $CronetEngine_Builder_LibraryLoaderType
+    extends jni.JObjType<CronetEngine_Builder_LibraryLoader> {
+  const $CronetEngine_Builder_LibraryLoaderType();
 
   @override
-  String get signature => r"Lorg/chromium/net/CronetEngine;";
+  String get signature =>
+      r"Lorg/chromium/net/CronetEngine$Builder$LibraryLoader;";
 
   @override
-  CronetEngine fromRef(jni.JObjectPtr ref) => CronetEngine.fromRef(ref);
+  CronetEngine_Builder_LibraryLoader fromRef(jni.JObjectPtr ref) =>
+      CronetEngine_Builder_LibraryLoader.fromRef(ref);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -364,12 +77,12 @@ class $CronetEngineType extends jni.JObjType<CronetEngine> {
   final superCount = 1;
 
   @override
-  int get hashCode => ($CronetEngineType).hashCode;
+  int get hashCode => ($CronetEngine_Builder_LibraryLoaderType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == ($CronetEngineType) &&
-        other is $CronetEngineType;
+    return other.runtimeType == ($CronetEngine_Builder_LibraryLoaderType) &&
+        other is $CronetEngine_Builder_LibraryLoaderType;
   }
 }
 
@@ -412,7 +125,7 @@ class CronetEngine_Builder extends jni.JObject {
   /// from: static public final int HTTP_CACHE_DISK
   static const HTTP_CACHE_DISK = 3;
 
-  static final _id_ctor = jni.Jni.accessors.getMethodIDOf(
+  static final _id_new0 = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r"<init>", r"(Landroid/content/Context;)V");
 
   /// from: public void <init>(android.content.Context context)
@@ -421,19 +134,19 @@ class CronetEngine_Builder extends jni.JObject {
     jni.JObject context,
   ) {
     return CronetEngine_Builder.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference, _id_ctor, [context.reference]).object);
+        _class.reference, _id_new0, [context.reference]).object);
   }
 
-  static final _id_ctor1 = jni.Jni.accessors.getMethodIDOf(_class.reference,
+  static final _id_new1 = jni.Jni.accessors.getMethodIDOf(_class.reference,
       r"<init>", r"(Lorg/chromium/net/ICronetEngineBuilder;)V");
 
   /// from: public void <init>(org.chromium.net.ICronetEngineBuilder iCronetEngineBuilder)
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory CronetEngine_Builder.ctor1(
+  factory CronetEngine_Builder.new1(
     jni.JObject iCronetEngineBuilder,
   ) {
     return CronetEngine_Builder.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference, _id_ctor1, [iCronetEngineBuilder.reference]).object);
+        _class.reference, _id_new1, [iCronetEngineBuilder.reference]).object);
   }
 
   static final _id_getDefaultUserAgent = jni.Jni.accessors.getMethodIDOf(
@@ -486,7 +199,7 @@ class CronetEngine_Builder extends jni.JObject {
   /// from: public org.chromium.net.CronetEngine$Builder setLibraryLoader(org.chromium.net.CronetEngine$Builder$LibraryLoader libraryLoader)
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setLibraryLoader(
-    jni.JObject libraryLoader,
+    CronetEngine_Builder_LibraryLoader libraryLoader,
   ) {
     return const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
         .callMethodWithArgs(reference, _id_setLibraryLoader,
@@ -788,5 +501,358 @@ class $CronetEngine_BuilderType extends jni.JObjType<CronetEngine_Builder> {
   bool operator ==(Object other) {
     return other.runtimeType == ($CronetEngine_BuilderType) &&
         other is $CronetEngine_BuilderType;
+  }
+}
+
+/// from: org.chromium.net.CronetEngine
+class CronetEngine extends jni.JObject {
+  @override
+  late final jni.JObjType<CronetEngine> $type = type;
+
+  CronetEngine.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _class = jni.Jni.findJClass(r"org/chromium/net/CronetEngine");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $CronetEngineType();
+
+  /// from: static public final int ACTIVE_REQUEST_COUNT_UNKNOWN
+  static const ACTIVE_REQUEST_COUNT_UNKNOWN = -1;
+
+  /// from: static public final int CONNECTION_METRIC_UNKNOWN
+  static const CONNECTION_METRIC_UNKNOWN = -1;
+
+  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_UNKNOWN
+  static const EFFECTIVE_CONNECTION_TYPE_UNKNOWN = 0;
+
+  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_OFFLINE
+  static const EFFECTIVE_CONNECTION_TYPE_OFFLINE = 1;
+
+  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_SLOW_2G
+  static const EFFECTIVE_CONNECTION_TYPE_SLOW_2G = 2;
+
+  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_2G
+  static const EFFECTIVE_CONNECTION_TYPE_2G = 3;
+
+  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_3G
+  static const EFFECTIVE_CONNECTION_TYPE_3G = 4;
+
+  /// from: static public final int EFFECTIVE_CONNECTION_TYPE_4G
+  static const EFFECTIVE_CONNECTION_TYPE_4G = 5;
+
+  static final _id_new0 =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory CronetEngine() {
+    return CronetEngine.fromRef(jni.Jni.accessors
+        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  }
+
+  static final _id_getVersionString = jni.Jni.accessors.getMethodIDOf(
+      _class.reference, r"getVersionString", r"()Ljava/lang/String;");
+
+  /// from: public abstract java.lang.String getVersionString()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString getVersionString() {
+    return const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_getVersionString,
+        jni.JniCallType.objectType, []).object);
+  }
+
+  static final _id_shutdown =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"shutdown", r"()V");
+
+  /// from: public abstract void shutdown()
+  void shutdown() {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_shutdown, jni.JniCallType.voidType, []).check();
+  }
+
+  static final _id_startNetLogToFile = jni.Jni.accessors.getMethodIDOf(
+      _class.reference, r"startNetLogToFile", r"(Ljava/lang/String;Z)V");
+
+  /// from: public abstract void startNetLogToFile(java.lang.String string, boolean z)
+  void startNetLogToFile(
+    jni.JString string,
+    bool z,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_startNetLogToFile,
+        jni.JniCallType.voidType,
+        [string.reference, z ? 1 : 0]).check();
+  }
+
+  static final _id_stopNetLog =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"stopNetLog", r"()V");
+
+  /// from: public abstract void stopNetLog()
+  void stopNetLog() {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_stopNetLog, jni.JniCallType.voidType, []).check();
+  }
+
+  static final _id_getGlobalMetricsDeltas = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"getGlobalMetricsDeltas", r"()[B");
+
+  /// from: public abstract byte[] getGlobalMetricsDeltas()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JArray<jni.jbyte> getGlobalMetricsDeltas() {
+    return const jni.JArrayType(jni.jbyteType()).fromRef(jni.Jni.accessors
+        .callMethodWithArgs(reference, _id_getGlobalMetricsDeltas,
+            jni.JniCallType.objectType, []).object);
+  }
+
+  static final _id_openConnection = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"openConnection",
+      r"(Ljava/net/URL;)Ljava/net/URLConnection;");
+
+  /// from: public abstract java.net.URLConnection openConnection(java.net.URL uRL)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject openConnection(
+    jni.JObject uRL,
+  ) {
+    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_openConnection,
+        jni.JniCallType.objectType,
+        [uRL.reference]).object);
+  }
+
+  static final _id_createURLStreamHandlerFactory = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"createURLStreamHandlerFactory",
+          r"()Ljava/net/URLStreamHandlerFactory;");
+
+  /// from: public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject createURLStreamHandlerFactory() {
+    return const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_createURLStreamHandlerFactory,
+        jni.JniCallType.objectType, []).object);
+  }
+
+  static final _id_newUrlRequestBuilder = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"newUrlRequestBuilder",
+      r"(Ljava/lang/String;Lorg/chromium/net/UrlRequest$Callback;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;");
+
+  /// from: public abstract org.chromium.net.UrlRequest$Builder newUrlRequestBuilder(java.lang.String string, org.chromium.net.UrlRequest$Callback callback, java.util.concurrent.Executor executor)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  urlrequest_.UrlRequest_Builder newUrlRequestBuilder(
+    jni.JString string,
+    urlrequest_.UrlRequest_Callback callback,
+    jni.JObject executor,
+  ) {
+    return const urlrequest_.$UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+        .callMethodWithArgs(
+            reference,
+            _id_newUrlRequestBuilder,
+            jni.JniCallType.objectType,
+            [string.reference, callback.reference, executor.reference]).object);
+  }
+
+  static final _id_getActiveRequestCount = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"getActiveRequestCount", r"()I");
+
+  /// from: public int getActiveRequestCount()
+  int getActiveRequestCount() {
+    return jni.Jni.accessors.callMethodWithArgs(reference,
+        _id_getActiveRequestCount, jni.JniCallType.intType, []).integer;
+  }
+
+  static final _id_addRequestFinishedListener = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"addRequestFinishedListener",
+      r"(Lorg/chromium/net/RequestFinishedInfo$Listener;)V");
+
+  /// from: public void addRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)
+  void addRequestFinishedListener(
+    jni.JObject listener,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_addRequestFinishedListener,
+        jni.JniCallType.voidType,
+        [listener.reference]).check();
+  }
+
+  static final _id_removeRequestFinishedListener = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"removeRequestFinishedListener",
+          r"(Lorg/chromium/net/RequestFinishedInfo$Listener;)V");
+
+  /// from: public void removeRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)
+  void removeRequestFinishedListener(
+    jni.JObject listener,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_removeRequestFinishedListener,
+        jni.JniCallType.voidType,
+        [listener.reference]).check();
+  }
+
+  static final _id_getHttpRttMs = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"getHttpRttMs", r"()I");
+
+  /// from: public int getHttpRttMs()
+  int getHttpRttMs() {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_getHttpRttMs, jni.JniCallType.intType, []).integer;
+  }
+
+  static final _id_getTransportRttMs = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"getTransportRttMs", r"()I");
+
+  /// from: public int getTransportRttMs()
+  int getTransportRttMs() {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference, _id_getTransportRttMs, jni.JniCallType.intType, []).integer;
+  }
+
+  static final _id_getDownstreamThroughputKbps = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"getDownstreamThroughputKbps", r"()I");
+
+  /// from: public int getDownstreamThroughputKbps()
+  int getDownstreamThroughputKbps() {
+    return jni.Jni.accessors.callMethodWithArgs(reference,
+        _id_getDownstreamThroughputKbps, jni.JniCallType.intType, []).integer;
+  }
+
+  static final _id_startNetLogToDisk = jni.Jni.accessors.getMethodIDOf(
+      _class.reference, r"startNetLogToDisk", r"(Ljava/lang/String;ZI)V");
+
+  /// from: public void startNetLogToDisk(java.lang.String string, boolean z, int i)
+  void startNetLogToDisk(
+    jni.JString string,
+    bool z,
+    int i,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_startNetLogToDisk,
+        jni.JniCallType.voidType,
+        [string.reference, z ? 1 : 0, jni.JValueInt(i)]).check();
+  }
+
+  static final _id_getEffectiveConnectionType = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"getEffectiveConnectionType", r"()I");
+
+  /// from: public int getEffectiveConnectionType()
+  int getEffectiveConnectionType() {
+    return jni.Jni.accessors.callMethodWithArgs(reference,
+        _id_getEffectiveConnectionType, jni.JniCallType.intType, []).integer;
+  }
+
+  static final _id_configureNetworkQualityEstimatorForTesting =
+      jni.Jni.accessors.getMethodIDOf(_class.reference,
+          r"configureNetworkQualityEstimatorForTesting", r"(ZZZ)V");
+
+  /// from: public void configureNetworkQualityEstimatorForTesting(boolean z, boolean z1, boolean z2)
+  void configureNetworkQualityEstimatorForTesting(
+    bool z,
+    bool z1,
+    bool z2,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_configureNetworkQualityEstimatorForTesting,
+        jni.JniCallType.voidType,
+        [z ? 1 : 0, z1 ? 1 : 0, z2 ? 1 : 0]).check();
+  }
+
+  static final _id_addRttListener = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"addRttListener",
+      r"(Lorg/chromium/net/NetworkQualityRttListener;)V");
+
+  /// from: public void addRttListener(org.chromium.net.NetworkQualityRttListener networkQualityRttListener)
+  void addRttListener(
+    jni.JObject networkQualityRttListener,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_addRttListener,
+        jni.JniCallType.voidType,
+        [networkQualityRttListener.reference]).check();
+  }
+
+  static final _id_removeRttListener = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"removeRttListener",
+      r"(Lorg/chromium/net/NetworkQualityRttListener;)V");
+
+  /// from: public void removeRttListener(org.chromium.net.NetworkQualityRttListener networkQualityRttListener)
+  void removeRttListener(
+    jni.JObject networkQualityRttListener,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_removeRttListener,
+        jni.JniCallType.voidType,
+        [networkQualityRttListener.reference]).check();
+  }
+
+  static final _id_addThroughputListener = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"addThroughputListener",
+      r"(Lorg/chromium/net/NetworkQualityThroughputListener;)V");
+
+  /// from: public void addThroughputListener(org.chromium.net.NetworkQualityThroughputListener networkQualityThroughputListener)
+  void addThroughputListener(
+    jni.JObject networkQualityThroughputListener,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_addThroughputListener,
+        jni.JniCallType.voidType,
+        [networkQualityThroughputListener.reference]).check();
+  }
+
+  static final _id_removeThroughputListener = jni.Jni.accessors.getMethodIDOf(
+      _class.reference,
+      r"removeThroughputListener",
+      r"(Lorg/chromium/net/NetworkQualityThroughputListener;)V");
+
+  /// from: public void removeThroughputListener(org.chromium.net.NetworkQualityThroughputListener networkQualityThroughputListener)
+  void removeThroughputListener(
+    jni.JObject networkQualityThroughputListener,
+  ) {
+    return jni.Jni.accessors.callMethodWithArgs(
+        reference,
+        _id_removeThroughputListener,
+        jni.JniCallType.voidType,
+        [networkQualityThroughputListener.reference]).check();
+  }
+}
+
+class $CronetEngineType extends jni.JObjType<CronetEngine> {
+  const $CronetEngineType();
+
+  @override
+  String get signature => r"Lorg/chromium/net/CronetEngine;";
+
+  @override
+  CronetEngine fromRef(jni.JObjectPtr ref) => CronetEngine.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($CronetEngineType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($CronetEngineType) &&
+        other is $CronetEngineType;
   }
 }

@@ -27,8 +27,6 @@ import 'third_party/org/chromium/net/UrlResponseInfo.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
 
-final Finalizer<String> _cronetEngineFinalizer = Finalizer(_api.freeEngine);
-
 /// The type of caching to use when making HTTP requests.
 enum CacheMode {
   disabled,
@@ -124,7 +122,7 @@ class CronetEngine {
 /// ```
 ///
 
-class Callback extends UrlRequest_Callback {
+class Callback implements $UrlRequest_CallbackType {
   @override
   void onCanceled(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
     // TODO: implement onCanceled
@@ -215,107 +213,10 @@ class CronetClient extends BaseClient {
 
     final engine = CronetEngine.build();
 
+/*
     engine._engine.newUrlRequestBuilder(
         request.url.toString().toJString(), callback, executor);
-
-    if (_engine == null) {
-      // Create the future here rather than in the [fromCronetEngineFuture]
-      // factory so that [close] does not have to await the future just to
-      // close it in the case where [send] is never called.
-      //
-      // Assign to _engineFuture instead of just `await`ing the result of
-      // `CronetEngine.build()` to prevent concurrent executions of `send`
-      // from creating multiple [CronetEngine]s.
-      _engineFuture ??= CronetEngine.build();
-      try {
-        _engine = await _engineFuture;
-      } catch (e) {
-        throw ClientException(
-            'Exception building CronetEngine: ${e.toString()}', request.url);
-      }
-    }
-
-    final stream = request.finalize();
-
-    final body = await stream.toBytes();
-
-    var headers = request.headers;
-    if (body.isNotEmpty &&
-        !headers.keys.any((h) => h.toLowerCase() == 'content-type')) {
-      // Cronet requires that requests containing upload data set a
-      // 'Content-Type' header.
-      headers = {...headers, 'content-type': 'application/octet-stream'};
-    }
-
-    final response = await _api.start(messages.StartRequest(
-      engineId: _engine!._engineId,
-      url: request.url.toString(),
-      method: request.method,
-      headers: headers,
-      body: body,
-      followRedirects: request.followRedirects,
-      maxRedirects: request.maxRedirects,
-    ));
-
-    final responseCompleter = Completer<messages.ResponseStarted>();
-    final responseDataController = StreamController<Uint8List>();
-
-    void raiseException(Exception exception) {
-      if (responseCompleter.isCompleted) {
-        responseDataController.addError(exception);
-      } else {
-        responseCompleter.completeError(exception);
-      }
-      responseDataController.close();
-    }
-
-    final e = EventChannel(response.eventChannel);
-    e.receiveBroadcastStream().listen(
-        (e) {
-          final event = messages.EventMessage.decode(e as Object);
-          switch (event.type) {
-            case messages.EventMessageType.responseStarted:
-              responseCompleter.complete(event.responseStarted!);
-              break;
-            case messages.EventMessageType.readCompleted:
-              responseDataController.sink.add(event.readCompleted!.data);
-              break;
-            case messages.EventMessageType.tooManyRedirects:
-              raiseException(
-                  ClientException('Redirect limit exceeded', request.url));
-              break;
-            default:
-              throw UnsupportedError('Unexpected event: ${event.type}');
-          }
-        },
-        onDone: responseDataController.close,
-        onError: (Object e) {
-          final pe = e as PlatformException;
-          raiseException(ClientException(pe.message!, request.url));
-        });
-
-    final result = await responseCompleter.future;
-    final responseHeaders = result.headers
-        .cast<String, List<Object?>>()
-        .map((key, value) => MapEntry(key.toLowerCase(), value.join(',')));
-
-    int? contentLength;
-    switch (responseHeaders['content-length']) {
-      case final contentLengthHeader?
-          when !_digitRegex.hasMatch(contentLengthHeader):
-        throw ClientException(
-          'Invalid content-length header [$contentLengthHeader].',
-          request.url,
-        );
-      case final contentLengthHeader?:
-        contentLength = int.parse(contentLengthHeader);
-    }
-
-    return StreamedResponse(responseDataController.stream, result.statusCode,
-        contentLength: contentLength,
-        reasonPhrase: result.statusText,
-        request: request,
-        isRedirect: result.isRedirect,
-        headers: responseHeaders);
+*/
+    throw UnsupportedError('yest');
   }
 }

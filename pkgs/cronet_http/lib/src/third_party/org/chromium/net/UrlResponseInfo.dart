@@ -12,12 +12,88 @@
 // ignore_for_file: unused_element
 // ignore_for_file: unused_field
 // ignore_for_file: unused_import
+// ignore_for_file: unused_local_variable
 // ignore_for_file: unused_shown_name
 
 import "dart:isolate" show ReceivePort;
 import "dart:ffi" as ffi;
 import "package:jni/internal_helpers_for_jnigen.dart";
 import "package:jni/jni.dart" as jni;
+
+/// from: org.chromium.net.UrlResponseInfo$HeaderBlock
+class UrlResponseInfo_HeaderBlock extends jni.JObject {
+  @override
+  late final jni.JObjType<UrlResponseInfo_HeaderBlock> $type = type;
+
+  UrlResponseInfo_HeaderBlock.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  static final _class =
+      jni.Jni.findJClass(r"org/chromium/net/UrlResponseInfo$HeaderBlock");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $UrlResponseInfo_HeaderBlockType();
+  static final _id_new0 =
+      jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
+
+  /// from: public void <init>()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  factory UrlResponseInfo_HeaderBlock() {
+    return UrlResponseInfo_HeaderBlock.fromRef(jni.Jni.accessors
+        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  }
+
+  static final _id_getAsList = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"getAsList", r"()Ljava/util/List;");
+
+  /// from: public abstract java.util.List getAsList()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JList<jni.JObject> getAsList() {
+    return const jni.JListType(jni.JObjectType()).fromRef(jni.Jni.accessors
+        .callMethodWithArgs(
+            reference, _id_getAsList, jni.JniCallType.objectType, []).object);
+  }
+
+  static final _id_getAsMap = jni.Jni.accessors
+      .getMethodIDOf(_class.reference, r"getAsMap", r"()Ljava/util/Map;");
+
+  /// from: public abstract java.util.Map getAsMap()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JMap<jni.JString, jni.JList<jni.JString>> getAsMap() {
+    return const jni.JMapType(
+            jni.JStringType(), jni.JListType(jni.JStringType()))
+        .fromRef(jni.Jni.accessors.callMethodWithArgs(
+            reference, _id_getAsMap, jni.JniCallType.objectType, []).object);
+  }
+}
+
+class $UrlResponseInfo_HeaderBlockType
+    extends jni.JObjType<UrlResponseInfo_HeaderBlock> {
+  const $UrlResponseInfo_HeaderBlockType();
+
+  @override
+  String get signature => r"Lorg/chromium/net/UrlResponseInfo$HeaderBlock;";
+
+  @override
+  UrlResponseInfo_HeaderBlock fromRef(jni.JObjectPtr ref) =>
+      UrlResponseInfo_HeaderBlock.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($UrlResponseInfo_HeaderBlockType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlResponseInfo_HeaderBlockType) &&
+        other is $UrlResponseInfo_HeaderBlockType;
+  }
+}
 
 /// from: org.chromium.net.UrlResponseInfo
 class UrlResponseInfo extends jni.JObject {
@@ -32,14 +108,14 @@ class UrlResponseInfo extends jni.JObject {
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlResponseInfoType();
-  static final _id_ctor =
+  static final _id_new0 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r"<init>", r"()V");
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory UrlResponseInfo() {
     return UrlResponseInfo.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_ctor, []).object);
+        .newObjectWithArgs(_class.reference, _id_new0, []).object);
   }
 
   static final _id_getUrl = jni.Jni.accessors
