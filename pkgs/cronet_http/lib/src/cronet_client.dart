@@ -121,8 +121,8 @@ class CronetEngine {
 /// }
 /// ```
 ///
-
-class Callback implements $UrlRequest_CallbackType {
+/*
+class Callback implements $UrlRequest_Callback {
   @override
   void onCanceled(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
     // TODO: implement onCanceled
@@ -157,7 +157,7 @@ class Callback implements $UrlRequest_CallbackType {
     // TODO: implement onSucceeded
   }
 }
-
+*/
 class CronetClient extends BaseClient {
   CronetEngine? _engine;
   Future<CronetEngine>? _engineFuture;

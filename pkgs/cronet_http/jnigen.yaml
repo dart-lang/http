@@ -3,6 +3,11 @@
 summarizer:
   backend: asm
 
+android_sdk_config:
+  add_gradle_deps: true
+  add_gradle_sources: true
+  android_example: 'example/'
+
 output:
   bindings_type: dart_only
   dart:
