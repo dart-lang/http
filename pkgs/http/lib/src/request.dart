@@ -72,7 +72,7 @@ class Request extends BaseRequest {
   /// This list should only be set, not modified in place.
   ///
   /// Unlike [body], setting [bodyBytes] does not implicitly set a
-  /// 'Content-Type' header.
+  /// `Content-Type` header.
   ///
   /// ```dart
   /// final request = Request('GET', Uri.https('example.com', 'whatsit/create'))
