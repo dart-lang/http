@@ -27,5 +27,5 @@ flutter:
   plugin:
     platforms:
       android:
-        package: io.flutter.plugins.cronet_http
-        pluginClass: CronetHttpPlugin
+        ffiPlugin: true
+

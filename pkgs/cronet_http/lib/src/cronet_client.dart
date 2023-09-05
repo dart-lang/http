@@ -15,15 +15,10 @@ library;
 
 import 'dart:async';
 
-import 'package:cronet_http/src/third_party/org/chromium/net/UrlRequest.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:jni/jni.dart';
 
-import 'third_party/org/chromium/net/CronetEngine.dart' as foo;
-import 'third_party/org/chromium/net/CronetException.dart';
-import 'third_party/org/chromium/net/UrlRequest.dart';
-import 'third_party/org/chromium/net/UrlResponseInfo.dart';
+import 'jni/jni_bindings.dart' as jb;
 
 final _digitRegex = RegExp(r'^\d+$');
 
@@ -37,7 +32,7 @@ enum CacheMode {
 
 /// An environment that can be used to make HTTP requests.
 class CronetEngine {
-  late final foo.CronetEngine _engine;
+  late final jb.CronetEngine _engine;
 
   CronetEngine._(this._engine);
 
@@ -81,7 +76,7 @@ class CronetEngine {
       bool? enableQuic,
       String? storagePath,
       String? userAgent}) {
-    final builder = foo.CronetEngine_Builder(
+    final builder = jb.CronetEngine_Builder(
         JObject.fromRef(Jni.getCachedApplicationContext()));
 
     if (enableBrotli != null) {
@@ -121,46 +116,48 @@ class CronetEngine {
 /// }
 /// ```
 ///
-/*
-class Callback implements $UrlRequest_Callback {
+
+class Callback
+    implements jb.$UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl {
   @override
-  void onCanceled(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
+  void onCanceled(
+      jb.UrlRequest urlRequest, jb.UrlResponseInfo urlResponseInfo) {
     // TODO: implement onCanceled
   }
 
   @override
-  void onFailed(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      CronetException cronetException) {
+  void onFailed(jb.UrlRequest urlRequest, jb.UrlResponseInfo urlResponseInfo,
+      jb.CronetException cronetException) {
     // TODO: implement onFailed
   }
 
   @override
-  void onReadCompleted(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      JObject byteBuffer) {
+  void onReadCompleted(jb.UrlRequest urlRequest,
+      jb.UrlResponseInfo urlResponseInfo, JObject byteBuffer) {
     // TODO: implement onReadCompleted
   }
 
   @override
-  void onRedirectReceived(
-      UrlRequest urlRequest, UrlResponseInfo urlResponseInfo, JString string) {
+  void onRedirectReceived(jb.UrlRequest urlRequest,
+      jb.UrlResponseInfo urlResponseInfo, JString string) {
     // TODO: implement onRedirectReceived
   }
 
   @override
   void onResponseStarted(
-      UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
+      jb.UrlRequest urlRequest, jb.UrlResponseInfo urlResponseInfo) {
     // TODO: implement onResponseStarted
   }
 
   @override
-  void onSucceeded(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
+  void onSucceeded(
+      jb.UrlRequest urlRequest, jb.UrlResponseInfo urlResponseInfo) {
     // TODO: implement onSucceeded
   }
 }
-*/
+
 class CronetClient extends BaseClient {
   CronetEngine? _engine;
-  Future<CronetEngine>? _engineFuture;
   bool _isClosed = false;
 
   /// Indicates that [_engine] was constructed as an implementation detail for
@@ -168,14 +165,14 @@ class CronetClient extends BaseClient {
   /// should be closed when this [CronetClient] is closed.
   final bool _ownedEngine;
 
-  CronetClient._(this._engineFuture, this._ownedEngine);
+  CronetClient._(this._engine, this._ownedEngine);
 
   /// A [CronetClient] that will be initialized with a new [CronetEngine].
   factory CronetClient.defaultCronetEngine() => CronetClient._(null, true);
 
   /// A [CronetClient] configured with a [CronetEngine].
   factory CronetClient.fromCronetEngine(CronetEngine engine) =>
-      CronetClient._(Future.value(engine), false);
+      CronetClient._(engine, false);
 
   /// A [CronetClient] configured with a [Future] containing a [CronetEngine].
   ///
@@ -193,9 +190,6 @@ class CronetClient extends BaseClient {
   ///   runWithClient(() => runApp(const BookSearchApp()), clientFactory);
   /// }
   /// ```
-  factory CronetClient.fromCronetEngineFuture(Future<CronetEngine> engine) =>
-      CronetClient._(engine, false);
-
   @override
   void close() {
     if (!_isClosed && _ownedEngine) {
@@ -212,11 +206,28 @@ class CronetClient extends BaseClient {
     }
 
     final engine = CronetEngine.build();
+    print('Engine built');
+    print(engine._engine.getVersionString());
+    final connection = engine._engine
+        .openConnection(jb.URL.new3(request.url.toString().toJString()));
 
-/*
+    final interface =
+        jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface.implement(
+            jb.$UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl(
+      onReadCompleted: (urlRequest, urlResponseInfo, byteBuffer) {},
+      onRedirectReceived: (urlRequest, urlResponseInfo, string) {},
+      onResponseStarted: (urlRequest, urlResponseInfo) {},
+      onSucceeded: (urlRequest, urlResponseInfo) {},
+      onFailed: (jb.UrlRequest urlRequest, jb.UrlResponseInfo urlResponseInfo,
+          jb.CronetException cronetException) {},
+    ));
+    print('Interface created!');
     engine._engine.newUrlRequestBuilder(
-        request.url.toString().toJString(), callback, executor);
-*/
+      request.url.toString().toJString(),
+      jb.UrlRequestCallbackProxy.new1(interface),
+      jb.Executors.newSingleThreadExecutor(),
+    );
+
     throw UnsupportedError('yest');
   }
 }

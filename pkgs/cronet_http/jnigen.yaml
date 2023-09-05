@@ -5,18 +5,26 @@ summarizer:
 
 android_sdk_config:
   add_gradle_deps: true
-  add_gradle_sources: true
+#  add_gradle_sources: true
   android_example: 'example/'
 
+suspend_fun_to_async: true
+
 output:
-  bindings_type: dart_only
+  c:
+    library_name: jni_c_bindings
+    path: src/
   dart:
-    path: 'lib/src/third_party/'
-    
+    path: 'lib/src/jni/jni_bindings.dart'
+    structure: single_file
+
 class_path:
   - '/Users/bquinlan/Downloads/cronet-api-113.5672.61/classes.jar'
 
 classes:
+  - 'java.util.concurrent.Executors'
+  - 'java.net.URL'
+  - 'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy'
   - 'org.chromium.net.CronetEngine'
   - 'org.chromium.net.CronetException'
   - 'org.chromium.net.UploadDataProviders'
