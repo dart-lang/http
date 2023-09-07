@@ -5,15 +5,12 @@ summarizer:
 
 android_sdk_config:
   add_gradle_deps: true
-#  add_gradle_sources: true
   android_example: 'example/'
 
 suspend_fun_to_async: true
 
 output:
-  c:
-    library_name: jni_c_bindings
-    path: src/
+  bindings_type: dart_only
   dart:
     path: 'lib/src/jni/jni_bindings.dart'
     structure: single_file
