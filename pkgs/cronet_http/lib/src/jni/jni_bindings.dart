@@ -153,48 +153,48 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
     $MethodInvocation $i,
   ) {
     try {
-      final $d = $i.methodDescriptor.toDartString(deleteOriginal: true);
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d ==
           r'onRedirectReceived(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V') {
         _$impls[$p]!.onRedirectReceived(
-          $a[0].castTo(const $UrlRequestType(), deleteOriginal: true),
-          $a[1].castTo(const $UrlResponseInfoType(), deleteOriginal: true),
-          $a[2].castTo(const jni.JStringType(), deleteOriginal: true),
+          $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
+          $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
+          $a[2].castTo(const jni.JStringType(), releaseOriginal: true),
         );
         return jni.nullptr;
       }
       if ($d ==
           r'onResponseStarted(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V') {
         _$impls[$p]!.onResponseStarted(
-          $a[0].castTo(const $UrlRequestType(), deleteOriginal: true),
-          $a[1].castTo(const $UrlResponseInfoType(), deleteOriginal: true),
+          $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
+          $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
         );
         return jni.nullptr;
       }
       if ($d ==
           r'onReadCompleted(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V') {
         _$impls[$p]!.onReadCompleted(
-          $a[0].castTo(const $UrlRequestType(), deleteOriginal: true),
-          $a[1].castTo(const $UrlResponseInfoType(), deleteOriginal: true),
-          $a[2].castTo(const $ByteBufferType(), deleteOriginal: true),
+          $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
+          $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
+          $a[2].castTo(const $ByteBufferType(), releaseOriginal: true),
         );
         return jni.nullptr;
       }
       if ($d ==
           r'onSucceeded(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V') {
         _$impls[$p]!.onSucceeded(
-          $a[0].castTo(const $UrlRequestType(), deleteOriginal: true),
-          $a[1].castTo(const $UrlResponseInfoType(), deleteOriginal: true),
+          $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
+          $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
         );
         return jni.nullptr;
       }
       if ($d ==
           r'onFailed(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V') {
         _$impls[$p]!.onFailed(
-          $a[0].castTo(const $UrlRequestType(), deleteOriginal: true),
-          $a[1].castTo(const $UrlResponseInfoType(), deleteOriginal: true),
-          $a[2].castTo(const $CronetExceptionType(), deleteOriginal: true),
+          $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
+          $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
+          $a[2].castTo(const $CronetExceptionType(), releaseOriginal: true),
         );
         return jni.nullptr;
       }
@@ -366,7 +366,7 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
       r'(Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;)V');
 
   /// from: public void <init>(io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface urlRequestCallbackInterface)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory UrlRequestCallbackProxy.new1(
     UrlRequestCallbackProxy_UrlRequestCallbackInterface
         urlRequestCallbackInterface,
@@ -382,7 +382,7 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
       r'()Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;');
 
   /// from: public final io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface getCallback()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequestCallbackProxy_UrlRequestCallbackInterface getCallback() =>
       const $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType().fromRef(
           jni.Jni.accessors.callMethodWithArgs(reference, _id_getCallback,
@@ -519,7 +519,7 @@ class URL extends jni.JObject {
       r'<init>', r'(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)V');
 
   /// from: public void <init>(java.lang.String string, java.lang.String string1, int i, java.lang.String string2)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory URL(
     jni.JString string,
     jni.JString string1,
@@ -538,7 +538,7 @@ class URL extends jni.JObject {
       r'<init>', r'(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
 
   /// from: public void <init>(java.lang.String string, java.lang.String string1, java.lang.String string2)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory URL.new1(
     jni.JString string,
     jni.JString string1,
@@ -555,7 +555,7 @@ class URL extends jni.JObject {
       r'(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/net/URLStreamHandler;)V');
 
   /// from: public void <init>(java.lang.String string, java.lang.String string1, int i, java.lang.String string2, java.net.URLStreamHandler uRLStreamHandler)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory URL.new2(
     jni.JString string,
     jni.JString string1,
@@ -576,7 +576,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'<init>', r'(Ljava/lang/String;)V');
 
   /// from: public void <init>(java.lang.String string)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory URL.new3(
     jni.JString string,
   ) =>
@@ -587,7 +587,7 @@ class URL extends jni.JObject {
       _class.reference, r'<init>', r'(Ljava/net/URL;Ljava/lang/String;)V');
 
   /// from: public void <init>(java.net.URL uRL, java.lang.String string)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory URL.new4(
     URL uRL,
     jni.JString string,
@@ -601,7 +601,7 @@ class URL extends jni.JObject {
       r'(Ljava/net/URL;Ljava/lang/String;Ljava/net/URLStreamHandler;)V');
 
   /// from: public void <init>(java.net.URL uRL, java.lang.String string, java.net.URLStreamHandler uRLStreamHandler)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory URL.new5(
     URL uRL,
     jni.JString string,
@@ -618,7 +618,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getQuery', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getQuery()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getQuery() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getQuery, jni.JniCallType.objectType, []).object);
@@ -627,7 +627,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getPath', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getPath()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getPath() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getPath, jni.JniCallType.objectType, []).object);
@@ -636,7 +636,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getUserInfo', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getUserInfo()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getUserInfo() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getUserInfo, jni.JniCallType.objectType, []).object);
@@ -645,7 +645,7 @@ class URL extends jni.JObject {
       _class.reference, r'getAuthority', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getAuthority()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getAuthority() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getAuthority, jni.JniCallType.objectType, []).object);
@@ -668,7 +668,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getProtocol', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getProtocol()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getProtocol() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getProtocol, jni.JniCallType.objectType, []).object);
@@ -677,7 +677,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getHost', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getHost()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getHost() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getHost, jni.JniCallType.objectType, []).object);
@@ -686,7 +686,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getFile', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getFile()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getFile() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getFile, jni.JniCallType.objectType, []).object);
@@ -695,7 +695,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getRef', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getRef()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getRef() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getRef, jni.JniCallType.objectType, []).object);
@@ -731,7 +731,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'toString', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String toString()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString toString1() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_toString1, jni.JniCallType.objectType, []).object);
@@ -740,7 +740,7 @@ class URL extends jni.JObject {
       _class.reference, r'toExternalForm', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String toExternalForm()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString toExternalForm() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -751,7 +751,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'toURI', r'()Ljava/net/URI;');
 
   /// from: public java.net.URI toURI()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject toURI() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_toURI, jni.JniCallType.objectType, []).object);
@@ -760,7 +760,7 @@ class URL extends jni.JObject {
       _class.reference, r'openConnection', r'()Ljava/net/URLConnection;');
 
   /// from: public java.net.URLConnection openConnection()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject openConnection() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -773,7 +773,7 @@ class URL extends jni.JObject {
       r'(Ljava/net/Proxy;)Ljava/net/URLConnection;');
 
   /// from: public java.net.URLConnection openConnection(java.net.Proxy proxy)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject openConnection1(
     jni.JObject proxy,
   ) =>
@@ -787,7 +787,7 @@ class URL extends jni.JObject {
       _class.reference, r'openStream', r'()Ljava/io/InputStream;');
 
   /// from: public java.io.InputStream openStream()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject openStream() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_openStream, jni.JniCallType.objectType, []).object);
@@ -796,7 +796,7 @@ class URL extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getContent', r'()Ljava/lang/Object;');
 
   /// from: public java.lang.Object getContent()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject getContent() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getContent, jni.JniCallType.objectType, []).object);
@@ -807,7 +807,7 @@ class URL extends jni.JObject {
       r'([Ljava/lang/Class;)Ljava/lang/Object;');
 
   /// from: public java.lang.Object getContent(java.lang.Class[] classs)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject getContent1(
     jni.JArray<jni.JObject> classs,
   ) =>
@@ -886,7 +886,7 @@ class Buffer extends jni.JObject {
       .getMethodIDOf(_class.reference, r'position', r'(I)Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer position(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer position1(
     int i,
   ) =>
@@ -907,7 +907,7 @@ class Buffer extends jni.JObject {
       .getMethodIDOf(_class.reference, r'limit', r'(I)Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer limit(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer limit1(
     int i,
   ) =>
@@ -921,7 +921,7 @@ class Buffer extends jni.JObject {
       .getMethodIDOf(_class.reference, r'mark', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer mark()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer mark() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_mark, jni.JniCallType.objectType, []).object);
@@ -930,7 +930,7 @@ class Buffer extends jni.JObject {
       .getMethodIDOf(_class.reference, r'reset', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer reset()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer reset() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_reset, jni.JniCallType.objectType, []).object);
@@ -939,7 +939,7 @@ class Buffer extends jni.JObject {
       .getMethodIDOf(_class.reference, r'clear', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer clear()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer clear() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_clear, jni.JniCallType.objectType, []).object);
@@ -948,7 +948,7 @@ class Buffer extends jni.JObject {
       .getMethodIDOf(_class.reference, r'flip', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer flip()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer flip() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_flip, jni.JniCallType.objectType, []).object);
@@ -957,7 +957,7 @@ class Buffer extends jni.JObject {
       .getMethodIDOf(_class.reference, r'rewind', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer rewind()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer rewind() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_rewind, jni.JniCallType.objectType, []).object);
@@ -994,7 +994,7 @@ class Buffer extends jni.JObject {
       .getMethodIDOf(_class.reference, r'array', r'()Ljava/lang/Object;');
 
   /// from: public abstract java.lang.Object array()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject array() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_array, jni.JniCallType.objectType, []).object);
@@ -1054,7 +1054,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'allocateDirect', r'(I)Ljava/nio/ByteBuffer;');
 
   /// from: static public java.nio.ByteBuffer allocateDirect(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static ByteBuffer allocateDirect(
     int i,
   ) =>
@@ -1066,7 +1066,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'allocate', r'(I)Ljava/nio/ByteBuffer;');
 
   /// from: static public java.nio.ByteBuffer allocate(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static ByteBuffer allocate(
     int i,
   ) =>
@@ -1078,7 +1078,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'wrap', r'([BII)Ljava/nio/ByteBuffer;');
 
   /// from: static public java.nio.ByteBuffer wrap(byte[] bs, int i, int i1)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static ByteBuffer wrap(
     jni.JArray<jni.jbyte> bs,
     int i,
@@ -1095,7 +1095,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'wrap', r'([B)Ljava/nio/ByteBuffer;');
 
   /// from: static public java.nio.ByteBuffer wrap(byte[] bs)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static ByteBuffer wrap1(
     jni.JArray<jni.jbyte> bs,
   ) =>
@@ -1107,7 +1107,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'slice', r'()Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer slice()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer slice() =>
       const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_slice, jni.JniCallType.objectType, []).object);
@@ -1116,7 +1116,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'duplicate', r'()Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer duplicate()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer duplicate() =>
       const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_duplicate, jni.JniCallType.objectType, []).object);
@@ -1125,7 +1125,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'asReadOnlyBuffer', r'()Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer asReadOnlyBuffer()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer asReadOnlyBuffer() =>
       const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -1143,7 +1143,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'put', r'(B)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer put(byte b)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer put(
     int b,
   ) =>
@@ -1167,7 +1167,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'put', r'(IB)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer put(int i, byte b)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer put1(
     int i,
     int b,
@@ -1182,7 +1182,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'get', r'([BII)Ljava/nio/ByteBuffer;');
 
   /// from: public java.nio.ByteBuffer get(byte[] bs, int i, int i1)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer get2(
     jni.JArray<jni.jbyte> bs,
     int i,
@@ -1198,7 +1198,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'get', r'([B)Ljava/nio/ByteBuffer;');
 
   /// from: public java.nio.ByteBuffer get(byte[] bs)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer get3(
     jni.JArray<jni.jbyte> bs,
   ) =>
@@ -1212,7 +1212,7 @@ class ByteBuffer extends Buffer {
       r'put', r'(Ljava/nio/ByteBuffer;)Ljava/nio/ByteBuffer;');
 
   /// from: public java.nio.ByteBuffer put(java.nio.ByteBuffer byteBuffer)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer put2(
     ByteBuffer byteBuffer,
   ) =>
@@ -1226,7 +1226,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'put', r'([BII)Ljava/nio/ByteBuffer;');
 
   /// from: public java.nio.ByteBuffer put(byte[] bs, int i, int i1)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer put3(
     jni.JArray<jni.jbyte> bs,
     int i,
@@ -1242,7 +1242,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'put', r'([B)Ljava/nio/ByteBuffer;');
 
   /// from: public final java.nio.ByteBuffer put(byte[] bs)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer put4(
     jni.JArray<jni.jbyte> bs,
   ) =>
@@ -1263,7 +1263,7 @@ class ByteBuffer extends Buffer {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'array', r'()[B');
 
   /// from: public final byte[] array()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JArray<jni.jbyte> array1() => const jni.JArrayType(jni.jbyteType())
       .fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_array1, jni.JniCallType.objectType, []).object);
@@ -1279,7 +1279,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'position', r'(I)Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer position(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer position1(
     int i,
   ) =>
@@ -1293,7 +1293,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'limit', r'(I)Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer limit(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer limit1(
     int i,
   ) =>
@@ -1307,7 +1307,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'mark', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer mark()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer mark() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_mark, jni.JniCallType.objectType, []).object);
@@ -1316,7 +1316,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'reset', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer reset()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer reset() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_reset, jni.JniCallType.objectType, []).object);
@@ -1325,7 +1325,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'clear', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer clear()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer clear() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_clear, jni.JniCallType.objectType, []).object);
@@ -1334,7 +1334,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'flip', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer flip()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer flip() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_flip, jni.JniCallType.objectType, []).object);
@@ -1343,7 +1343,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'rewind', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer rewind()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   Buffer rewind() =>
       const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_rewind, jni.JniCallType.objectType, []).object);
@@ -1352,7 +1352,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'compact', r'()Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer compact()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer compact() =>
       const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_compact, jni.JniCallType.objectType, []).object);
@@ -1368,7 +1368,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'toString', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String toString()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString toString1() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_toString1, jni.JniCallType.objectType, []).object);
@@ -1404,7 +1404,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'order', r'()Ljava/nio/ByteOrder;');
 
   /// from: public final java.nio.ByteOrder order()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject order() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_order, jni.JniCallType.objectType, []).object);
@@ -1413,7 +1413,7 @@ class ByteBuffer extends Buffer {
       r'order', r'(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;');
 
   /// from: public final java.nio.ByteBuffer order(java.nio.ByteOrder byteOrder)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer order1(
     jni.JObject byteOrder,
   ) =>
@@ -1441,7 +1441,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'alignedSlice', r'(I)Ljava/nio/ByteBuffer;');
 
   /// from: public final java.nio.ByteBuffer alignedSlice(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer alignedSlice(
     int i,
   ) =>
@@ -1462,7 +1462,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'putChar', r'(C)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putChar(char c)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putChar(
     int c,
   ) =>
@@ -1486,7 +1486,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'putChar', r'(IC)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putChar(int i, char c)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putChar1(
     int i,
     int c,
@@ -1501,7 +1501,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'asCharBuffer', r'()Ljava/nio/CharBuffer;');
 
   /// from: public abstract java.nio.CharBuffer asCharBuffer()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject asCharBuffer() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_asCharBuffer, jni.JniCallType.objectType, []).object);
@@ -1517,7 +1517,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'putShort', r'(S)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putShort(short s)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putShort(
     int s,
   ) =>
@@ -1541,7 +1541,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'putShort', r'(IS)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putShort(int i, short s)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putShort1(
     int i,
     int s,
@@ -1556,7 +1556,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'asShortBuffer', r'()Ljava/nio/ShortBuffer;');
 
   /// from: public abstract java.nio.ShortBuffer asShortBuffer()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject asShortBuffer() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_asShortBuffer, jni.JniCallType.objectType, []).object);
@@ -1572,7 +1572,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'putInt', r'(I)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putInt(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putInt(
     int i,
   ) =>
@@ -1596,7 +1596,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'putInt', r'(II)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putInt(int i, int i1)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putInt1(
     int i,
     int i1,
@@ -1611,7 +1611,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'asIntBuffer', r'()Ljava/nio/IntBuffer;');
 
   /// from: public abstract java.nio.IntBuffer asIntBuffer()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject asIntBuffer() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_asIntBuffer, jni.JniCallType.objectType, []).object);
@@ -1627,7 +1627,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'putLong', r'(J)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putLong(long j)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putLong(
     int j,
   ) =>
@@ -1648,7 +1648,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'putLong', r'(IJ)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putLong(int i, long j)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putLong1(
     int i,
     int j,
@@ -1663,7 +1663,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'asLongBuffer', r'()Ljava/nio/LongBuffer;');
 
   /// from: public abstract java.nio.LongBuffer asLongBuffer()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject asLongBuffer() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_asLongBuffer, jni.JniCallType.objectType, []).object);
@@ -1679,7 +1679,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'putFloat', r'(F)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putFloat(float f)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putFloat(
     double f,
   ) =>
@@ -1703,7 +1703,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'putFloat', r'(IF)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putFloat(int i, float f)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putFloat1(
     int i,
     double f,
@@ -1718,7 +1718,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'asFloatBuffer', r'()Ljava/nio/FloatBuffer;');
 
   /// from: public abstract java.nio.FloatBuffer asFloatBuffer()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject asFloatBuffer() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_asFloatBuffer, jni.JniCallType.objectType, []).object);
@@ -1734,7 +1734,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'putDouble', r'(D)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putDouble(double d)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putDouble(
     double d,
   ) =>
@@ -1755,7 +1755,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'putDouble', r'(ID)Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer putDouble(int i, double d)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   ByteBuffer putDouble1(
     int i,
     double d,
@@ -1770,7 +1770,7 @@ class ByteBuffer extends Buffer {
       _class.reference, r'asDoubleBuffer', r'()Ljava/nio/DoubleBuffer;');
 
   /// from: public abstract java.nio.DoubleBuffer asDoubleBuffer()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject asDoubleBuffer() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -1781,7 +1781,7 @@ class ByteBuffer extends Buffer {
       .getMethodIDOf(_class.reference, r'array', r'()Ljava/lang/Object;');
 
   /// from: public java.lang.Object array()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject array() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_array, jni.JniCallType.objectType, []).object);
@@ -1839,7 +1839,7 @@ class Executors extends jni.JObject {
       r'(I)Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService newFixedThreadPool(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newFixedThreadPool(
     int i,
   ) =>
@@ -1853,7 +1853,7 @@ class Executors extends jni.JObject {
       r'(I)Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService newWorkStealingPool(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newWorkStealingPool(
     int i,
   ) =>
@@ -1867,7 +1867,7 @@ class Executors extends jni.JObject {
       r'()Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService newWorkStealingPool()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newWorkStealingPool1() => const jni.JObjectType().fromRef(
       jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
           _id_newWorkStealingPool1, jni.JniCallType.objectType, []).object);
@@ -1878,7 +1878,7 @@ class Executors extends jni.JObject {
       r'(ILjava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService newFixedThreadPool(int i, java.util.concurrent.ThreadFactory threadFactory)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newFixedThreadPool1(
     int i,
     jni.JObject threadFactory,
@@ -1895,7 +1895,7 @@ class Executors extends jni.JObject {
           r'()Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService newSingleThreadExecutor()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newSingleThreadExecutor() => const jni.JObjectType()
       .fromRef(jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
           _id_newSingleThreadExecutor, jni.JniCallType.objectType, []).object);
@@ -1906,7 +1906,7 @@ class Executors extends jni.JObject {
       r'(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService newSingleThreadExecutor(java.util.concurrent.ThreadFactory threadFactory)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newSingleThreadExecutor1(
     jni.JObject threadFactory,
   ) =>
@@ -1923,7 +1923,7 @@ class Executors extends jni.JObject {
       r'()Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService newCachedThreadPool()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newCachedThreadPool() => const jni.JObjectType().fromRef(
       jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
           _id_newCachedThreadPool, jni.JniCallType.objectType, []).object);
@@ -1934,7 +1934,7 @@ class Executors extends jni.JObject {
       r'(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService newCachedThreadPool(java.util.concurrent.ThreadFactory threadFactory)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newCachedThreadPool1(
     jni.JObject threadFactory,
   ) =>
@@ -1949,7 +1949,7 @@ class Executors extends jni.JObject {
           r'()Ljava/util/concurrent/ScheduledExecutorService;');
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newSingleThreadScheduledExecutor() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors
           .callStaticMethodWithArgs(
@@ -1964,7 +1964,7 @@ class Executors extends jni.JObject {
           r'(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ScheduledExecutorService;');
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor(java.util.concurrent.ThreadFactory threadFactory)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newSingleThreadScheduledExecutor1(
     jni.JObject threadFactory,
   ) =>
@@ -1980,7 +1980,7 @@ class Executors extends jni.JObject {
           r'(I)Ljava/util/concurrent/ScheduledExecutorService;');
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newScheduledThreadPool(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newScheduledThreadPool(
     int i,
   ) =>
@@ -1997,7 +1997,7 @@ class Executors extends jni.JObject {
       r'(ILjava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ScheduledExecutorService;');
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newScheduledThreadPool(int i, java.util.concurrent.ThreadFactory threadFactory)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newScheduledThreadPool1(
     int i,
     jni.JObject threadFactory,
@@ -2014,7 +2014,7 @@ class Executors extends jni.JObject {
           r'(Ljava/util/concurrent/ExecutorService;)Ljava/util/concurrent/ExecutorService;');
 
   /// from: static public java.util.concurrent.ExecutorService unconfigurableExecutorService(java.util.concurrent.ExecutorService executorService)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject unconfigurableExecutorService(
     jni.JObject executorService,
   ) =>
@@ -2032,7 +2032,7 @@ class Executors extends jni.JObject {
           r'(Ljava/util/concurrent/ScheduledExecutorService;)Ljava/util/concurrent/ScheduledExecutorService;');
 
   /// from: static public java.util.concurrent.ScheduledExecutorService unconfigurableScheduledExecutorService(java.util.concurrent.ScheduledExecutorService scheduledExecutorService)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject unconfigurableScheduledExecutorService(
     jni.JObject scheduledExecutorService,
   ) =>
@@ -2049,7 +2049,7 @@ class Executors extends jni.JObject {
       r'()Ljava/util/concurrent/ThreadFactory;');
 
   /// from: static public java.util.concurrent.ThreadFactory defaultThreadFactory()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject defaultThreadFactory() => const jni.JObjectType().fromRef(
       jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
           _id_defaultThreadFactory, jni.JniCallType.objectType, []).object);
@@ -2059,7 +2059,7 @@ class Executors extends jni.JObject {
           r'()Ljava/util/concurrent/ThreadFactory;');
 
   /// from: static public java.util.concurrent.ThreadFactory privilegedThreadFactory()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject privilegedThreadFactory() => const jni.JObjectType()
       .fromRef(jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
           _id_privilegedThreadFactory, jni.JniCallType.objectType, []).object);
@@ -2070,7 +2070,7 @@ class Executors extends jni.JObject {
       r'(Ljava/lang/Runnable;Ljava/lang/Object;)Ljava/util/concurrent/Callable;');
 
   /// from: static public java.util.concurrent.Callable callable(java.lang.Runnable runnable, T object)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject callable<$T extends jni.JObject>(
     jni.JObject runnable,
     $T object, {
@@ -2093,7 +2093,7 @@ class Executors extends jni.JObject {
       r'(Ljava/lang/Runnable;)Ljava/util/concurrent/Callable;');
 
   /// from: static public java.util.concurrent.Callable callable(java.lang.Runnable runnable)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject callable1(
     jni.JObject runnable,
   ) =>
@@ -2107,7 +2107,7 @@ class Executors extends jni.JObject {
       r'(Ljava/security/PrivilegedAction;)Ljava/util/concurrent/Callable;');
 
   /// from: static public java.util.concurrent.Callable callable(java.security.PrivilegedAction privilegedAction)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject callable2(
     jni.JObject privilegedAction,
   ) =>
@@ -2121,7 +2121,7 @@ class Executors extends jni.JObject {
       r'(Ljava/security/PrivilegedExceptionAction;)Ljava/util/concurrent/Callable;');
 
   /// from: static public java.util.concurrent.Callable callable(java.security.PrivilegedExceptionAction privilegedExceptionAction)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject callable3(
     jni.JObject privilegedExceptionAction,
   ) =>
@@ -2138,7 +2138,7 @@ class Executors extends jni.JObject {
       r'(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;');
 
   /// from: static public java.util.concurrent.Callable privilegedCallable(java.util.concurrent.Callable callable)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject privilegedCallable<$T extends jni.JObject>(
     jni.JObject callable, {
     required jni.JObjType<$T> T,
@@ -2154,7 +2154,7 @@ class Executors extends jni.JObject {
           r'(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;');
 
   /// from: static public java.util.concurrent.Callable privilegedCallableUsingCurrentClassLoader(java.util.concurrent.Callable callable)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject
       privilegedCallableUsingCurrentClassLoader<$T extends jni.JObject>(
     jni.JObject callable, {
@@ -2209,7 +2209,7 @@ class CronetEngine_Builder_LibraryLoader extends jni.JObject {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
 
   /// from: public void <init>()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory CronetEngine_Builder_LibraryLoader() =>
       CronetEngine_Builder_LibraryLoader.fromRef(jni.Jni.accessors
           .newObjectWithArgs(_class.reference, _id_new0, []).object);
@@ -2273,7 +2273,7 @@ class CronetEngine_Builder extends jni.JObject {
   );
 
   /// from: protected final org.chromium.net.ICronetEngineBuilder mBuilderDelegate
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject get mBuilderDelegate =>
       const jni.JObjectType().fromRef(jni.Jni.accessors
           .getField(reference, _id_mBuilderDelegate, jni.JniCallType.objectType)
@@ -2295,7 +2295,7 @@ class CronetEngine_Builder extends jni.JObject {
       _class.reference, r'<init>', r'(Landroid/content/Context;)V');
 
   /// from: public void <init>(android.content.Context context)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory CronetEngine_Builder(
     jni.JObject context,
   ) =>
@@ -2306,7 +2306,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'<init>', r'(Lorg/chromium/net/ICronetEngineBuilder;)V');
 
   /// from: public void <init>(org.chromium.net.ICronetEngineBuilder iCronetEngineBuilder)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory CronetEngine_Builder.new1(
     jni.JObject iCronetEngineBuilder,
   ) =>
@@ -2317,7 +2317,7 @@ class CronetEngine_Builder extends jni.JObject {
       _class.reference, r'getDefaultUserAgent', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getDefaultUserAgent()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getDefaultUserAgent() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -2330,7 +2330,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setUserAgent(java.lang.String string)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setUserAgent(
     jni.JString string,
   ) =>
@@ -2344,7 +2344,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setStoragePath(java.lang.String string)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setStoragePath(
     jni.JString string,
   ) =>
@@ -2358,7 +2358,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Lorg/chromium/net/CronetEngine$Builder$LibraryLoader;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setLibraryLoader(org.chromium.net.CronetEngine$Builder$LibraryLoader libraryLoader)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setLibraryLoader(
     CronetEngine_Builder_LibraryLoader libraryLoader,
   ) =>
@@ -2372,7 +2372,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder enableQuic(boolean z)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableQuic(
     bool z,
   ) =>
@@ -2386,7 +2386,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder enableHttp2(boolean z)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableHttp2(
     bool z,
   ) =>
@@ -2400,7 +2400,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder enableSdch(boolean z)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableSdch(
     bool z,
   ) =>
@@ -2414,7 +2414,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder enableBrotli(boolean z)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableBrotli(
     bool z,
   ) =>
@@ -2428,7 +2428,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(IJ)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder enableHttpCache(int i, long j)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableHttpCache(
     int i,
     int j,
@@ -2443,7 +2443,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Ljava/lang/String;II)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder addQuicHint(java.lang.String string, int i, int i1)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder addQuicHint(
     jni.JString string,
     int i,
@@ -2462,7 +2462,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Ljava/lang/String;Ljava/util/Set;ZLjava/util/Date;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder addPublicKeyPins(java.lang.String string, java.util.Set set, boolean z, java.util.Date date)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder addPublicKeyPins(
     jni.JString string,
     jni.JSet<jni.JArray<jni.jbyte>> set0,
@@ -2485,7 +2485,7 @@ class CronetEngine_Builder extends jni.JObject {
           r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder enablePublicKeyPinningBypassForLocalTrustAnchors(boolean z)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enablePublicKeyPinningBypassForLocalTrustAnchors(
     bool z,
   ) =>
@@ -2502,7 +2502,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(I)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setThreadPriority(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setThreadPriority(
     int i,
   ) =>
@@ -2515,7 +2515,7 @@ class CronetEngine_Builder extends jni.JObject {
           r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder enableNetworkQualityEstimator(boolean z)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableNetworkQualityEstimator(
     bool z,
   ) =>
@@ -2529,7 +2529,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Lorg/chromium/net/QuicOptions;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setQuicOptions(org.chromium.net.QuicOptions quicOptions)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setQuicOptions(
     jni.JObject quicOptions,
   ) =>
@@ -2543,7 +2543,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Lorg/chromium/net/QuicOptions$Builder;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setQuicOptions(org.chromium.net.QuicOptions$Builder builder)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setQuicOptions1(
     jni.JObject builder,
   ) =>
@@ -2557,7 +2557,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Lorg/chromium/net/DnsOptions;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setDnsOptions(org.chromium.net.DnsOptions dnsOptions)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setDnsOptions(
     jni.JObject dnsOptions,
   ) =>
@@ -2571,7 +2571,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Lorg/chromium/net/DnsOptions$Builder;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setDnsOptions(org.chromium.net.DnsOptions$Builder builder)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setDnsOptions1(
     jni.JObject builder,
   ) =>
@@ -2585,7 +2585,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Lorg/chromium/net/ConnectionMigrationOptions;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setConnectionMigrationOptions(org.chromium.net.ConnectionMigrationOptions connectionMigrationOptions)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setConnectionMigrationOptions(
     jni.JObject connectionMigrationOptions,
   ) =>
@@ -2602,7 +2602,7 @@ class CronetEngine_Builder extends jni.JObject {
       r'(Lorg/chromium/net/ConnectionMigrationOptions$Builder;)Lorg/chromium/net/CronetEngine$Builder;');
 
   /// from: public org.chromium.net.CronetEngine$Builder setConnectionMigrationOptions(org.chromium.net.ConnectionMigrationOptions$Builder builder)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setConnectionMigrationOptions1(
     jni.JObject builder,
   ) =>
@@ -2614,7 +2614,7 @@ class CronetEngine_Builder extends jni.JObject {
       _class.reference, r'build', r'()Lorg/chromium/net/CronetEngine;');
 
   /// from: public org.chromium.net.CronetEngine build()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   CronetEngine build() =>
       const $CronetEngineType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_build, jni.JniCallType.objectType, []).object);
@@ -2687,7 +2687,7 @@ class CronetEngine extends jni.JObject {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
 
   /// from: public void <init>()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory CronetEngine() => CronetEngine.fromRef(jni.Jni.accessors
       .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
@@ -2695,7 +2695,7 @@ class CronetEngine extends jni.JObject {
       _class.reference, r'getVersionString', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getVersionString()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getVersionString() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -2731,7 +2731,7 @@ class CronetEngine extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getGlobalMetricsDeltas', r'()[B');
 
   /// from: public abstract byte[] getGlobalMetricsDeltas()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JArray<jni.jbyte> getGlobalMetricsDeltas() =>
       const jni.JArrayType(jni.jbyteType()).fromRef(jni.Jni.accessors
           .callMethodWithArgs(reference, _id_getGlobalMetricsDeltas,
@@ -2743,7 +2743,7 @@ class CronetEngine extends jni.JObject {
       r'(Ljava/net/URL;)Ljava/net/URLConnection;');
 
   /// from: public abstract java.net.URLConnection openConnection(java.net.URL uRL)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject openConnection(
     URL uRL,
   ) =>
@@ -2758,7 +2758,7 @@ class CronetEngine extends jni.JObject {
           r'()Ljava/net/URLStreamHandlerFactory;');
 
   /// from: public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JObject createURLStreamHandlerFactory() =>
       const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -2771,7 +2771,7 @@ class CronetEngine extends jni.JObject {
       r'(Ljava/lang/String;Lorg/chromium/net/UrlRequest$Callback;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder newUrlRequestBuilder(java.lang.String string, org.chromium.net.UrlRequest$Callback callback, java.util.concurrent.Executor executor)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder newUrlRequestBuilder(
     jni.JString string,
     UrlRequest_Callback callback,
@@ -2985,7 +2985,7 @@ class CronetException extends jni.JObject {
       r'<init>', r'(Ljava/lang/String;Ljava/lang/Throwable;)V');
 
   /// from: protected void <init>(java.lang.String string, java.lang.Throwable throwable)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory CronetException(
     jni.JString string,
     jni.JObject throwable,
@@ -3040,7 +3040,7 @@ class UploadDataProviders extends jni.JObject {
       r'(Ljava/io/File;)Lorg/chromium/net/UploadDataProvider;');
 
   /// from: static public org.chromium.net.UploadDataProvider create(java.io.File file)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create(
     jni.JObject file,
   ) =>
@@ -3054,7 +3054,7 @@ class UploadDataProviders extends jni.JObject {
       r'(Landroid/os/ParcelFileDescriptor;)Lorg/chromium/net/UploadDataProvider;');
 
   /// from: static public org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor parcelFileDescriptor)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create1(
     jni.JObject parcelFileDescriptor,
   ) =>
@@ -3071,7 +3071,7 @@ class UploadDataProviders extends jni.JObject {
       r'(Ljava/nio/ByteBuffer;)Lorg/chromium/net/UploadDataProvider;');
 
   /// from: static public org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer byteBuffer)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create2(
     ByteBuffer byteBuffer,
   ) =>
@@ -3085,7 +3085,7 @@ class UploadDataProviders extends jni.JObject {
       r'([BII)Lorg/chromium/net/UploadDataProvider;');
 
   /// from: static public org.chromium.net.UploadDataProvider create(byte[] bs, int i, int i1)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create3(
     jni.JArray<jni.jbyte> bs,
     int i,
@@ -3104,7 +3104,7 @@ class UploadDataProviders extends jni.JObject {
       r'([B)Lorg/chromium/net/UploadDataProvider;');
 
   /// from: static public org.chromium.net.UploadDataProvider create(byte[] bs)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create4(
     jni.JArray<jni.jbyte> bs,
   ) =>
@@ -3172,7 +3172,7 @@ class UrlRequest_Builder extends jni.JObject {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
 
   /// from: public void <init>()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory UrlRequest_Builder() => UrlRequest_Builder.fromRef(jni.Jni.accessors
       .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
@@ -3182,7 +3182,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'(Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder setHttpMethod(java.lang.String string)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setHttpMethod(
     jni.JString string,
   ) =>
@@ -3196,7 +3196,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'(Ljava/lang/String;Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder addHeader(java.lang.String string, java.lang.String string1)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder addHeader(
     jni.JString string,
     jni.JString string1,
@@ -3214,7 +3214,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'()Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder disableCache()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder disableCache() => const $UrlRequest_BuilderType().fromRef(
       jni.Jni.accessors.callMethodWithArgs(
           reference, _id_disableCache, jni.JniCallType.objectType, []).object);
@@ -3225,7 +3225,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'(I)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder setPriority(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setPriority(
     int i,
   ) =>
@@ -3239,7 +3239,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'(Lorg/chromium/net/UploadDataProvider;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder setUploadDataProvider(org.chromium.net.UploadDataProvider uploadDataProvider, java.util.concurrent.Executor executor)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setUploadDataProvider(
     jni.JObject uploadDataProvider,
     jni.JObject executor,
@@ -3257,7 +3257,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'()Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder allowDirectExecutor()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder allowDirectExecutor() => const $UrlRequest_BuilderType()
       .fromRef(jni.Jni.accessors.callMethodWithArgs(reference,
           _id_allowDirectExecutor, jni.JniCallType.objectType, []).object);
@@ -3268,7 +3268,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'(Ljava/lang/Object;)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public org.chromium.net.UrlRequest$Builder addRequestAnnotation(java.lang.Object object)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder addRequestAnnotation(
     jni.JObject object,
   ) =>
@@ -3282,7 +3282,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'(I)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public org.chromium.net.UrlRequest$Builder setTrafficStatsTag(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setTrafficStatsTag(
     int i,
   ) =>
@@ -3296,7 +3296,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'(I)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public org.chromium.net.UrlRequest$Builder setTrafficStatsUid(int i)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setTrafficStatsUid(
     int i,
   ) =>
@@ -3310,7 +3310,7 @@ class UrlRequest_Builder extends jni.JObject {
       r'(Lorg/chromium/net/RequestFinishedInfo$Listener;)Lorg/chromium/net/UrlRequest$Builder;');
 
   /// from: public org.chromium.net.UrlRequest$Builder setRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setRequestFinishedListener(
     jni.JObject listener,
   ) =>
@@ -3322,7 +3322,7 @@ class UrlRequest_Builder extends jni.JObject {
       _class.reference, r'build', r'()Lorg/chromium/net/UrlRequest;');
 
   /// from: public abstract org.chromium.net.UrlRequest build()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   UrlRequest build() =>
       const $UrlRequestType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_build, jni.JniCallType.objectType, []).object);
@@ -3371,7 +3371,7 @@ class UrlRequest_Callback extends jni.JObject {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
 
   /// from: public void <init>()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory UrlRequest_Callback() => UrlRequest_Callback.fromRef(jni.Jni.accessors
       .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
@@ -3610,7 +3610,7 @@ class UrlRequest_StatusListener extends jni.JObject {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
 
   /// from: public void <init>()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory UrlRequest_StatusListener() =>
       UrlRequest_StatusListener.fromRef(jni.Jni.accessors
           .newObjectWithArgs(_class.reference, _id_new0, []).object);
@@ -3669,7 +3669,7 @@ class UrlRequest extends jni.JObject {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
 
   /// from: public void <init>()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory UrlRequest() => UrlRequest.fromRef(jni.Jni.accessors
       .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
@@ -3763,7 +3763,7 @@ class UrlResponseInfo_HeaderBlock extends jni.JObject {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
 
   /// from: public void <init>()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory UrlResponseInfo_HeaderBlock() =>
       UrlResponseInfo_HeaderBlock.fromRef(jni.Jni.accessors
           .newObjectWithArgs(_class.reference, _id_new0, []).object);
@@ -3772,7 +3772,7 @@ class UrlResponseInfo_HeaderBlock extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getAsList', r'()Ljava/util/List;');
 
   /// from: public abstract java.util.List getAsList()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> getAsList() => const jni.JListType(jni.JObjectType())
       .fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getAsList, jni.JniCallType.objectType, []).object);
@@ -3781,7 +3781,7 @@ class UrlResponseInfo_HeaderBlock extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getAsMap', r'()Ljava/util/Map;');
 
   /// from: public abstract java.util.Map getAsMap()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JMap<jni.JString, jni.JList<jni.JString>> getAsMap() =>
       const jni.JMapType(jni.JStringType(), jni.JListType(jni.JStringType()))
           .fromRef(jni.Jni.accessors.callMethodWithArgs(
@@ -3831,7 +3831,7 @@ class UrlResponseInfo extends jni.JObject {
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
 
   /// from: public void <init>()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   factory UrlResponseInfo() => UrlResponseInfo.fromRef(jni.Jni.accessors
       .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
@@ -3839,7 +3839,7 @@ class UrlResponseInfo extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getUrl', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getUrl()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getUrl() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getUrl, jni.JniCallType.objectType, []).object);
@@ -3848,7 +3848,7 @@ class UrlResponseInfo extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getUrlChain', r'()Ljava/util/List;');
 
   /// from: public abstract java.util.List getUrlChain()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JString> getUrlChain() => const jni.JListType(jni.JStringType())
       .fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference, _id_getUrlChain, jni.JniCallType.objectType, []).object);
@@ -3864,7 +3864,7 @@ class UrlResponseInfo extends jni.JObject {
       _class.reference, r'getHttpStatusText', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getHttpStatusText()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getHttpStatusText() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -3875,7 +3875,7 @@ class UrlResponseInfo extends jni.JObject {
       _class.reference, r'getAllHeadersAsList', r'()Ljava/util/List;');
 
   /// from: public abstract java.util.List getAllHeadersAsList()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> getAllHeadersAsList() =>
       const jni.JListType(jni.JObjectType()).fromRef(jni.Jni.accessors
           .callMethodWithArgs(reference, _id_getAllHeadersAsList,
@@ -3885,7 +3885,7 @@ class UrlResponseInfo extends jni.JObject {
       .getMethodIDOf(_class.reference, r'getAllHeaders', r'()Ljava/util/Map;');
 
   /// from: public abstract java.util.Map getAllHeaders()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JMap<jni.JString, jni.JList<jni.JString>> getAllHeaders() =>
       const jni.JMapType(jni.JStringType(), jni.JListType(jni.JStringType()))
           .fromRef(jni.Jni.accessors.callMethodWithArgs(reference,
@@ -3902,7 +3902,7 @@ class UrlResponseInfo extends jni.JObject {
       _class.reference, r'getNegotiatedProtocol', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getNegotiatedProtocol()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getNegotiatedProtocol() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
@@ -3913,7 +3913,7 @@ class UrlResponseInfo extends jni.JObject {
       _class.reference, r'getProxyServer', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getProxyServer()
-  /// The returned object must be deleted after use, by calling the `delete` method.
+  /// The returned object must be released after use, by calling the [release] method.
   jni.JString getProxyServer() =>
       const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
           reference,
