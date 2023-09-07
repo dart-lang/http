@@ -288,8 +288,12 @@ class CronetClient extends BaseClient {
       },
       onReadCompleted: (urlRequest, responseInfo, byteBuffer) {
         byteBuffer.flip();
-        final data = Uint8List(byteBuffer.remaining());
-        for (var i = 0; i < byteBuffer.remaining(); ++i) {
+
+        final remaining = byteBuffer.remaining();
+        final data = Uint8List(remaining);
+        // TODO: Use a more efficient approach when
+        // https://github.com/dart-lang/jnigen/issues/387 is fixed.
+        for (var i = 0; i < remaining; ++i) {
           data[i] = byteBuffer.get1(i);
         }
         responseStream!.add(data);
@@ -327,6 +331,8 @@ class CronetClient extends BaseClient {
     headers.forEach((k, v) => builder.addHeader(k.toJString(), v.toJString()));
 
     if (body.isNotEmpty) {
+      // TODO: Use a more efficient approach when
+      // https://github.com/dart-lang/jnigen/issues/387 is fixed.
       final bodyBytes = JArray(jbyte.type, body.length);
       for (var i = 0; i < body.length; ++i) {
         bodyBytes[i] = body[i];
