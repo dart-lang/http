@@ -123,7 +123,7 @@ class CronetEngine {
   }
 
   void close() {
-    _engine.delete();
+    _engine.shutdown();
   }
 }
 

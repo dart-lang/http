@@ -47,12 +47,13 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JString string,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      string.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        string.reference
+      ]).check();
 
   static final _id_onResponseStarted = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -63,11 +64,12 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
   void onResponseStarted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_onResponseStarted,
-        jni.JniCallType.voidType,
-        [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_onResponseStarted,
+          jni.JniCallType.voidType,
+          [urlRequest.reference, urlResponseInfo.reference]).check();
 
   static final _id_onReadCompleted = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -79,12 +81,13 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     ByteBuffer byteBuffer,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onReadCompleted, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      byteBuffer.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onReadCompleted, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        byteBuffer.reference
+      ]).check();
 
   static final _id_onSucceeded = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -95,11 +98,12 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
   void onSucceeded(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_onSucceeded,
-        jni.JniCallType.voidType,
-        [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_onSucceeded,
+          jni.JniCallType.voidType,
+          [urlRequest.reference, urlResponseInfo.reference]).check();
 
   static final _id_onFailed = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -111,12 +115,13 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     CronetException cronetException,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onFailed, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      cronetException.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onFailed, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        cronetException.reference
+      ]).check();
 
   /// Maps a specific port to the implemented interface.
   static final Map<int,
@@ -127,14 +132,15 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
     int port,
     jni.JObjectPtr descriptor,
     jni.JObjectPtr args,
-  ) => _$invokeMethod(
-      port,
-      $MethodInvocation.fromAddresses(
-        0,
-        descriptor.address,
-        args.address,
-      ),
-    );
+  ) =>
+      _$invokeMethod(
+        port,
+        $MethodInvocation.fromAddresses(
+          0,
+          descriptor.address,
+          args.address,
+        ),
+      );
 
   static final ffi.Pointer<
           ffi.NativeFunction<
@@ -291,18 +297,23 @@ class _$UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl
       CronetException cronetException) _onFailed;
 
   void onRedirectReceived(UrlRequest urlRequest,
-      UrlResponseInfo urlResponseInfo, jni.JString string) => _onRedirectReceived(urlRequest, urlResponseInfo, string);
+          UrlResponseInfo urlResponseInfo, jni.JString string) =>
+      _onRedirectReceived(urlRequest, urlResponseInfo, string);
 
   void onResponseStarted(
-      UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) => _onResponseStarted(urlRequest, urlResponseInfo);
+          UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) =>
+      _onResponseStarted(urlRequest, urlResponseInfo);
 
   void onReadCompleted(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      ByteBuffer byteBuffer) => _onReadCompleted(urlRequest, urlResponseInfo, byteBuffer);
+          ByteBuffer byteBuffer) =>
+      _onReadCompleted(urlRequest, urlResponseInfo, byteBuffer);
 
-  void onSucceeded(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) => _onSucceeded(urlRequest, urlResponseInfo);
+  void onSucceeded(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) =>
+      _onSucceeded(urlRequest, urlResponseInfo);
 
   void onFailed(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      CronetException cronetException) => _onFailed(urlRequest, urlResponseInfo, cronetException);
+          CronetException cronetException) =>
+      _onFailed(urlRequest, urlResponseInfo, cronetException);
 }
 
 class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType
@@ -329,9 +340,10 @@ class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType
       ($UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType ==
-            $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType &&
-        other is $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType;
+  bool operator ==(Object other) =>
+      other.runtimeType ==
+          $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType &&
+      other is $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType;
 }
 
 /// from: io.flutter.plugins.cronet_http.UrlRequestCallbackProxy
@@ -358,10 +370,11 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
   factory UrlRequestCallbackProxy.new1(
     UrlRequestCallbackProxy_UrlRequestCallbackInterface
         urlRequestCallbackInterface,
-  ) => UrlRequestCallbackProxy.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference,
-        _id_new1,
-        [urlRequestCallbackInterface.reference]).object);
+  ) =>
+      UrlRequestCallbackProxy.fromRef(jni.Jni.accessors.newObjectWithArgs(
+          _class.reference,
+          _id_new1,
+          [urlRequestCallbackInterface.reference]).object);
 
   static final _id_getCallback = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -370,9 +383,10 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
 
   /// from: public final io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface getCallback()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  UrlRequestCallbackProxy_UrlRequestCallbackInterface getCallback() => const $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType()
-        .fromRef(jni.Jni.accessors.callMethodWithArgs(
-            reference, _id_getCallback, jni.JniCallType.objectType, []).object);
+  UrlRequestCallbackProxy_UrlRequestCallbackInterface getCallback() =>
+      const $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType().fromRef(
+          jni.Jni.accessors.callMethodWithArgs(reference, _id_getCallback,
+              jni.JniCallType.objectType, []).object);
 
   static final _id_onRedirectReceived = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -384,12 +398,13 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JString string,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      string.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        string.reference
+      ]).check();
 
   static final _id_onResponseStarted = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -400,11 +415,12 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
   void onResponseStarted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_onResponseStarted,
-        jni.JniCallType.voidType,
-        [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_onResponseStarted,
+          jni.JniCallType.voidType,
+          [urlRequest.reference, urlResponseInfo.reference]).check();
 
   static final _id_onReadCompleted = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -416,12 +432,13 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     ByteBuffer byteBuffer,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onReadCompleted, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      byteBuffer.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onReadCompleted, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        byteBuffer.reference
+      ]).check();
 
   static final _id_onSucceeded = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -432,11 +449,12 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
   void onSucceeded(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_onSucceeded,
-        jni.JniCallType.voidType,
-        [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_onSucceeded,
+          jni.JniCallType.voidType,
+          [urlRequest.reference, urlResponseInfo.reference]).check();
 
   static final _id_onFailed = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -448,12 +466,13 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     CronetException cronetException,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onFailed, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      cronetException.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onFailed, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        cronetException.reference
+      ]).check();
 }
 
 class $UrlRequestCallbackProxyType
@@ -478,8 +497,9 @@ class $UrlRequestCallbackProxyType
   int get hashCode => ($UrlRequestCallbackProxyType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UrlRequestCallbackProxyType &&
-        other is $UrlRequestCallbackProxyType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UrlRequestCallbackProxyType &&
+      other is $UrlRequestCallbackProxyType;
 }
 
 /// from: java.net.URL
@@ -505,13 +525,14 @@ class URL extends jni.JObject {
     jni.JString string1,
     int i,
     jni.JString string2,
-  ) => URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference, _id_new0, [
-      string.reference,
-      string1.reference,
-      jni.JValueInt(i),
-      string2.reference
-    ]).object);
+  ) =>
+      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
+          _class.reference, _id_new0, [
+        string.reference,
+        string1.reference,
+        jni.JValueInt(i),
+        string2.reference
+      ]).object);
 
   static final _id_new1 = jni.Jni.accessors.getMethodIDOf(_class.reference,
       r'<init>', r'(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
@@ -522,10 +543,11 @@ class URL extends jni.JObject {
     jni.JString string,
     jni.JString string1,
     jni.JString string2,
-  ) => URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference,
-        _id_new1,
-        [string.reference, string1.reference, string2.reference]).object);
+  ) =>
+      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
+          _class.reference,
+          _id_new1,
+          [string.reference, string1.reference, string2.reference]).object);
 
   static final _id_new2 = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -540,14 +562,15 @@ class URL extends jni.JObject {
     int i,
     jni.JString string2,
     jni.JObject uRLStreamHandler,
-  ) => URL.fromRef(
-        jni.Jni.accessors.newObjectWithArgs(_class.reference, _id_new2, [
-      string.reference,
-      string1.reference,
-      jni.JValueInt(i),
-      string2.reference,
-      uRLStreamHandler.reference
-    ]).object);
+  ) =>
+      URL.fromRef(
+          jni.Jni.accessors.newObjectWithArgs(_class.reference, _id_new2, [
+        string.reference,
+        string1.reference,
+        jni.JValueInt(i),
+        string2.reference,
+        uRLStreamHandler.reference
+      ]).object);
 
   static final _id_new3 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'<init>', r'(Ljava/lang/String;)V');
@@ -556,8 +579,9 @@ class URL extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory URL.new3(
     jni.JString string,
-  ) => URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference, _id_new3, [string.reference]).object);
+  ) =>
+      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
+          _class.reference, _id_new3, [string.reference]).object);
 
   static final _id_new4 = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'<init>', r'(Ljava/net/URL;Ljava/lang/String;)V');
@@ -567,8 +591,9 @@ class URL extends jni.JObject {
   factory URL.new4(
     URL uRL,
     jni.JString string,
-  ) => URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference, _id_new4, [uRL.reference, string.reference]).object);
+  ) =>
+      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(_class.reference,
+          _id_new4, [uRL.reference, string.reference]).object);
 
   static final _id_new5 = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -581,88 +606,99 @@ class URL extends jni.JObject {
     URL uRL,
     jni.JString string,
     jni.JObject uRLStreamHandler,
-  ) => URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference,
-        _id_new5,
-        [uRL.reference, string.reference, uRLStreamHandler.reference]).object);
+  ) =>
+      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
+          _class.reference, _id_new5, [
+        uRL.reference,
+        string.reference,
+        uRLStreamHandler.reference
+      ]).object);
 
   static final _id_getQuery = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getQuery', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getQuery()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getQuery() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getQuery, jni.JniCallType.objectType, []).object);
+  jni.JString getQuery() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getQuery, jni.JniCallType.objectType, []).object);
 
   static final _id_getPath = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getPath', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getPath()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getPath() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getPath, jni.JniCallType.objectType, []).object);
+  jni.JString getPath() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getPath, jni.JniCallType.objectType, []).object);
 
   static final _id_getUserInfo = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getUserInfo', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getUserInfo()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getUserInfo() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getUserInfo, jni.JniCallType.objectType, []).object);
+  jni.JString getUserInfo() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getUserInfo, jni.JniCallType.objectType, []).object);
 
   static final _id_getAuthority = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'getAuthority', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getAuthority()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getAuthority() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getAuthority, jni.JniCallType.objectType, []).object);
+  jni.JString getAuthority() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getAuthority, jni.JniCallType.objectType, []).object);
 
   static final _id_getPort =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getPort', r'()I');
 
   /// from: public int getPort()
   int getPort() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getPort, jni.JniCallType.intType, []).integer;
+      reference, _id_getPort, jni.JniCallType.intType, []).integer;
 
   static final _id_getDefaultPort = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getDefaultPort', r'()I');
 
   /// from: public int getDefaultPort()
   int getDefaultPort() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getDefaultPort, jni.JniCallType.intType, []).integer;
+      reference, _id_getDefaultPort, jni.JniCallType.intType, []).integer;
 
   static final _id_getProtocol = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getProtocol', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getProtocol()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getProtocol() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getProtocol, jni.JniCallType.objectType, []).object);
+  jni.JString getProtocol() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getProtocol, jni.JniCallType.objectType, []).object);
 
   static final _id_getHost = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getHost', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getHost()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getHost() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getHost, jni.JniCallType.objectType, []).object);
+  jni.JString getHost() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getHost, jni.JniCallType.objectType, []).object);
 
   static final _id_getFile = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getFile', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getFile()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getFile() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getFile, jni.JniCallType.objectType, []).object);
+  jni.JString getFile() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getFile, jni.JniCallType.objectType, []).object);
 
   static final _id_getRef = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getRef', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getRef()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getRef() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getRef, jni.JniCallType.objectType, []).object);
+  jni.JString getRef() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getRef, jni.JniCallType.objectType, []).object);
 
   static final _id_equals1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'equals', r'(Ljava/lang/Object;)Z');
@@ -670,15 +706,16 @@ class URL extends jni.JObject {
   /// from: public boolean equals(java.lang.Object object)
   bool equals1(
     jni.JObject object,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_equals1,
-        jni.JniCallType.booleanType, [object.reference]).boolean;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_equals1,
+          jni.JniCallType.booleanType, [object.reference]).boolean;
 
   static final _id_hashCode1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'hashCode', r'()I');
 
   /// from: public int hashCode()
   int hashCode1() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_hashCode1, jni.JniCallType.intType, []).integer;
+      reference, _id_hashCode1, jni.JniCallType.intType, []).integer;
 
   static final _id_sameFile = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'sameFile', r'(Ljava/net/URL;)Z');
@@ -686,40 +723,49 @@ class URL extends jni.JObject {
   /// from: public boolean sameFile(java.net.URL uRL)
   bool sameFile(
     URL uRL,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_sameFile,
-        jni.JniCallType.booleanType, [uRL.reference]).boolean;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_sameFile,
+          jni.JniCallType.booleanType, [uRL.reference]).boolean;
 
   static final _id_toString1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'toString', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String toString()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString toString1() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_toString1, jni.JniCallType.objectType, []).object);
+  jni.JString toString1() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_toString1, jni.JniCallType.objectType, []).object);
 
   static final _id_toExternalForm = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'toExternalForm', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String toExternalForm()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString toExternalForm() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_toExternalForm, jni.JniCallType.objectType, []).object);
+  jni.JString toExternalForm() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_toExternalForm,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_toURI = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'toURI', r'()Ljava/net/URI;');
 
   /// from: public java.net.URI toURI()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject toURI() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_toURI, jni.JniCallType.objectType, []).object);
+  jni.JObject toURI() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_toURI, jni.JniCallType.objectType, []).object);
 
   static final _id_openConnection = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'openConnection', r'()Ljava/net/URLConnection;');
 
   /// from: public java.net.URLConnection openConnection()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject openConnection() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_openConnection, jni.JniCallType.objectType, []).object);
+  jni.JObject openConnection() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_openConnection,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_openConnection1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -730,27 +776,30 @@ class URL extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JObject openConnection1(
     jni.JObject proxy,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_openConnection1,
-        jni.JniCallType.objectType,
-        [proxy.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_openConnection1,
+          jni.JniCallType.objectType,
+          [proxy.reference]).object);
 
   static final _id_openStream = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'openStream', r'()Ljava/io/InputStream;');
 
   /// from: public java.io.InputStream openStream()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject openStream() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_openStream, jni.JniCallType.objectType, []).object);
+  jni.JObject openStream() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_openStream, jni.JniCallType.objectType, []).object);
 
   static final _id_getContent = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getContent', r'()Ljava/lang/Object;');
 
   /// from: public java.lang.Object getContent()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject getContent() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getContent, jni.JniCallType.objectType, []).object);
+  jni.JObject getContent() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getContent, jni.JniCallType.objectType, []).object);
 
   static final _id_getContent1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -761,11 +810,12 @@ class URL extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JObject getContent1(
     jni.JArray<jni.JObject> classs,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_getContent1,
-        jni.JniCallType.objectType,
-        [classs.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_getContent1,
+          jni.JniCallType.objectType,
+          [classs.reference]).object);
 
   static final _id_setURLStreamHandlerFactory = jni.Jni.accessors
       .getStaticMethodIDOf(_class.reference, r'setURLStreamHandlerFactory',
@@ -774,11 +824,12 @@ class URL extends jni.JObject {
   /// from: static public void setURLStreamHandlerFactory(java.net.URLStreamHandlerFactory uRLStreamHandlerFactory)
   static void setURLStreamHandlerFactory(
     jni.JObject uRLStreamHandlerFactory,
-  ) => jni.Jni.accessors.callStaticMethodWithArgs(
-        _class.reference,
-        _id_setURLStreamHandlerFactory,
-        jni.JniCallType.voidType,
-        [uRLStreamHandlerFactory.reference]).check();
+  ) =>
+      jni.Jni.accessors.callStaticMethodWithArgs(
+          _class.reference,
+          _id_setURLStreamHandlerFactory,
+          jni.JniCallType.voidType,
+          [uRLStreamHandlerFactory.reference]).check();
 }
 
 class $URLType extends jni.JObjType<URL> {
@@ -800,7 +851,8 @@ class $URLType extends jni.JObjType<URL> {
   int get hashCode => ($URLType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $URLType && other is $URLType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $URLType && other is $URLType;
 }
 
 /// from: java.nio.Buffer
@@ -821,14 +873,14 @@ class Buffer extends jni.JObject {
 
   /// from: public final int capacity()
   int capacity() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_capacity, jni.JniCallType.intType, []).integer;
+      reference, _id_capacity, jni.JniCallType.intType, []).integer;
 
   static final _id_position =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'position', r'()I');
 
   /// from: public final int position()
   int position() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_position, jni.JniCallType.intType, []).integer;
+      reference, _id_position, jni.JniCallType.intType, []).integer;
 
   static final _id_position1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'position', r'(I)Ljava/nio/Buffer;');
@@ -837,18 +889,19 @@ class Buffer extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   Buffer position1(
     int i,
-  ) => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_position1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i)]).object);
+  ) =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_position1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i)]).object);
 
   static final _id_limit =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'limit', r'()I');
 
   /// from: public final int limit()
   int limit() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_limit, jni.JniCallType.intType, []).integer;
+      reference, _id_limit, jni.JniCallType.intType, []).integer;
 
   static final _id_limit1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'limit', r'(I)Ljava/nio/Buffer;');
@@ -857,101 +910,108 @@ class Buffer extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   Buffer limit1(
     int i,
-  ) => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_limit1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i)]).object);
+  ) =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_limit1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i)]).object);
 
   static final _id_mark = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'mark', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer mark()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer mark() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_mark, jni.JniCallType.objectType, []).object);
+  Buffer mark() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_mark, jni.JniCallType.objectType, []).object);
 
   static final _id_reset = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'reset', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer reset()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer reset() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_reset, jni.JniCallType.objectType, []).object);
+  Buffer reset() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_reset, jni.JniCallType.objectType, []).object);
 
   static final _id_clear = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'clear', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer clear()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer clear() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_clear, jni.JniCallType.objectType, []).object);
+  Buffer clear() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_clear, jni.JniCallType.objectType, []).object);
 
   static final _id_flip = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'flip', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer flip()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer flip() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_flip, jni.JniCallType.objectType, []).object);
+  Buffer flip() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_flip, jni.JniCallType.objectType, []).object);
 
   static final _id_rewind = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'rewind', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer rewind()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer rewind() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_rewind, jni.JniCallType.objectType, []).object);
+  Buffer rewind() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_rewind, jni.JniCallType.objectType, []).object);
 
   static final _id_remaining =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'remaining', r'()I');
 
   /// from: public final int remaining()
   int remaining() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_remaining, jni.JniCallType.intType, []).integer;
+      reference, _id_remaining, jni.JniCallType.intType, []).integer;
 
   static final _id_hasRemaining = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'hasRemaining', r'()Z');
 
   /// from: public final boolean hasRemaining()
   bool hasRemaining() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_hasRemaining, jni.JniCallType.booleanType, []).boolean;
+      reference, _id_hasRemaining, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_isReadOnly =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'isReadOnly', r'()Z');
 
   /// from: public abstract boolean isReadOnly()
   bool isReadOnly() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_isReadOnly, jni.JniCallType.booleanType, []).boolean;
+      reference, _id_isReadOnly, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_hasArray =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'hasArray', r'()Z');
 
   /// from: public abstract boolean hasArray()
   bool hasArray() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_hasArray, jni.JniCallType.booleanType, []).boolean;
+      reference, _id_hasArray, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_array = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'array', r'()Ljava/lang/Object;');
 
   /// from: public abstract java.lang.Object array()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject array() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_array, jni.JniCallType.objectType, []).object);
+  jni.JObject array() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_array, jni.JniCallType.objectType, []).object);
 
   static final _id_arrayOffset =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'arrayOffset', r'()I');
 
   /// from: public abstract int arrayOffset()
   int arrayOffset() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_arrayOffset, jni.JniCallType.intType, []).integer;
+      reference, _id_arrayOffset, jni.JniCallType.intType, []).integer;
 
   static final _id_isDirect =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'isDirect', r'()Z');
 
   /// from: public abstract boolean isDirect()
   bool isDirect() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_isDirect, jni.JniCallType.booleanType, []).boolean;
+      reference, _id_isDirect, jni.JniCallType.booleanType, []).boolean;
 }
 
 class $BufferType extends jni.JObjType<Buffer> {
@@ -973,7 +1033,8 @@ class $BufferType extends jni.JObjType<Buffer> {
   int get hashCode => ($BufferType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $BufferType && other is $BufferType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $BufferType && other is $BufferType;
 }
 
 /// from: java.nio.ByteBuffer
@@ -996,9 +1057,10 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static ByteBuffer allocateDirect(
     int i,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_allocateDirect,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_allocateDirect,
+              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
 
   static final _id_allocate = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference, r'allocate', r'(I)Ljava/nio/ByteBuffer;');
@@ -1007,9 +1069,10 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static ByteBuffer allocate(
     int i,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_allocate,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_allocate,
+              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
 
   static final _id_wrap = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference, r'wrap', r'([BII)Ljava/nio/ByteBuffer;');
@@ -1020,12 +1083,13 @@ class ByteBuffer extends Buffer {
     jni.JArray<jni.jbyte> bs,
     int i,
     int i1,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_wrap,
-            jni.JniCallType.objectType,
-            [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_wrap,
+              jni.JniCallType.objectType,
+              [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
 
   static final _id_wrap1 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference, r'wrap', r'([B)Ljava/nio/ByteBuffer;');
@@ -1034,42 +1098,46 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static ByteBuffer wrap1(
     jni.JArray<jni.jbyte> bs,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_wrap1,
-            jni.JniCallType.objectType, [bs.reference]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_wrap1,
+              jni.JniCallType.objectType, [bs.reference]).object);
 
   static final _id_slice = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'slice', r'()Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer slice()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  ByteBuffer slice() => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_slice, jni.JniCallType.objectType, []).object);
+  ByteBuffer slice() =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_slice, jni.JniCallType.objectType, []).object);
 
   static final _id_duplicate = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'duplicate', r'()Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer duplicate()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  ByteBuffer duplicate() => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_duplicate, jni.JniCallType.objectType, []).object);
+  ByteBuffer duplicate() =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_duplicate, jni.JniCallType.objectType, []).object);
 
   static final _id_asReadOnlyBuffer = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'asReadOnlyBuffer', r'()Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer asReadOnlyBuffer()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  ByteBuffer asReadOnlyBuffer() => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_asReadOnlyBuffer,
-        jni.JniCallType.objectType, []).object);
+  ByteBuffer asReadOnlyBuffer() =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_asReadOnlyBuffer,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_get0 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'get', r'()B');
 
   /// from: public abstract byte get()
   int get0() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_get0, jni.JniCallType.byteType, []).byte;
+      reference, _id_get0, jni.JniCallType.byteType, []).byte;
 
   static final _id_put = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'put', r'(B)Ljava/nio/ByteBuffer;');
@@ -1078,11 +1146,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer put(
     int b,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_put,
-        jni.JniCallType.objectType,
-        [jni.JValueByte(b)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_put,
+          jni.JniCallType.objectType,
+          [jni.JValueByte(b)]).object);
 
   static final _id_get1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'get', r'(I)B');
@@ -1090,8 +1159,9 @@ class ByteBuffer extends Buffer {
   /// from: public abstract byte get(int i)
   int get1(
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_get1, jni.JniCallType.byteType, [jni.JValueInt(i)]).byte;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_get1,
+          jni.JniCallType.byteType, [jni.JValueInt(i)]).byte;
 
   static final _id_put1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'put', r'(IB)Ljava/nio/ByteBuffer;');
@@ -1101,11 +1171,12 @@ class ByteBuffer extends Buffer {
   ByteBuffer put1(
     int i,
     int b,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_put1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i), jni.JValueByte(b)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_put1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i), jni.JValueByte(b)]).object);
 
   static final _id_get2 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'get', r'([BII)Ljava/nio/ByteBuffer;');
@@ -1116,11 +1187,12 @@ class ByteBuffer extends Buffer {
     jni.JArray<jni.jbyte> bs,
     int i,
     int i1,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_get2,
-        jni.JniCallType.objectType,
-        [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_get2,
+          jni.JniCallType.objectType,
+          [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
 
   static final _id_get3 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'get', r'([B)Ljava/nio/ByteBuffer;');
@@ -1129,11 +1201,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer get3(
     jni.JArray<jni.jbyte> bs,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_get3,
-        jni.JniCallType.objectType,
-        [bs.reference]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_get3,
+          jni.JniCallType.objectType,
+          [bs.reference]).object);
 
   static final _id_put2 = jni.Jni.accessors.getMethodIDOf(_class.reference,
       r'put', r'(Ljava/nio/ByteBuffer;)Ljava/nio/ByteBuffer;');
@@ -1142,11 +1215,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer put2(
     ByteBuffer byteBuffer,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_put2,
-        jni.JniCallType.objectType,
-        [byteBuffer.reference]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_put2,
+          jni.JniCallType.objectType,
+          [byteBuffer.reference]).object);
 
   static final _id_put3 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'put', r'([BII)Ljava/nio/ByteBuffer;');
@@ -1157,11 +1231,12 @@ class ByteBuffer extends Buffer {
     jni.JArray<jni.jbyte> bs,
     int i,
     int i1,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_put3,
-        jni.JniCallType.objectType,
-        [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_put3,
+          jni.JniCallType.objectType,
+          [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
 
   static final _id_put4 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'put', r'([B)Ljava/nio/ByteBuffer;');
@@ -1170,34 +1245,35 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer put4(
     jni.JArray<jni.jbyte> bs,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_put4,
-        jni.JniCallType.objectType,
-        [bs.reference]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_put4,
+          jni.JniCallType.objectType,
+          [bs.reference]).object);
 
   static final _id_hasArray =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'hasArray', r'()Z');
 
   /// from: public final boolean hasArray()
   bool hasArray() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_hasArray, jni.JniCallType.booleanType, []).boolean;
+      reference, _id_hasArray, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_array1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'array', r'()[B');
 
   /// from: public final byte[] array()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JArray<jni.jbyte> array1() => const jni.JArrayType(jni.jbyteType()).fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference, _id_array1, jni.JniCallType.objectType, []).object);
+  jni.JArray<jni.jbyte> array1() => const jni.JArrayType(jni.jbyteType())
+      .fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_array1, jni.JniCallType.objectType, []).object);
 
   static final _id_arrayOffset =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'arrayOffset', r'()I');
 
   /// from: public final int arrayOffset()
   int arrayOffset() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_arrayOffset, jni.JniCallType.intType, []).integer;
+      reference, _id_arrayOffset, jni.JniCallType.intType, []).integer;
 
   static final _id_position1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'position', r'(I)Ljava/nio/Buffer;');
@@ -1206,11 +1282,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   Buffer position1(
     int i,
-  ) => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_position1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i)]).object);
+  ) =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_position1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i)]).object);
 
   static final _id_limit1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'limit', r'(I)Ljava/nio/Buffer;');
@@ -1219,81 +1296,89 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   Buffer limit1(
     int i,
-  ) => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_limit1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i)]).object);
+  ) =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_limit1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i)]).object);
 
   static final _id_mark = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'mark', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer mark()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer mark() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_mark, jni.JniCallType.objectType, []).object);
+  Buffer mark() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_mark, jni.JniCallType.objectType, []).object);
 
   static final _id_reset = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'reset', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer reset()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer reset() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_reset, jni.JniCallType.objectType, []).object);
+  Buffer reset() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_reset, jni.JniCallType.objectType, []).object);
 
   static final _id_clear = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'clear', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer clear()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer clear() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_clear, jni.JniCallType.objectType, []).object);
+  Buffer clear() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_clear, jni.JniCallType.objectType, []).object);
 
   static final _id_flip = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'flip', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer flip()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer flip() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_flip, jni.JniCallType.objectType, []).object);
+  Buffer flip() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_flip, jni.JniCallType.objectType, []).object);
 
   static final _id_rewind = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'rewind', r'()Ljava/nio/Buffer;');
 
   /// from: public java.nio.Buffer rewind()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  Buffer rewind() => const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_rewind, jni.JniCallType.objectType, []).object);
+  Buffer rewind() =>
+      const $BufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_rewind, jni.JniCallType.objectType, []).object);
 
   static final _id_compact = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'compact', r'()Ljava/nio/ByteBuffer;');
 
   /// from: public abstract java.nio.ByteBuffer compact()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  ByteBuffer compact() => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_compact, jni.JniCallType.objectType, []).object);
+  ByteBuffer compact() =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_compact, jni.JniCallType.objectType, []).object);
 
   static final _id_isDirect =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'isDirect', r'()Z');
 
   /// from: public abstract boolean isDirect()
   bool isDirect() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_isDirect, jni.JniCallType.booleanType, []).boolean;
+      reference, _id_isDirect, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_toString1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'toString', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String toString()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString toString1() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_toString1, jni.JniCallType.objectType, []).object);
+  jni.JString toString1() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_toString1, jni.JniCallType.objectType, []).object);
 
   static final _id_hashCode1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'hashCode', r'()I');
 
   /// from: public int hashCode()
   int hashCode1() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_hashCode1, jni.JniCallType.intType, []).integer;
+      reference, _id_hashCode1, jni.JniCallType.intType, []).integer;
 
   static final _id_equals1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'equals', r'(Ljava/lang/Object;)Z');
@@ -1301,8 +1386,9 @@ class ByteBuffer extends Buffer {
   /// from: public boolean equals(java.lang.Object object)
   bool equals1(
     jni.JObject object,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_equals1,
-        jni.JniCallType.booleanType, [object.reference]).boolean;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_equals1,
+          jni.JniCallType.booleanType, [object.reference]).boolean;
 
   static final _id_compareTo = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'compareTo', r'(Ljava/nio/ByteBuffer;)I');
@@ -1310,16 +1396,18 @@ class ByteBuffer extends Buffer {
   /// from: public int compareTo(java.nio.ByteBuffer byteBuffer)
   int compareTo(
     ByteBuffer byteBuffer,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_compareTo,
-        jni.JniCallType.intType, [byteBuffer.reference]).integer;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_compareTo,
+          jni.JniCallType.intType, [byteBuffer.reference]).integer;
 
   static final _id_order = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'order', r'()Ljava/nio/ByteOrder;');
 
   /// from: public final java.nio.ByteOrder order()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject order() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_order, jni.JniCallType.objectType, []).object);
+  jni.JObject order() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_order, jni.JniCallType.objectType, []).object);
 
   static final _id_order1 = jni.Jni.accessors.getMethodIDOf(_class.reference,
       r'order', r'(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;');
@@ -1328,11 +1416,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer order1(
     jni.JObject byteOrder,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_order1,
-        jni.JniCallType.objectType,
-        [byteOrder.reference]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_order1,
+          jni.JniCallType.objectType,
+          [byteOrder.reference]).object);
 
   static final _id_alignmentOffset = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'alignmentOffset', r'(II)I');
@@ -1341,8 +1430,12 @@ class ByteBuffer extends Buffer {
   int alignmentOffset(
     int i,
     int i1,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_alignmentOffset,
-        jni.JniCallType.intType, [jni.JValueInt(i), jni.JValueInt(i1)]).integer;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_alignmentOffset,
+          jni.JniCallType.intType,
+          [jni.JValueInt(i), jni.JValueInt(i1)]).integer;
 
   static final _id_alignedSlice = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'alignedSlice', r'(I)Ljava/nio/ByteBuffer;');
@@ -1351,18 +1444,19 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer alignedSlice(
     int i,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_alignedSlice,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_alignedSlice,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i)]).object);
 
   static final _id_getChar =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getChar', r'()C');
 
   /// from: public abstract char getChar()
   int getChar() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getChar, jni.JniCallType.charType, []).char;
+      reference, _id_getChar, jni.JniCallType.charType, []).char;
 
   static final _id_putChar = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'putChar', r'(C)Ljava/nio/ByteBuffer;');
@@ -1371,11 +1465,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer putChar(
     int c,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putChar,
-        jni.JniCallType.objectType,
-        [jni.JValueChar(c)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putChar,
+          jni.JniCallType.objectType,
+          [jni.JValueChar(c)]).object);
 
   static final _id_getChar1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getChar', r'(I)C');
@@ -1383,8 +1478,9 @@ class ByteBuffer extends Buffer {
   /// from: public abstract char getChar(int i)
   int getChar1(
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_getChar1,
-        jni.JniCallType.charType, [jni.JValueInt(i)]).char;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_getChar1,
+          jni.JniCallType.charType, [jni.JValueInt(i)]).char;
 
   static final _id_putChar1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'putChar', r'(IC)Ljava/nio/ByteBuffer;');
@@ -1394,26 +1490,28 @@ class ByteBuffer extends Buffer {
   ByteBuffer putChar1(
     int i,
     int c,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putChar1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i), jni.JValueChar(c)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putChar1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i), jni.JValueChar(c)]).object);
 
   static final _id_asCharBuffer = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'asCharBuffer', r'()Ljava/nio/CharBuffer;');
 
   /// from: public abstract java.nio.CharBuffer asCharBuffer()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject asCharBuffer() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_asCharBuffer, jni.JniCallType.objectType, []).object);
+  jni.JObject asCharBuffer() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_asCharBuffer, jni.JniCallType.objectType, []).object);
 
   static final _id_getShort =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getShort', r'()S');
 
   /// from: public abstract short getShort()
   int getShort() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getShort, jni.JniCallType.shortType, []).short;
+      reference, _id_getShort, jni.JniCallType.shortType, []).short;
 
   static final _id_putShort = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'putShort', r'(S)Ljava/nio/ByteBuffer;');
@@ -1422,11 +1520,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer putShort(
     int s,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putShort,
-        jni.JniCallType.objectType,
-        [jni.JValueShort(s)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putShort,
+          jni.JniCallType.objectType,
+          [jni.JValueShort(s)]).object);
 
   static final _id_getShort1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getShort', r'(I)S');
@@ -1434,8 +1533,9 @@ class ByteBuffer extends Buffer {
   /// from: public abstract short getShort(int i)
   int getShort1(
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_getShort1,
-        jni.JniCallType.shortType, [jni.JValueInt(i)]).short;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_getShort1,
+          jni.JniCallType.shortType, [jni.JValueInt(i)]).short;
 
   static final _id_putShort1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'putShort', r'(IS)Ljava/nio/ByteBuffer;');
@@ -1445,26 +1545,28 @@ class ByteBuffer extends Buffer {
   ByteBuffer putShort1(
     int i,
     int s,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putShort1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i), jni.JValueShort(s)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putShort1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i), jni.JValueShort(s)]).object);
 
   static final _id_asShortBuffer = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'asShortBuffer', r'()Ljava/nio/ShortBuffer;');
 
   /// from: public abstract java.nio.ShortBuffer asShortBuffer()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject asShortBuffer() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_asShortBuffer, jni.JniCallType.objectType, []).object);
+  jni.JObject asShortBuffer() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_asShortBuffer, jni.JniCallType.objectType, []).object);
 
   static final _id_getInt =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getInt', r'()I');
 
   /// from: public abstract int getInt()
   int getInt() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getInt, jni.JniCallType.intType, []).integer;
+      reference, _id_getInt, jni.JniCallType.intType, []).integer;
 
   static final _id_putInt = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'putInt', r'(I)Ljava/nio/ByteBuffer;');
@@ -1473,11 +1575,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer putInt(
     int i,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putInt,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putInt,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i)]).object);
 
   static final _id_getInt1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getInt', r'(I)I');
@@ -1485,8 +1588,9 @@ class ByteBuffer extends Buffer {
   /// from: public abstract int getInt(int i)
   int getInt1(
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_getInt1,
-        jni.JniCallType.intType, [jni.JValueInt(i)]).integer;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_getInt1,
+          jni.JniCallType.intType, [jni.JValueInt(i)]).integer;
 
   static final _id_putInt1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'putInt', r'(II)Ljava/nio/ByteBuffer;');
@@ -1496,26 +1600,28 @@ class ByteBuffer extends Buffer {
   ByteBuffer putInt1(
     int i,
     int i1,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putInt1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i), jni.JValueInt(i1)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putInt1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i), jni.JValueInt(i1)]).object);
 
   static final _id_asIntBuffer = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'asIntBuffer', r'()Ljava/nio/IntBuffer;');
 
   /// from: public abstract java.nio.IntBuffer asIntBuffer()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject asIntBuffer() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_asIntBuffer, jni.JniCallType.objectType, []).object);
+  jni.JObject asIntBuffer() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_asIntBuffer, jni.JniCallType.objectType, []).object);
 
   static final _id_getLong =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getLong', r'()J');
 
   /// from: public abstract long getLong()
   int getLong() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getLong, jni.JniCallType.longType, []).long;
+      reference, _id_getLong, jni.JniCallType.longType, []).long;
 
   static final _id_putLong = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'putLong', r'(J)Ljava/nio/ByteBuffer;');
@@ -1524,8 +1630,9 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer putLong(
     int j,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_putLong, jni.JniCallType.objectType, [j]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_putLong, jni.JniCallType.objectType, [j]).object);
 
   static final _id_getLong1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getLong', r'(I)J');
@@ -1533,8 +1640,9 @@ class ByteBuffer extends Buffer {
   /// from: public abstract long getLong(int i)
   int getLong1(
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_getLong1,
-        jni.JniCallType.longType, [jni.JValueInt(i)]).long;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_getLong1,
+          jni.JniCallType.longType, [jni.JValueInt(i)]).long;
 
   static final _id_putLong1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'putLong', r'(IJ)Ljava/nio/ByteBuffer;');
@@ -1544,26 +1652,28 @@ class ByteBuffer extends Buffer {
   ByteBuffer putLong1(
     int i,
     int j,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putLong1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i), j]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putLong1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i), j]).object);
 
   static final _id_asLongBuffer = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'asLongBuffer', r'()Ljava/nio/LongBuffer;');
 
   /// from: public abstract java.nio.LongBuffer asLongBuffer()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject asLongBuffer() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_asLongBuffer, jni.JniCallType.objectType, []).object);
+  jni.JObject asLongBuffer() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_asLongBuffer, jni.JniCallType.objectType, []).object);
 
   static final _id_getFloat =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getFloat', r'()F');
 
   /// from: public abstract float getFloat()
   double getFloat() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getFloat, jni.JniCallType.floatType, []).float;
+      reference, _id_getFloat, jni.JniCallType.floatType, []).float;
 
   static final _id_putFloat = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'putFloat', r'(F)Ljava/nio/ByteBuffer;');
@@ -1572,11 +1682,12 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer putFloat(
     double f,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putFloat,
-        jni.JniCallType.objectType,
-        [jni.JValueFloat(f)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putFloat,
+          jni.JniCallType.objectType,
+          [jni.JValueFloat(f)]).object);
 
   static final _id_getFloat1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getFloat', r'(I)F');
@@ -1584,8 +1695,9 @@ class ByteBuffer extends Buffer {
   /// from: public abstract float getFloat(int i)
   double getFloat1(
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_getFloat1,
-        jni.JniCallType.floatType, [jni.JValueInt(i)]).float;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_getFloat1,
+          jni.JniCallType.floatType, [jni.JValueInt(i)]).float;
 
   static final _id_putFloat1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'putFloat', r'(IF)Ljava/nio/ByteBuffer;');
@@ -1595,26 +1707,28 @@ class ByteBuffer extends Buffer {
   ByteBuffer putFloat1(
     int i,
     double f,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putFloat1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i), jni.JValueFloat(f)]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putFloat1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i), jni.JValueFloat(f)]).object);
 
   static final _id_asFloatBuffer = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'asFloatBuffer', r'()Ljava/nio/FloatBuffer;');
 
   /// from: public abstract java.nio.FloatBuffer asFloatBuffer()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject asFloatBuffer() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_asFloatBuffer, jni.JniCallType.objectType, []).object);
+  jni.JObject asFloatBuffer() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_asFloatBuffer, jni.JniCallType.objectType, []).object);
 
   static final _id_getDouble =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getDouble', r'()D');
 
   /// from: public abstract double getDouble()
   double getDouble() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getDouble, jni.JniCallType.doubleType, []).doubleFloat;
+      reference, _id_getDouble, jni.JniCallType.doubleType, []).doubleFloat;
 
   static final _id_putDouble = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'putDouble', r'(D)Ljava/nio/ByteBuffer;');
@@ -1623,8 +1737,9 @@ class ByteBuffer extends Buffer {
   /// The returned object must be deleted after use, by calling the `delete` method.
   ByteBuffer putDouble(
     double d,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_putDouble, jni.JniCallType.objectType, [d]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_putDouble, jni.JniCallType.objectType, [d]).object);
 
   static final _id_getDouble1 =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'getDouble', r'(I)D');
@@ -1632,8 +1747,9 @@ class ByteBuffer extends Buffer {
   /// from: public abstract double getDouble(int i)
   double getDouble1(
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_getDouble1,
-        jni.JniCallType.doubleType, [jni.JValueInt(i)]).doubleFloat;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_getDouble1,
+          jni.JniCallType.doubleType, [jni.JValueInt(i)]).doubleFloat;
 
   static final _id_putDouble1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'putDouble', r'(ID)Ljava/nio/ByteBuffer;');
@@ -1643,27 +1759,32 @@ class ByteBuffer extends Buffer {
   ByteBuffer putDouble1(
     int i,
     double d,
-  ) => const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_putDouble1,
-        jni.JniCallType.objectType,
-        [jni.JValueInt(i), d]).object);
+  ) =>
+      const $ByteBufferType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_putDouble1,
+          jni.JniCallType.objectType,
+          [jni.JValueInt(i), d]).object);
 
   static final _id_asDoubleBuffer = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'asDoubleBuffer', r'()Ljava/nio/DoubleBuffer;');
 
   /// from: public abstract java.nio.DoubleBuffer asDoubleBuffer()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject asDoubleBuffer() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_asDoubleBuffer, jni.JniCallType.objectType, []).object);
+  jni.JObject asDoubleBuffer() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_asDoubleBuffer,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_array = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'array', r'()Ljava/lang/Object;');
 
   /// from: public java.lang.Object array()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject array() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_array, jni.JniCallType.objectType, []).object);
+  jni.JObject array() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_array, jni.JniCallType.objectType, []).object);
 
   static final _id_compareTo1 = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'compareTo', r'(Ljava/lang/Object;)I');
@@ -1671,8 +1792,9 @@ class ByteBuffer extends Buffer {
   /// from: public int compareTo(java.lang.Object object)
   int compareTo1(
     jni.JObject object,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_compareTo1,
-        jni.JniCallType.intType, [object.reference]).integer;
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_compareTo1,
+          jni.JniCallType.intType, [object.reference]).integer;
 }
 
 class $ByteBufferType extends jni.JObjType<ByteBuffer> {
@@ -1694,7 +1816,8 @@ class $ByteBufferType extends jni.JObjType<ByteBuffer> {
   int get hashCode => ($ByteBufferType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $ByteBufferType && other is $ByteBufferType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $ByteBufferType && other is $ByteBufferType;
 }
 
 /// from: java.util.concurrent.Executors
@@ -1719,9 +1842,10 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject newFixedThreadPool(
     int i,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_newFixedThreadPool,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_newFixedThreadPool,
+              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
 
   static final _id_newWorkStealingPool = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1732,9 +1856,10 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject newWorkStealingPool(
     int i,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_newWorkStealingPool,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_newWorkStealingPool,
+              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
 
   static final _id_newWorkStealingPool1 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1743,9 +1868,9 @@ class Executors extends jni.JObject {
 
   /// from: static public java.util.concurrent.ExecutorService newWorkStealingPool()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject newWorkStealingPool1() => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_newWorkStealingPool1,
-            jni.JniCallType.objectType, []).object);
+  static jni.JObject newWorkStealingPool1() => const jni.JObjectType().fromRef(
+      jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
+          _id_newWorkStealingPool1, jni.JniCallType.objectType, []).object);
 
   static final _id_newFixedThreadPool1 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1757,12 +1882,13 @@ class Executors extends jni.JObject {
   static jni.JObject newFixedThreadPool1(
     int i,
     jni.JObject threadFactory,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_newFixedThreadPool1,
-            jni.JniCallType.objectType,
-            [jni.JValueInt(i), threadFactory.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_newFixedThreadPool1,
+              jni.JniCallType.objectType,
+              [jni.JValueInt(i), threadFactory.reference]).object);
 
   static final _id_newSingleThreadExecutor = jni.Jni.accessors
       .getStaticMethodIDOf(_class.reference, r'newSingleThreadExecutor',
@@ -1770,9 +1896,9 @@ class Executors extends jni.JObject {
 
   /// from: static public java.util.concurrent.ExecutorService newSingleThreadExecutor()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject newSingleThreadExecutor() => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_newSingleThreadExecutor,
-            jni.JniCallType.objectType, []).object);
+  static jni.JObject newSingleThreadExecutor() => const jni.JObjectType()
+      .fromRef(jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
+          _id_newSingleThreadExecutor, jni.JniCallType.objectType, []).object);
 
   static final _id_newSingleThreadExecutor1 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1783,12 +1909,13 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject newSingleThreadExecutor1(
     jni.JObject threadFactory,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_newSingleThreadExecutor1,
-            jni.JniCallType.objectType,
-            [threadFactory.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_newSingleThreadExecutor1,
+              jni.JniCallType.objectType,
+              [threadFactory.reference]).object);
 
   static final _id_newCachedThreadPool = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1797,9 +1924,9 @@ class Executors extends jni.JObject {
 
   /// from: static public java.util.concurrent.ExecutorService newCachedThreadPool()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject newCachedThreadPool() => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_newCachedThreadPool,
-            jni.JniCallType.objectType, []).object);
+  static jni.JObject newCachedThreadPool() => const jni.JObjectType().fromRef(
+      jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
+          _id_newCachedThreadPool, jni.JniCallType.objectType, []).object);
 
   static final _id_newCachedThreadPool1 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1810,9 +1937,10 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject newCachedThreadPool1(
     jni.JObject threadFactory,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_newCachedThreadPool1,
-            jni.JniCallType.objectType, [threadFactory.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_newCachedThreadPool1,
+              jni.JniCallType.objectType, [threadFactory.reference]).object);
 
   static final _id_newSingleThreadScheduledExecutor = jni.Jni.accessors
       .getStaticMethodIDOf(
@@ -1822,11 +1950,12 @@ class Executors extends jni.JObject {
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject newSingleThreadScheduledExecutor() => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_newSingleThreadScheduledExecutor,
-            jni.JniCallType.objectType, []).object);
+  static jni.JObject newSingleThreadScheduledExecutor() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_newSingleThreadScheduledExecutor,
+              jni.JniCallType.objectType, []).object);
 
   static final _id_newSingleThreadScheduledExecutor1 = jni.Jni.accessors
       .getStaticMethodIDOf(
@@ -1838,12 +1967,13 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject newSingleThreadScheduledExecutor1(
     jni.JObject threadFactory,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_newSingleThreadScheduledExecutor1,
-            jni.JniCallType.objectType,
-            [threadFactory.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_newSingleThreadScheduledExecutor1,
+              jni.JniCallType.objectType,
+              [threadFactory.reference]).object);
 
   static final _id_newScheduledThreadPool = jni.Jni.accessors
       .getStaticMethodIDOf(_class.reference, r'newScheduledThreadPool',
@@ -1853,9 +1983,13 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject newScheduledThreadPool(
     int i,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_newScheduledThreadPool,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_newScheduledThreadPool,
+              jni.JniCallType.objectType,
+              [jni.JValueInt(i)]).object);
 
   static final _id_newScheduledThreadPool1 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1867,12 +2001,13 @@ class Executors extends jni.JObject {
   static jni.JObject newScheduledThreadPool1(
     int i,
     jni.JObject threadFactory,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_newScheduledThreadPool1,
-            jni.JniCallType.objectType,
-            [jni.JValueInt(i), threadFactory.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_newScheduledThreadPool1,
+              jni.JniCallType.objectType,
+              [jni.JValueInt(i), threadFactory.reference]).object);
 
   static final _id_unconfigurableExecutorService = jni.Jni.accessors
       .getStaticMethodIDOf(_class.reference, r'unconfigurableExecutorService',
@@ -1882,12 +2017,13 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject unconfigurableExecutorService(
     jni.JObject executorService,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_unconfigurableExecutorService,
-            jni.JniCallType.objectType,
-            [executorService.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_unconfigurableExecutorService,
+              jni.JniCallType.objectType,
+              [executorService.reference]).object);
 
   static final _id_unconfigurableScheduledExecutorService = jni.Jni.accessors
       .getStaticMethodIDOf(
@@ -1899,12 +2035,13 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject unconfigurableScheduledExecutorService(
     jni.JObject scheduledExecutorService,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_unconfigurableScheduledExecutorService,
-            jni.JniCallType.objectType,
-            [scheduledExecutorService.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_unconfigurableScheduledExecutorService,
+              jni.JniCallType.objectType,
+              [scheduledExecutorService.reference]).object);
 
   static final _id_defaultThreadFactory = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1913,9 +2050,9 @@ class Executors extends jni.JObject {
 
   /// from: static public java.util.concurrent.ThreadFactory defaultThreadFactory()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject defaultThreadFactory() => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_defaultThreadFactory,
-            jni.JniCallType.objectType, []).object);
+  static jni.JObject defaultThreadFactory() => const jni.JObjectType().fromRef(
+      jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
+          _id_defaultThreadFactory, jni.JniCallType.objectType, []).object);
 
   static final _id_privilegedThreadFactory = jni.Jni.accessors
       .getStaticMethodIDOf(_class.reference, r'privilegedThreadFactory',
@@ -1923,9 +2060,9 @@ class Executors extends jni.JObject {
 
   /// from: static public java.util.concurrent.ThreadFactory privilegedThreadFactory()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject privilegedThreadFactory() => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_privilegedThreadFactory,
-            jni.JniCallType.objectType, []).object);
+  static jni.JObject privilegedThreadFactory() => const jni.JObjectType()
+      .fromRef(jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
+          _id_privilegedThreadFactory, jni.JniCallType.objectType, []).object);
 
   static final _id_callable = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1959,9 +2096,10 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject callable1(
     jni.JObject runnable,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_callable1,
-            jni.JniCallType.objectType, [runnable.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_callable1,
+              jni.JniCallType.objectType, [runnable.reference]).object);
 
   static final _id_callable2 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1972,9 +2110,10 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject callable2(
     jni.JObject privilegedAction,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_callable2,
-            jni.JniCallType.objectType, [privilegedAction.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_callable2,
+              jni.JniCallType.objectType, [privilegedAction.reference]).object);
 
   static final _id_callable3 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -1985,12 +2124,13 @@ class Executors extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject callable3(
     jni.JObject privilegedExceptionAction,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_callable3,
-            jni.JniCallType.objectType,
-            [privilegedExceptionAction.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_callable3,
+              jni.JniCallType.objectType,
+              [privilegedExceptionAction.reference]).object);
 
   static final _id_privilegedCallable = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -2002,9 +2142,10 @@ class Executors extends jni.JObject {
   static jni.JObject privilegedCallable<$T extends jni.JObject>(
     jni.JObject callable, {
     required jni.JObjType<$T> T,
-  }) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_privilegedCallable,
-            jni.JniCallType.objectType, [callable.reference]).object);
+  }) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_privilegedCallable,
+              jni.JniCallType.objectType, [callable.reference]).object);
 
   static final _id_privilegedCallableUsingCurrentClassLoader = jni.Jni.accessors
       .getStaticMethodIDOf(
@@ -2018,12 +2159,13 @@ class Executors extends jni.JObject {
       privilegedCallableUsingCurrentClassLoader<$T extends jni.JObject>(
     jni.JObject callable, {
     required jni.JObjType<$T> T,
-  }) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_privilegedCallableUsingCurrentClassLoader,
-            jni.JniCallType.objectType,
-            [callable.reference]).object);
+  }) =>
+          const jni.JObjectType().fromRef(jni.Jni.accessors
+              .callStaticMethodWithArgs(
+                  _class.reference,
+                  _id_privilegedCallableUsingCurrentClassLoader,
+                  jni.JniCallType.objectType,
+                  [callable.reference]).object);
 }
 
 class $ExecutorsType extends jni.JObjType<Executors> {
@@ -2045,7 +2187,8 @@ class $ExecutorsType extends jni.JObjType<Executors> {
   int get hashCode => ($ExecutorsType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $ExecutorsType && other is $ExecutorsType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $ExecutorsType && other is $ExecutorsType;
 }
 
 /// from: org.chromium.net.CronetEngine$Builder$LibraryLoader
@@ -2067,8 +2210,9 @@ class CronetEngine_Builder_LibraryLoader extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory CronetEngine_Builder_LibraryLoader() => CronetEngine_Builder_LibraryLoader.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory CronetEngine_Builder_LibraryLoader() =>
+      CronetEngine_Builder_LibraryLoader.fromRef(jni.Jni.accessors
+          .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
   static final _id_loadLibrary = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'loadLibrary', r'(Ljava/lang/String;)V');
@@ -2076,8 +2220,9 @@ class CronetEngine_Builder_LibraryLoader extends jni.JObject {
   /// from: public abstract void loadLibrary(java.lang.String string)
   void loadLibrary(
     jni.JString string,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_loadLibrary,
-        jni.JniCallType.voidType, [string.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_loadLibrary,
+          jni.JniCallType.voidType, [string.reference]).check();
 }
 
 class $CronetEngine_Builder_LibraryLoaderType
@@ -2102,8 +2247,9 @@ class $CronetEngine_Builder_LibraryLoaderType
   int get hashCode => ($CronetEngine_Builder_LibraryLoaderType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $CronetEngine_Builder_LibraryLoaderType &&
-        other is $CronetEngine_Builder_LibraryLoaderType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $CronetEngine_Builder_LibraryLoaderType &&
+      other is $CronetEngine_Builder_LibraryLoaderType;
 }
 
 /// from: org.chromium.net.CronetEngine$Builder
@@ -2152,8 +2298,9 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory CronetEngine_Builder(
     jni.JObject context,
-  ) => CronetEngine_Builder.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference, _id_new0, [context.reference]).object);
+  ) =>
+      CronetEngine_Builder.fromRef(jni.Jni.accessors.newObjectWithArgs(
+          _class.reference, _id_new0, [context.reference]).object);
 
   static final _id_new1 = jni.Jni.accessors.getMethodIDOf(_class.reference,
       r'<init>', r'(Lorg/chromium/net/ICronetEngineBuilder;)V');
@@ -2162,18 +2309,20 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory CronetEngine_Builder.new1(
     jni.JObject iCronetEngineBuilder,
-  ) => CronetEngine_Builder.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference, _id_new1, [iCronetEngineBuilder.reference]).object);
+  ) =>
+      CronetEngine_Builder.fromRef(jni.Jni.accessors.newObjectWithArgs(
+          _class.reference, _id_new1, [iCronetEngineBuilder.reference]).object);
 
   static final _id_getDefaultUserAgent = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'getDefaultUserAgent', r'()Ljava/lang/String;');
 
   /// from: public java.lang.String getDefaultUserAgent()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getDefaultUserAgent() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_getDefaultUserAgent,
-        jni.JniCallType.objectType, []).object);
+  jni.JString getDefaultUserAgent() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_getDefaultUserAgent,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_setUserAgent = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2184,9 +2333,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setUserAgent(
     jni.JString string,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setUserAgent,
-            jni.JniCallType.objectType, [string.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setUserAgent,
+              jni.JniCallType.objectType, [string.reference]).object);
 
   static final _id_setStoragePath = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2197,9 +2347,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setStoragePath(
     jni.JString string,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setStoragePath,
-            jni.JniCallType.objectType, [string.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setStoragePath,
+              jni.JniCallType.objectType, [string.reference]).object);
 
   static final _id_setLibraryLoader = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2210,9 +2361,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setLibraryLoader(
     CronetEngine_Builder_LibraryLoader libraryLoader,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setLibraryLoader,
-            jni.JniCallType.objectType, [libraryLoader.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setLibraryLoader,
+              jni.JniCallType.objectType, [libraryLoader.reference]).object);
 
   static final _id_enableQuic = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2223,9 +2375,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder enableQuic(
     bool z,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_enableQuic,
-            jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_enableQuic,
+              jni.JniCallType.objectType, [z ? 1 : 0]).object);
 
   static final _id_enableHttp2 = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2236,9 +2389,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder enableHttp2(
     bool z,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_enableHttp2,
-            jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_enableHttp2,
+              jni.JniCallType.objectType, [z ? 1 : 0]).object);
 
   static final _id_enableSdch = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2249,9 +2403,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder enableSdch(
     bool z,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_enableSdch,
-            jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_enableSdch,
+              jni.JniCallType.objectType, [z ? 1 : 0]).object);
 
   static final _id_enableBrotli = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2262,9 +2417,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder enableBrotli(
     bool z,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_enableBrotli,
-            jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_enableBrotli,
+              jni.JniCallType.objectType, [z ? 1 : 0]).object);
 
   static final _id_enableHttpCache = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2276,9 +2432,10 @@ class CronetEngine_Builder extends jni.JObject {
   CronetEngine_Builder enableHttpCache(
     int i,
     int j,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_enableHttpCache,
-            jni.JniCallType.objectType, [jni.JValueInt(i), j]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_enableHttpCache,
+              jni.JniCallType.objectType, [jni.JValueInt(i), j]).object);
 
   static final _id_addQuicHint = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2291,12 +2448,13 @@ class CronetEngine_Builder extends jni.JObject {
     jni.JString string,
     int i,
     int i1,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference,
-            _id_addQuicHint,
-            jni.JniCallType.objectType,
-            [string.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(
+              reference,
+              _id_addQuicHint,
+              jni.JniCallType.objectType,
+              [string.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
 
   static final _id_addPublicKeyPins = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2310,14 +2468,15 @@ class CronetEngine_Builder extends jni.JObject {
     jni.JSet<jni.JArray<jni.jbyte>> set0,
     bool z,
     jni.JObject date,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference, _id_addPublicKeyPins, jni.JniCallType.objectType, [
-      string.reference,
-      set0.reference,
-      z ? 1 : 0,
-      date.reference
-    ]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(
+              reference, _id_addPublicKeyPins, jni.JniCallType.objectType, [
+        string.reference,
+        set0.reference,
+        z ? 1 : 0,
+        date.reference
+      ]).object);
 
   static final _id_enablePublicKeyPinningBypassForLocalTrustAnchors =
       jni.Jni.accessors.getMethodIDOf(
@@ -2329,12 +2488,13 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder enablePublicKeyPinningBypassForLocalTrustAnchors(
     bool z,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference,
-            _id_enablePublicKeyPinningBypassForLocalTrustAnchors,
-            jni.JniCallType.objectType,
-            [z ? 1 : 0]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(
+              reference,
+              _id_enablePublicKeyPinningBypassForLocalTrustAnchors,
+              jni.JniCallType.objectType,
+              [z ? 1 : 0]).object);
 
   static final _id_setThreadPriority = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2345,9 +2505,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setThreadPriority(
     int i,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setThreadPriority,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setThreadPriority,
+              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
 
   static final _id_enableNetworkQualityEstimator = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'enableNetworkQualityEstimator',
@@ -2357,9 +2518,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder enableNetworkQualityEstimator(
     bool z,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_enableNetworkQualityEstimator,
-            jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_enableNetworkQualityEstimator,
+              jni.JniCallType.objectType, [z ? 1 : 0]).object);
 
   static final _id_setQuicOptions = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2370,9 +2532,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setQuicOptions(
     jni.JObject quicOptions,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setQuicOptions,
-            jni.JniCallType.objectType, [quicOptions.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setQuicOptions,
+              jni.JniCallType.objectType, [quicOptions.reference]).object);
 
   static final _id_setQuicOptions1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2383,9 +2546,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setQuicOptions1(
     jni.JObject builder,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setQuicOptions1,
-            jni.JniCallType.objectType, [builder.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setQuicOptions1,
+              jni.JniCallType.objectType, [builder.reference]).object);
 
   static final _id_setDnsOptions = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2396,9 +2560,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setDnsOptions(
     jni.JObject dnsOptions,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setDnsOptions,
-            jni.JniCallType.objectType, [dnsOptions.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setDnsOptions,
+              jni.JniCallType.objectType, [dnsOptions.reference]).object);
 
   static final _id_setDnsOptions1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2409,9 +2574,10 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setDnsOptions1(
     jni.JObject builder,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setDnsOptions1,
-            jni.JniCallType.objectType, [builder.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setDnsOptions1,
+              jni.JniCallType.objectType, [builder.reference]).object);
 
   static final _id_setConnectionMigrationOptions = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2422,12 +2588,13 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setConnectionMigrationOptions(
     jni.JObject connectionMigrationOptions,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference,
-            _id_setConnectionMigrationOptions,
-            jni.JniCallType.objectType,
-            [connectionMigrationOptions.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(
+              reference,
+              _id_setConnectionMigrationOptions,
+              jni.JniCallType.objectType,
+              [connectionMigrationOptions.reference]).object);
 
   static final _id_setConnectionMigrationOptions1 = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2438,18 +2605,19 @@ class CronetEngine_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   CronetEngine_Builder setConnectionMigrationOptions1(
     jni.JObject builder,
-  ) => const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setConnectionMigrationOptions1,
-            jni.JniCallType.objectType, [builder.reference]).object);
+  ) =>
+      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setConnectionMigrationOptions1,
+              jni.JniCallType.objectType, [builder.reference]).object);
 
   static final _id_build = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'build', r'()Lorg/chromium/net/CronetEngine;');
 
   /// from: public org.chromium.net.CronetEngine build()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  CronetEngine build() => const $CronetEngineType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference, _id_build, jni.JniCallType.objectType, []).object);
+  CronetEngine build() =>
+      const $CronetEngineType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_build, jni.JniCallType.objectType, []).object);
 }
 
 class $CronetEngine_BuilderType extends jni.JObjType<CronetEngine_Builder> {
@@ -2472,8 +2640,9 @@ class $CronetEngine_BuilderType extends jni.JObjType<CronetEngine_Builder> {
   int get hashCode => ($CronetEngine_BuilderType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $CronetEngine_BuilderType &&
-        other is $CronetEngine_BuilderType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $CronetEngine_BuilderType &&
+      other is $CronetEngine_BuilderType;
 }
 
 /// from: org.chromium.net.CronetEngine
@@ -2520,24 +2689,25 @@ class CronetEngine extends jni.JObject {
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory CronetEngine() => CronetEngine.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+      .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
   static final _id_getVersionString = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'getVersionString', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getVersionString()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getVersionString() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_getVersionString,
-        jni.JniCallType.objectType, []).object);
+  jni.JString getVersionString() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_getVersionString,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_shutdown =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'shutdown', r'()V');
 
   /// from: public abstract void shutdown()
   void shutdown() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_shutdown, jni.JniCallType.voidType, []).check();
+      reference, _id_shutdown, jni.JniCallType.voidType, []).check();
 
   static final _id_startNetLogToFile = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'startNetLogToFile', r'(Ljava/lang/String;Z)V');
@@ -2546,27 +2716,26 @@ class CronetEngine extends jni.JObject {
   void startNetLogToFile(
     jni.JString string,
     bool z,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_startNetLogToFile,
-        jni.JniCallType.voidType,
-        [string.reference, z ? 1 : 0]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_startNetLogToFile,
+          jni.JniCallType.voidType, [string.reference, z ? 1 : 0]).check();
 
   static final _id_stopNetLog =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'stopNetLog', r'()V');
 
   /// from: public abstract void stopNetLog()
   void stopNetLog() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_stopNetLog, jni.JniCallType.voidType, []).check();
+      reference, _id_stopNetLog, jni.JniCallType.voidType, []).check();
 
   static final _id_getGlobalMetricsDeltas = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getGlobalMetricsDeltas', r'()[B');
 
   /// from: public abstract byte[] getGlobalMetricsDeltas()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JArray<jni.jbyte> getGlobalMetricsDeltas() => const jni.JArrayType(jni.jbyteType()).fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_getGlobalMetricsDeltas,
-            jni.JniCallType.objectType, []).object);
+  jni.JArray<jni.jbyte> getGlobalMetricsDeltas() =>
+      const jni.JArrayType(jni.jbyteType()).fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_getGlobalMetricsDeltas,
+              jni.JniCallType.objectType, []).object);
 
   static final _id_openConnection = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2577,11 +2746,12 @@ class CronetEngine extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   jni.JObject openConnection(
     URL uRL,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_openConnection,
-        jni.JniCallType.objectType,
-        [uRL.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_openConnection,
+          jni.JniCallType.objectType,
+          [uRL.reference]).object);
 
   static final _id_createURLStreamHandlerFactory = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'createURLStreamHandlerFactory',
@@ -2589,10 +2759,11 @@ class CronetEngine extends jni.JObject {
 
   /// from: public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JObject createURLStreamHandlerFactory() => const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_createURLStreamHandlerFactory,
-        jni.JniCallType.objectType, []).object);
+  jni.JObject createURLStreamHandlerFactory() =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_createURLStreamHandlerFactory,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_newUrlRequestBuilder = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2605,19 +2776,21 @@ class CronetEngine extends jni.JObject {
     jni.JString string,
     UrlRequest_Callback callback,
     jni.JObject executor,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference,
-            _id_newUrlRequestBuilder,
-            jni.JniCallType.objectType,
-            [string.reference, callback.reference, executor.reference]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(
+              reference, _id_newUrlRequestBuilder, jni.JniCallType.objectType, [
+        string.reference,
+        callback.reference,
+        executor.reference
+      ]).object);
 
   static final _id_getActiveRequestCount = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getActiveRequestCount', r'()I');
 
   /// from: public int getActiveRequestCount()
   int getActiveRequestCount() => jni.Jni.accessors.callMethodWithArgs(reference,
-        _id_getActiveRequestCount, jni.JniCallType.intType, []).integer;
+      _id_getActiveRequestCount, jni.JniCallType.intType, []).integer;
 
   static final _id_addRequestFinishedListener = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2627,11 +2800,12 @@ class CronetEngine extends jni.JObject {
   /// from: public void addRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)
   void addRequestFinishedListener(
     jni.JObject listener,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_addRequestFinishedListener,
-        jni.JniCallType.voidType,
-        [listener.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_addRequestFinishedListener,
+          jni.JniCallType.voidType,
+          [listener.reference]).check();
 
   static final _id_removeRequestFinishedListener = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'removeRequestFinishedListener',
@@ -2640,32 +2814,35 @@ class CronetEngine extends jni.JObject {
   /// from: public void removeRequestFinishedListener(org.chromium.net.RequestFinishedInfo$Listener listener)
   void removeRequestFinishedListener(
     jni.JObject listener,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_removeRequestFinishedListener,
-        jni.JniCallType.voidType,
-        [listener.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_removeRequestFinishedListener,
+          jni.JniCallType.voidType,
+          [listener.reference]).check();
 
   static final _id_getHttpRttMs = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getHttpRttMs', r'()I');
 
   /// from: public int getHttpRttMs()
   int getHttpRttMs() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getHttpRttMs, jni.JniCallType.intType, []).integer;
+      reference, _id_getHttpRttMs, jni.JniCallType.intType, []).integer;
 
   static final _id_getTransportRttMs = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getTransportRttMs', r'()I');
 
   /// from: public int getTransportRttMs()
   int getTransportRttMs() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getTransportRttMs, jni.JniCallType.intType, []).integer;
+      reference, _id_getTransportRttMs, jni.JniCallType.intType, []).integer;
 
   static final _id_getDownstreamThroughputKbps = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getDownstreamThroughputKbps', r'()I');
 
   /// from: public int getDownstreamThroughputKbps()
-  int getDownstreamThroughputKbps() => jni.Jni.accessors.callMethodWithArgs(reference,
-        _id_getDownstreamThroughputKbps, jni.JniCallType.intType, []).integer;
+  int getDownstreamThroughputKbps() => jni.Jni.accessors.callMethodWithArgs(
+      reference,
+      _id_getDownstreamThroughputKbps,
+      jni.JniCallType.intType, []).integer;
 
   static final _id_startNetLogToDisk = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'startNetLogToDisk', r'(Ljava/lang/String;ZI)V');
@@ -2675,18 +2852,21 @@ class CronetEngine extends jni.JObject {
     jni.JString string,
     bool z,
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_startNetLogToDisk,
-        jni.JniCallType.voidType,
-        [string.reference, z ? 1 : 0, jni.JValueInt(i)]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_startNetLogToDisk,
+          jni.JniCallType.voidType,
+          [string.reference, z ? 1 : 0, jni.JValueInt(i)]).check();
 
   static final _id_getEffectiveConnectionType = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getEffectiveConnectionType', r'()I');
 
   /// from: public int getEffectiveConnectionType()
-  int getEffectiveConnectionType() => jni.Jni.accessors.callMethodWithArgs(reference,
-        _id_getEffectiveConnectionType, jni.JniCallType.intType, []).integer;
+  int getEffectiveConnectionType() => jni.Jni.accessors.callMethodWithArgs(
+      reference,
+      _id_getEffectiveConnectionType,
+      jni.JniCallType.intType, []).integer;
 
   static final _id_configureNetworkQualityEstimatorForTesting =
       jni.Jni.accessors.getMethodIDOf(_class.reference,
@@ -2697,11 +2877,12 @@ class CronetEngine extends jni.JObject {
     bool z,
     bool z1,
     bool z2,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_configureNetworkQualityEstimatorForTesting,
-        jni.JniCallType.voidType,
-        [z ? 1 : 0, z1 ? 1 : 0, z2 ? 1 : 0]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_configureNetworkQualityEstimatorForTesting,
+          jni.JniCallType.voidType,
+          [z ? 1 : 0, z1 ? 1 : 0, z2 ? 1 : 0]).check();
 
   static final _id_addRttListener = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2711,11 +2892,12 @@ class CronetEngine extends jni.JObject {
   /// from: public void addRttListener(org.chromium.net.NetworkQualityRttListener networkQualityRttListener)
   void addRttListener(
     jni.JObject networkQualityRttListener,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_addRttListener,
-        jni.JniCallType.voidType,
-        [networkQualityRttListener.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_addRttListener,
+          jni.JniCallType.voidType,
+          [networkQualityRttListener.reference]).check();
 
   static final _id_removeRttListener = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2725,11 +2907,12 @@ class CronetEngine extends jni.JObject {
   /// from: public void removeRttListener(org.chromium.net.NetworkQualityRttListener networkQualityRttListener)
   void removeRttListener(
     jni.JObject networkQualityRttListener,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_removeRttListener,
-        jni.JniCallType.voidType,
-        [networkQualityRttListener.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_removeRttListener,
+          jni.JniCallType.voidType,
+          [networkQualityRttListener.reference]).check();
 
   static final _id_addThroughputListener = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2739,11 +2922,12 @@ class CronetEngine extends jni.JObject {
   /// from: public void addThroughputListener(org.chromium.net.NetworkQualityThroughputListener networkQualityThroughputListener)
   void addThroughputListener(
     jni.JObject networkQualityThroughputListener,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_addThroughputListener,
-        jni.JniCallType.voidType,
-        [networkQualityThroughputListener.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_addThroughputListener,
+          jni.JniCallType.voidType,
+          [networkQualityThroughputListener.reference]).check();
 
   static final _id_removeThroughputListener = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2753,11 +2937,12 @@ class CronetEngine extends jni.JObject {
   /// from: public void removeThroughputListener(org.chromium.net.NetworkQualityThroughputListener networkQualityThroughputListener)
   void removeThroughputListener(
     jni.JObject networkQualityThroughputListener,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_removeThroughputListener,
-        jni.JniCallType.voidType,
-        [networkQualityThroughputListener.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_removeThroughputListener,
+          jni.JniCallType.voidType,
+          [networkQualityThroughputListener.reference]).check();
 }
 
 class $CronetEngineType extends jni.JObjType<CronetEngine> {
@@ -2779,8 +2964,8 @@ class $CronetEngineType extends jni.JObjType<CronetEngine> {
   int get hashCode => ($CronetEngineType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $CronetEngineType &&
-        other is $CronetEngineType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $CronetEngineType && other is $CronetEngineType;
 }
 
 /// from: org.chromium.net.CronetException
@@ -2804,10 +2989,11 @@ class CronetException extends jni.JObject {
   factory CronetException(
     jni.JString string,
     jni.JObject throwable,
-  ) => CronetException.fromRef(jni.Jni.accessors.newObjectWithArgs(
-        _class.reference,
-        _id_new0,
-        [string.reference, throwable.reference]).object);
+  ) =>
+      CronetException.fromRef(jni.Jni.accessors.newObjectWithArgs(
+          _class.reference,
+          _id_new0,
+          [string.reference, throwable.reference]).object);
 }
 
 class $CronetExceptionType extends jni.JObjType<CronetException> {
@@ -2829,8 +3015,9 @@ class $CronetExceptionType extends jni.JObjType<CronetException> {
   int get hashCode => ($CronetExceptionType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $CronetExceptionType &&
-        other is $CronetExceptionType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $CronetExceptionType &&
+      other is $CronetExceptionType;
 }
 
 /// from: org.chromium.net.UploadDataProviders
@@ -2856,9 +3043,10 @@ class UploadDataProviders extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject create(
     jni.JObject file,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_create,
-            jni.JniCallType.objectType, [file.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_create,
+              jni.JniCallType.objectType, [file.reference]).object);
 
   static final _id_create1 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -2869,12 +3057,13 @@ class UploadDataProviders extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject create1(
     jni.JObject parcelFileDescriptor,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_create1,
-            jni.JniCallType.objectType,
-            [parcelFileDescriptor.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_create1,
+              jni.JniCallType.objectType,
+              [parcelFileDescriptor.reference]).object);
 
   static final _id_create2 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -2885,9 +3074,10 @@ class UploadDataProviders extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject create2(
     ByteBuffer byteBuffer,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_create2,
-            jni.JniCallType.objectType, [byteBuffer.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_create2,
+              jni.JniCallType.objectType, [byteBuffer.reference]).object);
 
   static final _id_create3 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -2900,12 +3090,13 @@ class UploadDataProviders extends jni.JObject {
     jni.JArray<jni.jbyte> bs,
     int i,
     int i1,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_create3,
-            jni.JniCallType.objectType,
-            [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(
+              _class.reference,
+              _id_create3,
+              jni.JniCallType.objectType,
+              [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
 
   static final _id_create4 = jni.Jni.accessors.getStaticMethodIDOf(
       _class.reference,
@@ -2916,9 +3107,10 @@ class UploadDataProviders extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   static jni.JObject create4(
     jni.JArray<jni.jbyte> bs,
-  ) => const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(_class.reference, _id_create4,
-            jni.JniCallType.objectType, [bs.reference]).object);
+  ) =>
+      const jni.JObjectType().fromRef(jni.Jni.accessors
+          .callStaticMethodWithArgs(_class.reference, _id_create4,
+              jni.JniCallType.objectType, [bs.reference]).object);
 }
 
 class $UploadDataProvidersType extends jni.JObjType<UploadDataProviders> {
@@ -2941,8 +3133,9 @@ class $UploadDataProvidersType extends jni.JObjType<UploadDataProviders> {
   int get hashCode => ($UploadDataProvidersType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UploadDataProvidersType &&
-        other is $UploadDataProvidersType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UploadDataProvidersType &&
+      other is $UploadDataProvidersType;
 }
 
 /// from: org.chromium.net.UrlRequest$Builder
@@ -2981,7 +3174,7 @@ class UrlRequest_Builder extends jni.JObject {
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory UrlRequest_Builder() => UrlRequest_Builder.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+      .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
   static final _id_setHttpMethod = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -2992,9 +3185,10 @@ class UrlRequest_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   UrlRequest_Builder setHttpMethod(
     jni.JString string,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setHttpMethod,
-            jni.JniCallType.objectType, [string.reference]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setHttpMethod,
+              jni.JniCallType.objectType, [string.reference]).object);
 
   static final _id_addHeader = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3006,12 +3200,13 @@ class UrlRequest_Builder extends jni.JObject {
   UrlRequest_Builder addHeader(
     jni.JString string,
     jni.JString string1,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference,
-            _id_addHeader,
-            jni.JniCallType.objectType,
-            [string.reference, string1.reference]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(
+              reference,
+              _id_addHeader,
+              jni.JniCallType.objectType,
+              [string.reference, string1.reference]).object);
 
   static final _id_disableCache = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3020,9 +3215,9 @@ class UrlRequest_Builder extends jni.JObject {
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder disableCache()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  UrlRequest_Builder disableCache() => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_disableCache,
-            jni.JniCallType.objectType, []).object);
+  UrlRequest_Builder disableCache() => const $UrlRequest_BuilderType().fromRef(
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_disableCache, jni.JniCallType.objectType, []).object);
 
   static final _id_setPriority = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3033,9 +3228,10 @@ class UrlRequest_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   UrlRequest_Builder setPriority(
     int i,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setPriority,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setPriority,
+              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
 
   static final _id_setUploadDataProvider = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3047,12 +3243,13 @@ class UrlRequest_Builder extends jni.JObject {
   UrlRequest_Builder setUploadDataProvider(
     jni.JObject uploadDataProvider,
     jni.JObject executor,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference,
-            _id_setUploadDataProvider,
-            jni.JniCallType.objectType,
-            [uploadDataProvider.reference, executor.reference]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(
+              reference,
+              _id_setUploadDataProvider,
+              jni.JniCallType.objectType,
+              [uploadDataProvider.reference, executor.reference]).object);
 
   static final _id_allowDirectExecutor = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3061,9 +3258,9 @@ class UrlRequest_Builder extends jni.JObject {
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder allowDirectExecutor()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  UrlRequest_Builder allowDirectExecutor() => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_allowDirectExecutor,
-            jni.JniCallType.objectType, []).object);
+  UrlRequest_Builder allowDirectExecutor() => const $UrlRequest_BuilderType()
+      .fromRef(jni.Jni.accessors.callMethodWithArgs(reference,
+          _id_allowDirectExecutor, jni.JniCallType.objectType, []).object);
 
   static final _id_addRequestAnnotation = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3074,9 +3271,10 @@ class UrlRequest_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   UrlRequest_Builder addRequestAnnotation(
     jni.JObject object,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_addRequestAnnotation,
-            jni.JniCallType.objectType, [object.reference]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_addRequestAnnotation,
+              jni.JniCallType.objectType, [object.reference]).object);
 
   static final _id_setTrafficStatsTag = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3087,9 +3285,10 @@ class UrlRequest_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   UrlRequest_Builder setTrafficStatsTag(
     int i,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setTrafficStatsTag,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setTrafficStatsTag,
+              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
 
   static final _id_setTrafficStatsUid = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3100,9 +3299,10 @@ class UrlRequest_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   UrlRequest_Builder setTrafficStatsUid(
     int i,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setTrafficStatsUid,
-            jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setTrafficStatsUid,
+              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
 
   static final _id_setRequestFinishedListener = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3113,17 +3313,19 @@ class UrlRequest_Builder extends jni.JObject {
   /// The returned object must be deleted after use, by calling the `delete` method.
   UrlRequest_Builder setRequestFinishedListener(
     jni.JObject listener,
-  ) => const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_setRequestFinishedListener,
-            jni.JniCallType.objectType, [listener.reference]).object);
+  ) =>
+      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_setRequestFinishedListener,
+              jni.JniCallType.objectType, [listener.reference]).object);
 
   static final _id_build = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'build', r'()Lorg/chromium/net/UrlRequest;');
 
   /// from: public abstract org.chromium.net.UrlRequest build()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  UrlRequest build() => const $UrlRequestType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_build, jni.JniCallType.objectType, []).object);
+  UrlRequest build() =>
+      const $UrlRequestType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_build, jni.JniCallType.objectType, []).object);
 }
 
 class $UrlRequest_BuilderType extends jni.JObjType<UrlRequest_Builder> {
@@ -3146,8 +3348,9 @@ class $UrlRequest_BuilderType extends jni.JObjType<UrlRequest_Builder> {
   int get hashCode => ($UrlRequest_BuilderType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UrlRequest_BuilderType &&
-        other is $UrlRequest_BuilderType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UrlRequest_BuilderType &&
+      other is $UrlRequest_BuilderType;
 }
 
 /// from: org.chromium.net.UrlRequest$Callback
@@ -3170,7 +3373,7 @@ class UrlRequest_Callback extends jni.JObject {
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory UrlRequest_Callback() => UrlRequest_Callback.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+      .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
   static final _id_onRedirectReceived = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3182,12 +3385,13 @@ class UrlRequest_Callback extends jni.JObject {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JString string,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      string.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        string.reference
+      ]).check();
 
   static final _id_onResponseStarted = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3198,11 +3402,12 @@ class UrlRequest_Callback extends jni.JObject {
   void onResponseStarted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_onResponseStarted,
-        jni.JniCallType.voidType,
-        [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_onResponseStarted,
+          jni.JniCallType.voidType,
+          [urlRequest.reference, urlResponseInfo.reference]).check();
 
   static final _id_onReadCompleted = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3214,12 +3419,13 @@ class UrlRequest_Callback extends jni.JObject {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     ByteBuffer byteBuffer,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onReadCompleted, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      byteBuffer.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onReadCompleted, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        byteBuffer.reference
+      ]).check();
 
   static final _id_onSucceeded = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3230,11 +3436,12 @@ class UrlRequest_Callback extends jni.JObject {
   void onSucceeded(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_onSucceeded,
-        jni.JniCallType.voidType,
-        [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_onSucceeded,
+          jni.JniCallType.voidType,
+          [urlRequest.reference, urlResponseInfo.reference]).check();
 
   static final _id_onFailed = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3246,12 +3453,13 @@ class UrlRequest_Callback extends jni.JObject {
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     CronetException cronetException,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_onFailed, jni.JniCallType.voidType, [
-      urlRequest.reference,
-      urlResponseInfo.reference,
-      cronetException.reference
-    ]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_onFailed, jni.JniCallType.voidType, [
+        urlRequest.reference,
+        urlResponseInfo.reference,
+        cronetException.reference
+      ]).check();
 
   static final _id_onCanceled = jni.Jni.accessors.getMethodIDOf(
       _class.reference,
@@ -3262,11 +3470,12 @@ class UrlRequest_Callback extends jni.JObject {
   void onCanceled(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) => jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_onCanceled,
-        jni.JniCallType.voidType,
-        [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_onCanceled,
+          jni.JniCallType.voidType,
+          [urlRequest.reference, urlResponseInfo.reference]).check();
 }
 
 class $UrlRequest_CallbackType extends jni.JObjType<UrlRequest_Callback> {
@@ -3289,8 +3498,9 @@ class $UrlRequest_CallbackType extends jni.JObjType<UrlRequest_Callback> {
   int get hashCode => ($UrlRequest_CallbackType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UrlRequest_CallbackType &&
-        other is $UrlRequest_CallbackType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UrlRequest_CallbackType &&
+      other is $UrlRequest_CallbackType;
 }
 
 /// from: org.chromium.net.UrlRequest$Status
@@ -3377,8 +3587,9 @@ class $UrlRequest_StatusType extends jni.JObjType<UrlRequest_Status> {
   int get hashCode => ($UrlRequest_StatusType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UrlRequest_StatusType &&
-        other is $UrlRequest_StatusType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UrlRequest_StatusType &&
+      other is $UrlRequest_StatusType;
 }
 
 /// from: org.chromium.net.UrlRequest$StatusListener
@@ -3400,8 +3611,9 @@ class UrlRequest_StatusListener extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory UrlRequest_StatusListener() => UrlRequest_StatusListener.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory UrlRequest_StatusListener() =>
+      UrlRequest_StatusListener.fromRef(jni.Jni.accessors
+          .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
   static final _id_onStatus =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'onStatus', r'(I)V');
@@ -3409,8 +3621,9 @@ class UrlRequest_StatusListener extends jni.JObject {
   /// from: public abstract void onStatus(int i)
   void onStatus(
     int i,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_onStatus,
-        jni.JniCallType.voidType, [jni.JValueInt(i)]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_onStatus,
+          jni.JniCallType.voidType, [jni.JValueInt(i)]).check();
 }
 
 class $UrlRequest_StatusListenerType
@@ -3434,8 +3647,9 @@ class $UrlRequest_StatusListenerType
   int get hashCode => ($UrlRequest_StatusListenerType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UrlRequest_StatusListenerType &&
-        other is $UrlRequest_StatusListenerType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UrlRequest_StatusListenerType &&
+      other is $UrlRequest_StatusListenerType;
 }
 
 /// from: org.chromium.net.UrlRequest
@@ -3457,21 +3671,21 @@ class UrlRequest extends jni.JObject {
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory UrlRequest() => UrlRequest.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+      .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
   static final _id_start =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'start', r'()V');
 
   /// from: public abstract void start()
   void start() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_start, jni.JniCallType.voidType, []).check();
+      reference, _id_start, jni.JniCallType.voidType, []).check();
 
   static final _id_followRedirect = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'followRedirect', r'()V');
 
   /// from: public abstract void followRedirect()
   void followRedirect() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_followRedirect, jni.JniCallType.voidType, []).check();
+      reference, _id_followRedirect, jni.JniCallType.voidType, []).check();
 
   static final _id_read = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'read', r'(Ljava/nio/ByteBuffer;)V');
@@ -3479,22 +3693,23 @@ class UrlRequest extends jni.JObject {
   /// from: public abstract void read(java.nio.ByteBuffer byteBuffer)
   void read(
     ByteBuffer byteBuffer,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_read,
-        jni.JniCallType.voidType, [byteBuffer.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_read,
+          jni.JniCallType.voidType, [byteBuffer.reference]).check();
 
   static final _id_cancel =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'cancel', r'()V');
 
   /// from: public abstract void cancel()
   void cancel() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_cancel, jni.JniCallType.voidType, []).check();
+      reference, _id_cancel, jni.JniCallType.voidType, []).check();
 
   static final _id_isDone =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'isDone', r'()Z');
 
   /// from: public abstract boolean isDone()
   bool isDone() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_isDone, jni.JniCallType.booleanType, []).boolean;
+      reference, _id_isDone, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_getStatus = jni.Jni.accessors.getMethodIDOf(_class.reference,
       r'getStatus', r'(Lorg/chromium/net/UrlRequest$StatusListener;)V');
@@ -3502,8 +3717,9 @@ class UrlRequest extends jni.JObject {
   /// from: public abstract void getStatus(org.chromium.net.UrlRequest$StatusListener statusListener)
   void getStatus(
     UrlRequest_StatusListener statusListener,
-  ) => jni.Jni.accessors.callMethodWithArgs(reference, _id_getStatus,
-        jni.JniCallType.voidType, [statusListener.reference]).check();
+  ) =>
+      jni.Jni.accessors.callMethodWithArgs(reference, _id_getStatus,
+          jni.JniCallType.voidType, [statusListener.reference]).check();
 }
 
 class $UrlRequestType extends jni.JObjType<UrlRequest> {
@@ -3525,7 +3741,8 @@ class $UrlRequestType extends jni.JObjType<UrlRequest> {
   int get hashCode => ($UrlRequestType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UrlRequestType && other is $UrlRequestType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UrlRequestType && other is $UrlRequestType;
 }
 
 /// from: org.chromium.net.UrlResponseInfo$HeaderBlock
@@ -3547,27 +3764,28 @@ class UrlResponseInfo_HeaderBlock extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  factory UrlResponseInfo_HeaderBlock() => UrlResponseInfo_HeaderBlock.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory UrlResponseInfo_HeaderBlock() =>
+      UrlResponseInfo_HeaderBlock.fromRef(jni.Jni.accessors
+          .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
   static final _id_getAsList = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getAsList', r'()Ljava/util/List;');
 
   /// from: public abstract java.util.List getAsList()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JList<jni.JObject> getAsList() => const jni.JListType(jni.JObjectType()).fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference, _id_getAsList, jni.JniCallType.objectType, []).object);
+  jni.JList<jni.JObject> getAsList() => const jni.JListType(jni.JObjectType())
+      .fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getAsList, jni.JniCallType.objectType, []).object);
 
   static final _id_getAsMap = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getAsMap', r'()Ljava/util/Map;');
 
   /// from: public abstract java.util.Map getAsMap()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JMap<jni.JString, jni.JList<jni.JString>> getAsMap() => const jni.JMapType(
-            jni.JStringType(), jni.JListType(jni.JStringType()))
-        .fromRef(jni.Jni.accessors.callMethodWithArgs(
-            reference, _id_getAsMap, jni.JniCallType.objectType, []).object);
+  jni.JMap<jni.JString, jni.JList<jni.JString>> getAsMap() =>
+      const jni.JMapType(jni.JStringType(), jni.JListType(jni.JStringType()))
+          .fromRef(jni.Jni.accessors.callMethodWithArgs(
+              reference, _id_getAsMap, jni.JniCallType.objectType, []).object);
 }
 
 class $UrlResponseInfo_HeaderBlockType
@@ -3591,8 +3809,9 @@ class $UrlResponseInfo_HeaderBlockType
   int get hashCode => ($UrlResponseInfo_HeaderBlockType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UrlResponseInfo_HeaderBlockType &&
-        other is $UrlResponseInfo_HeaderBlockType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UrlResponseInfo_HeaderBlockType &&
+      other is $UrlResponseInfo_HeaderBlockType;
 }
 
 /// from: org.chromium.net.UrlResponseInfo
@@ -3614,92 +3833,99 @@ class UrlResponseInfo extends jni.JObject {
   /// from: public void <init>()
   /// The returned object must be deleted after use, by calling the `delete` method.
   factory UrlResponseInfo() => UrlResponseInfo.fromRef(jni.Jni.accessors
-        .newObjectWithArgs(_class.reference, _id_new0, []).object);
+      .newObjectWithArgs(_class.reference, _id_new0, []).object);
 
   static final _id_getUrl = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getUrl', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getUrl()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getUrl() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getUrl, jni.JniCallType.objectType, []).object);
+  jni.JString getUrl() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getUrl, jni.JniCallType.objectType, []).object);
 
   static final _id_getUrlChain = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getUrlChain', r'()Ljava/util/List;');
 
   /// from: public abstract java.util.List getUrlChain()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JList<jni.JString> getUrlChain() => const jni.JListType(jni.JStringType()).fromRef(jni.Jni.accessors
-        .callMethodWithArgs(
-            reference, _id_getUrlChain, jni.JniCallType.objectType, []).object);
+  jni.JList<jni.JString> getUrlChain() => const jni.JListType(jni.JStringType())
+      .fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference, _id_getUrlChain, jni.JniCallType.objectType, []).object);
 
   static final _id_getHttpStatusCode = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getHttpStatusCode', r'()I');
 
   /// from: public abstract int getHttpStatusCode()
   int getHttpStatusCode() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getHttpStatusCode, jni.JniCallType.intType, []).integer;
+      reference, _id_getHttpStatusCode, jni.JniCallType.intType, []).integer;
 
   static final _id_getHttpStatusText = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'getHttpStatusText', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getHttpStatusText()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getHttpStatusText() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_getHttpStatusText,
-        jni.JniCallType.objectType, []).object);
+  jni.JString getHttpStatusText() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_getHttpStatusText,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_getAllHeadersAsList = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'getAllHeadersAsList', r'()Ljava/util/List;');
 
   /// from: public abstract java.util.List getAllHeadersAsList()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JList<jni.JObject> getAllHeadersAsList() => const jni.JListType(jni.JObjectType()).fromRef(jni.Jni.accessors
-        .callMethodWithArgs(reference, _id_getAllHeadersAsList,
-            jni.JniCallType.objectType, []).object);
+  jni.JList<jni.JObject> getAllHeadersAsList() =>
+      const jni.JListType(jni.JObjectType()).fromRef(jni.Jni.accessors
+          .callMethodWithArgs(reference, _id_getAllHeadersAsList,
+              jni.JniCallType.objectType, []).object);
 
   static final _id_getAllHeaders = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getAllHeaders', r'()Ljava/util/Map;');
 
   /// from: public abstract java.util.Map getAllHeaders()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JMap<jni.JString, jni.JList<jni.JString>> getAllHeaders() => const jni.JMapType(
-            jni.JStringType(), jni.JListType(jni.JStringType()))
-        .fromRef(jni.Jni.accessors.callMethodWithArgs(reference,
-            _id_getAllHeaders, jni.JniCallType.objectType, []).object);
+  jni.JMap<jni.JString, jni.JList<jni.JString>> getAllHeaders() =>
+      const jni.JMapType(jni.JStringType(), jni.JListType(jni.JStringType()))
+          .fromRef(jni.Jni.accessors.callMethodWithArgs(reference,
+              _id_getAllHeaders, jni.JniCallType.objectType, []).object);
 
   static final _id_wasCached =
       jni.Jni.accessors.getMethodIDOf(_class.reference, r'wasCached', r'()Z');
 
   /// from: public abstract boolean wasCached()
   bool wasCached() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_wasCached, jni.JniCallType.booleanType, []).boolean;
+      reference, _id_wasCached, jni.JniCallType.booleanType, []).boolean;
 
   static final _id_getNegotiatedProtocol = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'getNegotiatedProtocol', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getNegotiatedProtocol()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getNegotiatedProtocol() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference,
-        _id_getNegotiatedProtocol,
-        jni.JniCallType.objectType, []).object);
+  jni.JString getNegotiatedProtocol() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_getNegotiatedProtocol,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_getProxyServer = jni.Jni.accessors.getMethodIDOf(
       _class.reference, r'getProxyServer', r'()Ljava/lang/String;');
 
   /// from: public abstract java.lang.String getProxyServer()
   /// The returned object must be deleted after use, by calling the `delete` method.
-  jni.JString getProxyServer() => const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getProxyServer, jni.JniCallType.objectType, []).object);
+  jni.JString getProxyServer() =>
+      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
+          reference,
+          _id_getProxyServer,
+          jni.JniCallType.objectType, []).object);
 
   static final _id_getReceivedByteCount = jni.Jni.accessors
       .getMethodIDOf(_class.reference, r'getReceivedByteCount', r'()J');
 
   /// from: public abstract long getReceivedByteCount()
   int getReceivedByteCount() => jni.Jni.accessors.callMethodWithArgs(
-        reference, _id_getReceivedByteCount, jni.JniCallType.longType, []).long;
+      reference, _id_getReceivedByteCount, jni.JniCallType.longType, []).long;
 }
 
 class $UrlResponseInfoType extends jni.JObjType<UrlResponseInfo> {
@@ -3721,6 +3947,7 @@ class $UrlResponseInfoType extends jni.JObjType<UrlResponseInfo> {
   int get hashCode => ($UrlResponseInfoType).hashCode;
 
   @override
-  bool operator ==(Object other) => other.runtimeType == $UrlResponseInfoType &&
-        other is $UrlResponseInfoType;
+  bool operator ==(Object other) =>
+      other.runtimeType == $UrlResponseInfoType &&
+      other is $UrlResponseInfoType;
 }

@@ -30,26 +30,8 @@ Future<void> testConformance() async {
   });
 }
 
-Future<void> testClientFromFutureFails() async {
-  test('cronet engine future fails', () async {
-    final engine = CronetEngine.build(
-        cacheMode: CacheMode.disk,
-        storagePath: '/non-existent-path/', // Will cause `build` to throw.
-        userAgent: 'Test Agent (Future)');
-
-    final client = CronetClient.fromCronetEngine(engine);
-    await expectLater(
-        client.get(Uri.http('example.com', '/')),
-        throwsA((Exception e) =>
-            e is ClientException &&
-            e.message.contains('Exception building CronetEngine: '
-                'Invalid argument(s): Storage path must')));
-  });
-}
-
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   await testConformance();
-//  await testClientFromFutureFails();
 }
