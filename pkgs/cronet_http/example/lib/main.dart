@@ -5,7 +5,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-// import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cronet_http/cronet_http.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -124,10 +124,10 @@ class _BookListState extends State<BookList> {
         itemBuilder: (context, index) => Card(
           key: ValueKey(widget.books[index].title),
           child: ListTile(
-/*            leading: CachedNetworkImage(
+            leading: CachedNetworkImage(
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
-                imageUrl: widget.books[index].imageUrl),*/
+                imageUrl: widget.books[index].imageUrl),
             title: Text(widget.books[index].title),
             subtitle: Text(widget.books[index].description),
           ),
