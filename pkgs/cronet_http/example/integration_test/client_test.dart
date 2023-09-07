@@ -7,25 +7,23 @@ import 'package:http_client_conformance_tests/http_client_conformance_tests.dart
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
-void testClientConformance(CronetClient Function() clientFactory) {
-  testAll(clientFactory, canStreamRequestBody: false, canWorkInIsolates: false);
-}
-
 Future<void> testConformance() async {
-  group('default cronet engine',
-      () => testClientConformance(CronetClient.defaultCronetEngine));
-
-  final engine = CronetEngine.build(
-      cacheMode: CacheMode.disabled, userAgent: 'Test Agent (Engine)');
+  group(
+      'default cronet engine',
+      () => testAll(
+            CronetClient.defaultCronetEngine,
+            canStreamRequestBody: false,
+          ));
 
   group('from cronet engine', () {
-    testClientConformance(() => CronetClient.fromCronetEngine(engine));
-  });
-
-  group('from cronet engine future', () {
-    final engine = CronetEngine.build(
-        cacheMode: CacheMode.disabled, userAgent: 'Test Agent (Future)');
-    testClientConformance(() => CronetClient.fromCronetEngine(engine));
+    testAll(
+      () {
+        final engine = CronetEngine.build(
+            cacheMode: CacheMode.disabled, userAgent: 'Test Agent (Future)');
+        return CronetClient.fromCronetEngine(engine);
+      },
+      canStreamRequestBody: false,
+    );
   });
 }
 

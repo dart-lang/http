@@ -114,6 +114,8 @@ class CronetEngine {
 
       return CronetEngine._(builder.build());
     } on JniException catch (e) {
+      // TODO: Decode this exception in a better way when
+      // https://github.com/dart-lang/jnigen/issues/239 is fixed.
       if (e.message.contains('java.lang.IllegalArgumentException:')) {
         throw ArgumentError(
             e.message.split('java.lang.IllegalArgumentException:').last);
