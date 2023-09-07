@@ -1,3 +1,8 @@
+## 0.5.0
+
+* Switch to using `package:jnigen` for bindings to Cronet
+* Support for running in background isolates.
+
 ## 0.2.2
 
 * Require Dart 3.0

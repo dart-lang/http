@@ -81,10 +81,6 @@ class CronetEngine {
         JObject.fromRef(Jni.getCachedApplicationContext()));
 
     try {
-      if (storagePath != null) {
-        builder.setStoragePath(storagePath.toJString());
-      }
-
       if (cacheMode == CacheMode.disabled) {
         builder.enableHttpCache(0, 0); // HTTP_CACHE_DISABLED, 0 bytes
       } else if (cacheMode != null && cacheMaxSize != null) {
@@ -106,6 +102,10 @@ class CronetEngine {
 
       if (enableQuic != null) {
         builder.enableQuic(enableQuic);
+      }
+
+      if (storagePath != null) {
+        builder.setStoragePath(storagePath.toJString());
       }
 
       if (userAgent != null) {
@@ -228,9 +228,10 @@ class CronetClient extends BaseClient {
     final cronetCallbacks =
         jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface.implement(
             jb.$UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl(
-      onResponseStarted: (urlRequest, info) {
+      onResponseStarted: (urlRequest, responseInfo) {
         responseStream = StreamController();
-        final responseHeaders = _cronetToClientHeaders(info.getAllHeaders());
+        final responseHeaders =
+            _cronetToClientHeaders(responseInfo.getAllHeaders());
         int? contentLength;
 
         switch (responseHeaders['content-length']) {
@@ -247,9 +248,9 @@ class CronetClient extends BaseClient {
         }
         responseCompleter.complete(StreamedResponse(
           responseStream!.stream,
-          info.getHttpStatusCode(),
+          responseInfo.getHttpStatusCode(),
           contentLength: contentLength,
-          reasonPhrase: info.getHttpStatusText().toString(),
+          reasonPhrase: responseInfo.getHttpStatusText().toString(),
           request: request,
           isRedirect: false,
           headers: responseHeaders,
@@ -257,17 +258,17 @@ class CronetClient extends BaseClient {
 
         urlRequest.read(jb.ByteBuffer.allocateDirect(1024 * 1024));
       },
-      onRedirectReceived: (urlRequest, info, newLocationUrl) {
+      onRedirectReceived: (urlRequest, responseInfo, newLocationUrl) {
         if (!request.followRedirects) {
           cronetRequest.cancel();
           responseCompleter.complete(StreamedResponse(
               const Stream.empty(), // Cronet provides no body for redirects.
-              info.getHttpStatusCode(),
+              responseInfo.getHttpStatusCode(),
               contentLength: 0,
-              reasonPhrase: info.getHttpStatusText().toString(),
+              reasonPhrase: responseInfo.getHttpStatusText().toString(),
               request: request,
               isRedirect: true,
-              headers: _cronetToClientHeaders(info.getAllHeaders())));
+              headers: _cronetToClientHeaders(responseInfo.getAllHeaders())));
         }
         ++numRedirects;
         if (numRedirects <= request.maxRedirects) {
@@ -278,7 +279,7 @@ class CronetClient extends BaseClient {
               ClientException('Redirect limit exceeded', request.url));
         }
       },
-      onReadCompleted: (urlRequest, urlResponseInfo, byteBuffer) {
+      onReadCompleted: (urlRequest, responseInfo, byteBuffer) {
         byteBuffer.flip();
         final data = Uint8List(byteBuffer.remaining());
         for (var i = 0; i < byteBuffer.remaining(); ++i) {
@@ -288,10 +289,10 @@ class CronetClient extends BaseClient {
         byteBuffer.clear();
         cronetRequest.read(byteBuffer);
       },
-      onSucceeded: (urlRequest, urlResponseInfo) {
+      onSucceeded: (urlRequest, responseInfo) {
         responseStream!.sink.close();
       },
-      onFailed: (urlRequest, urlResponseInfo, cronetException) {
+      onFailed: (urlRequest, responseInfo, cronetException) {
         final error = ClientException(
             'Cronet exception: ${cronetException.toString()}', request.url);
         if (responseStream == null) {
