@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:cronet_http/cronet_http.dart';
-import 'package:http/http.dart';
 import 'package:http_client_conformance_tests/http_client_conformance_tests.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
