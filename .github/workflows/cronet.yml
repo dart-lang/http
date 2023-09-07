@@ -36,12 +36,10 @@ jobs:
         name: Install dependencies
         run: flutter pub get
       - name: Check formatting
-        run: 'true'
-        # dart format --output=none --set-exit-if-changed .
+        run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
       - name: Analyze code
-        run: 'true'
-        # flutter analyze --fatal-infos
+        run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
 
   test:
