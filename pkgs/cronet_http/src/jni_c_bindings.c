@@ -15,6 +15,1429 @@ void setJniGetters(JniContext* (*cg)(void), JNIEnv* (*eg)(void)) {
   env_getter = eg;
 }
 
+// org.chromium.net.UploadDataProviders
+jclass _c_UploadDataProviders = NULL;
+
+jmethodID _m_UploadDataProviders__create = NULL;
+FFI_PLUGIN_EXPORT
+JniResult UploadDataProviders__create(jobject file) {
+  load_env();
+  load_class_global_ref(&_c_UploadDataProviders,
+                        "org/chromium/net/UploadDataProviders");
+  if (_c_UploadDataProviders == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_UploadDataProviders, &_m_UploadDataProviders__create,
+                     "create",
+                     "(Ljava/io/File;)Lorg/chromium/net/UploadDataProvider;");
+  if (_m_UploadDataProviders__create == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create, file);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_UploadDataProviders__create1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult UploadDataProviders__create1(jobject parcelFileDescriptor) {
+  load_env();
+  load_class_global_ref(&_c_UploadDataProviders,
+                        "org/chromium/net/UploadDataProviders");
+  if (_c_UploadDataProviders == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_UploadDataProviders, &_m_UploadDataProviders__create1,
+                     "create",
+                     "(Landroid/os/ParcelFileDescriptor;)Lorg/chromium/net/"
+                     "UploadDataProvider;");
+  if (_m_UploadDataProviders__create1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create1,
+      parcelFileDescriptor);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_UploadDataProviders__create2 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult UploadDataProviders__create2(jobject byteBuffer) {
+  load_env();
+  load_class_global_ref(&_c_UploadDataProviders,
+                        "org/chromium/net/UploadDataProviders");
+  if (_c_UploadDataProviders == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(
+      _c_UploadDataProviders, &_m_UploadDataProviders__create2, "create",
+      "(Ljava/nio/ByteBuffer;)Lorg/chromium/net/UploadDataProvider;");
+  if (_m_UploadDataProviders__create2 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create2,
+      byteBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_UploadDataProviders__create3 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult UploadDataProviders__create3(jobject bs, int32_t i, int32_t i1) {
+  load_env();
+  load_class_global_ref(&_c_UploadDataProviders,
+                        "org/chromium/net/UploadDataProviders");
+  if (_c_UploadDataProviders == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_UploadDataProviders, &_m_UploadDataProviders__create3,
+                     "create", "([BII)Lorg/chromium/net/UploadDataProvider;");
+  if (_m_UploadDataProviders__create3 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create3, bs, i,
+      i1);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_UploadDataProviders__create4 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult UploadDataProviders__create4(jobject bs) {
+  load_env();
+  load_class_global_ref(&_c_UploadDataProviders,
+                        "org/chromium/net/UploadDataProviders");
+  if (_c_UploadDataProviders == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_UploadDataProviders, &_m_UploadDataProviders__create4,
+                     "create", "([B)Lorg/chromium/net/UploadDataProvider;");
+  if (_m_UploadDataProviders__create4 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create4, bs);
+  return to_global_ref_result(_result);
+}
+
+// java.nio.Buffer
+jclass _c_Buffer = NULL;
+
+jmethodID _m_Buffer__capacity = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__capacity(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__capacity, "capacity", "()I");
+  if (_m_Buffer__capacity == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Buffer__capacity);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Buffer__position = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__position(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__position, "position", "()I");
+  if (_m_Buffer__position == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Buffer__position);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Buffer__position1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__position1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__position1, "position",
+              "(I)Ljava/nio/Buffer;");
+  if (_m_Buffer__position1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Buffer__position1, i);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_Buffer__limit = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__limit(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__limit, "limit", "()I");
+  if (_m_Buffer__limit == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Buffer__limit);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Buffer__limit1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__limit1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__limit1, "limit", "(I)Ljava/nio/Buffer;");
+  if (_m_Buffer__limit1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Buffer__limit1, i);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_Buffer__mark = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__mark(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__mark, "mark", "()Ljava/nio/Buffer;");
+  if (_m_Buffer__mark == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Buffer__mark);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_Buffer__reset = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__reset(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__reset, "reset", "()Ljava/nio/Buffer;");
+  if (_m_Buffer__reset == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Buffer__reset);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_Buffer__clear = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__clear(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__clear, "clear", "()Ljava/nio/Buffer;");
+  if (_m_Buffer__clear == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Buffer__clear);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_Buffer__flip = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__flip(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__flip, "flip", "()Ljava/nio/Buffer;");
+  if (_m_Buffer__flip == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Buffer__flip);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_Buffer__rewind = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__rewind(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__rewind, "rewind", "()Ljava/nio/Buffer;");
+  if (_m_Buffer__rewind == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Buffer__rewind);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_Buffer__remaining = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__remaining(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__remaining, "remaining", "()I");
+  if (_m_Buffer__remaining == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Buffer__remaining);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Buffer__hasRemaining = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__hasRemaining(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__hasRemaining, "hasRemaining", "()Z");
+  if (_m_Buffer__hasRemaining == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint8_t _result =
+      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Buffer__hasRemaining);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Buffer__isReadOnly = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__isReadOnly(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__isReadOnly, "isReadOnly", "()Z");
+  if (_m_Buffer__isReadOnly == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint8_t _result =
+      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Buffer__isReadOnly);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Buffer__hasArray = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__hasArray(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__hasArray, "hasArray", "()Z");
+  if (_m_Buffer__hasArray == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint8_t _result =
+      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Buffer__hasArray);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Buffer__array = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__array(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__array, "array", "()Ljava/lang/Object;");
+  if (_m_Buffer__array == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_Buffer__array);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_Buffer__arrayOffset = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__arrayOffset(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__arrayOffset, "arrayOffset", "()I");
+  if (_m_Buffer__arrayOffset == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_Buffer__arrayOffset);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_Buffer__isDirect = NULL;
+FFI_PLUGIN_EXPORT
+JniResult Buffer__isDirect(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_Buffer, "java/nio/Buffer");
+  if (_c_Buffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_Buffer, &_m_Buffer__isDirect, "isDirect", "()Z");
+  if (_m_Buffer__isDirect == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint8_t _result =
+      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_Buffer__isDirect);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+// java.nio.ByteBuffer
+jclass _c_ByteBuffer = NULL;
+
+jmethodID _m_ByteBuffer__allocateDirect = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__allocateDirect(int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_ByteBuffer, &_m_ByteBuffer__allocateDirect,
+                     "allocateDirect", "(I)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__allocateDirect == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_ByteBuffer, _m_ByteBuffer__allocateDirect, i);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__allocate = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__allocate(int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_ByteBuffer, &_m_ByteBuffer__allocate, "allocate",
+                     "(I)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__allocate == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_ByteBuffer, _m_ByteBuffer__allocate, i);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__wrap = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__wrap(jobject bs, int32_t i, int32_t i1) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_ByteBuffer, &_m_ByteBuffer__wrap, "wrap",
+                     "([BII)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__wrap == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(
+      jniEnv, _c_ByteBuffer, _m_ByteBuffer__wrap, bs, i, i1);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__wrap1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__wrap1(jobject bs) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_static_method(_c_ByteBuffer, &_m_ByteBuffer__wrap1, "wrap",
+                     "([B)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__wrap1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallStaticObjectMethod(jniEnv, _c_ByteBuffer,
+                                                      _m_ByteBuffer__wrap1, bs);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__slice = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__slice(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__slice, "slice",
+              "()Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__slice == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__slice);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__duplicate = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__duplicate(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__duplicate, "duplicate",
+              "()Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__duplicate == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__duplicate);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__asReadOnlyBuffer = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__asReadOnlyBuffer(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__asReadOnlyBuffer,
+              "asReadOnlyBuffer", "()Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__asReadOnlyBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_ByteBuffer__asReadOnlyBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__get0 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__get0(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__get0, "get", "()B");
+  if (_m_ByteBuffer__get0 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int8_t _result =
+      (*jniEnv)->CallByteMethod(jniEnv, self_, _m_ByteBuffer__get0);
+  return (JniResult){.value = {.b = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__put = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__put(jobject self_, int8_t b) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__put, "put",
+              "(B)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__put == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__put, b);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__get1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__get1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__get1, "get", "(I)B");
+  if (_m_ByteBuffer__get1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int8_t _result =
+      (*jniEnv)->CallByteMethod(jniEnv, self_, _m_ByteBuffer__get1, i);
+  return (JniResult){.value = {.b = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__put1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__put1(jobject self_, int32_t i, int8_t b) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__put1, "put",
+              "(IB)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__put1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__put1, i, b);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__get2 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__get2(jobject self_, jobject bs, int32_t i, int32_t i1) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__get2, "get",
+              "([BII)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__get2 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
+                                                _m_ByteBuffer__get2, bs, i, i1);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__get3 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__get3(jobject self_, jobject bs) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__get3, "get",
+              "([B)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__get3 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__get3, bs);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__put2 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__put2(jobject self_, jobject byteBuffer) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__put2, "put",
+              "(Ljava/nio/ByteBuffer;)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__put2 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_ByteBuffer__put2, byteBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__put3 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__put3(jobject self_, jobject bs, int32_t i, int32_t i1) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__put3, "put",
+              "([BII)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__put3 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
+                                                _m_ByteBuffer__put3, bs, i, i1);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__put4 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__put4(jobject self_, jobject bs) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__put4, "put",
+              "([B)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__put4 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__put4, bs);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__hasArray = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__hasArray(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__hasArray, "hasArray", "()Z");
+  if (_m_ByteBuffer__hasArray == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint8_t _result =
+      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_ByteBuffer__hasArray);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__array1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__array1(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__array1, "array", "()[B");
+  if (_m_ByteBuffer__array1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__array1);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__arrayOffset = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__arrayOffset(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__arrayOffset, "arrayOffset", "()I");
+  if (_m_ByteBuffer__arrayOffset == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_ByteBuffer__arrayOffset);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__position1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__position1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__position1, "position",
+              "(I)Ljava/nio/Buffer;");
+  if (_m_ByteBuffer__position1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__position1, i);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__limit1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__limit1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__limit1, "limit",
+              "(I)Ljava/nio/Buffer;");
+  if (_m_ByteBuffer__limit1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__limit1, i);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__mark = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__mark(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__mark, "mark",
+              "()Ljava/nio/Buffer;");
+  if (_m_ByteBuffer__mark == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__mark);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__reset = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__reset(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__reset, "reset",
+              "()Ljava/nio/Buffer;");
+  if (_m_ByteBuffer__reset == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__reset);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__clear = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__clear(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__clear, "clear",
+              "()Ljava/nio/Buffer;");
+  if (_m_ByteBuffer__clear == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__clear);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__flip = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__flip(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__flip, "flip",
+              "()Ljava/nio/Buffer;");
+  if (_m_ByteBuffer__flip == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__flip);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__rewind = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__rewind(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__rewind, "rewind",
+              "()Ljava/nio/Buffer;");
+  if (_m_ByteBuffer__rewind == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__rewind);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__compact = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__compact(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__compact, "compact",
+              "()Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__compact == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__compact);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__isDirect = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__isDirect(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__isDirect, "isDirect", "()Z");
+  if (_m_ByteBuffer__isDirect == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint8_t _result =
+      (*jniEnv)->CallBooleanMethod(jniEnv, self_, _m_ByteBuffer__isDirect);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__toString1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__toString1(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__toString1, "toString",
+              "()Ljava/lang/String;");
+  if (_m_ByteBuffer__toString1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__toString1);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__hashCode1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__hashCode1(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__hashCode1, "hashCode", "()I");
+  if (_m_ByteBuffer__hashCode1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_ByteBuffer__hashCode1);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__equals1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__equals1(jobject self_, jobject object) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__equals1, "equals",
+              "(Ljava/lang/Object;)Z");
+  if (_m_ByteBuffer__equals1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint8_t _result = (*jniEnv)->CallBooleanMethod(
+      jniEnv, self_, _m_ByteBuffer__equals1, object);
+  return (JniResult){.value = {.z = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__compareTo = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__compareTo(jobject self_, jobject byteBuffer) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__compareTo, "compareTo",
+              "(Ljava/nio/ByteBuffer;)I");
+  if (_m_ByteBuffer__compareTo == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallIntMethod(
+      jniEnv, self_, _m_ByteBuffer__compareTo, byteBuffer);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__order = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__order(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__order, "order",
+              "()Ljava/nio/ByteOrder;");
+  if (_m_ByteBuffer__order == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__order);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__order1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__order1(jobject self_, jobject byteOrder) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__order1, "order",
+              "(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__order1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_ByteBuffer__order1, byteOrder);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__alignmentOffset = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__alignmentOffset(jobject self_, int32_t i, int32_t i1) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__alignmentOffset, "alignmentOffset",
+              "(II)I");
+  if (_m_ByteBuffer__alignmentOffset == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallIntMethod(
+      jniEnv, self_, _m_ByteBuffer__alignmentOffset, i, i1);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__alignedSlice = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__alignedSlice(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__alignedSlice, "alignedSlice",
+              "(I)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__alignedSlice == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
+                                                _m_ByteBuffer__alignedSlice, i);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getChar = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getChar(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getChar, "getChar", "()C");
+  if (_m_ByteBuffer__getChar == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint16_t _result =
+      (*jniEnv)->CallCharMethod(jniEnv, self_, _m_ByteBuffer__getChar);
+  return (JniResult){.value = {.c = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putChar = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putChar(jobject self_, uint16_t c) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putChar, "putChar",
+              "(C)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putChar == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putChar, c);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getChar1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getChar1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getChar1, "getChar", "(I)C");
+  if (_m_ByteBuffer__getChar1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  uint16_t _result =
+      (*jniEnv)->CallCharMethod(jniEnv, self_, _m_ByteBuffer__getChar1, i);
+  return (JniResult){.value = {.c = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putChar1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putChar1(jobject self_, int32_t i, uint16_t c) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putChar1, "putChar",
+              "(IC)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putChar1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putChar1, i, c);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__asCharBuffer = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__asCharBuffer(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__asCharBuffer, "asCharBuffer",
+              "()Ljava/nio/CharBuffer;");
+  if (_m_ByteBuffer__asCharBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__asCharBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getShort = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getShort(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getShort, "getShort", "()S");
+  if (_m_ByteBuffer__getShort == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int16_t _result =
+      (*jniEnv)->CallShortMethod(jniEnv, self_, _m_ByteBuffer__getShort);
+  return (JniResult){.value = {.s = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putShort = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putShort(jobject self_, int16_t s) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putShort, "putShort",
+              "(S)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putShort == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putShort, s);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getShort1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getShort1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getShort1, "getShort", "(I)S");
+  if (_m_ByteBuffer__getShort1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int16_t _result =
+      (*jniEnv)->CallShortMethod(jniEnv, self_, _m_ByteBuffer__getShort1, i);
+  return (JniResult){.value = {.s = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putShort1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putShort1(jobject self_, int32_t i, int16_t s) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putShort1, "putShort",
+              "(IS)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putShort1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
+                                                _m_ByteBuffer__putShort1, i, s);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__asShortBuffer = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__asShortBuffer(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__asShortBuffer, "asShortBuffer",
+              "()Ljava/nio/ShortBuffer;");
+  if (_m_ByteBuffer__asShortBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__asShortBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getInt = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getInt(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getInt, "getInt", "()I");
+  if (_m_ByteBuffer__getInt == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_ByteBuffer__getInt);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putInt = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putInt(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putInt, "putInt",
+              "(I)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putInt == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putInt, i);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getInt1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getInt1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getInt1, "getInt", "(I)I");
+  if (_m_ByteBuffer__getInt1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result =
+      (*jniEnv)->CallIntMethod(jniEnv, self_, _m_ByteBuffer__getInt1, i);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putInt1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putInt1(jobject self_, int32_t i, int32_t i1) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putInt1, "putInt",
+              "(II)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putInt1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putInt1, i, i1);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__asIntBuffer = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__asIntBuffer(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__asIntBuffer, "asIntBuffer",
+              "()Ljava/nio/IntBuffer;");
+  if (_m_ByteBuffer__asIntBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__asIntBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getLong = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getLong(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getLong, "getLong", "()J");
+  if (_m_ByteBuffer__getLong == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int64_t _result =
+      (*jniEnv)->CallLongMethod(jniEnv, self_, _m_ByteBuffer__getLong);
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putLong = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putLong(jobject self_, int64_t j) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putLong, "putLong",
+              "(J)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putLong == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putLong, j);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getLong1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getLong1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getLong1, "getLong", "(I)J");
+  if (_m_ByteBuffer__getLong1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int64_t _result =
+      (*jniEnv)->CallLongMethod(jniEnv, self_, _m_ByteBuffer__getLong1, i);
+  return (JniResult){.value = {.j = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putLong1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putLong1(jobject self_, int32_t i, int64_t j) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putLong1, "putLong",
+              "(IJ)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putLong1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putLong1, i, j);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__asLongBuffer = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__asLongBuffer(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__asLongBuffer, "asLongBuffer",
+              "()Ljava/nio/LongBuffer;");
+  if (_m_ByteBuffer__asLongBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__asLongBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getFloat = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getFloat(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getFloat, "getFloat", "()F");
+  if (_m_ByteBuffer__getFloat == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  float _result =
+      (*jniEnv)->CallFloatMethod(jniEnv, self_, _m_ByteBuffer__getFloat);
+  return (JniResult){.value = {.f = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putFloat = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putFloat(jobject self_, float f) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putFloat, "putFloat",
+              "(F)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putFloat == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putFloat, f);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getFloat1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getFloat1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getFloat1, "getFloat", "(I)F");
+  if (_m_ByteBuffer__getFloat1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  float _result =
+      (*jniEnv)->CallFloatMethod(jniEnv, self_, _m_ByteBuffer__getFloat1, i);
+  return (JniResult){.value = {.f = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putFloat1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putFloat1(jobject self_, int32_t i, float f) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putFloat1, "putFloat",
+              "(IF)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putFloat1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(jniEnv, self_,
+                                                _m_ByteBuffer__putFloat1, i, f);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__asFloatBuffer = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__asFloatBuffer(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__asFloatBuffer, "asFloatBuffer",
+              "()Ljava/nio/FloatBuffer;");
+  if (_m_ByteBuffer__asFloatBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__asFloatBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getDouble = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getDouble(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getDouble, "getDouble", "()D");
+  if (_m_ByteBuffer__getDouble == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  double _result =
+      (*jniEnv)->CallDoubleMethod(jniEnv, self_, _m_ByteBuffer__getDouble);
+  return (JniResult){.value = {.d = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putDouble = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putDouble(jobject self_, double d) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putDouble, "putDouble",
+              "(D)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putDouble == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__putDouble, d);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__getDouble1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__getDouble1(jobject self_, int32_t i) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__getDouble1, "getDouble", "(I)D");
+  if (_m_ByteBuffer__getDouble1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  double _result =
+      (*jniEnv)->CallDoubleMethod(jniEnv, self_, _m_ByteBuffer__getDouble1, i);
+  return (JniResult){.value = {.d = _result}, .exception = check_exception()};
+}
+
+jmethodID _m_ByteBuffer__putDouble1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__putDouble1(jobject self_, int32_t i, double d) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__putDouble1, "putDouble",
+              "(ID)Ljava/nio/ByteBuffer;");
+  if (_m_ByteBuffer__putDouble1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result = (*jniEnv)->CallObjectMethod(
+      jniEnv, self_, _m_ByteBuffer__putDouble1, i, d);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__asDoubleBuffer = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__asDoubleBuffer(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__asDoubleBuffer, "asDoubleBuffer",
+              "()Ljava/nio/DoubleBuffer;");
+  if (_m_ByteBuffer__asDoubleBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__asDoubleBuffer);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__array = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__array(jobject self_) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__array, "array",
+              "()Ljava/lang/Object;");
+  if (_m_ByteBuffer__array == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  jobject _result =
+      (*jniEnv)->CallObjectMethod(jniEnv, self_, _m_ByteBuffer__array);
+  return to_global_ref_result(_result);
+}
+
+jmethodID _m_ByteBuffer__compareTo1 = NULL;
+FFI_PLUGIN_EXPORT
+JniResult ByteBuffer__compareTo1(jobject self_, jobject object) {
+  load_env();
+  load_class_global_ref(&_c_ByteBuffer, "java/nio/ByteBuffer");
+  if (_c_ByteBuffer == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  load_method(_c_ByteBuffer, &_m_ByteBuffer__compareTo1, "compareTo",
+              "(Ljava/lang/Object;)I");
+  if (_m_ByteBuffer__compareTo1 == NULL)
+    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
+  int32_t _result = (*jniEnv)->CallIntMethod(jniEnv, self_,
+                                             _m_ByteBuffer__compareTo1, object);
+  return (JniResult){.value = {.i = _result}, .exception = check_exception()};
+}
+
 // java.util.concurrent.Executors
 jclass _c_Executors = NULL;
 
@@ -2079,101 +3502,6 @@ JniResult CronetException__new0(jobject string, jobject throwable) {
     return (JniResult){.value = {.j = 0}, .exception = check_exception()};
   jobject _result = (*jniEnv)->NewObject(
       jniEnv, _c_CronetException, _m_CronetException__new0, string, throwable);
-  return to_global_ref_result(_result);
-}
-
-// org.chromium.net.UploadDataProviders
-jclass _c_UploadDataProviders = NULL;
-
-jmethodID _m_UploadDataProviders__create = NULL;
-FFI_PLUGIN_EXPORT
-JniResult UploadDataProviders__create(jobject file) {
-  load_env();
-  load_class_global_ref(&_c_UploadDataProviders,
-                        "org/chromium/net/UploadDataProviders");
-  if (_c_UploadDataProviders == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_UploadDataProviders, &_m_UploadDataProviders__create,
-                     "create",
-                     "(Ljava/io/File;)Lorg/chromium/net/UploadDataProvider;");
-  if (_m_UploadDataProviders__create == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create, file);
-  return to_global_ref_result(_result);
-}
-
-jmethodID _m_UploadDataProviders__create1 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult UploadDataProviders__create1(jobject parcelFileDescriptor) {
-  load_env();
-  load_class_global_ref(&_c_UploadDataProviders,
-                        "org/chromium/net/UploadDataProviders");
-  if (_c_UploadDataProviders == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_UploadDataProviders, &_m_UploadDataProviders__create1,
-                     "create",
-                     "(Landroid/os/ParcelFileDescriptor;)Lorg/chromium/net/"
-                     "UploadDataProvider;");
-  if (_m_UploadDataProviders__create1 == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create1,
-      parcelFileDescriptor);
-  return to_global_ref_result(_result);
-}
-
-jmethodID _m_UploadDataProviders__create2 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult UploadDataProviders__create2(jobject byteBuffer) {
-  load_env();
-  load_class_global_ref(&_c_UploadDataProviders,
-                        "org/chromium/net/UploadDataProviders");
-  if (_c_UploadDataProviders == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_static_method(
-      _c_UploadDataProviders, &_m_UploadDataProviders__create2, "create",
-      "(Ljava/nio/ByteBuffer;)Lorg/chromium/net/UploadDataProvider;");
-  if (_m_UploadDataProviders__create2 == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create2,
-      byteBuffer);
-  return to_global_ref_result(_result);
-}
-
-jmethodID _m_UploadDataProviders__create3 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult UploadDataProviders__create3(jobject bs, int32_t i, int32_t i1) {
-  load_env();
-  load_class_global_ref(&_c_UploadDataProviders,
-                        "org/chromium/net/UploadDataProviders");
-  if (_c_UploadDataProviders == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_UploadDataProviders, &_m_UploadDataProviders__create3,
-                     "create", "([BII)Lorg/chromium/net/UploadDataProvider;");
-  if (_m_UploadDataProviders__create3 == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create3, bs, i,
-      i1);
-  return to_global_ref_result(_result);
-}
-
-jmethodID _m_UploadDataProviders__create4 = NULL;
-FFI_PLUGIN_EXPORT
-JniResult UploadDataProviders__create4(jobject bs) {
-  load_env();
-  load_class_global_ref(&_c_UploadDataProviders,
-                        "org/chromium/net/UploadDataProviders");
-  if (_c_UploadDataProviders == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  load_static_method(_c_UploadDataProviders, &_m_UploadDataProviders__create4,
-                     "create", "([B)Lorg/chromium/net/UploadDataProvider;");
-  if (_m_UploadDataProviders__create4 == NULL)
-    return (JniResult){.value = {.j = 0}, .exception = check_exception()};
-  jobject _result = (*jniEnv)->CallStaticObjectMethod(
-      jniEnv, _c_UploadDataProviders, _m_UploadDataProviders__create4, bs);
   return to_global_ref_result(_result);
 }
 

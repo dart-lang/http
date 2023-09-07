@@ -22,9 +22,11 @@ class_path:
   - '/Users/bquinlan/Downloads/cronet-api-113.5672.61/classes.jar'
 
 classes:
-  - 'java.util.concurrent.Executors'
-  - 'java.net.URL'
   - 'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy'
+  - 'java.net.URL'
+  - 'java.nio.Buffer'
+  - 'java.nio.ByteBuffer'
+  - 'java.util.concurrent.Executors'
   - 'org.chromium.net.CronetEngine'
   - 'org.chromium.net.CronetException'
   - 'org.chromium.net.UploadDataProviders'

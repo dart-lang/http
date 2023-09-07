@@ -40,6 +40,7 @@ class UrlRequestCallbackProxy(val  callback : UrlRequestCallbackInterface) : Url
     }
 
     override fun onResponseStarted(request: UrlRequest?, info: UrlResponseInfo) {
+        callback.onResponseStarted(request, info);
     }
 
     override fun onReadCompleted(
@@ -47,9 +48,11 @@ class UrlRequestCallbackProxy(val  callback : UrlRequestCallbackInterface) : Url
         info: UrlResponseInfo,
         byteBuffer: ByteBuffer
     ) {
+        callback.onReadCompleted(request, info, byteBuffer);
     }
 
     override fun onSucceeded(request: UrlRequest, info: UrlResponseInfo?) {
+        callback.onSucceeded(request, info);
     }
 
     override fun onFailed(
@@ -57,5 +60,6 @@ class UrlRequestCallbackProxy(val  callback : UrlRequestCallbackInterface) : Url
         info: UrlResponseInfo?,
         error: CronetException
     ) {
+        callback.onFailed(request, info, error);
     }
 }

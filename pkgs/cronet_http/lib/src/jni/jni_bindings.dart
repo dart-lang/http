@@ -25,6 +25,1303 @@ import "package:jni/jni.dart" as jni;
 final ffi.Pointer<T> Function<T extends ffi.NativeType>(String sym) jniLookup =
     ProtectedJniExtensions.initGeneratedLibrary("jni_c_bindings");
 
+/// from: org.chromium.net.UploadDataProviders
+class UploadDataProviders extends jni.JObject {
+  @override
+  late final jni.JObjType<UploadDataProviders> $type = type;
+
+  UploadDataProviders.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $UploadDataProvidersType();
+  static final _create = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "UploadDataProviders__create")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public org.chromium.net.UploadDataProvider create(java.io.File file)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JObject create(
+    jni.JObject file,
+  ) {
+    return const jni.JObjectType().fromRef(_create(file.reference).object);
+  }
+
+  static final _create1 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "UploadDataProviders__create1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor parcelFileDescriptor)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JObject create1(
+    jni.JObject parcelFileDescriptor,
+  ) {
+    return const jni.JObjectType()
+        .fromRef(_create1(parcelFileDescriptor.reference).object);
+  }
+
+  static final _create2 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "UploadDataProviders__create2")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer byteBuffer)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JObject create2(
+    ByteBuffer byteBuffer,
+  ) {
+    return const jni.JObjectType()
+        .fromRef(_create2(byteBuffer.reference).object);
+  }
+
+  static final _create3 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Int32)>>("UploadDataProviders__create3")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: static public org.chromium.net.UploadDataProvider create(byte[] bs, int i, int i1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JObject create3(
+    jni.JArray<jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return const jni.JObjectType()
+        .fromRef(_create3(bs.reference, i, i1).object);
+  }
+
+  static final _create4 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "UploadDataProviders__create4")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public org.chromium.net.UploadDataProvider create(byte[] bs)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static jni.JObject create4(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return const jni.JObjectType().fromRef(_create4(bs.reference).object);
+  }
+}
+
+class $UploadDataProvidersType extends jni.JObjType<UploadDataProviders> {
+  const $UploadDataProvidersType();
+
+  @override
+  String get signature => r"Lorg/chromium/net/UploadDataProviders;";
+
+  @override
+  UploadDataProviders fromRef(jni.JObjectPtr ref) =>
+      UploadDataProviders.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($UploadDataProvidersType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UploadDataProvidersType) &&
+        other is $UploadDataProvidersType;
+  }
+}
+
+/// from: java.nio.Buffer
+class Buffer extends jni.JObject {
+  @override
+  late final jni.JObjType<Buffer> $type = type;
+
+  Buffer.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $BufferType();
+  static final _capacity = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__capacity")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int capacity()
+  int capacity() {
+    return _capacity(reference).integer;
+  }
+
+  static final _position = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__position")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int position()
+  int position() {
+    return _position(reference).integer;
+  }
+
+  static final _position1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Buffer__position1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public java.nio.Buffer position(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer position1(
+    int i,
+  ) {
+    return const $BufferType().fromRef(_position1(reference, i).object);
+  }
+
+  static final _limit = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__limit")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int limit()
+  int limit() {
+    return _limit(reference).integer;
+  }
+
+  static final _limit1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("Buffer__limit1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public java.nio.Buffer limit(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer limit1(
+    int i,
+  ) {
+    return const $BufferType().fromRef(_limit1(reference, i).object);
+  }
+
+  static final _mark = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__mark")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer mark()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer mark() {
+    return const $BufferType().fromRef(_mark(reference).object);
+  }
+
+  static final _reset = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__reset")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer reset()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer reset() {
+    return const $BufferType().fromRef(_reset(reference).object);
+  }
+
+  static final _clear = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__clear")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer clear()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer clear() {
+    return const $BufferType().fromRef(_clear(reference).object);
+  }
+
+  static final _flip = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__flip")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer flip()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer flip() {
+    return const $BufferType().fromRef(_flip(reference).object);
+  }
+
+  static final _rewind = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__rewind")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer rewind()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer rewind() {
+    return const $BufferType().fromRef(_rewind(reference).object);
+  }
+
+  static final _remaining = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__remaining")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int remaining()
+  int remaining() {
+    return _remaining(reference).integer;
+  }
+
+  static final _hasRemaining = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__hasRemaining")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final boolean hasRemaining()
+  bool hasRemaining() {
+    return _hasRemaining(reference).boolean;
+  }
+
+  static final _isReadOnly = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__isReadOnly")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract boolean isReadOnly()
+  bool isReadOnly() {
+    return _isReadOnly(reference).boolean;
+  }
+
+  static final _hasArray = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__hasArray")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract boolean hasArray()
+  bool hasArray() {
+    return _hasArray(reference).boolean;
+  }
+
+  static final _array = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__array")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.lang.Object array()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject array() {
+    return const jni.JObjectType().fromRef(_array(reference).object);
+  }
+
+  static final _arrayOffset = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__arrayOffset")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract int arrayOffset()
+  int arrayOffset() {
+    return _arrayOffset(reference).integer;
+  }
+
+  static final _isDirect = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "Buffer__isDirect")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract boolean isDirect()
+  bool isDirect() {
+    return _isDirect(reference).boolean;
+  }
+}
+
+class $BufferType extends jni.JObjType<Buffer> {
+  const $BufferType();
+
+  @override
+  String get signature => r"Ljava/nio/Buffer;";
+
+  @override
+  Buffer fromRef(jni.JObjectPtr ref) => Buffer.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($BufferType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($BufferType) && other is $BufferType;
+  }
+}
+
+/// from: java.nio.ByteBuffer
+class ByteBuffer extends Buffer {
+  @override
+  late final jni.JObjType<ByteBuffer> $type = type;
+
+  ByteBuffer.fromRef(
+    jni.JObjectPtr ref,
+  ) : super.fromRef(ref);
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $ByteBufferType();
+  static final _allocateDirect =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "ByteBuffer__allocateDirect")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public java.nio.ByteBuffer allocateDirect(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static ByteBuffer allocateDirect(
+    int i,
+  ) {
+    return const $ByteBufferType().fromRef(_allocateDirect(i).object);
+  }
+
+  static final _allocate =
+      jniLookup<ffi.NativeFunction<jni.JniResult Function(ffi.Int32)>>(
+              "ByteBuffer__allocate")
+          .asFunction<jni.JniResult Function(int)>();
+
+  /// from: static public java.nio.ByteBuffer allocate(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static ByteBuffer allocate(
+    int i,
+  ) {
+    return const $ByteBufferType().fromRef(_allocate(i).object);
+  }
+
+  static final _wrap = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Int32)>>("ByteBuffer__wrap")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: static public java.nio.ByteBuffer wrap(byte[] bs, int i, int i1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static ByteBuffer wrap(
+    jni.JArray<jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return const $ByteBufferType().fromRef(_wrap(bs.reference, i, i1).object);
+  }
+
+  static final _wrap1 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__wrap1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.nio.ByteBuffer wrap(byte[] bs)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  static ByteBuffer wrap1(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return const $ByteBufferType().fromRef(_wrap1(bs.reference).object);
+  }
+
+  static final _slice = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__slice")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.ByteBuffer slice()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer slice() {
+    return const $ByteBufferType().fromRef(_slice(reference).object);
+  }
+
+  static final _duplicate = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__duplicate")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.ByteBuffer duplicate()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer duplicate() {
+    return const $ByteBufferType().fromRef(_duplicate(reference).object);
+  }
+
+  static final _asReadOnlyBuffer = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__asReadOnlyBuffer")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.ByteBuffer asReadOnlyBuffer()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer asReadOnlyBuffer() {
+    return const $ByteBufferType().fromRef(_asReadOnlyBuffer(reference).object);
+  }
+
+  static final _get0 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__get0")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract byte get()
+  int get0() {
+    return _get0(reference).byte;
+  }
+
+  static final _put = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int8)>>("ByteBuffer__put")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer put(byte b)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer put(
+    int b,
+  ) {
+    return const $ByteBufferType().fromRef(_put(reference, b).object);
+  }
+
+  static final _get1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__get1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract byte get(int i)
+  int get1(
+    int i,
+  ) {
+    return _get1(reference, i).byte;
+  }
+
+  static final _put1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Int8)>>("ByteBuffer__put1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer put(int i, byte b)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer put1(
+    int i,
+    int b,
+  ) {
+    return const $ByteBufferType().fromRef(_put1(reference, i, b).object);
+  }
+
+  static final _get2 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Int32,
+                  ffi.Int32)>>("ByteBuffer__get2")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public java.nio.ByteBuffer get(byte[] bs, int i, int i1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer get2(
+    jni.JArray<jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return const $ByteBufferType()
+        .fromRef(_get2(reference, bs.reference, i, i1).object);
+  }
+
+  static final _get3 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("ByteBuffer__get3")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.ByteBuffer get(byte[] bs)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer get3(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return const $ByteBufferType()
+        .fromRef(_get3(reference, bs.reference).object);
+  }
+
+  static final _put2 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("ByteBuffer__put2")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.ByteBuffer put(java.nio.ByteBuffer byteBuffer)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer put2(
+    ByteBuffer byteBuffer,
+  ) {
+    return const $ByteBufferType()
+        .fromRef(_put2(reference, byteBuffer.reference).object);
+  }
+
+  static final _put3 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Int32,
+                  ffi.Int32)>>("ByteBuffer__put3")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public java.nio.ByteBuffer put(byte[] bs, int i, int i1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer put3(
+    jni.JArray<jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return const $ByteBufferType()
+        .fromRef(_put3(reference, bs.reference, i, i1).object);
+  }
+
+  static final _put4 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("ByteBuffer__put4")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final java.nio.ByteBuffer put(byte[] bs)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer put4(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return const $ByteBufferType()
+        .fromRef(_put4(reference, bs.reference).object);
+  }
+
+  static final _hasArray = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__hasArray")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final boolean hasArray()
+  bool hasArray() {
+    return _hasArray(reference).boolean;
+  }
+
+  static final _array1 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__array1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final byte[] array()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JArray<jni.jbyte> array1() {
+    return const jni.JArrayType(jni.jbyteType())
+        .fromRef(_array1(reference).object);
+  }
+
+  static final _arrayOffset = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__arrayOffset")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int arrayOffset()
+  int arrayOffset() {
+    return _arrayOffset(reference).integer;
+  }
+
+  static final _position1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__position1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public java.nio.Buffer position(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer position1(
+    int i,
+  ) {
+    return const $BufferType().fromRef(_position1(reference, i).object);
+  }
+
+  static final _limit1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__limit1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public java.nio.Buffer limit(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer limit1(
+    int i,
+  ) {
+    return const $BufferType().fromRef(_limit1(reference, i).object);
+  }
+
+  static final _mark = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__mark")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer mark()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer mark() {
+    return const $BufferType().fromRef(_mark(reference).object);
+  }
+
+  static final _reset = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__reset")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer reset()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer reset() {
+    return const $BufferType().fromRef(_reset(reference).object);
+  }
+
+  static final _clear = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__clear")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer clear()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer clear() {
+    return const $BufferType().fromRef(_clear(reference).object);
+  }
+
+  static final _flip = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__flip")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer flip()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer flip() {
+    return const $BufferType().fromRef(_flip(reference).object);
+  }
+
+  static final _rewind = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__rewind")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.nio.Buffer rewind()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  Buffer rewind() {
+    return const $BufferType().fromRef(_rewind(reference).object);
+  }
+
+  static final _compact = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__compact")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.ByteBuffer compact()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer compact() {
+    return const $ByteBufferType().fromRef(_compact(reference).object);
+  }
+
+  static final _isDirect = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__isDirect")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract boolean isDirect()
+  bool isDirect() {
+    return _isDirect(reference).boolean;
+  }
+
+  static final _toString1 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__toString1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.String toString()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JString toString1() {
+    return const jni.JStringType().fromRef(_toString1(reference).object);
+  }
+
+  static final _hashCode1 = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__hashCode1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int hashCode()
+  int hashCode1() {
+    return _hashCode1(reference).integer;
+  }
+
+  static final _equals1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("ByteBuffer__equals1")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean equals(java.lang.Object object)
+  bool equals1(
+    jni.JObject object,
+  ) {
+    return _equals1(reference, object.reference).boolean;
+  }
+
+  static final _compareTo = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("ByteBuffer__compareTo")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int compareTo(java.nio.ByteBuffer byteBuffer)
+  int compareTo(
+    ByteBuffer byteBuffer,
+  ) {
+    return _compareTo(reference, byteBuffer.reference).integer;
+  }
+
+  static final _order = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__order")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final java.nio.ByteOrder order()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject order() {
+    return const jni.JObjectType().fromRef(_order(reference).object);
+  }
+
+  static final _order1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("ByteBuffer__order1")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final java.nio.ByteBuffer order(java.nio.ByteOrder byteOrder)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer order1(
+    jni.JObject byteOrder,
+  ) {
+    return const $ByteBufferType()
+        .fromRef(_order1(reference, byteOrder.reference).object);
+  }
+
+  static final _alignmentOffset = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Int32)>>("ByteBuffer__alignmentOffset")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public final int alignmentOffset(int i, int i1)
+  int alignmentOffset(
+    int i,
+    int i1,
+  ) {
+    return _alignmentOffset(reference, i, i1).integer;
+  }
+
+  static final _alignedSlice = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Int32)>>("ByteBuffer__alignedSlice")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public final java.nio.ByteBuffer alignedSlice(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer alignedSlice(
+    int i,
+  ) {
+    return const $ByteBufferType().fromRef(_alignedSlice(reference, i).object);
+  }
+
+  static final _getChar = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__getChar")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract char getChar()
+  int getChar() {
+    return _getChar(reference).char;
+  }
+
+  static final _putChar = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Uint16)>>("ByteBuffer__putChar")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer putChar(char c)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putChar(
+    int c,
+  ) {
+    return const $ByteBufferType().fromRef(_putChar(reference, c).object);
+  }
+
+  static final _getChar1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__getChar1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract char getChar(int i)
+  int getChar1(
+    int i,
+  ) {
+    return _getChar1(reference, i).char;
+  }
+
+  static final _putChar1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Uint16)>>("ByteBuffer__putChar1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer putChar(int i, char c)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putChar1(
+    int i,
+    int c,
+  ) {
+    return const $ByteBufferType().fromRef(_putChar1(reference, i, c).object);
+  }
+
+  static final _asCharBuffer = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__asCharBuffer")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.CharBuffer asCharBuffer()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject asCharBuffer() {
+    return const jni.JObjectType().fromRef(_asCharBuffer(reference).object);
+  }
+
+  static final _getShort = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__getShort")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract short getShort()
+  int getShort() {
+    return _getShort(reference).short;
+  }
+
+  static final _putShort = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int16)>>("ByteBuffer__putShort")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer putShort(short s)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putShort(
+    int s,
+  ) {
+    return const $ByteBufferType().fromRef(_putShort(reference, s).object);
+  }
+
+  static final _getShort1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__getShort1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract short getShort(int i)
+  int getShort1(
+    int i,
+  ) {
+    return _getShort1(reference, i).short;
+  }
+
+  static final _putShort1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Int16)>>("ByteBuffer__putShort1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer putShort(int i, short s)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putShort1(
+    int i,
+    int s,
+  ) {
+    return const $ByteBufferType().fromRef(_putShort1(reference, i, s).object);
+  }
+
+  static final _asShortBuffer = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__asShortBuffer")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.ShortBuffer asShortBuffer()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject asShortBuffer() {
+    return const jni.JObjectType().fromRef(_asShortBuffer(reference).object);
+  }
+
+  static final _getInt = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__getInt")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract int getInt()
+  int getInt() {
+    return _getInt(reference).integer;
+  }
+
+  static final _putInt = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__putInt")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer putInt(int i)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putInt(
+    int i,
+  ) {
+    return const $ByteBufferType().fromRef(_putInt(reference, i).object);
+  }
+
+  static final _getInt1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__getInt1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract int getInt(int i)
+  int getInt1(
+    int i,
+  ) {
+    return _getInt1(reference, i).integer;
+  }
+
+  static final _putInt1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Int32)>>("ByteBuffer__putInt1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer putInt(int i, int i1)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putInt1(
+    int i,
+    int i1,
+  ) {
+    return const $ByteBufferType().fromRef(_putInt1(reference, i, i1).object);
+  }
+
+  static final _asIntBuffer = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__asIntBuffer")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.IntBuffer asIntBuffer()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject asIntBuffer() {
+    return const jni.JObjectType().fromRef(_asIntBuffer(reference).object);
+  }
+
+  static final _getLong = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__getLong")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract long getLong()
+  int getLong() {
+    return _getLong(reference).long;
+  }
+
+  static final _putLong = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int64)>>("ByteBuffer__putLong")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer putLong(long j)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putLong(
+    int j,
+  ) {
+    return const $ByteBufferType().fromRef(_putLong(reference, j).object);
+  }
+
+  static final _getLong1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__getLong1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract long getLong(int i)
+  int getLong1(
+    int i,
+  ) {
+    return _getLong1(reference, i).long;
+  }
+
+  static final _putLong1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Int64)>>("ByteBuffer__putLong1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public abstract java.nio.ByteBuffer putLong(int i, long j)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putLong1(
+    int i,
+    int j,
+  ) {
+    return const $ByteBufferType().fromRef(_putLong1(reference, i, j).object);
+  }
+
+  static final _asLongBuffer = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__asLongBuffer")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.LongBuffer asLongBuffer()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject asLongBuffer() {
+    return const jni.JObjectType().fromRef(_asLongBuffer(reference).object);
+  }
+
+  static final _getFloat = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__getFloat")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract float getFloat()
+  double getFloat() {
+    return _getFloat(reference).float;
+  }
+
+  static final _putFloat = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Float)>>("ByteBuffer__putFloat")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, double)>();
+
+  /// from: public abstract java.nio.ByteBuffer putFloat(float f)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putFloat(
+    double f,
+  ) {
+    return const $ByteBufferType().fromRef(_putFloat(reference, f).object);
+  }
+
+  static final _getFloat1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__getFloat1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract float getFloat(int i)
+  double getFloat1(
+    int i,
+  ) {
+    return _getFloat1(reference, i).float;
+  }
+
+  static final _putFloat1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Float)>>("ByteBuffer__putFloat1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, double)>();
+
+  /// from: public abstract java.nio.ByteBuffer putFloat(int i, float f)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putFloat1(
+    int i,
+    double f,
+  ) {
+    return const $ByteBufferType().fromRef(_putFloat1(reference, i, f).object);
+  }
+
+  static final _asFloatBuffer = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__asFloatBuffer")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.FloatBuffer asFloatBuffer()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject asFloatBuffer() {
+    return const jni.JObjectType().fromRef(_asFloatBuffer(reference).object);
+  }
+
+  static final _getDouble = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__getDouble")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract double getDouble()
+  double getDouble() {
+    return _getDouble(reference).doubleFloat;
+  }
+
+  static final _putDouble = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Double)>>("ByteBuffer__putDouble")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, double)>();
+
+  /// from: public abstract java.nio.ByteBuffer putDouble(double d)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putDouble(
+    double d,
+  ) {
+    return const $ByteBufferType().fromRef(_putDouble(reference, d).object);
+  }
+
+  static final _getDouble1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>, ffi.Int32)>>("ByteBuffer__getDouble1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public abstract double getDouble(int i)
+  double getDouble1(
+    int i,
+  ) {
+    return _getDouble1(reference, i).doubleFloat;
+  }
+
+  static final _putDouble1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
+                  ffi.Double)>>("ByteBuffer__putDouble1")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, double)>();
+
+  /// from: public abstract java.nio.ByteBuffer putDouble(int i, double d)
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  ByteBuffer putDouble1(
+    int i,
+    double d,
+  ) {
+    return const $ByteBufferType().fromRef(_putDouble1(reference, i, d).object);
+  }
+
+  static final _asDoubleBuffer = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__asDoubleBuffer")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract java.nio.DoubleBuffer asDoubleBuffer()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject asDoubleBuffer() {
+    return const jni.JObjectType().fromRef(_asDoubleBuffer(reference).object);
+  }
+
+  static final _array = jniLookup<
+              ffi
+              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
+          "ByteBuffer__array")
+      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.Object array()
+  /// The returned object must be deleted after use, by calling the `delete` method.
+  jni.JObject array() {
+    return const jni.JObjectType().fromRef(_array(reference).object);
+  }
+
+  static final _compareTo1 = jniLookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<ffi.Void>)>>("ByteBuffer__compareTo1")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int compareTo(java.lang.Object object)
+  int compareTo1(
+    jni.JObject object,
+  ) {
+    return _compareTo1(reference, object.reference).integer;
+  }
+}
+
+class $ByteBufferType extends jni.JObjType<ByteBuffer> {
+  const $ByteBufferType();
+
+  @override
+  String get signature => r"Ljava/nio/ByteBuffer;";
+
+  @override
+  ByteBuffer fromRef(jni.JObjectPtr ref) => ByteBuffer.fromRef(ref);
+
+  @override
+  jni.JObjType get superType => const $BufferType();
+
+  @override
+  final superCount = 2;
+
+  @override
+  int get hashCode => ($ByteBufferType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($ByteBufferType) && other is $ByteBufferType;
+  }
+}
+
 /// from: java.util.concurrent.Executors
 class Executors extends jni.JObject {
   @override
@@ -882,7 +2179,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
   void onReadCompleted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-    jni.JObject byteBuffer,
+    ByteBuffer byteBuffer,
   ) {
     return _onReadCompleted(reference, urlRequest.reference,
             urlResponseInfo.reference, byteBuffer.reference)
@@ -986,7 +2283,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
         _$impls[$p]!.onReadCompleted(
           $a[0].castTo(const $UrlRequestType(), deleteOriginal: true),
           $a[1].castTo(const $UrlResponseInfoType(), deleteOriginal: true),
-          $a[2].castTo(const jni.JObjectType(), deleteOriginal: true),
+          $a[2].castTo(const $ByteBufferType(), deleteOriginal: true),
         );
         return jni.nullptr;
       }
@@ -1049,7 +2346,7 @@ abstract class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl {
             UrlRequest urlRequest, UrlResponseInfo urlResponseInfo)
         onResponseStarted,
     required void Function(UrlRequest urlRequest,
-            UrlResponseInfo urlResponseInfo, jni.JObject byteBuffer)
+            UrlResponseInfo urlResponseInfo, ByteBuffer byteBuffer)
         onReadCompleted,
     required void Function(
             UrlRequest urlRequest, UrlResponseInfo urlResponseInfo)
@@ -1064,7 +2361,7 @@ abstract class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl {
   void onResponseStarted(
       UrlRequest urlRequest, UrlResponseInfo urlResponseInfo);
   void onReadCompleted(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      jni.JObject byteBuffer);
+      ByteBuffer byteBuffer);
   void onSucceeded(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo);
   void onFailed(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
       CronetException cronetException);
@@ -1080,7 +2377,7 @@ class _$UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl
             UrlRequest urlRequest, UrlResponseInfo urlResponseInfo)
         onResponseStarted,
     required void Function(UrlRequest urlRequest,
-            UrlResponseInfo urlResponseInfo, jni.JObject byteBuffer)
+            UrlResponseInfo urlResponseInfo, ByteBuffer byteBuffer)
         onReadCompleted,
     required void Function(
             UrlRequest urlRequest, UrlResponseInfo urlResponseInfo)
@@ -1099,7 +2396,7 @@ class _$UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl
   final void Function(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo)
       _onResponseStarted;
   final void Function(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      jni.JObject byteBuffer) _onReadCompleted;
+      ByteBuffer byteBuffer) _onReadCompleted;
   final void Function(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo)
       _onSucceeded;
   final void Function(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
@@ -1116,7 +2413,7 @@ class _$UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl
   }
 
   void onReadCompleted(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-      jni.JObject byteBuffer) {
+      ByteBuffer byteBuffer) {
     return _onReadCompleted(urlRequest, urlResponseInfo, byteBuffer);
   }
 
@@ -1259,7 +2556,7 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
   void onReadCompleted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-    jni.JObject byteBuffer,
+    ByteBuffer byteBuffer,
   ) {
     return _onReadCompleted(reference, urlRequest.reference,
             urlResponseInfo.reference, byteBuffer.reference)
@@ -2299,119 +3596,6 @@ class $CronetExceptionType extends jni.JObjType<CronetException> {
   }
 }
 
-/// from: org.chromium.net.UploadDataProviders
-class UploadDataProviders extends jni.JObject {
-  @override
-  late final jni.JObjType<UploadDataProviders> $type = type;
-
-  UploadDataProviders.fromRef(
-    jni.JObjectPtr ref,
-  ) : super.fromRef(ref);
-
-  /// The type which includes information such as the signature of this class.
-  static const type = $UploadDataProvidersType();
-  static final _create = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "UploadDataProviders__create")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: static public org.chromium.net.UploadDataProvider create(java.io.File file)
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject create(
-    jni.JObject file,
-  ) {
-    return const jni.JObjectType().fromRef(_create(file.reference).object);
-  }
-
-  static final _create1 = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "UploadDataProviders__create1")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: static public org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor parcelFileDescriptor)
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject create1(
-    jni.JObject parcelFileDescriptor,
-  ) {
-    return const jni.JObjectType()
-        .fromRef(_create1(parcelFileDescriptor.reference).object);
-  }
-
-  static final _create2 = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "UploadDataProviders__create2")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: static public org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer byteBuffer)
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject create2(
-    jni.JObject byteBuffer,
-  ) {
-    return const jni.JObjectType()
-        .fromRef(_create2(byteBuffer.reference).object);
-  }
-
-  static final _create3 = jniLookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, ffi.Int32,
-                  ffi.Int32)>>("UploadDataProviders__create3")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>, int, int)>();
-
-  /// from: static public org.chromium.net.UploadDataProvider create(byte[] bs, int i, int i1)
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject create3(
-    jni.JArray<jni.jbyte> bs,
-    int i,
-    int i1,
-  ) {
-    return const jni.JObjectType()
-        .fromRef(_create3(bs.reference, i, i1).object);
-  }
-
-  static final _create4 = jniLookup<
-              ffi
-              .NativeFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>>(
-          "UploadDataProviders__create4")
-      .asFunction<jni.JniResult Function(ffi.Pointer<ffi.Void>)>();
-
-  /// from: static public org.chromium.net.UploadDataProvider create(byte[] bs)
-  /// The returned object must be deleted after use, by calling the `delete` method.
-  static jni.JObject create4(
-    jni.JArray<jni.jbyte> bs,
-  ) {
-    return const jni.JObjectType().fromRef(_create4(bs.reference).object);
-  }
-}
-
-class $UploadDataProvidersType extends jni.JObjType<UploadDataProviders> {
-  const $UploadDataProvidersType();
-
-  @override
-  String get signature => r"Lorg/chromium/net/UploadDataProviders;";
-
-  @override
-  UploadDataProviders fromRef(jni.JObjectPtr ref) =>
-      UploadDataProviders.fromRef(ref);
-
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
-
-  @override
-  final superCount = 1;
-
-  @override
-  int get hashCode => ($UploadDataProvidersType).hashCode;
-
-  @override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($UploadDataProvidersType) &&
-        other is $UploadDataProvidersType;
-  }
-}
-
 /// from: org.chromium.net.UrlRequest$Builder
 class UrlRequest_Builder extends jni.JObject {
   @override
@@ -2731,7 +3915,7 @@ class UrlRequest_Callback extends jni.JObject {
   void onReadCompleted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-    jni.JObject byteBuffer,
+    ByteBuffer byteBuffer,
   ) {
     return _onReadCompleted(reference, urlRequest.reference,
             urlResponseInfo.reference, byteBuffer.reference)
@@ -3029,7 +4213,7 @@ class UrlRequest extends jni.JObject {
 
   /// from: public abstract void read(java.nio.ByteBuffer byteBuffer)
   void read(
-    jni.JObject byteBuffer,
+    ByteBuffer byteBuffer,
   ) {
     return _read(reference, byteBuffer.reference).check();
   }
