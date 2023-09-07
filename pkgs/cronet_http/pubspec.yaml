@@ -17,8 +17,7 @@ dependencies:
 
 dev_dependencies:
   dart_flutter_team_lints: ^1.0.0
-  jnigen:
-    path: '/Users/bquinlan/dart/jnigen/jnigen/'
+  jnigen: ^0.6.0
   pigeon: ^3.2.3
   xml: ^6.1.0
   yaml_edit: ^2.0.3
