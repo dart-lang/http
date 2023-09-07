@@ -81,6 +81,10 @@ class CronetEngine {
         JObject.fromRef(Jni.getCachedApplicationContext()));
 
     try {
+      if (storagePath != null) {
+        builder.setStoragePath(storagePath.toJString());
+      }
+
       if (cacheMode == CacheMode.disabled) {
         builder.enableHttpCache(0, 0); // HTTP_CACHE_DISABLED, 0 bytes
       } else if (cacheMode != null && cacheMaxSize != null) {
@@ -102,10 +106,6 @@ class CronetEngine {
 
       if (enableQuic != null) {
         builder.enableQuic(enableQuic);
-      }
-
-      if (storagePath != null) {
-        builder.setStoragePath(storagePath.toJString());
       }
 
       if (userAgent != null) {
