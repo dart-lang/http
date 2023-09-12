@@ -35,6 +35,15 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       expect(response.isRedirect, true);
     }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
+    test('disallow redirect, 0 maxRedirects', () async {
+      final request = Request('GET', Uri.http(host, '/1'))
+        ..followRedirects = false
+        ..maxRedirects = 0;
+      final response = await client.send(request);
+      expect(response.statusCode, 302);
+      expect(response.isRedirect, true);
+    }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
+
     test('allow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = true;
@@ -43,7 +52,7 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       expect(response.isRedirect, false);
     });
 
-    test('allow redirect, 0 maxRedirects, ', () async {
+    test('allow redirect, 0 maxRedirects', () async {
       final request = Request('GET', Uri.http(host, '/1'))
         ..followRedirects = true
         ..maxRedirects = 0;

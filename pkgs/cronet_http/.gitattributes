@@ -1,4 +1,2 @@
-# pigeon generated code
-lib/src/messages.dart linguist-generated
-android/src/main/java/io/flutter/plugins/cronet_http/Messages.java linguist-generated
-
+# jnigen generated code
+lib/src/jni/jni_bindings.dart linguist-generated
