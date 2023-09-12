@@ -15,9 +15,6 @@ output:
     path: 'lib/src/jni/jni_bindings.dart'
     structure: single_file
 
-class_path:
-  - '/Users/bquinlan/Downloads/cronet-api-113.5672.61/classes.jar'
-
 classes:
   - 'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy'
   - 'java.net.URL'
