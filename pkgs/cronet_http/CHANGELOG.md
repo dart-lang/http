@@ -1,4 +1,4 @@
-## 0.5.0
+## 0.3.0-jni
 
 * Switch to using `package:jnigen` for bindings to Cronet
 * Support for running in background isolates.
