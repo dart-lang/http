@@ -31,7 +31,7 @@ void testCache() {
     });
 
     test('disabled', () async {
-      final engine = await CronetEngine.build(cacheMode: CacheMode.disabled);
+      final engine = CronetEngine.build(cacheMode: CacheMode.disabled);
       final client = CronetClient.fromCronetEngine(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
       await client.get(Uri.parse('http://localhost:${server.port}'));
@@ -39,7 +39,7 @@ void testCache() {
     });
 
     test('memory', () async {
-      final engine = await CronetEngine.build(
+      final engine = CronetEngine.build(
           cacheMode: CacheMode.memory, cacheMaxSize: 1024 * 1024);
       final client = CronetClient.fromCronetEngine(engine);
       await client.get(Uri.parse('http://localhost:${server.port}'));
@@ -48,7 +48,7 @@ void testCache() {
     });
 
     test('disk', () async {
-      final engine = await CronetEngine.build(
+      final engine = CronetEngine.build(
           cacheMode: CacheMode.disk,
           cacheMaxSize: 1024 * 1024,
           storagePath: (await Directory.systemTemp.createTemp()).absolute.path);
@@ -59,7 +59,7 @@ void testCache() {
     });
 
     test('diskNoHttp', () async {
-      final engine = await CronetEngine.build(
+      final engine = CronetEngine.build(
           cacheMode: CacheMode.diskNoHttp,
           cacheMaxSize: 1024 * 1024,
           storagePath: (await Directory.systemTemp.createTemp()).absolute.path);
@@ -76,14 +76,14 @@ void testInvalidConfigurations() {
   group('invalidConfigurations', () {
     test('no storagePath', () async {
       expect(
-          () async => await CronetEngine.build(
+          () async => CronetEngine.build(
               cacheMode: CacheMode.disk, cacheMaxSize: 1024 * 1024),
           throwsArgumentError);
     });
 
     test('non-existing storagePath', () async {
       expect(
-          () async => await CronetEngine.build(
+          () async => CronetEngine.build(
               cacheMode: CacheMode.disk,
               cacheMaxSize: 1024 * 1024,
               storagePath: '/a/b/c/d'),
@@ -112,7 +112,7 @@ void testUserAgent() {
     });
 
     test('userAgent', () async {
-      final engine = await CronetEngine.build(userAgent: 'fake-agent');
+      final engine = CronetEngine.build(userAgent: 'fake-agent');
       await CronetClient.fromCronetEngine(engine)
           .get(Uri.parse('http://localhost:${server.port}'));
       expect(requestHeaders['user-agent'], ['fake-agent']);
