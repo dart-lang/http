@@ -276,6 +276,7 @@ class CronetClient extends BaseClient {
               request: request,
               isRedirect: true,
               headers: _cronetToClientHeaders(responseInfo.getAllHeaders())));
+          return;
         }
         ++numRedirects;
         if (numRedirects <= request.maxRedirects) {
