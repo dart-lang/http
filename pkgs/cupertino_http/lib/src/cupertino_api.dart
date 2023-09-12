@@ -885,7 +885,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
       if (error != null) {
         completer.completeError(error);
       } else {
-        completer.complete(message);
+        completer.complete(message!);
       }
       completionPort.close();
     });
