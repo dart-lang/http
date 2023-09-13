@@ -1,3 +1,11 @@
+## 0.3.0-jni
+
+* Switch to using `package:jnigen` for bindings to Cronet
+* Support for running in background isolates.
+* **Breaking Change:** `CronetEngine.build()` returns a `CronetEngine` rather
+  than a `Future<CronetEngine>` and `CronetClient.fromCronetEngineFuture()`
+  has been removed because it is no longer necessary.
+
 ## 0.2.2
 
 * Require Dart 3.0
