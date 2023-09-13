@@ -1,3 +1,7 @@
+## 0.4.0-jni
+ 
+* Use more efficient operations when copying bytes between Java and Dart.
+
 ## 0.3.0-jni
 
 * Switch to using `package:jnigen` for bindings to Cronet
