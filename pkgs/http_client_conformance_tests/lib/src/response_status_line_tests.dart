@@ -26,11 +26,14 @@ void testResponseStatusLine(Client client) async {
     test(
       'without HTTP version',
       () async {
-        httpServerChannel.sink.add('200 OK');
-        await expectLater(
-          client.get(Uri.http(host, '')),
-          throwsA(isA<ClientException>()),
-        );
+        httpServerChannel.sink.add('201 Created');
+        try {
+          final response = await client.get(Uri.http(host, ''));
+          expect(response.statusCode, 201);
+          expect(response.reasonPhrase, 'Created');
+        } on ClientException {
+          // A Http-Version is required according to RFC-2616
+        }
       },
     );
 
@@ -51,6 +54,7 @@ void testResponseStatusLine(Client client) async {
         httpServerChannel.sink.add('HTTP/1.1 201');
         try {
           final response = await client.get(Uri.http(host, ''));
+          expect(response.statusCode, 201);
           // All of these responses seem reasonable.
           expect(response.reasonPhrase, anyOf(isNull, '', 'Created'));
         } on ClientException {
