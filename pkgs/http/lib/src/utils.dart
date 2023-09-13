@@ -12,7 +12,7 @@ import 'byte_stream.dart';
 ///
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
-String mapToQuery(Map<String, String> map, {Encoding encoding = utf8}) =>
+String mapToQuery(Map<String, String> map, {required Encoding encoding}) =>
     map.entries
         .map((e) => '${Uri.encodeQueryComponent(e.key, encoding: encoding)}'
             '=${Uri.encodeQueryComponent(e.value, encoding: encoding)}')
