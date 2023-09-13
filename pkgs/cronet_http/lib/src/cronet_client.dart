@@ -176,7 +176,7 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
       ));
 
       jByteBuffer = JByteBuffer.allocateDirect(_bufferSize);
-      urlRequest.read(jByteBuffer!.castTo(const jb.$ByteBufferType()));
+      urlRequest.read(jByteBuffer!);
     },
     onRedirectReceived: (urlRequest, responseInfo, newLocationUrl) {
       if (!request.followRedirects) {
@@ -205,7 +205,7 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
     onReadCompleted: (urlRequest, responseInfo, byteBuffer) {
       byteBuffer.flip();
       responseStream!
-          .add(jByteBuffer!.asUint8List().sublist(0, byteBuffer.remaining()));
+          .add(jByteBuffer!.asUint8List().sublist(0, byteBuffer.remaining));
 
       byteBuffer.clear();
       urlRequest.read(byteBuffer);
@@ -329,10 +329,8 @@ class CronetClient extends BaseClient {
     headers.forEach((k, v) => builder.addHeader(k.toJString(), v.toJString()));
 
     if (body.isNotEmpty) {
-      final bodyBuffer =
-          body.toJByteBuffer().castTo(const jb.$ByteBufferType());
       builder.setUploadDataProvider(
-          jb.UploadDataProviders.create2(bodyBuffer), _executor);
+          jb.UploadDataProviders.create2(body.toJByteBuffer()), _executor);
     }
     builder.build().start();
     return responseCompleter.future;

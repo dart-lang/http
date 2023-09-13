@@ -43,6 +43,16 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
+
+    defaultConfig {
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
 }
 
 dependencies {
