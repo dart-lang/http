@@ -24,6 +24,17 @@ void testResponseStatusLine(Client client) async {
     });
 
     test(
+      'without HTTP version',
+      () async {
+        httpServerChannel.sink.add('200 OK');
+        await expectLater(
+          client.get(Uri.http(host, '')),
+          throwsA(isA<ClientException>()),
+        );
+      },
+    );
+
+    test(
       'without status code',
       () async {
         httpServerChannel.sink.add('HTTP/1.1 OK');
@@ -32,8 +43,17 @@ void testResponseStatusLine(Client client) async {
           throwsA(isA<ClientException>()),
         );
       },
-      skip:
-          'Enable after https://github.com/dart-lang/http/issues/1013 is fixed',
+    );
+
+    test(
+      'without reason phrase',
+      () async {
+        httpServerChannel.sink.add('HTTP/1.1 200');
+        await expectLater(
+          client.get(Uri.http(host, '')),
+          throwsA(isA<ClientException>()),
+        );
+      },
     );
   });
 }

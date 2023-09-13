@@ -163,13 +163,23 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
         case final contentLengthHeader?:
           contentLength = int.parse(contentLengthHeader);
       }
+
+      final statusText =
+          responseInfo.getHttpStatusText().toDartString(releaseOriginal: true);
+      if (statusText.isEmpty) {
+        // responseInfo.getHttpStatusText() will be empty for any failure to
+        // parse the Status-Line but responseInfo.getHttpStatusCode() will
+        // return 200.
+        responseCompleter.completeError(ClientException(
+          'Invalid Status-Line',
+          request.url,
+        ));
+      }
       responseCompleter.complete(StreamedResponse(
         responseStream!.stream,
         responseInfo.getHttpStatusCode(),
         contentLength: contentLength,
-        reasonPhrase: responseInfo
-            .getHttpStatusText()
-            .toDartString(releaseOriginal: true),
+        reasonPhrase: statusText,
         request: request,
         isRedirect: false,
         headers: responseHeaders,
