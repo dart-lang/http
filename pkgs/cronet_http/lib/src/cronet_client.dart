@@ -14,7 +14,6 @@
 library;
 
 import 'dart:async';
-import 'dart:typed_data';
 
 import 'package:http/http.dart';
 import 'package:jni/jni.dart';
