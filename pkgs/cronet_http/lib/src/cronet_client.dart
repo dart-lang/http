@@ -22,7 +22,7 @@ import 'package:jni/jni.dart';
 import 'jni/jni_bindings.dart' as jb;
 
 final _digitRegex = RegExp(r'^\d+$');
-const _bufferSize = 10 * 1024; // The size of the Cronet read buffer;
+const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
 
 /// The type of caching to use when making HTTP requests.
 enum CacheMode {
