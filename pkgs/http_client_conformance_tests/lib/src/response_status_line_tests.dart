@@ -49,14 +49,13 @@ void testResponseStatusLine(Client client) async {
       'without reason phrase',
       () async {
         httpServerChannel.sink.add('HTTP/1.1 201');
-        await expectLater(
-          client.get(Uri.http(host, '')),
-          anyOf(
-              throwsA(isA<ClientException>()),
-              predicate<Response>(
-                  (response) => response.reasonPhrase == 'Created'),
-              'reason phrase is "Created"'),
-        );
+        try {
+          final response = await client.get(Uri.http(host, ''));
+          // All of these responses seem reasonable.
+          expect(response.reasonPhrase, anyOf(isNull, '', 'Created'));
+        } on ClientException {
+          // A Reason-Phrase is required according to RFC-2616
+        }
       },
     );
   });
