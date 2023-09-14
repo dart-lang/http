@@ -15,7 +15,7 @@ import 'response_status_line_server_vm.dart'
 /// If [reasonableInvalidStatusLineHandling] is `false` the tests related to
 /// invalid `Status-Line`s are skipped.
 void testResponseStatusLine(Client client,
-    {required bool reasonableInvalidStatusLineHandling}) async {
+    {bool reasonableInvalidStatusLineHandling = true}) async {
   group('response status line', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
