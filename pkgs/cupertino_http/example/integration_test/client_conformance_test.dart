@@ -11,11 +11,12 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('defaultSessionConfiguration', () {
-    testAll(CupertinoClient.defaultSessionConfiguration);
+    testAll(CupertinoClient.defaultSessionConfiguration,
+        reasonableInvalidStatusLineHandling: false);
   });
   group('fromSessionConfiguration', () {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration();
     testAll(() => CupertinoClient.fromSessionConfiguration(config),
-        canWorkInIsolates: false);
+        canWorkInIsolates: false, reasonableInvalidStatusLineHandling: false);
   });
 }

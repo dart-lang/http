@@ -11,7 +11,11 @@ import 'response_status_line_server_vm.dart'
     if (dart.library.html) 'response_status_line_server_web.dart';
 
 /// Tests that the [Client] correctly processes the response status line.
-void testResponseStatusLine(Client client) async {
+///
+/// If [reasonableInvalidStatusLineHandling] is `false` the tests related to
+/// invalid `Status-Line`s are skipped.
+void testResponseStatusLine(Client client,
+    {required bool reasonableInvalidStatusLineHandling}) async {
   group('response status line', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
@@ -62,5 +66,8 @@ void testResponseStatusLine(Client client) async {
         }
       },
     );
-  });
+  },
+      skip: reasonableInvalidStatusLineHandling
+          ? false
+          : 'does handle invalid request lines in a sensible way');
 }

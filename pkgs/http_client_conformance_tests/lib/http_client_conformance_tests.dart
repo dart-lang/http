@@ -49,6 +49,9 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [canWorkInIsolates] is `false` then tests that require that the [Client]
 /// work in Isolates other than the main isolate will be skipped.
 ///
+/// If [reasonableInvalidStatusLineHandling] is `false` the tests related to
+/// invalid `Status-Line`s are skipped.
+///
 /// The tests are run against a series of HTTP servers that are started by the
 /// tests. If the tests are run in the browser, then the test servers are
 /// started in another process. Otherwise, the test servers are run in-process.
@@ -56,7 +59,8 @@ void testAll(Client Function() clientFactory,
     {bool canStreamRequestBody = true,
     bool canStreamResponseBody = true,
     bool redirectAlwaysAllowed = false,
-    bool canWorkInIsolates = true}) {
+    bool canWorkInIsolates = true,
+    bool reasonableInvalidStatusLineHandling = true}) {
   testRequestBody(clientFactory());
   testRequestBodyStreamed(clientFactory(),
       canStreamRequestBody: canStreamRequestBody);
@@ -66,7 +70,8 @@ void testAll(Client Function() clientFactory,
       canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(clientFactory());
   testResponseHeaders(clientFactory());
-  testResponseStatusLine(clientFactory());
+  testResponseStatusLine(clientFactory(),
+      reasonableInvalidStatusLineHandling: reasonableInvalidStatusLineHandling);
   testRedirect(clientFactory(), redirectAlwaysAllowed: redirectAlwaysAllowed);
   testServerErrors(clientFactory());
   testCompressedResponseBody(clientFactory());
