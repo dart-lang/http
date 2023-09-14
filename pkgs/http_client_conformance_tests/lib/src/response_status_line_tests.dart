@@ -31,13 +31,10 @@ void testResponseStatusLine(Client client,
       'without HTTP version',
       () async {
         httpServerChannel.sink.add('201 Created');
-        try {
-          final response = await client.get(Uri.http(host, ''));
-          expect(response.statusCode, 201);
-          expect(response.reasonPhrase, 'Created');
-        } on ClientException {
-          // A Http-Version is required according to RFC-2616
-        }
+        await expectLater(
+          client.get(Uri.http(host, '')),
+          throwsA(isA<ClientException>()),
+        );
       },
     );
 
