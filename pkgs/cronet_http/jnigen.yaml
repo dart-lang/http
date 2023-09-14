@@ -7,8 +7,6 @@ android_sdk_config:
   add_gradle_deps: true
   android_example: 'example/'
 
-suspend_fun_to_async: true
-
 output:
   bindings_type: dart_only
   dart:
@@ -18,8 +16,6 @@ output:
 classes:
   - 'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy'
   - 'java.net.URL'
-  - 'java.nio.Buffer'
-  - 'java.nio.ByteBuffer'
   - 'java.util.concurrent.Executors'
   - 'org.chromium.net.CronetEngine'
   - 'org.chromium.net.CronetException'
