@@ -29,6 +29,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       socket.writeAll(
         [
           statusLine,
+          'Access-Control-Allow-Origin: *',
           'Content-Length: 0',
           '\r\n', // Add \r\n at the end of this header section.
         ],
