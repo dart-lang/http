@@ -163,7 +163,6 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
         case final contentLengthHeader?:
           contentLength = int.parse(contentLengthHeader);
       }
-
       responseCompleter.complete(StreamedResponse(
         responseStream!.stream,
         responseInfo.getHttpStatusCode(),
