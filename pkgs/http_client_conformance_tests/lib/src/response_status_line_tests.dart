@@ -37,7 +37,7 @@ void testResponseStatusLine(Client client) async {
       httpServerChannel.sink.add('HTTP/1.1 201');
       final response = await client.get(Uri.http(host, ''));
       expect(response.statusCode, 201);
-      // Any empty Reason-Phrase is allowed according to RFC-2616. Any of these
+      // An empty Reason-Phrase is allowed according to RFC-2616. Any of these
       // interpretations seem reasonable.
       expect(response.reasonPhrase, anyOf(isNull, '', 'Created'));
     });
