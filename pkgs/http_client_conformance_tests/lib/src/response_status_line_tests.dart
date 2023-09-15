@@ -30,7 +30,7 @@ void testResponseStatusLine(Client client,
 
     test('valid', () async {
       httpServerChannel.sink.add('HTTP/1.1 201 Created');
-      final response = await client.get(Uri.http(host, '');
+      final response = await client.get(Uri.http(host, ''));
       expect(response.statusCode, 201);
       expect(response.reasonPhrase, 'Created');
     });
