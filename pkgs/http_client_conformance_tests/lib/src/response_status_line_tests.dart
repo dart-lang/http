@@ -10,7 +10,10 @@ import 'package:test/test.dart';
 import 'response_status_line_server_vm.dart'
     if (dart.library.html) 'response_status_line_server_web.dart';
 
-/// Tests that the [Client] correctly processes the response status line.
+/// Tests that the [Client] correctly processes the response status line (e.g.
+/// 'HTTP/1.1 200 OK\r\n').
+///
+/// Clients behavior varies considerably if the status line is not valid.
 void testResponseStatusLine(Client client) async {
   group('response status line', () {
     late String host;
@@ -23,17 +26,20 @@ void testResponseStatusLine(Client client) async {
       host = 'localhost:${await httpServerQueue.next}';
     });
 
-    test(
-      'without status code',
-      () async {
-        httpServerChannel.sink.add('HTTP/1.1 OK');
-        await expectLater(
-          client.get(Uri.http(host, '')),
-          throwsA(isA<ClientException>()),
-        );
-      },
-      skip:
-          'Enable after https://github.com/dart-lang/http/issues/1013 is fixed',
-    );
+    test('complete', () async {
+      httpServerChannel.sink.add('HTTP/1.1 201 Created');
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.statusCode, 201);
+      expect(response.reasonPhrase, 'Created');
+    });
+
+    test('no reason phrase', () async {
+      httpServerChannel.sink.add('HTTP/1.1 201');
+      final response = await client.get(Uri.http(host, ''));
+      expect(response.statusCode, 201);
+      // An empty Reason-Phrase is allowed according to RFC-2616. Any of these
+      // interpretations seem reasonable.
+      expect(response.reasonPhrase, anyOf(isNull, '', 'Created'));
+    });
   });
 }
