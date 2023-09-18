@@ -14,10 +14,10 @@ void main() {
 
   group('dataTaskWithCompletionHandler', () {
     late HttpServer server;
-    var requestCount = 0;
+    var uncachedRequestCount = 0;
 
     setUp(() async {
-      requestCount = 0;
+      uncachedRequestCount = 0;
       server = (await HttpServer.bind('localhost', 0))
         ..listen((request) async {
           await request.drain<void>();
@@ -26,7 +26,7 @@ void main() {
             await request.response.close();
             return;
           }
-          ++requestCount;
+          ++uncachedRequestCount;
           request.response.headers.set('Content-Type', 'text/plain');
           request.response.headers.set('ETag', '1234');
           request.response.write('Hello World');
@@ -55,7 +55,7 @@ void main() {
       await doRequest(session);
       await doRequest(session);
 
-      expect(requestCount, 2);
+      expect(uncachedRequestCount, 2);
     });
 
     test('with cache', () async {
@@ -66,7 +66,7 @@ void main() {
       await doRequest(session);
       await doRequest(session);
 
-      expect(requestCount, 1);
+      expect(uncachedRequestCount, 1);
     });
   });
 }
