@@ -11,6 +11,7 @@ import 'error_test.dart' as error_test;
 import 'http_url_response_test.dart' as http_url_response_test;
 import 'mutable_data_test.dart' as mutable_data_test;
 import 'mutable_url_request_test.dart' as mutable_url_request_test;
+import 'url_cache_test.dart' as url_cache_test;
 import 'url_request_test.dart' as url_request_test;
 import 'url_response_test.dart' as url_response_test;
 import 'url_session_configuration_test.dart' as url_session_configuration_test;
@@ -34,6 +35,7 @@ void main() {
   http_url_response_test.main();
   mutable_data_test.main();
   mutable_url_request_test.main();
+  url_cache_test.main();
   url_request_test.main();
   url_response_test.main();
   url_session_configuration_test.main();

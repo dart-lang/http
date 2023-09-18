@@ -77,3 +77,6 @@ Map<String, String> stringDictToMap(ncb.NSDictionary d) {
 
   return m;
 }
+
+ncb.NSURL uriToNSURL(Uri uri) =>
+    ncb.NSURL.URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
