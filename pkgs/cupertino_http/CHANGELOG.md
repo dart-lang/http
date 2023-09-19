@@ -9,6 +9,8 @@
 * Disable additional analyses for generated Objective-C bindings to prevent
   errors from `dart analyze`.
 * Throw `ClientException` when the `'Content-Length'` header is invalid.
+* Add support for configurable caching through
+  `URLSessionConfiguration.cache`.
 
 ## 1.0.1
 
