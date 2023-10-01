@@ -233,6 +233,35 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
       ']';
 }
 
+/// A cache for [URLRequest]s. Used by [URLSessionConfiguration.cache].
+///
+/// See [NSURLCache](https://developer.apple.com/documentation/foundation/nsurlcache)
+class URLCache extends _ObjectHolder<ncb.NSURLCache> {
+  URLCache._(super.c);
+
+  /// The default URLCache.
+  ///
+  /// See [NSURLCache.sharedURLCache](https://developer.apple.com/documentation/foundation/nsurlcache/1413377-sharedurlcache)
+  static URLCache? get sharedURLCache {
+    final sharedCache = ncb.NSURLCache.getSharedURLCache(linkedLibs);
+    return sharedCache == null ? null : URLCache._(sharedCache);
+  }
+
+  /// Create a new [URLCache] with the given memory and disk cache sizes.
+  ///
+  /// [memoryCapacity] and [diskCapacity] are specified in bytes.
+  ///
+  /// [directory] is the file system location where the disk cache will be
+  /// stored. If `null` then the default directory will be used.
+  ///
+  /// See [NSURLCache initWithMemoryCapacity:diskCapacity:directoryURL:](https://developer.apple.com/documentation/foundation/nsurlcache/3240612-initwithmemorycapacity)
+  factory URLCache.withCapacity(
+          {int memoryCapacity = 0, int diskCapacity = 0, Uri? directory}) =>
+      URLCache._(ncb.NSURLCache.alloc(linkedLibs)
+          .initWithMemoryCapacity_diskCapacity_directoryURL_(memoryCapacity,
+              diskCapacity, directory == null ? null : uriToNSURL(directory)));
+}
+
 /// Controls the behavior of a URLSession.
 ///
 /// See [NSURLSessionConfiguration](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration)
@@ -300,6 +329,15 @@ class URLSessionConfiguration
   set allowsExpensiveNetworkAccess(bool value) =>
       _nsObject.allowsExpensiveNetworkAccess = value;
 
+  /// The [URLCache] used to cache the results of [URLSessionTask]s.
+  ///
+  /// A value of `nil` indicates that no cache will be used.
+  ///
+  /// See [NSURLSessionConfiguration.URLCache](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1410148-urlcache)
+  URLCache? get cache =>
+      _nsObject.URLCache == null ? null : URLCache._(_nsObject.URLCache!);
+  set cache(URLCache? cache) => _nsObject.URLCache = cache?._nsObject;
+
   /// Whether background tasks can be delayed by the system.
   ///
   /// See [NSURLSessionConfiguration.discretionary](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411552-discretionary)
@@ -314,10 +352,10 @@ class URLSessionConfiguration
   set httpCookieAcceptPolicy(HTTPCookieAcceptPolicy value) =>
       _nsObject.HTTPCookieAcceptPolicy = value.index;
 
-  // The maximum number of connections that a URLSession can have open to the
-  // same host.
+  /// The maximum number of connections that a URLSession can have open to the
+  /// same host.
   //
-  // See [NSURLSessionConfiguration.HTTPMaximumConnectionsPerHost](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1407597-httpmaximumconnectionsperhost).
+  /// See [NSURLSessionConfiguration.HTTPMaximumConnectionsPerHost](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1407597-httpmaximumconnectionsperhost).
   int get httpMaximumConnectionsPerHost =>
       _nsObject.HTTPMaximumConnectionsPerHost;
   set httpMaximumConnectionsPerHost(int value) =>
@@ -354,9 +392,9 @@ class URLSessionConfiguration
   set networkServiceType(URLRequestNetworkService value) =>
       _nsObject.networkServiceType = value.index;
 
-  // Controls how to deal with response caching.
-  //
-  // See [NSURLSessionConfiguration.requestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411655-requestcachepolicy)
+  /// Controls how to deal with response caching.
+  ///
+  /// See [NSURLSessionConfiguration.requestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411655-requestcachepolicy)
   URLRequestCachePolicy get requestCachePolicy =>
       URLRequestCachePolicy.values[_nsObject.requestCachePolicy];
   set requestCachePolicy(URLRequestCachePolicy value) =>
@@ -422,9 +460,9 @@ class URLSessionConfiguration
 class Data extends _ObjectHolder<ncb.NSData> {
   Data._(super.c);
 
-  // A new [Data] from an existing one.
-  //
-  // See [NSData dataWithData:](https://developer.apple.com/documentation/foundation/nsdata/1547230-datawithdata)
+  /// A new [Data] from an existing one.
+  ///
+  /// See [NSData dataWithData:](https://developer.apple.com/documentation/foundation/nsdata/1547230-datawithdata)
   factory Data.fromData(Data d) =>
       Data._(ncb.NSData.dataWithData_(linkedLibs, d._nsObject));
 
@@ -885,7 +923,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
       if (error != null) {
         completer.completeError(error);
       } else {
-        completer.complete(message);
+        completer.complete(message!);
       }
       completionPort.close();
     });
@@ -916,11 +954,8 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// Creates a request for a URL.
   ///
   /// See [NSURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsurlrequest/1528603-requestwithurl)
-  factory URLRequest.fromUrl(Uri uri) {
-    final url = ncb.NSURL
-        .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
-    return URLRequest._(ncb.NSURLRequest.requestWithURL_(linkedLibs, url));
-  }
+  factory URLRequest.fromUrl(Uri uri) => URLRequest._(
+      ncb.NSURLRequest.requestWithURL_(linkedLibs, uriToNSURL(uri)));
 
   /// Returns all of the HTTP headers for the request.
   ///
@@ -934,9 +969,9 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     }
   }
 
-  // Controls how to deal with caching for the request.
-  //
-  // See [NSURLSession.cachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequest/1407944-cachepolicy)
+  /// Controls how to deal with caching for the request.
+  ///
+  /// See [NSURLSession.cachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequest/1407944-cachepolicy)
   URLRequestCachePolicy get cachePolicy =>
       URLRequestCachePolicy.values[_nsObject.cachePolicy];
 

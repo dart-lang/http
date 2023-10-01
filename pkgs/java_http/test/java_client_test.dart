@@ -8,8 +8,12 @@ import 'package:test/test.dart';
 
 void main() {
   group('java_http client conformance tests', () {
-    testResponseBody(JavaClient(), canStreamResponseBody: false);
+    testIsolate(JavaClient.new);
+    testResponseBody(JavaClient());
+    testResponseBodyStreamed(JavaClient());
     testResponseHeaders(JavaClient());
+    testResponseStatusLine(JavaClient());
+    testRequestBody(JavaClient());
     testRequestHeaders(JavaClient());
     testMultipleClients(JavaClient.new);
   });

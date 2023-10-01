@@ -19,6 +19,8 @@ import "dart:ffi" as ffi;
 import "package:jni/internal_helpers_for_jnigen.dart";
 import "package:jni/jni.dart" as jni;
 
+import "OutputStream.dart" as outputstream_;
+
 /// from: java.io.InputStream
 class InputStream extends jni.JObject {
   @override
@@ -192,7 +194,7 @@ class InputStream extends jni.JObject {
 
   /// from: public long transferTo(java.io.OutputStream outputStream)
   int transferTo(
-    jni.JObject outputStream,
+    outputstream_.OutputStream outputStream,
   ) {
     return jni.Jni.accessors.callMethodWithArgs(reference, _id_transferTo,
         jni.JniCallType.longType, [outputStream.reference]).long;

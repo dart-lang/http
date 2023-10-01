@@ -38,11 +38,20 @@ android {
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-        main.java.srcDirs += 'src/main/java'
     }
 
     defaultConfig {
         minSdkVersion 16
+    }
+
+    defaultConfig {
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
     }
 }
 

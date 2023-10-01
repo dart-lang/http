@@ -1,0 +1,27 @@
+# Regenerate bindings with `dart run jnigen --config jnigen.yaml`.
+
+summarizer:
+  backend: asm
+
+android_sdk_config:
+  add_gradle_deps: true
+  android_example: 'example/'
+
+output:
+  bindings_type: dart_only
+  dart:
+    path: 'lib/src/jni/jni_bindings.dart'
+    structure: single_file
+
+classes:
+  - 'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy'
+  - 'java.net.URL'
+  - 'java.util.concurrent.Executors'
+  - 'org.chromium.net.CronetEngine'
+  - 'org.chromium.net.CronetException'
+  - 'org.chromium.net.UploadDataProviders'
+  - 'org.chromium.net.UrlRequest'
+  - 'org.chromium.net.UrlResponseInfo'
+
+enable_experiment:
+  - 'interface_implementation'

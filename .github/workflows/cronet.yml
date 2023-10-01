@@ -26,7 +26,7 @@ jobs:
       run:
         working-directory: pkgs/cronet_http
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           # TODO: Change to 'stable' when a release version of flutter
@@ -48,16 +48,14 @@ jobs:
     name: "Build and test"
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '17'
       - uses: subosito/flutter-action@v2
         with:
-          # TODO: Change to 'stable' when a release version of flutter
-          # pins version 1.21.1 or later of 'package:test'
-          channel: 'master'
+          channel: 'stable'
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
