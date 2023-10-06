@@ -1,8 +1,9 @@
-## 2.4.1
+## 2.4.1-wip
 
 - Update the examples to use `WebSocketChannel.ready` and clarify that
   `WebSocketChannel.ready` should be awaited before sending data over the
   `WebSocketChannel`.
+- Mention `ready` in the docs for `connect`.
 
 ## 2.4.0
 
