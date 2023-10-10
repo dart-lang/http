@@ -1,4 +1,4 @@
-## 0.4.0-jni
+## 0.4.0
  
 * Use more efficient operations when copying bytes between Java and Dart.
 
