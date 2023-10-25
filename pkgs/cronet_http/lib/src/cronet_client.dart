@@ -332,6 +332,7 @@ class CronetClient extends BaseClient {
       builder.setUploadDataProvider(
           jb.UploadDataProviders.create2(body.toJByteBuffer()), _executor);
     }
+    builder.setHttpMethod(request.method.toJString());
     builder.build().start();
     return responseCompleter.future;
   }
