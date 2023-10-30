@@ -6,7 +6,7 @@ publish_to: none
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http_profile
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: ^3.0.0
 
 dependencies:
   test: ^1.24.9

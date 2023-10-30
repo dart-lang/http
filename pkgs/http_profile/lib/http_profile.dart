@@ -6,7 +6,7 @@ import 'dart:io';
 
 /// Records information about an HTTP request.
 final class HttpClientRequestProfile {
-  /// Determines whether HTTP profiling is enabled or not.
+  /// Whether HTTP profiling is enabled or not.
   ///
   /// The value can be changed programmatically or through the DevTools Network
   /// UX.
