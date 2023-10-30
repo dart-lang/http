@@ -4,7 +4,7 @@
 
 import 'dart:io';
 
-/// Records information about an HTTP request.
+/// A record of debugging information about an HTTP request.
 final class HttpClientRequestProfile {
   /// Whether HTTP profiling is enabled or not.
   ///
