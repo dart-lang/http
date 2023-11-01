@@ -11,9 +11,9 @@ environment:
 
 dependencies:
   cached_network_image: ^3.2.3
-  cupertino_http:
-    path: ../
+  cupertino_http: ^1.1.0
   cupertino_icons: ^1.0.2
+  fetch_client: ^1.0.2
   flutter:
     sdk: flutter
   http: ^0.13.5
@@ -25,8 +25,6 @@ dev_dependencies:
   ffi: ^2.0.1
   flutter_test:
     sdk: flutter
-  http_client_conformance_tests:
-    path: ../../http_client_conformance_tests/
   integration_test:
     sdk: flutter
   test: ^1.21.1
