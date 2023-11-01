@@ -100,3 +100,50 @@ and increases the delay by 1.5x each time. All of this can be customized using
 the [`RetryClient()`][new RetryClient] constructor.
 
 [new RetryClient]: https://pub.dev/documentation/http/latest/retry/RetryClient/RetryClient.html
+
+## Chosing an implementation
+
+There are multiple implementations of the `package:http` `Client` interface.
+You can chose which implementation to use based on the needs of your
+application. You can change implementations without changing your application
+code, except for a few lines of [configuration]().
+
+Some well supported implementations are:
+
+| Implementation | Supported Platforms | Supports Caching | Supports HTTP3/QUIC | Platform Native |
+| -------------- | ------------------- | ---------------- | ------------------- | --------------- |
+| `package:http` — [`IOClient`][ioclient] | Android, iOS, Linux, macOS, Windows | ❌ | ❌ | ❌ |
+| `package:http` — [`BrowserClient`][browserclient] | Web | ― | ✅︎ | ✅︎ |
+| [`package:cupertino_http`][cupertinohttp] — [`CupertinoClient`][cupertinoclient] | iOS, macOS | ✅︎ | ✅︎ | ✅︎ |
+| [`package:cronet_http`][cronethttp] — [`CronetClient`][cronetclient] | Android | ✅︎ | ✅︎ | ― |
+| [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient] | Web | ✅︎ | ✅︎ | ✅︎ |
+
+
+[ioclient]: https://pub.dev/documentation/http/latest/io_client/IOClient-class.html
+[browserclient]: https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html
+[cupertinohttp]: https://pub.dev/packages/cupertino_http
+[cupertinoclient]: https://pub.dev/documentation/cupertino_http/latest/cupertino_http/CupertinoClient-class.html
+[cronethttp]: https://pub.dev/packages/cronet_http
+[cronetclient]: https://pub.dev/documentation/cronet_http/latest/cronet_http/CronetClient-class.html
+[fetch]: https://pub.dev/packages/fetch_client
+[fetchclient]: https://pub.dev/documentation/fetch_client/latest/fetch_client/FetchClient-class.html
+
+## Configuration
+
+```terminal
+flutter pub add http
+```
+
+
+```
+late Client client;
+if (Platform.isIOS) {
+  final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+    ..allowsCellularAccess = false
+    ..allowsConstrainedNetworkAccess = false
+    ..allowsExpensiveNetworkAccess = false;
+  client = CupertinoClient.fromSessionConfiguration(config);
+} else {
+  client = IOClient(); // Uses an HTTP client based on dart:io
+}
+```
