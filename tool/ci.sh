@@ -1,5 +1,5 @@
 #!/bin/bash
-# Created with package:mono_repo v6.5.7
+# Created with package:mono_repo v6.6.0
 
 # Support built in commands on windows out of the box.
 # When it is a flutter repo (check the pubspec.yaml for "sdk: flutter")
@@ -67,11 +67,19 @@ for PKG in ${PKGS}; do
       echo
       echo -e "\033[1mPKG: ${PKG}; TASK: ${TASK}\033[22m"
       case ${TASK} in
-      analyze)
+      analyze_0)
+        echo 'flutter analyze --fatal-infos'
+        flutter analyze --fatal-infos || EXIT_CODE=$?
+        ;;
+      analyze_1)
         echo 'dart analyze --fatal-infos'
         dart analyze --fatal-infos || EXIT_CODE=$?
         ;;
-      command)
+      command_0)
+        echo 'flutter test'
+        flutter test || EXIT_CODE=$?
+        ;;
+      command_1)
         echo 'dart run --define=no_default_http_client=true test/no_default_http_client_test.dart'
         dart run --define=no_default_http_client=true test/no_default_http_client_test.dart || EXIT_CODE=$?
         ;;
@@ -80,10 +88,18 @@ for PKG in ${PKGS}; do
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
         ;;
       test_0)
+        echo 'flutter test --platform vm'
+        flutter test --platform vm || EXIT_CODE=$?
+        ;;
+      test_1)
+        echo 'flutter test --platform chrome'
+        flutter test --platform chrome || EXIT_CODE=$?
+        ;;
+      test_2)
         echo 'dart test --platform vm'
         dart test --platform vm || EXIT_CODE=$?
         ;;
-      test_1)
+      test_3)
         echo 'dart test --platform chrome'
         dart test --platform chrome || EXIT_CODE=$?
         ;;

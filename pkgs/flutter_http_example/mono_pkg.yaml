@@ -1,14 +1,11 @@
 sdk:
-- pubspec
-- dev
+  - stable
 
 stages:
-- analyze_and_format:
-  - analyze: --fatal-infos
-  - format:
-    sdk:
-    - dev
-- unit_test:
-  - test: --platform vm
-  - test: --platform chrome
-  - command: flutter test
+  - analyze_and_format:
+      - analyze: --fatal-infos
+      - format:
+  - unit_test:
+      - test: --platform vm
+      - test: --platform chrome
+      - command: flutter test
