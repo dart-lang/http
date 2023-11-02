@@ -1,3 +1,8 @@
+## 0.4.1
+ 
+* Require `package:jni >= 0.7.1` so that depending on `package:cronet_http` 
+  does not break macOS builds.
+
 ## 0.4.0
  
 * Use more efficient operations when copying bytes between Java and Dart.
