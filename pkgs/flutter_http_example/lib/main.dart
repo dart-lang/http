@@ -14,12 +14,16 @@ import 'http_client_factory.dart'
     if (dart.library.html) 'http_client_factory_web.dart' as http_factory;
 
 void main() {
-  // Some plugins may offer a way to inject a `package:http` `Client` so
-  // use `runWithClient` to control the `Client` that they use.
+  // `runWithClient` is used to control which `package:http` `Client` is used
+  // when the `Client` constructor is called. This method allows you to choose
+  // the `Client` even when the package that you are using does not offer
+  // explicit parameterization.
   //
-  // `runWithClient` is not sufficient, however, because flutter tests do
-  // not preserve the `Zone` used as part of the `runWithClient`
-  // implementation. See https://github.com/flutter/flutter/issues/96939.
+  // However, `runWithClient` does not work with Flutter tests. See
+  // https://github.com/flutter/flutter/issues/96939.
+  //
+  // Use `package:provider` and `runWithClient` together so that tests and
+  // unparameterized `Client` usages both work.
   runWithClient(
       () => runApp(Provider<Client>(
           create: (_) => http_factory.httpClient(),
