@@ -39,20 +39,22 @@ void main() {
   });
 
   testWidgets('Test search', (WidgetTester tester) async {
-    print("HERE!-1");
     final mockClient = MockClient((request) async {
-      print("HERE!");
       if (request.url.path != '/books/v1/volumes') {
         return Response('', 404);
       }
       return Response(_singleBookResponse, 200);
     });
 
+    // `runWithClient` doesn't work because `pumpWidget` does not
+    // preserve the `Zone`.
     await runWithClient(
         () => tester.pumpWidget(const BookSearchApp()), () => mockClient);
     await tester.enterText(find.byType(TextField), 'Flutter Cookbook');
     await tester.pump();
 
-    expect(find.text('Please enter a query'), findsOneWidget);
+    expect(find.text('Flutter Cookbook'), findsOneWidget);
+    expect(find.text('Write, test, and publish your web, desktop...'),
+        findsOneWidget);
   });
 }
