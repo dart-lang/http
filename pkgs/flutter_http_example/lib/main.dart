@@ -10,10 +10,10 @@ import 'package:http/http.dart';
 
 import 'book.dart';
 import 'http_client_factory.dart'
-    if (dart.library.html) 'http_client_factory_web.dart';
+    if (dart.library.html) 'http_client_factory_web.dart' as http_factory;
 
 void main() {
-  runWithClient(() => runApp(const BookSearchApp()), httpClient);
+  runWithClient(() => runApp(const BookSearchApp()), http_factory.httpClient);
 }
 
 class BookSearchApp extends StatelessWidget {
