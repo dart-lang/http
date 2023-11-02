@@ -3,58 +3,60 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:flutter_http_example/main.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:http/testing.dart';
+import 'package:provider/provider.dart';
 
 const _singleBookResponse = '''
 {
-  "kind": "books#volumes",
-  "totalItems": 2069,
   "items": [
     {
-      "kind": "books#volume",
-      "id": "gcnAEAAAQBAJ",
-      "etag": "8yZ12V0pNUI",
-      "selfLink": "https://www.googleapis.com/books/v1/volumes/gcnAEAAAQBAJ",
       "volumeInfo": {
         "title": "Flutter Cookbook",
-        "subtitle": "100+ step-by-step recipes for building cross...",
-        "authors": [
-          "Simone Alessandria"
-        ],
-        "publisher": "Packt Publishing Ltd",
-        "publishedDate": "2023-05-31",
         "description": "Write, test, and publish your web, desktop...",
-    }]
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=gcnAEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+        }
+      }
+    }
+  ]
 }
 ''';
 
 void main() {
+  Widget app(Client client) =>
+      Provider<Client>(create: (_) => client, child: const BookSearchApp());
+
   testWidgets('Test initial load', (WidgetTester tester) async {
-    await tester.pumpWidget(const BookSearchApp());
+    final mockClient = MockClient(
+        (request) async => throw StateError('unexpected HTTP request'));
+
+    await tester.pumpWidget(app(mockClient));
 
     expect(find.text('Please enter a query'), findsOneWidget);
   });
 
   testWidgets('Test search', (WidgetTester tester) async {
     final mockClient = MockClient((request) async {
-      if (request.url.path != '/books/v1/volumes') {
+      if (request.url.path != '/books/v1/volumes' &&
+          request.url.queryParameters['q'] != 'Flutter') {
         return Response('', 404);
       }
       return Response(_singleBookResponse, 200);
     });
 
-    // `runWithClient` doesn't work because `pumpWidget` does not
-    // preserve the `Zone`.
-    await runWithClient(
-        () => tester.pumpWidget(const BookSearchApp()), () => mockClient);
-    await tester.enterText(find.byType(TextField), 'Flutter Cookbook');
+    await tester.pumpWidget(app(mockClient));
+    await tester.enterText(find.byType(TextField), 'Flutter');
     await tester.pump();
 
+    // The book title.
     expect(find.text('Flutter Cookbook'), findsOneWidget);
-    expect(find.text('Write, test, and publish your web, desktop...'),
+    // The book description.
+    expect(
+        find.text('Write, test, and publish your web, desktop...',
+            skipOffstage: false),
         findsOneWidget);
   });
 }

@@ -7,13 +7,25 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 import 'book.dart';
 import 'http_client_factory.dart'
     if (dart.library.html) 'http_client_factory_web.dart' as http_factory;
 
 void main() {
-  runWithClient(() => runApp(const BookSearchApp()), http_factory.httpClient);
+  // Some plugins may offer a way to inject a `package:http` `Client` so
+  // use `runWithClient` to control the `Client` that they use.
+  //
+  // `runWithClient` is not sufficient, however, because flutter tests do
+  // not preserve the `Zone` used as part of the `runWithClient`
+  // implementation. See https://github.com/flutter/flutter/issues/96939.
+  runWithClient(
+      () => runApp(Provider<Client>(
+          create: (_) => http_factory.httpClient(),
+          child: const BookSearchApp(),
+          dispose: (_, client) => client.close())),
+      http_factory.httpClient);
 }
 
 class BookSearchApp extends StatelessWidget {
@@ -38,16 +50,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Book>? _books;
   String? _lastQuery;
+  late Client _client;
 
   @override
   void initState() {
     super.initState();
+    _client = context.read<Client>();
   }
 
   // Get the list of books matching `query`.
   // The `get` call will automatically use the `client` configurated in `main`.
   Future<List<Book>> _findMatchingBooks(String query) async {
-    final response = await get(
+    final response = await _client.get(
       Uri.https(
         'www.googleapis.com',
         '/books/v1/volumes',
@@ -55,7 +69,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    print(utf8.decode(response.bodyBytes));
     final json = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
     return Book.listFromJson(json);
   }
