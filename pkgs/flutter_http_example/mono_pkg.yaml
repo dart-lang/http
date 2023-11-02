@@ -3,9 +3,12 @@ sdk:
 
 stages:
   - analyze_and_format:
-      - analyze: --fatal-infos
-      - format:
+    - analyze: --fatal-infos
+    - format:
   - unit_test:
-      - test: --platform linux
-      - test: --platform chrome
-      - command: flutter test
+    - test:
+      os:
+      - macos
+      - windows
+    - test: --platform chrome
+    - command: flutter test

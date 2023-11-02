@@ -87,10 +87,6 @@ for PKG in ${PKGS}; do
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
         ;;
-      test_0)
-        echo 'flutter test --platform linux'
-        flutter test --platform linux || EXIT_CODE=$?
-        ;;
       test_1)
         echo 'flutter test --platform chrome'
         flutter test --platform chrome || EXIT_CODE=$?
