@@ -1,3 +1,7 @@
+## 0.4.1
+
+* Fix obsolete `CronetClient()` constructor usage.
+
 ## 0.4.0
  
 * Use more efficient operations when copying bytes between Java and Dart.
