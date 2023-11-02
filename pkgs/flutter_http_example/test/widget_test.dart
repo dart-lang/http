@@ -26,10 +26,12 @@ const _singleBookResponse = '''
 ''';
 
 void main() {
-  Widget app(Client client) =>
-      Provider<Client>(create: (_) => client, child: const BookSearchApp());
+  Widget app(Client client) => Provider<Client>(
+      create: (_) => client,
+      child: const BookSearchApp(),
+      dispose: (_, client) => client.close());
 
-  testWidgets('Test initial load', (WidgetTester tester) async {
+  testWidgets('test initial load', (WidgetTester tester) async {
     final mockClient = MockClient(
         (request) async => throw StateError('unexpected HTTP request'));
 
@@ -38,7 +40,7 @@ void main() {
     expect(find.text('Please enter a query'), findsOneWidget);
   });
 
-  testWidgets('Test search', (WidgetTester tester) async {
+  testWidgets('test search with one result', (WidgetTester tester) async {
     final mockClient = MockClient((request) async {
       if (request.url.path != '/books/v1/volumes' &&
           request.url.queryParameters['q'] != 'Flutter') {
