@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import 'book.dart';
-import 'client_setup.dart' if (dart.library.html) 'client_setup_web.dart';
+import 'http_client_factory.dart'
+    if (dart.library.html) 'http_client_factory_web.dart';
 
 void main() {
   runWithClient(() => runApp(const BookSearchApp()), http_client);

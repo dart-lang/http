@@ -1,16 +1,32 @@
 # flutter_http_example
 
-A new Flutter project.
+A Flutter sample app that illustrates how to configure and use
+[`package:http`](https://pub.dev/packages/http).
 
-## Getting Started
+## Goals for this sample
 
-This project is a starting point for a Flutter application.
+* Provide you with example code for using `package:http` in Flutter,
+  including configuration for multiple platforms.
 
-A few resources to get you started if this is your first Flutter project:
+## The important bits
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### `http_client_factory.dart`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This file used to create `package:http` `Client`s when the app is run inside
+the Dart virtual machine, meaning all platforms except the web browser.
+
+### `http_client_factory_web.dart`
+
+This file used to create `package:http` `Client`s when the app is run inside
+a web browser.
+
+Web configuration must be done in a seperate file because Dart code cannot
+import `dart:ffi` or `dart:io` when run in a web browser.
+
+### `main.dart`
+
+This file demonstrates how to:
+
+* import `http_client_factory.dart` or `http_client_factory_web.dart`,
+  depending on whether we are targeting the web browser or not.
+* call `package:http` functions.
