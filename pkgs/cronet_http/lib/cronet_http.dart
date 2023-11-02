@@ -10,7 +10,7 @@
 /// import 'package:cronet_http/cronet_http.dart';
 ///
 /// void main() async {
-///   var client = CronetClient();
+///   var client = CronetClient.defaultCronetEngine();
 ///   final response = await client.get(
 ///       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'}));
 ///   if (response.statusCode != 200) {
