@@ -4,10 +4,14 @@
 
 import 'dart:io';
 
+import 'package:cronet_http/cronet_http.dart';
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:http/http.dart';
 
 Client httpClient() {
+  if (Platform.isAndroid) {
+    return CronetClient.defaultCronetEngine();
+  }
   if (Platform.isIOS || Platform.isMacOS) {
     return CupertinoClient.defaultSessionConfiguration();
   }

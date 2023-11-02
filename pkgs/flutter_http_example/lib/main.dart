@@ -13,6 +13,7 @@ import 'http_client_factory.dart'
     if (dart.library.html) 'http_client_factory_web.dart' as http_factory;
 
 void main() {
+  print("Main was called!");
   runWithClient(() => runApp(const BookSearchApp()), http_factory.httpClient);
 }
 
@@ -51,10 +52,11 @@ class _HomePageState extends State<HomePage> {
       Uri.https(
         'www.googleapis.com',
         '/books/v1/volumes',
-        {'q': query, 'maxResults': '40', 'printType': 'books'},
+        {'q': query, 'maxResults': '1', 'printType': 'books'},
       ),
     );
 
+    print(utf8.decode(response.bodyBytes));
     final json = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
     return Book.listFromJson(json);
   }
