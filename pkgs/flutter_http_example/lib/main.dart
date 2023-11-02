@@ -36,7 +36,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Book>? _books;
-  String? _latestQuery;
+  String? _lastQuery;
 
   @override
   void initState() {
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _runSearch(String query) async {
-    _latestQuery = query;
+    _lastQuery = query;
     if (query.isEmpty) {
       setState(() {
         _books = null;
@@ -68,7 +68,9 @@ class _HomePageState extends State<HomePage> {
     }
 
     final books = await _findMatchingBooks(query);
-    if (query == _latestQuery) {
+    if (query == _lastQuery) {
+      // Avoid the situation where a slow-running query finishes late and
+      // replaces newer search results.
       setState(() {
         _books = books;
       });
