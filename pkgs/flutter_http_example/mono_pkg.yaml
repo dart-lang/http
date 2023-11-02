@@ -6,6 +6,6 @@ stages:
       - analyze: --fatal-infos
       - format:
   - unit_test:
-      - test: --platform vm
+      - test: --platform linux
       - test: --platform chrome
       - command: flutter test

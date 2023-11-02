@@ -88,8 +88,8 @@ for PKG in ${PKGS}; do
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?
         ;;
       test_0)
-        echo 'flutter test --platform vm'
-        flutter test --platform vm || EXIT_CODE=$?
+        echo 'flutter test --platform linux'
+        flutter test --platform linux || EXIT_CODE=$?
         ;;
       test_1)
         echo 'flutter test --platform chrome'

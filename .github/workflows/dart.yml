@@ -504,7 +504,7 @@ jobs:
       - job_006
       - job_007
   job_015:
-    name: "unit_test; Flutter stable; PKG: pkgs/flutter_http_example; `flutter test --platform vm`"
+    name: "unit_test; Flutter stable; PKG: pkgs/flutter_http_example; `flutter test --platform linux`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -529,8 +529,8 @@ jobs:
         run: flutter pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: pkgs/flutter_http_example
-      - name: "pkgs/flutter_http_example; flutter test --platform vm"
-        run: flutter test --platform vm
+      - name: "pkgs/flutter_http_example; flutter test --platform linux"
+        run: flutter test --platform linux
         if: "always() && steps.pkgs_flutter_http_example_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/flutter_http_example
     needs:
