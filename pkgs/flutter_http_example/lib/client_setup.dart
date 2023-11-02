@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:http/http.dart';
 
-Client getClient() {
+Client http_client() {
   if (Platform.isIOS || Platform.isMacOS) {
     return CupertinoClient.defaultSessionConfiguration();
   }

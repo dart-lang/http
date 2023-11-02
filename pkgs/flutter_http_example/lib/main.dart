@@ -12,7 +12,7 @@ import 'book.dart';
 import 'client_setup.dart' if (dart.library.html) 'client_setup_web.dart';
 
 void main() {
-  runWithClient(() => runApp(const BookSearchApp()), getClient);
+  runWithClient(() => runApp(const BookSearchApp()), http_client);
 }
 
 class BookSearchApp extends StatelessWidget {
