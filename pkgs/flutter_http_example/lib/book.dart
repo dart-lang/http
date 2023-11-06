@@ -17,14 +17,13 @@ class Book {
 
       for (final item in items) {
         if (item case {'volumeInfo': final volumeInfo as Map}) {
-          if (volumeInfo['title'] is String &&
-              volumeInfo['description'] is String &&
-              volumeInfo['imageLinks'] is Map &&
-              (volumeInfo['imageLinks'] as Map)['smallThumbnail'] is String) {
-            books.add(Book(
-                volumeInfo['title'] as String,
-                volumeInfo['description'] as String,
-                (volumeInfo['imageLinks'] as Map)['smallThumbnail'] as String));
+          if (volumeInfo
+              case {
+                'title': final String title,
+                'description': final String description,
+                'imageLinks': {'smallThumbnail': final String thumbnail}
+              }){
+            books.add(Book(title, description, thumbnail));
           }
         }
       }
