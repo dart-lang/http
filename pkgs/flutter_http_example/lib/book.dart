@@ -12,8 +12,8 @@ class Book {
   static List<Book> listFromJson(Map<dynamic, dynamic> json) {
     final books = <Book>[];
 
-    if (json['items'] is List<dynamic>) {
-      final items = (json['items'] as List).cast<Map<String, Object?>>();
+    if (json['items'] case final List jsonItems) {
+      final items = jsonItems.cast<Map<String, Object?>>();
 
       for (final item in items) {
         if (item.containsKey('volumeInfo')) {
