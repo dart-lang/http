@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
       Uri.https(
         'www.googleapis.com',
         '/books/v1/volumes',
-        {'q': query, 'maxResults': '1', 'printType': 'books'},
+        {'q': query, 'maxResults': '20', 'printType': 'books'},
       ),
     );
 
@@ -87,13 +87,12 @@ class _HomePageState extends State<HomePage> {
     }
 
     final books = await _findMatchingBooks(query);
-    if (query == _lastQuery) {
-      // Avoid the situation where a slow-running query finishes late and
-      // replaces newer search results.
-      setState(() {
-        _books = books;
-      });
-    }
+    // Avoid the situation where a slow-running query finishes late and
+    // replaces newer search results.
+    if (query != _lastQuery) return;
+    setState(() {
+      _books = books;
+    });
   }
 
   @override

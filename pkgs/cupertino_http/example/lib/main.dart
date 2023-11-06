@@ -75,9 +75,9 @@ class _HomePageState extends State<HomePage> {
     final books = await _findMatchingBooks(query);
     // Avoid the situation where a slow-running query finishes late and
     // replaces newer search results.
-    if (query == _lastQuery) return;
+    if (query != _lastQuery) return;
     setState(() {
-     _books = books;
+      _books = books;
     });
   }
 
