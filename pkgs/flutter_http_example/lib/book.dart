@@ -16,8 +16,7 @@ class Book {
       final items = jsonItems.cast<Map<String, Object?>>();
 
       for (final item in items) {
-        if (item.containsKey('volumeInfo')) {
-          final volumeInfo = item['volumeInfo'] as Map;
+        if (item case {'volumeInfo': final volumeInfo as Map}) {
           if (volumeInfo['title'] is String &&
               volumeInfo['description'] is String &&
               volumeInfo['imageLinks'] is Map &&
