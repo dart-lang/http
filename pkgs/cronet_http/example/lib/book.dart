@@ -1,4 +1,4 @@
-// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -12,20 +12,16 @@ class Book {
   static List<Book> listFromJson(Map<dynamic, dynamic> json) {
     final books = <Book>[];
 
-    if (json['items'] is List<dynamic>) {
-      final items = (json['items'] as List).cast<Map<String, Object?>>();
-
+    if (json['items'] case final List<dynamic> items) {
       for (final item in items) {
-        if (item.containsKey('volumeInfo')) {
-          final volumeInfo = item['volumeInfo'] as Map;
-          if (volumeInfo['title'] is String &&
-              volumeInfo['description'] is String &&
-              volumeInfo['imageLinks'] is Map &&
-              (volumeInfo['imageLinks'] as Map)['smallThumbnail'] is String) {
-            books.add(Book(
-                volumeInfo['title'] as String,
-                volumeInfo['description'] as String,
-                (volumeInfo['imageLinks'] as Map)['smallThumbnail'] as String));
+        if (item case {'volumeInfo': final Map<dynamic, dynamic> volumeInfo}) {
+          if (volumeInfo
+              case {
+                'title': final String title,
+                'description': final String description,
+                'imageLinks': {'smallThumbnail': final String thumbnail}
+              }) {
+            books.add(Book(title, description, thumbnail));
           }
         }
       }
