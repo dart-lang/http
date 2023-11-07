@@ -17,20 +17,20 @@ A Flutter sample app that illustrates how to configure and use
 
 ### `http_client_factory.dart`
 
-This file used to create `package:http` `Client`s when the app is run inside
+This library used to create `package:http` `Client`s when the app is run inside
 the Dart virtual machine, meaning all platforms except the web browser.
 
 ### `http_client_factory_web.dart`
 
-This file used to create `package:http` `Client`s when the app is run inside
+This library used to create `package:http` `Client`s when the app is run inside
 a web browser.
 
-Web configuration must be done in a seperate file because Dart code cannot
+Web configuration must be done in a seperate library because Dart code cannot
 import `dart:ffi` or `dart:io` when run in a web browser.
 
 ### `main.dart`
 
-This file demonstrates how to:
+This library demonstrates how to:
 
 * import `http_client_factory.dart` or `http_client_factory_web.dart`,
   depending on whether we are targeting the web browser or not.
@@ -40,4 +40,4 @@ This file demonstrates how to:
 
 ### `widget_test.dart`
 
-This file demonstrates how to construct tests using `MockClient`.
+This library demonstrates how to construct tests using `MockClient`.
