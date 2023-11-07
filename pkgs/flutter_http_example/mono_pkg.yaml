@@ -1,0 +1,14 @@
+sdk:
+  - stable
+
+stages:
+  - analyze_and_format:
+    - analyze: --fatal-infos
+    - format:
+  - unit_test:
+    - test:
+      os:
+      - macos
+      - windows
+    - test: --platform chrome
+    - command: flutter test

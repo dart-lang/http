@@ -43,6 +43,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Book>? _books;
+  String? _lastQuery;
 
   @override
   void initState() {
@@ -65,6 +66,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _runSearch(String query) async {
+    _lastQuery = query;
     if (query.isEmpty) {
       setState(() {
         _books = null;
@@ -73,6 +75,9 @@ class _HomePageState extends State<HomePage> {
     }
 
     final books = await _findMatchingBooks(query);
+    // Avoid the situation where a slow-running query finishes late and
+    // replaces newer search results.
+    if (query != _lastQuery) return;
     setState(() {
       _books = books;
     });
@@ -127,7 +132,8 @@ class _BookListState extends State<BookList> {
             leading: CachedNetworkImage(
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
-                imageUrl: widget.books[index].imageUrl),
+                imageUrl:
+                    widget.books[index].imageUrl.replaceFirst('http', 'https')),
             title: Text(widget.books[index].title),
             subtitle: Text(widget.books[index].description),
           ),
