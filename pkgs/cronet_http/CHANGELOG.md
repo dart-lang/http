@@ -1,3 +1,7 @@
+## 0.4.2
+
+* Require `package:jni >= 0.7.2` to remove a potential buffer overflow.
+
 ## 0.4.1
  
 * Require `package:jni >= 0.7.1` so that depending on `package:cronet_http` 
