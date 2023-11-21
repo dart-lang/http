@@ -11,7 +11,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'request_body_streamed_server_vm.dart'
-    if (dart.library.html) 'request_body_streamed_server_web.dart';
+    if (dart.library.js_interop) 'request_body_streamed_server_web.dart';
 
 /// Tests that the [Client] correctly implements streamed request body
 /// uploading.
