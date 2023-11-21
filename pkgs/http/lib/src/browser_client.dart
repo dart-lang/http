@@ -26,8 +26,8 @@ BaseClient createClient() {
   return BrowserClient();
 }
 
-/// A `dart:html`-based HTTP client that runs in the browser and is backed by
-/// XMLHttpRequests.
+/// A `package:web`-based HTTP client that runs in the browser and is backed by
+/// [XMLHttpRequest].
 ///
 /// This client inherits some of the limitations of XMLHttpRequest. It ignores
 /// the [BaseRequest.contentLength], [BaseRequest.persistentConnection],

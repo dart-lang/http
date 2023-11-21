@@ -8,7 +8,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'request_headers_server_vm.dart'
-    if (dart.library.html) 'request_headers_server_web.dart';
+    if (dart.library.js_interop) 'request_headers_server_web.dart';
 
 /// Tests that the [Client] correctly sends headers in the request.
 void testRequestHeaders(Client client) async {
