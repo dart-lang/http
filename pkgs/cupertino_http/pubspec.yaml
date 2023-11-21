@@ -17,7 +17,7 @@ dependencies:
   http: '>=0.13.4 <2.0.0'
 
 dev_dependencies:
-  dart_flutter_team_lints: ^1.0.0
+  dart_flutter_team_lints: ^2.0.0
   ffigen: ^9.0.1
 
 flutter:

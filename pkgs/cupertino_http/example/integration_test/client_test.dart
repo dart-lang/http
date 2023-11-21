@@ -45,7 +45,7 @@ void testClient(Client client) {
       }
       final request = StreamedRequest('POST', uri);
       request.sink.add(data);
-      request.sink.close();
+      await request.sink.close();
       await client.send(request);
       expect(serverHash, sha1.convert(data).bytes);
     });
