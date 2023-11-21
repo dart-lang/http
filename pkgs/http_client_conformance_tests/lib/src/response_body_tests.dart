@@ -8,7 +8,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'response_body_server_vm.dart'
-    if (dart.library.html) 'response_body_server_web.dart';
+    if (dart.library.js_interop) 'response_body_server_web.dart';
 
 /// Tests that the [Client] correctly implements HTTP responses with bodies.
 ///

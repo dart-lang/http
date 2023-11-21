@@ -8,7 +8,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'server_errors_server_vm.dart'
-    if (dart.library.html) 'server_errors_server_web.dart';
+    if (dart.library.js_interop) 'server_errors_server_web.dart';
 
 /// Tests that the [Client] correctly handles server errors.
 void testServerErrors(Client client, {bool redirectAlwaysAllowed = false}) {
