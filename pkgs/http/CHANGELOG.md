@@ -3,6 +3,8 @@
 * `BrowserClient` throws `ClientException` when the `'Content-Length'` header
   is invalid.
 * `IOClient` trims trailing whitespace on header values.
+* Require Dart 3.2
+* Browser: support Wasm by using `package:web`.
 
 ## 1.1.0
 
