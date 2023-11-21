@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:js_interop';
-import 'dart:typed_data';
 
 import 'package:web/helpers.dart';
 
@@ -79,7 +78,7 @@ class BrowserClient extends BaseClient {
         ));
         return;
       }
-      var body = (xhr.response as ByteBuffer).asUint8List();
+      var body = (xhr.response as JSArrayBuffer).toDart.asUint8List();
       completer.complete(StreamedResponse(
           ByteStream.fromBytes(body), xhr.status,
           contentLength: body.length,
