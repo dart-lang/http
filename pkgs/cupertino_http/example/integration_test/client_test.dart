@@ -35,8 +35,7 @@ void testClient(Client client) {
       server.close();
     });
 
-    test('large single item stream', timeout: const Timeout.factor(2),
-        () async {
+    test('large single item stream', () async {
       // This tests that `CUPHTTPStreamToNSInputStreamAdapter` correctly
       // handles calls to `read:maxLength:` where the maximum length
       // is smaller than the amount of data in the buffer.
