@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 import 'book.dart';
 import 'http_client_factory.dart'
-    if (dart.library.html) 'http_client_factory_web.dart' as http_factory;
+    if (dart.library.js_interop) 'http_client_factory_web.dart' as http_factory;
 
 void main() {
   // `runWithClient` is used to control which `package:http` `Client` is used
