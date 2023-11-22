@@ -17,11 +17,11 @@ dependencies:
   fetch_client: ^1.0.2
   flutter:
     sdk: flutter
-  http: ^0.13.5
+  http: ^1.0.0
   provider: ^6.0.5
 
 dev_dependencies:
-  dart_flutter_team_lints: ^1.0.0
+  dart_flutter_team_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   integration_test:

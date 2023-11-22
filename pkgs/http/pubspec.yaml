@@ -1,5 +1,5 @@
 name: http
-version: 1.1.1
+version: 1.1.2-wip
 description: A composable, multi-platform, Future-based API for HTTP requests.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http
 
@@ -13,7 +13,7 @@ dependencies:
   web: ^0.4.0
 
 dev_dependencies:
-  dart_flutter_team_lints: ^1.0.0
+  dart_flutter_team_lints: ^2.0.0
   fake_async: ^1.2.0
   http_client_conformance_tests:
     path: ../http_client_conformance_tests/

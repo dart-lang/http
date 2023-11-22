@@ -16,12 +16,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  http: ^0.13.5
+  http: ^1.0.0
 
 dev_dependencies:
   convert: ^3.1.1
   crypto: ^3.0.3
-  dart_flutter_team_lints: ^1.0.0
+  dart_flutter_team_lints: ^2.0.0
   ffi: ^2.0.1
   flutter_test:
     sdk: flutter

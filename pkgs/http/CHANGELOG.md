@@ -1,3 +1,5 @@
+## 1.1.2-wip
+
 ## 1.1.1
 
 * `BrowserClient` throws `ClientException` when the `'Content-Length'` header
