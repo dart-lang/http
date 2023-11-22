@@ -83,7 +83,7 @@ class _CompleterSink implements WebSocketSink {
   }
 
   @override
-  void add(event) {
+  void add(Object? event) {
     if (_canSendDirectly) {
       _destinationSink!.add(event);
     } else {

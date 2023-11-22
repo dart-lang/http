@@ -3,6 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
+library;
+
 import 'dart:async';
 import 'dart:io';
 
@@ -106,7 +108,7 @@ void main() {
     server.transform(WebSocketTransformer()).listen((WebSocket webSocket) {
       expect(() async {
         final channel = IOWebSocketChannel(webSocket);
-        await channel.stream.drain();
+        await channel.stream.drain<void>();
         expect(channel.closeCode, equals(5678));
         expect(channel.closeReason, equals('raisin'));
       }(), completes);
@@ -130,7 +132,8 @@ void main() {
 
     final channel = IOWebSocketChannel.connect('ws://localhost:${server.port}');
     expect(channel.ready, throwsA(isA<WebSocketException>()));
-    expect(channel.stream.drain(), throwsA(isA<WebSocketChannelException>()));
+    expect(channel.stream.drain<void>(),
+        throwsA(isA<WebSocketChannelException>()));
   });
 
   test('.protocols fail', () async {
@@ -153,7 +156,7 @@ void main() {
     );
     expect(channel.ready, throwsA(isA<WebSocketException>()));
     expect(
-      channel.stream.drain(),
+      channel.stream.drain<void>(),
       throwsA(isA<WebSocketChannelException>()),
     );
   });
@@ -178,7 +181,7 @@ void main() {
 
     expect(channel.ready, completes);
 
-    await channel.stream.drain();
+    await channel.stream.drain<void>();
     expect(channel.protocol, passedProtocol);
   });
 
@@ -188,7 +191,7 @@ void main() {
     server.transform(WebSocketTransformer()).listen((webSocket) {
       expect(() async {
         final channel = IOWebSocketChannel(webSocket);
-        await channel.stream.drain();
+        await channel.stream.drain<void>();
         expect(channel.closeCode, equals(5678));
         expect(channel.closeReason, equals('raisin'));
       }(), completes);
@@ -218,7 +221,7 @@ void main() {
         .transform(WebSocketTransformer())
         .listen((webSocket) {
           final channel = IOWebSocketChannel(webSocket);
-          channel.stream.drain();
+          channel.stream.drain<void>();
         });
 
     final channel = IOWebSocketChannel.connect(
@@ -227,7 +230,8 @@ void main() {
     );
 
     expect(channel.ready, throwsA(isA<TimeoutException>()));
-    expect(channel.stream.drain(), throwsA(isA<WebSocketChannelException>()));
+    expect(channel.stream.drain<void>(),
+        throwsA(isA<WebSocketChannelException>()));
   });
 
   test('.custom client is passed through', () async {

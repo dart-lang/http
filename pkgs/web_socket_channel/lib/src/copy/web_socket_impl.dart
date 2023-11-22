@@ -408,7 +408,7 @@ class _WebSocketOutgoingTransformer
       });
 
   @override
-  void add(message) {
+  void add(Object? message) {
     if (message is _WebSocketPong) {
       addFrame(_WebSocketOpcode.PONG, message.payload);
       return;
@@ -619,7 +619,7 @@ class _WebSocketConsumer implements StreamConsumer {
     sink.addStream(stream).then((_) {
       _done();
       _closeCompleter.complete(webSocket);
-    }, onError: (error, StackTrace stackTrace) {
+    }, onError: (Object error, StackTrace stackTrace) {
       _closed = true;
       _cancel();
       if (error is ArgumentError) {
@@ -645,7 +645,7 @@ class _WebSocketConsumer implements StreamConsumer {
   }
 
   @override
-  Future addStream(var stream) {
+  Future addStream(Stream stream) {
     if (_closed) {
       stream.listen(null).cancel();
       return Future.value(webSocket);
@@ -672,7 +672,7 @@ class _WebSocketConsumer implements StreamConsumer {
     return _closeCompleter.future.then((_) => closeSocket());
   }
 
-  void add(data) {
+  void add(Object? data) {
     if (_closed) return;
     _ensureController();
     _controller!.add(data);
@@ -729,7 +729,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
       } else {
         _controller.add(data);
       }
-    }, onError: (error, stackTrace) {
+    }, onError: (Object error) {
       if (_closeTimer != null) _closeTimer!.cancel();
       if (error is FormatException) {
         _close(WebSocketStatus.INVALID_FRAME_PAYLOAD_DATA);
@@ -804,7 +804,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
   String? get closeReason => _closeReason;
 
   @override
-  void add(data) {
+  void add(Object? data) {
     _sink.add(data);
   }
 
@@ -835,7 +835,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
       //   2) set a timer terminate the connection if a close frame is
       //      not received.
       if (!_controller.hasListener && _subscription != null) {
-        _controller.stream.drain().catchError((_) => {});
+        _controller.stream.drain<void>().catchError((_) => <String, dynamic>{});
       }
       // When closing the web-socket, we no longer accept data.
       _closeTimer ??= Timer(const Duration(seconds: 5), () {
@@ -881,7 +881,7 @@ class WebSocketImpl extends Stream with _ServiceObject implements StreamSink {
 int _nextServiceId = 1;
 
 // TODO(ajohnsen): Use other way of getting a uniq id.
-abstract class _ServiceObject {
+mixin class _ServiceObject {
   int __serviceId = 0;
 
   int get _serviceId {

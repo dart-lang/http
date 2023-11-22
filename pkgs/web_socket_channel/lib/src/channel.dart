@@ -11,7 +11,7 @@ import 'package:stream_channel/stream_channel.dart';
 
 import '_connect_api.dart'
     if (dart.library.io) '_connect_io.dart'
-    if (dart.library.html) '_connect_html.dart' as platform;
+    if (dart.library.js_interop) '_connect_html.dart' as platform;
 import 'copy/web_socket_impl.dart';
 import 'exception.dart';
 
@@ -151,9 +151,7 @@ class WebSocketChannel extends StreamChannelMixin {
 class WebSocketSink extends DelegatingStreamSink {
   final WebSocketImpl _webSocket;
 
-  WebSocketSink._(WebSocketImpl webSocket)
-      : _webSocket = webSocket,
-        super(webSocket);
+  WebSocketSink._(WebSocketImpl super.webSocket) : _webSocket = webSocket;
 
   /// Closes the web socket connection.
   ///

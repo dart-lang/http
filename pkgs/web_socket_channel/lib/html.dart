@@ -55,7 +55,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   Stream get stream => _controller.foreign.stream;
 
   final _controller =
-      StreamChannelController(sync: true, allowForeignErrors: false);
+      StreamChannelController<Object?>(sync: true, allowForeignErrors: false);
 
   @override
   late final WebSocketSink sink = _HtmlWebSocketSink(this);
@@ -71,7 +71,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// received by this socket. It defaults to [BinaryType.list], which causes
   /// binary messages to be delivered as [Uint8List]s. If it's
   /// [BinaryType.blob], they're delivered as [Blob]s instead.
-  HtmlWebSocketChannel.connect(url,
+  HtmlWebSocketChannel.connect(Object url,
       {Iterable<String>? protocols, BinaryType? binaryType})
       : this(WebSocket(url.toString(), protocols)
           ..binaryType = (binaryType ?? BinaryType.list).value);
@@ -102,7 +102,9 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       // Unfortunately, the underlying WebSocket API doesn't expose any
       // specific information about the error itself.
       final error = WebSocketChannelException('WebSocket connection failed.');
-      _readyCompleter.completeError(error);
+      if (!_readyCompleter.isCompleted) {
+        _readyCompleter.completeError(error);
+      }
       _controller.local.sink.addError(error);
       _controller.local.sink.close();
     });

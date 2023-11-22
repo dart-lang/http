@@ -3,12 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 @TestOn('vm')
+library;
 
 import 'dart:io';
 
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
-
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() {
@@ -51,7 +51,7 @@ void main() {
           fail('Only expected two messages.');
         }
         n++;
-      }).asFuture();
+      }).asFuture<void>();
     });
 
     test('a server can communicate with a WebSocket client', () async {
@@ -94,7 +94,7 @@ void main() {
           fail('Only expected two messages.');
         }
         n++;
-      }).asFuture();
+      }).asFuture<void>();
     });
   });
 }

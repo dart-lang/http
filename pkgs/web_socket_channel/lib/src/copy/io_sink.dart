@@ -36,7 +36,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
   }
 
   @override
-  void addError(error, [StackTrace? stackTrace]) {
+  void addError(Object error, [StackTrace? stackTrace]) {
     if (_isClosed) {
       return;
     }
@@ -101,7 +101,7 @@ class StreamSinkImpl<T> implements StreamSink<T> {
   @override
   Future get done => _doneCompleter.future;
 
-  void _completeDoneValue(value) {
+  void _completeDoneValue(Object? value) {
     if (!_doneCompleter.isCompleted) {
       _doneCompleter.complete(value);
     }

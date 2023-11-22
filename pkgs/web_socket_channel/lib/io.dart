@@ -105,7 +105,7 @@ class IOWebSocketChannel extends StreamChannelMixin
   IOWebSocketChannel(WebSocket socket)
       : _webSocket = socket,
         stream = socket.handleError(
-            (error) => throw WebSocketChannelException.from(error)),
+            (Object? error) => throw WebSocketChannelException.from(error)),
         sink = _IOWebSocketSink(socket),
         _readyCompleter = Completer()..complete();
 
@@ -116,7 +116,7 @@ class IOWebSocketChannel extends StreamChannelMixin
   IOWebSocketChannel._withoutSocket(Stream stream, this.sink)
       : _webSocket = null,
         stream = stream.handleError(
-            (error) => throw WebSocketChannelException.from(error)),
+            (Object? error) => throw WebSocketChannelException.from(error)),
         _readyCompleter = Completer();
 }
 
@@ -125,9 +125,7 @@ class _IOWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
   /// The underlying socket.
   final WebSocket _webSocket;
 
-  _IOWebSocketSink(WebSocket webSocket)
-      : _webSocket = webSocket,
-        super(webSocket);
+  _IOWebSocketSink(WebSocket super.webSocket) : _webSocket = webSocket;
 
   @override
   Future close([int? closeCode, String? closeReason]) =>
