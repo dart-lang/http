@@ -3,14 +3,16 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:html';
+import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
+import 'package:web/helpers.dart';
 
 import 'src/channel.dart';
 import 'src/exception.dart';
+import 'src/web_helpers.dart';
 
 /// A [WebSocketChannel] that communicates using a `dart:html` [WebSocket].
 class HtmlWebSocketChannel extends StreamChannelMixin
@@ -73,8 +75,15 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// [BinaryType.blob], they're delivered as [Blob]s instead.
   HtmlWebSocketChannel.connect(Object url,
       {Iterable<String>? protocols, BinaryType? binaryType})
-      : this(WebSocket(url.toString(), protocols)
-          ..binaryType = (binaryType ?? BinaryType.list).value);
+      : this(
+          WebSocket(
+            url.toString(),
+            (protocols?.toList() ?? const <String>[])
+                .map((e) => e.toJS)
+                .toList()
+                .toJS,
+          )..binaryType = (binaryType ?? BinaryType.list).value,
+        );
 
   /// Creates a channel wrapping [innerWebSocket].
   HtmlWebSocketChannel(this.innerWebSocket) {
@@ -109,11 +118,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       _controller.local.sink.close();
     });
 
-    innerWebSocket.onMessage.listen((event) {
-      var data = event.data;
-      if (data is ByteBuffer) data = data.asUint8List();
-      _controller.local.sink.add(data);
-    });
+    innerWebSocket.onMessage.listen(_innerListen);
 
     // The socket API guarantees that only a single error event will be emitted,
     // and that once it is no other events will be emitted.
@@ -124,16 +129,29 @@ class HtmlWebSocketChannel extends StreamChannelMixin
     });
   }
 
+  void _innerListen(MessageEvent event) {
+    final eventData = event.data;
+    Object? data;
+    if (eventData.typeofEquals('object') &&
+        (eventData as JSObject).instanceOfString('ArrayBuffer')) {
+      data = (eventData as JSArrayBuffer).toDart.asUint8List();
+    } else {
+      data = event.data;
+    }
+    _controller.local.sink.add(data);
+  }
+
   /// Pipes user events to [innerWebSocket].
   void _listen() {
-    _controller.local.stream.listen(innerWebSocket.send, onDone: () {
+    _controller.local.stream.listen((obj) => innerWebSocket.send(obj!.jsify()!),
+        onDone: () {
       // On Chrome and possibly other browsers, `null` can't be passed as the
       // default here. The actual arity of the function call must be correct or
       // it will fail.
       if (_localCloseCode != null && _localCloseReason != null) {
-        innerWebSocket.close(_localCloseCode, _localCloseReason);
+        innerWebSocket.close(_localCloseCode!, _localCloseReason!);
       } else if (_localCloseCode != null) {
-        innerWebSocket.close(_localCloseCode);
+        innerWebSocket.close(_localCloseCode!);
       } else {
         innerWebSocket.close();
       }

@@ -1,10 +1,11 @@
 ## 2.4.1-wip
 
-- Bump minimum Dart version to 3.2.0
 - Update the examples to use `WebSocketChannel.ready` and clarify that
   `WebSocketChannel.ready` should be awaited before sending data over the
   `WebSocketChannel`.
 - Mention `ready` in the docs for `connect`.
+- Bump minimum Dart version to 3.2.0
+- Move to `pkg:web` to support WebAssembly compilation.
 
 ## 2.4.0
 

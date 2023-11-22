@@ -6,12 +6,14 @@
 library;
 
 import 'dart:async';
-import 'dart:html';
+import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:test/test.dart';
+import 'package:web/helpers.dart' hide BinaryType;
 import 'package:web_socket_channel/html.dart';
+import 'package:web_socket_channel/src/web_helpers.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() {
@@ -176,6 +178,6 @@ void main() {
 Future<List<int>> _decodeBlob(Blob blob) async {
   final reader = FileReader();
   reader.readAsArrayBuffer(blob);
-  await reader.onLoad.first;
-  return reader.result as Uint8List;
+  await reader.onLoadEnd.first;
+  return (reader.result as JSArrayBuffer).toDart.asUint8List();
 }
