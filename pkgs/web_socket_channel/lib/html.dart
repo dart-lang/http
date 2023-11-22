@@ -78,10 +78,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       : this(
           WebSocket(
             url.toString(),
-            (protocols?.toList() ?? const <String>[])
-                .map((e) => e.toJS)
-                .toList()
-                .toJS,
+            protocols?.map((e) => e.toJS).toList().toJS ?? JSArray(),
           )..binaryType = (binaryType ?? BinaryType.list).value,
         );
 
