@@ -145,10 +145,11 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       // On Chrome and possibly other browsers, `null` can't be passed as the
       // default here. The actual arity of the function call must be correct or
       // it will fail.
-      if (_localCloseCode != null && _localCloseReason != null) {
-        innerWebSocket.close(_localCloseCode!, _localCloseReason!);
-      } else if (_localCloseCode != null) {
-        innerWebSocket.close(_localCloseCode!);
+      if ((_localCloseCode, _localCloseReason)
+          case (final closeCode?, final closeReason?)) {
+        innerWebSocket.close(closeCode, closeReason);
+      } else if (_localCloseCode case final closeCode?) {
+        innerWebSocket.close(closeCode);
       } else {
         innerWebSocket.close();
       }
