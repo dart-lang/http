@@ -2,9 +2,11 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cronet_http/cronet_http.dart';
+import 'package:http/http.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
@@ -88,6 +90,49 @@ void testInvalidConfigurations() {
               cacheMaxSize: 1024 * 1024,
               storagePath: '/a/b/c/d'),
           throwsArgumentError);
+    });
+  });
+}
+
+void testMethods() {
+  group('methods', () {
+    late HttpServer server;
+    late String requestMethod;
+
+    setUp(() async {
+      server = (await HttpServer.bind('localhost', 0))
+        ..listen((request) async {
+          await request.drain<void>();
+          requestMethod = request.method;
+          await request.response.close();
+        });
+    });
+    tearDown(() {
+      server.close();
+    });
+
+    test('methods', () async {
+      final engine = CronetEngine.build();
+      const methods = [
+        'GET',
+        'HEAD',
+        'POST',
+        'PUT',
+        'DELETE',
+        'CONNECT',
+        'OPTIONS',
+        'TRACE',
+        'PATCH',
+        'CUSTOM',
+      ];
+      for (final method in methods) {
+        final request = Request(
+          method,
+          Uri.parse('http://localhost:${server.port}'),
+        );
+        await CronetClient.fromCronetEngine(engine).send(request);
+        expect(requestMethod, method);
+      }
     });
   });
 }
