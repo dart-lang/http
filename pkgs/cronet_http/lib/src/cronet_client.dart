@@ -312,12 +312,14 @@ class CronetClient extends BaseClient {
     final responseCompleter = Completer<StreamedResponse>();
     final engine = _engine!._engine;
 
-    final builder = engine.newUrlRequestBuilder(
-      request.url.toString().toJString(),
-      jb.UrlRequestCallbackProxy.new1(
-          _urlRequestCallbacks(request, responseCompleter)),
-      _executor,
-    ).setHttpMethod(request.method.toJString());
+    final builder = engine
+        .newUrlRequestBuilder(
+          request.url.toString().toJString(),
+          jb.UrlRequestCallbackProxy.new1(
+              _urlRequestCallbacks(request, responseCompleter)),
+          _executor,
+        )
+        .setHttpMethod(request.method.toJString());
 
     var headers = request.headers;
     if (body.isNotEmpty &&
