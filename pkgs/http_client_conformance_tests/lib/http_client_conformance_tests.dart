@@ -12,6 +12,7 @@ import 'src/redirect_tests.dart';
 import 'src/request_body_streamed_tests.dart';
 import 'src/request_body_tests.dart';
 import 'src/request_headers_tests.dart';
+import 'src/request_methods_tests.dart';
 import 'src/response_body_streamed_test.dart';
 import 'src/response_body_tests.dart';
 import 'src/response_headers_tests.dart';
@@ -27,6 +28,7 @@ export 'src/redirect_tests.dart' show testRedirect;
 export 'src/request_body_streamed_tests.dart' show testRequestBodyStreamed;
 export 'src/request_body_tests.dart' show testRequestBody;
 export 'src/request_headers_tests.dart' show testRequestHeaders;
+export 'src/request_methods_tests.dart' show testRequestMethods;
 export 'src/response_body_streamed_test.dart' show testResponseBodyStreamed;
 export 'src/response_body_tests.dart' show testResponseBody;
 export 'src/response_headers_tests.dart' show testResponseHeaders;
@@ -65,6 +67,7 @@ void testAll(Client Function() clientFactory,
   testResponseBodyStreamed(clientFactory(),
       canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(clientFactory());
+  testRequestMethods(clientFactory());
   testResponseHeaders(clientFactory());
   testResponseStatusLine(clientFactory());
   testRedirect(clientFactory(), redirectAlwaysAllowed: redirectAlwaysAllowed);
