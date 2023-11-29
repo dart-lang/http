@@ -317,7 +317,7 @@ class CronetClient extends BaseClient {
       jb.UrlRequestCallbackProxy.new1(
           _urlRequestCallbacks(request, responseCompleter)),
       _executor,
-    );
+    )..setHttpMethod(request.method.toJString());
 
     var headers = request.headers;
     if (body.isNotEmpty &&

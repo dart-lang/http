@@ -1,8 +1,7 @@
-## 0.4.3-wip
-
 ## 0.4.2
 
 * Require `package:jni >= 0.7.2` to remove a potential buffer overflow.
+* Fix a bug where incorrect HTTP request methods were sent.
 
 ## 0.4.1
  
