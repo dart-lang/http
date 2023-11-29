@@ -12,7 +12,11 @@ import 'request_methods_server_vm.dart'
 
 /// Tests that the [Client] correctly sends HTTP request methods
 /// (e.g. GET, HEAD).
-void testRequestMethods(Client client) async {
+///
+/// If [preservesMethodCase] is `false` then tests that assume that the
+/// [Client] preserves custom request method casing will be skipped.
+void testRequestMethods(Client client,
+    {bool preservesMethodCase = true}) async {
   group('request methods', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
@@ -25,14 +29,26 @@ void testRequestMethods(Client client) async {
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 
-    test('custom method', () async {
+    test('custom method - not case preserving', () async {
       await client.send(Request(
-        'CUSTOM',
+        'CuStOm',
         Uri.http(host, ''),
       ));
       final method = await httpServerQueue.next as String;
-      expect('CUSTOM', method);
+      expect('CUSTOM', method.toUpperCase());
     });
+
+    test('custom method case preserving', () async {
+      await client.send(Request(
+        'CuStOm',
+        Uri.http(host, ''),
+      ));
+      final method = await httpServerQueue.next as String;
+      expect('CuStOm', method);
+    },
+        skip: preservesMethodCase
+            ? false
+            : 'does not preserve HTTP request method case');
 
     test('delete', () async {
       await client.delete(Uri.http(host, ''));
