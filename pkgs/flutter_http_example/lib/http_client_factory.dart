@@ -8,12 +8,20 @@ import 'package:cronet_http/cronet_http.dart';
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:http/http.dart';
 
+const maxCacheSize = 2 * 1024 * 1024;
+
 Client httpClient() {
   if (Platform.isAndroid) {
-    return CronetClient.defaultCronetEngine();
+    final engine = CronetEngine.build(
+        cacheMode: CacheMode.memory,
+        cacheMaxSize: maxCacheSize,
+        userAgent: 'Book Agent');
+    return CronetClient.fromCronetEngine(engine);
   }
   if (Platform.isIOS || Platform.isMacOS) {
-    return CupertinoClient.defaultSessionConfiguration();
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+      ..cache = URLCache.withCapacity(memoryCapacity: maxCacheSize);
+    return CupertinoClient.fromSessionConfiguration(config);
   }
   return Client(); // Return the default client.
 }
