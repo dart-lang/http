@@ -8,6 +8,8 @@ import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
+/// Make a HTTP request using the given configuration and return the headers
+/// received by the server.
 Future<Map<String, List<String>>> sentHeaders(
     URLSessionConfiguration config) async {
   final session = URLSession.sessionWithConfiguration(config);
