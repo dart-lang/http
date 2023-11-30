@@ -100,3 +100,15 @@ and increases the delay by 1.5x each time. All of this can be customized using
 the [`RetryClient()`][new RetryClient] constructor.
 
 [new RetryClient]: https://pub.dev/documentation/http/latest/retry/RetryClient/RetryClient.html
+
+## Response Headers
+
+The Dart HTTP client by default allows only the CORS-safelisted response headers:
+https://developer.mozilla.org/en-US/docs/Glossary/CORS-safelisted_response_header
+
+To allow the Dart HTTP responses to have ALL the headers make set Access-Control-Expose-Headers on the server side.
+
+See also:
+
+- https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers
+- https://github.com/dart-lang/http/issues/726
