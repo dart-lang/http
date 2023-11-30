@@ -15,6 +15,10 @@ import 'book.dart';
 void main() {
   var clientFactory = Client.new; // The default Client.
   if (Platform.isIOS || Platform.isMacOS) {
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+      ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
+      ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
+    clientFactory = () => CupertinoClient.fromSessionConfiguration(config);
     clientFactory = CupertinoClient.defaultSessionConfiguration.call;
   }
   runWithClient(() => runApp(const BookSearchApp()), clientFactory);

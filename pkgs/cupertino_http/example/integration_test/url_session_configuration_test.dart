@@ -2,9 +2,36 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:io';
+
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
+
+Future<Map<String, List<String>>> sentHeaders(
+    URLSessionConfiguration config) async {
+  final session = URLSession.sessionWithConfiguration(config);
+  final headers = <String, List<String>>{};
+  final server = (await HttpServer.bind('localhost', 0))
+    ..listen((request) async {
+      request.headers.forEach((k, v) => headers[k] = v);
+      await request.drain<void>();
+      request.response.headers.set('Content-Type', 'text/plain');
+      request.response.write('Hello World');
+      await request.response.close();
+    });
+
+  final task = session.dataTaskWithRequest(
+      URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+    ..resume();
+  while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+    // Let the event loop run.
+    await Future<void>.delayed(const Duration());
+  }
+
+  await server.close();
+  return headers;
+}
 
 void testProperties(URLSessionConfiguration config) {
   group('properties', () {
@@ -31,6 +58,22 @@ void testProperties(URLSessionConfiguration config) {
       expect(config.discretionary, true);
       config.discretionary = false;
       expect(config.discretionary, false);
+    });
+    test('httpAdditionalHeaders', () async {
+      expect(config.httpAdditionalHeaders, isNull);
+
+      config.httpAdditionalHeaders = {
+        'User-Agent': 'My Client',
+        'MyHeader': 'myvalue'
+      };
+      expect(config.httpAdditionalHeaders,
+          {'User-Agent': 'My Client', 'MyHeader': 'myvalue'});
+      final headers = await sentHeaders(config);
+      expect(headers, containsPair('user-agent', ['My Client']));
+      expect(headers, containsPair('myheader', ['myvalue']));
+
+      config.httpAdditionalHeaders = null;
+      expect(config.httpAdditionalHeaders, isNull);
     });
     test('httpCookieAcceptPolicy', () {
       config.httpCookieAcceptPolicy =
