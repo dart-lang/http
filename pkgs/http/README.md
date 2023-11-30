@@ -9,6 +9,11 @@ and the browser.
 
 ## Using
 
+> [!TIP]
+> The Dart [Fetch data from the internet](https://dart.dev/tutorials/server/fetch-data) and Flutter
+> [Networking Cookbook](https://docs.flutter.dev/data-and-backend/networking) have more detailed
+> examples.
+
 The easiest way to use this library is via the top-level functions. They allow
 you to make individual HTTP requests with minimal hassle:
 
@@ -101,7 +106,7 @@ the [`RetryClient()`][new RetryClient] constructor.
 
 [new RetryClient]: https://pub.dev/documentation/http/latest/retry/RetryClient/RetryClient.html
 
-## Chosing an implementation
+## Choosing an implementation
 
 There are multiple implementations of the `package:http` `Client` interface.
 You can chose which implementation to use based on the needs of your
@@ -110,13 +115,13 @@ code, except for a few lines of [configuration]().
 
 Some well supported implementations are:
 
-| Implementation | Supported Platforms | Supports Caching | Supports HTTP3/QUIC | Platform Native |
-| -------------- | ------------------- | ---------------- | ------------------- | --------------- |
-| `package:http` — [`IOClient`][ioclient] | Android, iOS, Linux, macOS, Windows | ❌ | ❌ | ❌ |
-| `package:http` — [`BrowserClient`][browserclient] | Web | ― | ✅︎ | ✅︎ |
-| [`package:cupertino_http`][cupertinohttp] — [`CupertinoClient`][cupertinoclient] | iOS, macOS | ✅︎ | ✅︎ | ✅︎ |
-| [`package:cronet_http`][cronethttp] — [`CronetClient`][cronetclient] | Android | ✅︎ | ✅︎ | ― |
-| [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient] | Web | ✅︎ | ✅︎ | ✅︎ |
+| Implementation | Supported Platforms | SDK | Caching | HTTP3/QUIC | Platform Native | 
+| -------------- | ------------------- | ----| ------- | ---------- | --------------- |
+| `package:http` — [`IOClient`][ioclient] | Android, iOS, Linux, macOS, Windows | Dart, Flutter | ❌ | ❌ | ❌ |
+| `package:http` — [`BrowserClient`][browserclient] | Web | Flutter | ― | ✅︎ | ✅︎ | Dart, Flutter |
+| [`package:cupertino_http`][cupertinohttp] — [`CupertinoClient`][cupertinoclient] | iOS, macOS | Flutter | ✅︎ | ✅︎ | ✅︎ |
+| [`package:cronet_http`][cronethttp] — [`CronetClient`][cronetclient] | Android | Flutter | ✅︎ | ✅︎ | ― |
+| [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient] | Web | Dart, Flutter | ✅︎ | ✅︎ | ✅︎ |
 
 
 [ioclient]: https://pub.dev/documentation/http/latest/io_client/IOClient-class.html
