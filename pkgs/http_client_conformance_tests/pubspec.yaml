@@ -2,8 +2,9 @@ name: http_client_conformance_tests
 description: >-
   A library that tests whether implementations of package:http's `Client` class
   behave as expected.
-publish_to: none
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http_client_conformance_tests
+
+publish_to: none
 
 environment:
   sdk: ^3.0.0

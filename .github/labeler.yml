@@ -1,6 +1,6 @@
-# Configuration for .github/workflows/pull_request_label.yml. 
+# Configuration for .github/workflows/pull_request_label.yml.
 
-'infra':
+'type-infra':
   - '.github/**'
 
 'package:cronet_http':
