@@ -10,8 +10,6 @@ linter:
   - avoid_classes_with_only_static_members
   - avoid_private_typedef_functions
   - avoid_redundant_argument_values
-  - avoid_returning_null
-  - avoid_returning_null_for_future
   - avoid_returning_this
   - avoid_unused_constructor_parameters
   - avoid_void_async
