@@ -19,7 +19,6 @@ void main() {
       ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
       ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
     clientFactory = () => CupertinoClient.fromSessionConfiguration(config);
-    clientFactory = CupertinoClient.defaultSessionConfiguration.call;
   }
   runWithClient(() => runApp(const BookSearchApp()), clientFactory);
 }
