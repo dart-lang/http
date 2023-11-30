@@ -1,9 +1,8 @@
 name: flutter_http_example
+version: 1.0.0
 description: Demonstrates how to use package:http in a Flutter app.
 
 publish_to: 'none'
-
-version: 1.0.0
 
 environment:
   sdk: ^3.0.0
