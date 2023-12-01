@@ -4,15 +4,10 @@
 A composable, Future-based library for making HTTP requests.
 
 This package contains a set of high-level functions and classes that make it
-easy to consume HTTP resources. It's multi-platform, and supports mobile, desktop,
-and the browser.
+easy to consume HTTP resources. It's multi-platform (mobile, desktop, and
+browser) and supports multiple implementations.
 
 ## Using
-
-> [!TIP]
-> The Dart [Fetch data from the internet](https://dart.dev/tutorials/server/fetch-data) and Flutter
-> [Networking Cookbook](https://docs.flutter.dev/data-and-backend/networking) have more detailed
-> examples.
 
 The easiest way to use this library is via the top-level functions. They allow
 you to make individual HTTP requests with minimal hassle:
@@ -27,6 +22,11 @@ print('Response body: ${response.body}');
 
 print(await http.read(Uri.https('example.com', 'foobar.txt')));
 ```
+
+> [!NOTE]
+> Flutter applications may require
+> [additional configuration](https://docs.flutter.dev/data-and-backend/networking#platform-notes)
+> to make HTTP requests.
 
 If you're making multiple requests to the same server, you can keep open a
 persistent connection by using a [Client][] rather than making one-off requests.
@@ -45,6 +45,11 @@ try {
   client.close();
 }
 ```
+
+> [!TIP]
+> For detailed background information and practical usage examples, see:
+> - [Dart Development: Fetch data from the internet](https://dart.dev/tutorials/server/fetch-data)
+> - [Flutter Cookbook: Fetch data from the internet](https://docs.flutter.dev/cookbook/networking/fetch-data)
 
 You can also exert more fine-grained control over your requests and responses by
 creating [Request][] or [StreamedRequest][] objects yourself and passing them to
@@ -108,10 +113,10 @@ the [`RetryClient()`][new RetryClient] constructor.
 
 ## Choosing an implementation
 
-There are multiple implementations of the `package:http` `Client` interface.
-You can chose which implementation to use based on the needs of your
-application. You can change implementations without changing your application
-code, except for a few lines of [configuration]().
+There are multiple implementations of the `package:http` [`Client`][client] interface. By default, `package:http` uses [`BrowserClient`][browserclient] on the web and [`IOClient`][ioclient] on all other platforms. You an choose a different [`Client`][client] implementation based on the needs of your application.
+
+You can change implementations without changing your application code, except
+for a few lines of [configuration]().
 
 Some well supported implementations are:
 
@@ -123,7 +128,88 @@ Some well supported implementations are:
 | [`package:cronet_http`][cronethttp] — [`CronetClient`][cronetclient] | Android | Flutter | ✅︎ | ✅︎ | ― |
 | [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient] | Web | Dart, Flutter | ✅︎ | ✅︎ | ✅︎ |
 
+> [!TIP]
+> If you are writing a Dart package or Flutter pluggin that uses
+> `package:http`, you should not depend on a particular [`Client`][client]
+> implementation. Let the application author decide what implementation is
+> best for their project. You can make that easier by accepting an explicit
+> [`Client`][client] argument. For example:
+>
+> ```dart
+> Future<Album> fetchAlbum({Client? client}) async {
+>   client ??= Client();
+>   ...
+> }
+> ```
 
+## Configuration
+
+To use a HTTP client implementation other than the default, you must:
+1. Add the HTTP client as a dependency.
+2. Configure the HTTP client.
+3. Connect it to the code that uses it.
+
+### 1. Add the HTTP client as a dependency.
+
+To add a package compatible with the Dart SDK to your project, use `dart pub add`.
+
+For example:
+
+```terminal
+# Replace  "fetch_client" with the package that you want to use.
+dart pub add fetch_client
+```
+
+To add a package that requires the Flutter SDK, use `flutter pub add`.
+
+For example:
+
+```terminal
+# Replace  "cupertino_http" with the package that you want to use.
+flutter pub add cupertino_http
+```
+
+### 2. Configure the HTTP client.
+
+Different `package:http` [`Client`][client] implementations may require
+different configuration options.
+
+Add a function that returns a correctly configured [`Client`][client]. You can
+return a different [`Client`][client] on different platforms.
+
+For example:
+
+```dart
+Client httpClient() {
+  if (Platform.isIOS || Platform.isMacOS) {
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+      ..cache = URLCache.withCapacity(memoryCapacity: 1000000);
+    return CupertinoClient.fromSessionConfiguration(config);
+  }
+  return Client(); // Return the default client for all other platforms.
+}
+```
+
+
+
+`runWithClient`
+import 'package:provider/provider.dart';
+
+
+
+https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
+
+
+For example:
+
+```terminal
+flutter pub add cupertino_http
+```
+
+https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
+
+
+[client]: https://pub.dev/documentation/http/latest/http/Client-class.html
 [ioclient]: https://pub.dev/documentation/http/latest/io_client/IOClient-class.html
 [browserclient]: https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html
 [cupertinohttp]: https://pub.dev/packages/cupertino_http
@@ -132,23 +218,3 @@ Some well supported implementations are:
 [cronetclient]: https://pub.dev/documentation/cronet_http/latest/cronet_http/CronetClient-class.html
 [fetch]: https://pub.dev/packages/fetch_client
 [fetchclient]: https://pub.dev/documentation/fetch_client/latest/fetch_client/FetchClient-class.html
-
-## Configuration
-
-```terminal
-flutter pub add http
-```
-
-
-```
-late Client client;
-if (Platform.isIOS) {
-  final config = URLSessionConfiguration.ephemeralSessionConfiguration()
-    ..allowsCellularAccess = false
-    ..allowsConstrainedNetworkAccess = false
-    ..allowsExpensiveNetworkAccess = false;
-  client = CupertinoClient.fromSessionConfiguration(config);
-} else {
-  client = IOClient(); // Uses an HTTP client based on dart:io
-}
-```
