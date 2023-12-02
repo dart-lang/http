@@ -20,7 +20,7 @@ void testServerErrors(Client client, {bool redirectAlwaysAllowed = false}) {
     setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 
