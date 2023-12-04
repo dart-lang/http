@@ -244,7 +244,7 @@ For example:
 
 ```dart
 void main() {
-  Client client = httpClient();
+  var client = httpClient();
   fetchAlbum(client, ...);
 }
 ```
