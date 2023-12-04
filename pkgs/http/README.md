@@ -255,7 +255,17 @@ In Flutter, you can use a one of many
 If you depend on code that uses top-level functions (e.g. `http.post`) or
 calls the [`Client()`][clientconstructor] constructor, then you can use
 [`runWithClient`](runwithclient) to ensure that the correct
-[`Client`][client] is used.
+`Client` is used.
+
+You can ensure that only the `Client` that you have explicitly configured is
+used by defining `no_default_http_client=true` in the environment. This will
+also allow the default `Client` implementation to be removed, resulting in
+a reduced application size.
+
+```terminal
+$ flutter build appbundle --dart-define=no_default_http_client=true ...
+$ dart compile exe --define=no_default_http_client=true ...
+```
 
 > [!TIP]
 > [The Flutter HTTP example application][flutterhttpexample] demonstrates
