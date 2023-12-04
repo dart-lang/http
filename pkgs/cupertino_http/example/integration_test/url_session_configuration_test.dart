@@ -23,12 +23,12 @@ Future<Map<String, List<String>>> sentHeaders(
       await request.response.close();
     });
 
-  final task = session.dataTaskWithRequest(
-      URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
+  final task = session.dataTaskWithRequest(URLRequest.fromUrl(
+      Uri(scheme: 'http', host: 'localhost', port: server.port)))
     ..resume();
   while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
     // Let the event loop run.
-    await Future<void>.delayed(const Duration());
+    await pumpEventQueue();
   }
 
   await server.close();
