@@ -350,11 +350,11 @@ class URLSessionConfiguration
   ///
   /// See [NSURLSessionConfiguration.HTTPAdditionalHeaders](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411532-httpadditionalheaders)
   Map<String, String>? get httpAdditionalHeaders {
-    if (_nsObject.HTTPAdditionalHeaders == null) {
-      return null;
+    if (_nsObject.HTTPAdditionalHeaders case var additionalHeaders?) {
+      final headers = ncb.NSDictionary.castFrom(additionalHeaders);
+      return stringDictToMap(headers);
     }
-    final headers = ncb.NSDictionary.castFrom(_nsObject.HTTPAdditionalHeaders!);
-    return stringDictToMap(headers);
+    return null;
   }
 
   set httpAdditionalHeaders(Map<String, String>? headers) {
