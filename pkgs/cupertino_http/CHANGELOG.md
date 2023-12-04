@@ -1,4 +1,7 @@
-## 1.1.1-wip
+## 1.2.0-wip
+
+* Add support for setting additional http headers in
+  `URLSessionConfiguration`.
 
 ## 1.1.0
 
