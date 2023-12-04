@@ -244,13 +244,13 @@ For example:
 
 ```dart
 void main() {
-  var client = httpClient();
+  final client = httpClient();
   fetchAlbum(client, ...);
 }
 ```
 
-In Flutter, you can use [`package:provider`][provider] to make the correct
-[`Client`][client] availble to `State` objects.
+In Flutter, you can use a one of many
+[state mangement approaches][flutterstatemanagement].
 
 If you depend on code that uses top-level functions (e.g. `http.post`) or
 calls the [`Client()`][clientconstructor] constructor, then you can use
@@ -273,5 +273,6 @@ calls the [`Client()`][clientconstructor] constructor, then you can use
 [fetchclient]: https://pub.dev/documentation/fetch_client/latest/fetch_client/FetchClient-class.html
 [flutterhttpexample]: https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
 [ioclient]: https://pub.dev/documentation/http/latest/io_client/IOClient-class.html
+[flutterstatemanagement]: https://docs.flutter.dev/data-and-backend/state-mgmt/options
 [provider]: https://pub.dev/packages/provider
 [runwithclient]: https://pub.dev/documentation/http/latest/http/runWithClient.html
