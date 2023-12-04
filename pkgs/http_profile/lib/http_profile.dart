@@ -11,10 +11,8 @@ final class HttpProfileRequestEvent {
   final int _timestamp;
   final String _name;
 
-  /// [timestamp] should be the time at which the event occurred, as a
-  /// microsecond value on the monotonic clock used by the [Timeline].
-  HttpProfileRequestEvent({required int timestamp, required String name})
-      : _timestamp = timestamp,
+  HttpProfileRequestEvent({required DateTime timestamp, required String name})
+      : _timestamp = timestamp.microsecondsSinceEpoch,
         _name = name;
 
   Map<String, dynamic> _toJson() => <String, dynamic>{
@@ -30,9 +28,12 @@ final class HttpProfileProxyData {
   final bool? _isDirect;
   final int? _port;
 
-  HttpProfileProxyData(
-      {String? host, String? username, bool? isDirect, int? port})
-      : _host = host,
+  HttpProfileProxyData({
+    String? host,
+    String? username,
+    bool? isDirect,
+    int? port,
+  })  : _host = host,
         _username = username,
         _isDirect = isDirect,
         _port = port;
@@ -45,15 +46,48 @@ final class HttpProfileProxyData {
       };
 }
 
+/// Describes a redirect that an HTTP connection went through.
+class HttpProfileRedirectData {
+  int _statusCode;
+  String _method;
+  String _location;
+
+  HttpProfileRedirectData({
+    required int statusCode,
+    required String method,
+    required String location,
+  })  : _statusCode = statusCode,
+        _method = method,
+        _location = location;
+
+  Map<String, dynamic> _toJson() => <String, dynamic>{
+        'statusCode': _statusCode,
+        'method': _method,
+        'location': _location,
+      };
+}
+
 /// Describes details about an HTTP request.
 final class HttpProfileRequestData {
   final Map<String, dynamic> _data;
 
   final void Function() _updated;
 
-  /// The elements of [connectionInfo] can either be [String]s or [int]s.
+  /// Information about the networking connection used in the HTTP request.
+  ///
+  /// This information is meant to be used for debugging.
+  ///
+  /// It can contain any arbitrary data as long as the values are of type
+  /// [String] or [int]. For example:
+  /// { 'localPort': 1285, 'remotePort': 443, 'connectionPoolId': '21x23' }
   set connectionInfo(Map<String, dynamic /*String|int*/ > value) {
-    _data['connectionInfo'] = value;
+    for (final v in value.values) {
+      if (!(v is String || v is int)) {
+        throw ArgumentError(
+            "The values in connectionInfo must be of type String or int.");
+      }
+    }
+    _data['connectionInfo'] = {...value};
     _updated();
   }
 
@@ -64,30 +98,29 @@ final class HttpProfileRequestData {
   }
 
   /// The cookies presented to the server (in the 'cookie' header).
-  set cookies(List<String> value) {
-    _data['cookies'] = value;
+  set cookies(List<Cookie> value) {
+    _data['cookies'] = [for (final cookie in value) cookie.toString()];
     _updated();
   }
 
-  /// The error associated with the failed request.
+  /// The error associated with a failed request.
   set error(String value) {
     _data['error'] = value;
     _updated();
   }
 
-  /// Whether redirects were followed automatically.
+  /// Whether automatic redirect following was enabled for the request.
   set followRedirects(bool value) {
     _data['followRedirects'] = value;
     _updated();
   }
 
   set headers(Map<String, List<String>> value) {
-    _data['headers'] = value;
+    _data['headers'] = {...value};
     _updated();
   }
 
-  /// If [followRedirects] is true, this is the maximum number of redirects that
-  /// were followed.
+  /// The maximum number of redirects allowed during the request.
   set maxRedirects(int value) {
     _data['maxRedirects'] = value;
     _updated();
@@ -105,8 +138,10 @@ final class HttpProfileRequestData {
     _updated();
   }
 
-  HttpProfileRequestData._(
-      Map<String, dynamic> this._data, void Function() this._updated);
+  const HttpProfileRequestData._(
+    Map<String, dynamic> this._data,
+    void Function() this._updated,
+  );
 }
 
 /// Describes details about a response to an HTTP request.
@@ -115,27 +150,38 @@ final class HttpProfileResponseData {
 
   final void Function() _updated;
 
-  /// Records a redirect that the connection went through. The elements of
-  /// [redirect] can either be [String]s or [int]s.
-  void addRedirect(Map<String, dynamic /*String|int*/ > redirect) {
-    _data['redirects'].add(redirect);
+  /// Records a redirect that the connection went through.
+  void addRedirect(HttpProfileRedirectData redirect) {
+    _data['redirects'].add(redirect._toJson());
     _updated();
   }
 
   /// The cookies set by the server (from the 'set-cookie' header).
-  set cookies(List<String> value) {
-    _data['cookies'] = value;
+  set cookies(List<Cookie> value) {
+    _data['cookies'] = [for (final cookie in value) cookie.toString()];
     _updated();
   }
 
-  /// The elements of [connectionInfo] can either be [String]s or [int]s.
+  /// Information about the networking connection used in the HTTP response.
+  ///
+  /// This information is meant to be used for debugging.
+  ///
+  /// It can contain any arbitrary data as long as the values are of type
+  /// [String] or [int]. For example:
+  /// { 'localPort': 1285, 'remotePort': 443, 'connectionPoolId': '21x23' }
   set connectionInfo(Map<String, dynamic /*String|int*/ > value) {
-    _data['connectionInfo'] = value;
+    for (final v in value.values) {
+      if (!(v is String || v is int)) {
+        throw ArgumentError(
+            "The values in connectionInfo must be of type String or int.");
+      }
+    }
+    _data['connectionInfo'] = {...value};
     _updated();
   }
 
   set headers(Map<String, List<String>> value) {
-    _data['headers'] = value;
+    _data['headers'] = {...value};
     _updated();
   }
 
@@ -144,8 +190,8 @@ final class HttpProfileResponseData {
   // This specifies whether the response bytes were compressed when they were
   // received across the wire and whether callers will receive compressed or
   // uncompressed bytes when they listen to the response body byte stream.
-  set compressionState(String value) {
-    _data['compressionState'] = value;
+  set compressionState(HttpClientResponseCompressionState value) {
+    _data['compressionState'] = value.name;
     _updated();
   }
 
@@ -177,29 +223,29 @@ final class HttpProfileResponseData {
     _updated();
   }
 
-  /// The time at which the initial response was received, as a microsecond
-  /// value on the monotonic clock used by the [Timeline].
-  set startTime(int value) {
-    _data['startTime'] = value;
+  /// The time at which the initial response was received.
+  set startTime(DateTime value) {
+    _data['startTime'] = value.microsecondsSinceEpoch;
     _updated();
   }
 
-  /// The time at which the response was completed, as a microsecond value on
-  /// the monotonic clock used by the [Timeline]. Note that DevTools will not
+  /// The time at which the response was completed. Note that DevTools will not
   /// consider the request to be complete until [endTime] is non-null.
-  set endTime(int value) {
-    _data['endTime'] = value;
+  set endTime(DateTime value) {
+    _data['endTime'] = value.microsecondsSinceEpoch;
     _updated();
   }
 
-  /// The error associated with the failed request.
+  /// The error associated with a failed request.
   set error(String value) {
     _data['error'] = value;
     _updated();
   }
 
   HttpProfileResponseData._(
-      Map<String, dynamic> this._data, void Function() this._updated) {
+    Map<String, dynamic> this._data,
+    void Function() this._updated,
+  ) {
     _data['redirects'] = <Map<String, dynamic>>[];
   }
 }
@@ -242,29 +288,25 @@ final class HttpClientRequestProfile {
   /// Usage example:
   ///
   /// ```dart
-  /// profile.addEvent(HttpProfileRequestEvent(Timeline.now, "Connection Established");
-  /// profile.addEvent(HttpProfileRequestEvent(Timeline.now, "Remote Disconnected");
+  /// profile.addEvent(HttpProfileRequestEvent(DateTime.now(), "Connection Established");
+  /// profile.addEvent(HttpProfileRequestEvent(DateTime.now(), "Remote Disconnected");
   /// ```
   void addEvent(HttpProfileRequestEvent event) {
     _data['events'].add(event._toJson());
     _updated();
   }
 
-  /// The time at which the request was initiated, as a microsecond value on the
-  /// monotonic clock used by the [Timeline].
-  int? get requestStartTimestamp => _data['requestStartTimestamp'] as int?;
-  set requestStartTimestamp(int? value) {
-    _data['requestStartTimestamp'] = value;
+  /// The time at which the request was initiated.
+  set requestStartTimestamp(DateTime value) {
+    _data['requestStartTimestamp'] = value.microsecondsSinceEpoch;
     _updated();
   }
 
-  /// The time at which the request was completed, as a microsecond value on the
-  /// monotonic clock used by the [Timeline]. Note that DevTools will not
+  /// The time at which the request was completed. Note that DevTools will not
   /// consider the request to be complete until [requestEndTimestamp] is
   /// non-null.
-  int? get requestEndTimestamp => _data['requestEndTimestamp'] as int?;
-  set requestEndTimestamp(int? value) {
-    _data['requestEndTimestamp'] = value;
+  set requestEndTimestamp(DateTime value) {
+    _data['requestEndTimestamp'] = value.microsecondsSinceEpoch;
     _updated();
   }
 
