@@ -2,7 +2,7 @@
 
 import 'package:stream_channel/stream_channel.dart';
 
-import 'response_status_line_server.dart';
+import 'request_methods_server.dart';
 
 export 'server_queue_helpers.dart' show StreamQueueOfNullableObjectExtension;
 

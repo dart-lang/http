@@ -23,7 +23,7 @@ void testResponseStatusLine(Client client) async {
     setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
 
     test('complete', () async {

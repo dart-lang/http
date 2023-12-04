@@ -1,9 +1,10 @@
 name: http_profile
 description: >-
-  A library used by HTTP client authors to integrate with the DevTools
-  Network tab.
-publish_to: none
+  A library used by HTTP client authors to integrate with the DevTools Network
+  tab.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http_profile
+
+publish_to: none
 
 environment:
   sdk: ^3.0.0

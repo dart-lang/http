@@ -29,7 +29,7 @@ void testRequestBodyStreamed(Client client,
     setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
     tearDown(() => httpServerChannel.sink.add(null));
 
