@@ -27,7 +27,6 @@ Future<Map<String, List<String>>> sentHeaders(
       Uri(scheme: 'http', host: 'localhost', port: server.port)))
     ..resume();
   while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
-    // Let the event loop run.
     await pumpEventQueue();
   }
 
