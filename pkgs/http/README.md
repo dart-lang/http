@@ -50,6 +50,7 @@ try {
 > For detailed background information and practical usage examples, see:
 > - [Dart Development: Fetch data from the internet](https://dart.dev/tutorials/server/fetch-data)
 > - [Flutter Cookbook: Fetch data from the internet](https://docs.flutter.dev/cookbook/networking/fetch-data)
+> - [Flutter `package:http` example][flutterhttpexample]
 
 You can also exert more fine-grained control over your requests and responses by
 creating [Request][] or [StreamedRequest][] objects yourself and passing them to
@@ -116,7 +117,7 @@ the [`RetryClient()`][new RetryClient] constructor.
 There are multiple implementations of the `package:http` [`Client`][client] interface. By default, `package:http` uses [`BrowserClient`][browserclient] on the web and [`IOClient`][ioclient] on all other platforms. You an choose a different [`Client`][client] implementation based on the needs of your application.
 
 You can change implementations without changing your application code, except
-for a few lines of [configuration]().
+for a few lines of [configuration](#2-configure-the-http-client).
 
 Some well supported implementations are:
 
@@ -147,7 +148,7 @@ Some well supported implementations are:
 To use a HTTP client implementation other than the default, you must:
 1. Add the HTTP client as a dependency.
 2. Configure the HTTP client.
-3. Connect it to the code that uses it.
+3. Connect the HTTP client to the code that uses it.
 
 ### 1. Add the HTTP client as a dependency.
 
@@ -181,40 +182,95 @@ For example:
 
 ```dart
 Client httpClient() {
+  if (Platform.isAndroid) {
+    final engine = CronetEngine.build(
+        cacheMode: CacheMode.memory,
+        cacheMaxSize: 1000000);
+    return CronetClient.fromCronetEngine(engine);
+  }
   if (Platform.isIOS || Platform.isMacOS) {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
       ..cache = URLCache.withCapacity(memoryCapacity: 1000000);
     return CupertinoClient.fromSessionConfiguration(config);
   }
-  return Client(); // Return the default client for all other platforms.
+  return IOClient();
 }
 ```
 
+> [!TIP]
+> [The Flutter HTTP example application][flutterhttpexample] demonstrates
+> configuration best practices.
 
+#### Supporting browser and native
 
-`runWithClient`
-import 'package:provider/provider.dart';
-
-
-
-https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
-
+If your application can be run in the browser and natively, you must put your
+browser and native configurations in seperate files and import the correct file
+based on the platform.
 
 For example:
 
-```terminal
-flutter pub add cupertino_http
+```dart
+// -- http_client_factory.dart
+Client httpClient() {
+  if (Platform.isAndroid) {
+    return CronetClient.defaultCronetEngine();
+  }
+  if (Platform.isIOS || Platform.isMacOS) {
+    return CupertinoClient.defaultSessionConfiguration();
+  }
+  return IOClient();
+}
 ```
 
-https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
+```dart
+// -- http_client_factory_web.dart
+Client httpClient() => FetchClient();
+```
 
+```dart
+// -- main.dart
+import 'http_client_factory.dart'
+    if (dart.library.js_interop) 'http_client_factory_web.dart'
 
-[client]: https://pub.dev/documentation/http/latest/http/Client-class.html
-[ioclient]: https://pub.dev/documentation/http/latest/io_client/IOClient-class.html
+// The correct `httpClient` will be available.
+```
+
+### 3. Connect the HTTP client to the code that uses it.
+
+The best way to pass [`Client`s][client] to the places that use them is
+explicitly through arguments.
+
+For example:
+
+```dart
+void main() {
+  Client client = httpClient();
+  fetchAlbum(client, ...);
+}
+```
+
+In Flutter, you can use [`package:provider`][provider] to make the correct
+[`Client`][client] availble to `State` objects.
+
+If you depend on code that uses top-level functions (e.g. `http.post`) or
+calls the [`Client()`] constructor, then you can use
+[`runWithClient`](runwithclient) to ensure that the correct
+[`Client`][client] is used.
+
+> [!TIP]
+> [The Flutter HTTP example application][flutterhttpexample] demonstrates
+> how to make the configured [`Client`][client] available using
+> [`package:provider`][provider] and [`runWithClient`](runwithclient).
+
 [browserclient]: https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html
+[client]: https://pub.dev/documentation/http/latest/http/Client-class.html
 [cupertinohttp]: https://pub.dev/packages/cupertino_http
 [cupertinoclient]: https://pub.dev/documentation/cupertino_http/latest/cupertino_http/CupertinoClient-class.html
 [cronethttp]: https://pub.dev/packages/cronet_http
 [cronetclient]: https://pub.dev/documentation/cronet_http/latest/cronet_http/CronetClient-class.html
 [fetch]: https://pub.dev/packages/fetch_client
 [fetchclient]: https://pub.dev/documentation/fetch_client/latest/fetch_client/FetchClient-class.html
+[flutterhttpexample]: https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
+[ioclient]: https://pub.dev/documentation/http/latest/io_client/IOClient-class.html
+[provider]: https://pub.dev/packages/provider
+[runwithclient]: https://pub.dev/documentation/http/latest/http/runWithClient.html
