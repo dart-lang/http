@@ -344,6 +344,32 @@ class URLSessionConfiguration
   bool get discretionary => _nsObject.discretionary;
   set discretionary(bool value) => _nsObject.discretionary = value;
 
+  /// Additional headers to send with each request.
+  ///
+  /// Note that the getter for this field returns a **copy** of the headers.
+  ///
+  /// See [NSURLSessionConfiguration.HTTPAdditionalHeaders](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411532-httpadditionalheaders)
+  Map<String, String>? get httpAdditionalHeaders {
+    if (_nsObject.HTTPAdditionalHeaders case var additionalHeaders?) {
+      final headers = ncb.NSDictionary.castFrom(additionalHeaders);
+      return stringDictToMap(headers);
+    }
+    return null;
+  }
+
+  set httpAdditionalHeaders(Map<String, String>? headers) {
+    if (headers == null) {
+      _nsObject.HTTPAdditionalHeaders = null;
+      return;
+    }
+    final d = ncb.NSMutableDictionary.alloc(linkedLibs).init();
+    headers.forEach((key, value) {
+      d.setObject_forKey_(
+          value.toNSString(linkedLibs), key.toNSString(linkedLibs));
+    });
+    _nsObject.HTTPAdditionalHeaders = d;
+  }
+
   /// What policy to use when deciding whether to accept cookies.
   ///
   /// See [NSURLSessionConfiguration.HTTPCookieAcceptPolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408933-httpcookieacceptpolicy).
@@ -441,6 +467,7 @@ class URLSessionConfiguration
       'allowsConstrainedNetworkAccess=$allowsConstrainedNetworkAccess '
       'allowsExpensiveNetworkAccess=$allowsExpensiveNetworkAccess '
       'discretionary=$discretionary '
+      'httpAdditionalHeaders=$httpAdditionalHeaders '
       'httpCookieAcceptPolicy=$httpCookieAcceptPolicy '
       'httpShouldSetCookies=$httpShouldSetCookies '
       'httpMaximumConnectionsPerHost=$httpMaximumConnectionsPerHost '
