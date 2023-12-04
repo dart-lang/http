@@ -50,7 +50,7 @@ try {
 > For detailed background information and practical usage examples, see:
 > - [Dart Development: Fetch data from the internet](https://dart.dev/tutorials/server/fetch-data)
 > - [Flutter Cookbook: Fetch data from the internet](https://docs.flutter.dev/cookbook/networking/fetch-data)
-> - [Flutter `package:http` example][flutterhttpexample]
+> - [The Flutter HTTP example application][flutterhttpexample]
 
 You can also exert more fine-grained control over your requests and responses by
 creating [Request][] or [StreamedRequest][] objects yourself and passing them to
@@ -237,7 +237,7 @@ import 'http_client_factory.dart'
 
 ### 3. Connect the HTTP client to the code that uses it.
 
-The best way to pass [`Client`s][client] to the places that use them is
+The best way to pass [`Client`][client] to the places that use it is
 explicitly through arguments.
 
 For example:
@@ -253,7 +253,7 @@ In Flutter, you can use [`package:provider`][provider] to make the correct
 [`Client`][client] availble to `State` objects.
 
 If you depend on code that uses top-level functions (e.g. `http.post`) or
-calls the [`Client()`] constructor, then you can use
+calls the [`Client()`][clientconstructor] constructor, then you can use
 [`runWithClient`](runwithclient) to ensure that the correct
 [`Client`][client] is used.
 
@@ -264,6 +264,7 @@ calls the [`Client()`] constructor, then you can use
 
 [browserclient]: https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html
 [client]: https://pub.dev/documentation/http/latest/http/Client-class.html
+[clientconstructor]: https://pub.dev/documentation/http/latest/http/Client/Client.html
 [cupertinohttp]: https://pub.dev/packages/cupertino_http
 [cupertinoclient]: https://pub.dev/documentation/cupertino_http/latest/cupertino_http/CupertinoClient-class.html
 [cronethttp]: https://pub.dev/packages/cronet_http
