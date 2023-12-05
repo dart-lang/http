@@ -98,8 +98,17 @@ final class HttpProfileRequestData {
   }
 
   /// The cookies presented to the server (in the 'cookie' header).
-  set cookies(List<Cookie> value) {
-    _data['cookies'] = [for (final cookie in value) cookie.toString()];
+  ///
+  /// Usage example:
+  ///
+  /// ```dart
+  /// profile.requestData.cookies = [
+  ///   'sessionId=abc123',
+  ///   'csrftoken=def456',
+  /// ];
+  /// ```
+  set cookies(List<String> value) {
+    _data['cookies'] = [...value];
     _updated();
   }
 
@@ -157,8 +166,17 @@ final class HttpProfileResponseData {
   }
 
   /// The cookies set by the server (from the 'set-cookie' header).
-  set cookies(List<Cookie> value) {
-    _data['cookies'] = [for (final cookie in value) cookie.toString()];
+  ///
+  /// Usage example:
+  ///
+  /// ```dart
+  /// profile.responseData.cookies = [
+  ///   'sessionId=abc123',
+  ///   'id=def456; Max-Age=2592000; Domain=example.com',
+  /// ];
+  /// ```
+  set cookies(List<String> value) {
+    _data['cookies'] = [...value];
     _updated();
   }
 
