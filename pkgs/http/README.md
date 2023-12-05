@@ -255,7 +255,9 @@ In Flutter, you can use a one of many
 If you depend on code that uses top-level functions (e.g. `http.post`) or
 calls the [`Client()`][clientconstructor] constructor, then you can use
 [`runWithClient`](runwithclient) to ensure that the correct
-`Client` is used.
+`Client` is used. When an [Isolate][isolate] is spawned, it does not inherit
+any variables from the calling Zone, so `runWithClient` needs to be used in
+each Isolate that uses `package:http`.
 
 You can ensure that only the `Client` that you have explicitly configured is
 used by defining `no_default_http_client=true` in the environment. This will
@@ -283,6 +285,7 @@ $ dart compile exe --define=no_default_http_client=true ...
 [fetchclient]: https://pub.dev/documentation/fetch_client/latest/fetch_client/FetchClient-class.html
 [flutterhttpexample]: https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
 [ioclient]: https://pub.dev/documentation/http/latest/io_client/IOClient-class.html
+[isolate]: https://dart.dev/language/concurrency#how-isolates-work
 [flutterstatemanagement]: https://docs.flutter.dev/data-and-backend/state-mgmt/options
 [provider]: https://pub.dev/packages/provider
 [runwithclient]: https://pub.dev/documentation/http/latest/http/runWithClient.html
