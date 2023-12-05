@@ -255,8 +255,9 @@ In Flutter, you can use a one of many
 If you depend on code that uses top-level functions (e.g. `http.post`) or
 calls the [`Client()`][clientconstructor] constructor, then you can use
 [`runWithClient`](runwithclient) to ensure that the correct
-`Client` is used. Since [isolates][isolate] cannot share mutable state, you
-must call [`runWithClient`](runwithclient) at the start of every isolate.
+`Client` is used. When an [Isolate][isolate] is spawned, it does not inherit
+any variables from the calling Zone, so `runWithClient` needs to be used in
+each Isolate that uses `package:http`.
 
 You can ensure that only the `Client` that you have explicitly configured is
 used by defining `no_default_http_client=true` in the environment. This will
