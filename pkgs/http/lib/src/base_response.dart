@@ -46,6 +46,19 @@ abstract class BaseResponse {
   /// If a header value contains whitespace then that whitespace may be replaced
   /// by a single space. Leading and trailing whitespace in header values are
   /// always removed.
+  ///
+  /// Please keep in mind that the Dart HTTP client is likely to be running side
+  /// a browser, and that the broswer by default allows only the CORS-safelisted
+  /// response headers:
+  /// https://developer.mozilla.org/en-US/docs/Glossary/CORS-safelisted_response_header
+  ///
+  /// To allow the Dart HTTP responses to have ALL the headers remember to set
+  /// Access-Control-Expose-Headers on the server side.
+  ///
+  /// See also:
+  /// - https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Expose-Headers
+  /// - https://github.com/dart-lang/http/issues/726
+  ///
   // TODO(nweiz): make this a HttpHeaders object.
   final Map<String, String> headers;
 
