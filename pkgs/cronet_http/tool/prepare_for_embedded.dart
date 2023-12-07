@@ -40,7 +40,7 @@ final _cronetVersionUri = Uri.https(
   'android/maven2/org/chromium/net/group-index.xml',
 );
 
-/// Runs `prepare_for_embedded.dart true` for publishing,
+/// Runs `prepare_for_embedded.dart publish` for publishing,
 /// or only the Android dependency will be modified.
 void main(List<String> args) async {
   if (Directory.current.path.endsWith('tool')) {
@@ -51,7 +51,7 @@ void main(List<String> args) async {
 
   final latestVersion = await _getLatestCronetVersion();
   updateCronetDependency(latestVersion);
-  if (args.isNotEmpty && args.first == 'true') {
+  if (args.isNotEmpty && args.first == 'publish') {
     updatePubSpec();
     updateReadme();
   }
@@ -73,7 +73,7 @@ Future<String> _getLatestCronetVersion() async {
   return versions.last;
 }
 
-/// Update android/build.gradle
+/// Update android/build.gradle.
 void updateCronetDependency(String latestVersion) {
   final fBuildGradle = File('${_packageDirectory.path}/android/build.gradle');
   final gradleContent = fBuildGradle.readAsStringSync();
@@ -92,22 +92,25 @@ void updateCronetDependency(String latestVersion) {
   fBuildGradle.writeAsStringSync(newGradleContent);
 }
 
-/// Update pubspec.yaml and example/pubspec.yaml
+/// Update pubspec.yaml and example/pubspec.yaml.
 void updatePubSpec() {
+  print('Updating pubspec.yaml');
   final fPubspec = File('${_packageDirectory.path}/pubspec.yaml');
   final yamlEditor = YamlEditor(fPubspec.readAsStringSync())
     ..update(['name'], _packageName)
     ..update(['description'], _packageDescription);
   fPubspec.writeAsStringSync(yamlEditor.toString());
-  final examplePubspec = File('${_packageDirectory.path}/pubspec.yaml');
+  print('Updating example/pubspec.yaml');
+  final examplePubspec = File('${_packageDirectory.path}/example/pubspec.yaml');
   final replaced = examplePubspec
       .readAsStringSync()
       .replaceAll('cronet_http:', 'cronet_http_embedded:');
   examplePubspec.writeAsStringSync(replaced);
 }
 
-/// Move README_EMBEDDED.md to replace README.md
+/// Move README_EMBEDDED.md to replace README.md.
 void updateReadme() {
+  print('Updating README.md from README_EMBEDDED.md');
   File('${_packageDirectory.path}/README.md').deleteSync();
   File('${_packageDirectory.path}/README_EMBEDDED.md')
       .renameSync('${_packageDirectory.path}/README.md');
