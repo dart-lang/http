@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:cronet_http/cronet_http.dart';
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:http/http.dart';
+import 'package:http/io_client.dart';
 
 const maxCacheSize = 2 * 1024 * 1024;
 
@@ -23,5 +24,5 @@ Client httpClient() {
       ..cache = URLCache.withCapacity(memoryCapacity: maxCacheSize);
     return CupertinoClient.fromSessionConfiguration(config);
   }
-  return Client(); // Return the default client.
+  return IOClient(HttpClient()..userAgent = 'Book Agent');
 }
