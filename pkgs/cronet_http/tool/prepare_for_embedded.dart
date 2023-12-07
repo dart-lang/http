@@ -40,7 +40,9 @@ final _cronetVersionUri = Uri.https(
   'android/maven2/org/chromium/net/group-index.xml',
 );
 
-void main() async {
+/// Runs `prepare_for_embedded.dart true` for publishing,
+/// or only the Android dependency will be modified.
+void main(List<String> args) async {
   if (Directory.current.path.endsWith('tool')) {
     _packageDirectory = Directory.current.parent;
   } else {
@@ -49,8 +51,10 @@ void main() async {
 
   final latestVersion = await _getLatestCronetVersion();
   updateCronetDependency(latestVersion);
-  updatePubSpec();
-  updateReadme();
+  if (args.isNotEmpty && args.first == 'true') {
+    updatePubSpec();
+    updateReadme();
+  }
 }
 
 Future<String> _getLatestCronetVersion() async {
@@ -88,13 +92,18 @@ void updateCronetDependency(String latestVersion) {
   fBuildGradle.writeAsStringSync(newGradleContent);
 }
 
-/// Update pubspec.yaml
+/// Update pubspec.yaml and example/pubspec.yaml
 void updatePubSpec() {
   final fPubspec = File('${_packageDirectory.path}/pubspec.yaml');
   final yamlEditor = YamlEditor(fPubspec.readAsStringSync())
     ..update(['name'], _packageName)
     ..update(['description'], _packageDescription);
   fPubspec.writeAsStringSync(yamlEditor.toString());
+  final examplePubspec = File('${_packageDirectory.path}/pubspec.yaml');
+  final replaced = examplePubspec
+      .readAsStringSync()
+      .replaceAll('cronet_http:', 'cronet_http_embedded:');
+  examplePubspec.writeAsStringSync(replaced);
 }
 
 /// Move README_EMBEDDED.md to replace README.md
