@@ -1,4 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cronet_http_example">
+    package="io.flutter.cronet_http_example">
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
