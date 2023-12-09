@@ -10,11 +10,18 @@ import 'dart:js_interop';
 import 'dart:typed_data';
 
 import 'package:async/async.dart';
+import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 import 'package:web/helpers.dart' hide BinaryType;
 import 'package:web_socket_channel/html.dart';
 import 'package:web_socket_channel/src/web_helpers.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+
+extension on StreamChannel {
+  /// Handles the Wasm case where the runtime type is actually [double] instead
+  /// of the JS case where its [int].
+  Future<int> get firstAsInt async => ((await stream.first) as num).toInt();
+}
 
 void main() {
   late int port;
@@ -35,7 +42,7 @@ void main() {
       }
     ''', stayAlive: true);
 
-    port = await channel.stream.first as int;
+    port = await channel.firstAsInt;
   });
 
   test('communicates using an existing WebSocket', () async {
@@ -169,7 +176,7 @@ void main() {
     // TODO(nweiz): Make this channel use a port number that's guaranteed to be
     // invalid.
     final channel = HtmlWebSocketChannel.connect(
-        'ws://localhost:${await serverChannel.stream.first}');
+        'ws://localhost:${await serverChannel.firstAsInt}');
     expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
     expect(channel.stream.toList(), throwsA(isA<WebSocketChannelException>()));
   });

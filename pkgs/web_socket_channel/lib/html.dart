@@ -127,13 +127,17 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   }
 
   void _innerListen(MessageEvent event) {
+    // Event data will be ArrayBuffer, Blob, or String.
     final eventData = event.data;
-    Object? data;
-    if (eventData.typeofEquals('object') &&
+    final Object? data;
+    if (eventData.typeofEquals('string')) {
+      data = (eventData as JSString).toDart;
+    } else if (eventData.typeofEquals('object') &&
         (eventData as JSObject).instanceOfString('ArrayBuffer')) {
       data = (eventData as JSArrayBuffer).toDart.asUint8List();
     } else {
-      data = event.data;
+      // Blobs are passed directly.
+      data = eventData;
     }
     _controller.local.sink.add(data);
   }
