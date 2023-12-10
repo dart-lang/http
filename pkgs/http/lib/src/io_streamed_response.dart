@@ -23,8 +23,15 @@ class IOStreamedResponse extends StreamedResponse {
       super.isRedirect,
       super.persistentConnection,
       super.reasonPhrase,
+      this.redirects = const [],
       HttpClientResponse? inner})
       : _inner = inner;
+
+  /// Returns the series of redirects this connection has been through.
+  /// The list will be empty if no redirects were followed.
+  /// [redirects] will be updated both in the case of
+  /// an automatic and a manual redirect.
+  final List<RedirectInfo> redirects;
 
   /// Detaches the underlying socket from the HTTP server.
   ///
