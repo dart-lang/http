@@ -5,7 +5,10 @@
 @TestOn('vm')
 library;
 
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart' as http_io;
 import 'package:test/test.dart';
 
 import '../utils.dart';
@@ -64,5 +67,15 @@ void main() {
         request.send(),
         throwsA(isA<http.ClientException>()
             .having((e) => e.message, 'message', 'Redirect limit exceeded')));
+  });
+
+  test('contains redirects', () async {
+    var ioClient = HttpClient();
+    var client = http_io.IOClient(ioClient);
+    var request = http.Request('GET', serverUrl.resolve('/redirect'));
+    var response = await client.send(request);
+    expect(response.statusCode, equals(200));
+    expect(response.redirects.length, equals(1));
+    expect(response.redirects.first.location, serverUrl.resolve('/'));
   });
 }
