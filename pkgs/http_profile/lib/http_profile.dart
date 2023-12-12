@@ -3,8 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async' show StreamController, StreamSink;
-import 'dart:developer' show addHttpClientProfilingData, Timeline;
-import 'dart:io';
+import 'dart:developer' show addHttpClientProfilingData, Service, Timeline;
+import 'dart:io' show HttpClient, HttpClientResponseCompressionState;
+import 'dart:isolate' show Isolate;
 
 /// Describes an event related to an HTTP request.
 final class HttpProfileRequestEvent {
@@ -280,27 +281,6 @@ final class HttpClientRequestProfile {
 
   final _data = <String, dynamic>{};
 
-  /// The ID of the isolate the request was issued from.
-  String? get isolateId => _data['isolateId'] as String?;
-  set isolateId(String? value) {
-    _data['isolateId'] = value;
-    _updated();
-  }
-
-  /// The HTTP request method associated with the request.
-  String? get requestMethod => _data['requestMethod'] as String?;
-  set requestMethod(String? value) {
-    _data['requestMethod'] = value;
-    _updated();
-  }
-
-  /// The URI to which the request was sent.
-  String? get requestUri => _data['requestUri'] as String?;
-  set requestUri(String? value) {
-    _data['requestUri'] = value;
-    _updated();
-  }
-
   /// Records an event related to the request.
   ///
   /// Usage example:
@@ -311,12 +291,6 @@ final class HttpClientRequestProfile {
   /// ```
   void addEvent(HttpProfileRequestEvent event) {
     _data['events'].add(event._toJson());
-    _updated();
-  }
-
-  /// The time at which the request was initiated.
-  set requestStartTimestamp(DateTime value) {
-    _data['requestStartTimestamp'] = value.microsecondsSinceEpoch;
     _updated();
   }
 
@@ -354,7 +328,16 @@ final class HttpClientRequestProfile {
 
   void _updated() => _data['_lastUpdateTime'] = Timeline.now;
 
-  HttpClientRequestProfile._() {
+  HttpClientRequestProfile._({
+    required DateTime requestStartTimestamp,
+    required String requestMethod,
+    required String requestUri,
+  }) {
+    _data['isolateId'] = Service.getIsolateId(Isolate.current)!;
+    _data['requestStartTimestamp'] =
+        requestStartTimestamp.microsecondsSinceEpoch;
+    _data['requestMethod'] = requestMethod;
+    _data['requestUri'] = requestUri;
     _data['events'] = <Map<String, dynamic>>[];
     _data['requestData'] = <String, dynamic>{};
     requestData = HttpProfileRequestData._(
@@ -366,22 +349,35 @@ final class HttpClientRequestProfile {
     _data['_responseBodyStream'] = _responseBody.stream;
     // This entry is needed to support the updatedSince parameter of
     // ext.dart.io.getHttpProfile.
-    _data['_lastUpdateTime'] = 0;
+    _data['_lastUpdateTime'] = Timeline.now;
   }
 
   /// If HTTP profiling is enabled, returns an [HttpClientRequestProfile],
   /// otherwise returns `null`.
-  static HttpClientRequestProfile? profile() {
+  static HttpClientRequestProfile? profile({
+    /// The time at which the request was initiated.
+    required DateTime requestStartTimestamp,
+
+    /// The HTTP request method associated with the request.
+    required String requestMethod,
+
+    /// The URI to which the request was sent.
+    required String requestUri,
+  }) {
     // Always return `null` in product mode so that the profiling code can be
     // tree shaken away.
     if (const bool.fromEnvironment('dart.vm.product') || !profilingEnabled) {
       return null;
     }
-    final requestProfile = HttpClientRequestProfile._();
+    final requestProfile = HttpClientRequestProfile._(
+      requestStartTimestamp: requestStartTimestamp,
+      requestMethod: requestMethod,
+      requestUri: requestUri,
+    );
     // This entry is needed to support the id parameter of
     // ext.dart.io.getHttpProfileRequest.
     requestProfile._data['id'] =
-        'from_package/${addHttpClientProfilingData(requestProfile._data)}';
+        addHttpClientProfilingData(requestProfile._data);
     return requestProfile;
   }
 }
