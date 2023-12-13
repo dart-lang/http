@@ -70,7 +70,7 @@ void main() {
 
   test('communicates using an existing open WebSocket', () async {
     final webSocket = WebSocket('ws://localhost:$port');
-    await webSocket.onOpen.first;
+    await webSocket.onOpenX.first;
 
     final channel = HtmlWebSocketChannel(webSocket);
 
