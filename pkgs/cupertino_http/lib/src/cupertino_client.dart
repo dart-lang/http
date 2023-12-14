@@ -266,6 +266,8 @@ class CupertinoClient extends BaseClient {
       ?..connectionInfo = {
         'package': 'package:cupertino_http', // XXX Set for http_impl.dart
         'client': 'CupertinoClient',
+        // XXX this is a long string, maybe better to break it out like:
+        // "config.allowsCellularAccess": "true"
         'configuration': _urlSession!.configuration.toString(),
       }
       ..contentLength = request.contentLength
