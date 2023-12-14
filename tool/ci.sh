@@ -95,6 +95,10 @@ for PKG in ${PKGS}; do
         echo 'dart test --platform chrome'
         dart test --platform chrome || EXIT_CODE=$?
         ;;
+      test_4)
+        echo 'dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm'
+        dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm || EXIT_CODE=$?
+        ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"
         exit 64
