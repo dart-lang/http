@@ -93,13 +93,18 @@ final class HttpProfileRequestData {
   }
 
   /// The content length of the request, in bytes.
-  set contentLength(int value) {
-    _data['contentLength'] = value;
+  set contentLength(int? value) {
+    if (value == null) {
+      _data.remove('contentLength');
+    } else {
+      _data['contentLength'] = value;
+    }
     _updated();
   }
 
   /// The cookies presented to the server (in the 'cookie' header).
   ///
+  /// XXX Can have multiple values in the same item.
   /// Usage example:
   ///
   /// ```dart
@@ -107,13 +112,30 @@ final class HttpProfileRequestData {
   ///   'sessionId=abc123',
   ///   'csrftoken=def456',
   /// ];
+  ///
+  /// or
+  ///
+  /// profile.requestData.cookies = ['sessionId=abc123,csrftoken=def456']
   /// ```
-  set cookies(List<String> value) {
+  set cookiesList(List<String>? value) {
+    if (value == null) {
+      _data.remove('cookies');
+    }
     _data['cookies'] = [...value];
     _updated();
   }
 
+  set cookies(String value) {
+    if (value == null) {
+      _data.remove('cookies');
+    }
+    _data['cookies'] = ",".split(RegExp(r'\s*,\s*'))
+    _updated();
+  }
+
   /// The error associated with a failed request.
+  ///
+  /// Should this be here? It doesn't just seem asssociated with the request.
   set error(String value) {
     _data['error'] = value;
     _updated();
@@ -125,8 +147,21 @@ final class HttpProfileRequestData {
     _updated();
   }
 
-  set headers(Map<String, List<String>> value) {
+  set headersValueList(Map<String, List<String>>? value) {
+    if (value == null) {
+      _data.remove('headers');
+    }
     _data['headers'] = {...value};
+    _updated();
+  }
+
+  /// XXX should this include cookies or not? It's not obvious why we seperate
+  /// cookies from other headers.
+  set headers(Map<String, String>? value) {
+    if (value == null) {
+      _data.remove('headers');
+    }
+    _data['headers'] = {for (var entry in value.entries) entry.key : entry.value.split(RegExp(r'\s*,\s*'))};
     _updated();
   }
 
@@ -188,6 +223,9 @@ final class HttpProfileResponseData {
   /// It can contain any arbitrary data as long as the values are of type
   /// [String] or [int]. For example:
   /// { 'localPort': 1285, 'remotePort': 443, 'connectionPoolId': '21x23' }
+  /// 
+  /// XXX what is the difference between the connection info in the request
+  /// and the response? Don't they use the same connection?
   set connectionInfo(Map<String, dynamic /*String|int*/ > value) {
     for (final v in value.values) {
       if (!(v is String || v is int)) {
@@ -214,7 +252,10 @@ final class HttpProfileResponseData {
     _updated();
   }
 
-  set reasonPhrase(String value) {
+  set reasonPhrase(String? value) {
+    if (value == null) {
+      _data.remove('reasonPhrase');
+    }
     _data['reasonPhrase'] = value;
     _updated();
   }
@@ -250,12 +291,17 @@ final class HttpProfileResponseData {
 
   /// The time at which the response was completed. Note that DevTools will not
   /// consider the request to be complete until [endTime] is non-null.
+  ///
+  /// This means that all the data has been received, right?
   set endTime(DateTime value) {
     _data['endTime'] = value.microsecondsSinceEpoch;
     _updated();
   }
 
   /// The error associated with a failed request.
+  ///
+  /// This doesn't seem to be just set for failures. For HttpClient,
+  /// finishResponseWithError('Connection was upgraded')
   set error(String value) {
     _data['error'] = value;
     _updated();
@@ -297,6 +343,10 @@ final class HttpClientRequestProfile {
   /// The time at which the request was completed. Note that DevTools will not
   /// consider the request to be complete until [requestEndTimestamp] is
   /// non-null.
+  ///
+  /// What does this mean? Is it when the response data first arrives? Or
+  /// after the initial request data has been sent? This matters because do
+  /// redirects count as part of the request time?
   set requestEndTimestamp(DateTime value) {
     _data['requestEndTimestamp'] = value.microsecondsSinceEpoch;
     _updated();

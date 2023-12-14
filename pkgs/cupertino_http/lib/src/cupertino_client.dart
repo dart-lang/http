@@ -12,6 +12,7 @@ import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
+import 'package:http_profile/http_profile.dart';
 
 import 'cupertino_api.dart';
 
@@ -21,9 +22,10 @@ class _TaskTracker {
   final responseCompleter = Completer<URLResponse>();
   final BaseRequest request;
   final responseController = StreamController<Uint8List>();
+  final HttpClientRequestProfile? profile;
   int numRedirects = 0;
 
-  _TaskTracker(this.request);
+  _TaskTracker(this.request, this.profile);
 
   void close() {
     responseController.close();
@@ -152,12 +154,13 @@ class CupertinoClient extends BaseClient {
   static void _onComplete(
       URLSession session, URLSessionTask task, Error? error) {
     final taskTracker = _tracker(task);
-
+    taskTracker.profile?.responseData.endTime = DateTime.now();
     if (error != null) {
       final exception = ClientException(
           error.localizedDescription ?? 'Unknown', taskTracker.request.url);
       if (taskTracker.responseCompleter.isCompleted) {
         taskTracker.responseController.addError(exception);
+        taskTracker.profile?.responseData.error = exception.toString();
       } else {
         taskTracker.responseCompleter.completeError(exception);
       }
@@ -172,6 +175,7 @@ class CupertinoClient extends BaseClient {
   static void _onData(URLSession session, URLSessionTask task, Data data) {
     final taskTracker = _tracker(task);
     taskTracker.responseController.add(data.bytes);
+    taskTracker.profile?.responseBodySink.add(data.bytes);
   }
 
   static URLRequest? _onRedirect(URLSession session, URLSessionTask task,
@@ -180,6 +184,10 @@ class CupertinoClient extends BaseClient {
     ++taskTracker.numRedirects;
     if (taskTracker.request.followRedirects &&
         taskTracker.numRedirects <= taskTracker.request.maxRedirects) {
+      taskTracker.profile?.responseData.addRedirect(HttpProfileRedirectData(
+          statusCode: response.statusCode,
+          method: request.httpMethod,
+          location: request.url!.toString()));
       return request;
     }
     return null;
@@ -250,6 +258,24 @@ class CupertinoClient extends BaseClient {
 
     final stream = request.finalize();
 
+    final profile = HttpClientRequestProfile.profile(
+        requestStartTimestamp: DateTime.now(),
+        requestMethod: request.method,
+        requestUri: request.url.toString());
+    profile?.requestData
+      ?..connectionInfo = {
+        'package': 'package:cupertino_http', // XXX Set for http_impl.dart
+        'client': 'CupertinoClient',
+        'configuration': _urlSession!.configuration.toString(),
+      }
+      ..contentLength = request.contentLength
+      ..cookies = request.headers['cookie']
+      ..followRedirects = request.followRedirects
+      ..headers = request.headers
+      ..maxRedirects = request.maxRedirects;
+
+    // XXX It would be cool to have a "other stuff field" to stick in task
+    // data.
     final urlRequest = MutableURLRequest.fromUrl(request.url)
       ..httpMethod = request.method;
 
@@ -257,24 +283,39 @@ class CupertinoClient extends BaseClient {
       // Optimize the (typical) `Request` case since assigning to
       // `httpBodyStream` requires a lot of expensive setup and data passing.
       urlRequest.httpBody = Data.fromList(request.bodyBytes);
+      profile?.requestBodySink.add(request.bodyBytes);
     } else if (await _hasData(stream) case (true, final s)) {
       // If the request is supposed to be bodyless (e.g. GET requests)
       // then setting `httpBodyStream` will cause the request to fail -
       // even if the stream is empty.
-      urlRequest.httpBodyStream = s;
+      if (profile == null) {
+        urlRequest.httpBodyStream = s;
+      } else {
+        final splitter = StreamSplitter(s);
+        urlRequest.httpBodyStream = splitter.split();
+        unawaited(profile.requestBodySink.addStream(splitter.split()));
+      }
     }
 
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
 
     final task = urlSession.dataTaskWithRequest(urlRequest);
-    final taskTracker = _TaskTracker(request);
+    final taskTracker = _TaskTracker(request, profile);
     _tasks[task] = taskTracker;
     task.resume();
 
     final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
 
-    final result = await taskTracker.responseCompleter.future;
+    late URLResponse result;
+    try {
+      result = await taskTracker.responseCompleter.future;
+    } catch (e) {
+      profile?.requestData.error = e.toString();
+      rethrow;
+    }
+
+    profile?.requestEndTimestamp = DateTime.now(); // Not a timestamp!
     final response = result as HTTPURLResponse;
 
     if (request.followRedirects && taskTracker.numRedirects > maxRedirects) {
@@ -292,6 +333,15 @@ class CupertinoClient extends BaseClient {
       );
     }
 
+    final isRedirect = !request.followRedirects && taskTracker.numRedirects > 0;
+    profile?.responseData // Good name?
+      ?..cookies = responseHeaders['cookies']
+      ..headers = responseHeaders
+      ..isRedirect = isRedirect
+      ..reasonPhrase = _findReasonPhrase(response.statusCode)
+      ..startTime = DateTime.now()
+      ..statusCode = response.statusCode;
+
     return StreamedResponse(
       taskTracker.responseController.stream,
       response.statusCode,
@@ -300,7 +350,7 @@ class CupertinoClient extends BaseClient {
           : response.expectedContentLength,
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
-      isRedirect: !request.followRedirects && taskTracker.numRedirects > 0,
+      isRedirect: isRedirect,
       headers: responseHeaders,
     );
   }

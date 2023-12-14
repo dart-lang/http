@@ -10,7 +10,7 @@ environment:
   flutter: '>=3.10.0'
 
 dependencies:
-  cached_network_image: ^3.2.3
+  cached_network_image: ^3.3.0
   cupertino_http:
     path: ../
   cupertino_icons: ^1.0.2
