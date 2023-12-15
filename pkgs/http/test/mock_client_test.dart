@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http/src/request.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
@@ -42,5 +43,26 @@ void main() {
 
     expect(await client.read(Uri.http('example.com', '/foo')),
         equals('you did it'));
+  });
+
+  test('pngResponse with default options', () {
+    final response = MockClient.pngResponse();
+    expect(response.statusCode, 200);
+    expect(response.bodyBytes.take(8),
+        [137, 80, 78, 71, 13, 10, 26, 10] // PNG header
+        );
+    expect(response.request, null);
+    expect(response.headers, containsPair('content-type', 'image/png'));
+  });
+
+  test('pngResponse with request', () {
+    final request = Request('GET', Uri.https('example.com'));
+    final response = MockClient.pngResponse(request: request);
+    expect(response.statusCode, 200);
+    expect(response.bodyBytes.take(8),
+        [137, 80, 78, 71, 13, 10, 26, 10] // PNG header
+        );
+    expect(response.request, request);
+    expect(response.headers, containsPair('content-type', 'image/png'));
   });
 }
