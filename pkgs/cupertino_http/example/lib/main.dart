@@ -17,9 +17,9 @@ import 'book.dart';
 void main() {
   late Client httpClient;
   if (Platform.isIOS || Platform.isMacOS) {
-    /// XXX fix this!
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
-      ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024);
+      ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
+      ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
     httpClient = CupertinoClient.fromSessionConfiguration(config);
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');

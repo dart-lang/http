@@ -8,7 +8,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'request_methods_server_vm.dart'
-    if (dart.library.html) 'request_methods_server_web.dart';
+    if (dart.library.js_interop) 'request_methods_server_web.dart';
 
 /// Tests that the [Client] correctly sends HTTP request methods
 /// (e.g. GET, HEAD).
@@ -25,7 +25,7 @@ void testRequestMethods(Client client,
     setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 

@@ -72,6 +72,18 @@ class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
   HttpClient? _inner;
 
+  /// Create a new `dart:io`-based HTTP [Client].
+  ///
+  /// If [inner] is provided then it can be used to provide configuration
+  /// options for the client.
+  ///
+  /// For example:
+  /// ```dart
+  /// final httpClient = HttpClient()
+  ///    ..userAgent = 'Book Agent'
+  ///    ..idleTimeout = const Duration(seconds: 5);
+  /// final client = IOClient(httpClient);
+  /// ```
   IOClient([HttpClient? inner]) : _inner = inner ?? HttpClient();
 
   /// Sends an HTTP request and asynchronously returns the response.

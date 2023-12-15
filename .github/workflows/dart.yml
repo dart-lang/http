@@ -540,6 +540,44 @@ jobs:
       - job_006
       - job_007
   job_015:
+    name: "unit_test; linux; Dart dev; PKG: pkgs/http; `dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:test_4"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
+        with:
+          sdk: dev
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+      - id: pkgs_http_pub_upgrade
+        name: pkgs/http; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/http
+      - name: "pkgs/http; dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm"
+        run: "dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm"
+        if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/http
+    needs:
+      - job_001
+      - job_002
+      - job_003
+      - job_004
+      - job_005
+      - job_006
+      - job_007
+  job_016:
     name: "unit_test; linux; Flutter stable; PKG: pkgs/flutter_http_example; `flutter test --platform chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -577,7 +615,7 @@ jobs:
       - job_005
       - job_006
       - job_007
-  job_016:
+  job_017:
     name: "unit_test; linux; Flutter stable; PKG: pkgs/flutter_http_example; `flutter test`"
     runs-on: ubuntu-latest
     steps:
@@ -615,7 +653,7 @@ jobs:
       - job_005
       - job_006
       - job_007
-  job_017:
+  job_018:
     name: "unit_test; macos; Flutter stable; PKG: pkgs/flutter_http_example; `flutter test`"
     runs-on: macos-latest
     steps:
@@ -653,7 +691,7 @@ jobs:
       - job_005
       - job_006
       - job_007
-  job_018:
+  job_019:
     name: "unit_test; windows; Flutter stable; PKG: pkgs/flutter_http_example; `flutter test`"
     runs-on: windows-latest
     steps:
