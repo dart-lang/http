@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
@@ -69,6 +71,15 @@ class MockClient extends BaseClient {
     var bodyStream = request.finalize();
     return await _handler(request, bodyStream);
   }
+
+  /// Return a response containing a PNG image.
+  static Response pngResponse() => Response.bytes(
+      base64Decode(
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQ'
+        'GAhKmMIQAAAABJRU5ErkJggg==',
+      ),
+      200,
+      headers: const {'Content-Type': 'image/png'});
 }
 
 /// A handler function that receives [StreamedRequest]s and sends

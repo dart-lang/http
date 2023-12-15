@@ -1,3 +1,7 @@
+## 1.1.3-wip
+
+* Add `MockClient.pngResponse`, which makes it easier to fake image responses.
+
 ## 1.1.2
 
 * Allow `web: '>=0.3.0 <0.5.0'`.
