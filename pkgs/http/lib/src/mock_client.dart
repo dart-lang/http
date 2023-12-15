@@ -12,6 +12,11 @@ import 'response.dart';
 import 'streamed_request.dart';
 import 'streamed_response.dart';
 
+final _pngImageData = base64Decode(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDw'
+  'AEhQGAhKmMIQAAAABJRU5ErkJggg==',
+);
+
 // TODO(nweiz): once Dart has some sort of Rack- or WSGI-like standard for
 // server APIs, MockClient should conform to it.
 
@@ -73,13 +78,15 @@ class MockClient extends BaseClient {
   }
 
   /// Return a response containing a PNG image.
-  static Response pngResponse() => Response.bytes(
-      base64Decode(
-        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQ'
-        'GAhKmMIQAAAABJRU5ErkJggg==',
-      ),
-      200,
-      headers: const {'Content-Type': 'image/png'});
+  static Response pngResponse({BaseRequest? request}) {
+    final headers = {
+      'content-type': 'image/png',
+      'content-length': '${_pngImageData.length}'
+    };
+
+    return Response.bytes(_pngImageData, 200,
+        request: request, headers: headers, reasonPhrase: 'OK');
+  }
 }
 
 /// A handler function that receives [StreamedRequest]s and sends
