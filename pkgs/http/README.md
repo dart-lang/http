@@ -272,7 +272,7 @@ $ dart compile exe --define=no_default_http_client=true ...
 > [!TIP]
 > [The Flutter HTTP example application][flutterhttpexample] demonstrates
 > how to make the configured [`Client`][client] available using
-> [`package:provider`][provider] and [`runWithClient`](runwithclient).
+> [`package:provider`][provider] and [`package:http_image_provider`][http_image_provider].
 
 [browserclient]: https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html
 [client]: https://pub.dev/documentation/http/latest/http/Client-class.html
