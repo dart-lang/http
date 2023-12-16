@@ -18,3 +18,5 @@ stages:
   - command: dart run --define=no_default_http_client=true test/no_default_http_client_test.dart
     os:
     - linux
+  - test: --test-randomize-ordering-seed=random -p chrome -c dart2wasm
+    sdk: dev

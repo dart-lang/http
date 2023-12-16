@@ -1,5 +1,6 @@
 ## 1.1.3-wip
 
+* Add `MockClient.pngResponse`, which makes it easier to fake image responses.
 * Add `redirects` in `IOStreamedResponse`.
 
 ## 1.1.2
