@@ -1,5 +1,5 @@
 name: web_socket_channel
-version: 2.4.1-wip
+version: 2.4.1
 
 description: >-
   StreamChannel wrappers for WebSockets. Provides a cross-platform
