@@ -30,7 +30,7 @@ android {
         namespace 'io.flutter.plugins.cronet_http'
     }
 
-    compileSdkVersion 34
+    compileSdkVersion 31
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
