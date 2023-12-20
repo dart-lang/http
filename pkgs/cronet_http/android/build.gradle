@@ -9,7 +9,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -25,23 +25,28 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
     // Conditional for compatibility with AGP <4.2.
     if (project.android.hasProperty("namespace")) {
         namespace 'io.flutter.plugins.cronet_http'
     }
+
+    compileSdkVersion 34
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {	
+        jvmTarget = '1.8'	
+    }	
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
     }
 
     defaultConfig {
