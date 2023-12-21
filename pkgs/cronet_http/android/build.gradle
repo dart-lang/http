@@ -47,7 +47,7 @@ android {
 
     defaultConfig {
         // This should match the version tested in .github/workflows/cronet.yml
-        minSdkVersion 22
+        minSdkVersion 24
     }
 
     defaultConfig {

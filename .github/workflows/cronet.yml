@@ -60,7 +60,7 @@ jobs:
         with:
           # This should match the minSdkVersion in
           # pkgs/cronet_http/android/build.gradle.
-          api-level: 22
+          api-level: 24
           target: ${{ matrix.package == 'cronet_http_embedded' && 'google_apis' || 'playstore' }}
           arch: x86_64
           profile: pixel
