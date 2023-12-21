@@ -19,7 +19,7 @@ const _singleBookResponse = '''
         "title": "Flutter Cookbook",
         "description": "Write, test, and publish your web, desktop...",
         "imageLinks": {
-          "smallThumbnail": "http://books.google.com/books/content?id=gcnAEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+          "smallThumbnail": "http://thumbnailurl/"
         }
       }
     }
@@ -27,8 +27,9 @@ const _singleBookResponse = '''
 }
 ''';
 
-final image = base64Decode(
-  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+final _dummyPngImage = base64Decode(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmM'
+  'IQAAAABJRU5ErkJggg==',
 );
 
 void main() {
@@ -51,9 +52,9 @@ void main() {
       if (request.url.path == '/books/v1/volumes' &&
           request.url.queryParameters['q'] == 'Flutter') {
         return Response(_singleBookResponse, 200);
-      } else if (request.url.queryParameters['id'] == 'gcnAEAAAQBAJ') {
-        return Response.bytes(image, 200,
-            headers: const {'Content-Type': 'image/bmp'});
+      } else if (request.url == Uri.https('thumbnailurl', '/')) {
+        return Response.bytes(_dummyPngImage, 200,
+            headers: const {'Content-Type': 'image/png'});
       }
       return Response('', 404);
     });
