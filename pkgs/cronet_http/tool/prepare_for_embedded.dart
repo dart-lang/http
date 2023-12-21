@@ -117,13 +117,11 @@ void updateReadme() {
 }
 
 void updateImports() {
-  for (final f in _packageDirectory.listSync(
-    recursive: true,
-    followLinks: false,
-  )) {
-    if (f case final file when file is File && file.path.endsWith('.dart')) {
+  print('Updating imports in Dart files');
+  for (final file in _packageDirectory.listSync(recursive: true)) {
+    if (file is File && file.path.endsWith('.dart')) {
       final updatedSource = file.readAsStringSync().replaceAll(
-            'package:cronet_http_embedded/cronet_http_embedded.dart',
+            'package:cronet_http/cronet_http.dart',
             'package:cronet_http_embedded/cronet_http_embedded.dart',
           );
       file.writeAsStringSync(updatedSource);
@@ -132,6 +130,7 @@ void updateImports() {
 }
 
 void updateEntryPoint() {
+  print('Renaming cronet_http.dart to cronet_http_embedded.dart');
   File(
     '${_packageDirectory.path}/lib/cronet_http.dart',
   ).renameSync(
