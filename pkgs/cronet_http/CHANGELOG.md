@@ -1,3 +1,7 @@
+## 1.0.0
+
+* No functional changes. 
+
 ## 0.4.2
 
 * Require `package:jni >= 0.7.2` to remove a potential buffer overflow.
