@@ -21,7 +21,8 @@ Client httpClient() {
   }
   if (Platform.isIOS || Platform.isMacOS) {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
-      ..cache = URLCache.withCapacity(memoryCapacity: maxCacheSize);
+      ..cache = URLCache.withCapacity(memoryCapacity: maxCacheSize)
+      ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
     return CupertinoClient.fromSessionConfiguration(config);
   }
   return IOClient(HttpClient()..userAgent = 'Book Agent');
