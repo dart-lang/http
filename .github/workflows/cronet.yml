@@ -6,10 +6,12 @@ on:
       - main
       - master
     paths:
+      - '.github/workflows/cronet.yaml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   pull_request:
     paths:
+      - '.github/workflows/cronet.yaml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   schedule:
@@ -19,34 +21,12 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
-  analyze:
-    name: Lint and static analysis
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pkgs/cronet_http
-    steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          # TODO: Change to 'stable' when a release version of flutter
-          # pins version 1.21.1 or later of 'package:test'
-          channel: 'master'
-      - id: install
-        name: Install dependencies
-        run: flutter pub get
-      - name: Check formatting
-        run: dart format --output=none --set-exit-if-changed .
-        if: always() && steps.install.outcome == 'success'
-      - name: Analyze code
-        run: flutter analyze --fatal-infos
-        if: always() && steps.install.outcome == 'success'
-
-  test:
-    # Test package:cupertino_http use flutter integration tests.
-    needs: analyze
-    name: "Build and test"
+  verify:
+    name: Format & Analyze & Test
     runs-on: macos-latest
+    strategy:
+      matrix:
+        package: ['cronet_http', 'cronet_http_embedded']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -56,11 +36,33 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - name: Make cronet_http_embedded copy
+        if: ${{ matrix.package == 'cronet_http_embedded' }}
+        run: |
+          cp -r pkgs/cronet_http pkgs/cronet_http_embedded
+          cd pkgs/cronet_http_embedded
+          flutter pub get && dart tool/prepare_for_embedded.dart
+      - id: install
+        name: Install dependencies
+        working-directory: 'pkgs/${{ matrix.package }}'
+        run: flutter pub get
+      - name: Check formatting
+        working-directory: 'pkgs/${{ matrix.package }}'
+        run: dart format --output=none --set-exit-if-changed .
+        if: always() && steps.install.outcome == 'success'
+      - name: Analyze code
+        working-directory: 'pkgs/${{ matrix.package }}'
+        run: flutter analyze --fatal-infos
+        if: always() && steps.install.outcome == 'success'
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@v2
+        if: always() && steps.install.outcome == 'success'
         with:
+          # api-level/minSdkVersion should be help in sync in:
+          # - .github/workflows/cronet.yml
+          # - pkgs/cronet_http/android/build.gradle
+          # - pkgs/cronet_http/example/android/app/build.gradle
           api-level: 28
-          target: playstore
-          arch: x86_64
+          target: ${{ matrix.package == 'cronet_http_embedded' && 'google_apis' || 'playstore' }}
           profile: pixel
-          script: cd ./pkgs/cronet_http/example && flutter test --timeout=1200s integration_test/
+          script: cd 'pkgs/${{ matrix.package }}/example' && flutter test --timeout=1200s integration_test/

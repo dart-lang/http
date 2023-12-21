@@ -13,6 +13,9 @@
 /// 1. Modifying the Gradle build file to reference the embedded Cronet.
 /// 2. Modifying the *name* and *description* in `pubspec.yaml`.
 /// 3. Replacing `README.md` with `README_EMBEDDED.md`.
+/// 4. Change the name of `cronet_http.dart` to `cronet_http_embedded.dart`.
+/// 5. Update all the imports from `package:cronet_http/cronet_http.dart` to
+///    `package:cronet_http_embedded/cronet_http_embedded.dart`
 ///
 /// After running this script, `flutter pub publish`
 /// can be run to update package:cronet_http_embedded.
@@ -40,7 +43,7 @@ final _cronetVersionUri = Uri.https(
   'android/maven2/org/chromium/net/group-index.xml',
 );
 
-void main() async {
+void main(List<String> args) async {
   if (Directory.current.path.endsWith('tool')) {
     _packageDirectory = Directory.current.parent;
   } else {
@@ -51,6 +54,8 @@ void main() async {
   updateCronetDependency(latestVersion);
   updatePubSpec();
   updateReadme();
+  updateLibraryName();
+  updateImports();
 }
 
 Future<String> _getLatestCronetVersion() async {
@@ -69,7 +74,7 @@ Future<String> _getLatestCronetVersion() async {
   return versions.last;
 }
 
-/// Update android/build.gradle
+/// Update android/build.gradle.
 void updateCronetDependency(String latestVersion) {
   final fBuildGradle = File('${_packageDirectory.path}/android/build.gradle');
   final gradleContent = fBuildGradle.readAsStringSync();
@@ -88,18 +93,48 @@ void updateCronetDependency(String latestVersion) {
   fBuildGradle.writeAsStringSync(newGradleContent);
 }
 
-/// Update pubspec.yaml
+/// Update pubspec.yaml and example/pubspec.yaml.
 void updatePubSpec() {
+  print('Updating pubspec.yaml');
   final fPubspec = File('${_packageDirectory.path}/pubspec.yaml');
   final yamlEditor = YamlEditor(fPubspec.readAsStringSync())
     ..update(['name'], _packageName)
     ..update(['description'], _packageDescription);
   fPubspec.writeAsStringSync(yamlEditor.toString());
+  print('Updating example/pubspec.yaml');
+  final examplePubspec = File('${_packageDirectory.path}/example/pubspec.yaml');
+  final replaced = examplePubspec
+      .readAsStringSync()
+      .replaceAll('cronet_http:', 'cronet_http_embedded:');
+  examplePubspec.writeAsStringSync(replaced);
 }
 
-/// Move README_EMBEDDED.md to replace README.md
+/// Move README_EMBEDDED.md to replace README.md.
 void updateReadme() {
+  print('Updating README.md from README_EMBEDDED.md');
   File('${_packageDirectory.path}/README.md').deleteSync();
   File('${_packageDirectory.path}/README_EMBEDDED.md')
       .renameSync('${_packageDirectory.path}/README.md');
+}
+
+void updateImports() {
+  print('Updating imports in Dart files');
+  for (final file in _packageDirectory.listSync(recursive: true)) {
+    if (file is File && file.path.endsWith('.dart')) {
+      final updatedSource = file.readAsStringSync().replaceAll(
+            'package:cronet_http/cronet_http.dart',
+            'package:cronet_http_embedded/cronet_http_embedded.dart',
+          );
+      file.writeAsStringSync(updatedSource);
+    }
+  }
+}
+
+void updateLibraryName() {
+  print('Renaming cronet_http.dart to cronet_http_embedded.dart');
+  File(
+    '${_packageDirectory.path}/lib/cronet_http.dart',
+  ).renameSync(
+    '${_packageDirectory.path}/lib/cronet_http_embedded.dart',
+  );
 }

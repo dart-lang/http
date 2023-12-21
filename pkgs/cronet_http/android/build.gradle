@@ -2,14 +2,14 @@ group 'io.flutter.plugins.cronet_http'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.6.10'
+    ext.kotlin_version = '1.7.21'
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -25,6 +25,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    // Conditional for compatibility with AGP <4.2.
+    if (project.android.hasProperty("namespace")) {
+        namespace 'io.flutter.plugins.cronet_http'
+    }
+
     compileSdkVersion 31
 
     compileOptions {
@@ -41,7 +46,11 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        // api-level/minSdkVersion should be help in sync in:
+        // - .github/workflows/cronet.yml
+        // - pkgs/cronet_http/android/build.gradle
+        // - pkgs/cronet_http/example/android/app/build.gradle
+        minSdkVersion 28
     }
 
     defaultConfig {
