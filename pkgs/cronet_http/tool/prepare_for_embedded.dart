@@ -51,10 +51,10 @@ void main(List<String> args) async {
 
   final latestVersion = await _getLatestCronetVersion();
   updateCronetDependency(latestVersion);
-  if (args.isNotEmpty && args.first == 'publish') {
-    updatePubSpec();
-    updateReadme();
-  }
+  updatePubSpec();
+  updateReadme();
+  updateImports();
+  updateEntryPoint();
 }
 
 Future<String> _getLatestCronetVersion() async {
@@ -114,4 +114,27 @@ void updateReadme() {
   File('${_packageDirectory.path}/README.md').deleteSync();
   File('${_packageDirectory.path}/README_EMBEDDED.md')
       .renameSync('${_packageDirectory.path}/README.md');
+}
+
+void updateImports() {
+  for (final f in _packageDirectory.listSync(
+    recursive: true,
+    followLinks: false,
+  )) {
+    if (f case final file when file is File && file.path.endsWith('.dart')) {
+      final updatedSource = file.readAsStringSync().replaceAll(
+            'package:cronet_http_embedded/cronet_http_embedded.dart',
+            'package:cronet_http_embedded/cronet_http_embedded.dart',
+          );
+      file.writeAsStringSync(updatedSource);
+    }
+  }
+}
+
+void updateEntryPoint() {
+  File(
+    '${_packageDirectory.path}/lib/cronet_http.dart',
+  ).renameSync(
+    '${_packageDirectory.path}/lib/cronet_http_embedded.dart',
+  );
 }
