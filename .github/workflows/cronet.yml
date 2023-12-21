@@ -64,6 +64,5 @@ jobs:
           # - pkgs/cronet_http/example/android/app/build.gradle
           api-level: 24
           target: ${{ matrix.package == 'cronet_http_embedded' && 'google_apis' || 'playstore' }}
-          arch: x86_64
           profile: pixel
           script: cd 'pkgs/${{ matrix.package }}/example' && flutter test --timeout=1200s integration_test/
