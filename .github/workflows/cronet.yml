@@ -58,6 +58,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         if: always() && steps.install.outcome == 'success'
         with:
+          # This should match the minSdkVersion in
+          # pkgs/cronet_http/android/build.gradle.
           api-level: 19
           target: ${{ matrix.package == 'cronet_http_embedded' && 'google_apis' || 'playstore' }}
           arch: x86_64
