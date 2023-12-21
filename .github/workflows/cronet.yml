@@ -6,12 +6,12 @@ on:
       - main
       - master
     paths:
-      - '.github/workflows/**'
+      - '.github/workflows/cronet.yaml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   pull_request:
     paths:
-      - '.github/workflows/**'
+      - '.github/workflows/cronet.yaml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   schedule:
@@ -58,8 +58,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         if: always() && steps.install.outcome == 'success'
         with:
-          api-level: 28
-          target: ${{ matrix.package == 'cronet_http_embedded' && 'default' || 'playstore' }}
+          api-level: 19
+          target: ${{ matrix.package == 'cronet_http_embedded' && 'google_apis' || 'playstore' }}
           arch: x86_64
           profile: pixel
           script: cd 'pkgs/${{ matrix.package }}/example' && flutter test --timeout=1200s integration_test/
