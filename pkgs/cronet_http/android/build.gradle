@@ -46,7 +46,10 @@ android {
     }
 
     defaultConfig {
-        // This should match the version tested in .github/workflows/cronet.yml
+        // api-level/minSdkVersion should be help in sync in:
+        // - .github/workflows/cronet.yml
+        // - pkgs/cronet_http/android/build.gradle
+        // - pkgs/cronet_http/example/android/app/build.gradle
         minSdkVersion 24
     }
 

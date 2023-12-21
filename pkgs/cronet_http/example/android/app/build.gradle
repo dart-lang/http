@@ -46,6 +46,10 @@ android {
         applicationId "io.flutter.cronet_http_example"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
+        // api-level/minSdkVersion should be help in sync in:
+        // - .github/workflows/cronet.yml
+        // - pkgs/cronet_http/android/build.gradle
+        // - pkgs/cronet_http/example/android/app/build.gradle
         minSdkVersion 24
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
