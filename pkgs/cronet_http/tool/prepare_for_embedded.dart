@@ -13,6 +13,9 @@
 /// 1. Modifying the Gradle build file to reference the embedded Cronet.
 /// 2. Modifying the *name* and *description* in `pubspec.yaml`.
 /// 3. Replacing `README.md` with `README_EMBEDDED.md`.
+/// 4. Change the name of `cronet_http.dart` to `cronet_http_embedded.dart`.
+/// 5. Update all the imports from `package:cronet_http/cronet_http.dart` to
+///    `package:cronet_http_embedded/cronet_http_embedded.dart`
 ///
 /// After running this script, `flutter pub publish`
 /// can be run to update package:cronet_http_embedded.
@@ -40,8 +43,6 @@ final _cronetVersionUri = Uri.https(
   'android/maven2/org/chromium/net/group-index.xml',
 );
 
-/// Runs `prepare_for_embedded.dart publish` for publishing,
-/// or only the Android dependency will be modified.
 void main(List<String> args) async {
   if (Directory.current.path.endsWith('tool')) {
     _packageDirectory = Directory.current.parent;
@@ -53,8 +54,8 @@ void main(List<String> args) async {
   updateCronetDependency(latestVersion);
   updatePubSpec();
   updateReadme();
+  updateLibraryName();
   updateImports();
-  updateEntryPoint();
 }
 
 Future<String> _getLatestCronetVersion() async {
@@ -129,7 +130,7 @@ void updateImports() {
   }
 }
 
-void updateEntryPoint() {
+void updateLibraryName() {
   print('Renaming cronet_http.dart to cronet_http_embedded.dart');
   File(
     '${_packageDirectory.path}/lib/cronet_http.dart',
