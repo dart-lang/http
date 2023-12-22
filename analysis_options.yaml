@@ -8,16 +8,16 @@ analyzer:
 
 linter:
   rules:
-  - avoid_bool_literals_in_conditional_expressions
-  - avoid_classes_with_only_static_members
-  - avoid_private_typedef_functions
-  - avoid_returning_this
-  - avoid_unused_constructor_parameters
-  - cascade_invocations
-  - join_return_with_assignment
-  - missing_whitespace_between_adjacent_strings
-  - no_adjacent_strings_in_list
-  - no_runtimeType_toString
-  - prefer_const_declarations
-  - prefer_expression_function_bodies
-  - use_string_buffers
+    - avoid_bool_literals_in_conditional_expressions
+    - avoid_classes_with_only_static_members
+    - avoid_private_typedef_functions
+    - avoid_returning_this
+    - avoid_unused_constructor_parameters
+    - cascade_invocations
+    - join_return_with_assignment
+    - missing_whitespace_between_adjacent_strings
+    - no_adjacent_strings_in_list
+    - no_runtimeType_toString
+    - prefer_const_declarations
+    - prefer_expression_function_bodies
+    - use_string_buffers
