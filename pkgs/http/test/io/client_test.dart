@@ -38,9 +38,9 @@ void main() {
   test('#send a StreamedRequest', () async {
     var client = http.Client();
     var request = http.StreamedRequest('POST', serverUrl)
-      ..headers[HttpHeaders.contentTypeHeader] =
-          'application/json; charset=utf-8'
-      ..headers[HttpHeaders.userAgentHeader] = 'Dart';
+      ..headers
+          .set(HttpHeaders.contentTypeHeader, 'application/json; charset=utf-8')
+      ..headers.set(HttpHeaders.userAgentHeader, 'Dart');
 
     var responseFuture = client.send(request);
     request.sink.add('{"hello": "world"}'.codeUnits);
@@ -50,7 +50,7 @@ void main() {
 
     expect(response.request, equals(request));
     expect(response.statusCode, equals(200));
-    expect(response.headers['single'], equals('value'));
+    expect(response.headers.get('single'), equals('value'));
     // dart:io internally normalizes outgoing headers so that they never
     // have multiple headers with the same name, so there's no way to test
     // whether we handle that case correctly.
@@ -76,9 +76,9 @@ void main() {
     var ioClient = HttpClient();
     var client = http_io.IOClient(ioClient);
     var request = http.StreamedRequest('POST', serverUrl)
-      ..headers[HttpHeaders.contentTypeHeader] =
-          'application/json; charset=utf-8'
-      ..headers[HttpHeaders.userAgentHeader] = 'Dart';
+      ..headers
+          .set(HttpHeaders.contentTypeHeader, 'application/json; charset=utf-8')
+      ..headers.set(HttpHeaders.userAgentHeader, 'Dart');
 
     var responseFuture = client.send(request);
     request.sink.add('{"hello": "world"}'.codeUnits);
@@ -88,7 +88,7 @@ void main() {
 
     expect(response.request, equals(request));
     expect(response.statusCode, equals(200));
-    expect(response.headers['single'], equals('value'));
+    expect(response.headers.get('single'), equals('value'));
     // dart:io internally normalizes outgoing headers so that they never
     // have multiple headers with the same name, so there's no way to test
     // whether we handle that case correctly.
@@ -114,8 +114,8 @@ void main() {
     var client = http.Client();
     var url = Uri.http('http.invalid', '');
     var request = http.StreamedRequest('POST', url);
-    request.headers[HttpHeaders.contentTypeHeader] =
-        'application/json; charset=utf-8';
+    request.headers
+        .set(HttpHeaders.contentTypeHeader, 'application/json; charset=utf-8');
 
     expect(
         client.send(request),

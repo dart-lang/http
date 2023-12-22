@@ -9,6 +9,7 @@ import 'package:http_parser/http_parser.dart';
 
 import 'base_request.dart';
 import 'base_response.dart';
+import 'headers.dart';
 import 'streamed_response.dart';
 import 'utils.dart';
 
@@ -30,7 +31,7 @@ class Response extends BaseResponse {
   /// Creates a new HTTP response with a string body.
   Response(String body, int statusCode,
       {BaseRequest? request,
-      Map<String, String> headers = const {},
+      Headers? headers,
       bool isRedirect = false,
       bool persistentConnection = true,
       String? reasonPhrase})
@@ -68,14 +69,14 @@ class Response extends BaseResponse {
 ///
 /// Defaults to [latin1] if the headers don't specify a charset or if that
 /// charset is unknown.
-Encoding _encodingForHeaders(Map<String, String> headers) =>
+Encoding _encodingForHeaders(Headers? headers) =>
     encodingForCharset(_contentTypeForHeaders(headers).parameters['charset']);
 
 /// Returns the [MediaType] object for the given headers's content-type.
 ///
 /// Defaults to `application/octet-stream`.
-MediaType _contentTypeForHeaders(Map<String, String> headers) {
-  var contentType = headers['content-type'];
+MediaType _contentTypeForHeaders(Headers? headers) {
+  var contentType = headers?.get('content-type');
   if (contentType != null) return MediaType.parse(contentType);
   return MediaType('application', 'octet-stream');
 }

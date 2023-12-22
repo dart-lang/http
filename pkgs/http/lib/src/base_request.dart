@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:collection';
-
 import 'package:meta/meta.dart';
 
 import '../http.dart' show ClientException, get;
@@ -11,6 +9,7 @@ import 'base_client.dart';
 import 'base_response.dart';
 import 'byte_stream.dart';
 import 'client.dart';
+import 'headers.dart';
 import 'streamed_response.dart';
 import 'utils.dart';
 
@@ -82,7 +81,7 @@ abstract class BaseRequest {
   // TODO(nweiz): automatically parse cookies from headers
 
   // TODO(nweiz): make this a HttpHeaders object
-  final Map<String, String> headers;
+  final Headers headers = Headers();
 
   /// Whether [finalize] has been called.
   bool get finalized => _finalized;
@@ -96,11 +95,7 @@ abstract class BaseRequest {
     return method;
   }
 
-  BaseRequest(String method, this.url)
-      : method = _validateMethod(method),
-        headers = LinkedHashMap(
-            equals: (key1, key2) => key1.toLowerCase() == key2.toLowerCase(),
-            hashCode: (key) => key.toLowerCase().hashCode);
+  BaseRequest(String method, this.url) : method = _validateMethod(method);
 
   /// Finalizes the HTTP request in preparation for it being sent.
   ///

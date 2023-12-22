@@ -38,9 +38,9 @@ void main() {
 
     test('get', () async {
       var response = await http.get(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       });
       expect(response.statusCode, equals(200));
       expect(
@@ -65,10 +65,10 @@ void main() {
 
     test('post', () async {
       var response = await http.post(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'Content-Type': 'text/plain',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'Content-Type': ['text/plain'],
+        'User-Agent': ['Dart']
       });
       expect(response.statusCode, equals(200));
       expect(
@@ -90,9 +90,9 @@ void main() {
     test('post with string', () async {
       var response = await http.post(serverUrl,
           headers: {
-            'X-Random-Header': 'Value',
-            'X-Other-Header': 'Other Value',
-            'User-Agent': 'Dart'
+            'X-Random-Header': ['Value'],
+            'X-Other-Header': ['Other Value'],
+            'User-Agent': ['Dart']
           },
           body: 'request body');
       expect(response.statusCode, equals(200));
@@ -115,9 +115,9 @@ void main() {
 
     test('post with bytes', () async {
       var response = await http.post(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       }, body: [
         104,
         101,
@@ -144,9 +144,9 @@ void main() {
 
     test('post with fields', () async {
       var response = await http.post(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       }, body: {
         'some-field': 'value',
         'other-field': 'other value'
@@ -180,10 +180,10 @@ void main() {
 
     test('put', () async {
       var response = await http.put(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'Content-Type': 'text/plain',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'Content-Type': ['text/plain'],
+        'User-Agent': ['Dart']
       });
       expect(response.statusCode, equals(200));
       expect(
@@ -205,9 +205,9 @@ void main() {
     test('put with string', () async {
       var response = await http.put(serverUrl,
           headers: {
-            'X-Random-Header': 'Value',
-            'X-Other-Header': 'Other Value',
-            'User-Agent': 'Dart'
+            'X-Random-Header': ['Value'],
+            'X-Other-Header': ['Other Value'],
+            'User-Agent': ['Dart']
           },
           body: 'request body');
       expect(response.statusCode, equals(200));
@@ -230,9 +230,9 @@ void main() {
 
     test('put with bytes', () async {
       var response = await http.put(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       }, body: [
         104,
         101,
@@ -259,9 +259,9 @@ void main() {
 
     test('put with fields', () async {
       var response = await http.put(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       }, body: {
         'some-field': 'value',
         'other-field': 'other value'
@@ -295,10 +295,10 @@ void main() {
 
     test('patch', () async {
       var response = await http.patch(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'Content-Type': 'text/plain',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'Content-Type': ['text/plain'],
+        'User-Agent': ['Dart']
       });
       expect(response.statusCode, equals(200));
       expect(
@@ -320,9 +320,9 @@ void main() {
     test('patch with string', () async {
       var response = await http.patch(serverUrl,
           headers: {
-            'X-Random-Header': 'Value',
-            'X-Other-Header': 'Other Value',
-            'User-Agent': 'Dart'
+            'X-Random-Header': ['Value'],
+            'X-Other-Header': ['Other Value'],
+            'User-Agent': ['Dart']
           },
           body: 'request body');
       expect(response.statusCode, equals(200));
@@ -345,9 +345,9 @@ void main() {
 
     test('patch with bytes', () async {
       var response = await http.patch(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       }, body: [
         104,
         101,
@@ -374,9 +374,9 @@ void main() {
 
     test('patch with fields', () async {
       var response = await http.patch(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       }, body: {
         'some-field': 'value',
         'other-field': 'other value'
@@ -403,9 +403,9 @@ void main() {
 
     test('delete', () async {
       var response = await http.delete(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       });
       expect(response.statusCode, equals(200));
       expect(
@@ -431,9 +431,9 @@ void main() {
 
     test('read', () async {
       var response = await http.read(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       });
       expect(
           response,
@@ -461,9 +461,9 @@ void main() {
 
     test('readBytes', () async {
       var bytes = await http.readBytes(serverUrl, headers: {
-        'X-Random-Header': 'Value',
-        'X-Other-Header': 'Other Value',
-        'User-Agent': 'Dart'
+        'X-Random-Header': ['Value'],
+        'X-Other-Header': ['Other Value'],
+        'User-Agent': ['Dart']
       });
 
       expect(

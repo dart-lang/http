@@ -44,7 +44,7 @@ void main() {
 
     test('is based on the content-type charset if it exists', () {
       var request = http.Request('POST', dummyUrl);
-      request.headers['Content-Type'] = 'text/plain; charset=iso-8859-1';
+      request.headers.set('Content-Type', 'text/plain; charset=iso-8859-1');
       expect(request.encoding.name, equals(latin1.name));
     });
 
@@ -52,17 +52,17 @@ void main() {
         () {
       var request = http.Request('POST', dummyUrl)
         ..encoding = latin1
-        ..headers['Content-Type'] = 'text/plain; charset=utf-8';
+        ..headers.set('Content-Type', 'text/plain; charset=utf-8');
       expect(request.encoding.name, equals(utf8.name));
 
-      request.headers.remove('Content-Type');
+      request.headers.delete('Content-Type');
       expect(request.encoding.name, equals(latin1.name));
     });
 
     test('throws an error if the content-type charset is unknown', () {
       var request = http.Request('POST', dummyUrl);
-      request.headers['Content-Type'] =
-          'text/plain; charset=not-a-real-charset';
+      request.headers
+          .set('Content-Type', 'text/plain; charset=not-a-real-charset');
       expect(() => request.encoding, throwsFormatException);
     });
   });
@@ -125,7 +125,7 @@ void main() {
 
     test("can't be read with the wrong content-type", () {
       var request = http.Request('POST', dummyUrl);
-      request.headers['Content-Type'] = 'text/plain';
+      request.headers.set('Content-Type', 'text/plain');
       expect(() => request.bodyFields, throwsStateError);
     });
 
@@ -340,4 +340,10 @@ void main() {
       expect(() => http.Request('LLAMA[0]', dummyUrl), throwsArgumentError);
     });
   });
+}
+
+extension on http.Headers {
+  void operator []=(String name, String value) => set(name, value);
+
+  String? operator [](String name) => get(name);
 }

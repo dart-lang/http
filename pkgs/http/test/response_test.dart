@@ -24,7 +24,8 @@ void main() {
 
     test('respects the inferred encoding', () {
       var response = http.Response('föøbãr', 200,
-          headers: {'content-type': 'text/plain; charset=iso-8859-1'});
+          headers:
+              http.Headers({'content-type': 'text/plain; charset=iso-8859-1'}));
       expect(response.bodyBytes, equals([102, 246, 248, 98, 227, 114]));
     });
   });
@@ -42,7 +43,8 @@ void main() {
 
     test('respects the inferred encoding', () {
       var response = http.Response.bytes([102, 246, 248, 98, 227, 114], 200,
-          headers: {'content-type': 'text/plain; charset=iso-8859-1'});
+          headers:
+              http.Headers({'content-type': 'text/plain; charset=iso-8859-1'}));
       expect(response.body, equals('föøbãr'));
     });
   });

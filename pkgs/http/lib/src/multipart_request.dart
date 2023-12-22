@@ -87,7 +87,7 @@ class MultipartRequest extends BaseRequest {
   ByteStream finalize() {
     // TODO: freeze fields and files
     final boundary = _boundaryString();
-    headers['content-type'] = 'multipart/form-data; boundary=$boundary';
+    headers.set('content-type', 'multipart/form-data; boundary=$boundary');
     super.finalize();
     return ByteStream(_finalize(boundary));
   }

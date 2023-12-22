@@ -136,9 +136,15 @@ final class RetryClient extends BaseClient {
     final request = StreamedRequest(original.method, original.url)
       ..contentLength = original.contentLength
       ..followRedirects = original.followRedirects
-      ..headers.addAll(original.headers)
       ..maxRedirects = original.maxRedirects
       ..persistentConnection = original.persistentConnection;
+
+    for (final (name, value) in original.headers.entries()) {
+      request.headers.append(name, value);
+    }
+    for (final cookie in original.headers.getSetCookie()) {
+      request.headers.append('set-cookie', cookie);
+    }
 
     body.listen(request.sink.add,
         onError: request.sink.addError,

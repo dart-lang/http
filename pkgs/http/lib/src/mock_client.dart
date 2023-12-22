@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
+import 'headers.dart';
 import 'request.dart';
 import 'response.dart';
 import 'streamed_request.dart';
@@ -42,9 +43,15 @@ class MockClient extends BaseClient {
             ..persistentConnection = baseRequest.persistentConnection
             ..followRedirects = baseRequest.followRedirects
             ..maxRedirects = baseRequest.maxRedirects
-            ..headers.addAll(baseRequest.headers)
             ..bodyBytes = bodyBytes
             ..finalize();
+
+          for (final (name, value) in baseRequest.headers.entries()) {
+            request.headers.append(name, value);
+          }
+          for (final cookie in baseRequest.headers.getSetCookie()) {
+            request.headers.append('set-cookie', cookie);
+          }
 
           final response = await fn(request);
           return StreamedResponse(
@@ -79,10 +86,10 @@ class MockClient extends BaseClient {
 
   /// Return a response containing a PNG image.
   static Response pngResponse({BaseRequest? request}) {
-    final headers = {
+    final headers = Headers({
       'content-type': 'image/png',
       'content-length': '${_pngImageData.length}'
-    };
+    });
 
     return Response.bytes(_pngImageData, 200,
         request: request, headers: headers, reasonPhrase: 'OK');

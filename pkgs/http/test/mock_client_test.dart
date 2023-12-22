@@ -15,7 +15,8 @@ void main() {
   test('handles a request', () async {
     var client = MockClient((request) async => http.Response(
         json.encode(request.bodyFields), 200,
-        request: request, headers: {'content-type': 'application/json'}));
+        request: request,
+        headers: http.Headers({'content-type': 'application/json'})));
 
     var response = await client.post(Uri.http('example.com', '/foo'),
         body: {'field1': 'value1', 'field2': 'value2'});

@@ -9,6 +9,7 @@ import 'base_request.dart';
 import 'byte_stream.dart';
 import 'client.dart';
 import 'exception.dart';
+import 'headers.dart';
 import 'request.dart';
 import 'response.dart';
 import 'streamed_response.dart';
@@ -19,42 +20,51 @@ import 'streamed_response.dart';
 /// maybe [close], and then they get various convenience methods for free.
 abstract mixin class BaseClient implements Client {
   @override
-  Future<Response> head(Uri url, {Map<String, String>? headers}) =>
+  Future<Response> head(Uri url, {Map<String, Iterable<String>>? headers}) =>
       _sendUnstreamed('HEAD', url, headers);
 
   @override
-  Future<Response> get(Uri url, {Map<String, String>? headers}) =>
+  Future<Response> get(Uri url, {Map<String, Iterable<String>>? headers}) =>
       _sendUnstreamed('GET', url, headers);
 
   @override
   Future<Response> post(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
+          {Map<String, Iterable<String>>? headers,
+          Object? body,
+          Encoding? encoding}) =>
       _sendUnstreamed('POST', url, headers, body, encoding);
 
   @override
   Future<Response> put(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
+          {Map<String, Iterable<String>>? headers,
+          Object? body,
+          Encoding? encoding}) =>
       _sendUnstreamed('PUT', url, headers, body, encoding);
 
   @override
   Future<Response> patch(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
+          {Map<String, Iterable<String>>? headers,
+          Object? body,
+          Encoding? encoding}) =>
       _sendUnstreamed('PATCH', url, headers, body, encoding);
 
   @override
   Future<Response> delete(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
+          {Map<String, Iterable<String>>? headers,
+          Object? body,
+          Encoding? encoding}) =>
       _sendUnstreamed('DELETE', url, headers, body, encoding);
 
   @override
-  Future<String> read(Uri url, {Map<String, String>? headers}) async {
+  Future<String> read(Uri url, {Map<String, Iterable<String>>? headers}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.body;
   }
 
   @override
-  Future<Uint8List> readBytes(Uri url, {Map<String, String>? headers}) async {
+  Future<Uint8List> readBytes(Uri url,
+      {Map<String, Iterable<String>>? headers}) async {
     final response = await get(url, headers: headers);
     _checkResponseSuccess(url, response);
     return response.bodyBytes;
@@ -72,11 +82,20 @@ abstract mixin class BaseClient implements Client {
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(
-      String method, Uri url, Map<String, String>? headers,
+      String method, Uri url, Map<String, Iterable<String>>? headers,
       [Object? body, Encoding? encoding]) async {
     var request = Request(method, url);
 
-    if (headers != null) request.headers.addAll(headers);
+    if (headers != null) {
+      final newHeaders = Headers(headers);
+      for (final (name, value) in newHeaders.entries()) {
+        request.headers.append(name, value);
+      }
+      for (final cookie in newHeaders.getSetCookie()) {
+        request.headers.append('Set-Cookie', cookie);
+      }
+    }
+
     if (encoding != null) request.encoding = encoding;
     if (body != null) {
       if (body is String) {

@@ -53,9 +53,9 @@ void main() {
         MockClient(expectAsync1((request) async {
           count++;
           return Response('', 503,
-              headers: {'retry': count < 2 ? 'true' : 'false'});
+              headers: Headers({'retry': count < 2 ? 'true' : 'false'}));
         }, count: 2)),
-        when: (response) => response.headers['retry'] == 'true',
+        when: (response) => response.headers.get('retry') == 'true',
         delay: (_) => Duration.zero);
 
     final response = await client.get(Uri.http('example.org', ''));
@@ -217,7 +217,7 @@ void main() {
     final request = Request('POST', Uri.http('example.org', ''))
       ..body = 'hello'
       ..followRedirects = false
-      ..headers['foo'] = 'bar'
+      ..headers.append('foo', 'bar')
       ..maxRedirects = 12
       ..persistentConnection = false;
 
@@ -228,7 +228,7 @@ void main() {
   test('async when, whenError and onRetry', () async {
     final client = RetryClient(
       MockClient(expectAsync1(
-          (request) async => request.headers['Authorization'] != null
+          (request) async => request.headers.get('Authorization') != null
               ? Response('', 200)
               : Response('', 401),
           count: 2)),
@@ -245,7 +245,7 @@ void main() {
       onRetry: (request, response, retryCount) async {
         expect(response?.statusCode, equals(401));
         await Future<void>.delayed(const Duration(milliseconds: 500));
-        request.headers['Authorization'] = 'Bearer TOKEN';
+        request.headers.set('Authorization', 'Bearer TOKEN');
       },
     );
 

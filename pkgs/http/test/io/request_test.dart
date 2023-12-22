@@ -19,7 +19,7 @@ void main() {
   test('send happy case', () async {
     final request = http.Request('GET', serverUrl)
       ..body = 'hello'
-      ..headers['User-Agent'] = 'Dart';
+      ..headers.set('user-agent', 'Dart');
 
     final response = await request.send();
 

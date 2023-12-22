@@ -163,17 +163,18 @@ class Request extends BaseRequest {
 
   /// The `Content-Type` header of the request (if it exists) as a [MediaType].
   MediaType? get _contentType {
-    var contentType = headers['content-type'];
+    var contentType = headers.get('content-type');
     if (contentType == null) return null;
     return MediaType.parse(contentType);
   }
 
   set _contentType(MediaType? value) {
+    // If the content type is null, remove the header.
     if (value == null) {
-      headers.remove('content-type');
-    } else {
-      headers['content-type'] = value.toString();
+      return headers.delete('content-type');
     }
+
+    headers.set('content-type', value.toString());
   }
 
   /// Throw an error if this request has been finalized.

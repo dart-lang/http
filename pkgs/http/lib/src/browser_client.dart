@@ -3,14 +3,16 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:js_interop';
 
-import 'package:web/helpers.dart';
+import 'package:web/helpers.dart' hide Headers;
 
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
+import 'headers.dart';
 import 'streamed_response.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
@@ -62,14 +64,22 @@ class BrowserClient extends BaseClient {
       ..open(request.method, '${request.url}', true)
       ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
-    for (var header in request.headers.entries) {
-      xhr.setRequestHeader(header.key, header.value);
+
+    // Sets all headers without set-cookie headers.
+    for (final (name, value) in request.headers.entries()) {
+      xhr.setRequestHeader(name, value);
+    }
+
+    // Sets cookie headers.
+    for (final cookie in request.headers.getSetCookie()) {
+      xhr.setRequestHeader('set-cookie', cookie);
     }
 
     var completer = Completer<StreamedResponse>();
 
     unawaited(xhr.onLoad.first.then((_) {
-      if (xhr.responseHeaders['content-length'] case final contentLengthHeader
+      if (xhr.responseHeaders.get('content-length')
+          case final contentLengthHeader
           when contentLengthHeader != null &&
               !_digitRegex.hasMatch(contentLengthHeader)) {
         completer.completeError(ClientException(
@@ -118,12 +128,12 @@ class BrowserClient extends BaseClient {
 }
 
 extension on XMLHttpRequest {
-  Map<String, String> get responseHeaders {
+  Headers get responseHeaders {
+    final headers = Headers();
+    final lines = const LineSplitter().convert(getAllResponseHeaders());
+
     // from Closure's goog.net.Xhrio.getResponseHeaders.
-    var headers = <String, String>{};
-    var headersString = getAllResponseHeaders();
-    var headersList = headersString.split('\r\n');
-    for (var header in headersList) {
+    for (var header in lines) {
       if (header.isEmpty) {
         continue;
       }
@@ -132,14 +142,13 @@ extension on XMLHttpRequest {
       if (splitIdx == -1) {
         continue;
       }
+
       var key = header.substring(0, splitIdx).toLowerCase();
       var value = header.substring(splitIdx + 2);
-      if (headers.containsKey(key)) {
-        headers[key] = '${headers[key]}, $value';
-      } else {
-        headers[key] = value;
-      }
+
+      headers.append(key, value);
     }
+    // return headers;
     return headers;
   }
 }

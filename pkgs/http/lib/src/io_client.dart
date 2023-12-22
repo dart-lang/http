@@ -8,6 +8,7 @@ import 'base_client.dart';
 import 'base_request.dart';
 import 'client.dart';
 import 'exception.dart';
+import 'headers.dart';
 import 'io_streamed_response.dart';
 
 /// Create an [IOClient].
@@ -102,18 +103,27 @@ class IOClient extends BaseClient {
         ..maxRedirects = request.maxRedirects
         ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
-      request.headers.forEach((name, value) {
-        ioRequest.headers.set(name, value);
+
+      // Sets headers with set-cookie headers.
+      request.headers.forEach((value, name, parent) {
+        ioRequest.headers.add(name, value);
       });
+
+      // Sets cookie headers.
+      for (final cookie in request.headers.getSetCookie()) {
+        ioRequest.headers.add('set-cookie', cookie);
+      }
 
       var response = await stream.pipe(ioRequest) as HttpClientResponse;
 
-      var headers = <String, String>{};
-      response.headers.forEach((key, values) {
+      final headers = Headers();
+      response.headers.forEach((name, values) {
         // TODO: Remove trimRight() when
         // https://github.com/dart-lang/sdk/issues/53005 is resolved and the
         // package:http SDK constraint requires that version or later.
-        headers[key] = values.map((value) => value.trimRight()).join(',');
+        for (final value in values) {
+          headers.append(name, value.trimRight());
+        }
       });
 
       return IOStreamedResponse(
