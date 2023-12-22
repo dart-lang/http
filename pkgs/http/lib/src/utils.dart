@@ -22,7 +22,7 @@ String mapToQuery(Map<String, String> map, {required Encoding encoding}) =>
 ///
 /// Returns [fallback] if [charset] is null or if no [Encoding] was found that
 /// corresponds to [charset].
-Encoding encodingForCharset(String? charset, [Encoding fallback = utf8]) {
+Encoding encodingForCharset(String? charset, [Encoding fallback = latin1]) {
   if (charset == null) return fallback;
   return Encoding.getByName(charset) ?? fallback;
 }
