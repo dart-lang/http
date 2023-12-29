@@ -69,7 +69,8 @@ class BrowserClient extends BaseClient {
     var completer = Completer<StreamedResponse>();
 
     unawaited(xhr.onLoad.first.then((_) {
-      if (xhr.responseHeaders['content-length'] case final contentLengthHeader
+      var responseHeaders = xhr.responseHeaders;
+      if (responseHeaders['content-length'] case final contentLengthHeader
           when contentLengthHeader != null &&
               !_digitRegex.hasMatch(contentLengthHeader)) {
         completer.completeError(ClientException(
@@ -83,7 +84,7 @@ class BrowserClient extends BaseClient {
           ByteStream.fromBytes(body), xhr.status,
           contentLength: body.length,
           request: request,
-          headers: xhr.responseHeaders,
+          headers: responseHeaders,
           reasonPhrase: xhr.statusText));
     }));
 
@@ -134,8 +135,8 @@ extension on XMLHttpRequest {
       }
       var key = header.substring(0, splitIdx).toLowerCase();
       var value = header.substring(splitIdx + 2);
-      if (headers.containsKey(key)) {
-        headers[key] = '${headers[key]}, $value';
+      if (headers[key] case final existingValue?) {
+        headers[key] = '$existingValue, $value';
       } else {
         headers[key] = value;
       }
