@@ -31,7 +31,7 @@ late final Directory _packageDirectory;
 
 // For the latest version, see:
 // https://mvnrepository.com/artifact/org.chromium.net/cronet-embedded
-const _cronetEmbeddedVersion = "113.5672.61";
+const _cronetEmbeddedVersion = '113.5672.61';
 const _gmsDependencyName = 'com.google.android.gms:play-services-cronet';
 const _embeddedDependencyName = 'org.chromium.net:cronet-embedded';
 const _packageName = 'cronet_http_embedded';
