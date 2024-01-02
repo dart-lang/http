@@ -33,7 +33,7 @@ This library demonstrates how to:
 
 * import `http_client_factory.dart` or `http_client_factory_web.dart`,
   depending on whether we are targeting the web browser or not.
-* share a `package:http` `Client` by `package:provider`.
+* share a `package:http` `Client` by using `package:provider`.
 * call `package:http` `Client` methods.
 
 ### `widget_test.dart`
