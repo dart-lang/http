@@ -96,7 +96,8 @@ void updateBuildGradle(String latestVersion) {
 
 /// Remove the cronet reference from ./example/android/app/build.gradle.
 void updateExampleBuildGradle() {
-  final buildGradle = File('${_packageDirectory.path}/android/build.gradle');
+  final buildGradle =
+      File('${_packageDirectory.path}/example/android/app/build.gradle');
   final gradleContent = buildGradle.readAsStringSync();
 
   print('Updating ${buildGradle.path}: removing cronet reference');
