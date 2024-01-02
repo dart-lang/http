@@ -42,6 +42,12 @@ final _cronetVersionUri = Uri.https(
   'dl.google.com',
   'android/maven2/org/chromium/net/group-index.xml',
 );
+final implementationRegExp = RegExp(
+  '^\\s*implementation [\'"]'
+  '$_gmsDependencyName'
+  ':\\d+.\\d+.\\d+[\'"]',
+  multiLine: true,
+);
 
 void main(List<String> args) async {
   if (Directory.current.path.endsWith('tool')) {
@@ -51,7 +57,8 @@ void main(List<String> args) async {
   }
 
   final latestVersion = await _getLatestCronetVersion();
-  updateCronetDependency(latestVersion);
+  updateBuildGradle(latestVersion);
+  updateExampleBuildGradle();
   updatePubSpec();
   updateReadme();
   updateLibraryName();
@@ -75,22 +82,29 @@ Future<String> _getLatestCronetVersion() async {
 }
 
 /// Update android/build.gradle.
-void updateCronetDependency(String latestVersion) {
-  final fBuildGradle = File('${_packageDirectory.path}/android/build.gradle');
-  final gradleContent = fBuildGradle.readAsStringSync();
-  final implementationRegExp = RegExp(
-    '^\\s*implementation [\'"]'
-    '$_gmsDependencyName'
-    ':\\d+.\\d+.\\d+[\'"]',
-    multiLine: true,
-  );
+void updateBuildGradle(String latestVersion) {
+  final buildGradle = File('${_packageDirectory.path}/android/build.gradle');
+  final gradleContent = buildGradle.readAsStringSync();
   final newImplementation = '$_embeddedDependencyName:$latestVersion';
-  print('Patching $newImplementation');
+  print('Updating ${buildGradle.path}: adding $newImplementation');
   final newGradleContent = gradleContent.replaceAll(
     implementationRegExp,
     '    implementation "$newImplementation"',
   );
-  fBuildGradle.writeAsStringSync(newGradleContent);
+  buildGradle.writeAsStringSync(newGradleContent);
+}
+
+/// Remove the cronet reference from ./example/android/app/build.gradle.
+void updateExampleBuildGradle() {
+  final buildGradle = File('${_packageDirectory.path}/android/build.gradle');
+  final gradleContent = buildGradle.readAsStringSync();
+
+  print('Updating ${buildGradle.path}: removing cronet reference');
+  final newGradleContent = gradleContent.replaceAll(
+    implementationRegExp,
+    '',
+  );
+  buildGradle.writeAsStringSync(newGradleContent);
 }
 
 /// Update pubspec.yaml and example/pubspec.yaml.
