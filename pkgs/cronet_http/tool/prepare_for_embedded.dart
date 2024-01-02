@@ -42,6 +42,8 @@ final _cronetVersionUri = Uri.https(
   'dl.google.com',
   'android/maven2/org/chromium/net/group-index.xml',
 );
+// Finds the Google Play Services Cronet dependency line. For example:
+// '    implementation "com.google.android.gms:play-services-cronet:18.0.1"'
 final implementationRegExp = RegExp(
   '^\\s*implementation [\'"]'
   '$_gmsDependencyName'
