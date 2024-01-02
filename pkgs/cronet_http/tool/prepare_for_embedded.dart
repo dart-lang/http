@@ -39,6 +39,12 @@ const _packageDescription = 'An Android Flutter plugin that '
     'provides access to the Cronet HTTP client. '
     'Identical to package:cronet_http except that it embeds Cronet '
     'rather than relying on Google Play Services.';
+final implementationRegExp = RegExp(
+  '^\\s*implementation [\'"]'
+  '$_gmsDependencyName'
+  ':\\d+.\\d+.\\d+[\'"]',
+  multiLine: true,
+);
 
 void main(List<String> args) async {
   if (Directory.current.path.endsWith('tool')) {
@@ -48,6 +54,7 @@ void main(List<String> args) async {
   }
 
   updateCronetDependency(_cronetEmbeddedVersion);
+  update2();
   updatePubSpec();
   updateReadme();
   updateLibraryName();
@@ -58,17 +65,22 @@ void main(List<String> args) async {
 void updateCronetDependency(String latestVersion) {
   final fBuildGradle = File('${_packageDirectory.path}/android/build.gradle');
   final gradleContent = fBuildGradle.readAsStringSync();
-  final implementationRegExp = RegExp(
-    '^\\s*implementation [\'"]'
-    '$_gmsDependencyName'
-    ':\\d+.\\d+.\\d+[\'"]',
-    multiLine: true,
-  );
   final newImplementation = '$_embeddedDependencyName:$latestVersion';
   print('Patching $newImplementation');
   final newGradleContent = gradleContent.replaceAll(
     implementationRegExp,
     '    implementation "$newImplementation"',
+  );
+  fBuildGradle.writeAsStringSync(newGradleContent);
+}
+
+void update2() {
+  final fBuildGradle =
+      File('${_packageDirectory.path}/example/android/app/build.gradle');
+  final gradleContent = fBuildGradle.readAsStringSync();
+  final newGradleContent = gradleContent.replaceAll(
+    implementationRegExp,
+    '',
   );
   fBuildGradle.writeAsStringSync(newGradleContent);
 }
