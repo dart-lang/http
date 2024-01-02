@@ -25,12 +25,13 @@ library;
 
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
-import 'package:xml/xml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
 late final Directory _packageDirectory;
 
+// For the latest version, see:
+// https://mvnrepository.com/artifact/org.chromium.net/cronet-embedded
+const _cronetEmbeddedVersion = "113.5672.61";
 const _gmsDependencyName = 'com.google.android.gms:play-services-cronet';
 const _embeddedDependencyName = 'org.chromium.net:cronet-embedded';
 const _packageName = 'cronet_http_embedded';
@@ -38,10 +39,6 @@ const _packageDescription = 'An Android Flutter plugin that '
     'provides access to the Cronet HTTP client. '
     'Identical to package:cronet_http except that it embeds Cronet '
     'rather than relying on Google Play Services.';
-final _cronetVersionUri = Uri.https(
-  'dl.google.com',
-  'android/maven2/org/chromium/net/group-index.xml',
-);
 
 void main(List<String> args) async {
   if (Directory.current.path.endsWith('tool')) {
@@ -50,28 +47,11 @@ void main(List<String> args) async {
     _packageDirectory = Directory.current;
   }
 
-  final latestVersion = await _getLatestCronetVersion();
-  updateCronetDependency(latestVersion);
+  updateCronetDependency(_cronetEmbeddedVersion);
   updatePubSpec();
   updateReadme();
   updateLibraryName();
   updateImports();
-}
-
-Future<String> _getLatestCronetVersion() async {
-  final response = await http.get(_cronetVersionUri);
-  final parsedXml = XmlDocument.parse(response.body);
-  final embeddedNode = parsedXml.children
-      .singleWhere((e) => e is XmlElement)
-      .children
-      .singleWhere((e) => e is XmlElement && e.name.local == 'cronet-embedded');
-  final stableVersionReg = RegExp(r'^\d+.\d+.\d+$');
-  final versions = embeddedNode.attributes
-      .singleWhere((e) => e.name.local == 'versions')
-      .value
-      .split(',')
-      .where((e) => stableVersionReg.stringMatch(e) == e);
-  return versions.last;
 }
 
 /// Update android/build.gradle.
