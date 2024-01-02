@@ -103,7 +103,7 @@ void updateExampleBuildGradle() {
   print('Updating ${buildGradle.path}: removing cronet reference');
   final newGradleContent = gradleContent.replaceAll(
     implementationRegExp,
-    '',
+    '    // NOTE: removed in package:cronet_http_embedded',
   );
   buildGradle.writeAsStringSync(newGradleContent);
 }
