@@ -15,7 +15,7 @@ you to make individual HTTP requests with minimal hassle:
 ```dart
 import 'package:http/http.dart' as http;
 
-var url = Uri.https('example.com', 'whatsit/create');
+var url = Uri.parse('example.com/whatsit/create');
 var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
 print('Response status: ${response.statusCode}');
 print('Response body: ${response.body}');
@@ -36,7 +36,7 @@ If you do this, make sure to close the client when you're done:
 var client = http.Client();
 try {
   var response = await client.post(
-      Uri.https('example.com', 'whatsit/create'),
+      Uri.parse('example.com/whatsit/create'),
       body: {'name': 'doodle', 'color': 'blue'});
   var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
   var uri = Uri.parse(decodedResponse['uri'] as String);
@@ -98,7 +98,7 @@ import 'package:http/retry.dart';
 Future<void> main() async {
   final client = RetryClient(http.Client());
   try {
-    print(await client.read(Uri.http('example.org', '')));
+    print(await client.read(Uri.parse('example.org')));
   } finally {
     client.close();
   }
