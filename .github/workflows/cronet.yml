@@ -23,7 +23,7 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         package: ['cronet_http', 'cronet_http_embedded']
