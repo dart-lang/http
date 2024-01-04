@@ -1,3 +1,6 @@
+## 2.4.2
+- Allow `web: '>=0.3.0 <0.5.0'`
+
 ## 2.4.1
 
 - Update the examples to use `WebSocketChannel.ready` and clarify that
