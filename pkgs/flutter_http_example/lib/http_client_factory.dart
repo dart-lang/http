@@ -9,19 +9,19 @@ import 'package:cupertino_http/cupertino_http.dart';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 
-const maxCacheSize = 2 * 1024 * 1024;
+const _maxCacheSize = 2 * 1024 * 1024;
 
 Client httpClient() {
   if (Platform.isAndroid) {
     final engine = CronetEngine.build(
         cacheMode: CacheMode.memory,
-        cacheMaxSize: maxCacheSize,
+        cacheMaxSize: _maxCacheSize,
         userAgent: 'Book Agent');
     return CronetClient.fromCronetEngine(engine);
   }
   if (Platform.isIOS || Platform.isMacOS) {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
-      ..cache = URLCache.withCapacity(memoryCapacity: maxCacheSize)
+      ..cache = URLCache.withCapacity(memoryCapacity: _maxCacheSize)
       ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
     return CupertinoClient.fromSessionConfiguration(config);
   }
