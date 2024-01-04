@@ -4,6 +4,7 @@
 
 import 'base_client.dart';
 import 'base_request.dart';
+import 'headers.dart';
 
 /// The base class for HTTP responses.
 ///
@@ -47,20 +48,22 @@ abstract class BaseResponse {
   /// by a single space. Leading and trailing whitespace in header values are
   /// always removed.
   // TODO(nweiz): make this a HttpHeaders object.
-  final Map<String, String> headers;
+  final Headers headers;
 
   final bool isRedirect;
 
   /// Whether the server requested that a persistent connection be maintained.
   final bool persistentConnection;
 
-  BaseResponse(this.statusCode,
-      {this.contentLength,
-      this.request,
-      this.headers = const {},
-      this.isRedirect = false,
-      this.persistentConnection = true,
-      this.reasonPhrase}) {
+  BaseResponse(
+    this.statusCode, {
+    this.contentLength,
+    this.request,
+    Object? headers,
+    this.isRedirect = false,
+    this.persistentConnection = true,
+    this.reasonPhrase,
+  }) : headers = Headers(headers) {
     if (statusCode < 100) {
       throw ArgumentError('Invalid status code $statusCode.');
     } else if (contentLength != null && contentLength! < 0) {

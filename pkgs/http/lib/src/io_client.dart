@@ -102,9 +102,24 @@ class IOClient extends BaseClient {
         ..maxRedirects = request.maxRedirects
         ..contentLength = (request.contentLength ?? -1)
         ..persistentConnection = request.persistentConnection;
-      request.headers.forEach((name, value) {
-        ioRequest.headers.set(name, value);
+
+      final defaultUserAgent = ioRequest.headers.value('user-agent');
+      ioRequest.headers.removeAll('user-agent');
+
+      // Set the headers.
+      request.headers.forEach((value, name, _) {
+        ioRequest.headers.add(name, value);
       });
+
+      if (ioRequest.headers.value('user-agent') == null &&
+          defaultUserAgent != null) {
+        ioRequest.headers.set('user-agent', defaultUserAgent);
+      }
+
+      // Set cookies.
+      for (final cookie in request.headers.getSetCookie()) {
+        ioRequest.headers.add('set-cookie', cookie);
+      }
 
       var response = await stream.pipe(ioRequest) as HttpClientResponse;
 

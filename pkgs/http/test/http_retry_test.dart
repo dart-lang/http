@@ -5,6 +5,7 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
+import 'package:http/src/headers.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
@@ -53,13 +54,13 @@ void main() {
         MockClient(expectAsync1((request) async {
           count++;
           return Response('', 503,
-              headers: {'retry': count < 2 ? 'true' : 'false'});
+              headers: Headers({'retry': count < 2 ? 'true' : 'false'}));
         }, count: 2)),
-        when: (response) => response.headers['retry'] == 'true',
+        when: (response) => response.headers.get('retry') == 'true',
         delay: (_) => Duration.zero);
 
     final response = await client.get(Uri.http('example.org', ''));
-    expect(response.headers, containsPair('retry', 'false'));
+    expect(response.headers.get('retry'), equals('false'));
     expect(response.statusCode, equals(503));
   });
 
@@ -204,7 +205,9 @@ void main() {
         MockClient(expectAsync1((request) async {
           expect(request.contentLength, equals(5));
           expect(request.followRedirects, isFalse);
-          expect(request.headers, containsPair('foo', 'bar'));
+          // // expect(request.headers, containsPair('foo', 'bar'));
+          expect(request.headers.keys(), contains('foo'));
+          expect(request.headers.values(), contains('bar'));
           expect(request.maxRedirects, equals(12));
           expect(request.method, equals('POST'));
           expect(request.persistentConnection, isFalse);
@@ -217,7 +220,8 @@ void main() {
     final request = Request('POST', Uri.http('example.org', ''))
       ..body = 'hello'
       ..followRedirects = false
-      ..headers['foo'] = 'bar'
+      // ..headers['foo'] = 'bar'
+      ..headers.set('foo', 'bar')
       ..maxRedirects = 12
       ..persistentConnection = false;
 
@@ -228,7 +232,7 @@ void main() {
   test('async when, whenError and onRetry', () async {
     final client = RetryClient(
       MockClient(expectAsync1(
-          (request) async => request.headers['Authorization'] != null
+          (request) async => request.headers.get('Authorization') != null
               ? Response('', 200)
               : Response('', 401),
           count: 2)),
@@ -245,7 +249,8 @@ void main() {
       onRetry: (request, response, retryCount) async {
         expect(response?.statusCode, equals(401));
         await Future<void>.delayed(const Duration(milliseconds: 500));
-        request.headers['Authorization'] = 'Bearer TOKEN';
+        // request.headers['Authorization'] = 'Bearer TOKEN';
+        request.headers.set('Authorization', 'Bearer TOKEN');
       },
     );
 

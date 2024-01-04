@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'base_client.dart';
 import 'base_request.dart';
 import 'byte_stream.dart';
+import 'headers.dart';
 import 'request.dart';
 import 'response.dart';
 import 'streamed_request.dart';
@@ -100,3 +101,15 @@ typedef MockClientStreamHandler = Future<StreamedResponse> Function(
 ///
 /// Note that [request] will be finalized.
 typedef MockClientHandler = Future<Response> Function(Request request);
+
+extension on Headers {
+  /// Appends other headers to this.
+  void addAll(Headers other) {
+    other.forEach((value, name, _) => append(name, value));
+
+    // Set cookies.
+    for (final cookie in other.getSetCookie()) {
+      append('set-cookie', cookie);
+    }
+  }
+}

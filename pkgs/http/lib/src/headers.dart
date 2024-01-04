@@ -170,6 +170,6 @@ extension on String {
     final index = indexOf(':');
     if (index == -1) return null;
 
-    return (substring(0, index), substring(index + 1));
+    return (substring(0, index), substring(index + 1).trim());
   }
 }

@@ -5,6 +5,7 @@
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
+import 'package:http/src/headers.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -24,7 +25,7 @@ void main() {
 
     test('respects the inferred encoding', () {
       var response = http.Response('föøbãr', 200,
-          headers: {'content-type': 'text/plain; charset=iso-8859-1'});
+          headers: Headers({'content-type': 'text/plain; charset=iso-8859-1'}));
       expect(response.bodyBytes, equals([102, 246, 248, 98, 227, 114]));
     });
   });

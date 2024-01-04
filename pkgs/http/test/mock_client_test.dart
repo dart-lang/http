@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http/src/headers.dart';
 import 'package:http/src/request.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';
@@ -15,7 +16,8 @@ void main() {
   test('handles a request', () async {
     var client = MockClient((request) async => http.Response(
         json.encode(request.bodyFields), 200,
-        request: request, headers: {'content-type': 'application/json'}));
+        request: request,
+        headers: Headers({'content-type': 'application/json'})));
 
     var response = await client.post(Uri.http('example.com', '/foo'),
         body: {'field1': 'value1', 'field2': 'value2'});
@@ -52,7 +54,7 @@ void main() {
         [137, 80, 78, 71, 13, 10, 26, 10] // PNG header
         );
     expect(response.request, null);
-    expect(response.headers, containsPair('content-type', 'image/png'));
+    expect(response.headers.get('content-type'), contains('image/png'));
   });
 
   test('pngResponse with request', () {
@@ -63,6 +65,6 @@ void main() {
         [137, 80, 78, 71, 13, 10, 26, 10] // PNG header
         );
     expect(response.request, request);
-    expect(response.headers, containsPair('content-type', 'image/png'));
+    expect(response.headers.get('content-type'), contains('image/png'));
   });
 }

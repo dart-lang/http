@@ -133,10 +133,10 @@ final class RetryClient extends BaseClient {
 
   /// Returns a copy of [original] with the given [body].
   StreamedRequest _copyRequest(BaseRequest original, Stream<List<int>> body) {
-    final request = StreamedRequest(original.method, original.url)
+    final request = StreamedRequest(original.method, original.url,
+        headers: original.headers)
       ..contentLength = original.contentLength
       ..followRedirects = original.followRedirects
-      ..headers.addAll(original.headers)
       ..maxRedirects = original.maxRedirects
       ..persistentConnection = original.persistentConnection;
 
