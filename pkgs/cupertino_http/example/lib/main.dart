@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'book.dart';
 
 void main() {
-  late Client httpClient;
+  final Client httpClient;
   if (Platform.isIOS || Platform.isMacOS) {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
       ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)

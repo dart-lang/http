@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'book.dart';
 
 void main() {
-  late Client httpClient;
+  final Client httpClient;
   if (Platform.isAndroid) {
     final engine = CronetEngine.build(
         cacheMode: CacheMode.memory,

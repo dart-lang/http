@@ -29,7 +29,7 @@ import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 
 void main() async {
-  late Client httpClient;
+  final Client httpClient;
   if (Platform.isIOS || Platform.isMacOS) {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
       ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
