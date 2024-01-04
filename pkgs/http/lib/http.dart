@@ -20,6 +20,7 @@ export 'src/base_response.dart';
 export 'src/byte_stream.dart';
 export 'src/client.dart' hide zoneClient;
 export 'src/exception.dart';
+export 'src/headers.dart';
 export 'src/multipart_file.dart';
 export 'src/multipart_request.dart';
 export 'src/request.dart';
