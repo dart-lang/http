@@ -5,7 +5,6 @@
 import 'package:fake_async/fake_async.dart';
 import 'package:http/http.dart';
 import 'package:http/retry.dart';
-import 'package:http/src/headers.dart';
 import 'package:http/testing.dart';
 import 'package:test/test.dart';
 
