@@ -1,3 +1,7 @@
+## 1.0.1-wip
+
+* Support Android API 21+.
+
 ## 1.0.0
 
 * No functional changes. 

@@ -58,10 +58,6 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         if: always() && steps.install.outcome == 'success'
         with:
-          # api-level/minSdkVersion should be help in sync in:
-          # - .github/workflows/cronet.yml
-          # - pkgs/cronet_http/android/build.gradle
-          # - pkgs/cronet_http/example/android/app/build.gradle
           api-level: 28
           target: ${{ matrix.package == 'cronet_http_embedded' && 'google_apis' || 'playstore' }}
           profile: pixel
