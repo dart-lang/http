@@ -1,3 +1,7 @@
+## 1.2.1-wip
+
+* Use `package:http_image_provider` in the example application.
+
 ## 1.2.0
 
 * Add support for setting additional http headers in

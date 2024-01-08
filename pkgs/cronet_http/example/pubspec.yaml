@@ -7,13 +7,14 @@ environment:
   sdk: ^3.0.0
 
 dependencies:
-  cached_network_image: ^3.2.3
   cronet_http:
     path: ../
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   http: ^1.0.0
+  http_image_provider: ^0.0.2
+  provider: ^6.1.1
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0

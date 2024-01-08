@@ -24,49 +24,25 @@ This approach allows the same HTTP code to be used on all platforms, while
 still allowing platform-specific setup.
 
 ```dart
-late Client client;
-if (Platform.isIOS) {
-  final config = URLSessionConfiguration.ephemeralSessionConfiguration()
-    ..allowsCellularAccess = false
-    ..allowsConstrainedNetworkAccess = false
-    ..allowsExpensiveNetworkAccess = false;
-  client = CupertinoClient.fromSessionConfiguration(config);
-} else {
-  client = IOClient(); // Uses an HTTP client based on dart:io
-}
+import 'package:cupertino_http/cupertino_http.dart';
+import 'package:http/http.dart';
+import 'package:http/io_client.dart';
 
-final response = await client.get(Uri.https(
-    'www.googleapis.com',
-    '/books/v1/volumes',
-    {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
-```
-
-[package:http runWithClient][] can be used to configure the
-[package:http Client][] for the entire application.
-
-```dart
-void main() {
-  late Client client;
-  if (Platform.isIOS) {
-    client = CupertinoClient.defaultSessionConfiguration();
+void main() async {
+  final Client httpClient;
+  if (Platform.isIOS || Platform.isMacOS) {
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+      ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
+      ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
+    httpClient = CupertinoClient.fromSessionConfiguration(config);
   } else {
-    client = IOClient();
+    httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
 
-  runWithClient(() => runApp(const MyApp()), () => client);
-}
-
-...
-
-class MainPageState extends State<MainPage> {
-  void someMethod() {
-    // Will use the Client configured in main.
-    final response = await get(Uri.https(
-        'www.googleapis.com',
-        '/books/v1/volumes',
-        {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
-  }
-  ...
+  final response = await client.get(Uri.https(
+      'www.googleapis.com',
+      '/books/v1/volumes',
+      {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
 }
 ```
 
@@ -88,6 +64,5 @@ task.resume();
 ```
 
 [package:http Client]: https://pub.dev/documentation/http/latest/http/Client-class.html
-[package:http runWithClient]: https://pub.dev/documentation/http/latest/http/runWithClient.html
 [Foundation URL Loading System]: https://developer.apple.com/documentation/foundation/url_loading_system
 [dart:io HttpClient]: https://api.dart.dev/stable/dart-io/HttpClient-class.html
