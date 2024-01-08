@@ -1,7 +1,13 @@
 [![CI](https://github.com/dart-lang/web_socket_channel/actions/workflows/test-package.yml/badge.svg?branch=master)](https://github.com/dart-lang/web_socket_channel/actions/workflows/test-package.yml)
+[![pub package](https://img.shields.io/pub/v/web_socket_channel.svg)](https://pub.dev/packages/web_socket_channel)
+[![package publisher](https://img.shields.io/pub/publisher/web_socket_channel.svg)](https://pub.dev/packages/web_socket_channel/publisher)
 
-The `web_socket_channel` package provides [`StreamChannel`][stream_channel]
-wrappers for WebSocket connections. It provides a cross-platform
+`package:web_socket_channel` provides cross-platform
+[`StreamChannel`][stream_channel] wrappers for WebSocket connections.
+
+## Docs and Usage
+
+It provides a cross-platform
 [`WebSocketChannel`][WebSocketChannel] API, a cross-platform implementation of
 that API that communicates over an underlying [`StreamChannel`][stream_channel],
 [an implementation][IOWebSocketChannel] that wraps `dart:io`'s `WebSocket`

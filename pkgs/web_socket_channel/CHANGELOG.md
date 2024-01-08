@@ -1,4 +1,10 @@
-## 2.4.2
+## 2.4.3
+
+- `HtmlWebSocketChannel`: Relax the type of the websocket parameter to the
+  constructor in order to mitigate a breaking change introduced in `2.4.1`.
+
+## 2.4.2 (retracted)
+
 - Allow `web: '>=0.3.0 <0.5.0'`
 
 ## 2.4.1

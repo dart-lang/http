@@ -82,8 +82,12 @@ class HtmlWebSocketChannel extends StreamChannelMixin
           )..binaryType = (binaryType ?? BinaryType.list).value,
         );
 
-  /// Creates a channel wrapping [innerWebSocket].
-  HtmlWebSocketChannel(this.innerWebSocket) {
+  /// Creates a channel wrapping [webSocket].
+  ///
+  /// The parameter [webSocket] should be either a dart:html `WebSocket`
+  /// instance or a package:web [WebSocket] instance.
+  HtmlWebSocketChannel(Object /*WebSocket*/ webSocket)
+      : innerWebSocket = webSocket as WebSocket {
     _readyCompleter = Completer();
     if (innerWebSocket.readyState == WebSocket.OPEN) {
       _readyCompleter.complete();
