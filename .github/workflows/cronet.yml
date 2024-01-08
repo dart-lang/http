@@ -39,7 +39,7 @@ jobs:
       - name: Make cronet_http_embedded copy
         if: ${{ matrix.package == 'cronet_http_embedded' }}
         run: |
-          cp -r pkgs/cronet_http pkgs/cronet_http_embedded
+          mv pkgs/cronet_http pkgs/cronet_http_embedded
           cd pkgs/cronet_http_embedded
           flutter pub get && dart tool/prepare_for_embedded.dart
       - id: install

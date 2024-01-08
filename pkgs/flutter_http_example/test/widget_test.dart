@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_http_example/main.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -17,13 +19,18 @@ const _singleBookResponse = '''
         "title": "Flutter Cookbook",
         "description": "Write, test, and publish your web, desktop...",
         "imageLinks": {
-          "smallThumbnail": "http://books.google.com/books/content?id=gcnAEAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api"
+          "smallThumbnail": "http://thumbnailurl/"
         }
       }
     }
   ]
 }
 ''';
+
+final _dummyPngImage = base64Decode(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmM'
+  'IQAAAABJRU5ErkJggg==',
+);
 
 void main() {
   Widget app(Client client) => Provider<Client>(
@@ -42,11 +49,14 @@ void main() {
 
   testWidgets('test search with one result', (WidgetTester tester) async {
     final mockClient = MockClient((request) async {
-      if (request.url.path != '/books/v1/volumes' &&
-          request.url.queryParameters['q'] != 'Flutter') {
-        return Response('', 404);
+      if (request.url.path == '/books/v1/volumes' &&
+          request.url.queryParameters['q'] == 'Flutter') {
+        return Response(_singleBookResponse, 200);
+      } else if (request.url == Uri.https('thumbnailurl', '/')) {
+        return Response.bytes(_dummyPngImage, 200,
+            headers: const {'Content-Type': 'image/png'});
       }
-      return Response(_singleBookResponse, 200);
+      return Response('', 404);
     });
 
     await tester.pumpWidget(app(mockClient));
