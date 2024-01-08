@@ -15,7 +15,7 @@ void main() {
   group('ping-handler', () {
     test('successful-ping', () async {
       var writer = FrameWriterMock();
-      var pingHandler = PingHandler(writer);
+      var pingHandler = instantiateHandler(writer);
 
       var p1 = pingHandler.ping();
       var p2 = pingHandler.ping();
@@ -37,7 +37,7 @@ void main() {
 
     test('successful-ack-to-remote-ping', () async {
       var writer = FrameWriterMock();
-      var pingHandler = PingHandler(writer);
+      var pingHandler = instantiateHandler(writer);
 
       var header = FrameHeader(8, FrameType.PING, 0, 0);
       pingHandler.processPingFrame(PingFrame(header, 1));
@@ -53,7 +53,7 @@ void main() {
 
     test('ping-unknown-opaque-data', () async {
       var writer = FrameWriterMock();
-      var pingHandler = PingHandler(writer);
+      var pingHandler = instantiateHandler(writer);
 
       var future = pingHandler.ping();
       verify(writer.writePingFrame(1)).called(1);
@@ -73,7 +73,7 @@ void main() {
 
     test('terminate-ping-handler', () async {
       var writer = FrameWriterMock();
-      var pingHandler = PingHandler(writer);
+      var pingHandler = instantiateHandler(writer);
 
       pingHandler.terminate('hello world');
       expect(
@@ -86,7 +86,7 @@ void main() {
 
     test('ping-non-zero-stream-id', () async {
       var writer = FrameWriterMock();
-      var pingHandler = PingHandler(writer);
+      var pingHandler = instantiateHandler(writer);
 
       var header = FrameHeader(8, FrameType.PING, PingFrame.FLAG_ACK, 1);
       expect(() => pingHandler.processPingFrame(PingFrame(header, 1)),
@@ -95,17 +95,32 @@ void main() {
     });
 
     test('receiving-ping-calls-stream', () async {
-      var writer = FrameWriterMock();
-      var streamController = StreamController<int>();
-      var pingHandler = PingHandler(writer, streamController.sink);
+      final pings = <int>[];
 
-      var header = FrameHeader(8, FrameType.PING, 0, 0);
-      pingHandler.processPingFrame(PingFrame(header, 1));
-      var header2 = FrameHeader(8, FrameType.PING, 0, 0);
-      pingHandler.processPingFrame(PingFrame(header2, 2));
-      await expectLater(streamController.stream, emitsInOrder([1, 2]));
+      final writer = FrameWriterMock();
+      final pingStream = StreamController<int>()
+        ..stream.listen((event) => pings.add(event));
+
+      PingHandler(writer, pingStream)
+        ..processPingFrame(PingFrame(
+          FrameHeader(8, FrameType.PING, 0, 0),
+          1,
+        ))
+        ..processPingFrame(PingFrame(
+          FrameHeader(8, FrameType.PING, 0, 0),
+          2,
+        ));
+
+      await pingStream.close();
+
+      expect(pings, [1, 2]);
     });
   });
+}
+
+PingHandler instantiateHandler(FrameWriterMock writer) {
+  StreamController<int> controller = StreamController();
+  return PingHandler(writer, controller);
 }
 
 class FrameWriterMock extends Mock implements FrameWriter {}

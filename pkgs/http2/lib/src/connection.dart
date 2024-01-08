@@ -101,7 +101,7 @@ abstract class Connection {
 
   final StreamController<int> _pingReceived = StreamController<int>();
 
-  final StreamController<void> _receivedFrame = StreamController<void>();
+  final StreamController<void> _frameReceived = StreamController<void>();
 
   /// Future which completes when the first SETTINGS frame is received from
   /// the peer.
@@ -183,7 +183,7 @@ abstract class Connection {
     // Setup handlers.
     _settingsHandler = SettingsHandler(_hpackContext.encoder, _frameWriter,
         acknowledgedSettings, peerSettings);
-    _pingHandler = PingHandler(_frameWriter, _pingReceived.sink);
+    _pingHandler = PingHandler(_frameWriter, _pingReceived);
 
     var settings = _decodeSettings(settingsObject);
 
@@ -344,7 +344,9 @@ abstract class Connection {
       frame.decodedHeaders =
           _hpackContext.decoder.decode(frame.headerBlockFragment);
     }
-    _receivedFrame.add(null);
+    if (_frameReceived.hasListener) {
+      _frameReceived.add(null);
+    }
 
     // Handle the frame as either a connection or a stream frame.
     if (frame.header.streamId == 0) {
@@ -483,7 +485,7 @@ class ClientConnection extends Connection implements ClientTransportConnection {
   Stream<int> get onPingReceived => _pingReceived.stream;
 
   @override
-  Stream<void> get onFrameReceived => _receivedFrame.stream;
+  Stream<void> get onFrameReceived => _frameReceived.stream;
 }
 
 class ServerConnection extends Connection implements ServerTransportConnection {
@@ -505,5 +507,5 @@ class ServerConnection extends Connection implements ServerTransportConnection {
   Stream<int> get onPingReceived => _pingReceived.stream;
 
   @override
-  Stream<void> get onFrameReceived => _receivedFrame.stream;
+  Stream<void> get onFrameReceived => _frameReceived.stream;
 }

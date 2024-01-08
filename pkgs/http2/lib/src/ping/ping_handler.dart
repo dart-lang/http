@@ -17,16 +17,20 @@ class PingHandler extends Object with TerminatableMixin {
   final FrameWriter _frameWriter;
   final Map<int, Completer> _remainingPings = {};
   final Sink<int>? pingReceived;
+  final bool Function() isListeningToPings;
   int _nextId = 1;
 
-  PingHandler(this._frameWriter, [this.pingReceived]);
+  PingHandler(this._frameWriter, StreamController<int> pingStream)
+      : pingReceived = pingStream.sink,
+        isListeningToPings = (() => pingStream.hasListener);
 
   @override
   void onTerminated(Object? error) {
-    var values = _remainingPings.values.toList();
+    final remainingPings = _remainingPings.values.toList();
     _remainingPings.clear();
-    for (var value in values) {
-      value.completeError(error ?? 'Unspecified error');
+    for (final ping in remainingPings) {
+      ping.completeError(
+          error ?? 'Remaining ping completed with unspecified error');
     }
   }
 
@@ -37,7 +41,9 @@ class PingHandler extends Object with TerminatableMixin {
       }
 
       if (!frame.hasAckFlag) {
-        pingReceived?.add(frame.opaqueData);
+        if (isListeningToPings()) {
+          pingReceived?.add(frame.opaqueData);
+        }
         _frameWriter.writePingFrame(frame.opaqueData, ack: true);
       } else {
         var c = _remainingPings.remove(frame.opaqueData);
