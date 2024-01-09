@@ -9,7 +9,6 @@ import 'package:web/helpers.dart';
 
 import 'base_client.dart';
 import 'base_request.dart';
-import 'base_response.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
 import 'streamed_response.dart';

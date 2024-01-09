@@ -6,7 +6,6 @@
 library;
 
 import 'package:http/http.dart' as http;
-import 'package:http/src/base_response.dart';
 import 'package:test/test.dart';
 
 import '../utils.dart';
