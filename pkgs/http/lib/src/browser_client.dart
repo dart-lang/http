@@ -9,6 +9,7 @@ import 'package:web/helpers.dart';
 
 import 'base_client.dart';
 import 'base_request.dart';
+import 'base_response.dart';
 import 'byte_stream.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
@@ -24,6 +25,17 @@ BaseClient createClient() {
         'was not used to configure a Client implementation.');
   }
   return BrowserClient();
+}
+
+class _StreamedResponseV2 extends StreamedResponse with BaseResponseV2 {
+  @override
+  final Uri? url;
+  _StreamedResponseV2(super.stream, super.statusCode,
+      {super.contentLength,
+      super.request,
+      super.headers,
+      this.url,
+      super.reasonPhrase});
 }
 
 /// A `package:web`-based HTTP client that runs in the browser and is backed by
@@ -79,10 +91,13 @@ class BrowserClient extends BaseClient {
         return;
       }
       var body = (xhr.response as JSArrayBuffer).toDart.asUint8List();
-      completer.complete(StreamedResponse(
+      var responseUrl = xhr.responseURL;
+      var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : null;
+      completer.complete(_StreamedResponseV2(
           ByteStream.fromBytes(body), xhr.status,
           contentLength: body.length,
           request: request,
+          url: url,
           headers: xhr.responseHeaders,
           reasonPhrase: xhr.statusText));
     }));

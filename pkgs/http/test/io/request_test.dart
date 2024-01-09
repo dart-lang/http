@@ -6,6 +6,7 @@
 library;
 
 import 'package:http/http.dart' as http;
+import 'package:http/src/base_response.dart';
 import 'package:test/test.dart';
 
 import '../utils.dart';
@@ -46,6 +47,7 @@ void main() {
     final response = await request.send();
 
     expect(response.statusCode, equals(302));
+    expect((response as BaseResponseV2).url, serverUrl.resolve('/redirect'));
   });
 
   test('with redirects', () async {
@@ -55,6 +57,7 @@ void main() {
     expect(response.statusCode, equals(200));
     final bytesString = await response.stream.bytesToString();
     expect(bytesString, parse(containsPair('path', '/')));
+    expect((response as BaseResponseV2).url, serverUrl.resolve('/'));
   });
 
   test('exceeding max redirects', () async {

@@ -4,6 +4,9 @@
 
 import 'base_client.dart';
 import 'base_request.dart';
+import 'client.dart';
+import 'response.dart';
+import 'streamed_response.dart';
 
 /// The base class for HTTP responses.
 ///
@@ -67,4 +70,35 @@ abstract class BaseResponse {
       throw ArgumentError('Invalid content length $contentLength.');
     }
   }
+}
+
+/// Fields and methods that will be added to [BaseResponse] when `package:http`
+/// version 2 is released.
+///
+/// [Client] methods that return a [BaseResponse] subclass, such as [Response]
+/// or [StreamedResponse], **may** return a [BaseResponseV2].
+///
+/// For example:
+///
+/// ```dart
+/// final client = Client();
+/// final response = client.get(Uri.https('example.com', '/'));
+/// Uri? finalUri;
+/// if (response is BaseResponseV2) {
+///   finalUri = (response as BaseResponseV2).uri;
+/// }
+/// // Do something with `finalUri`.
+/// client.close();
+/// ```
+mixin BaseResponseV2 on BaseResponse {
+  /// The [Uri] of the response returned by the server.
+  ///
+  /// If no redirects were followed, [url] will be the same as the requested
+  /// [Uri].
+  ///
+  /// If redirects were followed, [url] will be the [Uri] of the last redirect
+  /// that was followed.
+  ///
+  /// May be `null` when the response is for a special URL such as "about:".
+  abstract final Uri? url;
 }
