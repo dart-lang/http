@@ -9,14 +9,14 @@ environment:
   flutter: '>=3.10.0'
 
 dependencies:
-  cached_network_image: ^3.2.3
-  cronet_http: ^0.4.1
-  cupertino_http: ^1.1.0
+  cronet_http: ^1.0.0
+  cupertino_http: ^1.2.0
   cupertino_icons: ^1.0.2
   fetch_client: ^1.0.2
   flutter:
     sdk: flutter
   http: ^1.0.0
+  http_image_provider: ^0.0.2
   provider: ^6.0.5
 
 dev_dependencies:

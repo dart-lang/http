@@ -4,9 +4,9 @@
 
 import 'dart:convert';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:http_image_provider/http_image_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'book.dart';
@@ -14,22 +14,10 @@ import 'http_client_factory.dart'
     if (dart.library.js_interop) 'http_client_factory_web.dart' as http_factory;
 
 void main() {
-  // `runWithClient` is used to control which `package:http` `Client` is used
-  // when the `Client` constructor is called. This method allows you to choose
-  // the `Client` even when the package that you are using does not offer
-  // explicit parameterization.
-  //
-  // However, `runWithClient` does not work with Flutter tests. See
-  // https://github.com/flutter/flutter/issues/96939.
-  //
-  // Use `package:provider` and `runWithClient` together so that tests and
-  // unparameterized `Client` usages both work.
-  runWithClient(
-      () => runApp(Provider<Client>(
-          create: (_) => http_factory.httpClient(),
-          child: const BookSearchApp(),
-          dispose: (_, client) => client.close())),
-      http_factory.httpClient);
+  runApp(Provider<Client>(
+      create: (_) => http_factory.httpClient(),
+      child: const BookSearchApp(),
+      dispose: (_, client) => client.close()));
 }
 
 class BookSearchApp extends StatelessWidget {
@@ -141,11 +129,10 @@ class _BookListState extends State<BookList> {
         itemBuilder: (context, index) => Card(
           key: ValueKey(widget.books[index].title),
           child: ListTile(
-            leading: CachedNetworkImage(
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
-                imageUrl:
-                    widget.books[index].imageUrl.replaceFirst('http', 'https')),
+            leading: Image(
+                image: HttpImage(
+                    widget.books[index].imageUrl.replace(scheme: 'https'),
+                    client: context.read<Client>())),
             title: Text(widget.books[index].title),
             subtitle: Text(widget.books[index].description),
           ),
