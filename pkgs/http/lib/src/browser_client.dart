@@ -27,17 +27,6 @@ BaseClient createClient() {
   return BrowserClient();
 }
 
-class _StreamedResponseV2 extends StreamedResponse with BaseResponseV2 {
-  @override
-  final Uri? url;
-  _StreamedResponseV2(super.stream, super.statusCode,
-      {super.contentLength,
-      super.request,
-      super.headers,
-      this.url,
-      super.reasonPhrase});
-}
-
 /// A `package:web`-based HTTP client that runs in the browser and is backed by
 /// [XMLHttpRequest].
 ///
@@ -93,7 +82,7 @@ class BrowserClient extends BaseClient {
       var body = (xhr.response as JSArrayBuffer).toDart.asUint8List();
       var responseUrl = xhr.responseURL;
       var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : null;
-      completer.complete(_StreamedResponseV2(
+      completer.complete(StreamedResponseV2(
           ByteStream.fromBytes(body), xhr.status,
           contentLength: body.length,
           request: request,

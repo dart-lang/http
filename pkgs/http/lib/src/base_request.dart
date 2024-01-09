@@ -132,13 +132,25 @@ abstract class BaseRequest {
     try {
       var response = await client.send(this);
       var stream = onDone(response.stream, client.close);
-      return StreamedResponse(ByteStream(stream), response.statusCode,
-          contentLength: response.contentLength,
-          request: response.request,
-          headers: response.headers,
-          isRedirect: response.isRedirect,
-          persistentConnection: response.persistentConnection,
-          reasonPhrase: response.reasonPhrase);
+
+      if (response is BaseResponseV2) {
+        return StreamedResponseV2(ByteStream(stream), response.statusCode,
+            contentLength: response.contentLength,
+            request: response.request,
+            headers: response.headers,
+            isRedirect: response.isRedirect,
+            url: (response as BaseResponseV2).url,
+            persistentConnection: response.persistentConnection,
+            reasonPhrase: response.reasonPhrase);
+      } else {
+        return StreamedResponse(ByteStream(stream), response.statusCode,
+            contentLength: response.contentLength,
+            request: response.request,
+            headers: response.headers,
+            isRedirect: response.isRedirect,
+            persistentConnection: response.persistentConnection,
+            reasonPhrase: response.reasonPhrase);
+      }
     } catch (_) {
       client.close();
       rethrow;

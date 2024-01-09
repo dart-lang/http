@@ -25,7 +25,7 @@ export 'src/multipart_request.dart';
 export 'src/request.dart';
 export 'src/response.dart';
 export 'src/streamed_request.dart';
-export 'src/streamed_response.dart';
+export 'src/streamed_response.dart' hide StreamedResponseV2;
 
 /// Sends an HTTP HEAD request with the given headers to the given URL.
 ///
