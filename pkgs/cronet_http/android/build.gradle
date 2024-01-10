@@ -77,7 +77,6 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     if (dartDefines.cronetHttpNoPlay == 'true') {
         implementation 'org.chromium.net:cronet-embedded:113.5672.61'
     } else {
