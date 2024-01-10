@@ -11,6 +11,7 @@ import 'src/multiple_clients_tests.dart';
 import 'src/redirect_tests.dart';
 import 'src/request_body_streamed_tests.dart';
 import 'src/request_body_tests.dart';
+import 'src/request_cookies_test.dart';
 import 'src/request_headers_tests.dart';
 import 'src/request_methods_tests.dart';
 import 'src/response_body_streamed_test.dart';
@@ -27,6 +28,7 @@ export 'src/multiple_clients_tests.dart' show testMultipleClients;
 export 'src/redirect_tests.dart' show testRedirect;
 export 'src/request_body_streamed_tests.dart' show testRequestBodyStreamed;
 export 'src/request_body_tests.dart' show testRequestBody;
+export 'src/request_cookies_test.dart' show testRequestCookies;
 export 'src/request_headers_tests.dart' show testRequestHeaders;
 export 'src/request_methods_tests.dart' show testRequestMethods;
 export 'src/response_body_streamed_test.dart' show testResponseBodyStreamed;
@@ -82,4 +84,5 @@ void testAll(
   testMultipleClients(clientFactory);
   testClose(clientFactory);
   testIsolate(clientFactory, canWorkInIsolates: canWorkInIsolates);
+  testRequestCookies(clientFactory());
 }
