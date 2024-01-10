@@ -47,7 +47,8 @@ class _ClientSocketException extends ClientException
   String toString() => 'ClientException with $cause, uri=$uri';
 }
 
-class _IOStreamedResponseV2 extends IOStreamedResponse with BaseResponseV2 {
+class _IOStreamedResponseV2 extends IOStreamedResponse
+    with BaseResponseWithUrl {
   @override
   final Uri? url;
 

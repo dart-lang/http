@@ -1,7 +1,7 @@
 ## 1.2.0
 
 * Add `MockClient.pngResponse`, which makes it easier to fake image responses.
-* Added the ability to fetch the URL of the response through `BaseResponseV2`.
+* Added the ability to fetch the URL of the response through `BaseResponseWithUrl`.
 
 ## 1.1.2
 

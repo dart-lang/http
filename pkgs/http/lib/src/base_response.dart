@@ -72,11 +72,10 @@ abstract class BaseResponse {
   }
 }
 
-/// Fields and methods that will be added to [BaseResponse] when `package:http`
-/// version 2 is released.
+/// A [BaseResponse] with a [url] field.
 ///
 /// [Client] methods that return a [BaseResponse] subclass, such as [Response]
-/// or [StreamedResponse], **may** return a [BaseResponseV2].
+/// or [StreamedResponse], **may** return a [BaseResponseWithUrl].
 ///
 /// For example:
 ///
@@ -84,13 +83,16 @@ abstract class BaseResponse {
 /// final client = Client();
 /// final response = client.get(Uri.https('example.com', '/'));
 /// Uri? finalUri;
-/// if (response is BaseResponseV2) {
-///   finalUri = (response as BaseResponseV2).uri;
+/// if (response is BaseResponseWithUrl) {
+///   finalUri = (response as BaseResponseWithUrl).url;
 /// }
 /// // Do something with `finalUri`.
 /// client.close();
 /// ```
-mixin BaseResponseV2 on BaseResponse {
+///
+/// [url] will be added to [BaseResponse] when `package:http` version 2 is
+/// released and this mixin will be deprecated.
+mixin BaseResponseWithUrl on BaseResponse {
   /// The [Uri] of the response returned by the server.
   ///
   /// If no redirects were followed, [url] will be the same as the requested
