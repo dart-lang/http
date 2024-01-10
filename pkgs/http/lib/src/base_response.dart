@@ -83,8 +83,8 @@ abstract class BaseResponse {
 /// final client = Client();
 /// final response = client.get(Uri.https('example.com', '/'));
 /// Uri? finalUri;
-/// if (response is BaseResponseWithUrl) {
-///   finalUri = (response as BaseResponseWithUrl).url;
+/// if (response case BaseResponseWithUrl(:final url)) {
+///   finalUri = url;
 /// }
 /// // Do something with `finalUri`.
 /// client.close();
