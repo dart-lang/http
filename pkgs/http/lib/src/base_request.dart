@@ -133,13 +133,13 @@ abstract class BaseRequest {
       var response = await client.send(this);
       var stream = onDone(response.stream, client.close);
 
-      if (response is BaseResponseWithUrl) {
+      if (response case BaseResponseWithUrl(:final url)) {
         return StreamedResponseV2(ByteStream(stream), response.statusCode,
             contentLength: response.contentLength,
             request: response.request,
             headers: response.headers,
             isRedirect: response.isRedirect,
-            url: (response as BaseResponseWithUrl).url,
+            url: url,
             persistentConnection: response.persistentConnection,
             reasonPhrase: response.reasonPhrase);
       } else {

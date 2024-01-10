@@ -31,14 +31,14 @@ class StreamedResponse extends BaseResponse {
 /// `package:http` v2 is released.
 class StreamedResponseV2 extends StreamedResponse with BaseResponseWithUrl {
   @override
-  final Uri? url;
+  final Uri url;
 
   StreamedResponseV2(super.stream, super.statusCode,
       {super.contentLength,
       super.request,
       super.headers,
       super.isRedirect,
-      this.url,
+      required this.url,
       super.persistentConnection,
       super.reasonPhrase});
 }

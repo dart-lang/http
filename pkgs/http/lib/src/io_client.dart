@@ -50,14 +50,14 @@ class _ClientSocketException extends ClientException
 class _IOStreamedResponseV2 extends IOStreamedResponse
     with BaseResponseWithUrl {
   @override
-  final Uri? url;
+  final Uri url;
 
   _IOStreamedResponseV2(super.stream, super.statusCode,
       {super.contentLength,
       super.request,
       super.headers,
       super.isRedirect,
-      this.url,
+      required this.url,
       super.persistentConnection,
       super.reasonPhrase,
       super.inner});

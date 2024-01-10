@@ -100,7 +100,5 @@ mixin BaseResponseWithUrl on BaseResponse {
   ///
   /// If redirects were followed, [url] will be the [Uri] of the last redirect
   /// that was followed.
-  ///
-  /// May be `null` when the response is for a special URL such as "about:".
-  abstract final Uri? url;
+  abstract final Uri url;
 }

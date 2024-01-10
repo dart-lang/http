@@ -80,7 +80,7 @@ class BrowserClient extends BaseClient {
       }
       var body = (xhr.response as JSArrayBuffer).toDart.asUint8List();
       var responseUrl = xhr.responseURL;
-      var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : null;
+      var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : request.url;
       completer.complete(StreamedResponseV2(
           ByteStream.fromBytes(body), xhr.status,
           contentLength: body.length,
