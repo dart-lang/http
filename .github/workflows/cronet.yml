@@ -26,7 +26,7 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        package: ['cronet_http', 'cronet_http_embedded']
+        cronetHttpNoPlay: ['false', 'true']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -36,12 +36,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - name: Make cronet_http_embedded copy
-        if: ${{ matrix.package == 'cronet_http_embedded' }}
-        run: |
-          mv pkgs/cronet_http pkgs/cronet_http_embedded
-          cd pkgs/cronet_http_embedded
-          flutter pub get && dart tool/prepare_for_embedded.dart
       - id: install
         name: Install dependencies
         working-directory: 'pkgs/${{ matrix.package }}'
@@ -63,6 +57,6 @@ jobs:
           # - pkgs/cronet_http/android/build.gradle
           # - pkgs/cronet_http/example/android/app/build.gradle
           api-level: 28
-          target: ${{ matrix.package == 'cronet_http_embedded' && 'google_apis' || 'playstore' }}
+          target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           profile: pixel
-          script: cd 'pkgs/${{ matrix.package }}/example' && flutter test --timeout=1200s integration_test/
+          script: cd 'pkgs/${{ matrix.package }}/example' && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
