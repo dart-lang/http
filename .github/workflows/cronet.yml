@@ -60,6 +60,7 @@ jobs:
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           profile: pixel
           script: |
+            pwd && ls -al
             cd example
             flutter pub get
             flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
