@@ -27,6 +27,9 @@ jobs:
     strategy:
       matrix:
         cronetHttpNoPlay: ['false', 'true']
+    defaults:
+      run:
+        working-directory: pkgs/cronet_http
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -38,14 +41,11 @@ jobs:
           channel: 'stable'
       - id: install
         name: Install dependencies
-        working-directory: 'pkgs/${{ matrix.package }}'
         run: flutter pub get
       - name: Check formatting
-        working-directory: 'pkgs/${{ matrix.package }}'
         run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
       - name: Analyze code
-        working-directory: 'pkgs/${{ matrix.package }}'
         run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
       - name: Run tests
@@ -59,4 +59,4 @@ jobs:
           api-level: 28
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           profile: pixel
-          script: cd 'pkgs/${{ matrix.package }}/example' && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
+          script: flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
