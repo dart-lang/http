@@ -86,6 +86,9 @@ void testResponseCookies(Client client,
           matches(r'id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT'
               r'[ \t]*,[ \t]*'
               r'id=2fasd; Expires=Wed, 21 Oct 2025 07:28:00 GMT'));
-    });
+    },
+        skip: canReceiveSetCookieHeaders
+            ? false
+            : 'cannot receive set-cookie headers');
   });
 }
