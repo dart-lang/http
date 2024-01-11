@@ -44,13 +44,11 @@ android {
 
     defaultConfig {
         applicationId "io.flutter.cronet_http_example"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         // api-level/minSdkVersion should be help in sync in:
         // - .github/workflows/cronet.yml
         // - pkgs/cronet_http/android/build.gradle
         // - pkgs/cronet_http/example/android/app/build.gradle
-        minSdkVersion 28
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -70,7 +68,9 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // TODO(#1112): org.jetbrains.kotlin:kotlin-bom artifact purpose is to align kotlin stdlib and related code versions.
+    // This should be removed when https://github.com/flutter/flutter/issues/125062 is fixed.
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     // ""com.google.android.gms:play-services-cronet" is only present so that
     // `jnigen` will work. Applications should not include this line.
     implementation "com.google.android.gms:play-services-cronet:18.0.1"
