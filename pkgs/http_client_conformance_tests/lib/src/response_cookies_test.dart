@@ -42,10 +42,8 @@ void testResponseCookies(Client client,
       // "The field value MAY be preceded by any amount of LWS, though a single
       // SP is preferred." and
       // "The field-content does not include any leading or trailing LWS ..."
-      httpServerChannel.sink.add([
-        'Set-Cookie: SID=1231AB3',
-        ['Set-Cookie: lang=en_US']
-      ]);
+      httpServerChannel.sink
+          .add(['Set-Cookie: SID=1231AB3', 'Set-Cookie: lang=en_US']);
       final response = await client.get(Uri.http(host, ''));
 
       expect(
