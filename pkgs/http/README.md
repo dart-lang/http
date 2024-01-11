@@ -272,7 +272,7 @@ $ dart compile exe --define=no_default_http_client=true ...
 > [!TIP]
 > [The Flutter HTTP example application][flutterhttpexample] demonstrates
 > how to make the configured [`Client`][client] available using
-> [`package:provider`][provider] and [`runWithClient`](runwithclient).
+> [`package:provider`][provider] and [`package:http_image_provider`][http_image_provider].
 
 [browserclient]: https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html
 [client]: https://pub.dev/documentation/http/latest/http/Client-class.html
@@ -284,6 +284,7 @@ $ dart compile exe --define=no_default_http_client=true ...
 [fetch]: https://pub.dev/packages/fetch_client
 [fetchclient]: https://pub.dev/documentation/fetch_client/latest/fetch_client/FetchClient-class.html
 [flutterhttpexample]: https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
+[http_image_provider]: https://pub.dev/documentation/http_image_provider
 [ioclient]: https://pub.dev/documentation/http/latest/io_client/IOClient-class.html
 [isolate]: https://dart.dev/language/concurrency#how-isolates-work
 [flutterstatemanagement]: https://docs.flutter.dev/data-and-backend/state-mgmt/options

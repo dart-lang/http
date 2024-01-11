@@ -1,16 +1,21 @@
 # Configuration for .github/workflows/pull_request_label.yml.
 
 'type-infra':
-  - '.github/**'
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'
 
 'package:cronet_http':
-  - 'pkgs/cronet_http/**'
+  - changed-files:
+      - any-glob-to-any-file: 'pkgs/cronet_http/**'
 
 'package:cupertino_http':
-  - 'pkgs/cupertino_http/**'
+  - changed-files:
+      - any-glob-to-any-file: 'pkgs/cupertino_http/**'
 
 'package:http':
-  - 'pkgs/http/**'
+  - changed-files:
+      - any-glob-to-any-file: 'pkgs/http/**'
 
 'package:http_client_conformance_tests':
-  - 'pkgs/http_client_conformance_tests/**'
+  - changed-files:
+      - any-glob-to-any-file: 'pkgs/http_client_conformance_tests/**'

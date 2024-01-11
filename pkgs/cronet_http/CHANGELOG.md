@@ -1,3 +1,8 @@
+## 1.0.1-wip
+
+* Use `package:http_image_provider` in the example application.
+* Support Android API 21+.
+
 ## 1.0.0
 
 * No functional changes. 
