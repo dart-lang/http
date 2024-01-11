@@ -62,17 +62,16 @@ class BrowserClient extends BaseClient {
       ..open(request.method, '${request.url}', true)
       ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
-    for (var header in request.headers.entries) {
-      xhr.setRequestHeader(header.key, header.value);
+    for (var MapEntry(key: headerName, :value) in request.headers.entries) {
+      xhr.setRequestHeader(headerName, value);
     }
 
     var completer = Completer<StreamedResponse>();
 
     unawaited(xhr.onLoad.first.then((_) {
       var responseHeaders = xhr.responseHeaders;
-      if (responseHeaders['content-length'] case final contentLengthHeader
-          when contentLengthHeader != null &&
-              !_digitRegex.hasMatch(contentLengthHeader)) {
+      if (responseHeaders['content-length'] case final contentLengthHeader?
+          when !_digitRegex.hasMatch(contentLengthHeader)) {
         completer.completeError(ClientException(
           'Invalid content-length header [$contentLengthHeader].',
           request.url,
