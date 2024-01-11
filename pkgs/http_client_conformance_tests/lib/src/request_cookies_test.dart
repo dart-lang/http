@@ -1,4 +1,4 @@
-// Copyright (c) 2022, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -10,8 +10,12 @@ import 'package:test/test.dart';
 import 'request_cookies_server_vm.dart'
     if (dart.library.js_interop) 'request_cookies_server_web.dart';
 
-/// Tests that the [Client] correctly sends headers in the request.
-void testRequestCookies(Client client) async {
+/// Tests that the [Client] correctly sends "cookie" headers in the request.
+///
+/// If [canSendCookieHeaders] is `false` then tests that require that "cookie"
+/// headers be sent by the client will not be run.
+void testRequestCookies(Client client,
+    {bool canSendCookieHeaders = false}) async {
   group('request cookies', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
@@ -24,14 +28,20 @@ void testRequestCookies(Client client) async {
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 
-    test('set-cookie', () async {
-      await client.get(Uri.http(host, ''), headers: {
-        'Cookie': 'PHPSESSID=298zf09hf012fh2; csrftoken=u32t4o3tb3gg43; _gat=1'
-      });
+    test('one cookie', () async {
+      await client
+          .get(Uri.http(host, ''), headers: {'Cookie': 'SID=298zf09hf012fh2'});
 
       final cookies = await httpServerQueue.next as List;
-      expect(cookies,
-          ['PHPSESSID=298zf09hf012fh2; csrftoken=u32t4o3tb3gg43; _gat=1']);
-    });
+      expect(cookies, ['cookie: SID=298zf09hf012fh2']);
+    }, skip: canSendCookieHeaders ? false : 'cannot send cookie headers');
+
+    test('multiple cookies semicolon separated', () async {
+      await client.get(Uri.http(host, ''),
+          headers: {'Cookie': 'SID=298zf09hf012fh2; lang=en-US'});
+
+      final cookies = await httpServerQueue.next as List;
+      expect(cookies, ['cookie: SID=298zf09hf012fh2; lang=en-US']);
+    }, skip: canSendCookieHeaders ? false : 'cannot send cookie headers');
   });
 }

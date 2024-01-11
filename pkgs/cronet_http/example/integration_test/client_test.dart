@@ -13,6 +13,8 @@ Future<void> testConformance() async {
       () => testAll(
             CronetClient.defaultCronetEngine,
             canStreamRequestBody: false,
+            canReceiveSetCookieHeaders: true,
+            canSendCookieHeaders: true,
           ));
 
   group('from cronet engine', () {

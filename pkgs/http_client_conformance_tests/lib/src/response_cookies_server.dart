@@ -3,53 +3,42 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
 
-/// Starts an HTTP server that captures "cookie" headers.
+/// Starts an HTTP server that returns a custom status line.
 ///
 /// Channel protocol:
 ///    On Startup:
 ///     - send port
 ///    On Request Received:
-///     - send a list of header lines starting with "cookie:"
-///    When Receive Anything:
+///     - load response status line from channel
 ///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
-  late ServerSocket server;
+  late HttpServer server;
+  final clientQueue = StreamQueue(channel.stream);
 
-  server = (await ServerSocket.bind('localhost', 0))
-    ..listen((Socket socket) async {
-      final request = utf8.decoder.bind(socket).transform(const LineSplitter());
+  server = (await HttpServer.bind('localhost', 0))
+    ..listen((request) async {
+      await request.drain<void>();
+      final socket = await request.response.detachSocket(writeHeaders: false);
 
-      final cookies = <String>[];
-      request.listen((line) {
-        if (line.toLowerCase().startsWith('cookie:')) {
-          cookies.add(line);
-        }
-
-        if (line.isEmpty) {
-          // A blank line indicates the end of the headers.
-          channel.sink.add(cookies);
-        }
-      });
-
+      final headers = (await clientQueue.next) as List;
       socket.writeAll(
         [
           'HTTP/1.1 200 OK',
           'Access-Control-Allow-Origin: *',
           'Content-Length: 0',
+          ...headers,
           '\r\n', // Add \r\n at the end of this header section.
         ],
         '\r\n', // Separate each field by \r\n.
       );
       await socket.close();
+      unawaited(server.close());
     });
 
   channel.sink.add(server.port);
-  await channel
-      .stream.first; // Any writes indicates that the server should exit.
-  unawaited(server.close());
 }
