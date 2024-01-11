@@ -68,7 +68,7 @@ flutter {
 }
 
 dependencies {
-    // TODO(flutter/125062): org.jetbrains.kotlin:kotlin-bom artifact purpose is to align kotlin stdlib and related code versions.
+    // TODO(#1112): org.jetbrains.kotlin:kotlin-bom artifact purpose is to align kotlin stdlib and related code versions.
     // This should be removed when https://github.com/flutter/flutter/issues/125062 is fixed.
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     // ""com.google.android.gms:play-services-cronet" is only present so that
