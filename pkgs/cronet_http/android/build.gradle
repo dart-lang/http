@@ -50,7 +50,7 @@ android {
         // - .github/workflows/cronet.yml
         // - pkgs/cronet_http/android/build.gradle
         // - pkgs/cronet_http/example/android/app/build.gradle
-        minSdkVersion 28
+        minSdkVersion 21
     }
 
     defaultConfig {
@@ -65,6 +65,5 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.google.android.gms:play-services-cronet:18.0.1"
 }

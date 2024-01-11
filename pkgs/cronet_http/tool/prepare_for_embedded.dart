@@ -29,6 +29,7 @@ import 'package:http/http.dart' as http;
 import 'package:xml/xml.dart';
 import 'package:yaml_edit/yaml_edit.dart';
 
+late final String _scriptName;
 late final Directory _packageDirectory;
 
 const _gmsDependencyName = 'com.google.android.gms:play-services-cronet';
@@ -52,12 +53,14 @@ final implementationRegExp = RegExp(
 );
 
 void main(List<String> args) async {
-  if (Directory.current.path.endsWith('tool')) {
-    _packageDirectory = Directory.current.parent;
-  } else {
-    _packageDirectory = Directory.current;
-  }
-
+  final script = Platform.script.toFilePath();
+  _scriptName = script.split(Platform.pathSeparator).last;
+  _packageDirectory = Directory(
+    Uri.directory(
+      '${script.replaceAll(_scriptName, '')}'
+      '..${Platform.pathSeparator}',
+    ).toFilePath(),
+  );
   final latestVersion = await _getLatestCronetVersion();
   updateBuildGradle(latestVersion);
   updateExampleBuildGradle();
@@ -137,7 +140,9 @@ void updateReadme() {
 void updateImports() {
   print('Updating imports in Dart files');
   for (final file in _packageDirectory.listSync(recursive: true)) {
-    if (file is File && file.path.endsWith('.dart')) {
+    if (file is File &&
+        file.path.endsWith('.dart') &&
+        !file.path.contains(_scriptName)) {
       final updatedSource = file.readAsStringSync().replaceAll(
             'package:cronet_http/cronet_http.dart',
             'package:cronet_http_embedded/cronet_http_embedded.dart',
