@@ -77,7 +77,7 @@ void main() {
       expect(response.headersFieldValueList, const <String, List<String>>{});
     });
 
-    test('one headers', () async {
+    test('one header', () async {
       var response =
           http.Response('Hello, world!', 200, headers: {'fruit': 'apple'});
       expect(response.headersFieldValueList, const {
