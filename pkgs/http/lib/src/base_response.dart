@@ -44,7 +44,7 @@ abstract class BaseResponse {
   /// ```
   ///
   /// To retrieve the header values as a `List<String>`, use
-  /// [HeadersWithFieldLists.headersFieldValueList].
+  /// [HeadersWithSplitValues.headersSplitValues].
   ///
   /// If a header value contains whitespace then that whitespace may be replaced
   /// by a single space. Leading and trailing whitespace in header values are
@@ -71,36 +71,36 @@ abstract class BaseResponse {
   }
 }
 
-// "token" as defined in RFC 2616, 2.2
-// See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
+/// "token" as defined in RFC 2616, 2.2
+/// See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
 const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
     'abcdefghijklmnopqrstuvwxyz|~';
 
-// Splits comma-seperated header values.
+/// Splits comma-seperated header values.
 var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 
-// Splits comma-seperated "Set-Cookie" header values.
-//
-// Set-Cookie strings can contain commas. In particular, the following
-// productions defined in RFC-6265, section 4.1.1:
-// - <sane-cookie-date> e.g. "Expires=Sun, 06 Nov 1994 08:49:37 GMT"
-// - <path-value> e.g. "Path=somepath,"
-// - <extension-av> e.g. "AnyString,Really,"
-//
-// Some values are ambiguous e.g.
-// "Set-Cookie: lang=en; Path=/foo/"
-// "Set-Cookie: SID=x23"
-// and:
-// "Set-Cookie: lang=en; Path=/foo/,SID=x23"
-// would both be result in `response.headers` => "lang=en; Path=/foo/,SID=x23"
-//
-// The idea behind this regex is that ",<valid token>=" is more likely to
-// start a new <cookie-pair> then be part of <path-value> or <extension-av>.
-//
-// See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
+/// Splits comma-seperated "Set-Cookie" header values.
+///
+/// Set-Cookie strings can contain commas. In particular, the following
+/// productions defined in RFC-6265, section 4.1.1:
+/// - <sane-cookie-date> e.g. "Expires=Sun, 06 Nov 1994 08:49:37 GMT"
+/// - <path-value> e.g. "Path=somepath,"
+/// - <extension-av> e.g. "AnyString,Really,"
+///
+/// Some values are ambiguous e.g.
+/// "Set-Cookie: lang=en; Path=/foo/"
+/// "Set-Cookie: SID=x23"
+/// and:
+/// "Set-Cookie: lang=en; Path=/foo/,SID=x23"
+/// would both be result in `response.headers` => "lang=en; Path=/foo/,SID=x23"
+///
+/// The idea behind this regex is that ",<valid token>=" is more likely to
+/// start a new <cookie-pair> then be part of <path-value> or <extension-av>.
+///
+/// See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
 var _setCookieSplitter = RegExp(r'[ \t]*,[ \t]*(?=[' + _tokenChars + r']+=)');
 
-extension HeadersWithFieldLists on BaseResponse {
+extension HeadersWithSplitValues on BaseResponse {
   /// The HTTP headers returned by the server.
   ///
   /// The header names are converted to lowercase and stored with their
@@ -116,10 +116,10 @@ extension HeadersWithFieldLists on BaseResponse {
   /// final response = await Client().get(Uri.https('example.com', '/'));
   /// final cookies = [
   ///   for (var value i
-  ///       in response.headersFieldValueList['set-cookie'] ?? <String>[])
+  ///       in response.headersSplitValues['set-cookie'] ?? <String>[])
   ///     Cookie.fromSetCookieValue(value)
   /// ];
-  Map<String, List<String>> get headersFieldValueList {
+  Map<String, List<String>> get headersSplitValues {
     var headersWithFieldLists = <String, List<String>>{};
     headers.forEach((key, value) {
       if (!value.contains(',')) {

@@ -71,16 +71,16 @@ void main() {
     });
   });
 
-  group('.headersFieldValueList', () {
+  group('.headersSplitValues', () {
     test('no headers', () async {
       var response = http.Response('Hello, world!', 200);
-      expect(response.headersFieldValueList, const <String, List<String>>{});
+      expect(response.headersSplitValues, const <String, List<String>>{});
     });
 
     test('one header', () async {
       var response =
           http.Response('Hello, world!', 200, headers: {'fruit': 'apple'});
-      expect(response.headersFieldValueList, const {
+      expect(response.headersSplitValues, const {
         'fruit': ['apple']
       });
     });
@@ -88,7 +88,7 @@ void main() {
     test('two headers', () async {
       var response = http.Response('Hello, world!', 200,
           headers: {'fruit': 'apple,banana'});
-      expect(response.headersFieldValueList, const {
+      expect(response.headersSplitValues, const {
         'fruit': ['apple', 'banana']
       });
     });
@@ -96,7 +96,7 @@ void main() {
     test('two headers with lots of spaces', () async {
       var response = http.Response('Hello, world!', 200,
           headers: {'fruit': 'apple   \t   ,  \tbanana'});
-      expect(response.headersFieldValueList, const {
+      expect(response.headersSplitValues, const {
         'fruit': ['apple', 'banana']
       });
     });
@@ -105,7 +105,7 @@ void main() {
       var response = http.Response('Hello, world!', 200, headers: {
         'set-cookie': 'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT'
       });
-      expect(response.headersFieldValueList, const {
+      expect(response.headersSplitValues, const {
         'set-cookie': ['id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT']
       });
     });
@@ -116,7 +116,7 @@ void main() {
         'set-cookie': 'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT,'
             'sessionId=e8bb43229de9; Domain=foo.example.com'
       });
-      expect(response.headersFieldValueList, const {
+      expect(response.headersSplitValues, const {
         'set-cookie': [
           'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
           'sessionId=e8bb43229de9; Domain=foo.example.com'
@@ -131,7 +131,7 @@ void main() {
             'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
                 'sessionId=e8bb43229de9; Domain=foo.example.com'
       });
-      expect(response.headersFieldValueList, const {
+      expect(response.headersSplitValues, const {
         'set-cookie': [
           'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
           'sessionId=e8bb43229de9; Domain=foo.example.com'
