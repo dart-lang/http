@@ -10,6 +10,9 @@ import 'package:test/test.dart';
 import 'request_cookies_server_vm.dart'
     if (dart.library.js_interop) 'request_cookies_server_web.dart';
 
+// The an HTTP header into [name, value].
+final headerSplitter = RegExp(':[ \t]+');
+
 /// Tests that the [Client] correctly sends "cookie" headers in the request.
 ///
 /// If [canSendCookieHeaders] is `false` then tests that require that "cookie"
@@ -30,18 +33,24 @@ void testRequestCookies(Client client,
 
     test('one cookie', () async {
       await client
-          .get(Uri.http(host, ''), headers: {'Cookie': 'SID=298zf09hf012fh2'});
+          .get(Uri.http(host, ''), headers: {'cookie': 'SID=298zf09hf012fh2'});
 
-      final cookies = await httpServerQueue.next as List;
-      expect(cookies, ['cookie: SID=298zf09hf012fh2']);
+      final cookies = (await httpServerQueue.next as List).cast<String>();
+      expect(cookies, hasLength(1));
+      final [header, value] = cookies[0].split(headerSplitter);
+      expect(header.toLowerCase(), 'cookie');
+      expect(value, 'SID=298zf09hf012fh2');
     }, skip: canSendCookieHeaders ? false : 'cannot send cookie headers');
 
     test('multiple cookies semicolon separated', () async {
       await client.get(Uri.http(host, ''),
-          headers: {'Cookie': 'SID=298zf09hf012fh2; lang=en-US'});
+          headers: {'cookie': 'SID=298zf09hf012fh2; lang=en-US'});
 
-      final cookies = await httpServerQueue.next as List;
-      expect(cookies, ['cookie: SID=298zf09hf012fh2; lang=en-US']);
+      final cookies = (await httpServerQueue.next as List).cast<String>();
+      expect(cookies, hasLength(1));
+      final [header, value] = cookies[0].split(headerSplitter);
+      expect(header.toLowerCase(), 'cookie');
+      expect(value, 'SID=298zf09hf012fh2; lang=en-US');
     }, skip: canSendCookieHeaders ? false : 'cannot send cookie headers');
   });
 }
