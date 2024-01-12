@@ -92,8 +92,7 @@ var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 // "Set-Cookie: SID=x23"
 // and:
 // "Set-Cookie: lang=en; Path=/foo/,SID=x23"
-// would both be represented with:
-// "lang=en; Path=/foo/,SID=x23"
+// would both be result in `response.headers` => "lang=en; Path=/foo/,SID=x23"
 //
 // The idea behind this regex is that ",<valid token>=" is more likely to
 // start a new <cookie-pair> then be part of <path-value> or <extension-av>.
