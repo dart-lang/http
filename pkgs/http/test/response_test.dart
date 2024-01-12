@@ -70,4 +70,73 @@ void main() {
       expect(response.bodyBytes, equals([104, 101, 108, 108, 111]));
     });
   });
+
+  group('.headersSplitValues', () {
+    test('no headers', () async {
+      var response = http.Response('Hello, world!', 200);
+      expect(response.headersSplitValues, const <String, List<String>>{});
+    });
+
+    test('one header', () async {
+      var response =
+          http.Response('Hello, world!', 200, headers: {'fruit': 'apple'});
+      expect(response.headersSplitValues, const {
+        'fruit': ['apple']
+      });
+    });
+
+    test('two headers', () async {
+      var response = http.Response('Hello, world!', 200,
+          headers: {'fruit': 'apple,banana'});
+      expect(response.headersSplitValues, const {
+        'fruit': ['apple', 'banana']
+      });
+    });
+
+    test('two headers with lots of spaces', () async {
+      var response = http.Response('Hello, world!', 200,
+          headers: {'fruit': 'apple   \t   ,  \tbanana'});
+      expect(response.headersSplitValues, const {
+        'fruit': ['apple', 'banana']
+      });
+    });
+
+    test('one set-cookie', () async {
+      var response = http.Response('Hello, world!', 200, headers: {
+        'set-cookie': 'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT'
+      });
+      expect(response.headersSplitValues, const {
+        'set-cookie': ['id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT']
+      });
+    });
+
+    test('two set-cookie, with comma in expires', () async {
+      var response = http.Response('Hello, world!', 200, headers: {
+        // ignore: missing_whitespace_between_adjacent_strings
+        'set-cookie': 'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT,'
+            'sessionId=e8bb43229de9; Domain=foo.example.com'
+      });
+      expect(response.headersSplitValues, const {
+        'set-cookie': [
+          'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
+          'sessionId=e8bb43229de9; Domain=foo.example.com'
+        ]
+      });
+    });
+
+    test('two set-cookie, with lots of commas', () async {
+      var response = http.Response('Hello, world!', 200, headers: {
+        'set-cookie':
+            // ignore: missing_whitespace_between_adjacent_strings
+            'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
+                'sessionId=e8bb43229de9; Domain=foo.example.com'
+      });
+      expect(response.headersSplitValues, const {
+        'set-cookie': [
+          'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
+          'sessionId=e8bb43229de9; Domain=foo.example.com'
+        ]
+      });
+    });
+  });
 }

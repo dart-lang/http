@@ -1,6 +1,8 @@
-## 1.1.3-wip
+## 1.2.0-wip
 
 * Add `MockClient.pngResponse`, which makes it easier to fake image responses.
+* Add the ability to get headers as a `Map<String, List<String>` to
+  `BaseResponse`.
 
 ## 1.1.2
 
