@@ -30,7 +30,7 @@ void testRequestCookies(Client client,
 
     test('one cookie', () async {
       await client
-          .get(Uri.http(host, ''), headers: {'Cookie': 'SID=298zf09hf012fh2'});
+          .get(Uri.http(host, ''), headers: {'cookie': 'SID=298zf09hf012fh2'});
 
       final cookies = await httpServerQueue.next as List;
       expect(cookies, ['cookie: SID=298zf09hf012fh2']);
@@ -38,7 +38,7 @@ void testRequestCookies(Client client,
 
     test('multiple cookies semicolon separated', () async {
       await client.get(Uri.http(host, ''),
-          headers: {'Cookie': 'SID=298zf09hf012fh2; lang=en-US'});
+          headers: {'cookie': 'SID=298zf09hf012fh2; lang=en-US'});
 
       final cookies = await httpServerQueue.next as List;
       expect(cookies, ['cookie: SID=298zf09hf012fh2; lang=en-US']);
