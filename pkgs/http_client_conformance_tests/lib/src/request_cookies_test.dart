@@ -32,16 +32,22 @@ void testRequestCookies(Client client,
       await client
           .get(Uri.http(host, ''), headers: {'cookie': 'SID=298zf09hf012fh2'});
 
-      final cookies = await httpServerQueue.next as List;
-      expect(cookies, ['cookie: SID=298zf09hf012fh2']);
+      final cookies = (await httpServerQueue.next as List).cast<String>();
+      expect(cookies, hasLength(1));
+      final [header, value] = cookies[0].split(RegExp(':[ \t]+'));
+      expect(header.toLowerCase(), 'cookie');
+      expect(value, 'SID=298zf09hf012fh2');
     }, skip: canSendCookieHeaders ? false : 'cannot send cookie headers');
 
     test('multiple cookies semicolon separated', () async {
       await client.get(Uri.http(host, ''),
           headers: {'cookie': 'SID=298zf09hf012fh2; lang=en-US'});
 
-      final cookies = await httpServerQueue.next as List;
-      expect(cookies, ['cookie: SID=298zf09hf012fh2; lang=en-US']);
+      final cookies = (await httpServerQueue.next as List).cast<String>();
+      expect(cookies, hasLength(1));
+      final [header, value] = cookies[0].split(RegExp(':[ \t]+'));
+      expect(header.toLowerCase(), 'cookie');
+      expect(value, 'SID=298zf09hf012fh2; lang=en-US');
     }, skip: canSendCookieHeaders ? false : 'cannot send cookie headers');
   });
 }
