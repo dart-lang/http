@@ -76,10 +76,10 @@ abstract class BaseResponse {
 const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
     'abcdefghijklmnopqrstuvwxyz|~';
 
-// Splits comma-seperated headers.
+// Splits comma-seperated header values.
 var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 
-// Splits comma-seperated "Set-Cookie" headers.
+// Splits comma-seperated "Set-Cookie" header values.
 //
 // Set-Cookie strings can contain commas. In particular, the following
 // productions defined in RFC-6265, section 4.1.1:
@@ -95,7 +95,7 @@ var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 // would both be represented with:
 // "lang=en; Path=/foo/,SID=x23"
 //
-// The idea behind this RegExp is that ",<valid token>=" is more likely to
+// The idea behind this regex is that ",<valid token>=" is more likely to
 // start a new <cookie-pair> then be part of <path-value> or <extension-av>.
 //
 // See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
