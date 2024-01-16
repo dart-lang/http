@@ -1,3 +1,9 @@
+## 2.0.0-wip
+
+* `BaseResponse` can be constructed `headers` as a
+  `Map<String, List<String>>`.
+* Move `headersSplitValues` to `BaseResponse`.
+
 ## 1.2.0-wip
 
 * Add `MockClient.pngResponse`, which makes it easier to fake image responses.
