@@ -28,6 +28,7 @@ void testResponseHeaders(Client client) async {
 
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['foo'], 'bar');
+      expect(response.headersSplitValues['foo'], ['bar']);
     });
 
     test('UPPERCASE header name', () async {
@@ -37,6 +38,7 @@ void testResponseHeaders(Client client) async {
 
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['foo'], 'bar');
+      expect(response.headersSplitValues['foo'], ['bar']);
     });
 
     test('UPPERCASE header value', () async {
@@ -44,6 +46,7 @@ void testResponseHeaders(Client client) async {
 
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['foo'], 'BAR');
+      expect(response.headersSplitValues['foo'], ['BAR']);
     });
 
     test('space surrounding header value', () async {
@@ -51,6 +54,7 @@ void testResponseHeaders(Client client) async {
 
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['foo'], 'BAR');
+      expect(response.headersSplitValues['foo'], ['BAR']);
     });
 
     test('space in header value', () async {
@@ -58,6 +62,7 @@ void testResponseHeaders(Client client) async {
 
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['foo'], 'BAR BAZ');
+      expect(response.headersSplitValues['foo'], ['BAR BAZ']);
     });
 
     test('multiple spaces in header value', () async {
@@ -67,8 +72,13 @@ void testResponseHeaders(Client client) async {
       httpServerChannel.sink.add('foo: BAR  \t   BAZ\r\n');
 
       final response = await client.get(Uri.http(host, ''));
+      final valueMatch = matches(RegExp('BAR {0,2}[ \t] {0,3}BAZ'));
+      expect(response.headers['foo'], valueMatch);
       expect(
-          response.headers['foo'], matches(RegExp('BAR {0,2}[ \t] {0,3}BAZ')));
+          response.headersSplitValues['foo'],
+          isA<List<String>>()
+              .having((s) => s.length, 'length', 1)
+              .having((s) => s[0], 'field value', valueMatch));
     });
 
     test('multiple headers', () async {
@@ -79,6 +89,9 @@ void testResponseHeaders(Client client) async {
       expect(response.headers['field1'], 'value1');
       expect(response.headers['field2'], 'value2');
       expect(response.headers['field3'], 'value3');
+      expect(response.headersSplitValues['field1'], ['value1']);
+      expect(response.headersSplitValues['field2'], ['value2']);
+      expect(response.headersSplitValues['field3'], ['value3']);
     });
 
     test('multiple values per header', () async {
@@ -91,6 +104,8 @@ void testResponseHeaders(Client client) async {
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['list'],
           matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+      expect(
+          response.headersSplitValues['list'], ['apple', 'orange', 'banana']);
     });
 
     test('multiple values per header surrounded with spaces', () async {
@@ -100,6 +115,8 @@ void testResponseHeaders(Client client) async {
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['list'],
           matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+      expect(
+          response.headersSplitValues['list'], ['apple', 'orange', 'banana']);
     });
 
     test('multiple headers with the same name', () async {
@@ -110,6 +127,8 @@ void testResponseHeaders(Client client) async {
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['list'],
           matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+      expect(
+          response.headersSplitValues['list'], ['apple', 'orange', 'banana']);
     });
 
     test('multiple headers with the same name but different cases', () async {
@@ -120,6 +139,8 @@ void testResponseHeaders(Client client) async {
       final response = await client.get(Uri.http(host, ''));
       expect(response.headers['list'],
           matches(r'apple[ \t]*,[ \t]*orange[ \t]*,[ \t]*banana'));
+      expect(
+          response.headersSplitValues['list'], ['apple', 'orange', 'banana']);
     });
 
     group('content length', () {
@@ -162,6 +183,7 @@ void testResponseHeaders(Client client) async {
 
         final response = await client.get(Uri.http(host, ''));
         expect(response.headers['foo'], 'BAR BAZ');
+        expect(response.headersSplitValues['foo'], ['BAR BAZ']);
       },
           skip: 'Enable after https://github.com/dart-lang/sdk/issues/53185 '
               'is fixed');
@@ -170,12 +192,17 @@ void testResponseHeaders(Client client) async {
         httpServerChannel.sink.add('foo: BAR   \t   \r\n   \t   BAZ \t \r\n');
 
         final response = await client.get(Uri.http(host, ''));
+        final valueMatch = allOf(
+            matches(RegExp(r'BAR {0,3}[ \t]? {0,7}[ \t]? {0,3}BAZ')),
+            contains(' '));
         // RFC 2616 4.2 allows LWS between header values to be replace with a
         // single space.
+        expect(response.headers['foo'], valueMatch);
         expect(
-            response.headers['foo'],
-            allOf(matches(RegExp(r'BAR {0,3}[ \t]? {0,7}[ \t]? {0,3}BAZ')),
-                contains(' ')));
+            response.headersSplitValues['foo'],
+            isA<List<String>>()
+                .having((s) => s.length, 'length', 1)
+                .having((s) => s[0], 'field value', valueMatch));
       });
     });
   });

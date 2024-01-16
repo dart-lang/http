@@ -5,11 +5,42 @@
 import 'base_client.dart';
 import 'base_request.dart';
 
+/// "token" as defined in RFC 2616, 2.2
+/// See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
+const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
+    'abcdefghijklmnopqrstuvwxyz|~';
+
+/// Splits comma-seperated header values.
+var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
+
+/// Splits comma-seperated "Set-Cookie" header values.
+///
+/// Set-Cookie strings can contain commas. In particular, the following
+/// productions defined in RFC-6265, section 4.1.1:
+/// - <sane-cookie-date> e.g. "Expires=Sun, 06 Nov 1994 08:49:37 GMT"
+/// - <path-value> e.g. "Path=somepath,"
+/// - <extension-av> e.g. "AnyString,Really,"
+///
+/// Some values are ambiguous e.g.
+/// "Set-Cookie: lang=en; Path=/foo/"
+/// "Set-Cookie: SID=x23"
+/// and:
+/// "Set-Cookie: lang=en; Path=/foo/,SID=x23"
+/// would both be result in `response.headers` => "lang=en; Path=/foo/,SID=x23"
+///
+/// The idea behind this regex is that ",<valid token>=" is more likely to
+/// start a new <cookie-pair> then be part of <path-value> or <extension-av>.
+///
+/// See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
+var _setCookieSplitter = RegExp(r'[ \t]*,[ \t]*(?=[' + _tokenChars + r']+=)');
+
 /// The base class for HTTP responses.
 ///
 /// Subclasses of [BaseResponse] are usually not constructed manually; instead,
 /// they're returned by [BaseClient.send] or other HTTP client methods.
 abstract class BaseResponse {
+  final Object _headers; // Map<String, String> | Map<String, List<String>>
+
   /// The (frozen) request that triggered this response.
   final BaseRequest? request;
 
@@ -43,64 +74,17 @@ abstract class BaseResponse {
   /// // values = ['Apple', 'Banana', 'Grape']
   /// ```
   ///
-  /// To retrieve the header values as a `List<String>`, use
-  /// [HeadersWithSplitValues.headersSplitValues].
-  ///
   /// If a header value contains whitespace then that whitespace may be replaced
   /// by a single space. Leading and trailing whitespace in header values are
   /// always removed.
-  final Map<String, String> headers;
+  Map<String, String> get headers => switch (_headers) {
+        Map<String, String> commaHeaders => commaHeaders,
+        Map<String, List<String>> listHeaders => {
+            for (var v in listHeaders.entries) v.key: v.value.join(', ')
+          },
+        _ => throw StateError('unexpected header type: ${_headers.runtimeType}')
+      };
 
-  final bool isRedirect;
-
-  /// Whether the server requested that a persistent connection be maintained.
-  final bool persistentConnection;
-
-  BaseResponse(this.statusCode,
-      {this.contentLength,
-      this.request,
-      this.headers = const {},
-      this.isRedirect = false,
-      this.persistentConnection = true,
-      this.reasonPhrase}) {
-    if (statusCode < 100) {
-      throw ArgumentError('Invalid status code $statusCode.');
-    } else if (contentLength != null && contentLength! < 0) {
-      throw ArgumentError('Invalid content length $contentLength.');
-    }
-  }
-}
-
-/// "token" as defined in RFC 2616, 2.2
-/// See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
-const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
-    'abcdefghijklmnopqrstuvwxyz|~';
-
-/// Splits comma-seperated header values.
-var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
-
-/// Splits comma-seperated "Set-Cookie" header values.
-///
-/// Set-Cookie strings can contain commas. In particular, the following
-/// productions defined in RFC-6265, section 4.1.1:
-/// - <sane-cookie-date> e.g. "Expires=Sun, 06 Nov 1994 08:49:37 GMT"
-/// - <path-value> e.g. "Path=somepath,"
-/// - <extension-av> e.g. "AnyString,Really,"
-///
-/// Some values are ambiguous e.g.
-/// "Set-Cookie: lang=en; Path=/foo/"
-/// "Set-Cookie: SID=x23"
-/// and:
-/// "Set-Cookie: lang=en; Path=/foo/,SID=x23"
-/// would both be result in `response.headers` => "lang=en; Path=/foo/,SID=x23"
-///
-/// The idea behind this regex is that ",<valid token>=" is more likely to
-/// start a new <cookie-pair> then be part of <path-value> or <extension-av>.
-///
-/// See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
-var _setCookieSplitter = RegExp(r'[ \t]*,[ \t]*(?=[' + _tokenChars + r']+=)');
-
-extension HeadersWithSplitValues on BaseResponse {
   /// The HTTP headers returned by the server.
   ///
   /// The header names are converted to lowercase and stored with their
@@ -120,8 +104,13 @@ extension HeadersWithSplitValues on BaseResponse {
   ///     Cookie.fromSetCookieValue(value)
   /// ];
   Map<String, List<String>> get headersSplitValues {
+    if (_headers is Map<String, List<String>>) {
+      return _headers;
+    } else if (_headers is! Map<String, String>) {
+      throw StateError('unexpected header type: ${_headers.runtimeType}');
+    }
     var headersWithFieldLists = <String, List<String>>{};
-    headers.forEach((key, value) {
+    _headers.forEach((key, value) {
       if (!value.contains(',')) {
         headersWithFieldLists[key] = [value];
       } else {
@@ -133,5 +122,30 @@ extension HeadersWithSplitValues on BaseResponse {
       }
     });
     return headersWithFieldLists;
+  }
+
+  final bool isRedirect;
+
+  /// Whether the server requested that a persistent connection be maintained.
+  final bool persistentConnection;
+
+  BaseResponse(this.statusCode,
+      {this.contentLength,
+      this.request,
+      Object headers = const <String, List<String>>{},
+      this.isRedirect = false,
+      this.persistentConnection = true,
+      this.reasonPhrase})
+      : _headers = headers {
+    if (_headers is! Map<String, List<String>> &&
+        _headers is! Map<String, String>) {
+      throw ArgumentError.value(headers, 'headers',
+          'must be a Map<String, List<String>> or Map<String, String>');
+    }
+    if (statusCode < 100) {
+      throw ArgumentError('Invalid status code $statusCode.');
+    } else if (contentLength != null && contentLength! < 0) {
+      throw ArgumentError('Invalid content length $contentLength.');
+    }
   }
 }

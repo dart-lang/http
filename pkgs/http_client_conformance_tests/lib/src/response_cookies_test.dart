@@ -32,6 +32,7 @@ void testResponseCookies(Client client,
       final response = await client.get(Uri.http(host, ''));
 
       expect(response.headers['set-cookie'], 'SID=1231AB3');
+      expect(response.headersSplitValues['set-cookie'], ['SID=1231AB3']);
     },
         skip: canReceiveSetCookieHeaders
             ? false
@@ -51,6 +52,8 @@ void testResponseCookies(Client client,
           matches(r'SID=1231AB3'
               r'[ \t]*,[ \t]*'
               r'lang=en_US'));
+      expect(response.headersSplitValues['set-cookie'],
+          ['SID=1231AB3', 'lang=en_US']);
     },
         skip: canReceiveSetCookieHeaders
             ? false
@@ -63,6 +66,8 @@ void testResponseCookies(Client client,
 
       expect(response.headers['set-cookie'],
           'id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT');
+      expect(response.headersSplitValues['set-cookie'],
+          ['id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT']);
     },
         skip: canReceiveSetCookieHeaders
             ? false
@@ -84,6 +89,10 @@ void testResponseCookies(Client client,
           matches(r'id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT'
               r'[ \t]*,[ \t]*'
               r'id=2fasd; Expires=Wed, 21 Oct 2025 07:28:00 GMT'));
+      expect(response.headersSplitValues['set-cookie'], [
+        'id=a3fWa; Expires=Wed, 10 Jan 2024 07:28:00 GMT',
+        'id=2fasd; Expires=Wed, 21 Oct 2025 07:28:00 GMT'
+      ]);
     },
         skip: canReceiveSetCookieHeaders
             ? false

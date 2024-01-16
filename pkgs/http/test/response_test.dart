@@ -22,9 +22,16 @@ void main() {
               [72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]));
     });
 
-    test('respects the inferred encoding', () {
+    test('respects the inferred encoding, comma-separated values headers', () {
       var response = http.Response('föøbãr', 200,
           headers: {'content-type': 'text/plain; charset=iso-8859-1'});
+      expect(response.bodyBytes, equals([102, 246, 248, 98, 227, 114]));
+    });
+
+    test('respects the inferred encoding, list values headers', () {
+      var response = http.Response('föøbãr', 200, headers: {
+        'content-type': ['text/plain; charset=iso-8859-1']
+      });
       expect(response.bodyBytes, equals([102, 246, 248, 98, 227, 114]));
     });
   });
@@ -40,9 +47,17 @@ void main() {
       expect(response.bodyBytes, equals([104, 101, 108, 108, 111]));
     });
 
-    test('respects the inferred encoding', () {
+    test('respects the inferred encoding, comma-separated values headers', () {
       var response = http.Response.bytes([102, 246, 248, 98, 227, 114], 200,
           headers: {'content-type': 'text/plain; charset=iso-8859-1'});
+      expect(response.body, equals('föøbãr'));
+    });
+
+    test('respects the inferred encoding, list values headers', () {
+      var response = http.Response.bytes([102, 246, 248, 98, 227, 114], 200,
+          headers: {
+            'content-type': ['text/plain; charset=iso-8859-1']
+          });
       expect(response.body, equals('föøbãr'));
     });
   });
@@ -71,9 +86,32 @@ void main() {
     });
   });
 
-  group('.headersSplitValues', () {
+  group('.headers from values list', () {
     test('no headers', () async {
-      var response = http.Response('Hello, world!', 200);
+      var response = http.Response('Hello, world!', 200,
+          headers: const <String, List<String>>{});
+      expect(response.headers, const <String, String>{});
+    });
+
+    test('one header', () async {
+      var response = http.Response('Hello, world!', 200, headers: const {
+        'fruit': ['apple']
+      });
+      expect(response.headers, const {'fruit': 'apple'});
+    });
+
+    test('two headers', () async {
+      var response = http.Response('Hello, world!', 200, headers: {
+        'fruit': ['apple', 'banana']
+      });
+      expect(response.headers, const {'fruit': 'apple, banana'});
+    });
+  });
+
+  group('.headersSplitValues from comma-separated values', () {
+    test('no headers', () async {
+      var response = http.Response('Hello, world!', 200,
+          headers: const <String, String>{});
       expect(response.headersSplitValues, const <String, List<String>>{});
     });
 
