@@ -15,3 +15,8 @@ and the browser.
 | [cronet_http](pkgs/cronet_http/) | An Android Flutter plugin that provides access to the [Cronet](https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/package-summary) HTTP client. | [![pub package](https://img.shields.io/pub/v/cronet_http.svg)](https://pub.dev/packages/cronet_http) |
 | [cupertino_http](pkgs/cupertino_http/) | A macOS/iOS Flutter plugin that provides access to the [Foundation URL Loading System](https://developer.apple.com/documentation/foundation/url_loading_system). | [![pub package](https://img.shields.io/pub/v/cupertino_http.svg)](https://pub.dev/packages/cupertino_http) |
 | [flutter_http_example](pkgs/flutter_http_example/) | An Flutter app that demonstrates how to configure and use `package:http`. | — |
+
+## Contributing
+
+If you'd like to contribute to any of these packages, see the
+[Contributing Guide](CONTRIBUTING.md).

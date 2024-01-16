@@ -79,10 +79,13 @@ class BrowserClient extends BaseClient {
         return;
       }
       var body = (xhr.response as JSArrayBuffer).toDart.asUint8List();
-      completer.complete(StreamedResponse(
+      var responseUrl = xhr.responseURL;
+      var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : request.url;
+      completer.complete(StreamedResponseV2(
           ByteStream.fromBytes(body), xhr.status,
           contentLength: body.length,
           request: request,
+          url: url,
           headers: xhr.responseHeaders,
           reasonPhrase: xhr.statusText));
     }));
