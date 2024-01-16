@@ -33,8 +33,8 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
-      if (response is BaseResponseV2) {
-        expect((response as BaseResponseV2).url, Uri.http(host, '/'));
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/'));
       }
     });
 
@@ -44,8 +44,8 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
-      if (response is BaseResponseV2) {
-        expect((response as BaseResponseV2).url, Uri.http(host, '/1'));
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/1'));
       }
     }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
@@ -56,8 +56,8 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
-      if (response is BaseResponseV2) {
-        expect((response as BaseResponseV2).url, Uri.http(host, '/1'));
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/1'));
       }
     }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
@@ -67,8 +67,8 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
-      if (response is BaseResponseV2) {
-        expect((response as BaseResponseV2).url, Uri.http(host, '/'));
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/'));
       }
     });
 
@@ -89,8 +89,8 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
-      if (response is BaseResponseV2) {
-        expect((response as BaseResponseV2).url, Uri.http(host, '/'));
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/'));
       }
     }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
