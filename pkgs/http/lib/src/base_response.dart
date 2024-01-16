@@ -92,7 +92,7 @@ abstract class BaseResponse {
 ///
 /// [url] will be added to [BaseResponse] when `package:http` version 2 is
 /// released and this mixin will be deprecated.
-mixin BaseResponseWithUrl on BaseResponse {
+abstract interface class BaseResponseWithUrl implements BaseResponse {
   /// The [Uri] of the response returned by the server.
   ///
   /// If no redirects were followed, [url] will be the same as the requested

@@ -29,16 +29,17 @@ class StreamedResponse extends BaseResponse {
 
 /// This class is private to `package:http` and will be removed when
 /// `package:http` v2 is released.
-class StreamedResponseV2 extends StreamedResponse with BaseResponseWithUrl {
+class StreamedResponseV2 extends StreamedResponse
+    implements BaseResponseWithUrl {
   @override
   final Uri url;
 
   StreamedResponseV2(super.stream, super.statusCode,
-      {super.contentLength,
+      {required this.url,
+      super.contentLength,
       super.request,
       super.headers,
       super.isRedirect,
-      required this.url,
       super.persistentConnection,
       super.reasonPhrase});
 }
