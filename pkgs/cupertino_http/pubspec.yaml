@@ -6,7 +6,7 @@ description: >-
 repository: https://github.com/dart-lang/http/tree/master/pkgs/cupertino_http
 
 environment:
-  sdk: ^3.0.0
+  sdk: ^3.2.0
   flutter: '>=3.10.0'  # If changed, update test matrix.
 
 dependencies:
