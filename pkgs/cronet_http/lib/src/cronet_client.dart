@@ -23,6 +23,21 @@ import 'jni/jni_bindings.dart' as jb;
 final _digitRegex = RegExp(r'^\d+$');
 const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
 
+/// This class can be removed when `package:http` v2 is released.
+class _StreamedResponseWithUrl extends StreamedResponse
+    implements BaseResponseWithUrl {
+  @override
+  final Uri url;
+
+  _StreamedResponseWithUrl(super.stream, super.statusCode,
+      {required this.url,
+      super.contentLength,
+      super.request,
+      super.headers,
+      super.isRedirect,
+      super.reasonPhrase});
+}
+
 /// The type of caching to use when making HTTP requests.
 enum CacheMode {
   disabled,
@@ -163,9 +178,11 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
         case final contentLengthHeader?:
           contentLength = int.parse(contentLengthHeader);
       }
-      responseCompleter.complete(StreamedResponse(
+      responseCompleter.complete(_StreamedResponseWithUrl(
         responseStream!.stream,
         responseInfo.getHttpStatusCode(),
+        url: Uri.parse(
+            responseInfo.getUrl().toDartString(releaseOriginal: true)),
         contentLength: contentLength,
         reasonPhrase: responseInfo
             .getHttpStatusText()

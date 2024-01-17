@@ -1,6 +1,7 @@
-## 1.2.1-wip
+## 1.3.0
 
 * Use `package:http_image_provider` in the example application.
+* Support `BaseResponseWithUrl`.
 
 ## 1.2.0
 
