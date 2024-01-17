@@ -57,7 +57,7 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.10.0", "any"]
+        flutter-version: ["3.16.0", "any"]
     runs-on: macos-latest
     defaults:
       run:

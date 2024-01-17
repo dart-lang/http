@@ -1,7 +1,8 @@
-## 1.0.1-wip
+## 1.1.0
 
 * Use `package:http_image_provider` in the example application.
 * Support Android API 21+.
+* Support `BaseResponseWithUrl`.
 
 ## 1.0.0
 
