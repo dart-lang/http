@@ -18,12 +18,12 @@ import 'cupertino_api.dart';
 final _digitRegex = RegExp(r'^\d+$');
 
 /// This class can be removed when `package:http` v2 is released.
-class _StreamedResponseV2 extends StreamedResponse
+class _StreamedResponseWithUrl extends StreamedResponse
     implements BaseResponseWithUrl {
   @override
   final Uri url;
 
-  _StreamedResponseV2(super.stream, super.statusCode,
+  _StreamedResponseWithUrl(super.stream, super.statusCode,
       {required this.url,
       super.contentLength,
       super.request,
@@ -309,7 +309,7 @@ class CupertinoClient extends BaseClient {
       );
     }
 
-    return _StreamedResponseV2(
+    return _StreamedResponseWithUrl(
       taskTracker.responseController.stream,
       response.statusCode,
       url: taskTracker.lastUrl ?? request.url,

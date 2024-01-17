@@ -24,12 +24,12 @@ final _digitRegex = RegExp(r'^\d+$');
 const _bufferSize = 10 * 1024; // The size of the Cronet read buffer.
 
 /// This class can be removed when `package:http` v2 is released.
-class _StreamedResponseV2 extends StreamedResponse
+class _StreamedResponseWithUrl extends StreamedResponse
     implements BaseResponseWithUrl {
   @override
   final Uri url;
 
-  _StreamedResponseV2(super.stream, super.statusCode,
+  _StreamedResponseWithUrl(super.stream, super.statusCode,
       {required this.url,
       super.contentLength,
       super.request,
@@ -178,7 +178,7 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
         case final contentLengthHeader?:
           contentLength = int.parse(contentLengthHeader);
       }
-      responseCompleter.complete(_StreamedResponseV2(
+      responseCompleter.complete(_StreamedResponseWithUrl(
         responseStream!.stream,
         responseInfo.getHttpStatusCode(),
         url: Uri.parse(
