@@ -128,8 +128,8 @@ void main() {
 
     test('connectionsInfo sums the values for all servers', () {
       var pendingRequests = 0;
-      final awaitingResponseCompleter = Completer();
-      final sendResponseCompleter = Completer();
+      final awaitingResponseCompleter = Completer<void>();
+      final sendResponseCompleter = Completer<void>();
       multiServer.listen((request) {
         sendResponseCompleter.future.then((_) {
           request.response.write('got request');
