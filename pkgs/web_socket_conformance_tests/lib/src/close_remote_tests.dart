@@ -15,7 +15,7 @@ import 'close_remote_server_vm.dart'
 /// Tests that the [WebSocketChannel] can correctly transmit and receive text
 /// and binary payloads.
 void testRemoteClose(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+    Future<XXXWebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {
   group('remote close', () {
     late Uri uri;

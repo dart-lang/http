@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 sealed class WebSocketEvent {}
 
+/// A received text frame.
 class TextDataReceived extends WebSocketEvent {
   final String text;
   TextDataReceived(this.text);
@@ -15,14 +16,21 @@ class TextDataReceived extends WebSocketEvent {
   int get hashCode => text.hashCode;
 }
 
+// A received binary frame.
 class BinaryDataReceived extends WebSocketEvent {
   final Uint8List data;
   BinaryDataReceived(this.data);
 
-  // XXX
   @override
-  bool operator ==(Object other) =>
-      other is BinaryDataReceived && other.data.length == data.length;
+  bool operator ==(Object other) {
+    if (other is BinaryDataReceived && other.data.length == data.length) {
+      for (var i = 0; i < data.length; ++i) {
+        if (other.data[i] != data[i]) return false;
+      }
+      return true;
+    }
+    return false;
+  }
 
   @override
   int get hashCode => data.hashCode;
@@ -31,6 +39,7 @@ class BinaryDataReceived extends WebSocketEvent {
   String toString() => 'BinaryDataReceived($data)';
 }
 
+/// A received close frame or failure.
 class Closed extends WebSocketEvent {
   final int? code;
   final String? reason;
@@ -57,11 +66,12 @@ class WebSocketConnectionClosed extends XXXWebSocketException {
   WebSocketConnectionClosed([super.message = 'Connection Closed']);
 }
 
-abstract interface class WebSocket {
-  /// Throws [WebSocketConnectionClosed] if the [WebSocket] is closed (either through [close] or by the peer).
+/// What's a good name for this? `SimpleWebSocket`? 'LCDWebSocket`?
+abstract interface class XXXWebSocket {
+  /// Throws [WebSocketConnectionClosed] if the [XXXWebSocket] is closed (either through [close] or by the peer).
   void addString(String s);
 
-  /// Throws [WebSocketConnectionClosed] if the [WebSocket] is closed (either through [close] or by the peer).
+  /// Throws [WebSocketConnectionClosed] if the [XXXWebSocket] is closed (either through [close] or by the peer).
   void addBytes(Uint8List b);
 
   /// Closes the WebSocket connection.

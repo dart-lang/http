@@ -12,7 +12,7 @@ class CupertinoWebSocketException extends XXXWebSocketException {
       CupertinoWebSocketException(e.toString());
 }
 
-class CupertinoWebSocket implements WebSocket {
+class CupertinoWebSocket implements XXXWebSocket {
   static Future<CupertinoWebSocket> connect(Uri uri) async {
     final readyCompleter = Completer<void>();
     late CupertinoWebSocket webSocket;

@@ -15,7 +15,7 @@ import 'no_upgrade_server_vm.dart'
 /// Tests that the [WebSocketChannel] can correctly transmit and receive text
 /// and binary payloads.
 void testNoUpgrade(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+    Future<XXXWebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {
   group('no upgrade', () {
     late final Uri uri;

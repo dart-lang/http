@@ -3,7 +3,7 @@ import 'dart:io' as io;
 import 'dart:typed_data';
 import 'package:websocket/websocket.dart';
 
-class IOWebSocket implements WebSocket {
+class IOWebSocket implements XXXWebSocket {
   final io.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
 

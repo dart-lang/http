@@ -17,7 +17,7 @@ import 'src/peer_protocol_errors_tests.dart';
 
 /// Runs the entire test suite against the given [WebSocketChannel].
 void testAll(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+    Future<XXXWebSocket> Function(Uri uri, {Iterable<String>? protocols})
         webSocketFactory) {
   testPayloadTransfer(webSocketFactory);
   testLocalClose(webSocketFactory);

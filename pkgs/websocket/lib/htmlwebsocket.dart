@@ -5,7 +5,7 @@ import 'package:web/web.dart' as web;
 import 'package:websocket/websocket.dart';
 import 'package:web/helpers.dart' as helpers;
 
-class HtmlWebSocket implements WebSocket {
+class HtmlWebSocket implements XXXWebSocket {
   final helpers.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
 

@@ -14,7 +14,7 @@ import 'echo_server_vm.dart' if (dart.library.html) 'echo_server_web.dart';
 /// Tests that the [WebSocketChannel] can correctly transmit and receive text
 /// and binary payloads.
 void testPayloadTransfer(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+    Future<XXXWebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {
   group('payload transfer', () {
     late final Uri uri;

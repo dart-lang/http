@@ -15,7 +15,7 @@ import 'peer_protocol_errors_server_vm.dart'
 /// Tests that the [WebSocketChannel] can correctly transmit and receive text
 /// and binary payloads.
 void testPeerProtocolErrors(
-    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
+    Future<XXXWebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {
   group('protocol errors', () {
     late final Uri uri;
