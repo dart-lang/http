@@ -53,12 +53,38 @@ class XXXWebSocketException implements Exception {
   XXXWebSocketException([this.message = ""]);
 }
 
+class WebSocketConnectionClosed extends XXXWebSocketException {
+  WebSocketConnectionClosed([super.message = 'Connection Closed']);
+}
+
 abstract interface class WebSocket {
+  /// Throws [WebSocketConnectionClosed] if the [WebSocket] is closed (either through [close] or by the peer).
   void addString(String s);
+
+  /// Throws [WebSocketConnectionClosed] if the [WebSocket] is closed (either through [close] or by the peer).
   void addBytes(Uint8List b);
+
+  /// Closes the WebSocket connection.
+  ///
+  /// Set the optional code and reason arguments to send close information
+  /// to the peer. If they are omitted, the peer will see a 1005 status code
+  /// with no reason.
+  ///
+  /// [events] will be closed.
   Future<void> close([int? code, String? reason]);
 
-  /// Will be closed after disconnect. No events will be received after
-  /// [Closed]. [Closed] will not appear in [events] if [close] is called.
+  /// Events received from the peer.
+  ///
+  /// If a [Closed] event is received then the [Stream] will be closed. A
+  /// [Closed] event indicates either that:
+  ///
+  /// - A close frame was received from the peer. [Closed.code] and
+  ///   [Closed.reason] will be set by the peer.
+  /// - A failure occured (e.g. the peer disconnected). [Closed.code] and
+  ///   [Closed.reason] will be a failure code defined by
+  ///   (RFC-6455)[https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1]
+  ///   (e.g. 1006).
+  ///
+  /// Errors will never appear in this [Stream].
   Stream<WebSocketEvent> get events;
 }

@@ -81,12 +81,12 @@ class HtmlWebSocket implements WebSocket {
 
   HtmlWebSocket._(this._webSocket);
 
-  // JS: Silently discards data if connection is closed.
   @override
   void addBytes(Uint8List b) {
     if (_events.isClosed) {
       throw StateError('WebSocket is closed');
     }
+    // Silently discards the data if the connection is closed.
     _webSocket.send(b.jsify()!);
   }
 
@@ -95,6 +95,7 @@ class HtmlWebSocket implements WebSocket {
     if (_events.isClosed) {
       throw StateError('WebSocket is closed');
     }
+    // Silently discards the data if the connection is closed.
     _webSocket.send(s.jsify()!);
   }
 

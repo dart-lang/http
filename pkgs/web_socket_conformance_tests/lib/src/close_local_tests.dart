@@ -10,7 +10,7 @@ import 'package:test/test.dart';
 import 'package:websocket/websocket.dart';
 
 import 'close_local_server_vm.dart'
-    if (dart.library.html) 'close_local_server_web.dart';
+    if (dart.library.html) 'close_server_web.dart';
 
 /// Tests that the [WebSocketChannel] can correctly transmit and receive text
 /// and binary payloads.

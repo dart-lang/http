@@ -11,5 +11,5 @@ dev_dependencies:
   test: ^1.24.0
   web_socket_conformance_tests:
     path: ../web_socket_conformance_tests
-dependencies:
-  web: ^0.4.2
+#dependencies:
+#  web: ^0.4.2

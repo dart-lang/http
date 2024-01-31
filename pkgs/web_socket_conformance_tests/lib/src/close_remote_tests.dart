@@ -85,10 +85,6 @@ void testRemoteClose(
       expect(await channel.events.toList(),
           [Closed(4123, 'server closed the connection')]);
       expect(() => channel.addString('test'), throwsStateError);
-
-      print(await httpServerQueue.next);
-      print(await httpServerQueue.next);
-
 /*
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;

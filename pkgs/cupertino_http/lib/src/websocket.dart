@@ -66,26 +66,31 @@ class CupertinoWebSocket implements WebSocket {
 
   void scheduleReceive() {
 //    print('scheduleReceive');
-    _task.receiveMessage().then(handleMessage, onError: handleError);
-  }
-
-  void handleError(Object e, StackTrace? st) {
-    print('>> ReceiveMessage error: $e');
-    if (e is Error) {
-      if (e.code == 57) {
-        // onWebSocketTaskClosed could still be invoked and set the close code.
-        // But it would be too late. Might need a timer here?
-//        _receivingController.sink.close();
-        return;
-      }
-      _events.addError(CupertinoWebSocketException.fromError(e), st);
-    } else {
-      _events.addError(e, st);
-    }
+    _task.receiveMessage().then(handleMessage, onError: _closeWithError);
   }
 
   CupertinoWebSocket._(this._task) {
     scheduleReceive();
+  }
+
+  void _closeWithError(Object e) {
+    print('closedWithError: $e');
+    if (e is Error) {
+      if (e.domain == 'NSPOSIXErrorDomain' && e.code == 57) {
+        // Socket is not connected.
+        // onWebSocketTaskClosed/onComplete will be invoked and may indicate a
+        // close code.
+        return;
+      }
+      var (int code, String? reason) = switch ([e.domain, e.code]) {
+        ['NSPOSIXErrorDomain', 100] => (1002, e.localizedDescription),
+        _ => (1006, e.localizedDescription)
+      };
+      _task.cancel();
+      _closed(code, reason == null ? null : Data.fromList(reason.codeUnits));
+    } else {
+      throw UnsupportedError('');
+    }
   }
 
   void _closed(int? closeCode, Data? reason) {
@@ -106,7 +111,7 @@ class CupertinoWebSocket implements WebSocket {
     }
     _task
         .sendMessage(URLSessionWebSocketMessage.fromData(Data.fromList(b)))
-        .then((_) => _, onError: _events.addError);
+        .then((_) => _, onError: _closeWithError);
   }
 
   @override
@@ -116,7 +121,7 @@ class CupertinoWebSocket implements WebSocket {
     }
     _task
         .sendMessage(URLSessionWebSocketMessage.fromString(s))
-        .then((_) => _, onError: _events.addError);
+        .then((_) => _, onError: _closeWithError);
   }
 
   @override
