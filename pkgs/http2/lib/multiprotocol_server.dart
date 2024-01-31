@@ -45,7 +45,7 @@ class MultiProtocolHttpServer {
   ///
   /// See also [startServing].
   static Future<MultiProtocolHttpServer> bind(
-      address, int port, SecurityContext context,
+      Object? address, int port, SecurityContext context,
       {http2.ServerSettings? settings}) async {
     context.setAlpnProtocols(['h2', 'h2-14', 'http/1.1'], true);
     var secureServer = await SecureServerSocket.bind(address, port, context);

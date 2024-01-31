@@ -34,7 +34,7 @@ void main() {
         });
       }
 
-      var serverReceivedAllBytes = Completer();
+      var serverReceivedAllBytes = Completer<void>();
 
       Future<String> readData(StreamIterator<StreamMessage> iterator) async {
         var all = <int>[];
@@ -66,7 +66,7 @@ void main() {
           unawaited(sStream.incomingMessages.drain());
           sStream.sendHeaders(expectedHeaders, endStream: true);
 
-          expect(await serverReceivedAllBytes.future, completes);
+          await serverReceivedAllBytes.future;
         }));
 
         var cStream = client.makeRequest(expectedHeaders, endStream: true);
@@ -84,7 +84,7 @@ void main() {
           var msg = await readData(iterator);
           expect(msg, 'pushing "hello world" :)');
         }));
-      }, settings: ClientSettings(allowServerPushes: true));
+      }, settings: const ClientSettings(allowServerPushes: true));
     });
   });
 }

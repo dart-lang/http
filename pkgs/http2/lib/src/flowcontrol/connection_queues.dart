@@ -10,11 +10,9 @@ import 'dart:async';
 import 'dart:collection';
 
 import '../../transport.dart';
-
 import '../byte_utils.dart';
 import '../error_handler.dart';
 import '../frames/frames.dart';
-
 import 'queue_messages.dart';
 import 'stream_queues.dart';
 import 'window_handler.dart';
@@ -66,7 +64,7 @@ class ConnectionMessageQueueOut extends Object
   }
 
   @override
-  void onTerminated(error) {
+  void onTerminated(Object? error) {
     _messages.clear();
     closeWithError(error);
   }
@@ -182,7 +180,7 @@ class ConnectionMessageQueueIn extends Object
   final IncomingWindowHandler _windowUpdateHandler;
 
   /// Catches any protocol errors and acts upon them.
-  final Function _catchProtocolErrors;
+  final void Function(void Function()) _catchProtocolErrors;
 
   /// A mapping from stream-id to the corresponding stream-specific
   /// [StreamMessageQueueIn].
@@ -200,7 +198,7 @@ class ConnectionMessageQueueIn extends Object
       this._windowUpdateHandler, this._catchProtocolErrors);
 
   @override
-  void onTerminated(error) {
+  void onTerminated(Object? error) {
     // NOTE: The higher level will be shutdown first, so all streams
     // should have been removed at this point.
     assert(_stream2messageQueue.isEmpty);

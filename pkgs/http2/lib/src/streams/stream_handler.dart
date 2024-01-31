@@ -283,7 +283,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
             'not in "idle" state.');
       }
 
-      var sameDirection = (nextStreamId + remoteStreamId) % 2 == 0;
+      var sameDirection = (nextStreamId + remoteStreamId).isEven;
       assert(!sameDirection);
 
       lastRemoteStreamId = remoteStreamId;
@@ -343,7 +343,7 @@ class StreamHandler extends Object with TerminatableMixin, ClosableMixin {
     // NOTE: We are not interested whether the streams were normally finished
     // or abnormally terminated. Therefore we use 'catchError((_) {})'!
     var streamDone = [streamQueueIn.done, streamQueueOut.done];
-    Future.wait(streamDone).catchError((_) => const []).whenComplete(() {
+    Future.wait(streamDone).catchError((_) => const <void>[]).whenComplete(() {
       _cleanupClosedStream(stream);
     });
 

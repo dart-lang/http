@@ -67,8 +67,8 @@ void main() {
         // The default is unlimited, which is why we have to wait for the server
         // setting to arrive on the client.
         // At the moment, delaying by 2 microtask cycles is enough.
-        await Future.value();
-        await Future.value();
+        await Future<void>.value();
+        await Future<void>.value();
 
         final streams = <ClientTransportStream>[];
         for (var i = 0; i < concurrentStreamLimit; ++i) {
@@ -93,7 +93,7 @@ void main() {
       await Future.wait([clientFun(), serverFun()]);
     },
         serverSettings:
-            ServerSettings(concurrentStreamLimit: concurrentStreamLimit));
+            const ServerSettings(concurrentStreamLimit: concurrentStreamLimit));
 
     transportTest('disabled-push', (ClientTransportConnection client,
         ServerTransportConnection server) async {
@@ -188,7 +188,7 @@ void main() {
       await client.terminate();
       await serverFuture;
     },
-        clientSettings: ClientSettings(
+        clientSettings: const ClientSettings(
             concurrentStreamLimit: kDefaultStreamLimit,
             allowServerPushes: true));
 
@@ -216,7 +216,7 @@ void main() {
 
     transportTest('client-terminates-stream', (ClientTransportConnection client,
         ServerTransportConnection server) async {
-      var readyForError = Completer();
+      var readyForError = Completer<void>();
 
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
@@ -268,7 +268,7 @@ void main() {
     transportTest('client-terminates-stream-after-half-close',
         (ClientTransportConnection client,
             ServerTransportConnection server) async {
-      var readyForError = Completer();
+      var readyForError = Completer<void>();
 
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
@@ -304,7 +304,7 @@ void main() {
     transportTest('server-terminates-stream-after-half-close',
         (ClientTransportConnection client,
             ServerTransportConnection server) async {
-      var readyForError = Completer();
+      var readyForError = Completer<void>();
 
       Future serverFun() async {
         await for (ServerTransportStream stream in server.incomingStreams) {
@@ -375,19 +375,19 @@ void main() {
         // This extra await is needed to allow the idle handler to run before
         // verifying the idleCount, because the stream cleanup runs
         // asynchronously after the stream is closed.
-        await Future.value();
+        await Future<void>.value();
         expect(activeCount, 1);
         expect(idleCount, 1);
 
         var stream = client.makeRequest([]);
         await stream.outgoingMessages.close();
         await stream.incomingMessages.toList();
-        await Future.value();
+        await Future<void>.value();
 
         stream = client.makeRequest([]);
         await stream.outgoingMessages.close();
         await stream.incomingMessages.toList();
-        await Future.value();
+        await Future<void>.value();
 
         await client.finish();
         expect(activeCount, 3);
@@ -410,7 +410,7 @@ void main() {
             lessThan(kChunkSize * kNumberOfMessages));
 
         var serverSentBytes = 0;
-        var flowcontrolWindowFull = Completer();
+        var flowcontrolWindowFull = Completer<void>();
 
         Future serverFun() async {
           await for (ServerTransportStream stream in server.incomingStreams) {
@@ -438,9 +438,7 @@ void main() {
             }
 
             controller
-              ..onListen = () {
-                addData();
-              }
+              ..onListen = addData
               ..onPause = expectAsync0(() {
                 // Assert that we're now at the place (since the granularity
                 // of adding is [kChunkSize], it could be that we added
@@ -450,9 +448,7 @@ void main() {
                     lessThan(expectedStreamFlowcontrolWindow));
                 flowcontrolWindowFull.complete();
               })
-              ..onResume = () {
-                addData();
-              }
+              ..onResume = addData
               ..onCancel = () {};
 
             await stream.outgoingMessages.addStream(controller.stream);
@@ -506,7 +502,7 @@ void main() {
           (ClientTransportConnection client,
               ServerTransportConnection server) async {
         await testWindowSize(client, server, 8096);
-      }, clientSettings: ClientSettings(streamWindowSize: 8096));
+      }, clientSettings: const ClientSettings(streamWindowSize: 8096));
     });
   });
 }

@@ -61,7 +61,7 @@ class PingHandler extends Object with TerminatableMixin {
 
   Future ping() {
     return ensureNotTerminatedAsync(() {
-      var c = Completer();
+      var c = Completer<void>();
       var id = _nextId++;
       _remainingPings[id] = c;
       _frameWriter.writePingFrame(id);

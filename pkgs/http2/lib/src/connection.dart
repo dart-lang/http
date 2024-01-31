@@ -188,7 +188,7 @@ abstract class Connection {
     var settings = _decodeSettings(settingsObject);
 
     // Do the initial settings handshake (possibly with pushes disabled).
-    _settingsHandler.changeSettings(settings).catchError((error) {
+    _settingsHandler.changeSettings(settings).catchError((Object error) {
       // TODO: The [error] can contain sensitive information we now expose via
       // a [Goaway] frame. We should somehow ensure we're only sending useful
       // but non-sensitive information.
@@ -271,15 +271,15 @@ abstract class Connection {
   }
 
   /// Pings the remote peer (can e.g. be used for measuring latency).
-  Future ping() {
+  Future<void> ping() {
     return _pingHandler.ping().catchError((e, s) {
-      return Future.error(
+      return Future<void>.error(
           TransportException('The connection has been terminated.'));
     }, test: (e) => e is TerminatedException);
   }
 
   /// Finishes this connection.
-  Future finish() {
+  Future<void> finish() {
     _finishing(active: true);
 
     // TODO: There is probably more we need to wait for.
@@ -288,7 +288,7 @@ abstract class Connection {
   }
 
   /// Terminates this connection forcefully.
-  Future terminate([int? errorCode]) {
+  Future<void> terminate([int? errorCode]) {
     return _terminate(errorCode ?? ErrorCode.NO_ERROR);
   }
 
@@ -441,16 +441,15 @@ abstract class Connection {
       _settingsHandler.terminate(exception);
 
       return Future.wait([cancelFuture, closeFuture])
-          .catchError((_) => const []);
+          .catchError((_) => const <void>[]);
     }
-    return Future.value();
+    return Future<void>.value();
   }
 }
 
 class ClientConnection extends Connection implements ClientTransportConnection {
-  ClientConnection._(Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
-      Settings settings)
-      : super(incoming, outgoing, settings, isClientConnection: true);
+  ClientConnection._(super.incoming, super.outgoing, super.settings)
+      : super(isClientConnection: true);
 
   factory ClientConnection(Stream<List<int>> incoming,
       StreamSink<List<int>> outgoing, ClientSettings clientSettings) {
@@ -489,9 +488,8 @@ class ClientConnection extends Connection implements ClientTransportConnection {
 }
 
 class ServerConnection extends Connection implements ServerTransportConnection {
-  ServerConnection._(Stream<List<int>> incoming, StreamSink<List<int>> outgoing,
-      Settings settings)
-      : super(incoming, outgoing, settings, isClientConnection: false);
+  ServerConnection._(super.incoming, super.outgoing, super.settings)
+      : super(isClientConnection: false);
 
   factory ServerConnection(Stream<List<int>> incoming,
       StreamSink<List<int>> outgoing, ServerSettings serverSettings) {

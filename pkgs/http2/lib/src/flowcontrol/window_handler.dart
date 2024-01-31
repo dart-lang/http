@@ -58,12 +58,12 @@ abstract class AbstractOutgoingWindowHandler {
 
 /// Handles the connection window for outgoing data frames.
 class OutgoingConnectionWindowHandler extends AbstractOutgoingWindowHandler {
-  OutgoingConnectionWindowHandler(Window window) : super(window);
+  OutgoingConnectionWindowHandler(super.window);
 }
 
 /// Handles the window for outgoing messages to the peer.
 class OutgoingStreamWindowHandler extends AbstractOutgoingWindowHandler {
-  OutgoingStreamWindowHandler(Window window) : super(window);
+  OutgoingStreamWindowHandler(super.window);
 
   /// Update the peer window by adding [difference] to it.
   ///

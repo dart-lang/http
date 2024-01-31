@@ -163,7 +163,7 @@ class SettingsHandler extends Object with TerminatableMixin {
     return ensureNotTerminatedAsync(() {
       // TODO: Have a timeout: When ACK doesn't get back in a reasonable time
       // frame we should quit with ErrorCode.SETTINGS_TIMEOUT.
-      var completer = Completer();
+      var completer = Completer<void>();
       _toBeAcknowledgedSettings.add(changes);
       _toBeAcknowledgedCompleters.add(completer);
       _frameWriter.writeSettingsFrame(changes);

@@ -30,7 +30,7 @@ void main() {
         });
       }
 
-      var serverReceivedAllBytes = Completer();
+      var serverReceivedAllBytes = Completer<void>();
 
       void Function(StreamMessage) messageTestFun(String type) {
         var expectHeader = true;
@@ -83,7 +83,7 @@ void main() {
           sStream.incomingMessages
               .listen(messageTestFun('server'), onDone: expectAsync0(() {}));
           sStream.sendHeaders(expectedHeaders, endStream: true);
-          expect(await serverReceivedAllBytes.future, completes);
+          await serverReceivedAllBytes.future;
         }));
 
         TransportStream cStream = client.makeRequest(expectedHeaders);

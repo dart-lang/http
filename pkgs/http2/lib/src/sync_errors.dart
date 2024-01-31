@@ -45,8 +45,7 @@ class StreamException implements Exception {
 }
 
 class StreamClosedException extends StreamException {
-  StreamClosedException(int streamId, [String message = ''])
-      : super(streamId, message);
+  StreamClosedException(super.streamId, [super.message = '']);
 
   @override
   String toString() => 'StreamClosedException(stream id: $streamId): $_message';

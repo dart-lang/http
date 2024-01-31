@@ -609,8 +609,8 @@ void main() {
       test('update-dynamic-table-size-too-high', () {
         var context = HPackContext();
         // Sets dynamic table to 4096
-        expect(
-            context.decoder.decode(TestHelper.newInteger(0x20, 5, 4096)), []);
+        expect(context.decoder.decode(TestHelper.newInteger(0x20, 5, 4096)),
+            <void>[]);
       });
 
       test('dynamic table entry', () {
@@ -809,7 +809,7 @@ class _HeaderMatcher extends Matcher {
   Description describe(Description description) => description.add('Header');
 
   @override
-  bool matches(item, Map matchState) {
+  bool matches(Object? item, Map matchState) {
     return item is Header &&
         _compareLists(item.name, header.name) &&
         _compareLists(item.value, header.value);

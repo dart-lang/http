@@ -60,15 +60,9 @@ class BufferedSink {
     bufferIndicator.markBuffered();
 
     _controller
-      ..onListen = () {
-        bufferIndicator.markUnBuffered();
-      }
-      ..onPause = () {
-        bufferIndicator.markBuffered();
-      }
-      ..onResume = () {
-        bufferIndicator.markUnBuffered();
-      }
+      ..onListen = bufferIndicator.markUnBuffered
+      ..onPause = bufferIndicator.markBuffered
+      ..onResume = bufferIndicator.markUnBuffered
       ..onCancel = () {
         // TODO: We may want to propagate cancel events as errors.
         // Currently `_doneFuture` will just complete normally if the sink

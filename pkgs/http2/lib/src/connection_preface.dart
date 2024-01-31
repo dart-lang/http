@@ -96,15 +96,14 @@ Stream<List<int>> readConnectionPreface(Stream<List<int>> incoming) {
   }
 
   result.onListen = () {
-    subscription = incoming.listen(onData,
-        onError: (Object e, StackTrace s) => result.addError(e, s),
-        onDone: () {
-          if (!connectionPrefaceRead) {
-            terminate('EOS before connection preface could be read.');
-          } else {
-            result.close();
-          }
-        });
+    subscription =
+        incoming.listen(onData, onError: result.addError, onDone: () {
+      if (!connectionPrefaceRead) {
+        terminate('EOS before connection preface could be read.');
+      } else {
+        result.close();
+      }
+    });
     result
       ..onPause = subscription.pause
       ..onResume = subscription.resume

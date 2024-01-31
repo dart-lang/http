@@ -11,6 +11,8 @@
 ///
 /// without this patch this test will run for a _long_ time.
 /// ---------------------------------------------------------------------------
+library;
+
 import 'dart:async';
 
 import 'package:http2/src/streams/stream_handler.dart';
@@ -46,7 +48,7 @@ void main() {
         expect(() => client.makeRequest(headers),
             throwsA(const TypeMatcher<StateError>()));
 
-        await Future.delayed(const Duration(seconds: 1));
+        await Future<void>.delayed(const Duration(seconds: 1));
         await client.finish();
       }
 

@@ -98,8 +98,7 @@ void main() {
       final pings = <int>[];
 
       final writer = FrameWriterMock();
-      final pingStream = StreamController<int>()
-        ..stream.listen((event) => pings.add(event));
+      final pingStream = StreamController<int>()..stream.listen(pings.add);
 
       PingHandler(writer, pingStream)
         ..processPingFrame(PingFrame(
@@ -119,7 +118,7 @@ void main() {
 }
 
 PingHandler instantiateHandler(FrameWriterMock writer) {
-  StreamController<int> controller = StreamController();
+  var controller = StreamController<int>();
   return PingHandler(writer, controller);
 }
 

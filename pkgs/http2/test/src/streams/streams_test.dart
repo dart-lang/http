@@ -67,7 +67,7 @@ void main() {
       server.incomingStreams
           .listen(expectAsync1((TransportStream sStream) async {
         var isFirst = true;
-        var receivedChunks = [];
+        var receivedChunks = <List<int>>[];
         sStream.incomingMessages.listen(
             expectAsync1((StreamMessage msg) {
               if (isFirst) {

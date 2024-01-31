@@ -84,7 +84,7 @@ class StreamMessageQueueOut extends Object
   }
 
   @override
-  void onTerminated(error) {
+  void onTerminated(Object? error) {
     _messages.clear();
     closeWithError(error);
   }
@@ -183,11 +183,7 @@ class StreamMessageQueueIn extends Object
           _tryUpdateBufferIndicator();
         }
       }
-      ..onPause = () {
-        _tryUpdateBufferIndicator();
-        // TODO: Would we ever want to decrease the window size in this
-        // situation?
-      }
+      ..onPause = _tryUpdateBufferIndicator
       ..onResume = () {
         if (!wasClosed && !wasTerminated) {
           _tryDispatch();

@@ -1,15 +1,9 @@
-include: package:lints/recommended.yaml
+# https://dart.dev/tools/analysis#the-analysis-options-file
+include: package:dart_flutter_team_lints/analysis_options.yaml
 
 analyzer:
   language:
     strict-casts: true
   errors:
-    unused_element: error
-    unused_import: error
-    unused_local_variable: error
-    dead_code: error
-
-linter:
-  rules:
     # Disabled as there are several dozen violations.
-    constant_identifier_names: false
+    constant_identifier_names: ignore

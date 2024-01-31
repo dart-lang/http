@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-part of http2.src.frames;
+part of 'frames.dart';
 
 const int FRAME_HEADER_SIZE = 9;
 
@@ -67,7 +67,7 @@ class DataFrame extends Frame {
 
   final List<int> bytes;
 
-  DataFrame(FrameHeader header, this.padLength, this.bytes) : super(header);
+  DataFrame(super.header, this.padLength, this.bytes);
 
   bool get hasEndStreamFlag => _isFlagSet(header.flags, FLAG_END_STREAM);
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
@@ -99,9 +99,14 @@ class HeadersFrame extends Frame {
   final int? weight;
   final List<int> headerBlockFragment;
 
-  HeadersFrame(FrameHeader header, this.padLength, this.exclusiveDependency,
-      this.streamDependency, this.weight, this.headerBlockFragment)
-      : super(header);
+  HeadersFrame(
+    super.header,
+    this.padLength,
+    this.exclusiveDependency,
+    this.streamDependency,
+    this.weight,
+    this.headerBlockFragment,
+  );
 
   /// This will be set from the outside after decoding.
   late List<Header> decodedHeaders;
@@ -148,9 +153,12 @@ class PriorityFrame extends Frame {
   final int streamDependency;
   final int weight;
 
-  PriorityFrame(FrameHeader header, this.exclusiveDependency,
-      this.streamDependency, this.weight)
-      : super(header);
+  PriorityFrame(
+    super.header,
+    this.exclusiveDependency,
+    this.streamDependency,
+    this.weight,
+  );
 
   @override
   Map toJson() => super.toJson()
@@ -166,7 +174,7 @@ class RstStreamFrame extends Frame {
 
   final int errorCode;
 
-  RstStreamFrame(FrameHeader header, this.errorCode) : super(header);
+  RstStreamFrame(super.header, this.errorCode);
 
   @override
   Map toJson() => super.toJson()
@@ -199,7 +207,7 @@ class SettingsFrame extends Frame {
 
   final List<Setting> settings;
 
-  SettingsFrame(FrameHeader header, this.settings) : super(header);
+  SettingsFrame(super.header, this.settings);
 
   bool get hasAckFlag => _isFlagSet(header.flags, FLAG_ACK);
 
@@ -225,9 +233,12 @@ class PushPromiseFrame extends Frame {
   /// This will be set from the outside after decoding.
   late List<Header> decodedHeaders;
 
-  PushPromiseFrame(FrameHeader header, this.padLength, this.promisedStreamId,
-      this.headerBlockFragment)
-      : super(header);
+  PushPromiseFrame(
+    super.header,
+    this.padLength,
+    this.promisedStreamId,
+    this.headerBlockFragment,
+  );
 
   bool get hasEndHeadersFlag => _isFlagSet(header.flags, FLAG_END_HEADERS);
   bool get hasPaddedFlag => _isFlagSet(header.flags, FLAG_PADDED);
@@ -267,7 +278,7 @@ class PingFrame extends Frame {
 
   final int opaqueData;
 
-  PingFrame(FrameHeader header, this.opaqueData) : super(header);
+  PingFrame(super.header, this.opaqueData);
 
   bool get hasAckFlag => _isFlagSet(header.flags, FLAG_ACK);
 
@@ -283,9 +294,7 @@ class GoawayFrame extends Frame {
   final int errorCode;
   final List<int> debugData;
 
-  GoawayFrame(
-      FrameHeader header, this.lastStreamId, this.errorCode, this.debugData)
-      : super(header);
+  GoawayFrame(super.header, this.lastStreamId, this.errorCode, this.debugData);
 
   @override
   Map toJson() => super.toJson()
@@ -301,8 +310,7 @@ class WindowUpdateFrame extends Frame {
 
   final int windowSizeIncrement;
 
-  WindowUpdateFrame(FrameHeader header, this.windowSizeIncrement)
-      : super(header);
+  WindowUpdateFrame(super.header, this.windowSizeIncrement);
 
   @override
   Map toJson() => super.toJson()
@@ -316,8 +324,7 @@ class ContinuationFrame extends Frame {
 
   final List<int> headerBlockFragment;
 
-  ContinuationFrame(FrameHeader header, this.headerBlockFragment)
-      : super(header);
+  ContinuationFrame(super.header, this.headerBlockFragment);
 
   bool get hasEndHeadersFlag => _isFlagSet(header.flags, FLAG_END_HEADERS);
 
@@ -331,7 +338,7 @@ class ContinuationFrame extends Frame {
 class UnknownFrame extends Frame {
   final List<int> data;
 
-  UnknownFrame(FrameHeader header, this.data) : super(header);
+  UnknownFrame(super.header, this.data);
 
   @override
   Map toJson() => super.toJson()

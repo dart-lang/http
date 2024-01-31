@@ -74,7 +74,7 @@ Future makeHttp11Request(
 
 Future handleHttp11Request(HttpRequest request, int i) async {
   expect(request.uri.path, '/abc$i');
-  await request.drain();
+  await request.drain<void>();
   request.response.write('answer$i');
   await request.response.close();
 }

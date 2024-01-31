@@ -11,7 +11,6 @@ import 'dart:convert' show ascii;
 import 'dart:typed_data';
 
 import '../byte_utils.dart';
-
 import 'huffman.dart';
 import 'huffman_table.dart';
 
@@ -157,6 +156,7 @@ class HPackDecoder {
         }
       }
       return headers;
+      // ignore: avoid_catching_errors
     } on RangeError catch (e) {
       throw HPackDecodingException('$e');
     } on HuffmanDecodingException catch (e) {

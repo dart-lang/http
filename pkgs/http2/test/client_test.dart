@@ -24,7 +24,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var settingsDone = Completer();
+        var settingsDone = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -67,7 +67,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        final settingsDone = Completer();
+        final settingsDone = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -89,7 +89,7 @@ void main() {
         Future clientFun() async {
           await settingsDone.future;
           await client.onInitialPeerSettingsReceived
-              .timeout(Duration(milliseconds: 20)); // Should complete
+              .timeout(const Duration(milliseconds: 20)); // Should complete
 
           expect(client.isOpen, true);
 
@@ -109,7 +109,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        final goawayReceived = Completer();
+        final goawayReceived = Completer<void>();
         Future serverFun() async {
           serverWriter.writePingFrame(42);
           expect(await nextFrame(), isA<SettingsFrame>());
@@ -123,7 +123,7 @@ void main() {
 
           expect(
               client.onInitialPeerSettingsReceived
-                  .timeout(Duration(seconds: 1)),
+                  .timeout(const Duration(seconds: 1)),
               throwsA(isA<TimeoutException>()));
 
           // We wait until the server received the error (it's actually later
@@ -153,7 +153,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var goawayReceived = Completer();
+        var goawayReceived = Completer<void>();
         Future serverFun() async {
           serverWriter.writePingFrame(42);
           expect(await nextFrame(), isA<SettingsFrame>());
@@ -220,7 +220,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var handshakeCompleter = Completer();
+        var handshakeCompleter = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -281,7 +281,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var handshakeCompleter = Completer();
+        var handshakeCompleter = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -373,9 +373,9 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var handshakeCompleter = Completer();
-        var cancelDone = Completer();
-        var endDone = Completer();
+        var handshakeCompleter = Completer<void>();
+        var cancelDone = Completer<void>();
+        var endDone = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -463,10 +463,10 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var handshakeCompleter = Completer();
-        var cancelDone = Completer();
-        var endDone = Completer();
-        var clientDone = Completer();
+        var handshakeCompleter = Completer<void>();
+        var cancelDone = Completer<void>();
+        var endDone = Completer<void>();
+        var clientDone = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -550,7 +550,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var handshakeCompleter = Completer();
+        var handshakeCompleter = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -610,7 +610,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var handshakeCompleter = Completer();
+        var handshakeCompleter = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -661,7 +661,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var handshakeCompleter = Completer();
+        var handshakeCompleter = Completer<void>();
 
         Future serverFun() async {
           serverWriter.writeSettingsFrame([]);
@@ -702,7 +702,7 @@ void main() {
               expectAsync1((StreamMessage msg) {}, count: 0),
               onError: expectAsync1((Object error) {}));
           sub.pause();
-          await Future.delayed(const Duration(milliseconds: 40));
+          await Future<void>.delayed(const Duration(milliseconds: 40));
           sub.resume();
 
           await client.finish();
@@ -717,8 +717,8 @@ void main() {
           FrameWriter serverWriter,
           StreamIterator<Frame> serverReader,
           Future<Frame> Function() nextFrame) async {
-        var settingsDone = Completer();
-        var headersDone = Completer();
+        var settingsDone = Completer<void>();
+        var headersDone = Completer<void>();
 
         Future serverFun() async {
           var decoder = HPackDecoder();
@@ -781,7 +781,7 @@ void main() {
               FrameWriter serverWriter,
               StreamIterator<Frame> serverReader,
               Future<Frame> Function() nextFrame) async {
-        var settingsDone = Completer();
+        var settingsDone = Completer<void>();
 
         Future serverFun() async {
           var decoder = HPackDecoder();
