@@ -39,7 +39,8 @@ class IOWebSocket implements XXXWebSocket {
       onDone: () {
         print('onDone');
         if (!_events.isClosed) {
-          _events.add(Closed(_webSocket.closeCode, _webSocket.closeReason));
+          _events
+              .add(CloseReceived(_webSocket.closeCode, _webSocket.closeReason));
           _events.close();
         }
       },
@@ -48,7 +49,7 @@ class IOWebSocket implements XXXWebSocket {
 
   // JS: Silently discards data if connection is closed.
   @override
-  void addBytes(Uint8List b) {
+  void sendBytes(Uint8List b) {
     if (_events.isClosed) {
       throw StateError('WebSocket is closed');
     }
@@ -56,7 +57,7 @@ class IOWebSocket implements XXXWebSocket {
   }
 
   @override
-  void addString(String s) {
+  void sendText(String s) {
     if (_events.isClosed) {
       throw StateError('WebSocket is closed');
     }
@@ -81,7 +82,11 @@ class IOWebSocket implements XXXWebSocket {
   Future<void> close([int? code, String? reason]) async {
     if (!_events.isClosed) {
       unawaited(_events.close());
-      await _webSocket.close(code, reason);
+      try {
+        await _webSocket.close(code, reason);
+      } on io.WebSocketException catch (e) {
+        throw XXXWebSocketException(e.message);
+      }
     }
   }
 

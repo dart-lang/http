@@ -29,9 +29,9 @@ void testDisconnectAfterUpgrade(
 
     test('disconnect after upgrade', () async {
       final channel = await channelFactory(uri);
-      channel.addString('test');
+      channel.sendText('test');
       expect(
-          (await channel.events.single as Closed).code,
+          (await channel.events.single as CloseReceived).code,
           anyOf([
             1005, // closed no status
             1006, // closed abnormal

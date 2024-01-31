@@ -99,13 +99,13 @@ class CupertinoWebSocket implements XXXWebSocket {
       final closeReason = reason == null ? null : utf8.decode(reason.bytes);
 
       _events
-        ..add(Closed(closeCode, closeReason))
+        ..add(CloseReceived(closeCode, closeReason))
         ..close();
     }
   }
 
   @override
-  void addBytes(Uint8List b) {
+  void sendBytes(Uint8List b) {
     if (_events.isClosed) {
       throw StateError('WebSocket is closed');
     }
@@ -115,7 +115,7 @@ class CupertinoWebSocket implements XXXWebSocket {
   }
 
   @override
-  void addString(String s) {
+  void sendText(String s) {
     if (_events.isClosed) {
       throw StateError('WebSocket is closed');
     }

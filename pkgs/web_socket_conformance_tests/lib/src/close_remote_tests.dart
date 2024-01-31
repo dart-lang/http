@@ -73,18 +73,18 @@ void testRemoteClose(
     test('with code and reason', () async {
       final channel = await channelFactory(uri);
 
-      channel.addString('Please close');
+      channel.sendText('Please close');
       expect(await channel.events.toList(),
-          [Closed(4123, 'server closed the connection')]);
+          [CloseReceived(4123, 'server closed the connection')]);
     });
 
     test('send after close', () async {
       final channel = await channelFactory(uri);
 
-      channel.addString('Please close');
+      channel.sendText('Please close');
       expect(await channel.events.toList(),
-          [Closed(4123, 'server closed the connection')]);
-      expect(() => channel.addString('test'), throwsStateError);
+          [CloseReceived(4123, 'server closed the connection')]);
+      expect(() => channel.sendText('test'), throwsStateError);
 /*
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;

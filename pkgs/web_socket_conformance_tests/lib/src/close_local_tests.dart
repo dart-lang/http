@@ -44,32 +44,21 @@ void testLocalClose(
     // Dart will wait up to 5 seconds to get the close code from the server otherwise
     // it will use the local close code.
 
-/*
     test('reserved close code', () async {
       // If code is present, but is neither an integer equal to 1000 nor an integer in the range 3000 to 4999, inclusive, throw an "InvalidAccessError" DOMException.
       // If reasonBytes is longer than 123 bytes, then throw a "SyntaxError" DOMException.
 
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-      expect(channel.closeCode, null);
-      expect(channel.closeReason, null);
-      // web uncaught // InvalidAccessError
-      // sync WebSocketException
-      await channel.sink.close(1004, 'boom');
+      final channel = await channelFactory(uri);
+      await expectLater(
+          () => channel.close(1004), throwsA(isA<XXXWebSocketException>()));
     });
 
     test('too long close reason', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-      expect(channel.closeCode, null);
-      expect(channel.closeReason, null);
-      // web uncaught // SyntaxError
-      // vm: passes!
-      await channel.sink.close(1000, 'Boom'.padLeft(1000));
+      final channel = await channelFactory(uri);
+      await expectLater(() => channel.close(3000, 'Boom'.padLeft(1000)),
+          throwsA(isA<XXXWebSocketException>()));
     });
-*/
+
     test('with code and reason', () async {
       final channel = await channelFactory(uri);
 

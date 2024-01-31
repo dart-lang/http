@@ -74,7 +74,7 @@ class HtmlWebSocket implements XXXWebSocket {
     print('closing with $code, $reason');
     if (!_events.isClosed) {
       _events
-        ..add(Closed(code, reason))
+        ..add(CloseReceived(code, reason))
         ..close();
     }
   }
@@ -82,7 +82,7 @@ class HtmlWebSocket implements XXXWebSocket {
   HtmlWebSocket._(this._webSocket);
 
   @override
-  void addBytes(Uint8List b) {
+  void sendBytes(Uint8List b) {
     if (_events.isClosed) {
       throw StateError('WebSocket is closed');
     }
@@ -91,7 +91,7 @@ class HtmlWebSocket implements XXXWebSocket {
   }
 
   @override
-  void addString(String s) {
+  void sendText(String s) {
     if (_events.isClosed) {
       throw StateError('WebSocket is closed');
     }

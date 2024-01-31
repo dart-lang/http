@@ -40,28 +40,28 @@ void testPayloadTransfer(
     test('empty string request and response', () async {
       final channel = await channelFactory(uri);
 
-      channel.addString('');
+      channel.sendText('');
       expect(await channel.events.first, TextDataReceived(''));
     });
 
     test('empty binary request and response', () async {
       final channel = await channelFactory(uri);
 
-      channel.addBytes(Uint8List(0));
+      channel.sendBytes(Uint8List(0));
       expect(await channel.events.first, BinaryDataReceived(Uint8List(0)));
     });
 
     test('string request and response', () async {
       final channel = await channelFactory(uri);
 
-      channel.addString("Hello World!");
+      channel.sendText("Hello World!");
       expect(await channel.events.first, TextDataReceived("Hello World!"));
     });
 
     test('binary request and response', () async {
       final channel = await channelFactory(uri);
 
-      channel.addBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
+      channel.sendBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
       expect(await channel.events.first,
           BinaryDataReceived(Uint8List.fromList([1, 2, 3, 4, 5])));
     });
@@ -69,7 +69,7 @@ void testPayloadTransfer(
     test('large string request and response', () async {
       final channel = await channelFactory(uri);
 
-      channel.addString("Hello World!" * 1000);
+      channel.sendText("Hello World!" * 1000);
       expect(
           await channel.events.first, TextDataReceived("Hello World!" * 1000));
     });
@@ -77,7 +77,7 @@ void testPayloadTransfer(
     test('large binary request and response - XXX', () async {
       final channel = await channelFactory(uri);
 
-      channel.addBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
+      channel.sendBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
       expect(await channel.events.first,
           BinaryDataReceived(Uint8List.fromList([1, 2, 3, 4, 5])));
     });

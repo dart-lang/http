@@ -32,7 +32,7 @@ void testPeerProtocolErrors(
     test('bad data after upgrade', () async {
       final channel = await channelFactory(uri);
       expect(
-          (await channel.events.single as Closed).code,
+          (await channel.events.single as CloseReceived).code,
           anyOf([
             1002, // protocol error
             1005, // closed no status
@@ -42,9 +42,9 @@ void testPeerProtocolErrors(
 
     test('bad data after upgrade with write', () async {
       final channel = await channelFactory(uri);
-      channel.addString('test');
+      channel.sendText('test');
       expect(
-          (await channel.events.single as Closed).code,
+          (await channel.events.single as CloseReceived).code,
           anyOf([
             1002, // protocol error
             1005, // closed no status
