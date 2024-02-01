@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:typed_data';
 import 'package:websocket/websocket.dart';
@@ -79,14 +80,24 @@ class IOWebSocket implements XXXWebSocket {
   //  endpoint that has already sent a Close frame will continue to process
   //  data.
   @override
-  Future<void> close([int? code, String? reason]) async {
-    if (!_events.isClosed) {
-      unawaited(_events.close());
-      try {
-        await _webSocket.close(code, reason);
-      } on io.WebSocketException catch (e) {
-        throw XXXWebSocketException(e.message);
-      }
+  Future<void> close([int? code, String reason = '']) async {
+    if (_events.isClosed) {
+      throw XXXWebSocketConnectionClosed();
+    }
+
+    if (code != null) {
+      RangeError.checkValueInInterval(code, 3000, 4999, 'code');
+    }
+    if (utf8.encode(reason).length > 123) {
+      throw ArgumentError.value(reason, "reason",
+          "reason must be <= 123 bytes long when encoded as UTF-8");
+    }
+
+    unawaited(_events.close());
+    try {
+      await _webSocket.close(code, reason);
+    } on io.WebSocketException catch (e) {
+      throw XXXWebSocketException(e.message);
     }
   }
 

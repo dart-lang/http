@@ -99,7 +99,7 @@ abstract interface class XXXWebSocket {
   /// to the peer. If they are omitted, the peer will see a 1005 status code
   /// with no reason.
   ///
-  /// If [code] is not in the range 3000-4999 then an [ArgumentError]
+  /// If [code] is not in the range 3000-4999 then an [RangeError]
   /// will be thrown.
   ///
   /// If [reason] is longer than 123 bytes when encoded as UTF-8 then
@@ -109,8 +109,8 @@ abstract interface class XXXWebSocket {
   ///
   /// Throws [XXXWebSocketConnectionClosed] if the connection is already closed
   /// (including by the peer). Alternatively, we could just throw the close
-  /// away.
-  Future<void> close([int? code, String? reason]);
+  /// away. Same as the reasoning for [sendText].
+  Future<void> close([int? code, String reason = '']);
 
   /// Events received from the peer.
   ///

@@ -49,14 +49,49 @@ void testLocalClose(
       // If reasonBytes is longer than 123 bytes, then throw a "SyntaxError" DOMException.
 
       final channel = await channelFactory(uri);
-      await expectLater(
-          () => channel.close(1004), throwsA(isA<XXXWebSocketException>()));
+      await expectLater(() => channel.close(1004), throwsA(isA<RangeError>()));
     });
 
     test('too long close reason', () async {
       final channel = await channelFactory(uri);
-      await expectLater(() => channel.close(3000, 'Boom'.padLeft(1000)),
-          throwsA(isA<XXXWebSocketException>()));
+      await expectLater(() => channel.close(3000, 'a'.padLeft(124)),
+          throwsA(isA<ArgumentError>()));
+    });
+
+    test('close', () async {
+      final channel = await channelFactory(uri);
+
+      await channel.close();
+      final closeCode = await httpServerQueue.next as int?;
+      final closeReason = await httpServerQueue.next as String?;
+
+      expect(closeCode, 1005);
+      expect(closeReason, '');
+      expect(await channel.events.isEmpty, true);
+    });
+
+    test('with code 3000', () async {
+      final channel = await channelFactory(uri);
+
+      await channel.close(3000);
+      final closeCode = await httpServerQueue.next as int?;
+      final closeReason = await httpServerQueue.next as String?;
+
+      expect(closeCode, 3000);
+      expect(closeReason, '');
+      expect(await channel.events.isEmpty, true);
+    });
+
+    test('with code 4999', () async {
+      final channel = await channelFactory(uri);
+
+      await channel.close(4999);
+      final closeCode = await httpServerQueue.next as int?;
+      final closeReason = await httpServerQueue.next as String?;
+
+      expect(closeCode, 4999);
+      expect(closeReason, '');
+      expect(await channel.events.isEmpty, true);
     });
 
     test('with code and reason', () async {
@@ -70,222 +105,21 @@ void testLocalClose(
       expect(closeReason, 'Client initiated closure');
       expect(await channel.events.isEmpty, true);
     });
-/*
-    test('cancel', () async {
-      final channel =
-          channelFactory(uri.replace(queryParameters: {'sleep': '5'}));
 
-      var sinkDoneComplete = false;
-      var sinkDoneOnError = false;
-      var streamOnData = false;
-      var streamOnDone = false;
-      var streamOnError = false;
+    test('close after close', () async {
+      final channel = await channelFactory(uri);
 
-      channel.sink.done.then((_) {
-        sinkDoneComplete = true;
-      }, onError: (_) {
-        sinkDoneOnError = true;
-      });
+      await channel.close(3000, 'Client initiated closure');
 
-      final streamSubscription = channel.stream.listen((_) {
-        streamOnData = true;
-      }, onError: (_) {
-        streamOnError = true;
-      }, onDone: () {
-        streamOnDone = true;
-      });
+      expectLater(
+          () async => await channel.close(3001, 'Client initiated closure'),
+          throwsA(isA<XXXWebSocketConnectionClosed>()));
+      final closeCode = await httpServerQueue.next as int?;
+      final closeReason = await httpServerQueue.next as String?;
 
-      await expectLater(channel.ready, completes);
-      // VM: Cancels subscription to the socket, which means that this deadlocks.
-      await streamSubscription.cancel();
-      expect(() => channel.stream.listen((_) {}), throwsStateError);
-      channel.sink.add('add after stream closed');
-
-      expect(channel.closeCode, null);
-      expect(channel.closeReason, null);
-
-      expect(sinkDoneComplete, false);
-      expect(sinkDoneOnError, false);
-      expect(streamOnData, false);
-      expect(streamOnDone, false);
-      expect(streamOnError, false);
-
-      await channel.sink.done;
-      expect(await httpServerQueue.next, 'add after stream closed');
-      expect(await httpServerQueue.next, null);
-      expect(await httpServerQueue.next, null);
-      expect(channel.closeCode, 4123);
-      expect(channel.closeReason, 'server closed the connection');
-      // cancelling should close according to lassa!
-    }, skip: _isVM);
-
-    test('cancel - client close', () async {
-      final channel =
-          channelFactory(uri.replace(queryParameters: {'sleep': '5'}));
-
-      var sinkDoneComplete = false;
-      var sinkDoneOnError = false;
-      var streamOnData = false;
-      var streamOnDone = false;
-      var streamOnError = false;
-
-      channel.sink.done.then((_) {
-        sinkDoneComplete = true;
-      }, onError: (_) {
-        sinkDoneOnError = true;
-      });
-
-      final streamSubscription = channel.stream.listen((_) {
-        streamOnData = true;
-      }, onError: (_) {
-        streamOnError = true;
-      }, onDone: () {
-        streamOnDone = true;
-      });
-
-      await expectLater(channel.ready, completes);
-      await streamSubscription.cancel();
-      expect(() => channel.stream.listen((_) {}), throwsStateError);
-      channel.sink.add('add after stream closed');
-
-      expect(channel.closeCode, null);
-      expect(channel.closeReason, null);
-
-      expect(sinkDoneComplete, false);
-      expect(sinkDoneOnError, false);
-      expect(streamOnData, false);
-      expect(streamOnDone, false);
-      expect(streamOnError, false);
-
-      await channel.sink.close(4444, 'client closed the connection');
-      expect(await httpServerQueue.next, 'add after stream closed');
-      expect(await httpServerQueue.next, 4444);
-      expect(await httpServerQueue.next, 'client closed the connection');
-      expect(channel.closeCode, 4444);
-      expect(channel.closeReason, 'client closed the connection');
+      expect(closeCode, 3000);
+      expect(closeReason, 'Client initiated closure');
+      expect(await channel.events.isEmpty, true);
     });
-
-    test('client initiated', () async {
-      final channel = channelFactory(uri);
-
-      var sinkDoneComplete = false;
-      var sinkDoneOnError = false;
-      var streamOnData = false;
-      var streamOnDone = false;
-      var streamOnError = false;
-
-      channel.sink.done.then((_) {
-        sinkDoneComplete = true;
-      }, onError: (_) {
-        sinkDoneOnError = true;
-      });
-
-      channel.stream.listen((_) {
-        streamOnData = true;
-      }, onError: (_) {
-        streamOnError = true;
-      }, onDone: () {
-        streamOnDone = true;
-      });
-
-      await expectLater(channel.ready, completes);
-      await channel.sink.close(4444, 'client closed the connection');
-      expect(channel.closeCode, null); // VM 4123
-      expect(channel.closeReason, null); // VM 'server closed the connection'
-
-      expect(await httpServerQueue.next, 4444); // VM 4123
-      expect(await httpServerQueue.next,
-          'client closed the connection'); // VM 'server closed the connection'
-      expect(channel.closeCode, 4123);
-      expect(channel.closeReason, 'server closed the connection');
-      expect(() => channel.sink.add('add after connection closed'),
-          throwsStateError);
-
-      expect(sinkDoneComplete, true);
-      expect(sinkDoneOnError, false);
-      expect(streamOnData, false);
-      expect(streamOnDone, true);
-      expect(streamOnError, false);
-    }, skip: _isVM);
-
-    test('client initiated - slow server', () async {
-      final channel =
-          channelFactory(uri.replace(queryParameters: {'sleep': '5'}));
-
-      var sinkDoneComplete = false;
-      var sinkDoneOnError = false;
-      var streamOnData = false;
-      var streamOnDone = false;
-      var streamOnError = false;
-
-      channel.sink.done.then((_) {
-        sinkDoneComplete = true;
-      }, onError: (_) {
-        sinkDoneOnError = true;
-      });
-
-      channel.stream.listen((_) {
-        streamOnData = true;
-      }, onError: (_) {
-        streamOnError = true;
-      }, onDone: () {
-        streamOnDone = true;
-      });
-
-      await expectLater(channel.ready, completes);
-      await channel.sink.close(4444, 'client closed the connection');
-      expect(channel.closeCode, null);
-      expect(channel.closeReason, null);
-
-      expect(await httpServerQueue.next, 4444);
-      expect(await httpServerQueue.next, 'client closed the connection');
-      expect(channel.closeCode, 4444); // VM: null - sometimes null
-      expect(channel.closeReason, 'client closed the connection'); // VM: null
-      expect(() => channel.sink.add('add after connection closed'),
-          throwsStateError);
-      await channel.sink.close();
-
-      expect(sinkDoneComplete, true);
-      expect(sinkDoneOnError, false);
-      expect(streamOnData, false);
-      expect(streamOnDone, true);
-      expect(streamOnError, false);
-    });
-
-    test('server initiated', () async {
-      final channel = channelFactory(uri);
-
-      var sinkDoneComplete = false;
-      var sinkDoneOnError = false;
-      var streamOnData = false;
-      var streamOnDone = false;
-      var streamOnError = false;
-
-      channel.sink.done.then((_) {
-        sinkDoneComplete = true;
-      }, onError: (_) {
-        sinkDoneOnError = true;
-      });
-
-      final streamListen = channel.stream.listen((_) {
-        streamOnData = true;
-      }, onError: (_) {
-        streamOnError = true;
-      }).asFuture<void>();
-
-      await expectLater(channel.ready, completes);
-      await streamListen;
-
-      expect(channel.closeCode, 4123);
-      expect(channel.closeReason, 'server closed the connection');
-      channel.sink.add('add after connection closed');
-      await channel.sink.close();
-
-      expect(sinkDoneComplete, true);
-      expect(sinkDoneOnError, false);
-      expect(streamOnData, false);
-      expect(streamOnError, false);
-    });
-    */
   });
 }
