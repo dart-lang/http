@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:typed_data';
 
+/// An event received by the peer through the [WebSocket].
 sealed class WebSocketEvent {}
 
-/// Text data received by the peer.
+/// Text data received by the peer through the [WebSocket].
 ///
 /// See [XXXWebSocket.events].
 final class TextDataReceived extends WebSocketEvent {
@@ -18,7 +19,7 @@ final class TextDataReceived extends WebSocketEvent {
   int get hashCode => text.hashCode;
 }
 
-/// Binary data received by the peer.
+/// Binary data received by the peer through the [WebSocket].
 ///
 /// See [XXXWebSocket.events].
 final class BinaryDataReceived extends WebSocketEvent {
@@ -43,7 +44,8 @@ final class BinaryDataReceived extends WebSocketEvent {
   String toString() => 'BinaryDataReceived($data)';
 }
 
-/// A close notification sent from the peer or a failure indication.
+/// A close notification (Close frame) sent from the peer through the
+/// [WebSocket] or a failure indication.
 ///
 /// See [XXXWebSocket.events].
 final class CloseReceived extends WebSocketEvent {
@@ -69,50 +71,51 @@ class XXXWebSocketException implements Exception {
   XXXWebSocketException([this.message = ""]);
 }
 
-/// Thrown if [XXXWebSocket.sendText] or [XXXWebSocket.sendBytes] is called
-/// when the [XXXWebSocket] is closed.
+/// Thrown if [XXXWebSocket.sendText], [XXXWebSocket.sendBytes], or
+/// [XXXWebSocket.closed] is called when the [XXXWebSocket] is closed.
 class XXXWebSocketConnectionClosed extends XXXWebSocketException {
   XXXWebSocketConnectionClosed([super.message = 'Connection Closed']);
 }
 
-/// What's a good name for this? `SimpleWebSocket`? 'LCDWebSocket`?
+/// The interface for WebSocket connections.
+///
+/// TODO: insert a usage example.
+///
+/// TODO: thank of a better name, ideally not "WebSocket". Maybe
+/// "SimpleWebSocket"?
 abstract interface class XXXWebSocket {
-  /// Say something about not guaranteeing delivery.
+  /// Sends text data to the connected peer.
   ///
   /// Throws [XXXWebSocketConnectionClosed] if the [XXXWebSocket] is closed
-  /// (either through [close] or by the peer). Alternatively, we could just throw
-  /// the data away - that's what JavaScript does. Probably that is better
-  /// so every call to [sendText], [sendBytes] and [close] doesn't need to be
-  /// surrounded in a try block.
+  /// (either through [close] or by the peer).
   void sendText(String s);
 
-  /// Say something about not guaranteeing delivery.
+  /// Sends binary data to the connected peer.
   ///
   /// Throws [XXXWebSocketConnectionClosed] if the [XXXWebSocket] is closed
-  /// (either through [close] or by the peer). Alternatively, we could just throw
-  /// the data away - that's what JavaScript does.
+  /// (either through [close] or by the peer).
   void sendBytes(Uint8List b);
 
-  /// Closes the WebSocket connection.
+  /// Closes the WebSocket connection and the [events] `Stream`.
   ///
-  /// Set the optional code and reason arguments to send close information
-  /// to the peer. If they are omitted, the peer will see a 1005 status code
-  /// with no reason.
+  /// Sends a Close frame to the peer. If the optional [code] and [reason]
+  /// arguments are given, they will be included in the Close frame. If no
+  /// [code] is set then the peer will see a 1005 status code. If no [reason]
+  /// is set then the peer will receive an empty reason string.
   ///
-  /// If [code] is not in the range 3000-4999 then an [RangeError]
-  /// will be thrown.
+  /// Throws a [RangeError] if [code] is not in the range 3000-4999.
   ///
-  /// If [reason] is longer than 123 bytes when encoded as UTF-8 then
-  /// [ArgumentError] will be thrown.
-  ///
-  /// [events] will be closed.
+  /// Throws an [ArgumentError] if [reason] is longer than 123 bytes when
+  /// encoded as UTF-8
   ///
   /// Throws [XXXWebSocketConnectionClosed] if the connection is already closed
-  /// (including by the peer). Alternatively, we could just throw the close
-  /// away. Same as the reasoning for [sendText].
+  /// (including by the peer).
   Future<void> close([int? code, String reason = '']);
 
-  /// Events received from the peer.
+  /// A [Stream] of [WebSocketEvent] received from the peer.
+  ///
+  /// Data received by the peer will be delivered as a [TextDataReceived] or
+  /// [BinaryDataReceived].
   ///
   /// If a [CloseReceived] event is received then the [Stream] will be closed. A
   /// [CloseReceived] event indicates either that:
