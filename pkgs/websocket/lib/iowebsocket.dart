@@ -40,8 +40,8 @@ class IOWebSocket implements XXXWebSocket {
       onDone: () {
         print('onDone');
         if (!_events.isClosed) {
-          _events
-              .add(CloseReceived(_webSocket.closeCode, _webSocket.closeReason));
+          _events.add(CloseReceived(
+              _webSocket.closeCode, _webSocket.closeReason ?? ""));
           _events.close();
         }
       },
@@ -80,7 +80,7 @@ class IOWebSocket implements XXXWebSocket {
   //  endpoint that has already sent a Close frame will continue to process
   //  data.
   @override
-  Future<void> close([int? code, String reason = '']) async {
+  Future<void> close([int? code, String? reason]) async {
     if (_events.isClosed) {
       throw XXXWebSocketConnectionClosed();
     }
@@ -88,7 +88,7 @@ class IOWebSocket implements XXXWebSocket {
     if (code != null) {
       RangeError.checkValueInInterval(code, 3000, 4999, 'code');
     }
-    if (utf8.encode(reason).length > 123) {
+    if (reason != null && utf8.encode(reason).length > 123) {
       throw ArgumentError.value(reason, "reason",
           "reason must be <= 123 bytes long when encoded as UTF-8");
     }

@@ -108,7 +108,7 @@ abstract interface class XXXWebSocket {
   /// Sends a Close frame to the peer. If the optional [code] and [reason]
   /// arguments are given, they will be included in the Close frame. If no
   /// [code] is set then the peer will see a 1005 status code. If no [reason]
-  /// is set then the peer will receive an empty reason string.
+  /// is set then the peer will not receive a reason string.
   ///
   /// Throws a [RangeError] if [code] is not in the range 3000-4999.
   ///
@@ -117,7 +117,7 @@ abstract interface class XXXWebSocket {
   ///
   /// Throws [XXXWebSocketConnectionClosed] if the connection is already closed
   /// (including by the peer).
-  Future<void> close([int? code, String reason = '']);
+  Future<void> close([int? code, String? reason]);
 
   /// A [Stream] of [WebSocketEvent] received from the peer.
   ///

@@ -96,7 +96,7 @@ class CupertinoWebSocket implements XXXWebSocket {
   void _closed(int? closeCode, Data? reason) {
     print('closing with $closeCode');
     if (!_events.isClosed) {
-      final closeReason = reason == null ? null : utf8.decode(reason.bytes);
+      final closeReason = reason == null ? '' : utf8.decode(reason.bytes);
 
       _events
         ..add(CloseReceived(closeCode, closeReason))
@@ -126,6 +126,18 @@ class CupertinoWebSocket implements XXXWebSocket {
 
   @override
   Future<void> close([int? code, String? reason]) async {
+    if (_events.isClosed) {
+      throw XXXWebSocketConnectionClosed();
+    }
+
+    if (code != null) {
+      RangeError.checkValueInInterval(code, 3000, 4999, 'code');
+    }
+    if (reason != null && utf8.encode(reason).length > 123) {
+      throw ArgumentError.value(reason, 'reason',
+          'reason must be <= 123 bytes long when encoded as UTF-8');
+    }
+
     if (!_events.isClosed) {
       unawaited(_events.close());
 
