@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-/// An event received by the peer through the [WebSocket].
+/// An event received from the peer through the [XXXWebSocket].
 sealed class WebSocketEvent {}
 
-/// Text data received by the peer through the [WebSocket].
+/// Text data received from the peer through the [XXXWebSocket].
 ///
 /// See [XXXWebSocket.events].
 final class TextDataReceived extends WebSocketEvent {
@@ -19,7 +19,7 @@ final class TextDataReceived extends WebSocketEvent {
   int get hashCode => text.hashCode;
 }
 
-/// Binary data received by the peer through the [WebSocket].
+/// Binary data received from the peer through the [XXXWebSocket].
 ///
 /// See [XXXWebSocket.events].
 final class BinaryDataReceived extends WebSocketEvent {
@@ -44,16 +44,23 @@ final class BinaryDataReceived extends WebSocketEvent {
   String toString() => 'BinaryDataReceived($data)';
 }
 
-/// A close notification (Close frame) sent from the peer through the
-/// [WebSocket] or a failure indication.
+/// A close notification (Close frame) received from the peer through the
+/// [XXXWebSocket] or a failure indication.
 ///
 /// See [XXXWebSocket.events].
 final class CloseReceived extends WebSocketEvent {
+  /// A numerical code indicating the reason why the WebSocket was closed.
+  ///
   /// See [RFC-6455 7.4](https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4)
+  /// for guidance on how to interpret these codes.
   final int? code;
-  final String? reason;
 
-  CloseReceived([this.code, this.reason]);
+  /// A textual explanation of the reason why the WebSocket was closed.
+  ///
+  /// Will be empty if the peer did not specify a reason.
+  final String reason;
+
+  CloseReceived([this.code, this.reason = ""]);
 
   @override
   bool operator ==(Object other) =>
@@ -128,5 +135,9 @@ abstract interface class XXXWebSocket {
   ///   (e.g. 1006).
   ///
   /// Errors will never appear in this [Stream].
+  ///
+  /// TODO: we can't use a SynchronousStreamController here, right? It would be
+  /// cool if we deliver [CloseReceived] **before** the user sees write failures
+  /// because [events] is closed.
   Stream<WebSocketEvent> get events;
 }
