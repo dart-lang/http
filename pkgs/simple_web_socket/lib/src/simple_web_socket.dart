@@ -131,10 +131,5 @@ abstract interface class SimpleWebSocket {
   ///   (e.g. 1006).
   ///
   /// Errors will never appear in this [Stream].
-  ///
-  /// TODO: we can't use a SynchronousStreamController here, right? It would be
-  /// cool if we deliver [CloseReceived] **before** the user sees write failures
-  /// because [events] is closed. In other languages, I'd use a callback so
-  /// ensure that the event is delivered immediately.
   Stream<SimpleWebSocketEvent> get events;
 }
