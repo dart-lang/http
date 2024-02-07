@@ -1,0 +1,11 @@
+name: simple_web_socket
+description: "TODO: enter a descirption here"
+version: 1.0.0
+repository: https://github.com/dart-lang/http/tree/master/pkgs/simple_web_socket
+
+environment:
+  sdk: ^3.2.6
+
+dev_dependencies:
+  dart_flutter_team_lints: ^2.0.0
+  test: ^1.24.0
