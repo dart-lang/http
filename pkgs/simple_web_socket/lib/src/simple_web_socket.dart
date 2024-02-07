@@ -59,7 +59,7 @@ final class CloseReceived extends SimpleWebSocketEvent {
   /// Will be empty if the peer did not specify a reason.
   final String reason;
 
-  CloseReceived([this.code, this.reason = ""]);
+  CloseReceived([this.code, this.reason = '']);
 
   @override
   bool operator ==(Object other) =>
@@ -74,7 +74,7 @@ final class CloseReceived extends SimpleWebSocketEvent {
 
 class SimpleWebSocketException implements Exception {
   final String message;
-  SimpleWebSocketException([this.message = ""]);
+  SimpleWebSocketException([this.message = '']);
 }
 
 /// Thrown if [SimpleWebSocket.sendText], [SimpleWebSocket.sendBytes], or
