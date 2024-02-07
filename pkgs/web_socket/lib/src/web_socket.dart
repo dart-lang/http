@@ -1,12 +1,12 @@
 import 'dart:typed_data';
 
-/// An event received from the peer through the [SimpleWebSocket].
-sealed class SimpleWebSocketEvent {}
+/// An event received from the peer through the [WebSocket].
+sealed class WebSocketEvent {}
 
-/// Text data received from the peer through the [SimpleWebSocket].
+/// Text data received from the peer through the [WebSocket].
 ///
-/// See [SimpleWebSocket.events].
-final class TextDataReceived extends SimpleWebSocketEvent {
+/// See [WebSocket.events].
+final class TextDataReceived extends WebSocketEvent {
   final String text;
   TextDataReceived(this.text);
 
@@ -18,10 +18,10 @@ final class TextDataReceived extends SimpleWebSocketEvent {
   int get hashCode => text.hashCode;
 }
 
-/// Binary data received from the peer through the [SimpleWebSocket].
+/// Binary data received from the peer through the [WebSocket].
 ///
-/// See [SimpleWebSocket.events].
-final class BinaryDataReceived extends SimpleWebSocketEvent {
+/// See [WebSocket.events].
+final class BinaryDataReceived extends WebSocketEvent {
   final Uint8List data;
   BinaryDataReceived(this.data);
 
@@ -44,10 +44,10 @@ final class BinaryDataReceived extends SimpleWebSocketEvent {
 }
 
 /// A close notification (Close frame) received from the peer through the
-/// [SimpleWebSocket] or a failure indication.
+/// [WebSocket] or a failure indication.
 ///
-/// See [SimpleWebSocket.events].
-final class CloseReceived extends SimpleWebSocketEvent {
+/// See [WebSocket.events].
+final class CloseReceived extends WebSocketEvent {
   /// A numerical code indicating the reason why the WebSocket was closed.
   ///
   /// See [RFC-6455 7.4](https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4)
@@ -72,30 +72,30 @@ final class CloseReceived extends SimpleWebSocketEvent {
   String toString() => 'CloseReceived($code, $reason)';
 }
 
-class SimpleWebSocketException implements Exception {
+class WebSocketException implements Exception {
   final String message;
-  SimpleWebSocketException([this.message = '']);
+  WebSocketException([this.message = '']);
 }
 
-/// Thrown if [SimpleWebSocket.sendText], [SimpleWebSocket.sendBytes], or
-/// [SimpleWebSocket.close] is called when the [SimpleWebSocket] is closed.
-class SimpleWebSocketConnectionClosed extends SimpleWebSocketException {
-  SimpleWebSocketConnectionClosed([super.message = 'Connection Closed']);
+/// Thrown if [WebSocket.sendText], [WebSocket.sendBytes], or
+/// [WebSocket.close] is called when the [WebSocket] is closed.
+class WebSocketConnectionClosed extends WebSocketException {
+  WebSocketConnectionClosed([super.message = 'Connection Closed']);
 }
 
 /// The interface for WebSocket connections.
 ///
 /// TODO: insert a usage example.
-abstract interface class SimpleWebSocket {
+abstract interface class WebSocket {
   /// Sends text data to the connected peer.
   ///
-  /// Throws [SimpleWebSocketConnectionClosed] if the [SimpleWebSocket] is
+  /// Throws [WebSocketConnectionClosed] if the [WebSocket] is
   /// closed (either through [close] or by the peer).
   void sendText(String s);
 
   /// Sends binary data to the connected peer.
   ///
-  /// Throws [SimpleWebSocketConnectionClosed] if the [SimpleWebSocket] is
+  /// Throws [WebSocketConnectionClosed] if the [WebSocket] is
   /// closed (either through [close] or by the peer).
   void sendBytes(Uint8List b);
 
@@ -111,11 +111,11 @@ abstract interface class SimpleWebSocket {
   /// Throws an [ArgumentError] if [reason] is longer than 123 bytes when
   /// encoded as UTF-8
   ///
-  /// Throws [SimpleWebSocketConnectionClosed] if the connection is already
+  /// Throws [WebSocketConnectionClosed] if the connection is already
   /// closed (including by the peer).
   Future<void> close([int? code, String? reason]);
 
-  /// A [Stream] of [SimpleWebSocketEvent] received from the peer.
+  /// A [Stream] of [WebSocketEvent] received from the peer.
   ///
   /// Data received by the peer will be delivered as a [TextDataReceived] or
   /// [BinaryDataReceived].
@@ -131,5 +131,5 @@ abstract interface class SimpleWebSocket {
   ///   (e.g. 1006).
   ///
   /// Errors will never appear in this [Stream].
-  Stream<SimpleWebSocketEvent> get events;
+  Stream<WebSocketEvent> get events;
 }
