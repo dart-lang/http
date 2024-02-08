@@ -109,16 +109,16 @@ jobs:
         if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http_client_conformance_tests
   job_004:
-    name: "analyze_and_format; linux; Dart 3.2.6; PKG: pkgs/simple_web_socket; `dart analyze --fatal-infos`"
+    name: "analyze_and_format; linux; Dart 3.2.6; PKG: pkgs/web_socket; `dart analyze --fatal-infos`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.2.6;packages:pkgs/simple_web_socket;commands:analyze_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.2.6;packages:pkgs/web_socket;commands:analyze_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.2.6;packages:pkgs/simple_web_socket
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.2.6;packages:pkgs/web_socket
             os:ubuntu-latest;pub-cache-hosted;sdk:3.2.6
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -129,26 +129,26 @@ jobs:
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
-      - id: pkgs_simple_web_socket_pub_upgrade
-        name: pkgs/simple_web_socket; dart pub upgrade
+      - id: pkgs_web_socket_pub_upgrade
+        name: pkgs/web_socket; dart pub upgrade
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: pkgs/simple_web_socket
-      - name: "pkgs/simple_web_socket; dart analyze --fatal-infos"
+        working-directory: pkgs/web_socket
+      - name: "pkgs/web_socket; dart analyze --fatal-infos"
         run: dart analyze --fatal-infos
-        if: "always() && steps.pkgs_simple_web_socket_pub_upgrade.conclusion == 'success'"
-        working-directory: pkgs/simple_web_socket
+        if: "always() && steps.pkgs_web_socket_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/web_socket
   job_005:
-    name: "analyze_and_format; linux; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests, pkgs/http_profile, pkgs/simple_web_socket; `dart analyze --fatal-infos`"
+    name: "analyze_and_format; linux; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests, pkgs/http_profile, pkgs/web_socket; `dart analyze --fatal-infos`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/simple_web_socket;commands:analyze_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/web_socket;commands:analyze_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/simple_web_socket
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/web_socket
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -186,26 +186,26 @@ jobs:
         run: dart analyze --fatal-infos
         if: "always() && steps.pkgs_http_profile_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http_profile
-      - id: pkgs_simple_web_socket_pub_upgrade
-        name: pkgs/simple_web_socket; dart pub upgrade
+      - id: pkgs_web_socket_pub_upgrade
+        name: pkgs/web_socket; dart pub upgrade
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: pkgs/simple_web_socket
-      - name: "pkgs/simple_web_socket; dart analyze --fatal-infos"
+        working-directory: pkgs/web_socket
+      - name: "pkgs/web_socket; dart analyze --fatal-infos"
         run: dart analyze --fatal-infos
-        if: "always() && steps.pkgs_simple_web_socket_pub_upgrade.conclusion == 'success'"
-        working-directory: pkgs/simple_web_socket
+        if: "always() && steps.pkgs_web_socket_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/web_socket
   job_006:
-    name: "analyze_and_format; linux; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests, pkgs/http_profile, pkgs/simple_web_socket; `dart format --output=none --set-exit-if-changed .`"
+    name: "analyze_and_format; linux; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests, pkgs/http_profile, pkgs/web_socket; `dart format --output=none --set-exit-if-changed .`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/simple_web_socket;commands:format"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/web_socket;commands:format"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/simple_web_socket
+            os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/web_socket
             os:ubuntu-latest;pub-cache-hosted;sdk:dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
@@ -243,15 +243,15 @@ jobs:
         run: "dart format --output=none --set-exit-if-changed ."
         if: "always() && steps.pkgs_http_profile_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http_profile
-      - id: pkgs_simple_web_socket_pub_upgrade
-        name: pkgs/simple_web_socket; dart pub upgrade
+      - id: pkgs_web_socket_pub_upgrade
+        name: pkgs/web_socket; dart pub upgrade
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
-        working-directory: pkgs/simple_web_socket
-      - name: "pkgs/simple_web_socket; dart format --output=none --set-exit-if-changed ."
+        working-directory: pkgs/web_socket
+      - name: "pkgs/web_socket; dart format --output=none --set-exit-if-changed ."
         run: "dart format --output=none --set-exit-if-changed ."
-        if: "always() && steps.pkgs_simple_web_socket_pub_upgrade.conclusion == 'success'"
-        working-directory: pkgs/simple_web_socket
+        if: "always() && steps.pkgs_web_socket_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/web_socket
   job_007:
     name: "analyze_and_format; linux; Flutter stable; PKG: pkgs/flutter_http_example; `dart format --output=none --set-exit-if-changed .`"
     runs-on: ubuntu-latest
