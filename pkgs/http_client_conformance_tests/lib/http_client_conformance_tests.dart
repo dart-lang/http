@@ -64,6 +64,11 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [canReceiveSetCookieHeaders] is `false` then tests that require that
 /// "set-cookie" headers be received by the client will not be run.
 ///
+/// If [canRelyOnContentLength] is `false` then tests that require that
+/// "content-length" header to be fully reliable will not be run.
+/// Web browsers are handling content decoding and original body size is not
+/// available. See https://fetch.spec.whatwg.org/#ref-for-handle-content-codings%E2%91%A0
+///
 /// The tests are run against a series of HTTP servers that are started by the
 /// tests. If the tests are run in the browser, then the test servers are
 /// started in another process. Otherwise, the test servers are run in-process.
@@ -76,6 +81,7 @@ void testAll(
   bool preservesMethodCase = false,
   bool canSendCookieHeaders = false,
   bool canReceiveSetCookieHeaders = false,
+  bool canRelyOnContentLength = true,
 }) {
   testRequestBody(clientFactory());
   testRequestBodyStreamed(clientFactory(),
@@ -86,7 +92,8 @@ void testAll(
       canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(clientFactory());
   testRequestMethods(clientFactory(), preservesMethodCase: preservesMethodCase);
-  testResponseHeaders(clientFactory());
+  testResponseHeaders(clientFactory(),
+      canRelyOnContentLength: canRelyOnContentLength);
   testResponseStatusLine(clientFactory());
   testRedirect(clientFactory(), redirectAlwaysAllowed: redirectAlwaysAllowed);
   testServerErrors(clientFactory());
