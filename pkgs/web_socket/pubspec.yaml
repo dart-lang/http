@@ -1,6 +1,6 @@
 name: web_socket
 description: "TODO: enter a descirption here"
-version: 1.0.0
+publish_to: none
 repository: https://github.com/dart-lang/http/tree/master/pkgs/web_socket
 
 environment:
