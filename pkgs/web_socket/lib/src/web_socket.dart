@@ -91,12 +91,18 @@ abstract interface class WebSocket {
   ///
   /// Throws [WebSocketConnectionClosed] if the [WebSocket] is
   /// closed (either through [close] or by the peer).
+  ///
+  /// Data sent through [sendText] will be silently discarded if the peer is
+  /// disconnected but the disconnect has not yet been detected.
   void sendText(String s);
 
   /// Sends binary data to the connected peer.
   ///
   /// Throws [WebSocketConnectionClosed] if the [WebSocket] is
   /// closed (either through [close] or by the peer).
+  ///
+  /// Data sent through [sendBytes] will be silently discarded if the peer is
+  /// disconnected but the disconnect has not yet been detected.
   void sendBytes(Uint8List b);
 
   /// Closes the WebSocket connection and the [events] `Stream`.
