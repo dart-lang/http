@@ -1,11 +1,14 @@
+## 1.2.1
+
+* Require Dart `^3.3`
+* Require `package:web` `^0.5.0`.
+
 ## 1.2.0
 
 * Add `MockClient.pngResponse`, which makes it easier to fake image responses.
 * Added the ability to fetch the URL of the response through `BaseResponseWithUrl`.
 * Add the ability to get headers as a `Map<String, List<String>` to
   `BaseResponse`.
-* Require Dart `^3.3`
-* Require `package:web` `^0.5.0`.
 
 ## 1.1.2
 
