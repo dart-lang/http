@@ -49,9 +49,9 @@ final class HttpProfileProxyData {
 
 /// Describes a redirect that an HTTP connection went through.
 class HttpProfileRedirectData {
-  int _statusCode;
-  String _method;
-  String _location;
+  final int _statusCode;
+  final String _method;
+  final String _location;
 
   HttpProfileRedirectData({
     required int statusCode,
@@ -85,7 +85,8 @@ final class HttpProfileRequestData {
     for (final v in value.values) {
       if (!(v is String || v is int)) {
         throw ArgumentError(
-            "The values in connectionInfo must be of type String or int.");
+          'The values in connectionInfo must be of type String or int.',
+        );
       }
     }
     _data['connectionInfo'] = {...value};
@@ -149,8 +150,8 @@ final class HttpProfileRequestData {
   }
 
   const HttpProfileRequestData._(
-    Map<String, dynamic> this._data,
-    void Function() this._updated,
+    this._data,
+    this._updated,
   );
 }
 
@@ -162,7 +163,7 @@ final class HttpProfileResponseData {
 
   /// Records a redirect that the connection went through.
   void addRedirect(HttpProfileRedirectData redirect) {
-    _data['redirects'].add(redirect._toJson());
+    (_data['redirects'] as List<Map<String, dynamic>>).add(redirect._toJson());
     _updated();
   }
 
@@ -192,7 +193,8 @@ final class HttpProfileResponseData {
     for (final v in value.values) {
       if (!(v is String || v is int)) {
         throw ArgumentError(
-            "The values in connectionInfo must be of type String or int.");
+          'The values in connectionInfo must be of type String or int.',
+        );
       }
     }
     _data['connectionInfo'] = {...value};
@@ -262,8 +264,8 @@ final class HttpProfileResponseData {
   }
 
   HttpProfileResponseData._(
-    Map<String, dynamic> this._data,
-    void Function() this._updated,
+    this._data,
+    this._updated,
   ) {
     _data['redirects'] = <Map<String, dynamic>>[];
   }
@@ -290,7 +292,7 @@ final class HttpClientRequestProfile {
   /// profile.addEvent(HttpProfileRequestEvent(DateTime.now(), "Remote Disconnected");
   /// ```
   void addEvent(HttpProfileRequestEvent event) {
-    _data['events'].add(event._toJson());
+    (_data['events'] as List<Map<String, dynamic>>).add(event._toJson());
     _updated();
   }
 
@@ -326,7 +328,8 @@ final class HttpClientRequestProfile {
     return _responseBody.sink;
   }
 
-  void _updated() => _data['_lastUpdateTime'] = Timeline.now;
+  void _updated() =>
+      _data['_lastUpdateTime'] = DateTime.now().microsecondsSinceEpoch;
 
   HttpClientRequestProfile._({
     required DateTime requestStartTimestamp,
@@ -349,7 +352,7 @@ final class HttpClientRequestProfile {
     _data['_responseBodyStream'] = _responseBody.stream;
     // This entry is needed to support the updatedSince parameter of
     // ext.dart.io.getHttpProfile.
-    _data['_lastUpdateTime'] = Timeline.now;
+    _data['_lastUpdateTime'] = DateTime.now().microsecondsSinceEpoch;
   }
 
   /// If HTTP profiling is enabled, returns an [HttpClientRequestProfile],
@@ -374,10 +377,7 @@ final class HttpClientRequestProfile {
       requestMethod: requestMethod,
       requestUri: requestUri,
     );
-    // This entry is needed to support the id parameter of
-    // ext.dart.io.getHttpProfileRequest.
-    requestProfile._data['id'] =
-        addHttpClientProfilingData(requestProfile._data);
+    addHttpClientProfilingData(requestProfile._data);
     return requestProfile;
   }
 }
