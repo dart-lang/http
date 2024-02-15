@@ -34,7 +34,7 @@ jobs:
           sdk: stable
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - name: mono_repo self validate
         run: dart pub global activate mono_repo 6.6.1
       - name: mono_repo self validate
@@ -59,7 +59,7 @@ jobs:
           sdk: "3.0.0"
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_profile_pub_upgrade
         name: pkgs/http_profile; dart pub upgrade
         run: dart pub upgrade
@@ -89,7 +89,7 @@ jobs:
           sdk: "3.2.0"
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_client_conformance_tests_pub_upgrade
         name: pkgs/http_client_conformance_tests; dart pub upgrade
         run: dart pub upgrade
@@ -119,7 +119,7 @@ jobs:
           sdk: "3.3.0"
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -149,7 +149,7 @@ jobs:
           sdk: dev
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -197,7 +197,7 @@ jobs:
           sdk: dev
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -240,12 +240,12 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
+        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: stable
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -270,12 +270,12 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
+        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: stable
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -305,7 +305,7 @@ jobs:
           sdk: "3.0.0"
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_profile_pub_upgrade
         name: pkgs/http_profile; dart pub upgrade
         run: dart pub upgrade
@@ -344,7 +344,7 @@ jobs:
           sdk: "3.3.0"
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -383,7 +383,7 @@ jobs:
           sdk: "3.3.0"
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -422,7 +422,7 @@ jobs:
           sdk: "3.3.0"
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -461,7 +461,7 @@ jobs:
           sdk: dev
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -500,7 +500,7 @@ jobs:
           sdk: dev
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -539,7 +539,7 @@ jobs:
           sdk: dev
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -587,7 +587,7 @@ jobs:
           sdk: dev
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_http_pub_upgrade
         name: pkgs/http; dart pub upgrade
         run: dart pub upgrade
@@ -621,12 +621,12 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
+        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: stable
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -660,12 +660,12 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
+        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: stable
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -699,12 +699,12 @@ jobs:
             os:macos-latest;pub-cache-hosted
             os:macos-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
+        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: stable
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
@@ -728,12 +728,12 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@48cafc24713cca54bbe03cdc3a423187d413aafa
+        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: stable
       - id: checkout
         name: Checkout repository
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - id: pkgs_flutter_http_example_pub_upgrade
         name: pkgs/flutter_http_example; flutter pub upgrade
         run: flutter pub upgrade
