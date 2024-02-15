@@ -1,3 +1,8 @@
+## 2.4.4
+
+* Require Dart `^3.3`
+* Require `package:web` `^0.5.0`.
+
 ## 2.4.3
 
 - `HtmlWebSocketChannel`: Relax the type of the websocket parameter to the

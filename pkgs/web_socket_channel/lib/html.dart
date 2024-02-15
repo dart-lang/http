@@ -8,11 +8,10 @@ import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
-import 'package:web/helpers.dart';
+import 'package:web/web.dart';
 
 import 'src/channel.dart';
 import 'src/exception.dart';
-import 'src/web_helpers.dart';
 
 /// A [WebSocketChannel] that communicates using a `dart:html` [WebSocket].
 class HtmlWebSocketChannel extends StreamChannelMixin
@@ -100,7 +99,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       }
       // The socket API guarantees that only a single open event will be
       // emitted.
-      innerWebSocket.onOpenX.first.then((_) {
+      innerWebSocket.onOpen.first.then((_) {
         _readyCompleter.complete();
         _listen();
       });
@@ -108,7 +107,7 @@ class HtmlWebSocketChannel extends StreamChannelMixin
 
     // The socket API guarantees that only a single error event will be emitted,
     // and that once it is no open or message events will be emitted.
-    innerWebSocket.onErrorX.first.then((_) {
+    innerWebSocket.onError.first.then((_) {
       // Unfortunately, the underlying WebSocket API doesn't expose any
       // specific information about the error itself.
       final error = WebSocketChannelException('WebSocket connection failed.');
@@ -119,11 +118,11 @@ class HtmlWebSocketChannel extends StreamChannelMixin
       _controller.local.sink.close();
     });
 
-    innerWebSocket.onMessageX.listen(_innerListen);
+    innerWebSocket.onMessage.listen(_innerListen);
 
     // The socket API guarantees that only a single error event will be emitted,
     // and that once it is no other events will be emitted.
-    innerWebSocket.onCloseX.first.then((event) {
+    innerWebSocket.onClose.first.then((event) {
       _closeCode = event.code;
       _closeReason = event.reason;
       _controller.local.sink.close();

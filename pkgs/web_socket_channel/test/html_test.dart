@@ -12,9 +12,8 @@ import 'dart:typed_data';
 import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
-import 'package:web/helpers.dart' hide BinaryType;
+import 'package:web/web.dart' hide BinaryType;
 import 'package:web_socket_channel/html.dart';
-import 'package:web_socket_channel/src/web_helpers.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 extension on StreamChannel {
@@ -70,7 +69,7 @@ void main() {
 
   test('communicates using an existing open WebSocket', () async {
     final webSocket = WebSocket('ws://localhost:$port');
-    await webSocket.onOpenX.first;
+    await webSocket.onOpen.first;
 
     final channel = HtmlWebSocketChannel(webSocket);
 
