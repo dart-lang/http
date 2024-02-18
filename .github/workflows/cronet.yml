@@ -27,9 +27,6 @@ jobs:
     strategy:
       matrix:
         package: ['cronet_http', 'cronet_http_embedded']
-    defaults:
-      run:
-        working-directory: pkgs/${{ matrix.package }}
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93
@@ -42,19 +39,21 @@ jobs:
       - name: Make cronet_http_embedded copy
         if: ${{ matrix.package == 'cronet_http_embedded' }}
         run: |
-          cd ../../ && pwd
           mv pkgs/cronet_http pkgs/cronet_http_embedded
           cd pkgs/cronet_http_embedded
           flutter pub get && dart tool/prepare_for_embedded.dart
       - id: install
         name: Install dependencies
+        working-directory: pkgs/${{ matrix.package }}
         run: flutter pub get
       - name: Check formatting
+        if: always() && steps.install.outcome == 'success'
+        working-directory: pkgs/${{ matrix.package }}
         run: dart format --output=none --set-exit-if-changed .
-        if: always() && steps.install.outcome == 'success'
       - name: Analyze code
-        run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
+        working-directory: pkgs/${{ matrix.package }}
+        run: flutter analyze --fatal-infos
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@6b0df4b0efb23bb0ec63d881db79aefbc976e4b2
         if: always() && steps.install.outcome == 'success'
@@ -68,6 +67,7 @@ jobs:
           target: ${{ matrix.package == 'cronet_http_embedded' && 'default' || 'google_apis' }}
           profile: pixel
           script: |
-            cd example && pwd
+            pwd
+            cd pkgs/${{ matrix.package }}/example
             flutter pub get
             flutter test --timeout=1200s integration_test/
