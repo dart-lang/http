@@ -27,6 +27,9 @@ jobs:
     strategy:
       matrix:
         package: ['cronet_http', 'cronet_http_embedded']
+    defaults:
+      run:
+        working-directory: pkgs/${{ matrix.package }}
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93
@@ -44,14 +47,11 @@ jobs:
           flutter pub get && dart tool/prepare_for_embedded.dart
       - id: install
         name: Install dependencies
-        working-directory: 'pkgs/${{ matrix.package }}'
         run: flutter pub get
       - name: Check formatting
-        working-directory: 'pkgs/${{ matrix.package }}'
         run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
       - name: Analyze code
-        working-directory: 'pkgs/${{ matrix.package }}'
         run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
       - name: Run tests
