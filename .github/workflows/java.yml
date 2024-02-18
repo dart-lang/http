@@ -6,14 +6,14 @@ on:
       - main
       - master
     paths:
-      - 'pkgs/java_http/**'
-      - 'pkgs/http_client_conformance_tests/**'
       - '.github/workflows/java.yml'
+      - 'pkgs/http_client_conformance_tests/**'
+      - 'pkgs/java_http/**'
   pull_request:
     paths:
-      - 'pkgs/java_http/**'
-      - 'pkgs/http_client_conformance_tests/**'
       - '.github/workflows/java.yml'
+      - 'pkgs/http_client_conformance_tests/**'
+      - 'pkgs/java_http/**'
   schedule:
     # Runs every Sunday at midnight (00:00 UTC).
     - cron: "0 0 * * 0"
@@ -22,8 +22,8 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
-  analyze:
-    name: Lint and static analysis
+  verify:
+    name: Format & Analyze & Test
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -33,35 +33,16 @@ jobs:
       - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: 'stable'
-
       - id: install
         name: Install dependencies
         run: dart pub get
-
       - name: Check formatting
         run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
-
       - name: Analyze code
         run: dart analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
-
-  test:
-    needs: analyze
-    name: Build and test
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pkgs/java_http
-
-    steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
-        with:
-          channel: 'stable'
-
       - name: Build jni dynamic libraries
         run: dart run jni:setup
-
       - name: Run tests
         run: dart test
