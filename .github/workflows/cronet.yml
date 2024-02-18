@@ -57,7 +57,6 @@ jobs:
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@6b0df4b0efb23bb0ec63d881db79aefbc976e4b2
         if: always() && steps.install.outcome == 'success'
-        working-directory: 'pkgs/${{ matrix.package }}/example'
         with:
           # api-level/minSdkVersion should be help in sync in:
           # - .github/workflows/cronet.yml
@@ -68,5 +67,6 @@ jobs:
           target: ${{ matrix.package == 'cronet_http_embedded' && 'default' || 'google_apis' }}
           profile: pixel
           script: |
+            cd pkgs/${{ matrix.package }}/example && pwd && ls -al
             flutter pub get
             flutter test --timeout=1200s integration_test/
