@@ -42,6 +42,7 @@ jobs:
       - name: Make cronet_http_embedded copy
         if: ${{ matrix.package == 'cronet_http_embedded' }}
         run: |
+          cd ../../ && pwd
           mv pkgs/cronet_http pkgs/cronet_http_embedded
           cd pkgs/cronet_http_embedded
           flutter pub get && dart tool/prepare_for_embedded.dart
@@ -67,6 +68,6 @@ jobs:
           target: ${{ matrix.package == 'cronet_http_embedded' && 'default' || 'google_apis' }}
           profile: pixel
           script: |
-            cd pkgs/${{ matrix.package }}/example
+            cd example && pwd
             flutter pub get
             flutter test --timeout=1200s integration_test/
