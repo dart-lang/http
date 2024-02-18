@@ -1,4 +1,0 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.flutter.cupertino_http_example">
-    <uses-permission android:name="android.permission.INTERNET"/>
-</manifest>
