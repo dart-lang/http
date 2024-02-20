@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async' show StreamController, StreamSink;
-import 'dart:developer' show addHttpClientProfilingData, Service, Timeline;
+import 'dart:developer' show Service, addHttpClientProfilingData;
 import 'dart:io' show HttpClient, HttpClientResponseCompressionState;
 import 'dart:isolate' show Isolate;
 
@@ -288,8 +288,18 @@ final class HttpClientRequestProfile {
   /// Usage example:
   ///
   /// ```dart
-  /// profile.addEvent(HttpProfileRequestEvent(DateTime.now(), "Connection Established");
-  /// profile.addEvent(HttpProfileRequestEvent(DateTime.now(), "Remote Disconnected");
+  /// profile.addEvent(
+  ///   HttpProfileRequestEvent(
+  ///     timestamp: DateTime.now(),
+  ///     name: "Connection Established",
+  ///   ),
+  /// );
+  /// profile.addEvent(
+  ///   HttpProfileRequestEvent(
+  ///     timestamp: DateTime.now(),
+  ///     name: "Remote Disconnected",
+  ///   ),
+  /// );
   /// ```
   void addEvent(HttpProfileRequestEvent event) {
     (_data['events'] as List<Map<String, dynamic>>).add(event._toJson());

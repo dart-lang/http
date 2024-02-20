@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:developer' show getHttpClientProfilingData, Service;
+import 'dart:developer' show Service, getHttpClientProfilingData;
 import 'dart:io';
 import 'dart:isolate' show Isolate;
 

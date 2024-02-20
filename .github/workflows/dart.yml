@@ -70,6 +70,36 @@ jobs:
         if: "always() && steps.pkgs_http_client_conformance_tests_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http_client_conformance_tests
   job_003:
+    name: "analyze_and_format; linux; Dart 3.2.6; PKG: pkgs/web_socket; `dart analyze --fatal-infos`"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cache Pub hosted dependencies
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2
+        with:
+          path: "~/.pub-cache/hosted"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.2.6;packages:pkgs/web_socket;commands:analyze_1"
+          restore-keys: |
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.2.6;packages:pkgs/web_socket
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.2.6
+            os:ubuntu-latest;pub-cache-hosted
+            os:ubuntu-latest
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
+        with:
+          sdk: "3.2.6"
+      - id: checkout
+        name: Checkout repository
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - id: pkgs_web_socket_pub_upgrade
+        name: pkgs/web_socket; dart pub upgrade
+        run: dart pub upgrade
+        if: "always() && steps.checkout.conclusion == 'success'"
+        working-directory: pkgs/web_socket
+      - name: "pkgs/web_socket; dart analyze --fatal-infos"
+        run: dart analyze --fatal-infos
+        if: "always() && steps.pkgs_web_socket_pub_upgrade.conclusion == 'success'"
+        working-directory: pkgs/web_socket
+  job_004:
     name: "analyze_and_format; linux; Dart 3.3.0; PKG: pkgs/http; `dart analyze --fatal-infos`"
     runs-on: ubuntu-latest
     steps:
@@ -99,24 +129,24 @@ jobs:
         run: dart analyze --fatal-infos
         if: "always() && steps.pkgs_http_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http
-  job_004:
-    name: "analyze_and_format; linux; Dart 3.4.0-149.0.dev; PKG: pkgs/http_profile; `dart analyze --fatal-infos`"
+  job_005:
+    name: "analyze_and_format; linux; Dart 3.4.0-154.0.dev; PKG: pkgs/http_profile; `dart analyze --fatal-infos`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-149.0.dev;packages:pkgs/http_profile;commands:analyze_1"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-154.0.dev;packages:pkgs/http_profile;commands:analyze_1"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-149.0.dev;packages:pkgs/http_profile
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-149.0.dev
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-154.0.dev;packages:pkgs/http_profile
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-154.0.dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
-          sdk: "3.4.0-149.0.dev"
+          sdk: "3.4.0-154.0.dev"
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
@@ -129,8 +159,8 @@ jobs:
         run: dart analyze --fatal-infos
         if: "always() && steps.pkgs_http_profile_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/http_profile
-  job_005:
-    name: "analyze_and_format; linux; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests, pkgs/http_profile; `dart analyze --fatal-infos`"
+  job_006:
+    name: "analyze_and_format; linux; Dart dev; PKGS: pkgs/http, pkgs/http_client_conformance_tests, pkgs/http_profile, pkgs/web_socket; `dart analyze --fatal-infos`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -303,7 +333,7 @@ jobs:
         run: flutter analyze --fatal-infos
         if: "always() && steps.pkgs_flutter_http_example_pub_upgrade.conclusion == 'success'"
         working-directory: pkgs/flutter_http_example
-  job_009:
+  job_010:
     name: "unit_test; linux; Dart 3.3.0; PKG: pkgs/http; `dart run --define=no_default_http_client=true test/no_default_http_client_test.dart`"
     runs-on: ubuntu-latest
     steps:
@@ -342,7 +372,8 @@ jobs:
       - job_006
       - job_007
       - job_008
-  job_010:
+      - job_009
+  job_011:
     name: "unit_test; linux; Dart 3.3.0; PKG: pkgs/http; `dart test --platform chrome`"
     runs-on: ubuntu-latest
     steps:
@@ -381,7 +412,8 @@ jobs:
       - job_006
       - job_007
       - job_008
-  job_011:
+      - job_009
+  job_012:
     name: "unit_test; linux; Dart 3.3.0; PKG: pkgs/http; `dart test --platform vm`"
     runs-on: ubuntu-latest
     steps:
@@ -420,24 +452,25 @@ jobs:
       - job_006
       - job_007
       - job_008
-  job_012:
-    name: "unit_test; linux; Dart 3.4.0-149.0.dev; PKG: pkgs/http_profile; `dart test --platform vm`"
+      - job_009
+  job_013:
+    name: "unit_test; linux; Dart 3.4.0-154.0.dev; PKG: pkgs/http_profile; `dart test --platform vm`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
         uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2
         with:
           path: "~/.pub-cache/hosted"
-          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-149.0.dev;packages:pkgs/http_profile;commands:test_2"
+          key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-154.0.dev;packages:pkgs/http_profile;commands:test_2"
           restore-keys: |
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-149.0.dev;packages:pkgs/http_profile
-            os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-149.0.dev
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-154.0.dev;packages:pkgs/http_profile
+            os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0-154.0.dev
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Dart SDK
         uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
-          sdk: "3.4.0-149.0.dev"
+          sdk: "3.4.0-154.0.dev"
       - id: checkout
         name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
@@ -459,7 +492,8 @@ jobs:
       - job_006
       - job_007
       - job_008
-  job_013:
+      - job_009
+  job_014:
     name: "unit_test; linux; Dart dev; PKG: pkgs/http; `dart run --define=no_default_http_client=true test/no_default_http_client_test.dart`"
     runs-on: ubuntu-latest
     steps:
