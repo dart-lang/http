@@ -1,3 +1,8 @@
+## 1.2.1
+
+* Require Dart `^3.3`
+* Require `package:web` `^0.5.0`.
+
 ## 1.2.0
 
 * Add `MockClient.pngResponse`, which makes it easier to fake image responses.
