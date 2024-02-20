@@ -1,39 +1,35 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+[![pub package](https://img.shields.io/pub/v/web_socket_conformance_tests.svg)](https://pub.dev/packages/web_socket_conformance_tests)
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+A library that tests whether implementations of `package:web_socket`
+`WebSocket` behave as expected.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+This package is intended to be used in the tests of packages that implement
+`package:web_socket` `Socket`.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+The tests work by starting a series of test servers and running the provided
+`package:web_socket` `WebSocket` against them.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+`package:web_socket_conformance_tests` is meant to be used in the tests suite
+of a `package:web_socket` `WebSocket` like:
 
 ```dart
-const like = 'sample';
+import 'package:web_socket/web_socket.dart';
+import 'package:test/test.dart';
+
+import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
+
+class MyWebSocket implements WebSocket {
+  // Your implementation here.
+}
+
+void main() {
+  group('WebSocket conformance tests', () {
+    testAll(MyWebSocket());
+  });
+}
 ```
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+**Note**: This package does not have it's own tests, instead it is
+exercised by the tests in `package:web_socket`.

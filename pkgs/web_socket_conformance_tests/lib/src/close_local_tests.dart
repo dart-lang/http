@@ -1,4 +1,4 @@
-// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -7,7 +7,7 @@ import 'dart:typed_data';
 import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
-import 'package:websocket/websocket.dart';
+import 'package:web_socket/web_socket.dart';
 
 import 'close_local_server_vm.dart'
     if (dart.library.html) 'close_server_web.dart';
@@ -15,7 +15,7 @@ import 'close_local_server_vm.dart'
 /// Tests that the [WebSocketChannel] can correctly transmit and receive text
 /// and binary payloads.
 void testLocalClose(
-    Future<XXXWebSocket> Function(Uri uri, {Iterable<String>? protocols})
+    Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {
   group('local close', () {
     late Uri uri;
@@ -113,7 +113,7 @@ void testLocalClose(
 
       expectLater(
           () async => await channel.close(3001, 'Client initiated closure'),
-          throwsA(isA<XXXWebSocketConnectionClosed>()));
+          throwsA(isA<WebSocketConnectionClosed>()));
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;
 
