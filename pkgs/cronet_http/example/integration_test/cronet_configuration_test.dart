@@ -5,6 +5,7 @@
 import 'dart:io';
 
 import 'package:cronet_http/cronet_http.dart';
+import 'package:http/http.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:test/test.dart';
 
@@ -120,10 +121,39 @@ void testUserAgent() {
   });
 }
 
+void testEngineClose() {
+  group('engine close', () {
+    test('multiple close', () {
+      CronetEngine.build()
+        ..close()
+        ..close();
+    });
+
+    test('request after close', () async {
+      final closedEngine = CronetEngine.build()..close();
+      final client = CronetClient.fromCronetEngine(closedEngine);
+      await expectLater(() => client.get(Uri.https('example.com', '/')),
+          throwsA(isA<ClientException>()));
+    });
+
+    test('engine owned close', () {
+      final engine = CronetEngine.build();
+      CronetClient.fromCronetEngine(engine, isOwned: true).close();
+    });
+
+    test('engine not owned close', () {
+      final engine = CronetEngine.build();
+      CronetClient.fromCronetEngine(engine, isOwned: false).close();
+      engine.close();
+    });
+  });
+}
+
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testCache();
   testInvalidConfigurations();
   testUserAgent();
+  testEngineClose();
 }

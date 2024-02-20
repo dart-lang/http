@@ -142,8 +142,9 @@ class CronetEngine {
 
   void close() {
     if (!_isClosed) {
-      _engine.shutdown();
-      _engine.release();
+      _engine
+        ..shutdown()
+        ..release();
     }
     _isClosed = true;
   }
@@ -280,9 +281,7 @@ class CronetClient extends BaseClient {
   CronetEngine? _engine;
   bool _isClosed = false;
 
-  /// Indicates that [_engine] was constructed as an implementation detail for
-  /// this [CronetClient] (i.e. was not provided as a constructor argument) and
-  /// should be closed when this [CronetClient] is closed.
+  /// Indicates that [CronetClient] is responsible for closing [_engine].
   final bool _ownedEngine;
 
   CronetClient._(this._engine, this._ownedEngine) {
@@ -293,8 +292,13 @@ class CronetClient extends BaseClient {
   factory CronetClient.defaultCronetEngine() => CronetClient._(null, true);
 
   /// A [CronetClient] configured with a [CronetEngine].
-  factory CronetClient.fromCronetEngine(CronetEngine engine) =>
-      CronetClient._(engine, false);
+  ///
+  /// If [isOwned] is `true`, then [engine] will be closed when [close] is
+  /// called. This can simplify lifetime management if [engine] is only used
+  /// in one [CronetClient].
+  factory CronetClient.fromCronetEngine(CronetEngine engine,
+          {bool isOwned = false}) =>
+      CronetClient._(engine, isOwned);
 
   /// A [CronetClient] configured with a [Future] containing a [CronetEngine].
   ///
@@ -327,14 +331,19 @@ class CronetClient extends BaseClient {
           'HTTP request failed. Client is already closed.', request.url);
     }
 
-    _engine ??= CronetEngine.build();
+    final engine = _engine ?? CronetEngine.build();
+    _engine = engine;
+
+    if (engine._isClosed) {
+      throw ClientException(
+          'HTTP request failed. CronetEngine is already closed.', request.url);
+    }
 
     final stream = request.finalize();
     final body = await stream.toBytes();
     final responseCompleter = Completer<StreamedResponse>();
-    final engine = _engine!._engine;
 
-    final builder = engine.newUrlRequestBuilder(
+    final builder = engine._engine.newUrlRequestBuilder(
       request.url.toString().toJString(),
       jb.UrlRequestCallbackProxy.new1(
           _urlRequestCallbacks(request, responseCompleter)),

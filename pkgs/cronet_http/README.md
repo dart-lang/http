@@ -43,7 +43,7 @@ void main() async {
         cacheMode: CacheMode.memory,
         cacheMaxSize: 2 * 1024 * 1024,
         userAgent: 'Book Agent');
-    httpClient = CronetClient.fromCronetEngine(engine);
+    httpClient = CronetClient.fromCronetEngine(engine, isOwned: true);
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
@@ -52,6 +52,7 @@ void main() async {
       'www.googleapis.com',
       '/books/v1/volumes',
       {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
+  httpClient.close();
 }
 ```
 
