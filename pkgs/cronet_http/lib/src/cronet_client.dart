@@ -49,6 +49,7 @@ enum CacheMode {
 /// An environment that can be used to make HTTP requests.
 class CronetEngine {
   late final jb.CronetEngine _engine;
+  bool _isClosed = false;
 
   CronetEngine._(this._engine);
 
@@ -140,7 +141,11 @@ class CronetEngine {
   }
 
   void close() {
-    _engine.shutdown();
+    if (!_isClosed) {
+      _engine.shutdown();
+      _engine.release();
+    }
+    _isClosed = true;
   }
 }
 
