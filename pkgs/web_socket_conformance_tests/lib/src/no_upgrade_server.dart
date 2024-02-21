@@ -10,20 +10,13 @@ import 'package:stream_channel/stream_channel.dart';
 
 const WEB_SOCKET_GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
-/// Starts an WebSocket server that echos the payload of the request.
-///
-/// Channel protocol:
-///    On Startup:
-///     - send port
-///    On Request Received:
-///     - echoes the request payload
-///    When Receive Anything:
-///     - exit
+/// Starts an WebSocket server that closes the HTTP connection before WebSocket
+/// upgrade.
 void hybridMain(StreamChannel<Object?> channel) async {
   final server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       request.response.statusCode = 200;
-      request.response.close();
+      await request.response.close();
     });
   channel.sink.add(server.port);
 

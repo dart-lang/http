@@ -12,12 +12,11 @@ import 'package:web_socket/web_socket.dart';
 import 'peer_protocol_errors_server_vm.dart'
     if (dart.library.html) 'peer_protocol_errors_server_web.dart';
 
-/// Tests that the [WebSocketChannel] can correctly transmit and receive text
-/// and binary payloads.
+/// Tests that the [WebSocket] can correctly handle incorrect WebSocket frames.
 void testPeerProtocolErrors(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {
-  group('protocol errors', () {
+  group('peer protocol errors', () {
     late final Uri uri;
     late final StreamChannel<Object?> httpServerChannel;
     late final StreamQueue<Object?> httpServerQueue;

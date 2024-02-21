@@ -1,17 +1,17 @@
-import 'package:http/http.dart';
-import 'package:http_client_conformance_tests/http_client_conformance_tests.dart';
 import 'package:test/test.dart';
+import 'package:web_socket/web_socket.dart';
+import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
 
-class MyHttpClient extends BaseClient {
-  @override
-  Future<StreamedResponse> send(BaseRequest request) async {
-    // Your implementation here.
-    throw UnsupportedError('implement this method');
+class MyWebSocketImplementation implements WebSocket {
+  // Implement the `WebSocket` interface.
+
+  static Future<MyWebSocketImplementation> connect(Uri uri) {
+    return MyWebSocketImplementation();
   }
 }
 
 void main() {
   group('client conformance tests', () {
-    testAll(MyHttpClient.new);
+    testAll(MyWebSocketImplementation.connect);
   });
 }

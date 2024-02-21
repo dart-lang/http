@@ -2,19 +2,16 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:typed_data';
-
 import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'close_local_server_vm.dart'
-    if (dart.library.html) 'close_server_web.dart';
+    if (dart.library.html) 'close_local_server_web.dart';
 
-/// Tests that the [WebSocketChannel] can correctly transmit and receive text
-/// and binary payloads.
-void testLocalClose(
+/// Tests that the [WebSocket] can correctly close the connection to the peer.
+void testCloseLocal(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {
   group('local close', () {
@@ -29,25 +26,9 @@ void testLocalClose(
     });
     tearDown(() async {
       httpServerChannel.sink.add(null);
-//      await httpServerQueue.next;
     });
-/*
-    test('connected', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-      expect(channel.closeCode, null);
-      expect(channel.closeReason, null);
-    });
-*/
-    // https://websockets.spec.whatwg.org/#eventdef-websocket-close
-    // Dart will wait up to 5 seconds to get the close code from the server otherwise
-    // it will use the local close code.
 
     test('reserved close code', () async {
-      // If code is present, but is neither an integer equal to 1000 nor an integer in the range 3000 to 4999, inclusive, throw an "InvalidAccessError" DOMException.
-      // If reasonBytes is longer than 123 bytes, then throw a "SyntaxError" DOMException.
-
       final channel = await channelFactory(uri);
       await expectLater(() => channel.close(1004), throwsA(isA<RangeError>()));
     });
@@ -111,9 +92,9 @@ void testLocalClose(
 
       await channel.close(3000, 'Client initiated closure');
 
-      expectLater(
+      await expectLater(
           () async => await channel.close(3001, 'Client initiated closure'),
-          throwsA(isA<WebSocketConnectionClosed>()));
+          throwsStateError);
       final closeCode = await httpServerQueue.next as int?;
       final closeReason = await httpServerQueue.next as String?;
 

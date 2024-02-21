@@ -16,11 +16,11 @@ import 'src/peer_protocol_errors_tests.dart';
 void testAll(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
         webSocketFactory) {
-  testPayloadTransfer(webSocketFactory);
-  testLocalClose(webSocketFactory);
-  testRemoteClose(webSocketFactory);
-//  testProtocols(channelFactory);
-  testNoUpgrade(webSocketFactory);
+  testCloseLocal(webSocketFactory);
+  testCloseRemote(webSocketFactory);
   testDisconnectAfterUpgrade(webSocketFactory);
+  testNoUpgrade(webSocketFactory);
+  testPayloadTransfer(webSocketFactory);
   testPeerProtocolErrors(webSocketFactory);
+//  testProtocols(channelFactory);
 }

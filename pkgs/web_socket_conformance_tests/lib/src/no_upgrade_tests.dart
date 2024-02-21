@@ -2,8 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:typed_data';
-
 import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
@@ -12,8 +10,8 @@ import 'package:web_socket/web_socket.dart';
 import 'no_upgrade_server_vm.dart'
     if (dart.library.html) 'no_upgrade_server_web.dart';
 
-/// Tests that the [WebSocketChannel] can correctly transmit and receive text
-/// and binary payloads.
+/// Tests that the [WebSocket] generates the correct exception if the peer
+/// closes the HTTP connection before WebSocket upgrade.
 void testNoUpgrade(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {

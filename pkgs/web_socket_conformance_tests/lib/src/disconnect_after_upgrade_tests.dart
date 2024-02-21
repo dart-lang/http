@@ -10,8 +10,8 @@ import 'package:web_socket/web_socket.dart';
 import 'disconnect_after_upgrade_server_vm.dart'
     if (dart.library.html) 'disconnect_after_upgrade_server_web.dart';
 
-/// Tests that the [WebSocketChannel] can correctly transmit and receive text
-/// and binary payloads.
+/// Tests that the [WebSocket] generates a correct [CloseReceived] event if
+/// the peer disconnects after WebSocket upgrade.
 void testDisconnectAfterUpgrade(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {

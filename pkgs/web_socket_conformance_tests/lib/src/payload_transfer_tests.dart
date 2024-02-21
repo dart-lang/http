@@ -11,197 +11,92 @@ import 'package:web_socket/web_socket.dart';
 
 import 'echo_server_vm.dart' if (dart.library.html) 'echo_server_web.dart';
 
-/// Tests that the [WebSocketChannel] can correctly transmit and receive text
+/// Tests that the [WebSocket] can correctly transmit and receive text
 /// and binary payloads.
 void testPayloadTransfer(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
-        channelFactory) {
+        webSocketFactory) {
   group('payload transfer', () {
-    late final Uri uri;
-    late final StreamChannel<Object?> httpServerChannel;
-    late final StreamQueue<Object?> httpServerQueue;
+    late Uri uri;
+    late StreamChannel<Object?> httpServerChannel;
+    late StreamQueue<Object?> httpServerQueue;
+    late WebSocket webSocket;
 
-    setUpAll(() async {
+    setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
       uri = Uri.parse('ws://localhost:${await httpServerQueue.next}');
+      webSocket = await webSocketFactory(uri);
     });
-    tearDownAll(() => httpServerChannel.sink.add(null));
-
-    test('close immediately', () async {
-      final channel = await channelFactory(uri);
-
-      await channel.close();
-      print('closed!');
-      expect(await channel.events.isEmpty,
-          true); // Stream can't be listened to at this point.
+    tearDown(() async {
+      httpServerChannel.sink.add(null);
+      await webSocket.close();
     });
 
     test('empty string request and response', () async {
-      final channel = await channelFactory(uri);
-
-      channel.sendText('');
-      expect(await channel.events.first, TextDataReceived(''));
+      webSocket.sendText('');
+      expect(await webSocket.events.first, TextDataReceived(''));
     });
 
     test('empty binary request and response', () async {
-      final channel = await channelFactory(uri);
-
-      channel.sendBytes(Uint8List(0));
-      expect(await channel.events.first, BinaryDataReceived(Uint8List(0)));
+      webSocket.sendBytes(Uint8List(0));
+      expect(await webSocket.events.first, BinaryDataReceived(Uint8List(0)));
     });
 
     test('string request and response', () async {
-      final channel = await channelFactory(uri);
-
-      channel.sendText("Hello World!");
-      expect(await channel.events.first, TextDataReceived("Hello World!"));
+      webSocket.sendText('Hello World!');
+      expect(await webSocket.events.first, TextDataReceived('Hello World!'));
     });
 
     test('binary request and response', () async {
-      final channel = await channelFactory(uri);
-
-      channel.sendBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
-      expect(await channel.events.first,
+      webSocket.sendBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
+      expect(await webSocket.events.first,
           BinaryDataReceived(Uint8List.fromList([1, 2, 3, 4, 5])));
     });
 
     test('large string request and response', () async {
-      final channel = await channelFactory(uri);
+      final data = 'Hello World!' * 10000;
 
-      channel.sendText("Hello World!" * 1000);
-      expect(
-          await channel.events.first, TextDataReceived("Hello World!" * 1000));
+      webSocket.sendText(data);
+      expect(await webSocket.events.first, TextDataReceived(data));
     });
 
-    test('large binary request and response - XXX', () async {
-      final channel = await channelFactory(uri);
+    test('large binary request and response', () async {
+      final data = Uint8List(1000000);
+      data
+        ..fillRange(0, data.length ~/ 10, 1)
+        ..fillRange(0, data.length ~/ 10, 2)
+        ..fillRange(0, data.length ~/ 10, 3)
+        ..fillRange(0, data.length ~/ 10, 4)
+        ..fillRange(0, data.length ~/ 10, 5)
+        ..fillRange(0, data.length ~/ 10, 6)
+        ..fillRange(0, data.length ~/ 10, 7)
+        ..fillRange(0, data.length ~/ 10, 8)
+        ..fillRange(0, data.length ~/ 10, 9)
+        ..fillRange(0, data.length ~/ 10, 10);
 
-      channel.sendBytes(Uint8List.fromList([1, 2, 3, 4, 5]));
-      expect(await channel.events.first,
-          BinaryDataReceived(Uint8List.fromList([1, 2, 3, 4, 5])));
-    });
-/*
-    */
-/*
-    test('List<int> request and response', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-
-      channel.sink.add([1, 2, 3, 4, 5]);
-      expect(await channel.stream.first, [1, 2, 3, 4, 5]);
-    }, skip: _isWeb);
-
-    test('List<int> with >255 value', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-
-      expect(() => channel.sink.add([1, 2, 256, 4, 5]), throwsArgumentError);
-    }, skip: _isWeb || _isVM);
-
-    test('List<int> with <0 value', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-
-      expect(() => channel.sink.add([1, 2, 256, 4, 5]), throwsArgumentError);
-    }, skip: _isWeb || _isVM);
-
-    test('Uint8List request and response', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-
-      channel.sink.add(Uint8List.fromList([1, 2, 3, 4, 5]));
-      expect(await channel.stream.first, [1, 2, 3, 4, 5]);
+      webSocket.sendBytes(data);
+      expect(await webSocket.events.first, BinaryDataReceived(data));
     });
 
-    test('duration request and response', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-      expect(() => channel.sink.add(const Duration(seconds: 5)),
-          throwsArgumentError);
-    }, skip: _isWeb || _isVM);
-
-    test('error added to sink', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-
-      expect(() => channel.sink.addError(Exception('what should this do?')),
-          throwsUnsupportedError);
-      await channel.sink.close();
-      expect(channel.stream.isEmpty, true);
-    }, skip: _isWeb || _isVM);
-
-    test('add after error', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-
-      expect(() => channel.sink.addError(Exception('what should this do?')),
-          throwsUnsupportedError);
-
-      channel.sink.add('Hello World!');
-      expect(await channel.stream.first, 'Hello World!');
-    }, skip: _isWeb || _isVM);
+    test('non-ascii string request and response', () async {
+      webSocket.sendText('🎨⛳🌈');
+      expect(await webSocket.events.first, TextDataReceived('🎨⛳🌈'));
+    });
 
     test('alternative string and binary request and response', () async {
-      final channel = channelFactory(uri);
+      webSocket
+        ..sendBytes(Uint8List.fromList([1]))
+        ..sendText('Hello!')
+        ..sendBytes(Uint8List.fromList([1, 2]))
+        ..sendText('Hello World!');
 
-      await expectLater(channel.ready, completes);
-
-      channel.sink.add('Hello ');
-      channel.sink.add([1, 2, 3]);
-      channel.sink.add('World!');
-      channel.sink.add([4, 5]);
-
-      expect(await channel.stream.take(4).toList(), [
-        'Hello ',
-        [1, 2, 3],
-        'World!',
-        [4, 5]
+      expect(await webSocket.events.take(4).toList(), [
+        BinaryDataReceived(Uint8List.fromList([1])),
+        TextDataReceived('Hello!'),
+        BinaryDataReceived(Uint8List.fromList([1, 2])),
+        TextDataReceived('Hello World!')
       ]);
-    }, skip: _isWeb);
-
-    test('increasing payload string size', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-
-      final s = StringBuffer('Hello World\n');
-      channel.sink.add(s.toString());
-      await for (final response in channel.stream) {
-        expect(response, s.toString());
-        if (s.length >= 10000) {
-          await channel.sink.close();
-          break;
-        }
-        s.writeln('HelloWorld');
-        channel.sink.add(s.toString());
-      }
     });
-
-    test('increasing payload binary size', () async {
-      final channel = channelFactory(uri);
-
-      await expectLater(channel.ready, completes);
-
-      final data = [1, 2, 3, 4, 5];
-      channel.sink.add(data);
-      await for (final response in channel.stream) {
-        expect(response, data);
-        if (data.length >= 10000) {
-          await channel.sink.close();
-          break;
-        }
-        data.addAll([1, 2, 3, 4, 5]);
-        channel.sink.add(data);
-      }
-    });
-      */
   });
 }

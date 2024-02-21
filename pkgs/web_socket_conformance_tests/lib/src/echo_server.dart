@@ -8,14 +8,6 @@ import 'dart:io';
 import 'package:stream_channel/stream_channel.dart';
 
 /// Starts an WebSocket server that echos the payload of the request.
-///
-/// Channel protocol:
-///    On Startup:
-///     - send port
-///    On Request Received:
-///     - echoes the request payload
-///    When Receive Anything:
-///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;
 
