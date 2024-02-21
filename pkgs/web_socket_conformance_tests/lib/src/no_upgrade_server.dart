@@ -3,12 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-import "package:crypto/crypto.dart";
 import 'package:stream_channel/stream_channel.dart';
-
-const WEB_SOCKET_GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
 /// Starts an WebSocket server that closes the HTTP connection before WebSocket
 /// upgrade.
