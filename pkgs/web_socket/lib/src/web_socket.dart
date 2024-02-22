@@ -85,7 +85,28 @@ class WebSocketConnectionClosed extends WebSocketException {
 
 /// The interface for WebSocket connections.
 ///
-/// TODO: insert a usage example.
+/// ```dart
+/// import 'package:web_socket/io_web_socket.dart';
+/// import 'package:web_socket/src/web_socket.dart';
+///
+/// void main() async {
+///   final socket =
+///       await IOWebSocket.connect(Uri.parse('wss://ws.postman-echo.com/raw'));
+///
+///   socket.events.listen((e) async {
+///     switch (e) {
+///       case TextDataReceived(text: final text):
+///         print('Received Text: $text');
+///         await socket.close();
+///       case BinaryDataReceived(data: final data):
+///         print('Received Binary: $data');
+///       case CloseReceived(code: final code, reason: final reason):
+///         print('Connection to server closed: $code [$reason]');
+///     }
+///   });
+///
+///   socket.sendText('Hello Dart WebSockets! 🎉');
+/// }
 abstract interface class WebSocket {
   /// Sends text data to the connected peer.
   ///

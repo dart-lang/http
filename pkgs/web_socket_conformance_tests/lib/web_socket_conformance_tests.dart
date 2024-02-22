@@ -10,9 +10,7 @@ import 'src/no_upgrade_tests.dart';
 import 'src/payload_transfer_tests.dart';
 import 'src/peer_protocol_errors_tests.dart';
 
-// import 'src/protocol_tests.dart';
-
-/// Runs the entire test suite against the given [WebSocketChannel].
+/// Runs the entire test suite against the given [WebSocket].
 void testAll(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
         webSocketFactory) {
@@ -22,5 +20,4 @@ void testAll(
   testNoUpgrade(webSocketFactory);
   testPayloadTransfer(webSocketFactory);
   testPeerProtocolErrors(webSocketFactory);
-//  testProtocols(channelFactory);
 }

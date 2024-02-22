@@ -1,13 +1,25 @@
+import 'dart:typed_data';
+
 import 'package:test/test.dart';
 import 'package:web_socket/web_socket.dart';
 import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
 
 class MyWebSocketImplementation implements WebSocket {
-  // Implement the `WebSocket` interface.
+  static Future<MyWebSocketImplementation> connect(Uri uri,
+          {Iterable<String>? protocols}) async =>
+      MyWebSocketImplementation();
 
-  static Future<MyWebSocketImplementation> connect(Uri uri) {
-    return MyWebSocketImplementation();
-  }
+  @override
+  Future<void> close([int? code, String? reason]) => throw UnimplementedError();
+
+  @override
+  Stream<WebSocketEvent> get events => throw UnimplementedError();
+
+  @override
+  void sendBytes(Uint8List b) => throw UnimplementedError();
+
+  @override
+  void sendText(String s) => throw UnimplementedError();
 }
 
 void main() {
