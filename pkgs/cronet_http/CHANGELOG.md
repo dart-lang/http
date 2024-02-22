@@ -1,3 +1,8 @@
+## 1.1.2-wip
+
+* Fix a bug in the documentation where `isOwned` is used rather than
+  `closeEngine`.
+
 ## 1.1.1
 
 * Make it possible to construct `CronetClient` with custom a `CronetEngine`
