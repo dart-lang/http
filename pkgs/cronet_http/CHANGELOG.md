@@ -1,3 +1,8 @@
+## 1.1.1
+
+* Make it possible to construct `CronetClient` with custom a `CronetEngine`
+  while still allowing `CronetClient` to close the `CronetEngine`.
+
 ## 1.1.0
 
 * Use `package:http_image_provider` in the example application.
