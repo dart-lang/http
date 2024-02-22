@@ -5,7 +5,7 @@ repository: https://github.com/dart-lang/http/tree/master/pkgs/web_socket
 publish_to: none
 
 environment:
-  sdk: ^3.2.6
+  sdk: ^3.3.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0
