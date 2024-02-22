@@ -138,12 +138,12 @@ void testEngineClose() {
 
     test('engine owned close', () {
       final engine = CronetEngine.build();
-      CronetClient.fromCronetEngine(engine, isOwned: true).close();
+      CronetClient.fromCronetEngine(engine, closeEngine: true).close();
     });
 
     test('engine not owned close', () {
       final engine = CronetEngine.build();
-      CronetClient.fromCronetEngine(engine, isOwned: false).close();
+      CronetClient.fromCronetEngine(engine, closeEngine: false).close();
       engine.close();
     });
   });

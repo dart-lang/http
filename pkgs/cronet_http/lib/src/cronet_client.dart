@@ -282,9 +282,9 @@ class CronetClient extends BaseClient {
   bool _isClosed = false;
 
   /// Indicates that [CronetClient] is responsible for closing [_engine].
-  final bool _ownedEngine;
+  final bool _closeEngine;
 
-  CronetClient._(this._engine, this._ownedEngine) {
+  CronetClient._(this._engine, this._closeEngine) {
     Jni.initDLApi();
   }
 
@@ -293,12 +293,12 @@ class CronetClient extends BaseClient {
 
   /// A [CronetClient] configured with a [CronetEngine].
   ///
-  /// If [isOwned] is `true`, then [engine] will be closed when [close] is
-  /// called. This can simplify lifetime management if [engine] is only used
-  /// in one [CronetClient].
+  /// If [closeEngine] is `true`, then [engine] will be closed when [close] is
+  /// called on this [CronetClient]. This can simplify lifetime management if
+  /// [engine] is only used in one [CronetClient].
   factory CronetClient.fromCronetEngine(CronetEngine engine,
-          {bool isOwned = false}) =>
-      CronetClient._(engine, isOwned);
+          {bool closeEngine = false}) =>
+      CronetClient._(engine, closeEngine);
 
   /// A [CronetClient] configured with a [Future] containing a [CronetEngine].
   ///
@@ -318,7 +318,7 @@ class CronetClient extends BaseClient {
   /// ```
   @override
   void close() {
-    if (!_isClosed && _ownedEngine) {
+    if (!_isClosed && _closeEngine) {
       _engine?.close();
     }
     _isClosed = true;
