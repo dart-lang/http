@@ -42,7 +42,7 @@ void main() async {
       cacheMaxSize: 2 * 1024 * 1024,
        userAgent: 'Book Agent',
     );
-    httpClient = CronetClient.fromCronetEngine(engine);
+    httpClient = CronetClient.fromCronetEngine(engine, isOwned: true);
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
@@ -54,6 +54,7 @@ void main() async {
       {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'},
     ),
   );
+  httpClient.close();
 }
 ```
 

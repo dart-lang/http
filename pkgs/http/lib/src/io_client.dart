@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'base_client.dart';
 import 'base_request.dart';
+import 'base_response.dart';
 import 'client.dart';
 import 'exception.dart';
 import 'io_streamed_response.dart';
@@ -44,6 +45,22 @@ class _ClientSocketException extends ClientException
 
   @override
   String toString() => 'ClientException with $cause, uri=$uri';
+}
+
+class _IOStreamedResponseV2 extends IOStreamedResponse
+    implements BaseResponseWithUrl {
+  @override
+  final Uri url;
+
+  _IOStreamedResponseV2(super.stream, super.statusCode,
+      {required this.url,
+      super.contentLength,
+      super.request,
+      super.headers,
+      super.isRedirect,
+      super.persistentConnection,
+      super.reasonPhrase,
+      super.inner});
 }
 
 /// A `dart:io`-based HTTP [Client].
@@ -116,7 +133,7 @@ class IOClient extends BaseClient {
         headers[key] = values.map((value) => value.trimRight()).join(',');
       });
 
-      return IOStreamedResponse(
+      return _IOStreamedResponseV2(
           response.handleError((Object error) {
             final httpException = error as HttpException;
             throw ClientException(httpException.message, httpException.uri);
@@ -127,6 +144,9 @@ class IOClient extends BaseClient {
           request: request,
           headers: headers,
           isRedirect: response.isRedirect,
+          url: response.redirects.isNotEmpty
+              ? response.redirects.last.location
+              : request.url,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase,
           inner: response);
