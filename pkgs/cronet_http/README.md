@@ -60,10 +60,10 @@ void main() async {
 
 ### Use embedded Cronet
 
-The embedded [Cronet][] is provided as `org.chromium.net:cronet-embedded`
-which does not require to use the [Google Play Services][].
-The library uses `dart-define` to switch to the embedded implementation
-when `cronetHttpNoPlay` is set to `true`.
+If you want your application to work without [Google Play Services][],
+you can instead depend on the `org.chromium.net:cronet-embedded` package
+by using `dart-define` to set `cronetHttpNoPlay` is set to `true`.
+
 For example:
 
 ```
