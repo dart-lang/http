@@ -1,3 +1,7 @@
+## 1.2.0-wip
+
+* Support the Cronet embedding dependency with `--dart-define=cronetHttpNoPlay=true`.
+
 ## 1.1.1
 
 * Make it possible to construct `CronetClient` with custom a `CronetEngine`
