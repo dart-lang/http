@@ -6,14 +6,14 @@ on:
       - main
       - master
     paths:
+      - '.github/workflows/cupertino.yml'
       - 'pkgs/cupertino_http/**'
       - 'pkgs/http_client_conformance_tests/**'
-      - '.github/workflows/cupertino.yml'
   pull_request:
     paths:
+      - '.github/workflows/cupertino.yml'
       - 'pkgs/cupertino_http/**'
       - 'pkgs/http_client_conformance_tests/**'
-      - '.github/workflows/cupertino.yml'
   schedule:
     - cron: "0 0 * * 0"
 
@@ -21,16 +21,22 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
-  analyze:
-    name: Lint and static analysis
-    runs-on: ubuntu-latest
+  verify:
+    name: Format & Analyze & Test
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: pkgs/cupertino_http
+    strategy:
+      matrix:
+        # Test on the minimum supported flutter version and the latest
+        # version.
+        flutter-version: ["3.16.0", "any"]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
+          flutter-version: ${{ matrix.flutter-version }}
           channel: 'stable'
       - id: install
         name: Install dependencies
@@ -40,48 +46,19 @@ jobs:
         # This approach is simpler than using `find` and excluding that file
         # because `dart format` also excludes other file e.g. ones in
         # directories start with '.'.
-        run: >
-          mv lib/src/native_cupertino_bindings.dart lib/src/native_cupertino_bindings.tmp &&
-          dart format --output=none --set-exit-if-changed . &&
+        run: |
+          mv lib/src/native_cupertino_bindings.dart lib/src/native_cupertino_bindings.tmp
+          dart format --output=none --set-exit-if-changed .
           mv lib/src/native_cupertino_bindings.tmp lib/src/native_cupertino_bindings.dart
         if: always() && steps.install.outcome == 'success'
       - name: Analyze code
         run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
-
-  test:
-    # Test package:cupertino_http use flutter integration tests.
-    needs: analyze
-    name: "Build and test"
-    strategy:
-      matrix:
-        # Test on the minimum supported flutter version and the latest
-        # version.
-        flutter-version: ["3.16.0", "any"]
-    runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: pkgs/cupertino_http/example
-    steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - uses: futureware-tech/simulator-action@bfa03d93ec9de6dacb0c5553bbf8da8afc6c2ee9
         with:
           model: 'iPhone 8'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
-        with:
-          flutter-version: ${{ matrix.flutter-version }}
-          channel: 'stable'
       - name: Run tests
-        # TODO: Remove the retries when
-        # https://github.com/flutter/flutter/issues/121231 is fixed.
-        # See https://github.com/dart-lang/http/issues/938 for context.
         run: |
-          for i in {1..6}
-          do
-            flutter test integration_test/main.dart && break
-            if [ $i -eq 6 ]
-            then
-              exit 1
-            fi
-            echo "Retry $i"
-          done
+          cd example
+          flutter pub get
+          flutter test --timeout=1200s integration_test/
