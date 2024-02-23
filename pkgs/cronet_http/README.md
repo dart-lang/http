@@ -40,7 +40,7 @@ void main() async {
     final engine = CronetEngine.build(
       cacheMode: CacheMode.memory,
       cacheMaxSize: 2 * 1024 * 1024,
-       userAgent: 'Book Agent',
+      userAgent: 'Book Agent',
     );
     httpClient = CronetClient.fromCronetEngine(engine, isOwned: true);
   } else {
