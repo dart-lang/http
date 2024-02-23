@@ -8,7 +8,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'redirect_server_vm.dart'
-    if (dart.library.html) 'redirect_server_web.dart';
+    if (dart.library.js_interop) 'redirect_server_web.dart';
 
 /// Tests that the [Client] correctly implements HTTP redirect logic.
 ///
@@ -23,9 +23,20 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
     setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
+
+    test('no redirect', () async {
+      final request = Request('GET', Uri.http(host, '/'))
+        ..followRedirects = false;
+      final response = await client.send(request);
+      expect(response.statusCode, 200);
+      expect(response.isRedirect, false);
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/'));
+      }
+    });
 
     test('disallow redirect', () async {
       final request = Request('GET', Uri.http(host, '/1'))
@@ -33,6 +44,9 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/1'));
+      }
     }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test('disallow redirect, 0 maxRedirects', () async {
@@ -42,6 +56,9 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 302);
       expect(response.isRedirect, true);
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/1'));
+      }
     }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test('allow redirect', () async {
@@ -50,6 +67,9 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/'));
+      }
     });
 
     test('allow redirect, 0 maxRedirects', () async {
@@ -69,6 +89,9 @@ void testRedirect(Client client, {bool redirectAlwaysAllowed = false}) async {
       final response = await client.send(request);
       expect(response.statusCode, 200);
       expect(response.isRedirect, false);
+      if (response case BaseResponseWithUrl(url: final url)) {
+        expect(url, Uri.http(host, '/'));
+      }
     }, skip: redirectAlwaysAllowed ? 'redirects always allowed' : false);
 
     test('too many redirects', () async {

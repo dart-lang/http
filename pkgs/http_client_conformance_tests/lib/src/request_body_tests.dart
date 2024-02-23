@@ -10,7 +10,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'request_body_server_vm.dart'
-    if (dart.library.html) 'request_body_server_web.dart';
+    if (dart.library.js_interop) 'request_body_server_web.dart';
 
 class _Plus2Decoder extends Converter<List<int>, String> {
   @override
@@ -47,7 +47,7 @@ void testRequestBody(Client client) {
     setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
     tearDown(() => httpServerChannel.sink.add(null));
 
@@ -258,6 +258,47 @@ void testRequestBody(Client client) {
 
       expect(serverReceivedContentType, ['image/png']);
       expect(serverReceivedBody.codeUnits, <int>[]);
+    });
+
+    test('client.send() with persistentConnection', () async {
+      // Do five requests to verify that the connection persistance logic is
+      // correct.
+      for (var i = 0; i < 5; ++i) {
+        final request = Request('POST', Uri.http(host, ''))
+          ..headers['Content-Type'] = 'text/plain; charset=utf-8'
+          ..persistentConnection = true
+          ..body = 'Hello World $i';
+
+        final response = await client.send(request);
+        expect(response.statusCode, 200);
+
+        final serverReceivedContentType = await httpServerQueue.next;
+        final serverReceivedBody = await httpServerQueue.next as String;
+
+        expect(serverReceivedContentType, ['text/plain; charset=utf-8']);
+        expect(serverReceivedBody, 'Hello World $i');
+      }
+    });
+
+    test('client.send() with persistentConnection and body >64K', () async {
+      // 64KiB is special for the HTTP network API:
+      // https://fetch.spec.whatwg.org/#http-network-or-cache-fetch
+      // See https://github.com/dart-lang/http/issues/977
+      final body = ''.padLeft(64 * 1024, 'XYZ');
+
+      final request = Request('POST', Uri.http(host, ''))
+        ..headers['Content-Type'] = 'text/plain; charset=utf-8'
+        ..persistentConnection = true
+        ..body = body;
+
+      final response = await client.send(request);
+      expect(response.statusCode, 200);
+
+      final serverReceivedContentType = await httpServerQueue.next;
+      final serverReceivedBody = await httpServerQueue.next as String;
+
+      expect(serverReceivedContentType, ['text/plain; charset=utf-8']);
+      expect(serverReceivedBody, body);
     });
 
     test('client.send() GET with non-empty stream', () async {

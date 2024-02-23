@@ -1,6 +1,22 @@
+## 1.1.1
+
+* Make it possible to construct `CronetClient` with custom a `CronetEngine`
+  while still allowing `CronetClient` to close the `CronetEngine`.
+
+## 1.1.0
+
+* Use `package:http_image_provider` in the example application.
+* Support Android API 21+.
+* Support `BaseResponseWithUrl`.
+
+## 1.0.0
+
+* No functional changes. 
+
 ## 0.4.2
 
 * Require `package:jni >= 0.7.2` to remove a potential buffer overflow.
+* Fix a bug where incorrect HTTP request methods were sent.
 
 ## 0.4.1
  

@@ -11,12 +11,26 @@ void main() {
   test('profiling enabled', () async {
     HttpClientRequestProfile.profilingEnabled = true;
     expect(HttpClient.enableTimelineLogging, true);
-    expect(HttpClientRequestProfile.profile(), isNotNull);
+    expect(
+      HttpClientRequestProfile.profile(
+        requestStartTimestamp: DateTime.parse('2024-03-21'),
+        requestMethod: 'GET',
+        requestUri: 'https://www.example.com',
+      ),
+      isNotNull,
+    );
   });
 
   test('profiling disabled', () async {
     HttpClientRequestProfile.profilingEnabled = false;
     expect(HttpClient.enableTimelineLogging, false);
-    expect(HttpClientRequestProfile.profile(), isNull);
+    expect(
+      HttpClientRequestProfile.profile(
+        requestStartTimestamp: DateTime.parse('2024-03-21'),
+        requestMethod: 'GET',
+        requestUri: 'https://www.example.com',
+      ),
+      isNull,
+    );
   });
 }

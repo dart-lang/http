@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'base_client.dart';
 import 'base_request.dart';
+import 'base_response.dart';
 import 'client.dart';
 import 'exception.dart';
 import 'io_streamed_response.dart';
@@ -46,6 +47,22 @@ class _ClientSocketException extends ClientException
   String toString() => 'ClientException with $cause, uri=$uri';
 }
 
+class _IOStreamedResponseV2 extends IOStreamedResponse
+    implements BaseResponseWithUrl {
+  @override
+  final Uri url;
+
+  _IOStreamedResponseV2(super.stream, super.statusCode,
+      {required this.url,
+      super.contentLength,
+      super.request,
+      super.headers,
+      super.isRedirect,
+      super.persistentConnection,
+      super.reasonPhrase,
+      super.inner});
+}
+
 /// A `dart:io`-based HTTP [Client].
 ///
 /// If there is a socket-level failure when communicating with the server
@@ -72,6 +89,18 @@ class IOClient extends BaseClient {
   /// The underlying `dart:io` HTTP client.
   HttpClient? _inner;
 
+  /// Create a new `dart:io`-based HTTP [Client].
+  ///
+  /// If [inner] is provided then it can be used to provide configuration
+  /// options for the client.
+  ///
+  /// For example:
+  /// ```dart
+  /// final httpClient = HttpClient()
+  ///    ..userAgent = 'Book Agent'
+  ///    ..idleTimeout = const Duration(seconds: 5);
+  /// final client = IOClient(httpClient);
+  /// ```
   IOClient([HttpClient? inner]) : _inner = inner ?? HttpClient();
 
   /// Sends an HTTP request and asynchronously returns the response.
@@ -104,7 +133,7 @@ class IOClient extends BaseClient {
         headers[key] = values.map((value) => value.trimRight()).join(',');
       });
 
-      return IOStreamedResponse(
+      return _IOStreamedResponseV2(
           response.handleError((Object error) {
             final httpException = error as HttpException;
             throw ClientException(httpException.message, httpException.uri);
@@ -115,6 +144,9 @@ class IOClient extends BaseClient {
           request: request,
           headers: headers,
           isRedirect: response.isRedirect,
+          url: response.redirects.isNotEmpty
+              ? response.redirects.last.location
+              : request.url,
           persistentConnection: response.persistentConnection,
           reasonPhrase: response.reasonPhrase,
           inner: response);

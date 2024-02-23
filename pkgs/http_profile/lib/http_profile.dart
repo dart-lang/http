@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async' show StreamController, StreamSink;
-import 'dart:developer' show addHttpClientProfilingData, Service, Timeline;
+import 'dart:developer' show Service, addHttpClientProfilingData;
 import 'dart:io' show HttpClient, HttpClientResponseCompressionState;
 import 'dart:isolate' show Isolate;
 
@@ -49,9 +49,9 @@ final class HttpProfileProxyData {
 
 /// Describes a redirect that an HTTP connection went through.
 class HttpProfileRedirectData {
-  int _statusCode;
-  String _method;
-  String _location;
+  final int _statusCode;
+  final String _method;
+  final String _location;
 
   HttpProfileRedirectData({
     required int statusCode,
@@ -85,7 +85,8 @@ final class HttpProfileRequestData {
     for (final v in value.values) {
       if (!(v is String || v is int)) {
         throw ArgumentError(
-            "The values in connectionInfo must be of type String or int.");
+          'The values in connectionInfo must be of type String or int.',
+        );
       }
     }
     _data['connectionInfo'] = {...value};
@@ -112,15 +113,8 @@ final class HttpProfileRequestData {
   ///   'sessionId=abc123',
   ///   'csrftoken=def456',
   /// ];
-  ///
-  /// or
-  ///
-  /// profile.requestData.cookies = ['sessionId=abc123,csrftoken=def456']
   /// ```
-  set cookiesList(List<String>? value) {
-    if (value == null) {
-      _data.remove('cookies');
-    }
+  set cookies(List<String> value) {
     _data['cookies'] = [...value];
     _updated();
   }
@@ -136,6 +130,7 @@ final class HttpProfileRequestData {
   /// The error associated with a failed request.
   ///
   /// Should this be here? It doesn't just seem asssociated with the request.
+  /// The error associated with a failed request.
   set error(String value) {
     _data['error'] = value;
     _updated();
@@ -184,8 +179,8 @@ final class HttpProfileRequestData {
   }
 
   const HttpProfileRequestData._(
-    Map<String, dynamic> this._data,
-    void Function() this._updated,
+    this._data,
+    this._updated,
   );
 }
 
@@ -197,7 +192,7 @@ final class HttpProfileResponseData {
 
   /// Records a redirect that the connection went through.
   void addRedirect(HttpProfileRedirectData redirect) {
-    _data['redirects'].add(redirect._toJson());
+    (_data['redirects'] as List<Map<String, dynamic>>).add(redirect._toJson());
     _updated();
   }
 
@@ -230,7 +225,8 @@ final class HttpProfileResponseData {
     for (final v in value.values) {
       if (!(v is String || v is int)) {
         throw ArgumentError(
-            "The values in connectionInfo must be of type String or int.");
+          'The values in connectionInfo must be of type String or int.',
+        );
       }
     }
     _data['connectionInfo'] = {...value};
@@ -255,8 +251,9 @@ final class HttpProfileResponseData {
   set reasonPhrase(String? value) {
     if (value == null) {
       _data.remove('reasonPhrase');
+    } else {
+      _data['reasonPhrase'] = value;
     }
-    _data['reasonPhrase'] = value;
     _updated();
   }
 
@@ -308,8 +305,8 @@ final class HttpProfileResponseData {
   }
 
   HttpProfileResponseData._(
-    Map<String, dynamic> this._data,
-    void Function() this._updated,
+    this._data,
+    this._updated,
   ) {
     _data['redirects'] = <Map<String, dynamic>>[];
   }
@@ -332,11 +329,21 @@ final class HttpClientRequestProfile {
   /// Usage example:
   ///
   /// ```dart
-  /// profile.addEvent(HttpProfileRequestEvent(DateTime.now(), "Connection Established");
-  /// profile.addEvent(HttpProfileRequestEvent(DateTime.now(), "Remote Disconnected");
+  /// profile.addEvent(
+  ///   HttpProfileRequestEvent(
+  ///     timestamp: DateTime.now(),
+  ///     name: "Connection Established",
+  ///   ),
+  /// );
+  /// profile.addEvent(
+  ///   HttpProfileRequestEvent(
+  ///     timestamp: DateTime.now(),
+  ///     name: "Remote Disconnected",
+  ///   ),
+  /// );
   /// ```
   void addEvent(HttpProfileRequestEvent event) {
-    _data['events'].add(event._toJson());
+    (_data['events'] as List<Map<String, dynamic>>).add(event._toJson());
     _updated();
   }
 
@@ -376,7 +383,8 @@ final class HttpClientRequestProfile {
     return _responseBody.sink;
   }
 
-  void _updated() => _data['_lastUpdateTime'] = Timeline.now;
+  void _updated() =>
+      _data['_lastUpdateTime'] = DateTime.now().microsecondsSinceEpoch;
 
   HttpClientRequestProfile._({
     required DateTime requestStartTimestamp,
@@ -428,6 +436,7 @@ final class HttpClientRequestProfile {
     // ext.dart.io.getHttpProfileRequest.
     requestProfile._data['id'] =
         addHttpClientProfilingData(requestProfile._data);
+    addHttpClientProfilingData(requestProfile._data);
     return requestProfile;
   }
 }

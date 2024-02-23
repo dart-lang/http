@@ -8,7 +8,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'multiple_clients_server_vm.dart'
-    if (dart.library.html) 'multiple_clients_server_web.dart';
+    if (dart.library.js_interop) 'multiple_clients_server_web.dart';
 
 /// Tests that the [Client] works correctly if there are many used
 /// simultaneously.
@@ -21,7 +21,7 @@ void testMultipleClients(Client Function() clientFactory) async {
     setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 

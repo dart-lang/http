@@ -11,9 +11,12 @@ import 'src/multiple_clients_tests.dart';
 import 'src/redirect_tests.dart';
 import 'src/request_body_streamed_tests.dart';
 import 'src/request_body_tests.dart';
+import 'src/request_cookies_test.dart';
 import 'src/request_headers_tests.dart';
+import 'src/request_methods_tests.dart';
 import 'src/response_body_streamed_test.dart';
 import 'src/response_body_tests.dart';
+import 'src/response_cookies_test.dart';
 import 'src/response_headers_tests.dart';
 import 'src/response_status_line_tests.dart';
 import 'src/server_errors_test.dart';
@@ -26,9 +29,12 @@ export 'src/multiple_clients_tests.dart' show testMultipleClients;
 export 'src/redirect_tests.dart' show testRedirect;
 export 'src/request_body_streamed_tests.dart' show testRequestBodyStreamed;
 export 'src/request_body_tests.dart' show testRequestBody;
+export 'src/request_cookies_test.dart' show testRequestCookies;
 export 'src/request_headers_tests.dart' show testRequestHeaders;
+export 'src/request_methods_tests.dart' show testRequestMethods;
 export 'src/response_body_streamed_test.dart' show testResponseBodyStreamed;
 export 'src/response_body_tests.dart' show testResponseBody;
+export 'src/response_cookies_test.dart' show testResponseCookies;
 export 'src/response_headers_tests.dart' show testResponseHeaders;
 export 'src/response_status_line_tests.dart' show testResponseStatusLine;
 export 'src/server_errors_test.dart' show testServerErrors;
@@ -49,14 +55,28 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [canWorkInIsolates] is `false` then tests that require that the [Client]
 /// work in Isolates other than the main isolate will be skipped.
 ///
+/// If [preservesMethodCase] is `false` then tests that assume that the
+/// [Client] preserves custom request method casing will be skipped.
+///
+/// If [canSendCookieHeaders] is `false` then tests that require that "cookie"
+/// headers be sent by the client will not be run.
+///
+/// If [canReceiveSetCookieHeaders] is `false` then tests that require that
+/// "set-cookie" headers be received by the client will not be run.
+///
 /// The tests are run against a series of HTTP servers that are started by the
 /// tests. If the tests are run in the browser, then the test servers are
 /// started in another process. Otherwise, the test servers are run in-process.
-void testAll(Client Function() clientFactory,
-    {bool canStreamRequestBody = true,
-    bool canStreamResponseBody = true,
-    bool redirectAlwaysAllowed = false,
-    bool canWorkInIsolates = true}) {
+void testAll(
+  Client Function() clientFactory, {
+  bool canStreamRequestBody = true,
+  bool canStreamResponseBody = true,
+  bool redirectAlwaysAllowed = false,
+  bool canWorkInIsolates = true,
+  bool preservesMethodCase = false,
+  bool canSendCookieHeaders = false,
+  bool canReceiveSetCookieHeaders = false,
+}) {
   testRequestBody(clientFactory());
   testRequestBodyStreamed(clientFactory(),
       canStreamRequestBody: canStreamRequestBody);
@@ -65,6 +85,7 @@ void testAll(Client Function() clientFactory,
   testResponseBodyStreamed(clientFactory(),
       canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(clientFactory());
+  testRequestMethods(clientFactory(), preservesMethodCase: preservesMethodCase);
   testResponseHeaders(clientFactory());
   testResponseStatusLine(clientFactory());
   testRedirect(clientFactory(), redirectAlwaysAllowed: redirectAlwaysAllowed);
@@ -73,4 +94,8 @@ void testAll(Client Function() clientFactory,
   testMultipleClients(clientFactory);
   testClose(clientFactory);
   testIsolate(clientFactory, canWorkInIsolates: canWorkInIsolates);
+  testRequestCookies(clientFactory(),
+      canSendCookieHeaders: canSendCookieHeaders);
+  testResponseCookies(clientFactory(),
+      canReceiveSetCookieHeaders: canReceiveSetCookieHeaders);
 }

@@ -8,7 +8,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'response_status_line_server_vm.dart'
-    if (dart.library.html) 'response_status_line_server_web.dart';
+    if (dart.library.js_interop) 'response_status_line_server_web.dart';
 
 /// Tests that the [Client] correctly processes the response status line (e.g.
 /// 'HTTP/1.1 200 OK\r\n').
@@ -23,7 +23,7 @@ void testResponseStatusLine(Client client) async {
     setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
 
     test('complete', () async {

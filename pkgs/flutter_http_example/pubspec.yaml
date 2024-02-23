@@ -1,27 +1,26 @@
 name: flutter_http_example
+version: 1.0.0
 description: Demonstrates how to use package:http in a Flutter app.
 
 publish_to: 'none'
-
-version: 1.0.0
 
 environment:
   sdk: ^3.0.0
   flutter: '>=3.10.0'
 
 dependencies:
-  cached_network_image: ^3.2.3
-  cronet_http: ^0.4.1
-  cupertino_http: ^1.1.0
+  cronet_http: ^1.0.0
+  cupertino_http: ^1.2.0
   cupertino_icons: ^1.0.2
   fetch_client: ^1.0.2
   flutter:
     sdk: flutter
-  http: ^0.13.5
+  http: ^1.0.0
+  http_image_provider: ^0.0.2
   provider: ^6.0.5
 
 dev_dependencies:
-  dart_flutter_team_lints: ^1.0.0
+  dart_flutter_team_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   integration_test:

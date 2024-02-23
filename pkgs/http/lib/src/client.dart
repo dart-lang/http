@@ -12,7 +12,7 @@ import '../http.dart' as http;
 import 'base_client.dart';
 import 'base_request.dart';
 import 'client_stub.dart'
-    if (dart.library.html) 'browser_client.dart'
+    if (dart.library.js_interop) 'browser_client.dart'
     if (dart.library.io) 'io_client.dart';
 import 'exception.dart';
 import 'response.dart';
@@ -37,7 +37,8 @@ abstract interface class Client {
   /// Creates a new platform appropriate client.
   ///
   /// Creates an `IOClient` if `dart:io` is available and a `BrowserClient` if
-  /// `dart:html` is available, otherwise it will throw an unsupported error.
+  /// `dart:js_interop` is available, otherwise it will throw an unsupported
+  /// error.
   factory Client() => zoneClient ?? createClient();
 
   /// Sends an HTTP HEAD request with the given headers to the given URL.

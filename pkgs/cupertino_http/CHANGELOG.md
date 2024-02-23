@@ -1,3 +1,15 @@
+## 1.3.1-wip
+
+## 1.3.0
+
+* Use `package:http_image_provider` in the example application.
+* Support `BaseResponseWithUrl`.
+
+## 1.2.0
+
+* Add support for setting additional http headers in
+  `URLSessionConfiguration`.
+
 ## 1.1.0
 
 * Add websocket support to `cupertino_api`.

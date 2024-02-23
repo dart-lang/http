@@ -28,8 +28,8 @@ jobs:
       run:
         working-directory: pkgs/cupertino_http
     steps:
-      - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: 'stable'
       - id: install
@@ -57,17 +57,17 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.10.0", "any"]
+        flutter-version: ["3.16.0", "any"]
     runs-on: macos-latest
     defaults:
       run:
         working-directory: pkgs/cupertino_http/example
     steps:
-      - uses: actions/checkout@v4
-      - uses: futureware-tech/simulator-action@v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: futureware-tech/simulator-action@bfa03d93ec9de6dacb0c5553bbf8da8afc6c2ee9
         with:
           model: 'iPhone 8'
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           flutter-version: ${{ matrix.flutter-version }}
           channel: 'stable'

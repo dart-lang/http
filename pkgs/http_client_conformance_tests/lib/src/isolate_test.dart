@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:isolate' if (dart.library.html) 'dummy_isolate.dart';
+import 'dart:isolate' if (dart.library.js_interop) 'dummy_isolate.dart';
 
 import 'package:async/async.dart';
 import 'package:http/http.dart';
@@ -10,7 +10,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'request_body_server_vm.dart'
-    if (dart.library.html) 'request_body_server_web.dart';
+    if (dart.library.js_interop) 'request_body_server_web.dart';
 
 Future<void> _testPost(Client Function() clientFactory, String host) async {
   await Isolate.run(
@@ -31,7 +31,7 @@ void testIsolate(Client Function() clientFactory,
     setUpAll(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
     tearDownAll(() => httpServerChannel.sink.add(null));
 

@@ -5,7 +5,7 @@
 class Book {
   String title;
   String description;
-  String imageUrl;
+  Uri imageUrl;
 
   Book(this.title, this.description, this.imageUrl);
 
@@ -21,7 +21,7 @@ class Book {
                 'description': final String description,
                 'imageLinks': {'smallThumbnail': final String thumbnail}
               }) {
-            books.add(Book(title, description, thumbnail));
+            books.add(Book(title, description, Uri.parse(thumbnail)));
           }
         }
       }

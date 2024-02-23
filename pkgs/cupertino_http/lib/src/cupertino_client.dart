@@ -18,12 +18,28 @@ import 'cupertino_api.dart';
 
 final _digitRegex = RegExp(r'^\d+$');
 
+/// This class can be removed when `package:http` v2 is released.
+class _StreamedResponseWithUrl extends StreamedResponse
+    implements BaseResponseWithUrl {
+  @override
+  final Uri url;
+
+  _StreamedResponseWithUrl(super.stream, super.statusCode,
+      {required this.url,
+      super.contentLength,
+      super.request,
+      super.headers,
+      super.isRedirect,
+      super.reasonPhrase});
+}
+
 class _TaskTracker {
   final responseCompleter = Completer<URLResponse>();
   final BaseRequest request;
   final responseController = StreamController<Uint8List>();
   final HttpClientRequestProfile? profile;
   int numRedirects = 0;
+  Uri? lastUrl; // The last URL redirected to.
 
   _TaskTracker(this.request, this.profile);
 
@@ -188,6 +204,7 @@ class CupertinoClient extends BaseClient {
           statusCode: response.statusCode,
           method: request.httpMethod,
           location: request.url!.toString()));
+      taskTracker.lastUrl = request.url;
       return request;
     }
     return null;
@@ -344,9 +361,10 @@ class CupertinoClient extends BaseClient {
       ..startTime = DateTime.now()
       ..statusCode = response.statusCode;
 
-    return StreamedResponse(
+    return _StreamedResponseWithUrl(
       taskTracker.responseController.stream,
       response.statusCode,
+      url: taskTracker.lastUrl ?? request.url,
       contentLength: response.expectedContentLength == -1
           ? null
           : response.expectedContentLength,

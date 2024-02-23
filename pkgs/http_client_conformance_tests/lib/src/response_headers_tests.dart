@@ -8,7 +8,7 @@ import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'response_headers_server_vm.dart'
-    if (dart.library.html) 'response_headers_server_web.dart';
+    if (dart.library.js_interop) 'response_headers_server_web.dart';
 
 /// Tests that the [Client] correctly processes response headers.
 void testResponseHeaders(Client client) async {
@@ -20,7 +20,7 @@ void testResponseHeaders(Client client) async {
     setUp(() async {
       httpServerChannel = await startServer();
       httpServerQueue = StreamQueue(httpServerChannel.stream);
-      host = 'localhost:${await httpServerQueue.next}';
+      host = 'localhost:${await httpServerQueue.nextAsInt}';
     });
 
     test('single header', () async {

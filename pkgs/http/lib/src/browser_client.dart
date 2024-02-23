@@ -3,8 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:html';
-import 'dart:typed_data';
+import 'dart:js_interop';
+
+import 'package:web/web.dart';
 
 import 'base_client.dart';
 import 'base_request.dart';
@@ -25,8 +26,8 @@ BaseClient createClient() {
   return BrowserClient();
 }
 
-/// A `dart:html`-based HTTP client that runs in the browser and is backed by
-/// XMLHttpRequests.
+/// A `package:web`-based HTTP client that runs in the browser and is backed by
+/// [XMLHttpRequest].
 ///
 /// This client inherits some of the limitations of XMLHttpRequest. It ignores
 /// the [BaseRequest.contentLength], [BaseRequest.persistentConnection],
@@ -37,7 +38,7 @@ class BrowserClient extends BaseClient {
   /// The currently active XHRs.
   ///
   /// These are aborted if the client is closed.
-  final _xhrs = <HttpRequest>{};
+  final _xhrs = <XMLHttpRequest>{};
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
@@ -55,30 +56,36 @@ class BrowserClient extends BaseClient {
           'HTTP request failed. Client is already closed.', request.url);
     }
     var bytes = await request.finalize().toBytes();
-    var xhr = HttpRequest();
+    var xhr = XMLHttpRequest();
     _xhrs.add(xhr);
     xhr
-      ..open(request.method, '${request.url}', async: true)
+      ..open(request.method, '${request.url}', true)
       ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
-    request.headers.forEach(xhr.setRequestHeader);
+    for (var header in request.headers.entries) {
+      xhr.setRequestHeader(header.key, header.value);
+    }
 
     var completer = Completer<StreamedResponse>();
 
     unawaited(xhr.onLoad.first.then((_) {
-      if (xhr.responseHeaders['content-length'] case final contentLengthHeader?
-          when !_digitRegex.hasMatch(contentLengthHeader)) {
+      if (xhr.responseHeaders['content-length'] case final contentLengthHeader
+          when contentLengthHeader != null &&
+              !_digitRegex.hasMatch(contentLengthHeader)) {
         completer.completeError(ClientException(
           'Invalid content-length header [$contentLengthHeader].',
           request.url,
         ));
         return;
       }
-      var body = (xhr.response as ByteBuffer).asUint8List();
-      completer.complete(StreamedResponse(
-          ByteStream.fromBytes(body), xhr.status!,
+      var body = (xhr.response as JSArrayBuffer).toDart.asUint8List();
+      var responseUrl = xhr.responseURL;
+      var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : request.url;
+      completer.complete(StreamedResponseV2(
+          ByteStream.fromBytes(body), xhr.status,
           contentLength: body.length,
           request: request,
+          url: url,
           headers: xhr.responseHeaders,
           reasonPhrase: xhr.statusText));
     }));
@@ -91,7 +98,7 @@ class BrowserClient extends BaseClient {
           StackTrace.current);
     }));
 
-    xhr.send(bytes);
+    xhr.send(bytes.toJS);
 
     try {
       return await completer.future;
@@ -110,5 +117,32 @@ class BrowserClient extends BaseClient {
       xhr.abort();
     }
     _xhrs.clear();
+  }
+}
+
+extension on XMLHttpRequest {
+  Map<String, String> get responseHeaders {
+    // from Closure's goog.net.Xhrio.getResponseHeaders.
+    var headers = <String, String>{};
+    var headersString = getAllResponseHeaders();
+    var headersList = headersString.split('\r\n');
+    for (var header in headersList) {
+      if (header.isEmpty) {
+        continue;
+      }
+
+      var splitIdx = header.indexOf(': ');
+      if (splitIdx == -1) {
+        continue;
+      }
+      var key = header.substring(0, splitIdx).toLowerCase();
+      var value = header.substring(splitIdx + 2);
+      if (headers.containsKey(key)) {
+        headers[key] = '${headers[key]}, $value';
+      } else {
+        headers[key] = value;
+      }
+    }
+    return headers;
   }
 }

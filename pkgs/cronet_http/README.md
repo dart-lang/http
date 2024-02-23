@@ -1,31 +1,62 @@
+[![pub package](https://img.shields.io/pub/v/cronet_http.svg)](https://pub.dev/packages/cronet_http)
+[![package publisher](https://img.shields.io/pub/publisher/cronet_http.svg)](https://pub.dev/packages/cronet_http/publisher)
+
 An Android Flutter plugin that provides access to the
-[Cronet](https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/package-summary)
+[Cronet][]
 HTTP client.
 
 Cronet is available as part of
-[Google Play Services](https://developers.google.com/android/guides/overview). 
+[Google Play Services][]. 
 
-This package depends on
-[Google Play Services](https://developers.google.com/android/guides/overview)
-for its Cronet implementation.
+This package depends on [Google Play Services][] for its [Cronet][]
+implementation.
 [`package:cronet_http_embedded`](https://pub.dev/packages/cronet_http_embedded)
-is functionally identical to this package but embeds Cronet directly instead
-of relying on
-[Google Play Services](https://developers.google.com/android/guides/overview).
+is functionally identical to this package but embeds [Cronet][] directly
+instead of relying on [Google Play Services][].
 
-## Status: Experimental
+## Motivation
 
-**NOTE**: This package is currently experimental and published under the
-[labs.dart.dev](https://dart.dev/dart-team-packages) pub publisher in order to
-solicit feedback. 
+Using [Cronet][], rather than the socket-based [dart:io HttpClient][]
+implemententation, has several advantages:
 
-For packages in the labs.dart.dev publisher we generally plan to either graduate
-the package into a supported publisher (dart.dev, tools.dart.dev) after a period
-of feedback and iteration, or discontinue the package. These packages have a
-much higher expected rate of API and breaking changes.
+1. It automatically supports Android platform features such as HTTP proxies.
+2. It supports configurable caching.
+3. It supports more HTTP features such as HTTP/3.
 
-Your feedback is valuable and will help us evolve this package. 
-For general feedback and suggestions please comment in the
-[feedback issue](https://github.com/dart-lang/http/issues/764).
-For bugs, please file an issue in the 
-[bug tracker](https://github.com/dart-lang/http/issues).
+## Using
+
+The easiest way to use this library is via the the high-level interface
+defined by [package:http Client][].
+
+This approach allows the same HTTP code to be used on all platforms, while
+still allowing platform-specific setup.
+
+```dart
+import 'package:cronet_http/cronet_http.dart';
+import 'package:http/http.dart';
+import 'package:http/io_client.dart';
+
+void main() async {
+  final Client httpClient;
+  if (Platform.isAndroid) {
+    final engine = CronetEngine.build(
+        cacheMode: CacheMode.memory,
+        cacheMaxSize: 2 * 1024 * 1024,
+        userAgent: 'Book Agent');
+    httpClient = CronetClient.fromCronetEngine(engine, isOwned: true);
+  } else {
+    httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
+  }
+
+  final response = await client.get(Uri.https(
+      'www.googleapis.com',
+      '/books/v1/volumes',
+      {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
+  httpClient.close();
+}
+```
+
+[Cronet]: https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/package-summary
+[dart:io HttpClient]: https://api.dart.dev/stable/dart-io/HttpClient-class.html
+[Google Play Services]: https://developers.google.com/android/guides/overview
+[package:http Client]: https://pub.dev/documentation/http/latest/http/Client-class.html

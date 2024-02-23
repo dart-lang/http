@@ -5,19 +5,30 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:http/io_client.dart';
+import 'package:http_image_provider/http_image_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'book.dart';
 
 void main() {
-  var clientFactory = Client.new; // The default Client.
+  final Client httpClient;
   if (Platform.isIOS || Platform.isMacOS) {
-    clientFactory = CupertinoClient.defaultSessionConfiguration.call;
+    final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+      ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
+      ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
+    httpClient = CupertinoClient.fromSessionConfiguration(config);
+  } else {
+    httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
-  runWithClient(() => runApp(const BookSearchApp()), clientFactory);
+
+  runApp(Provider<Client>(
+      create: (_) => httpClient,
+      child: const BookSearchApp(),
+      dispose: (_, client) => client.close()));
 }
 
 class BookSearchApp extends StatelessWidget {
@@ -42,20 +53,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Book>? _books;
   String? _lastQuery;
+  late Client _client;
 
   @override
   void initState() {
     super.initState();
+    _client = context.read<Client>();
   }
 
   // Get the list of books matching `query`.
   // The `get` call will automatically use the `client` configurated in `main`.
   Future<List<Book>> _findMatchingBooks(String query) async {
-    final response = await get(
+    final response = await _client.get(
       Uri.https(
         'www.googleapis.com',
         '/books/v1/volumes',
-        {'q': query, 'maxResults': '40', 'printType': 'books'},
+        {'q': query, 'maxResults': '20', 'printType': 'books'},
       ),
     );
 
@@ -127,11 +140,10 @@ class _BookListState extends State<BookList> {
         itemBuilder: (context, index) => Card(
           key: ValueKey(widget.books[index].title),
           child: ListTile(
-            leading: CachedNetworkImage(
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
-                imageUrl:
-                    widget.books[index].imageUrl.replaceFirst('http', 'https')),
+            leading: Image(
+                image: HttpImage(
+                    widget.books[index].imageUrl.replace(scheme: 'https'),
+                    client: context.read<Client>())),
             title: Text(widget.books[index].title),
             subtitle: Text(widget.books[index].description),
           ),
