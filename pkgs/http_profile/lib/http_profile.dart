@@ -114,16 +114,12 @@ final class HttpProfileRequestData {
   ///   'csrftoken=def456',
   /// ];
   /// ```
-  set cookies(List<String> value) {
-    _data['cookies'] = [...value];
-    _updated();
-  }
-
-  set cookies(String value) {
+  set cookies(List<String>? value) {
     if (value == null) {
       _data.remove('cookies');
+    } else {
+      _data['cookies'] = [...value];
     }
-    _data['cookies'] = ",".split(RegExp(r'\s*,\s*'))
     _updated();
   }
 
@@ -143,21 +139,26 @@ final class HttpProfileRequestData {
   }
 
   set headersValueList(Map<String, List<String>>? value) {
+    _updated();
     if (value == null) {
       _data.remove('headers');
+      return;
     }
     _data['headers'] = {...value};
-    _updated();
   }
 
   /// XXX should this include cookies or not? It's not obvious why we seperate
   /// cookies from other headers.
   set headers(Map<String, String>? value) {
+    _updated();
     if (value == null) {
       _data.remove('headers');
+      return;
     }
-    _data['headers'] = {for (var entry in value.entries) entry.key : entry.value.split(RegExp(r'\s*,\s*'))};
-    _updated();
+    _data['headers'] = {
+      for (var entry in value.entries)
+        entry.key: entry.value.split(RegExp(r'\s*,\s*'))
+    };
   }
 
   /// The maximum number of redirects allowed during the request.
@@ -218,7 +219,7 @@ final class HttpProfileResponseData {
   /// It can contain any arbitrary data as long as the values are of type
   /// [String] or [int]. For example:
   /// { 'localPort': 1285, 'remotePort': 443, 'connectionPoolId': '21x23' }
-  /// 
+  ///
   /// XXX what is the difference between the connection info in the request
   /// and the response? Don't they use the same connection?
   set connectionInfo(Map<String, dynamic /*String|int*/ > value) {
@@ -233,9 +234,27 @@ final class HttpProfileResponseData {
     _updated();
   }
 
-  set headers(Map<String, List<String>> value) {
-    _data['headers'] = {...value};
+  set headersValueList(Map<String, List<String>>? value) {
     _updated();
+    if (value == null) {
+      _data.remove('headers');
+      return;
+    }
+    _data['headers'] = {...value};
+  }
+
+  /// XXX should this include cookies or not? It's not obvious why we seperate
+  /// cookies from other headers.
+  set headers(Map<String, String>? value) {
+    _updated();
+    if (value == null) {
+      _data.remove('headers');
+      return;
+    }
+    _data['headers'] = {
+      for (var entry in value.entries)
+        entry.key: entry.value.split(RegExp(r'\s*,\s*'))
+    };
   }
 
   // The compression state of the response.
@@ -407,7 +426,7 @@ final class HttpClientRequestProfile {
     _data['_responseBodyStream'] = _responseBody.stream;
     // This entry is needed to support the updatedSince parameter of
     // ext.dart.io.getHttpProfile.
-    _data['_lastUpdateTime'] = Timeline.now;
+    _updated();
   }
 
   /// If HTTP profiling is enabled, returns an [HttpClientRequestProfile],
@@ -432,10 +451,6 @@ final class HttpClientRequestProfile {
       requestMethod: requestMethod,
       requestUri: requestUri,
     );
-    // This entry is needed to support the id parameter of
-    // ext.dart.io.getHttpProfileRequest.
-    requestProfile._data['id'] =
-        addHttpClientProfilingData(requestProfile._data);
     addHttpClientProfilingData(requestProfile._data);
     return requestProfile;
   }

@@ -45,6 +45,8 @@ class _TaskTracker {
 
   void close() {
     responseController.close();
+    profile?.responseBodySink.close();
+    profile?.responseData.endTime = DateTime.now();
   }
 }
 
@@ -288,7 +290,7 @@ class CupertinoClient extends BaseClient {
         'configuration': _urlSession!.configuration.toString(),
       }
       ..contentLength = request.contentLength
-      ..cookies = request.headers['cookie']
+/*      ..cookies = request.headers['cookie'] */
       ..followRedirects = request.followRedirects
       ..headers = request.headers
       ..maxRedirects = request.maxRedirects;
@@ -303,6 +305,8 @@ class CupertinoClient extends BaseClient {
       // `httpBodyStream` requires a lot of expensive setup and data passing.
       urlRequest.httpBody = Data.fromList(request.bodyBytes);
       profile?.requestBodySink.add(request.bodyBytes);
+      profile?.requestBodySink.close();
+      profile?.requestEndTimestamp = DateTime.now();
     } else if (await _hasData(stream) case (true, final s)) {
       // If the request is supposed to be bodyless (e.g. GET requests)
       // then setting `httpBodyStream` will cause the request to fail -
@@ -312,13 +316,15 @@ class CupertinoClient extends BaseClient {
       } else {
         final splitter = StreamSplitter(s);
         urlRequest.httpBodyStream = splitter.split();
-        unawaited(profile.requestBodySink.addStream(splitter.split()));
+        unawaited(profile.requestBodySink.addStream(splitter.split()).then((e) {
+          profile.requestBodySink.close();
+          profile?.requestEndTimestamp = DateTime.now();
+        }));
       }
     }
 
     // This will preserve Apple default headers - is that what we want?
     request.headers.forEach(urlRequest.setValueForHttpHeaderField);
-
     final task = urlSession.dataTaskWithRequest(urlRequest);
     final taskTracker = _TaskTracker(request, profile);
     _tasks[task] = taskTracker;
@@ -354,12 +360,12 @@ class CupertinoClient extends BaseClient {
 
     final isRedirect = !request.followRedirects && taskTracker.numRedirects > 0;
     profile?.responseData // Good name?
-      ?..cookies = responseHeaders['cookies']
-      ..headers = responseHeaders
+      ?..headers = responseHeaders
       ..isRedirect = isRedirect
       ..reasonPhrase = _findReasonPhrase(response.statusCode)
       ..startTime = DateTime.now()
       ..statusCode = response.statusCode;
+/*..cookies = responseHeaders['cookies']*/
 
     return _StreamedResponseWithUrl(
       taskTracker.responseController.stream,
