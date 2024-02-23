@@ -47,13 +47,13 @@ jobs:
         working-directory: 'pkgs/${{ matrix.package }}'
         run: flutter pub get
       - name: Check formatting
+        if: always() && steps.install.outcome == 'success'
         working-directory: 'pkgs/${{ matrix.package }}'
         run: dart format --output=none --set-exit-if-changed .
-        if: always() && steps.install.outcome == 'success'
       - name: Analyze code
+        if: always() && steps.install.outcome == 'success'
         working-directory: 'pkgs/${{ matrix.package }}'
         run: flutter analyze --fatal-infos
-        if: always() && steps.install.outcome == 'success'
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@6b0df4b0efb23bb0ec63d881db79aefbc976e4b2
         if: always() && steps.install.outcome == 'success'
@@ -66,4 +66,4 @@ jobs:
           arch: x86_64
           target: ${{ matrix.package == 'cronet_http_embedded' && 'default' || 'google_apis' }}
           profile: pixel
-          script: cd 'pkgs/${{ matrix.package }}/example' && flutter test --timeout=1200s integration_test/
+          script: cd pkgs/${{ matrix.package }}/example && flutter test --timeout=1200s integration_test/
