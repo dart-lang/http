@@ -18,7 +18,7 @@ void main() {
     HttpClientRequestProfile.profilingEnabled = true;
 
     profile = HttpClientRequestProfile.profile(
-      requestStartTimestamp: DateTime.parse('2024-03-21'),
+      requestStartTime: DateTime.parse('2024-03-21'),
       requestMethod: 'GET',
       requestUri: 'https://www.example.com',
     )!;
@@ -136,7 +136,7 @@ void main() {
     final requestData = backingMap['requestData'] as Map<String, dynamic>;
     expect(requestData['headers'], isNull);
 
-    profile.requestData.headers = {
+    profile.requestData.headersCommaValues = {
       'content-length': ['0'],
     };
 
@@ -242,7 +242,7 @@ void main() {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     expect(responseData['headers'], isNull);
 
-    profile.responseData.headers = {
+    profile.responseData.headersCommaValues = {
       'connection': ['keep-alive'],
       'cache-control': ['max-age=43200'],
       'content-type': ['application/json', 'charset=utf-8'],

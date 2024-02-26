@@ -45,8 +45,7 @@ class _TaskTracker {
 
   void close() {
     responseController.close();
-    profile?.responseBodySink.close();
-    profile?.responseData.endTime = DateTime.now();
+    profile?.responseData.close();
   }
 }
 
@@ -172,13 +171,11 @@ class CupertinoClient extends BaseClient {
   static void _onComplete(
       URLSession session, URLSessionTask task, Error? error) {
     final taskTracker = _tracker(task);
-    taskTracker.profile?.responseData.endTime = DateTime.now();
     if (error != null) {
       final exception = ClientException(
           error.localizedDescription ?? 'Unknown', taskTracker.request.url);
       if (taskTracker.responseCompleter.isCompleted) {
         taskTracker.responseController.addError(exception);
-        taskTracker.profile?.responseData.error = exception.toString();
       } else {
         taskTracker.responseCompleter.completeError(exception);
       }
@@ -193,7 +190,7 @@ class CupertinoClient extends BaseClient {
   static void _onData(URLSession session, URLSessionTask task, Data data) {
     final taskTracker = _tracker(task);
     taskTracker.responseController.add(data.bytes);
-    taskTracker.profile?.responseBodySink.add(data.bytes);
+    taskTracker.profile?.responseData.bodySink.add(data.bytes);
   }
 
   static URLRequest? _onRedirect(URLSession session, URLSessionTask task,
@@ -278,21 +275,18 @@ class CupertinoClient extends BaseClient {
     final stream = request.finalize();
 
     final profile = HttpClientRequestProfile.profile(
-        requestStartTimestamp: DateTime.now(),
+        requestStartTime: DateTime.now(),
         requestMethod: request.method,
         requestUri: request.url.toString());
     profile?.requestData
       ?..connectionInfo = {
         'package': 'package:cupertino_http', // XXX Set for http_impl.dart
         'client': 'CupertinoClient',
-        // XXX this is a long string, maybe better to break it out like:
-        // "config.allowsCellularAccess": "true"
         'configuration': _urlSession!.configuration.toString(),
       }
       ..contentLength = request.contentLength
-/*      ..cookies = request.headers['cookie'] */
       ..followRedirects = request.followRedirects
-      ..headers = request.headers
+      ..headersCommaValues = request.headers
       ..maxRedirects = request.maxRedirects;
 
     // XXX It would be cool to have a "other stuff field" to stick in task
@@ -304,9 +298,8 @@ class CupertinoClient extends BaseClient {
       // Optimize the (typical) `Request` case since assigning to
       // `httpBodyStream` requires a lot of expensive setup and data passing.
       urlRequest.httpBody = Data.fromList(request.bodyBytes);
-      profile?.requestBodySink.add(request.bodyBytes);
-      profile?.requestBodySink.close();
-      profile?.requestEndTimestamp = DateTime.now();
+      profile?.requestData.bodySink.add(request.bodyBytes);
+      profile?.requestData.close();
     } else if (await _hasData(stream) case (true, final s)) {
       // If the request is supposed to be bodyless (e.g. GET requests)
       // then setting `httpBodyStream` will cause the request to fail -
@@ -316,9 +309,9 @@ class CupertinoClient extends BaseClient {
       } else {
         final splitter = StreamSplitter(s);
         urlRequest.httpBodyStream = splitter.split();
-        unawaited(profile.requestBodySink.addStream(splitter.split()).then((e) {
-          profile.requestBodySink.close();
-          profile?.requestEndTimestamp = DateTime.now();
+        unawaited(
+            profile.requestData.bodySink.addStream(splitter.split()).then((e) {
+          profile?.requestData.close();
         }));
       }
     }
@@ -336,11 +329,10 @@ class CupertinoClient extends BaseClient {
     try {
       result = await taskTracker.responseCompleter.future;
     } catch (e) {
-      profile?.requestData.error = e.toString();
+      profile?.responseData.closeWithError(e.toString());
       rethrow;
     }
 
-    profile?.requestEndTimestamp = DateTime.now(); // Not a timestamp!
     final response = result as HTTPURLResponse;
 
     if (request.followRedirects && taskTracker.numRedirects > maxRedirects) {
@@ -359,13 +351,12 @@ class CupertinoClient extends BaseClient {
     }
 
     final isRedirect = !request.followRedirects && taskTracker.numRedirects > 0;
-    profile?.responseData // Good name?
-      ?..headers = responseHeaders
+    profile?.responseData
+      ?..headersCommaValues = responseHeaders
       ..isRedirect = isRedirect
       ..reasonPhrase = _findReasonPhrase(response.statusCode)
       ..startTime = DateTime.now()
       ..statusCode = response.statusCode;
-/*..cookies = responseHeaders['cookies']*/
 
     return _StreamedResponseWithUrl(
       taskTracker.responseController.stream,

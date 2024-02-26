@@ -13,7 +13,7 @@ void main() {
     expect(HttpClient.enableTimelineLogging, true);
     expect(
       HttpClientRequestProfile.profile(
-        requestStartTimestamp: DateTime.parse('2024-03-21'),
+        requestStartTime: DateTime.parse('2024-03-21'),
         requestMethod: 'GET',
         requestUri: 'https://www.example.com',
       ),
@@ -26,7 +26,7 @@ void main() {
     expect(HttpClient.enableTimelineLogging, false);
     expect(
       HttpClientRequestProfile.profile(
-        requestStartTimestamp: DateTime.parse('2024-03-21'),
+        requestStartTime: DateTime.parse('2024-03-21'),
         requestMethod: 'GET',
         requestUri: 'https://www.example.com',
       ),
