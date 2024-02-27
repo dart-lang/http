@@ -7,6 +7,54 @@ import 'dart:developer' show Service, addHttpClientProfilingData;
 import 'dart:io' show HttpClient, HttpClientResponseCompressionState;
 import 'dart:isolate' show Isolate;
 
+/// "token" as defined in RFC 2616, 2.2
+/// See https://datatracker.ietf.org/doc/html/rfc2616#section-2.2
+const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
+    'abcdefghijklmnopqrstuvwxyz|~';
+
+/// Splits comma-seperated header values.
+var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
+
+/// Splits comma-seperated "Set-Cookie" header values.
+///
+/// Set-Cookie strings can contain commas. In particular, the following
+/// productions defined in RFC-6265, section 4.1.1:
+/// - <sane-cookie-date> e.g. "Expires=Sun, 06 Nov 1994 08:49:37 GMT"
+/// - <path-value> e.g. "Path=somepath,"
+/// - <extension-av> e.g. "AnyString,Really,"
+///
+/// Some values are ambiguous e.g.
+/// "Set-Cookie: lang=en; Path=/foo/"
+/// "Set-Cookie: SID=x23"
+/// and:
+/// "Set-Cookie: lang=en; Path=/foo/,SID=x23"
+/// would both be result in `response.headers` => "lang=en; Path=/foo/,SID=x23"
+///
+/// The idea behind this regex is that ",<valid token>=" is more likely to
+/// start a new <cookie-pair> then be part of <path-value> or <extension-av>.
+///
+/// See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
+var _setCookieSplitter = RegExp(r'[ \t]*,[ \t]*(?=[' + _tokenChars + r']+=)');
+
+/// Splits comma-seperated header values into a [List].
+///
+/// Copied from `package:http`.
+Map<String, List<String>> _splitHeaderValues(Map<String, String> headers) {
+  var headersWithFieldLists = <String, List<String>>{};
+  headers.forEach((key, value) {
+    if (!value.contains(',')) {
+      headersWithFieldLists[key] = [value];
+    } else {
+      if (key == 'set-cookie') {
+        headersWithFieldLists[key] = value.split(_setCookieSplitter);
+      } else {
+        headersWithFieldLists[key] = value.split(_headerSplitter);
+      }
+    }
+  });
+  return headersWithFieldLists;
+}
+
 /// Describes an event related to an HTTP request.
 final class HttpProfileRequestEvent {
   final int _timestamp;
@@ -71,8 +119,15 @@ class HttpProfileRedirectData {
 /// Describes details about an HTTP request.
 final class HttpProfileRequestData {
   final Map<String, dynamic> _data;
-
+  final StreamController<List<int>> _body = StreamController<List<int>>();
+  bool _isClosed = false;
   final void Function() _updated;
+
+  Map<String, dynamic> get _requestData =>
+      _data['requestData'] as Map<String, dynamic>;
+
+  /// The body of the request.
+  StreamSink<List<int>> get bodySink => _body.sink;
 
   /// Information about the networking connection used in the HTTP request.
   ///
@@ -82,6 +137,7 @@ final class HttpProfileRequestData {
   /// [String] or [int]. For example:
   /// { 'localPort': 1285, 'remotePort': 443, 'connectionPoolId': '21x23' }
   set connectionInfo(Map<String, dynamic /*String|int*/ > value) {
+    _checkAndUpdate();
     for (final v in value.values) {
       if (!(v is String || v is int)) {
         throw ArgumentError(
@@ -89,98 +145,146 @@ final class HttpProfileRequestData {
         );
       }
     }
-    _data['connectionInfo'] = {...value};
-    _updated();
+    _requestData['connectionInfo'] = {...value};
   }
 
   /// The content length of the request, in bytes.
-  set contentLength(int value) {
-    _data['contentLength'] = value;
-    _updated();
-  }
-
-  /// The cookies presented to the server (in the 'cookie' header).
-  ///
-  /// Usage example:
-  ///
-  /// ```dart
-  /// profile.requestData.cookies = [
-  ///   'sessionId=abc123',
-  ///   'csrftoken=def456',
-  /// ];
-  /// ```
-  set cookies(List<String> value) {
-    _data['cookies'] = [...value];
-    _updated();
-  }
-
-  /// The error associated with a failed request.
-  set error(String value) {
-    _data['error'] = value;
-    _updated();
+  set contentLength(int? value) {
+    _checkAndUpdate();
+    if (value == null) {
+      _requestData.remove('contentLength');
+    } else {
+      _requestData['contentLength'] = value;
+    }
   }
 
   /// Whether automatic redirect following was enabled for the request.
   set followRedirects(bool value) {
-    _data['followRedirects'] = value;
-    _updated();
+    _checkAndUpdate();
+    _requestData['followRedirects'] = value;
   }
 
-  set headers(Map<String, List<String>> value) {
-    _data['headers'] = {...value};
-    _updated();
+  /// The request headers where duplicate headers are represented using a list
+  /// of values.
+  ///
+  /// For example:
+  ///
+  /// ```dart
+  /// // Foo: Bar
+  /// // Foo: Baz
+  ///
+  /// profile?.requestData.headersListValues({'Foo', ['Bar', 'Baz']});
+  /// ```
+  set headersListValues(Map<String, List<String>>? value) {
+    _checkAndUpdate();
+    if (value == null) {
+      _requestData.remove('headers');
+      return;
+    }
+    _requestData['headers'] = {...value};
+  }
+
+  /// The request headers where duplicate headers are represented using
+  /// comma-seperated list of values.
+  ///
+  /// For example:
+  ///
+  /// ```dart
+  /// // Foo: Bar
+  /// // Foo: Baz
+  ///
+  /// profile?.requestData.headersCommaValues({'Foo', 'Bar, Baz']});
+  /// ```
+  set headersCommaValues(Map<String, String>? value) {
+    _checkAndUpdate();
+    if (value == null) {
+      _requestData.remove('headers');
+      return;
+    }
+    _requestData['headers'] = _splitHeaderValues(value);
   }
 
   /// The maximum number of redirects allowed during the request.
   set maxRedirects(int value) {
-    _data['maxRedirects'] = value;
-    _updated();
+    _checkAndUpdate();
+    _requestData['maxRedirects'] = value;
   }
 
   /// The requested persistent connection state.
   set persistentConnection(bool value) {
-    _data['persistentConnection'] = value;
-    _updated();
+    _checkAndUpdate();
+    _requestData['persistentConnection'] = value;
   }
 
   /// Proxy authentication details for the request.
   set proxyDetails(HttpProfileProxyData value) {
-    _data['proxyDetails'] = value._toJson();
-    _updated();
+    _checkAndUpdate();
+    _requestData['proxyDetails'] = value._toJson();
   }
 
-  const HttpProfileRequestData._(
+  HttpProfileRequestData._(
     this._data,
     this._updated,
   );
+
+  void _checkAndUpdate() {
+    if (_isClosed) {
+      throw StateError('HttpProfileResponseData has been closed, no further '
+          'updates are allowed');
+    }
+    _updated();
+  }
+
+  /// Signal that the request, including the entire request body, has been
+  /// sent.
+  ///
+  /// [bodySink] will be closed and the fields of [HttpProfileRequestData] will
+  /// no longer be changeable.
+  ///
+  /// [endTime] is the time when the request was fully sent. It defaults to the
+  /// current time.
+  void close([DateTime? endTime]) {
+    _checkAndUpdate();
+    _isClosed = true;
+    bodySink.close();
+    _data['requestEndTimestamp'] =
+        (endTime ?? DateTime.now()).microsecondsSinceEpoch;
+  }
+
+  /// Signal that sending the request has failed with an error.
+  ///
+  /// [bodySink] will be closed and the fields of [HttpProfileRequestData] will
+  /// no longer be changeable.
+  ///
+  /// [value] is a textual description of the error e.g. 'host does not exist'.
+  ///
+  /// [endTime] is the time when the error occurred. It defaults to the current
+  /// time.
+  void closeWithError(String value, [DateTime? endTime]) {
+    _checkAndUpdate();
+    _isClosed = true;
+    bodySink.close();
+    _requestData['error'] = value;
+    _data['requestEndTimestamp'] =
+        (endTime ?? DateTime.now()).microsecondsSinceEpoch;
+  }
 }
 
 /// Describes details about a response to an HTTP request.
 final class HttpProfileResponseData {
+  bool _isClosed = false;
   final Map<String, dynamic> _data;
-
   final void Function() _updated;
+  final StreamController<List<int>> _body = StreamController<List<int>>();
 
   /// Records a redirect that the connection went through.
   void addRedirect(HttpProfileRedirectData redirect) {
+    _checkAndUpdate();
     (_data['redirects'] as List<Map<String, dynamic>>).add(redirect._toJson());
-    _updated();
   }
 
-  /// The cookies set by the server (from the 'set-cookie' header).
-  ///
-  /// Usage example:
-  ///
-  /// ```dart
-  /// profile.responseData.cookies = [
-  ///   'sessionId=abc123',
-  ///   'id=def456; Max-Age=2592000; Domain=example.com',
-  /// ];
-  /// ```
-  set cookies(List<String> value) {
-    _data['cookies'] = [...value];
-    _updated();
-  }
+  /// The body of the request.
+  StreamSink<List<int>> get bodySink => _body.sink;
 
   /// Information about the networking connection used in the HTTP response.
   ///
@@ -190,6 +294,7 @@ final class HttpProfileResponseData {
   /// [String] or [int]. For example:
   /// { 'localPort': 1285, 'remotePort': 443, 'connectionPoolId': '21x23' }
   set connectionInfo(Map<String, dynamic /*String|int*/ > value) {
+    _checkAndUpdate();
     for (final v in value.values) {
       if (!(v is String || v is int)) {
         throw ArgumentError(
@@ -198,12 +303,46 @@ final class HttpProfileResponseData {
       }
     }
     _data['connectionInfo'] = {...value};
-    _updated();
   }
 
-  set headers(Map<String, List<String>> value) {
+  /// The reponse headers where duplicate headers are represented using a list
+  /// of values.
+  ///
+  /// For example:
+  ///
+  /// ```dart
+  /// // Foo: Bar
+  /// // Foo: Baz
+  ///
+  /// profile?.requestData.headersListValues({'Foo', ['Bar', 'Baz']});
+  /// ```
+  set headersListValues(Map<String, List<String>>? value) {
+    _checkAndUpdate();
+    if (value == null) {
+      _data.remove('headers');
+      return;
+    }
     _data['headers'] = {...value};
-    _updated();
+  }
+
+  /// The response headers where duplicate headers are represented using
+  /// comma-seperated list of values.
+  ///
+  /// For example:
+  ///
+  /// ```dart
+  /// // Foo: Bar
+  /// // Foo: Baz
+  ///
+  /// profile?.responseData.headersCommaValues({'Foo', 'Bar, Baz']});
+  /// ```
+  set headersCommaValues(Map<String, String>? value) {
+    _checkAndUpdate();
+    if (value == null) {
+      _data.remove('headers');
+      return;
+    }
+    _data['headers'] = _splitHeaderValues(value);
   }
 
   // The compression state of the response.
@@ -212,55 +351,51 @@ final class HttpProfileResponseData {
   // received across the wire and whether callers will receive compressed or
   // uncompressed bytes when they listen to the response body byte stream.
   set compressionState(HttpClientResponseCompressionState value) {
+    _checkAndUpdate();
     _data['compressionState'] = value.name;
-    _updated();
   }
 
-  set reasonPhrase(String value) {
-    _data['reasonPhrase'] = value;
-    _updated();
+  // The reason phrase associated with the response e.g. "OK".
+  set reasonPhrase(String? value) {
+    _checkAndUpdate();
+    if (value == null) {
+      _data.remove('reasonPhrase');
+    } else {
+      _data['reasonPhrase'] = value;
+    }
   }
 
   /// Whether the status code was one of the normal redirect codes.
   set isRedirect(bool value) {
+    _checkAndUpdate();
     _data['isRedirect'] = value;
-    _updated();
   }
 
   /// The persistent connection state returned by the server.
   set persistentConnection(bool value) {
+    _checkAndUpdate();
     _data['persistentConnection'] = value;
-    _updated();
   }
 
   /// The content length of the response body, in bytes.
-  set contentLength(int value) {
-    _data['contentLength'] = value;
-    _updated();
+  set contentLength(int? value) {
+    _checkAndUpdate();
+    if (value == null) {
+      _data.remove('contentLength');
+    } else {
+      _data['contentLength'] = value;
+    }
   }
 
   set statusCode(int value) {
+    _checkAndUpdate();
     _data['statusCode'] = value;
-    _updated();
   }
 
   /// The time at which the initial response was received.
   set startTime(DateTime value) {
+    _checkAndUpdate();
     _data['startTime'] = value.microsecondsSinceEpoch;
-    _updated();
-  }
-
-  /// The time at which the response was completed. Note that DevTools will not
-  /// consider the request to be complete until [endTime] is non-null.
-  set endTime(DateTime value) {
-    _data['endTime'] = value.microsecondsSinceEpoch;
-    _updated();
-  }
-
-  /// The error associated with a failed request.
-  set error(String value) {
-    _data['error'] = value;
-    _updated();
   }
 
   HttpProfileResponseData._(
@@ -268,6 +403,46 @@ final class HttpProfileResponseData {
     this._updated,
   ) {
     _data['redirects'] = <Map<String, dynamic>>[];
+  }
+
+  void _checkAndUpdate() {
+    if (_isClosed) {
+      throw StateError('HttpProfileResponseData has been closed, no further '
+          'updates are allowed');
+    }
+    _updated();
+  }
+
+  /// Signal that the response, including the entire response body, has been
+  /// received.
+  ///
+  /// [bodySink] will be closed and the fields of [HttpProfileResponseData] will
+  /// no longer be changeable.
+  ///
+  /// [endTime] is the time when the response was fully received. It defaults
+  /// to the current time.
+  void close([DateTime? endTime]) {
+    _checkAndUpdate();
+    _isClosed = true;
+    bodySink.close();
+    _data['endTime'] = (endTime ?? DateTime.now()).microsecondsSinceEpoch;
+  }
+
+  /// Signal that receiving the response has failed with an error.
+  ///
+  /// [bodySink] will be closed and the fields of [HttpProfileResponseData] will
+  /// no longer be changeable.
+  ///
+  /// [value] is a textual description of the error e.g. 'host does not exist'.
+  ///
+  /// [endTime] is the time when the error occurred. It defaults to the current
+  /// time.
+  void closeWithError(String value, [DateTime? endTime]) {
+    _checkAndUpdate();
+    _isClosed = true;
+    bodySink.close();
+    _data['error'] = value;
+    _data['endTime'] = (endTime ?? DateTime.now()).microsecondsSinceEpoch;
   }
 }
 
@@ -306,70 +481,42 @@ final class HttpClientRequestProfile {
     _updated();
   }
 
-  /// The time at which the request was completed. Note that DevTools will not
-  /// consider the request to be complete until [requestEndTimestamp] is
-  /// non-null.
-  set requestEndTimestamp(DateTime value) {
-    _data['requestEndTimestamp'] = value.microsecondsSinceEpoch;
-    _updated();
-  }
-
   /// Details about the request.
   late final HttpProfileRequestData requestData;
 
-  final StreamController<List<int>> _requestBody =
-      StreamController<List<int>>();
-
-  /// The body of the request.
-  StreamSink<List<int>> get requestBodySink {
-    _updated();
-    return _requestBody.sink;
-  }
-
   /// Details about the response.
   late final HttpProfileResponseData responseData;
-
-  final StreamController<List<int>> _responseBody =
-      StreamController<List<int>>();
-
-  /// The body of the response.
-  StreamSink<List<int>> get responseBodySink {
-    _updated();
-    return _responseBody.sink;
-  }
 
   void _updated() =>
       _data['_lastUpdateTime'] = DateTime.now().microsecondsSinceEpoch;
 
   HttpClientRequestProfile._({
-    required DateTime requestStartTimestamp,
+    required DateTime requestStartTime,
     required String requestMethod,
     required String requestUri,
   }) {
     _data['isolateId'] = Service.getIsolateId(Isolate.current)!;
-    _data['requestStartTimestamp'] =
-        requestStartTimestamp.microsecondsSinceEpoch;
+    _data['requestStartTimestamp'] = requestStartTime.microsecondsSinceEpoch;
     _data['requestMethod'] = requestMethod;
     _data['requestUri'] = requestUri;
     _data['events'] = <Map<String, dynamic>>[];
     _data['requestData'] = <String, dynamic>{};
-    requestData = HttpProfileRequestData._(
-        _data['requestData'] as Map<String, dynamic>, _updated);
+    requestData = HttpProfileRequestData._(_data, _updated);
     _data['responseData'] = <String, dynamic>{};
     responseData = HttpProfileResponseData._(
         _data['responseData'] as Map<String, dynamic>, _updated);
-    _data['_requestBodyStream'] = _requestBody.stream;
-    _data['_responseBodyStream'] = _responseBody.stream;
+    _data['_requestBodyStream'] = requestData._body.stream;
+    _data['_responseBodyStream'] = responseData._body.stream;
     // This entry is needed to support the updatedSince parameter of
     // ext.dart.io.getHttpProfile.
-    _data['_lastUpdateTime'] = DateTime.now().microsecondsSinceEpoch;
+    _updated();
   }
 
   /// If HTTP profiling is enabled, returns an [HttpClientRequestProfile],
   /// otherwise returns `null`.
   static HttpClientRequestProfile? profile({
     /// The time at which the request was initiated.
-    required DateTime requestStartTimestamp,
+    required DateTime requestStartTime,
 
     /// The HTTP request method associated with the request.
     required String requestMethod,
@@ -383,7 +530,7 @@ final class HttpClientRequestProfile {
       return null;
     }
     final requestProfile = HttpClientRequestProfile._(
-      requestStartTimestamp: requestStartTimestamp,
+      requestStartTime: requestStartTime,
       requestMethod: requestMethod,
       requestUri: requestUri,
     );
