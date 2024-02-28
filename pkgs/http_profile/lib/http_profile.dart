@@ -184,7 +184,7 @@ final class HttpProfileRequestData {
     _requestData['headers'] = {...value};
   }
 
-  /// The request headers where duplicate headers are represented using
+  /// The request headers where duplicate headers are represented using a
   /// comma-seperated list of values.
   ///
   /// For example:
