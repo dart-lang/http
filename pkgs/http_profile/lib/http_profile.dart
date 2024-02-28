@@ -12,7 +12,7 @@ import 'dart:isolate' show Isolate;
 const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
     'abcdefghijklmnopqrstuvwxyz|~';
 
-/// Splits comma-seperated header values.
+/// Splits comma-separated header values.
 var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 
 /// Splits comma-seperated "Set-Cookie" header values.
