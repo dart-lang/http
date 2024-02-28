@@ -283,7 +283,7 @@ final class HttpProfileResponseData {
     (_data['redirects'] as List<Map<String, dynamic>>).add(redirect._toJson());
   }
 
-  /// The body of the request.
+  /// The body of the response.
   StreamSink<List<int>> get bodySink => _body.sink;
 
   /// Information about the networking connection used in the HTTP response.
