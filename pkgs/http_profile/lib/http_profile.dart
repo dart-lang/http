@@ -326,7 +326,7 @@ final class HttpProfileResponseData {
   }
 
   /// The response headers where duplicate headers are represented using a
-  /// comma-seperated list of values.
+  /// comma-separated list of values.
   ///
   /// For example:
   ///
