@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async' show StreamController, StreamSink;
+import 'dart:async' show StreamController, StreamSink, unawaited;
 import 'dart:developer' show Service, addHttpClientProfilingData;
 import 'dart:io' show HttpClient, HttpClientResponseCompressionState;
 import 'dart:isolate' show Isolate;
@@ -246,7 +246,7 @@ final class HttpProfileRequestData {
   void close([DateTime? endTime]) {
     _checkAndUpdate();
     _isClosed = true;
-    bodySink.close();
+    unawaited(bodySink.close());
     _data['requestEndTimestamp'] =
         (endTime ?? DateTime.now()).microsecondsSinceEpoch;
   }
@@ -263,7 +263,7 @@ final class HttpProfileRequestData {
   void closeWithError(String value, [DateTime? endTime]) {
     _checkAndUpdate();
     _isClosed = true;
-    bodySink.close();
+    unawaited(bodySink.close());
     _requestData['error'] = value;
     _data['requestEndTimestamp'] =
         (endTime ?? DateTime.now()).microsecondsSinceEpoch;
@@ -424,7 +424,7 @@ final class HttpProfileResponseData {
   void close([DateTime? endTime]) {
     _checkAndUpdate();
     _isClosed = true;
-    bodySink.close();
+    unawaited(bodySink.close());
     _data['endTime'] = (endTime ?? DateTime.now()).microsecondsSinceEpoch;
   }
 
@@ -440,7 +440,7 @@ final class HttpProfileResponseData {
   void closeWithError(String value, [DateTime? endTime]) {
     _checkAndUpdate();
     _isClosed = true;
-    bodySink.close();
+    unawaited(bodySink.close());
     _data['error'] = value;
     _data['endTime'] = (endTime ?? DateTime.now()).microsecondsSinceEpoch;
   }
