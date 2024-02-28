@@ -36,7 +36,7 @@ var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 /// See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
 var _setCookieSplitter = RegExp(r'[ \t]*,[ \t]*(?=[' + _tokenChars + r']+=)');
 
-/// Splits comma-seperated header values into a [List].
+/// Splits comma-separated header values into a [List].
 ///
 /// Copied from `package:http`.
 Map<String, List<String>> _splitHeaderValues(Map<String, String> headers) {
