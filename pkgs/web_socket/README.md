@@ -8,7 +8,7 @@ implementations.
 
 ```dart
 import 'package:web_socket/io_web_socket.dart';
-import 'package:web_socket/src/web_socket.dart';
+import 'package:web_socket/web_socket.dart';
 
 void main() async {
   final socket =
