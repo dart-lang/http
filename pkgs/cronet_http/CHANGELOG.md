@@ -1,6 +1,8 @@
 ## 1.2.0-wip
 
 * Support the Cronet embedding dependency with `--dart-define=cronetHttpNoPlay=true`.
+* Fix a bug in the documentation where `isOwned` is used rather than
+  `closeEngine`.
 
 ## 1.1.1
 

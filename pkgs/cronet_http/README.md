@@ -38,11 +38,10 @@ void main() async {
   final Client httpClient;
   if (Platform.isAndroid) {
     final engine = CronetEngine.build(
-      cacheMode: CacheMode.memory,
-      cacheMaxSize: 2 * 1024 * 1024,
-      userAgent: 'Book Agent',
-    );
-    httpClient = CronetClient.fromCronetEngine(engine, isOwned: true);
+        cacheMode: CacheMode.memory,
+        cacheMaxSize: 2 * 1024 * 1024,
+        userAgent: 'Book Agent');
+    httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
