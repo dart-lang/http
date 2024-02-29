@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:web_socket/io_web_socket.dart';
-import 'package:web_socket/src/web_socket.dart';
+import 'package:web_socket/web_socket.dart';
 
 const requestId = 305;
 
