@@ -72,8 +72,8 @@ class IOWebSocket implements WebSocket {
       throw StateError('WebSocket is closed');
     }
 
-    checkCode(code);
-    checkReason(reason);
+    checkCloseCode(code);
+    checkCloseReason(reason);
 
     unawaited(_events.close());
     try {

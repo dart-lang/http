@@ -105,8 +105,8 @@ class BrowserWebSocket implements WebSocket {
       throw StateError('WebSocket is closed');
     }
 
-    checkCode(code);
-    checkReason(reason);
+    checkCloseCode(code);
+    checkCloseReason(reason);
 
     unawaited(_events.close());
     if ((code, reason) case (final closeCode?, final closeReason?)) {
