@@ -18,7 +18,7 @@ void main() {
     HttpClientRequestProfile.profilingEnabled = true;
 
     profile = HttpClientRequestProfile.profile(
-      requestStartTimestamp: DateTime.parse('2024-03-21'),
+      requestStartTime: DateTime.parse('2024-03-21'),
       requestMethod: 'GET',
       requestUri: 'https://www.example.com',
     )!;
@@ -61,8 +61,7 @@ void main() {
 
   test('populating HttpClientRequestProfile.requestEndTimestamp', () async {
     expect(backingMap['requestEndTimestamp'], isNull);
-
-    profile.requestEndTimestamp = DateTime.parse('2024-03-23');
+    profile.requestData.close(DateTime.parse('2024-03-23'));
 
     expect(
       backingMap['requestEndTimestamp'],
@@ -98,26 +97,21 @@ void main() {
     expect(requestData['contentLength'], 1200);
   });
 
-  test('populating HttpClientRequestProfile.requestData.cookies', () async {
+  test('HttpClientRequestProfile.requestData.contentLength = nil', () async {
     final requestData = backingMap['requestData'] as Map<String, dynamic>;
-    expect(requestData['cookies'], isNull);
 
-    profile.requestData.cookies = <String>[
-      'sessionId=abc123',
-      'csrftoken=def456',
-    ];
+    profile.requestData.contentLength = 1200;
+    expect(requestData['contentLength'], 1200);
 
-    final cookies = requestData['cookies'] as List<String>;
-    expect(cookies.length, 2);
-    expect(cookies[0], 'sessionId=abc123');
-    expect(cookies[1], 'csrftoken=def456');
+    profile.requestData.contentLength = null;
+    expect(requestData['contentLength'], isNull);
   });
 
   test('populating HttpClientRequestProfile.requestData.error', () async {
     final requestData = backingMap['requestData'] as Map<String, dynamic>;
     expect(requestData['error'], isNull);
 
-    profile.requestData.error = 'failed';
+    profile.requestData.closeWithError('failed');
 
     expect(requestData['error'], 'failed');
   });
@@ -132,17 +126,42 @@ void main() {
     expect(requestData['followRedirects'], true);
   });
 
-  test('populating HttpClientRequestProfile.requestData.headers', () async {
+  test('populating HttpClientRequestProfile.requestData.headersListValues',
+      () async {
     final requestData = backingMap['requestData'] as Map<String, dynamic>;
     expect(requestData['headers'], isNull);
 
-    profile.requestData.headers = {
+    profile.requestData.headersListValues = {
+      'fruit': ['apple', 'banana', 'grape'],
       'content-length': ['0'],
     };
 
     final headers = requestData['headers'] as Map<String, List<String>>;
-    expect(headers['content-length']!.length, 1);
-    expect(headers['content-length']![0], '0');
+    expect(headers, {
+      'fruit': ['apple', 'banana', 'grape'],
+      'content-length': ['0'],
+    });
+  });
+
+  test('populating HttpClientRequestProfile.requestData.headersCommaValues',
+      () async {
+    final requestData = backingMap['requestData'] as Map<String, dynamic>;
+    expect(requestData['headers'], isNull);
+
+    profile.requestData.headersCommaValues = {
+      'set-cookie':
+          // ignore: missing_whitespace_between_adjacent_strings
+          'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
+              'sessionId=e8bb43229de9; Domain=foo.example.com'
+    };
+
+    final headers = requestData['headers'] as Map<String, List<String>>;
+    expect(headers, {
+      'set-cookie': [
+        'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
+        'sessionId=e8bb43229de9; Domain=foo.example.com'
+      ]
+    });
   });
 
   test('populating HttpClientRequestProfile.requestData.maxRedirects',
@@ -205,21 +224,6 @@ void main() {
     expect(redirect['location'], 'https://images.example.com/1');
   });
 
-  test('populating HttpClientRequestProfile.responseData.cookies', () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['cookies'], isNull);
-
-    profile.responseData.cookies = <String>[
-      'sessionId=abc123',
-      'id=def456; Max-Age=2592000; Domain=example.com',
-    ];
-
-    final cookies = responseData['cookies'] as List<String>;
-    expect(cookies.length, 2);
-    expect(cookies[0], 'sessionId=abc123');
-    expect(cookies[1], 'id=def456; Max-Age=2592000; Domain=example.com');
-  });
-
   test('populating HttpClientRequestProfile.responseData.connectionInfo',
       () async {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
@@ -238,24 +242,44 @@ void main() {
     expect(connectionInfo['connectionPoolId'], '21x23');
   });
 
-  test('populating HttpClientRequestProfile.responseData.headers', () async {
+  test('populating HttpClientRequestProfile.responseData.headersListValues',
+      () async {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     expect(responseData['headers'], isNull);
 
-    profile.responseData.headers = {
+    profile.responseData.headersListValues = {
       'connection': ['keep-alive'],
       'cache-control': ['max-age=43200'],
       'content-type': ['application/json', 'charset=utf-8'],
     };
 
     final headers = responseData['headers'] as Map<String, List<String>>;
-    expect(headers['connection']!.length, 1);
-    expect(headers['connection']![0], 'keep-alive');
-    expect(headers['cache-control']!.length, 1);
-    expect(headers['cache-control']![0], 'max-age=43200');
-    expect(headers['content-type']!.length, 2);
-    expect(headers['content-type']![0], 'application/json');
-    expect(headers['content-type']![1], 'charset=utf-8');
+    expect(headers, {
+      'connection': ['keep-alive'],
+      'cache-control': ['max-age=43200'],
+      'content-type': ['application/json', 'charset=utf-8'],
+    });
+  });
+
+  test('populating HttpClientRequestProfile.responseData.headersCommaValues',
+      () async {
+    final responseData = backingMap['responseData'] as Map<String, dynamic>;
+    expect(responseData['headers'], isNull);
+
+    profile.responseData.headersCommaValues = {
+      'set-cookie':
+          // ignore: missing_whitespace_between_adjacent_strings
+          'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
+              'sessionId=e8bb43229de9; Domain=foo.example.com'
+    };
+
+    final headers = responseData['headers'] as Map<String, List<String>>;
+    expect(headers, {
+      'set-cookie': [
+        'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO',
+        'sessionId=e8bb43229de9; Domain=foo.example.com'
+      ]
+    });
   });
 
   test('populating HttpClientRequestProfile.responseData.compressionState',
@@ -308,6 +332,15 @@ void main() {
     expect(responseData['contentLength'], 1200);
   });
 
+  test('HttpClientRequestProfile.responseData.contentLength = nil', () async {
+    final responseData = backingMap['responseData'] as Map<String, dynamic>;
+    profile.responseData.contentLength = 1200;
+    expect(responseData['contentLength'], 1200);
+
+    profile.responseData.contentLength = null;
+    expect(responseData['contentLength'], isNull);
+  });
+
   test('populating HttpClientRequestProfile.responseData.statusCode', () async {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     expect(responseData['statusCode'], isNull);
@@ -333,7 +366,7 @@ void main() {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     expect(responseData['endTime'], isNull);
 
-    profile.responseData.endTime = DateTime.parse('2024-03-23');
+    profile.responseData.close(DateTime.parse('2024-03-23'));
 
     expect(
       responseData['endTime'],
@@ -345,7 +378,7 @@ void main() {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     expect(responseData['error'], isNull);
 
-    profile.responseData.error = 'failed';
+    profile.responseData.closeWithError('failed');
 
     expect(responseData['error'], 'failed');
   });
@@ -354,33 +387,19 @@ void main() {
     final requestBodyStream =
         backingMap['_requestBodyStream'] as Stream<List<int>>;
 
-    profile.requestBodySink.add([1, 2, 3]);
+    profile.requestData.bodySink.add([1, 2, 3]);
+    profile.requestData.close();
 
-    await Future.wait([
-      Future.sync(
-        () async => expect(
-          await requestBodyStream.expand((i) => i).toList(),
-          [1, 2, 3],
-        ),
-      ),
-      profile.requestBodySink.close(),
-    ]);
+    expect(await requestBodyStream.expand((i) => i).toList(), [1, 2, 3]);
   });
 
   test('using HttpClientRequestProfile.responseBodySink', () async {
-    final requestBodyStream =
+    final responseBodyStream =
         backingMap['_responseBodyStream'] as Stream<List<int>>;
 
-    profile.responseBodySink.add([1, 2, 3]);
+    profile.responseData.bodySink.add([1, 2, 3]);
+    profile.responseData.close();
 
-    await Future.wait([
-      Future.sync(
-        () async => expect(
-          await requestBodyStream.expand((i) => i).toList(),
-          [1, 2, 3],
-        ),
-      ),
-      profile.responseBodySink.close(),
-    ]);
+    expect(await responseBodyStream.expand((i) => i).toList(), [1, 2, 3]);
   });
 }
