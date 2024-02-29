@@ -1,11 +1,14 @@
 name: web_socket
 description: "TODO: enter a descirption here"
-publish_to: none
 repository: https://github.com/dart-lang/http/tree/master/pkgs/web_socket
 
+publish_to: none
+
 environment:
-  sdk: ^3.2.6
+  sdk: ^3.3.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0
   test: ^1.24.0
+  web_socket_conformance_tests:
+    path: ../web_socket_conformance_tests/

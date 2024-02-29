@@ -1,0 +1,10 @@
+sdk:
+- pubspec
+- dev
+
+stages:
+- analyze_and_format:
+  - analyze: --fatal-infos
+  - format:
+    sdk:
+    - dev
