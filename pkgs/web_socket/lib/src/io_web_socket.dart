@@ -4,6 +4,7 @@ import 'dart:io' as io;
 import 'dart:typed_data';
 
 import '../web_socket.dart';
+import 'utils.dart';
 
 /// A `dart-io`-based [WebSocket] implementation.
 class IOWebSocket implements WebSocket {
@@ -70,13 +71,8 @@ class IOWebSocket implements WebSocket {
       throw StateError('WebSocket is closed');
     }
 
-    if (code != null) {
-      RangeError.checkValueInInterval(code, 3000, 4999, 'code');
-    }
-    if (reason != null && utf8.encode(reason).length > 123) {
-      throw ArgumentError.value(reason, 'reason',
-          'reason must be <= 123 bytes long when encoded as UTF-8');
-    }
+    checkCode(code);
+    checkReason(reason);
 
     unawaited(_events.close());
     try {
