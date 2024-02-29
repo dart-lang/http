@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:typed_data';
 
@@ -7,6 +6,8 @@ import '../web_socket.dart';
 import 'utils.dart';
 
 /// A `dart-io`-based [WebSocket] implementation.
+///
+/// Usable when targeting native platforms.
 class IOWebSocket implements WebSocket {
   final io.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();

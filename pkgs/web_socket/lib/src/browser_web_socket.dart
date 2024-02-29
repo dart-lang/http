@@ -5,44 +5,49 @@ import 'package:web/web.dart' as web;
 import '../web_socket.dart';
 import 'utils.dart';
 
+/// A [WebSocket] using the browser WebSocket API.
+///
+/// Usable when targeting the browser using either JavaScript or WASM.
 class BrowserWebSocket implements WebSocket {
   final web.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
 
   static Future<BrowserWebSocket> connect(Uri url) async {
-    final socket = web.WebSocket(url.toString())..binaryType = 'arraybuffer';
-    final htmlSocket = BrowserWebSocket._(socket);
-    final readyCompleter = Completer<BrowserWebSocket>();
+    final webSocket = web.WebSocket(url.toString())..binaryType = 'arraybuffer';
+    final browserSocket = BrowserWebSocket._(webSocket);
+    final webSocketConnected = Completer<BrowserWebSocket>();
 
-    if (socket.readyState == web.WebSocket.OPEN) {
-      readyCompleter.complete();
+    if (webSocket.readyState == web.WebSocket.OPEN) {
+      webSocketConnected.complete(browserSocket);
     } else {
-      if (socket.readyState == web.WebSocket.CLOSING ||
-          socket.readyState == web.WebSocket.CLOSED) {
-        readyCompleter.completeError(
-            WebSocketException('WebSocket state error: ${socket.readyState}'));
+      if (webSocket.readyState == web.WebSocket.CLOSING ||
+          webSocket.readyState == web.WebSocket.CLOSED) {
+        webSocketConnected.completeError(WebSocketException(
+            'Unexpected WebSocket state: ${webSocket.readyState}, '
+            'expected CONNECTING (0) or OPEN (1)'));
       } else {
         // The socket API guarantees that only a single open event will be
         // emitted.
-        socket.onOpen.first.then((_) {
-          readyCompleter.complete(htmlSocket);
-        });
+        unawaited(webSocket.onOpen.first.then((_) {
+          webSocketConnected.complete(browserSocket);
+        }));
       }
     }
 
-    socket.onError.first.then((e) {
-      print('I GOT A REAL ERROR!: $e');
+    unawaited(webSocket.onError.first.then((e) {
       // Unfortunately, the underlying WebSocket API doesn't expose any
       // specific information about the error itself.
-      final error = WebSocketException('WebSocket connection failed.');
-      if (!readyCompleter.isCompleted) {
-        readyCompleter.completeError(error);
+      if (!webSocketConnected.isCompleted) {
+        final error = WebSocketException('Failed to connect WebSocket');
+        webSocketConnected.completeError(error);
       } else {
-        htmlSocket._closed(1006, 'error');
+        browserSocket._closed(1006, 'error');
       }
-    });
+    }));
 
-    socket.onMessage.listen((e) {
+    webSocket.onMessage.listen((e) {
+      if (browserSocket._events.isClosed) return;
+
       final eventData = e.data!;
       late WebSocketEvent data;
       if (eventData.typeofEquals('string')) {
@@ -52,28 +57,25 @@ class BrowserWebSocket implements WebSocket {
         data = BinaryDataReceived(
             (eventData as JSArrayBuffer).toDart.asUint8List());
       } else {
-        throw Exception('test');
+        throw StateError('unexpected message type: ${eventData.runtimeType}');
       }
-      htmlSocket._events.add(data);
+      browserSocket._events.add(data);
     });
 
-    socket.onClose.first.then((event) {
-      if (!readyCompleter.isCompleted) {
-        readyCompleter.complete(htmlSocket);
+    unawaited(webSocket.onClose.first.then((event) {
+      if (!webSocketConnected.isCompleted) {
+        webSocketConnected.complete(browserSocket);
       }
+      browserSocket._closed(event.code, event.reason);
+    }));
 
-      htmlSocket._closed(event.code, event.reason);
-    });
-
-    return readyCompleter.future;
+    return webSocketConnected.future;
   }
 
   void _closed(int? code, String? reason) {
-    print('closing with $code, $reason');
     if (!_events.isClosed) {
-      _events
-        ..add(CloseReceived(code, reason ?? ''))
-        ..close();
+      _events.add(CloseReceived(code, reason ?? ''));
+      unawaited(_events.close());
     }
   }
 
@@ -97,20 +99,6 @@ class BrowserWebSocket implements WebSocket {
     _webSocket.send(s.jsify()!);
   }
 
-  /// Closes the stream.
-  /// https://datatracker.ietf.org/doc/html/rfc6455#section-5.5.1
-  /// Cannot send more data after this.
-
-  //  If an endpoint receives a Close frame and did not previously send a
-  //  Close frame, the endpoint MUST send a Close frame in response.  (When
-  //  sending a Close frame in response, the endpoint typically echos the
-  //  status code it received.)  It SHOULD do so as soon as practical.  An
-  //  endpoint MAY delay sending a Close frame until its current message is
-  //  sent (for instance, if the majority of a fragmented message is
-  //  already sent, an endpoint MAY send the remaining fragments before
-  //  sending a Close frame).  However, there is no guarantee that the
-  //  endpoint that has already sent a Close frame will continue to process
-  //  data.
   @override
   Future<void> close([int? code, String? reason]) async {
     if (_events.isClosed) {
