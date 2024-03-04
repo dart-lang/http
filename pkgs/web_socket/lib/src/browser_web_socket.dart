@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:js_interop';
 import 'dart:typed_data';
+
 import 'package:web/web.dart' as web;
+
 import '../web_socket.dart';
 import 'utils.dart';
 
