@@ -5,7 +5,9 @@
 import 'dart:async';
 import 'dart:js_interop';
 import 'dart:typed_data';
+
 import 'package:web/web.dart' as web;
+
 import '../web_socket.dart';
 import 'utils.dart';
 
@@ -77,10 +79,9 @@ class BrowserWebSocket implements WebSocket {
   }
 
   void _closed(int? code, String? reason) {
-    if (!_events.isClosed) {
-      _events.add(CloseReceived(code, reason ?? ''));
-      unawaited(_events.close());
-    }
+    if (_events.isClosed) return;
+    _events.add(CloseReceived(code, reason ?? ''));
+    unawaited(_events.close());
   }
 
   BrowserWebSocket._(this._webSocket);
