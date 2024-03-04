@@ -1,11 +1,17 @@
+// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:typed_data';
 
 import '../web_socket.dart';
+import 'utils.dart';
 
 /// A `dart-io`-based [WebSocket] implementation.
+///
+/// Usable when targeting native platforms.
 class IOWebSocket implements WebSocket {
   final io.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
@@ -70,13 +76,8 @@ class IOWebSocket implements WebSocket {
       throw StateError('WebSocket is closed');
     }
 
-    if (code != null) {
-      RangeError.checkValueInInterval(code, 3000, 4999, 'code');
-    }
-    if (reason != null && utf8.encode(reason).length > 123) {
-      throw ArgumentError.value(reason, 'reason',
-          'reason must be <= 123 bytes long when encoded as UTF-8');
-    }
+    checkCloseCode(code);
+    checkCloseReason(reason);
 
     unawaited(_events.close());
     try {

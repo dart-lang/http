@@ -33,6 +33,7 @@ void testDisconnectAfterUpgrade(
       expect(
           (await channel.events.single as CloseReceived).code,
           anyOf([
+            1002, // protocol error
             1005, // closed no status
             1006, // closed abnormal
           ]));

@@ -8,3 +8,10 @@ stages:
   - format:
     sdk:
     - dev
+- unit_test:
+  - test: --test-randomize-ordering-seed=random -p vm
+    os:
+    - linux
+  - test: --test-randomize-ordering-seed=random -p chrome -c dart2js
+    os:
+    - linux
