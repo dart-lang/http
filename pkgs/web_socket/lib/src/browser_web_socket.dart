@@ -27,6 +27,10 @@ class BrowserWebSocket implements WebSocket {
   /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   static Future<BrowserWebSocket> connect(Uri url,
       {Iterable<String>? protocols}) async {
+    if (!url.isScheme('ws') && !url.isScheme('wss')) {
+      throw WebSocketException("Unsupported URL scheme '${url.scheme}'");
+    }
+
     final webSocket = web.WebSocket(url.toString(),
         protocols?.map((e) => e.toJS).toList().toJS ?? JSArray())
       ..binaryType = 'arraybuffer';
