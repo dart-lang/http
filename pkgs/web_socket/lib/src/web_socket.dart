@@ -115,6 +115,13 @@ class WebSocketConnectionClosed extends WebSocketException {
 ///   socket.sendText('Hello Dart WebSockets! 🎉');
 /// }
 abstract interface class WebSocket {
+  /// Create a new WebSocket connection.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates that subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   static Future<WebSocket> connect(Uri url, {Iterable<String>? protocols}) =>
       connector.connect(url, protocols: protocols);
 
@@ -170,5 +177,11 @@ abstract interface class WebSocket {
   /// Errors will never appear in this [Stream].
   Stream<WebSocketEvent> get events;
 
+  /// The WebSocket subprotocol negotiated with the peer.
+  ///
+  /// Will be the empty string if no subprotocol was negotiated.
+  ///
+  /// See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   String get protocol;
 }

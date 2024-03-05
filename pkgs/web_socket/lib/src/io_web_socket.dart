@@ -6,8 +6,8 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'dart:typed_data';
 
-import '../web_socket.dart';
 import 'utils.dart';
+import 'web_socket.dart';
 
 /// A `dart-io`-based [WebSocket] implementation.
 ///
@@ -18,13 +18,23 @@ class IOWebSocket implements WebSocket {
 
   static Future<IOWebSocket> connect(Uri url,
       {Iterable<String>? protocols}) async {
+    final io.WebSocket webSocket;
     try {
-      final webSocket =
+      webSocket =
           await io.WebSocket.connect(url.toString(), protocols: protocols);
-      return IOWebSocket._(webSocket);
     } on io.WebSocketException catch (e) {
       throw WebSocketException(e.message);
     }
+
+    if (webSocket.protocol != null &&
+        !(protocols ?? []).contains(webSocket.protocol)) {
+      // dart:io WebSocket does not correctly validate the returned protocol.
+      // See https://github.com/dart-lang/sdk/issues/55106
+      await webSocket.close(1002); // protocol error
+      throw WebSocketException(
+          'unexpected protocol selected by peer: ${webSocket.protocol}');
+    }
+    return IOWebSocket._(webSocket);
   }
 
   IOWebSocket._(this._webSocket) {
