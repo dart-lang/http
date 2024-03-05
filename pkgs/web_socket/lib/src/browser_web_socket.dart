@@ -18,7 +18,8 @@ class BrowserWebSocket implements WebSocket {
   final web.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
 
-  static Future<BrowserWebSocket> connect(Uri url) async {
+  static Future<BrowserWebSocket> connect(Uri url,
+      {Iterable<String>? protocols}) async {
     final webSocket = web.WebSocket(url.toString())..binaryType = 'arraybuffer';
     final browserSocket = BrowserWebSocket._(webSocket);
     final webSocketConnected = Completer<BrowserWebSocket>();
@@ -126,3 +127,5 @@ class BrowserWebSocket implements WebSocket {
   @override
   Stream<WebSocketEvent> get events => _events.stream;
 }
+
+const connect = BrowserWebSocket.connect;
