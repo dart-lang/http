@@ -16,9 +16,11 @@ class IOWebSocket implements WebSocket {
   final io.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
 
-  static Future<IOWebSocket> connect(Uri uri) async {
+  static Future<IOWebSocket> connect(Uri url,
+      {Iterable<String>? protocols}) async {
     try {
-      final webSocket = await io.WebSocket.connect(uri.toString());
+      final webSocket =
+          await io.WebSocket.connect(url.toString(), protocols: protocols);
       return IOWebSocket._(webSocket);
     } on io.WebSocketException catch (e) {
       throw WebSocketException(e.message);
@@ -89,4 +91,9 @@ class IOWebSocket implements WebSocket {
 
   @override
   Stream<WebSocketEvent> get events => _events.stream;
+
+  @override
+  String get protocol => _webSocket.protocol ?? '';
 }
+
+const connect = IOWebSocket.connect;

@@ -10,5 +10,5 @@ import 'package:web_socket/io_web_socket.dart';
 import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
 
 void main() {
-  testAll((uri, {protocols}) => IOWebSocket.connect(uri));
+  testAll(IOWebSocket.connect);
 }
