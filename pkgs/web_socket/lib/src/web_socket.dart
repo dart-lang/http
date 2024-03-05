@@ -4,6 +4,10 @@
 
 import 'dart:typed_data';
 
+import 'connect_stub.dart'
+    if (dart.library.js_interop) 'browser_web_socket.dart'
+    if (dart.library.io) 'io_web_socket.dart' as connector;
+
 /// An event received from the peer through the [WebSocket].
 sealed class WebSocketEvent {}
 
@@ -90,12 +94,11 @@ class WebSocketConnectionClosed extends WebSocketException {
 /// The interface for WebSocket connections.
 ///
 /// ```dart
-/// import 'package:web_socket/io_web_socket.dart';
 /// import 'package:web_socket/src/web_socket.dart';
 ///
 /// void main() async {
 ///   final socket =
-///       await IOWebSocket.connect(Uri.parse('wss://ws.postman-echo.com/raw'));
+///       await WebSocket.connect(Uri.parse('wss://ws.postman-echo.com/raw'));
 ///
 ///   socket.events.listen((e) async {
 ///     switch (e) {
@@ -112,6 +115,9 @@ class WebSocketConnectionClosed extends WebSocketException {
 ///   socket.sendText('Hello Dart WebSockets! 🎉');
 /// }
 abstract interface class WebSocket {
+  static Future<WebSocket> connect(Uri url, {Iterable<String>? protocols}) =>
+      connector.connect(url, protocols: protocols);
+
   /// Sends text data to the connected peer.
   ///
   /// Throws [WebSocketConnectionClosed] if the [WebSocket] is

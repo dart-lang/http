@@ -7,12 +7,11 @@ implementations.
 ## Using
 
 ```dart
-import 'package:web_socket/io_web_socket.dart';
 import 'package:web_socket/web_socket.dart';
 
 void main() async {
   final socket =
-      await IOWebSocket.connect(Uri.parse('wss://ws.postman-echo.com/raw'));
+      await WebSocket.connect(Uri.parse('wss://ws.postman-echo.com/raw'));
 
   socket.events.listen((e) async {
     switch (e) {
