@@ -16,6 +16,13 @@ class IOWebSocket implements WebSocket {
   final io.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
 
+  /// Create a new WebSocket connection using dart:io WebSocket.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates that subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   static Future<IOWebSocket> connect(Uri url,
       {Iterable<String>? protocols}) async {
     final io.WebSocket webSocket;
