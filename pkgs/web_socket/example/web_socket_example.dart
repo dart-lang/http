@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:web_socket/io_web_socket.dart';
 import 'package:web_socket/web_socket.dart';
 
 const requestId = 305;
@@ -11,7 +10,7 @@ void main() async {
   // Whitebit public WebSocket API documentation:
   // https://docs.whitebit.com/public/websocket/
   final socket =
-      await IOWebSocket.connect(Uri.parse('wss://api.whitebit.com/ws'));
+      await WebSocket.connect(Uri.parse('wss://api.whitebit.com/ws'));
 
   socket.events.listen((e) {
     switch (e) {

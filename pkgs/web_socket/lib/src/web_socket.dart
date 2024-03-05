@@ -91,6 +91,9 @@ class WebSocketConnectionClosed extends WebSocketException {
   WebSocketConnectionClosed([super.message = 'Connection Closed']);
 }
 
+typedef WebSocketConnector = Future<WebSocket> Function(Uri url,
+    {Iterable<String>? protocols});
+
 /// The interface for WebSocket connections.
 ///
 /// ```dart
@@ -169,6 +172,4 @@ abstract interface class WebSocket {
   ///
   /// Errors will never appear in this [Stream].
   Stream<WebSocketEvent> get events;
-
-  String get protocol;
 }
