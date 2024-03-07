@@ -6,8 +6,8 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'dart:typed_data';
 
-import '../web_socket.dart';
 import 'utils.dart';
+import 'web_socket.dart';
 
 /// A `dart-io`-based [WebSocket] implementation.
 ///
@@ -16,14 +16,37 @@ class IOWebSocket implements WebSocket {
   final io.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
 
+  /// Create a new WebSocket connection using dart:io WebSocket.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates that subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   static Future<IOWebSocket> connect(Uri url,
       {Iterable<String>? protocols}) async {
+    if (!url.isScheme('ws') && !url.isScheme('wss')) {
+      throw ArgumentError.value(
+          url, 'url', 'only ws: and wss: schemes are supported');
+    }
+
+    final io.WebSocket webSocket;
     try {
-      final webSocket = await io.WebSocket.connect(url.toString());
-      return IOWebSocket._(webSocket);
+      webSocket =
+          await io.WebSocket.connect(url.toString(), protocols: protocols);
     } on io.WebSocketException catch (e) {
       throw WebSocketException(e.message);
     }
+
+    if (webSocket.protocol != null &&
+        !(protocols ?? []).contains(webSocket.protocol)) {
+      // dart:io WebSocket does not correctly validate the returned protocol.
+      // See https://github.com/dart-lang/sdk/issues/55106
+      await webSocket.close(1002); // protocol error
+      throw WebSocketException(
+          'unexpected protocol selected by peer: ${webSocket.protocol}');
+    }
+    return IOWebSocket._(webSocket);
   }
 
   IOWebSocket._(this._webSocket) {
@@ -90,6 +113,9 @@ class IOWebSocket implements WebSocket {
 
   @override
   Stream<WebSocketEvent> get events => _events.stream;
+
+  @override
+  String get protocol => _webSocket.protocol ?? '';
 }
 
 const connect = IOWebSocket.connect;
