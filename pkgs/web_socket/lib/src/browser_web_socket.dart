@@ -18,9 +18,23 @@ class BrowserWebSocket implements WebSocket {
   final web.WebSocket _webSocket;
   final _events = StreamController<WebSocketEvent>();
 
+  /// Create a new WebSocket connection using the JavaScript WebSocket API.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates that subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   static Future<BrowserWebSocket> connect(Uri url,
       {Iterable<String>? protocols}) async {
-    final webSocket = web.WebSocket(url.toString())..binaryType = 'arraybuffer';
+    if (!url.isScheme('ws') && !url.isScheme('wss')) {
+      throw ArgumentError.value(
+          url, 'url', 'only ws: and wss: schemes are supported');
+    }
+
+    final webSocket = web.WebSocket(url.toString(),
+        protocols?.map((e) => e.toJS).toList().toJS ?? JSArray())
+      ..binaryType = 'arraybuffer';
     final browserSocket = BrowserWebSocket._(webSocket);
     final webSocketConnected = Completer<BrowserWebSocket>();
 
@@ -126,6 +140,9 @@ class BrowserWebSocket implements WebSocket {
 
   @override
   Stream<WebSocketEvent> get events => _events.stream;
+
+  @override
+  String get protocol => _webSocket.protocol;
 }
 
 const connect = BrowserWebSocket.connect;

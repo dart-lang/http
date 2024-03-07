@@ -20,6 +20,9 @@ class MyWebSocketImplementation implements WebSocket {
 
   @override
   void sendText(String s) => throw UnimplementedError();
+
+  @override
+  String get protocol => throw UnimplementedError();
 }
 
 void main() {
