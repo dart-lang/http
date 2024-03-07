@@ -28,7 +28,8 @@ class BrowserWebSocket implements WebSocket {
   static Future<BrowserWebSocket> connect(Uri url,
       {Iterable<String>? protocols}) async {
     if (!url.isScheme('ws') && !url.isScheme('wss')) {
-      throw WebSocketException("Unsupported URL scheme '${url.scheme}'");
+      throw ArgumentError.value(
+          url, 'url', 'only ws: and wss: schemes are supported');
     }
 
     final webSocket = web.WebSocket(url.toString(),

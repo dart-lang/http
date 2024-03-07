@@ -12,7 +12,7 @@ void testConnectUri(
   group('connect uri', () {
     test('no protocol', () async {
       await expectLater(() => channelFactory(Uri.https('www.example.com', '/')),
-          throwsA(isA<WebSocketException>()));
+          throwsA(isA<ArgumentError>()));
     });
   });
 }
