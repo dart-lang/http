@@ -15,6 +15,8 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.0
+  web_socket:
+    path: ../web_socket
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0

@@ -31,6 +31,8 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   test: ^1.21.1
+  web_socket_conformance_tests:
+    path: ../../web_socket_conformance_tests/
 
 flutter:
   uses-material-design: true

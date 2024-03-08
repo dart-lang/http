@@ -352,7 +352,7 @@ class URLSessionConfiguration
   Map<String, String>? get httpAdditionalHeaders {
     if (_nsObject.HTTPAdditionalHeaders case var additionalHeaders?) {
       final headers = ncb.NSDictionary.castFrom(additionalHeaders);
-      return stringDictToMap(headers);
+      return stringNSDictionaryToMap(headers);
     }
     return null;
   }
@@ -628,7 +628,7 @@ class HTTPURLResponse extends URLResponse {
   Map<String, String> get allHeaderFields {
     final headers =
         ncb.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields!);
-    return stringDictToMap(headers);
+    return stringNSDictionaryToMap(headers);
   }
 
   @override
@@ -992,7 +992,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
       return null;
     } else {
       final headers = ncb.NSDictionary.castFrom(_nsObject.allHTTPHeaderFields!);
-      return stringDictToMap(headers);
+      return stringNSDictionaryToMap(headers);
     }
   }
 
@@ -1574,6 +1574,37 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
     final task = URLSessionWebSocketTask._(
         _nsObject.webSocketTaskWithRequest_(request._nsObject));
+    _setupDelegation(_delegate, this, task,
+        onComplete: _onComplete,
+        onData: _onData,
+        onFinishedDownloading: _onFinishedDownloading,
+        onRedirect: _onRedirect,
+        onResponse: _onResponse,
+        onWebSocketTaskOpened: _onWebSocketTaskOpened,
+        onWebSocketTaskClosed: _onWebSocketTaskClosed);
+    return task;
+  }
+
+  /// Creates a [URLSessionWebSocketTask] that represents a connection to a
+  /// WebSocket endpoint.
+  ///
+  /// See [NSURLSession webSocketTaskWithURL:protocols:](https://developer.apple.com/documentation/foundation/nsurlsession/3181172-websockettaskwithurl)
+  URLSessionWebSocketTask webSocketTaskWithURL(Uri uri,
+      {Iterable<String>? protocols}) {
+    if (_isBackground) {
+      throw UnsupportedError(
+          'WebSocket tasks are not supported in background sessions');
+    }
+
+    final URLSessionWebSocketTask task;
+    if (protocols == null) {
+      task = URLSessionWebSocketTask._(
+          _nsObject.webSocketTaskWithURL_(uriToNSURL(uri)));
+    } else {
+      task = URLSessionWebSocketTask._(
+          _nsObject.webSocketTaskWithURL_protocols_(
+              uriToNSURL(uri), stringIterableToNSArray(protocols)));
+    }
     _setupDelegation(_delegate, this, task,
         onComplete: _onComplete,
         onData: _onData,
