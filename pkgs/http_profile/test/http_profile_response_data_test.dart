@@ -2,7 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:async';
 import 'dart:developer' show getHttpClientProfilingData;
 import 'dart:io';
 
@@ -187,7 +186,7 @@ void main() {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     expect(responseData['endTime'], isNull);
 
-    profile.responseData.close(DateTime.parse('2024-03-23'));
+    await profile.responseData.close(DateTime.parse('2024-03-23'));
 
     expect(
       responseData['endTime'],
@@ -199,28 +198,20 @@ void main() {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     expect(responseData['error'], isNull);
 
-    profile.responseData.closeWithError('failed');
+    await profile.responseData.closeWithError('failed');
 
     expect(responseData['error'], 'failed');
   });
 
-  test('using HttpClientRequestProfile.requestBodySink', () async {
-    final requestBodyStream =
-        backingMap['_requestBodyStream'] as Stream<List<int>>;
-
-    profile.requestData.bodySink.add([1, 2, 3]);
-    profile.requestData.close();
-
-    expect(await requestBodyStream.expand((i) => i).toList(), [1, 2, 3]);
-  });
-
-  test('using HttpClientRequestProfile.responseBodySink', () async {
-    final responseBodyStream =
-        backingMap['_responseBodyStream'] as Stream<List<int>>;
+  test('using HttpClientRequestProfile.responseData.bodySink', () async {
+    final responseBodyBytes = backingMap['responseBodyBytes'] as List<int>;
+    expect(responseBodyBytes, isEmpty);
+    expect(profile.responseData.bodyBytes, isEmpty);
 
     profile.responseData.bodySink.add([1, 2, 3]);
-    profile.responseData.close();
+    await profile.responseData.close();
 
-    expect(await responseBodyStream.expand((i) => i).toList(), [1, 2, 3]);
+    expect(responseBodyBytes, [1, 2, 3]);
+    expect(profile.responseData.bodyBytes, [1, 2, 3]);
   });
 }

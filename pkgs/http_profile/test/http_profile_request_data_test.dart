@@ -41,7 +41,7 @@ void main() {
 
   test('populating HttpClientRequestProfile.requestEndTimestamp', () async {
     expect(backingMap['requestEndTimestamp'], isNull);
-    profile.requestData.close(DateTime.parse('2024-03-23'));
+    await profile.requestData.close(DateTime.parse('2024-03-23'));
 
     expect(
       backingMap['requestEndTimestamp'],
@@ -91,7 +91,7 @@ void main() {
     final requestData = backingMap['requestData'] as Map<String, dynamic>;
     expect(requestData['error'], isNull);
 
-    profile.requestData.closeWithError('failed');
+    await profile.requestData.closeWithError('failed');
 
     expect(requestData['error'], 'failed');
   });
@@ -184,5 +184,17 @@ void main() {
     expect(proxyDetails['username'], 'abc123');
     expect(proxyDetails['isDirect'], true);
     expect(proxyDetails['port'], 4321);
+  });
+
+  test('using HttpClientRequestProfile.requestData.bodySink', () async {
+    final requestBodyBytes = backingMap['requestBodyBytes'] as List<int>;
+    expect(requestBodyBytes, isEmpty);
+    expect(profile.requestData.bodyBytes, isEmpty);
+
+    profile.requestData.bodySink.add([1, 2, 3]);
+    await profile.requestData.close();
+
+    expect(requestBodyBytes, [1, 2, 3]);
+    expect(profile.requestData.bodyBytes, [1, 2, 3]);
   });
 }
