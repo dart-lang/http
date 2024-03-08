@@ -11,10 +11,10 @@ import 'package:web_socket/web_socket.dart';
 import 'cupertino_api.dart';
 
 /// An error occurred while connecting to the peer.
-class ConnectionErrorException extends WebSocketException {
+class ConnectionException extends WebSocketException {
   final Error error;
 
-  ConnectionErrorException(super.message, this.error);
+  ConnectionException(super.message, this.error);
 
   @override
   String toString() => 'CupertinoErrorWebSocketException: $message $error';
@@ -47,7 +47,7 @@ class CupertinoWebSocket implements WebSocket {
       if (!readyCompleter.isCompleted) {
         if (error != null) {
           readyCompleter.completeError(
-              ConnectionErrorException('connection ended unexpectedly', error));
+              ConnectionException('connection ended unexpectedly', error));
         } else {
           webSocket = CupertinoWebSocket._(task as URLSessionWebSocketTask, '');
           readyCompleter.complete(webSocket);
