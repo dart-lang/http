@@ -28,7 +28,7 @@ void main() {
   group('requestData.close', () {
     test('no arguments', () async {
       expect(backingMap['requestEndTimestamp'], isNull);
-      profile.requestData.close();
+      await profile.requestData.close();
 
       expect(
         backingMap['requestEndTimestamp'],
@@ -39,7 +39,7 @@ void main() {
 
     test('with time', () async {
       expect(backingMap['requestEndTimestamp'], isNull);
-      profile.requestData.close(DateTime.parse('2024-03-23'));
+      await profile.requestData.close(DateTime.parse('2024-03-23'));
 
       expect(
         backingMap['requestEndTimestamp'],
@@ -48,7 +48,7 @@ void main() {
     });
 
     test('then write body', () async {
-      profile.requestData.close();
+      await profile.requestData.close();
 
       expect(
         () => profile.requestData.bodySink.add([1, 2, 3]),
@@ -57,7 +57,7 @@ void main() {
     });
 
     test('then mutate', () async {
-      profile.requestData.close();
+      await profile.requestData.close();
 
       expect(
         () => profile.requestData.contentLength = 5,
@@ -75,7 +75,7 @@ void main() {
 
     test('no arguments', () async {
       expect(responseData['endTime'], isNull);
-      profile.responseData.close();
+      await profile.responseData.close();
 
       expect(
         responseData['endTime'],
@@ -86,7 +86,7 @@ void main() {
 
     test('with time', () async {
       expect(responseData['endTime'], isNull);
-      profile.responseData.close(DateTime.parse('2024-03-23'));
+      await profile.responseData.close(DateTime.parse('2024-03-23'));
 
       expect(
         responseData['endTime'],
@@ -95,7 +95,7 @@ void main() {
     });
 
     test('then write body', () async {
-      profile.responseData.close();
+      await profile.responseData.close();
 
       expect(
         () => profile.responseData.bodySink.add([1, 2, 3]),
@@ -104,7 +104,7 @@ void main() {
     });
 
     test('then mutate', () async {
-      profile.responseData.close();
+      await profile.responseData.close();
 
       expect(
         () => profile.responseData.contentLength = 5,

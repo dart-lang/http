@@ -38,8 +38,12 @@ final class HttpProfileRequestData {
   Map<String, dynamic> get _requestData =>
       _data['requestData'] as Map<String, dynamic>;
 
-  /// The body of the request.
+  /// A sink that can be used to record the body of the request.
   StreamSink<List<int>> get bodySink => _body.sink;
+
+  /// The body of the request represented as an unmodifiable list of bytes.
+  List<int> get bodyBytes =>
+      UnmodifiableListView(_data['requestBodyBytes'] as List<int>);
 
   /// Information about the networking connection used in the HTTP request.
   ///
@@ -155,10 +159,10 @@ final class HttpProfileRequestData {
   ///
   /// [endTime] is the time when the request was fully sent. It defaults to the
   /// current time.
-  void close([DateTime? endTime]) {
+  Future<void> close([DateTime? endTime]) async {
     _checkAndUpdate();
     _isClosed = true;
-    unawaited(bodySink.close());
+    await bodySink.close();
     _data['requestEndTimestamp'] =
         (endTime ?? DateTime.now()).microsecondsSinceEpoch;
   }
@@ -172,10 +176,10 @@ final class HttpProfileRequestData {
   ///
   /// [endTime] is the time when the error occurred. It defaults to the current
   /// time.
-  void closeWithError(String value, [DateTime? endTime]) {
+  Future<void> closeWithError(String value, [DateTime? endTime]) async {
     _checkAndUpdate();
     _isClosed = true;
-    unawaited(bodySink.close());
+    await bodySink.close();
     _requestData['error'] = value;
     _data['requestEndTimestamp'] =
         (endTime ?? DateTime.now()).microsecondsSinceEpoch;

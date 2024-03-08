@@ -76,10 +76,15 @@ final class HttpClientRequestProfile {
     _data['requestData'] = <String, dynamic>{};
     requestData = HttpProfileRequestData._(_data, _updated);
     _data['responseData'] = <String, dynamic>{};
-    responseData = HttpProfileResponseData._(
-        _data['responseData'] as Map<String, dynamic>, _updated);
-    _data['_requestBodyStream'] = requestData._body.stream;
-    _data['_responseBodyStream'] = responseData._body.stream;
+    responseData = HttpProfileResponseData._(_data, _updated);
+    _data['requestBodyBytes'] = <int>[];
+    requestData._body.stream.listen(
+      (final bytes) => (_data['requestBodyBytes'] as List<int>).addAll(bytes),
+    );
+    _data['responseBodyBytes'] = <int>[];
+    responseData._body.stream.listen(
+      (final bytes) => (_data['responseBodyBytes'] as List<int>).addAll(bytes),
+    );
     // This entry is needed to support the updatedSince parameter of
     // ext.dart.io.getHttpProfile.
     _updated();

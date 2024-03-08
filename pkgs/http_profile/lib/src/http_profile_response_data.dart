@@ -32,14 +32,22 @@ final class HttpProfileResponseData {
   final void Function() _updated;
   final StreamController<List<int>> _body = StreamController<List<int>>();
 
+  Map<String, dynamic> get _responseData =>
+      _data['responseData'] as Map<String, dynamic>;
+
   /// Records a redirect that the connection went through.
   void addRedirect(HttpProfileRedirectData redirect) {
     _checkAndUpdate();
-    (_data['redirects'] as List<Map<String, dynamic>>).add(redirect._toJson());
+    (_responseData['redirects'] as List<Map<String, dynamic>>)
+        .add(redirect._toJson());
   }
 
-  /// The body of the response.
+  /// A sink that can be used to record the body of the response.
   StreamSink<List<int>> get bodySink => _body.sink;
+
+  /// The body of the response represented as an unmodifiable list of bytes.
+  List<int> get bodyBytes =>
+      UnmodifiableListView(_data['responseBodyBytes'] as List<int>);
 
   /// Information about the networking connection used in the HTTP response.
   ///
@@ -57,7 +65,7 @@ final class HttpProfileResponseData {
         );
       }
     }
-    _data['connectionInfo'] = {...value};
+    _responseData['connectionInfo'] = {...value};
   }
 
   /// The reponse headers where duplicate headers are represented using a list
@@ -74,10 +82,10 @@ final class HttpProfileResponseData {
   set headersListValues(Map<String, List<String>>? value) {
     _checkAndUpdate();
     if (value == null) {
-      _data.remove('headers');
+      _responseData.remove('headers');
       return;
     }
-    _data['headers'] = {...value};
+    _responseData['headers'] = {...value};
   }
 
   /// The response headers where duplicate headers are represented using a
@@ -94,10 +102,10 @@ final class HttpProfileResponseData {
   set headersCommaValues(Map<String, String>? value) {
     _checkAndUpdate();
     if (value == null) {
-      _data.remove('headers');
+      _responseData.remove('headers');
       return;
     }
-    _data['headers'] = splitHeaderValues(value);
+    _responseData['headers'] = splitHeaderValues(value);
   }
 
   // The compression state of the response.
@@ -107,57 +115,57 @@ final class HttpProfileResponseData {
   // uncompressed bytes when they listen to the response body byte stream.
   set compressionState(HttpClientResponseCompressionState value) {
     _checkAndUpdate();
-    _data['compressionState'] = value.name;
+    _responseData['compressionState'] = value.name;
   }
 
   // The reason phrase associated with the response e.g. "OK".
   set reasonPhrase(String? value) {
     _checkAndUpdate();
     if (value == null) {
-      _data.remove('reasonPhrase');
+      _responseData.remove('reasonPhrase');
     } else {
-      _data['reasonPhrase'] = value;
+      _responseData['reasonPhrase'] = value;
     }
   }
 
   /// Whether the status code was one of the normal redirect codes.
   set isRedirect(bool value) {
     _checkAndUpdate();
-    _data['isRedirect'] = value;
+    _responseData['isRedirect'] = value;
   }
 
   /// The persistent connection state returned by the server.
   set persistentConnection(bool value) {
     _checkAndUpdate();
-    _data['persistentConnection'] = value;
+    _responseData['persistentConnection'] = value;
   }
 
   /// The content length of the response body, in bytes.
   set contentLength(int? value) {
     _checkAndUpdate();
     if (value == null) {
-      _data.remove('contentLength');
+      _responseData.remove('contentLength');
     } else {
-      _data['contentLength'] = value;
+      _responseData['contentLength'] = value;
     }
   }
 
   set statusCode(int value) {
     _checkAndUpdate();
-    _data['statusCode'] = value;
+    _responseData['statusCode'] = value;
   }
 
   /// The time at which the initial response was received.
   set startTime(DateTime value) {
     _checkAndUpdate();
-    _data['startTime'] = value.microsecondsSinceEpoch;
+    _responseData['startTime'] = value.microsecondsSinceEpoch;
   }
 
   HttpProfileResponseData._(
     this._data,
     this._updated,
   ) {
-    _data['redirects'] = <Map<String, dynamic>>[];
+    _responseData['redirects'] = <Map<String, dynamic>>[];
   }
 
   void _checkAndUpdate() {
@@ -176,11 +184,12 @@ final class HttpProfileResponseData {
   ///
   /// [endTime] is the time when the response was fully received. It defaults
   /// to the current time.
-  void close([DateTime? endTime]) {
+  Future<void> close([DateTime? endTime]) async {
     _checkAndUpdate();
     _isClosed = true;
-    unawaited(bodySink.close());
-    _data['endTime'] = (endTime ?? DateTime.now()).microsecondsSinceEpoch;
+    await bodySink.close();
+    _responseData['endTime'] =
+        (endTime ?? DateTime.now()).microsecondsSinceEpoch;
   }
 
   /// Signal that receiving the response has failed with an error.
@@ -192,11 +201,12 @@ final class HttpProfileResponseData {
   ///
   /// [endTime] is the time when the error occurred. It defaults to the current
   /// time.
-  void closeWithError(String value, [DateTime? endTime]) {
+  Future<void> closeWithError(String value, [DateTime? endTime]) async {
     _checkAndUpdate();
     _isClosed = true;
-    unawaited(bodySink.close());
-    _data['error'] = value;
-    _data['endTime'] = (endTime ?? DateTime.now()).microsecondsSinceEpoch;
+    await bodySink.close();
+    _responseData['error'] = value;
+    _responseData['endTime'] =
+        (endTime ?? DateTime.now()).microsecondsSinceEpoch;
   }
 }
