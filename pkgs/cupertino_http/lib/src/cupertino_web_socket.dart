@@ -32,8 +32,7 @@ class CupertinoWebSocket implements WebSocket {
   /// the peer is able to select. See
   /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   static Future<CupertinoWebSocket> connect(Uri url,
-      {Iterable<String>? protocols,
-       URLSessionConfiguration? config}) async {
+      {Iterable<String>? protocols, URLSessionConfiguration? config}) async {
     if (!url.isScheme('ws') && !url.isScheme('wss')) {
       throw ArgumentError.value(
           url, 'url', 'only ws: and wss: schemes are supported');
