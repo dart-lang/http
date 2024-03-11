@@ -43,24 +43,46 @@ class CupertinoWebSocket implements WebSocket {
 
     final session = URLSession.sessionWithConfiguration(
         config ?? URLSessionConfiguration.defaultSessionConfiguration(),
-        onComplete: (session, task, error) {
-      if (!readyCompleter.isCompleted) {
-        if (error != null) {
-          readyCompleter.completeError(
-              ConnectionException('connection ended unexpectedly', error));
-        } else {
-          webSocket = CupertinoWebSocket._(task as URLSessionWebSocketTask, '');
-          readyCompleter.complete(webSocket);
-        }
-      } else {
-        webSocket._connectionClosed(
-            1006, Data.fromList('abnormal close'.codeUnits));
-      }
-    }, onWebSocketTaskOpened: (session, task, protocol) {
+        // In a successful flow, the callbacks will be made in this order:
+        // onWebSocketTaskOpened(...)        // Good connect.
+        // <receive/send messages to the peer>
+        // onWebSocketTaskClosed(...)        // Optional: peer sent Close frame.
+        // onComplete(..., error=null)       // Disconnected.
+        //
+        // In a failure to connect to the peer, the flow will be:
+        // onComplete(session, task, error=error):
+        //
+        // `onComplete` can also be called at any point if the peer is
+        // disconnected without Close frames being exchanged.
+        onWebSocketTaskOpened: (session, task, protocol) {
       webSocket = CupertinoWebSocket._(task, protocol ?? '');
       readyCompleter.complete(webSocket);
     }, onWebSocketTaskClosed: (session, task, closeCode, reason) {
+      assert(readyCompleter.isCompleted);
       webSocket._connectionClosed(closeCode, reason);
+    }, onComplete: (session, task, error) {
+      if (!readyCompleter.isCompleted) {
+        // `onWebSocketTaskOpened should have been called and completed
+        // `readyCompleter`. So either there was a error creating the connection
+        // or a logic error.
+        if (error == null) {
+          throw AssertionError(
+              'expected an error or "onWebSocketTaskOpened" to be called '
+              'first');
+        }
+        readyCompleter.completeError(
+            ConnectionException('connection ended unexpectedly', error));
+      } else {
+        // There are three possibilities here:
+        // 1. the peer sent a close Frame, `onWebSocketTaskClosed` was already
+        //    called and `_connectionClosed` is a no-op.
+        // 2. we sent a close Frame (through `close()`) and `_connectionClosed`
+        //    is a no-op.
+        // 3. an error occured (e.g. network failure) and `_connectionClosed`
+        //    will signal that and close `event`.
+        webSocket._connectionClosed(
+            1006, Data.fromList('abnormal close'.codeUnits));
+      }
     });
 
     session.webSocketTaskWithURL(url, protocols: protocols).resume();
