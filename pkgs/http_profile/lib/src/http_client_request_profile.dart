@@ -9,9 +9,20 @@ final class HttpProfileRequestEvent {
   final int _timestamp;
   final String _name;
 
+  DateTime get timestamp => DateTime.fromMicrosecondsSinceEpoch(_timestamp);
+
+  String get name => _name;
+
   HttpProfileRequestEvent({required DateTime timestamp, required String name})
       : _timestamp = timestamp.microsecondsSinceEpoch,
         _name = name;
+
+  static HttpProfileRequestEvent _fromJson(Map<String, dynamic> json) =>
+      HttpProfileRequestEvent(
+        timestamp:
+            DateTime.fromMicrosecondsSinceEpoch(json['timestamp'] as int),
+        name: json['event'] as String,
+      );
 
   Map<String, dynamic> _toJson() => <String, dynamic>{
         'timestamp': _timestamp,
@@ -30,6 +41,12 @@ final class HttpClientRequestProfile {
       HttpClient.enableTimelineLogging = enabled;
 
   final _data = <String, dynamic>{};
+
+  /// The HTTP request method associated with the request.
+  String get requestMethod => _data['requestMethod'] as String;
+
+  /// The URI to which the request was sent.
+  String get requestUri => _data['requestUri'] as String;
 
   /// Records an event related to the request.
   ///
@@ -53,6 +70,12 @@ final class HttpClientRequestProfile {
     (_data['events'] as List<Map<String, dynamic>>).add(event._toJson());
     _updated();
   }
+
+  /// An unmodifiable list containing the events related to the request.
+  List<HttpProfileRequestEvent> get events =>
+      UnmodifiableListView((_data['events'] as List<Map<String, dynamic>>).map(
+        HttpProfileRequestEvent._fromJson,
+      ));
 
   /// Details about the request.
   late final HttpProfileRequestData requestData;

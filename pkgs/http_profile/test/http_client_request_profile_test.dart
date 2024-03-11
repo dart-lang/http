@@ -53,20 +53,28 @@ void main() {
   });
 
   test('calling HttpClientRequestProfile.addEvent', () async {
-    final events = backingMap['events'] as List<Map<String, dynamic>>;
-    expect(events, isEmpty);
+    final eventsFromBackingMap =
+        backingMap['events'] as List<Map<String, dynamic>>;
+    expect(eventsFromBackingMap, isEmpty);
+
+    expect(profile.events, isEmpty);
 
     profile.addEvent(HttpProfileRequestEvent(
       timestamp: DateTime.parse('2024-03-22'),
       name: 'an event',
     ));
 
-    expect(events.length, 1);
-    final event = events.last;
+    expect(eventsFromBackingMap.length, 1);
+    final eventFromBackingMap = eventsFromBackingMap.last;
     expect(
-      event['timestamp'],
+      eventFromBackingMap['timestamp'],
       DateTime.parse('2024-03-22').microsecondsSinceEpoch,
     );
-    expect(event['event'], 'an event');
+    expect(eventFromBackingMap['event'], 'an event');
+
+    expect(profile.events.length, 1);
+    final eventFromGetter = profile.events.first;
+    expect(eventFromGetter.timestamp, DateTime.parse('2024-03-22'));
+    expect(eventFromGetter.name, 'an event');
   });
 }
