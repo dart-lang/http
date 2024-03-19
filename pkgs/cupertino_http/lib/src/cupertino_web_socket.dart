@@ -189,7 +189,6 @@ class CupertinoWebSocket implements WebSocket {
       unawaited(_events.close());
       if (code != null) {
         reason = reason ?? '';
-        print('Closing with code: $code $reason');
         _task.cancelWithCloseCode(code, Data.fromList(utf8.encode(reason)));
       } else {
         _task.cancel();
