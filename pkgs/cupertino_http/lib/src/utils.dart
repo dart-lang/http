@@ -59,7 +59,7 @@ String? toStringOrNull(ncb.NSString? s) {
 
 /// Converts a NSDictionary containing NSString keys and NSString values into
 /// an equivalent map.
-Map<String, String> stringDictToMap(ncb.NSDictionary d) {
+Map<String, String> stringNSDictionaryToMap(ncb.NSDictionary d) {
   // TODO(https://github.com/dart-lang/ffigen/issues/374): Make this
   // function type safe. Currently it will unconditionally cast both keys and
   // values to NSString with a likely crash down the line if that isn't their
@@ -76,6 +76,17 @@ Map<String, String> stringDictToMap(ncb.NSDictionary d) {
   }
 
   return m;
+}
+
+ncb.NSArray stringIterableToNSArray(Iterable<String> strings) {
+  final array =
+      ncb.NSMutableArray.arrayWithCapacity_(linkedLibs, strings.length);
+
+  var index = 0;
+  for (var s in strings) {
+    array.setObject_atIndexedSubscript_(s.toNSString(linkedLibs), index++);
+  }
+  return array;
 }
 
 ncb.NSURL uriToNSURL(Uri uri) =>
