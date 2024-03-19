@@ -31,7 +31,7 @@ jobs:
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
-        flutter-version: ["3.16.0", "any"]
+        flutter-version: ["3.19.0", "any"]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
@@ -61,4 +61,4 @@ jobs:
         run: |
           cd example
           flutter pub get
-          flutter test --timeout=1200s integration_test/
+          flutter test --timeout=1200s integration_test/main.dart

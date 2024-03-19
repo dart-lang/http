@@ -20,11 +20,11 @@ void main() {
     });
   });
 
-  group('stringDictToMap', () {
+  group('stringNSDictionaryToMap', () {
     test('empty input', () {
       final d = ncb.NSMutableDictionary.new1(linkedLibs);
 
-      expect(stringDictToMap(d), <String, String>{});
+      expect(stringNSDictionaryToMap(d), <String, String>{});
     });
 
     test('single string input', () {
@@ -32,7 +32,7 @@ void main() {
         ..setObject_forKey_(
             'value'.toNSString(linkedLibs), 'key'.toNSString(linkedLibs));
 
-      expect(stringDictToMap(d), {'key': 'value'});
+      expect(stringNSDictionaryToMap(d), {'key': 'value'});
     });
 
     test('multiple string input', () {
@@ -43,8 +43,31 @@ void main() {
             'value2'.toNSString(linkedLibs), 'key2'.toNSString(linkedLibs))
         ..setObject_forKey_(
             'value3'.toNSString(linkedLibs), 'key3'.toNSString(linkedLibs));
-      expect(stringDictToMap(d),
+      expect(stringNSDictionaryToMap(d),
           {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'});
+    });
+  });
+
+  group('stringIterableToNSArray', () {
+    test('empty input', () {
+      final array = stringIterableToNSArray([]);
+      expect(array.count, 0);
+    });
+
+    test('single string input', () {
+      final array = stringIterableToNSArray(['apple']);
+      expect(array.count, 1);
+      expect(
+          ncb.NSString.castFrom(array.objectAtIndex_(0)).toString(), 'apple');
+    });
+
+    test('multiple string input', () {
+      final array = stringIterableToNSArray(['apple', 'banana']);
+      expect(array.count, 2);
+      expect(
+          ncb.NSString.castFrom(array.objectAtIndex_(0)).toString(), 'apple');
+      expect(
+          ncb.NSString.castFrom(array.objectAtIndex_(1)).toString(), 'banana');
     });
   });
 }
