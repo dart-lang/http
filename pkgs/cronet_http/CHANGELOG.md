@@ -1,8 +1,10 @@
-## 1.2.0-wip
+## 1.2.0
 
 * Support the Cronet embedding dependency with `--dart-define=cronetHttpNoPlay=true`.
 * Fix a bug in the documentation where `isOwned` is used rather than
   `closeEngine`.
+* Upgrade `package:jni` to 0.7.3 to fix a SIGSEGV caused by a null
+  pointer dereference.
 
 ## 1.1.1
 
