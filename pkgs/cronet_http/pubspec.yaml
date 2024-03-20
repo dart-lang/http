@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.0
-  jni: ^0.7.2
+  jni: ^0.7.3
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0
