@@ -311,7 +311,7 @@ class CupertinoClient extends BaseClient {
         urlRequest.httpBodyStream = splitter.split();
         unawaited(
             profile.requestData.bodySink.addStream(splitter.split()).then((e) {
-          profile?.requestData.close();
+          profile.requestData.close();
         }));
       }
     }

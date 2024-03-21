@@ -4,7 +4,7 @@ description: >-
   A macOS/iOS Flutter plugin that provides access to the Foundation URL
   Loading System.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/cupertino_http
-
+publish_to: none
 environment:
   sdk: ^3.2.0
   flutter: '>=3.16.0'  # If changed, update test matrix.
