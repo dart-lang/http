@@ -1,6 +1,7 @@
 ## 1.5.0-wip
 
-* Add integration to the DevTools "Network" tab.
+* Add integration to the
+  [DevTools "Network" tab](https://docs.flutter.dev/tools/devtools/network).
 
 ## 1.3.0
 
