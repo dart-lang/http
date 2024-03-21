@@ -2,22 +2,20 @@
 [![package publisher](https://img.shields.io/pub/publisher/cronet_http.svg)](https://pub.dev/packages/cronet_http/publisher)
 
 An Android Flutter plugin that provides access to the
-[Cronet][]
-HTTP client.
+[Cronet][] HTTP client.
 
-Cronet is available as part of
-[Google Play Services][]. 
+Cronet is available as part of [Google Play Services][]
+and as [a standalone embedded library][].
 
-This package depends on [Google Play Services][] for its [Cronet][]
-implementation.
-[`package:cronet_http_embedded`](https://pub.dev/packages/cronet_http_embedded)
-is functionally identical to this package but embeds [Cronet][] directly
-instead of relying on [Google Play Services][].
+This package depends on [Google Play Services][]
+for its [Cronet][] implementation.
+To use the embedded version of [Cronet][] without [Google Play Services][],
+see [Use embedded Cronet](#use-embedded-cronet).
 
 ## Motivation
 
-Using [Cronet][], rather than the socket-based [dart:io HttpClient][]
-implemententation, has several advantages:
+Using [Cronet][], rather than the socket-based
+[dart:io HttpClient][] implementation, has several advantages:
 
 1. It automatically supports Android platform features such as HTTP proxies.
 2. It supports configurable caching.
@@ -43,20 +41,42 @@ void main() async {
         cacheMode: CacheMode.memory,
         cacheMaxSize: 2 * 1024 * 1024,
         userAgent: 'Book Agent');
-    httpClient = CronetClient.fromCronetEngine(engine, isOwned: true);
+    httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
 
-  final response = await client.get(Uri.https(
+  final response = await client.get(
+    Uri.https(
       'www.googleapis.com',
       '/books/v1/volumes',
-      {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
+      {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'},
+    ),
+  );
   httpClient.close();
 }
 ```
 
+### Use embedded Cronet
+
+If you want your application to work without [Google Play Services][],
+you can instead depend on the `org.chromium.net:cronet-embedded` package
+by using `dart-define` to set `cronetHttpNoPlay` is set to `true`.
+
+For example:
+
+```
+flutter run --dart-define=cronetHttpNoPlay=true
+```
+
+To use the embedded version in `flutter test`:
+
+```
+flutter test --dart-define=cronetHttpNoPlay=true
+```
+
 [Cronet]: https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/package-summary
-[dart:io HttpClient]: https://api.dart.dev/stable/dart-io/HttpClient-class.html
 [Google Play Services]: https://developers.google.com/android/guides/overview
+[a standalone embedded library]: https://mvnrepository.com/artifact/org.chromium.net/cronet-embedded
+[dart:io HttpClient]: https://api.dart.dev/stable/dart-io/HttpClient-class.html
 [package:http Client]: https://pub.dev/documentation/http/latest/http/Client-class.html

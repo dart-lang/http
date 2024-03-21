@@ -1,3 +1,3 @@
-## 0.1.0-wip
+## 0.1.0
 
-- Abstract interface definition.
+- Basic functionality in place.

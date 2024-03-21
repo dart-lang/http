@@ -1,4 +1,12 @@
+// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'dart:typed_data';
+
+import 'connect_stub.dart'
+    if (dart.library.js_interop) 'browser_web_socket.dart'
+    if (dart.library.io) 'io_web_socket.dart' as connector;
 
 /// An event received from the peer through the [WebSocket].
 sealed class WebSocketEvent {}
@@ -85,8 +93,38 @@ class WebSocketConnectionClosed extends WebSocketException {
 
 /// The interface for WebSocket connections.
 ///
-/// TODO: insert a usage example.
+/// ```dart
+/// import 'package:web_socket/src/web_socket.dart';
+///
+/// void main() async {
+///   final socket =
+///       await WebSocket.connect(Uri.parse('wss://ws.postman-echo.com/raw'));
+///
+///   socket.events.listen((e) async {
+///     switch (e) {
+///       case TextDataReceived(text: final text):
+///         print('Received Text: $text');
+///         await socket.close();
+///       case BinaryDataReceived(data: final data):
+///         print('Received Binary: $data');
+///       case CloseReceived(code: final code, reason: final reason):
+///         print('Connection to server closed: $code [$reason]');
+///     }
+///   });
+///
+///   socket.sendText('Hello Dart WebSockets! 🎉');
+/// }
 abstract interface class WebSocket {
+  /// Create a new WebSocket connection.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates that subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
+  static Future<WebSocket> connect(Uri url, {Iterable<String>? protocols}) =>
+      connector.connect(url, protocols: protocols);
+
   /// Sends text data to the connected peer.
   ///
   /// Throws [WebSocketConnectionClosed] if the [WebSocket] is
@@ -138,4 +176,12 @@ abstract interface class WebSocket {
   ///
   /// Errors will never appear in this [Stream].
   Stream<WebSocketEvent> get events;
+
+  /// The WebSocket subprotocol negotiated with the peer.
+  ///
+  /// Will be the empty string if no subprotocol was negotiated.
+  ///
+  /// See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
+  String get protocol;
 }

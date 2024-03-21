@@ -26,34 +26,28 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        package: ['cronet_http', 'cronet_http_embedded']
+        cronetHttpNoPlay: ['false', 'true']
+    defaults:
+      run:
+        working-directory: pkgs/cronet_http
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-      - uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93
+      - uses: actions/setup-java@9704b39bf258b59bc04b50fa2dd55e9ed76b47a8
         with:
           distribution: 'zulu'
           java-version: '17'
       - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
         with:
           channel: 'stable'
-      - name: Make cronet_http_embedded copy
-        if: ${{ matrix.package == 'cronet_http_embedded' }}
-        run: |
-          mv pkgs/cronet_http pkgs/cronet_http_embedded
-          cd pkgs/cronet_http_embedded
-          flutter pub get && dart tool/prepare_for_embedded.dart
       - id: install
         name: Install dependencies
-        working-directory: 'pkgs/${{ matrix.package }}'
         run: flutter pub get
       - name: Check formatting
-        working-directory: 'pkgs/${{ matrix.package }}'
+        if: always() && steps.install.outcome == 'success'
         run: dart format --output=none --set-exit-if-changed .
-        if: always() && steps.install.outcome == 'success'
       - name: Analyze code
-        working-directory: 'pkgs/${{ matrix.package }}'
-        run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
+        run: flutter analyze --fatal-infos
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@6b0df4b0efb23bb0ec63d881db79aefbc976e4b2
         if: always() && steps.install.outcome == 'success'
@@ -64,6 +58,6 @@ jobs:
           # - pkgs/cronet_http/example/android/app/build.gradle
           api-level: 21
           arch: x86_64
-          target: ${{ matrix.package == 'cronet_http_embedded' && 'default' || 'google_apis' }}
+          target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           profile: pixel
-          script: cd 'pkgs/${{ matrix.package }}/example' && flutter test --timeout=1200s integration_test/
+          script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
