@@ -289,8 +289,6 @@ class CupertinoClient extends BaseClient {
       ..headersCommaValues = request.headers
       ..maxRedirects = request.maxRedirects;
 
-    // XXX It would be cool to have a "other stuff field" to stick in task
-    // data.
     final urlRequest = MutableURLRequest.fromUrl(request.url)
       ..httpMethod = request.method;
 
@@ -299,7 +297,7 @@ class CupertinoClient extends BaseClient {
       // `httpBodyStream` requires a lot of expensive setup and data passing.
       urlRequest.httpBody = Data.fromList(request.bodyBytes);
       profile?.requestData.bodySink.add(request.bodyBytes);
-      profile?.requestData.close();
+      unawaited(profile?.requestData.close());
     } else if (await _hasData(stream) case (true, final s)) {
       // If the request is supposed to be bodyless (e.g. GET requests)
       // then setting `httpBodyStream` will cause the request to fail -
@@ -329,7 +327,7 @@ class CupertinoClient extends BaseClient {
     try {
       result = await taskTracker.responseCompleter.future;
     } catch (e) {
-      profile?.responseData.closeWithError(e.toString());
+      unawaited(profile?.responseData.closeWithError(e.toString()));
       rethrow;
     }
 
