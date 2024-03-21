@@ -1,4 +1,6 @@
-## 1.3.1-wip
+## 1.5.0-wip
+
+* Add integration to the DevTools "Network" tab.
 
 ## 1.3.0
 
