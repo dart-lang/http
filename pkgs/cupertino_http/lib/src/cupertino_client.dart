@@ -280,7 +280,7 @@ class CupertinoClient extends BaseClient {
         requestUri: request.url.toString());
     profile?.requestData
       ?..connectionInfo = {
-        'package': 'package:cupertino_http', // XXX Set for http_impl.dart
+        'package': 'package:cupertino_http',
         'client': 'CupertinoClient',
         'configuration': _urlSession!.configuration.toString(),
       }
