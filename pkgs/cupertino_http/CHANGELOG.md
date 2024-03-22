@@ -1,4 +1,6 @@
-## 1.3.1-wip
+## 1.4.0
+
+* **Experimental** support for the `package:web_socket` `WebSocket` interface.
 
 ## 1.3.0
 

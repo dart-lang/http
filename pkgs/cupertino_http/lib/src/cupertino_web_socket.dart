@@ -22,6 +22,9 @@ class ConnectionException extends WebSocketException {
 
 /// A [WebSocket] implemented using the
 /// [NSURLSessionWebSocketTask API](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask).
+///
+/// NOTE: the [WebSocket] interface is currently experimental and may change in
+/// the future.
 class CupertinoWebSocket implements WebSocket {
   /// Create a new WebSocket connection using the
   /// [NSURLSessionWebSocketTask API](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask).
@@ -31,6 +34,9 @@ class CupertinoWebSocket implements WebSocket {
   /// If provided, the [protocols] argument indicates that subprotocols that
   /// the peer is able to select. See
   /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
+  ///
+  /// NOTE: the [WebSocket] interface is currently experimental and may change
+  /// in the future.
   static Future<CupertinoWebSocket> connect(Uri url,
       {Iterable<String>? protocols, URLSessionConfiguration? config}) async {
     if (!url.isScheme('ws') && !url.isScheme('wss')) {
