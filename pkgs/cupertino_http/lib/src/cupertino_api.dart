@@ -184,8 +184,8 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
             linkedLibs, linkedLibs.NSLocalizedDescriptionKey),
       );
     }
-    final e = ncb.NSError.alloc(linkedLibs).initWithDomain_code_userInfo_(
-        domain.toNSString(linkedLibs).pointer, code, d);
+    final e = ncb.NSError.alloc(linkedLibs)
+        .initWithDomain_code_userInfo_(domain.toNSString(linkedLibs), code, d);
     return Error._(e);
   }
 
@@ -201,8 +201,7 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
   /// The error domain, for example `"NSPOSIXErrorDomain"`.
   ///
   /// See [NSError.domain](https://developer.apple.com/documentation/foundation/nserror/1413924-domain)
-  String get domain =>
-      ncb.NSString.castFromPointer(linkedLibs, _nsObject.domain).toString();
+  String get domain => _nsObject.domain.toString();
 
   /// A description of the error in the current locale e.g.
   /// 'A server with the specified hostname could not be found.'
@@ -552,7 +551,7 @@ class MutableData extends Data {
 
   /// A new empty [MutableData].
   factory MutableData.empty() =>
-      MutableData._(ncb.NSMutableData.dataWithCapacity_(linkedLibs, 0));
+      MutableData._(ncb.NSMutableData.dataWithCapacity_(linkedLibs, 0)!);
 
   /// Appends the given data.
   ///
@@ -918,8 +917,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
       completionPort.close();
     });
 
-    helperLibs.CUPHTTPSendMessage(_urlSessionWebSocketTask.pointer,
-        message._nsObject.pointer, completionPort.sendPort.nativePort);
+    helperLibs.CUPHTTPSendMessage(_urlSessionWebSocketTask, message._nsObject,
+        completionPort.sendPort.nativePort);
     await completer.future;
   }
 
@@ -956,7 +955,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
     });
 
     helperLibs.CUPHTTPReceiveMessage(
-        _urlSessionWebSocketTask.pointer, completionPort.sendPort.nativePort);
+        _urlSessionWebSocketTask, completionPort.sendPort.nativePort);
     return completer.future;
   }
 
@@ -1066,7 +1065,7 @@ class MutableURLRequest extends URLRequest {
   /// See [NSMutableURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1414617-allhttpheaderfields)
   factory MutableURLRequest.fromUrl(Uri uri) {
     final url = ncb.NSURL
-        .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
+        .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs))!;
     return MutableURLRequest._(
         ncb.NSMutableURLRequest.requestWithURL_(linkedLibs, url));
   }
@@ -1176,7 +1175,7 @@ void _setupDelegation(
             // with it.
           }
         } finally {
-          forwardedRedirect.finishWithRequest_(redirectRequest?._nsObject);
+          forwardedRedirect.finishWithRequest_(redirectRequest!._nsObject);
         }
         break;
       case ncb.MessageType.ResponseMessage:
