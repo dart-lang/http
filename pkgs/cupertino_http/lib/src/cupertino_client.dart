@@ -45,7 +45,6 @@ class _TaskTracker {
 
   void close() {
     responseController.close();
-    profile?.responseData.close();
   }
 }
 
@@ -77,7 +76,7 @@ class CupertinoClient extends BaseClient {
 
   URLSession? _urlSession;
 
-  CupertinoClient._(URLSession urlSession) : _urlSession = urlSession;
+  CupertinoClient._(this._urlSession);
 
   String? _findReasonPhrase(int statusCode) {
     switch (statusCode) {
@@ -174,14 +173,28 @@ class CupertinoClient extends BaseClient {
     if (error != null) {
       final exception = ClientException(
           error.localizedDescription ?? 'Unknown', taskTracker.request.url);
+      if (taskTracker.profile != null &&
+          taskTracker.profile!.requestData.endTime == null) {
+        // Error occurred during the request.
+        taskTracker.profile!.requestData.closeWithError(exception.toString());
+      } else {
+        // Error occurred during the response.
+        taskTracker.profile?.responseData.closeWithError(exception.toString());
+      }
       if (taskTracker.responseCompleter.isCompleted) {
         taskTracker.responseController.addError(exception);
       } else {
         taskTracker.responseCompleter.completeError(exception);
       }
-    } else if (!taskTracker.responseCompleter.isCompleted) {
-      taskTracker.responseCompleter.completeError(
-          StateError('task completed without an error or response'));
+    } else {
+      assert(taskTracker.profile == null ||
+          taskTracker.profile!.requestData.endTime != null);
+
+      taskTracker.profile?.responseData.close();
+      if (!taskTracker.responseCompleter.isCompleted) {
+        taskTracker.responseCompleter.completeError(
+            StateError('task completed without an error or response'));
+      }
     }
     taskTracker.close();
     _tasks.remove(task);
@@ -213,6 +226,8 @@ class CupertinoClient extends BaseClient {
       URLSession session, URLSessionTask task, URLResponse response) {
     final taskTracker = _tracker(task);
     taskTracker.responseCompleter.complete(response);
+    taskTracker.profile!.requestData.close();
+
     return URLSessionResponseDisposition.urlSessionResponseAllow;
   }
 
@@ -252,6 +267,12 @@ class CupertinoClient extends BaseClient {
     return (await queue.hasNext, queue.rest);
   }
 
+  HttpClientRequestProfile? _createProfile(BaseRequest request) =>
+      HttpClientRequestProfile.profile(
+          requestStartTime: DateTime.now(),
+          requestMethod: request.method,
+          requestUri: request.url.toString());
+
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     // The expected success case flow (without redirects) is:
@@ -274,10 +295,7 @@ class CupertinoClient extends BaseClient {
 
     final stream = request.finalize();
 
-    final profile = HttpClientRequestProfile.profile(
-        requestStartTime: DateTime.now(),
-        requestMethod: request.method,
-        requestUri: request.url.toString());
+    final profile = _createProfile(request);
     profile?.requestData
       ?..connectionInfo = {
         'package': 'package:cupertino_http',
@@ -297,7 +315,6 @@ class CupertinoClient extends BaseClient {
       // `httpBodyStream` requires a lot of expensive setup and data passing.
       urlRequest.httpBody = Data.fromList(request.bodyBytes);
       profile?.requestData.bodySink.add(request.bodyBytes);
-      unawaited(profile?.requestData.close());
     } else if (await _hasData(stream) case (true, final s)) {
       // If the request is supposed to be bodyless (e.g. GET requests)
       // then setting `httpBodyStream` will cause the request to fail -
@@ -307,10 +324,7 @@ class CupertinoClient extends BaseClient {
       } else {
         final splitter = StreamSplitter(s);
         urlRequest.httpBodyStream = splitter.split();
-        unawaited(
-            profile.requestData.bodySink.addStream(splitter.split()).then((e) {
-          profile.requestData.close();
-        }));
+        unawaited(profile.requestData.bodySink.addStream(splitter.split()));
       }
     }
 
@@ -324,12 +338,7 @@ class CupertinoClient extends BaseClient {
     final maxRedirects = request.followRedirects ? request.maxRedirects : 0;
 
     late URLResponse result;
-    try {
-      result = await taskTracker.responseCompleter.future;
-    } catch (e) {
-      unawaited(profile?.responseData.closeWithError(e.toString()));
-      rethrow;
-    }
+    result = await taskTracker.responseCompleter.future;
 
     final response = result as HTTPURLResponse;
 
@@ -348,9 +357,13 @@ class CupertinoClient extends BaseClient {
       );
     }
 
+    final contentLength = response.expectedContentLength == -1
+        ? null
+        : response.expectedContentLength;
     final isRedirect = !request.followRedirects && taskTracker.numRedirects > 0;
     profile?.responseData
-      ?..headersCommaValues = responseHeaders
+      ?..contentLength = contentLength
+      ..headersCommaValues = responseHeaders
       ..isRedirect = isRedirect
       ..reasonPhrase = _findReasonPhrase(response.statusCode)
       ..startTime = DateTime.now()
@@ -360,13 +373,31 @@ class CupertinoClient extends BaseClient {
       taskTracker.responseController.stream,
       response.statusCode,
       url: taskTracker.lastUrl ?? request.url,
-      contentLength: response.expectedContentLength == -1
-          ? null
-          : response.expectedContentLength,
+      contentLength: contentLength,
       reasonPhrase: _findReasonPhrase(response.statusCode),
       request: request,
       isRedirect: isRedirect,
       headers: responseHeaders,
     );
+  }
+}
+
+class CupertinoClientWithProfile extends CupertinoClient {
+  HttpClientRequestProfile? profile;
+
+  @override
+  HttpClientRequestProfile? _createProfile(BaseRequest request) =>
+      profile = super._createProfile(request);
+
+  CupertinoClientWithProfile._(super._urlSession) : super._();
+
+  factory CupertinoClientWithProfile.defaultSessionConfiguration() {
+    final config = URLSessionConfiguration.defaultSessionConfiguration();
+    final session = URLSession.sessionWithConfiguration(config,
+        onComplete: CupertinoClient._onComplete,
+        onData: CupertinoClient._onData,
+        onRedirect: CupertinoClient._onRedirect,
+        onResponse: CupertinoClient._onResponse);
+    return CupertinoClientWithProfile._(session);
   }
 }
