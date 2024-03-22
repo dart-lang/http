@@ -35,7 +35,6 @@ void main() {
         final client = CupertinoClientWithProfile.defaultSessionConfiguration();
         await client.post(successServerUri,
             headers: {'Content-Type': 'text/plain'}, body: 'Hi');
-        await Future<void>.delayed(const Duration(seconds: 1));
         profile = client.profile!;
       });
       tearDownAll(() {
@@ -214,7 +213,6 @@ void main() {
         } on ClientException {
           // Expected exception.
         }
-        await Future<void>.delayed(const Duration(seconds: 1));
         profile = client.profile!;
       });
       tearDownAll(() {
