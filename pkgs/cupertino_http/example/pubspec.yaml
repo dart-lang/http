@@ -6,8 +6,8 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.0.0
-  flutter: '>=3.10.0'
+  sdk: ^3.2.0
+  flutter: '>=3.16.0'
 
 dependencies:
   cupertino_http:
@@ -31,6 +31,8 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   test: ^1.21.1
+  web_socket_conformance_tests:
+    path: ../../web_socket_conformance_tests/
 
 flutter:
   uses-material-design: true

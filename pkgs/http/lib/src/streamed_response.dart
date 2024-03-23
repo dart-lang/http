@@ -26,3 +26,20 @@ class StreamedResponse extends BaseResponse {
       super.reasonPhrase})
       : stream = toByteStream(stream);
 }
+
+/// This class is private to `package:http` and will be removed when
+/// `package:http` v2 is released.
+class StreamedResponseV2 extends StreamedResponse
+    implements BaseResponseWithUrl {
+  @override
+  final Uri url;
+
+  StreamedResponseV2(super.stream, super.statusCode,
+      {required this.url,
+      super.contentLength,
+      super.request,
+      super.headers,
+      super.isRedirect,
+      super.persistentConnection,
+      super.reasonPhrase});
+}

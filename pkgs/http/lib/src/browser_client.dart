@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:js_interop';
 
-import 'package:web/helpers.dart';
+import 'package:web/web.dart';
 
 import 'base_client.dart';
 import 'base_request.dart';
@@ -79,20 +79,26 @@ class BrowserClient extends BaseClient {
         return;
       }
       var body = (xhr.response as JSArrayBuffer).toDart.asUint8List();
-      completer.complete(StreamedResponse(
-          ByteStream.fromBytes(body), xhr.status,
-          contentLength: body.length,
-          request: request,
-          headers: responseHeaders,
-          reasonPhrase: xhr.statusText));
+      var responseUrl = xhr.responseURL;
+      var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : request.url;
+      completer.complete(StreamedResponseV2(
+        ByteStream.fromBytes(body),
+        xhr.status,
+        contentLength: body.length,
+        request: request,
+        url: url,
+        headers: responseHeaders,
+        reasonPhrase: xhr.statusText,
+      ));
     }));
 
     unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
       completer.completeError(
-          ClientException('XMLHttpRequest error.', request.url),
-          StackTrace.current);
+        ClientException('XMLHttpRequest error.', request.url),
+        StackTrace.current,
+      );
     }));
 
     xhr.send(bytes.toJS);
