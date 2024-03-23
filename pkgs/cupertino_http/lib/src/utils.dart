@@ -71,7 +71,7 @@ Map<String, String> stringNSDictionaryToMap(ncb.NSDictionary d) {
     final nsKey = keys.objectAtIndex_(i);
     final key = toStringOrNull(ncb.NSString.castFrom(nsKey))!;
     final value =
-        toStringOrNull(ncb.NSString.castFrom(d.objectForKey_(nsKey)))!;
+        toStringOrNull(ncb.NSString.castFrom(d.objectForKey_(nsKey)!))!;
     m[key] = value;
   }
 
@@ -89,5 +89,5 @@ ncb.NSArray stringIterableToNSArray(Iterable<String> strings) {
   return array;
 }
 
-ncb.NSURL uriToNSURL(Uri uri) =>
-    ncb.NSURL.URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
+ncb.NSURL uriToNSURL(Uri uri) => ncb.NSURL
+    .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs))!;

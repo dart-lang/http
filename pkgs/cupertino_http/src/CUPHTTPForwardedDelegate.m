@@ -53,7 +53,7 @@
   [super dealloc];
 }
 
-- (void) finishWithRequest:(NSURLRequest *) request {
+- (void) finishWithRequest:(nullable NSURLRequest *) request {
   self->_redirectRequest = [request retain];
   [super finish];
 }

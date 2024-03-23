@@ -1175,7 +1175,7 @@ void _setupDelegation(
             // with it.
           }
         } finally {
-          forwardedRedirect.finishWithRequest_(redirectRequest!._nsObject);
+          forwardedRedirect.finishWithRequest_(redirectRequest?._nsObject);
         }
         break;
       case ncb.MessageType.ResponseMessage:

@@ -59104,21 +59104,41 @@ class NativeCupertinoHttp {
           ffi.Pointer<ObjCObject>)>();
 
   late final _sel_finishWithRequest_1 = _registerName1("finishWithRequest:");
-  ffi.Pointer<ObjCObject> _objc_msgSend_539(
+  void _objc_msgSend_539(
     ffi.Pointer<ObjCObject> obj,
     ffi.Pointer<ObjCSel> sel,
+    ffi.Pointer<ObjCObject> request,
   ) {
     return __objc_msgSend_539(
       obj,
       sel,
+      request,
     );
   }
 
   late final __objc_msgSend_539Ptr = _lookup<
       ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>,
+              ffi.Pointer<ObjCObject>)>>('objc_msgSend');
+  late final __objc_msgSend_539 = __objc_msgSend_539Ptr.asFunction<
+      void Function(ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>,
+          ffi.Pointer<ObjCObject>)>();
+
+  ffi.Pointer<ObjCObject> _objc_msgSend_540(
+    ffi.Pointer<ObjCObject> obj,
+    ffi.Pointer<ObjCSel> sel,
+  ) {
+    return __objc_msgSend_540(
+      obj,
+      sel,
+    );
+  }
+
+  late final __objc_msgSend_540Ptr = _lookup<
+      ffi.NativeFunction<
           ffi.Pointer<ObjCObject> Function(
               ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>)>>('objc_msgSend');
-  late final __objc_msgSend_539 = __objc_msgSend_539Ptr.asFunction<
+  late final __objc_msgSend_540 = __objc_msgSend_540Ptr.asFunction<
       ffi.Pointer<ObjCObject> Function(
           ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>)>();
 
@@ -59127,14 +59147,14 @@ class NativeCupertinoHttp {
       _getClass1("CUPHTTPForwardedResponse");
   late final _sel_initWithSession_task_response_1 =
       _registerName1("initWithSession:task:response:");
-  ffi.Pointer<ObjCObject> _objc_msgSend_540(
+  ffi.Pointer<ObjCObject> _objc_msgSend_541(
     ffi.Pointer<ObjCObject> obj,
     ffi.Pointer<ObjCSel> sel,
     ffi.Pointer<ObjCObject> session,
     ffi.Pointer<ObjCObject> task,
     ffi.Pointer<ObjCObject> response,
   ) {
-    return __objc_msgSend_540(
+    return __objc_msgSend_541(
       obj,
       sel,
       session,
@@ -59143,7 +59163,7 @@ class NativeCupertinoHttp {
     );
   }
 
-  late final __objc_msgSend_540Ptr = _lookup<
+  late final __objc_msgSend_541Ptr = _lookup<
       ffi.NativeFunction<
           ffi.Pointer<ObjCObject> Function(
               ffi.Pointer<ObjCObject>,
@@ -59151,7 +59171,7 @@ class NativeCupertinoHttp {
               ffi.Pointer<ObjCObject>,
               ffi.Pointer<ObjCObject>,
               ffi.Pointer<ObjCObject>)>>('objc_msgSend');
-  late final __objc_msgSend_540 = __objc_msgSend_540Ptr.asFunction<
+  late final __objc_msgSend_541 = __objc_msgSend_541Ptr.asFunction<
       ffi.Pointer<ObjCObject> Function(
           ffi.Pointer<ObjCObject>,
           ffi.Pointer<ObjCSel>,
@@ -59161,95 +59181,59 @@ class NativeCupertinoHttp {
 
   late final _sel_finishWithDisposition_1 =
       _registerName1("finishWithDisposition:");
-  void _objc_msgSend_541(
+  void _objc_msgSend_542(
     ffi.Pointer<ObjCObject> obj,
     ffi.Pointer<ObjCSel> sel,
     int disposition,
   ) {
-    return __objc_msgSend_541(
+    return __objc_msgSend_542(
       obj,
       sel,
       disposition,
     );
   }
 
-  late final __objc_msgSend_541Ptr = _lookup<
+  late final __objc_msgSend_542Ptr = _lookup<
       ffi.NativeFunction<
           ffi.Void Function(ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>,
               ffi.Int32)>>('objc_msgSend');
-  late final __objc_msgSend_541 = __objc_msgSend_541Ptr.asFunction<
+  late final __objc_msgSend_542 = __objc_msgSend_542Ptr.asFunction<
       void Function(ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>, int)>();
 
   late final _sel_disposition1 = _registerName1("disposition");
-  int _objc_msgSend_542(
+  int _objc_msgSend_543(
     ffi.Pointer<ObjCObject> obj,
     ffi.Pointer<ObjCSel> sel,
   ) {
-    return __objc_msgSend_542(
+    return __objc_msgSend_543(
       obj,
       sel,
     );
   }
 
-  late final __objc_msgSend_542Ptr = _lookup<
+  late final __objc_msgSend_543Ptr = _lookup<
       ffi.NativeFunction<
           ffi.Int32 Function(
               ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>)>>('objc_msgSend');
-  late final __objc_msgSend_542 = __objc_msgSend_542Ptr.asFunction<
+  late final __objc_msgSend_543 = __objc_msgSend_543Ptr.asFunction<
       int Function(ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>)>();
 
   late final _class_CUPHTTPForwardedData1 = _getClass1("CUPHTTPForwardedData");
   late final _sel_initWithSession_task_data_1 =
       _registerName1("initWithSession:task:data:");
-  ffi.Pointer<ObjCObject> _objc_msgSend_543(
+  ffi.Pointer<ObjCObject> _objc_msgSend_544(
     ffi.Pointer<ObjCObject> obj,
     ffi.Pointer<ObjCSel> sel,
     ffi.Pointer<ObjCObject> session,
     ffi.Pointer<ObjCObject> task,
     ffi.Pointer<ObjCObject> data,
   ) {
-    return __objc_msgSend_543(
-      obj,
-      sel,
-      session,
-      task,
-      data,
-    );
-  }
-
-  late final __objc_msgSend_543Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ObjCObject> Function(
-              ffi.Pointer<ObjCObject>,
-              ffi.Pointer<ObjCSel>,
-              ffi.Pointer<ObjCObject>,
-              ffi.Pointer<ObjCObject>,
-              ffi.Pointer<ObjCObject>)>>('objc_msgSend');
-  late final __objc_msgSend_543 = __objc_msgSend_543Ptr.asFunction<
-      ffi.Pointer<ObjCObject> Function(
-          ffi.Pointer<ObjCObject>,
-          ffi.Pointer<ObjCSel>,
-          ffi.Pointer<ObjCObject>,
-          ffi.Pointer<ObjCObject>,
-          ffi.Pointer<ObjCObject>)>();
-
-  late final _class_CUPHTTPForwardedComplete1 =
-      _getClass1("CUPHTTPForwardedComplete");
-  late final _sel_initWithSession_task_error_1 =
-      _registerName1("initWithSession:task:error:");
-  ffi.Pointer<ObjCObject> _objc_msgSend_544(
-    ffi.Pointer<ObjCObject> obj,
-    ffi.Pointer<ObjCSel> sel,
-    ffi.Pointer<ObjCObject> session,
-    ffi.Pointer<ObjCObject> task,
-    ffi.Pointer<ObjCObject> error,
-  ) {
     return __objc_msgSend_544(
       obj,
       sel,
       session,
       task,
-      error,
+      data,
     );
   }
 
@@ -59269,23 +59253,41 @@ class NativeCupertinoHttp {
           ffi.Pointer<ObjCObject>,
           ffi.Pointer<ObjCObject>)>();
 
+  late final _class_CUPHTTPForwardedComplete1 =
+      _getClass1("CUPHTTPForwardedComplete");
+  late final _sel_initWithSession_task_error_1 =
+      _registerName1("initWithSession:task:error:");
   ffi.Pointer<ObjCObject> _objc_msgSend_545(
     ffi.Pointer<ObjCObject> obj,
     ffi.Pointer<ObjCSel> sel,
+    ffi.Pointer<ObjCObject> session,
+    ffi.Pointer<ObjCObject> task,
+    ffi.Pointer<ObjCObject> error,
   ) {
     return __objc_msgSend_545(
       obj,
       sel,
+      session,
+      task,
+      error,
     );
   }
 
   late final __objc_msgSend_545Ptr = _lookup<
       ffi.NativeFunction<
           ffi.Pointer<ObjCObject> Function(
-              ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>)>>('objc_msgSend');
+              ffi.Pointer<ObjCObject>,
+              ffi.Pointer<ObjCSel>,
+              ffi.Pointer<ObjCObject>,
+              ffi.Pointer<ObjCObject>,
+              ffi.Pointer<ObjCObject>)>>('objc_msgSend');
   late final __objc_msgSend_545 = __objc_msgSend_545Ptr.asFunction<
       ffi.Pointer<ObjCObject> Function(
-          ffi.Pointer<ObjCObject>, ffi.Pointer<ObjCSel>)>();
+          ffi.Pointer<ObjCObject>,
+          ffi.Pointer<ObjCSel>,
+          ffi.Pointer<ObjCObject>,
+          ffi.Pointer<ObjCObject>,
+          ffi.Pointer<ObjCObject>)>();
 
   late final _class_CUPHTTPForwardedFinishedDownloading1 =
       _getClass1("CUPHTTPForwardedFinishedDownloading");
@@ -91111,12 +91113,13 @@ class CUPHTTPForwardedRedirect extends CUPHTTPForwardedDelegate {
   /// Indicates that the task should continue executing using the given request.
   /// If the request is NIL then the redirect is not followed and the task is
   /// complete.
-  void finishWithRequest_(NSURLRequest request) {
-    _lib._objc_msgSend_365(_id, _lib._sel_finishWithRequest_1, request._id);
+  void finishWithRequest_(NSURLRequest? request) {
+    _lib._objc_msgSend_539(
+        _id, _lib._sel_finishWithRequest_1, request?._id ?? ffi.nullptr);
   }
 
   NSHTTPURLResponse get response {
-    final _ret = _lib._objc_msgSend_539(_id, _lib._sel_response1);
+    final _ret = _lib._objc_msgSend_540(_id, _lib._sel_response1);
     return NSHTTPURLResponse._(_ret, _lib, retain: true, release: true);
   }
 
@@ -91185,7 +91188,7 @@ class CUPHTTPForwardedResponse extends CUPHTTPForwardedDelegate {
 
   NSObject initWithSession_task_response_(
       NSURLSession session, NSURLSessionTask task, NSURLResponse response) {
-    final _ret = _lib._objc_msgSend_540(
+    final _ret = _lib._objc_msgSend_541(
         _id,
         _lib._sel_initWithSession_task_response_1,
         session._id,
@@ -91195,7 +91198,7 @@ class CUPHTTPForwardedResponse extends CUPHTTPForwardedDelegate {
   }
 
   void finishWithDisposition_(int disposition) {
-    _lib._objc_msgSend_541(_id, _lib._sel_finishWithDisposition_1, disposition);
+    _lib._objc_msgSend_542(_id, _lib._sel_finishWithDisposition_1, disposition);
   }
 
   NSURLResponse get response {
@@ -91205,7 +91208,7 @@ class CUPHTTPForwardedResponse extends CUPHTTPForwardedDelegate {
 
   /// This property is meant to be used only by CUPHTTPClientDelegate.
   int get disposition {
-    return _lib._objc_msgSend_542(_id, _lib._sel_disposition1);
+    return _lib._objc_msgSend_543(_id, _lib._sel_disposition1);
   }
 
   @override
@@ -91260,7 +91263,7 @@ class CUPHTTPForwardedData extends CUPHTTPForwardedDelegate {
 
   NSObject initWithSession_task_data_(
       NSURLSession session, NSURLSessionTask task, NSData data) {
-    final _ret = _lib._objc_msgSend_543(_id,
+    final _ret = _lib._objc_msgSend_544(_id,
         _lib._sel_initWithSession_task_data_1, session._id, task._id, data._id);
     return NSObject._(_ret, _lib, retain: true, release: true);
   }
@@ -91323,19 +91326,21 @@ class CUPHTTPForwardedComplete extends CUPHTTPForwardedDelegate {
   }
 
   NSObject initWithSession_task_error_(
-      NSURLSession session, NSURLSessionTask task, NSError error) {
-    final _ret = _lib._objc_msgSend_544(
+      NSURLSession session, NSURLSessionTask task, NSError? error) {
+    final _ret = _lib._objc_msgSend_545(
         _id,
         _lib._sel_initWithSession_task_error_1,
         session._id,
         task._id,
-        error._id);
+        error?._id ?? ffi.nullptr);
     return NSObject._(_ret, _lib, retain: true, release: true);
   }
 
-  NSError get error {
-    final _ret = _lib._objc_msgSend_545(_id, _lib._sel_error1);
-    return NSError._(_ret, _lib, retain: true, release: true);
+  NSError? get error {
+    final _ret = _lib._objc_msgSend_353(_id, _lib._sel_error1);
+    return _ret.address == 0
+        ? null
+        : NSError._(_ret, _lib, retain: true, release: true);
   }
 
   @override
@@ -91469,19 +91474,21 @@ class CUPHTTPForwardedWebSocketOpened extends CUPHTTPForwardedDelegate {
   NSObject initWithSession_webSocketTask_didOpenWithProtocol_(
       NSURLSession session,
       NSURLSessionWebSocketTask webSocketTask,
-      NSString protocol) {
+      NSString? protocol) {
     final _ret = _lib._objc_msgSend_548(
         _id,
         _lib._sel_initWithSession_webSocketTask_didOpenWithProtocol_1,
         session._id,
         webSocketTask._id,
-        protocol._id);
+        protocol?._id ?? ffi.nullptr);
     return NSObject._(_ret, _lib, retain: true, release: true);
   }
 
-  NSString get protocol {
-    final _ret = _lib._objc_msgSend_32(_id, _lib._sel_protocol1);
-    return NSString._(_ret, _lib, retain: true, release: true);
+  NSString? get protocol {
+    final _ret = _lib._objc_msgSend_55(_id, _lib._sel_protocol1);
+    return _ret.address == 0
+        ? null
+        : NSString._(_ret, _lib, retain: true, release: true);
   }
 
   @override
@@ -91559,9 +91566,11 @@ class CUPHTTPForwardedWebSocketClosed extends CUPHTTPForwardedDelegate {
     return _lib._objc_msgSend_477(_id, _lib._sel_closeCode1);
   }
 
-  NSData get reason {
-    final _ret = _lib._objc_msgSend_54(_id, _lib._sel_reason1);
-    return NSData._(_ret, _lib, retain: true, release: true);
+  NSData? get reason {
+    final _ret = _lib._objc_msgSend_348(_id, _lib._sel_reason1);
+    return _ret.address == 0
+        ? null
+        : NSData._(_ret, _lib, retain: true, release: true);
   }
 
   @override
