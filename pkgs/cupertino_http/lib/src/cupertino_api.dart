@@ -243,7 +243,7 @@ class URLCache extends _ObjectHolder<ncb.NSURLCache> {
   /// See [NSURLCache.sharedURLCache](https://developer.apple.com/documentation/foundation/nsurlcache/1413377-sharedurlcache)
   static URLCache? get sharedURLCache {
     final sharedCache = ncb.NSURLCache.getSharedURLCache(linkedLibs);
-    return sharedCache == null ? null : URLCache._(sharedCache);
+    return URLCache._(sharedCache);
   }
 
   /// Create a new [URLCache] with the given memory and disk cache sizes.
@@ -291,7 +291,7 @@ class URLSessionConfiguration
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration.castFrom(
               ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(
-                  linkedLibs)!),
+                  linkedLibs)),
           isBackground: false);
 
   /// A session configuration that uses no persistent storage for caches,
@@ -302,7 +302,7 @@ class URLSessionConfiguration
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration.castFrom(
               ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration(
-                  linkedLibs)!),
+                  linkedLibs)),
           isBackground: false);
 
   /// Whether connections over a cellular network are allowed.
@@ -625,8 +625,7 @@ class HTTPURLResponse extends URLResponse {
   ///
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
   Map<String, String> get allHeaderFields {
-    final headers =
-        ncb.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields!);
+    final headers = ncb.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields);
     return stringNSDictionaryToMap(headers);
   }
 
@@ -1159,7 +1158,7 @@ void _setupDelegation(
 
         try {
           final request = URLRequest._(
-              ncb.NSURLRequest.castFrom(forwardedRedirect.request!));
+              ncb.NSURLRequest.castFrom(forwardedRedirect.request));
 
           if (onRedirect == null) {
             redirectRequest = request;
@@ -1167,7 +1166,7 @@ void _setupDelegation(
           }
           try {
             final response = HTTPURLResponse._(
-                ncb.NSHTTPURLResponse.castFrom(forwardedRedirect.response!));
+                ncb.NSHTTPURLResponse.castFrom(forwardedRedirect.response));
             redirectRequest = onRedirect(session, task, response, request);
           } catch (e) {
             // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
@@ -1190,7 +1189,7 @@ void _setupDelegation(
             break;
           }
           final response =
-              URLResponse._exactURLResponseType(forwardedResponse.response!);
+              URLResponse._exactURLResponseType(forwardedResponse.response);
 
           try {
             disposition = onResponse(session, task, response);
@@ -1212,8 +1211,8 @@ void _setupDelegation(
             break;
           }
           try {
-            onData(session, task,
-                Data._(ncb.NSData.castFrom(forwardedData.data!)));
+            onData(
+                session, task, Data._(ncb.NSData.castFrom(forwardedData.data)));
           } catch (e) {
             // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
             // this exception as an `Error` and call the completion function
@@ -1235,7 +1234,7 @@ void _setupDelegation(
                 session,
                 task as URLSessionDownloadTask,
                 Uri.parse(
-                    finishedDownloading.location!.absoluteString!.toString()));
+                    finishedDownloading.location.absoluteString!.toString()));
           } catch (e) {
             // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
             // this exception as an `Error` and call the completion function
@@ -1473,7 +1472,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   ///
   /// See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
   URLSessionConfiguration get configuration => URLSessionConfiguration._(
-      ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration!),
+      ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration),
       isBackground: _isBackground);
 
   /// A description of the session that may be useful for debugging.

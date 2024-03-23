@@ -66,12 +66,11 @@ Map<String, String> stringNSDictionaryToMap(ncb.NSDictionary d) {
   // true types.
   final m = <String, String>{};
 
-  final keys = ncb.NSArray.castFrom(d.allKeys!);
+  final keys = ncb.NSArray.castFrom(d.allKeys);
   for (var i = 0; i < keys.count; ++i) {
     final nsKey = keys.objectAtIndex_(i);
-    final key = toStringOrNull(ncb.NSString.castFrom(nsKey))!;
-    final value =
-        toStringOrNull(ncb.NSString.castFrom(d.objectForKey_(nsKey)!))!;
+    final key = ncb.NSString.castFrom(nsKey).toString();
+    final value = ncb.NSString.castFrom(d.objectForKey_(nsKey)!).toString();
     m[key] = value;
   }
 
