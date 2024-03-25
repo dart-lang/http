@@ -54,8 +54,8 @@ void main() {
         expect(profile.requestData.contentLength, 2);
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, isNull);
-        // XXX Should 'content-length' also be in the headers? It is not for the
-        // request but it is for the response.
+        expect(
+            profile.requestData.headers, containsPair('Content-Length', ['2']));
         expect(profile.requestData.headers,
             containsPair('Content-Type', ['text/plain; charset=utf-8']));
         expect(profile.requestData.persistentConnection, isNull);
@@ -66,8 +66,6 @@ void main() {
       test('response attributes', () {
         expect(profile.responseData.bodyBytes, 'Hello World'.codeUnits);
         expect(profile.responseData.compressionState, isNull);
-        // XXX how are request and response connectionInfo supposed to be
-        // different?
         expect(profile.responseData.connectionInfo, isNull);
         expect(profile.responseData.contentLength, 11);
         expect(profile.responseData.endTime, isNotNull);
@@ -128,6 +126,7 @@ void main() {
         expect(profile.requestData.contentLength, isNull);
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.startTime, isNotNull);
+        expect(profile.requestData.headers, isNot(contains('Content-Length')));
       });
     });
 
@@ -159,8 +158,8 @@ void main() {
         expect(profile.requestData.contentLength, 2);
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, startsWith('ClientException:'));
-        // XXX Should 'content-length' also be in the headers? It is not for the
-        // request but it is for the response.
+        expect(
+            profile.requestData.headers, containsPair('Content-Length', ['2']));
         expect(profile.requestData.headers,
             containsPair('Content-Type', ['text/plain; charset=utf-8']));
         expect(profile.requestData.persistentConnection, isNull);
@@ -232,8 +231,8 @@ void main() {
         expect(profile.requestData.contentLength, 2);
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, isNull);
-        // XXX Should 'content-length' also be in the headers? It is not for the
-        // request but it is for the response.
+        expect(
+            profile.requestData.headers, containsPair('Content-Length', ['2']));
         expect(profile.requestData.headers,
             containsPair('Content-Type', ['text/plain; charset=utf-8']));
         expect(profile.requestData.persistentConnection, isNull);

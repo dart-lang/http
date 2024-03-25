@@ -315,6 +315,12 @@ class CupertinoClient extends BaseClient {
       // `httpBodyStream` requires a lot of expensive setup and data passing.
       urlRequest.httpBody = Data.fromList(request.bodyBytes);
       profile?.requestData.bodySink.add(request.bodyBytes);
+      if (profile != null) {
+        final headers =
+            Map<String, List<String>>.from(profile.requestData.headers!);
+        headers['Content-Length'] = ['${request.contentLength}'];
+        profile.requestData.headersListValues = headers;
+      }
     } else if (await _hasData(stream) case (true, final s)) {
       // If the request is supposed to be bodyless (e.g. GET requests)
       // then setting `httpBodyStream` will cause the request to fail -
@@ -325,6 +331,12 @@ class CupertinoClient extends BaseClient {
         final splitter = StreamSplitter(s);
         urlRequest.httpBodyStream = splitter.split();
         unawaited(profile.requestData.bodySink.addStream(splitter.split()));
+        if (request.contentLength != null) {
+          final headers =
+              Map<String, List<String>>.from(profile.requestData.headers!);
+          headers['Content-Length'] = ['${request.contentLength}'];
+          profile.requestData.headersListValues = headers;
+        }
       }
     }
 
