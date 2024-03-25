@@ -131,8 +131,9 @@ class MultipartRequest extends BaseRequest {
   ///
   /// The return value is guaranteed to contain only ASCII characters.
   String _headerForFile(MultipartFile file) {
-    var header = 'content-type: ${file.contentType}\r\n'
-        'content-disposition: form-data; name="${_browserEncode(file.field)}"';
+    var header = 'content-disposition: form-data; name="${_browserEncode(
+        file.field)}"\r\n'
+        'content-type: ${file.contentType}';
 
     if (file.filename != null) {
       header = '$header; filename="${_browserEncode(file.filename!)}"';
