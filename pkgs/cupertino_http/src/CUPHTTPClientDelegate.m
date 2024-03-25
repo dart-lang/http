@@ -185,7 +185,7 @@ didFinishDownloadingToURL:(NSURL *)location {
 
 - (void)URLSession:(NSURLSession *)session
               task:(NSURLSessionTask *)task
-didCompleteWithError:(NSError *)error {
+didCompleteWithError:(nullable NSError *)error {
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
   
@@ -219,7 +219,7 @@ didCompleteWithError:(NSError *)error {
 
 - (void)URLSession:(NSURLSession *)session 
      webSocketTask:(NSURLSessionWebSocketTask *)task
-didOpenWithProtocol:(NSString *)protocol {
+didOpenWithProtocol:(nullable NSString *)protocol {
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
   
@@ -248,7 +248,7 @@ didOpenWithProtocol:(NSString *)protocol {
 - (void)URLSession:(NSURLSession *)session 
      webSocketTask:(NSURLSessionWebSocketTask *)task
   didCloseWithCode:(NSURLSessionWebSocketCloseCode)closeCode
-            reason:(NSData *)reason {
+            reason:(nullable NSData *)reason {
   CUPHTTPTaskConfiguration *config = [taskConfigurations objectForKey:task];
   NSAssert(config != nil, @"No configuration for task.");
   
