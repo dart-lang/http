@@ -77,6 +77,50 @@ final class HttpClientRequestProfile {
         HttpProfileRequestEvent._fromJson,
       ));
 
+  /// Information about the networking connection used.
+  ///
+  /// This information is meant to be used for debugging.
+  ///
+  /// It can contain any arbitrary data as long as the values are of type
+  /// [String] or [int].
+  ///
+  /// This field can only be modified by assigning a Map to it. That is:
+  /// ```dart
+  /// // Valid
+  /// profile?.connectionInfo = {
+  ///   'localPort': 1285,
+  ///   'remotePort': 443,
+  ///   'connectionPoolId': '21x23',
+  /// };
+  ///
+  /// // Invalid
+  /// profile?.connectionInfo?['localPort'] = 1285;
+  /// ```
+  set connectionInfo(Map<String, dynamic /*String|int*/ >? value) {
+    _updated();
+    if (value == null) {
+      requestData._requestData.remove('connectionInfo');
+      responseData._responseData.remove('connectionInfo');
+    } else {
+      for (final v in value.values) {
+        if (!(v is String || v is int)) {
+          throw ArgumentError(
+            'The values in connectionInfo must be of type String or int.',
+          );
+        }
+      }
+      requestData._requestData['connectionInfo'] = {...value};
+      responseData._responseData['connectionInfo'] = {...value};
+    }
+  }
+
+  Map<String, dynamic /*String|int*/ >? get connectionInfo =>
+      requestData._data['connectionInfo'] == null
+          ? null
+          : UnmodifiableMapView(
+              requestData._data['connectionInfo'] as Map<String, dynamic>,
+            );
+
   /// Details about the request.
   late final HttpProfileRequestData requestData;
 
