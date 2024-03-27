@@ -296,13 +296,13 @@ class CupertinoClient extends BaseClient {
     final stream = request.finalize();
 
     final profile = _createProfile(request);
+    profile?.connectionInfo = {
+      'package': 'package:cupertino_http',
+      'client': 'CupertinoClient',
+      'configuration': _urlSession!.configuration.toString(),
+    };
     profile?.requestData
-      ?..connectionInfo = {
-        'package': 'package:cupertino_http',
-        'client': 'CupertinoClient',
-        'configuration': _urlSession!.configuration.toString(),
-      }
-      ..contentLength = request.contentLength
+      ?..contentLength = request.contentLength
       ..followRedirects = request.followRedirects
       ..headersCommaValues = request.headers
       ..maxRedirects = request.maxRedirects;

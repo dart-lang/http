@@ -45,12 +45,12 @@ void main() {
         expect(profile.events, isEmpty);
         expect(profile.requestMethod, 'POST');
         expect(profile.requestUri, successServerUri.toString());
+        expect(profile.connectionInfo,
+            containsPair('package', 'package:cupertino_http'));
       });
 
       test('request attributes', () {
         expect(profile.requestData.bodyBytes, 'Hi'.codeUnits);
-        expect(profile.requestData.connectionInfo,
-            containsPair('package', 'package:cupertino_http'));
         expect(profile.requestData.contentLength, 2);
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, isNull);
@@ -66,7 +66,6 @@ void main() {
       test('response attributes', () {
         expect(profile.responseData.bodyBytes, 'Hello World'.codeUnits);
         expect(profile.responseData.compressionState, isNull);
-        expect(profile.responseData.connectionInfo, isNull);
         expect(profile.responseData.contentLength, 11);
         expect(profile.responseData.endTime, isNotNull);
         expect(profile.responseData.error, isNull);
@@ -149,12 +148,12 @@ void main() {
         expect(profile.events, isEmpty);
         expect(profile.requestMethod, 'POST');
         expect(profile.requestUri, 'http://thisisnotahost');
+        expect(profile.connectionInfo,
+            containsPair('package', 'package:cupertino_http'));
       });
 
       test('request attributes', () {
         expect(profile.requestData.bodyBytes, 'Hi'.codeUnits);
-        expect(profile.requestData.connectionInfo,
-            containsPair('package', 'package:cupertino_http'));
         expect(profile.requestData.contentLength, 2);
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, startsWith('ClientException:'));
@@ -174,7 +173,6 @@ void main() {
         // satisfy whatever the I/O service expects?
         expect(profile.responseData.bodyBytes, isEmpty);
         expect(profile.responseData.compressionState, isNull);
-        expect(profile.responseData.connectionInfo, isNull);
         expect(profile.responseData.contentLength, isNull);
         expect(profile.responseData.endTime, isNull);
         expect(profile.responseData.error, isNull);
@@ -222,12 +220,12 @@ void main() {
         expect(profile.events, isEmpty);
         expect(profile.requestMethod, 'POST');
         expect(profile.requestUri, successServerUri.toString());
+        expect(profile.connectionInfo,
+            containsPair('package', 'package:cupertino_http'));
       });
 
       test('request attributes', () {
         expect(profile.requestData.bodyBytes, 'Hi'.codeUnits);
-        expect(profile.requestData.connectionInfo,
-            containsPair('package', 'package:cupertino_http'));
         expect(profile.requestData.contentLength, 2);
         expect(profile.requestData.endTime, isNotNull);
         expect(profile.requestData.error, isNull);
@@ -243,7 +241,6 @@ void main() {
       test('response attributes', () {
         expect(profile.responseData.bodyBytes, isEmpty);
         expect(profile.responseData.compressionState, isNull);
-        expect(profile.responseData.connectionInfo, isNull);
         expect(profile.responseData.contentLength, 11);
         expect(profile.responseData.endTime, isNotNull);
         expect(profile.responseData.error, startsWith('ClientException:'));
