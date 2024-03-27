@@ -11,7 +11,8 @@ import 'response_headers_server_vm.dart'
     if (dart.library.js_interop) 'response_headers_server_web.dart';
 
 /// Tests that the [Client] correctly processes response headers.
-void testResponseHeaders(Client client) async {
+void testResponseHeaders(Client client,
+    {bool canRelyOnContentLength = true}) async {
   group('server headers', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
@@ -151,7 +152,9 @@ void testResponseHeaders(Client client) async {
         httpServerChannel.sink.add('content-length: 100\r\n');
         await expectLater(
             client.get(Uri.http(host, '')), throwsA(isA<ClientException>()));
-      });
+      },
+          skip:
+              canRelyOnContentLength ? false : 'cannot rely on content length');
     });
 
     group('folded headers', () {
