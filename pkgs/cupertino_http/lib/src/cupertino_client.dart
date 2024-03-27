@@ -226,7 +226,7 @@ class CupertinoClient extends BaseClient {
       URLSession session, URLSessionTask task, URLResponse response) {
     final taskTracker = _tracker(task);
     taskTracker.responseCompleter.complete(response);
-    taskTracker.profile!.requestData.close();
+    unawaited(taskTracker.profile?.requestData.close());
 
     return URLSessionResponseDisposition.urlSessionResponseAllow;
   }
