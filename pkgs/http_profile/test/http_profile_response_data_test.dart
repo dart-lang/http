@@ -52,56 +52,6 @@ void main() {
     expect(redirectFromGetter.location, 'https://images.example.com/1');
   });
 
-  test('populating HttpClientRequestProfile.responseData.connectionInfo',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['connectionInfo'], isNull);
-    expect(profile.responseData.connectionInfo, isNull);
-
-    profile.responseData.connectionInfo = {
-      'localPort': 1285,
-      'remotePort': 443,
-      'connectionPoolId': '21x23'
-    };
-
-    final connectionInfoFromBackingMap =
-        responseData['connectionInfo'] as Map<String, dynamic>;
-    expect(connectionInfoFromBackingMap['localPort'], 1285);
-    expect(connectionInfoFromBackingMap['remotePort'], 443);
-    expect(connectionInfoFromBackingMap['connectionPoolId'], '21x23');
-
-    final connectionInfoFromGetter = profile.responseData.connectionInfo!;
-    expect(connectionInfoFromGetter['localPort'], 1285);
-    expect(connectionInfoFromGetter['remotePort'], 443);
-    expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
-  });
-
-  test('HttpClientRequestProfile.responseData.connectionInfo = null', () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-
-    profile.responseData.connectionInfo = {
-      'localPort': 1285,
-      'remotePort': 443,
-      'connectionPoolId': '21x23'
-    };
-
-    final connectionInfoFromBackingMap =
-        responseData['connectionInfo'] as Map<String, dynamic>;
-    expect(connectionInfoFromBackingMap['localPort'], 1285);
-    expect(connectionInfoFromBackingMap['remotePort'], 443);
-    expect(connectionInfoFromBackingMap['connectionPoolId'], '21x23');
-
-    final connectionInfoFromGetter = profile.responseData.connectionInfo!;
-    expect(connectionInfoFromGetter['localPort'], 1285);
-    expect(connectionInfoFromGetter['remotePort'], 443);
-    expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
-
-    profile.responseData.connectionInfo = null;
-
-    expect(responseData['connectionInfo'], isNull);
-    expect(profile.responseData.connectionInfo, isNull);
-  });
-
   test('populating HttpClientRequestProfile.responseData.headersListValues',
       () async {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
