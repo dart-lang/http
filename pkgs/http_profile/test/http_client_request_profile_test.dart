@@ -83,7 +83,7 @@ void main() {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     expect(requestData['connectionInfo'], isNull);
     expect(responseData['connectionInfo'], isNull);
-    expect(profile.responseData.connectionInfo, isNull);
+    expect(profile.connectionInfo, isNull);
 
     profile.connectionInfo = {
       'localPort': 1285,
@@ -102,7 +102,7 @@ void main() {
     expect(connectionInfoFromRequestData['connectionPoolId'], '21x23');
     expect(connectionInfoFromResponseData['connectionPoolId'], '21x23');
 
-    final connectionInfoFromGetter = profile.responseData.connectionInfo!;
+    final connectionInfoFromGetter = profile.connectionInfo!;
     expect(connectionInfoFromGetter['localPort'], 1285);
     expect(connectionInfoFromGetter['remotePort'], 443);
     expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
@@ -128,7 +128,7 @@ void main() {
     expect(connectionInfoFromRequestData['connectionPoolId'], '21x23');
     expect(connectionInfoFromResponseData['connectionPoolId'], '21x23');
 
-    final connectionInfoFromGetter = profile.responseData.connectionInfo!;
+    final connectionInfoFromGetter = profile.connectionInfo!;
     expect(connectionInfoFromGetter['localPort'], 1285);
     expect(connectionInfoFromGetter['remotePort'], 443);
     expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
@@ -137,6 +137,6 @@ void main() {
 
     expect(requestData['connectionInfo'], isNull);
     expect(responseData['connectionInfo'], isNull);
-    expect(profile.responseData.connectionInfo, isNull);
+    expect(profile.connectionInfo, isNull);
   });
 }

@@ -68,9 +68,6 @@ final class HttpProfileResponseData {
   List<int> get bodyBytes =>
       UnmodifiableListView(_data['responseBodyBytes'] as List<int>);
 
-  Map<String, dynamic /*String|int*/ >? get connectionInfo =>
-      _responseData['connectionInfo'] as Map<String, dynamic>?;
-
   /// The response headers where duplicate headers are represented using a list
   /// of values.
   ///
