@@ -2,7 +2,7 @@
 [![package publisher](https://img.shields.io/pub/publisher/http_profile.svg)](https://pub.dev/packages/http_profile/publisher)
 
 A package that allows HTTP clients outside of the Dart SDK to integrate with
-the DevTools Network tab.
+the DevTools Network View.
 
 **NOTE:** This package is meant for developers *implementing* HTTP clients, not
 developers *using* HTTP clients.
