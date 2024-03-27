@@ -115,10 +115,11 @@ final class HttpClientRequestProfile {
   }
 
   Map<String, dynamic /*String|int*/ >? get connectionInfo =>
-      requestData._data['connectionInfo'] == null
+      requestData._requestData['connectionInfo'] == null
           ? null
           : UnmodifiableMapView(
-              requestData._data['connectionInfo'] as Map<String, dynamic>,
+              requestData._requestData['connectionInfo']
+                  as Map<String, dynamic>,
             );
 
   /// Details about the request.
