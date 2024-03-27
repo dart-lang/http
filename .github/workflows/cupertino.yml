@@ -42,14 +42,7 @@ jobs:
         name: Install dependencies
         run: flutter pub get
       - name: Check formatting
-        # Don't lint the generated file native_cupertino_bindings.dart
-        # This approach is simpler than using `find` and excluding that file
-        # because `dart format` also excludes other file e.g. ones in
-        # directories start with '.'.
-        run: |
-          mv lib/src/native_cupertino_bindings.dart lib/src/native_cupertino_bindings.tmp
-          dart format --output=none --set-exit-if-changed .
-          mv lib/src/native_cupertino_bindings.tmp lib/src/native_cupertino_bindings.dart
+        run: dart format --output=none --set-exit-if-changed .
         if: always() && steps.install.outcome == 'success'
       - name: Analyze code
         run: flutter analyze --fatal-infos

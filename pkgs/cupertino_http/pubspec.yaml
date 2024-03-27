@@ -18,12 +18,11 @@ dependencies:
   http: ^1.2.0
   http_profile:
     path: ../http_profile
-  web_socket:
-    path: ../web_socket
+  web_socket: ^0.1.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0
-  ffigen: ^9.0.1
+  ffigen: ^11.0.0
 
 flutter:
   plugin:

@@ -2,6 +2,11 @@
 
 * Add integration to the
   [DevTools "Network" tab](https://docs.flutter.dev/tools/devtools/network).
+* Upgrade to `package:ffigen` 11.0.0.
+
+## 1.4.0
+
+* **Experimental** support for the `package:web_socket` `WebSocket` interface.
 
 ## 1.3.0
 
