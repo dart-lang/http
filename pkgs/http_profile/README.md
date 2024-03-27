@@ -4,25 +4,27 @@
 A package that allows HTTP clients outside of the Dart SDK to integrate with
 the DevTools Network tab.
 
+**NOTE:** This package is meant for developers *implementing* HTTP clients, not
+developers *using* HTTP clients.
+
 ## Using
 
-`HttpClientRequestProfile.profile` returns an `HttpClientRequestProfile` object.
-Populating the fields of that object with information about an HTTP request and
-about the response to that request will make that information show up in the
-DevTools Network tab.
+`HttpClientRequestProfile.profile` returns an `HttpClientRequestProfile` object
+if HTTP profiling is enabled. Populating the fields of that object with
+information about an HTTP request and about the response to that request will
+make that information show up in the
+[DevTools Network View](https://docs.flutter.dev/tools/devtools/network).
 
 ```dart
 import 'package:http_profile/http_profile.dart';
 
-void main() {
-  HttpClientRequestProfile.profilingEnabled = true;
-
+Future<String> get(Uri uri) {
   final profile = HttpClientRequestProfile.profile(
-    requestStartTime: DateTime.parse('2024-03-21'),
+    requestStartTime: DateTime.now(),
     requestMethod: 'GET',
-    requestUri: 'https://www.example.com',
-  )!
-    ..connectionInfo = {
+    requestUri: uri.toString(),
+  );
+  profile?.connectionInfo = {
       'localPort': 1285,
       'remotePort': 443,
       'connectionPoolId': '21x23',
@@ -35,14 +37,15 @@ void main() {
     port: 4321,
   );
 
+  // Make the HTTP request and populate the response data.
+
   profile.responseData.headersListValues = {
     'connection': ['keep-alive'],
     'cache-control': ['max-age=43200'],
     'content-type': ['application/json', 'charset=utf-8'],
   };
 
-  // ...
-
+  return responseString;
 }
 ```
 
