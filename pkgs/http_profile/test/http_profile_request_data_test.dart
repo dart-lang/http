@@ -348,9 +348,11 @@ void main() {
     expect(profile.requestData.bodyBytes, isEmpty);
 
     profile.requestData.bodySink.add([1, 2, 3]);
+    profile.requestData.bodySink.addError('this is an error');
+    profile.requestData.bodySink.add([4, 5]);
     await profile.requestData.close();
 
-    expect(requestBodyBytes, [1, 2, 3]);
-    expect(profile.requestData.bodyBytes, [1, 2, 3]);
+    expect(requestBodyBytes, [1, 2, 3, 4, 5]);
+    expect(profile.requestData.bodyBytes, [1, 2, 3, 4, 5]);
   });
 }
