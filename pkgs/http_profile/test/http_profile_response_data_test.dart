@@ -35,7 +35,7 @@ void main() {
               statusCode: 302, method: 'GET', location: 'http://somewhere'));
     });
 
-    test('equal', () {
+    test('not equal', () {
       expect(
           HttpProfileRedirectData(
               statusCode: 302, method: 'GET', location: 'http://somewhere'),
