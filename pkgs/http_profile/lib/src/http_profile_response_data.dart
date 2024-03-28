@@ -36,6 +36,21 @@ class HttpProfileRedirectData {
         'method': _method,
         'location': _location,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      (other is HttpProfileRedirectData) &&
+      (statusCode == other.statusCode &&
+          method == other.method &&
+          location == other.location);
+
+  @override
+  int get hashCode => Object.hashAll([statusCode, method, location]);
+
+  @override
+  String toString() =>
+      'HttpProfileRedirectData(statusCode: $statusCode, method: $method, '
+      'location: $location)';
 }
 
 /// Describes details about a response to an HTTP request.
