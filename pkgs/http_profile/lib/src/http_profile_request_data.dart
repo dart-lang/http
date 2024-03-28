@@ -55,6 +55,9 @@ final class HttpProfileRequestData {
       _data['requestData'] as Map<String, dynamic>;
 
   /// A sink that can be used to record the body of the request.
+  ///
+  /// Errors added to [bodySink] (for example with [StreamSink.addError]) are
+  /// ignored.
   StreamSink<List<int>> get bodySink => _body.sink;
 
   /// The body of the request represented as an unmodifiable list of bytes.
