@@ -10,5 +10,8 @@ environment:
   # TODO(derekxu16): Change the following constraint to ^3.4.0 before publishing this package.
   sdk: ^3.4.0-154.0.dev
 
+dependencies:
+  test: ^1.24.9
+
 dev_dependencies:
   dart_flutter_team_lints: ^2.1.1
