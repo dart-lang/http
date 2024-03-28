@@ -15,7 +15,15 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('profile', () {
-    HttpClientRequestProfile.profilingEnabled = true;
+    final profilingEnabled = HttpClientRequestProfile.profilingEnabled;
+
+    setUpAll(() {
+      HttpClientRequestProfile.profilingEnabled = true;
+    });
+
+    tearDownAll(() {
+      HttpClientRequestProfile.profilingEnabled = profilingEnabled;
+    });
 
     group('non-streamed POST', () {
       late HttpServer successServer;
@@ -167,10 +175,6 @@ void main() {
       });
 
       test('response attributes', () {
-        // XXX is this the correct expectation? If we have a failure at request
-        // time then `responseData` should logically contain nothing because
-        // no response was received. But does `requestData.closeWithError`
-        // satisfy whatever the I/O service expects?
         expect(profile.responseData.bodyBytes, isEmpty);
         expect(profile.responseData.compressionState, isNull);
         expect(profile.responseData.contentLength, isNull);
@@ -254,6 +258,77 @@ void main() {
         expect(profile.responseData.redirects, isEmpty);
         expect(profile.responseData.startTime, isNotNull);
         expect(profile.responseData.statusCode, 200);
+      });
+    });
+
+    group('redirects', () {
+      late HttpServer successServer;
+      late Uri successServerUri;
+      late HttpClientRequestProfile profile;
+
+      setUpAll(() async {
+        successServer = (await HttpServer.bind('localhost', 0))
+          ..listen((request) async {
+            if (request.requestedUri.pathSegments.isEmpty) {
+              unawaited(request.response.close());
+            } else {
+              final n = int.parse(request.requestedUri.pathSegments.last);
+              final nextPath = n - 1 == 0 ? '' : '${n - 1}';
+              unawaited(request.response
+                  .redirect(successServerUri.replace(path: '/$nextPath')));
+            }
+          });
+        successServerUri = Uri.http('localhost:${successServer.port}');
+      });
+      tearDownAll(() {
+        successServer.close();
+      });
+
+      test('no redirects', () async {
+        final client = CupertinoClientWithProfile.defaultSessionConfiguration();
+        await client.get(successServerUri);
+        profile = client.profile!;
+
+        expect(profile.responseData.redirects, isEmpty);
+      });
+
+      test('follow redirects', () async {
+        final client = CupertinoClientWithProfile.defaultSessionConfiguration();
+        await client.send(Request('GET', successServerUri.replace(path: '/3'))
+          ..followRedirects = true
+          ..maxRedirects = 4);
+        profile = client.profile!;
+
+        expect(profile.requestData.followRedirects, true);
+        expect(profile.requestData.maxRedirects, 4);
+        expect(profile.responseData.isRedirect, false);
+
+        expect(profile.responseData.redirects, [
+          HttpProfileRedirectData(
+              statusCode: 302,
+              method: 'GET',
+              location: successServerUri.replace(path: '/2').toString()),
+          HttpProfileRedirectData(
+              statusCode: 302,
+              method: 'GET',
+              location: successServerUri.replace(path: '/1').toString()),
+          HttpProfileRedirectData(
+            statusCode: 302,
+            method: 'GET',
+            location: successServerUri.replace(path: '/').toString(),
+          )
+        ]);
+      });
+
+      test('no follow redirects', () async {
+        final client = CupertinoClientWithProfile.defaultSessionConfiguration();
+        await client.send(Request('GET', successServerUri.replace(path: '/3'))
+          ..followRedirects = false);
+        profile = client.profile!;
+
+        expect(profile.requestData.followRedirects, false);
+        expect(profile.responseData.isRedirect, true);
+        expect(profile.responseData.redirects, isEmpty);
       });
     });
   });
