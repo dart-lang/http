@@ -147,12 +147,13 @@ final class HttpClientRequestProfile {
     responseData = HttpProfileResponseData._(_data, _updated);
     _data['requestBodyBytes'] = <int>[];
     requestData._body.stream.listen(
-      (final bytes) => (_data['requestBodyBytes'] as List<int>).addAll(bytes),
-    );
+        (final bytes) => (_data['requestBodyBytes'] as List<int>).addAll(bytes),
+        onError: (e) {});
     _data['responseBodyBytes'] = <int>[];
     responseData._body.stream.listen(
-      (final bytes) => (_data['responseBodyBytes'] as List<int>).addAll(bytes),
-    );
+        (final bytes) =>
+            (_data['responseBodyBytes'] as List<int>).addAll(bytes),
+        onError: (e) {});
     // This entry is needed to support the updatedSince parameter of
     // ext.dart.io.getHttpProfile.
     _updated();
