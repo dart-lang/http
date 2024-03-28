@@ -87,13 +87,13 @@ void main() {
     expect(redirectFromBackingMap['method'], 'GET');
     expect(redirectFromBackingMap['location'], 'https://images.example.com/1');
 
-    expect(
-        profile.responseData.redirects,
-        HttpProfileRedirectData(
-          statusCode: 301,
-          method: 'GET',
-          location: 'https://images.example.com/1',
-        ));
+    expect(profile.responseData.redirects, [
+      HttpProfileRedirectData(
+        statusCode: 301,
+        method: 'GET',
+        location: 'https://images.example.com/1',
+      )
+    ]);
   });
 
   test('populating HttpClientRequestProfile.responseData.headersListValues',
