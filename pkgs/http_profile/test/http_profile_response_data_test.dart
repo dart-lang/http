@@ -26,6 +26,48 @@ void main() {
     backingMap = profileBackingMaps.lastOrNull!;
   });
 
+  group('HttpProfileRedirectData', () {
+    test('equal', () {
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'));
+    });
+
+    test('not equal', () {
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          isNot(Object()));
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          isNot(HttpProfileRedirectData(
+              statusCode: 303, method: 'GET', location: 'http://somewhere')));
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          isNot(HttpProfileRedirectData(
+              statusCode: 302, method: 'POST', location: 'http://somewhere')));
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          isNot(HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://notthere')));
+    });
+
+    test('hash', () {
+      expect(
+          HttpProfileRedirectData(
+                  statusCode: 302, method: 'GET', location: 'http://somewhere')
+              .hashCode,
+          HttpProfileRedirectData(
+                  statusCode: 302, method: 'GET', location: 'http://somewhere')
+              .hashCode);
+    });
+  });
+
   test('calling HttpClientRequestProfile.responseData.addRedirect', () async {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     final redirectsFromBackingMap =
@@ -45,11 +87,13 @@ void main() {
     expect(redirectFromBackingMap['method'], 'GET');
     expect(redirectFromBackingMap['location'], 'https://images.example.com/1');
 
-    expect(profile.responseData.redirects.length, 1);
-    final redirectFromGetter = profile.responseData.redirects.first;
-    expect(redirectFromGetter.statusCode, 301);
-    expect(redirectFromGetter.method, 'GET');
-    expect(redirectFromGetter.location, 'https://images.example.com/1');
+    expect(profile.responseData.redirects, [
+      HttpProfileRedirectData(
+        statusCode: 301,
+        method: 'GET',
+        location: 'https://images.example.com/1',
+      )
+    ]);
   });
 
   test('populating HttpClientRequestProfile.responseData.headersListValues',
