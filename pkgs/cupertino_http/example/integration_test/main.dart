@@ -5,6 +5,7 @@
 import 'package:integration_test/integration_test.dart';
 
 import 'client_conformance_test.dart' as client_conformance_test;
+import 'client_profile_test.dart' as profile_test;
 import 'client_test.dart' as client_test;
 import 'data_test.dart' as data_test;
 import 'error_test.dart' as error_test;
@@ -30,6 +31,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   client_conformance_test.main();
+  profile_test.main();
   client_test.main();
   data_test.main();
   error_test.main();

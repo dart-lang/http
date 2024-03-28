@@ -1,5 +1,7 @@
-## 1.4.1-wip
+## 1.5.0-wip
 
+* Add integration to the
+  [DevTools "Network" tab](https://docs.flutter.dev/tools/devtools/network).
 * Upgrade to `package:ffigen` 11.0.0.
 
 ## 1.4.0
