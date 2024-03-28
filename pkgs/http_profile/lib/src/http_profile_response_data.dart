@@ -62,6 +62,9 @@ final class HttpProfileResponseData {
           .map(HttpProfileRedirectData._fromJson));
 
   /// A sink that can be used to record the body of the response.
+  ///
+  /// Errors added to [bodySink] (for example with [StreamSink.addError]) are
+  /// ignored.
   StreamSink<List<int>> get bodySink => _body.sink;
 
   /// The body of the response represented as an unmodifiable list of bytes.

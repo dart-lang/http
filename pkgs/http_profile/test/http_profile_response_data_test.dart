@@ -392,9 +392,11 @@ void main() {
     expect(profile.responseData.bodyBytes, isEmpty);
 
     profile.responseData.bodySink.add([1, 2, 3]);
+    profile.responseData.bodySink.addError('this is an error');
+    profile.responseData.bodySink.add([4, 5]);
     await profile.responseData.close();
 
-    expect(responseBodyBytes, [1, 2, 3]);
-    expect(profile.responseData.bodyBytes, [1, 2, 3]);
+    expect(responseBodyBytes, [1, 2, 3, 4, 5]);
+    expect(profile.responseData.bodyBytes, [1, 2, 3, 4, 5]);
   });
 }
