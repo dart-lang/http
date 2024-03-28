@@ -394,6 +394,7 @@ class CupertinoClient extends BaseClient {
   }
 }
 
+/// A test-only class that makes the [HttpClientRequestProfile] data available.
 class CupertinoClientWithProfile extends CupertinoClient {
   HttpClientRequestProfile? profile;
 
