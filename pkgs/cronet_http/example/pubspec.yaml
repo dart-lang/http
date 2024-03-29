@@ -22,6 +22,8 @@ dev_dependencies:
     sdk: flutter
   http_client_conformance_tests:
     path: ../../http_client_conformance_tests/
+  http_profile:
+    path: ../../http_profile/
   integration_test:
     sdk: flutter
   test: ^1.23.1

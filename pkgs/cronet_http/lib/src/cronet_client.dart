@@ -16,6 +16,7 @@ library;
 import 'dart:async';
 
 import 'package:http/http.dart';
+import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
 
 import 'jni/jni_bindings.dart' as jb;
@@ -157,7 +158,9 @@ Map<String, String> _cronetToClientHeaders(
         value.join(',')));
 
 jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
-    BaseRequest request, Completer<StreamedResponse> responseCompleter) {
+    BaseRequest request,
+    Completer<StreamedResponse> responseCompleter,
+    HttpClientRequestProfile? profile) {
   StreamController<List<int>>? responseStream;
   JByteBuffer? jByteBuffer;
   var numRedirects = 0;
@@ -198,10 +201,22 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
         headers: responseHeaders,
       ));
 
+      profile?.requestData.close();
+      profile?.responseData
+        ?..contentLength = contentLength
+        ..headersCommaValues = responseHeaders
+        ..isRedirect = false
+        ..reasonPhrase =
+            responseInfo.getHttpStatusText().toDartString(releaseOriginal: true)
+        ..startTime = DateTime.now()
+        ..statusCode = responseInfo.getHttpStatusCode();
       jByteBuffer = JByteBuffer.allocateDirect(_bufferSize);
       urlRequest.read(jByteBuffer!);
     },
     onRedirectReceived: (urlRequest, responseInfo, newLocationUrl) {
+      final responseHeaders =
+          _cronetToClientHeaders(responseInfo.getAllHeaders());
+
       if (!request.followRedirects) {
         urlRequest.cancel();
         responseCompleter.complete(StreamedResponse(
@@ -214,10 +229,27 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
             request: request,
             isRedirect: true,
             headers: _cronetToClientHeaders(responseInfo.getAllHeaders())));
+
+        profile?.responseData
+          ?..headersCommaValues = responseHeaders
+          ..isRedirect = true
+          ..reasonPhrase = responseInfo
+              .getHttpStatusText()
+              .toDartString(releaseOriginal: true)
+          ..startTime = DateTime.now()
+          ..statusCode = responseInfo.getHttpStatusCode();
+
         return;
       }
       ++numRedirects;
       if (numRedirects <= request.maxRedirects) {
+        profile?.responseData.addRedirect(HttpProfileRedirectData(
+            statusCode: responseInfo.getHttpStatusCode(),
+            // This method is not correct for status codes 303 to 307. Cronet
+            // does not seem to have a way to get the method so we'd have to
+            // calculate it according to the rules in RFC-7231.
+            method: 'GET',
+            location: newLocationUrl.toDartString(releaseOriginal: true)));
         urlRequest.followRedirect();
       } else {
         urlRequest.cancel();
@@ -227,8 +259,9 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
     },
     onReadCompleted: (urlRequest, responseInfo, byteBuffer) {
       byteBuffer.flip();
-      responseStream!
-          .add(jByteBuffer!.asUint8List().sublist(0, byteBuffer.remaining));
+      final data = jByteBuffer!.asUint8List().sublist(0, byteBuffer.remaining);
+      responseStream!.add(data);
+      profile?.responseData.bodySink.add(data);
 
       byteBuffer.clear();
       urlRequest.read(byteBuffer);
@@ -236,6 +269,7 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
     onSucceeded: (urlRequest, responseInfo) {
       responseStream!.sink.close();
       jByteBuffer?.release();
+      profile?.responseData.close();
     },
     onFailed: (urlRequest, responseInfo, cronetException) {
       final error = ClientException(
@@ -245,6 +279,14 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
       } else {
         responseStream!.addError(error);
         responseStream!.close();
+      }
+
+      if (profile != null) {
+        if (profile.requestData.endTime == null) {
+          profile.requestData.closeWithError(error.toString());
+        } else {
+          profile.responseData.closeWithError(error.toString());
+        }
       }
       jByteBuffer?.release();
     },
@@ -324,6 +366,12 @@ class CronetClient extends BaseClient {
     _isClosed = true;
   }
 
+  HttpClientRequestProfile? _createProfile(BaseRequest request) =>
+      HttpClientRequestProfile.profile(
+          requestStartTime: DateTime.now(),
+          requestMethod: request.method,
+          requestUri: request.url.toString());
+
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     if (_isClosed) {
@@ -339,14 +387,33 @@ class CronetClient extends BaseClient {
           'HTTP request failed. CronetEngine is already closed.', request.url);
     }
 
+    final profile = _createProfile(request);
+    profile?.connectionInfo = {
+      'package': 'package:cronet_http',
+      'client': 'CronetHttp',
+    };
+    profile?.requestData
+      ?..contentLength = request.contentLength
+      ..followRedirects = request.followRedirects
+      ..headersCommaValues = request.headers
+      ..maxRedirects = request.maxRedirects;
+    if (profile != null && request.contentLength != null) {
+      profile.requestData.headersListValues = {
+        'Content-Length': ['${request.contentLength}'],
+        ...profile.requestData.headers!
+      };
+    }
+
     final stream = request.finalize();
     final body = await stream.toBytes();
+    profile?.requestData.bodySink.add(body);
+
     final responseCompleter = Completer<StreamedResponse>();
 
     final builder = engine._engine.newUrlRequestBuilder(
       request.url.toString().toJString(),
       jb.UrlRequestCallbackProxy.new1(
-          _urlRequestCallbacks(request, responseCompleter)),
+          _urlRequestCallbacks(request, responseCompleter, profile)),
       _executor,
     )..setHttpMethod(request.method.toJString());
 
@@ -366,4 +433,18 @@ class CronetClient extends BaseClient {
     builder.build().start();
     return responseCompleter.future;
   }
+}
+
+/// A test-only class that makes the [HttpClientRequestProfile] data available.
+class CronetClientWithProfile extends CronetClient {
+  HttpClientRequestProfile? profile;
+
+  @override
+  HttpClientRequestProfile? _createProfile(BaseRequest request) =>
+      profile = super._createProfile(request);
+
+  CronetClientWithProfile._(super._engine, super._closeEngine) : super._();
+
+  factory CronetClientWithProfile.defaultCronetEngine() =>
+      CronetClientWithProfile._(null, true);
 }
