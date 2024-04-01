@@ -21,7 +21,7 @@ jobs:
       matrix:
         sdk: [dev]
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
@@ -44,7 +44,7 @@ jobs:
         os: [ubuntu-latest]
         sdk: [3.3, dev]
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
@@ -65,7 +65,7 @@ jobs:
   downgrade:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
       - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
       - run: dart pub downgrade
       - run: dart analyze --fatal-infos
