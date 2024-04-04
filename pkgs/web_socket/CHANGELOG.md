@@ -1,4 +1,4 @@
-## 0.1.5
+## 0.1.1
 
 - Add the ability to create a `package:web_socket` `WebSocket` given a
   `dart:io` `WebSocket`.
