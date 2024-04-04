@@ -21,7 +21,7 @@ void main() {
       server = (await io.HttpServer.bind('localhost', 0))
         ..listen((request) async {
           headers = request.headers;
-          io.WebSocketTransformer.upgrade(request)
+          await io.WebSocketTransformer.upgrade(request)
               .then((webSocket) => webSocket.listen(webSocket.add));
         });
       uri = Uri.parse('ws://localhost:${server.port}');
