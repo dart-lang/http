@@ -10,7 +10,6 @@ import 'dart:io' as io;
 import 'package:test/test.dart';
 import 'package:web_socket/io_web_socket.dart';
 import 'package:web_socket/web_socket.dart';
-import 'package:web_socket_conformance_tests/web_socket_conformance_tests.dart';
 
 void main() {
   group('fromWebSocket', () {
