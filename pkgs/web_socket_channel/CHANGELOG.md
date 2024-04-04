@@ -1,3 +1,7 @@
+## 2.4.5
+
+* use secure random number generator for frame masking.
+
 ## 2.4.4
 
 * Require Dart `^3.3`
