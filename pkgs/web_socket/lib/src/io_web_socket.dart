@@ -49,6 +49,10 @@ class IOWebSocket implements WebSocket {
     return IOWebSocket._(webSocket);
   }
 
+  // Create an `IOWebSocket` from an existing `dart:io` `WebSocket`.
+  factory IOWebSocket.fromWebSocket(io.WebSocket webSocket) =>
+      IOWebSocket._(webSocket);
+
   IOWebSocket._(this._webSocket) {
     _webSocket.listen(
       (event) {
