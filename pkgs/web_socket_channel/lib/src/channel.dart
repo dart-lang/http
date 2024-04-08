@@ -10,8 +10,9 @@ import 'package:crypto/crypto.dart';
 import 'package:stream_channel/stream_channel.dart';
 
 import '../web_socket_adapter_web_socket_channel.dart';
-import 'copy/web_socket_impl.dart';
 import 'exception.dart';
+
+const String _webSocketGUID = '258EAFA5-E914-47DA-95CA-C5AB0DC85B11';
 
 /// A [StreamChannel] that communicates over a WebSocket.
 ///
@@ -21,33 +22,27 @@ import 'exception.dart';
 ///
 /// All implementations emit [WebSocketChannelException]s. These exceptions wrap
 /// the native exception types where possible.
-class WebSocketChannel extends StreamChannelMixin {
-  /// The underlying web socket.
-  ///
-  /// This is essentially a copy of `dart:io`'s WebSocket implementation, with
-  /// the IO-specific pieces factored out.
-  final WebSocketImpl _webSocket;
-
+abstract interface class WebSocketChannel extends StreamChannelMixin {
   /// The subprotocol selected by the server.
   ///
   /// For a client socket, this is initially `null`. After the WebSocket
   /// connection is established the value is set to the subprotocol selected by
   /// the server. If no subprotocol is negotiated the value will remain `null`.
-  String? get protocol => _webSocket.protocol;
+  String? get protocol;
 
   /// The [close code][] set when the WebSocket connection is closed.
   ///
   /// [close code]: https://tools.ietf.org/html/rfc6455#section-7.1.5
   ///
   /// Before the connection has been closed, this will be `null`.
-  int? get closeCode => _webSocket.closeCode;
+  int? get closeCode;
 
   /// The [close reason][] set when the WebSocket connection is closed.
   ///
   /// [close reason]: https://tools.ietf.org/html/rfc6455#section-7.1.6
   ///
   /// Before the connection has been closed, this will be `null`.
-  String? get closeReason => _webSocket.closeReason;
+  String? get closeReason;
 
   /// A future that will complete when the WebSocket connection has been
   /// established.
@@ -74,17 +69,14 @@ class WebSocketChannel extends StreamChannelMixin {
   /// // send data.
   /// channel.sink.add('Hello World');
   /// ```
-  final Future<void> ready = Future.value();
-
-  @override
-  Stream get stream => StreamView(_webSocket);
+  Future<void> get ready;
 
   /// The sink for sending values to the other endpoint.
   ///
   /// This supports additional arguments to [WebSocketSink.close] that provide
   /// the remote endpoint reasons for closing the connection.
   @override
-  WebSocketSink get sink => WebSocketSink._(_webSocket);
+  WebSocketSink get sink;
 
   /// Signs a `Sec-WebSocket-Key` header sent by a WebSocket client as part of
   /// the [initial handshake][].
@@ -98,33 +90,7 @@ class WebSocketChannel extends StreamChannelMixin {
       // [key] is expected to be base64 encoded, and so will be pure ASCII.
       =>
       convert.base64
-          .encode(sha1.convert((key + webSocketGUID).codeUnits).bytes);
-
-  /// Creates a new WebSocket handling messaging across an existing [channel].
-  ///
-  /// This is a cross-platform constructor; it doesn't use either `dart:io` or
-  /// `dart:html`. It's also HTTP-API-agnostic, which means that the initial
-  /// [WebSocket handshake][] must have already been completed on the socket
-  /// before this is called.
-  ///
-  /// [protocol] should be the protocol negotiated by this handshake, if any.
-  ///
-  /// [pingInterval] controls the interval for sending ping signals. If a ping
-  /// message is not answered by a pong message from the peer, the WebSocket is
-  /// assumed disconnected and the connection is closed with a `goingAway` close
-  /// code. When a ping signal is sent, the pong message must be received within
-  /// [pingInterval]. It defaults to `null`, indicating that ping messages are
-  /// disabled.
-  ///
-  /// If this is a WebSocket server, [serverSide] should be `true` (the
-  /// default); if it's a client, [serverSide] should be `false`.
-  ///
-  /// [WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4
-  WebSocketChannel(StreamChannel<List<int>> channel,
-      {String? protocol, Duration? pingInterval, bool serverSide = true})
-      : _webSocket = WebSocketImpl.fromSocket(
-            channel.stream, channel.sink, protocol, serverSide)
-          ..pingInterval = pingInterval;
+          .encode(sha1.convert((key + _webSocketGUID).codeUnits).bytes);
 
   /// Creates a new WebSocket connection.
   ///
@@ -138,7 +104,7 @@ class WebSocketChannel extends StreamChannelMixin {
   /// The [ready] future will complete after the channel is connected.
   /// If there are errors creating the connection the [ready] future will
   /// complete with an error.
-  factory WebSocketChannel.connect(Uri uri, {Iterable<String>? protocols}) =>
+  static WebSocketChannel connect(Uri uri, {Iterable<String>? protocols}) =>
       WebSocketAdapterWebSocketChannel.connect(uri, protocols: protocols);
 }
 
@@ -146,11 +112,7 @@ class WebSocketChannel extends StreamChannelMixin {
 ///
 /// This is like a normal [StreamSink], except that it supports extra arguments
 /// to [close].
-class WebSocketSink extends DelegatingStreamSink {
-  final WebSocketImpl _webSocket;
-
-  WebSocketSink._(WebSocketImpl super.webSocket) : _webSocket = webSocket;
-
+abstract interface class WebSocketSink implements DelegatingStreamSink {
   /// Closes the web socket connection.
   ///
   /// [closeCode] and [closeReason] are the [close code][] and [reason][] sent
@@ -160,6 +122,5 @@ class WebSocketSink extends DelegatingStreamSink {
   /// [close code]: https://tools.ietf.org/html/rfc6455#section-7.1.5
   /// [reason]: https://tools.ietf.org/html/rfc6455#section-7.1.6
   @override
-  Future close([int? closeCode, String? closeReason]) =>
-      _webSocket.close(closeCode, closeReason);
+  Future close([int? closeCode, String? closeReason]);
 }

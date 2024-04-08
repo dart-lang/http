@@ -23,5 +23,9 @@ dev_dependencies:
 # Remove this when versions of `package:test` and `shelf_web_socket` that support
 # channel_web_socket 3.0 are released.
 dependency_overrides:
-  shelf_web_socket: 1.0.4
+  shelf_web_socket:
+    git: 
+      ref: master
+      url: https://github.com/dart-lang/shelf.git
+      path: pkgs/shelf_web_socket
   test: 1.25.2
