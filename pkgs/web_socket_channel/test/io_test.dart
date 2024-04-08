@@ -24,7 +24,7 @@ void main() {
       channel.stream.listen((request) {
         expect(request, equals('ping'));
         channel.sink.add('pong');
-        channel.sink.close(5678, 'raisin');
+        channel.sink.close(3678, 'raisin');
       });
     });
 
@@ -45,7 +45,7 @@ void main() {
       }
       n++;
     }, onDone: expectAsync0(() {
-      expect(channel.closeCode, equals(5678));
+      expect(channel.closeCode, equals(3678));
       expect(channel.closeReason, equals('raisin'));
     }));
   });
@@ -70,7 +70,7 @@ void main() {
     channel.stream.listen(
         expectAsync1((message) {
           expect(message, equals('pong'));
-          channel.sink.close(5678, 'raisin');
+          channel.sink.close(3678, 'raisin');
         }, count: 1),
         onDone: expectAsync0(() {}));
   });
@@ -97,7 +97,7 @@ void main() {
     channel.stream.listen(
         expectAsync1((message) {
           expect(message, equals('pong'));
-          channel.sink.close(5678, 'raisin');
+          channel.sink.close(3678, 'raisin');
         }, count: 1),
         onDone: expectAsync0(() {}));
   });
@@ -109,7 +109,7 @@ void main() {
       expect(() async {
         final channel = IOWebSocketChannel(webSocket);
         await channel.stream.drain<void>();
-        expect(channel.closeCode, equals(5678));
+        expect(channel.closeCode, equals(3678));
         expect(channel.closeReason, equals('raisin'));
       }(), completes);
     });
@@ -118,7 +118,7 @@ void main() {
 
     expect(channel.ready, completes);
 
-    await channel.sink.close(5678, 'raisin');
+    await channel.sink.close(3678, 'raisin');
   });
 
   test('.connect wraps a connection error in WebSocketChannelException',
@@ -192,7 +192,7 @@ void main() {
       expect(() async {
         final channel = IOWebSocketChannel(webSocket);
         await channel.stream.drain<void>();
-        expect(channel.closeCode, equals(5678));
+        expect(channel.closeCode, equals(3678));
         expect(channel.closeReason, equals('raisin'));
       }(), completes);
     });
@@ -202,7 +202,7 @@ void main() {
       connectTimeout: const Duration(milliseconds: 1000),
     );
     expect(channel.ready, completes);
-    await channel.sink.close(5678, 'raisin');
+    await channel.sink.close(3678, 'raisin');
   });
 
   test('.respects timeout parameter when trying to connect', () async {

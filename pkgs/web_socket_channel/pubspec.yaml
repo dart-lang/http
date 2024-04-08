@@ -1,5 +1,5 @@
 name: web_socket_channel
-version: 2.4.5
+version: 3.0.0-wip
 description: >-
   StreamChannel wrappers for WebSockets. Provides a cross-platform
   WebSocketChannel API, a cross-platform implementation of that API that
@@ -14,7 +14,14 @@ dependencies:
   crypto: ^3.0.0
   stream_channel: ^2.1.0
   web: ^0.5.0
+  web_socket: ^0.1.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0
   test: ^1.16.0
+
+# Remove this when versions of `package:test` and `shelf_web_socket` that support
+# channel_web_socket 3.0 are released.
+dependency_overrides:
+  shelf_web_socket: 1.0.4
+  test: 1.25.2
