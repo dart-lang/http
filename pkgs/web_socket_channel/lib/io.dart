@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:io' show HttpClient, WebSocket;
 
-import 'package:web_socket/io_web_socket.dart' as io_web_socket;
+import 'package:web_socket/io_web_socket.dart' show IOWebSocket;
 
 import 'adapter_web_socket_channel.dart';
 import 'src/channel.dart';
@@ -58,7 +58,6 @@ class IOWebSocketChannel extends AdapterWebSocketChannel {
   /// Creates a channel wrapping [webSocket].
   IOWebSocketChannel(FutureOr<WebSocket> webSocket)
       : super(webSocket is Future<WebSocket>
-            ? webSocket.then(io_web_socket.IOWebSocket.fromWebSocket)
-                as FutureOr<io_web_socket.IOWebSocket>
-            : io_web_socket.IOWebSocket.fromWebSocket(webSocket));
+            ? webSocket.then(IOWebSocket.fromWebSocket) as FutureOr<IOWebSocket>
+            : IOWebSocket.fromWebSocket(webSocket));
 }
