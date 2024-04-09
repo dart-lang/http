@@ -4,6 +4,8 @@
   default implementation for `WebSocketChannel.connect`.
 - **BREAKING**: Remove `WebSocketChannel` constructor.
 - **BREAKING**: Make `WebSocketChannel` an `abstract interface`.
+- **BREAKING**: `IOWebSocketChannel.ready` will throw
+  `WebSocketChannelException` instead of `WebSocketException`.
 
 ## 2.4.5
 

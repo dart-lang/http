@@ -3,51 +3,15 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io';
-
-import 'package:async/async.dart';
-import 'package:stream_channel/stream_channel.dart';
+import 'dart:io' show HttpClient, WebSocket;
+import 'package:web_socket/io_web_socket.dart' as io_web_socket;
 
 import 'src/channel.dart';
 import 'src/exception.dart';
-import 'src/sink_completer.dart';
+import 'web_socket_adapter_web_socket_channel.dart';
 
 /// A [WebSocketChannel] that communicates using a `dart:io` [WebSocket].
-class IOWebSocketChannel extends StreamChannelMixin
-    implements WebSocketChannel {
-  /// The underlying `dart:io` [WebSocket].
-  ///
-  /// If the channel was constructed with [IOWebSocketChannel.connect], this is
-  /// `null` until the [WebSocket.connect] future completes.
-  WebSocket? _webSocket;
-
-  @override
-  String? get protocol => _webSocket?.protocol;
-
-  @override
-  int? get closeCode => _webSocket?.closeCode;
-
-  @override
-  String? get closeReason => _webSocket?.closeReason;
-
-  @override
-  final Stream stream;
-
-  @override
-  final WebSocketSink sink;
-
-  /// Completer for [ready].
-  final Completer<void> _readyCompleter;
-
-  @override
-  Future<void> get ready => _readyCompleter.future;
-
-  /// The underlying [WebSocket], if this channel has connected.
-  ///
-  /// If the future returned from [WebSocket.connect] has not yet completed, or
-  /// completed as an error, this will be null.
-  WebSocket? get innerWebSocket => _webSocket;
-
+class IOWebSocketChannel extends WebSocketAdapterWebSocketChannel {
   /// Creates a new WebSocket connection.
   ///
   /// Connects to [url] using [WebSocket.connect] and returns a channel that can
@@ -76,58 +40,24 @@ class IOWebSocketChannel extends StreamChannelMixin
     Duration? connectTimeout,
     HttpClient? customClient,
   }) {
-    late IOWebSocketChannel channel;
-    final sinkCompleter = WebSocketSinkCompleter();
-    var future = WebSocket.connect(
+    var webSocketFuture = WebSocket.connect(
       url.toString(),
       headers: headers,
       protocols: protocols,
       customClient: customClient,
-    );
+    ).then((webSocket) => webSocket..pingInterval = pingInterval);
+
     if (connectTimeout != null) {
-      future = future.timeout(connectTimeout);
+      webSocketFuture = webSocketFuture.timeout(connectTimeout);
     }
-    final stream = StreamCompleter.fromFuture(future.then((webSocket) {
-      webSocket.pingInterval = pingInterval;
-      channel._webSocket = webSocket;
-      channel._readyCompleter.complete();
-      sinkCompleter.setDestinationSink(_IOWebSocketSink(webSocket));
-      return webSocket;
-    }).catchError((Object error, StackTrace stackTrace) {
-      channel._readyCompleter.completeError(error, stackTrace);
-      throw WebSocketChannelException.from(error);
-    }));
-    return channel =
-        IOWebSocketChannel._withoutSocket(stream, sinkCompleter.sink);
+
+    return IOWebSocketChannel(webSocketFuture);
   }
 
-  /// Creates a channel wrapping [socket].
-  IOWebSocketChannel(WebSocket socket)
-      : _webSocket = socket,
-        stream = socket.handleError(
-            (Object? error) => throw WebSocketChannelException.from(error)),
-        sink = _IOWebSocketSink(socket),
-        _readyCompleter = Completer()..complete();
-
-  /// Creates a channel without a socket.
-  ///
-  /// This is used with `connect` to synchronously provide a channel that later
-  /// has a socket added.
-  IOWebSocketChannel._withoutSocket(Stream stream, this.sink)
-      : _webSocket = null,
-        stream = stream.handleError(
-            (Object? error) => throw WebSocketChannelException.from(error)),
-        _readyCompleter = Completer();
-}
-
-/// A [WebSocketSink] that forwards [close] calls to a `dart:io` [WebSocket].
-class _IOWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
-  /// The underlying socket.
-  final WebSocket _webSocket;
-
-  _IOWebSocketSink(WebSocket super.webSocket) : _webSocket = webSocket;
-
-  @override
-  Future close([int? closeCode, String? closeReason]) =>
-      _webSocket.close(closeCode, closeReason);
+  /// Creates a channel wrapping [webSocket].
+  IOWebSocketChannel(FutureOr<WebSocket> webSocket)
+      : super(webSocket is Future<WebSocket>
+            ? webSocket.then(io_web_socket.IOWebSocket.fromWebSocket)
+                as FutureOr<io_web_socket.IOWebSocket>
+            : io_web_socket.IOWebSocket.fromWebSocket(webSocket));
 }

@@ -66,14 +66,19 @@ class WebSocketAdapterWebSocketChannel extends StreamChannelMixin
   /// future will complete with an error.
   factory WebSocketAdapterWebSocketChannel.connect(Uri url,
           {Iterable<String>? protocols}) =>
-      WebSocketAdapterWebSocketChannel._(
+      WebSocketAdapterWebSocketChannel(
           WebSocket.connect(url, protocols: protocols));
 
-  // Create a [WebSocketWebSocketChannelAdapter] from an existing [WebSocket].
-  factory WebSocketAdapterWebSocketChannel.fromWebSocket(WebSocket webSocket) =>
-      WebSocketAdapterWebSocketChannel._(Future.value(webSocket));
+  // Construct a [WebSocketWebSocketChannelAdapter] from an existing
+  // [WebSocket].
+  WebSocketAdapterWebSocketChannel(FutureOr<WebSocket> webSocket) {
+    Future<WebSocket> webSocketFuture;
+    if (webSocket is WebSocket) {
+      webSocketFuture = Future.value(webSocket);
+    } else {
+      webSocketFuture = webSocket;
+    }
 
-  WebSocketAdapterWebSocketChannel._(Future<WebSocket> webSocketFuture) {
     webSocketFuture.then((webSocket) {
       var remoteClosed = false;
       webSocket.events.listen((event) {
@@ -113,7 +118,16 @@ class WebSocketAdapterWebSocketChannel extends StreamChannelMixin
       _protocol = webSocket.protocol;
       _readyCompleter.complete();
     }, onError: (Object e) {
-      _readyCompleter.completeError(WebSocketChannelException.from(e));
+      Exception error;
+      if (e is TimeoutException) {
+        // Required for backwards compatibility with `IOWebSocketChannel`.
+        error = e;
+      } else {
+        error = WebSocketChannelException.from(e);
+      }
+      _readyCompleter.completeError(error);
+      _controller.local.sink.addError(error);
+      _controller.local.sink.close();
     });
   }
 }

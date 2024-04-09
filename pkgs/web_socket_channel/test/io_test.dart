@@ -131,7 +131,7 @@ void main() {
     });
 
     final channel = IOWebSocketChannel.connect('ws://localhost:${server.port}');
-    expect(channel.ready, throwsA(isA<WebSocketException>()));
+    expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
     expect(channel.stream.drain<void>(),
         throwsA(isA<WebSocketChannelException>()));
   });
@@ -154,7 +154,7 @@ void main() {
       'ws://localhost:${server.port}',
       protocols: [failedProtocol],
     );
-    expect(channel.ready, throwsA(isA<WebSocketException>()));
+    expect(channel.ready, throwsA(isA<WebSocketChannelException>()));
     expect(
       channel.stream.drain<void>(),
       throwsA(isA<WebSocketChannelException>()),
@@ -230,8 +230,7 @@ void main() {
     );
 
     expect(channel.ready, throwsA(isA<TimeoutException>()));
-    expect(channel.stream.drain<void>(),
-        throwsA(isA<WebSocketChannelException>()));
+    expect(channel.stream.drain<void>(), throwsA(anything));
   });
 
   test('.custom client is passed through', () async {

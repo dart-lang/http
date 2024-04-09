@@ -112,9 +112,26 @@ void main() {
       expect(channel.closeReason, null);
     });
 
-    test('fromWebSocket', () async {
+    test('constructor with WebSocket', () async {
       final webSocket = await WebSocket.connect(uri);
-      final channel = WebSocketAdapterWebSocketChannel.fromWebSocket(webSocket);
+      final channel = WebSocketAdapterWebSocketChannel(webSocket);
+
+      await expectLater(channel.ready, completes);
+      channel.sink.add('This count says:');
+      channel.sink.add([1, 2, 3]);
+      channel.sink.add('And then:');
+      channel.sink.add([4, 5, 6]);
+      expect(await channel.stream.take(4).toList(), [
+        'This count says:',
+        [1, 2, 3],
+        'And then:',
+        [4, 5, 6]
+      ]);
+    });
+
+    test('constructor with Future<WebSocket>', () async {
+      final webSocketFuture = WebSocket.connect(uri);
+      final channel = WebSocketAdapterWebSocketChannel(webSocketFuture);
 
       await expectLater(channel.ready, completes);
       channel.sink.add('This count says:');
