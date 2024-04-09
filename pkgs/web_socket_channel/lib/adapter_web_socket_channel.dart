@@ -13,7 +13,7 @@ import 'src/channel.dart';
 import 'src/exception.dart';
 
 /// A [WebSocketChannel] implemented using [WebSocket].
-class WebSocketAdapterWebSocketChannel extends StreamChannelMixin
+class AdapterWebSocketChannel extends StreamChannelMixin
     implements WebSocketChannel {
   @override
   String? get protocol => _protocol;
@@ -60,18 +60,17 @@ class WebSocketAdapterWebSocketChannel extends StreamChannelMixin
   /// the peer is able to select. See
   /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   ///
-  /// After construction, the [WebSocketAdapterWebSocketChannel] may not be
+  /// After construction, the [AdapterWebSocketChannel] may not be
   /// connected to the peer. The [ready] future will complete after the channel
   /// is connected. If there are errors creating the connection the [ready]
   /// future will complete with an error.
-  factory WebSocketAdapterWebSocketChannel.connect(Uri url,
+  factory AdapterWebSocketChannel.connect(Uri url,
           {Iterable<String>? protocols}) =>
-      WebSocketAdapterWebSocketChannel(
-          WebSocket.connect(url, protocols: protocols));
+      AdapterWebSocketChannel(WebSocket.connect(url, protocols: protocols));
 
   // Construct a [WebSocketWebSocketChannelAdapter] from an existing
   // [WebSocket].
-  WebSocketAdapterWebSocketChannel(FutureOr<WebSocket> webSocket) {
+  AdapterWebSocketChannel(FutureOr<WebSocket> webSocket) {
     Future<WebSocket> webSocketFuture;
     if (webSocket is WebSocket) {
       webSocketFuture = Future.value(webSocket);
@@ -135,9 +134,9 @@ class WebSocketAdapterWebSocketChannel extends StreamChannelMixin
 /// A [WebSocketSink] that tracks the close code and reason passed to [close].
 class _WebSocketSink extends DelegatingStreamSink implements WebSocketSink {
   /// The channel to which this sink belongs.
-  final WebSocketAdapterWebSocketChannel _channel;
+  final AdapterWebSocketChannel _channel;
 
-  _WebSocketSink(WebSocketAdapterWebSocketChannel channel)
+  _WebSocketSink(AdapterWebSocketChannel channel)
       : _channel = channel,
         super(channel._controller.foreign.sink);
 

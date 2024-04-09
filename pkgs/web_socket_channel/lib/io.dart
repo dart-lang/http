@@ -4,14 +4,15 @@
 
 import 'dart:async';
 import 'dart:io' show HttpClient, WebSocket;
+
 import 'package:web_socket/io_web_socket.dart' as io_web_socket;
 
+import 'adapter_web_socket_channel.dart';
 import 'src/channel.dart';
 import 'src/exception.dart';
-import 'web_socket_adapter_web_socket_channel.dart';
 
 /// A [WebSocketChannel] that communicates using a `dart:io` [WebSocket].
-class IOWebSocketChannel extends WebSocketAdapterWebSocketChannel {
+class IOWebSocketChannel extends AdapterWebSocketChannel {
   /// Creates a new WebSocket connection.
   ///
   /// Connects to [url] using [WebSocket.connect] and returns a channel that can
