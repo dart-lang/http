@@ -94,7 +94,7 @@ class CronetEngine {
       String? storagePath,
       String? userAgent}) {
     final builder = jb.CronetEngine_Builder(
-        JObject.fromRef(Jni.getCachedApplicationContext()));
+        JObject.fromReference(Jni.getCachedApplicationContext()));
 
     try {
       if (storagePath != null) {
@@ -284,9 +284,7 @@ class CronetClient extends BaseClient {
   /// Indicates that [CronetClient] is responsible for closing [_engine].
   final bool _closeEngine;
 
-  CronetClient._(this._engine, this._closeEngine) {
-    Jni.initDLApi();
-  }
+  CronetClient._(this._engine, this._closeEngine);
 
   /// A [CronetClient] that will be initialized with a new [CronetEngine].
   factory CronetClient.defaultCronetEngine() => CronetClient._(null, true);
