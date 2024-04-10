@@ -1,8 +1,5 @@
 # Regenerate bindings with `dart run jnigen --config jnigen.yaml`.
 
-summarizer:
-  backend: asm
-
 android_sdk_config:
   add_gradle_deps: true
   android_example: 'example/'

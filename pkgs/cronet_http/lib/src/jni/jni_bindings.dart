@@ -4,6 +4,7 @@
 // ignore_for_file: camel_case_extensions
 // ignore_for_file: camel_case_types
 // ignore_for_file: constant_identifier_names
+// ignore_for_file: doc_directive_unknown
 // ignore_for_file: file_names
 // ignore_for_file: lines_longer_than_80_chars
 // ignore_for_file: no_leading_underscores_for_local_identifiers
@@ -16,10 +17,10 @@
 // ignore_for_file: unused_local_variable
 // ignore_for_file: unused_shown_name
 
-import 'dart:ffi' as ffi;
-import 'dart:isolate' show ReceivePort;
-import 'package:jni/internal_helpers_for_jnigen.dart';
-import 'package:jni/jni.dart' as jni;
+import "dart:isolate" show ReceivePort;
+import "dart:ffi" as ffi;
+import "package:jni/internal_helpers_for_jnigen.dart";
+import "package:jni/jni.dart" as jni;
 
 /// from: io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface
 class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
@@ -27,101 +28,97 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
   late final jni.JObjType<UrlRequestCallbackProxy_UrlRequestCallbackInterface>
       $type = type;
 
-  UrlRequestCallbackProxy_UrlRequestCallbackInterface.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlRequestCallbackProxy_UrlRequestCallbackInterface.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(
-      r'io/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface');
+  static final _class = jni.JClass.forName(
+      r"io/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface");
 
   /// The type which includes information such as the signature of this class.
   static const type =
       $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType();
-  static final _id_onRedirectReceived = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onRedirectReceived',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V');
+  static final _id_onRedirectReceived = _class.instanceMethodId(
+    r"onRedirectReceived",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V",
+  );
 
   /// from: public abstract void onRedirectReceived(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.lang.String string)
   void onRedirectReceived(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JString string,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        string.reference
-      ]).check();
+  ) {
+    _id_onRedirectReceived(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      string.reference.pointer
+    ]);
+  }
 
-  static final _id_onResponseStarted = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onResponseStarted',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V');
+  static final _id_onResponseStarted = _class.instanceMethodId(
+    r"onResponseStarted",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V",
+  );
 
   /// from: public abstract void onResponseStarted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)
   void onResponseStarted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_onResponseStarted,
-          jni.JniCallType.voidType,
-          [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) {
+    _id_onResponseStarted(this, const jni.jvoidType(),
+        [urlRequest.reference.pointer, urlResponseInfo.reference.pointer]);
+  }
 
-  static final _id_onReadCompleted = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onReadCompleted',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V');
+  static final _id_onReadCompleted = _class.instanceMethodId(
+    r"onReadCompleted",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V",
+  );
 
   /// from: public abstract void onReadCompleted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.nio.ByteBuffer byteBuffer)
   void onReadCompleted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JByteBuffer byteBuffer,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onReadCompleted, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        byteBuffer.reference
-      ]).check();
+  ) {
+    _id_onReadCompleted(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      byteBuffer.reference.pointer
+    ]);
+  }
 
-  static final _id_onSucceeded = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onSucceeded',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V');
+  static final _id_onSucceeded = _class.instanceMethodId(
+    r"onSucceeded",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V",
+  );
 
   /// from: public abstract void onSucceeded(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)
   void onSucceeded(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_onSucceeded,
-          jni.JniCallType.voidType,
-          [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) {
+    _id_onSucceeded(this, const jni.jvoidType(),
+        [urlRequest.reference.pointer, urlResponseInfo.reference.pointer]);
+  }
 
-  static final _id_onFailed = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onFailed',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V');
+  static final _id_onFailed = _class.instanceMethodId(
+    r"onFailed",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V",
+  );
 
   /// from: public abstract void onFailed(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, org.chromium.net.CronetException cronetException)
   void onFailed(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     CronetException cronetException,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onFailed, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        cronetException.reference
-      ]).check();
+  ) {
+    _id_onFailed(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      cronetException.reference.pointer
+    ]);
+  }
 
   /// Maps a specific port to the implemented interface.
   static final Map<int,
@@ -132,15 +129,16 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
     int port,
     jni.JObjectPtr descriptor,
     jni.JObjectPtr args,
-  ) =>
-      _$invokeMethod(
-        port,
-        $MethodInvocation.fromAddresses(
-          0,
-          descriptor.address,
-          args.address,
-        ),
-      );
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
 
   static final ffi.Pointer<
           ffi.NativeFunction<
@@ -156,7 +154,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d ==
-          r'onRedirectReceived(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V') {
+          r"onRedirectReceived(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V") {
         _$impls[$p]!.onRedirectReceived(
           $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
           $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
@@ -165,7 +163,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
         return jni.nullptr;
       }
       if ($d ==
-          r'onResponseStarted(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V') {
+          r"onResponseStarted(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V") {
         _$impls[$p]!.onResponseStarted(
           $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
           $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
@@ -173,7 +171,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
         return jni.nullptr;
       }
       if ($d ==
-          r'onReadCompleted(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V') {
+          r"onReadCompleted(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V") {
         _$impls[$p]!.onReadCompleted(
           $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
           $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
@@ -182,7 +180,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
         return jni.nullptr;
       }
       if ($d ==
-          r'onSucceeded(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V') {
+          r"onSucceeded(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V") {
         _$impls[$p]!.onSucceeded(
           $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
           $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
@@ -190,7 +188,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
         return jni.nullptr;
       }
       if ($d ==
-          r'onFailed(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V') {
+          r"onFailed(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V") {
         _$impls[$p]!.onFailed(
           $a[0].castTo(const $UrlRequestType(), releaseOriginal: true),
           $a[1].castTo(const $UrlResponseInfoType(), releaseOriginal: true),
@@ -208,9 +206,10 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
     $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl $impl,
   ) {
     final $p = ReceivePort();
-    final $x = UrlRequestCallbackProxy_UrlRequestCallbackInterface.fromRef(
+    final $x =
+        UrlRequestCallbackProxy_UrlRequestCallbackInterface.fromReference(
       ProtectedJniExtensions.newPortProxy(
-        r'io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface',
+        r"io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface",
         $p,
         _$invokePointer,
       ),
@@ -231,7 +230,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
   }
 }
 
-abstract class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl {
+abstract interface class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl {
   factory $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl({
     required void Function(UrlRequest urlRequest,
             UrlResponseInfo urlResponseInfo, jni.JString string)
@@ -297,23 +296,28 @@ class _$UrlRequestCallbackProxy_UrlRequestCallbackInterfaceImpl
       CronetException cronetException) _onFailed;
 
   void onRedirectReceived(UrlRequest urlRequest,
-          UrlResponseInfo urlResponseInfo, jni.JString string) =>
-      _onRedirectReceived(urlRequest, urlResponseInfo, string);
+      UrlResponseInfo urlResponseInfo, jni.JString string) {
+    return _onRedirectReceived(urlRequest, urlResponseInfo, string);
+  }
 
   void onResponseStarted(
-          UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) =>
-      _onResponseStarted(urlRequest, urlResponseInfo);
+      UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
+    return _onResponseStarted(urlRequest, urlResponseInfo);
+  }
 
   void onReadCompleted(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-          jni.JByteBuffer byteBuffer) =>
-      _onReadCompleted(urlRequest, urlResponseInfo, byteBuffer);
+      jni.JByteBuffer byteBuffer) {
+    return _onReadCompleted(urlRequest, urlResponseInfo, byteBuffer);
+  }
 
-  void onSucceeded(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) =>
-      _onSucceeded(urlRequest, urlResponseInfo);
+  void onSucceeded(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo) {
+    return _onSucceeded(urlRequest, urlResponseInfo);
+  }
 
   void onFailed(UrlRequest urlRequest, UrlResponseInfo urlResponseInfo,
-          CronetException cronetException) =>
-      _onFailed(urlRequest, urlResponseInfo, cronetException);
+      CronetException cronetException) {
+    return _onFailed(urlRequest, urlResponseInfo, cronetException);
+  }
 }
 
 final class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType
@@ -322,12 +326,13 @@ final class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType
 
   @override
   String get signature =>
-      r'Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;';
+      r"Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;";
 
   @override
-  UrlRequestCallbackProxy_UrlRequestCallbackInterface fromRef(
-          jni.JObjectPtr ref) =>
-      UrlRequestCallbackProxy_UrlRequestCallbackInterface.fromRef(ref);
+  UrlRequestCallbackProxy_UrlRequestCallbackInterface fromReference(
+          jni.JReference reference) =>
+      UrlRequestCallbackProxy_UrlRequestCallbackInterface.fromReference(
+          reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -340,10 +345,11 @@ final class $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType
       ($UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType ==
-          $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType &&
-      other is $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType;
+  bool operator ==(Object other) {
+    return other.runtimeType ==
+            ($UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType) &&
+        other is $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType;
+  }
 }
 
 /// from: io.flutter.plugins.cronet_http.UrlRequestCallbackProxy
@@ -351,128 +357,122 @@ class UrlRequestCallbackProxy extends UrlRequest_Callback {
   @override
   late final jni.JObjType<UrlRequestCallbackProxy> $type = type;
 
-  UrlRequestCallbackProxy.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlRequestCallbackProxy.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(
-      r'io/flutter/plugins/cronet_http/UrlRequestCallbackProxy');
+  static final _class = jni.JClass.forName(
+      r"io/flutter/plugins/cronet_http/UrlRequestCallbackProxy");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlRequestCallbackProxyType();
-  static final _id_new1 = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'<init>',
-      r'(Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;)V');
+  static final _id_new1 = _class.constructorId(
+    r"(Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;)V",
+  );
 
   /// from: public void <init>(io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface urlRequestCallbackInterface)
   /// The returned object must be released after use, by calling the [release] method.
   factory UrlRequestCallbackProxy.new1(
     UrlRequestCallbackProxy_UrlRequestCallbackInterface
         urlRequestCallbackInterface,
-  ) =>
-      UrlRequestCallbackProxy.fromRef(jni.Jni.accessors.newObjectWithArgs(
-          _class.reference,
-          _id_new1,
-          [urlRequestCallbackInterface.reference]).object);
+  ) {
+    return UrlRequestCallbackProxy.fromReference(_id_new1(_class, referenceType,
+        [urlRequestCallbackInterface.reference.pointer]));
+  }
 
-  static final _id_getCallback = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'getCallback',
-      r'()Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;');
+  static final _id_getCallback = _class.instanceMethodId(
+    r"getCallback",
+    r"()Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy$UrlRequestCallbackInterface;",
+  );
 
   /// from: public final io.flutter.plugins.cronet_http.UrlRequestCallbackProxy$UrlRequestCallbackInterface getCallback()
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequestCallbackProxy_UrlRequestCallbackInterface getCallback() =>
-      const $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType().fromRef(
-          jni.Jni.accessors.callMethodWithArgs(reference, _id_getCallback,
-              jni.JniCallType.objectType, []).object);
+  UrlRequestCallbackProxy_UrlRequestCallbackInterface getCallback() {
+    return _id_getCallback(this,
+        const $UrlRequestCallbackProxy_UrlRequestCallbackInterfaceType(), []);
+  }
 
-  static final _id_onRedirectReceived = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onRedirectReceived',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V');
+  static final _id_onRedirectReceived = _class.instanceMethodId(
+    r"onRedirectReceived",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V",
+  );
 
   /// from: public void onRedirectReceived(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.lang.String string)
   void onRedirectReceived(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JString string,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        string.reference
-      ]).check();
+  ) {
+    _id_onRedirectReceived(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      string.reference.pointer
+    ]);
+  }
 
-  static final _id_onResponseStarted = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onResponseStarted',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V');
+  static final _id_onResponseStarted = _class.instanceMethodId(
+    r"onResponseStarted",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V",
+  );
 
   /// from: public void onResponseStarted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)
   void onResponseStarted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_onResponseStarted,
-          jni.JniCallType.voidType,
-          [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) {
+    _id_onResponseStarted(this, const jni.jvoidType(),
+        [urlRequest.reference.pointer, urlResponseInfo.reference.pointer]);
+  }
 
-  static final _id_onReadCompleted = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onReadCompleted',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V');
+  static final _id_onReadCompleted = _class.instanceMethodId(
+    r"onReadCompleted",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V",
+  );
 
   /// from: public void onReadCompleted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.nio.ByteBuffer byteBuffer)
   void onReadCompleted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JByteBuffer byteBuffer,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onReadCompleted, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        byteBuffer.reference
-      ]).check();
+  ) {
+    _id_onReadCompleted(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      byteBuffer.reference.pointer
+    ]);
+  }
 
-  static final _id_onSucceeded = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onSucceeded',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V');
+  static final _id_onSucceeded = _class.instanceMethodId(
+    r"onSucceeded",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V",
+  );
 
   /// from: public void onSucceeded(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)
   void onSucceeded(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_onSucceeded,
-          jni.JniCallType.voidType,
-          [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) {
+    _id_onSucceeded(this, const jni.jvoidType(),
+        [urlRequest.reference.pointer, urlResponseInfo.reference.pointer]);
+  }
 
-  static final _id_onFailed = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onFailed',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V');
+  static final _id_onFailed = _class.instanceMethodId(
+    r"onFailed",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V",
+  );
 
   /// from: public void onFailed(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, org.chromium.net.CronetException cronetException)
   void onFailed(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     CronetException cronetException,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onFailed, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        cronetException.reference
-      ]).check();
+  ) {
+    _id_onFailed(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      cronetException.reference.pointer
+    ]);
+  }
 }
 
 final class $UrlRequestCallbackProxyType
@@ -481,11 +481,11 @@ final class $UrlRequestCallbackProxyType
 
   @override
   String get signature =>
-      r'Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy;';
+      r"Lio/flutter/plugins/cronet_http/UrlRequestCallbackProxy;";
 
   @override
-  UrlRequestCallbackProxy fromRef(jni.JObjectPtr ref) =>
-      UrlRequestCallbackProxy.fromRef(ref);
+  UrlRequestCallbackProxy fromReference(jni.JReference reference) =>
+      UrlRequestCallbackProxy.fromReference(reference);
 
   @override
   jni.JObjType get superType => const $UrlRequest_CallbackType();
@@ -497,9 +497,10 @@ final class $UrlRequestCallbackProxyType
   int get hashCode => ($UrlRequestCallbackProxyType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UrlRequestCallbackProxyType &&
-      other is $UrlRequestCallbackProxyType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequestCallbackProxyType) &&
+        other is $UrlRequestCallbackProxyType;
+  }
 }
 
 /// from: java.net.URL
@@ -507,16 +508,17 @@ class URL extends jni.JObject {
   @override
   late final jni.JObjType<URL> $type = type;
 
-  URL.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  URL.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(r'java/net/URL');
+  static final _class = jni.JClass.forName(r"java/net/URL");
 
   /// The type which includes information such as the signature of this class.
   static const type = $URLType();
-  static final _id_new0 = jni.Jni.accessors.getMethodIDOf(_class.reference,
-      r'<init>', r'(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)V');
+  static final _id_new0 = _class.constructorId(
+    r"(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;)V",
+  );
 
   /// from: public void <init>(java.lang.String string, java.lang.String string1, int i, java.lang.String string2)
   /// The returned object must be released after use, by calling the [release] method.
@@ -525,17 +527,18 @@ class URL extends jni.JObject {
     jni.JString string1,
     int i,
     jni.JString string2,
-  ) =>
-      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-          _class.reference, _id_new0, [
-        string.reference,
-        string1.reference,
-        jni.JValueInt(i),
-        string2.reference
-      ]).object);
+  ) {
+    return URL.fromReference(_id_new0(_class, referenceType, [
+      string.reference.pointer,
+      string1.reference.pointer,
+      jni.JValueInt(i),
+      string2.reference.pointer
+    ]));
+  }
 
-  static final _id_new1 = jni.Jni.accessors.getMethodIDOf(_class.reference,
-      r'<init>', r'(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
+  static final _id_new1 = _class.constructorId(
+    r"(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
+  );
 
   /// from: public void <init>(java.lang.String string, java.lang.String string1, java.lang.String string2)
   /// The returned object must be released after use, by calling the [release] method.
@@ -543,16 +546,17 @@ class URL extends jni.JObject {
     jni.JString string,
     jni.JString string1,
     jni.JString string2,
-  ) =>
-      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-          _class.reference,
-          _id_new1,
-          [string.reference, string1.reference, string2.reference]).object);
+  ) {
+    return URL.fromReference(_id_new1(_class, referenceType, [
+      string.reference.pointer,
+      string1.reference.pointer,
+      string2.reference.pointer
+    ]));
+  }
 
-  static final _id_new2 = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'<init>',
-      r'(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/net/URLStreamHandler;)V');
+  static final _id_new2 = _class.constructorId(
+    r"(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;Ljava/net/URLStreamHandler;)V",
+  );
 
   /// from: public void <init>(java.lang.String string, java.lang.String string1, int i, java.lang.String string2, java.net.URLStreamHandler uRLStreamHandler)
   /// The returned object must be released after use, by calling the [release] method.
@@ -562,43 +566,46 @@ class URL extends jni.JObject {
     int i,
     jni.JString string2,
     jni.JObject uRLStreamHandler,
-  ) =>
-      URL.fromRef(
-          jni.Jni.accessors.newObjectWithArgs(_class.reference, _id_new2, [
-        string.reference,
-        string1.reference,
-        jni.JValueInt(i),
-        string2.reference,
-        uRLStreamHandler.reference
-      ]).object);
+  ) {
+    return URL.fromReference(_id_new2(_class, referenceType, [
+      string.reference.pointer,
+      string1.reference.pointer,
+      jni.JValueInt(i),
+      string2.reference.pointer,
+      uRLStreamHandler.reference.pointer
+    ]));
+  }
 
-  static final _id_new3 = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'<init>', r'(Ljava/lang/String;)V');
+  static final _id_new3 = _class.constructorId(
+    r"(Ljava/lang/String;)V",
+  );
 
   /// from: public void <init>(java.lang.String string)
   /// The returned object must be released after use, by calling the [release] method.
   factory URL.new3(
     jni.JString string,
-  ) =>
-      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-          _class.reference, _id_new3, [string.reference]).object);
+  ) {
+    return URL.fromReference(
+        _id_new3(_class, referenceType, [string.reference.pointer]));
+  }
 
-  static final _id_new4 = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'<init>', r'(Ljava/net/URL;Ljava/lang/String;)V');
+  static final _id_new4 = _class.constructorId(
+    r"(Ljava/net/URL;Ljava/lang/String;)V",
+  );
 
   /// from: public void <init>(java.net.URL uRL, java.lang.String string)
   /// The returned object must be released after use, by calling the [release] method.
   factory URL.new4(
     URL uRL,
     jni.JString string,
-  ) =>
-      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(_class.reference,
-          _id_new4, [uRL.reference, string.reference]).object);
+  ) {
+    return URL.fromReference(_id_new4(_class, referenceType,
+        [uRL.reference.pointer, string.reference.pointer]));
+  }
 
-  static final _id_new5 = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'<init>',
-      r'(Ljava/net/URL;Ljava/lang/String;Ljava/net/URLStreamHandler;)V');
+  static final _id_new5 = _class.constructorId(
+    r"(Ljava/net/URL;Ljava/lang/String;Ljava/net/URLStreamHandler;)V",
+  );
 
   /// from: public void <init>(java.net.URL uRL, java.lang.String string, java.net.URLStreamHandler uRLStreamHandler)
   /// The returned object must be released after use, by calling the [release] method.
@@ -606,240 +613,274 @@ class URL extends jni.JObject {
     URL uRL,
     jni.JString string,
     jni.JObject uRLStreamHandler,
-  ) =>
-      URL.fromRef(jni.Jni.accessors.newObjectWithArgs(
-          _class.reference, _id_new5, [
-        uRL.reference,
-        string.reference,
-        uRLStreamHandler.reference
-      ]).object);
+  ) {
+    return URL.fromReference(_id_new5(_class, referenceType, [
+      uRL.reference.pointer,
+      string.reference.pointer,
+      uRLStreamHandler.reference.pointer
+    ]));
+  }
 
-  static final _id_getQuery = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getQuery', r'()Ljava/lang/String;');
+  static final _id_getQuery = _class.instanceMethodId(
+    r"getQuery",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getQuery()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getQuery() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getQuery, jni.JniCallType.objectType, []).object);
+  jni.JString getQuery() {
+    return _id_getQuery(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getPath = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getPath', r'()Ljava/lang/String;');
+  static final _id_getPath = _class.instanceMethodId(
+    r"getPath",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getPath()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getPath() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getPath, jni.JniCallType.objectType, []).object);
+  jni.JString getPath() {
+    return _id_getPath(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getUserInfo = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getUserInfo', r'()Ljava/lang/String;');
+  static final _id_getUserInfo = _class.instanceMethodId(
+    r"getUserInfo",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getUserInfo()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getUserInfo() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getUserInfo, jni.JniCallType.objectType, []).object);
+  jni.JString getUserInfo() {
+    return _id_getUserInfo(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getAuthority = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'getAuthority', r'()Ljava/lang/String;');
+  static final _id_getAuthority = _class.instanceMethodId(
+    r"getAuthority",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getAuthority()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getAuthority() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getAuthority, jni.JniCallType.objectType, []).object);
+  jni.JString getAuthority() {
+    return _id_getAuthority(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getPort =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'getPort', r'()I');
+  static final _id_getPort = _class.instanceMethodId(
+    r"getPort",
+    r"()I",
+  );
 
   /// from: public int getPort()
-  int getPort() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_getPort, jni.JniCallType.intType, []).integer;
+  int getPort() {
+    return _id_getPort(this, const jni.jintType(), []);
+  }
 
-  static final _id_getDefaultPort = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getDefaultPort', r'()I');
+  static final _id_getDefaultPort = _class.instanceMethodId(
+    r"getDefaultPort",
+    r"()I",
+  );
 
   /// from: public int getDefaultPort()
-  int getDefaultPort() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_getDefaultPort, jni.JniCallType.intType, []).integer;
+  int getDefaultPort() {
+    return _id_getDefaultPort(this, const jni.jintType(), []);
+  }
 
-  static final _id_getProtocol = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getProtocol', r'()Ljava/lang/String;');
+  static final _id_getProtocol = _class.instanceMethodId(
+    r"getProtocol",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getProtocol()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getProtocol() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getProtocol, jni.JniCallType.objectType, []).object);
+  jni.JString getProtocol() {
+    return _id_getProtocol(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getHost = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getHost', r'()Ljava/lang/String;');
+  static final _id_getHost = _class.instanceMethodId(
+    r"getHost",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getHost()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getHost() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getHost, jni.JniCallType.objectType, []).object);
+  jni.JString getHost() {
+    return _id_getHost(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getFile = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getFile', r'()Ljava/lang/String;');
+  static final _id_getFile = _class.instanceMethodId(
+    r"getFile",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getFile()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getFile() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getFile, jni.JniCallType.objectType, []).object);
+  jni.JString getFile() {
+    return _id_getFile(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getRef = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getRef', r'()Ljava/lang/String;');
+  static final _id_getRef = _class.instanceMethodId(
+    r"getRef",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getRef()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getRef() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getRef, jni.JniCallType.objectType, []).object);
+  jni.JString getRef() {
+    return _id_getRef(this, const jni.JStringType(), []);
+  }
 
-  static final _id_equals1 = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'equals', r'(Ljava/lang/Object;)Z');
+  static final _id_equals = _class.instanceMethodId(
+    r"equals",
+    r"(Ljava/lang/Object;)Z",
+  );
 
   /// from: public boolean equals(java.lang.Object object)
-  bool equals1(
+  bool equals(
     jni.JObject object,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(reference, _id_equals1,
-          jni.JniCallType.booleanType, [object.reference]).boolean;
+  ) {
+    return _id_equals(
+        this, const jni.jbooleanType(), [object.reference.pointer]);
+  }
 
-  static final _id_hashCode1 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'hashCode', r'()I');
+  static final _id_hashCode1 = _class.instanceMethodId(
+    r"hashCode",
+    r"()I",
+  );
 
   /// from: public int hashCode()
-  int hashCode1() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_hashCode1, jni.JniCallType.intType, []).integer;
+  int hashCode1() {
+    return _id_hashCode1(this, const jni.jintType(), []);
+  }
 
-  static final _id_sameFile = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'sameFile', r'(Ljava/net/URL;)Z');
+  static final _id_sameFile = _class.instanceMethodId(
+    r"sameFile",
+    r"(Ljava/net/URL;)Z",
+  );
 
   /// from: public boolean sameFile(java.net.URL uRL)
   bool sameFile(
     URL uRL,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(reference, _id_sameFile,
-          jni.JniCallType.booleanType, [uRL.reference]).boolean;
+  ) {
+    return _id_sameFile(
+        this, const jni.jbooleanType(), [uRL.reference.pointer]);
+  }
 
-  static final _id_toString1 = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'toString', r'()Ljava/lang/String;');
+  static final _id_toString1 = _class.instanceMethodId(
+    r"toString",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String toString()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString toString1() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_toString1, jni.JniCallType.objectType, []).object);
+  jni.JString toString1() {
+    return _id_toString1(this, const jni.JStringType(), []);
+  }
 
-  static final _id_toExternalForm = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'toExternalForm', r'()Ljava/lang/String;');
+  static final _id_toExternalForm = _class.instanceMethodId(
+    r"toExternalForm",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String toExternalForm()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString toExternalForm() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_toExternalForm,
-          jni.JniCallType.objectType, []).object);
+  jni.JString toExternalForm() {
+    return _id_toExternalForm(this, const jni.JStringType(), []);
+  }
 
-  static final _id_toURI = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'toURI', r'()Ljava/net/URI;');
+  static final _id_toURI = _class.instanceMethodId(
+    r"toURI",
+    r"()Ljava/net/URI;",
+  );
 
   /// from: public java.net.URI toURI()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject toURI() =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_toURI, jni.JniCallType.objectType, []).object);
+  jni.JObject toURI() {
+    return _id_toURI(this, const jni.JObjectType(), []);
+  }
 
-  static final _id_openConnection = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'openConnection', r'()Ljava/net/URLConnection;');
+  static final _id_openConnection = _class.instanceMethodId(
+    r"openConnection",
+    r"()Ljava/net/URLConnection;",
+  );
 
   /// from: public java.net.URLConnection openConnection()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject openConnection() =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_openConnection,
-          jni.JniCallType.objectType, []).object);
+  jni.JObject openConnection() {
+    return _id_openConnection(this, const jni.JObjectType(), []);
+  }
 
-  static final _id_openConnection1 = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'openConnection',
-      r'(Ljava/net/Proxy;)Ljava/net/URLConnection;');
+  static final _id_openConnection1 = _class.instanceMethodId(
+    r"openConnection",
+    r"(Ljava/net/Proxy;)Ljava/net/URLConnection;",
+  );
 
   /// from: public java.net.URLConnection openConnection(java.net.Proxy proxy)
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject openConnection1(
     jni.JObject proxy,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_openConnection1,
-          jni.JniCallType.objectType,
-          [proxy.reference]).object);
+  ) {
+    return _id_openConnection1(
+        this, const jni.JObjectType(), [proxy.reference.pointer]);
+  }
 
-  static final _id_openStream = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'openStream', r'()Ljava/io/InputStream;');
+  static final _id_openStream = _class.instanceMethodId(
+    r"openStream",
+    r"()Ljava/io/InputStream;",
+  );
 
   /// from: public java.io.InputStream openStream()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject openStream() =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_openStream, jni.JniCallType.objectType, []).object);
+  jni.JObject openStream() {
+    return _id_openStream(this, const jni.JObjectType(), []);
+  }
 
-  static final _id_getContent = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getContent', r'()Ljava/lang/Object;');
+  static final _id_getContent = _class.instanceMethodId(
+    r"getContent",
+    r"()Ljava/lang/Object;",
+  );
 
   /// from: public java.lang.Object getContent()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject getContent() =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getContent, jni.JniCallType.objectType, []).object);
+  jni.JObject getContent() {
+    return _id_getContent(this, const jni.JObjectType(), []);
+  }
 
-  static final _id_getContent1 = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'getContent',
-      r'([Ljava/lang/Class;)Ljava/lang/Object;');
+  static final _id_getContent1 = _class.instanceMethodId(
+    r"getContent",
+    r"([Ljava/lang/Class;)Ljava/lang/Object;",
+  );
 
   /// from: public java.lang.Object getContent(java.lang.Class[] classs)
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject getContent1(
     jni.JArray<jni.JObject> classs,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_getContent1,
-          jni.JniCallType.objectType,
-          [classs.reference]).object);
+  ) {
+    return _id_getContent1(
+        this, const jni.JObjectType(), [classs.reference.pointer]);
+  }
 
-  static final _id_setURLStreamHandlerFactory = jni.Jni.accessors
-      .getStaticMethodIDOf(_class.reference, r'setURLStreamHandlerFactory',
-          r'(Ljava/net/URLStreamHandlerFactory;)V');
+  static final _id_setURLStreamHandlerFactory = _class.staticMethodId(
+    r"setURLStreamHandlerFactory",
+    r"(Ljava/net/URLStreamHandlerFactory;)V",
+  );
 
   /// from: static public void setURLStreamHandlerFactory(java.net.URLStreamHandlerFactory uRLStreamHandlerFactory)
   static void setURLStreamHandlerFactory(
     jni.JObject uRLStreamHandlerFactory,
-  ) =>
-      jni.Jni.accessors.callStaticMethodWithArgs(
-          _class.reference,
-          _id_setURLStreamHandlerFactory,
-          jni.JniCallType.voidType,
-          [uRLStreamHandlerFactory.reference]).check();
+  ) {
+    _id_setURLStreamHandlerFactory(_class, const jni.jvoidType(),
+        [uRLStreamHandlerFactory.reference.pointer]);
+  }
 }
 
 final class $URLType extends jni.JObjType<URL> {
   const $URLType();
 
   @override
-  String get signature => r'Ljava/net/URL;';
+  String get signature => r"Ljava/net/URL;";
 
   @override
-  URL fromRef(jni.JObjectPtr ref) => URL.fromRef(ref);
+  URL fromReference(jni.JReference reference) => URL.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -851,8 +892,9 @@ final class $URLType extends jni.JObjType<URL> {
   int get hashCode => ($URLType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $URLType && other is $URLType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($URLType) && other is $URLType;
+  }
 }
 
 /// from: java.util.concurrent.Executors
@@ -860,249 +902,228 @@ class Executors extends jni.JObject {
   @override
   late final jni.JObjType<Executors> $type = type;
 
-  Executors.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  Executors.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(r'java/util/concurrent/Executors');
+  static final _class = jni.JClass.forName(r"java/util/concurrent/Executors");
 
   /// The type which includes information such as the signature of this class.
   static const type = $ExecutorsType();
-  static final _id_newFixedThreadPool = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'newFixedThreadPool',
-      r'(I)Ljava/util/concurrent/ExecutorService;');
+  static final _id_newFixedThreadPool = _class.staticMethodId(
+    r"newFixedThreadPool",
+    r"(I)Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService newFixedThreadPool(int i)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newFixedThreadPool(
     int i,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_newFixedThreadPool,
-              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) {
+    return _id_newFixedThreadPool(
+        _class, const jni.JObjectType(), [jni.JValueInt(i)]);
+  }
 
-  static final _id_newWorkStealingPool = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'newWorkStealingPool',
-      r'(I)Ljava/util/concurrent/ExecutorService;');
+  static final _id_newWorkStealingPool = _class.staticMethodId(
+    r"newWorkStealingPool",
+    r"(I)Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService newWorkStealingPool(int i)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newWorkStealingPool(
     int i,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_newWorkStealingPool,
-              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) {
+    return _id_newWorkStealingPool(
+        _class, const jni.JObjectType(), [jni.JValueInt(i)]);
+  }
 
-  static final _id_newWorkStealingPool1 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'newWorkStealingPool',
-      r'()Ljava/util/concurrent/ExecutorService;');
+  static final _id_newWorkStealingPool1 = _class.staticMethodId(
+    r"newWorkStealingPool",
+    r"()Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService newWorkStealingPool()
   /// The returned object must be released after use, by calling the [release] method.
-  static jni.JObject newWorkStealingPool1() => const jni.JObjectType().fromRef(
-      jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
-          _id_newWorkStealingPool1, jni.JniCallType.objectType, []).object);
+  static jni.JObject newWorkStealingPool1() {
+    return _id_newWorkStealingPool1(_class, const jni.JObjectType(), []);
+  }
 
-  static final _id_newFixedThreadPool1 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'newFixedThreadPool',
-      r'(ILjava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;');
+  static final _id_newFixedThreadPool1 = _class.staticMethodId(
+    r"newFixedThreadPool",
+    r"(ILjava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService newFixedThreadPool(int i, java.util.concurrent.ThreadFactory threadFactory)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newFixedThreadPool1(
     int i,
     jni.JObject threadFactory,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_newFixedThreadPool1,
-              jni.JniCallType.objectType,
-              [jni.JValueInt(i), threadFactory.reference]).object);
+  ) {
+    return _id_newFixedThreadPool1(_class, const jni.JObjectType(),
+        [jni.JValueInt(i), threadFactory.reference.pointer]);
+  }
 
-  static final _id_newSingleThreadExecutor = jni.Jni.accessors
-      .getStaticMethodIDOf(_class.reference, r'newSingleThreadExecutor',
-          r'()Ljava/util/concurrent/ExecutorService;');
+  static final _id_newSingleThreadExecutor = _class.staticMethodId(
+    r"newSingleThreadExecutor",
+    r"()Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService newSingleThreadExecutor()
   /// The returned object must be released after use, by calling the [release] method.
-  static jni.JObject newSingleThreadExecutor() => const jni.JObjectType()
-      .fromRef(jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
-          _id_newSingleThreadExecutor, jni.JniCallType.objectType, []).object);
+  static jni.JObject newSingleThreadExecutor() {
+    return _id_newSingleThreadExecutor(_class, const jni.JObjectType(), []);
+  }
 
-  static final _id_newSingleThreadExecutor1 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'newSingleThreadExecutor',
-      r'(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;');
+  static final _id_newSingleThreadExecutor1 = _class.staticMethodId(
+    r"newSingleThreadExecutor",
+    r"(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService newSingleThreadExecutor(java.util.concurrent.ThreadFactory threadFactory)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newSingleThreadExecutor1(
     jni.JObject threadFactory,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_newSingleThreadExecutor1,
-              jni.JniCallType.objectType,
-              [threadFactory.reference]).object);
+  ) {
+    return _id_newSingleThreadExecutor1(
+        _class, const jni.JObjectType(), [threadFactory.reference.pointer]);
+  }
 
-  static final _id_newCachedThreadPool = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'newCachedThreadPool',
-      r'()Ljava/util/concurrent/ExecutorService;');
+  static final _id_newCachedThreadPool = _class.staticMethodId(
+    r"newCachedThreadPool",
+    r"()Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService newCachedThreadPool()
   /// The returned object must be released after use, by calling the [release] method.
-  static jni.JObject newCachedThreadPool() => const jni.JObjectType().fromRef(
-      jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
-          _id_newCachedThreadPool, jni.JniCallType.objectType, []).object);
+  static jni.JObject newCachedThreadPool() {
+    return _id_newCachedThreadPool(_class, const jni.JObjectType(), []);
+  }
 
-  static final _id_newCachedThreadPool1 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'newCachedThreadPool',
-      r'(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;');
+  static final _id_newCachedThreadPool1 = _class.staticMethodId(
+    r"newCachedThreadPool",
+    r"(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService newCachedThreadPool(java.util.concurrent.ThreadFactory threadFactory)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newCachedThreadPool1(
     jni.JObject threadFactory,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_newCachedThreadPool1,
-              jni.JniCallType.objectType, [threadFactory.reference]).object);
+  ) {
+    return _id_newCachedThreadPool1(
+        _class, const jni.JObjectType(), [threadFactory.reference.pointer]);
+  }
 
-  static final _id_newSingleThreadScheduledExecutor = jni.Jni.accessors
-      .getStaticMethodIDOf(
-          _class.reference,
-          r'newSingleThreadScheduledExecutor',
-          r'()Ljava/util/concurrent/ScheduledExecutorService;');
+  static final _id_newSingleThreadScheduledExecutor = _class.staticMethodId(
+    r"newSingleThreadScheduledExecutor",
+    r"()Ljava/util/concurrent/ScheduledExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor()
   /// The returned object must be released after use, by calling the [release] method.
-  static jni.JObject newSingleThreadScheduledExecutor() =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_newSingleThreadScheduledExecutor,
-              jni.JniCallType.objectType, []).object);
+  static jni.JObject newSingleThreadScheduledExecutor() {
+    return _id_newSingleThreadScheduledExecutor(
+        _class, const jni.JObjectType(), []);
+  }
 
-  static final _id_newSingleThreadScheduledExecutor1 = jni.Jni.accessors
-      .getStaticMethodIDOf(
-          _class.reference,
-          r'newSingleThreadScheduledExecutor',
-          r'(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ScheduledExecutorService;');
+  static final _id_newSingleThreadScheduledExecutor1 = _class.staticMethodId(
+    r"newSingleThreadScheduledExecutor",
+    r"(Ljava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ScheduledExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor(java.util.concurrent.ThreadFactory threadFactory)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newSingleThreadScheduledExecutor1(
     jni.JObject threadFactory,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_newSingleThreadScheduledExecutor1,
-              jni.JniCallType.objectType,
-              [threadFactory.reference]).object);
+  ) {
+    return _id_newSingleThreadScheduledExecutor1(
+        _class, const jni.JObjectType(), [threadFactory.reference.pointer]);
+  }
 
-  static final _id_newScheduledThreadPool = jni.Jni.accessors
-      .getStaticMethodIDOf(_class.reference, r'newScheduledThreadPool',
-          r'(I)Ljava/util/concurrent/ScheduledExecutorService;');
+  static final _id_newScheduledThreadPool = _class.staticMethodId(
+    r"newScheduledThreadPool",
+    r"(I)Ljava/util/concurrent/ScheduledExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newScheduledThreadPool(int i)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newScheduledThreadPool(
     int i,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_newScheduledThreadPool,
-              jni.JniCallType.objectType,
-              [jni.JValueInt(i)]).object);
+  ) {
+    return _id_newScheduledThreadPool(
+        _class, const jni.JObjectType(), [jni.JValueInt(i)]);
+  }
 
-  static final _id_newScheduledThreadPool1 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'newScheduledThreadPool',
-      r'(ILjava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ScheduledExecutorService;');
+  static final _id_newScheduledThreadPool1 = _class.staticMethodId(
+    r"newScheduledThreadPool",
+    r"(ILjava/util/concurrent/ThreadFactory;)Ljava/util/concurrent/ScheduledExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ScheduledExecutorService newScheduledThreadPool(int i, java.util.concurrent.ThreadFactory threadFactory)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject newScheduledThreadPool1(
     int i,
     jni.JObject threadFactory,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_newScheduledThreadPool1,
-              jni.JniCallType.objectType,
-              [jni.JValueInt(i), threadFactory.reference]).object);
+  ) {
+    return _id_newScheduledThreadPool1(_class, const jni.JObjectType(),
+        [jni.JValueInt(i), threadFactory.reference.pointer]);
+  }
 
-  static final _id_unconfigurableExecutorService = jni.Jni.accessors
-      .getStaticMethodIDOf(_class.reference, r'unconfigurableExecutorService',
-          r'(Ljava/util/concurrent/ExecutorService;)Ljava/util/concurrent/ExecutorService;');
+  static final _id_unconfigurableExecutorService = _class.staticMethodId(
+    r"unconfigurableExecutorService",
+    r"(Ljava/util/concurrent/ExecutorService;)Ljava/util/concurrent/ExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ExecutorService unconfigurableExecutorService(java.util.concurrent.ExecutorService executorService)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject unconfigurableExecutorService(
     jni.JObject executorService,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_unconfigurableExecutorService,
-              jni.JniCallType.objectType,
-              [executorService.reference]).object);
+  ) {
+    return _id_unconfigurableExecutorService(
+        _class, const jni.JObjectType(), [executorService.reference.pointer]);
+  }
 
-  static final _id_unconfigurableScheduledExecutorService = jni.Jni.accessors
-      .getStaticMethodIDOf(
-          _class.reference,
-          r'unconfigurableScheduledExecutorService',
-          r'(Ljava/util/concurrent/ScheduledExecutorService;)Ljava/util/concurrent/ScheduledExecutorService;');
+  static final _id_unconfigurableScheduledExecutorService =
+      _class.staticMethodId(
+    r"unconfigurableScheduledExecutorService",
+    r"(Ljava/util/concurrent/ScheduledExecutorService;)Ljava/util/concurrent/ScheduledExecutorService;",
+  );
 
   /// from: static public java.util.concurrent.ScheduledExecutorService unconfigurableScheduledExecutorService(java.util.concurrent.ScheduledExecutorService scheduledExecutorService)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject unconfigurableScheduledExecutorService(
     jni.JObject scheduledExecutorService,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_unconfigurableScheduledExecutorService,
-              jni.JniCallType.objectType,
-              [scheduledExecutorService.reference]).object);
+  ) {
+    return _id_unconfigurableScheduledExecutorService(_class,
+        const jni.JObjectType(), [scheduledExecutorService.reference.pointer]);
+  }
 
-  static final _id_defaultThreadFactory = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'defaultThreadFactory',
-      r'()Ljava/util/concurrent/ThreadFactory;');
+  static final _id_defaultThreadFactory = _class.staticMethodId(
+    r"defaultThreadFactory",
+    r"()Ljava/util/concurrent/ThreadFactory;",
+  );
 
   /// from: static public java.util.concurrent.ThreadFactory defaultThreadFactory()
   /// The returned object must be released after use, by calling the [release] method.
-  static jni.JObject defaultThreadFactory() => const jni.JObjectType().fromRef(
-      jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
-          _id_defaultThreadFactory, jni.JniCallType.objectType, []).object);
+  static jni.JObject defaultThreadFactory() {
+    return _id_defaultThreadFactory(_class, const jni.JObjectType(), []);
+  }
 
-  static final _id_privilegedThreadFactory = jni.Jni.accessors
-      .getStaticMethodIDOf(_class.reference, r'privilegedThreadFactory',
-          r'()Ljava/util/concurrent/ThreadFactory;');
+  static final _id_privilegedThreadFactory = _class.staticMethodId(
+    r"privilegedThreadFactory",
+    r"()Ljava/util/concurrent/ThreadFactory;",
+  );
 
   /// from: static public java.util.concurrent.ThreadFactory privilegedThreadFactory()
   /// The returned object must be released after use, by calling the [release] method.
-  static jni.JObject privilegedThreadFactory() => const jni.JObjectType()
-      .fromRef(jni.Jni.accessors.callStaticMethodWithArgs(_class.reference,
-          _id_privilegedThreadFactory, jni.JniCallType.objectType, []).object);
+  static jni.JObject privilegedThreadFactory() {
+    return _id_privilegedThreadFactory(_class, const jni.JObjectType(), []);
+  }
 
-  static final _id_callable = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'callable',
-      r'(Ljava/lang/Runnable;Ljava/lang/Object;)Ljava/util/concurrent/Callable;');
+  static final _id_callable = _class.staticMethodId(
+    r"callable",
+    r"(Ljava/lang/Runnable;Ljava/lang/Object;)Ljava/util/concurrent/Callable;",
+  );
 
   /// from: static public java.util.concurrent.Callable callable(java.lang.Runnable runnable, T object)
   /// The returned object must be released after use, by calling the [release] method.
@@ -1114,79 +1135,72 @@ class Executors extends jni.JObject {
     T ??= jni.lowestCommonSuperType([
       object.$type,
     ]) as jni.JObjType<$T>;
-    return const jni.JObjectType().fromRef(jni.Jni.accessors
-        .callStaticMethodWithArgs(
-            _class.reference,
-            _id_callable,
-            jni.JniCallType.objectType,
-            [runnable.reference, object.reference]).object);
+    return _id_callable(_class, const jni.JObjectType(),
+        [runnable.reference.pointer, object.reference.pointer]);
   }
 
-  static final _id_callable1 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'callable',
-      r'(Ljava/lang/Runnable;)Ljava/util/concurrent/Callable;');
+  static final _id_callable1 = _class.staticMethodId(
+    r"callable",
+    r"(Ljava/lang/Runnable;)Ljava/util/concurrent/Callable;",
+  );
 
   /// from: static public java.util.concurrent.Callable callable(java.lang.Runnable runnable)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject callable1(
     jni.JObject runnable,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_callable1,
-              jni.JniCallType.objectType, [runnable.reference]).object);
+  ) {
+    return _id_callable1(
+        _class, const jni.JObjectType(), [runnable.reference.pointer]);
+  }
 
-  static final _id_callable2 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'callable',
-      r'(Ljava/security/PrivilegedAction;)Ljava/util/concurrent/Callable;');
+  static final _id_callable2 = _class.staticMethodId(
+    r"callable",
+    r"(Ljava/security/PrivilegedAction;)Ljava/util/concurrent/Callable;",
+  );
 
   /// from: static public java.util.concurrent.Callable callable(java.security.PrivilegedAction privilegedAction)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject callable2(
     jni.JObject privilegedAction,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_callable2,
-              jni.JniCallType.objectType, [privilegedAction.reference]).object);
+  ) {
+    return _id_callable2(
+        _class, const jni.JObjectType(), [privilegedAction.reference.pointer]);
+  }
 
-  static final _id_callable3 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'callable',
-      r'(Ljava/security/PrivilegedExceptionAction;)Ljava/util/concurrent/Callable;');
+  static final _id_callable3 = _class.staticMethodId(
+    r"callable",
+    r"(Ljava/security/PrivilegedExceptionAction;)Ljava/util/concurrent/Callable;",
+  );
 
   /// from: static public java.util.concurrent.Callable callable(java.security.PrivilegedExceptionAction privilegedExceptionAction)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject callable3(
     jni.JObject privilegedExceptionAction,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_callable3,
-              jni.JniCallType.objectType,
-              [privilegedExceptionAction.reference]).object);
+  ) {
+    return _id_callable3(_class, const jni.JObjectType(),
+        [privilegedExceptionAction.reference.pointer]);
+  }
 
-  static final _id_privilegedCallable = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'privilegedCallable',
-      r'(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;');
+  static final _id_privilegedCallable = _class.staticMethodId(
+    r"privilegedCallable",
+    r"(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;",
+  );
 
   /// from: static public java.util.concurrent.Callable privilegedCallable(java.util.concurrent.Callable callable)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject privilegedCallable<$T extends jni.JObject>(
     jni.JObject callable, {
     required jni.JObjType<$T> T,
-  }) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_privilegedCallable,
-              jni.JniCallType.objectType, [callable.reference]).object);
+  }) {
+    return _id_privilegedCallable(
+        _class, const jni.JObjectType(), [callable.reference.pointer]);
+  }
 
-  static final _id_privilegedCallableUsingCurrentClassLoader = jni.Jni.accessors
-      .getStaticMethodIDOf(
-          _class.reference,
-          r'privilegedCallableUsingCurrentClassLoader',
-          r'(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;');
+  static final _id_privilegedCallableUsingCurrentClassLoader =
+      _class.staticMethodId(
+    r"privilegedCallableUsingCurrentClassLoader",
+    r"(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Callable;",
+  );
 
   /// from: static public java.util.concurrent.Callable privilegedCallableUsingCurrentClassLoader(java.util.concurrent.Callable callable)
   /// The returned object must be released after use, by calling the [release] method.
@@ -1194,23 +1208,21 @@ class Executors extends jni.JObject {
       privilegedCallableUsingCurrentClassLoader<$T extends jni.JObject>(
     jni.JObject callable, {
     required jni.JObjType<$T> T,
-  }) =>
-          const jni.JObjectType().fromRef(jni.Jni.accessors
-              .callStaticMethodWithArgs(
-                  _class.reference,
-                  _id_privilegedCallableUsingCurrentClassLoader,
-                  jni.JniCallType.objectType,
-                  [callable.reference]).object);
+  }) {
+    return _id_privilegedCallableUsingCurrentClassLoader(
+        _class, const jni.JObjectType(), [callable.reference.pointer]);
+  }
 }
 
 final class $ExecutorsType extends jni.JObjType<Executors> {
   const $ExecutorsType();
 
   @override
-  String get signature => r'Ljava/util/concurrent/Executors;';
+  String get signature => r"Ljava/util/concurrent/Executors;";
 
   @override
-  Executors fromRef(jni.JObjectPtr ref) => Executors.fromRef(ref);
+  Executors fromReference(jni.JReference reference) =>
+      Executors.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -1222,8 +1234,9 @@ final class $ExecutorsType extends jni.JObjType<Executors> {
   int get hashCode => ($ExecutorsType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $ExecutorsType && other is $ExecutorsType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($ExecutorsType) && other is $ExecutorsType;
+  }
 }
 
 /// from: org.chromium.net.CronetEngine$Builder$LibraryLoader
@@ -1231,33 +1244,37 @@ class CronetEngine_Builder_LibraryLoader extends jni.JObject {
   @override
   late final jni.JObjType<CronetEngine_Builder_LibraryLoader> $type = type;
 
-  CronetEngine_Builder_LibraryLoader.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  CronetEngine_Builder_LibraryLoader.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(
-      r'org/chromium/net/CronetEngine$Builder$LibraryLoader');
+  static final _class = jni.JClass.forName(
+      r"org/chromium/net/CronetEngine$Builder$LibraryLoader");
 
   /// The type which includes information such as the signature of this class.
   static const type = $CronetEngine_Builder_LibraryLoaderType();
-  static final _id_new0 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory CronetEngine_Builder_LibraryLoader() =>
-      CronetEngine_Builder_LibraryLoader.fromRef(jni.Jni.accessors
-          .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory CronetEngine_Builder_LibraryLoader() {
+    return CronetEngine_Builder_LibraryLoader.fromReference(
+        _id_new0(_class, referenceType, []));
+  }
 
-  static final _id_loadLibrary = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'loadLibrary', r'(Ljava/lang/String;)V');
+  static final _id_loadLibrary = _class.instanceMethodId(
+    r"loadLibrary",
+    r"(Ljava/lang/String;)V",
+  );
 
   /// from: public abstract void loadLibrary(java.lang.String string)
   void loadLibrary(
     jni.JString string,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(reference, _id_loadLibrary,
-          jni.JniCallType.voidType, [string.reference]).check();
+  ) {
+    _id_loadLibrary(this, const jni.jvoidType(), [string.reference.pointer]);
+  }
 }
 
 final class $CronetEngine_Builder_LibraryLoaderType
@@ -1266,11 +1283,11 @@ final class $CronetEngine_Builder_LibraryLoaderType
 
   @override
   String get signature =>
-      r'Lorg/chromium/net/CronetEngine$Builder$LibraryLoader;';
+      r"Lorg/chromium/net/CronetEngine$Builder$LibraryLoader;";
 
   @override
-  CronetEngine_Builder_LibraryLoader fromRef(jni.JObjectPtr ref) =>
-      CronetEngine_Builder_LibraryLoader.fromRef(ref);
+  CronetEngine_Builder_LibraryLoader fromReference(jni.JReference reference) =>
+      CronetEngine_Builder_LibraryLoader.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -1282,9 +1299,10 @@ final class $CronetEngine_Builder_LibraryLoaderType
   int get hashCode => ($CronetEngine_Builder_LibraryLoaderType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $CronetEngine_Builder_LibraryLoaderType &&
-      other is $CronetEngine_Builder_LibraryLoaderType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($CronetEngine_Builder_LibraryLoaderType) &&
+        other is $CronetEngine_Builder_LibraryLoaderType;
+  }
 }
 
 /// from: org.chromium.net.CronetEngine$Builder
@@ -1292,27 +1310,24 @@ class CronetEngine_Builder extends jni.JObject {
   @override
   late final jni.JObjType<CronetEngine_Builder> $type = type;
 
-  CronetEngine_Builder.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  CronetEngine_Builder.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
   static final _class =
-      jni.Jni.findJClass(r'org/chromium/net/CronetEngine$Builder');
+      jni.JClass.forName(r"org/chromium/net/CronetEngine$Builder");
 
   /// The type which includes information such as the signature of this class.
   static const type = $CronetEngine_BuilderType();
-  static final _id_mBuilderDelegate = jni.Jni.accessors.getFieldIDOf(
-    _class.reference,
-    r'mBuilderDelegate',
-    r'Lorg/chromium/net/ICronetEngineBuilder;',
+  static final _id_mBuilderDelegate = _class.instanceFieldId(
+    r"mBuilderDelegate",
+    r"Lorg/chromium/net/ICronetEngineBuilder;",
   );
 
   /// from: protected final org.chromium.net.ICronetEngineBuilder mBuilderDelegate
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject get mBuilderDelegate =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .getField(reference, _id_mBuilderDelegate, jni.JniCallType.objectType)
-          .object);
+      _id_mBuilderDelegate.get(this, const jni.JObjectType());
 
   /// from: static public final int HTTP_CACHE_DISABLED
   static const HTTP_CACHE_DISABLED = 0;
@@ -1325,157 +1340,158 @@ class CronetEngine_Builder extends jni.JObject {
 
   /// from: static public final int HTTP_CACHE_DISK
   static const HTTP_CACHE_DISK = 3;
-
-  static final _id_new0 = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'<init>', r'(Landroid/content/Context;)V');
+  static final _id_new0 = _class.constructorId(
+    r"(Landroid/content/Context;)V",
+  );
 
   /// from: public void <init>(android.content.Context context)
   /// The returned object must be released after use, by calling the [release] method.
   factory CronetEngine_Builder(
     jni.JObject context,
-  ) =>
-      CronetEngine_Builder.fromRef(jni.Jni.accessors.newObjectWithArgs(
-          _class.reference, _id_new0, [context.reference]).object);
+  ) {
+    return CronetEngine_Builder.fromReference(
+        _id_new0(_class, referenceType, [context.reference.pointer]));
+  }
 
-  static final _id_new1 = jni.Jni.accessors.getMethodIDOf(_class.reference,
-      r'<init>', r'(Lorg/chromium/net/ICronetEngineBuilder;)V');
+  static final _id_new1 = _class.constructorId(
+    r"(Lorg/chromium/net/ICronetEngineBuilder;)V",
+  );
 
   /// from: public void <init>(org.chromium.net.ICronetEngineBuilder iCronetEngineBuilder)
   /// The returned object must be released after use, by calling the [release] method.
   factory CronetEngine_Builder.new1(
     jni.JObject iCronetEngineBuilder,
-  ) =>
-      CronetEngine_Builder.fromRef(jni.Jni.accessors.newObjectWithArgs(
-          _class.reference, _id_new1, [iCronetEngineBuilder.reference]).object);
+  ) {
+    return CronetEngine_Builder.fromReference(_id_new1(
+        _class, referenceType, [iCronetEngineBuilder.reference.pointer]));
+  }
 
-  static final _id_getDefaultUserAgent = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'getDefaultUserAgent', r'()Ljava/lang/String;');
+  static final _id_getDefaultUserAgent = _class.instanceMethodId(
+    r"getDefaultUserAgent",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public java.lang.String getDefaultUserAgent()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getDefaultUserAgent() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_getDefaultUserAgent,
-          jni.JniCallType.objectType, []).object);
+  jni.JString getDefaultUserAgent() {
+    return _id_getDefaultUserAgent(this, const jni.JStringType(), []);
+  }
 
-  static final _id_setUserAgent = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'setUserAgent',
-      r'(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_setUserAgent = _class.instanceMethodId(
+    r"setUserAgent",
+    r"(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder setUserAgent(java.lang.String string)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setUserAgent(
     jni.JString string,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_setUserAgent,
-              jni.JniCallType.objectType, [string.reference]).object);
+  ) {
+    return _id_setUserAgent(
+        this, const $CronetEngine_BuilderType(), [string.reference.pointer]);
+  }
 
-  static final _id_setStoragePath = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'setStoragePath',
-      r'(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_setStoragePath = _class.instanceMethodId(
+    r"setStoragePath",
+    r"(Ljava/lang/String;)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder setStoragePath(java.lang.String string)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setStoragePath(
     jni.JString string,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_setStoragePath,
-              jni.JniCallType.objectType, [string.reference]).object);
+  ) {
+    return _id_setStoragePath(
+        this, const $CronetEngine_BuilderType(), [string.reference.pointer]);
+  }
 
-  static final _id_setLibraryLoader = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'setLibraryLoader',
-      r'(Lorg/chromium/net/CronetEngine$Builder$LibraryLoader;)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_setLibraryLoader = _class.instanceMethodId(
+    r"setLibraryLoader",
+    r"(Lorg/chromium/net/CronetEngine$Builder$LibraryLoader;)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder setLibraryLoader(org.chromium.net.CronetEngine$Builder$LibraryLoader libraryLoader)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder setLibraryLoader(
     CronetEngine_Builder_LibraryLoader libraryLoader,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_setLibraryLoader,
-              jni.JniCallType.objectType, [libraryLoader.reference]).object);
+  ) {
+    return _id_setLibraryLoader(this, const $CronetEngine_BuilderType(),
+        [libraryLoader.reference.pointer]);
+  }
 
-  static final _id_enableQuic = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'enableQuic',
-      r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_enableQuic = _class.instanceMethodId(
+    r"enableQuic",
+    r"(Z)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder enableQuic(boolean z)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableQuic(
     bool z,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_enableQuic,
-              jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) {
+    return _id_enableQuic(this, const $CronetEngine_BuilderType(), [z ? 1 : 0]);
+  }
 
-  static final _id_enableHttp2 = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'enableHttp2',
-      r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_enableHttp2 = _class.instanceMethodId(
+    r"enableHttp2",
+    r"(Z)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder enableHttp2(boolean z)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableHttp2(
     bool z,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_enableHttp2,
-              jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) {
+    return _id_enableHttp2(
+        this, const $CronetEngine_BuilderType(), [z ? 1 : 0]);
+  }
 
-  static final _id_enableSdch = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'enableSdch',
-      r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_enableSdch = _class.instanceMethodId(
+    r"enableSdch",
+    r"(Z)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder enableSdch(boolean z)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableSdch(
     bool z,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_enableSdch,
-              jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) {
+    return _id_enableSdch(this, const $CronetEngine_BuilderType(), [z ? 1 : 0]);
+  }
 
-  static final _id_enableBrotli = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'enableBrotli',
-      r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_enableBrotli = _class.instanceMethodId(
+    r"enableBrotli",
+    r"(Z)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder enableBrotli(boolean z)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableBrotli(
     bool z,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_enableBrotli,
-              jni.JniCallType.objectType, [z ? 1 : 0]).object);
+  ) {
+    return _id_enableBrotli(
+        this, const $CronetEngine_BuilderType(), [z ? 1 : 0]);
+  }
 
-  static final _id_enableHttpCache = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'enableHttpCache',
-      r'(IJ)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_enableHttpCache = _class.instanceMethodId(
+    r"enableHttpCache",
+    r"(IJ)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder enableHttpCache(int i, long j)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enableHttpCache(
     int i,
     int j,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_enableHttpCache,
-              jni.JniCallType.objectType, [jni.JValueInt(i), j]).object);
+  ) {
+    return _id_enableHttpCache(
+        this, const $CronetEngine_BuilderType(), [jni.JValueInt(i), j]);
+  }
 
-  static final _id_addQuicHint = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'addQuicHint',
-      r'(Ljava/lang/String;II)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_addQuicHint = _class.instanceMethodId(
+    r"addQuicHint",
+    r"(Ljava/lang/String;II)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder addQuicHint(java.lang.String string, int i, int i1)
   /// The returned object must be released after use, by calling the [release] method.
@@ -1483,18 +1499,15 @@ class CronetEngine_Builder extends jni.JObject {
     jni.JString string,
     int i,
     int i1,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(
-              reference,
-              _id_addQuicHint,
-              jni.JniCallType.objectType,
-              [string.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
+  ) {
+    return _id_addQuicHint(this, const $CronetEngine_BuilderType(),
+        [string.reference.pointer, jni.JValueInt(i), jni.JValueInt(i1)]);
+  }
 
-  static final _id_addPublicKeyPins = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'addPublicKeyPins',
-      r'(Ljava/lang/String;Ljava/util/Set;ZLjava/util/Date;)Lorg/chromium/net/CronetEngine$Builder;');
+  static final _id_addPublicKeyPins = _class.instanceMethodId(
+    r"addPublicKeyPins",
+    r"(Ljava/lang/String;Ljava/util/Set;ZLjava/util/Date;)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder addPublicKeyPins(java.lang.String string, java.util.Set set, boolean z, java.util.Date date)
   /// The returned object must be released after use, by calling the [release] method.
@@ -1503,42 +1516,40 @@ class CronetEngine_Builder extends jni.JObject {
     jni.JSet<jni.JArray<jni.jbyte>> set0,
     bool z,
     jni.JObject date,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(
-              reference, _id_addPublicKeyPins, jni.JniCallType.objectType, [
-        string.reference,
-        set0.reference,
-        z ? 1 : 0,
-        date.reference
-      ]).object);
+  ) {
+    return _id_addPublicKeyPins(this, const $CronetEngine_BuilderType(), [
+      string.reference.pointer,
+      set0.reference.pointer,
+      z ? 1 : 0,
+      date.reference.pointer
+    ]);
+  }
 
   static final _id_enablePublicKeyPinningBypassForLocalTrustAnchors =
-      jni.Jni.accessors.getMethodIDOf(
-          _class.reference,
-          r'enablePublicKeyPinningBypassForLocalTrustAnchors',
-          r'(Z)Lorg/chromium/net/CronetEngine$Builder;');
+      _class.instanceMethodId(
+    r"enablePublicKeyPinningBypassForLocalTrustAnchors",
+    r"(Z)Lorg/chromium/net/CronetEngine$Builder;",
+  );
 
   /// from: public org.chromium.net.CronetEngine$Builder enablePublicKeyPinningBypassForLocalTrustAnchors(boolean z)
   /// The returned object must be released after use, by calling the [release] method.
   CronetEngine_Builder enablePublicKeyPinningBypassForLocalTrustAnchors(
     bool z,
-  ) =>
-      const $CronetEngine_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(
-              reference,
-              _id_enablePublicKeyPinningBypassForLocalTrustAnchors,
-              jni.JniCallType.objectType,
-              [z ? 1 : 0]).object);
+  ) {
+    return _id_enablePublicKeyPinningBypassForLocalTrustAnchors(
+        this, const $CronetEngine_BuilderType(), [z ? 1 : 0]);
+  }
 
-  static final _id_build = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'build', r'()Lorg/chromium/net/CronetEngine;');
+  static final _id_build = _class.instanceMethodId(
+    r"build",
+    r"()Lorg/chromium/net/CronetEngine;",
+  );
 
   /// from: public org.chromium.net.CronetEngine build()
   /// The returned object must be released after use, by calling the [release] method.
-  CronetEngine build() =>
-      const $CronetEngineType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_build, jni.JniCallType.objectType, []).object);
+  CronetEngine build() {
+    return _id_build(this, const $CronetEngineType(), []);
+  }
 }
 
 final class $CronetEngine_BuilderType
@@ -1546,11 +1557,11 @@ final class $CronetEngine_BuilderType
   const $CronetEngine_BuilderType();
 
   @override
-  String get signature => r'Lorg/chromium/net/CronetEngine$Builder;';
+  String get signature => r"Lorg/chromium/net/CronetEngine$Builder;";
 
   @override
-  CronetEngine_Builder fromRef(jni.JObjectPtr ref) =>
-      CronetEngine_Builder.fromRef(ref);
+  CronetEngine_Builder fromReference(jni.JReference reference) =>
+      CronetEngine_Builder.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -1562,9 +1573,10 @@ final class $CronetEngine_BuilderType
   int get hashCode => ($CronetEngine_BuilderType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $CronetEngine_BuilderType &&
-      other is $CronetEngine_BuilderType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($CronetEngine_BuilderType) &&
+        other is $CronetEngine_BuilderType;
+  }
 }
 
 /// from: org.chromium.net.CronetEngine
@@ -1572,100 +1584,110 @@ class CronetEngine extends jni.JObject {
   @override
   late final jni.JObjType<CronetEngine> $type = type;
 
-  CronetEngine.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  CronetEngine.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(r'org/chromium/net/CronetEngine');
+  static final _class = jni.JClass.forName(r"org/chromium/net/CronetEngine");
 
   /// The type which includes information such as the signature of this class.
   static const type = $CronetEngineType();
-  static final _id_new0 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory CronetEngine() => CronetEngine.fromRef(jni.Jni.accessors
-      .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory CronetEngine() {
+    return CronetEngine.fromReference(_id_new0(_class, referenceType, []));
+  }
 
-  static final _id_getVersionString = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'getVersionString', r'()Ljava/lang/String;');
+  static final _id_getVersionString = _class.instanceMethodId(
+    r"getVersionString",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public abstract java.lang.String getVersionString()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getVersionString() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_getVersionString,
-          jni.JniCallType.objectType, []).object);
+  jni.JString getVersionString() {
+    return _id_getVersionString(this, const jni.JStringType(), []);
+  }
 
-  static final _id_shutdown =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'shutdown', r'()V');
+  static final _id_shutdown = _class.instanceMethodId(
+    r"shutdown",
+    r"()V",
+  );
 
   /// from: public abstract void shutdown()
-  void shutdown() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_shutdown, jni.JniCallType.voidType, []).check();
+  void shutdown() {
+    _id_shutdown(this, const jni.jvoidType(), []);
+  }
 
-  static final _id_startNetLogToFile = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'startNetLogToFile', r'(Ljava/lang/String;Z)V');
+  static final _id_startNetLogToFile = _class.instanceMethodId(
+    r"startNetLogToFile",
+    r"(Ljava/lang/String;Z)V",
+  );
 
   /// from: public abstract void startNetLogToFile(java.lang.String string, boolean z)
   void startNetLogToFile(
     jni.JString string,
     bool z,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(reference, _id_startNetLogToFile,
-          jni.JniCallType.voidType, [string.reference, z ? 1 : 0]).check();
+  ) {
+    _id_startNetLogToFile(
+        this, const jni.jvoidType(), [string.reference.pointer, z ? 1 : 0]);
+  }
 
-  static final _id_stopNetLog =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'stopNetLog', r'()V');
+  static final _id_stopNetLog = _class.instanceMethodId(
+    r"stopNetLog",
+    r"()V",
+  );
 
   /// from: public abstract void stopNetLog()
-  void stopNetLog() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_stopNetLog, jni.JniCallType.voidType, []).check();
+  void stopNetLog() {
+    _id_stopNetLog(this, const jni.jvoidType(), []);
+  }
 
-  static final _id_getGlobalMetricsDeltas = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getGlobalMetricsDeltas', r'()[B');
+  static final _id_getGlobalMetricsDeltas = _class.instanceMethodId(
+    r"getGlobalMetricsDeltas",
+    r"()[B",
+  );
 
   /// from: public abstract byte[] getGlobalMetricsDeltas()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JArray<jni.jbyte> getGlobalMetricsDeltas() =>
-      const jni.JArrayType(jni.jbyteType()).fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_getGlobalMetricsDeltas,
-              jni.JniCallType.objectType, []).object);
+  jni.JArray<jni.jbyte> getGlobalMetricsDeltas() {
+    return _id_getGlobalMetricsDeltas(
+        this, const jni.JArrayType(jni.jbyteType()), []);
+  }
 
-  static final _id_openConnection = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'openConnection',
-      r'(Ljava/net/URL;)Ljava/net/URLConnection;');
+  static final _id_openConnection = _class.instanceMethodId(
+    r"openConnection",
+    r"(Ljava/net/URL;)Ljava/net/URLConnection;",
+  );
 
   /// from: public abstract java.net.URLConnection openConnection(java.net.URL uRL)
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject openConnection(
     URL uRL,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_openConnection,
-          jni.JniCallType.objectType,
-          [uRL.reference]).object);
+  ) {
+    return _id_openConnection(
+        this, const jni.JObjectType(), [uRL.reference.pointer]);
+  }
 
-  static final _id_createURLStreamHandlerFactory = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'createURLStreamHandlerFactory',
-          r'()Ljava/net/URLStreamHandlerFactory;');
+  static final _id_createURLStreamHandlerFactory = _class.instanceMethodId(
+    r"createURLStreamHandlerFactory",
+    r"()Ljava/net/URLStreamHandlerFactory;",
+  );
 
   /// from: public abstract java.net.URLStreamHandlerFactory createURLStreamHandlerFactory()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject createURLStreamHandlerFactory() =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_createURLStreamHandlerFactory,
-          jni.JniCallType.objectType, []).object);
+  jni.JObject createURLStreamHandlerFactory() {
+    return _id_createURLStreamHandlerFactory(this, const jni.JObjectType(), []);
+  }
 
-  static final _id_newUrlRequestBuilder = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'newUrlRequestBuilder',
-      r'(Ljava/lang/String;Lorg/chromium/net/UrlRequest$Callback;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;');
+  static final _id_newUrlRequestBuilder = _class.instanceMethodId(
+    r"newUrlRequestBuilder",
+    r"(Ljava/lang/String;Lorg/chromium/net/UrlRequest$Callback;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;",
+  );
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder newUrlRequestBuilder(java.lang.String string, org.chromium.net.UrlRequest$Callback callback, java.util.concurrent.Executor executor)
   /// The returned object must be released after use, by calling the [release] method.
@@ -1673,24 +1695,24 @@ class CronetEngine extends jni.JObject {
     jni.JString string,
     UrlRequest_Callback callback,
     jni.JObject executor,
-  ) =>
-      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(
-              reference, _id_newUrlRequestBuilder, jni.JniCallType.objectType, [
-        string.reference,
-        callback.reference,
-        executor.reference
-      ]).object);
+  ) {
+    return _id_newUrlRequestBuilder(this, const $UrlRequest_BuilderType(), [
+      string.reference.pointer,
+      callback.reference.pointer,
+      executor.reference.pointer
+    ]);
+  }
 }
 
 final class $CronetEngineType extends jni.JObjType<CronetEngine> {
   const $CronetEngineType();
 
   @override
-  String get signature => r'Lorg/chromium/net/CronetEngine;';
+  String get signature => r"Lorg/chromium/net/CronetEngine;";
 
   @override
-  CronetEngine fromRef(jni.JObjectPtr ref) => CronetEngine.fromRef(ref);
+  CronetEngine fromReference(jni.JReference reference) =>
+      CronetEngine.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -1702,8 +1724,10 @@ final class $CronetEngineType extends jni.JObjType<CronetEngine> {
   int get hashCode => ($CronetEngineType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $CronetEngineType && other is $CronetEngineType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($CronetEngineType) &&
+        other is $CronetEngineType;
+  }
 }
 
 /// from: org.chromium.net.CronetException
@@ -1711,37 +1735,38 @@ class CronetException extends jni.JObject {
   @override
   late final jni.JObjType<CronetException> $type = type;
 
-  CronetException.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  CronetException.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(r'org/chromium/net/CronetException');
+  static final _class = jni.JClass.forName(r"org/chromium/net/CronetException");
 
   /// The type which includes information such as the signature of this class.
   static const type = $CronetExceptionType();
-  static final _id_new0 = jni.Jni.accessors.getMethodIDOf(_class.reference,
-      r'<init>', r'(Ljava/lang/String;Ljava/lang/Throwable;)V');
+  static final _id_new0 = _class.constructorId(
+    r"(Ljava/lang/String;Ljava/lang/Throwable;)V",
+  );
 
   /// from: protected void <init>(java.lang.String string, java.lang.Throwable throwable)
   /// The returned object must be released after use, by calling the [release] method.
   factory CronetException(
     jni.JString string,
     jni.JObject throwable,
-  ) =>
-      CronetException.fromRef(jni.Jni.accessors.newObjectWithArgs(
-          _class.reference,
-          _id_new0,
-          [string.reference, throwable.reference]).object);
+  ) {
+    return CronetException.fromReference(_id_new0(_class, referenceType,
+        [string.reference.pointer, throwable.reference.pointer]));
+  }
 }
 
 final class $CronetExceptionType extends jni.JObjType<CronetException> {
   const $CronetExceptionType();
 
   @override
-  String get signature => r'Lorg/chromium/net/CronetException;';
+  String get signature => r"Lorg/chromium/net/CronetException;";
 
   @override
-  CronetException fromRef(jni.JObjectPtr ref) => CronetException.fromRef(ref);
+  CronetException fromReference(jni.JReference reference) =>
+      CronetException.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -1753,9 +1778,10 @@ final class $CronetExceptionType extends jni.JObjType<CronetException> {
   int get hashCode => ($CronetExceptionType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $CronetExceptionType &&
-      other is $CronetExceptionType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($CronetExceptionType) &&
+        other is $CronetExceptionType;
+  }
 }
 
 /// from: org.chromium.net.UploadDataProviders
@@ -1763,64 +1789,61 @@ class UploadDataProviders extends jni.JObject {
   @override
   late final jni.JObjType<UploadDataProviders> $type = type;
 
-  UploadDataProviders.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UploadDataProviders.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
   static final _class =
-      jni.Jni.findJClass(r'org/chromium/net/UploadDataProviders');
+      jni.JClass.forName(r"org/chromium/net/UploadDataProviders");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UploadDataProvidersType();
-  static final _id_create = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'create',
-      r'(Ljava/io/File;)Lorg/chromium/net/UploadDataProvider;');
+  static final _id_create = _class.staticMethodId(
+    r"create",
+    r"(Ljava/io/File;)Lorg/chromium/net/UploadDataProvider;",
+  );
 
   /// from: static public org.chromium.net.UploadDataProvider create(java.io.File file)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create(
     jni.JObject file,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_create,
-              jni.JniCallType.objectType, [file.reference]).object);
+  ) {
+    return _id_create(
+        _class, const jni.JObjectType(), [file.reference.pointer]);
+  }
 
-  static final _id_create1 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'create',
-      r'(Landroid/os/ParcelFileDescriptor;)Lorg/chromium/net/UploadDataProvider;');
+  static final _id_create1 = _class.staticMethodId(
+    r"create",
+    r"(Landroid/os/ParcelFileDescriptor;)Lorg/chromium/net/UploadDataProvider;",
+  );
 
   /// from: static public org.chromium.net.UploadDataProvider create(android.os.ParcelFileDescriptor parcelFileDescriptor)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create1(
     jni.JObject parcelFileDescriptor,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_create1,
-              jni.JniCallType.objectType,
-              [parcelFileDescriptor.reference]).object);
+  ) {
+    return _id_create1(_class, const jni.JObjectType(),
+        [parcelFileDescriptor.reference.pointer]);
+  }
 
-  static final _id_create2 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'create',
-      r'(Ljava/nio/ByteBuffer;)Lorg/chromium/net/UploadDataProvider;');
+  static final _id_create2 = _class.staticMethodId(
+    r"create",
+    r"(Ljava/nio/ByteBuffer;)Lorg/chromium/net/UploadDataProvider;",
+  );
 
   /// from: static public org.chromium.net.UploadDataProvider create(java.nio.ByteBuffer byteBuffer)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create2(
     jni.JByteBuffer byteBuffer,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_create2,
-              jni.JniCallType.objectType, [byteBuffer.reference]).object);
+  ) {
+    return _id_create2(
+        _class, const jni.JObjectType(), [byteBuffer.reference.pointer]);
+  }
 
-  static final _id_create3 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'create',
-      r'([BII)Lorg/chromium/net/UploadDataProvider;');
+  static final _id_create3 = _class.staticMethodId(
+    r"create",
+    r"([BII)Lorg/chromium/net/UploadDataProvider;",
+  );
 
   /// from: static public org.chromium.net.UploadDataProvider create(byte[] bs, int i, int i1)
   /// The returned object must be released after use, by calling the [release] method.
@@ -1828,38 +1851,34 @@ class UploadDataProviders extends jni.JObject {
     jni.JArray<jni.jbyte> bs,
     int i,
     int i1,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(
-              _class.reference,
-              _id_create3,
-              jni.JniCallType.objectType,
-              [bs.reference, jni.JValueInt(i), jni.JValueInt(i1)]).object);
+  ) {
+    return _id_create3(_class, const jni.JObjectType(),
+        [bs.reference.pointer, jni.JValueInt(i), jni.JValueInt(i1)]);
+  }
 
-  static final _id_create4 = jni.Jni.accessors.getStaticMethodIDOf(
-      _class.reference,
-      r'create',
-      r'([B)Lorg/chromium/net/UploadDataProvider;');
+  static final _id_create4 = _class.staticMethodId(
+    r"create",
+    r"([B)Lorg/chromium/net/UploadDataProvider;",
+  );
 
   /// from: static public org.chromium.net.UploadDataProvider create(byte[] bs)
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JObject create4(
     jni.JArray<jni.jbyte> bs,
-  ) =>
-      const jni.JObjectType().fromRef(jni.Jni.accessors
-          .callStaticMethodWithArgs(_class.reference, _id_create4,
-              jni.JniCallType.objectType, [bs.reference]).object);
+  ) {
+    return _id_create4(_class, const jni.JObjectType(), [bs.reference.pointer]);
+  }
 }
 
 final class $UploadDataProvidersType extends jni.JObjType<UploadDataProviders> {
   const $UploadDataProvidersType();
 
   @override
-  String get signature => r'Lorg/chromium/net/UploadDataProviders;';
+  String get signature => r"Lorg/chromium/net/UploadDataProviders;";
 
   @override
-  UploadDataProviders fromRef(jni.JObjectPtr ref) =>
-      UploadDataProviders.fromRef(ref);
+  UploadDataProviders fromReference(jni.JReference reference) =>
+      UploadDataProviders.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -1871,9 +1890,10 @@ final class $UploadDataProvidersType extends jni.JObjType<UploadDataProviders> {
   int get hashCode => ($UploadDataProvidersType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UploadDataProvidersType &&
-      other is $UploadDataProvidersType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UploadDataProvidersType) &&
+        other is $UploadDataProvidersType;
+  }
 }
 
 /// from: org.chromium.net.UrlRequest$Builder
@@ -1881,12 +1901,12 @@ class UrlRequest_Builder extends jni.JObject {
   @override
   late final jni.JObjType<UrlRequest_Builder> $type = type;
 
-  UrlRequest_Builder.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlRequest_Builder.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
   static final _class =
-      jni.Jni.findJClass(r'org/chromium/net/UrlRequest$Builder');
+      jni.JClass.forName(r"org/chromium/net/UrlRequest$Builder");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlRequest_BuilderType();
@@ -1905,120 +1925,118 @@ class UrlRequest_Builder extends jni.JObject {
 
   /// from: static public final int REQUEST_PRIORITY_HIGHEST
   static const REQUEST_PRIORITY_HIGHEST = 4;
-
-  static final _id_new0 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory UrlRequest_Builder() => UrlRequest_Builder.fromRef(jni.Jni.accessors
-      .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory UrlRequest_Builder() {
+    return UrlRequest_Builder.fromReference(
+        _id_new0(_class, referenceType, []));
+  }
 
-  static final _id_setHttpMethod = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'setHttpMethod',
-      r'(Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;');
+  static final _id_setHttpMethod = _class.instanceMethodId(
+    r"setHttpMethod",
+    r"(Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;",
+  );
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder setHttpMethod(java.lang.String string)
   /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setHttpMethod(
     jni.JString string,
-  ) =>
-      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_setHttpMethod,
-              jni.JniCallType.objectType, [string.reference]).object);
+  ) {
+    return _id_setHttpMethod(
+        this, const $UrlRequest_BuilderType(), [string.reference.pointer]);
+  }
 
-  static final _id_addHeader = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'addHeader',
-      r'(Ljava/lang/String;Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;');
+  static final _id_addHeader = _class.instanceMethodId(
+    r"addHeader",
+    r"(Ljava/lang/String;Ljava/lang/String;)Lorg/chromium/net/UrlRequest$Builder;",
+  );
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder addHeader(java.lang.String string, java.lang.String string1)
   /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder addHeader(
     jni.JString string,
     jni.JString string1,
-  ) =>
-      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(
-              reference,
-              _id_addHeader,
-              jni.JniCallType.objectType,
-              [string.reference, string1.reference]).object);
+  ) {
+    return _id_addHeader(this, const $UrlRequest_BuilderType(),
+        [string.reference.pointer, string1.reference.pointer]);
+  }
 
-  static final _id_disableCache = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'disableCache',
-      r'()Lorg/chromium/net/UrlRequest$Builder;');
+  static final _id_disableCache = _class.instanceMethodId(
+    r"disableCache",
+    r"()Lorg/chromium/net/UrlRequest$Builder;",
+  );
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder disableCache()
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest_Builder disableCache() => const $UrlRequest_BuilderType().fromRef(
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_disableCache, jni.JniCallType.objectType, []).object);
+  UrlRequest_Builder disableCache() {
+    return _id_disableCache(this, const $UrlRequest_BuilderType(), []);
+  }
 
-  static final _id_setPriority = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'setPriority',
-      r'(I)Lorg/chromium/net/UrlRequest$Builder;');
+  static final _id_setPriority = _class.instanceMethodId(
+    r"setPriority",
+    r"(I)Lorg/chromium/net/UrlRequest$Builder;",
+  );
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder setPriority(int i)
   /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setPriority(
     int i,
-  ) =>
-      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_setPriority,
-              jni.JniCallType.objectType, [jni.JValueInt(i)]).object);
+  ) {
+    return _id_setPriority(
+        this, const $UrlRequest_BuilderType(), [jni.JValueInt(i)]);
+  }
 
-  static final _id_setUploadDataProvider = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'setUploadDataProvider',
-      r'(Lorg/chromium/net/UploadDataProvider;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;');
+  static final _id_setUploadDataProvider = _class.instanceMethodId(
+    r"setUploadDataProvider",
+    r"(Lorg/chromium/net/UploadDataProvider;Ljava/util/concurrent/Executor;)Lorg/chromium/net/UrlRequest$Builder;",
+  );
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder setUploadDataProvider(org.chromium.net.UploadDataProvider uploadDataProvider, java.util.concurrent.Executor executor)
   /// The returned object must be released after use, by calling the [release] method.
   UrlRequest_Builder setUploadDataProvider(
     jni.JObject uploadDataProvider,
     jni.JObject executor,
-  ) =>
-      const $UrlRequest_BuilderType().fromRef(jni.Jni.accessors
-          .callMethodWithArgs(
-              reference,
-              _id_setUploadDataProvider,
-              jni.JniCallType.objectType,
-              [uploadDataProvider.reference, executor.reference]).object);
+  ) {
+    return _id_setUploadDataProvider(this, const $UrlRequest_BuilderType(),
+        [uploadDataProvider.reference.pointer, executor.reference.pointer]);
+  }
 
-  static final _id_allowDirectExecutor = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'allowDirectExecutor',
-      r'()Lorg/chromium/net/UrlRequest$Builder;');
+  static final _id_allowDirectExecutor = _class.instanceMethodId(
+    r"allowDirectExecutor",
+    r"()Lorg/chromium/net/UrlRequest$Builder;",
+  );
 
   /// from: public abstract org.chromium.net.UrlRequest$Builder allowDirectExecutor()
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest_Builder allowDirectExecutor() => const $UrlRequest_BuilderType()
-      .fromRef(jni.Jni.accessors.callMethodWithArgs(reference,
-          _id_allowDirectExecutor, jni.JniCallType.objectType, []).object);
+  UrlRequest_Builder allowDirectExecutor() {
+    return _id_allowDirectExecutor(this, const $UrlRequest_BuilderType(), []);
+  }
 
-  static final _id_build = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'build', r'()Lorg/chromium/net/UrlRequest;');
+  static final _id_build = _class.instanceMethodId(
+    r"build",
+    r"()Lorg/chromium/net/UrlRequest;",
+  );
 
   /// from: public abstract org.chromium.net.UrlRequest build()
   /// The returned object must be released after use, by calling the [release] method.
-  UrlRequest build() =>
-      const $UrlRequestType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_build, jni.JniCallType.objectType, []).object);
+  UrlRequest build() {
+    return _id_build(this, const $UrlRequestType(), []);
+  }
 }
 
 final class $UrlRequest_BuilderType extends jni.JObjType<UrlRequest_Builder> {
   const $UrlRequest_BuilderType();
 
   @override
-  String get signature => r'Lorg/chromium/net/UrlRequest$Builder;';
+  String get signature => r"Lorg/chromium/net/UrlRequest$Builder;";
 
   @override
-  UrlRequest_Builder fromRef(jni.JObjectPtr ref) =>
-      UrlRequest_Builder.fromRef(ref);
+  UrlRequest_Builder fromReference(jni.JReference reference) =>
+      UrlRequest_Builder.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -2030,9 +2048,10 @@ final class $UrlRequest_BuilderType extends jni.JObjType<UrlRequest_Builder> {
   int get hashCode => ($UrlRequest_BuilderType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UrlRequest_BuilderType &&
-      other is $UrlRequest_BuilderType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequest_BuilderType) &&
+        other is $UrlRequest_BuilderType;
+  }
 }
 
 /// from: org.chromium.net.UrlRequest$Callback
@@ -2040,135 +2059,132 @@ class UrlRequest_Callback extends jni.JObject {
   @override
   late final jni.JObjType<UrlRequest_Callback> $type = type;
 
-  UrlRequest_Callback.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlRequest_Callback.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
   static final _class =
-      jni.Jni.findJClass(r'org/chromium/net/UrlRequest$Callback');
+      jni.JClass.forName(r"org/chromium/net/UrlRequest$Callback");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlRequest_CallbackType();
-  static final _id_new0 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory UrlRequest_Callback() => UrlRequest_Callback.fromRef(jni.Jni.accessors
-      .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory UrlRequest_Callback() {
+    return UrlRequest_Callback.fromReference(
+        _id_new0(_class, referenceType, []));
+  }
 
-  static final _id_onRedirectReceived = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onRedirectReceived',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V');
+  static final _id_onRedirectReceived = _class.instanceMethodId(
+    r"onRedirectReceived",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/lang/String;)V",
+  );
 
   /// from: public abstract void onRedirectReceived(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.lang.String string)
   void onRedirectReceived(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JString string,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onRedirectReceived, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        string.reference
-      ]).check();
+  ) {
+    _id_onRedirectReceived(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      string.reference.pointer
+    ]);
+  }
 
-  static final _id_onResponseStarted = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onResponseStarted',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V');
+  static final _id_onResponseStarted = _class.instanceMethodId(
+    r"onResponseStarted",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V",
+  );
 
   /// from: public abstract void onResponseStarted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)
   void onResponseStarted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_onResponseStarted,
-          jni.JniCallType.voidType,
-          [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) {
+    _id_onResponseStarted(this, const jni.jvoidType(),
+        [urlRequest.reference.pointer, urlResponseInfo.reference.pointer]);
+  }
 
-  static final _id_onReadCompleted = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onReadCompleted',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V');
+  static final _id_onReadCompleted = _class.instanceMethodId(
+    r"onReadCompleted",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Ljava/nio/ByteBuffer;)V",
+  );
 
   /// from: public abstract void onReadCompleted(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, java.nio.ByteBuffer byteBuffer)
   void onReadCompleted(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     jni.JByteBuffer byteBuffer,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onReadCompleted, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        byteBuffer.reference
-      ]).check();
+  ) {
+    _id_onReadCompleted(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      byteBuffer.reference.pointer
+    ]);
+  }
 
-  static final _id_onSucceeded = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onSucceeded',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V');
+  static final _id_onSucceeded = _class.instanceMethodId(
+    r"onSucceeded",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V",
+  );
 
   /// from: public abstract void onSucceeded(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)
   void onSucceeded(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_onSucceeded,
-          jni.JniCallType.voidType,
-          [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) {
+    _id_onSucceeded(this, const jni.jvoidType(),
+        [urlRequest.reference.pointer, urlResponseInfo.reference.pointer]);
+  }
 
-  static final _id_onFailed = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onFailed',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V');
+  static final _id_onFailed = _class.instanceMethodId(
+    r"onFailed",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;Lorg/chromium/net/CronetException;)V",
+  );
 
   /// from: public abstract void onFailed(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo, org.chromium.net.CronetException cronetException)
   void onFailed(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
     CronetException cronetException,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_onFailed, jni.JniCallType.voidType, [
-        urlRequest.reference,
-        urlResponseInfo.reference,
-        cronetException.reference
-      ]).check();
+  ) {
+    _id_onFailed(this, const jni.jvoidType(), [
+      urlRequest.reference.pointer,
+      urlResponseInfo.reference.pointer,
+      cronetException.reference.pointer
+    ]);
+  }
 
-  static final _id_onCanceled = jni.Jni.accessors.getMethodIDOf(
-      _class.reference,
-      r'onCanceled',
-      r'(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V');
+  static final _id_onCanceled = _class.instanceMethodId(
+    r"onCanceled",
+    r"(Lorg/chromium/net/UrlRequest;Lorg/chromium/net/UrlResponseInfo;)V",
+  );
 
   /// from: public void onCanceled(org.chromium.net.UrlRequest urlRequest, org.chromium.net.UrlResponseInfo urlResponseInfo)
   void onCanceled(
     UrlRequest urlRequest,
     UrlResponseInfo urlResponseInfo,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_onCanceled,
-          jni.JniCallType.voidType,
-          [urlRequest.reference, urlResponseInfo.reference]).check();
+  ) {
+    _id_onCanceled(this, const jni.jvoidType(),
+        [urlRequest.reference.pointer, urlResponseInfo.reference.pointer]);
+  }
 }
 
 final class $UrlRequest_CallbackType extends jni.JObjType<UrlRequest_Callback> {
   const $UrlRequest_CallbackType();
 
   @override
-  String get signature => r'Lorg/chromium/net/UrlRequest$Callback;';
+  String get signature => r"Lorg/chromium/net/UrlRequest$Callback;";
 
   @override
-  UrlRequest_Callback fromRef(jni.JObjectPtr ref) =>
-      UrlRequest_Callback.fromRef(ref);
+  UrlRequest_Callback fromReference(jni.JReference reference) =>
+      UrlRequest_Callback.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -2180,9 +2196,10 @@ final class $UrlRequest_CallbackType extends jni.JObjType<UrlRequest_Callback> {
   int get hashCode => ($UrlRequest_CallbackType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UrlRequest_CallbackType &&
-      other is $UrlRequest_CallbackType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequest_CallbackType) &&
+        other is $UrlRequest_CallbackType;
+  }
 }
 
 /// from: org.chromium.net.UrlRequest$Status
@@ -2190,12 +2207,12 @@ class UrlRequest_Status extends jni.JObject {
   @override
   late final jni.JObjType<UrlRequest_Status> $type = type;
 
-  UrlRequest_Status.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlRequest_Status.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
   static final _class =
-      jni.Jni.findJClass(r'org/chromium/net/UrlRequest$Status');
+      jni.JClass.forName(r"org/chromium/net/UrlRequest$Status");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlRequest_StatusType();
@@ -2253,11 +2270,11 @@ final class $UrlRequest_StatusType extends jni.JObjType<UrlRequest_Status> {
   const $UrlRequest_StatusType();
 
   @override
-  String get signature => r'Lorg/chromium/net/UrlRequest$Status;';
+  String get signature => r"Lorg/chromium/net/UrlRequest$Status;";
 
   @override
-  UrlRequest_Status fromRef(jni.JObjectPtr ref) =>
-      UrlRequest_Status.fromRef(ref);
+  UrlRequest_Status fromReference(jni.JReference reference) =>
+      UrlRequest_Status.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -2269,9 +2286,10 @@ final class $UrlRequest_StatusType extends jni.JObjType<UrlRequest_Status> {
   int get hashCode => ($UrlRequest_StatusType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UrlRequest_StatusType &&
-      other is $UrlRequest_StatusType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequest_StatusType) &&
+        other is $UrlRequest_StatusType;
+  }
 }
 
 /// from: org.chromium.net.UrlRequest$StatusListener
@@ -2279,33 +2297,37 @@ class UrlRequest_StatusListener extends jni.JObject {
   @override
   late final jni.JObjType<UrlRequest_StatusListener> $type = type;
 
-  UrlRequest_StatusListener.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlRequest_StatusListener.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
   static final _class =
-      jni.Jni.findJClass(r'org/chromium/net/UrlRequest$StatusListener');
+      jni.JClass.forName(r"org/chromium/net/UrlRequest$StatusListener");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlRequest_StatusListenerType();
-  static final _id_new0 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory UrlRequest_StatusListener() =>
-      UrlRequest_StatusListener.fromRef(jni.Jni.accessors
-          .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory UrlRequest_StatusListener() {
+    return UrlRequest_StatusListener.fromReference(
+        _id_new0(_class, referenceType, []));
+  }
 
-  static final _id_onStatus =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'onStatus', r'(I)V');
+  static final _id_onStatus = _class.instanceMethodId(
+    r"onStatus",
+    r"(I)V",
+  );
 
   /// from: public abstract void onStatus(int i)
   void onStatus(
     int i,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(reference, _id_onStatus,
-          jni.JniCallType.voidType, [jni.JValueInt(i)]).check();
+  ) {
+    _id_onStatus(this, const jni.jvoidType(), [jni.JValueInt(i)]);
+  }
 }
 
 final class $UrlRequest_StatusListenerType
@@ -2313,11 +2335,11 @@ final class $UrlRequest_StatusListenerType
   const $UrlRequest_StatusListenerType();
 
   @override
-  String get signature => r'Lorg/chromium/net/UrlRequest$StatusListener;';
+  String get signature => r"Lorg/chromium/net/UrlRequest$StatusListener;";
 
   @override
-  UrlRequest_StatusListener fromRef(jni.JObjectPtr ref) =>
-      UrlRequest_StatusListener.fromRef(ref);
+  UrlRequest_StatusListener fromReference(jni.JReference reference) =>
+      UrlRequest_StatusListener.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -2329,9 +2351,10 @@ final class $UrlRequest_StatusListenerType
   int get hashCode => ($UrlRequest_StatusListenerType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UrlRequest_StatusListenerType &&
-      other is $UrlRequest_StatusListenerType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequest_StatusListenerType) &&
+        other is $UrlRequest_StatusListenerType;
+  }
 }
 
 /// from: org.chromium.net.UrlRequest
@@ -2339,79 +2362,99 @@ class UrlRequest extends jni.JObject {
   @override
   late final jni.JObjType<UrlRequest> $type = type;
 
-  UrlRequest.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlRequest.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(r'org/chromium/net/UrlRequest');
+  static final _class = jni.JClass.forName(r"org/chromium/net/UrlRequest");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlRequestType();
-  static final _id_new0 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory UrlRequest() => UrlRequest.fromRef(jni.Jni.accessors
-      .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory UrlRequest() {
+    return UrlRequest.fromReference(_id_new0(_class, referenceType, []));
+  }
 
-  static final _id_start =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'start', r'()V');
+  static final _id_start = _class.instanceMethodId(
+    r"start",
+    r"()V",
+  );
 
   /// from: public abstract void start()
-  void start() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_start, jni.JniCallType.voidType, []).check();
+  void start() {
+    _id_start(this, const jni.jvoidType(), []);
+  }
 
-  static final _id_followRedirect = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'followRedirect', r'()V');
+  static final _id_followRedirect = _class.instanceMethodId(
+    r"followRedirect",
+    r"()V",
+  );
 
   /// from: public abstract void followRedirect()
-  void followRedirect() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_followRedirect, jni.JniCallType.voidType, []).check();
+  void followRedirect() {
+    _id_followRedirect(this, const jni.jvoidType(), []);
+  }
 
-  static final _id_read = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'read', r'(Ljava/nio/ByteBuffer;)V');
+  static final _id_read = _class.instanceMethodId(
+    r"read",
+    r"(Ljava/nio/ByteBuffer;)V",
+  );
 
   /// from: public abstract void read(java.nio.ByteBuffer byteBuffer)
   void read(
     jni.JByteBuffer byteBuffer,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(reference, _id_read,
-          jni.JniCallType.voidType, [byteBuffer.reference]).check();
+  ) {
+    _id_read(this, const jni.jvoidType(), [byteBuffer.reference.pointer]);
+  }
 
-  static final _id_cancel =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'cancel', r'()V');
+  static final _id_cancel = _class.instanceMethodId(
+    r"cancel",
+    r"()V",
+  );
 
   /// from: public abstract void cancel()
-  void cancel() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_cancel, jni.JniCallType.voidType, []).check();
+  void cancel() {
+    _id_cancel(this, const jni.jvoidType(), []);
+  }
 
-  static final _id_isDone =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'isDone', r'()Z');
+  static final _id_isDone = _class.instanceMethodId(
+    r"isDone",
+    r"()Z",
+  );
 
   /// from: public abstract boolean isDone()
-  bool isDone() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_isDone, jni.JniCallType.booleanType, []).boolean;
+  bool isDone() {
+    return _id_isDone(this, const jni.jbooleanType(), []);
+  }
 
-  static final _id_getStatus = jni.Jni.accessors.getMethodIDOf(_class.reference,
-      r'getStatus', r'(Lorg/chromium/net/UrlRequest$StatusListener;)V');
+  static final _id_getStatus = _class.instanceMethodId(
+    r"getStatus",
+    r"(Lorg/chromium/net/UrlRequest$StatusListener;)V",
+  );
 
   /// from: public abstract void getStatus(org.chromium.net.UrlRequest$StatusListener statusListener)
   void getStatus(
     UrlRequest_StatusListener statusListener,
-  ) =>
-      jni.Jni.accessors.callMethodWithArgs(reference, _id_getStatus,
-          jni.JniCallType.voidType, [statusListener.reference]).check();
+  ) {
+    _id_getStatus(
+        this, const jni.jvoidType(), [statusListener.reference.pointer]);
+  }
 }
 
 final class $UrlRequestType extends jni.JObjType<UrlRequest> {
   const $UrlRequestType();
 
   @override
-  String get signature => r'Lorg/chromium/net/UrlRequest;';
+  String get signature => r"Lorg/chromium/net/UrlRequest;";
 
   @override
-  UrlRequest fromRef(jni.JObjectPtr ref) => UrlRequest.fromRef(ref);
+  UrlRequest fromReference(jni.JReference reference) =>
+      UrlRequest.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -2423,8 +2466,9 @@ final class $UrlRequestType extends jni.JObjType<UrlRequest> {
   int get hashCode => ($UrlRequestType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UrlRequestType && other is $UrlRequestType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlRequestType) && other is $UrlRequestType;
+  }
 }
 
 /// from: org.chromium.net.UrlResponseInfo$HeaderBlock
@@ -2432,42 +2476,50 @@ class UrlResponseInfo_HeaderBlock extends jni.JObject {
   @override
   late final jni.JObjType<UrlResponseInfo_HeaderBlock> $type = type;
 
-  UrlResponseInfo_HeaderBlock.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlResponseInfo_HeaderBlock.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
   static final _class =
-      jni.Jni.findJClass(r'org/chromium/net/UrlResponseInfo$HeaderBlock');
+      jni.JClass.forName(r"org/chromium/net/UrlResponseInfo$HeaderBlock");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlResponseInfo_HeaderBlockType();
-  static final _id_new0 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory UrlResponseInfo_HeaderBlock() =>
-      UrlResponseInfo_HeaderBlock.fromRef(jni.Jni.accessors
-          .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory UrlResponseInfo_HeaderBlock() {
+    return UrlResponseInfo_HeaderBlock.fromReference(
+        _id_new0(_class, referenceType, []));
+  }
 
-  static final _id_getAsList = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getAsList', r'()Ljava/util/List;');
+  static final _id_getAsList = _class.instanceMethodId(
+    r"getAsList",
+    r"()Ljava/util/List;",
+  );
 
   /// from: public abstract java.util.List getAsList()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> getAsList() => const jni.JListType(jni.JObjectType())
-      .fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getAsList, jni.JniCallType.objectType, []).object);
+  jni.JList<jni.JObject> getAsList() {
+    return _id_getAsList(this, const jni.JListType(jni.JObjectType()), []);
+  }
 
-  static final _id_getAsMap = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getAsMap', r'()Ljava/util/Map;');
+  static final _id_getAsMap = _class.instanceMethodId(
+    r"getAsMap",
+    r"()Ljava/util/Map;",
+  );
 
   /// from: public abstract java.util.Map getAsMap()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JMap<jni.JString, jni.JList<jni.JString>> getAsMap() =>
-      const jni.JMapType(jni.JStringType(), jni.JListType(jni.JStringType()))
-          .fromRef(jni.Jni.accessors.callMethodWithArgs(
-              reference, _id_getAsMap, jni.JniCallType.objectType, []).object);
+  jni.JMap<jni.JString, jni.JList<jni.JString>> getAsMap() {
+    return _id_getAsMap(
+        this,
+        const jni.JMapType(jni.JStringType(), jni.JListType(jni.JStringType())),
+        []);
+  }
 }
 
 final class $UrlResponseInfo_HeaderBlockType
@@ -2475,11 +2527,11 @@ final class $UrlResponseInfo_HeaderBlockType
   const $UrlResponseInfo_HeaderBlockType();
 
   @override
-  String get signature => r'Lorg/chromium/net/UrlResponseInfo$HeaderBlock;';
+  String get signature => r"Lorg/chromium/net/UrlResponseInfo$HeaderBlock;";
 
   @override
-  UrlResponseInfo_HeaderBlock fromRef(jni.JObjectPtr ref) =>
-      UrlResponseInfo_HeaderBlock.fromRef(ref);
+  UrlResponseInfo_HeaderBlock fromReference(jni.JReference reference) =>
+      UrlResponseInfo_HeaderBlock.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -2491,9 +2543,10 @@ final class $UrlResponseInfo_HeaderBlockType
   int get hashCode => ($UrlResponseInfo_HeaderBlockType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UrlResponseInfo_HeaderBlockType &&
-      other is $UrlResponseInfo_HeaderBlockType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlResponseInfo_HeaderBlockType) &&
+        other is $UrlResponseInfo_HeaderBlockType;
+  }
 }
 
 /// from: org.chromium.net.UrlResponseInfo
@@ -2501,123 +2554,145 @@ class UrlResponseInfo extends jni.JObject {
   @override
   late final jni.JObjType<UrlResponseInfo> $type = type;
 
-  UrlResponseInfo.fromRef(
-    super.ref,
-  ) : super.fromRef();
+  UrlResponseInfo.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
 
-  static final _class = jni.Jni.findJClass(r'org/chromium/net/UrlResponseInfo');
+  static final _class = jni.JClass.forName(r"org/chromium/net/UrlResponseInfo");
 
   /// The type which includes information such as the signature of this class.
   static const type = $UrlResponseInfoType();
-  static final _id_new0 =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'<init>', r'()V');
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory UrlResponseInfo() => UrlResponseInfo.fromRef(jni.Jni.accessors
-      .newObjectWithArgs(_class.reference, _id_new0, []).object);
+  factory UrlResponseInfo() {
+    return UrlResponseInfo.fromReference(_id_new0(_class, referenceType, []));
+  }
 
-  static final _id_getUrl = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getUrl', r'()Ljava/lang/String;');
+  static final _id_getUrl = _class.instanceMethodId(
+    r"getUrl",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public abstract java.lang.String getUrl()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getUrl() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getUrl, jni.JniCallType.objectType, []).object);
+  jni.JString getUrl() {
+    return _id_getUrl(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getUrlChain = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getUrlChain', r'()Ljava/util/List;');
+  static final _id_getUrlChain = _class.instanceMethodId(
+    r"getUrlChain",
+    r"()Ljava/util/List;",
+  );
 
   /// from: public abstract java.util.List getUrlChain()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JString> getUrlChain() => const jni.JListType(jni.JStringType())
-      .fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference, _id_getUrlChain, jni.JniCallType.objectType, []).object);
+  jni.JList<jni.JString> getUrlChain() {
+    return _id_getUrlChain(this, const jni.JListType(jni.JStringType()), []);
+  }
 
-  static final _id_getHttpStatusCode = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getHttpStatusCode', r'()I');
+  static final _id_getHttpStatusCode = _class.instanceMethodId(
+    r"getHttpStatusCode",
+    r"()I",
+  );
 
   /// from: public abstract int getHttpStatusCode()
-  int getHttpStatusCode() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_getHttpStatusCode, jni.JniCallType.intType, []).integer;
+  int getHttpStatusCode() {
+    return _id_getHttpStatusCode(this, const jni.jintType(), []);
+  }
 
-  static final _id_getHttpStatusText = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'getHttpStatusText', r'()Ljava/lang/String;');
+  static final _id_getHttpStatusText = _class.instanceMethodId(
+    r"getHttpStatusText",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public abstract java.lang.String getHttpStatusText()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getHttpStatusText() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_getHttpStatusText,
-          jni.JniCallType.objectType, []).object);
+  jni.JString getHttpStatusText() {
+    return _id_getHttpStatusText(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getAllHeadersAsList = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'getAllHeadersAsList', r'()Ljava/util/List;');
+  static final _id_getAllHeadersAsList = _class.instanceMethodId(
+    r"getAllHeadersAsList",
+    r"()Ljava/util/List;",
+  );
 
   /// from: public abstract java.util.List getAllHeadersAsList()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> getAllHeadersAsList() =>
-      const jni.JListType(jni.JObjectType()).fromRef(jni.Jni.accessors
-          .callMethodWithArgs(reference, _id_getAllHeadersAsList,
-              jni.JniCallType.objectType, []).object);
+  jni.JList<jni.JObject> getAllHeadersAsList() {
+    return _id_getAllHeadersAsList(
+        this, const jni.JListType(jni.JObjectType()), []);
+  }
 
-  static final _id_getAllHeaders = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getAllHeaders', r'()Ljava/util/Map;');
+  static final _id_getAllHeaders = _class.instanceMethodId(
+    r"getAllHeaders",
+    r"()Ljava/util/Map;",
+  );
 
   /// from: public abstract java.util.Map getAllHeaders()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JMap<jni.JString, jni.JList<jni.JString>> getAllHeaders() =>
-      const jni.JMapType(jni.JStringType(), jni.JListType(jni.JStringType()))
-          .fromRef(jni.Jni.accessors.callMethodWithArgs(reference,
-              _id_getAllHeaders, jni.JniCallType.objectType, []).object);
+  jni.JMap<jni.JString, jni.JList<jni.JString>> getAllHeaders() {
+    return _id_getAllHeaders(
+        this,
+        const jni.JMapType(jni.JStringType(), jni.JListType(jni.JStringType())),
+        []);
+  }
 
-  static final _id_wasCached =
-      jni.Jni.accessors.getMethodIDOf(_class.reference, r'wasCached', r'()Z');
+  static final _id_wasCached = _class.instanceMethodId(
+    r"wasCached",
+    r"()Z",
+  );
 
   /// from: public abstract boolean wasCached()
-  bool wasCached() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_wasCached, jni.JniCallType.booleanType, []).boolean;
+  bool wasCached() {
+    return _id_wasCached(this, const jni.jbooleanType(), []);
+  }
 
-  static final _id_getNegotiatedProtocol = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'getNegotiatedProtocol', r'()Ljava/lang/String;');
+  static final _id_getNegotiatedProtocol = _class.instanceMethodId(
+    r"getNegotiatedProtocol",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public abstract java.lang.String getNegotiatedProtocol()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getNegotiatedProtocol() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_getNegotiatedProtocol,
-          jni.JniCallType.objectType, []).object);
+  jni.JString getNegotiatedProtocol() {
+    return _id_getNegotiatedProtocol(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getProxyServer = jni.Jni.accessors.getMethodIDOf(
-      _class.reference, r'getProxyServer', r'()Ljava/lang/String;');
+  static final _id_getProxyServer = _class.instanceMethodId(
+    r"getProxyServer",
+    r"()Ljava/lang/String;",
+  );
 
   /// from: public abstract java.lang.String getProxyServer()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString getProxyServer() =>
-      const jni.JStringType().fromRef(jni.Jni.accessors.callMethodWithArgs(
-          reference,
-          _id_getProxyServer,
-          jni.JniCallType.objectType, []).object);
+  jni.JString getProxyServer() {
+    return _id_getProxyServer(this, const jni.JStringType(), []);
+  }
 
-  static final _id_getReceivedByteCount = jni.Jni.accessors
-      .getMethodIDOf(_class.reference, r'getReceivedByteCount', r'()J');
+  static final _id_getReceivedByteCount = _class.instanceMethodId(
+    r"getReceivedByteCount",
+    r"()J",
+  );
 
   /// from: public abstract long getReceivedByteCount()
-  int getReceivedByteCount() => jni.Jni.accessors.callMethodWithArgs(
-      reference, _id_getReceivedByteCount, jni.JniCallType.longType, []).long;
+  int getReceivedByteCount() {
+    return _id_getReceivedByteCount(this, const jni.jlongType(), []);
+  }
 }
 
 final class $UrlResponseInfoType extends jni.JObjType<UrlResponseInfo> {
   const $UrlResponseInfoType();
 
   @override
-  String get signature => r'Lorg/chromium/net/UrlResponseInfo;';
+  String get signature => r"Lorg/chromium/net/UrlResponseInfo;";
 
   @override
-  UrlResponseInfo fromRef(jni.JObjectPtr ref) => UrlResponseInfo.fromRef(ref);
+  UrlResponseInfo fromReference(jni.JReference reference) =>
+      UrlResponseInfo.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -2629,7 +2704,8 @@ final class $UrlResponseInfoType extends jni.JObjType<UrlResponseInfo> {
   int get hashCode => ($UrlResponseInfoType).hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      other.runtimeType == $UrlResponseInfoType &&
-      other is $UrlResponseInfoType;
+  bool operator ==(Object other) {
+    return other.runtimeType == ($UrlResponseInfoType) &&
+        other is $UrlResponseInfoType;
+  }
 }
