@@ -99,6 +99,14 @@ for PKG in ${PKGS}; do
         echo 'dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm'
         dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm || EXIT_CODE=$?
         ;;
+      test_5)
+        echo 'dart test --test-randomize-ordering-seed=random -p vm'
+        dart test --test-randomize-ordering-seed=random -p vm || EXIT_CODE=$?
+        ;;
+      test_6)
+        echo 'dart test --test-randomize-ordering-seed=random -p chrome -c dart2js'
+        dart test --test-randomize-ordering-seed=random -p chrome -c dart2js || EXIT_CODE=$?
+        ;;
       *)
         echo -e "\033[31mUnknown TASK '${TASK}' - TERMINATING JOB\033[0m"
         exit 64

@@ -21,7 +21,7 @@ void main() {
         cacheMode: CacheMode.memory,
         cacheMaxSize: 2 * 1024 * 1024,
         userAgent: 'Book Agent');
-    httpClient = CronetClient.fromCronetEngine(engine);
+    httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }

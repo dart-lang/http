@@ -1,3 +1,11 @@
+## 1.4.1-wip
+
+* Upgrade to `package:ffigen` 11.0.0.
+
+## 1.4.0
+
+* **Experimental** support for the `package:web_socket` `WebSocket` interface.
+
 ## 1.3.0
 
 * Use `package:http_image_provider` in the example application.

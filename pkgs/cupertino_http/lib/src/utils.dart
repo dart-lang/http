@@ -59,24 +59,34 @@ String? toStringOrNull(ncb.NSString? s) {
 
 /// Converts a NSDictionary containing NSString keys and NSString values into
 /// an equivalent map.
-Map<String, String> stringDictToMap(ncb.NSDictionary d) {
+Map<String, String> stringNSDictionaryToMap(ncb.NSDictionary d) {
   // TODO(https://github.com/dart-lang/ffigen/issues/374): Make this
   // function type safe. Currently it will unconditionally cast both keys and
   // values to NSString with a likely crash down the line if that isn't their
   // true types.
   final m = <String, String>{};
 
-  final keys = ncb.NSArray.castFrom(d.allKeys!);
+  final keys = ncb.NSArray.castFrom(d.allKeys);
   for (var i = 0; i < keys.count; ++i) {
     final nsKey = keys.objectAtIndex_(i);
-    final key = toStringOrNull(ncb.NSString.castFrom(nsKey))!;
-    final value =
-        toStringOrNull(ncb.NSString.castFrom(d.objectForKey_(nsKey)))!;
+    final key = ncb.NSString.castFrom(nsKey).toString();
+    final value = ncb.NSString.castFrom(d.objectForKey_(nsKey)!).toString();
     m[key] = value;
   }
 
   return m;
 }
 
-ncb.NSURL uriToNSURL(Uri uri) =>
-    ncb.NSURL.URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
+ncb.NSArray stringIterableToNSArray(Iterable<String> strings) {
+  final array =
+      ncb.NSMutableArray.arrayWithCapacity_(linkedLibs, strings.length);
+
+  var index = 0;
+  for (var s in strings) {
+    array.setObject_atIndexedSubscript_(s.toNSString(linkedLibs), index++);
+  }
+  return array;
+}
+
+ncb.NSURL uriToNSURL(Uri uri) => ncb.NSURL
+    .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs))!;

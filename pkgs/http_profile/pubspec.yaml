@@ -7,10 +7,9 @@ repository: https://github.com/dart-lang/http/tree/master/pkgs/http_profile
 publish_to: none
 
 environment:
-  sdk: ^3.0.0
-
-dependencies:
-  test: ^1.24.9
+  # TODO(derekxu16): Change the following constraint to ^3.4.0 before publishing this package.
+  sdk: ^3.4.0-154.0.dev
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.1.1
+  test: ^1.24.9

@@ -184,8 +184,8 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
             linkedLibs, linkedLibs.NSLocalizedDescriptionKey),
       );
     }
-    final e = ncb.NSError.alloc(linkedLibs).initWithDomain_code_userInfo_(
-        domain.toNSString(linkedLibs).pointer, code, d);
+    final e = ncb.NSError.alloc(linkedLibs)
+        .initWithDomain_code_userInfo_(domain.toNSString(linkedLibs), code, d);
     return Error._(e);
   }
 
@@ -201,8 +201,7 @@ class Error extends _ObjectHolder<ncb.NSError> implements Exception {
   /// The error domain, for example `"NSPOSIXErrorDomain"`.
   ///
   /// See [NSError.domain](https://developer.apple.com/documentation/foundation/nserror/1413924-domain)
-  String get domain =>
-      ncb.NSString.castFromPointer(linkedLibs, _nsObject.domain).toString();
+  String get domain => _nsObject.domain.toString();
 
   /// A description of the error in the current locale e.g.
   /// 'A server with the specified hostname could not be found.'
@@ -244,7 +243,7 @@ class URLCache extends _ObjectHolder<ncb.NSURLCache> {
   /// See [NSURLCache.sharedURLCache](https://developer.apple.com/documentation/foundation/nsurlcache/1413377-sharedurlcache)
   static URLCache? get sharedURLCache {
     final sharedCache = ncb.NSURLCache.getSharedURLCache(linkedLibs);
-    return sharedCache == null ? null : URLCache._(sharedCache);
+    return URLCache._(sharedCache);
   }
 
   /// Create a new [URLCache] with the given memory and disk cache sizes.
@@ -292,7 +291,7 @@ class URLSessionConfiguration
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration.castFrom(
               ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(
-                  linkedLibs)!),
+                  linkedLibs)),
           isBackground: false);
 
   /// A session configuration that uses no persistent storage for caches,
@@ -303,7 +302,7 @@ class URLSessionConfiguration
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration.castFrom(
               ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration(
-                  linkedLibs)!),
+                  linkedLibs)),
           isBackground: false);
 
   /// Whether connections over a cellular network are allowed.
@@ -352,7 +351,7 @@ class URLSessionConfiguration
   Map<String, String>? get httpAdditionalHeaders {
     if (_nsObject.HTTPAdditionalHeaders case var additionalHeaders?) {
       final headers = ncb.NSDictionary.castFrom(additionalHeaders);
-      return stringDictToMap(headers);
+      return stringNSDictionaryToMap(headers);
     }
     return null;
   }
@@ -552,7 +551,7 @@ class MutableData extends Data {
 
   /// A new empty [MutableData].
   factory MutableData.empty() =>
-      MutableData._(ncb.NSMutableData.dataWithCapacity_(linkedLibs, 0));
+      MutableData._(ncb.NSMutableData.dataWithCapacity_(linkedLibs, 0)!);
 
   /// Appends the given data.
   ///
@@ -626,9 +625,8 @@ class HTTPURLResponse extends URLResponse {
   ///
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
   Map<String, String> get allHeaderFields {
-    final headers =
-        ncb.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields!);
-    return stringDictToMap(headers);
+    final headers = ncb.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields);
+    return stringNSDictionaryToMap(headers);
   }
 
   @override
@@ -918,8 +916,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
       completionPort.close();
     });
 
-    helperLibs.CUPHTTPSendMessage(_urlSessionWebSocketTask.pointer,
-        message._nsObject.pointer, completionPort.sendPort.nativePort);
+    helperLibs.CUPHTTPSendMessage(_urlSessionWebSocketTask, message._nsObject,
+        completionPort.sendPort.nativePort);
     await completer.future;
   }
 
@@ -956,7 +954,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
     });
 
     helperLibs.CUPHTTPReceiveMessage(
-        _urlSessionWebSocketTask.pointer, completionPort.sendPort.nativePort);
+        _urlSessionWebSocketTask, completionPort.sendPort.nativePort);
     return completer.future;
   }
 
@@ -992,7 +990,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
       return null;
     } else {
       final headers = ncb.NSDictionary.castFrom(_nsObject.allHTTPHeaderFields!);
-      return stringDictToMap(headers);
+      return stringNSDictionaryToMap(headers);
     }
   }
 
@@ -1066,7 +1064,7 @@ class MutableURLRequest extends URLRequest {
   /// See [NSMutableURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1414617-allhttpheaderfields)
   factory MutableURLRequest.fromUrl(Uri uri) {
     final url = ncb.NSURL
-        .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
+        .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs))!;
     return MutableURLRequest._(
         ncb.NSMutableURLRequest.requestWithURL_(linkedLibs, url));
   }
@@ -1160,7 +1158,7 @@ void _setupDelegation(
 
         try {
           final request = URLRequest._(
-              ncb.NSURLRequest.castFrom(forwardedRedirect.request!));
+              ncb.NSURLRequest.castFrom(forwardedRedirect.request));
 
           if (onRedirect == null) {
             redirectRequest = request;
@@ -1168,7 +1166,7 @@ void _setupDelegation(
           }
           try {
             final response = HTTPURLResponse._(
-                ncb.NSHTTPURLResponse.castFrom(forwardedRedirect.response!));
+                ncb.NSHTTPURLResponse.castFrom(forwardedRedirect.response));
             redirectRequest = onRedirect(session, task, response, request);
           } catch (e) {
             // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
@@ -1191,7 +1189,7 @@ void _setupDelegation(
             break;
           }
           final response =
-              URLResponse._exactURLResponseType(forwardedResponse.response!);
+              URLResponse._exactURLResponseType(forwardedResponse.response);
 
           try {
             disposition = onResponse(session, task, response);
@@ -1213,8 +1211,8 @@ void _setupDelegation(
             break;
           }
           try {
-            onData(session, task,
-                Data._(ncb.NSData.castFrom(forwardedData.data!)));
+            onData(
+                session, task, Data._(ncb.NSData.castFrom(forwardedData.data)));
           } catch (e) {
             // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
             // this exception as an `Error` and call the completion function
@@ -1236,7 +1234,7 @@ void _setupDelegation(
                 session,
                 task as URLSessionDownloadTask,
                 Uri.parse(
-                    finishedDownloading.location!.absoluteString!.toString()));
+                    finishedDownloading.location.absoluteString!.toString()));
           } catch (e) {
             // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
             // this exception as an `Error` and call the completion function
@@ -1474,7 +1472,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   ///
   /// See [NSURLSession.configuration](https://developer.apple.com/documentation/foundation/nsurlsession/1411477-configuration)
   URLSessionConfiguration get configuration => URLSessionConfiguration._(
-      ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration!),
+      ncb.NSURLSessionConfiguration.castFrom(_nsObject.configuration),
       isBackground: _isBackground);
 
   /// A description of the session that may be useful for debugging.
@@ -1574,6 +1572,37 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
     final task = URLSessionWebSocketTask._(
         _nsObject.webSocketTaskWithRequest_(request._nsObject));
+    _setupDelegation(_delegate, this, task,
+        onComplete: _onComplete,
+        onData: _onData,
+        onFinishedDownloading: _onFinishedDownloading,
+        onRedirect: _onRedirect,
+        onResponse: _onResponse,
+        onWebSocketTaskOpened: _onWebSocketTaskOpened,
+        onWebSocketTaskClosed: _onWebSocketTaskClosed);
+    return task;
+  }
+
+  /// Creates a [URLSessionWebSocketTask] that represents a connection to a
+  /// WebSocket endpoint.
+  ///
+  /// See [NSURLSession webSocketTaskWithURL:protocols:](https://developer.apple.com/documentation/foundation/nsurlsession/3181172-websockettaskwithurl)
+  URLSessionWebSocketTask webSocketTaskWithURL(Uri uri,
+      {Iterable<String>? protocols}) {
+    if (_isBackground) {
+      throw UnsupportedError(
+          'WebSocket tasks are not supported in background sessions');
+    }
+
+    final URLSessionWebSocketTask task;
+    if (protocols == null) {
+      task = URLSessionWebSocketTask._(
+          _nsObject.webSocketTaskWithURL_(uriToNSURL(uri)));
+    } else {
+      task = URLSessionWebSocketTask._(
+          _nsObject.webSocketTaskWithURL_protocols_(
+              uriToNSURL(uri), stringIterableToNSArray(protocols)));
+    }
     _setupDelegation(_delegate, this, task,
         onComplete: _onComplete,
         onData: _onData,

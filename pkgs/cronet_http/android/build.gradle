@@ -21,6 +21,17 @@ rootProject.allprojects {
     }
 }
 
+def dartDefines = [
+    cronetHttpNoPlay: 'false'
+]
+if (project.hasProperty('dart-defines')) {
+    def defines = project.property('dart-defines').split(',').collectEntries { entry ->
+        def pair = new String(entry.decodeBase64(), 'UTF-8').split('=')
+        [(pair.first()): pair.last()]
+    }
+    dartDefines = dartDefines + defines
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
@@ -65,5 +76,9 @@ android {
 }
 
 dependencies {
-    implementation "com.google.android.gms:play-services-cronet:18.0.1"
+    if (dartDefines.cronetHttpNoPlay == 'true') {
+        implementation 'org.chromium.net:cronet-embedded:113.5672.61'
+    } else {
+        implementation "com.google.android.gms:play-services-cronet:18.0.1"
+    }
 }

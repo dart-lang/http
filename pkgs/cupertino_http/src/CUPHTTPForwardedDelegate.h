@@ -51,7 +51,7 @@
  * If the request is NIL then the redirect is not followed and the task is
  * complete.
  */
-- (void) finishWithRequest:(NSURLRequest *) request;
+- (void) finishWithRequest:(nullable NSURLRequest *) request;
 
 @property (readonly) NSHTTPURLResponse *response;
 @property (readonly) NSURLRequest *request;
@@ -91,9 +91,9 @@
 
 - (id) initWithSession:(NSURLSession *)session
                   task:(NSURLSessionTask *) task
-                 error:(NSError *)error;
+                 error:(nullable NSError *)error;
 
-@property (readonly) NSError* error;
+@property (nullable, readonly) NSError* error;
 
 @end
 
@@ -111,9 +111,9 @@
 
 - (id) initWithSession:(NSURLSession *)session
          webSocketTask:(NSURLSessionWebSocketTask *)webSocketTask
-   didOpenWithProtocol:(NSString *)protocol;
+   didOpenWithProtocol:(nullable NSString *)protocol;
 
-@property (readonly) NSString* protocol;
+@property (nullable, readonly) NSString* protocol;
 
 @end
 
@@ -125,6 +125,6 @@
                 reason:(NSData *)reason;
 
 @property (readonly) NSURLSessionWebSocketCloseCode closeCode;
-@property (readonly) NSData* reason;
+@property (nullable, readonly) NSData* reason;
 
 @end
