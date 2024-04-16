@@ -56,6 +56,7 @@ class IOWebSocket implements WebSocket {
   IOWebSocket._(this._webSocket) {
     _webSocket.listen(
       (event) {
+        if (_events.isClosed) return;
         switch (event) {
           case String e:
             _events.add(TextDataReceived(e));
@@ -64,6 +65,7 @@ class IOWebSocket implements WebSocket {
         }
       },
       onError: (Object e, StackTrace st) {
+        if (_events.isClosed) return;
         final wse = switch (e) {
           io.WebSocketException(message: final message) =>
             WebSocketException(message),
@@ -72,12 +74,11 @@ class IOWebSocket implements WebSocket {
         _events.addError(wse, st);
       },
       onDone: () {
-        if (!_events.isClosed) {
-          _events
-            ..add(CloseReceived(
-                _webSocket.closeCode, _webSocket.closeReason ?? ''))
-            ..close();
-        }
+        if (_events.isClosed) return;
+        _events
+          ..add(
+              CloseReceived(_webSocket.closeCode, _webSocket.closeReason ?? ''))
+          ..close();
       },
     );
   }
