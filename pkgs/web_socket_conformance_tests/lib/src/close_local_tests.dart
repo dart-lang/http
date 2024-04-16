@@ -10,10 +10,35 @@ import 'package:web_socket/web_socket.dart';
 import 'close_local_server_vm.dart'
     if (dart.library.html) 'close_local_server_web.dart';
 
+import 'continuously_writing_server_vm.dart'
+    if (dart.library.html) 'continuously_writing_server_web.dart'
+    as writing_server;
+
 /// Tests that the [WebSocket] can correctly close the connection to the peer.
 void testCloseLocal(
     Future<WebSocket> Function(Uri uri, {Iterable<String>? protocols})
         channelFactory) {
+  group('remote writing', () {
+    late Uri uri;
+    late StreamChannel<Object?> httpServerChannel;
+    late StreamQueue<Object?> httpServerQueue;
+
+    setUp(() async {
+      httpServerChannel = await writing_server.startServer();
+      httpServerQueue = StreamQueue(httpServerChannel.stream);
+      uri = Uri.parse('ws://localhost:${await httpServerQueue.next}');
+    });
+    tearDown(() async {
+      httpServerChannel.sink.add(null);
+    });
+
+    test('peer writes after close are ignored', () async {
+      final channel = await channelFactory(uri);
+      await channel.close();
+      expect(await channel.events.isEmpty, true);
+    });
+  });
+
   group('local close', () {
     late Uri uri;
     late StreamChannel<Object?> httpServerChannel;
