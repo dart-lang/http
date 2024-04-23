@@ -106,6 +106,10 @@ class CupertinoWebSocket implements WebSocket {
   /// Handle an incoming message from the peer and schedule receiving the next
   /// message.
   void _handleMessage(URLSessionWebSocketMessage value) {
+    if (_events.isClosed) {
+      return;
+    }
+
     late WebSocketEvent event;
     switch (value.type) {
       case URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeString:
@@ -160,7 +164,7 @@ class CupertinoWebSocket implements WebSocket {
   @override
   void sendBytes(Uint8List b) {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
     _task
         .sendMessage(URLSessionWebSocketMessage.fromData(Data.fromList(b)))
@@ -170,7 +174,7 @@ class CupertinoWebSocket implements WebSocket {
   @override
   void sendText(String s) {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
     _task
         .sendMessage(URLSessionWebSocketMessage.fromString(s))
@@ -180,7 +184,7 @@ class CupertinoWebSocket implements WebSocket {
   @override
   Future<void> close([int? code, String? reason]) async {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
 
     if (code != null) {

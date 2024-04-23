@@ -1,6 +1,9 @@
 ## 1.4.1-wip
 
 * Upgrade to `package:ffigen` 11.0.0.
+* Bring `WebSocket` behavior in line with the documentation by throwing
+  `WebSocketConnectionClosed` rather `StateError` when attempting to send
+  data to or close an already closed `CupertinoWebSocket`.
 
 ## 1.4.0
 

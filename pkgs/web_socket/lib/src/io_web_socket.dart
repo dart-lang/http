@@ -86,7 +86,7 @@ class IOWebSocket implements WebSocket {
   @override
   void sendBytes(Uint8List b) {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
     _webSocket.add(b);
   }
@@ -94,7 +94,7 @@ class IOWebSocket implements WebSocket {
   @override
   void sendText(String s) {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
     _webSocket.add(s);
   }
@@ -102,7 +102,7 @@ class IOWebSocket implements WebSocket {
   @override
   Future<void> close([int? code, String? reason]) async {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
 
     checkCloseCode(code);
