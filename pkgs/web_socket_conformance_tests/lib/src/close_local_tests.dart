@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:typed_data';
+
 import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
@@ -119,13 +121,25 @@ void testCloseLocal(
 
       await expectLater(
           () async => await channel.close(3001, 'Client initiated closure'),
-          throwsStateError);
-      final closeCode = await httpServerQueue.next as int?;
-      final closeReason = await httpServerQueue.next as String?;
+          throwsA(isA<WebSocketConnectionClosed>()));
+    });
 
-      expect(closeCode, 3000);
-      expect(closeReason, 'Client initiated closure');
-      expect(await channel.events.isEmpty, true);
+    test('sendBytes after close', () async {
+      final channel = await channelFactory(uri);
+
+      await channel.close(3000, 'Client initiated closure');
+
+      expect(() => channel.sendBytes(Uint8List(10)),
+          throwsA(isA<WebSocketConnectionClosed>()));
+    });
+
+    test('sendText after close', () async {
+      final channel = await channelFactory(uri);
+
+      await channel.close(3000, 'Client initiated closure');
+
+      expect(() => channel.sendText('Hello World'),
+          throwsA(isA<WebSocketConnectionClosed>()));
     });
   });
 }

@@ -1,3 +1,9 @@
+## 0.1.3
+
+- Bring the behavior in line with the documentation by throwing
+  `WebSocketConnectionClosed` rather `StateError` when attempting to send
+  data to or close an already closed `WebSocket`.
+
 ## 0.1.2
 
 - Fix a `StateError` in `IOWebSocket` when data is received from the peer
