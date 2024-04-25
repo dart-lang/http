@@ -1,6 +1,8 @@
 ## 1.4.1-wip
 
 * Upgrade to `package:ffigen` 11.0.0.
+* Update minimum supported iOS/macOS versions to be in sync with the minimum
+  (best effort) supported for Flutter: iOS 12, macOS 10.14
 
 ## 1.4.0
 
