@@ -47,9 +47,6 @@ jobs:
       - name: Analyze code
         run: flutter analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
-      - uses: futureware-tech/simulator-action@bfa03d93ec9de6dacb0c5553bbf8da8afc6c2ee9
-        with:
-          model: 'iPhone 8'
       - name: Run tests
         run: |
           cd example
