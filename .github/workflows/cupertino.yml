@@ -23,7 +23,7 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: macos-11
+    runs-on: macos-latest
     defaults:
       run:
         working-directory: pkgs/cupertino_http
@@ -49,9 +49,10 @@ jobs:
         if: always() && steps.install.outcome == 'success'
       - uses: futureware-tech/simulator-action@bfa03d93ec9de6dacb0c5553bbf8da8afc6c2ee9
         with:
-          model: 'iPhone 8'
+          os: iOS
+          os_version: '>=12.0'
       - name: Run tests
         run: |
           cd example
           flutter pub get
-          flutter test --timeout=12000s integration_test/main.dart
+          flutter test integration_test/main.dart
