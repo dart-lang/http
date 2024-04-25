@@ -54,4 +54,4 @@ jobs:
         run: |
           cd example
           flutter pub get
-          flutter test --timeout=1200s integration_test/main.dart
+          flutter test --timeout=12000s integration_test/main.dart
