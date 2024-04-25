@@ -4,6 +4,8 @@
 * Bring `WebSocket` behavior in line with the documentation by throwing
   `WebSocketConnectionClosed` rather `StateError` when attempting to send
   data to or close an already closed `CupertinoWebSocket`.
+* Update minimum supported iOS/macOS versions to be in sync with the minimum
+  (best effort) supported for Flutter: iOS 12, macOS 10.14
 
 ## 1.4.0
 
