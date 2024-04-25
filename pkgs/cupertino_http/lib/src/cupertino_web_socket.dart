@@ -106,9 +106,7 @@ class CupertinoWebSocket implements WebSocket {
   /// Handle an incoming message from the peer and schedule receiving the next
   /// message.
   void _handleMessage(URLSessionWebSocketMessage value) {
-    if (_events.isClosed) {
-      return;
-    }
+    if (_events.isClosed) return;
 
     late WebSocketEvent event;
     switch (value.type) {
