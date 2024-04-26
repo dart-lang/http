@@ -79,7 +79,6 @@ class AdapterWebSocketChannel extends StreamChannelMixin
     }
 
     webSocketFuture.then((webSocket) {
-      var remoteClosed = false;
       webSocket.events.listen((event) {
         switch (event) {
           case TextDataReceived(text: final text):
@@ -87,7 +86,6 @@ class AdapterWebSocketChannel extends StreamChannelMixin
           case BinaryDataReceived(data: final data):
             _controller.local.sink.add(data);
           case CloseReceived(code: final code, reason: final reason):
-            remoteClosed = true;
             _closeCode = code;
             _closeReason = reason;
             _controller.local.sink.close();
@@ -105,13 +103,15 @@ class AdapterWebSocketChannel extends StreamChannelMixin
             default:
               throw UnsupportedError('Cannot send ${obj.runtimeType}');
           }
-        } on WebSocketConnectionClosed catch (_) {
+        } on WebSocketConnectionClosed {
           // There is nowhere to surface this error; `_controller.local.sink`
           // has already been closed.
         }
-      }, onDone: () {
-        if (!remoteClosed) {
-          webSocket.close(_localCloseCode, _localCloseReason);
+      }, onDone: () async {
+        try {
+          await webSocket.close(_localCloseCode, _localCloseReason);
+        } on WebSocketConnectionClosed {
+          // It is not an error to close an already-closed `WebSocketChannel`.
         }
       });
       _protocol = webSocket.protocol;
