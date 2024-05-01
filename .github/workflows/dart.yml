@@ -294,7 +294,7 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           channel: stable
       - id: checkout
@@ -324,7 +324,7 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           channel: stable
       - id: checkout
@@ -831,7 +831,7 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           channel: stable
       - id: checkout
@@ -870,7 +870,7 @@ jobs:
             os:ubuntu-latest;pub-cache-hosted
             os:ubuntu-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           channel: stable
       - id: checkout
@@ -909,7 +909,7 @@ jobs:
             os:macos-latest;pub-cache-hosted
             os:macos-latest
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           channel: stable
       - id: checkout
@@ -938,7 +938,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Setup Flutter SDK
-        uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+        uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           channel: stable
       - id: checkout
