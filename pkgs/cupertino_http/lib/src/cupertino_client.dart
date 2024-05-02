@@ -228,6 +228,7 @@ class CupertinoClient extends BaseClient {
 
   @override
   void close() {
+    _urlSession?.finishTasksAndInvalidate();
     _urlSession = null;
   }
 
