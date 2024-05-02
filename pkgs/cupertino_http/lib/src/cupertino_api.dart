@@ -1613,4 +1613,12 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         onWebSocketTaskClosed: _onWebSocketTaskClosed);
     return task;
   }
+
+  /// Free resources related to this session after the last task completes.
+  /// Returns immediately.
+  ///
+  /// See [NSURLSession finishTasksAndInvalidate](https://developer.apple.com/documentation/foundation/nsurlsession/1407428-finishtasksandinvalidate)
+  void finishTasksAndInvalidate() {
+    _nsObject.finishTasksAndInvalidate();
+  }
 }
