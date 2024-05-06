@@ -1,3 +1,7 @@
+## 3.0.1-wip
+
+- Remove unnecessary `dependency_overrides`.
+
 ## 3.0.0
 
 - Provide an adapter around `package:web_socket` `WebSocket`s and make it the
