@@ -1,3 +1,8 @@
+## 1.3.0-wip
+
+* Add integration to the
+  [DevTools "Network" tab](https://docs.flutter.dev/tools/devtools/network).
+
 ## 1.2.0
 
 * Support the Cronet embedding dependency with `--dart-define=cronetHttpNoPlay=true`.
