@@ -3,6 +3,12 @@
 * Add integration to the
   [DevTools "Network" tab](https://docs.flutter.dev/tools/devtools/network).
 * Upgrade to `package:ffigen` 11.0.0.
+* Bring `WebSocket` behavior in line with the documentation by throwing
+  `WebSocketConnectionClosed` rather than `StateError` when attempting to send
+  data to or close an already closed `CupertinoWebSocket`.
+* Update minimum supported iOS/macOS versions to be in sync with the minimum
+  (best effort) supported for Flutter: iOS 12, macOS 10.14.
+* Eagerly free resources on `CupertinoClient.close()`.
 
 ## 1.4.0
 

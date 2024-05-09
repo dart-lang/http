@@ -3,7 +3,7 @@ description: >-
   Any easy-to-use library for communicating with WebSockets
   that has multiple implementations.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/web_socket
-version: 0.1.0
+version: 0.1.3
 
 environment:
   sdk: ^3.3.0

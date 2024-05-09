@@ -12,11 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.0
-  jni: ^0.7.3
+  jni: ^0.8.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0
-  jnigen: ^0.7.0
+  jnigen: ^0.8.0
   xml: ^6.1.0
   yaml_edit: ^2.0.3
 
