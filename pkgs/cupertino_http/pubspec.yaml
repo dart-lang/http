@@ -7,8 +7,8 @@ repository: https://github.com/dart-lang/http/tree/master/pkgs/cupertino_http
 publish_to: none
 
 environment:
-  sdk: ^3.2.0  # XXX Wrong!
-  flutter: '>=3.16.0'  # XXX Wrong!
+  sdk: ^3.4.0
+  flutter: '>=3.22.0'
 
 dependencies:
   async: ^2.5.0
