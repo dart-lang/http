@@ -8,7 +8,7 @@ publish_to: none
 
 environment:
   sdk: ^3.4.0
-  flutter: '>=3.22.0'
+  flutter: '>=3.22.0' # If changed, update test matrix.
 
 dependencies:
   async: ^2.5.0
@@ -16,8 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.2.0
-  http_profile:
-    path: ../http_profile
+  http_profile: ^0.1.0
   web_socket: ^0.1.0
 
 dev_dependencies:
