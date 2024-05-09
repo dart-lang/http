@@ -49,9 +49,14 @@ class IOWebSocket implements WebSocket {
     return IOWebSocket._(webSocket);
   }
 
+  // Create an `IOWebSocket` from an existing `dart:io` `WebSocket`.
+  factory IOWebSocket.fromWebSocket(io.WebSocket webSocket) =>
+      IOWebSocket._(webSocket);
+
   IOWebSocket._(this._webSocket) {
     _webSocket.listen(
       (event) {
+        if (_events.isClosed) return;
         switch (event) {
           case String e:
             _events.add(TextDataReceived(e));
@@ -60,6 +65,7 @@ class IOWebSocket implements WebSocket {
         }
       },
       onError: (Object e, StackTrace st) {
+        if (_events.isClosed) return;
         final wse = switch (e) {
           io.WebSocketException(message: final message) =>
             WebSocketException(message),
@@ -68,12 +74,11 @@ class IOWebSocket implements WebSocket {
         _events.addError(wse, st);
       },
       onDone: () {
-        if (!_events.isClosed) {
-          _events
-            ..add(CloseReceived(
-                _webSocket.closeCode, _webSocket.closeReason ?? ''))
-            ..close();
-        }
+        if (_events.isClosed) return;
+        _events
+          ..add(
+              CloseReceived(_webSocket.closeCode, _webSocket.closeReason ?? ''))
+          ..close();
       },
     );
   }
@@ -81,7 +86,7 @@ class IOWebSocket implements WebSocket {
   @override
   void sendBytes(Uint8List b) {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
     _webSocket.add(b);
   }
@@ -89,7 +94,7 @@ class IOWebSocket implements WebSocket {
   @override
   void sendText(String s) {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
     _webSocket.add(s);
   }
@@ -97,7 +102,7 @@ class IOWebSocket implements WebSocket {
   @override
   Future<void> close([int? code, String? reason]) async {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
 
     checkCloseCode(code);

@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:typed_data';
+
 import 'package:async/async.dart';
 import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
@@ -36,13 +38,24 @@ void testCloseRemote(
           [CloseReceived(4123, 'server closed the connection')]);
     });
 
-    test('send after close received', () async {
+    test('sendBytes after close received', () async {
+      final channel = await channelFactory(uri);
+
+      channel.sendBytes(Uint8List(10));
+      expect(await channel.events.toList(),
+          [CloseReceived(4123, 'server closed the connection')]);
+      expect(() => channel.sendText('test'),
+          throwsA(isA<WebSocketConnectionClosed>()));
+    });
+
+    test('sendText after close received', () async {
       final channel = await channelFactory(uri);
 
       channel.sendText('Please close');
       expect(await channel.events.toList(),
           [CloseReceived(4123, 'server closed the connection')]);
-      expect(() => channel.sendText('test'), throwsStateError);
+      expect(() => channel.sendText('test'),
+          throwsA(isA<WebSocketConnectionClosed>()));
     });
 
     test('close after close received', () async {
@@ -51,7 +64,8 @@ void testCloseRemote(
       channel.sendText('Please close');
       expect(await channel.events.toList(),
           [CloseReceived(4123, 'server closed the connection')]);
-      await expectLater(channel.close, throwsStateError);
+      await expectLater(
+          channel.close, throwsA(isA<WebSocketConnectionClosed>()));
     });
   });
 }

@@ -104,7 +104,7 @@ class BrowserWebSocket implements WebSocket {
   @override
   void sendBytes(Uint8List b) {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
     // Silently discards the data if the connection is closed.
     _webSocket.send(b.jsify()!);
@@ -113,7 +113,7 @@ class BrowserWebSocket implements WebSocket {
   @override
   void sendText(String s) {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
     // Silently discards the data if the connection is closed.
     _webSocket.send(s.jsify()!);
@@ -122,7 +122,7 @@ class BrowserWebSocket implements WebSocket {
   @override
   Future<void> close([int? code, String? reason]) async {
     if (_events.isClosed) {
-      throw StateError('WebSocket is closed');
+      throw WebSocketConnectionClosed();
     }
 
     checkCloseCode(code);
