@@ -5,7 +5,6 @@ android_sdk_config:
   android_example: 'example/'
 
 output:
-  bindings_type: dart_only
   dart:
     path: 'lib/src/jni/jni_bindings.dart'
     structure: single_file
