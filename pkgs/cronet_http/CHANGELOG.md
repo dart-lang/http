@@ -1,4 +1,4 @@
-## 1.2.1
+## 1.2.1-wip
 
 * Upgrade `package:jni` to 0.9.2 to fix the build error in the latest versions
   of Flutter.
