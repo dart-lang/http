@@ -59,3 +59,6 @@ jobs:
           api-level: 21
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
+          ram-size: 8192MB
+          disk-size: 8192MB
+          heap-size: 2048MB
