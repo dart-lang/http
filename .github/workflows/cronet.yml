@@ -6,12 +6,12 @@ on:
       - main
       - master
     paths:
-      - '.github/workflows/cronet.yaml'
+      - '.github/workflows/cronet.yml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   pull_request:
     paths:
-      - '.github/workflows/cronet.yaml'
+      - '.github/workflows/cronet.yml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   schedule:
