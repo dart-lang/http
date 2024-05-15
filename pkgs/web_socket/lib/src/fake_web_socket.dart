@@ -68,44 +68,47 @@ class FakeWebSocket implements WebSocket {
 /// For example:
 ///
 /// ```dart
+/// import 'dart:async';
+///
 /// import 'package:test/test.dart';
+/// import 'package:web_socket/src/web_socket.dart';
 /// import 'package:web_socket/testing.dart';
 /// import 'package:web_socket/web_socket.dart';
 ///
-/// Future<void> sumServer(WebSocket webSocket) async {
-///   var sum = 0;
-///
+/// Future<void> fakeTimeServer(WebSocket webSocket, String time) async {
 ///   await webSocket.events.forEach((event) {
 ///     switch (event) {
-///       case TextDataReceived(:final text):
-///         sum += int.parse(text);
-///         webSocket.sendText(sum.toString());
+///       case TextDataReceived():
 ///       case BinaryDataReceived():
+///         webSocket.sendText(time);
 ///       case CloseReceived():
 ///     }
 ///   });
+/// }
+///
+/// Future<DateTime> getTime(WebSocket webSocket) async {
+///   webSocket.sendText('');
+///   final time = switch (await webSocket.events.first) {
+///     TextDataReceived(:final text) => DateTime.parse(text),
+///     _ => throw Exception('unexpected response')
+///   };
+///   await webSocket.close();
+///   return time;
 /// }
 ///
 /// void main() async {
 ///   late WebSocket client;
 ///   late WebSocket server;
 ///
-///   setUp(() => (client, server) = fakes());
-///   tearDown(() => client.close());
+///   setUp(() {
+///     (client, server) = fakes();
+///   });
 ///
-///   test('test positive numbers', () {
-///     sumServer(server);
-///     client
-///       ..sendText('1')
-///       ..sendText('2')
-///       ..sendText('3');
+///   test('test valid time', () async {
+///     unawaited(fakeTimeServer(server, '2024-05-15T01:18:10.456Z'));
 ///     expect(
-///         client.events,
-///         emitsInOrder([
-///           TextDataReceived('1'),
-///           TextDataReceived('3'),
-///           TextDataReceived('6')
-///         ]));
+///         await getTime(client),
+///         DateTime.parse('2024-05-15T01:18:10.456Z'));
 ///   });
 /// }
 /// ```
