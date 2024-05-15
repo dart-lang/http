@@ -1,3 +1,8 @@
+## 0.1.4
+
+- Add a `fakes` function that returns a pair of `WebSocket`s useful in
+  testing.
+
 ## 0.1.3
 
 - Bring the behavior in line with the documentation by throwing
