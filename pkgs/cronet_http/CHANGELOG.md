@@ -1,3 +1,10 @@
+## 1.2.1-wip
+
+* Upgrade `package:jni` to 0.9.2 to fix the build error in the latest versions
+  of Flutter.
+* Upgrade `package:jnigen` to 0.9.1 and regenerate the bindings to improve the
+  efficiency of function calls.
+
 ## 1.2.0
 
 * Support the Cronet embedding dependency with `--dart-define=cronetHttpNoPlay=true`.
