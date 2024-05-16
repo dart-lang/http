@@ -72,7 +72,7 @@ jobs:
           # - .github/workflows/cronet.yml
           # - pkgs/cronet_http/android/build.gradle
           # - pkgs/cronet_http/example/android/app/build.gradle
-          api-level: 21
+          api-level: 31
           arch: x86_64
           disable-animations: true
           disk-size: 6000M
