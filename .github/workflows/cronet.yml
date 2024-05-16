@@ -31,22 +31,6 @@ jobs:
       run:
         working-directory: pkgs/cronet_http
     steps:
-      - name: Delete unnecessary tools 🔧
-        uses: jlumbroso/free-disk-space@v1.3.1
-        with:
-          android: false # Don't remove Android tools
-          tool-cache: true # Remove image tool cache - rm -rf "$AGENT_TOOLSDIRECTORY"
-          dotnet: true # rm -rf /usr/share/dotnet
-          haskell: true # rm -rf /opt/ghc...
-          swap-storage: true # rm -f /mnt/swapfile (4GiB)
-          docker-images: false # Takes 16s, enable if needed in the future
-          large-packages: false # includes google-cloud-sdk and it's slow
-      # - name: Enable KVM group perms
-      #   run: |
-      #       echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-      #       sudo udevadm control --reload-rules
-      #       sudo udevadm trigger --name-match=kvm
-      #       ls /dev/kvm
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
         with:
@@ -72,10 +56,7 @@ jobs:
           # - .github/workflows/cronet.yml
           # - pkgs/cronet_http/android/build.gradle
           # - pkgs/cronet_http/example/android/app/build.gradle
-          api-level: 31
+          api-level: 21
           arch: x86_64
-          disable-animations: true
-          disk-size: 6000M
-          heap-size: 600M
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
