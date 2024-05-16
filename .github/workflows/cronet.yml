@@ -58,5 +58,7 @@ jobs:
           # - pkgs/cronet_http/example/android/app/build.gradle
           api-level: 21
           arch: x86_64
+          ram-size: 1024M
+          disk-size: 2048M
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
