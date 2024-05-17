@@ -1,6 +1,7 @@
 ## 3.0.1-wip
 
 - Remove unnecessary `dependency_overrides`.
+- Remove obsolete documentation for `WebSocketChannel.new`.
 
 ## 3.0.0
 

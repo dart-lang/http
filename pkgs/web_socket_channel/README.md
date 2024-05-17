@@ -68,15 +68,6 @@ other socket exactly why they're closing the connection.
 `WebSocketChannel` also works as a cross-platform implementation of the
 WebSocket protocol. The [`WebSocketChannel.connect` constructor][connect]
 connects to a listening server using the appropriate implementation for the
-platform. The [`WebSocketChannel()` constructor][new] takes an underlying
-[`StreamChannel`][stream_channel] over which it communicates using the WebSocket
-protocol. It also provides the static [`signKey()`][signKey] method to make it
-easier to implement the [initial WebSocket handshake][]. These are used in the
-[`shelf_web_socket`][shelf_web_socket] package to support WebSockets in a
-cross-platform way.
+platform.
 
 [connect]: https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/WebSocketChannel.connect.html
-[new]: https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/WebSocketChannel.html
-[signKey]: https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel/signKey.html
-[initial WebSocket handshake]: https://tools.ietf.org/html/rfc6455#section-4.2.2
-[shelf_web_socket]: https://pub.dev/packages/shelf_web_socket
