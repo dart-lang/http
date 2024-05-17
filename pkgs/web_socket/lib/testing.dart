@@ -1,1 +1,1 @@
-export 'src/fake_web_socket.dart';
+export 'src/fake_web_socket.dart' show fakes;
