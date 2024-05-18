@@ -1,3 +1,7 @@
+## 1.2.2-wip
+
+* Add relevant rules with the ProGuard to avoid runtime exceptions.
+
 ## 1.2.1
 
 * Upgrade `package:jni` to 0.9.2 to fix the build error in the latest versions
