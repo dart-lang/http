@@ -54,16 +54,11 @@ Refer to the source of
 to see a comprehensive example of how `package:http_profile` can be integrated
 into an HTTP client.
 
-## Status: experimental
+## Status: pre-1.0
 
-**NOTE**: This package is currently experimental and published under the
-[labs.dart.dev](https://dart.dev/dart-team-packages) pub publisher in order to
-solicit feedback.
-
-For packages in the labs.dart.dev publisher we generally plan to either graduate
-the package into a supported publisher (dart.dev, tools.dart.dev) after a period
-of feedback and iteration, or discontinue the package. These packages have a
-much higher expected rate of API and breaking changes.
+**NOTE**: We are in the process of collecting feedback and iterating on this
+package, so new versions that include API and breaking changes may be published
+frequently.
 
 Your feedback is valuable and will help us evolve this package. For general
 feedback, suggestions, and comments, please file an issue in the

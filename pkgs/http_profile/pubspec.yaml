@@ -1,14 +1,12 @@
 name: http_profile
 description: >-
   A library used by HTTP client authors to integrate with the DevTools Network
-  tab.
+  View.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http_profile
-
-publish_to: none
+version: 0.1.0
 
 environment:
-  # TODO(derekxu16): Change the following constraint to ^3.4.0 before publishing this package.
-  sdk: ^3.4.0-154.0.dev
+  sdk: ^3.4.0
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.1.1

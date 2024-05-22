@@ -6,12 +6,12 @@ on:
       - main
       - master
     paths:
-      - '.github/workflows/cronet.yaml'
+      - '.github/workflows/cronet.yml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   pull_request:
     paths:
-      - '.github/workflows/cronet.yaml'
+      - '.github/workflows/cronet.yml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   schedule:
@@ -23,7 +23,7 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         cronetHttpNoPlay: ['false', 'true']
@@ -59,5 +59,4 @@ jobs:
           api-level: 21
           arch: x86_64
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
-          profile: pixel
           script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
