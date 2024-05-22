@@ -16,7 +16,7 @@
 ///   channel.close(status.goingAway);
 /// }
 /// ```
-library web_socket_channel.status;
+library;
 
 import 'dart:core';
 
