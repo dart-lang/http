@@ -1,3 +1,3 @@
-## 0.0.1
+## 0.1.0
 
-* Skeleton class and test definitions.
+* Initial **experimental** release.
