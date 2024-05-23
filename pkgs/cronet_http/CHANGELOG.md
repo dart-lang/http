@@ -1,7 +1,7 @@
 ## 1.3.0
 
 * Add integration to the
-  [DevTools "Network" tab](https://docs.flutter.dev/tools/devtools/network).
+  [DevTools Network View](https://docs.flutter.dev/tools/devtools/network).
 
 ## 1.2.1
 
