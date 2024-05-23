@@ -1,3 +1,8 @@
+## 1.3.0
+
+* Add integration to the
+  [DevTools Network View](https://docs.flutter.dev/tools/devtools/network).
+
 ## 1.2.1
 
 * Upgrade `package:jni` to 0.9.2 to fix the build error in the latest versions
