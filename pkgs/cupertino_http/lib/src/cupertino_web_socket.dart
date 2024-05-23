@@ -185,8 +185,9 @@ class CupertinoWebSocket implements WebSocket {
       throw WebSocketConnectionClosed();
     }
 
-    if (code != null) {
-      RangeError.checkValueInInterval(code, 3000, 4999, 'code');
+    if (code != null && code != 1000 && !(code >= 3000 && code <= 4999)) {
+      throw ArgumentError('Invalid argument: $code, close code must be 1000 or '
+          'in the range 3000-4999');
     }
     if (reason != null && utf8.encode(reason).length > 123) {
       throw ArgumentError.value(reason, 'reason',

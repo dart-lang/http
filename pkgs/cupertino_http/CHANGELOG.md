@@ -1,3 +1,7 @@
+## 1.5.1-wip
+
+* Allow `1000` as a `code` argument in `CupertinoWebSocket.close`.
+
 ## 1.5.0
 
 * Add integration to the

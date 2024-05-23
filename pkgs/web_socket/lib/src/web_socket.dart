@@ -150,7 +150,7 @@ abstract interface class WebSocket {
   /// [code] is set then the peer will see a 1005 status code. If no [reason]
   /// is set then the peer will not receive a reason string.
   ///
-  /// Throws a [RangeError] if [code] is not in the range 3000-4999.
+  /// Throws an [ArgumentError] if [code] is not 1000 or in the range 3000-4999.
   ///
   /// Throws an [ArgumentError] if [reason] is longer than 123 bytes when
   /// encoded as UTF-8
