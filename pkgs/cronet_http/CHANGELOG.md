@@ -1,3 +1,7 @@
+## 1.3.1-wip
+
+* Add relevant rules with the ProGuard to avoid runtime exceptions.
+
 ## 1.3.0
 
 * Add integration to the
