@@ -4,7 +4,7 @@ description: Demonstrates how to use the cronet_http plugin.
 publish_to: 'none'
 
 environment:
-  sdk: ^3.2.0
+  sdk: ^3.4.0
 
 dependencies:
   cronet_http:
@@ -22,6 +22,7 @@ dev_dependencies:
     sdk: flutter
   http_client_conformance_tests:
     path: ../../http_client_conformance_tests/
+  http_profile: ^0.1.0
   integration_test:
     sdk: flutter
   test: ^1.23.1

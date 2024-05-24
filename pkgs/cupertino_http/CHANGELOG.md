@@ -1,5 +1,11 @@
-## 1.4.1-wip
+## 1.5.1-wip
 
+* Allow `1000` as a `code` argument in `CupertinoWebSocket.close`.
+
+## 1.5.0
+
+* Add integration to the
+  [DevTools Network View](https://docs.flutter.dev/tools/devtools/network).
 * Upgrade to `package:ffigen` 11.0.0.
 * Bring `WebSocket` behavior in line with the documentation by throwing
   `WebSocketConnectionClosed` rather than `StateError` when attempting to send

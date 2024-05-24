@@ -1,6 +1,11 @@
-## 1.2.2-wip
+## 1.3.1-wip
 
 * Add relevant rules with the ProGuard to avoid runtime exceptions.
+
+## 1.3.0
+
+* Add integration to the
+  [DevTools Network View](https://docs.flutter.dev/tools/devtools/network).
 
 ## 1.2.1
 
