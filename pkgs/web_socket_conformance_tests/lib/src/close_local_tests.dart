@@ -55,9 +55,22 @@ void testCloseLocal(
       httpServerChannel.sink.add(null);
     });
 
-    test('reserved close code', () async {
+    test('reserved close code: 1004', () async {
       final channel = await channelFactory(uri);
-      await expectLater(() => channel.close(1004), throwsA(isA<RangeError>()));
+      await expectLater(
+          () => channel.close(1004), throwsA(isA<ArgumentError>()));
+    });
+
+    test('reserved close code: 2999', () async {
+      final channel = await channelFactory(uri);
+      await expectLater(
+          () => channel.close(2999), throwsA(isA<ArgumentError>()));
+    });
+
+    test('reserved close code: 5000', () async {
+      final channel = await channelFactory(uri);
+      await expectLater(
+          () => channel.close(5000), throwsA(isA<ArgumentError>()));
     });
 
     test('too long close reason', () async {
@@ -74,6 +87,18 @@ void testCloseLocal(
       final closeReason = await httpServerQueue.next as String?;
 
       expect(closeCode, 1005);
+      expect(closeReason, '');
+      expect(await channel.events.isEmpty, true);
+    });
+
+    test('close with 1000', () async {
+      final channel = await channelFactory(uri);
+
+      await channel.close(1000);
+      final closeCode = await httpServerQueue.next as int?;
+      final closeReason = await httpServerQueue.next as String?;
+
+      expect(closeCode, 1000);
       expect(closeReason, '');
       expect(await channel.events.isEmpty, true);
     });
