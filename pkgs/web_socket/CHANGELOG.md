@@ -1,3 +1,7 @@
+## 0.1.5
+
+- Allow `1000` as a close code.
+
 ## 0.1.4
 
 - Add a `fakes` function that returns a pair of `WebSocket`s useful in

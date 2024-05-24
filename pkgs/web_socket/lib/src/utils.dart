@@ -6,8 +6,9 @@ import 'dart:convert';
 
 /// Throw if the given close code is not valid.
 void checkCloseCode(int? code) {
-  if (code != null) {
-    RangeError.checkValueInInterval(code, 3000, 4999, 'code');
+  if (code != null && code != 1000 && !(code >= 3000 && code <= 4999)) {
+    throw ArgumentError('Invalid argument: $code, close code must be 1000 or '
+        'in the range 3000-4999');
   }
 }
 
