@@ -1,0 +1,47 @@
+name: package:ok_http CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/workflows/okhttp.yml'
+      - 'pkgs/ok_http/**'
+      - 'pkgs/http_client_conformance_tests/**'
+  pull_request:
+    paths:
+      - '.github/workflows/okhttp.yml'
+      - 'pkgs/ok_http/**'
+      - 'pkgs/http_client_conformance_tests/**'
+  schedule:
+    - cron: "0 0 * * 0"
+
+env:
+  PUB_ENVIRONMENT: bot.github
+
+jobs:
+  verify:
+    name: Format & Analyze & Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pkgs/ok_http
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+        with:
+          channel: 'stable'
+      - id: install
+        name: Install dependencies
+        run: flutter pub get
+      - name: Check formatting
+        if: always() && steps.install.outcome == 'success'
+        run: dart format --output=none --set-exit-if-changed .
+      - name: Analyze code
+        if: always() && steps.install.outcome == 'success'
+        run: flutter analyze --fatal-infos
