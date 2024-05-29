@@ -13,9 +13,12 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
+  jni: ^0.9.2
+  http: ^1.2.1
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0
+  jnigen: ^0.9.1
 
 flutter:
   plugin:
