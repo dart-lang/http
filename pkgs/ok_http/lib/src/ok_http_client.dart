@@ -19,6 +19,29 @@ import 'package:jni/jni.dart';
 
 import 'third_party/okhttp3/_package.dart' as bindings;
 
+/// An HTTP [Client] utilizing the [OkHttp](https://square.github.io/okhttp/) client.
+///
+/// Example Usage:
+/// ```
+/// void main() async {
+///   var client = OkHttpClient();
+///   final response = await client.get(
+///       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'}));
+///   if (response.statusCode != 200) {
+///     throw HttpException('bad response: ${response.statusCode}');
+///   }
+///
+///   final decodedResponse =
+///       jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+///
+///   final itemCount = decodedResponse['totalItems'];
+///   print('Number of books about http: $itemCount.');
+///   for (var i = 0; i < min(itemCount, 10); ++i) {
+///     print(decodedResponse['items'][i]['volumeInfo']['title']);
+///   }
+/// }
+/// ```
+///
 class OkHttpClient extends BaseClient {
   late bindings.OkHttpClient _client;
 
