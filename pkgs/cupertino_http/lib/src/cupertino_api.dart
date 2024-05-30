@@ -429,7 +429,7 @@ class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
   /// The MIME type of the response.
   ///
   /// See [NSURLResponse.MIMEType](https://developer.apple.com/documentation/foundation/nsurlresponse/1411613-mimetype)
-  String? get mimeType => toStringOrNull(_nsObject.MIMEType);
+  String? get mimeType => _nsObject.MIMEType?.toString();
 
   @override
   String toString() => '[URLResponse '
@@ -513,7 +513,7 @@ class URLSessionWebSocketMessage
   /// Will be `null` if the [URLSessionWebSocketMessage] is a data message.
   ///
   /// See [NSURLSessionWebSocketMessage.string](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181194-string)
-  String? get string => toStringOrNull(_nsObject.string);
+  String? get string => _nsObject.string?.toString();
 
   /// The type of the WebSocket message.
   ///
@@ -1285,8 +1285,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// A description of the session that may be useful for debugging.
   ///
   /// See [NSURLSession.sessionDescription](https://developer.apple.com/documentation/foundation/nsurlsession/1408277-sessiondescription)
-  String? get sessionDescription =>
-      toStringOrNull(_nsObject.sessionDescription);
+  String? get sessionDescription => _nsObject.sessionDescription?.toString();
   set sessionDescription(String? value) =>
       _nsObject.sessionDescription = value?.toNSString();
 

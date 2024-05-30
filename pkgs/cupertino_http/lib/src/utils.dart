@@ -5,6 +5,8 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:objective_c/objective_c.dart';
+
 import 'native_cupertino_bindings.dart' as ncb;
 
 const _packageName = 'cupertino_http';
@@ -49,24 +51,16 @@ ncb.NativeCupertinoHttp _loadHelperLibrary() {
   return ncb.NativeCupertinoHttp(lib);
 }
 
-String? toStringOrNull(ncb.NSString? s) {
-  if (s == null) {
-    return null;
-  }
-
-  return s.toString();
-}
-
 /// Converts a NSDictionary containing NSString keys and NSString values into
 /// an equivalent map.
-Map<String, String> stringNSDictionaryToMap(ncb.NSDictionary d) {
+Map<String, String> stringNSDictionaryToMap(NSDictionary d) {
   // TODO(https://github.com/dart-lang/ffigen/issues/374): Make this
   // function type safe. Currently it will unconditionally cast both keys and
   // values to NSString with a likely crash down the line if that isn't their
   // true types.
   final m = <String, String>{};
 
-  final keys = ncb.NSArray.castFrom(d.allKeys);
+  final keys = NSArray.castFrom(d.allKeys);
   for (var i = 0; i < keys.count; ++i) {
     final nsKey = keys.objectAtIndex_(i);
     final key = ncb.NSString.castFrom(nsKey).toString();
