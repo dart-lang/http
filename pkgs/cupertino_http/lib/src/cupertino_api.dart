@@ -34,11 +34,12 @@ import 'dart:typed_data';
 
 import 'package:async/async.dart';
 import 'package:ffi/ffi.dart';
+import 'package:objective_c/objective_c.dart' as objc;
 
 import 'native_cupertino_bindings.dart' as ncb;
 import 'utils.dart';
 
-abstract class _ObjectHolder<T extends ncb.NSObject> {
+abstract class _ObjectHolder<T extends objc.NSObject> {
   final T _nsObject;
 
   _ObjectHolder(this._nsObject);
@@ -125,7 +126,7 @@ ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
   const maxReadAheadSize = 4096;
   final queue = StreamQueue(stream);
   final port = ReceivePort();
-  final inputStream = ncb.CUPHTTPStreamToNSInputStreamAdapter.alloc(helperLibs)
+  final inputStream = ncb.CUPHTTPStreamToNSInputStreamAdapter.alloc()
       .initWithPort_(port.sendPort.nativePort);
 
   late StreamSubscription<dynamic> s;
@@ -144,7 +145,7 @@ ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
       try {
         next = await queue.next;
       } catch (e) {
-        inputStream.setError_(Error.fromCustomDomain('DartError', 0,
+        inputStream.setError_(NSError.('DartError', 0,
                 localizedDescription: e.toString())
             ._nsObject);
         break;
@@ -166,72 +167,6 @@ ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
   return inputStream;
 }
 
-/// Information about a failure.
-///
-/// See [NSError](https://developer.apple.com/documentation/foundation/nserror)
-class Error extends _ObjectHolder<ncb.NSError> implements Exception {
-  Error._(super.c);
-
-  /// Create an Error from a custom domain.
-  factory Error.fromCustomDomain(String domain, int code,
-      {String? localizedDescription}) {
-    final d = ncb.NSMutableDictionary.alloc(linkedLibs).init();
-
-    if (localizedDescription != null) {
-      d.setObject_forKey_(
-        localizedDescription.toNSString(linkedLibs),
-        ncb.NSString.castFromPointer(
-            linkedLibs, linkedLibs.NSLocalizedDescriptionKey),
-      );
-    }
-    final e = ncb.NSError.alloc(linkedLibs)
-        .initWithDomain_code_userInfo_(domain.toNSString(linkedLibs), code, d);
-    return Error._(e);
-  }
-
-  /// The numeric code for the error e.g. -1003 (kCFURLErrorCannotFindHost).
-  ///
-  /// The interpretation of this code will depend on the domain of the error
-  /// which, for URL loading, will usually be
-  /// [`kCFErrorDomainCFNetwork`](https://developer.apple.com/documentation/cfnetwork/kcferrordomaincfnetwork).
-  ///
-  /// See [NSError.code](https://developer.apple.com/documentation/foundation/nserror/1409165-code)
-  int get code => _nsObject.code;
-
-  /// The error domain, for example `"NSPOSIXErrorDomain"`.
-  ///
-  /// See [NSError.domain](https://developer.apple.com/documentation/foundation/nserror/1413924-domain)
-  String get domain => _nsObject.domain.toString();
-
-  /// A description of the error in the current locale e.g.
-  /// 'A server with the specified hostname could not be found.'
-  ///
-  /// See [NSError.localizedDescription](https://developer.apple.com/documentation/foundation/nserror/1414418-localizeddescription)
-  String? get localizedDescription =>
-      toStringOrNull(_nsObject.localizedDescription);
-
-  /// An explanation of the reason for the error in the current locale.
-  ///
-  /// See [NSError.localizedFailureReason](https://developer.apple.com/documentation/foundation/nserror/1412752-localizedfailurereason)
-  String? get localizedFailureReason =>
-      toStringOrNull(_nsObject.localizedFailureReason);
-
-  /// An explanation of how to fix the error in the current locale.
-  ///
-  /// See [NSError.localizedRecoverySuggestion](https://developer.apple.com/documentation/foundation/nserror/1407500-localizedrecoverysuggestion)
-  String? get localizedRecoverySuggestion =>
-      toStringOrNull(_nsObject.localizedRecoverySuggestion);
-
-  @override
-  String toString() => '[Error '
-      'domain=$domain '
-      'code=$code '
-      'localizedDescription=$localizedDescription '
-      'localizedFailureReason=$localizedFailureReason '
-      'localizedRecoverySuggestion=$localizedRecoverySuggestion '
-      ']';
-}
-
 /// A cache for [URLRequest]s. Used by [URLSessionConfiguration.cache].
 ///
 /// See [NSURLCache](https://developer.apple.com/documentation/foundation/nsurlcache)
@@ -242,7 +177,7 @@ class URLCache extends _ObjectHolder<ncb.NSURLCache> {
   ///
   /// See [NSURLCache.sharedURLCache](https://developer.apple.com/documentation/foundation/nsurlcache/1413377-sharedurlcache)
   static URLCache? get sharedURLCache {
-    final sharedCache = ncb.NSURLCache.getSharedURLCache(linkedLibs);
+    final sharedCache = ncb.NSURLCache.getSharedURLCache();
     return URLCache._(sharedCache);
   }
 
@@ -256,7 +191,7 @@ class URLCache extends _ObjectHolder<ncb.NSURLCache> {
   /// See [NSURLCache initWithMemoryCapacity:diskCapacity:directoryURL:](https://developer.apple.com/documentation/foundation/nsurlcache/3240612-initwithmemorycapacity)
   factory URLCache.withCapacity(
           {int memoryCapacity = 0, int diskCapacity = 0, Uri? directory}) =>
-      URLCache._(ncb.NSURLCache.alloc(linkedLibs)
+      URLCache._(ncb.NSURLCache.alloc()
           .initWithMemoryCapacity_diskCapacity_directoryURL_(memoryCapacity,
               diskCapacity, directory == null ? null : uriToNSURL(directory)));
 }
@@ -281,7 +216,7 @@ class URLSessionConfiguration
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration
               .backgroundSessionConfigurationWithIdentifier_(
-                  linkedLibs, identifier.toNSString(linkedLibs)),
+                   identifier.toNSString()),
           isBackground: true);
 
   /// A configuration that uses caching and saves cookies and credentials.
@@ -291,7 +226,7 @@ class URLSessionConfiguration
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration.castFrom(
               ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(
-                  linkedLibs)),
+                  )),
           isBackground: false);
 
   /// A session configuration that uses no persistent storage for caches,
@@ -302,7 +237,7 @@ class URLSessionConfiguration
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration.castFrom(
               ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration(
-                  linkedLibs)),
+                  )),
           isBackground: false);
 
   /// Whether connections over a cellular network are allowed.
@@ -350,7 +285,7 @@ class URLSessionConfiguration
   /// See [NSURLSessionConfiguration.HTTPAdditionalHeaders](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411532-httpadditionalheaders)
   Map<String, String>? get httpAdditionalHeaders {
     if (_nsObject.HTTPAdditionalHeaders case var additionalHeaders?) {
-      final headers = ncb.NSDictionary.castFrom(additionalHeaders);
+      final headers = objc.NSDictionary.castFrom(additionalHeaders);
       return stringNSDictionaryToMap(headers);
     }
     return null;
@@ -361,10 +296,10 @@ class URLSessionConfiguration
       _nsObject.HTTPAdditionalHeaders = null;
       return;
     }
-    final d = ncb.NSMutableDictionary.alloc(linkedLibs).init();
+    final d = objc.NSMutableDictionary.alloc().init();
     headers.forEach((key, value) {
       d.setObject_forKey_(
-          value.toNSString(linkedLibs), key.toNSString(linkedLibs));
+          value.toNSString(), key.toNSString());
     });
     _nsObject.HTTPAdditionalHeaders = d;
   }
@@ -490,7 +425,7 @@ class Data extends _ObjectHolder<ncb.NSData> {
   ///
   /// See [NSData dataWithData:](https://developer.apple.com/documentation/foundation/nsdata/1547230-datawithdata)
   factory Data.fromData(Data d) =>
-      Data._(ncb.NSData.dataWithData_(linkedLibs, d._nsObject));
+      Data._(objc.NSData.dataWithData_(d._nsObject));
 
   /// A new [Data] object containing the given bytes.
   factory Data.fromList(List<int> l) {
@@ -499,7 +434,7 @@ class Data extends _ObjectHolder<ncb.NSData> {
       buffer.asTypedList(l.length).setAll(0, l);
 
       final data =
-          ncb.NSData.dataWithBytes_length_(linkedLibs, buffer.cast(), l.length);
+          NSData.dataWithBytes_length_(linkedLibs, buffer.cast(), l.length);
       return Data._(data);
     } finally {
       calloc.free(buffer);
@@ -625,7 +560,7 @@ class HTTPURLResponse extends URLResponse {
   ///
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
   Map<String, String> get allHeaderFields {
-    final headers = ncb.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields);
+    final headers = objc.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields);
     return stringNSDictionaryToMap(headers);
   }
 
@@ -659,7 +594,7 @@ class URLSessionWebSocketMessage
   /// See [NSURLSessionWebSocketMessage initWithData:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181192-initwithdata)
   factory URLSessionWebSocketMessage.fromData(Data d) =>
       URLSessionWebSocketMessage._(
-          ncb.NSURLSessionWebSocketMessage.alloc(linkedLibs)
+          ncb.NSURLSessionWebSocketMessage.alloc()
               .initWithData_(d._nsObject));
 
   /// Create a WebSocket string message.
@@ -667,8 +602,8 @@ class URLSessionWebSocketMessage
   /// See [NSURLSessionWebSocketMessage initWitString:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181193-initwithstring)
   factory URLSessionWebSocketMessage.fromString(String s) =>
       URLSessionWebSocketMessage._(
-          ncb.NSURLSessionWebSocketMessage.alloc(linkedLibs)
-              .initWithString_(s.toNSString(linkedLibs)));
+          ncb.NSURLSessionWebSocketMessage.alloc()
+              .initWithString_(s.toNSString()));
 
   /// The data associated with the WebSocket message.
   ///
@@ -801,7 +736,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   ///
   /// See [NSURLSessionTask.taskDescription](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1409798-taskdescription)
   set taskDescription(String value) =>
-      _nsObject.taskDescription = value.toNSString(linkedLibs);
+      _nsObject.taskDescription = value.toNSString();
 
   /// A unique ID for the [URLSessionTask] in a [URLSession].
   ///
@@ -905,12 +840,11 @@ class URLSessionWebSocketTask extends URLSessionTask {
     final completer = Completer<void>();
     final completionPort = ReceivePort();
     completionPort.listen((message) {
-      final ep = Pointer<ncb.ObjCObject>.fromAddress(message as int);
+      final ep = Pointer<objc.ObjCObject>.fromAddress(message as int);
       if (ep.address == 0) {
         completer.complete();
       } else {
-        final error = Error._(ncb.NSError.castFromPointer(linkedLibs, ep,
-            retain: false, release: true));
+        final error = NSError.castFromPointer(ep, retain: false, release: true);
         completer.completeError(error);
       }
       completionPort.close();

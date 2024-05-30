@@ -2,9 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:cupertino_http/src/native_cupertino_bindings.dart' as ncb;
 import 'package:cupertino_http/src/utils.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:objective_c/objective_c.dart' as objc;
 import 'package:test/test.dart';
 
 void main() {
@@ -16,33 +16,29 @@ void main() {
     });
 
     test('string input', () {
-      expect(toStringOrNull('Test'.toNSString(linkedLibs)), 'Test');
+      expect(toStringOrNull('Test'.toNSString()), 'Test');
     });
   });
 
   group('stringNSDictionaryToMap', () {
     test('empty input', () {
-      final d = ncb.NSMutableDictionary.new1(linkedLibs);
+      final d = objc.NSMutableDictionary.new1();
 
       expect(stringNSDictionaryToMap(d), <String, String>{});
     });
 
     test('single string input', () {
-      final d = ncb.NSMutableDictionary.new1(linkedLibs)
-        ..setObject_forKey_(
-            'value'.toNSString(linkedLibs), 'key'.toNSString(linkedLibs));
+      final d = objc.NSMutableDictionary.new1()
+        ..setObject_forKey_('value'.toNSString(), 'key'.toNSString());
 
       expect(stringNSDictionaryToMap(d), {'key': 'value'});
     });
 
     test('multiple string input', () {
-      final d = ncb.NSMutableDictionary.new1(linkedLibs)
-        ..setObject_forKey_(
-            'value1'.toNSString(linkedLibs), 'key1'.toNSString(linkedLibs))
-        ..setObject_forKey_(
-            'value2'.toNSString(linkedLibs), 'key2'.toNSString(linkedLibs))
-        ..setObject_forKey_(
-            'value3'.toNSString(linkedLibs), 'key3'.toNSString(linkedLibs));
+      final d = objc.NSMutableDictionary.new1()
+        ..setObject_forKey_('value1'.toNSString(), 'key1'.toNSString())
+        ..setObject_forKey_('value2'.toNSString(), 'key2'.toNSString())
+        ..setObject_forKey_('value3'.toNSString(), 'key3'.toNSString());
       expect(stringNSDictionaryToMap(d),
           {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'});
     });
@@ -58,16 +54,16 @@ void main() {
       final array = stringIterableToNSArray(['apple']);
       expect(array.count, 1);
       expect(
-          ncb.NSString.castFrom(array.objectAtIndex_(0)).toString(), 'apple');
+          objc.NSString.castFrom(array.objectAtIndex_(0)).toString(), 'apple');
     });
 
     test('multiple string input', () {
       final array = stringIterableToNSArray(['apple', 'banana']);
       expect(array.count, 2);
       expect(
-          ncb.NSString.castFrom(array.objectAtIndex_(0)).toString(), 'apple');
+          objc.NSString.castFrom(array.objectAtIndex_(0)).toString(), 'apple');
       expect(
-          ncb.NSString.castFrom(array.objectAtIndex_(1)).toString(), 'banana');
+          objc.NSString.castFrom(array.objectAtIndex_(1)).toString(), 'banana');
     });
   });
 }

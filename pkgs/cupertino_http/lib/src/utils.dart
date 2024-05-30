@@ -70,7 +70,7 @@ Map<String, String> stringNSDictionaryToMap(ncb.NSDictionary d) {
   for (var i = 0; i < keys.count; ++i) {
     final nsKey = keys.objectAtIndex_(i);
     final key = ncb.NSString.castFrom(nsKey).toString();
-    final value = ncb.NSString.castFrom(d.objectForKey_(nsKey)!).toString();
+    final value = objc.NSString.castFrom(d.objectForKey_(nsKey)!).toString();
     m[key] = value;
   }
 
