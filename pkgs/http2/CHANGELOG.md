@@ -1,6 +1,7 @@
 ## 2.3.1-wip
 
 - Require Dart 3.2
+- Add topics to `pubspec.yaml`
 
 ## 2.3.0
 
