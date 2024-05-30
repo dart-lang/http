@@ -6,6 +6,7 @@ import 'dart:typed_data';
 
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -47,13 +48,13 @@ void main() {
 
     test('empty', () => expect(request.httpBody, null));
     test('set', () {
-      request.httpBody = Data.fromList([1, 2, 3]);
+      request.httpBody = [1, 2, 3].toNSData();
       expect(request.httpBody!.bytes, Uint8List.fromList([1, 2, 3]));
       request.toString(); // Just verify that there is no crash.
     });
     test('set to null', () {
       request
-        ..httpBody = Data.fromList([1, 2, 3])
+        ..httpBody = [1, 2, 3].toNSData()
         ..httpBody = null;
       expect(request.httpBody, null);
     });

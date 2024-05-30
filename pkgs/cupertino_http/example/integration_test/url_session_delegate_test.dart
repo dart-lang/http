@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
 void testOnComplete(URLSessionConfiguration config) {
@@ -163,7 +164,7 @@ void testOnData(URLSessionConfiguration config) {
 
     test('success', () async {
       final c = Completer<void>();
-      final actualData = MutableData.empty();
+      final actualData = NSMutableData.data();
       late URLSession actualSession;
       late URLSessionTask actualTask;
 

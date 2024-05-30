@@ -29,11 +29,8 @@ library;
 import 'dart:async';
 import 'dart:ffi';
 import 'dart:isolate';
-import 'dart:math';
-import 'dart:typed_data';
 
 import 'package:async/async.dart';
-import 'package:ffi/ffi.dart';
 import 'package:objective_c/objective_c.dart' as objc;
 
 import 'native_cupertino_bindings.dart' as ncb;
@@ -145,16 +142,15 @@ ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
       try {
         next = await queue.next;
       } catch (e) {
-        inputStream.setError_(NSError.('DartError', 0,
-                localizedDescription: e.toString())
-            ._nsObject);
+        inputStream.setError_(
+            objc.NSError('DartError', 0, localizedDescription: e.toString())
+                ._nsObject);
         break;
       }
       // In practice the read length request will be large (>1MB) so,
       // instead of adding that much data, try to keep the buffer
       // at least `maxReadAheadSize`.
-      if (inputStream.addData_(Data.fromList(next)._nsObject) >
-          maxReadAheadSize) {
+      if (inputStream.addData_(next.toNSData()) > maxReadAheadSize) {
         break;
       }
     }
@@ -216,7 +212,7 @@ class URLSessionConfiguration
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration
               .backgroundSessionConfigurationWithIdentifier_(
-                   identifier.toNSString()),
+                  identifier.toNSString()),
           isBackground: true);
 
   /// A configuration that uses caching and saves cookies and credentials.
@@ -225,8 +221,7 @@ class URLSessionConfiguration
   factory URLSessionConfiguration.defaultSessionConfiguration() =>
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration.castFrom(
-              ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration(
-                  )),
+              ncb.NSURLSessionConfiguration.getDefaultSessionConfiguration()),
           isBackground: false);
 
   /// A session configuration that uses no persistent storage for caches,
@@ -236,8 +231,7 @@ class URLSessionConfiguration
   factory URLSessionConfiguration.ephemeralSessionConfiguration() =>
       URLSessionConfiguration._(
           ncb.NSURLSessionConfiguration.castFrom(
-              ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration(
-                  )),
+              ncb.NSURLSessionConfiguration.getEphemeralSessionConfiguration()),
           isBackground: false);
 
   /// Whether connections over a cellular network are allowed.
@@ -298,8 +292,7 @@ class URLSessionConfiguration
     }
     final d = objc.NSMutableDictionary.alloc().init();
     headers.forEach((key, value) {
-      d.setObject_forKey_(
-          value.toNSString(), key.toNSString());
+      d.setObject_forKey_(value.toNSString(), key.toNSString());
     });
     _nsObject.HTTPAdditionalHeaders = d;
   }
@@ -415,102 +408,6 @@ class URLSessionConfiguration
       ']';
 }
 
-/// A container for byte data.
-///
-/// See [NSData](https://developer.apple.com/documentation/foundation/nsdata)
-class Data extends _ObjectHolder<ncb.NSData> {
-  Data._(super.c);
-
-  /// A new [Data] from an existing one.
-  ///
-  /// See [NSData dataWithData:](https://developer.apple.com/documentation/foundation/nsdata/1547230-datawithdata)
-  factory Data.fromData(Data d) =>
-      Data._(objc.NSData.dataWithData_(d._nsObject));
-
-  /// A new [Data] object containing the given bytes.
-  factory Data.fromList(List<int> l) {
-    final buffer = calloc<Uint8>(l.length);
-    try {
-      buffer.asTypedList(l.length).setAll(0, l);
-
-      final data =
-          NSData.dataWithBytes_length_(linkedLibs, buffer.cast(), l.length);
-      return Data._(data);
-    } finally {
-      calloc.free(buffer);
-    }
-  }
-
-  /// A new [Data] object containing the given bytes.
-  @Deprecated('Use Data.fromList instead')
-  factory Data.fromUint8List(Uint8List l) = Data.fromList;
-
-  /// The number of bytes contained in the object.
-  ///
-  /// See [NSData.length](https://developer.apple.com/documentation/foundation/nsdata/1416769-length)
-  int get length => _nsObject.length;
-
-  /// The data contained in the object.
-  ///
-  /// See [NSData.bytes](https://developer.apple.com/documentation/foundation/nsdata/1410616-bytes)
-  Uint8List get bytes {
-    final bytes = _nsObject.bytes;
-    if (bytes.address == 0) {
-      return Uint8List(0);
-    } else {
-      // `NSData.byte` has the same lifetime as the `NSData` so make a copy to
-      // ensure memory safety.
-      // TODO(https://github.com/dart-lang/ffigen/issues/375): Remove copy.
-      return Uint8List.fromList(bytes.cast<Uint8>().asTypedList(length));
-    }
-  }
-
-  @override
-  String toString() {
-    final subrange =
-        length == 0 ? Uint8List(0) : bytes.sublist(0, min(length - 1, 20));
-    final b = subrange.map((e) => e.toRadixString(16)).join();
-    return '[Data length=$length bytes=0x$b...]';
-  }
-}
-
-/// A container for byte data.
-///
-/// See [NSMutableData](https://developer.apple.com/documentation/foundation/nsmutabledata)
-class MutableData extends Data {
-  final ncb.NSMutableData _mutableData;
-
-  MutableData._(ncb.NSMutableData super.c)
-      : _mutableData = c,
-        super._();
-
-  /// A new empty [MutableData].
-  factory MutableData.empty() =>
-      MutableData._(ncb.NSMutableData.dataWithCapacity_(linkedLibs, 0)!);
-
-  /// Appends the given data.
-  ///
-  /// See [NSMutableData appendBytes:length:](https://developer.apple.com/documentation/foundation/nsmutabledata/1407704-appendbytes)
-  void appendBytes(List<int> l) {
-    final f = calloc<Uint8>(l.length);
-    try {
-      f.asTypedList(l.length).setAll(0, l);
-
-      _mutableData.appendBytes_length_(f.cast(), l.length);
-    } finally {
-      calloc.free(f);
-    }
-  }
-
-  @override
-  String toString() {
-    final subrange =
-        length == 0 ? Uint8List(0) : bytes.sublist(0, min(length - 1, 20));
-    final b = subrange.map((e) => e.toRadixString(16)).join();
-    return '[MutableData length=$length bytes=0x$b...]';
-  }
-}
-
 /// The response associated with loading an URL.
 ///
 /// See [NSURLResponse](https://developer.apple.com/documentation/foundation/nsurlresponse)
@@ -560,7 +457,8 @@ class HTTPURLResponse extends URLResponse {
   ///
   /// See [HTTPURLResponse.allHeaderFields](https://developer.apple.com/documentation/foundation/nshttpurlresponse/1417930-allheaderfields)
   Map<String, String> get allHeaderFields {
-    final headers = objc.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields);
+    final headers =
+        objc.NSDictionary.castFrom(_httpUrlResponse.allHeaderFields);
     return stringNSDictionaryToMap(headers);
   }
 
@@ -592,25 +490,23 @@ class URLSessionWebSocketMessage
   /// Create a WebSocket data message.
   ///
   /// See [NSURLSessionWebSocketMessage initWithData:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181192-initwithdata)
-  factory URLSessionWebSocketMessage.fromData(Data d) =>
+  factory URLSessionWebSocketMessage.fromData(objc.NSData d) =>
       URLSessionWebSocketMessage._(
-          ncb.NSURLSessionWebSocketMessage.alloc()
-              .initWithData_(d._nsObject));
+          ncb.NSURLSessionWebSocketMessage.alloc().initWithData_(d));
 
   /// Create a WebSocket string message.
   ///
   /// See [NSURLSessionWebSocketMessage initWitString:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181193-initwithstring)
   factory URLSessionWebSocketMessage.fromString(String s) =>
-      URLSessionWebSocketMessage._(
-          ncb.NSURLSessionWebSocketMessage.alloc()
-              .initWithString_(s.toNSString()));
+      URLSessionWebSocketMessage._(ncb.NSURLSessionWebSocketMessage.alloc()
+          .initWithString_(s.toNSString()));
 
   /// The data associated with the WebSocket message.
   ///
   /// Will be `null` if the [URLSessionWebSocketMessage] is a string message.
   ///
   /// See [NSURLSessionWebSocketMessage.data](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181191-data)
-  Data? get data => _nsObject.data == null ? null : Data._(_nsObject.data!);
+  objc.NSData? get data => _nsObject.data;
 
   /// The string associated with the WebSocket message.
   ///
@@ -718,14 +614,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   /// An error indicating why the task failed or `null` on success.
   ///
   /// See [NSURLSessionTask.error](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1408145-error)
-  Error? get error {
-    final error = _nsObject.error;
-    if (error == null) {
-      return null;
-    } else {
-      return Error._(error);
-    }
-  }
+  objc.NSError? get error => _nsObject.error;
 
   /// The user-assigned description for the task.
   ///
@@ -821,14 +710,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
   /// If there is no close reason available this property will be null.
   ///
   /// See [NSURLSessionWebSocketTask.closeReason](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181202-closereason)
-  Data? get closeReason {
-    final reason = _urlSessionWebSocketTask.closeReason;
-    if (reason == null) {
-      return null;
-    } else {
-      return Data._(reason);
-    }
-  }
+  objc.NSData? get closeReason => _urlSessionWebSocketTask.closeReason;
 
   /// Sends a single WebSocket message.
   ///
@@ -844,7 +726,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
       if (ep.address == 0) {
         completer.complete();
       } else {
-        final error = NSError.castFromPointer(ep, retain: false, release: true);
+        final error =
+            objc.NSError.castFromPointer(ep, retain: false, release: true);
         completer.completeError(error);
       }
       completionPort.close();
@@ -866,18 +749,22 @@ class URLSessionWebSocketTask extends URLSessionTask {
     completionPort.listen((d) {
       final messageAndError = d as List;
 
-      final mp = Pointer<ncb.ObjCObject>.fromAddress(messageAndError[0] as int);
-      final ep = Pointer<ncb.ObjCObject>.fromAddress(messageAndError[1] as int);
+      final mp = messageAndError[0] as int;
+      final ep = messageAndError[1] as int;
 
-      final message = mp.address == 0
+      final message = mp == 0
           ? null
           : URLSessionWebSocketMessage._(
-              ncb.NSURLSessionWebSocketMessage.castFromPointer(linkedLibs, mp,
-                  retain: false, release: true));
-      final error = ep.address == 0
+              ncb.NSURLSessionWebSocketMessage.castFromPointer(
+                  Pointer.fromAddress(mp).cast<objc.ObjCObject>(),
+                  retain: false,
+                  release: true));
+      final error = ep == 0
           ? null
-          : Error._(ncb.NSError.castFromPointer(linkedLibs, ep,
-              retain: false, release: true));
+          : objc.NSError.castFromPointer(
+              Pointer.fromAddress(mp).cast<objc.ObjCObject>(),
+              retain: false,
+              release: true);
 
       if (error != null) {
         completer.completeError(error);
@@ -895,9 +782,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
   /// Sends close frame with the given code and optional reason.
   ///
   /// See [NSURLSessionWebSocketTask.cancelWithCloseCode:reason:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181200-cancelwithclosecode)
-  void cancelWithCloseCode(int closeCode, Data? reason) {
-    _urlSessionWebSocketTask.cancelWithCloseCode_reason_(
-        closeCode, reason?._nsObject);
+  void cancelWithCloseCode(int closeCode, objc.NSData? reason) {
+    _urlSessionWebSocketTask.cancelWithCloseCode_reason_(closeCode, reason);
   }
 
   @override
@@ -913,8 +799,8 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// Creates a request for a URL.
   ///
   /// See [NSURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsurlrequest/1528603-requestwithurl)
-  factory URLRequest.fromUrl(Uri uri) => URLRequest._(
-      ncb.NSURLRequest.requestWithURL_(linkedLibs, uriToNSURL(uri)));
+  factory URLRequest.fromUrl(Uri uri) =>
+      URLRequest._(ncb.NSURLRequest.requestWithURL_(uriToNSURL(uri)));
 
   /// Returns all of the HTTP headers for the request.
   ///
@@ -923,8 +809,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     if (_nsObject.allHTTPHeaderFields == null) {
       return null;
     } else {
-      final headers = ncb.NSDictionary.castFrom(_nsObject.allHTTPHeaderFields!);
-      return stringNSDictionaryToMap(headers);
+      return stringNSDictionaryToMap(_nsObject.allHTTPHeaderFields!);
     }
   }
 
@@ -937,13 +822,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// The body of the request.
   ///
   /// See [NSURLRequest.HTTPBody](https://developer.apple.com/documentation/foundation/nsurlrequest/1411317-httpbody)
-  Data? get httpBody {
-    final body = _nsObject.HTTPBody;
-    if (body == null) {
-      return null;
-    }
-    return Data._(ncb.NSData.castFrom(body));
-  }
+  objc.NSData? get httpBody => _nsObject.HTTPBody;
 
   /// The HTTP request method (e.g. 'GET').
   ///
@@ -997,17 +876,15 @@ class MutableURLRequest extends URLRequest {
   ///
   /// See [NSMutableURLRequest.requestWithURL:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1414617-allhttpheaderfields)
   factory MutableURLRequest.fromUrl(Uri uri) {
-    final url = ncb.NSURL
-        .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs))!;
-    return MutableURLRequest._(
-        ncb.NSMutableURLRequest.requestWithURL_(linkedLibs, url));
+    final url = objc.NSURL.URLWithString_(uri.toString().toNSString())!;
+    return MutableURLRequest._(ncb.NSMutableURLRequest.requestWithURL_(url));
   }
 
   set cachePolicy(URLRequestCachePolicy value) =>
       _mutableUrlRequest.cachePolicy = value.index;
 
-  set httpBody(Data? data) {
-    _mutableUrlRequest.HTTPBody = data?._nsObject;
+  set httpBody(objc.NSData? data) {
+    _mutableUrlRequest.HTTPBody = data;
   }
 
   /// Sets the body of the request to the given [Stream].
@@ -1018,7 +895,7 @@ class MutableURLRequest extends URLRequest {
   }
 
   set httpMethod(String method) {
-    _mutableUrlRequest.HTTPMethod = method.toNSString(linkedLibs);
+    _mutableUrlRequest.HTTPMethod = method.toNSString();
   }
 
   set timeoutInterval(Duration interval) {
@@ -1031,7 +908,7 @@ class MutableURLRequest extends URLRequest {
   /// See [NSMutableURLRequest setValue:forHTTPHeaderField:](https://developer.apple.com/documentation/foundation/nsmutableurlrequest/1408793-setvalue)
   void setValueForHttpHeaderField(String value, String field) {
     _mutableUrlRequest.setValue_forHTTPHeaderField_(
-        field.toNSString(linkedLibs), value.toNSString(linkedLibs));
+        field.toNSString(), value.toNSString());
   }
 
   @override
@@ -1062,26 +939,26 @@ void _setupDelegation(
   URLSessionResponseDisposition Function(
           URLSession session, URLSessionTask task, URLResponse response)?
       onResponse,
-  void Function(URLSession session, URLSessionTask task, Data error)? onData,
+  void Function(URLSession session, URLSessionTask task, objc.NSData error)?
+      onData,
   void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
       onFinishedDownloading,
-  void Function(URLSession session, URLSessionTask task, Error? error)?
+  void Function(URLSession session, URLSessionTask task, objc.NSError? error)?
       onComplete,
   void Function(
           URLSession session, URLSessionWebSocketTask task, String? protocol)?
       onWebSocketTaskOpened,
   void Function(URLSession session, URLSessionWebSocketTask task, int closeCode,
-          Data? reason)?
+          objc.NSData? reason)?
       onWebSocketTaskClosed,
 }) {
   final responsePort = ReceivePort();
   responsePort.listen((d) {
     final message = d as List;
     final messageType = message[0];
-    final dp = Pointer<ncb.ObjCObject>.fromAddress(message[1] as int);
+    final dp = Pointer<objc.ObjCObject>.fromAddress(message[1] as int);
 
-    final forwardedDelegate = ncb.CUPHTTPForwardedDelegate.castFromPointer(
-        helperLibs, dp,
+    final forwardedDelegate = ncb.CUPHTTPForwardedDelegate.castFromPointer(dp,
         retain: true, release: true);
 
     switch (messageType) {
@@ -1145,8 +1022,7 @@ void _setupDelegation(
             break;
           }
           try {
-            onData(
-                session, task, Data._(ncb.NSData.castFrom(forwardedData.data)));
+            onData(session, task, forwardedData.data);
           } catch (e) {
             // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
             // this exception as an `Error` and call the completion function
@@ -1186,9 +1062,9 @@ void _setupDelegation(
           if (onComplete == null) {
             break;
           }
-          Error? error;
+          objc.NSError? error;
           if (forwardedComplete.error != null) {
-            error = Error._(ncb.NSError.castFrom(forwardedComplete.error!));
+            error = objc.NSError.castFrom(forwardedComplete.error!);
           }
           try {
             onComplete(session, task, error);
@@ -1231,13 +1107,8 @@ void _setupDelegation(
             break;
           }
           try {
-            onWebSocketTaskClosed(
-                session,
-                task as URLSessionWebSocketTask,
-                webSocketClosed.closeCode,
-                webSocketClosed.reason == null
-                    ? null
-                    : Data._(webSocketClosed.reason!));
+            onWebSocketTaskClosed(session, task as URLSessionWebSocketTask,
+                webSocketClosed.closeCode, webSocketClosed.reason);
           } catch (e) {
             // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
             // this exception as an `Error` and call the completion function
@@ -1250,7 +1121,7 @@ void _setupDelegation(
     }
   });
   final config = ncb.CUPHTTPTaskConfiguration.castFrom(
-      ncb.CUPHTTPTaskConfiguration.alloc(helperLibs)
+      ncb.CUPHTTPTaskConfiguration.alloc()
           .initWithPort_(responsePort.sendPort.nativePort));
 
   delegate.registerTask_withConfiguration_(task._nsObject, config);
@@ -1262,7 +1133,7 @@ void _setupDelegation(
 class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // Provide our own native delegate to `NSURLSession` because delegates can be
   // called on arbitrary threads and Dart code cannot be.
-  static final _delegate = ncb.CUPHTTPClientDelegate.new1(helperLibs);
+  static final _delegate = ncb.CUPHTTPClientDelegate.new1();
   // Indicates if the session is a background session. Copied from the
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
@@ -1272,9 +1143,10 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   final URLSessionResponseDisposition Function(
           URLSession session, URLSessionTask task, URLResponse response)?
       _onResponse;
-  final void Function(URLSession session, URLSessionTask task, Data error)?
-      _onData;
-  final void Function(URLSession session, URLSessionTask task, Error? error)?
+  final void Function(
+      URLSession session, URLSessionTask task, objc.NSData data)? _onData;
+  final void Function(
+          URLSession session, URLSessionTask task, objc.NSError? error)?
       _onComplete;
   final void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
       _onFinishedDownloading;
@@ -1282,7 +1154,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           URLSession session, URLSessionWebSocketTask task, String? protocol)?
       _onWebSocketTaskOpened;
   final void Function(URLSession session, URLSessionWebSocketTask task,
-      int closeCode, Data? reason)? _onWebSocketTaskClosed;
+      int closeCode, objc.NSData? reason)? _onWebSocketTaskClosed;
 
   URLSession._(
     super.c, {
@@ -1293,16 +1165,17 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     URLSessionResponseDisposition Function(
             URLSession session, URLSessionTask task, URLResponse response)?
         onResponse,
-    void Function(URLSession session, URLSessionTask task, Data error)? onData,
+    void Function(URLSession session, URLSessionTask task, objc.NSData error)?
+        onData,
     void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
         onFinishedDownloading,
-    void Function(URLSession session, URLSessionTask task, Error? error)?
+    void Function(URLSession session, URLSessionTask task, objc.NSError? error)?
         onComplete,
     void Function(
             URLSession session, URLSessionWebSocketTask task, String? protocol)?
         onWebSocketTaskOpened,
     void Function(URLSession session, URLSessionWebSocketTask task,
-            int closeCode, Data? reason)?
+            int closeCode, objc.NSData? reason)?
         onWebSocketTaskClosed,
   })  : _isBackground = isBackground,
         _onRedirect = onRedirect,
@@ -1366,16 +1239,17 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     URLSessionResponseDisposition Function(
             URLSession session, URLSessionTask task, URLResponse response)?
         onResponse,
-    void Function(URLSession session, URLSessionTask task, Data error)? onData,
+    void Function(URLSession session, URLSessionTask task, objc.NSData data)?
+        onData,
     void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
         onFinishedDownloading,
-    void Function(URLSession session, URLSessionTask task, Error? error)?
+    void Function(URLSession session, URLSessionTask task, objc.NSError? error)?
         onComplete,
     void Function(
             URLSession session, URLSessionWebSocketTask task, String? protocol)?
         onWebSocketTaskOpened,
     void Function(URLSession session, URLSessionWebSocketTask task,
-            int? closeCode, Data? reason)?
+            int? closeCode, objc.NSData? reason)?
         onWebSocketTaskClosed,
   }) {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
@@ -1384,14 +1258,13 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     // NOTE: this is likely to reduce throughput when there are multiple
     // requests in flight because each call to a delegate waits on a lock
     // that is unlocked by Dart code.
-    final queue = ncb.NSOperationQueue.new1(linkedLibs)
+    final queue = ncb.NSOperationQueue.new1()
       ..maxConcurrentOperationCount = 1
-      ..name =
-          'cupertino_http.NSURLSessionDelegateQueue'.toNSString(linkedLibs);
+      ..name = 'cupertino_http.NSURLSessionDelegateQueue'.toNSString();
 
     return URLSession._(
         ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
-            linkedLibs, config._nsObject, _delegate, queue),
+            config._nsObject, _delegate, queue),
         isBackground: config._isBackground,
         onRedirect: onRedirect,
         onResponse: onResponse,
@@ -1415,7 +1288,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   String? get sessionDescription =>
       toStringOrNull(_nsObject.sessionDescription);
   set sessionDescription(String? value) =>
-      _nsObject.sessionDescription = value?.toNSString(linkedLibs);
+      _nsObject.sessionDescription = value?.toNSString();
 
   /// Create a [URLSessionTask] that accesses a server URL.
   ///
@@ -1438,7 +1311,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// See [NSURLSession dataTaskWithRequest:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsession/1407613-datataskwithrequest)
   URLSessionTask dataTaskWithCompletionHandler(
       URLRequest request,
-      void Function(Data? data, HTTPURLResponse? response, Error? error)
+      void Function(
+              objc.NSData? data, HTTPURLResponse? response, objc.NSError? error)
           completion) {
     // This method cannot be implemented by simply calling
     // `dataTaskWithRequest:completionHandler:` because the completion handler
@@ -1455,19 +1329,19 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
 
     HTTPURLResponse? finalResponse;
-    MutableData? allData;
+    objc.NSMutableData? allData;
 
     _setupDelegation(_delegate, this, task, onRedirect: _onRedirect, onResponse:
         (URLSession session, URLSessionTask task, URLResponse response) {
       finalResponse =
           HTTPURLResponse._(ncb.NSHTTPURLResponse.castFrom(response._nsObject));
       return URLSessionResponseDisposition.urlSessionResponseAllow;
-    }, onData: (URLSession session, URLSessionTask task, Data data) {
-      allData ??= MutableData.empty();
-      allData!.appendBytes(data.bytes);
-    }, onComplete: (URLSession session, URLSessionTask task, Error? error) {
-      completion(allData == null ? null : Data.fromData(allData!),
-          finalResponse, error);
+    }, onData: (URLSession session, URLSessionTask task, objc.NSData data) {
+      allData ??= objc.NSMutableData.data();
+      allData!.appendData_(data);
+    }, onComplete:
+        (URLSession session, URLSessionTask task, objc.NSError? error) {
+      completion(allData, finalResponse, error);
     });
 
     return URLSessionTask._(task._nsObject);
