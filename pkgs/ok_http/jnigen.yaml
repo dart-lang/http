@@ -1,0 +1,80 @@
+# To regenerate the JNI Bindings, download the OkHttp 4.12.0 JAR file from the Maven Repository
+# and place them in 'jar/'.
+# https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp/4.12.0
+# Then run the command: dart run jnigen --config jnigen.yaml
+
+summarizer:
+  backend: asm
+
+output:
+  dart:
+    path: "lib/src/third_party/"
+
+enable_experiment:
+  - "interface_implementation"
+
+classes:
+  - "okhttp3.Request"
+  - "okhttp3.RequestBody"
+  - "okhttp3.Response"
+  - "okhttp3.ResponseBody"
+  - "okhttp3.OkHttpClient"
+  - "okhttp3.Call"
+  - "okhttp3.Headers"
+  - "okhttp3.Callback"
+
+# Exclude the deprecated methods listed below
+# They cause syntax errors during the `dart format` step of JNIGen.
+exclude:
+  methods:
+    - "okhttp3.Request#-deprecated_url"
+    - "okhttp3.Request#-deprecated_method"
+    - "okhttp3.Request#-deprecated_headers"
+    - "okhttp3.Request#-deprecated_body"
+    - "okhttp3.Request#-deprecated_cacheControl"
+    - "okhttp3.Response#-deprecated_request"
+    - "okhttp3.Response#-deprecated_protocol"
+    - "okhttp3.Response#-deprecated_code"
+    - "okhttp3.Response#-deprecated_message"
+    - "okhttp3.Response#-deprecated_handshake"
+    - "okhttp3.Response#-deprecated_headers"
+    - "okhttp3.Response#-deprecated_body"
+    - "okhttp3.Response#-deprecated_networkResponse"
+    - "okhttp3.Response#-deprecated_priorResponse"
+    - "okhttp3.Response#-deprecated_cacheResponse"
+    - "okhttp3.Response#-deprecated_cacheControl"
+    - "okhttp3.Response#-deprecated_sentRequestAtMillis"
+    - "okhttp3.Response#-deprecated_receivedResponseAtMillis"
+    - "okhttp3.OkHttpClient#-deprecated_dispatcher"
+    - "okhttp3.OkHttpClient#-deprecated_connectionPool"
+    - "okhttp3.OkHttpClient#-deprecated_interceptors"
+    - "okhttp3.OkHttpClient#-deprecated_networkInterceptors"
+    - "okhttp3.OkHttpClient#-deprecated_eventListenerFactory"
+    - "okhttp3.OkHttpClient#-deprecated_retryOnConnectionFailure"
+    - "okhttp3.OkHttpClient#-deprecated_authenticator"
+    - "okhttp3.OkHttpClient#-deprecated_followRedirects"
+    - "okhttp3.OkHttpClient#-deprecated_followSslRedirects"
+    - "okhttp3.OkHttpClient#-deprecated_cookieJar"
+    - "okhttp3.OkHttpClient#-deprecated_cache"
+    - "okhttp3.OkHttpClient#-deprecated_dns"
+    - "okhttp3.OkHttpClient#-deprecated_proxy"
+    - "okhttp3.OkHttpClient#-deprecated_proxySelector"
+    - "okhttp3.OkHttpClient#-deprecated_proxyAuthenticator"
+    - "okhttp3.OkHttpClient#-deprecated_socketFactory"
+    - "okhttp3.OkHttpClient#-deprecated_sslSocketFactory"
+    - "okhttp3.OkHttpClient#-deprecated_connectionSpecs"
+    - "okhttp3.OkHttpClient#-deprecated_hostnameVerifier"
+    - "okhttp3.OkHttpClient#-deprecated_certificatePinner"
+    - "okhttp3.OkHttpClient#-deprecated_callTimeoutMillis"
+    - "okhttp3.OkHttpClient#-deprecated_connectTimeoutMillis"
+    - "okhttp3.OkHttpClient#-deprecated_readTimeoutMillis"
+    - "okhttp3.OkHttpClient#-deprecated_writeTimeoutMillis"
+    - "okhttp3.OkHttpClient#-deprecated_pingIntervalMillis"
+    - "okhttp3.OkHttpClient#-deprecated_protocols"
+    - 'okhttp3.OkHttpClient\$Builder#-addInterceptor'
+    - 'okhttp3.OkHttpClient\$Builder#-addNetworkInterceptor'
+    - 'okhttp3.Headers\$Companion#-deprecated_of'
+    - "okhttp3.Headers#-deprecated_size"
+
+class_path:
+  - "jar/okhttp-4.12.0.jar"
