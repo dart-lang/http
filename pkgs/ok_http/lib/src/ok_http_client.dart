@@ -2,7 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// An Android Flutter plugin that exposes the [OkHttp](https://square.github.io/okhttp/) HTTP client.
+/// An Android Flutter plugin that exposes the
+/// [OkHttp](https://square.github.io/okhttp/) HTTP client.
 ///
 /// The platform interface must be initialized before using this plugin e.g. by
 /// calling
@@ -41,7 +42,6 @@ import 'third_party/okhttp3/_package.dart' as bindings;
 ///   }
 /// }
 /// ```
-///
 class OkHttpClient extends BaseClient {
   late bindings.OkHttpClient _client;
 
@@ -56,18 +56,16 @@ class OkHttpClient extends BaseClient {
     var requestMethod = request.method;
     var requestBody = await request.finalize().toBytes();
 
-    // A Completer to return the response, as OkHttp's enqueue API is async
     final responseCompleter = Completer<StreamedResponse>();
 
-    // Create an OkHttp Request Builder
     var reqBuilder = bindings.Request_Builder().url1(requestUrl.toJString());
 
     requestHeaders.forEach((headerName, headerValue) {
       reqBuilder.addHeader(headerName.toJString(), headerValue.toJString());
     });
 
-    // OkHttp doesn't allow a non-null RequestBody for GET and HEAD requests
-    // So, we need to handle this case separately
+    // OkHttp doesn't allow a non-null RequestBody for GET and HEAD requests.
+    // So, we need to handle this case separately.
     bindings.RequestBody okReqBody;
     if (requestMethod != 'GET' && requestMethod != 'HEAD') {
       okReqBody = bindings.RequestBody.create10(requestBody.toJArray());
@@ -98,7 +96,7 @@ class OkHttpClient extends BaseClient {
               contentLength = int.tryParse(responseHeaders['content-length']!);
 
               // To be conformant with RFC 2616 14.13, we need to check if the
-              // content-length is a non-negative integer
+              // content-length is a non-negative integer.
               if (contentLength == null || contentLength < 0) {
                 responseCompleter.completeError(ClientException(
                     'Invalid content-length header', request.url));
@@ -106,6 +104,9 @@ class OkHttpClient extends BaseClient {
               }
             }
 
+            // Exceptions while reading the response body such as
+            // `java.net.ProtocolException` & `java.net.SocketTimeoutException`
+            // crash the app if un-handled.
             try {
               responseCompleter.complete(StreamedResponse(
                 Stream.value(response.body().bytes().toUint8List()),
@@ -121,9 +122,9 @@ class OkHttpClient extends BaseClient {
                   .completeError(ClientException(e.toString(), request.url));
             }
           },
-          onFailure: (bindings.Call call, JObject iOException) {
+          onFailure: (bindings.Call call, JObject ioException) {
             responseCompleter.completeError(
-                ClientException(iOException.toString(), request.url));
+                ClientException(ioException.toString(), request.url));
           },
         )));
 

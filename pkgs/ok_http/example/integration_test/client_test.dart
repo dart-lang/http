@@ -15,13 +15,13 @@ void main() async {
 
 Future<void> testConformance() async {
   group('ok_http client', () {
-    testAll(
-      OkHttpClient.new,
-      canStreamRequestBody: false,
-      canStreamResponseBody: false,
-      preservesMethodCase: true,
-      canSendCookieHeaders: true,
-      canReceiveSetCookieHeaders: true,
-    );
+    testRequestBody(OkHttpClient());
+    testResponseBody(OkHttpClient(), canStreamResponseBody: false);
+    testRequestHeaders(OkHttpClient());
+    testRequestMethods(OkHttpClient(), preservesMethodCase: true);
+    testResponseStatusLine(OkHttpClient());
+    testCompressedResponseBody(OkHttpClient());
+    testIsolate(OkHttpClient.new);
+    testResponseCookies(OkHttpClient(), canReceiveSetCookieHeaders: true);
   });
 }
