@@ -12,10 +12,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.2.1
+  jni: ^0.9.2
   plugin_platform_interface: ^2.0.2
 
 dev_dependencies:
   dart_flutter_team_lints: ^2.0.0
+  jnigen: ^0.9.1
 
 flutter:
   plugin:
