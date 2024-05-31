@@ -107,20 +107,25 @@ class OkHttpClient extends BaseClient {
             // Exceptions while reading the response body such as
             // `java.net.ProtocolException` & `java.net.SocketTimeoutException`
             // crash the app if un-handled.
+            var responseBody = Uint8List.fromList([]);
             try {
-              responseCompleter.complete(StreamedResponse(
-                Stream.value(response.body().bytes().toUint8List()),
-                response.code(),
-                reasonPhrase:
-                    response.message().toDartString(releaseOriginal: true),
-                headers: responseHeaders,
-                request: request,
-                contentLength: contentLength,
-              ));
+              // Blocking call to read the response body.
+              responseBody = response.body().bytes().toUint8List();
             } catch (e) {
               responseCompleter
                   .completeError(ClientException(e.toString(), request.url));
+              return;
             }
+
+            responseCompleter.complete(StreamedResponse(
+              Stream.value(responseBody),
+              response.code(),
+              reasonPhrase:
+                  response.message().toDartString(releaseOriginal: true),
+              headers: responseHeaders,
+              request: request,
+              contentLength: contentLength,
+            ));
           },
           onFailure: (bindings.Call call, JObject ioException) {
             responseCompleter.completeError(
