@@ -19,9 +19,11 @@ Future<void> testConformance() async {
     testResponseBody(OkHttpClient(), canStreamResponseBody: false);
     testRequestHeaders(OkHttpClient());
     testRequestMethods(OkHttpClient(), preservesMethodCase: true);
+    testResponseHeaders(OkHttpClient(), supportsFoldedHeaders: false);
     testResponseStatusLine(OkHttpClient());
     testCompressedResponseBody(OkHttpClient());
     testServerErrors(OkHttpClient());
+    testClose(OkHttpClient.new);
     testIsolate(OkHttpClient.new);
     testResponseCookies(OkHttpClient(), canReceiveSetCookieHeaders: true);
   });
