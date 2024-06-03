@@ -126,6 +126,9 @@ class OkHttpClient extends BaseClient {
               request: request,
               contentLength: contentLength,
             ));
+
+            // Close and remove all idle connections from the resource pool.
+            _client.connectionPool().evictAll();
           },
           onFailure: (bindings.Call call, JObject ioException) {
             responseCompleter.completeError(

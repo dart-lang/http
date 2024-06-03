@@ -19,10 +19,12 @@ Future<void> testConformance() async {
     testResponseBody(OkHttpClient(), canStreamResponseBody: false);
     testRequestHeaders(OkHttpClient());
     testRequestMethods(OkHttpClient(), preservesMethodCase: true);
+    testResponseHeaders(OkHttpClient(), supportsFoldedHeaders: false);
     testResponseStatusLine(OkHttpClient());
     testCompressedResponseBody(OkHttpClient());
     testServerErrors(OkHttpClient());
     testIsolate(OkHttpClient.new);
+    testRequestCookies(OkHttpClient(), canSendCookieHeaders: true);
     testResponseCookies(OkHttpClient(), canReceiveSetCookieHeaders: true);
   });
 }
