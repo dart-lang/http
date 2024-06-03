@@ -18,7 +18,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart';
 import 'package:jni/jni.dart';
 
-import 'third_party/okhttp3/_package.dart' as bindings;
+import 'jni/bindings.dart' as bindings;
 
 /// An HTTP [Client] utilizing the [OkHttp](https://square.github.io/okhttp/) client.
 ///
