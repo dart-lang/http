@@ -21,6 +21,7 @@ Future<void> testConformance() async {
     testRequestMethods(OkHttpClient(), preservesMethodCase: true);
     testResponseStatusLine(OkHttpClient());
     testCompressedResponseBody(OkHttpClient());
+    testServerErrors(OkHttpClient());
     testIsolate(OkHttpClient.new);
     testResponseCookies(OkHttpClient(), canReceiveSetCookieHeaders: true);
   });
