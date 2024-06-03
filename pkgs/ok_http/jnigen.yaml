@@ -8,7 +8,8 @@ summarizer:
 
 output:
   dart:
-    path: "lib/src/third_party/"
+    path: "lib/src/jni/bindings.dart"
+    structure: single_file
 
 enable_experiment:
   - "interface_implementation"
