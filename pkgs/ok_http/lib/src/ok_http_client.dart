@@ -66,10 +66,14 @@ class OkHttpClient extends BaseClient {
           .instanceMethodId('shutdown', '()V');
 
       // Remove all idle connections from the resource pool.
-      // And, release the JNI reference to the client.
-      _client
-        ..connectionPool().evictAll()
-        ..release();
+      _client.connectionPool().evictAll();
+
+      // Close the cache and release the JNI reference to the client.
+      var cache = _client.cache();
+      if (!cache.isNull) {
+        cache.close();
+      }
+      _client.release();
     }
     _isClosed = true;
   }

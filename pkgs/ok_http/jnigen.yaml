@@ -25,6 +25,7 @@ classes:
   - "okhttp3.Callback"
   - "okhttp3.ConnectionPool"
   - "okhttp3.Dispatcher"
+  - "okhttp3.Cache"
 
 # Exclude the deprecated methods listed below
 # They cause syntax errors during the `dart format` step of JNIGen.
@@ -79,6 +80,7 @@ exclude:
     - 'okhttp3.Headers\$Companion#-deprecated_of'
     - "okhttp3.Headers#-deprecated_size"
     - "okhttp3.Dispatcher#-deprecated_executorService"
+    - "okhttp3.Cache#-deprecated_directory"
 
 class_path:
   - "jar/okhttp-4.12.0.jar"

@@ -4673,7 +4673,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// from: public final okhttp3.OkHttpClient$Builder cache(okhttp3.Cache cache)
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder cache(
-    jni.JObject cache,
+    Cache cache,
   ) {
     return _cache(reference.pointer, _id_cache as jni.JMethodIDPtr,
             cache.reference.pointer)
@@ -5708,9 +5708,9 @@ class OkHttpClient extends jni.JObject {
 
   /// from: public final okhttp3.Cache cache()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject cache() {
+  Cache cache() {
     return _cache(reference.pointer, _id_cache as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+        .object(const $CacheType());
   }
 
   static final _id_dns = _class.instanceMethodId(
@@ -8704,5 +8704,736 @@ final class $DispatcherType extends jni.JObjType<Dispatcher> {
   @override
   bool operator ==(Object other) {
     return other.runtimeType == ($DispatcherType) && other is $DispatcherType;
+  }
+}
+
+/// from: okhttp3.Cache$Companion
+class Cache_Companion extends jni.JObject {
+  @override
+  late final jni.JObjType<Cache_Companion> $type = type;
+
+  Cache_Companion.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/Cache$Companion");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $Cache_CompanionType();
+  static final _id_key = _class.instanceMethodId(
+    r"key",
+    r"(Lokhttp3/HttpUrl;)Ljava/lang/String;",
+  );
+
+  static final _key = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final java.lang.String key(okhttp3.HttpUrl httpUrl)
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JString key(
+    jni.JObject httpUrl,
+  ) {
+    return _key(reference.pointer, _id_key as jni.JMethodIDPtr,
+            httpUrl.reference.pointer)
+        .object(const jni.JStringType());
+  }
+
+  static final _id_varyMatches = _class.instanceMethodId(
+    r"varyMatches",
+    r"(Lokhttp3/Response;Lokhttp3/Headers;Lokhttp3/Request;)Z",
+  );
+
+  static final _varyMatches = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>,
+              jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final boolean varyMatches(okhttp3.Response response, okhttp3.Headers headers, okhttp3.Request request)
+  bool varyMatches(
+    Response response,
+    Headers headers,
+    Request request,
+  ) {
+    return _varyMatches(
+            reference.pointer,
+            _id_varyMatches as jni.JMethodIDPtr,
+            response.reference.pointer,
+            headers.reference.pointer,
+            request.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_hasVaryAll = _class.instanceMethodId(
+    r"hasVaryAll",
+    r"(Lokhttp3/Response;)Z",
+  );
+
+  static final _hasVaryAll = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final boolean hasVaryAll(okhttp3.Response response)
+  bool hasVaryAll(
+    Response response,
+  ) {
+    return _hasVaryAll(reference.pointer, _id_hasVaryAll as jni.JMethodIDPtr,
+            response.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_varyHeaders = _class.instanceMethodId(
+    r"varyHeaders",
+    r"(Lokhttp3/Response;)Lokhttp3/Headers;",
+  );
+
+  static final _varyHeaders = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final okhttp3.Headers varyHeaders(okhttp3.Response response)
+  /// The returned object must be released after use, by calling the [release] method.
+  Headers varyHeaders(
+    Response response,
+  ) {
+    return _varyHeaders(reference.pointer, _id_varyHeaders as jni.JMethodIDPtr,
+            response.reference.pointer)
+        .object(const $HeadersType());
+  }
+
+  static final _id_new0 = _class.constructorId(
+    r"(Lkotlin/jvm/internal/DefaultConstructorMarker;)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Cache_Companion(
+    jni.JObject defaultConstructorMarker,
+  ) {
+    return Cache_Companion.fromReference(_new0(
+            _class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr,
+            defaultConstructorMarker.reference.pointer)
+        .reference);
+  }
+}
+
+final class $Cache_CompanionType extends jni.JObjType<Cache_Companion> {
+  const $Cache_CompanionType();
+
+  @override
+  String get signature => r"Lokhttp3/Cache$Companion;";
+
+  @override
+  Cache_Companion fromReference(jni.JReference reference) =>
+      Cache_Companion.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($Cache_CompanionType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Cache_CompanionType) &&
+        other is $Cache_CompanionType;
+  }
+}
+
+/// from: okhttp3.Cache$Entry$Companion
+class Cache_Entry_Companion extends jni.JObject {
+  @override
+  late final jni.JObjType<Cache_Entry_Companion> $type = type;
+
+  Cache_Entry_Companion.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/Cache$Entry$Companion");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $Cache_Entry_CompanionType();
+  static final _id_new0 = _class.constructorId(
+    r"(Lkotlin/jvm/internal/DefaultConstructorMarker;)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Cache_Entry_Companion(
+    jni.JObject defaultConstructorMarker,
+  ) {
+    return Cache_Entry_Companion.fromReference(_new0(
+            _class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr,
+            defaultConstructorMarker.reference.pointer)
+        .reference);
+  }
+}
+
+final class $Cache_Entry_CompanionType
+    extends jni.JObjType<Cache_Entry_Companion> {
+  const $Cache_Entry_CompanionType();
+
+  @override
+  String get signature => r"Lokhttp3/Cache$Entry$Companion;";
+
+  @override
+  Cache_Entry_Companion fromReference(jni.JReference reference) =>
+      Cache_Entry_Companion.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($Cache_Entry_CompanionType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Cache_Entry_CompanionType) &&
+        other is $Cache_Entry_CompanionType;
+  }
+}
+
+/// from: okhttp3.Cache
+class Cache extends jni.JObject {
+  @override
+  late final jni.JObjType<Cache> $type = type;
+
+  Cache.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/Cache");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $CacheType();
+  static final _id_Companion = _class.staticFieldId(
+    r"Companion",
+    r"Lokhttp3/Cache$Companion;",
+  );
+
+  /// from: static public final okhttp3.Cache$Companion Companion
+  /// The returned object must be released after use, by calling the [release] method.
+  static Cache_Companion get Companion =>
+      _id_Companion.get(_class, const $Cache_CompanionType());
+
+  static final _id_new0 = _class.constructorId(
+    r"(Ljava/io/File;JLokhttp3/internal/io/FileSystem;)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Int64,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(java.io.File file, long j, okhttp3.internal.io.FileSystem fileSystem)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Cache(
+    jni.JObject file,
+    int j,
+    jni.JObject fileSystem,
+  ) {
+    return Cache.fromReference(_new0(
+            _class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr,
+            file.reference.pointer,
+            j,
+            fileSystem.reference.pointer)
+        .reference);
+  }
+
+  static final _id_isClosed = _class.instanceMethodId(
+    r"isClosed",
+    r"()Z",
+  );
+
+  static final _isClosed = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final boolean isClosed()
+  bool isClosed() {
+    return _isClosed(reference.pointer, _id_isClosed as jni.JMethodIDPtr)
+        .boolean;
+  }
+
+  static final _id_new1 = _class.constructorId(
+    r"(Ljava/io/File;J)V",
+  );
+
+  static final _new1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, ffi.Int64)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public void <init>(java.io.File file, long j)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Cache.new1(
+    jni.JObject file,
+    int j,
+  ) {
+    return Cache.fromReference(_new1(_class.reference.pointer,
+            _id_new1 as jni.JMethodIDPtr, file.reference.pointer, j)
+        .reference);
+  }
+
+  static final _id_initialize = _class.instanceMethodId(
+    r"initialize",
+    r"()V",
+  );
+
+  static final _initialize = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final void initialize()
+  void initialize() {
+    _initialize(reference.pointer, _id_initialize as jni.JMethodIDPtr).check();
+  }
+
+  static final _id_delete = _class.instanceMethodId(
+    r"delete",
+    r"()V",
+  );
+
+  static final _delete = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final void delete()
+  void delete() {
+    _delete(reference.pointer, _id_delete as jni.JMethodIDPtr).check();
+  }
+
+  static final _id_evictAll = _class.instanceMethodId(
+    r"evictAll",
+    r"()V",
+  );
+
+  static final _evictAll = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final void evictAll()
+  void evictAll() {
+    _evictAll(reference.pointer, _id_evictAll as jni.JMethodIDPtr).check();
+  }
+
+  static final _id_urls = _class.instanceMethodId(
+    r"urls",
+    r"()Ljava/util/Iterator;",
+  );
+
+  static final _urls = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final java.util.Iterator urls()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JIterator<jni.JString> urls() {
+    return _urls(reference.pointer, _id_urls as jni.JMethodIDPtr)
+        .object(const jni.JIteratorType(jni.JStringType()));
+  }
+
+  static final _id_writeAbortCount = _class.instanceMethodId(
+    r"writeAbortCount",
+    r"()I",
+  );
+
+  static final _writeAbortCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int writeAbortCount()
+  int writeAbortCount() {
+    return _writeAbortCount(
+            reference.pointer, _id_writeAbortCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_writeSuccessCount = _class.instanceMethodId(
+    r"writeSuccessCount",
+    r"()I",
+  );
+
+  static final _writeSuccessCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int writeSuccessCount()
+  int writeSuccessCount() {
+    return _writeSuccessCount(
+            reference.pointer, _id_writeSuccessCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_size = _class.instanceMethodId(
+    r"size",
+    r"()J",
+  );
+
+  static final _size = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallLongMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final long size()
+  int size() {
+    return _size(reference.pointer, _id_size as jni.JMethodIDPtr).long;
+  }
+
+  static final _id_maxSize = _class.instanceMethodId(
+    r"maxSize",
+    r"()J",
+  );
+
+  static final _maxSize = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallLongMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final long maxSize()
+  int maxSize() {
+    return _maxSize(reference.pointer, _id_maxSize as jni.JMethodIDPtr).long;
+  }
+
+  static final _id_flush = _class.instanceMethodId(
+    r"flush",
+    r"()V",
+  );
+
+  static final _flush = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void flush()
+  void flush() {
+    _flush(reference.pointer, _id_flush as jni.JMethodIDPtr).check();
+  }
+
+  static final _id_close = _class.instanceMethodId(
+    r"close",
+    r"()V",
+  );
+
+  static final _close = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void close()
+  void close() {
+    _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
+  }
+
+  static final _id_directory = _class.instanceMethodId(
+    r"directory",
+    r"()Ljava/io/File;",
+  );
+
+  static final _directory = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final java.io.File directory()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JObject directory() {
+    return _directory(reference.pointer, _id_directory as jni.JMethodIDPtr)
+        .object(const jni.JObjectType());
+  }
+
+  static final _id_networkCount = _class.instanceMethodId(
+    r"networkCount",
+    r"()I",
+  );
+
+  static final _networkCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int networkCount()
+  int networkCount() {
+    return _networkCount(
+            reference.pointer, _id_networkCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_hitCount = _class.instanceMethodId(
+    r"hitCount",
+    r"()I",
+  );
+
+  static final _hitCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int hitCount()
+  int hitCount() {
+    return _hitCount(reference.pointer, _id_hitCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_requestCount = _class.instanceMethodId(
+    r"requestCount",
+    r"()I",
+  );
+
+  static final _requestCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int requestCount()
+  int requestCount() {
+    return _requestCount(
+            reference.pointer, _id_requestCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_key = _class.staticMethodId(
+    r"key",
+    r"(Lokhttp3/HttpUrl;)Ljava/lang/String;",
+  );
+
+  static final _key = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public final java.lang.String key(okhttp3.HttpUrl httpUrl)
+  /// The returned object must be released after use, by calling the [release] method.
+  static jni.JString key(
+    jni.JObject httpUrl,
+  ) {
+    return _key(_class.reference.pointer, _id_key as jni.JMethodIDPtr,
+            httpUrl.reference.pointer)
+        .object(const jni.JStringType());
+  }
+}
+
+final class $CacheType extends jni.JObjType<Cache> {
+  const $CacheType();
+
+  @override
+  String get signature => r"Lokhttp3/Cache;";
+
+  @override
+  Cache fromReference(jni.JReference reference) =>
+      Cache.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($CacheType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($CacheType) && other is $CacheType;
   }
 }
