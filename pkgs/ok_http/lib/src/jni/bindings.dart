@@ -4360,7 +4360,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// from: public final okhttp3.OkHttpClient$Builder connectionPool(okhttp3.ConnectionPool connectionPool)
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectionPool(
-    jni.JObject connectionPool,
+    ConnectionPool connectionPool,
   ) {
     return _connectionPool(
             reference.pointer,
@@ -5487,10 +5487,10 @@ class OkHttpClient extends jni.JObject {
 
   /// from: public final okhttp3.ConnectionPool connectionPool()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject connectionPool() {
+  ConnectionPool connectionPool() {
     return _connectionPool(
             reference.pointer, _id_connectionPool as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+        .object(const $ConnectionPoolType());
   }
 
   static final _id_interceptors = _class.instanceMethodId(
@@ -8136,5 +8136,195 @@ final class $CallbackType extends jni.JObjType<Callback> {
   @override
   bool operator ==(Object other) {
     return other.runtimeType == ($CallbackType) && other is $CallbackType;
+  }
+}
+
+/// from: okhttp3.ConnectionPool
+class ConnectionPool extends jni.JObject {
+  @override
+  late final jni.JObjType<ConnectionPool> $type = type;
+
+  ConnectionPool.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/ConnectionPool");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $ConnectionPoolType();
+  static final _id_new0 = _class.constructorId(
+    r"(Lokhttp3/internal/connection/RealConnectionPool;)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(okhttp3.internal.connection.RealConnectionPool realConnectionPool)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ConnectionPool(
+    jni.JObject realConnectionPool,
+  ) {
+    return ConnectionPool.fromReference(_new0(_class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr, realConnectionPool.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new1 = _class.constructorId(
+    r"(IJLjava/util/concurrent/TimeUnit;)V",
+  );
+
+  static final _new1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Int64,
+                        ffi.Int64,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
+              int, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(int i, long j, java.util.concurrent.TimeUnit timeUnit)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ConnectionPool.new1(
+    int i,
+    int j,
+    jni.JObject timeUnit,
+  ) {
+    return ConnectionPool.fromReference(_new1(_class.reference.pointer,
+            _id_new1 as jni.JMethodIDPtr, i, j, timeUnit.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new2 = _class.constructorId(
+    r"()V",
+  );
+
+  static final _new2 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void <init>()
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ConnectionPool.new2() {
+    return ConnectionPool.fromReference(
+        _new2(_class.reference.pointer, _id_new2 as jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_idleConnectionCount = _class.instanceMethodId(
+    r"idleConnectionCount",
+    r"()I",
+  );
+
+  static final _idleConnectionCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int idleConnectionCount()
+  int idleConnectionCount() {
+    return _idleConnectionCount(
+            reference.pointer, _id_idleConnectionCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_connectionCount = _class.instanceMethodId(
+    r"connectionCount",
+    r"()I",
+  );
+
+  static final _connectionCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int connectionCount()
+  int connectionCount() {
+    return _connectionCount(
+            reference.pointer, _id_connectionCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_evictAll = _class.instanceMethodId(
+    r"evictAll",
+    r"()V",
+  );
+
+  static final _evictAll = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final void evictAll()
+  void evictAll() {
+    _evictAll(reference.pointer, _id_evictAll as jni.JMethodIDPtr).check();
+  }
+}
+
+final class $ConnectionPoolType extends jni.JObjType<ConnectionPool> {
+  const $ConnectionPoolType();
+
+  @override
+  String get signature => r"Lokhttp3/ConnectionPool;";
+
+  @override
+  ConnectionPool fromReference(jni.JReference reference) =>
+      ConnectionPool.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($ConnectionPoolType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($ConnectionPoolType) &&
+        other is $ConnectionPoolType;
   }
 }
