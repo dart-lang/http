@@ -11,7 +11,8 @@ import 'response_headers_server_vm.dart'
     if (dart.library.js_interop) 'response_headers_server_web.dart';
 
 /// Tests that the [Client] correctly processes response headers.
-void testResponseHeaders(Client client) async {
+void testResponseHeaders(Client client,
+    {bool supportsFoldedHeaders = true}) async {
   group('server headers', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
@@ -177,6 +178,8 @@ void testResponseHeaders(Client client) async {
             allOf(matches(RegExp(r'BAR {0,3}[ \t]? {0,7}[ \t]? {0,3}BAZ')),
                 contains(' ')));
       });
-    });
+    },
+        skip:
+            !supportsFoldedHeaders ? 'does not support folded headers' : false);
   });
 }
