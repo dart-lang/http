@@ -64,6 +64,9 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [canReceiveSetCookieHeaders] is `false` then tests that require that
 /// "set-cookie" headers be received by the client will not be run.
 ///
+/// If [supportsFoldedHeaders] is `false` then the tests that assume that the
+/// [Client] can parse folded headers will be skipped.
+///
 /// The tests are run against a series of HTTP servers that are started by the
 /// tests. If the tests are run in the browser, then the test servers are
 /// started in another process. Otherwise, the test servers are run in-process.
@@ -74,6 +77,7 @@ void testAll(
   bool redirectAlwaysAllowed = false,
   bool canWorkInIsolates = true,
   bool preservesMethodCase = false,
+  bool supportsFoldedHeaders = true,
   bool canSendCookieHeaders = false,
   bool canReceiveSetCookieHeaders = false,
 }) {
@@ -86,7 +90,8 @@ void testAll(
       canStreamResponseBody: canStreamResponseBody);
   testRequestHeaders(clientFactory());
   testRequestMethods(clientFactory(), preservesMethodCase: preservesMethodCase);
-  testResponseHeaders(clientFactory());
+  testResponseHeaders(clientFactory(),
+      supportsFoldedHeaders: supportsFoldedHeaders);
   testResponseStatusLine(clientFactory());
   testRedirect(clientFactory(), redirectAlwaysAllowed: redirectAlwaysAllowed);
   testServerErrors(clientFactory());
