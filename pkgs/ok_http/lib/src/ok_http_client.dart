@@ -53,6 +53,9 @@ class OkHttpClient extends BaseClient {
   @override
   void close() {
     if (!_isClosed) {
+      // Refer to OkHttp documentation for the shutdown procedure:
+      // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/index.html#:~:text=Shutdown
+
       // Bindings for `java.util.concurrent.ExecutorService` are erroneous.
       // https://github.com/dart-lang/native/issues/588
       // So, use the JClass API to call the `shutdown` method by its signature.
