@@ -44,13 +44,40 @@ import 'jni/bindings.dart' as bindings;
 /// ```
 class OkHttpClient extends BaseClient {
   late bindings.OkHttpClient _client;
+  bool _isClosed = false;
 
   OkHttpClient() {
     _client = bindings.OkHttpClient.new1();
   }
 
   @override
+  void close() {
+    if (!_isClosed) {
+      // Bindings for `java.util.concurrent.ExecutorService` are erroneous.
+      // https://github.com/dart-lang/native/issues/588
+      // So, use the JClass API to call the `shutdown` method by its signature.
+      _client
+          .dispatcher()
+          .executorService()
+          .jClass
+          .instanceMethodId('shutdown', '()V');
+
+      // Remove all idle connections from the resource pool.
+      // And, release the JNI reference to the client.
+      _client
+        ..connectionPool().evictAll()
+        ..release();
+    }
+    _isClosed = true;
+  }
+
+  @override
   Future<StreamedResponse> send(BaseRequest request) async {
+    if (_isClosed) {
+      throw ClientException(
+          'HTTP request failed. Client is already closed.', request.url);
+    }
+
     var requestUrl = request.url.toString();
     var requestHeaders = request.headers;
     var requestMethod = request.method;
