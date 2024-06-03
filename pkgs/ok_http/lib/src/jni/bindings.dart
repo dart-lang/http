@@ -4334,7 +4334,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// from: public final okhttp3.OkHttpClient$Builder dispatcher(okhttp3.Dispatcher dispatcher)
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder dispatcher(
-    jni.JObject dispatcher,
+    Dispatcher dispatcher,
   ) {
     return _dispatcher(reference.pointer, _id_dispatcher as jni.JMethodIDPtr,
             dispatcher.reference.pointer)
@@ -4360,7 +4360,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// from: public final okhttp3.OkHttpClient$Builder connectionPool(okhttp3.ConnectionPool connectionPool)
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectionPool(
-    jni.JObject connectionPool,
+    ConnectionPool connectionPool,
   ) {
     return _connectionPool(
             reference.pointer,
@@ -5463,9 +5463,9 @@ class OkHttpClient extends jni.JObject {
 
   /// from: public final okhttp3.Dispatcher dispatcher()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject dispatcher() {
+  Dispatcher dispatcher() {
     return _dispatcher(reference.pointer, _id_dispatcher as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+        .object(const $DispatcherType());
   }
 
   static final _id_connectionPool = _class.instanceMethodId(
@@ -5487,10 +5487,10 @@ class OkHttpClient extends jni.JObject {
 
   /// from: public final okhttp3.ConnectionPool connectionPool()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject connectionPool() {
+  ConnectionPool connectionPool() {
     return _connectionPool(
             reference.pointer, _id_connectionPool as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+        .object(const $ConnectionPoolType());
   }
 
   static final _id_interceptors = _class.instanceMethodId(
@@ -8136,5 +8136,573 @@ final class $CallbackType extends jni.JObjType<Callback> {
   @override
   bool operator ==(Object other) {
     return other.runtimeType == ($CallbackType) && other is $CallbackType;
+  }
+}
+
+/// from: okhttp3.ConnectionPool
+class ConnectionPool extends jni.JObject {
+  @override
+  late final jni.JObjType<ConnectionPool> $type = type;
+
+  ConnectionPool.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/ConnectionPool");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $ConnectionPoolType();
+  static final _id_new0 = _class.constructorId(
+    r"(Lokhttp3/internal/connection/RealConnectionPool;)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(okhttp3.internal.connection.RealConnectionPool realConnectionPool)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ConnectionPool(
+    jni.JObject realConnectionPool,
+  ) {
+    return ConnectionPool.fromReference(_new0(_class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr, realConnectionPool.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new1 = _class.constructorId(
+    r"(IJLjava/util/concurrent/TimeUnit;)V",
+  );
+
+  static final _new1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Int64,
+                        ffi.Int64,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
+              int, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(int i, long j, java.util.concurrent.TimeUnit timeUnit)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ConnectionPool.new1(
+    int i,
+    int j,
+    jni.JObject timeUnit,
+  ) {
+    return ConnectionPool.fromReference(_new1(_class.reference.pointer,
+            _id_new1 as jni.JMethodIDPtr, i, j, timeUnit.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new2 = _class.constructorId(
+    r"()V",
+  );
+
+  static final _new2 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void <init>()
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ConnectionPool.new2() {
+    return ConnectionPool.fromReference(
+        _new2(_class.reference.pointer, _id_new2 as jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_idleConnectionCount = _class.instanceMethodId(
+    r"idleConnectionCount",
+    r"()I",
+  );
+
+  static final _idleConnectionCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int idleConnectionCount()
+  int idleConnectionCount() {
+    return _idleConnectionCount(
+            reference.pointer, _id_idleConnectionCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_connectionCount = _class.instanceMethodId(
+    r"connectionCount",
+    r"()I",
+  );
+
+  static final _connectionCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int connectionCount()
+  int connectionCount() {
+    return _connectionCount(
+            reference.pointer, _id_connectionCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_evictAll = _class.instanceMethodId(
+    r"evictAll",
+    r"()V",
+  );
+
+  static final _evictAll = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final void evictAll()
+  void evictAll() {
+    _evictAll(reference.pointer, _id_evictAll as jni.JMethodIDPtr).check();
+  }
+}
+
+final class $ConnectionPoolType extends jni.JObjType<ConnectionPool> {
+  const $ConnectionPoolType();
+
+  @override
+  String get signature => r"Lokhttp3/ConnectionPool;";
+
+  @override
+  ConnectionPool fromReference(jni.JReference reference) =>
+      ConnectionPool.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($ConnectionPoolType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($ConnectionPoolType) &&
+        other is $ConnectionPoolType;
+  }
+}
+
+/// from: okhttp3.Dispatcher
+class Dispatcher extends jni.JObject {
+  @override
+  late final jni.JObjType<Dispatcher> $type = type;
+
+  Dispatcher.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/Dispatcher");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $DispatcherType();
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void <init>()
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Dispatcher() {
+    return Dispatcher.fromReference(
+        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_getMaxRequests = _class.instanceMethodId(
+    r"getMaxRequests",
+    r"()I",
+  );
+
+  static final _getMaxRequests = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int getMaxRequests()
+  int getMaxRequests() {
+    return _getMaxRequests(
+            reference.pointer, _id_getMaxRequests as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_setMaxRequests = _class.instanceMethodId(
+    r"setMaxRequests",
+    r"(I)V",
+  );
+
+  static final _setMaxRequests = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public final void setMaxRequests(int i)
+  void setMaxRequests(
+    int i,
+  ) {
+    _setMaxRequests(
+            reference.pointer, _id_setMaxRequests as jni.JMethodIDPtr, i)
+        .check();
+  }
+
+  static final _id_getMaxRequestsPerHost = _class.instanceMethodId(
+    r"getMaxRequestsPerHost",
+    r"()I",
+  );
+
+  static final _getMaxRequestsPerHost = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int getMaxRequestsPerHost()
+  int getMaxRequestsPerHost() {
+    return _getMaxRequestsPerHost(
+            reference.pointer, _id_getMaxRequestsPerHost as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_setMaxRequestsPerHost = _class.instanceMethodId(
+    r"setMaxRequestsPerHost",
+    r"(I)V",
+  );
+
+  static final _setMaxRequestsPerHost = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public final void setMaxRequestsPerHost(int i)
+  void setMaxRequestsPerHost(
+    int i,
+  ) {
+    _setMaxRequestsPerHost(
+            reference.pointer, _id_setMaxRequestsPerHost as jni.JMethodIDPtr, i)
+        .check();
+  }
+
+  static final _id_getIdleCallback = _class.instanceMethodId(
+    r"getIdleCallback",
+    r"()Ljava/lang/Runnable;",
+  );
+
+  static final _getIdleCallback = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final java.lang.Runnable getIdleCallback()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JObject getIdleCallback() {
+    return _getIdleCallback(
+            reference.pointer, _id_getIdleCallback as jni.JMethodIDPtr)
+        .object(const jni.JObjectType());
+  }
+
+  static final _id_setIdleCallback = _class.instanceMethodId(
+    r"setIdleCallback",
+    r"(Ljava/lang/Runnable;)V",
+  );
+
+  static final _setIdleCallback = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JThrowablePtr Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final void setIdleCallback(java.lang.Runnable runnable)
+  void setIdleCallback(
+    jni.JObject runnable,
+  ) {
+    _setIdleCallback(reference.pointer, _id_setIdleCallback as jni.JMethodIDPtr,
+            runnable.reference.pointer)
+        .check();
+  }
+
+  static final _id_executorService = _class.instanceMethodId(
+    r"executorService",
+    r"()Ljava/util/concurrent/ExecutorService;",
+  );
+
+  static final _executorService = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final java.util.concurrent.ExecutorService executorService()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JObject executorService() {
+    return _executorService(
+            reference.pointer, _id_executorService as jni.JMethodIDPtr)
+        .object(const jni.JObjectType());
+  }
+
+  static final _id_new1 = _class.constructorId(
+    r"(Ljava/util/concurrent/ExecutorService;)V",
+  );
+
+  static final _new1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(java.util.concurrent.ExecutorService executorService)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Dispatcher.new1(
+    jni.JObject executorService,
+  ) {
+    return Dispatcher.fromReference(_new1(_class.reference.pointer,
+            _id_new1 as jni.JMethodIDPtr, executorService.reference.pointer)
+        .reference);
+  }
+
+  static final _id_cancelAll = _class.instanceMethodId(
+    r"cancelAll",
+    r"()V",
+  );
+
+  static final _cancelAll = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final void cancelAll()
+  void cancelAll() {
+    _cancelAll(reference.pointer, _id_cancelAll as jni.JMethodIDPtr).check();
+  }
+
+  static final _id_queuedCalls = _class.instanceMethodId(
+    r"queuedCalls",
+    r"()Ljava/util/List;",
+  );
+
+  static final _queuedCalls = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final java.util.List queuedCalls()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JList<Call> queuedCalls() {
+    return _queuedCalls(reference.pointer, _id_queuedCalls as jni.JMethodIDPtr)
+        .object(const jni.JListType($CallType()));
+  }
+
+  static final _id_runningCalls = _class.instanceMethodId(
+    r"runningCalls",
+    r"()Ljava/util/List;",
+  );
+
+  static final _runningCalls = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final java.util.List runningCalls()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JList<Call> runningCalls() {
+    return _runningCalls(
+            reference.pointer, _id_runningCalls as jni.JMethodIDPtr)
+        .object(const jni.JListType($CallType()));
+  }
+
+  static final _id_queuedCallsCount = _class.instanceMethodId(
+    r"queuedCallsCount",
+    r"()I",
+  );
+
+  static final _queuedCallsCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int queuedCallsCount()
+  int queuedCallsCount() {
+    return _queuedCallsCount(
+            reference.pointer, _id_queuedCallsCount as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_runningCallsCount = _class.instanceMethodId(
+    r"runningCallsCount",
+    r"()I",
+  );
+
+  static final _runningCallsCount = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int runningCallsCount()
+  int runningCallsCount() {
+    return _runningCallsCount(
+            reference.pointer, _id_runningCallsCount as jni.JMethodIDPtr)
+        .integer;
+  }
+}
+
+final class $DispatcherType extends jni.JObjType<Dispatcher> {
+  const $DispatcherType();
+
+  @override
+  String get signature => r"Lokhttp3/Dispatcher;";
+
+  @override
+  Dispatcher fromReference(jni.JReference reference) =>
+      Dispatcher.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($DispatcherType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($DispatcherType) && other is $DispatcherType;
   }
 }
