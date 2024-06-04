@@ -94,4 +94,12 @@ NSError error(String domain, int code, String localizedDescription) {
       .initWithDomain_code_userInfo_(domain.toNSString(), code, userInfo);
 }
 
+String errorString(NSError error) => '[NSError '
+    'domain=${error.domain} '
+    'code=${error.code} '
+    'localizedDescription=${error.localizedDescription} '
+    'localizedFailureReason=${error.localizedFailureReason} '
+    'localizedRecoverySuggestion=${error.localizedRecoverySuggestion} '
+    ']';
+
 NSURL uriToNSURL(Uri uri) => NSURL.URLWithString_(uri.toString().toNSString())!;

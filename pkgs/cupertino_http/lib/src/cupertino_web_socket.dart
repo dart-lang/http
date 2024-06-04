@@ -10,6 +10,7 @@ import 'package:objective_c/objective_c.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'cupertino_api.dart';
+import 'utils.dart';
 
 /// An error occurred while connecting to the peer.
 class ConnectionException extends WebSocketException {
@@ -17,13 +18,9 @@ class ConnectionException extends WebSocketException {
 
   ConnectionException(super.message, this.error);
 
-  /// XXX Wrong, this needs to get the description data from the error!
-  /// XXX Wrong, this needs to get the description data from the error!
-  /// XXX Wrong, this needs to get the description data from the error!
-  /// XXX Wrong, this needs to get the description data from the error!
-  /// XXX Wrong, this needs to get the description data from the error!
   @override
-  String toString() => 'CupertinoErrorWebSocketException: $message $error';
+  String toString() =>
+      'CupertinoErrorWebSocketException: $message ${errorString(error)}';
 }
 
 /// A [WebSocket] implemented using the
