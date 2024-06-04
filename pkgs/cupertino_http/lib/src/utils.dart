@@ -54,33 +54,44 @@ ncb.NativeCupertinoHttp _loadHelperLibrary() {
 /// Converts a NSDictionary containing NSString keys and NSString values into
 /// an equivalent map.
 Map<String, String> stringNSDictionaryToMap(NSDictionary d) {
-  // TODO(https://github.com/dart-lang/ffigen/issues/374): Make this
-  // function type safe. Currently it will unconditionally cast both keys and
-  // values to NSString with a likely crash down the line if that isn't their
-  // true types.
   final m = <String, String>{};
-
   final keys = NSArray.castFrom(d.allKeys);
   for (var i = 0; i < keys.count; ++i) {
     final nsKey = keys.objectAtIndex_(i);
-    final key = ncb.NSString.castFrom(nsKey).toString();
-    final value = objc.NSString.castFrom(d.objectForKey_(nsKey)!).toString();
+    if (!NSString.isInstance(nsKey)) {
+      throw UnsupportedError('keys must be strings');
+    }
+    final key = NSString.castFrom(nsKey).toString();
+    final nsValue = d.objectForKey_(nsKey);
+    if (nsValue == null || !NSString.isInstance(nsValue)) {
+      throw UnsupportedError('values must be strings');
+    }
+    final value = NSString.castFrom(nsValue).toString();
     m[key] = value;
   }
 
   return m;
 }
 
-ncb.NSArray stringIterableToNSArray(Iterable<String> strings) {
-  final array =
-      ncb.NSMutableArray.arrayWithCapacity_(linkedLibs, strings.length);
+NSArray stringIterableToNSArray(Iterable<String> strings) {
+  final array = NSMutableArray.arrayWithCapacity_(strings.length);
 
   var index = 0;
   for (var s in strings) {
-    array.setObject_atIndexedSubscript_(s.toNSString(linkedLibs), index++);
+    array.setObject_atIndexedSubscript_(s.toNSString(), index++);
   }
   return array;
 }
 
-ncb.NSURL uriToNSURL(Uri uri) => ncb.NSURL
-    .URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs))!;
+NSError error(String domain, int code, String localizedDescription) {
+  final userInfo = NSMutableDictionary.new1()
+    ..setObject_forKey_(
+      localizedDescription.toNSString(),
+      NSString.castFromPointer(linkedLibs.NSLocalizedDescriptionKey),
+    );
+
+  return NSError.alloc()
+      .initWithDomain_code_userInfo_(domain.toNSString(), code, userInfo);
+}
+
+NSURL uriToNSURL(Uri uri) => NSURL.URLWithString_(uri.toString().toNSString())!;

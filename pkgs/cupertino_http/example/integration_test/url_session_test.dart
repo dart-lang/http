@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
 void testDataTaskWithCompletionHandler(URLSession session) {
@@ -58,9 +59,9 @@ void testDataTaskWithCompletionHandler(URLSession session) {
 
     test('success', () async {
       final c = Completer<void>();
-      Data? data;
+      NSData? data;
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -79,9 +80,9 @@ void testDataTaskWithCompletionHandler(URLSession session) {
 
     test('success no data', () async {
       final c = Completer<void>();
-      Data? data;
+      NSData? data;
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       final request = MutableURLRequest.fromUrl(
           Uri.parse('http://localhost:${successServer.port}'))
@@ -102,9 +103,9 @@ void testDataTaskWithCompletionHandler(URLSession session) {
 
     test('500 response', () async {
       final c = Completer<void>();
-      Data? data;
+      NSData? data;
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -125,9 +126,9 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       // Ensures that the delegate used to implement the completion handler
       // does not interfere with the default redirect behavior.
       final c = Completer<void>();
-      Data? data;
+      NSData? data;
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -147,9 +148,9 @@ void testDataTaskWithCompletionHandler(URLSession session) {
 
     test('unable to connect', () async {
       final c = Completer<void>();
-      Data? data;
+      NSData? data;
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(Uri.parse('http://this is not a valid URL')),

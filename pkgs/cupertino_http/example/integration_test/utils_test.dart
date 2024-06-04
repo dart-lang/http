@@ -10,16 +10,6 @@ import 'package:test/test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('toStringOrNull', () {
-    test('null input', () {
-      expect(toStringOrNull(null), null);
-    });
-
-    test('string input', () {
-      expect(toStringOrNull('Test'.toNSString()), 'Test');
-    });
-  });
-
   group('stringNSDictionaryToMap', () {
     test('empty input', () {
       final d = objc.NSMutableDictionary.new1();
@@ -41,6 +31,20 @@ void main() {
         ..setObject_forKey_('value3'.toNSString(), 'key3'.toNSString());
       expect(stringNSDictionaryToMap(d),
           {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'});
+    });
+
+    test('non-string value', () {
+      final d = objc.NSMutableDictionary.new1()
+        ..setObject_forKey_(
+            objc.NSNumber.numberWithInteger_(5), 'key'.toNSString());
+      expect(() => stringNSDictionaryToMap(d), throwsUnsupportedError);
+    });
+
+    test('non-string key', () {
+      final d = objc.NSMutableDictionary.new1()
+        ..setObject_forKey_(
+            'value'.toNSString(), objc.NSNumber.numberWithInteger_(5));
+      expect(() => stringNSDictionaryToMap(d), throwsUnsupportedError);
     });
   });
 

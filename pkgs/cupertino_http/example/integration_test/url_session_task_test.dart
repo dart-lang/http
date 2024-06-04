@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
 void testWebSocketTask() {
@@ -62,7 +63,7 @@ void testWebSocketTask() {
       await task
           .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
       await task.receiveMessage();
-      task.cancelWithCloseCode(4998, Data.fromList('Bye'.codeUnits));
+      task.cancelWithCloseCode(4998, 'Bye'.codeUnits.toNSData());
 
       // Allow the server to run and save the close code.
       while (lastCloseCode == null) {
@@ -80,9 +81,11 @@ void testWebSocketTask() {
       await task
           .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
       await task.receiveMessage();
-      await expectLater(task.receiveMessage(),
-          throwsA(isA<Error>().having((e) => e.code, 'code', 57 // NOT_CONNECTED
-              )));
+      await expectLater(
+          task.receiveMessage(),
+          throwsA(
+              isA<NSError>().having((e) => e.code, 'code', 57 // NOT_CONNECTED
+                  )));
 
       expect(task.closeCode, 4999);
       expect(task.closeReason!.bytes, 'fun'.codeUnits);
@@ -95,7 +98,7 @@ void testWebSocketTask() {
           URLRequest.fromUrl(Uri.parse('ws://localhost:${server.port}')))
         ..resume();
       await task.sendMessage(
-          URLSessionWebSocketMessage.fromData(Data.fromList([1, 2, 3])));
+          URLSessionWebSocketMessage.fromData([1, 2, 3].toNSData()));
       final receivedMessage = await task.receiveMessage();
       expect(receivedMessage.type,
           URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeData);
@@ -127,7 +130,7 @@ void testWebSocketTask() {
       await expectLater(
           task.sendMessage(
               URLSessionWebSocketMessage.fromString('Hello World!')),
-          throwsA(isA<Error>().having(
+          throwsA(isA<NSError>().having(
               (e) => e.code, 'code', -1011 // NSURLErrorBadServerResponse
               )));
       task.cancel();
@@ -141,9 +144,11 @@ void testWebSocketTask() {
       await task
           .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
       await task.receiveMessage();
-      await expectLater(task.receiveMessage(),
-          throwsA(isA<Error>().having((e) => e.code, 'code', 57 // NOT_CONNECTED
-              )));
+      await expectLater(
+          task.receiveMessage(),
+          throwsA(
+              isA<NSError>().having((e) => e.code, 'code', 57 // NOT_CONNECTED
+                  )));
       task.cancel();
     });
   });
@@ -219,7 +224,7 @@ void testURLSessionTaskCommon(
           MutableURLRequest.fromUrl(
               Uri.parse('http://localhost:${server.port}/mypath'))
             ..httpMethod = 'POST'
-            ..httpBody = Data.fromList([1, 2, 3]))
+            ..httpBody = [1, 2, 3].toNSData())
         ..prefersIncrementalDelivery = false
         ..priority = 0.2
         ..taskDescription = 'my task description'

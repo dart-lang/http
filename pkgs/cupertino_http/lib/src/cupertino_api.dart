@@ -142,9 +142,7 @@ ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
       try {
         next = await queue.next;
       } catch (e) {
-        inputStream.setError_(
-            objc.NSError('DartError', 0, localizedDescription: e.toString())
-                ._nsObject);
+        inputStream.setError_(error('DartError', 0, e.toString()));
         break;
       }
       // In practice the read length request will be large (>1MB) so,

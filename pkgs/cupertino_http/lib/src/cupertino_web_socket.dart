@@ -136,16 +136,19 @@ class CupertinoWebSocket implements WebSocket {
   /// Close the WebSocket connection due to an error and send the
   /// [CloseReceived] event.
   void _closeConnectionWithError(Object e) {
-    if (e is Error) {
-      if (e.domain == 'NSPOSIXErrorDomain' && e.code == 57) {
+    if (e is NSError) {
+      if (e.domain.toString() == 'NSPOSIXErrorDomain' && e.code == 57) {
         // Socket is not connected.
         // onWebSocketTaskClosed/onComplete will be invoked and may indicate a
         // close code.
         return;
       }
-      var (int code, String? reason) = switch ([e.domain, e.code]) {
-        ['NSPOSIXErrorDomain', 100] => (1002, e.localizedDescription),
-        _ => (1006, e.localizedDescription)
+      var (int code, String? reason) = switch ([e.domain.toString(), e.code]) {
+        ['NSPOSIXErrorDomain', 100] => (
+            1002,
+            e.localizedDescription.toString()
+          ),
+        _ => (1006, e.localizedDescription.toString())
       };
       _task.cancel();
       _connectionClosed(code, reason.codeUnits.toNSData());
