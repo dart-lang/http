@@ -49,7 +49,7 @@ void main() {
     test('empty', () => expect(request.httpBody, null));
     test('set', () {
       request.httpBody = [1, 2, 3].toNSData();
-      expect(request.httpBody!.bytes, Uint8List.fromList([1, 2, 3]));
+      expect(request.httpBody!.toList(), Uint8List.fromList([1, 2, 3]));
       request.toString(); // Just verify that there is no crash.
     });
     test('set to null', () {

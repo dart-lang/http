@@ -53,6 +53,41 @@ abstract class _ObjectHolder<T extends objc.NSObject> {
   int get hashCode => _nsObject.hashCode;
 }
 
+void foo() {
+  final protoBuilder = objc.ObjCProtocolBuilder();
+  final redirect =
+      ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
+          .fromFunction(
+              (_, session, task, response, request, completionHandler) {
+    completionHandler.call(request);
+  });
+  ncb.NSURLSessionTaskDelegate.addToBuilder(protoBuilder,
+      URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
+          redirect);
+
+  final response =
+      ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
+          .fromFunction((_, session, dataTask, response, completetionHandler) {
+    print('URLSession_dataTask_didReceiveResponse_completionHandler_');
+    completetionHandler
+        .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
+  });
+  ncb.NSURLSessionDataDelegate.addToBuilder(protoBuilder,
+      URLSession_dataTask_didReceiveResponse_completionHandler_: response);
+
+  final data =
+      ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData
+          .fromFunction((_, session, dataTask, data) {});
+
+  final complete =
+      ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
+          .fromFunction((_, session, task, error) {});
+  ncb.NSURLSessionDataDelegate.addToBuilder(protoBuilder,
+      URLSession_dataTask_didReceiveData_: data,
+      URLSession_task_didCompleteWithError_: complete);
+  protoBuilder.build();
+}
+
 /// Settings for controlling whether cookies will be accepted.
 ///
 /// See [HTTPCookieAcceptPolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408933-httpcookieacceptpolicy).

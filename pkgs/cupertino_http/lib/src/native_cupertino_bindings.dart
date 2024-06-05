@@ -48899,7 +48899,6 @@ class NSOrderedCollectionChange extends objc.NSObject {
     return _objc_msgSend_5(this.pointer, _sel_associatedIndex);
   }
 
-  @override
   NSOrderedCollectionChange init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSOrderedCollectionChange.castFromPointer(_ret,
@@ -49087,186 +49086,6 @@ final _objc_msgSend_0 = objc.msgSendPointer
         bool Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 
-class NSMutableIndexSet extends objc.NSIndexSet {
-  NSMutableIndexSet._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSMutableIndexSet] that points to the same underlying object as [other].
-  NSMutableIndexSet.castFrom(objc.ObjCObjectBase other)
-      : this._(other.pointer, retain: true, release: true);
-
-  /// Constructs a [NSMutableIndexSet] that wraps the given raw object pointer.
-  NSMutableIndexSet.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSMutableIndexSet].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_0(
-        obj.pointer, _sel_isKindOfClass_, _class_NSMutableIndexSet);
-  }
-
-  void addIndexes_(objc.NSIndexSet indexSet) {
-    _objc_msgSend_10(this.pointer, _sel_addIndexes_, indexSet.pointer);
-  }
-
-  void removeIndexes_(objc.NSIndexSet indexSet) {
-    _objc_msgSend_10(this.pointer, _sel_removeIndexes_, indexSet.pointer);
-  }
-
-  void removeAllIndexes() {
-    _objc_msgSend_11(this.pointer, _sel_removeAllIndexes);
-  }
-
-  void addIndex_(DartNSUInteger value) {
-    _objc_msgSend_12(this.pointer, _sel_addIndex_, value);
-  }
-
-  void removeIndex_(DartNSUInteger value) {
-    _objc_msgSend_12(this.pointer, _sel_removeIndex_, value);
-  }
-
-  void addIndexesInRange_(NSRange range) {
-    _objc_msgSend_13(this.pointer, _sel_addIndexesInRange_, range);
-  }
-
-  void removeIndexesInRange_(NSRange range) {
-    _objc_msgSend_13(this.pointer, _sel_removeIndexesInRange_, range);
-  }
-
-  void shiftIndexesStartingAtIndex_by_(
-      DartNSUInteger index, DartNSInteger delta) {
-    _objc_msgSend_14(
-        this.pointer, _sel_shiftIndexesStartingAtIndex_by_, index, delta);
-  }
-
-  static NSMutableIndexSet indexSet() {
-    final _ret = _objc_msgSend_6(_class_NSMutableIndexSet, _sel_indexSet);
-    return NSMutableIndexSet.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  static NSMutableIndexSet indexSetWithIndex_(DartNSUInteger value) {
-    final _ret = _objc_msgSend_15(
-        _class_NSMutableIndexSet, _sel_indexSetWithIndex_, value);
-    return NSMutableIndexSet.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  static NSMutableIndexSet indexSetWithIndexesInRange_(NSRange range) {
-    final _ret = _objc_msgSend_16(
-        _class_NSMutableIndexSet, _sel_indexSetWithIndexesInRange_, range);
-    return NSMutableIndexSet.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  @override
-  NSMutableIndexSet initWithIndexesInRange_(NSRange range) {
-    final _ret =
-        _objc_msgSend_16(this.pointer, _sel_initWithIndexesInRange_, range);
-    return NSMutableIndexSet.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  @override
-  NSMutableIndexSet initWithIndexSet_(objc.NSIndexSet indexSet) {
-    final _ret = _objc_msgSend_17(
-        this.pointer, _sel_initWithIndexSet_, indexSet.pointer);
-    return NSMutableIndexSet.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  @override
-  NSMutableIndexSet initWithIndex_(DartNSUInteger value) {
-    final _ret = _objc_msgSend_15(this.pointer, _sel_initWithIndex_, value);
-    return NSMutableIndexSet.castFromPointer(_ret, retain: true, release: true);
-  }
-}
-
-late final _class_NSMutableIndexSet = objc.getClass("NSMutableIndexSet");
-late final _sel_addIndexes_ = objc.registerName("addIndexes:");
-final _objc_msgSend_10 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_removeIndexes_ = objc.registerName("removeIndexes:");
-late final _sel_removeAllIndexes = objc.registerName("removeAllIndexes");
-final _objc_msgSend_11 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        void Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_addIndex_ = objc.registerName("addIndex:");
-final _objc_msgSend_12 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSUInteger)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int)>();
-late final _sel_removeIndex_ = objc.registerName("removeIndex:");
-late final _sel_addIndexesInRange_ = objc.registerName("addIndexesInRange:");
-final _objc_msgSend_13 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSRange)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, NSRange)>();
-late final _sel_removeIndexesInRange_ =
-    objc.registerName("removeIndexesInRange:");
-late final _sel_shiftIndexesStartingAtIndex_by_ =
-    objc.registerName("shiftIndexesStartingAtIndex:by:");
-final _objc_msgSend_14 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSUInteger, NSInteger)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int, int)>();
-late final _sel_indexSet = objc.registerName("indexSet");
-late final _sel_indexSetWithIndex_ = objc.registerName("indexSetWithIndex:");
-final _objc_msgSend_15 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSUInteger)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int)>();
-late final _sel_indexSetWithIndexesInRange_ =
-    objc.registerName("indexSetWithIndexesInRange:");
-final _objc_msgSend_16 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSRange)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, NSRange)>();
-late final _sel_initWithIndexesInRange_ =
-    objc.registerName("initWithIndexesInRange:");
-late final _sel_initWithIndexSet_ = objc.registerName("initWithIndexSet:");
-final _objc_msgSend_17 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_initWithIndex_ = objc.registerName("initWithIndex:");
-
 abstract class NSOrderedCollectionDifferenceCalculationOptions {
   static const int NSOrderedCollectionDifferenceCalculationOmitInsertedObjects =
       1;
@@ -49299,7 +49118,7 @@ class NSOrderedCollectionDifference extends objc.NSObject {
 
   NSOrderedCollectionDifference initWithChanges_(objc.ObjCObjectBase changes) {
     final _ret =
-        _objc_msgSend_18(this.pointer, _sel_initWithChanges_, changes.pointer);
+        _objc_msgSend_10(this.pointer, _sel_initWithChanges_, changes.pointer);
     return NSOrderedCollectionDifference.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -49311,7 +49130,7 @@ class NSOrderedCollectionDifference extends objc.NSObject {
           objc.NSIndexSet removes,
           objc.ObjCObjectBase? removedObjects,
           objc.ObjCObjectBase changes) {
-    final _ret = _objc_msgSend_19(
+    final _ret = _objc_msgSend_11(
         this.pointer,
         _sel_initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_additionalChanges_,
         inserts.pointer,
@@ -49329,7 +49148,7 @@ class NSOrderedCollectionDifference extends objc.NSObject {
           objc.ObjCObjectBase? insertedObjects,
           objc.NSIndexSet removes,
           objc.ObjCObjectBase? removedObjects) {
-    final _ret = _objc_msgSend_20(
+    final _ret = _objc_msgSend_12(
         this.pointer,
         _sel_initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_,
         inserts.pointer,
@@ -49351,12 +49170,12 @@ class NSOrderedCollectionDifference extends objc.NSObject {
   }
 
   bool get hasChanges {
-    return _objc_msgSend_21(this.pointer, _sel_hasChanges);
+    return _objc_msgSend_13(this.pointer, _sel_hasChanges);
   }
 
   NSOrderedCollectionDifference differenceByTransformingChangesWithBlock_(
       ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange block) {
-    final _ret = _objc_msgSend_22(this.pointer,
+    final _ret = _objc_msgSend_14(this.pointer,
         _sel_differenceByTransformingChangesWithBlock_, block.pointer);
     return NSOrderedCollectionDifference.castFromPointer(_ret,
         retain: true, release: true);
@@ -49368,7 +49187,6 @@ class NSOrderedCollectionDifference extends objc.NSObject {
         retain: true, release: true);
   }
 
-  @override
   NSOrderedCollectionDifference init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSOrderedCollectionDifference.castFromPointer(_ret,
@@ -49401,7 +49219,7 @@ class NSOrderedCollectionDifference extends objc.NSObject {
 late final _class_NSOrderedCollectionDifference =
     objc.getClass("NSOrderedCollectionDifference");
 late final _sel_initWithChanges_ = objc.registerName("initWithChanges:");
-final _objc_msgSend_18 = objc.msgSendPointer
+final _objc_msgSend_10 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -49414,7 +49232,7 @@ final _objc_msgSend_18 = objc.msgSendPointer
 late final _sel_initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_additionalChanges_ =
     objc.registerName(
         "initWithInsertIndexes:insertedObjects:removeIndexes:removedObjects:additionalChanges:");
-final _objc_msgSend_19 = objc.msgSendPointer
+final _objc_msgSend_11 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -49437,7 +49255,7 @@ final _objc_msgSend_19 = objc.msgSendPointer
 late final _sel_initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_ =
     objc.registerName(
         "initWithInsertIndexes:insertedObjects:removeIndexes:removedObjects:");
-final _objc_msgSend_20 = objc.msgSendPointer
+final _objc_msgSend_12 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -49458,7 +49276,7 @@ final _objc_msgSend_20 = objc.msgSendPointer
 late final _sel_insertions = objc.registerName("insertions");
 late final _sel_removals = objc.registerName("removals");
 late final _sel_hasChanges = objc.registerName("hasChanges");
-final _objc_msgSend_21 = objc.msgSendPointer
+final _objc_msgSend_13 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
@@ -49561,7 +49379,7 @@ class ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange
 
 late final _sel_differenceByTransformingChangesWithBlock_ =
     objc.registerName("differenceByTransformingChangesWithBlock:");
-final _objc_msgSend_22 = objc.msgSendPointer
+final _objc_msgSend_14 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -49680,7 +49498,7 @@ class NSPurgeableData extends objc.NSMutableData {
   }
 
   static NSPurgeableData? dataWithCapacity_(DartNSUInteger aNumItems) {
-    final _ret = _objc_msgSend_23(
+    final _ret = _objc_msgSend_15(
         _class_NSPurgeableData, _sel_dataWithCapacity_, aNumItems);
     return _ret.address == 0
         ? null
@@ -49689,24 +49507,22 @@ class NSPurgeableData extends objc.NSMutableData {
 
   static NSPurgeableData? dataWithLength_(DartNSUInteger length) {
     final _ret =
-        _objc_msgSend_23(_class_NSPurgeableData, _sel_dataWithLength_, length);
+        _objc_msgSend_15(_class_NSPurgeableData, _sel_dataWithLength_, length);
     return _ret.address == 0
         ? null
         : NSPurgeableData.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSPurgeableData? initWithCapacity_(DartNSUInteger capacity) {
     final _ret =
-        _objc_msgSend_23(this.pointer, _sel_initWithCapacity_, capacity);
+        _objc_msgSend_15(this.pointer, _sel_initWithCapacity_, capacity);
     return _ret.address == 0
         ? null
         : NSPurgeableData.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSPurgeableData? initWithLength_(DartNSUInteger length) {
-    final _ret = _objc_msgSend_23(this.pointer, _sel_initWithLength_, length);
+    final _ret = _objc_msgSend_15(this.pointer, _sel_initWithLength_, length);
     return _ret.address == 0
         ? null
         : NSPurgeableData.castFromPointer(_ret, retain: true, release: true);
@@ -49715,7 +49531,7 @@ class NSPurgeableData extends objc.NSMutableData {
 
 late final _class_NSPurgeableData = objc.getClass("NSPurgeableData");
 late final _sel_dataWithCapacity_ = objc.registerName("dataWithCapacity:");
-final _objc_msgSend_23 = objc.msgSendPointer
+final _objc_msgSend_15 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(ffi.Pointer<objc.ObjCObject>,
@@ -49789,7 +49605,7 @@ class NSCachedURLResponse extends objc.NSObject {
   /// @result an initialized NSCachedURLResponse.
   NSCachedURLResponse initWithResponse_data_(
       NSURLResponse response, objc.NSData data) {
-    final _ret = _objc_msgSend_28(this.pointer, _sel_initWithResponse_data_,
+    final _ret = _objc_msgSend_20(this.pointer, _sel_initWithResponse_data_,
         response.pointer, data.pointer);
     return NSCachedURLResponse.castFromPointer(_ret,
         retain: true, release: true);
@@ -49811,7 +49627,7 @@ class NSCachedURLResponse extends objc.NSObject {
       objc.NSData data,
       objc.NSDictionary? userInfo,
       int storagePolicy) {
-    final _ret = _objc_msgSend_29(
+    final _ret = _objc_msgSend_21(
         this.pointer,
         _sel_initWithResponse_data_userInfo_storagePolicy_,
         response.pointer,
@@ -49826,7 +49642,7 @@ class NSCachedURLResponse extends objc.NSObject {
   /// @abstract Returns the response wrapped by this instance.
   /// @result The response wrapped by this instance.
   NSURLResponse get response {
-    final _ret = _objc_msgSend_30(this.pointer, _sel_response);
+    final _ret = _objc_msgSend_22(this.pointer, _sel_response);
     return NSURLResponse.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -49834,7 +49650,7 @@ class NSCachedURLResponse extends objc.NSObject {
   /// @abstract Returns the data of the receiver.
   /// @result The data of the receiver.
   objc.NSData get data {
-    final _ret = _objc_msgSend_31(this.pointer, _sel_data);
+    final _ret = _objc_msgSend_23(this.pointer, _sel_data);
     return objc.NSData.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -49842,7 +49658,7 @@ class NSCachedURLResponse extends objc.NSObject {
   /// @abstract Returns the userInfo dictionary of the receiver.
   /// @result The userInfo dictionary of the receiver.
   objc.NSDictionary? get userInfo {
-    final _ret = _objc_msgSend_32(this.pointer, _sel_userInfo);
+    final _ret = _objc_msgSend_24(this.pointer, _sel_userInfo);
     return _ret.address == 0
         ? null
         : objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
@@ -49852,10 +49668,9 @@ class NSCachedURLResponse extends objc.NSObject {
   /// @abstract Returns the NSURLCacheStoragePolicy constant of the receiver.
   /// @result The NSURLCacheStoragePolicy constant of the receiver.
   int get storagePolicy {
-    return _objc_msgSend_33(this.pointer, _sel_storagePolicy);
+    return _objc_msgSend_25(this.pointer, _sel_storagePolicy);
   }
 
-  @override
   NSCachedURLResponse init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSCachedURLResponse.castFromPointer(_ret,
@@ -49918,7 +49733,7 @@ class NSURLResponse extends objc.NSObject {
       objc.NSString? MIMEType,
       DartNSInteger length,
       objc.NSString? name) {
-    final _ret = _objc_msgSend_24(
+    final _ret = _objc_msgSend_16(
         this.pointer,
         _sel_initWithURL_MIMEType_expectedContentLength_textEncodingName_,
         URL.pointer,
@@ -49932,7 +49747,7 @@ class NSURLResponse extends objc.NSObject {
   /// @abstract Returns the URL of the receiver.
   /// @result The URL of the receiver.
   objc.NSURL? get URL {
-    final _ret = _objc_msgSend_25(this.pointer, _sel_URL);
+    final _ret = _objc_msgSend_17(this.pointer, _sel_URL);
     return _ret.address == 0
         ? null
         : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
@@ -49948,7 +49763,7 @@ class NSURLResponse extends objc.NSObject {
   /// be made if the origin source did not report any such information.
   /// @result The MIME type of the receiver.
   objc.NSString? get MIMEType {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_MIMEType);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_MIMEType);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -49966,7 +49781,7 @@ class NSURLResponse extends objc.NSObject {
   /// there is no expectation that can be arrived at regarding expected
   /// content length.
   int get expectedContentLength {
-    return _objc_msgSend_27(this.pointer, _sel_expectedContentLength);
+    return _objc_msgSend_19(this.pointer, _sel_expectedContentLength);
   }
 
   /// !
@@ -49979,7 +49794,7 @@ class NSURLResponse extends objc.NSObject {
   /// @result The name of the text encoding of the receiver, or nil if no
   /// text encoding was specified.
   objc.NSString? get textEncodingName {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_textEncodingName);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_textEncodingName);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -49996,13 +49811,12 @@ class NSURLResponse extends objc.NSObject {
   /// This method always returns a valid filename.
   /// @result A suggested filename to use if saving the resource to disk.
   objc.NSString? get suggestedFilename {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_suggestedFilename);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_suggestedFilename);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSURLResponse init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLResponse.castFromPointer(_ret, retain: true, release: true);
@@ -50029,7 +49843,7 @@ late final _class_NSURLResponse = objc.getClass("NSURLResponse");
 late final _sel_initWithURL_MIMEType_expectedContentLength_textEncodingName_ =
     objc.registerName(
         "initWithURL:MIMEType:expectedContentLength:textEncodingName:");
-final _objc_msgSend_24 = objc.msgSendPointer
+final _objc_msgSend_16 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -50048,7 +49862,7 @@ final _objc_msgSend_24 = objc.msgSendPointer
             int,
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_URL = objc.registerName("URL");
-final _objc_msgSend_25 = objc.msgSendPointer
+final _objc_msgSend_17 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -50057,7 +49871,7 @@ final _objc_msgSend_25 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_MIMEType = objc.registerName("MIMEType");
-final _objc_msgSend_26 = objc.msgSendPointer
+final _objc_msgSend_18 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -50067,7 +49881,7 @@ final _objc_msgSend_26 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_expectedContentLength =
     objc.registerName("expectedContentLength");
-final _objc_msgSend_27 = objc.msgSendPointer
+final _objc_msgSend_19 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.LongLong Function(ffi.Pointer<objc.ObjCObject>,
@@ -50079,7 +49893,7 @@ late final _sel_textEncodingName = objc.registerName("textEncodingName");
 late final _sel_suggestedFilename = objc.registerName("suggestedFilename");
 late final _sel_initWithResponse_data_ =
     objc.registerName("initWithResponse:data:");
-final _objc_msgSend_28 = objc.msgSendPointer
+final _objc_msgSend_20 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -50095,7 +49909,7 @@ final _objc_msgSend_28 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_initWithResponse_data_userInfo_storagePolicy_ =
     objc.registerName("initWithResponse:data:userInfo:storagePolicy:");
-final _objc_msgSend_29 = objc.msgSendPointer
+final _objc_msgSend_21 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -50114,7 +49928,7 @@ final _objc_msgSend_29 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>,
             int)>();
 late final _sel_response = objc.registerName("response");
-final _objc_msgSend_30 = objc.msgSendPointer
+final _objc_msgSend_22 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -50123,7 +49937,7 @@ final _objc_msgSend_30 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_data = objc.registerName("data");
-final _objc_msgSend_31 = objc.msgSendPointer
+final _objc_msgSend_23 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -50132,7 +49946,7 @@ final _objc_msgSend_31 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_userInfo = objc.registerName("userInfo");
-final _objc_msgSend_32 = objc.msgSendPointer
+final _objc_msgSend_24 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -50141,7 +49955,7 @@ final _objc_msgSend_32 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_storagePolicy = objc.registerName("storagePolicy");
-final _objc_msgSend_33 = objc.msgSendPointer
+final _objc_msgSend_25 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -50194,7 +50008,7 @@ class NSURLCache extends objc.NSObject {
   /// becoming unexpectedly unretrievable.
   /// @result the shared NSURLCache instance.
   static NSURLCache getSharedURLCache() {
-    final _ret = _objc_msgSend_34(_class_NSURLCache, _sel_sharedURLCache);
+    final _ret = _objc_msgSend_26(_class_NSURLCache, _sel_sharedURLCache);
     return NSURLCache.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -50223,7 +50037,7 @@ class NSURLCache extends objc.NSObject {
   /// becoming unexpectedly unretrievable.
   /// @result the shared NSURLCache instance.
   static void setSharedURLCache(NSURLCache value) {
-    return _objc_msgSend_35(
+    return _objc_msgSend_27(
         _class_NSURLCache, _sel_setSharedURLCache_, value.pointer);
   }
 
@@ -50244,7 +50058,7 @@ class NSURLCache extends objc.NSObject {
       DartNSUInteger memoryCapacity,
       DartNSUInteger diskCapacity,
       objc.NSString? path) {
-    final _ret = _objc_msgSend_36(
+    final _ret = _objc_msgSend_28(
         this.pointer,
         _sel_initWithMemoryCapacity_diskCapacity_diskPath_,
         memoryCapacity,
@@ -50264,7 +50078,7 @@ class NSURLCache extends objc.NSObject {
       DartNSUInteger memoryCapacity,
       DartNSUInteger diskCapacity,
       objc.NSURL? directoryURL) {
-    final _ret = _objc_msgSend_37(
+    final _ret = _objc_msgSend_29(
         this.pointer,
         _sel_initWithMemoryCapacity_diskCapacity_directoryURL_,
         memoryCapacity,
@@ -50284,7 +50098,7 @@ class NSURLCache extends objc.NSObject {
   /// request, or nil if there is no NSCachedURLResponse stored with the
   /// given request.
   NSCachedURLResponse? cachedResponseForRequest_(NSURLRequest request) {
-    final _ret = _objc_msgSend_65(
+    final _ret = _objc_msgSend_58(
         this.pointer, _sel_cachedResponseForRequest_, request.pointer);
     return _ret.address == 0
         ? null
@@ -50300,7 +50114,7 @@ class NSURLCache extends objc.NSObject {
   /// @param request the NSURLRequest to use as a key for the storage.
   void storeCachedResponse_forRequest_(
       NSCachedURLResponse cachedResponse, NSURLRequest request) {
-    _objc_msgSend_66(this.pointer, _sel_storeCachedResponse_forRequest_,
+    _objc_msgSend_59(this.pointer, _sel_storeCachedResponse_forRequest_,
         cachedResponse.pointer, request.pointer);
   }
 
@@ -50312,7 +50126,7 @@ class NSURLCache extends objc.NSObject {
   /// stored with the given request.
   /// @param request the NSURLRequest to use as a key for the lookup.
   void removeCachedResponseForRequest_(NSURLRequest request) {
-    _objc_msgSend_67(
+    _objc_msgSend_60(
         this.pointer, _sel_removeCachedResponseForRequest_, request.pointer);
   }
 
@@ -50321,14 +50135,14 @@ class NSURLCache extends objc.NSObject {
   /// @abstract Clears the given cache, removing all NSCachedURLResponse
   /// objects that it stores.
   void removeAllCachedResponses() {
-    _objc_msgSend_11(this.pointer, _sel_removeAllCachedResponses);
+    _objc_msgSend_44(this.pointer, _sel_removeAllCachedResponses);
   }
 
   /// !
   /// @method removeCachedResponsesSince:
   /// @abstract Clears the given cache of any cached responses since the provided date.
   void removeCachedResponsesSinceDate_(objc.NSDate date) {
-    _objc_msgSend_68(
+    _objc_msgSend_61(
         this.pointer, _sel_removeCachedResponsesSinceDate_, date.pointer);
   }
 
@@ -50345,7 +50159,7 @@ class NSURLCache extends objc.NSObject {
   /// @discussion At the time this call is made, the in-memory cache will truncate its contents to the size given, if necessary.
   /// @result The in-memory capacity, measured in bytes, for the receiver.
   set memoryCapacity(DartNSUInteger value) {
-    return _objc_msgSend_69(this.pointer, _sel_setMemoryCapacity_, value);
+    return _objc_msgSend_62(this.pointer, _sel_setMemoryCapacity_, value);
   }
 
   /// !
@@ -50359,7 +50173,7 @@ class NSURLCache extends objc.NSObject {
   /// @abstract The on-disk capacity of the receiver.
   /// @discussion The on-disk capacity, measured in bytes, for the receiver. On mutation the on-disk cache will truncate its contents to the size given, if necessary.
   set diskCapacity(DartNSUInteger value) {
-    return _objc_msgSend_69(this.pointer, _sel_setDiskCapacity_, value);
+    return _objc_msgSend_62(this.pointer, _sel_setDiskCapacity_, value);
   }
 
   /// !
@@ -50384,14 +50198,14 @@ class NSURLCache extends objc.NSObject {
 
   void storeCachedResponse_forDataTask_(
       NSCachedURLResponse cachedResponse, NSURLSessionDataTask dataTask) {
-    _objc_msgSend_82(this.pointer, _sel_storeCachedResponse_forDataTask_,
+    _objc_msgSend_93(this.pointer, _sel_storeCachedResponse_forDataTask_,
         cachedResponse.pointer, dataTask.pointer);
   }
 
   void getCachedResponseForDataTask_completionHandler_(
       NSURLSessionDataTask dataTask,
       ObjCBlock_ffiVoid_NSCachedURLResponse completionHandler) {
-    _objc_msgSend_83(
+    _objc_msgSend_94(
         this.pointer,
         _sel_getCachedResponseForDataTask_completionHandler_,
         dataTask.pointer,
@@ -50399,11 +50213,10 @@ class NSURLCache extends objc.NSObject {
   }
 
   void removeCachedResponseForDataTask_(NSURLSessionDataTask dataTask) {
-    _objc_msgSend_84(
+    _objc_msgSend_95(
         this.pointer, _sel_removeCachedResponseForDataTask_, dataTask.pointer);
   }
 
-  @override
   NSURLCache init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLCache.castFromPointer(_ret, retain: true, release: true);
@@ -50427,7 +50240,7 @@ class NSURLCache extends objc.NSObject {
 
 late final _class_NSURLCache = objc.getClass("NSURLCache");
 late final _sel_sharedURLCache = objc.registerName("sharedURLCache");
-final _objc_msgSend_34 = objc.msgSendPointer
+final _objc_msgSend_26 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -50436,7 +50249,7 @@ final _objc_msgSend_34 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setSharedURLCache_ = objc.registerName("setSharedURLCache:");
-final _objc_msgSend_35 = objc.msgSendPointer
+final _objc_msgSend_27 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -50448,7 +50261,7 @@ final _objc_msgSend_35 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_initWithMemoryCapacity_diskCapacity_diskPath_ =
     objc.registerName("initWithMemoryCapacity:diskCapacity:diskPath:");
-final _objc_msgSend_36 = objc.msgSendPointer
+final _objc_msgSend_28 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -50466,7 +50279,7 @@ final _objc_msgSend_36 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_initWithMemoryCapacity_diskCapacity_directoryURL_ =
     objc.registerName("initWithMemoryCapacity:diskCapacity:directoryURL:");
-final _objc_msgSend_37 = objc.msgSendPointer
+final _objc_msgSend_29 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -50513,7 +50326,7 @@ class NSURLRequest extends objc.NSObject {
   /// @param URL The URL for the request.
   /// @result A newly-created and autoreleased NSURLRequest instance.
   static NSURLRequest requestWithURL_(objc.NSURL URL) {
-    final _ret = _objc_msgSend_38(
+    final _ret = _objc_msgSend_30(
         _class_NSURLRequest, _sel_requestWithURL_, URL.pointer);
     return NSURLRequest.castFromPointer(_ret, retain: true, release: true);
   }
@@ -50523,7 +50336,7 @@ class NSURLRequest extends objc.NSObject {
   /// @abstract Indicates that NSURLRequest implements the NSSecureCoding protocol.
   /// @result A BOOL value set to YES.
   static bool getSupportsSecureCoding() {
-    return _objc_msgSend_21(_class_NSURLRequest, _sel_supportsSecureCoding);
+    return _objc_msgSend_13(_class_NSURLRequest, _sel_supportsSecureCoding);
   }
 
   /// !
@@ -50538,7 +50351,7 @@ class NSURLRequest extends objc.NSObject {
   /// @result A newly-created and autoreleased NSURLRequest instance.
   static NSURLRequest requestWithURL_cachePolicy_timeoutInterval_(
       objc.NSURL URL, int cachePolicy, DartNSTimeInterval timeoutInterval) {
-    final _ret = _objc_msgSend_39(
+    final _ret = _objc_msgSend_31(
         _class_NSURLRequest,
         _sel_requestWithURL_cachePolicy_timeoutInterval_,
         URL.pointer,
@@ -50556,7 +50369,7 @@ class NSURLRequest extends objc.NSObject {
   /// @param URL The URL for the request.
   /// @result An initialized NSURLRequest.
   NSURLRequest initWithURL_(objc.NSURL URL) {
-    final _ret = _objc_msgSend_38(this.pointer, _sel_initWithURL_, URL.pointer);
+    final _ret = _objc_msgSend_30(this.pointer, _sel_initWithURL_, URL.pointer);
     return NSURLRequest.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -50574,7 +50387,7 @@ class NSURLRequest extends objc.NSObject {
   /// @result An initialized NSURLRequest.
   NSURLRequest initWithURL_cachePolicy_timeoutInterval_(
       objc.NSURL URL, int cachePolicy, DartNSTimeInterval timeoutInterval) {
-    final _ret = _objc_msgSend_39(
+    final _ret = _objc_msgSend_31(
         this.pointer,
         _sel_initWithURL_cachePolicy_timeoutInterval_,
         URL.pointer,
@@ -50587,7 +50400,7 @@ class NSURLRequest extends objc.NSObject {
   /// @abstract Returns the URL of the receiver.
   /// @result The URL of the receiver.
   objc.NSURL? get URL {
-    final _ret = _objc_msgSend_25(this.pointer, _sel_URL);
+    final _ret = _objc_msgSend_17(this.pointer, _sel_URL);
     return _ret.address == 0
         ? null
         : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
@@ -50597,7 +50410,7 @@ class NSURLRequest extends objc.NSObject {
   /// @abstract Returns the cache policy of the receiver.
   /// @result The cache policy of the receiver.
   int get cachePolicy {
-    return _objc_msgSend_40(this.pointer, _sel_cachePolicy);
+    return _objc_msgSend_32(this.pointer, _sel_cachePolicy);
   }
 
   /// !
@@ -50614,7 +50427,7 @@ class NSURLRequest extends objc.NSObject {
   /// in seconds.
   /// @result The timeout interval of the receiver.
   DartNSTimeInterval get timeoutInterval {
-    return _objc_msgSend_41(this.pointer, _sel_timeoutInterval);
+    return _objc_msgSend_33(this.pointer, _sel_timeoutInterval);
   }
 
   /// !
@@ -50625,7 +50438,7 @@ class NSURLRequest extends objc.NSObject {
   /// See setMainDocumentURL:
   /// @result The main document URL.
   objc.NSURL? get mainDocumentURL {
-    final _ret = _objc_msgSend_25(this.pointer, _sel_mainDocumentURL);
+    final _ret = _objc_msgSend_17(this.pointer, _sel_mainDocumentURL);
     return _ret.address == 0
         ? null
         : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
@@ -50637,7 +50450,7 @@ class NSURLRequest extends objc.NSObject {
   /// not explicitly set a networkServiceType (using the setNetworkServiceType method).
   /// @result The NSURLRequestNetworkServiceType associated with this request.
   int get networkServiceType {
-    return _objc_msgSend_42(this.pointer, _sel_networkServiceType);
+    return _objc_msgSend_34(this.pointer, _sel_networkServiceType);
   }
 
   /// !
@@ -50646,7 +50459,7 @@ class NSURLRequest extends objc.NSObject {
   /// @result YES if the receiver is allowed to use the built in cellular radios to
   /// satisfy the request, NO otherwise.
   bool get allowsCellularAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsCellularAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsCellularAccess);
   }
 
   /// !
@@ -50655,7 +50468,7 @@ class NSURLRequest extends objc.NSObject {
   /// @result YES if the receiver is allowed to use an interface marked as expensive to
   /// satisfy the request, NO otherwise.
   bool get allowsExpensiveNetworkAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsExpensiveNetworkAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsExpensiveNetworkAccess);
   }
 
   /// !
@@ -50664,7 +50477,7 @@ class NSURLRequest extends objc.NSObject {
   /// @result YES if the receiver is allowed to use an interface marked as constrained to
   /// satisfy the request, NO otherwise.
   bool get allowsConstrainedNetworkAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsConstrainedNetworkAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsConstrainedNetworkAccess);
   }
 
   /// !
@@ -50673,7 +50486,7 @@ class NSURLRequest extends objc.NSObject {
   /// @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
   /// The default may be YES in a future OS update.
   bool get assumesHTTP3Capable {
-    return _objc_msgSend_21(this.pointer, _sel_assumesHTTP3Capable);
+    return _objc_msgSend_13(this.pointer, _sel_assumesHTTP3Capable);
   }
 
   /// !
@@ -50682,7 +50495,7 @@ class NSURLRequest extends objc.NSObject {
   /// have not explicitly set an attribution.
   /// @result The NSURLRequestAttribution associated with this request.
   int get attribution {
-    return _objc_msgSend_43(this.pointer, _sel_attribution);
+    return _objc_msgSend_35(this.pointer, _sel_attribution);
   }
 
   /// !
@@ -50690,25 +50503,25 @@ class NSURLRequest extends objc.NSObject {
   /// @discussion YES, if the DNS lookup for this request should require DNSSEC validation,
   /// No otherwise. Defaults to NO.
   bool get requiresDNSSECValidation {
-    return _objc_msgSend_21(this.pointer, _sel_requiresDNSSECValidation);
+    return _objc_msgSend_13(this.pointer, _sel_requiresDNSSECValidation);
   }
 
   objc.NSString? get HTTPMethod {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_HTTPMethod);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_HTTPMethod);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   objc.NSDictionary? get allHTTPHeaderFields {
-    final _ret = _objc_msgSend_32(this.pointer, _sel_allHTTPHeaderFields);
+    final _ret = _objc_msgSend_24(this.pointer, _sel_allHTTPHeaderFields);
     return _ret.address == 0
         ? null
         : objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
   }
 
   objc.NSString? valueForHTTPHeaderField_(objc.NSString field) {
-    final _ret = _objc_msgSend_44(
+    final _ret = _objc_msgSend_36(
         this.pointer, _sel_valueForHTTPHeaderField_, field.pointer);
     return _ret.address == 0
         ? null
@@ -50716,28 +50529,27 @@ class NSURLRequest extends objc.NSObject {
   }
 
   objc.NSData? get HTTPBody {
-    final _ret = _objc_msgSend_45(this.pointer, _sel_HTTPBody);
+    final _ret = _objc_msgSend_37(this.pointer, _sel_HTTPBody);
     return _ret.address == 0
         ? null
         : objc.NSData.castFromPointer(_ret, retain: true, release: true);
   }
 
   NSInputStream? get HTTPBodyStream {
-    final _ret = _objc_msgSend_64(this.pointer, _sel_HTTPBodyStream);
+    final _ret = _objc_msgSend_57(this.pointer, _sel_HTTPBodyStream);
     return _ret.address == 0
         ? null
         : NSInputStream.castFromPointer(_ret, retain: true, release: true);
   }
 
   bool get HTTPShouldHandleCookies {
-    return _objc_msgSend_21(this.pointer, _sel_HTTPShouldHandleCookies);
+    return _objc_msgSend_13(this.pointer, _sel_HTTPShouldHandleCookies);
   }
 
   bool get HTTPShouldUsePipelining {
-    return _objc_msgSend_21(this.pointer, _sel_HTTPShouldUsePipelining);
+    return _objc_msgSend_13(this.pointer, _sel_HTTPShouldUsePipelining);
   }
 
-  @override
   NSURLRequest init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLRequest.castFromPointer(_ret, retain: true, release: true);
@@ -50762,7 +50574,7 @@ class NSURLRequest extends objc.NSObject {
 
 late final _class_NSURLRequest = objc.getClass("NSURLRequest");
 late final _sel_requestWithURL_ = objc.registerName("requestWithURL:");
-final _objc_msgSend_38 = objc.msgSendPointer
+final _objc_msgSend_30 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -50833,7 +50645,7 @@ typedef NSTimeInterval = ffi.Double;
 typedef DartNSTimeInterval = double;
 late final _sel_requestWithURL_cachePolicy_timeoutInterval_ =
     objc.registerName("requestWithURL:cachePolicy:timeoutInterval:");
-final _objc_msgSend_39 = objc.msgSendPointer
+final _objc_msgSend_31 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -50853,7 +50665,7 @@ late final _sel_initWithURL_ = objc.registerName("initWithURL:");
 late final _sel_initWithURL_cachePolicy_timeoutInterval_ =
     objc.registerName("initWithURL:cachePolicy:timeoutInterval:");
 late final _sel_cachePolicy = objc.registerName("cachePolicy");
-final _objc_msgSend_40 = objc.msgSendPointer
+final _objc_msgSend_32 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -50862,7 +50674,7 @@ final _objc_msgSend_40 = objc.msgSendPointer
         int Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_timeoutInterval = objc.registerName("timeoutInterval");
-final _objc_msgSend_41 = objc.msgSendPointer
+final _objc_msgSend_33 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             NSTimeInterval Function(ffi.Pointer<objc.ObjCObject>,
@@ -50931,7 +50743,7 @@ abstract class NSURLRequestNetworkServiceType {
 }
 
 late final _sel_networkServiceType = objc.registerName("networkServiceType");
-final _objc_msgSend_42 = objc.msgSendPointer
+final _objc_msgSend_34 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -50964,7 +50776,7 @@ abstract class NSURLRequestAttribution {
 }
 
 late final _sel_attribution = objc.registerName("attribution");
-final _objc_msgSend_43 = objc.msgSendPointer
+final _objc_msgSend_35 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -50978,7 +50790,7 @@ late final _sel_HTTPMethod = objc.registerName("HTTPMethod");
 late final _sel_allHTTPHeaderFields = objc.registerName("allHTTPHeaderFields");
 late final _sel_valueForHTTPHeaderField_ =
     objc.registerName("valueForHTTPHeaderField:");
-final _objc_msgSend_44 = objc.msgSendPointer
+final _objc_msgSend_36 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -50989,7 +50801,7 @@ final _objc_msgSend_44 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_HTTPBody = objc.registerName("HTTPBody");
-final _objc_msgSend_45 = objc.msgSendPointer
+final _objc_msgSend_37 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -51020,26 +50832,26 @@ class NSInputStream extends NSStream {
 
   DartNSInteger read_maxLength_(
       ffi.Pointer<ffi.Uint8> buffer, DartNSUInteger len) {
-    return _objc_msgSend_46(this.pointer, _sel_read_maxLength_, buffer, len);
+    return _objc_msgSend_38(this.pointer, _sel_read_maxLength_, buffer, len);
   }
 
   bool getBuffer_length_(
       ffi.Pointer<ffi.Pointer<ffi.Uint8>> buffer, ffi.Pointer<NSUInteger> len) {
-    return _objc_msgSend_47(this.pointer, _sel_getBuffer_length_, buffer, len);
+    return _objc_msgSend_39(this.pointer, _sel_getBuffer_length_, buffer, len);
   }
 
   bool get hasBytesAvailable {
-    return _objc_msgSend_21(this.pointer, _sel_hasBytesAvailable);
+    return _objc_msgSend_13(this.pointer, _sel_hasBytesAvailable);
   }
 
   NSInputStream initWithData_(objc.NSData data) {
     final _ret =
-        _objc_msgSend_48(this.pointer, _sel_initWithData_, data.pointer);
+        _objc_msgSend_40(this.pointer, _sel_initWithData_, data.pointer);
     return NSInputStream.castFromPointer(_ret, retain: true, release: true);
   }
 
   NSInputStream? initWithURL_(objc.NSURL url) {
-    final _ret = _objc_msgSend_49(this.pointer, _sel_initWithURL_, url.pointer);
+    final _ret = _objc_msgSend_41(this.pointer, _sel_initWithURL_, url.pointer);
     return _ret.address == 0
         ? null
         : NSInputStream.castFromPointer(_ret, retain: true, release: true);
@@ -51047,14 +50859,14 @@ class NSInputStream extends NSStream {
 
   NSInputStream? initWithFileAtPath_(objc.NSString path) {
     final _ret =
-        _objc_msgSend_50(this.pointer, _sel_initWithFileAtPath_, path.pointer);
+        _objc_msgSend_42(this.pointer, _sel_initWithFileAtPath_, path.pointer);
     return _ret.address == 0
         ? null
         : NSInputStream.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSInputStream? inputStreamWithData_(objc.NSData data) {
-    final _ret = _objc_msgSend_51(
+    final _ret = _objc_msgSend_43(
         _class_NSInputStream, _sel_inputStreamWithData_, data.pointer);
     return _ret.address == 0
         ? null
@@ -51062,7 +50874,7 @@ class NSInputStream extends NSStream {
   }
 
   static NSInputStream? inputStreamWithFileAtPath_(objc.NSString path) {
-    final _ret = _objc_msgSend_50(
+    final _ret = _objc_msgSend_42(
         _class_NSInputStream, _sel_inputStreamWithFileAtPath_, path.pointer);
     return _ret.address == 0
         ? null
@@ -51070,7 +50882,7 @@ class NSInputStream extends NSStream {
   }
 
   static NSInputStream? inputStreamWithURL_(objc.NSURL url) {
-    final _ret = _objc_msgSend_49(
+    final _ret = _objc_msgSend_41(
         _class_NSInputStream, _sel_inputStreamWithURL_, url.pointer);
     return _ret.address == 0
         ? null
@@ -51082,7 +50894,7 @@ class NSInputStream extends NSStream {
       DartNSInteger port,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_61(
+    _objc_msgSend_54(
         _class_NSInputStream,
         _sel_getStreamsToHostWithName_port_inputStream_outputStream_,
         hostname.pointer,
@@ -51096,7 +50908,7 @@ class NSInputStream extends NSStream {
       DartNSInteger port,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_62(
+    _objc_msgSend_55(
         _class_NSInputStream,
         _sel_getStreamsToHost_port_inputStream_outputStream_,
         host.pointer,
@@ -51109,7 +50921,7 @@ class NSInputStream extends NSStream {
       DartNSUInteger bufferSize,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_63(
+    _objc_msgSend_56(
         _class_NSInputStream,
         _sel_getBoundStreamsWithBufferSize_inputStream_outputStream_,
         bufferSize,
@@ -51117,7 +50929,6 @@ class NSInputStream extends NSStream {
         outputStream);
   }
 
-  @override
   NSInputStream init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSInputStream.castFromPointer(_ret, retain: true, release: true);
@@ -51142,7 +50953,7 @@ class NSInputStream extends NSStream {
 
 late final _class_NSInputStream = objc.getClass("NSInputStream");
 late final _sel_read_maxLength_ = objc.registerName("read:maxLength:");
-final _objc_msgSend_46 = objc.msgSendPointer
+final _objc_msgSend_38 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             NSInteger Function(
@@ -51154,7 +50965,7 @@ final _objc_msgSend_46 = objc.msgSendPointer
         int Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<ffi.Uint8>, int)>();
 late final _sel_getBuffer_length_ = objc.registerName("getBuffer:length:");
-final _objc_msgSend_47 = objc.msgSendPointer
+final _objc_msgSend_39 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Bool Function(
@@ -51170,7 +50981,7 @@ final _objc_msgSend_47 = objc.msgSendPointer
             ffi.Pointer<NSUInteger>)>();
 late final _sel_hasBytesAvailable = objc.registerName("hasBytesAvailable");
 late final _sel_initWithData_ = objc.registerName("initWithData:");
-final _objc_msgSend_48 = objc.msgSendPointer
+final _objc_msgSend_40 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -51180,7 +50991,7 @@ final _objc_msgSend_48 = objc.msgSendPointer
     .asFunction<
         instancetype Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-final _objc_msgSend_49 = objc.msgSendPointer
+final _objc_msgSend_41 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -51191,7 +51002,7 @@ final _objc_msgSend_49 = objc.msgSendPointer
         instancetype Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_initWithFileAtPath_ = objc.registerName("initWithFileAtPath:");
-final _objc_msgSend_50 = objc.msgSendPointer
+final _objc_msgSend_42 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -51203,7 +51014,7 @@ final _objc_msgSend_50 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_inputStreamWithData_ =
     objc.registerName("inputStreamWithData:");
-final _objc_msgSend_51 = objc.msgSendPointer
+final _objc_msgSend_43 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -51237,11 +51048,11 @@ class NSStream extends objc.NSObject {
   }
 
   void open() {
-    _objc_msgSend_11(this.pointer, _sel_open);
+    _objc_msgSend_44(this.pointer, _sel_open);
   }
 
   void close() {
-    _objc_msgSend_11(this.pointer, _sel_close);
+    _objc_msgSend_44(this.pointer, _sel_close);
   }
 
   objc.ObjCObjectBase? get delegate {
@@ -51252,13 +51063,13 @@ class NSStream extends objc.NSObject {
   }
 
   set delegate(objc.ObjCObjectBase? value) {
-    return _objc_msgSend_52(
+    return _objc_msgSend_45(
         this.pointer, _sel_setDelegate_, value?.pointer ?? ffi.nullptr);
   }
 
   objc.ObjCObjectBase? propertyForKey_(DartNSStreamPropertyKey key) {
     final _ret =
-        _objc_msgSend_50(this.pointer, _sel_propertyForKey_, key.pointer);
+        _objc_msgSend_42(this.pointer, _sel_propertyForKey_, key.pointer);
     return _ret.address == 0
         ? null
         : objc.ObjCObjectBase(_ret, retain: true, release: true);
@@ -51266,26 +51077,26 @@ class NSStream extends objc.NSObject {
 
   bool setProperty_forKey_(
       objc.ObjCObjectBase? property, DartNSStreamPropertyKey key) {
-    return _objc_msgSend_53(this.pointer, _sel_setProperty_forKey_,
+    return _objc_msgSend_46(this.pointer, _sel_setProperty_forKey_,
         property?.pointer ?? ffi.nullptr, key.pointer);
   }
 
   void scheduleInRunLoop_forMode_(NSRunLoop aRunLoop, DartNSRunLoopMode mode) {
-    _objc_msgSend_54(this.pointer, _sel_scheduleInRunLoop_forMode_,
+    _objc_msgSend_47(this.pointer, _sel_scheduleInRunLoop_forMode_,
         aRunLoop.pointer, mode.pointer);
   }
 
   void removeFromRunLoop_forMode_(NSRunLoop aRunLoop, DartNSRunLoopMode mode) {
-    _objc_msgSend_54(this.pointer, _sel_removeFromRunLoop_forMode_,
+    _objc_msgSend_47(this.pointer, _sel_removeFromRunLoop_forMode_,
         aRunLoop.pointer, mode.pointer);
   }
 
   int get streamStatus {
-    return _objc_msgSend_55(this.pointer, _sel_streamStatus);
+    return _objc_msgSend_48(this.pointer, _sel_streamStatus);
   }
 
   objc.NSError? get streamError {
-    final _ret = _objc_msgSend_56(this.pointer, _sel_streamError);
+    final _ret = _objc_msgSend_49(this.pointer, _sel_streamError);
     return _ret.address == 0
         ? null
         : objc.NSError.castFromPointer(_ret, retain: true, release: true);
@@ -51296,7 +51107,7 @@ class NSStream extends objc.NSObject {
       DartNSInteger port,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_61(
+    _objc_msgSend_54(
         _class_NSStream,
         _sel_getStreamsToHostWithName_port_inputStream_outputStream_,
         hostname.pointer,
@@ -51310,7 +51121,7 @@ class NSStream extends objc.NSObject {
       DartNSInteger port,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_62(
+    _objc_msgSend_55(
         _class_NSStream,
         _sel_getStreamsToHost_port_inputStream_outputStream_,
         host.pointer,
@@ -51323,7 +51134,7 @@ class NSStream extends objc.NSObject {
       DartNSUInteger bufferSize,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_63(
+    _objc_msgSend_56(
         _class_NSStream,
         _sel_getBoundStreamsWithBufferSize_inputStream_outputStream_,
         bufferSize,
@@ -51331,7 +51142,6 @@ class NSStream extends objc.NSObject {
         outputStream);
   }
 
-  @override
   NSStream init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSStream.castFromPointer(_ret, retain: true, release: true);
@@ -51355,10 +51165,18 @@ class NSStream extends objc.NSObject {
 
 late final _class_NSStream = objc.getClass("NSStream");
 late final _sel_open = objc.registerName("open");
+final _objc_msgSend_44 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        void Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_close = objc.registerName("close");
 late final _sel_delegate = objc.registerName("delegate");
 late final _sel_setDelegate_ = objc.registerName("setDelegate:");
-final _objc_msgSend_52 = objc.msgSendPointer
+final _objc_msgSend_45 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -51372,7 +51190,7 @@ typedef NSStreamPropertyKey = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSStreamPropertyKey = objc.NSString;
 late final _sel_propertyForKey_ = objc.registerName("propertyForKey:");
 late final _sel_setProperty_forKey_ = objc.registerName("setProperty:forKey:");
-final _objc_msgSend_53 = objc.msgSendPointer
+final _objc_msgSend_46 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Bool Function(
@@ -51412,7 +51230,7 @@ typedef NSRunLoopMode = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSRunLoopMode = objc.NSString;
 late final _sel_scheduleInRunLoop_forMode_ =
     objc.registerName("scheduleInRunLoop:forMode:");
-final _objc_msgSend_54 = objc.msgSendPointer
+final _objc_msgSend_47 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -51441,7 +51259,7 @@ abstract class NSStreamStatus {
 }
 
 late final _sel_streamStatus = objc.registerName("streamStatus");
-final _objc_msgSend_55 = objc.msgSendPointer
+final _objc_msgSend_48 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -51450,7 +51268,7 @@ final _objc_msgSend_55 = objc.msgSendPointer
         int Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_streamError = objc.registerName("streamError");
-final _objc_msgSend_56 = objc.msgSendPointer
+final _objc_msgSend_49 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -51481,11 +51299,11 @@ class NSOutputStream extends NSStream {
 
   DartNSInteger write_maxLength_(
       ffi.Pointer<ffi.Uint8> buffer, DartNSUInteger len) {
-    return _objc_msgSend_46(this.pointer, _sel_write_maxLength_, buffer, len);
+    return _objc_msgSend_38(this.pointer, _sel_write_maxLength_, buffer, len);
   }
 
   bool get hasSpaceAvailable {
-    return _objc_msgSend_21(this.pointer, _sel_hasSpaceAvailable);
+    return _objc_msgSend_13(this.pointer, _sel_hasSpaceAvailable);
   }
 
   NSOutputStream initToMemory() {
@@ -51495,13 +51313,13 @@ class NSOutputStream extends NSStream {
 
   NSOutputStream initToBuffer_capacity_(
       ffi.Pointer<ffi.Uint8> buffer, DartNSUInteger capacity) {
-    final _ret = _objc_msgSend_57(
+    final _ret = _objc_msgSend_50(
         this.pointer, _sel_initToBuffer_capacity_, buffer, capacity);
     return NSOutputStream.castFromPointer(_ret, retain: true, release: true);
   }
 
   NSOutputStream? initWithURL_append_(objc.NSURL url, bool shouldAppend) {
-    final _ret = _objc_msgSend_58(
+    final _ret = _objc_msgSend_51(
         this.pointer, _sel_initWithURL_append_, url.pointer, shouldAppend);
     return _ret.address == 0
         ? null
@@ -51510,7 +51328,7 @@ class NSOutputStream extends NSStream {
 
   NSOutputStream? initToFileAtPath_append_(
       objc.NSString path, bool shouldAppend) {
-    final _ret = _objc_msgSend_59(this.pointer, _sel_initToFileAtPath_append_,
+    final _ret = _objc_msgSend_52(this.pointer, _sel_initToFileAtPath_append_,
         path.pointer, shouldAppend);
     return _ret.address == 0
         ? null
@@ -51525,21 +51343,21 @@ class NSOutputStream extends NSStream {
 
   static NSOutputStream outputStreamToBuffer_capacity_(
       ffi.Pointer<ffi.Uint8> buffer, DartNSUInteger capacity) {
-    final _ret = _objc_msgSend_57(_class_NSOutputStream,
+    final _ret = _objc_msgSend_50(_class_NSOutputStream,
         _sel_outputStreamToBuffer_capacity_, buffer, capacity);
     return NSOutputStream.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSOutputStream outputStreamToFileAtPath_append_(
       objc.NSString path, bool shouldAppend) {
-    final _ret = _objc_msgSend_60(_class_NSOutputStream,
+    final _ret = _objc_msgSend_53(_class_NSOutputStream,
         _sel_outputStreamToFileAtPath_append_, path.pointer, shouldAppend);
     return NSOutputStream.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSOutputStream? outputStreamWithURL_append_(
       objc.NSURL url, bool shouldAppend) {
-    final _ret = _objc_msgSend_58(_class_NSOutputStream,
+    final _ret = _objc_msgSend_51(_class_NSOutputStream,
         _sel_outputStreamWithURL_append_, url.pointer, shouldAppend);
     return _ret.address == 0
         ? null
@@ -51551,7 +51369,7 @@ class NSOutputStream extends NSStream {
       DartNSInteger port,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_61(
+    _objc_msgSend_54(
         _class_NSOutputStream,
         _sel_getStreamsToHostWithName_port_inputStream_outputStream_,
         hostname.pointer,
@@ -51565,7 +51383,7 @@ class NSOutputStream extends NSStream {
       DartNSInteger port,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_62(
+    _objc_msgSend_55(
         _class_NSOutputStream,
         _sel_getStreamsToHost_port_inputStream_outputStream_,
         host.pointer,
@@ -51578,7 +51396,7 @@ class NSOutputStream extends NSStream {
       DartNSUInteger bufferSize,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_63(
+    _objc_msgSend_56(
         _class_NSOutputStream,
         _sel_getBoundStreamsWithBufferSize_inputStream_outputStream_,
         bufferSize,
@@ -51593,7 +51411,7 @@ late final _sel_hasSpaceAvailable = objc.registerName("hasSpaceAvailable");
 late final _sel_initToMemory = objc.registerName("initToMemory");
 late final _sel_initToBuffer_capacity_ =
     objc.registerName("initToBuffer:capacity:");
-final _objc_msgSend_57 = objc.msgSendPointer
+final _objc_msgSend_50 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -51605,7 +51423,7 @@ final _objc_msgSend_57 = objc.msgSendPointer
         instancetype Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<ffi.Uint8>, int)>();
 late final _sel_initWithURL_append_ = objc.registerName("initWithURL:append:");
-final _objc_msgSend_58 = objc.msgSendPointer
+final _objc_msgSend_51 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -51621,7 +51439,7 @@ final _objc_msgSend_58 = objc.msgSendPointer
             bool)>();
 late final _sel_initToFileAtPath_append_ =
     objc.registerName("initToFileAtPath:append:");
-final _objc_msgSend_59 = objc.msgSendPointer
+final _objc_msgSend_52 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -51641,7 +51459,7 @@ late final _sel_outputStreamToBuffer_capacity_ =
     objc.registerName("outputStreamToBuffer:capacity:");
 late final _sel_outputStreamToFileAtPath_append_ =
     objc.registerName("outputStreamToFileAtPath:append:");
-final _objc_msgSend_60 = objc.msgSendPointer
+final _objc_msgSend_53 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -51659,7 +51477,7 @@ late final _sel_outputStreamWithURL_append_ =
     objc.registerName("outputStreamWithURL:append:");
 late final _sel_getStreamsToHostWithName_port_inputStream_outputStream_ = objc
     .registerName("getStreamsToHostWithName:port:inputStream:outputStream:");
-final _objc_msgSend_61 = objc.msgSendPointer
+final _objc_msgSend_54 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -51701,7 +51519,7 @@ class NSHost extends objc.ObjCObjectBase {
 late final _class_NSHost = objc.getClass("NSHost");
 late final _sel_getStreamsToHost_port_inputStream_outputStream_ =
     objc.registerName("getStreamsToHost:port:inputStream:outputStream:");
-final _objc_msgSend_62 = objc.msgSendPointer
+final _objc_msgSend_55 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -51721,7 +51539,7 @@ final _objc_msgSend_62 = objc.msgSendPointer
             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
 late final _sel_getBoundStreamsWithBufferSize_inputStream_outputStream_ = objc
     .registerName("getBoundStreamsWithBufferSize:inputStream:outputStream:");
-final _objc_msgSend_63 = objc.msgSendPointer
+final _objc_msgSend_56 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -51738,7 +51556,7 @@ final _objc_msgSend_63 = objc.msgSendPointer
             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
 late final _sel_HTTPBodyStream = objc.registerName("HTTPBodyStream");
-final _objc_msgSend_64 = objc.msgSendPointer
+final _objc_msgSend_57 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -51752,7 +51570,7 @@ late final _sel_HTTPShouldUsePipelining =
     objc.registerName("HTTPShouldUsePipelining");
 late final _sel_cachedResponseForRequest_ =
     objc.registerName("cachedResponseForRequest:");
-final _objc_msgSend_65 = objc.msgSendPointer
+final _objc_msgSend_58 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -51764,7 +51582,7 @@ final _objc_msgSend_65 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_storeCachedResponse_forRequest_ =
     objc.registerName("storeCachedResponse:forRequest:");
-final _objc_msgSend_66 = objc.msgSendPointer
+final _objc_msgSend_59 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -51780,7 +51598,7 @@ final _objc_msgSend_66 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_removeCachedResponseForRequest_ =
     objc.registerName("removeCachedResponseForRequest:");
-final _objc_msgSend_67 = objc.msgSendPointer
+final _objc_msgSend_60 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -51794,7 +51612,7 @@ late final _sel_removeAllCachedResponses =
     objc.registerName("removeAllCachedResponses");
 late final _sel_removeCachedResponsesSinceDate_ =
     objc.registerName("removeCachedResponsesSinceDate:");
-final _objc_msgSend_68 = objc.msgSendPointer
+final _objc_msgSend_61 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -51806,7 +51624,7 @@ final _objc_msgSend_68 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_memoryCapacity = objc.registerName("memoryCapacity");
 late final _sel_setMemoryCapacity_ = objc.registerName("setMemoryCapacity:");
-final _objc_msgSend_69 = objc.msgSendPointer
+final _objc_msgSend_62 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -51839,7 +51657,6 @@ class NSURLSessionDataTask extends NSURLSessionTask {
         obj.pointer, _sel_isKindOfClass_, _class_NSURLSessionDataTask);
   }
 
-  @override
   NSURLSessionDataTask init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionDataTask.castFromPointer(_ret,
@@ -51897,7 +51714,7 @@ class NSURLSessionTask extends objc.NSObject {
 
   /// may be nil if this is a stream task
   NSURLRequest? get originalRequest {
-    final _ret = _objc_msgSend_70(this.pointer, _sel_originalRequest);
+    final _ret = _objc_msgSend_63(this.pointer, _sel_originalRequest);
     return _ret.address == 0
         ? null
         : NSURLRequest.castFromPointer(_ret, retain: true, release: true);
@@ -51905,7 +51722,7 @@ class NSURLSessionTask extends objc.NSObject {
 
   /// may differ from originalRequest due to http server redirection
   NSURLRequest? get currentRequest {
-    final _ret = _objc_msgSend_70(this.pointer, _sel_currentRequest);
+    final _ret = _objc_msgSend_63(this.pointer, _sel_currentRequest);
     return _ret.address == 0
         ? null
         : NSURLRequest.castFromPointer(_ret, retain: true, release: true);
@@ -51913,7 +51730,7 @@ class NSURLSessionTask extends objc.NSObject {
 
   /// may be nil if no response has been received
   NSURLResponse? get response {
-    final _ret = _objc_msgSend_71(this.pointer, _sel_response);
+    final _ret = _objc_msgSend_64(this.pointer, _sel_response);
     return _ret.address == 0
         ? null
         : NSURLResponse.castFromPointer(_ret, retain: true, release: true);
@@ -51941,15 +51758,15 @@ class NSURLSessionTask extends objc.NSObject {
   /// Delegate is strongly referenced until the task completes, after which it is
   /// reset to `nil`.
   set delegate(objc.ObjCObjectBase? value) {
-    return _objc_msgSend_52(
+    return _objc_msgSend_45(
         this.pointer, _sel_setDelegate_, value?.pointer ?? ffi.nullptr);
   }
 
   /// NSProgress object which represents the task progress.
   /// It can be used for task progress tracking.
-  objc.NSProgress get progress {
-    final _ret = _objc_msgSend_72(this.pointer, _sel_progress);
-    return objc.NSProgress.castFromPointer(_ret, retain: true, release: true);
+  NSProgress get progress {
+    final _ret = _objc_msgSend_86(this.pointer, _sel_progress);
+    return NSProgress.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// Start the network load for this task no earlier than the specified date. If
@@ -51958,7 +51775,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// Only applies to tasks created from background NSURLSession instances; has no
   /// effect for tasks created from other session types.
   objc.NSDate? get earliestBeginDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_earliestBeginDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_earliestBeginDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -51970,7 +51787,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// Only applies to tasks created from background NSURLSession instances; has no
   /// effect for tasks created from other session types.
   set earliestBeginDate(objc.NSDate? value) {
-    return _objc_msgSend_74(this.pointer, _sel_setEarliestBeginDate_,
+    return _objc_msgSend_88(this.pointer, _sel_setEarliestBeginDate_,
         value?.pointer ?? ffi.nullptr);
   }
 
@@ -51978,51 +51795,51 @@ class NSURLSessionTask extends objc.NSObject {
   /// be sent and received by this task. These values are used by system scheduling
   /// policy. If unspecified, NSURLSessionTransferSizeUnknown is used.
   int get countOfBytesClientExpectsToSend {
-    return _objc_msgSend_75(this.pointer, _sel_countOfBytesClientExpectsToSend);
+    return _objc_msgSend_72(this.pointer, _sel_countOfBytesClientExpectsToSend);
   }
 
   /// The number of bytes that the client expects (a best-guess upper-bound) will
   /// be sent and received by this task. These values are used by system scheduling
   /// policy. If unspecified, NSURLSessionTransferSizeUnknown is used.
   set countOfBytesClientExpectsToSend(int value) {
-    return _objc_msgSend_76(
+    return _objc_msgSend_73(
         this.pointer, _sel_setCountOfBytesClientExpectsToSend_, value);
   }
 
   int get countOfBytesClientExpectsToReceive {
-    return _objc_msgSend_75(
+    return _objc_msgSend_72(
         this.pointer, _sel_countOfBytesClientExpectsToReceive);
   }
 
   set countOfBytesClientExpectsToReceive(int value) {
-    return _objc_msgSend_76(
+    return _objc_msgSend_73(
         this.pointer, _sel_setCountOfBytesClientExpectsToReceive_, value);
   }
 
   /// number of body bytes already sent
   int get countOfBytesSent {
-    return _objc_msgSend_75(this.pointer, _sel_countOfBytesSent);
+    return _objc_msgSend_72(this.pointer, _sel_countOfBytesSent);
   }
 
   /// number of body bytes already received
   int get countOfBytesReceived {
-    return _objc_msgSend_75(this.pointer, _sel_countOfBytesReceived);
+    return _objc_msgSend_72(this.pointer, _sel_countOfBytesReceived);
   }
 
   /// number of body bytes we expect to send, derived from the Content-Length of the HTTP request
   int get countOfBytesExpectedToSend {
-    return _objc_msgSend_75(this.pointer, _sel_countOfBytesExpectedToSend);
+    return _objc_msgSend_72(this.pointer, _sel_countOfBytesExpectedToSend);
   }
 
   /// number of byte bytes we expect to receive, usually derived from the Content-Length header of an HTTP response.
   int get countOfBytesExpectedToReceive {
-    return _objc_msgSend_75(this.pointer, _sel_countOfBytesExpectedToReceive);
+    return _objc_msgSend_72(this.pointer, _sel_countOfBytesExpectedToReceive);
   }
 
   /// The taskDescription property is available for the developer to
   /// provide a descriptive label for the task.
   objc.NSString? get taskDescription {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_taskDescription);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_taskDescription);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -52031,7 +51848,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// The taskDescription property is available for the developer to
   /// provide a descriptive label for the task.
   set taskDescription(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setTaskDescription_, value?.pointer ?? ffi.nullptr);
   }
 
@@ -52041,18 +51858,18 @@ class NSURLSessionTask extends objc.NSObject {
   /// cases, the task may signal other work before it acknowledges the
   /// cancelation.  -cancel may be sent to a task that has been suspended.
   void cancel() {
-    _objc_msgSend_11(this.pointer, _sel_cancel);
+    _objc_msgSend_44(this.pointer, _sel_cancel);
   }
 
   /// The current state of the task within the session.
   int get state {
-    return _objc_msgSend_78(this.pointer, _sel_state);
+    return _objc_msgSend_90(this.pointer, _sel_state);
   }
 
   /// The error, if any, delivered via -URLSession:task:didCompleteWithError:
   /// This property will be nil in the event that no error occurred.
   objc.NSError? get error {
-    final _ret = _objc_msgSend_56(this.pointer, _sel_error);
+    final _ret = _objc_msgSend_49(this.pointer, _sel_error);
     return _ret.address == 0
         ? null
         : objc.NSError.castFromPointer(_ret, retain: true, release: true);
@@ -52066,11 +51883,11 @@ class NSURLSessionTask extends objc.NSObject {
   /// will be disabled while a task is suspended. -suspend and -resume are
   /// nestable.
   void suspend() {
-    _objc_msgSend_11(this.pointer, _sel_suspend);
+    _objc_msgSend_44(this.pointer, _sel_suspend);
   }
 
   void resume() {
-    _objc_msgSend_11(this.pointer, _sel_resume);
+    _objc_msgSend_44(this.pointer, _sel_resume);
   }
 
   /// Sets a scaling factor for the priority of the task. The scaling factor is a
@@ -52088,8 +51905,8 @@ class NSURLSessionTask extends objc.NSObject {
   /// NSURLSessionTaskPriorityHigh, but use is not restricted to these.
   double get priority {
     return objc.useMsgSendVariants
-        ? _objc_msgSend_79Fpret(this.pointer, _sel_priority)
-        : _objc_msgSend_79(this.pointer, _sel_priority);
+        ? _objc_msgSend_91Fpret(this.pointer, _sel_priority)
+        : _objc_msgSend_91(this.pointer, _sel_priority);
   }
 
   /// Sets a scaling factor for the priority of the task. The scaling factor is a
@@ -52106,7 +51923,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// priority levels are provided: NSURLSessionTaskPriorityLow and
   /// NSURLSessionTaskPriorityHigh, but use is not restricted to these.
   set priority(double value) {
-    return _objc_msgSend_80(this.pointer, _sel_setPriority_, value);
+    return _objc_msgSend_92(this.pointer, _sel_setPriority_, value);
   }
 
   /// Provides a hint indicating if incremental delivery of a partial response body
@@ -52118,7 +51935,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// Defaults to true unless this task is created with completion-handler based
   /// convenience methods, or if it is a download task.
   bool get prefersIncrementalDelivery {
-    return _objc_msgSend_21(this.pointer, _sel_prefersIncrementalDelivery);
+    return _objc_msgSend_13(this.pointer, _sel_prefersIncrementalDelivery);
   }
 
   /// Provides a hint indicating if incremental delivery of a partial response body
@@ -52130,11 +51947,10 @@ class NSURLSessionTask extends objc.NSObject {
   /// Defaults to true unless this task is created with completion-handler based
   /// convenience methods, or if it is a download task.
   set prefersIncrementalDelivery(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setPrefersIncrementalDelivery_, value);
   }
 
-  @override
   NSURLSessionTask init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionTask.castFromPointer(_ret, retain: true, release: true);
@@ -52160,7 +51976,7 @@ class NSURLSessionTask extends objc.NSObject {
 late final _class_NSURLSessionTask = objc.getClass("NSURLSessionTask");
 late final _sel_taskIdentifier = objc.registerName("taskIdentifier");
 late final _sel_originalRequest = objc.registerName("originalRequest");
-final _objc_msgSend_70 = objc.msgSendPointer
+final _objc_msgSend_63 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -52169,7 +51985,7 @@ final _objc_msgSend_70 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_currentRequest = objc.registerName("currentRequest");
-final _objc_msgSend_71 = objc.msgSendPointer
+final _objc_msgSend_64 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -52177,8 +51993,744 @@ final _objc_msgSend_71 = objc.msgSendPointer
     .asFunction<
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_progress = objc.registerName("progress");
+
+class NSProgress extends objc.NSObject {
+  NSProgress._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSProgress] that points to the same underlying object as [other].
+  NSProgress.castFrom(objc.ObjCObjectBase other)
+      : this._(other.pointer, retain: true, release: true);
+
+  /// Constructs a [NSProgress] that wraps the given raw object pointer.
+  NSProgress.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSProgress].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_0(obj.pointer, _sel_isKindOfClass_, _class_NSProgress);
+  }
+
+  static NSProgress? currentProgress() {
+    final _ret = _objc_msgSend_65(_class_NSProgress, _sel_currentProgress);
+    return _ret.address == 0
+        ? null
+        : NSProgress.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  static NSProgress progressWithTotalUnitCount_(int unitCount) {
+    final _ret = _objc_msgSend_66(
+        _class_NSProgress, _sel_progressWithTotalUnitCount_, unitCount);
+    return NSProgress.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  static NSProgress discreteProgressWithTotalUnitCount_(int unitCount) {
+    final _ret = _objc_msgSend_66(
+        _class_NSProgress, _sel_discreteProgressWithTotalUnitCount_, unitCount);
+    return NSProgress.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  static NSProgress progressWithTotalUnitCount_parent_pendingUnitCount_(
+      int unitCount, NSProgress parent, int portionOfParentTotalUnitCount) {
+    final _ret = _objc_msgSend_67(
+        _class_NSProgress,
+        _sel_progressWithTotalUnitCount_parent_pendingUnitCount_,
+        unitCount,
+        parent.pointer,
+        portionOfParentTotalUnitCount);
+    return NSProgress.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  NSProgress initWithParent_userInfo_(
+      NSProgress? parentProgressOrNil, objc.NSDictionary? userInfoOrNil) {
+    final _ret = _objc_msgSend_68(
+        this.pointer,
+        _sel_initWithParent_userInfo_,
+        parentProgressOrNil?.pointer ?? ffi.nullptr,
+        userInfoOrNil?.pointer ?? ffi.nullptr);
+    return NSProgress.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  void becomeCurrentWithPendingUnitCount_(int unitCount) {
+    _objc_msgSend_69(
+        this.pointer, _sel_becomeCurrentWithPendingUnitCount_, unitCount);
+  }
+
+  void performAsCurrentWithPendingUnitCount_usingBlock_(
+      int unitCount, ObjCBlock_ffiVoid work) {
+    _objc_msgSend_70(
+        this.pointer,
+        _sel_performAsCurrentWithPendingUnitCount_usingBlock_,
+        unitCount,
+        work.pointer);
+  }
+
+  void resignCurrent() {
+    _objc_msgSend_44(this.pointer, _sel_resignCurrent);
+  }
+
+  void addChild_withPendingUnitCount_(NSProgress child, int inUnitCount) {
+    _objc_msgSend_71(this.pointer, _sel_addChild_withPendingUnitCount_,
+        child.pointer, inUnitCount);
+  }
+
+  int get totalUnitCount {
+    return _objc_msgSend_72(this.pointer, _sel_totalUnitCount);
+  }
+
+  set totalUnitCount(int value) {
+    return _objc_msgSend_73(this.pointer, _sel_setTotalUnitCount_, value);
+  }
+
+  int get completedUnitCount {
+    return _objc_msgSend_72(this.pointer, _sel_completedUnitCount);
+  }
+
+  set completedUnitCount(int value) {
+    return _objc_msgSend_73(this.pointer, _sel_setCompletedUnitCount_, value);
+  }
+
+  objc.NSString get localizedDescription {
+    final _ret = _objc_msgSend_74(this.pointer, _sel_localizedDescription);
+    return objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set localizedDescription(objc.NSString value) {
+    return _objc_msgSend_75(
+        this.pointer, _sel_setLocalizedDescription_, value.pointer);
+  }
+
+  objc.NSString get localizedAdditionalDescription {
+    final _ret =
+        _objc_msgSend_74(this.pointer, _sel_localizedAdditionalDescription);
+    return objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set localizedAdditionalDescription(objc.NSString value) {
+    return _objc_msgSend_75(
+        this.pointer, _sel_setLocalizedAdditionalDescription_, value.pointer);
+  }
+
+  bool get cancellable {
+    return _objc_msgSend_13(this.pointer, _sel_isCancellable);
+  }
+
+  set cancellable(bool value) {
+    return _objc_msgSend_76(this.pointer, _sel_setCancellable_, value);
+  }
+
+  bool get pausable {
+    return _objc_msgSend_13(this.pointer, _sel_isPausable);
+  }
+
+  set pausable(bool value) {
+    return _objc_msgSend_76(this.pointer, _sel_setPausable_, value);
+  }
+
+  bool get cancelled {
+    return _objc_msgSend_13(this.pointer, _sel_isCancelled);
+  }
+
+  bool get paused {
+    return _objc_msgSend_13(this.pointer, _sel_isPaused);
+  }
+
+  ObjCBlock_ffiVoid? get cancellationHandler {
+    final _ret = _objc_msgSend_77(this.pointer, _sel_cancellationHandler);
+    return _ret.address == 0
+        ? null
+        : ObjCBlock_ffiVoid.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set cancellationHandler(ObjCBlock_ffiVoid? value) {
+    return _objc_msgSend_78(this.pointer, _sel_setCancellationHandler_,
+        value?.pointer ?? ffi.nullptr);
+  }
+
+  ObjCBlock_ffiVoid? get pausingHandler {
+    final _ret = _objc_msgSend_77(this.pointer, _sel_pausingHandler);
+    return _ret.address == 0
+        ? null
+        : ObjCBlock_ffiVoid.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set pausingHandler(ObjCBlock_ffiVoid? value) {
+    return _objc_msgSend_78(
+        this.pointer, _sel_setPausingHandler_, value?.pointer ?? ffi.nullptr);
+  }
+
+  ObjCBlock_ffiVoid? get resumingHandler {
+    final _ret = _objc_msgSend_77(this.pointer, _sel_resumingHandler);
+    return _ret.address == 0
+        ? null
+        : ObjCBlock_ffiVoid.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set resumingHandler(ObjCBlock_ffiVoid? value) {
+    return _objc_msgSend_78(
+        this.pointer, _sel_setResumingHandler_, value?.pointer ?? ffi.nullptr);
+  }
+
+  void setUserInfoObject_forKey_(
+      objc.ObjCObjectBase? objectOrNil, DartNSProgressUserInfoKey key) {
+    _objc_msgSend_79(this.pointer, _sel_setUserInfoObject_forKey_,
+        objectOrNil?.pointer ?? ffi.nullptr, key.pointer);
+  }
+
+  bool get indeterminate {
+    return _objc_msgSend_13(this.pointer, _sel_isIndeterminate);
+  }
+
+  double get fractionCompleted {
+    return _objc_msgSend_33(this.pointer, _sel_fractionCompleted);
+  }
+
+  bool get finished {
+    return _objc_msgSend_13(this.pointer, _sel_isFinished);
+  }
+
+  void cancel() {
+    _objc_msgSend_44(this.pointer, _sel_cancel);
+  }
+
+  void pause() {
+    _objc_msgSend_44(this.pointer, _sel_pause);
+  }
+
+  void resume() {
+    _objc_msgSend_44(this.pointer, _sel_resume);
+  }
+
+  objc.NSDictionary get userInfo {
+    final _ret = _objc_msgSend_80(this.pointer, _sel_userInfo);
+    return objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  DartNSProgressKind get kind {
+    final _ret = _objc_msgSend_74(this.pointer, _sel_kind);
+    return objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set kind(DartNSProgressKind value) {
+    return _objc_msgSend_75(this.pointer, _sel_setKind_, value.pointer);
+  }
+
+  objc.NSNumber? get estimatedTimeRemaining {
+    final _ret = _objc_msgSend_81(this.pointer, _sel_estimatedTimeRemaining);
+    return _ret.address == 0
+        ? null
+        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set estimatedTimeRemaining(objc.NSNumber? value) {
+    return _objc_msgSend_82(this.pointer, _sel_setEstimatedTimeRemaining_,
+        value?.pointer ?? ffi.nullptr);
+  }
+
+  objc.NSNumber? get throughput {
+    final _ret = _objc_msgSend_81(this.pointer, _sel_throughput);
+    return _ret.address == 0
+        ? null
+        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set throughput(objc.NSNumber? value) {
+    return _objc_msgSend_82(
+        this.pointer, _sel_setThroughput_, value?.pointer ?? ffi.nullptr);
+  }
+
+  DartNSProgressFileOperationKind get fileOperationKind {
+    final _ret = _objc_msgSend_74(this.pointer, _sel_fileOperationKind);
+    return objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set fileOperationKind(DartNSProgressFileOperationKind value) {
+    return _objc_msgSend_75(
+        this.pointer, _sel_setFileOperationKind_, value.pointer);
+  }
+
+  objc.NSURL? get fileURL {
+    final _ret = _objc_msgSend_17(this.pointer, _sel_fileURL);
+    return _ret.address == 0
+        ? null
+        : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set fileURL(objc.NSURL? value) {
+    return _objc_msgSend_83(
+        this.pointer, _sel_setFileURL_, value?.pointer ?? ffi.nullptr);
+  }
+
+  objc.NSNumber? get fileTotalCount {
+    final _ret = _objc_msgSend_81(this.pointer, _sel_fileTotalCount);
+    return _ret.address == 0
+        ? null
+        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set fileTotalCount(objc.NSNumber? value) {
+    return _objc_msgSend_82(
+        this.pointer, _sel_setFileTotalCount_, value?.pointer ?? ffi.nullptr);
+  }
+
+  objc.NSNumber? get fileCompletedCount {
+    final _ret = _objc_msgSend_81(this.pointer, _sel_fileCompletedCount);
+    return _ret.address == 0
+        ? null
+        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  set fileCompletedCount(objc.NSNumber? value) {
+    return _objc_msgSend_82(this.pointer, _sel_setFileCompletedCount_,
+        value?.pointer ?? ffi.nullptr);
+  }
+
+  void publish() {
+    _objc_msgSend_44(this.pointer, _sel_publish);
+  }
+
+  void unpublish() {
+    _objc_msgSend_44(this.pointer, _sel_unpublish);
+  }
+
+  static objc.ObjCObjectBase addSubscriberForFileURL_withPublishingHandler_(
+      objc.NSURL url, DartNSProgressPublishingHandler publishingHandler) {
+    final _ret = _objc_msgSend_84(
+        _class_NSProgress,
+        _sel_addSubscriberForFileURL_withPublishingHandler_,
+        url.pointer,
+        publishingHandler.pointer);
+    return objc.ObjCObjectBase(_ret, retain: true, release: true);
+  }
+
+  static void removeSubscriber_(objc.ObjCObjectBase subscriber) {
+    _objc_msgSend_85(
+        _class_NSProgress, _sel_removeSubscriber_, subscriber.pointer);
+  }
+
+  bool get old {
+    return _objc_msgSend_13(this.pointer, _sel_isOld);
+  }
+
+  NSProgress init() {
+    final _ret = _objc_msgSend_6(this.pointer, _sel_init);
+    return NSProgress.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  static NSProgress new1() {
+    final _ret = _objc_msgSend_6(_class_NSProgress, _sel_new);
+    return NSProgress.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  static NSProgress allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret = _objc_msgSend_9(_class_NSProgress, _sel_allocWithZone_, zone);
+    return NSProgress.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  static NSProgress alloc() {
+    final _ret = _objc_msgSend_6(_class_NSProgress, _sel_alloc);
+    return NSProgress.castFromPointer(_ret, retain: false, release: true);
+  }
+}
+
+late final _class_NSProgress = objc.getClass("NSProgress");
+late final _sel_currentProgress = objc.registerName("currentProgress");
+final _objc_msgSend_65 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+late final _sel_progressWithTotalUnitCount_ =
+    objc.registerName("progressWithTotalUnitCount:");
+final _objc_msgSend_66 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, ffi.Int64)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, int)>();
+late final _sel_discreteProgressWithTotalUnitCount_ =
+    objc.registerName("discreteProgressWithTotalUnitCount:");
+late final _sel_progressWithTotalUnitCount_parent_pendingUnitCount_ =
+    objc.registerName("progressWithTotalUnitCount:parent:pendingUnitCount:");
+final _objc_msgSend_67 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Int64,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            int,
+            ffi.Pointer<objc.ObjCObject>,
+            int)>();
+late final _sel_initWithParent_userInfo_ =
+    objc.registerName("initWithParent:userInfo:");
+final _objc_msgSend_68 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            instancetype Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        instancetype Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>();
+late final _sel_becomeCurrentWithPendingUnitCount_ =
+    objc.registerName("becomeCurrentWithPendingUnitCount:");
+final _objc_msgSend_69 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, ffi.Int64)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, int)>();
+late final _sel_performAsCurrentWithPendingUnitCount_usingBlock_ =
+    objc.registerName("performAsCurrentWithPendingUnitCount:usingBlock:");
+final _objc_msgSend_70 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Int64,
+                ffi.Pointer<objc.ObjCBlock>)>>()
+    .asFunction<
+        void Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            int,
+            ffi.Pointer<objc.ObjCBlock>)>();
+late final _sel_resignCurrent = objc.registerName("resignCurrent");
+late final _sel_addChild_withPendingUnitCount_ =
+    objc.registerName("addChild:withPendingUnitCount:");
+final _objc_msgSend_71 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64)>>()
+    .asFunction<
+        void Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            ffi.Pointer<objc.ObjCObject>,
+            int)>();
+late final _sel_totalUnitCount = objc.registerName("totalUnitCount");
 final _objc_msgSend_72 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Int64 Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        int Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+late final _sel_setTotalUnitCount_ = objc.registerName("setTotalUnitCount:");
+final _objc_msgSend_73 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, ffi.Int64)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, int)>();
+late final _sel_completedUnitCount = objc.registerName("completedUnitCount");
+late final _sel_setCompletedUnitCount_ =
+    objc.registerName("setCompletedUnitCount:");
+late final _sel_localizedDescription =
+    objc.registerName("localizedDescription");
+final _objc_msgSend_74 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+late final _sel_setLocalizedDescription_ =
+    objc.registerName("setLocalizedDescription:");
+final _objc_msgSend_75 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+late final _sel_localizedAdditionalDescription =
+    objc.registerName("localizedAdditionalDescription");
+late final _sel_setLocalizedAdditionalDescription_ =
+    objc.registerName("setLocalizedAdditionalDescription:");
+late final _sel_isCancellable = objc.registerName("isCancellable");
+late final _sel_setCancellable_ = objc.registerName("setCancellable:");
+final _objc_msgSend_76 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, ffi.Bool)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, bool)>();
+late final _sel_isPausable = objc.registerName("isPausable");
+late final _sel_setPausable_ = objc.registerName("setPausable:");
+late final _sel_isCancelled = objc.registerName("isCancelled");
+late final _sel_isPaused = objc.registerName("isPaused");
+late final _sel_cancellationHandler = objc.registerName("cancellationHandler");
+final _objc_msgSend_77 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCBlock> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCBlock> Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+late final _sel_setCancellationHandler_ =
+    objc.registerName("setCancellationHandler:");
+final _objc_msgSend_78 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlock>)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlock>)>();
+late final _sel_pausingHandler = objc.registerName("pausingHandler");
+late final _sel_setPausingHandler_ = objc.registerName("setPausingHandler:");
+late final _sel_resumingHandler = objc.registerName("resumingHandler");
+late final _sel_setResumingHandler_ = objc.registerName("setResumingHandler:");
+typedef NSProgressUserInfoKey = ffi.Pointer<objc.ObjCObject>;
+typedef DartNSProgressUserInfoKey = objc.NSString;
+late final _sel_setUserInfoObject_forKey_ =
+    objc.registerName("setUserInfoObject:forKey:");
+final _objc_msgSend_79 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>,
+                NSProgressUserInfoKey)>>()
+    .asFunction<
+        void Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            ffi.Pointer<objc.ObjCObject>,
+            NSProgressUserInfoKey)>();
+late final _sel_isIndeterminate = objc.registerName("isIndeterminate");
+late final _sel_fractionCompleted = objc.registerName("fractionCompleted");
+late final _sel_isFinished = objc.registerName("isFinished");
+late final _sel_cancel = objc.registerName("cancel");
+late final _sel_pause = objc.registerName("pause");
+late final _sel_resume = objc.registerName("resume");
+final _objc_msgSend_80 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+typedef NSProgressKind = ffi.Pointer<objc.ObjCObject>;
+typedef DartNSProgressKind = objc.NSString;
+late final _sel_kind = objc.registerName("kind");
+late final _sel_setKind_ = objc.registerName("setKind:");
+late final _sel_estimatedTimeRemaining =
+    objc.registerName("estimatedTimeRemaining");
+final _objc_msgSend_81 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+late final _sel_setEstimatedTimeRemaining_ =
+    objc.registerName("setEstimatedTimeRemaining:");
+final _objc_msgSend_82 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+late final _sel_throughput = objc.registerName("throughput");
+late final _sel_setThroughput_ = objc.registerName("setThroughput:");
+typedef NSProgressFileOperationKind = ffi.Pointer<objc.ObjCObject>;
+typedef DartNSProgressFileOperationKind = objc.NSString;
+late final _sel_fileOperationKind = objc.registerName("fileOperationKind");
+late final _sel_setFileOperationKind_ =
+    objc.registerName("setFileOperationKind:");
+late final _sel_fileURL = objc.registerName("fileURL");
+late final _sel_setFileURL_ = objc.registerName("setFileURL:");
+final _objc_msgSend_83 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+late final _sel_fileTotalCount = objc.registerName("fileTotalCount");
+late final _sel_setFileTotalCount_ = objc.registerName("setFileTotalCount:");
+late final _sel_fileCompletedCount = objc.registerName("fileCompletedCount");
+late final _sel_setFileCompletedCount_ =
+    objc.registerName("setFileCompletedCount:");
+late final _sel_publish = objc.registerName("publish");
+late final _sel_unpublish = objc.registerName("unpublish");
+typedef NSProgressPublishingHandler = ffi.Pointer<objc.ObjCBlock>;
+typedef DartNSProgressPublishingHandler
+    = ObjCBlock_NSProgressUnpublishingHandler_NSProgress;
+NSProgressUnpublishingHandler
+    _ObjCBlock_NSProgressUnpublishingHandler_NSProgress_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlock> block,
+            ffi.Pointer<objc.ObjCObject> arg0) =>
+        block.ref.target
+            .cast<
+                ffi.NativeFunction<
+                    NSProgressUnpublishingHandler Function(
+                        ffi.Pointer<objc.ObjCObject> arg0)>>()
+            .asFunction<
+                NSProgressUnpublishingHandler Function(
+                    ffi.Pointer<objc.ObjCObject>)>()(arg0);
+NSProgressUnpublishingHandler
+    _ObjCBlock_NSProgressUnpublishingHandler_NSProgress_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlock> block,
+            ffi.Pointer<objc.ObjCObject> arg0) =>
+        (objc.getBlockClosure(block) as NSProgressUnpublishingHandler Function(
+            ffi.Pointer<objc.ObjCObject>))(arg0);
+
+class ObjCBlock_NSProgressUnpublishingHandler_NSProgress
+    extends objc.ObjCBlockBase {
+  ObjCBlock_NSProgressUnpublishingHandler_NSProgress._(
+      ffi.Pointer<objc.ObjCBlock> pointer,
+      {bool retain = false,
+      bool release = true})
+      : super(pointer, retain: retain, release: release);
+
+  /// Returns a block that wraps the given raw block pointer.
+  static ObjCBlock_NSProgressUnpublishingHandler_NSProgress castFromPointer(
+      ffi.Pointer<objc.ObjCBlock> pointer,
+      {bool retain = false,
+      bool release = false}) {
+    return ObjCBlock_NSProgressUnpublishingHandler_NSProgress._(pointer,
+        retain: retain, release: release);
+  }
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  ObjCBlock_NSProgressUnpublishingHandler_NSProgress.fromFunctionPointer(
+      ffi.Pointer<
+              ffi
+              .NativeFunction<
+                  NSProgressUnpublishingHandler Function(
+                      ffi.Pointer<objc.ObjCObject> arg0)>>
+          ptr)
+      : this._(objc.newPointerBlock(
+            _cFuncTrampoline ??= ffi.Pointer.fromFunction<
+                        NSProgressUnpublishingHandler Function(
+                            ffi.Pointer<objc.ObjCBlock>,
+                            ffi.Pointer<objc.ObjCObject>)>(
+                    _ObjCBlock_NSProgressUnpublishingHandler_NSProgress_fnPtrTrampoline)
+                .cast(),
+            ptr.cast()));
+  static ffi.Pointer<ffi.Void>? _cFuncTrampoline;
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  ObjCBlock_NSProgressUnpublishingHandler_NSProgress.fromFunction(
+      DartNSProgressUnpublishingHandler Function(NSProgress) fn)
+      : this._(objc.newClosureBlock(
+            _dartFuncTrampoline ??= ffi.Pointer.fromFunction<
+                        NSProgressUnpublishingHandler Function(
+                            ffi.Pointer<objc.ObjCBlock>,
+                            ffi.Pointer<objc.ObjCObject>)>(
+                    _ObjCBlock_NSProgressUnpublishingHandler_NSProgress_closureTrampoline)
+                .cast(),
+            (ffi.Pointer<objc.ObjCObject> arg0) => fn(
+                    NSProgress.castFromPointer(arg0,
+                        retain: true, release: true))
+                .retainAndReturnPointer()));
+  static ffi.Pointer<ffi.Void>? _dartFuncTrampoline;
+
+  DartNSProgressUnpublishingHandler call(NSProgress arg0) =>
+      ObjCBlock_ffiVoid.castFromPointer(
+          pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      NSProgressUnpublishingHandler Function(
+                          ffi.Pointer<objc.ObjCBlock> block,
+                          ffi.Pointer<objc.ObjCObject> arg0)>>()
+              .asFunction<
+                  NSProgressUnpublishingHandler Function(
+                      ffi.Pointer<objc.ObjCBlock>,
+                      ffi.Pointer<objc.ObjCObject>)>()(pointer, arg0.pointer),
+          retain: false,
+          release: true);
+}
+
+typedef NSProgressUnpublishingHandler = ffi.Pointer<objc.ObjCBlock>;
+typedef DartNSProgressUnpublishingHandler = ObjCBlock_ffiVoid;
+late final _sel_addSubscriberForFileURL_withPublishingHandler_ =
+    objc.registerName("addSubscriberForFileURL:withPublishingHandler:");
+final _objc_msgSend_84 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>,
+                NSProgressPublishingHandler)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            ffi.Pointer<objc.ObjCObject>,
+            NSProgressPublishingHandler)>();
+late final _sel_removeSubscriber_ = objc.registerName("removeSubscriber:");
+final _objc_msgSend_85 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+late final _sel_isOld = objc.registerName("isOld");
+late final _sel_progress = objc.registerName("progress");
+final _objc_msgSend_86 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -52187,7 +52739,7 @@ final _objc_msgSend_72 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_earliestBeginDate = objc.registerName("earliestBeginDate");
-final _objc_msgSend_73 = objc.msgSendPointer
+final _objc_msgSend_87 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -52197,7 +52749,7 @@ final _objc_msgSend_73 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setEarliestBeginDate_ =
     objc.registerName("setEarliestBeginDate:");
-final _objc_msgSend_74 = objc.msgSendPointer
+final _objc_msgSend_88 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52209,24 +52761,8 @@ final _objc_msgSend_74 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_countOfBytesClientExpectsToSend =
     objc.registerName("countOfBytesClientExpectsToSend");
-final _objc_msgSend_75 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Int64 Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setCountOfBytesClientExpectsToSend_ =
     objc.registerName("setCountOfBytesClientExpectsToSend:");
-final _objc_msgSend_76 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, ffi.Int64)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_countOfBytesClientExpectsToReceive =
     objc.registerName("countOfBytesClientExpectsToReceive");
 late final _sel_setCountOfBytesClientExpectsToReceive_ =
@@ -52240,7 +52776,7 @@ late final _sel_countOfBytesExpectedToReceive =
     objc.registerName("countOfBytesExpectedToReceive");
 late final _sel_taskDescription = objc.registerName("taskDescription");
 late final _sel_setTaskDescription_ = objc.registerName("setTaskDescription:");
-final _objc_msgSend_77 = objc.msgSendPointer
+final _objc_msgSend_89 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52250,7 +52786,6 @@ final _objc_msgSend_77 = objc.msgSendPointer
     .asFunction<
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_cancel = objc.registerName("cancel");
 
 abstract class NSURLSessionTaskState {
   /// The task is currently being serviced by the session
@@ -52265,7 +52800,7 @@ abstract class NSURLSessionTaskState {
 }
 
 late final _sel_state = objc.registerName("state");
-final _objc_msgSend_78 = objc.msgSendPointer
+final _objc_msgSend_90 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -52275,9 +52810,8 @@ final _objc_msgSend_78 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_error = objc.registerName("error");
 late final _sel_suspend = objc.registerName("suspend");
-late final _sel_resume = objc.registerName("resume");
 late final _sel_priority = objc.registerName("priority");
-final _objc_msgSend_79 = objc.msgSendPointer
+final _objc_msgSend_91 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Float Function(ffi.Pointer<objc.ObjCObject>,
@@ -52285,7 +52819,7 @@ final _objc_msgSend_79 = objc.msgSendPointer
     .asFunction<
         double Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-final _objc_msgSend_79Fpret = objc.msgSendFpretPointer
+final _objc_msgSend_91Fpret = objc.msgSendFpretPointer
     .cast<
         ffi.NativeFunction<
             ffi.Float Function(ffi.Pointer<objc.ObjCObject>,
@@ -52294,7 +52828,7 @@ final _objc_msgSend_79Fpret = objc.msgSendFpretPointer
         double Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setPriority_ = objc.registerName("setPriority:");
-final _objc_msgSend_80 = objc.msgSendPointer
+final _objc_msgSend_92 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -52306,17 +52840,9 @@ late final _sel_prefersIncrementalDelivery =
     objc.registerName("prefersIncrementalDelivery");
 late final _sel_setPrefersIncrementalDelivery_ =
     objc.registerName("setPrefersIncrementalDelivery:");
-final _objc_msgSend_81 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, ffi.Bool)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, bool)>();
 late final _sel_storeCachedResponse_forDataTask_ =
     objc.registerName("storeCachedResponse:forDataTask:");
-final _objc_msgSend_82 = objc.msgSendPointer
+final _objc_msgSend_93 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52435,7 +52961,7 @@ class ObjCBlock_ffiVoid_NSCachedURLResponse extends objc.ObjCBlockBase {
 
 late final _sel_getCachedResponseForDataTask_completionHandler_ =
     objc.registerName("getCachedResponseForDataTask:completionHandler:");
-final _objc_msgSend_83 = objc.msgSendPointer
+final _objc_msgSend_94 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52451,7 +52977,7 @@ final _objc_msgSend_83 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_removeCachedResponseForDataTask_ =
     objc.registerName("removeCachedResponseForDataTask:");
-final _objc_msgSend_84 = objc.msgSendPointer
+final _objc_msgSend_95 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52484,7 +53010,7 @@ class NSNotificationCenter extends objc.NSObject {
 
   static NSNotificationCenter getDefaultCenter() {
     final _ret =
-        _objc_msgSend_85(_class_NSNotificationCenter, _sel_defaultCenter);
+        _objc_msgSend_96(_class_NSNotificationCenter, _sel_defaultCenter);
     return NSNotificationCenter.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -52494,7 +53020,7 @@ class NSNotificationCenter extends objc.NSObject {
       ffi.Pointer<objc.ObjCSelector> aSelector,
       DartNSNotificationName aName,
       objc.ObjCObjectBase? anObject) {
-    _objc_msgSend_86(
+    _objc_msgSend_97(
         this.pointer,
         _sel_addObserver_selector_name_object_,
         observer.pointer,
@@ -52504,19 +53030,19 @@ class NSNotificationCenter extends objc.NSObject {
   }
 
   void postNotification_(objc.NSNotification notification) {
-    _objc_msgSend_87(
+    _objc_msgSend_98(
         this.pointer, _sel_postNotification_, notification.pointer);
   }
 
   void postNotificationName_object_(
       DartNSNotificationName aName, objc.ObjCObjectBase? anObject) {
-    _objc_msgSend_88(this.pointer, _sel_postNotificationName_object_,
+    _objc_msgSend_99(this.pointer, _sel_postNotificationName_object_,
         aName.pointer, anObject?.pointer ?? ffi.nullptr);
   }
 
   void postNotificationName_object_userInfo_(DartNSNotificationName aName,
       objc.ObjCObjectBase? anObject, objc.NSDictionary? aUserInfo) {
-    _objc_msgSend_89(
+    _objc_msgSend_100(
         this.pointer,
         _sel_postNotificationName_object_userInfo_,
         aName.pointer,
@@ -52525,12 +53051,12 @@ class NSNotificationCenter extends objc.NSObject {
   }
 
   void removeObserver_(objc.ObjCObjectBase observer) {
-    _objc_msgSend_90(this.pointer, _sel_removeObserver_, observer.pointer);
+    _objc_msgSend_85(this.pointer, _sel_removeObserver_, observer.pointer);
   }
 
   void removeObserver_name_object_(objc.ObjCObjectBase observer,
       DartNSNotificationName aName, objc.ObjCObjectBase? anObject) {
-    _objc_msgSend_91(this.pointer, _sel_removeObserver_name_object_,
+    _objc_msgSend_101(this.pointer, _sel_removeObserver_name_object_,
         observer.pointer, aName.pointer, anObject?.pointer ?? ffi.nullptr);
   }
 
@@ -52539,7 +53065,7 @@ class NSNotificationCenter extends objc.NSObject {
       objc.ObjCObjectBase? obj,
       NSOperationQueue? queue,
       ObjCBlock_ffiVoid_NSNotification block) {
-    final _ret = _objc_msgSend_109(
+    final _ret = _objc_msgSend_117(
         this.pointer,
         _sel_addObserverForName_object_queue_usingBlock_,
         name.pointer,
@@ -52549,7 +53075,6 @@ class NSNotificationCenter extends objc.NSObject {
     return objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
-  @override
   NSNotificationCenter init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSNotificationCenter.castFromPointer(_ret,
@@ -52578,7 +53103,7 @@ class NSNotificationCenter extends objc.NSObject {
 
 late final _class_NSNotificationCenter = objc.getClass("NSNotificationCenter");
 late final _sel_defaultCenter = objc.registerName("defaultCenter");
-final _objc_msgSend_85 = objc.msgSendPointer
+final _objc_msgSend_96 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -52590,7 +53115,7 @@ typedef NSNotificationName = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSNotificationName = objc.NSString;
 late final _sel_addObserver_selector_name_object_ =
     objc.registerName("addObserver:selector:name:object:");
-final _objc_msgSend_86 = objc.msgSendPointer
+final _objc_msgSend_97 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52609,7 +53134,7 @@ final _objc_msgSend_86 = objc.msgSendPointer
             NSNotificationName,
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_postNotification_ = objc.registerName("postNotification:");
-final _objc_msgSend_87 = objc.msgSendPointer
+final _objc_msgSend_98 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52621,7 +53146,7 @@ final _objc_msgSend_87 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_postNotificationName_object_ =
     objc.registerName("postNotificationName:object:");
-final _objc_msgSend_88 = objc.msgSendPointer
+final _objc_msgSend_99 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52637,7 +53162,7 @@ final _objc_msgSend_88 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_postNotificationName_object_userInfo_ =
     objc.registerName("postNotificationName:object:userInfo:");
-final _objc_msgSend_89 = objc.msgSendPointer
+final _objc_msgSend_100 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52654,19 +53179,9 @@ final _objc_msgSend_89 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_removeObserver_ = objc.registerName("removeObserver:");
-final _objc_msgSend_90 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_removeObserver_name_object_ =
     objc.registerName("removeObserver:name:object:");
-final _objc_msgSend_91 = objc.msgSendPointer
+final _objc_msgSend_101 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -52719,22 +53234,22 @@ class NSOperationQueue extends objc.NSObject {
   /// @example
   /// NSOperationQueue *queue = [[NSOperationQueue alloc] init];
   /// queue.progress.totalUnitCount = 10;
-  objc.NSProgress get progress {
-    final _ret = _objc_msgSend_72(this.pointer, _sel_progress);
-    return objc.NSProgress.castFromPointer(_ret, retain: true, release: true);
+  NSProgress get progress {
+    final _ret = _objc_msgSend_86(this.pointer, _sel_progress);
+    return NSProgress.castFromPointer(_ret, retain: true, release: true);
   }
 
   void addOperation_(NSOperation op) {
-    _objc_msgSend_92(this.pointer, _sel_addOperation_, op.pointer);
+    _objc_msgSend_102(this.pointer, _sel_addOperation_, op.pointer);
   }
 
   void addOperations_waitUntilFinished_(objc.NSArray ops, bool wait) {
-    _objc_msgSend_101(
+    _objc_msgSend_109(
         this.pointer, _sel_addOperations_waitUntilFinished_, ops.pointer, wait);
   }
 
   void addOperationWithBlock_(ObjCBlock_ffiVoid block) {
-    _objc_msgSend_102(this.pointer, _sel_addOperationWithBlock_, block.pointer);
+    _objc_msgSend_110(this.pointer, _sel_addOperationWithBlock_, block.pointer);
   }
 
   /// @method addBarrierBlock:
@@ -52743,79 +53258,79 @@ class NSOperationQueue extends objc.NSObject {
   /// prevents any subsequent operations to be executed until the barrier has been completed. This acts similarly to the
   /// `dispatch_barrier_async` function.
   void addBarrierBlock_(ObjCBlock_ffiVoid barrier) {
-    _objc_msgSend_102(this.pointer, _sel_addBarrierBlock_, barrier.pointer);
+    _objc_msgSend_110(this.pointer, _sel_addBarrierBlock_, barrier.pointer);
   }
 
   DartNSInteger get maxConcurrentOperationCount {
-    return _objc_msgSend_103(this.pointer, _sel_maxConcurrentOperationCount);
+    return _objc_msgSend_111(this.pointer, _sel_maxConcurrentOperationCount);
   }
 
   set maxConcurrentOperationCount(DartNSInteger value) {
-    return _objc_msgSend_104(
+    return _objc_msgSend_112(
         this.pointer, _sel_setMaxConcurrentOperationCount_, value);
   }
 
   bool get suspended {
-    return _objc_msgSend_21(this.pointer, _sel_isSuspended);
+    return _objc_msgSend_13(this.pointer, _sel_isSuspended);
   }
 
   set suspended(bool value) {
-    return _objc_msgSend_81(this.pointer, _sel_setSuspended_, value);
+    return _objc_msgSend_76(this.pointer, _sel_setSuspended_, value);
   }
 
   objc.NSString? get name {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_name);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_name);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set name(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setName_, value?.pointer ?? ffi.nullptr);
   }
 
   int get qualityOfService {
-    return _objc_msgSend_99(this.pointer, _sel_qualityOfService);
+    return _objc_msgSend_107(this.pointer, _sel_qualityOfService);
   }
 
   set qualityOfService(int value) {
-    return _objc_msgSend_100(this.pointer, _sel_setQualityOfService_, value);
+    return _objc_msgSend_108(this.pointer, _sel_setQualityOfService_, value);
   }
 
   /// actually retain
   dispatch_queue_t get underlyingQueue {
-    return _objc_msgSend_105(this.pointer, _sel_underlyingQueue);
+    return _objc_msgSend_113(this.pointer, _sel_underlyingQueue);
   }
 
   /// actually retain
   set underlyingQueue(dispatch_queue_t value) {
-    return _objc_msgSend_106(this.pointer, _sel_setUnderlyingQueue_, value);
+    return _objc_msgSend_114(this.pointer, _sel_setUnderlyingQueue_, value);
   }
 
   void cancelAllOperations() {
-    _objc_msgSend_11(this.pointer, _sel_cancelAllOperations);
+    _objc_msgSend_44(this.pointer, _sel_cancelAllOperations);
   }
 
   void waitUntilAllOperationsAreFinished() {
-    _objc_msgSend_11(this.pointer, _sel_waitUntilAllOperationsAreFinished);
+    _objc_msgSend_44(this.pointer, _sel_waitUntilAllOperationsAreFinished);
   }
 
   static NSOperationQueue? getCurrentQueue() {
-    final _ret = _objc_msgSend_107(_class_NSOperationQueue, _sel_currentQueue);
+    final _ret = _objc_msgSend_115(_class_NSOperationQueue, _sel_currentQueue);
     return _ret.address == 0
         ? null
         : NSOperationQueue.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSOperationQueue getMainQueue() {
-    final _ret = _objc_msgSend_108(_class_NSOperationQueue, _sel_mainQueue);
+    final _ret = _objc_msgSend_116(_class_NSOperationQueue, _sel_mainQueue);
     return NSOperationQueue.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// These two functions are inherently a race condition and should be avoided if possible
   objc.NSArray get operations {
-    final _ret = _objc_msgSend_93(this.pointer, _sel_operations);
+    final _ret = _objc_msgSend_103(this.pointer, _sel_operations);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -52823,7 +53338,6 @@ class NSOperationQueue extends objc.NSObject {
     return _objc_msgSend_5(this.pointer, _sel_operationCount);
   }
 
-  @override
   NSOperationQueue init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSOperationQueue.castFromPointer(_ret, retain: true, release: true);
@@ -52869,108 +53383,107 @@ class NSOperation extends objc.NSObject {
   }
 
   void start() {
-    _objc_msgSend_11(this.pointer, _sel_start);
+    _objc_msgSend_44(this.pointer, _sel_start);
   }
 
   void main() {
-    _objc_msgSend_11(this.pointer, _sel_main);
+    _objc_msgSend_44(this.pointer, _sel_main);
   }
 
   bool get cancelled {
-    return _objc_msgSend_21(this.pointer, _sel_isCancelled);
+    return _objc_msgSend_13(this.pointer, _sel_isCancelled);
   }
 
   void cancel() {
-    _objc_msgSend_11(this.pointer, _sel_cancel);
+    _objc_msgSend_44(this.pointer, _sel_cancel);
   }
 
   bool get executing {
-    return _objc_msgSend_21(this.pointer, _sel_isExecuting);
+    return _objc_msgSend_13(this.pointer, _sel_isExecuting);
   }
 
   bool get finished {
-    return _objc_msgSend_21(this.pointer, _sel_isFinished);
+    return _objc_msgSend_13(this.pointer, _sel_isFinished);
   }
 
   /// To be deprecated; use and override 'asynchronous' below
   bool get concurrent {
-    return _objc_msgSend_21(this.pointer, _sel_isConcurrent);
+    return _objc_msgSend_13(this.pointer, _sel_isConcurrent);
   }
 
   bool get asynchronous {
-    return _objc_msgSend_21(this.pointer, _sel_isAsynchronous);
+    return _objc_msgSend_13(this.pointer, _sel_isAsynchronous);
   }
 
   bool get ready {
-    return _objc_msgSend_21(this.pointer, _sel_isReady);
+    return _objc_msgSend_13(this.pointer, _sel_isReady);
   }
 
   void addDependency_(NSOperation op) {
-    _objc_msgSend_92(this.pointer, _sel_addDependency_, op.pointer);
+    _objc_msgSend_102(this.pointer, _sel_addDependency_, op.pointer);
   }
 
   void removeDependency_(NSOperation op) {
-    _objc_msgSend_92(this.pointer, _sel_removeDependency_, op.pointer);
+    _objc_msgSend_102(this.pointer, _sel_removeDependency_, op.pointer);
   }
 
   objc.NSArray get dependencies {
-    final _ret = _objc_msgSend_93(this.pointer, _sel_dependencies);
+    final _ret = _objc_msgSend_103(this.pointer, _sel_dependencies);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   int get queuePriority {
-    return _objc_msgSend_94(this.pointer, _sel_queuePriority);
+    return _objc_msgSend_104(this.pointer, _sel_queuePriority);
   }
 
   set queuePriority(int value) {
-    return _objc_msgSend_95(this.pointer, _sel_setQueuePriority_, value);
+    return _objc_msgSend_105(this.pointer, _sel_setQueuePriority_, value);
   }
 
   ObjCBlock_ffiVoid? get completionBlock {
-    final _ret = _objc_msgSend_96(this.pointer, _sel_completionBlock);
+    final _ret = _objc_msgSend_77(this.pointer, _sel_completionBlock);
     return _ret.address == 0
         ? null
         : ObjCBlock_ffiVoid.castFromPointer(_ret, retain: true, release: true);
   }
 
   set completionBlock(ObjCBlock_ffiVoid? value) {
-    return _objc_msgSend_97(
+    return _objc_msgSend_78(
         this.pointer, _sel_setCompletionBlock_, value?.pointer ?? ffi.nullptr);
   }
 
   void waitUntilFinished() {
-    _objc_msgSend_11(this.pointer, _sel_waitUntilFinished);
+    _objc_msgSend_44(this.pointer, _sel_waitUntilFinished);
   }
 
   double get threadPriority {
-    return _objc_msgSend_41(this.pointer, _sel_threadPriority);
+    return _objc_msgSend_33(this.pointer, _sel_threadPriority);
   }
 
   set threadPriority(double value) {
-    return _objc_msgSend_98(this.pointer, _sel_setThreadPriority_, value);
+    return _objc_msgSend_106(this.pointer, _sel_setThreadPriority_, value);
   }
 
   int get qualityOfService {
-    return _objc_msgSend_99(this.pointer, _sel_qualityOfService);
+    return _objc_msgSend_107(this.pointer, _sel_qualityOfService);
   }
 
   set qualityOfService(int value) {
-    return _objc_msgSend_100(this.pointer, _sel_setQualityOfService_, value);
+    return _objc_msgSend_108(this.pointer, _sel_setQualityOfService_, value);
   }
 
   objc.NSString? get name {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_name);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_name);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set name(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setName_, value?.pointer ?? ffi.nullptr);
   }
 
-  @override
   NSOperation init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSOperation.castFromPointer(_ret, retain: true, release: true);
@@ -52995,14 +53508,12 @@ class NSOperation extends objc.NSObject {
 late final _class_NSOperation = objc.getClass("NSOperation");
 late final _sel_start = objc.registerName("start");
 late final _sel_main = objc.registerName("main");
-late final _sel_isCancelled = objc.registerName("isCancelled");
 late final _sel_isExecuting = objc.registerName("isExecuting");
-late final _sel_isFinished = objc.registerName("isFinished");
 late final _sel_isConcurrent = objc.registerName("isConcurrent");
 late final _sel_isAsynchronous = objc.registerName("isAsynchronous");
 late final _sel_isReady = objc.registerName("isReady");
 late final _sel_addDependency_ = objc.registerName("addDependency:");
-final _objc_msgSend_92 = objc.msgSendPointer
+final _objc_msgSend_102 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -53014,7 +53525,7 @@ final _objc_msgSend_92 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_removeDependency_ = objc.registerName("removeDependency:");
 late final _sel_dependencies = objc.registerName("dependencies");
-final _objc_msgSend_93 = objc.msgSendPointer
+final _objc_msgSend_103 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -53032,7 +53543,7 @@ abstract class NSOperationQueuePriority {
 }
 
 late final _sel_queuePriority = objc.registerName("queuePriority");
-final _objc_msgSend_94 = objc.msgSendPointer
+final _objc_msgSend_104 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -53041,7 +53552,7 @@ final _objc_msgSend_94 = objc.msgSendPointer
         int Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setQueuePriority_ = objc.registerName("setQueuePriority:");
-final _objc_msgSend_95 = objc.msgSendPointer
+final _objc_msgSend_105 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53050,27 +53561,11 @@ final _objc_msgSend_95 = objc.msgSendPointer
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_completionBlock = objc.registerName("completionBlock");
-final _objc_msgSend_96 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCBlock> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCBlock> Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setCompletionBlock_ = objc.registerName("setCompletionBlock:");
-final _objc_msgSend_97 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlock>)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_waitUntilFinished = objc.registerName("waitUntilFinished");
 late final _sel_threadPriority = objc.registerName("threadPriority");
 late final _sel_setThreadPriority_ = objc.registerName("setThreadPriority:");
-final _objc_msgSend_98 = objc.msgSendPointer
+final _objc_msgSend_106 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53079,7 +53574,7 @@ final _objc_msgSend_98 = objc.msgSendPointer
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, double)>();
 late final _sel_qualityOfService = objc.registerName("qualityOfService");
-final _objc_msgSend_99 = objc.msgSendPointer
+final _objc_msgSend_107 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -53089,7 +53584,7 @@ final _objc_msgSend_99 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setQualityOfService_ =
     objc.registerName("setQualityOfService:");
-final _objc_msgSend_100 = objc.msgSendPointer
+final _objc_msgSend_108 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53102,7 +53597,7 @@ late final _sel_setName_ = objc.registerName("setName:");
 late final _sel_addOperation_ = objc.registerName("addOperation:");
 late final _sel_addOperations_waitUntilFinished_ =
     objc.registerName("addOperations:waitUntilFinished:");
-final _objc_msgSend_101 = objc.msgSendPointer
+final _objc_msgSend_109 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -53118,7 +53613,7 @@ final _objc_msgSend_101 = objc.msgSendPointer
             bool)>();
 late final _sel_addOperationWithBlock_ =
     objc.registerName("addOperationWithBlock:");
-final _objc_msgSend_102 = objc.msgSendPointer
+final _objc_msgSend_110 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53129,7 +53624,7 @@ final _objc_msgSend_102 = objc.msgSendPointer
 late final _sel_addBarrierBlock_ = objc.registerName("addBarrierBlock:");
 late final _sel_maxConcurrentOperationCount =
     objc.registerName("maxConcurrentOperationCount");
-final _objc_msgSend_103 = objc.msgSendPointer
+final _objc_msgSend_111 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             NSInteger Function(ffi.Pointer<objc.ObjCObject>,
@@ -53139,7 +53634,7 @@ final _objc_msgSend_103 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setMaxConcurrentOperationCount_ =
     objc.registerName("setMaxConcurrentOperationCount:");
-final _objc_msgSend_104 = objc.msgSendPointer
+final _objc_msgSend_112 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53154,7 +53649,7 @@ typedef dispatch_queue_t = ffi.Pointer<dispatch_queue_s>;
 final class dispatch_queue_s extends ffi.Opaque {}
 
 late final _sel_underlyingQueue = objc.registerName("underlyingQueue");
-final _objc_msgSend_105 = objc.msgSendPointer
+final _objc_msgSend_113 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             dispatch_queue_t Function(ffi.Pointer<objc.ObjCObject>,
@@ -53163,7 +53658,7 @@ final _objc_msgSend_105 = objc.msgSendPointer
         dispatch_queue_t Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setUnderlyingQueue_ = objc.registerName("setUnderlyingQueue:");
-final _objc_msgSend_106 = objc.msgSendPointer
+final _objc_msgSend_114 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53175,7 +53670,7 @@ late final _sel_cancelAllOperations = objc.registerName("cancelAllOperations");
 late final _sel_waitUntilAllOperationsAreFinished =
     objc.registerName("waitUntilAllOperationsAreFinished");
 late final _sel_currentQueue = objc.registerName("currentQueue");
-final _objc_msgSend_107 = objc.msgSendPointer
+final _objc_msgSend_115 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -53184,7 +53679,7 @@ final _objc_msgSend_107 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_mainQueue = objc.registerName("mainQueue");
-final _objc_msgSend_108 = objc.msgSendPointer
+final _objc_msgSend_116 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -53296,7 +53791,7 @@ class ObjCBlock_ffiVoid_NSNotification extends objc.ObjCBlockBase {
 
 late final _sel_addObserverForName_object_queue_usingBlock_ =
     objc.registerName("addObserverForName:object:queue:usingBlock:");
-final _objc_msgSend_109 = objc.msgSendPointer
+final _objc_msgSend_117 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -53365,9 +53860,8 @@ class NSMutableURLRequest extends NSURLRequest {
 
   /// !
   /// @abstract The URL of the receiver.
-  @override
   objc.NSURL? get URL {
-    final _ret = _objc_msgSend_25(this.pointer, _sel_URL);
+    final _ret = _objc_msgSend_17(this.pointer, _sel_URL);
     return _ret.address == 0
         ? null
         : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
@@ -53376,21 +53870,20 @@ class NSMutableURLRequest extends NSURLRequest {
   /// !
   /// @abstract The URL of the receiver.
   set URL(objc.NSURL? value) {
-    return _objc_msgSend_110(
+    return _objc_msgSend_83(
         this.pointer, _sel_setURL_, value?.pointer ?? ffi.nullptr);
   }
 
   /// !
   /// @abstract The cache policy of the receiver.
-  @override
   int get cachePolicy {
-    return _objc_msgSend_40(this.pointer, _sel_cachePolicy);
+    return _objc_msgSend_32(this.pointer, _sel_cachePolicy);
   }
 
   /// !
   /// @abstract The cache policy of the receiver.
   set cachePolicy(int value) {
-    return _objc_msgSend_111(this.pointer, _sel_setCachePolicy_, value);
+    return _objc_msgSend_118(this.pointer, _sel_setCachePolicy_, value);
   }
 
   /// !
@@ -53405,9 +53898,8 @@ class NSMutableURLRequest extends NSURLRequest {
   /// becomes greater than or equal to the timeout interval, the request
   /// is considered to have timed out. This timeout interval is measured
   /// in seconds.
-  @override
   DartNSTimeInterval get timeoutInterval {
-    return _objc_msgSend_41(this.pointer, _sel_timeoutInterval);
+    return _objc_msgSend_33(this.pointer, _sel_timeoutInterval);
   }
 
   /// !
@@ -53423,7 +53915,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// is considered to have timed out. This timeout interval is measured
   /// in seconds.
   set timeoutInterval(DartNSTimeInterval value) {
-    return _objc_msgSend_98(this.pointer, _sel_setTimeoutInterval_, value);
+    return _objc_msgSend_106(this.pointer, _sel_setTimeoutInterval_, value);
   }
 
   /// !
@@ -53435,9 +53927,8 @@ class NSMutableURLRequest extends NSURLRequest {
   /// from same domain as main document" policy, attributing this request
   /// as a sub-resource of a user-specified URL, and possibly other things
   /// in the future.
-  @override
   objc.NSURL? get mainDocumentURL {
-    final _ret = _objc_msgSend_25(this.pointer, _sel_mainDocumentURL);
+    final _ret = _objc_msgSend_17(this.pointer, _sel_mainDocumentURL);
     return _ret.address == 0
         ? null
         : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
@@ -53453,7 +53944,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// as a sub-resource of a user-specified URL, and possibly other things
   /// in the future.
   set mainDocumentURL(objc.NSURL? value) {
-    return _objc_msgSend_110(
+    return _objc_msgSend_83(
         this.pointer, _sel_setMainDocumentURL_, value?.pointer ?? ffi.nullptr);
   }
 
@@ -53461,9 +53952,8 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @abstract Sets the NSURLRequestNetworkServiceType to associate with this request
   /// @discussion This method is used to provide the network layers with a hint as to the purpose
   /// of the request.  Most clients should not need to use this method.
-  @override
   int get networkServiceType {
-    return _objc_msgSend_42(this.pointer, _sel_networkServiceType);
+    return _objc_msgSend_34(this.pointer, _sel_networkServiceType);
   }
 
   /// !
@@ -53471,7 +53961,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion This method is used to provide the network layers with a hint as to the purpose
   /// of the request.  Most clients should not need to use this method.
   set networkServiceType(int value) {
-    return _objc_msgSend_112(this.pointer, _sel_setNetworkServiceType_, value);
+    return _objc_msgSend_119(this.pointer, _sel_setNetworkServiceType_, value);
   }
 
   /// !
@@ -53479,9 +53969,8 @@ class NSMutableURLRequest extends NSURLRequest {
   /// the built in cellular radios (if present).
   /// @discussion NO if the receiver should not be allowed to use the built in
   /// cellular radios to satisfy the request, YES otherwise.  The default is YES.
-  @override
   bool get allowsCellularAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsCellularAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsCellularAccess);
   }
 
   /// !
@@ -53490,7 +53979,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion NO if the receiver should not be allowed to use the built in
   /// cellular radios to satisfy the request, YES otherwise.  The default is YES.
   set allowsCellularAccess(bool value) {
-    return _objc_msgSend_81(this.pointer, _sel_setAllowsCellularAccess_, value);
+    return _objc_msgSend_76(this.pointer, _sel_setAllowsCellularAccess_, value);
   }
 
   /// !
@@ -53498,9 +53987,8 @@ class NSMutableURLRequest extends NSURLRequest {
   /// network interfaces which have been marked as expensive.
   /// @discussion NO if the receiver should not be allowed to use an interface marked as expensive to
   /// satisfy the request, YES otherwise.
-  @override
   bool get allowsExpensiveNetworkAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsExpensiveNetworkAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsExpensiveNetworkAccess);
   }
 
   /// !
@@ -53509,7 +53997,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion NO if the receiver should not be allowed to use an interface marked as expensive to
   /// satisfy the request, YES otherwise.
   set allowsExpensiveNetworkAccess(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setAllowsExpensiveNetworkAccess_, value);
   }
 
@@ -53518,9 +54006,8 @@ class NSMutableURLRequest extends NSURLRequest {
   /// network interfaces which have been marked as constrained.
   /// @discussion NO if the receiver should not be allowed to use an interface marked as constrained to
   /// satisfy the request, YES otherwise.
-  @override
   bool get allowsConstrainedNetworkAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsConstrainedNetworkAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsConstrainedNetworkAccess);
   }
 
   /// !
@@ -53529,7 +54016,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion NO if the receiver should not be allowed to use an interface marked as constrained to
   /// satisfy the request, YES otherwise.
   set allowsConstrainedNetworkAccess(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setAllowsConstrainedNetworkAccess_, value);
   }
 
@@ -53538,9 +54025,8 @@ class NSMutableURLRequest extends NSURLRequest {
   /// racing without HTTP/3 service discovery.
   /// @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
   /// The default may be YES in a future OS update.
-  @override
   bool get assumesHTTP3Capable {
-    return _objc_msgSend_21(this.pointer, _sel_assumesHTTP3Capable);
+    return _objc_msgSend_13(this.pointer, _sel_assumesHTTP3Capable);
   }
 
   /// !
@@ -53549,16 +54035,15 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
   /// The default may be YES in a future OS update.
   set assumesHTTP3Capable(bool value) {
-    return _objc_msgSend_81(this.pointer, _sel_setAssumesHTTP3Capable_, value);
+    return _objc_msgSend_76(this.pointer, _sel_setAssumesHTTP3Capable_, value);
   }
 
   /// !
   /// @abstract Sets the NSURLRequestAttribution to associate with this request.
   /// @discussion Set to NSURLRequestAttributionUser if the URL was specified by the
   /// user. Defaults to NSURLRequestAttributionDeveloper.
-  @override
   int get attribution {
-    return _objc_msgSend_43(this.pointer, _sel_attribution);
+    return _objc_msgSend_35(this.pointer, _sel_attribution);
   }
 
   /// !
@@ -53566,16 +54051,15 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion Set to NSURLRequestAttributionUser if the URL was specified by the
   /// user. Defaults to NSURLRequestAttributionDeveloper.
   set attribution(int value) {
-    return _objc_msgSend_113(this.pointer, _sel_setAttribution_, value);
+    return _objc_msgSend_120(this.pointer, _sel_setAttribution_, value);
   }
 
   /// !
   /// @abstract sets whether a request is required to do DNSSEC validation during DNS lookup.
   /// @discussion YES, if the DNS lookup for this request should require DNSSEC validation,
   /// No otherwise. Defaults to NO.
-  @override
   bool get requiresDNSSECValidation {
-    return _objc_msgSend_21(this.pointer, _sel_requiresDNSSECValidation);
+    return _objc_msgSend_13(this.pointer, _sel_requiresDNSSECValidation);
   }
 
   /// !
@@ -53583,85 +54067,80 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion YES, if the DNS lookup for this request should require DNSSEC validation,
   /// No otherwise. Defaults to NO.
   set requiresDNSSECValidation(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setRequiresDNSSECValidation_, value);
   }
 
   objc.NSString get HTTPMethod {
-    final _ret = _objc_msgSend_114(this.pointer, _sel_HTTPMethod);
+    final _ret = _objc_msgSend_74(this.pointer, _sel_HTTPMethod);
     return objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set HTTPMethod(objc.NSString value) {
-    return _objc_msgSend_115(this.pointer, _sel_setHTTPMethod_, value.pointer);
+    return _objc_msgSend_75(this.pointer, _sel_setHTTPMethod_, value.pointer);
   }
 
-  @override
   objc.NSDictionary? get allHTTPHeaderFields {
-    final _ret = _objc_msgSend_32(this.pointer, _sel_allHTTPHeaderFields);
+    final _ret = _objc_msgSend_24(this.pointer, _sel_allHTTPHeaderFields);
     return _ret.address == 0
         ? null
         : objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
   }
 
   set allHTTPHeaderFields(objc.NSDictionary? value) {
-    return _objc_msgSend_116(this.pointer, _sel_setAllHTTPHeaderFields_,
+    return _objc_msgSend_121(this.pointer, _sel_setAllHTTPHeaderFields_,
         value?.pointer ?? ffi.nullptr);
   }
 
   void setValue_forHTTPHeaderField_(objc.NSString? value, objc.NSString field) {
-    _objc_msgSend_117(this.pointer, _sel_setValue_forHTTPHeaderField_,
+    _objc_msgSend_122(this.pointer, _sel_setValue_forHTTPHeaderField_,
         value?.pointer ?? ffi.nullptr, field.pointer);
   }
 
   void addValue_forHTTPHeaderField_(objc.NSString value, objc.NSString field) {
-    _objc_msgSend_118(this.pointer, _sel_addValue_forHTTPHeaderField_,
+    _objc_msgSend_123(this.pointer, _sel_addValue_forHTTPHeaderField_,
         value.pointer, field.pointer);
   }
 
-  @override
   objc.NSData? get HTTPBody {
-    final _ret = _objc_msgSend_45(this.pointer, _sel_HTTPBody);
+    final _ret = _objc_msgSend_37(this.pointer, _sel_HTTPBody);
     return _ret.address == 0
         ? null
         : objc.NSData.castFromPointer(_ret, retain: true, release: true);
   }
 
   set HTTPBody(objc.NSData? value) {
-    return _objc_msgSend_119(
+    return _objc_msgSend_124(
         this.pointer, _sel_setHTTPBody_, value?.pointer ?? ffi.nullptr);
   }
 
-  @override
   NSInputStream? get HTTPBodyStream {
-    final _ret = _objc_msgSend_64(this.pointer, _sel_HTTPBodyStream);
+    final _ret = _objc_msgSend_57(this.pointer, _sel_HTTPBodyStream);
     return _ret.address == 0
         ? null
         : NSInputStream.castFromPointer(_ret, retain: true, release: true);
   }
 
   set HTTPBodyStream(NSInputStream? value) {
-    return _objc_msgSend_120(
+    return _objc_msgSend_125(
         this.pointer, _sel_setHTTPBodyStream_, value?.pointer ?? ffi.nullptr);
   }
 
-  @override
   bool get HTTPShouldHandleCookies {
-    return _objc_msgSend_21(this.pointer, _sel_HTTPShouldHandleCookies);
+    return _objc_msgSend_13(this.pointer, _sel_HTTPShouldHandleCookies);
   }
 
   set HTTPShouldHandleCookies(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setHTTPShouldHandleCookies_, value);
   }
 
-  @override
   bool get HTTPShouldUsePipelining {
-    return _objc_msgSend_21(this.pointer, _sel_HTTPShouldUsePipelining);
+    return _objc_msgSend_13(this.pointer, _sel_HTTPShouldUsePipelining);
   }
 
   set HTTPShouldUsePipelining(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setHTTPShouldUsePipelining_, value);
   }
 
@@ -53675,7 +54154,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @param URL The URL for the request.
   /// @result A newly-created and autoreleased NSURLRequest instance.
   static NSMutableURLRequest requestWithURL_(objc.NSURL URL) {
-    final _ret = _objc_msgSend_38(
+    final _ret = _objc_msgSend_30(
         _class_NSMutableURLRequest, _sel_requestWithURL_, URL.pointer);
     return NSMutableURLRequest.castFromPointer(_ret,
         retain: true, release: true);
@@ -53686,7 +54165,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @abstract Indicates that NSURLRequest implements the NSSecureCoding protocol.
   /// @result A BOOL value set to YES.
   static bool getSupportsSecureCoding() {
-    return _objc_msgSend_21(
+    return _objc_msgSend_13(
         _class_NSMutableURLRequest, _sel_supportsSecureCoding);
   }
 
@@ -53702,7 +54181,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @result A newly-created and autoreleased NSURLRequest instance.
   static NSMutableURLRequest requestWithURL_cachePolicy_timeoutInterval_(
       objc.NSURL URL, int cachePolicy, DartNSTimeInterval timeoutInterval) {
-    final _ret = _objc_msgSend_39(
+    final _ret = _objc_msgSend_31(
         _class_NSMutableURLRequest,
         _sel_requestWithURL_cachePolicy_timeoutInterval_,
         URL.pointer,
@@ -53720,9 +54199,8 @@ class NSMutableURLRequest extends NSURLRequest {
   /// seconds).
   /// @param URL The URL for the request.
   /// @result An initialized NSURLRequest.
-  @override
   NSMutableURLRequest initWithURL_(objc.NSURL URL) {
-    final _ret = _objc_msgSend_38(this.pointer, _sel_initWithURL_, URL.pointer);
+    final _ret = _objc_msgSend_30(this.pointer, _sel_initWithURL_, URL.pointer);
     return NSMutableURLRequest.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -53739,10 +54217,9 @@ class NSMutableURLRequest extends NSURLRequest {
   /// commentary for the <tt>timeoutInterval</tt> for more information on
   /// timeout intervals.
   /// @result An initialized NSURLRequest.
-  @override
   NSMutableURLRequest initWithURL_cachePolicy_timeoutInterval_(
       objc.NSURL URL, int cachePolicy, DartNSTimeInterval timeoutInterval) {
-    final _ret = _objc_msgSend_39(
+    final _ret = _objc_msgSend_31(
         this.pointer,
         _sel_initWithURL_cachePolicy_timeoutInterval_,
         URL.pointer,
@@ -53752,7 +54229,6 @@ class NSMutableURLRequest extends NSURLRequest {
         retain: true, release: true);
   }
 
-  @override
   NSMutableURLRequest init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSMutableURLRequest.castFromPointer(_ret,
@@ -53781,18 +54257,8 @@ class NSMutableURLRequest extends NSURLRequest {
 
 late final _class_NSMutableURLRequest = objc.getClass("NSMutableURLRequest");
 late final _sel_setURL_ = objc.registerName("setURL:");
-final _objc_msgSend_110 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_setCachePolicy_ = objc.registerName("setCachePolicy:");
-final _objc_msgSend_111 = objc.msgSendPointer
+final _objc_msgSend_118 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53804,7 +54270,7 @@ late final _sel_setTimeoutInterval_ = objc.registerName("setTimeoutInterval:");
 late final _sel_setMainDocumentURL_ = objc.registerName("setMainDocumentURL:");
 late final _sel_setNetworkServiceType_ =
     objc.registerName("setNetworkServiceType:");
-final _objc_msgSend_112 = objc.msgSendPointer
+final _objc_msgSend_119 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53821,7 +54287,7 @@ late final _sel_setAllowsConstrainedNetworkAccess_ =
 late final _sel_setAssumesHTTP3Capable_ =
     objc.registerName("setAssumesHTTP3Capable:");
 late final _sel_setAttribution_ = objc.registerName("setAttribution:");
-final _objc_msgSend_113 = objc.msgSendPointer
+final _objc_msgSend_120 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -53831,28 +54297,10 @@ final _objc_msgSend_113 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_setRequiresDNSSECValidation_ =
     objc.registerName("setRequiresDNSSECValidation:");
-final _objc_msgSend_114 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setHTTPMethod_ = objc.registerName("setHTTPMethod:");
-final _objc_msgSend_115 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_setAllHTTPHeaderFields_ =
     objc.registerName("setAllHTTPHeaderFields:");
-final _objc_msgSend_116 = objc.msgSendPointer
+final _objc_msgSend_121 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -53864,7 +54312,7 @@ final _objc_msgSend_116 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_setValue_forHTTPHeaderField_ =
     objc.registerName("setValue:forHTTPHeaderField:");
-final _objc_msgSend_117 = objc.msgSendPointer
+final _objc_msgSend_122 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -53880,7 +54328,7 @@ final _objc_msgSend_117 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_addValue_forHTTPHeaderField_ =
     objc.registerName("addValue:forHTTPHeaderField:");
-final _objc_msgSend_118 = objc.msgSendPointer
+final _objc_msgSend_123 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -53895,7 +54343,7 @@ final _objc_msgSend_118 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_setHTTPBody_ = objc.registerName("setHTTPBody:");
-final _objc_msgSend_119 = objc.msgSendPointer
+final _objc_msgSend_124 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -53906,7 +54354,7 @@ final _objc_msgSend_119 = objc.msgSendPointer
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_setHTTPBodyStream_ = objc.registerName("setHTTPBodyStream:");
-final _objc_msgSend_120 = objc.msgSendPointer
+final _objc_msgSend_125 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -53948,7 +54396,7 @@ class NSHTTPCookieStorage extends objc.NSObject {
   }
 
   static NSHTTPCookieStorage getSharedHTTPCookieStorage() {
-    final _ret = _objc_msgSend_121(
+    final _ret = _objc_msgSend_126(
         _class_NSHTTPCookieStorage, _sel_sharedHTTPCookieStorage);
     return NSHTTPCookieStorage.castFromPointer(_ret,
         retain: true, release: true);
@@ -53956,7 +54404,7 @@ class NSHTTPCookieStorage extends objc.NSObject {
 
   static NSHTTPCookieStorage sharedCookieStorageForGroupContainerIdentifier_(
       objc.NSString identifier) {
-    final _ret = _objc_msgSend_122(
+    final _ret = _objc_msgSend_127(
         _class_NSHTTPCookieStorage,
         _sel_sharedCookieStorageForGroupContainerIdentifier_,
         identifier.pointer);
@@ -53965,27 +54413,27 @@ class NSHTTPCookieStorage extends objc.NSObject {
   }
 
   objc.NSArray? get cookies {
-    final _ret = _objc_msgSend_123(this.pointer, _sel_cookies);
+    final _ret = _objc_msgSend_128(this.pointer, _sel_cookies);
     return _ret.address == 0
         ? null
         : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   void setCookie_(NSHTTPCookie cookie) {
-    _objc_msgSend_124(this.pointer, _sel_setCookie_, cookie.pointer);
+    _objc_msgSend_129(this.pointer, _sel_setCookie_, cookie.pointer);
   }
 
   void deleteCookie_(NSHTTPCookie cookie) {
-    _objc_msgSend_124(this.pointer, _sel_deleteCookie_, cookie.pointer);
+    _objc_msgSend_129(this.pointer, _sel_deleteCookie_, cookie.pointer);
   }
 
   void removeCookiesSinceDate_(objc.NSDate date) {
-    _objc_msgSend_68(this.pointer, _sel_removeCookiesSinceDate_, date.pointer);
+    _objc_msgSend_61(this.pointer, _sel_removeCookiesSinceDate_, date.pointer);
   }
 
   objc.NSArray? cookiesForURL_(objc.NSURL URL) {
     final _ret =
-        _objc_msgSend_125(this.pointer, _sel_cookiesForURL_, URL.pointer);
+        _objc_msgSend_130(this.pointer, _sel_cookiesForURL_, URL.pointer);
     return _ret.address == 0
         ? null
         : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
@@ -53993,7 +54441,7 @@ class NSHTTPCookieStorage extends objc.NSObject {
 
   void setCookies_forURL_mainDocumentURL_(
       objc.NSArray cookies, objc.NSURL? URL, objc.NSURL? mainDocumentURL) {
-    _objc_msgSend_126(
+    _objc_msgSend_131(
         this.pointer,
         _sel_setCookies_forURL_mainDocumentURL_,
         cookies.pointer,
@@ -54002,31 +54450,30 @@ class NSHTTPCookieStorage extends objc.NSObject {
   }
 
   int get cookieAcceptPolicy {
-    return _objc_msgSend_127(this.pointer, _sel_cookieAcceptPolicy);
+    return _objc_msgSend_132(this.pointer, _sel_cookieAcceptPolicy);
   }
 
   set cookieAcceptPolicy(int value) {
-    return _objc_msgSend_128(this.pointer, _sel_setCookieAcceptPolicy_, value);
+    return _objc_msgSend_133(this.pointer, _sel_setCookieAcceptPolicy_, value);
   }
 
   objc.NSArray sortedCookiesUsingDescriptors_(objc.NSArray sortOrder) {
-    final _ret = _objc_msgSend_129(
+    final _ret = _objc_msgSend_134(
         this.pointer, _sel_sortedCookiesUsingDescriptors_, sortOrder.pointer);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   void storeCookies_forTask_(objc.NSArray cookies, NSURLSessionTask task) {
-    _objc_msgSend_130(this.pointer, _sel_storeCookies_forTask_, cookies.pointer,
+    _objc_msgSend_135(this.pointer, _sel_storeCookies_forTask_, cookies.pointer,
         task.pointer);
   }
 
   void getCookiesForTask_completionHandler_(
       NSURLSessionTask task, ObjCBlock_ffiVoid_NSArray completionHandler) {
-    _objc_msgSend_131(this.pointer, _sel_getCookiesForTask_completionHandler_,
+    _objc_msgSend_136(this.pointer, _sel_getCookiesForTask_completionHandler_,
         task.pointer, completionHandler.pointer);
   }
 
-  @override
   NSHTTPCookieStorage init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSHTTPCookieStorage.castFromPointer(_ret,
@@ -54056,7 +54503,7 @@ class NSHTTPCookieStorage extends objc.NSObject {
 late final _class_NSHTTPCookieStorage = objc.getClass("NSHTTPCookieStorage");
 late final _sel_sharedHTTPCookieStorage =
     objc.registerName("sharedHTTPCookieStorage");
-final _objc_msgSend_121 = objc.msgSendPointer
+final _objc_msgSend_126 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -54066,7 +54513,7 @@ final _objc_msgSend_121 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_sharedCookieStorageForGroupContainerIdentifier_ =
     objc.registerName("sharedCookieStorageForGroupContainerIdentifier:");
-final _objc_msgSend_122 = objc.msgSendPointer
+final _objc_msgSend_127 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -54077,7 +54524,7 @@ final _objc_msgSend_122 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_cookies = objc.registerName("cookies");
-final _objc_msgSend_123 = objc.msgSendPointer
+final _objc_msgSend_128 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -54109,7 +54556,7 @@ class NSHTTPCookie extends objc.ObjCObjectBase {
 
 late final _class_NSHTTPCookie = objc.getClass("NSHTTPCookie");
 late final _sel_setCookie_ = objc.registerName("setCookie:");
-final _objc_msgSend_124 = objc.msgSendPointer
+final _objc_msgSend_129 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -54123,7 +54570,7 @@ late final _sel_deleteCookie_ = objc.registerName("deleteCookie:");
 late final _sel_removeCookiesSinceDate_ =
     objc.registerName("removeCookiesSinceDate:");
 late final _sel_cookiesForURL_ = objc.registerName("cookiesForURL:");
-final _objc_msgSend_125 = objc.msgSendPointer
+final _objc_msgSend_130 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -54135,7 +54582,7 @@ final _objc_msgSend_125 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_setCookies_forURL_mainDocumentURL_ =
     objc.registerName("setCookies:forURL:mainDocumentURL:");
-final _objc_msgSend_126 = objc.msgSendPointer
+final _objc_msgSend_131 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -54152,7 +54599,7 @@ final _objc_msgSend_126 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_cookieAcceptPolicy = objc.registerName("cookieAcceptPolicy");
-final _objc_msgSend_127 = objc.msgSendPointer
+final _objc_msgSend_132 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -54162,7 +54609,7 @@ final _objc_msgSend_127 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setCookieAcceptPolicy_ =
     objc.registerName("setCookieAcceptPolicy:");
-final _objc_msgSend_128 = objc.msgSendPointer
+final _objc_msgSend_133 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -54172,7 +54619,7 @@ final _objc_msgSend_128 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_sortedCookiesUsingDescriptors_ =
     objc.registerName("sortedCookiesUsingDescriptors:");
-final _objc_msgSend_129 = objc.msgSendPointer
+final _objc_msgSend_134 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -54184,7 +54631,7 @@ final _objc_msgSend_129 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_storeCookies_forTask_ =
     objc.registerName("storeCookies:forTask:");
-final _objc_msgSend_130 = objc.msgSendPointer
+final _objc_msgSend_135 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -54301,7 +54748,7 @@ class ObjCBlock_ffiVoid_NSArray extends objc.ObjCBlockBase {
 
 late final _sel_getCookiesForTask_completionHandler_ =
     objc.registerName("getCookiesForTask:completionHandler:");
-final _objc_msgSend_131 = objc.msgSendPointer
+final _objc_msgSend_136 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -54402,7 +54849,7 @@ class ObjCBlock_NSProgress_ffiVoid extends objc.ObjCBlockBase {
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
   ObjCBlock_NSProgress_ffiVoid.fromFunction(
-      objc.NSProgress Function(ffi.Pointer<ffi.Void>) fn)
+      NSProgress Function(ffi.Pointer<ffi.Void>) fn)
       : this._(objc.newClosureBlock(
             _dartFuncTrampoline ??= ffi.Pointer.fromFunction<
                         ffi.Pointer<objc.ObjCObject> Function(
@@ -54413,28 +54860,19 @@ class ObjCBlock_NSProgress_ffiVoid extends objc.ObjCBlockBase {
             (ffi.Pointer<ffi.Void> arg0) => fn(arg0).retainAndReturnPointer()));
   static ffi.Pointer<ffi.Void>? _dartFuncTrampoline;
 
-  objc.NSProgress call(ffi.Pointer<ffi.Void> arg0) =>
-      objc.NSProgress.castFromPointer(
-          pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlock> block,
-                          ffi.Pointer<ffi.Void> arg0)>>()
-              .asFunction<
+  NSProgress call(ffi.Pointer<ffi.Void> arg0) => NSProgress.castFromPointer(
+      pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
                   ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<objc.ObjCBlock>,
-                      ffi.Pointer<ffi.Void>)>()(pointer, arg0),
-          retain: false,
-          release: true);
+                      ffi.Pointer<objc.ObjCBlock> block,
+                      ffi.Pointer<ffi.Void> arg0)>>()
+          .asFunction<
+              ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlock>,
+                  ffi.Pointer<ffi.Void>)>()(pointer, arg0),
+      retain: false,
+      release: true);
 }
-
-typedef NSProgressUserInfoKey = ffi.Pointer<objc.ObjCObject>;
-typedef DartNSProgressUserInfoKey = objc.NSString;
-typedef NSProgressKind = ffi.Pointer<objc.ObjCObject>;
-typedef DartNSProgressKind = objc.NSString;
-typedef NSProgressFileOperationKind = ffi.Pointer<objc.ObjCObject>;
-typedef DartNSProgressFileOperationKind = objc.NSString;
 
 final class CFArrayCallBacks extends ffi.Struct {
   @CFIndex()
@@ -61860,7 +62298,7 @@ class NSURLSession extends objc.NSObject {
   /// The shared session uses the currently set global NSURLCache,
   /// NSHTTPCookieStorage and NSURLCredentialStorage objects.
   static NSURLSession getSharedSession() {
-    final _ret = _objc_msgSend_132(_class_NSURLSession, _sel_sharedSession);
+    final _ret = _objc_msgSend_137(_class_NSURLSession, _sel_sharedSession);
     return NSURLSession.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -61871,7 +62309,7 @@ class NSURLSession extends objc.NSObject {
   /// the delegate has been sent the URLSession:didBecomeInvalidWithError: message.
   static NSURLSession sessionWithConfiguration_(
       NSURLSessionConfiguration configuration) {
-    final _ret = _objc_msgSend_148(_class_NSURLSession,
+    final _ret = _objc_msgSend_153(_class_NSURLSession,
         _sel_sessionWithConfiguration_, configuration.pointer);
     return NSURLSession.castFromPointer(_ret, retain: true, release: true);
   }
@@ -61880,7 +62318,7 @@ class NSURLSession extends objc.NSObject {
       NSURLSessionConfiguration configuration,
       objc.ObjCObjectBase? delegate,
       NSOperationQueue? queue) {
-    final _ret = _objc_msgSend_149(
+    final _ret = _objc_msgSend_154(
         _class_NSURLSession,
         _sel_sessionWithConfiguration_delegate_delegateQueue_,
         configuration.pointer,
@@ -61890,7 +62328,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   NSOperationQueue get delegateQueue {
-    final _ret = _objc_msgSend_108(this.pointer, _sel_delegateQueue);
+    final _ret = _objc_msgSend_116(this.pointer, _sel_delegateQueue);
     return NSOperationQueue.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -61902,7 +62340,7 @@ class NSURLSession extends objc.NSObject {
   }
 
   NSURLSessionConfiguration get configuration {
-    final _ret = _objc_msgSend_133(this.pointer, _sel_configuration);
+    final _ret = _objc_msgSend_138(this.pointer, _sel_configuration);
     return NSURLSessionConfiguration.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -61910,7 +62348,7 @@ class NSURLSession extends objc.NSObject {
   /// The sessionDescription property is available for the developer to
   /// provide a descriptive label for the session.
   objc.NSString? get sessionDescription {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_sessionDescription);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_sessionDescription);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -61919,7 +62357,7 @@ class NSURLSession extends objc.NSObject {
   /// The sessionDescription property is available for the developer to
   /// provide a descriptive label for the session.
   set sessionDescription(objc.NSString? value) {
-    return _objc_msgSend_77(this.pointer, _sel_setSessionDescription_,
+    return _objc_msgSend_89(this.pointer, _sel_setSessionDescription_,
         value?.pointer ?? ffi.nullptr);
   }
 
@@ -61935,7 +62373,7 @@ class NSURLSession extends objc.NSObject {
   /// session with the same identifier until URLSession:didBecomeInvalidWithError: has
   /// been issued.
   void finishTasksAndInvalidate() {
-    _objc_msgSend_11(this.pointer, _sel_finishTasksAndInvalidate);
+    _objc_msgSend_44(this.pointer, _sel_finishTasksAndInvalidate);
   }
 
   /// -invalidateAndCancel acts as -finishTasksAndInvalidate, but issues
@@ -61943,38 +62381,38 @@ class NSURLSession extends objc.NSObject {
   /// cancellation is subject to the state of the task, and some tasks may
   /// have already have completed at the time they are sent -cancel.
   void invalidateAndCancel() {
-    _objc_msgSend_11(this.pointer, _sel_invalidateAndCancel);
+    _objc_msgSend_44(this.pointer, _sel_invalidateAndCancel);
   }
 
   /// empty all cookies, cache and credential stores, removes disk files, issues -flushWithCompletionHandler:. Invokes completionHandler() on the delegate queue.
   void resetWithCompletionHandler_(ObjCBlock_ffiVoid completionHandler) {
-    _objc_msgSend_102(this.pointer, _sel_resetWithCompletionHandler_,
+    _objc_msgSend_110(this.pointer, _sel_resetWithCompletionHandler_,
         completionHandler.pointer);
   }
 
   /// flush storage to disk and clear transient network caches.  Invokes completionHandler() on the delegate queue.
   void flushWithCompletionHandler_(ObjCBlock_ffiVoid completionHandler) {
-    _objc_msgSend_102(this.pointer, _sel_flushWithCompletionHandler_,
+    _objc_msgSend_110(this.pointer, _sel_flushWithCompletionHandler_,
         completionHandler.pointer);
   }
 
   /// invokes completionHandler with outstanding data, upload and download tasks.
   void getTasksWithCompletionHandler_(
       ObjCBlock_ffiVoid_NSArray_NSArray_NSArray completionHandler) {
-    _objc_msgSend_150(this.pointer, _sel_getTasksWithCompletionHandler_,
+    _objc_msgSend_155(this.pointer, _sel_getTasksWithCompletionHandler_,
         completionHandler.pointer);
   }
 
   /// invokes completionHandler with all outstanding tasks.
   void getAllTasksWithCompletionHandler_(
       ObjCBlock_ffiVoid_NSArray1 completionHandler) {
-    _objc_msgSend_151(this.pointer, _sel_getAllTasksWithCompletionHandler_,
+    _objc_msgSend_156(this.pointer, _sel_getAllTasksWithCompletionHandler_,
         completionHandler.pointer);
   }
 
   /// Creates a data task with the given request.  The request may have a body stream.
   NSURLSessionDataTask dataTaskWithRequest_(NSURLRequest request) {
-    final _ret = _objc_msgSend_152(
+    final _ret = _objc_msgSend_157(
         this.pointer, _sel_dataTaskWithRequest_, request.pointer);
     return NSURLSessionDataTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -61983,7 +62421,7 @@ class NSURLSession extends objc.NSObject {
   /// Creates a data task to retrieve the contents of the given URL.
   NSURLSessionDataTask dataTaskWithURL_(objc.NSURL url) {
     final _ret =
-        _objc_msgSend_153(this.pointer, _sel_dataTaskWithURL_, url.pointer);
+        _objc_msgSend_158(this.pointer, _sel_dataTaskWithURL_, url.pointer);
     return NSURLSessionDataTask.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -61991,7 +62429,7 @@ class NSURLSession extends objc.NSObject {
   /// Creates an upload task with the given request.  The body of the request will be created from the file referenced by fileURL
   NSURLSessionUploadTask uploadTaskWithRequest_fromFile_(
       NSURLRequest request, objc.NSURL fileURL) {
-    final _ret = _objc_msgSend_155(this.pointer,
+    final _ret = _objc_msgSend_160(this.pointer,
         _sel_uploadTaskWithRequest_fromFile_, request.pointer, fileURL.pointer);
     return NSURLSessionUploadTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62000,7 +62438,7 @@ class NSURLSession extends objc.NSObject {
   /// Creates an upload task with the given request.  The body of the request is provided from the bodyData.
   NSURLSessionUploadTask uploadTaskWithRequest_fromData_(
       NSURLRequest request, objc.NSData bodyData) {
-    final _ret = _objc_msgSend_156(
+    final _ret = _objc_msgSend_161(
         this.pointer,
         _sel_uploadTaskWithRequest_fromData_,
         request.pointer,
@@ -62018,7 +62456,7 @@ class NSURLSession extends objc.NSObject {
   /// - Parameter resumeData: Resume data blob from an incomplete upload, such as data returned by the cancelByProducingResumeData: method.
   /// - Returns: A new session upload task, or nil if the resumeData is invalid.
   NSURLSessionUploadTask uploadTaskWithResumeData_(objc.NSData resumeData) {
-    final _ret = _objc_msgSend_157(
+    final _ret = _objc_msgSend_162(
         this.pointer, _sel_uploadTaskWithResumeData_, resumeData.pointer);
     return NSURLSessionUploadTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62026,7 +62464,7 @@ class NSURLSession extends objc.NSObject {
 
   /// Creates an upload task with the given request.  The previously set body stream of the request (if any) is ignored and the URLSession:task:needNewBodyStream: delegate will be called when the body payload is required.
   NSURLSessionUploadTask uploadTaskWithStreamedRequest_(NSURLRequest request) {
-    final _ret = _objc_msgSend_158(
+    final _ret = _objc_msgSend_163(
         this.pointer, _sel_uploadTaskWithStreamedRequest_, request.pointer);
     return NSURLSessionUploadTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62034,7 +62472,7 @@ class NSURLSession extends objc.NSObject {
 
   /// Creates a download task with the given request.
   NSURLSessionDownloadTask downloadTaskWithRequest_(NSURLRequest request) {
-    final _ret = _objc_msgSend_159(
+    final _ret = _objc_msgSend_164(
         this.pointer, _sel_downloadTaskWithRequest_, request.pointer);
     return NSURLSessionDownloadTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62043,14 +62481,14 @@ class NSURLSession extends objc.NSObject {
   /// Creates a download task to download the contents of the given URL.
   NSURLSessionDownloadTask downloadTaskWithURL_(objc.NSURL url) {
     final _ret =
-        _objc_msgSend_160(this.pointer, _sel_downloadTaskWithURL_, url.pointer);
+        _objc_msgSend_165(this.pointer, _sel_downloadTaskWithURL_, url.pointer);
     return NSURLSessionDownloadTask.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   /// Creates a download task with the resume data.  If the download cannot be successfully resumed, URLSession:task:didCompleteWithError: will be called.
   NSURLSessionDownloadTask downloadTaskWithResumeData_(objc.NSData resumeData) {
-    final _ret = _objc_msgSend_161(
+    final _ret = _objc_msgSend_166(
         this.pointer, _sel_downloadTaskWithResumeData_, resumeData.pointer);
     return NSURLSessionDownloadTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62059,7 +62497,7 @@ class NSURLSession extends objc.NSObject {
   /// Creates a bidirectional stream task to a given host and port.
   NSURLSessionStreamTask streamTaskWithHostName_port_(
       objc.NSString hostname, DartNSInteger port) {
-    final _ret = _objc_msgSend_164(this.pointer,
+    final _ret = _objc_msgSend_169(this.pointer,
         _sel_streamTaskWithHostName_port_, hostname.pointer, port);
     return NSURLSessionStreamTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62068,7 +62506,7 @@ class NSURLSession extends objc.NSObject {
   /// Creates a bidirectional stream task with an NSNetService to identify the endpoint.
   /// The NSNetService will be resolved before any IO completes.
   NSURLSessionStreamTask streamTaskWithNetService_(NSNetService service) {
-    final _ret = _objc_msgSend_165(
+    final _ret = _objc_msgSend_170(
         this.pointer, _sel_streamTaskWithNetService_, service.pointer);
     return NSURLSessionStreamTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62076,7 +62514,7 @@ class NSURLSession extends objc.NSObject {
 
   /// Creates a WebSocket task given the url. The given url must have a ws or wss scheme.
   NSURLSessionWebSocketTask webSocketTaskWithURL_(objc.NSURL url) {
-    final _ret = _objc_msgSend_173(
+    final _ret = _objc_msgSend_178(
         this.pointer, _sel_webSocketTaskWithURL_, url.pointer);
     return NSURLSessionWebSocketTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62087,7 +62525,7 @@ class NSURLSession extends objc.NSObject {
   /// Note - The protocol will not affect the WebSocket framing. More details on the protocol can be found by reading the WebSocket RFC
   NSURLSessionWebSocketTask webSocketTaskWithURL_protocols_(
       objc.NSURL url, objc.NSArray protocols) {
-    final _ret = _objc_msgSend_174(this.pointer,
+    final _ret = _objc_msgSend_179(this.pointer,
         _sel_webSocketTaskWithURL_protocols_, url.pointer, protocols.pointer);
     return NSURLSessionWebSocketTask.castFromPointer(_ret,
         retain: true, release: true);
@@ -62097,13 +62535,12 @@ class NSURLSession extends objc.NSObject {
   /// Clients who want to add custom protocols can do so by directly adding headers with the key Sec-WebSocket-Protocol
   /// and a comma separated list of protocols they wish to negotiate with the server. The custom HTTP headers provided by the client will remain unchanged for the handshake with the server.
   NSURLSessionWebSocketTask webSocketTaskWithRequest_(NSURLRequest request) {
-    final _ret = _objc_msgSend_175(
+    final _ret = _objc_msgSend_180(
         this.pointer, _sel_webSocketTaskWithRequest_, request.pointer);
     return NSURLSessionWebSocketTask.castFromPointer(_ret,
         retain: true, release: true);
   }
 
-  @override
   NSURLSession init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSession.castFromPointer(_ret, retain: true, release: true);
@@ -62117,7 +62554,7 @@ class NSURLSession extends objc.NSObject {
   NSURLSessionDataTask dataTaskWithRequest_completionHandler_(
       NSURLRequest request,
       ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError completionHandler) {
-    final _ret = _objc_msgSend_176(
+    final _ret = _objc_msgSend_181(
         this.pointer,
         _sel_dataTaskWithRequest_completionHandler_,
         request.pointer,
@@ -62128,7 +62565,7 @@ class NSURLSession extends objc.NSObject {
 
   NSURLSessionDataTask dataTaskWithURL_completionHandler_(objc.NSURL url,
       ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError completionHandler) {
-    final _ret = _objc_msgSend_177(
+    final _ret = _objc_msgSend_182(
         this.pointer,
         _sel_dataTaskWithURL_completionHandler_,
         url.pointer,
@@ -62141,7 +62578,7 @@ class NSURLSession extends objc.NSObject {
       NSURLRequest request,
       objc.NSURL fileURL,
       ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError completionHandler) {
-    final _ret = _objc_msgSend_178(
+    final _ret = _objc_msgSend_183(
         this.pointer,
         _sel_uploadTaskWithRequest_fromFile_completionHandler_,
         request.pointer,
@@ -62155,7 +62592,7 @@ class NSURLSession extends objc.NSObject {
       NSURLRequest request,
       objc.NSData? bodyData,
       ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError completionHandler) {
-    final _ret = _objc_msgSend_179(
+    final _ret = _objc_msgSend_184(
         this.pointer,
         _sel_uploadTaskWithRequest_fromData_completionHandler_,
         request.pointer,
@@ -62168,7 +62605,7 @@ class NSURLSession extends objc.NSObject {
   NSURLSessionUploadTask uploadTaskWithResumeData_completionHandler_(
       objc.NSData resumeData,
       ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError completionHandler) {
-    final _ret = _objc_msgSend_180(
+    final _ret = _objc_msgSend_185(
         this.pointer,
         _sel_uploadTaskWithResumeData_completionHandler_,
         resumeData.pointer,
@@ -62180,7 +62617,7 @@ class NSURLSession extends objc.NSObject {
   NSURLSessionDownloadTask downloadTaskWithRequest_completionHandler_(
       NSURLRequest request,
       ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError completionHandler) {
-    final _ret = _objc_msgSend_181(
+    final _ret = _objc_msgSend_186(
         this.pointer,
         _sel_downloadTaskWithRequest_completionHandler_,
         request.pointer,
@@ -62192,7 +62629,7 @@ class NSURLSession extends objc.NSObject {
   NSURLSessionDownloadTask downloadTaskWithURL_completionHandler_(
       objc.NSURL url,
       ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError completionHandler) {
-    final _ret = _objc_msgSend_182(
+    final _ret = _objc_msgSend_187(
         this.pointer,
         _sel_downloadTaskWithURL_completionHandler_,
         url.pointer,
@@ -62204,7 +62641,7 @@ class NSURLSession extends objc.NSObject {
   NSURLSessionDownloadTask downloadTaskWithResumeData_completionHandler_(
       objc.NSData resumeData,
       ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError completionHandler) {
-    final _ret = _objc_msgSend_183(
+    final _ret = _objc_msgSend_188(
         this.pointer,
         _sel_downloadTaskWithResumeData_completionHandler_,
         resumeData.pointer,
@@ -62227,7 +62664,7 @@ class NSURLSession extends objc.NSObject {
 
 late final _class_NSURLSession = objc.getClass("NSURLSession");
 late final _sel_sharedSession = objc.registerName("sharedSession");
-final _objc_msgSend_132 = objc.msgSendPointer
+final _objc_msgSend_137 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -62269,14 +62706,14 @@ class NSURLSessionConfiguration extends objc.NSObject {
   }
 
   static NSURLSessionConfiguration getDefaultSessionConfiguration() {
-    final _ret = _objc_msgSend_133(
+    final _ret = _objc_msgSend_138(
         _class_NSURLSessionConfiguration, _sel_defaultSessionConfiguration);
     return NSURLSessionConfiguration.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static NSURLSessionConfiguration getEphemeralSessionConfiguration() {
-    final _ret = _objc_msgSend_133(
+    final _ret = _objc_msgSend_138(
         _class_NSURLSessionConfiguration, _sel_ephemeralSessionConfiguration);
     return NSURLSessionConfiguration.castFromPointer(_ret,
         retain: true, release: true);
@@ -62284,7 +62721,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   static NSURLSessionConfiguration
       backgroundSessionConfigurationWithIdentifier_(objc.NSString identifier) {
-    final _ret = _objc_msgSend_134(_class_NSURLSessionConfiguration,
+    final _ret = _objc_msgSend_139(_class_NSURLSessionConfiguration,
         _sel_backgroundSessionConfigurationWithIdentifier_, identifier.pointer);
     return NSURLSessionConfiguration.castFromPointer(_ret,
         retain: true, release: true);
@@ -62292,7 +62729,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// identifier for the background session configuration
   objc.NSString? get identifier {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_identifier);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_identifier);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -62300,86 +62737,86 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// default cache policy for requests
   int get requestCachePolicy {
-    return _objc_msgSend_40(this.pointer, _sel_requestCachePolicy);
+    return _objc_msgSend_32(this.pointer, _sel_requestCachePolicy);
   }
 
   /// default cache policy for requests
   set requestCachePolicy(int value) {
-    return _objc_msgSend_111(this.pointer, _sel_setRequestCachePolicy_, value);
+    return _objc_msgSend_118(this.pointer, _sel_setRequestCachePolicy_, value);
   }
 
   /// default timeout for requests.  This will cause a timeout if no data is transmitted for the given timeout value, and is reset whenever data is transmitted.
   DartNSTimeInterval get timeoutIntervalForRequest {
-    return _objc_msgSend_41(this.pointer, _sel_timeoutIntervalForRequest);
+    return _objc_msgSend_33(this.pointer, _sel_timeoutIntervalForRequest);
   }
 
   /// default timeout for requests.  This will cause a timeout if no data is transmitted for the given timeout value, and is reset whenever data is transmitted.
   set timeoutIntervalForRequest(DartNSTimeInterval value) {
-    return _objc_msgSend_98(
+    return _objc_msgSend_106(
         this.pointer, _sel_setTimeoutIntervalForRequest_, value);
   }
 
   /// default timeout for requests.  This will cause a timeout if a resource is not able to be retrieved within a given timeout.
   DartNSTimeInterval get timeoutIntervalForResource {
-    return _objc_msgSend_41(this.pointer, _sel_timeoutIntervalForResource);
+    return _objc_msgSend_33(this.pointer, _sel_timeoutIntervalForResource);
   }
 
   /// default timeout for requests.  This will cause a timeout if a resource is not able to be retrieved within a given timeout.
   set timeoutIntervalForResource(DartNSTimeInterval value) {
-    return _objc_msgSend_98(
+    return _objc_msgSend_106(
         this.pointer, _sel_setTimeoutIntervalForResource_, value);
   }
 
   /// type of service for requests.
   int get networkServiceType {
-    return _objc_msgSend_42(this.pointer, _sel_networkServiceType);
+    return _objc_msgSend_34(this.pointer, _sel_networkServiceType);
   }
 
   /// type of service for requests.
   set networkServiceType(int value) {
-    return _objc_msgSend_112(this.pointer, _sel_setNetworkServiceType_, value);
+    return _objc_msgSend_119(this.pointer, _sel_setNetworkServiceType_, value);
   }
 
   /// allow request to route over cellular.
   bool get allowsCellularAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsCellularAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsCellularAccess);
   }
 
   /// allow request to route over cellular.
   set allowsCellularAccess(bool value) {
-    return _objc_msgSend_81(this.pointer, _sel_setAllowsCellularAccess_, value);
+    return _objc_msgSend_76(this.pointer, _sel_setAllowsCellularAccess_, value);
   }
 
   /// allow request to route over expensive networks.  Defaults to YES.
   bool get allowsExpensiveNetworkAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsExpensiveNetworkAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsExpensiveNetworkAccess);
   }
 
   /// allow request to route over expensive networks.  Defaults to YES.
   set allowsExpensiveNetworkAccess(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setAllowsExpensiveNetworkAccess_, value);
   }
 
   /// allow request to route over networks in constrained mode. Defaults to YES.
   bool get allowsConstrainedNetworkAccess {
-    return _objc_msgSend_21(this.pointer, _sel_allowsConstrainedNetworkAccess);
+    return _objc_msgSend_13(this.pointer, _sel_allowsConstrainedNetworkAccess);
   }
 
   /// allow request to route over networks in constrained mode. Defaults to YES.
   set allowsConstrainedNetworkAccess(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setAllowsConstrainedNetworkAccess_, value);
   }
 
   /// requires requests from the session to be made with DNSSEC validation enabled. Defaults to NO.
   bool get requiresDNSSECValidation {
-    return _objc_msgSend_21(this.pointer, _sel_requiresDNSSECValidation);
+    return _objc_msgSend_13(this.pointer, _sel_requiresDNSSECValidation);
   }
 
   /// requires requests from the session to be made with DNSSEC validation enabled. Defaults to NO.
   set requiresDNSSECValidation(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setRequiresDNSSECValidation_, value);
   }
 
@@ -62396,7 +62833,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Default value is NO. Ignored by background sessions, as background sessions
   /// always wait for connectivity.
   bool get waitsForConnectivity {
-    return _objc_msgSend_21(this.pointer, _sel_waitsForConnectivity);
+    return _objc_msgSend_13(this.pointer, _sel_waitsForConnectivity);
   }
 
   /// Causes tasks to wait for network connectivity to become available, rather
@@ -62412,24 +62849,24 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Default value is NO. Ignored by background sessions, as background sessions
   /// always wait for connectivity.
   set waitsForConnectivity(bool value) {
-    return _objc_msgSend_81(this.pointer, _sel_setWaitsForConnectivity_, value);
+    return _objc_msgSend_76(this.pointer, _sel_setWaitsForConnectivity_, value);
   }
 
   /// allows background tasks to be scheduled at the discretion of the system for optimal performance.
   bool get discretionary {
-    return _objc_msgSend_21(this.pointer, _sel_isDiscretionary);
+    return _objc_msgSend_13(this.pointer, _sel_isDiscretionary);
   }
 
   /// allows background tasks to be scheduled at the discretion of the system for optimal performance.
   set discretionary(bool value) {
-    return _objc_msgSend_81(this.pointer, _sel_setDiscretionary_, value);
+    return _objc_msgSend_76(this.pointer, _sel_setDiscretionary_, value);
   }
 
   /// The identifier of the shared data container into which files in background sessions should be downloaded.
   /// App extensions wishing to use background sessions *must* set this property to a valid container identifier, or
   /// all transfers in that session will fail with NSURLErrorBackgroundSessionRequiresSharedContainer.
   objc.NSString? get sharedContainerIdentifier {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_sharedContainerIdentifier);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_sharedContainerIdentifier);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -62439,7 +62876,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// App extensions wishing to use background sessions *must* set this property to a valid container identifier, or
   /// all transfers in that session will fail with NSURLErrorBackgroundSessionRequiresSharedContainer.
   set sharedContainerIdentifier(objc.NSString? value) {
-    return _objc_msgSend_77(this.pointer, _sel_setSharedContainerIdentifier_,
+    return _objc_msgSend_89(this.pointer, _sel_setSharedContainerIdentifier_,
         value?.pointer ?? ffi.nullptr);
   }
 
@@ -62449,7 +62886,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   ///
   /// NOTE: macOS apps based on AppKit do not support background launch.
   bool get sessionSendsLaunchEvents {
-    return _objc_msgSend_21(this.pointer, _sel_sessionSendsLaunchEvents);
+    return _objc_msgSend_13(this.pointer, _sel_sessionSendsLaunchEvents);
   }
 
   /// Allows the app to be resumed or launched in the background when tasks in background sessions complete
@@ -62458,13 +62895,13 @@ class NSURLSessionConfiguration extends objc.NSObject {
   ///
   /// NOTE: macOS apps based on AppKit do not support background launch.
   set sessionSendsLaunchEvents(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setSessionSendsLaunchEvents_, value);
   }
 
   /// The proxy dictionary, as described by <CFNetwork/CFHTTPStream.h>
   objc.NSDictionary? get connectionProxyDictionary {
-    final _ret = _objc_msgSend_32(this.pointer, _sel_connectionProxyDictionary);
+    final _ret = _objc_msgSend_24(this.pointer, _sel_connectionProxyDictionary);
     return _ret.address == 0
         ? null
         : objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
@@ -62472,92 +62909,92 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The proxy dictionary, as described by <CFNetwork/CFHTTPStream.h>
   set connectionProxyDictionary(objc.NSDictionary? value) {
-    return _objc_msgSend_116(this.pointer, _sel_setConnectionProxyDictionary_,
+    return _objc_msgSend_121(this.pointer, _sel_setConnectionProxyDictionary_,
         value?.pointer ?? ffi.nullptr);
   }
 
   /// The minimum allowable versions of the TLS protocol, from <Security/SecureTransport.h>
   int get TLSMinimumSupportedProtocol {
-    return _objc_msgSend_135(this.pointer, _sel_TLSMinimumSupportedProtocol);
+    return _objc_msgSend_140(this.pointer, _sel_TLSMinimumSupportedProtocol);
   }
 
   /// The minimum allowable versions of the TLS protocol, from <Security/SecureTransport.h>
   set TLSMinimumSupportedProtocol(int value) {
-    return _objc_msgSend_136(
+    return _objc_msgSend_141(
         this.pointer, _sel_setTLSMinimumSupportedProtocol_, value);
   }
 
   /// The maximum allowable versions of the TLS protocol, from <Security/SecureTransport.h>
   int get TLSMaximumSupportedProtocol {
-    return _objc_msgSend_135(this.pointer, _sel_TLSMaximumSupportedProtocol);
+    return _objc_msgSend_140(this.pointer, _sel_TLSMaximumSupportedProtocol);
   }
 
   /// The maximum allowable versions of the TLS protocol, from <Security/SecureTransport.h>
   set TLSMaximumSupportedProtocol(int value) {
-    return _objc_msgSend_136(
+    return _objc_msgSend_141(
         this.pointer, _sel_setTLSMaximumSupportedProtocol_, value);
   }
 
   /// The minimum allowable versions of the TLS protocol, from <Security/SecProtocolTypes.h>
   int get TLSMinimumSupportedProtocolVersion {
-    return _objc_msgSend_137(
+    return _objc_msgSend_142(
         this.pointer, _sel_TLSMinimumSupportedProtocolVersion);
   }
 
   /// The minimum allowable versions of the TLS protocol, from <Security/SecProtocolTypes.h>
   set TLSMinimumSupportedProtocolVersion(int value) {
-    return _objc_msgSend_138(
+    return _objc_msgSend_143(
         this.pointer, _sel_setTLSMinimumSupportedProtocolVersion_, value);
   }
 
   /// The maximum allowable versions of the TLS protocol, from <Security/SecProtocolTypes.h>
   int get TLSMaximumSupportedProtocolVersion {
-    return _objc_msgSend_137(
+    return _objc_msgSend_142(
         this.pointer, _sel_TLSMaximumSupportedProtocolVersion);
   }
 
   /// The maximum allowable versions of the TLS protocol, from <Security/SecProtocolTypes.h>
   set TLSMaximumSupportedProtocolVersion(int value) {
-    return _objc_msgSend_138(
+    return _objc_msgSend_143(
         this.pointer, _sel_setTLSMaximumSupportedProtocolVersion_, value);
   }
 
   /// Allow the use of HTTP pipelining
   bool get HTTPShouldUsePipelining {
-    return _objc_msgSend_21(this.pointer, _sel_HTTPShouldUsePipelining);
+    return _objc_msgSend_13(this.pointer, _sel_HTTPShouldUsePipelining);
   }
 
   /// Allow the use of HTTP pipelining
   set HTTPShouldUsePipelining(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setHTTPShouldUsePipelining_, value);
   }
 
   /// Allow the session to set cookies on requests
   bool get HTTPShouldSetCookies {
-    return _objc_msgSend_21(this.pointer, _sel_HTTPShouldSetCookies);
+    return _objc_msgSend_13(this.pointer, _sel_HTTPShouldSetCookies);
   }
 
   /// Allow the session to set cookies on requests
   set HTTPShouldSetCookies(bool value) {
-    return _objc_msgSend_81(this.pointer, _sel_setHTTPShouldSetCookies_, value);
+    return _objc_msgSend_76(this.pointer, _sel_setHTTPShouldSetCookies_, value);
   }
 
   /// Policy for accepting cookies.  This overrides the policy otherwise specified by the cookie storage.
   int get HTTPCookieAcceptPolicy {
-    return _objc_msgSend_127(this.pointer, _sel_HTTPCookieAcceptPolicy);
+    return _objc_msgSend_132(this.pointer, _sel_HTTPCookieAcceptPolicy);
   }
 
   /// Policy for accepting cookies.  This overrides the policy otherwise specified by the cookie storage.
   set HTTPCookieAcceptPolicy(int value) {
-    return _objc_msgSend_128(
+    return _objc_msgSend_133(
         this.pointer, _sel_setHTTPCookieAcceptPolicy_, value);
   }
 
   /// Specifies additional headers which will be set on outgoing requests.
   /// Note that these headers are added to the request only if not already present.
   objc.NSDictionary? get HTTPAdditionalHeaders {
-    final _ret = _objc_msgSend_32(this.pointer, _sel_HTTPAdditionalHeaders);
+    final _ret = _objc_msgSend_24(this.pointer, _sel_HTTPAdditionalHeaders);
     return _ret.address == 0
         ? null
         : objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
@@ -62566,24 +63003,24 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Specifies additional headers which will be set on outgoing requests.
   /// Note that these headers are added to the request only if not already present.
   set HTTPAdditionalHeaders(objc.NSDictionary? value) {
-    return _objc_msgSend_116(this.pointer, _sel_setHTTPAdditionalHeaders_,
+    return _objc_msgSend_121(this.pointer, _sel_setHTTPAdditionalHeaders_,
         value?.pointer ?? ffi.nullptr);
   }
 
   /// The maximum number of simultaneous persistent connections per host
   DartNSInteger get HTTPMaximumConnectionsPerHost {
-    return _objc_msgSend_103(this.pointer, _sel_HTTPMaximumConnectionsPerHost);
+    return _objc_msgSend_111(this.pointer, _sel_HTTPMaximumConnectionsPerHost);
   }
 
   /// The maximum number of simultaneous persistent connections per host
   set HTTPMaximumConnectionsPerHost(DartNSInteger value) {
-    return _objc_msgSend_104(
+    return _objc_msgSend_112(
         this.pointer, _sel_setHTTPMaximumConnectionsPerHost_, value);
   }
 
   /// The cookie storage object to use, or nil to indicate that no cookies should be handled
   NSHTTPCookieStorage? get HTTPCookieStorage {
-    final _ret = _objc_msgSend_139(this.pointer, _sel_HTTPCookieStorage);
+    final _ret = _objc_msgSend_144(this.pointer, _sel_HTTPCookieStorage);
     return _ret.address == 0
         ? null
         : NSHTTPCookieStorage.castFromPointer(_ret,
@@ -62592,13 +63029,13 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The cookie storage object to use, or nil to indicate that no cookies should be handled
   set HTTPCookieStorage(NSHTTPCookieStorage? value) {
-    return _objc_msgSend_140(this.pointer, _sel_setHTTPCookieStorage_,
+    return _objc_msgSend_145(this.pointer, _sel_setHTTPCookieStorage_,
         value?.pointer ?? ffi.nullptr);
   }
 
   /// The credential storage object, or nil to indicate that no credential storage is to be used
   NSURLCredentialStorage? get URLCredentialStorage {
-    final _ret = _objc_msgSend_141(this.pointer, _sel_URLCredentialStorage);
+    final _ret = _objc_msgSend_146(this.pointer, _sel_URLCredentialStorage);
     return _ret.address == 0
         ? null
         : NSURLCredentialStorage.castFromPointer(_ret,
@@ -62607,13 +63044,13 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The credential storage object, or nil to indicate that no credential storage is to be used
   set URLCredentialStorage(NSURLCredentialStorage? value) {
-    return _objc_msgSend_142(this.pointer, _sel_setURLCredentialStorage_,
+    return _objc_msgSend_147(this.pointer, _sel_setURLCredentialStorage_,
         value?.pointer ?? ffi.nullptr);
   }
 
   /// The URL resource cache, or nil to indicate that no caching is to be performed
   NSURLCache? get URLCache {
-    final _ret = _objc_msgSend_143(this.pointer, _sel_URLCache);
+    final _ret = _objc_msgSend_148(this.pointer, _sel_URLCache);
     return _ret.address == 0
         ? null
         : NSURLCache.castFromPointer(_ret, retain: true, release: true);
@@ -62621,21 +63058,21 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The URL resource cache, or nil to indicate that no caching is to be performed
   set URLCache(NSURLCache? value) {
-    return _objc_msgSend_144(
+    return _objc_msgSend_149(
         this.pointer, _sel_setURLCache_, value?.pointer ?? ffi.nullptr);
   }
 
   /// Enable extended background idle mode for any tcp sockets created.    Enabling this mode asks the system to keep the socket open
   /// and delay reclaiming it when the process moves to the background (see https://developer.apple.com/library/ios/technotes/tn2277/_index.html)
   bool get shouldUseExtendedBackgroundIdleMode {
-    return _objc_msgSend_21(
+    return _objc_msgSend_13(
         this.pointer, _sel_shouldUseExtendedBackgroundIdleMode);
   }
 
   /// Enable extended background idle mode for any tcp sockets created.    Enabling this mode asks the system to keep the socket open
   /// and delay reclaiming it when the process moves to the background (see https://developer.apple.com/library/ios/technotes/tn2277/_index.html)
   set shouldUseExtendedBackgroundIdleMode(bool value) {
-    return _objc_msgSend_81(
+    return _objc_msgSend_76(
         this.pointer, _sel_setShouldUseExtendedBackgroundIdleMode_, value);
   }
 
@@ -62648,7 +63085,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Custom NSURLProtocol subclasses are not available to background
   /// sessions.
   objc.NSArray? get protocolClasses {
-    final _ret = _objc_msgSend_123(this.pointer, _sel_protocolClasses);
+    final _ret = _objc_msgSend_128(this.pointer, _sel_protocolClasses);
     return _ret.address == 0
         ? null
         : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
@@ -62663,22 +63100,21 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Custom NSURLProtocol subclasses are not available to background
   /// sessions.
   set protocolClasses(objc.NSArray? value) {
-    return _objc_msgSend_145(
+    return _objc_msgSend_150(
         this.pointer, _sel_setProtocolClasses_, value?.pointer ?? ffi.nullptr);
   }
 
   /// multipath service type to use for connections.  The default is NSURLSessionMultipathServiceTypeNone
   int get multipathServiceType {
-    return _objc_msgSend_146(this.pointer, _sel_multipathServiceType);
+    return _objc_msgSend_151(this.pointer, _sel_multipathServiceType);
   }
 
   /// multipath service type to use for connections.  The default is NSURLSessionMultipathServiceTypeNone
   set multipathServiceType(int value) {
-    return _objc_msgSend_147(
+    return _objc_msgSend_152(
         this.pointer, _sel_setMultipathServiceType_, value);
   }
 
-  @override
   NSURLSessionConfiguration init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionConfiguration.castFromPointer(_ret,
@@ -62693,7 +63129,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   static NSURLSessionConfiguration backgroundSessionConfiguration_(
       objc.NSString identifier) {
-    final _ret = _objc_msgSend_134(_class_NSURLSessionConfiguration,
+    final _ret = _objc_msgSend_139(_class_NSURLSessionConfiguration,
         _sel_backgroundSessionConfiguration_, identifier.pointer);
     return NSURLSessionConfiguration.castFromPointer(_ret,
         retain: true, release: true);
@@ -62717,7 +63153,7 @@ late final _class_NSURLSessionConfiguration =
     objc.getClass("NSURLSessionConfiguration");
 late final _sel_defaultSessionConfiguration =
     objc.registerName("defaultSessionConfiguration");
-final _objc_msgSend_133 = objc.msgSendPointer
+final _objc_msgSend_138 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -62729,7 +63165,7 @@ late final _sel_ephemeralSessionConfiguration =
     objc.registerName("ephemeralSessionConfiguration");
 late final _sel_backgroundSessionConfigurationWithIdentifier_ =
     objc.registerName("backgroundSessionConfigurationWithIdentifier:");
-final _objc_msgSend_134 = objc.msgSendPointer
+final _objc_msgSend_139 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -62771,7 +63207,7 @@ late final _sel_setConnectionProxyDictionary_ =
     objc.registerName("setConnectionProxyDictionary:");
 late final _sel_TLSMinimumSupportedProtocol =
     objc.registerName("TLSMinimumSupportedProtocol");
-final _objc_msgSend_135 = objc.msgSendPointer
+final _objc_msgSend_140 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -62781,7 +63217,7 @@ final _objc_msgSend_135 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setTLSMinimumSupportedProtocol_ =
     objc.registerName("setTLSMinimumSupportedProtocol:");
-final _objc_msgSend_136 = objc.msgSendPointer
+final _objc_msgSend_141 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -62795,7 +63231,7 @@ late final _sel_setTLSMaximumSupportedProtocol_ =
     objc.registerName("setTLSMaximumSupportedProtocol:");
 late final _sel_TLSMinimumSupportedProtocolVersion =
     objc.registerName("TLSMinimumSupportedProtocolVersion");
-final _objc_msgSend_137 = objc.msgSendPointer
+final _objc_msgSend_142 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -62805,7 +63241,7 @@ final _objc_msgSend_137 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setTLSMinimumSupportedProtocolVersion_ =
     objc.registerName("setTLSMinimumSupportedProtocolVersion:");
-final _objc_msgSend_138 = objc.msgSendPointer
+final _objc_msgSend_143 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -62834,7 +63270,7 @@ late final _sel_HTTPMaximumConnectionsPerHost =
 late final _sel_setHTTPMaximumConnectionsPerHost_ =
     objc.registerName("setHTTPMaximumConnectionsPerHost:");
 late final _sel_HTTPCookieStorage = objc.registerName("HTTPCookieStorage");
-final _objc_msgSend_139 = objc.msgSendPointer
+final _objc_msgSend_144 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -62844,7 +63280,7 @@ final _objc_msgSend_139 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setHTTPCookieStorage_ =
     objc.registerName("setHTTPCookieStorage:");
-final _objc_msgSend_140 = objc.msgSendPointer
+final _objc_msgSend_145 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -62880,7 +63316,7 @@ late final _class_NSURLCredentialStorage =
     objc.getClass("NSURLCredentialStorage");
 late final _sel_URLCredentialStorage =
     objc.registerName("URLCredentialStorage");
-final _objc_msgSend_141 = objc.msgSendPointer
+final _objc_msgSend_146 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -62890,7 +63326,7 @@ final _objc_msgSend_141 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setURLCredentialStorage_ =
     objc.registerName("setURLCredentialStorage:");
-final _objc_msgSend_142 = objc.msgSendPointer
+final _objc_msgSend_147 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -62901,7 +63337,7 @@ final _objc_msgSend_142 = objc.msgSendPointer
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_URLCache = objc.registerName("URLCache");
-final _objc_msgSend_143 = objc.msgSendPointer
+final _objc_msgSend_148 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -62910,7 +63346,7 @@ final _objc_msgSend_143 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setURLCache_ = objc.registerName("setURLCache:");
-final _objc_msgSend_144 = objc.msgSendPointer
+final _objc_msgSend_149 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -62926,7 +63362,7 @@ late final _sel_setShouldUseExtendedBackgroundIdleMode_ =
     objc.registerName("setShouldUseExtendedBackgroundIdleMode:");
 late final _sel_protocolClasses = objc.registerName("protocolClasses");
 late final _sel_setProtocolClasses_ = objc.registerName("setProtocolClasses:");
-final _objc_msgSend_145 = objc.msgSendPointer
+final _objc_msgSend_150 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -62975,7 +63411,7 @@ abstract class NSURLSessionMultipathServiceType {
 
 late final _sel_multipathServiceType =
     objc.registerName("multipathServiceType");
-final _objc_msgSend_146 = objc.msgSendPointer
+final _objc_msgSend_151 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -62985,7 +63421,7 @@ final _objc_msgSend_146 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setMultipathServiceType_ =
     objc.registerName("setMultipathServiceType:");
-final _objc_msgSend_147 = objc.msgSendPointer
+final _objc_msgSend_152 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -62997,7 +63433,7 @@ late final _sel_backgroundSessionConfiguration_ =
     objc.registerName("backgroundSessionConfiguration:");
 late final _sel_sessionWithConfiguration_ =
     objc.registerName("sessionWithConfiguration:");
-final _objc_msgSend_148 = objc.msgSendPointer
+final _objc_msgSend_153 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63009,7 +63445,7 @@ final _objc_msgSend_148 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_sessionWithConfiguration_delegate_delegateQueue_ =
     objc.registerName("sessionWithConfiguration:delegate:delegateQueue:");
-final _objc_msgSend_149 = objc.msgSendPointer
+final _objc_msgSend_154 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63180,7 +63616,7 @@ class ObjCBlock_ffiVoid_NSArray_NSArray_NSArray extends objc.ObjCBlockBase {
 
 late final _sel_getTasksWithCompletionHandler_ =
     objc.registerName("getTasksWithCompletionHandler:");
-final _objc_msgSend_150 = objc.msgSendPointer
+final _objc_msgSend_155 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -63288,7 +63724,7 @@ class ObjCBlock_ffiVoid_NSArray1 extends objc.ObjCBlockBase {
 
 late final _sel_getAllTasksWithCompletionHandler_ =
     objc.registerName("getAllTasksWithCompletionHandler:");
-final _objc_msgSend_151 = objc.msgSendPointer
+final _objc_msgSend_156 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -63298,7 +63734,7 @@ final _objc_msgSend_151 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_dataTaskWithRequest_ =
     objc.registerName("dataTaskWithRequest:");
-final _objc_msgSend_152 = objc.msgSendPointer
+final _objc_msgSend_157 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63309,7 +63745,7 @@ final _objc_msgSend_152 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_dataTaskWithURL_ = objc.registerName("dataTaskWithURL:");
-final _objc_msgSend_153 = objc.msgSendPointer
+final _objc_msgSend_158 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63344,7 +63780,6 @@ class NSURLSessionUploadTask extends NSURLSessionDataTask {
         obj.pointer, _sel_isKindOfClass_, _class_NSURLSessionUploadTask);
   }
 
-  @override
   NSURLSessionUploadTask init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionUploadTask.castFromPointer(_ret,
@@ -63365,7 +63800,7 @@ class NSURLSessionUploadTask extends NSURLSessionDataTask {
   /// - Parameter completionHandler: The completion handler to call when the upload has been successfully canceled.
   void cancelByProducingResumeData_(
       ObjCBlock_ffiVoid_NSData completionHandler) {
-    _objc_msgSend_154(this.pointer, _sel_cancelByProducingResumeData_,
+    _objc_msgSend_159(this.pointer, _sel_cancelByProducingResumeData_,
         completionHandler.pointer);
   }
 
@@ -63488,7 +63923,7 @@ class ObjCBlock_ffiVoid_NSData extends objc.ObjCBlockBase {
 
 late final _sel_cancelByProducingResumeData_ =
     objc.registerName("cancelByProducingResumeData:");
-final _objc_msgSend_154 = objc.msgSendPointer
+final _objc_msgSend_159 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -63498,7 +63933,7 @@ final _objc_msgSend_154 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_uploadTaskWithRequest_fromFile_ =
     objc.registerName("uploadTaskWithRequest:fromFile:");
-final _objc_msgSend_155 = objc.msgSendPointer
+final _objc_msgSend_160 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63514,7 +63949,7 @@ final _objc_msgSend_155 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_uploadTaskWithRequest_fromData_ =
     objc.registerName("uploadTaskWithRequest:fromData:");
-final _objc_msgSend_156 = objc.msgSendPointer
+final _objc_msgSend_161 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63530,7 +63965,7 @@ final _objc_msgSend_156 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_uploadTaskWithResumeData_ =
     objc.registerName("uploadTaskWithResumeData:");
-final _objc_msgSend_157 = objc.msgSendPointer
+final _objc_msgSend_162 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63542,7 +63977,7 @@ final _objc_msgSend_157 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_uploadTaskWithStreamedRequest_ =
     objc.registerName("uploadTaskWithStreamedRequest:");
-final _objc_msgSend_158 = objc.msgSendPointer
+final _objc_msgSend_163 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63583,11 +64018,10 @@ class NSURLSessionDownloadTask extends NSURLSessionTask {
   /// called with nil resumeData.
   void cancelByProducingResumeData_(
       ObjCBlock_ffiVoid_NSData completionHandler) {
-    _objc_msgSend_154(this.pointer, _sel_cancelByProducingResumeData_,
+    _objc_msgSend_159(this.pointer, _sel_cancelByProducingResumeData_,
         completionHandler.pointer);
   }
 
-  @override
   NSURLSessionDownloadTask init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionDownloadTask.castFromPointer(_ret,
@@ -63618,7 +64052,7 @@ late final _class_NSURLSessionDownloadTask =
     objc.getClass("NSURLSessionDownloadTask");
 late final _sel_downloadTaskWithRequest_ =
     objc.registerName("downloadTaskWithRequest:");
-final _objc_msgSend_159 = objc.msgSendPointer
+final _objc_msgSend_164 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63630,7 +64064,7 @@ final _objc_msgSend_159 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_downloadTaskWithURL_ =
     objc.registerName("downloadTaskWithURL:");
-final _objc_msgSend_160 = objc.msgSendPointer
+final _objc_msgSend_165 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63642,7 +64076,7 @@ final _objc_msgSend_160 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_downloadTaskWithResumeData_ =
     objc.registerName("downloadTaskWithResumeData:");
-final _objc_msgSend_161 = objc.msgSendPointer
+final _objc_msgSend_166 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -63702,7 +64136,7 @@ class NSURLSessionStreamTask extends NSURLSessionTask {
       DartNSUInteger maxBytes,
       DartNSTimeInterval timeout,
       ObjCBlock_ffiVoid_NSData_bool_NSError completionHandler) {
-    _objc_msgSend_162(
+    _objc_msgSend_167(
         this.pointer,
         _sel_readDataOfMinLength_maxLength_timeout_completionHandler_,
         minBytes,
@@ -63718,7 +64152,7 @@ class NSURLSessionStreamTask extends NSURLSessionTask {
   /// that they have been written to the kernel.
   void writeData_timeout_completionHandler_(objc.NSData data,
       DartNSTimeInterval timeout, ObjCBlock_ffiVoid_NSError completionHandler) {
-    _objc_msgSend_163(this.pointer, _sel_writeData_timeout_completionHandler_,
+    _objc_msgSend_168(this.pointer, _sel_writeData_timeout_completionHandler_,
         data.pointer, timeout, completionHandler.pointer);
   }
 
@@ -63729,7 +64163,7 @@ class NSURLSessionStreamTask extends NSURLSessionTask {
   /// considered completed and will not receive any more delegate
   /// messages.
   void captureStreams() {
-    _objc_msgSend_11(this.pointer, _sel_captureStreams);
+    _objc_msgSend_44(this.pointer, _sel_captureStreams);
   }
 
   /// Enqueue a request to close the write end of the underlying socket.
@@ -63738,21 +64172,21 @@ class NSURLSessionStreamTask extends NSURLSessionTask {
   /// back to the client, so best practice is to continue reading from
   /// the server until you receive EOF.
   void closeWrite() {
-    _objc_msgSend_11(this.pointer, _sel_closeWrite);
+    _objc_msgSend_44(this.pointer, _sel_closeWrite);
   }
 
   /// Enqueue a request to close the read side of the underlying socket.
   /// All outstanding IO will complete before the read side is closed.
   /// You may continue writing to the server.
   void closeRead() {
-    _objc_msgSend_11(this.pointer, _sel_closeRead);
+    _objc_msgSend_44(this.pointer, _sel_closeRead);
   }
 
   /// Begin encrypted handshake.  The handshake begins after all pending
   /// IO has completed.  TLS authentication callbacks are sent to the
   /// session's -URLSession:task:didReceiveChallenge:completionHandler:
   void startSecureConnection() {
-    _objc_msgSend_11(this.pointer, _sel_startSecureConnection);
+    _objc_msgSend_44(this.pointer, _sel_startSecureConnection);
   }
 
   /// Cleanly close a secure connection after all pending secure IO has
@@ -63760,10 +64194,9 @@ class NSURLSessionStreamTask extends NSURLSessionTask {
   ///
   /// @warning This API is non-functional.
   void stopSecureConnection() {
-    _objc_msgSend_11(this.pointer, _sel_stopSecureConnection);
+    _objc_msgSend_44(this.pointer, _sel_stopSecureConnection);
   }
 
-  @override
   NSURLSessionStreamTask init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionStreamTask.castFromPointer(_ret,
@@ -63925,7 +64358,7 @@ class ObjCBlock_ffiVoid_NSData_bool_NSError extends objc.ObjCBlockBase {
 
 late final _sel_readDataOfMinLength_maxLength_timeout_completionHandler_ = objc
     .registerName("readDataOfMinLength:maxLength:timeout:completionHandler:");
-final _objc_msgSend_162 = objc.msgSendPointer
+final _objc_msgSend_167 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -64046,7 +64479,7 @@ class ObjCBlock_ffiVoid_NSError extends objc.ObjCBlockBase {
 
 late final _sel_writeData_timeout_completionHandler_ =
     objc.registerName("writeData:timeout:completionHandler:");
-final _objc_msgSend_163 = objc.msgSendPointer
+final _objc_msgSend_168 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -64071,7 +64504,7 @@ late final _sel_stopSecureConnection =
     objc.registerName("stopSecureConnection");
 late final _sel_streamTaskWithHostName_port_ =
     objc.registerName("streamTaskWithHostName:port:");
-final _objc_msgSend_164 = objc.msgSendPointer
+final _objc_msgSend_169 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64110,7 +64543,7 @@ class NSNetService extends objc.ObjCObjectBase {
 late final _class_NSNetService = objc.getClass("NSNetService");
 late final _sel_streamTaskWithNetService_ =
     objc.registerName("streamTaskWithNetService:");
-final _objc_msgSend_165 = objc.msgSendPointer
+final _objc_msgSend_170 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64155,7 +64588,7 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
   /// that they have been written to the kernel.
   void sendMessage_completionHandler_(NSURLSessionWebSocketMessage message,
       ObjCBlock_ffiVoid_NSError completionHandler) {
-    _objc_msgSend_168(this.pointer, _sel_sendMessage_completionHandler_,
+    _objc_msgSend_173(this.pointer, _sel_sendMessage_completionHandler_,
         message.pointer, completionHandler.pointer);
   }
 
@@ -64165,7 +64598,7 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
   void receiveMessageWithCompletionHandler_(
       ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError
           completionHandler) {
-    _objc_msgSend_169(this.pointer, _sel_receiveMessageWithCompletionHandler_,
+    _objc_msgSend_174(this.pointer, _sel_receiveMessageWithCompletionHandler_,
         completionHandler.pointer);
   }
 
@@ -64175,41 +64608,40 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
   /// Note - the pongReceiveHandler will always be called in the order in which the pings were sent.
   void sendPingWithPongReceiveHandler_(
       ObjCBlock_ffiVoid_NSError pongReceiveHandler) {
-    _objc_msgSend_170(this.pointer, _sel_sendPingWithPongReceiveHandler_,
+    _objc_msgSend_175(this.pointer, _sel_sendPingWithPongReceiveHandler_,
         pongReceiveHandler.pointer);
   }
 
   /// Sends a close frame with the given closeCode. An optional reason can be provided while sending the close frame.
   /// Simply calling cancel on the task will result in a cancellation frame being sent without any reason.
   void cancelWithCloseCode_reason_(int closeCode, objc.NSData? reason) {
-    _objc_msgSend_171(this.pointer, _sel_cancelWithCloseCode_reason_, closeCode,
+    _objc_msgSend_176(this.pointer, _sel_cancelWithCloseCode_reason_, closeCode,
         reason?.pointer ?? ffi.nullptr);
   }
 
   /// The maximum number of bytes to be buffered before erroring out. This includes the sum of all bytes from continuation frames. Receive calls will error out if this value is reached
   DartNSInteger get maximumMessageSize {
-    return _objc_msgSend_103(this.pointer, _sel_maximumMessageSize);
+    return _objc_msgSend_111(this.pointer, _sel_maximumMessageSize);
   }
 
   /// The maximum number of bytes to be buffered before erroring out. This includes the sum of all bytes from continuation frames. Receive calls will error out if this value is reached
   set maximumMessageSize(DartNSInteger value) {
-    return _objc_msgSend_104(this.pointer, _sel_setMaximumMessageSize_, value);
+    return _objc_msgSend_112(this.pointer, _sel_setMaximumMessageSize_, value);
   }
 
   /// A task can be queried for it's close code at any point. When the task is not closed, it will be set to NSURLSessionWebSocketCloseCodeInvalid
   int get closeCode {
-    return _objc_msgSend_172(this.pointer, _sel_closeCode);
+    return _objc_msgSend_177(this.pointer, _sel_closeCode);
   }
 
   /// A task can be queried for it's close reason at any point. A nil value indicates no closeReason or that the task is still running
   objc.NSData? get closeReason {
-    final _ret = _objc_msgSend_45(this.pointer, _sel_closeReason);
+    final _ret = _objc_msgSend_37(this.pointer, _sel_closeReason);
     return _ret.address == 0
         ? null
         : objc.NSData.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSURLSessionWebSocketTask init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionWebSocketTask.castFromPointer(_ret,
@@ -64267,7 +64699,7 @@ class NSURLSessionWebSocketMessage extends objc.NSObject {
   /// Create a message with data type
   NSURLSessionWebSocketMessage initWithData_(objc.NSData data) {
     final _ret =
-        _objc_msgSend_48(this.pointer, _sel_initWithData_, data.pointer);
+        _objc_msgSend_40(this.pointer, _sel_initWithData_, data.pointer);
     return NSURLSessionWebSocketMessage.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -64275,30 +64707,29 @@ class NSURLSessionWebSocketMessage extends objc.NSObject {
   /// Create a message with string type
   NSURLSessionWebSocketMessage initWithString_(objc.NSString string) {
     final _ret =
-        _objc_msgSend_166(this.pointer, _sel_initWithString_, string.pointer);
+        _objc_msgSend_171(this.pointer, _sel_initWithString_, string.pointer);
     return NSURLSessionWebSocketMessage.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   int get type {
-    return _objc_msgSend_167(this.pointer, _sel_type);
+    return _objc_msgSend_172(this.pointer, _sel_type);
   }
 
   objc.NSData? get data {
-    final _ret = _objc_msgSend_45(this.pointer, _sel_data);
+    final _ret = _objc_msgSend_37(this.pointer, _sel_data);
     return _ret.address == 0
         ? null
         : objc.NSData.castFromPointer(_ret, retain: true, release: true);
   }
 
   objc.NSString? get string {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_string);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_string);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSURLSessionWebSocketMessage init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionWebSocketMessage.castFromPointer(_ret,
@@ -64330,7 +64761,7 @@ class NSURLSessionWebSocketMessage extends objc.NSObject {
 late final _class_NSURLSessionWebSocketMessage =
     objc.getClass("NSURLSessionWebSocketMessage");
 late final _sel_initWithString_ = objc.registerName("initWithString:");
-final _objc_msgSend_166 = objc.msgSendPointer
+final _objc_msgSend_171 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -64347,7 +64778,7 @@ abstract class NSURLSessionWebSocketMessageType {
 }
 
 late final _sel_type = objc.registerName("type");
-final _objc_msgSend_167 = objc.msgSendPointer
+final _objc_msgSend_172 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -64358,7 +64789,7 @@ final _objc_msgSend_167 = objc.msgSendPointer
 late final _sel_string = objc.registerName("string");
 late final _sel_sendMessage_completionHandler_ =
     objc.registerName("sendMessage:completionHandler:");
-final _objc_msgSend_168 = objc.msgSendPointer
+final _objc_msgSend_173 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -64500,7 +64931,7 @@ class ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError
 
 late final _sel_receiveMessageWithCompletionHandler_ =
     objc.registerName("receiveMessageWithCompletionHandler:");
-final _objc_msgSend_169 = objc.msgSendPointer
+final _objc_msgSend_174 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -64510,7 +64941,7 @@ final _objc_msgSend_169 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_sendPingWithPongReceiveHandler_ =
     objc.registerName("sendPingWithPongReceiveHandler:");
-final _objc_msgSend_170 = objc.msgSendPointer
+final _objc_msgSend_175 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -64539,7 +64970,7 @@ abstract class NSURLSessionWebSocketCloseCode {
 
 late final _sel_cancelWithCloseCode_reason_ =
     objc.registerName("cancelWithCloseCode:reason:");
-final _objc_msgSend_171 = objc.msgSendPointer
+final _objc_msgSend_176 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -64557,7 +64988,7 @@ late final _sel_maximumMessageSize = objc.registerName("maximumMessageSize");
 late final _sel_setMaximumMessageSize_ =
     objc.registerName("setMaximumMessageSize:");
 late final _sel_closeCode = objc.registerName("closeCode");
-final _objc_msgSend_172 = objc.msgSendPointer
+final _objc_msgSend_177 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -64568,7 +64999,7 @@ final _objc_msgSend_172 = objc.msgSendPointer
 late final _sel_closeReason = objc.registerName("closeReason");
 late final _sel_webSocketTaskWithURL_ =
     objc.registerName("webSocketTaskWithURL:");
-final _objc_msgSend_173 = objc.msgSendPointer
+final _objc_msgSend_178 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64580,7 +65011,7 @@ final _objc_msgSend_173 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_webSocketTaskWithURL_protocols_ =
     objc.registerName("webSocketTaskWithURL:protocols:");
-final _objc_msgSend_174 = objc.msgSendPointer
+final _objc_msgSend_179 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64596,7 +65027,7 @@ final _objc_msgSend_174 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_webSocketTaskWithRequest_ =
     objc.registerName("webSocketTaskWithRequest:");
-final _objc_msgSend_175 = objc.msgSendPointer
+final _objc_msgSend_180 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64753,7 +65184,7 @@ class ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError
 
 late final _sel_dataTaskWithRequest_completionHandler_ =
     objc.registerName("dataTaskWithRequest:completionHandler:");
-final _objc_msgSend_176 = objc.msgSendPointer
+final _objc_msgSend_181 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64769,7 +65200,7 @@ final _objc_msgSend_176 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_dataTaskWithURL_completionHandler_ =
     objc.registerName("dataTaskWithURL:completionHandler:");
-final _objc_msgSend_177 = objc.msgSendPointer
+final _objc_msgSend_182 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64785,7 +65216,7 @@ final _objc_msgSend_177 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_uploadTaskWithRequest_fromFile_completionHandler_ =
     objc.registerName("uploadTaskWithRequest:fromFile:completionHandler:");
-final _objc_msgSend_178 = objc.msgSendPointer
+final _objc_msgSend_183 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64803,7 +65234,7 @@ final _objc_msgSend_178 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_uploadTaskWithRequest_fromData_completionHandler_ =
     objc.registerName("uploadTaskWithRequest:fromData:completionHandler:");
-final _objc_msgSend_179 = objc.msgSendPointer
+final _objc_msgSend_184 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64821,7 +65252,7 @@ final _objc_msgSend_179 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_uploadTaskWithResumeData_completionHandler_ =
     objc.registerName("uploadTaskWithResumeData:completionHandler:");
-final _objc_msgSend_180 = objc.msgSendPointer
+final _objc_msgSend_185 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64980,7 +65411,7 @@ class ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError extends objc.ObjCBlockBase {
 
 late final _sel_downloadTaskWithRequest_completionHandler_ =
     objc.registerName("downloadTaskWithRequest:completionHandler:");
-final _objc_msgSend_181 = objc.msgSendPointer
+final _objc_msgSend_186 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -64996,7 +65427,7 @@ final _objc_msgSend_181 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_downloadTaskWithURL_completionHandler_ =
     objc.registerName("downloadTaskWithURL:completionHandler:");
-final _objc_msgSend_182 = objc.msgSendPointer
+final _objc_msgSend_187 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -65012,7 +65443,7 @@ final _objc_msgSend_182 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_downloadTaskWithResumeData_completionHandler_ =
     objc.registerName("downloadTaskWithResumeData:completionHandler:");
-final _objc_msgSend_183 = objc.msgSendPointer
+final _objc_msgSend_188 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -66694,7 +67125,7 @@ class NSHTTPURLResponse extends NSURLResponse {
       DartNSInteger statusCode,
       objc.NSString? HTTPVersion,
       objc.NSDictionary? headerFields) {
-    final _ret = _objc_msgSend_184(
+    final _ret = _objc_msgSend_189(
         this.pointer,
         _sel_initWithURL_statusCode_HTTPVersion_headerFields_,
         url.pointer,
@@ -66710,7 +67141,7 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// @abstract Returns the HTTP status code of the receiver.
   /// @result The HTTP status code of the receiver.
   DartNSInteger get statusCode {
-    return _objc_msgSend_103(this.pointer, _sel_statusCode);
+    return _objc_msgSend_111(this.pointer, _sel_statusCode);
   }
 
   /// !
@@ -66723,7 +67154,7 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// @result A dictionary containing all the HTTP header fields of the
   /// receiver.
   objc.NSDictionary get allHeaderFields {
-    final _ret = _objc_msgSend_185(this.pointer, _sel_allHeaderFields);
+    final _ret = _objc_msgSend_80(this.pointer, _sel_allHeaderFields);
     return objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -66737,7 +67168,7 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// @result the value associated with the given header field, or nil if
   /// there is no value associated with the given header field.
   objc.NSString? valueForHTTPHeaderField_(objc.NSString field) {
-    final _ret = _objc_msgSend_44(
+    final _ret = _objc_msgSend_36(
         this.pointer, _sel_valueForHTTPHeaderField_, field.pointer);
     return _ret.address == 0
         ? null
@@ -66751,7 +67182,7 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// @param statusCode the status code to use to produce a localized string.
   /// @result A localized string corresponding to the given status code.
   static objc.NSString localizedStringForStatusCode_(DartNSInteger statusCode) {
-    final _ret = _objc_msgSend_186(_class_NSHTTPURLResponse,
+    final _ret = _objc_msgSend_190(_class_NSHTTPURLResponse,
         _sel_localizedStringForStatusCode_, statusCode);
     return objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
@@ -66765,14 +67196,13 @@ class NSHTTPURLResponse extends NSURLResponse {
   /// @param name the name of the text encoding for the associated data, if applicable, else nil
   /// @result The initialized NSURLResponse.
   /// @discussion This is the designated initializer for NSURLResponse.
-  @override
   NSHTTPURLResponse
       initWithURL_MIMEType_expectedContentLength_textEncodingName_(
           objc.NSURL URL,
           objc.NSString? MIMEType,
           DartNSInteger length,
           objc.NSString? name) {
-    final _ret = _objc_msgSend_24(
+    final _ret = _objc_msgSend_16(
         this.pointer,
         _sel_initWithURL_MIMEType_expectedContentLength_textEncodingName_,
         URL.pointer,
@@ -66782,7 +67212,6 @@ class NSHTTPURLResponse extends NSURLResponse {
     return NSHTTPURLResponse.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSHTTPURLResponse init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSHTTPURLResponse.castFromPointer(_ret, retain: true, release: true);
@@ -66811,7 +67240,7 @@ class NSHTTPURLResponse extends NSURLResponse {
 late final _class_NSHTTPURLResponse = objc.getClass("NSHTTPURLResponse");
 late final _sel_initWithURL_statusCode_HTTPVersion_headerFields_ =
     objc.registerName("initWithURL:statusCode:HTTPVersion:headerFields:");
-final _objc_msgSend_184 = objc.msgSendPointer
+final _objc_msgSend_189 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -66831,17 +67260,9 @@ final _objc_msgSend_184 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_statusCode = objc.registerName("statusCode");
 late final _sel_allHeaderFields = objc.registerName("allHeaderFields");
-final _objc_msgSend_185 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_localizedStringForStatusCode_ =
     objc.registerName("localizedStringForStatusCode:");
-final _objc_msgSend_186 = objc.msgSendPointer
+final _objc_msgSend_190 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -68143,7 +68564,7 @@ class NSURLSessionTaskMetrics extends objc.NSObject {
 
   /// transactionMetrics array contains the metrics collected for every request/response transaction created during the task execution.
   objc.NSArray get transactionMetrics {
-    final _ret = _objc_msgSend_93(this.pointer, _sel_transactionMetrics);
+    final _ret = _objc_msgSend_103(this.pointer, _sel_transactionMetrics);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -68151,7 +68572,7 @@ class NSURLSessionTaskMetrics extends objc.NSObject {
   /// Task creation time is the time when the task was instantiated.
   /// Task completion time is the time when the task is about to change its internal state to completed.
   NSDateInterval get taskInterval {
-    final _ret = _objc_msgSend_187(this.pointer, _sel_taskInterval);
+    final _ret = _objc_msgSend_191(this.pointer, _sel_taskInterval);
     return NSDateInterval.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -68160,7 +68581,6 @@ class NSURLSessionTaskMetrics extends objc.NSObject {
     return _objc_msgSend_5(this.pointer, _sel_redirectCount);
   }
 
-  @override
   NSURLSessionTaskMetrics init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionTaskMetrics.castFromPointer(_ret,
@@ -68214,7 +68634,7 @@ class NSDateInterval extends objc.ObjCObjectBase {
 
 late final _class_NSDateInterval = objc.getClass("NSDateInterval");
 late final _sel_taskInterval = objc.registerName("taskInterval");
-final _objc_msgSend_187 = objc.msgSendPointer
+final _objc_msgSend_191 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -72906,13 +73326,13 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
 
   /// Represents the transaction request.
   NSURLRequest get request {
-    final _ret = _objc_msgSend_188(this.pointer, _sel_request);
+    final _ret = _objc_msgSend_192(this.pointer, _sel_request);
     return NSURLRequest.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// Represents the transaction response. Can be nil if error occurred and no response was generated.
   NSURLResponse? get response {
-    final _ret = _objc_msgSend_71(this.pointer, _sel_response);
+    final _ret = _objc_msgSend_64(this.pointer, _sel_response);
     return _ret.address == 0
         ? null
         : NSURLResponse.castFromPointer(_ret, retain: true, release: true);
@@ -72929,7 +73349,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   /// secureConnectionStartDate
   /// secureConnectionEndDate
   objc.NSDate? get fetchStartDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_fetchStartDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_fetchStartDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -72937,7 +73357,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
 
   /// domainLookupStartDate returns the time immediately before the user agent started the name lookup for the resource.
   objc.NSDate? get domainLookupStartDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_domainLookupStartDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_domainLookupStartDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -72945,7 +73365,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
 
   /// domainLookupEndDate returns the time after the name lookup was completed.
   objc.NSDate? get domainLookupEndDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_domainLookupEndDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_domainLookupEndDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -72955,7 +73375,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// For example, this would correspond to the time immediately before the user agent started trying to establish the TCP connection.
   objc.NSDate? get connectStartDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_connectStartDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_connectStartDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -72967,7 +73387,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// If an encrypted connection was not used, this attribute is set to nil.
   objc.NSDate? get secureConnectionStartDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_secureConnectionStartDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_secureConnectionStartDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -72977,7 +73397,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// If an encrypted connection was not used, this attribute is set to nil.
   objc.NSDate? get secureConnectionEndDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_secureConnectionEndDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_secureConnectionEndDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -72985,7 +73405,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
 
   /// connectEndDate is the time immediately after the user agent finished establishing the connection to the server, including completion of security-related and other handshakes.
   objc.NSDate? get connectEndDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_connectEndDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_connectEndDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -72995,7 +73415,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// For example, this would correspond to the time immediately before the user agent sent an HTTP GET request.
   objc.NSDate? get requestStartDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_requestStartDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_requestStartDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -73005,7 +73425,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// For example, this would correspond to the time immediately after the user agent finished sending the last byte of the request.
   objc.NSDate? get requestEndDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_requestEndDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_requestEndDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -73015,7 +73435,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// For example, this would correspond to the time immediately after the user agent received the first byte of an HTTP response.
   objc.NSDate? get responseStartDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_responseStartDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_responseStartDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -73023,7 +73443,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
 
   /// responseEndDate is the time immediately after the user agent received the last byte of the resource.
   objc.NSDate? get responseEndDate {
-    final _ret = _objc_msgSend_73(this.pointer, _sel_responseEndDate);
+    final _ret = _objc_msgSend_87(this.pointer, _sel_responseEndDate);
     return _ret.address == 0
         ? null
         : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
@@ -73039,7 +73459,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   /// If HTTP/1.1 were used to the proxy, and the tunneled connection was HTTP/2, then h2 would be returned.
   /// If HTTP/1.1 were used to the proxy, and there were no tunnel, then http/1.1 would be returned.
   objc.NSString? get networkProtocolName {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_networkProtocolName);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_networkProtocolName);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -73047,52 +73467,52 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
 
   /// This property is set to YES if a proxy connection was used to fetch the resource.
   bool get proxyConnection {
-    return _objc_msgSend_21(this.pointer, _sel_isProxyConnection);
+    return _objc_msgSend_13(this.pointer, _sel_isProxyConnection);
   }
 
   /// This property is set to YES if a persistent connection was used to fetch the resource.
   bool get reusedConnection {
-    return _objc_msgSend_21(this.pointer, _sel_isReusedConnection);
+    return _objc_msgSend_13(this.pointer, _sel_isReusedConnection);
   }
 
   /// Indicates whether the resource was loaded, pushed or retrieved from the local cache.
   int get resourceFetchType {
-    return _objc_msgSend_189(this.pointer, _sel_resourceFetchType);
+    return _objc_msgSend_193(this.pointer, _sel_resourceFetchType);
   }
 
   /// countOfRequestHeaderBytesSent is the number of bytes transferred for request header.
   int get countOfRequestHeaderBytesSent {
-    return _objc_msgSend_75(this.pointer, _sel_countOfRequestHeaderBytesSent);
+    return _objc_msgSend_72(this.pointer, _sel_countOfRequestHeaderBytesSent);
   }
 
   /// countOfRequestBodyBytesSent is the number of bytes transferred for request body.
   /// It includes protocol-specific framing, transfer encoding, and content encoding.
   int get countOfRequestBodyBytesSent {
-    return _objc_msgSend_75(this.pointer, _sel_countOfRequestBodyBytesSent);
+    return _objc_msgSend_72(this.pointer, _sel_countOfRequestBodyBytesSent);
   }
 
   /// countOfRequestBodyBytesBeforeEncoding is the size of upload body data, file, or stream.
   int get countOfRequestBodyBytesBeforeEncoding {
-    return _objc_msgSend_75(
+    return _objc_msgSend_72(
         this.pointer, _sel_countOfRequestBodyBytesBeforeEncoding);
   }
 
   /// countOfResponseHeaderBytesReceived is the number of bytes transferred for response header.
   int get countOfResponseHeaderBytesReceived {
-    return _objc_msgSend_75(
+    return _objc_msgSend_72(
         this.pointer, _sel_countOfResponseHeaderBytesReceived);
   }
 
   /// countOfResponseBodyBytesReceived is the number of bytes transferred for response header.
   /// It includes protocol-specific framing, transfer encoding, and content encoding.
   int get countOfResponseBodyBytesReceived {
-    return _objc_msgSend_75(
+    return _objc_msgSend_72(
         this.pointer, _sel_countOfResponseBodyBytesReceived);
   }
 
   /// countOfResponseBodyBytesAfterDecoding is the size of data delivered to your delegate or completion handler.
   int get countOfResponseBodyBytesAfterDecoding {
-    return _objc_msgSend_75(
+    return _objc_msgSend_72(
         this.pointer, _sel_countOfResponseBodyBytesAfterDecoding);
   }
 
@@ -73102,7 +73522,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// If a connection was not used, this attribute is set to nil.
   objc.NSString? get localAddress {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_localAddress);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_localAddress);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -73114,7 +73534,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// If a connection was not used, this attribute is set to nil.
   objc.NSNumber? get localPort {
-    final _ret = _objc_msgSend_190(this.pointer, _sel_localPort);
+    final _ret = _objc_msgSend_81(this.pointer, _sel_localPort);
     return _ret.address == 0
         ? null
         : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
@@ -73126,7 +73546,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// If a connection was not used, this attribute is set to nil.
   objc.NSString? get remoteAddress {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_remoteAddress);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_remoteAddress);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -73138,7 +73558,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// If a connection was not used, this attribute is set to nil.
   objc.NSNumber? get remotePort {
-    final _ret = _objc_msgSend_190(this.pointer, _sel_remotePort);
+    final _ret = _objc_msgSend_81(this.pointer, _sel_remotePort);
     return _ret.address == 0
         ? null
         : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
@@ -73152,7 +73572,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   /// If an encrypted connection was not used, this attribute is set to nil.
   objc.NSNumber? get negotiatedTLSProtocolVersion {
     final _ret =
-        _objc_msgSend_190(this.pointer, _sel_negotiatedTLSProtocolVersion);
+        _objc_msgSend_81(this.pointer, _sel_negotiatedTLSProtocolVersion);
     return _ret.address == 0
         ? null
         : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
@@ -73165,7 +73585,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
   ///
   /// If an encrypted connection was not used, this attribute is set to nil.
   objc.NSNumber? get negotiatedTLSCipherSuite {
-    final _ret = _objc_msgSend_190(this.pointer, _sel_negotiatedTLSCipherSuite);
+    final _ret = _objc_msgSend_81(this.pointer, _sel_negotiatedTLSCipherSuite);
     return _ret.address == 0
         ? null
         : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
@@ -73173,30 +73593,29 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
 
   /// Whether the connection is established over a cellular interface.
   bool get cellular {
-    return _objc_msgSend_21(this.pointer, _sel_isCellular);
+    return _objc_msgSend_13(this.pointer, _sel_isCellular);
   }
 
   /// Whether the connection is established over an expensive interface.
   bool get expensive {
-    return _objc_msgSend_21(this.pointer, _sel_isExpensive);
+    return _objc_msgSend_13(this.pointer, _sel_isExpensive);
   }
 
   /// Whether the connection is established over a constrained interface.
   bool get constrained {
-    return _objc_msgSend_21(this.pointer, _sel_isConstrained);
+    return _objc_msgSend_13(this.pointer, _sel_isConstrained);
   }
 
   /// Whether a multipath protocol is successfully negotiated for the connection.
   bool get multipath {
-    return _objc_msgSend_21(this.pointer, _sel_isMultipath);
+    return _objc_msgSend_13(this.pointer, _sel_isMultipath);
   }
 
   /// DNS protocol used for domain resolution.
   int get domainResolutionProtocol {
-    return _objc_msgSend_191(this.pointer, _sel_domainResolutionProtocol);
+    return _objc_msgSend_194(this.pointer, _sel_domainResolutionProtocol);
   }
 
-  @override
   NSURLSessionTaskTransactionMetrics init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLSessionTaskTransactionMetrics.castFromPointer(_ret,
@@ -73229,7 +73648,7 @@ class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
 late final _class_NSURLSessionTaskTransactionMetrics =
     objc.getClass("NSURLSessionTaskTransactionMetrics");
 late final _sel_request = objc.registerName("request");
-final _objc_msgSend_188 = objc.msgSendPointer
+final _objc_msgSend_192 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -73255,7 +73674,7 @@ late final _sel_networkProtocolName = objc.registerName("networkProtocolName");
 late final _sel_isProxyConnection = objc.registerName("isProxyConnection");
 late final _sel_isReusedConnection = objc.registerName("isReusedConnection");
 late final _sel_resourceFetchType = objc.registerName("resourceFetchType");
-final _objc_msgSend_189 = objc.msgSendPointer
+final _objc_msgSend_193 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -73277,14 +73696,6 @@ late final _sel_countOfResponseBodyBytesAfterDecoding =
     objc.registerName("countOfResponseBodyBytesAfterDecoding");
 late final _sel_localAddress = objc.registerName("localAddress");
 late final _sel_localPort = objc.registerName("localPort");
-final _objc_msgSend_190 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_remoteAddress = objc.registerName("remoteAddress");
 late final _sel_remotePort = objc.registerName("remotePort");
 late final _sel_negotiatedTLSProtocolVersion =
@@ -73297,7 +73708,7 @@ late final _sel_isConstrained = objc.registerName("isConstrained");
 late final _sel_isMultipath = objc.registerName("isMultipath");
 late final _sel_domainResolutionProtocol =
     objc.registerName("domainResolutionProtocol");
-final _objc_msgSend_191 = objc.msgSendPointer
+final _objc_msgSend_194 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -73698,7 +74109,7 @@ class ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
   ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError.fromFunction(
-      objc.NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, ObjCBlock_ffiVoid_NSData_NSError)
+      NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, ObjCBlock_ffiVoid_NSData_NSError)
           fn)
       : this._(objc.newClosureBlock(
             _dartFuncTrampoline ??= ffi.Pointer.fromFunction<
@@ -73714,7 +74125,7 @@ class ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError
                 fn(arg0, objc.NSString.castFromPointer(arg1, retain: true, release: true), ObjCBlock_ffiVoid_NSData_NSError.castFromPointer(arg2, retain: true, release: true))?.retainAndReturnPointer() ?? ffi.nullptr));
   static ffi.Pointer<ffi.Void>? _dartFuncTrampoline;
 
-  objc.NSProgress? call(ffi.Pointer<ffi.Void> arg0, objc.NSString arg1,
+  NSProgress? call(ffi.Pointer<ffi.Void> arg0, objc.NSString arg1,
           ObjCBlock_ffiVoid_NSData_NSError arg2) =>
       pointer.ref.invoke
                   .cast<
@@ -73724,16 +74135,17 @@ class ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError
                               ffi.Pointer<ffi.Void> arg0,
                               ffi.Pointer<objc.ObjCObject> arg1,
                               ffi.Pointer<objc.ObjCBlock> arg2)>>()
-                  .asFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlock>,
-                          ffi.Pointer<ffi.Void>,
-                          ffi.Pointer<objc.ObjCObject>,
-                          ffi.Pointer<objc.ObjCBlock>)>()(pointer, arg0, arg1.pointer, arg2.pointer)
+                  .asFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlock>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCBlock>)>()
+                  (pointer, arg0, arg1.pointer, arg2.pointer)
                   .address ==
               0
           ? null
-          : objc.NSProgress.castFromPointer(pointer.ref.invoke.cast<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlock> block, ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlock> arg2)>>().asFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlock>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCBlock>)>()(pointer, arg0, arg1.pointer, arg2.pointer), retain: false, release: true);
+          : NSProgress.castFromPointer(
+              pointer.ref.invoke
+                  .cast<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlock> block, ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlock> arg2)>>()
+                  .asFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlock>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCBlock>)>()(pointer, arg0, arg1.pointer, arg2.pointer),
+              retain: false,
+              release: true);
 }
 
 late final _sel_writableTypeIdentifiersForItemProvider =
@@ -74079,28 +74491,26 @@ class NSSimpleCString extends objc.NSString {
         obj.pointer, _sel_isKindOfClass_, _class_NSSimpleCString);
   }
 
-  @override
   NSSimpleCString init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithCoder_(objc.NSCoder coder) {
     final _ret =
-        _objc_msgSend_192(this.pointer, _sel_initWithCoder_, coder.pointer);
+        _objc_msgSend_195(this.pointer, _sel_initWithCoder_, coder.pointer);
     return _ret.address == 0
         ? null
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
   static ffi.Pointer<NSStringEncoding> getAvailableStringEncodings() {
-    return _objc_msgSend_193(
+    return _objc_msgSend_196(
         _class_NSSimpleCString, _sel_availableStringEncodings);
   }
 
   static objc.NSString localizedNameOfStringEncoding_(DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_194(
+    final _ret = _objc_msgSend_197(
         _class_NSSimpleCString, _sel_localizedNameOfStringEncoding_, encoding);
     return objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
@@ -74109,10 +74519,9 @@ class NSSimpleCString extends objc.NSString {
     return _objc_msgSend_5(_class_NSSimpleCString, _sel_defaultCStringEncoding);
   }
 
-  @override
   NSSimpleCString initWithCharactersNoCopy_length_freeWhenDone_(
       ffi.Pointer<unichar> characters, DartNSUInteger length, bool freeBuffer) {
-    final _ret = _objc_msgSend_195(
+    final _ret = _objc_msgSend_198(
         this.pointer,
         _sel_initWithCharactersNoCopy_length_freeWhenDone_,
         characters,
@@ -74121,12 +74530,11 @@ class NSSimpleCString extends objc.NSString {
     return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
   }
 
-  @override
   NSSimpleCString initWithCharactersNoCopy_length_deallocator_(
       ffi.Pointer<unichar> chars,
       DartNSUInteger len,
       ObjCBlock_ffiVoid_unichar_NSUInteger? deallocator) {
-    final _ret = _objc_msgSend_196(
+    final _ret = _objc_msgSend_199(
         this.pointer,
         _sel_initWithCharactersNoCopy_length_deallocator_,
         chars,
@@ -74135,58 +74543,51 @@ class NSSimpleCString extends objc.NSString {
     return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
   }
 
-  @override
   NSSimpleCString initWithCharacters_length_(
       ffi.Pointer<unichar> characters, DartNSUInteger length) {
-    final _ret = _objc_msgSend_197(
+    final _ret = _objc_msgSend_200(
         this.pointer, _sel_initWithCharacters_length_, characters, length);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithUTF8String_(
       ffi.Pointer<ffi.Char> nullTerminatedCString) {
-    final _ret = _objc_msgSend_198(
+    final _ret = _objc_msgSend_201(
         this.pointer, _sel_initWithUTF8String_, nullTerminatedCString);
     return _ret.address == 0
         ? null
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString initWithString_(objc.NSString aString) {
     final _ret =
-        _objc_msgSend_166(this.pointer, _sel_initWithString_, aString.pointer);
+        _objc_msgSend_171(this.pointer, _sel_initWithString_, aString.pointer);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString initWithFormat_(objc.NSString format) {
     final _ret =
-        _objc_msgSend_166(this.pointer, _sel_initWithFormat_, format.pointer);
+        _objc_msgSend_171(this.pointer, _sel_initWithFormat_, format.pointer);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString initWithFormat_arguments_(
       objc.NSString format, va_list argList) {
-    final _ret = _objc_msgSend_199(
+    final _ret = _objc_msgSend_202(
         this.pointer, _sel_initWithFormat_arguments_, format.pointer, argList);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString initWithFormat_locale_(
       objc.NSString format, objc.ObjCObjectBase? locale) {
-    final _ret = _objc_msgSend_200(this.pointer, _sel_initWithFormat_locale_,
+    final _ret = _objc_msgSend_203(this.pointer, _sel_initWithFormat_locale_,
         format.pointer, locale?.pointer ?? ffi.nullptr);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString initWithFormat_locale_arguments_(
       objc.NSString format, objc.ObjCObjectBase? locale, va_list argList) {
-    final _ret = _objc_msgSend_201(
+    final _ret = _objc_msgSend_204(
         this.pointer,
         _sel_initWithFormat_locale_arguments_,
         format.pointer,
@@ -74195,12 +74596,11 @@ class NSSimpleCString extends objc.NSString {
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithValidatedFormat_validFormatSpecifiers_error_(
       objc.NSString format,
       objc.NSString validFormatSpecifiers,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_202(
+    final _ret = _objc_msgSend_205(
         this.pointer,
         _sel_initWithValidatedFormat_validFormatSpecifiers_error_,
         format.pointer,
@@ -74211,13 +74611,12 @@ class NSSimpleCString extends objc.NSString {
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithValidatedFormat_validFormatSpecifiers_locale_error_(
       objc.NSString format,
       objc.NSString validFormatSpecifiers,
       objc.ObjCObjectBase? locale,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_203(
+    final _ret = _objc_msgSend_206(
         this.pointer,
         _sel_initWithValidatedFormat_validFormatSpecifiers_locale_error_,
         format.pointer,
@@ -74229,14 +74628,13 @@ class NSSimpleCString extends objc.NSString {
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString?
       initWithValidatedFormat_validFormatSpecifiers_arguments_error_(
           objc.NSString format,
           objc.NSString validFormatSpecifiers,
           va_list argList,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_204(
+    final _ret = _objc_msgSend_207(
         this.pointer,
         _sel_initWithValidatedFormat_validFormatSpecifiers_arguments_error_,
         format.pointer,
@@ -74248,7 +74646,6 @@ class NSSimpleCString extends objc.NSString {
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString?
       initWithValidatedFormat_validFormatSpecifiers_locale_arguments_error_(
           objc.NSString format,
@@ -74256,7 +74653,7 @@ class NSSimpleCString extends objc.NSString {
           objc.ObjCObjectBase? locale,
           va_list argList,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_205(
+    final _ret = _objc_msgSend_208(
         this.pointer,
         _sel_initWithValidatedFormat_validFormatSpecifiers_locale_arguments_error_,
         format.pointer,
@@ -74269,33 +74666,30 @@ class NSSimpleCString extends objc.NSString {
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithData_encoding_(
       objc.NSData data, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_206(
+    final _ret = _objc_msgSend_209(
         this.pointer, _sel_initWithData_encoding_, data.pointer, encoding);
     return _ret.address == 0
         ? null
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithBytes_length_encoding_(ffi.Pointer<ffi.Void> bytes,
       DartNSUInteger len, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_207(this.pointer,
+    final _ret = _objc_msgSend_210(this.pointer,
         _sel_initWithBytes_length_encoding_, bytes, len, encoding);
     return _ret.address == 0
         ? null
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithBytesNoCopy_length_encoding_freeWhenDone_(
       ffi.Pointer<ffi.Void> bytes,
       DartNSUInteger len,
       DartNSUInteger encoding,
       bool freeBuffer) {
-    final _ret = _objc_msgSend_208(
+    final _ret = _objc_msgSend_211(
         this.pointer,
         _sel_initWithBytesNoCopy_length_encoding_freeWhenDone_,
         bytes,
@@ -74307,13 +74701,12 @@ class NSSimpleCString extends objc.NSString {
         : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
   }
 
-  @override
   NSSimpleCString? initWithBytesNoCopy_length_encoding_deallocator_(
       ffi.Pointer<ffi.Void> bytes,
       DartNSUInteger len,
       DartNSUInteger encoding,
       ObjCBlock_ffiVoid_ffiVoid_NSUInteger? deallocator) {
-    final _ret = _objc_msgSend_209(
+    final _ret = _objc_msgSend_212(
         this.pointer,
         _sel_initWithBytesNoCopy_length_encoding_deallocator_,
         bytes,
@@ -74331,21 +74724,21 @@ class NSSimpleCString extends objc.NSString {
   }
 
   static NSSimpleCString stringWithString_(objc.NSString string) {
-    final _ret = _objc_msgSend_166(
+    final _ret = _objc_msgSend_171(
         _class_NSSimpleCString, _sel_stringWithString_, string.pointer);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSSimpleCString stringWithCharacters_length_(
       ffi.Pointer<unichar> characters, DartNSUInteger length) {
-    final _ret = _objc_msgSend_197(_class_NSSimpleCString,
+    final _ret = _objc_msgSend_200(_class_NSSimpleCString,
         _sel_stringWithCharacters_length_, characters, length);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSSimpleCString? stringWithUTF8String_(
       ffi.Pointer<ffi.Char> nullTerminatedCString) {
-    final _ret = _objc_msgSend_198(_class_NSSimpleCString,
+    final _ret = _objc_msgSend_201(_class_NSSimpleCString,
         _sel_stringWithUTF8String_, nullTerminatedCString);
     return _ret.address == 0
         ? null
@@ -74353,13 +74746,13 @@ class NSSimpleCString extends objc.NSString {
   }
 
   static NSSimpleCString stringWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_166(
+    final _ret = _objc_msgSend_171(
         _class_NSSimpleCString, _sel_stringWithFormat_, format.pointer);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSSimpleCString localizedStringWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_166(_class_NSSimpleCString,
+    final _ret = _objc_msgSend_171(_class_NSSimpleCString,
         _sel_localizedStringWithFormat_, format.pointer);
     return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
@@ -74369,7 +74762,7 @@ class NSSimpleCString extends objc.NSString {
           objc.NSString format,
           objc.NSString validFormatSpecifiers,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_202(
+    final _ret = _objc_msgSend_205(
         _class_NSSimpleCString,
         _sel_stringWithValidatedFormat_validFormatSpecifiers_error_,
         format.pointer,
@@ -74385,7 +74778,7 @@ class NSSimpleCString extends objc.NSString {
           objc.NSString format,
           objc.NSString validFormatSpecifiers,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_202(
+    final _ret = _objc_msgSend_205(
         _class_NSSimpleCString,
         _sel_localizedStringWithValidatedFormat_validFormatSpecifiers_error_,
         format.pointer,
@@ -74396,10 +74789,9 @@ class NSSimpleCString extends objc.NSString {
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithCString_encoding_(
       ffi.Pointer<ffi.Char> nullTerminatedCString, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_210(this.pointer, _sel_initWithCString_encoding_,
+    final _ret = _objc_msgSend_213(this.pointer, _sel_initWithCString_encoding_,
         nullTerminatedCString, encoding);
     return _ret.address == 0
         ? null
@@ -74408,27 +74800,25 @@ class NSSimpleCString extends objc.NSString {
 
   static NSSimpleCString? stringWithCString_encoding_(
       ffi.Pointer<ffi.Char> cString, DartNSUInteger enc) {
-    final _ret = _objc_msgSend_210(
+    final _ret = _objc_msgSend_213(
         _class_NSSimpleCString, _sel_stringWithCString_encoding_, cString, enc);
     return _ret.address == 0
         ? null
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithContentsOfURL_encoding_error_(objc.NSURL url,
       DartNSUInteger enc, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_211(this.pointer,
+    final _ret = _objc_msgSend_214(this.pointer,
         _sel_initWithContentsOfURL_encoding_error_, url.pointer, enc, error);
     return _ret.address == 0
         ? null
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithContentsOfFile_encoding_error_(objc.NSString path,
       DartNSUInteger enc, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_212(this.pointer,
+    final _ret = _objc_msgSend_215(this.pointer,
         _sel_initWithContentsOfFile_encoding_error_, path.pointer, enc, error);
     return _ret.address == 0
         ? null
@@ -74439,7 +74829,7 @@ class NSSimpleCString extends objc.NSString {
       objc.NSURL url,
       DartNSUInteger enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_211(_class_NSSimpleCString,
+    final _ret = _objc_msgSend_214(_class_NSSimpleCString,
         _sel_stringWithContentsOfURL_encoding_error_, url.pointer, enc, error);
     return _ret.address == 0
         ? null
@@ -74450,7 +74840,7 @@ class NSSimpleCString extends objc.NSString {
       objc.NSString path,
       DartNSUInteger enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_212(
+    final _ret = _objc_msgSend_215(
         _class_NSSimpleCString,
         _sel_stringWithContentsOfFile_encoding_error_,
         path.pointer,
@@ -74461,12 +74851,11 @@ class NSSimpleCString extends objc.NSString {
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithContentsOfURL_usedEncoding_error_(
       objc.NSURL url,
       ffi.Pointer<NSStringEncoding> enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_213(
+    final _ret = _objc_msgSend_216(
         this.pointer,
         _sel_initWithContentsOfURL_usedEncoding_error_,
         url.pointer,
@@ -74477,12 +74866,11 @@ class NSSimpleCString extends objc.NSString {
         : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSSimpleCString? initWithContentsOfFile_usedEncoding_error_(
       objc.NSString path,
       ffi.Pointer<NSStringEncoding> enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_214(
+    final _ret = _objc_msgSend_217(
         this.pointer,
         _sel_initWithContentsOfFile_usedEncoding_error_,
         path.pointer,
@@ -74497,7 +74885,7 @@ class NSSimpleCString extends objc.NSString {
       objc.NSURL url,
       ffi.Pointer<NSStringEncoding> enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_213(
+    final _ret = _objc_msgSend_216(
         _class_NSSimpleCString,
         _sel_stringWithContentsOfURL_usedEncoding_error_,
         url.pointer,
@@ -74512,7 +74900,7 @@ class NSSimpleCString extends objc.NSString {
       objc.NSString path,
       ffi.Pointer<NSStringEncoding> enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_214(
+    final _ret = _objc_msgSend_217(
         _class_NSSimpleCString,
         _sel_stringWithContentsOfFile_usedEncoding_error_,
         path.pointer,
@@ -74529,7 +74917,7 @@ class NSSimpleCString extends objc.NSString {
           objc.NSDictionary? opts,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> string,
           ffi.Pointer<ffi.Bool> usedLossyConversion) {
-    return _objc_msgSend_215(
+    return _objc_msgSend_218(
         _class_NSSimpleCString,
         _sel_stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_,
         data.pointer,
@@ -74539,7 +74927,7 @@ class NSSimpleCString extends objc.NSString {
   }
 
   static objc.ObjCObjectBase? stringWithContentsOfFile_(objc.NSString path) {
-    final _ret = _objc_msgSend_50(
+    final _ret = _objc_msgSend_42(
         _class_NSSimpleCString, _sel_stringWithContentsOfFile_, path.pointer);
     return _ret.address == 0
         ? null
@@ -74547,7 +74935,7 @@ class NSSimpleCString extends objc.NSString {
   }
 
   static objc.ObjCObjectBase? stringWithContentsOfURL_(objc.NSURL url) {
-    final _ret = _objc_msgSend_49(
+    final _ret = _objc_msgSend_41(
         _class_NSSimpleCString, _sel_stringWithContentsOfURL_, url.pointer);
     return _ret.address == 0
         ? null
@@ -74556,7 +74944,7 @@ class NSSimpleCString extends objc.NSString {
 
   static objc.ObjCObjectBase? stringWithCString_length_(
       ffi.Pointer<ffi.Char> bytes, DartNSUInteger length) {
-    final _ret = _objc_msgSend_210(
+    final _ret = _objc_msgSend_213(
         _class_NSSimpleCString, _sel_stringWithCString_length_, bytes, length);
     return _ret.address == 0
         ? null
@@ -74564,7 +74952,7 @@ class NSSimpleCString extends objc.NSString {
   }
 
   static objc.ObjCObjectBase? stringWithCString_(ffi.Pointer<ffi.Char> bytes) {
-    final _ret = _objc_msgSend_198(
+    final _ret = _objc_msgSend_201(
         _class_NSSimpleCString, _sel_stringWithCString_, bytes);
     return _ret.address == 0
         ? null
@@ -74573,7 +74961,7 @@ class NSSimpleCString extends objc.NSString {
 }
 
 late final _class_NSSimpleCString = objc.getClass("NSSimpleCString");
-final _objc_msgSend_192 = objc.msgSendPointer
+final _objc_msgSend_195 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74586,7 +74974,7 @@ final _objc_msgSend_192 = objc.msgSendPointer
 typedef NSStringEncoding = NSUInteger;
 late final _sel_availableStringEncodings =
     objc.registerName("availableStringEncodings");
-final _objc_msgSend_193 = objc.msgSendPointer
+final _objc_msgSend_196 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<NSStringEncoding> Function(ffi.Pointer<objc.ObjCObject>,
@@ -74596,7 +74984,7 @@ final _objc_msgSend_193 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_localizedNameOfStringEncoding_ =
     objc.registerName("localizedNameOfStringEncoding:");
-final _objc_msgSend_194 = objc.msgSendPointer
+final _objc_msgSend_197 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -74610,7 +74998,7 @@ typedef unichar = ffi.UnsignedShort;
 typedef Dartunichar = int;
 late final _sel_initWithCharactersNoCopy_length_freeWhenDone_ =
     objc.registerName("initWithCharactersNoCopy:length:freeWhenDone:");
-final _objc_msgSend_195 = objc.msgSendPointer
+final _objc_msgSend_198 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74727,7 +75115,7 @@ class ObjCBlock_ffiVoid_unichar_NSUInteger extends objc.ObjCBlockBase {
 
 late final _sel_initWithCharactersNoCopy_length_deallocator_ =
     objc.registerName("initWithCharactersNoCopy:length:deallocator:");
-final _objc_msgSend_196 = objc.msgSendPointer
+final _objc_msgSend_199 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74745,7 +75133,7 @@ final _objc_msgSend_196 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_initWithCharacters_length_ =
     objc.registerName("initWithCharacters:length:");
-final _objc_msgSend_197 = objc.msgSendPointer
+final _objc_msgSend_200 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74757,7 +75145,7 @@ final _objc_msgSend_197 = objc.msgSendPointer
         instancetype Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<unichar>, int)>();
 late final _sel_initWithUTF8String_ = objc.registerName("initWithUTF8String:");
-final _objc_msgSend_198 = objc.msgSendPointer
+final _objc_msgSend_201 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(ffi.Pointer<objc.ObjCObject>,
@@ -74768,7 +75156,7 @@ final _objc_msgSend_198 = objc.msgSendPointer
 late final _sel_initWithFormat_ = objc.registerName("initWithFormat:");
 late final _sel_initWithFormat_arguments_ =
     objc.registerName("initWithFormat:arguments:");
-final _objc_msgSend_199 = objc.msgSendPointer
+final _objc_msgSend_202 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74784,7 +75172,7 @@ final _objc_msgSend_199 = objc.msgSendPointer
             va_list)>();
 late final _sel_initWithFormat_locale_ =
     objc.registerName("initWithFormat:locale:");
-final _objc_msgSend_200 = objc.msgSendPointer
+final _objc_msgSend_203 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74800,7 +75188,7 @@ final _objc_msgSend_200 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_initWithFormat_locale_arguments_ =
     objc.registerName("initWithFormat:locale:arguments:");
-final _objc_msgSend_201 = objc.msgSendPointer
+final _objc_msgSend_204 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74818,7 +75206,7 @@ final _objc_msgSend_201 = objc.msgSendPointer
             va_list)>();
 late final _sel_initWithValidatedFormat_validFormatSpecifiers_error_ =
     objc.registerName("initWithValidatedFormat:validFormatSpecifiers:error:");
-final _objc_msgSend_202 = objc.msgSendPointer
+final _objc_msgSend_205 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74837,7 +75225,7 @@ final _objc_msgSend_202 = objc.msgSendPointer
 late final _sel_initWithValidatedFormat_validFormatSpecifiers_locale_error_ =
     objc.registerName(
         "initWithValidatedFormat:validFormatSpecifiers:locale:error:");
-final _objc_msgSend_203 = objc.msgSendPointer
+final _objc_msgSend_206 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74858,7 +75246,7 @@ final _objc_msgSend_203 = objc.msgSendPointer
 late final _sel_initWithValidatedFormat_validFormatSpecifiers_arguments_error_ =
     objc.registerName(
         "initWithValidatedFormat:validFormatSpecifiers:arguments:error:");
-final _objc_msgSend_204 = objc.msgSendPointer
+final _objc_msgSend_207 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74879,7 +75267,7 @@ final _objc_msgSend_204 = objc.msgSendPointer
 late final _sel_initWithValidatedFormat_validFormatSpecifiers_locale_arguments_error_ =
     objc.registerName(
         "initWithValidatedFormat:validFormatSpecifiers:locale:arguments:error:");
-final _objc_msgSend_205 = objc.msgSendPointer
+final _objc_msgSend_208 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74901,7 +75289,7 @@ final _objc_msgSend_205 = objc.msgSendPointer
             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
 late final _sel_initWithData_encoding_ =
     objc.registerName("initWithData:encoding:");
-final _objc_msgSend_206 = objc.msgSendPointer
+final _objc_msgSend_209 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74917,7 +75305,7 @@ final _objc_msgSend_206 = objc.msgSendPointer
             int)>();
 late final _sel_initWithBytes_length_encoding_ =
     objc.registerName("initWithBytes:length:encoding:");
-final _objc_msgSend_207 = objc.msgSendPointer
+final _objc_msgSend_210 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -74931,7 +75319,7 @@ final _objc_msgSend_207 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<ffi.Void>, int, int)>();
 late final _sel_initWithBytesNoCopy_length_encoding_freeWhenDone_ =
     objc.registerName("initWithBytesNoCopy:length:encoding:freeWhenDone:");
-final _objc_msgSend_208 = objc.msgSendPointer
+final _objc_msgSend_211 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -75054,7 +75442,7 @@ class ObjCBlock_ffiVoid_ffiVoid_NSUInteger extends objc.ObjCBlockBase {
 
 late final _sel_initWithBytesNoCopy_length_encoding_deallocator_ =
     objc.registerName("initWithBytesNoCopy:length:encoding:deallocator:");
-final _objc_msgSend_209 = objc.msgSendPointer
+final _objc_msgSend_212 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -75087,7 +75475,7 @@ late final _sel_localizedStringWithValidatedFormat_validFormatSpecifiers_error_ 
         "localizedStringWithValidatedFormat:validFormatSpecifiers:error:");
 late final _sel_initWithCString_encoding_ =
     objc.registerName("initWithCString:encoding:");
-final _objc_msgSend_210 = objc.msgSendPointer
+final _objc_msgSend_213 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -75102,7 +75490,7 @@ late final _sel_stringWithCString_encoding_ =
     objc.registerName("stringWithCString:encoding:");
 late final _sel_initWithContentsOfURL_encoding_error_ =
     objc.registerName("initWithContentsOfURL:encoding:error:");
-final _objc_msgSend_211 = objc.msgSendPointer
+final _objc_msgSend_214 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -75120,7 +75508,7 @@ final _objc_msgSend_211 = objc.msgSendPointer
             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
 late final _sel_initWithContentsOfFile_encoding_error_ =
     objc.registerName("initWithContentsOfFile:encoding:error:");
-final _objc_msgSend_212 = objc.msgSendPointer
+final _objc_msgSend_215 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -75142,7 +75530,7 @@ late final _sel_stringWithContentsOfFile_encoding_error_ =
     objc.registerName("stringWithContentsOfFile:encoding:error:");
 late final _sel_initWithContentsOfURL_usedEncoding_error_ =
     objc.registerName("initWithContentsOfURL:usedEncoding:error:");
-final _objc_msgSend_213 = objc.msgSendPointer
+final _objc_msgSend_216 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -75160,7 +75548,7 @@ final _objc_msgSend_213 = objc.msgSendPointer
             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
 late final _sel_initWithContentsOfFile_usedEncoding_error_ =
     objc.registerName("initWithContentsOfFile:usedEncoding:error:");
-final _objc_msgSend_214 = objc.msgSendPointer
+final _objc_msgSend_217 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -75183,7 +75571,7 @@ late final _sel_stringWithContentsOfFile_usedEncoding_error_ =
 late final _sel_stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_ =
     objc.registerName(
         "stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:");
-final _objc_msgSend_215 = objc.msgSendPointer
+final _objc_msgSend_218 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             NSStringEncoding Function(
@@ -75229,28 +75617,26 @@ class NSConstantString extends NSSimpleCString {
         obj.pointer, _sel_isKindOfClass_, _class_NSConstantString);
   }
 
-  @override
   NSConstantString init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithCoder_(objc.NSCoder coder) {
     final _ret =
-        _objc_msgSend_192(this.pointer, _sel_initWithCoder_, coder.pointer);
+        _objc_msgSend_195(this.pointer, _sel_initWithCoder_, coder.pointer);
     return _ret.address == 0
         ? null
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
   static ffi.Pointer<NSStringEncoding> getAvailableStringEncodings() {
-    return _objc_msgSend_193(
+    return _objc_msgSend_196(
         _class_NSConstantString, _sel_availableStringEncodings);
   }
 
   static objc.NSString localizedNameOfStringEncoding_(DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_194(
+    final _ret = _objc_msgSend_197(
         _class_NSConstantString, _sel_localizedNameOfStringEncoding_, encoding);
     return objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
@@ -75260,10 +75646,9 @@ class NSConstantString extends NSSimpleCString {
         _class_NSConstantString, _sel_defaultCStringEncoding);
   }
 
-  @override
   NSConstantString initWithCharactersNoCopy_length_freeWhenDone_(
       ffi.Pointer<unichar> characters, DartNSUInteger length, bool freeBuffer) {
-    final _ret = _objc_msgSend_195(
+    final _ret = _objc_msgSend_198(
         this.pointer,
         _sel_initWithCharactersNoCopy_length_freeWhenDone_,
         characters,
@@ -75272,12 +75657,11 @@ class NSConstantString extends NSSimpleCString {
     return NSConstantString.castFromPointer(_ret, retain: false, release: true);
   }
 
-  @override
   NSConstantString initWithCharactersNoCopy_length_deallocator_(
       ffi.Pointer<unichar> chars,
       DartNSUInteger len,
       ObjCBlock_ffiVoid_unichar_NSUInteger? deallocator) {
-    final _ret = _objc_msgSend_196(
+    final _ret = _objc_msgSend_199(
         this.pointer,
         _sel_initWithCharactersNoCopy_length_deallocator_,
         chars,
@@ -75286,58 +75670,51 @@ class NSConstantString extends NSSimpleCString {
     return NSConstantString.castFromPointer(_ret, retain: false, release: true);
   }
 
-  @override
   NSConstantString initWithCharacters_length_(
       ffi.Pointer<unichar> characters, DartNSUInteger length) {
-    final _ret = _objc_msgSend_197(
+    final _ret = _objc_msgSend_200(
         this.pointer, _sel_initWithCharacters_length_, characters, length);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithUTF8String_(
       ffi.Pointer<ffi.Char> nullTerminatedCString) {
-    final _ret = _objc_msgSend_198(
+    final _ret = _objc_msgSend_201(
         this.pointer, _sel_initWithUTF8String_, nullTerminatedCString);
     return _ret.address == 0
         ? null
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString initWithString_(objc.NSString aString) {
     final _ret =
-        _objc_msgSend_166(this.pointer, _sel_initWithString_, aString.pointer);
+        _objc_msgSend_171(this.pointer, _sel_initWithString_, aString.pointer);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString initWithFormat_(objc.NSString format) {
     final _ret =
-        _objc_msgSend_166(this.pointer, _sel_initWithFormat_, format.pointer);
+        _objc_msgSend_171(this.pointer, _sel_initWithFormat_, format.pointer);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString initWithFormat_arguments_(
       objc.NSString format, va_list argList) {
-    final _ret = _objc_msgSend_199(
+    final _ret = _objc_msgSend_202(
         this.pointer, _sel_initWithFormat_arguments_, format.pointer, argList);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString initWithFormat_locale_(
       objc.NSString format, objc.ObjCObjectBase? locale) {
-    final _ret = _objc_msgSend_200(this.pointer, _sel_initWithFormat_locale_,
+    final _ret = _objc_msgSend_203(this.pointer, _sel_initWithFormat_locale_,
         format.pointer, locale?.pointer ?? ffi.nullptr);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString initWithFormat_locale_arguments_(
       objc.NSString format, objc.ObjCObjectBase? locale, va_list argList) {
-    final _ret = _objc_msgSend_201(
+    final _ret = _objc_msgSend_204(
         this.pointer,
         _sel_initWithFormat_locale_arguments_,
         format.pointer,
@@ -75346,12 +75723,11 @@ class NSConstantString extends NSSimpleCString {
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithValidatedFormat_validFormatSpecifiers_error_(
       objc.NSString format,
       objc.NSString validFormatSpecifiers,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_202(
+    final _ret = _objc_msgSend_205(
         this.pointer,
         _sel_initWithValidatedFormat_validFormatSpecifiers_error_,
         format.pointer,
@@ -75362,13 +75738,12 @@ class NSConstantString extends NSSimpleCString {
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithValidatedFormat_validFormatSpecifiers_locale_error_(
       objc.NSString format,
       objc.NSString validFormatSpecifiers,
       objc.ObjCObjectBase? locale,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_203(
+    final _ret = _objc_msgSend_206(
         this.pointer,
         _sel_initWithValidatedFormat_validFormatSpecifiers_locale_error_,
         format.pointer,
@@ -75380,14 +75755,13 @@ class NSConstantString extends NSSimpleCString {
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString?
       initWithValidatedFormat_validFormatSpecifiers_arguments_error_(
           objc.NSString format,
           objc.NSString validFormatSpecifiers,
           va_list argList,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_204(
+    final _ret = _objc_msgSend_207(
         this.pointer,
         _sel_initWithValidatedFormat_validFormatSpecifiers_arguments_error_,
         format.pointer,
@@ -75399,7 +75773,6 @@ class NSConstantString extends NSSimpleCString {
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString?
       initWithValidatedFormat_validFormatSpecifiers_locale_arguments_error_(
           objc.NSString format,
@@ -75407,7 +75780,7 @@ class NSConstantString extends NSSimpleCString {
           objc.ObjCObjectBase? locale,
           va_list argList,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_205(
+    final _ret = _objc_msgSend_208(
         this.pointer,
         _sel_initWithValidatedFormat_validFormatSpecifiers_locale_arguments_error_,
         format.pointer,
@@ -75420,33 +75793,30 @@ class NSConstantString extends NSSimpleCString {
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithData_encoding_(
       objc.NSData data, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_206(
+    final _ret = _objc_msgSend_209(
         this.pointer, _sel_initWithData_encoding_, data.pointer, encoding);
     return _ret.address == 0
         ? null
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithBytes_length_encoding_(ffi.Pointer<ffi.Void> bytes,
       DartNSUInteger len, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_207(this.pointer,
+    final _ret = _objc_msgSend_210(this.pointer,
         _sel_initWithBytes_length_encoding_, bytes, len, encoding);
     return _ret.address == 0
         ? null
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithBytesNoCopy_length_encoding_freeWhenDone_(
       ffi.Pointer<ffi.Void> bytes,
       DartNSUInteger len,
       DartNSUInteger encoding,
       bool freeBuffer) {
-    final _ret = _objc_msgSend_208(
+    final _ret = _objc_msgSend_211(
         this.pointer,
         _sel_initWithBytesNoCopy_length_encoding_freeWhenDone_,
         bytes,
@@ -75458,13 +75828,12 @@ class NSConstantString extends NSSimpleCString {
         : NSConstantString.castFromPointer(_ret, retain: false, release: true);
   }
 
-  @override
   NSConstantString? initWithBytesNoCopy_length_encoding_deallocator_(
       ffi.Pointer<ffi.Void> bytes,
       DartNSUInteger len,
       DartNSUInteger encoding,
       ObjCBlock_ffiVoid_ffiVoid_NSUInteger? deallocator) {
-    final _ret = _objc_msgSend_209(
+    final _ret = _objc_msgSend_212(
         this.pointer,
         _sel_initWithBytesNoCopy_length_encoding_deallocator_,
         bytes,
@@ -75482,21 +75851,21 @@ class NSConstantString extends NSSimpleCString {
   }
 
   static NSConstantString stringWithString_(objc.NSString string) {
-    final _ret = _objc_msgSend_166(
+    final _ret = _objc_msgSend_171(
         _class_NSConstantString, _sel_stringWithString_, string.pointer);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSConstantString stringWithCharacters_length_(
       ffi.Pointer<unichar> characters, DartNSUInteger length) {
-    final _ret = _objc_msgSend_197(_class_NSConstantString,
+    final _ret = _objc_msgSend_200(_class_NSConstantString,
         _sel_stringWithCharacters_length_, characters, length);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSConstantString? stringWithUTF8String_(
       ffi.Pointer<ffi.Char> nullTerminatedCString) {
-    final _ret = _objc_msgSend_198(_class_NSConstantString,
+    final _ret = _objc_msgSend_201(_class_NSConstantString,
         _sel_stringWithUTF8String_, nullTerminatedCString);
     return _ret.address == 0
         ? null
@@ -75504,13 +75873,13 @@ class NSConstantString extends NSSimpleCString {
   }
 
   static NSConstantString stringWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_166(
+    final _ret = _objc_msgSend_171(
         _class_NSConstantString, _sel_stringWithFormat_, format.pointer);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSConstantString localizedStringWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_166(_class_NSConstantString,
+    final _ret = _objc_msgSend_171(_class_NSConstantString,
         _sel_localizedStringWithFormat_, format.pointer);
     return NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
@@ -75520,7 +75889,7 @@ class NSConstantString extends NSSimpleCString {
           objc.NSString format,
           objc.NSString validFormatSpecifiers,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_202(
+    final _ret = _objc_msgSend_205(
         _class_NSConstantString,
         _sel_stringWithValidatedFormat_validFormatSpecifiers_error_,
         format.pointer,
@@ -75536,7 +75905,7 @@ class NSConstantString extends NSSimpleCString {
           objc.NSString format,
           objc.NSString validFormatSpecifiers,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_202(
+    final _ret = _objc_msgSend_205(
         _class_NSConstantString,
         _sel_localizedStringWithValidatedFormat_validFormatSpecifiers_error_,
         format.pointer,
@@ -75547,10 +75916,9 @@ class NSConstantString extends NSSimpleCString {
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithCString_encoding_(
       ffi.Pointer<ffi.Char> nullTerminatedCString, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_210(this.pointer, _sel_initWithCString_encoding_,
+    final _ret = _objc_msgSend_213(this.pointer, _sel_initWithCString_encoding_,
         nullTerminatedCString, encoding);
     return _ret.address == 0
         ? null
@@ -75559,27 +75927,25 @@ class NSConstantString extends NSSimpleCString {
 
   static NSConstantString? stringWithCString_encoding_(
       ffi.Pointer<ffi.Char> cString, DartNSUInteger enc) {
-    final _ret = _objc_msgSend_210(_class_NSConstantString,
+    final _ret = _objc_msgSend_213(_class_NSConstantString,
         _sel_stringWithCString_encoding_, cString, enc);
     return _ret.address == 0
         ? null
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithContentsOfURL_encoding_error_(objc.NSURL url,
       DartNSUInteger enc, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_211(this.pointer,
+    final _ret = _objc_msgSend_214(this.pointer,
         _sel_initWithContentsOfURL_encoding_error_, url.pointer, enc, error);
     return _ret.address == 0
         ? null
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithContentsOfFile_encoding_error_(objc.NSString path,
       DartNSUInteger enc, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_212(this.pointer,
+    final _ret = _objc_msgSend_215(this.pointer,
         _sel_initWithContentsOfFile_encoding_error_, path.pointer, enc, error);
     return _ret.address == 0
         ? null
@@ -75590,7 +75956,7 @@ class NSConstantString extends NSSimpleCString {
       objc.NSURL url,
       DartNSUInteger enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_211(_class_NSConstantString,
+    final _ret = _objc_msgSend_214(_class_NSConstantString,
         _sel_stringWithContentsOfURL_encoding_error_, url.pointer, enc, error);
     return _ret.address == 0
         ? null
@@ -75601,7 +75967,7 @@ class NSConstantString extends NSSimpleCString {
       objc.NSString path,
       DartNSUInteger enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_212(
+    final _ret = _objc_msgSend_215(
         _class_NSConstantString,
         _sel_stringWithContentsOfFile_encoding_error_,
         path.pointer,
@@ -75612,12 +75978,11 @@ class NSConstantString extends NSSimpleCString {
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithContentsOfURL_usedEncoding_error_(
       objc.NSURL url,
       ffi.Pointer<NSStringEncoding> enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_213(
+    final _ret = _objc_msgSend_216(
         this.pointer,
         _sel_initWithContentsOfURL_usedEncoding_error_,
         url.pointer,
@@ -75628,12 +75993,11 @@ class NSConstantString extends NSSimpleCString {
         : NSConstantString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSConstantString? initWithContentsOfFile_usedEncoding_error_(
       objc.NSString path,
       ffi.Pointer<NSStringEncoding> enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_214(
+    final _ret = _objc_msgSend_217(
         this.pointer,
         _sel_initWithContentsOfFile_usedEncoding_error_,
         path.pointer,
@@ -75648,7 +76012,7 @@ class NSConstantString extends NSSimpleCString {
       objc.NSURL url,
       ffi.Pointer<NSStringEncoding> enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_213(
+    final _ret = _objc_msgSend_216(
         _class_NSConstantString,
         _sel_stringWithContentsOfURL_usedEncoding_error_,
         url.pointer,
@@ -75663,7 +76027,7 @@ class NSConstantString extends NSSimpleCString {
       objc.NSString path,
       ffi.Pointer<NSStringEncoding> enc,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_214(
+    final _ret = _objc_msgSend_217(
         _class_NSConstantString,
         _sel_stringWithContentsOfFile_usedEncoding_error_,
         path.pointer,
@@ -75680,7 +76044,7 @@ class NSConstantString extends NSSimpleCString {
           objc.NSDictionary? opts,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> string,
           ffi.Pointer<ffi.Bool> usedLossyConversion) {
-    return _objc_msgSend_215(
+    return _objc_msgSend_218(
         _class_NSConstantString,
         _sel_stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_,
         data.pointer,
@@ -75690,7 +76054,7 @@ class NSConstantString extends NSSimpleCString {
   }
 
   static objc.ObjCObjectBase? stringWithContentsOfFile_(objc.NSString path) {
-    final _ret = _objc_msgSend_50(
+    final _ret = _objc_msgSend_42(
         _class_NSConstantString, _sel_stringWithContentsOfFile_, path.pointer);
     return _ret.address == 0
         ? null
@@ -75698,7 +76062,7 @@ class NSConstantString extends NSSimpleCString {
   }
 
   static objc.ObjCObjectBase? stringWithContentsOfURL_(objc.NSURL url) {
-    final _ret = _objc_msgSend_49(
+    final _ret = _objc_msgSend_41(
         _class_NSConstantString, _sel_stringWithContentsOfURL_, url.pointer);
     return _ret.address == 0
         ? null
@@ -75707,7 +76071,7 @@ class NSConstantString extends NSSimpleCString {
 
   static objc.ObjCObjectBase? stringWithCString_length_(
       ffi.Pointer<ffi.Char> bytes, DartNSUInteger length) {
-    final _ret = _objc_msgSend_210(
+    final _ret = _objc_msgSend_213(
         _class_NSConstantString, _sel_stringWithCString_length_, bytes, length);
     return _ret.address == 0
         ? null
@@ -75715,7 +76079,7 @@ class NSConstantString extends NSSimpleCString {
   }
 
   static objc.ObjCObjectBase? stringWithCString_(ffi.Pointer<ffi.Char> bytes) {
-    final _ret = _objc_msgSend_198(
+    final _ret = _objc_msgSend_201(
         _class_NSConstantString, _sel_stringWithCString_, bytes);
     return _ret.address == 0
         ? null
@@ -75746,144 +76110,144 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
   }
 
   void addCharactersInRange_(NSRange aRange) {
-    _objc_msgSend_13(this.pointer, _sel_addCharactersInRange_, aRange);
+    _objc_msgSend_219(this.pointer, _sel_addCharactersInRange_, aRange);
   }
 
   void removeCharactersInRange_(NSRange aRange) {
-    _objc_msgSend_13(this.pointer, _sel_removeCharactersInRange_, aRange);
+    _objc_msgSend_219(this.pointer, _sel_removeCharactersInRange_, aRange);
   }
 
   void addCharactersInString_(objc.NSString aString) {
-    _objc_msgSend_216(
+    _objc_msgSend_220(
         this.pointer, _sel_addCharactersInString_, aString.pointer);
   }
 
   void removeCharactersInString_(objc.NSString aString) {
-    _objc_msgSend_216(
+    _objc_msgSend_220(
         this.pointer, _sel_removeCharactersInString_, aString.pointer);
   }
 
   void formUnionWithCharacterSet_(objc.NSCharacterSet otherSet) {
-    _objc_msgSend_217(
+    _objc_msgSend_221(
         this.pointer, _sel_formUnionWithCharacterSet_, otherSet.pointer);
   }
 
   void formIntersectionWithCharacterSet_(objc.NSCharacterSet otherSet) {
-    _objc_msgSend_217(
+    _objc_msgSend_221(
         this.pointer, _sel_formIntersectionWithCharacterSet_, otherSet.pointer);
   }
 
   void invert() {
-    _objc_msgSend_11(this.pointer, _sel_invert);
+    _objc_msgSend_44(this.pointer, _sel_invert);
   }
 
   static objc.NSCharacterSet getControlCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_controlCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getWhitespaceCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_whitespaceCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getWhitespaceAndNewlineCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_whitespaceAndNewlineCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getDecimalDigitCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_decimalDigitCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getLetterCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_letterCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getLowercaseLetterCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_lowercaseLetterCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getUppercaseLetterCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_uppercaseLetterCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getNonBaseCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_nonBaseCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getAlphanumericCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_alphanumericCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getDecomposableCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_decomposableCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getIllegalCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_illegalCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getPunctuationCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_punctuationCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getCapitalizedLetterCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_capitalizedLetterCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getSymbolCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_symbolCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   static objc.NSCharacterSet getNewlineCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_newlineCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: false, release: true);
   }
 
   static objc.NSCharacterSet characterSetWithRange_(NSRange aRange) {
-    final _ret = _objc_msgSend_224(
+    final _ret = _objc_msgSend_228(
         _class_NSMutableCharacterSet, _sel_characterSetWithRange_, aRange);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75891,7 +76255,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
 
   static objc.NSCharacterSet characterSetWithCharactersInString_(
       objc.NSString aString) {
-    final _ret = _objc_msgSend_225(_class_NSMutableCharacterSet,
+    final _ret = _objc_msgSend_229(_class_NSMutableCharacterSet,
         _sel_characterSetWithCharactersInString_, aString.pointer);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75899,7 +76263,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
 
   static objc.NSCharacterSet characterSetWithBitmapRepresentation_(
       objc.NSData data) {
-    final _ret = _objc_msgSend_226(_class_NSMutableCharacterSet,
+    final _ret = _objc_msgSend_230(_class_NSMutableCharacterSet,
         _sel_characterSetWithBitmapRepresentation_, data.pointer);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75907,7 +76271,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
 
   static objc.NSCharacterSet? characterSetWithContentsOfFile_(
       objc.NSString fName) {
-    final _ret = _objc_msgSend_227(_class_NSMutableCharacterSet,
+    final _ret = _objc_msgSend_231(_class_NSMutableCharacterSet,
         _sel_characterSetWithContentsOfFile_, fName.pointer);
     return _ret.address == 0
         ? null
@@ -75915,17 +76279,16 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
             retain: true, release: true);
   }
 
-  @override
   NSMutableCharacterSet initWithCoder_(objc.NSCoder coder) {
     final _ret =
-        _objc_msgSend_228(this.pointer, _sel_initWithCoder_, coder.pointer);
+        _objc_msgSend_232(this.pointer, _sel_initWithCoder_, coder.pointer);
     return NSMutableCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   /// Returns a character set containing the characters allowed in a URL's user subcomponent.
   static objc.NSCharacterSet getURLUserAllowedCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_URLUserAllowedCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75933,7 +76296,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
 
   /// Returns a character set containing the characters allowed in a URL's password subcomponent.
   static objc.NSCharacterSet getURLPasswordAllowedCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_URLPasswordAllowedCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75941,7 +76304,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
 
   /// Returns a character set containing the characters allowed in a URL's host subcomponent.
   static objc.NSCharacterSet getURLHostAllowedCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_URLHostAllowedCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75949,7 +76312,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
 
   /// Returns a character set containing the characters allowed in a URL's path component. ';' is a legal path character, but it is recommended that it be percent-encoded for best compatibility with NSURL (-stringByAddingPercentEncodingWithAllowedCharacters: will percent-encode any ';' characters if you pass the URLPathAllowedCharacterSet).
   static objc.NSCharacterSet getURLPathAllowedCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_URLPathAllowedCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75957,7 +76320,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
 
   /// Returns a character set containing the characters allowed in a URL's query component.
   static objc.NSCharacterSet getURLQueryAllowedCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_URLQueryAllowedCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75965,7 +76328,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
 
   /// Returns a character set containing the characters allowed in a URL's fragment component.
   static objc.NSCharacterSet getURLFragmentAllowedCharacterSet() {
-    final _ret = _objc_msgSend_223(
+    final _ret = _objc_msgSend_227(
         _class_NSMutableCharacterSet, _sel_URLFragmentAllowedCharacterSet);
     return objc.NSCharacterSet.castFromPointer(_ret,
         retain: true, release: true);
@@ -75976,11 +76339,19 @@ late final _class_NSMutableCharacterSet =
     objc.getClass("NSMutableCharacterSet");
 late final _sel_addCharactersInRange_ =
     objc.registerName("addCharactersInRange:");
+final _objc_msgSend_219 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, NSRange)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, NSRange)>();
 late final _sel_removeCharactersInRange_ =
     objc.registerName("removeCharactersInRange:");
 late final _sel_addCharactersInString_ =
     objc.registerName("addCharactersInString:");
-final _objc_msgSend_216 = objc.msgSendPointer
+final _objc_msgSend_220 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -75994,7 +76365,7 @@ late final _sel_removeCharactersInString_ =
     objc.registerName("removeCharactersInString:");
 late final _sel_formUnionWithCharacterSet_ =
     objc.registerName("formUnionWithCharacterSet:");
-final _objc_msgSend_217 = objc.msgSendPointer
+final _objc_msgSend_221 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -76008,7 +76379,7 @@ late final _sel_formIntersectionWithCharacterSet_ =
     objc.registerName("formIntersectionWithCharacterSet:");
 late final _sel_invert = objc.registerName("invert");
 late final _sel_controlCharacterSet = objc.registerName("controlCharacterSet");
-final _objc_msgSend_218 = objc.msgSendPointer
+final _objc_msgSend_222 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -76041,7 +76412,7 @@ late final _sel_symbolCharacterSet = objc.registerName("symbolCharacterSet");
 late final _sel_newlineCharacterSet = objc.registerName("newlineCharacterSet");
 late final _sel_characterSetWithRange_ =
     objc.registerName("characterSetWithRange:");
-final _objc_msgSend_219 = objc.msgSendPointer
+final _objc_msgSend_223 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -76051,7 +76422,7 @@ final _objc_msgSend_219 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, NSRange)>();
 late final _sel_characterSetWithCharactersInString_ =
     objc.registerName("characterSetWithCharactersInString:");
-final _objc_msgSend_220 = objc.msgSendPointer
+final _objc_msgSend_224 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -76063,7 +76434,7 @@ final _objc_msgSend_220 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_characterSetWithBitmapRepresentation_ =
     objc.registerName("characterSetWithBitmapRepresentation:");
-final _objc_msgSend_221 = objc.msgSendPointer
+final _objc_msgSend_225 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -76075,42 +76446,6 @@ final _objc_msgSend_221 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_characterSetWithContentsOfFile_ =
     objc.registerName("characterSetWithContentsOfFile:");
-final _objc_msgSend_222 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-final _objc_msgSend_223 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-final _objc_msgSend_224 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSRange)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, NSRange)>();
-final _objc_msgSend_225 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 final _objc_msgSend_226 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
@@ -76124,6 +76459,22 @@ final _objc_msgSend_226 = objc.msgSendPointer
 final _objc_msgSend_227 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+final _objc_msgSend_228 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, NSRange)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, NSRange)>();
+final _objc_msgSend_229 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCSelector>,
@@ -76131,7 +76482,27 @@ final _objc_msgSend_227 = objc.msgSendPointer
     .asFunction<
         ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-final _objc_msgSend_228 = objc.msgSendPointer
+final _objc_msgSend_230 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+final _objc_msgSend_231 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+final _objc_msgSend_232 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -76768,14 +77139,14 @@ class NSURLQueryItem extends objc.NSObject {
   }
 
   NSURLQueryItem initWithName_value_(objc.NSString name, objc.NSString? value) {
-    final _ret = _objc_msgSend_229(this.pointer, _sel_initWithName_value_,
+    final _ret = _objc_msgSend_233(this.pointer, _sel_initWithName_value_,
         name.pointer, value?.pointer ?? ffi.nullptr);
     return NSURLQueryItem.castFromPointer(_ret, retain: true, release: true);
   }
 
   static NSURLQueryItem queryItemWithName_value_(
       objc.NSString name, objc.NSString? value) {
-    final _ret = _objc_msgSend_229(
+    final _ret = _objc_msgSend_233(
         _class_NSURLQueryItem,
         _sel_queryItemWithName_value_,
         name.pointer,
@@ -76784,18 +77155,17 @@ class NSURLQueryItem extends objc.NSObject {
   }
 
   objc.NSString get name {
-    final _ret = _objc_msgSend_114(this.pointer, _sel_name);
+    final _ret = _objc_msgSend_74(this.pointer, _sel_name);
     return objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   objc.NSString? get value {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_value);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_value);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSURLQueryItem init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLQueryItem.castFromPointer(_ret, retain: true, release: true);
@@ -76820,7 +77190,7 @@ class NSURLQueryItem extends objc.NSObject {
 
 late final _class_NSURLQueryItem = objc.getClass("NSURLQueryItem");
 late final _sel_initWithName_value_ = objc.registerName("initWithName:value:");
-final _objc_msgSend_229 = objc.msgSendPointer
+final _objc_msgSend_233 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -76858,7 +77228,6 @@ class NSURLComponents extends objc.NSObject {
         obj.pointer, _sel_isKindOfClass_, _class_NSURLComponents);
   }
 
-  @override
   NSURLComponents init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSURLComponents.castFromPointer(_ret, retain: true, release: true);
@@ -76867,7 +77236,7 @@ class NSURLComponents extends objc.NSObject {
   /// Initialize a NSURLComponents with the components of a URL. If resolvingAgainstBaseURL is YES and url is a relative URL, the components of [url absoluteURL] are used. If the url string from the NSURL is malformed, nil is returned.
   NSURLComponents? initWithURL_resolvingAgainstBaseURL_(
       objc.NSURL url, bool resolve) {
-    final _ret = _objc_msgSend_58(this.pointer,
+    final _ret = _objc_msgSend_51(this.pointer,
         _sel_initWithURL_resolvingAgainstBaseURL_, url.pointer, resolve);
     return _ret.address == 0
         ? null
@@ -76877,7 +77246,7 @@ class NSURLComponents extends objc.NSObject {
   /// Initializes and returns a newly created NSURLComponents with the components of a URL. If resolvingAgainstBaseURL is YES and url is a relative URL, the components of [url absoluteURL] are used. If the url string from the NSURL is malformed, nil is returned.
   static NSURLComponents? componentsWithURL_resolvingAgainstBaseURL_(
       objc.NSURL url, bool resolve) {
-    final _ret = _objc_msgSend_58(_class_NSURLComponents,
+    final _ret = _objc_msgSend_51(_class_NSURLComponents,
         _sel_componentsWithURL_resolvingAgainstBaseURL_, url.pointer, resolve);
     return _ret.address == 0
         ? null
@@ -76887,7 +77256,7 @@ class NSURLComponents extends objc.NSObject {
   /// Initialize a NSURLComponents with a URL string. If the URLString is malformed, nil is returned.
   NSURLComponents? initWithString_(objc.NSString URLString) {
     final _ret =
-        _objc_msgSend_50(this.pointer, _sel_initWithString_, URLString.pointer);
+        _objc_msgSend_42(this.pointer, _sel_initWithString_, URLString.pointer);
     return _ret.address == 0
         ? null
         : NSURLComponents.castFromPointer(_ret, retain: true, release: true);
@@ -76895,7 +77264,7 @@ class NSURLComponents extends objc.NSObject {
 
   /// Initializes and returns a newly created NSURLComponents with a URL string. If the URLString is malformed, nil is returned.
   static NSURLComponents? componentsWithString_(objc.NSString URLString) {
-    final _ret = _objc_msgSend_50(
+    final _ret = _objc_msgSend_42(
         _class_NSURLComponents, _sel_componentsWithString_, URLString.pointer);
     return _ret.address == 0
         ? null
@@ -76912,7 +77281,7 @@ class NSURLComponents extends objc.NSObject {
   /// - Returns: An `NSURLComponents` instance for a valid URL, or `nil` if the URL is invalid.
   NSURLComponents? initWithString_encodingInvalidCharacters_(
       objc.NSString URLString, bool encodingInvalidCharacters) {
-    final _ret = _objc_msgSend_59(
+    final _ret = _objc_msgSend_52(
         this.pointer,
         _sel_initWithString_encodingInvalidCharacters_,
         URLString.pointer,
@@ -76932,7 +77301,7 @@ class NSURLComponents extends objc.NSObject {
   /// - Returns: An `NSURLComponents` instance for a valid URL, or `nil` if the URL is invalid.
   static NSURLComponents? componentsWithString_encodingInvalidCharacters_(
       objc.NSString URLString, bool encodingInvalidCharacters) {
-    final _ret = _objc_msgSend_59(
+    final _ret = _objc_msgSend_52(
         _class_NSURLComponents,
         _sel_componentsWithString_encodingInvalidCharacters_,
         URLString.pointer,
@@ -76944,7 +77313,7 @@ class NSURLComponents extends objc.NSObject {
 
   /// Returns a URL created from the NSURLComponents. If the NSURLComponents has an authority component (user, password, host or port) and a path component, then the path must either begin with "/" or be an empty string. If the NSURLComponents does not have an authority component (user, password, host or port) and has a path component, the path component must not start with "//". If those requirements are not met, nil is returned.
   objc.NSURL? get URL {
-    final _ret = _objc_msgSend_25(this.pointer, _sel_URL);
+    final _ret = _objc_msgSend_17(this.pointer, _sel_URL);
     return _ret.address == 0
         ? null
         : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
@@ -76952,7 +77321,7 @@ class NSURLComponents extends objc.NSObject {
 
   /// Returns a URL created from the NSURLComponents relative to a base URL. If the NSURLComponents has an authority component (user, password, host or port) and a path component, then the path must either begin with "/" or be an empty string. If the NSURLComponents does not have an authority component (user, password, host or port) and has a path component, the path component must not start with "//". If those requirements are not met, nil is returned.
   objc.NSURL? URLRelativeToURL_(objc.NSURL? baseURL) {
-    final _ret = _objc_msgSend_230(
+    final _ret = _objc_msgSend_234(
         this.pointer, _sel_URLRelativeToURL_, baseURL?.pointer ?? ffi.nullptr);
     return _ret.address == 0
         ? null
@@ -76961,7 +77330,7 @@ class NSURLComponents extends objc.NSObject {
 
   /// Returns a URL string created from the NSURLComponents. If the NSURLComponents has an authority component (user, password, host or port) and a path component, then the path must either begin with "/" or be an empty string. If the NSURLComponents does not have an authority component (user, password, host or port) and has a path component, the path component must not start with "//". If those requirements are not met, nil is returned.
   objc.NSString? get string {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_string);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_string);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -76969,7 +77338,7 @@ class NSURLComponents extends objc.NSObject {
 
   /// Attempting to set the scheme with an invalid scheme string will cause an exception.
   objc.NSString? get scheme {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_scheme);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_scheme);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -76977,49 +77346,49 @@ class NSURLComponents extends objc.NSObject {
 
   /// Attempting to set the scheme with an invalid scheme string will cause an exception.
   set scheme(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setScheme_, value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get user {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_user);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_user);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set user(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setUser_, value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get password {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_password);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_password);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set password(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setPassword_, value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get host {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_host);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_host);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set host(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setHost_, value?.pointer ?? ffi.nullptr);
   }
 
   /// Attempting to set a negative port number will cause an exception.
   objc.NSNumber? get port {
-    final _ret = _objc_msgSend_190(this.pointer, _sel_port);
+    final _ret = _objc_msgSend_81(this.pointer, _sel_port);
     return _ret.address == 0
         ? null
         : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
@@ -77027,49 +77396,49 @@ class NSURLComponents extends objc.NSObject {
 
   /// Attempting to set a negative port number will cause an exception.
   set port(objc.NSNumber? value) {
-    return _objc_msgSend_231(
+    return _objc_msgSend_82(
         this.pointer, _sel_setPort_, value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get path {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_path);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_path);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set path(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setPath_, value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get query {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_query);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_query);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set query(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setQuery_, value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get fragment {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_fragment);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_fragment);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set fragment(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setFragment_, value?.pointer ?? ffi.nullptr);
   }
 
   /// Getting these properties retains any percent encoding these components may have. Setting these properties assumes the component string is already correctly percent encoded. Attempting to set an incorrectly percent encoded string will cause an exception. Although ';' is a legal path character, it is recommended that it be percent-encoded for best compatibility with NSURL (-stringByAddingPercentEncodingWithAllowedCharacters: will percent-encode any ';' characters if you pass the URLPathAllowedCharacterSet).
   objc.NSString? get percentEncodedUser {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_percentEncodedUser);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_percentEncodedUser);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
@@ -77077,113 +77446,113 @@ class NSURLComponents extends objc.NSObject {
 
   /// Getting these properties retains any percent encoding these components may have. Setting these properties assumes the component string is already correctly percent encoded. Attempting to set an incorrectly percent encoded string will cause an exception. Although ';' is a legal path character, it is recommended that it be percent-encoded for best compatibility with NSURL (-stringByAddingPercentEncodingWithAllowedCharacters: will percent-encode any ';' characters if you pass the URLPathAllowedCharacterSet).
   set percentEncodedUser(objc.NSString? value) {
-    return _objc_msgSend_77(this.pointer, _sel_setPercentEncodedUser_,
+    return _objc_msgSend_89(this.pointer, _sel_setPercentEncodedUser_,
         value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get percentEncodedPassword {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_percentEncodedPassword);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_percentEncodedPassword);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set percentEncodedPassword(objc.NSString? value) {
-    return _objc_msgSend_77(this.pointer, _sel_setPercentEncodedPassword_,
+    return _objc_msgSend_89(this.pointer, _sel_setPercentEncodedPassword_,
         value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get percentEncodedHost {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_percentEncodedHost);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_percentEncodedHost);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set percentEncodedHost(objc.NSString? value) {
-    return _objc_msgSend_77(this.pointer, _sel_setPercentEncodedHost_,
+    return _objc_msgSend_89(this.pointer, _sel_setPercentEncodedHost_,
         value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get percentEncodedPath {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_percentEncodedPath);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_percentEncodedPath);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set percentEncodedPath(objc.NSString? value) {
-    return _objc_msgSend_77(this.pointer, _sel_setPercentEncodedPath_,
+    return _objc_msgSend_89(this.pointer, _sel_setPercentEncodedPath_,
         value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get percentEncodedQuery {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_percentEncodedQuery);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_percentEncodedQuery);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set percentEncodedQuery(objc.NSString? value) {
-    return _objc_msgSend_77(this.pointer, _sel_setPercentEncodedQuery_,
+    return _objc_msgSend_89(this.pointer, _sel_setPercentEncodedQuery_,
         value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get percentEncodedFragment {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_percentEncodedFragment);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_percentEncodedFragment);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set percentEncodedFragment(objc.NSString? value) {
-    return _objc_msgSend_77(this.pointer, _sel_setPercentEncodedFragment_,
+    return _objc_msgSend_89(this.pointer, _sel_setPercentEncodedFragment_,
         value?.pointer ?? ffi.nullptr);
   }
 
   objc.NSString? get encodedHost {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_encodedHost);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_encodedHost);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   set encodedHost(objc.NSString? value) {
-    return _objc_msgSend_77(
+    return _objc_msgSend_89(
         this.pointer, _sel_setEncodedHost_, value?.pointer ?? ffi.nullptr);
   }
 
   /// These properties return the character range of a component in the URL string returned by -[NSURLComponents string]. If the component does not exist in the NSURLComponents object, {NSNotFound, 0} is returned. Note: Zero length components are legal. For example, the URL string "scheme://:@/?#" has a zero length user, password, host, query and fragment; the URL strings "scheme:" and "" both have a zero length path.
   NSRange get rangeOfScheme {
-    return _objc_msgSend_232(this.pointer, _sel_rangeOfScheme);
+    return _objc_msgSend_235(this.pointer, _sel_rangeOfScheme);
   }
 
   NSRange get rangeOfUser {
-    return _objc_msgSend_232(this.pointer, _sel_rangeOfUser);
+    return _objc_msgSend_235(this.pointer, _sel_rangeOfUser);
   }
 
   NSRange get rangeOfPassword {
-    return _objc_msgSend_232(this.pointer, _sel_rangeOfPassword);
+    return _objc_msgSend_235(this.pointer, _sel_rangeOfPassword);
   }
 
   NSRange get rangeOfHost {
-    return _objc_msgSend_232(this.pointer, _sel_rangeOfHost);
+    return _objc_msgSend_235(this.pointer, _sel_rangeOfHost);
   }
 
   NSRange get rangeOfPort {
-    return _objc_msgSend_232(this.pointer, _sel_rangeOfPort);
+    return _objc_msgSend_235(this.pointer, _sel_rangeOfPort);
   }
 
   NSRange get rangeOfPath {
-    return _objc_msgSend_232(this.pointer, _sel_rangeOfPath);
+    return _objc_msgSend_235(this.pointer, _sel_rangeOfPath);
   }
 
   NSRange get rangeOfQuery {
-    return _objc_msgSend_232(this.pointer, _sel_rangeOfQuery);
+    return _objc_msgSend_235(this.pointer, _sel_rangeOfQuery);
   }
 
   NSRange get rangeOfFragment {
-    return _objc_msgSend_232(this.pointer, _sel_rangeOfFragment);
+    return _objc_msgSend_235(this.pointer, _sel_rangeOfFragment);
   }
 
   /// The query component as an array of NSURLQueryItems for this NSURLComponents.
@@ -77198,7 +77567,7 @@ class NSURLComponents extends objc.NSObject {
   ///
   /// - note: If a NSURLQueryItem name-value pair is empty (i.e. the query string starts with '&', ends with '&', or has "&&" within it), you get a NSURLQueryItem with a zero-length name and a nil value. If a NSURLQueryItem name-value pair has nothing before the equals sign, you get a zero-length name. If a NSURLQueryItem name-value pair has nothing after the equals sign, you get a zero-length value. If a NSURLQueryItem name-value pair has no equals sign, the NSURLQueryItem name-value pair string is the name and you get a nil value.
   objc.NSArray? get queryItems {
-    final _ret = _objc_msgSend_123(this.pointer, _sel_queryItems);
+    final _ret = _objc_msgSend_128(this.pointer, _sel_queryItems);
     return _ret.address == 0
         ? null
         : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
@@ -77216,7 +77585,7 @@ class NSURLComponents extends objc.NSObject {
   ///
   /// - note: If a NSURLQueryItem name-value pair is empty (i.e. the query string starts with '&', ends with '&', or has "&&" within it), you get a NSURLQueryItem with a zero-length name and a nil value. If a NSURLQueryItem name-value pair has nothing before the equals sign, you get a zero-length name. If a NSURLQueryItem name-value pair has nothing after the equals sign, you get a zero-length value. If a NSURLQueryItem name-value pair has no equals sign, the NSURLQueryItem name-value pair string is the name and you get a nil value.
   set queryItems(objc.NSArray? value) {
-    return _objc_msgSend_145(
+    return _objc_msgSend_150(
         this.pointer, _sel_setQueryItems_, value?.pointer ?? ffi.nullptr);
   }
 
@@ -77224,7 +77593,7 @@ class NSURLComponents extends objc.NSObject {
   ///
   /// The percentEncodedQueryItems setter combines an array containing any number of NSURLQueryItems, each of which represents a single key-value pair, into a query string and sets the NSURLComponents query property. This property assumes the NSURLQueryItem names and values are already correctly percent-encoded, and that the NSURLQueryItem names do not contain the query item delimiter characters '&' and '='. Attempting to set an incorrectly percent-encoded NSURLQueryItem or a NSURLQueryItem name with the query item delimiter characters '&' and '=' will cause an exception.
   objc.NSArray? get percentEncodedQueryItems {
-    final _ret = _objc_msgSend_123(this.pointer, _sel_percentEncodedQueryItems);
+    final _ret = _objc_msgSend_128(this.pointer, _sel_percentEncodedQueryItems);
     return _ret.address == 0
         ? null
         : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
@@ -77234,7 +77603,7 @@ class NSURLComponents extends objc.NSObject {
   ///
   /// The percentEncodedQueryItems setter combines an array containing any number of NSURLQueryItems, each of which represents a single key-value pair, into a query string and sets the NSURLComponents query property. This property assumes the NSURLQueryItem names and values are already correctly percent-encoded, and that the NSURLQueryItem names do not contain the query item delimiter characters '&' and '='. Attempting to set an incorrectly percent-encoded NSURLQueryItem or a NSURLQueryItem name with the query item delimiter characters '&' and '=' will cause an exception.
   set percentEncodedQueryItems(objc.NSArray? value) {
-    return _objc_msgSend_145(this.pointer, _sel_setPercentEncodedQueryItems_,
+    return _objc_msgSend_150(this.pointer, _sel_setPercentEncodedQueryItems_,
         value?.pointer ?? ffi.nullptr);
   }
 
@@ -77267,7 +77636,7 @@ late final _sel_initWithString_encodingInvalidCharacters_ =
 late final _sel_componentsWithString_encodingInvalidCharacters_ =
     objc.registerName("componentsWithString:encodingInvalidCharacters:");
 late final _sel_URLRelativeToURL_ = objc.registerName("URLRelativeToURL:");
-final _objc_msgSend_230 = objc.msgSendPointer
+final _objc_msgSend_234 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -77287,16 +77656,6 @@ late final _sel_host = objc.registerName("host");
 late final _sel_setHost_ = objc.registerName("setHost:");
 late final _sel_port = objc.registerName("port");
 late final _sel_setPort_ = objc.registerName("setPort:");
-final _objc_msgSend_231 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_path = objc.registerName("path");
 late final _sel_setPath_ = objc.registerName("setPath:");
 late final _sel_query = objc.registerName("query");
@@ -77326,7 +77685,7 @@ late final _sel_setPercentEncodedFragment_ =
 late final _sel_encodedHost = objc.registerName("encodedHost");
 late final _sel_setEncodedHost_ = objc.registerName("setEncodedHost:");
 late final _sel_rangeOfScheme = objc.registerName("rangeOfScheme");
-final _objc_msgSend_232 = objc.msgSendPointer
+final _objc_msgSend_235 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             NSRange Function(ffi.Pointer<objc.ObjCObject>,
@@ -77371,13 +77730,12 @@ class NSFileSecurity extends objc.NSObject {
 
   NSFileSecurity? initWithCoder_(objc.NSCoder coder) {
     final _ret =
-        _objc_msgSend_192(this.pointer, _sel_initWithCoder_, coder.pointer);
+        _objc_msgSend_195(this.pointer, _sel_initWithCoder_, coder.pointer);
     return _ret.address == 0
         ? null
         : NSFileSecurity.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSFileSecurity init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSFileSecurity.castFromPointer(_ret, retain: true, release: true);
@@ -77426,7 +77784,7 @@ class NSException extends objc.NSObject {
       DartNSExceptionName name,
       objc.NSString? reason,
       objc.NSDictionary? userInfo) {
-    final _ret = _objc_msgSend_233(
+    final _ret = _objc_msgSend_236(
         _class_NSException,
         _sel_exceptionWithName_reason_userInfo_,
         name.pointer,
@@ -77437,7 +77795,7 @@ class NSException extends objc.NSObject {
 
   NSException initWithName_reason_userInfo_(DartNSExceptionName aName,
       objc.NSString? aReason, objc.NSDictionary? aUserInfo) {
-    final _ret = _objc_msgSend_234(
+    final _ret = _objc_msgSend_237(
         this.pointer,
         _sel_initWithName_reason_userInfo_,
         aName.pointer,
@@ -77447,50 +77805,49 @@ class NSException extends objc.NSObject {
   }
 
   DartNSExceptionName get name {
-    final _ret = _objc_msgSend_114(this.pointer, _sel_name);
+    final _ret = _objc_msgSend_74(this.pointer, _sel_name);
     return objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   objc.NSString? get reason {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_reason);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_reason);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
   objc.NSDictionary? get userInfo {
-    final _ret = _objc_msgSend_32(this.pointer, _sel_userInfo);
+    final _ret = _objc_msgSend_24(this.pointer, _sel_userInfo);
     return _ret.address == 0
         ? null
         : objc.NSDictionary.castFromPointer(_ret, retain: true, release: true);
   }
 
   objc.NSArray get callStackReturnAddresses {
-    final _ret = _objc_msgSend_93(this.pointer, _sel_callStackReturnAddresses);
+    final _ret = _objc_msgSend_103(this.pointer, _sel_callStackReturnAddresses);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   objc.NSArray get callStackSymbols {
-    final _ret = _objc_msgSend_93(this.pointer, _sel_callStackSymbols);
+    final _ret = _objc_msgSend_103(this.pointer, _sel_callStackSymbols);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
   void raise() {
-    _objc_msgSend_11(this.pointer, _sel_raise);
+    _objc_msgSend_44(this.pointer, _sel_raise);
   }
 
   static void raise_format_(DartNSExceptionName name, objc.NSString format) {
-    _objc_msgSend_118(
+    _objc_msgSend_123(
         _class_NSException, _sel_raise_format_, name.pointer, format.pointer);
   }
 
   static void raise_format_arguments_(
       DartNSExceptionName name, objc.NSString format, va_list argList) {
-    _objc_msgSend_235(_class_NSException, _sel_raise_format_arguments_,
+    _objc_msgSend_238(_class_NSException, _sel_raise_format_arguments_,
         name.pointer, format.pointer, argList);
   }
 
-  @override
   NSException init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSException.castFromPointer(_ret, retain: true, release: true);
@@ -77515,7 +77872,7 @@ class NSException extends objc.NSObject {
 late final _class_NSException = objc.getClass("NSException");
 late final _sel_exceptionWithName_reason_userInfo_ =
     objc.registerName("exceptionWithName:reason:userInfo:");
-final _objc_msgSend_233 = objc.msgSendPointer
+final _objc_msgSend_236 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -77533,7 +77890,7 @@ final _objc_msgSend_233 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_initWithName_reason_userInfo_ =
     objc.registerName("initWithName:reason:userInfo:");
-final _objc_msgSend_234 = objc.msgSendPointer
+final _objc_msgSend_237 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -77557,7 +77914,7 @@ late final _sel_raise = objc.registerName("raise");
 late final _sel_raise_format_ = objc.registerName("raise:format:");
 late final _sel_raise_format_arguments_ =
     objc.registerName("raise:format:arguments:");
-final _objc_msgSend_235 = objc.msgSendPointer
+final _objc_msgSend_238 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -77598,7 +77955,7 @@ class NSAssertionHandler extends objc.NSObject {
 
   static NSAssertionHandler getCurrentHandler() {
     final _ret =
-        _objc_msgSend_236(_class_NSAssertionHandler, _sel_currentHandler);
+        _objc_msgSend_239(_class_NSAssertionHandler, _sel_currentHandler);
     return NSAssertionHandler.castFromPointer(_ret,
         retain: true, release: true);
   }
@@ -77609,7 +77966,7 @@ class NSAssertionHandler extends objc.NSObject {
       objc.NSString fileName,
       DartNSInteger line,
       objc.NSString? format) {
-    _objc_msgSend_237(
+    _objc_msgSend_240(
         this.pointer,
         _sel_handleFailureInMethod_object_file_lineNumber_description_,
         selector,
@@ -77624,7 +77981,7 @@ class NSAssertionHandler extends objc.NSObject {
       objc.NSString fileName,
       DartNSInteger line,
       objc.NSString? format) {
-    _objc_msgSend_238(
+    _objc_msgSend_241(
         this.pointer,
         _sel_handleFailureInFunction_file_lineNumber_description_,
         functionName.pointer,
@@ -77633,7 +77990,6 @@ class NSAssertionHandler extends objc.NSObject {
         format?.pointer ?? ffi.nullptr);
   }
 
-  @override
   NSAssertionHandler init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSAssertionHandler.castFromPointer(_ret,
@@ -77662,7 +78018,7 @@ class NSAssertionHandler extends objc.NSObject {
 
 late final _class_NSAssertionHandler = objc.getClass("NSAssertionHandler");
 late final _sel_currentHandler = objc.registerName("currentHandler");
-final _objc_msgSend_236 = objc.msgSendPointer
+final _objc_msgSend_239 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -77672,7 +78028,7 @@ final _objc_msgSend_236 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_handleFailureInMethod_object_file_lineNumber_description_ = objc
     .registerName("handleFailureInMethod:object:file:lineNumber:description:");
-final _objc_msgSend_237 = objc.msgSendPointer
+final _objc_msgSend_240 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -77694,7 +78050,7 @@ final _objc_msgSend_237 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_handleFailureInFunction_file_lineNumber_description_ =
     objc.registerName("handleFailureInFunction:file:lineNumber:description:");
-final _objc_msgSend_238 = objc.msgSendPointer
+final _objc_msgSend_241 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -77734,21 +78090,20 @@ class NSBlockOperation extends NSOperation {
   }
 
   static NSBlockOperation blockOperationWithBlock_(ObjCBlock_ffiVoid block) {
-    final _ret = _objc_msgSend_239(
+    final _ret = _objc_msgSend_242(
         _class_NSBlockOperation, _sel_blockOperationWithBlock_, block.pointer);
     return NSBlockOperation.castFromPointer(_ret, retain: true, release: true);
   }
 
   void addExecutionBlock_(ObjCBlock_ffiVoid block) {
-    _objc_msgSend_102(this.pointer, _sel_addExecutionBlock_, block.pointer);
+    _objc_msgSend_110(this.pointer, _sel_addExecutionBlock_, block.pointer);
   }
 
   objc.NSArray get executionBlocks {
-    final _ret = _objc_msgSend_93(this.pointer, _sel_executionBlocks);
+    final _ret = _objc_msgSend_103(this.pointer, _sel_executionBlocks);
     return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   NSBlockOperation init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSBlockOperation.castFromPointer(_ret, retain: true, release: true);
@@ -77774,7 +78129,7 @@ class NSBlockOperation extends NSOperation {
 late final _class_NSBlockOperation = objc.getClass("NSBlockOperation");
 late final _sel_blockOperationWithBlock_ =
     objc.registerName("blockOperationWithBlock:");
-final _objc_msgSend_239 = objc.msgSendPointer
+final _objc_msgSend_242 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(ffi.Pointer<objc.ObjCObject>,
@@ -77809,7 +78164,7 @@ class NSInvocationOperation extends NSOperation {
       objc.ObjCObjectBase target,
       ffi.Pointer<objc.ObjCSelector> sel,
       objc.ObjCObjectBase? arg) {
-    final _ret = _objc_msgSend_240(
+    final _ret = _objc_msgSend_243(
         this.pointer,
         _sel_initWithTarget_selector_object_,
         target.pointer,
@@ -77823,13 +78178,13 @@ class NSInvocationOperation extends NSOperation {
 
   NSInvocationOperation initWithInvocation_(objc.NSInvocation inv) {
     final _ret =
-        _objc_msgSend_241(this.pointer, _sel_initWithInvocation_, inv.pointer);
+        _objc_msgSend_244(this.pointer, _sel_initWithInvocation_, inv.pointer);
     return NSInvocationOperation.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   objc.NSInvocation get invocation {
-    final _ret = _objc_msgSend_242(this.pointer, _sel_invocation);
+    final _ret = _objc_msgSend_245(this.pointer, _sel_invocation);
     return objc.NSInvocation.castFromPointer(_ret, retain: true, release: true);
   }
 
@@ -77840,7 +78195,6 @@ class NSInvocationOperation extends NSOperation {
         : objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
-  @override
   NSInvocationOperation init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return NSInvocationOperation.castFromPointer(_ret,
@@ -77871,7 +78225,7 @@ late final _class_NSInvocationOperation =
     objc.getClass("NSInvocationOperation");
 late final _sel_initWithTarget_selector_object_ =
     objc.registerName("initWithTarget:selector:object:");
-final _objc_msgSend_240 = objc.msgSendPointer
+final _objc_msgSend_243 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -77888,7 +78242,7 @@ final _objc_msgSend_240 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>,
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_initWithInvocation_ = objc.registerName("initWithInvocation:");
-final _objc_msgSend_241 = objc.msgSendPointer
+final _objc_msgSend_244 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
@@ -77899,7 +78253,7 @@ final _objc_msgSend_241 = objc.msgSendPointer
         instancetype Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_invocation = objc.registerName("invocation");
-final _objc_msgSend_242 = objc.msgSendPointer
+final _objc_msgSend_245 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -79000,15 +79354,14 @@ class CUPHTTPTaskConfiguration extends objc.NSObject {
   }
 
   objc.ObjCObjectBase initWithPort_(DartDart_Port sendPort) {
-    final _ret = _objc_msgSend_243(this.pointer, _sel_initWithPort_, sendPort);
+    final _ret = _objc_msgSend_246(this.pointer, _sel_initWithPort_, sendPort);
     return objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
   DartDart_Port get sendPort {
-    return _objc_msgSend_75(this.pointer, _sel_sendPort);
+    return _objc_msgSend_72(this.pointer, _sel_sendPort);
   }
 
-  @override
   CUPHTTPTaskConfiguration init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPTaskConfiguration.castFromPointer(_ret,
@@ -79038,7 +79391,7 @@ class CUPHTTPTaskConfiguration extends objc.NSObject {
 late final _class_CUPHTTPTaskConfiguration =
     objc.getClass("CUPHTTPTaskConfiguration");
 late final _sel_initWithPort_ = objc.registerName("initWithPort:");
-final _objc_msgSend_243 = objc.msgSendPointer
+final _objc_msgSend_246 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -79089,11 +79442,10 @@ class CUPHTTPClientDelegate extends objc.NSObject {
   /// specified in the configuration.
   void registerTask_withConfiguration_(
       NSURLSessionTask task, CUPHTTPTaskConfiguration config) {
-    _objc_msgSend_244(this.pointer, _sel_registerTask_withConfiguration_,
+    _objc_msgSend_247(this.pointer, _sel_registerTask_withConfiguration_,
         task.pointer, config.pointer);
   }
 
-  @override
   CUPHTTPClientDelegate init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPClientDelegate.castFromPointer(_ret,
@@ -79124,7 +79476,7 @@ late final _class_CUPHTTPClientDelegate =
     objc.getClass("CUPHTTPClientDelegate");
 late final _sel_registerTask_withConfiguration_ =
     objc.registerName("registerTask:withConfiguration:");
-final _objc_msgSend_244 = objc.msgSendPointer
+final _objc_msgSend_247 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -79172,33 +79524,32 @@ class CUPHTTPForwardedDelegate extends objc.NSObject {
 
   objc.ObjCObjectBase initWithSession_task_(
       NSURLSession session, NSURLSessionTask task) {
-    final _ret = _objc_msgSend_245(this.pointer, _sel_initWithSession_task_,
+    final _ret = _objc_msgSend_248(this.pointer, _sel_initWithSession_task_,
         session.pointer, task.pointer);
     return objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
   /// Indicates that the task should continue executing using the given request.
   void finish() {
-    _objc_msgSend_11(this.pointer, _sel_finish);
+    _objc_msgSend_44(this.pointer, _sel_finish);
   }
 
   NSURLSession get session {
-    final _ret = _objc_msgSend_132(this.pointer, _sel_session);
+    final _ret = _objc_msgSend_137(this.pointer, _sel_session);
     return NSURLSession.castFromPointer(_ret, retain: true, release: true);
   }
 
   NSURLSessionTask get task {
-    final _ret = _objc_msgSend_246(this.pointer, _sel_task);
+    final _ret = _objc_msgSend_249(this.pointer, _sel_task);
     return NSURLSessionTask.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// This property is meant to be used only by CUPHTTPClientDelegate.
   NSLock get lock {
-    final _ret = _objc_msgSend_247(this.pointer, _sel_lock);
+    final _ret = _objc_msgSend_250(this.pointer, _sel_lock);
     return NSLock.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   CUPHTTPForwardedDelegate init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPForwardedDelegate.castFromPointer(_ret,
@@ -79229,7 +79580,7 @@ late final _class_CUPHTTPForwardedDelegate =
     objc.getClass("CUPHTTPForwardedDelegate");
 late final _sel_initWithSession_task_ =
     objc.registerName("initWithSession:task:");
-final _objc_msgSend_245 = objc.msgSendPointer
+final _objc_msgSend_248 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -79246,7 +79597,7 @@ final _objc_msgSend_245 = objc.msgSendPointer
 late final _sel_finish = objc.registerName("finish");
 late final _sel_session = objc.registerName("session");
 late final _sel_task = objc.registerName("task");
-final _objc_msgSend_246 = objc.msgSendPointer
+final _objc_msgSend_249 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -79277,7 +79628,7 @@ class NSLock extends objc.ObjCObjectBase {
 
 late final _class_NSLock = objc.getClass("NSLock");
 late final _sel_lock = objc.registerName("lock");
-final _objc_msgSend_247 = objc.msgSendPointer
+final _objc_msgSend_250 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -79311,7 +79662,7 @@ class CUPHTTPForwardedRedirect extends CUPHTTPForwardedDelegate {
       NSURLSessionTask task,
       NSHTTPURLResponse response,
       NSURLRequest request) {
-    final _ret = _objc_msgSend_248(
+    final _ret = _objc_msgSend_251(
         this.pointer,
         _sel_initWithSession_task_response_request_,
         session.pointer,
@@ -79325,27 +79676,26 @@ class CUPHTTPForwardedRedirect extends CUPHTTPForwardedDelegate {
   /// If the request is NIL then the redirect is not followed and the task is
   /// complete.
   void finishWithRequest_(NSURLRequest? request) {
-    _objc_msgSend_249(
+    _objc_msgSend_252(
         this.pointer, _sel_finishWithRequest_, request?.pointer ?? ffi.nullptr);
   }
 
   NSHTTPURLResponse get response {
-    final _ret = _objc_msgSend_250(this.pointer, _sel_response);
+    final _ret = _objc_msgSend_253(this.pointer, _sel_response);
     return NSHTTPURLResponse.castFromPointer(_ret, retain: true, release: true);
   }
 
   NSURLRequest get request {
-    final _ret = _objc_msgSend_188(this.pointer, _sel_request);
+    final _ret = _objc_msgSend_192(this.pointer, _sel_request);
     return NSURLRequest.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// This property is meant to be used only by CUPHTTPClientDelegate.
   NSURLRequest get redirectRequest {
-    final _ret = _objc_msgSend_188(this.pointer, _sel_redirectRequest);
+    final _ret = _objc_msgSend_192(this.pointer, _sel_redirectRequest);
     return NSURLRequest.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   CUPHTTPForwardedRedirect init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPForwardedRedirect.castFromPointer(_ret,
@@ -79376,7 +79726,7 @@ late final _class_CUPHTTPForwardedRedirect =
     objc.getClass("CUPHTTPForwardedRedirect");
 late final _sel_initWithSession_task_response_request_ =
     objc.registerName("initWithSession:task:response:request:");
-final _objc_msgSend_248 = objc.msgSendPointer
+final _objc_msgSend_251 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -79395,7 +79745,7 @@ final _objc_msgSend_248 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_finishWithRequest_ = objc.registerName("finishWithRequest:");
-final _objc_msgSend_249 = objc.msgSendPointer
+final _objc_msgSend_252 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
@@ -79405,7 +79755,7 @@ final _objc_msgSend_249 = objc.msgSendPointer
     .asFunction<
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-final _objc_msgSend_250 = objc.msgSendPointer
+final _objc_msgSend_253 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -79437,7 +79787,7 @@ class CUPHTTPForwardedResponse extends CUPHTTPForwardedDelegate {
 
   objc.ObjCObjectBase initWithSession_task_response_(
       NSURLSession session, NSURLSessionTask task, NSURLResponse response) {
-    final _ret = _objc_msgSend_251(
+    final _ret = _objc_msgSend_254(
         this.pointer,
         _sel_initWithSession_task_response_,
         session.pointer,
@@ -79447,20 +79797,19 @@ class CUPHTTPForwardedResponse extends CUPHTTPForwardedDelegate {
   }
 
   void finishWithDisposition_(int disposition) {
-    _objc_msgSend_252(this.pointer, _sel_finishWithDisposition_, disposition);
+    _objc_msgSend_255(this.pointer, _sel_finishWithDisposition_, disposition);
   }
 
   NSURLResponse get response {
-    final _ret = _objc_msgSend_30(this.pointer, _sel_response);
+    final _ret = _objc_msgSend_22(this.pointer, _sel_response);
     return NSURLResponse.castFromPointer(_ret, retain: true, release: true);
   }
 
   /// This property is meant to be used only by CUPHTTPClientDelegate.
   int get disposition {
-    return _objc_msgSend_253(this.pointer, _sel_disposition);
+    return _objc_msgSend_256(this.pointer, _sel_disposition);
   }
 
-  @override
   CUPHTTPForwardedResponse init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPForwardedResponse.castFromPointer(_ret,
@@ -79491,7 +79840,7 @@ late final _class_CUPHTTPForwardedResponse =
     objc.getClass("CUPHTTPForwardedResponse");
 late final _sel_initWithSession_task_response_ =
     objc.registerName("initWithSession:task:response:");
-final _objc_msgSend_251 = objc.msgSendPointer
+final _objc_msgSend_254 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -79509,7 +79858,7 @@ final _objc_msgSend_251 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_finishWithDisposition_ =
     objc.registerName("finishWithDisposition:");
-final _objc_msgSend_252 = objc.msgSendPointer
+final _objc_msgSend_255 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
@@ -79518,7 +79867,7 @@ final _objc_msgSend_252 = objc.msgSendPointer
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_disposition = objc.registerName("disposition");
-final _objc_msgSend_253 = objc.msgSendPointer
+final _objc_msgSend_256 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Int32 Function(ffi.Pointer<objc.ObjCObject>,
@@ -79549,7 +79898,7 @@ class CUPHTTPForwardedData extends CUPHTTPForwardedDelegate {
 
   objc.ObjCObjectBase initWithSession_task_data_(
       NSURLSession session, NSURLSessionTask task, objc.NSData data) {
-    final _ret = _objc_msgSend_254(
+    final _ret = _objc_msgSend_257(
         this.pointer,
         _sel_initWithSession_task_data_,
         session.pointer,
@@ -79559,11 +79908,10 @@ class CUPHTTPForwardedData extends CUPHTTPForwardedDelegate {
   }
 
   objc.NSData get data {
-    final _ret = _objc_msgSend_31(this.pointer, _sel_data);
+    final _ret = _objc_msgSend_23(this.pointer, _sel_data);
     return objc.NSData.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   CUPHTTPForwardedData init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPForwardedData.castFromPointer(_ret,
@@ -79593,7 +79941,7 @@ class CUPHTTPForwardedData extends CUPHTTPForwardedDelegate {
 late final _class_CUPHTTPForwardedData = objc.getClass("CUPHTTPForwardedData");
 late final _sel_initWithSession_task_data_ =
     objc.registerName("initWithSession:task:data:");
-final _objc_msgSend_254 = objc.msgSendPointer
+final _objc_msgSend_257 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -79632,7 +79980,7 @@ class CUPHTTPForwardedComplete extends CUPHTTPForwardedDelegate {
 
   objc.ObjCObjectBase initWithSession_task_error_(
       NSURLSession session, NSURLSessionTask task, objc.NSError? error) {
-    final _ret = _objc_msgSend_255(
+    final _ret = _objc_msgSend_258(
         this.pointer,
         _sel_initWithSession_task_error_,
         session.pointer,
@@ -79642,13 +79990,12 @@ class CUPHTTPForwardedComplete extends CUPHTTPForwardedDelegate {
   }
 
   objc.NSError? get error {
-    final _ret = _objc_msgSend_56(this.pointer, _sel_error);
+    final _ret = _objc_msgSend_49(this.pointer, _sel_error);
     return _ret.address == 0
         ? null
         : objc.NSError.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   CUPHTTPForwardedComplete init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPForwardedComplete.castFromPointer(_ret,
@@ -79679,7 +80026,7 @@ late final _class_CUPHTTPForwardedComplete =
     objc.getClass("CUPHTTPForwardedComplete");
 late final _sel_initWithSession_task_error_ =
     objc.registerName("initWithSession:task:error:");
-final _objc_msgSend_255 = objc.msgSendPointer
+final _objc_msgSend_258 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -79720,7 +80067,7 @@ class CUPHTTPForwardedFinishedDownloading extends CUPHTTPForwardedDelegate {
 
   objc.ObjCObjectBase initWithSession_downloadTask_url_(NSURLSession session,
       NSURLSessionDownloadTask downloadTask, objc.NSURL location) {
-    final _ret = _objc_msgSend_256(
+    final _ret = _objc_msgSend_259(
         this.pointer,
         _sel_initWithSession_downloadTask_url_,
         session.pointer,
@@ -79730,11 +80077,10 @@ class CUPHTTPForwardedFinishedDownloading extends CUPHTTPForwardedDelegate {
   }
 
   objc.NSURL get location {
-    final _ret = _objc_msgSend_257(this.pointer, _sel_location);
+    final _ret = _objc_msgSend_260(this.pointer, _sel_location);
     return objc.NSURL.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   CUPHTTPForwardedFinishedDownloading init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPForwardedFinishedDownloading.castFromPointer(_ret,
@@ -79768,7 +80114,7 @@ late final _class_CUPHTTPForwardedFinishedDownloading =
     objc.getClass("CUPHTTPForwardedFinishedDownloading");
 late final _sel_initWithSession_downloadTask_url_ =
     objc.registerName("initWithSession:downloadTask:url:");
-final _objc_msgSend_256 = objc.msgSendPointer
+final _objc_msgSend_259 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -79785,7 +80131,7 @@ final _objc_msgSend_256 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_location = objc.registerName("location");
-final _objc_msgSend_257 = objc.msgSendPointer
+final _objc_msgSend_260 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
@@ -79820,7 +80166,7 @@ class CUPHTTPForwardedWebSocketOpened extends CUPHTTPForwardedDelegate {
       NSURLSession session,
       NSURLSessionWebSocketTask webSocketTask,
       objc.NSString? protocol) {
-    final _ret = _objc_msgSend_258(
+    final _ret = _objc_msgSend_261(
         this.pointer,
         _sel_initWithSession_webSocketTask_didOpenWithProtocol_,
         session.pointer,
@@ -79830,13 +80176,12 @@ class CUPHTTPForwardedWebSocketOpened extends CUPHTTPForwardedDelegate {
   }
 
   objc.NSString? get protocol {
-    final _ret = _objc_msgSend_26(this.pointer, _sel_protocol);
+    final _ret = _objc_msgSend_18(this.pointer, _sel_protocol);
     return _ret.address == 0
         ? null
         : objc.NSString.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   CUPHTTPForwardedWebSocketOpened init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPForwardedWebSocketOpened.castFromPointer(_ret,
@@ -79870,7 +80215,7 @@ late final _class_CUPHTTPForwardedWebSocketOpened =
     objc.getClass("CUPHTTPForwardedWebSocketOpened");
 late final _sel_initWithSession_webSocketTask_didOpenWithProtocol_ =
     objc.registerName("initWithSession:webSocketTask:didOpenWithProtocol:");
-final _objc_msgSend_258 = objc.msgSendPointer
+final _objc_msgSend_261 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -79915,7 +80260,7 @@ class CUPHTTPForwardedWebSocketClosed extends CUPHTTPForwardedDelegate {
       NSURLSessionWebSocketTask webSocketTask,
       int closeCode,
       objc.NSData reason) {
-    final _ret = _objc_msgSend_259(
+    final _ret = _objc_msgSend_262(
         this.pointer,
         _sel_initWithSession_webSocketTask_code_reason_,
         session.pointer,
@@ -79926,17 +80271,16 @@ class CUPHTTPForwardedWebSocketClosed extends CUPHTTPForwardedDelegate {
   }
 
   int get closeCode {
-    return _objc_msgSend_172(this.pointer, _sel_closeCode);
+    return _objc_msgSend_177(this.pointer, _sel_closeCode);
   }
 
   objc.NSData? get reason {
-    final _ret = _objc_msgSend_45(this.pointer, _sel_reason);
+    final _ret = _objc_msgSend_37(this.pointer, _sel_reason);
     return _ret.address == 0
         ? null
         : objc.NSData.castFromPointer(_ret, retain: true, release: true);
   }
 
-  @override
   CUPHTTPForwardedWebSocketClosed init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPForwardedWebSocketClosed.castFromPointer(_ret,
@@ -79970,7 +80314,7 @@ late final _class_CUPHTTPForwardedWebSocketClosed =
     objc.getClass("CUPHTTPForwardedWebSocketClosed");
 late final _sel_initWithSession_webSocketTask_code_reason_ =
     objc.registerName("initWithSession:webSocketTask:code:reason:");
-final _objc_msgSend_259 = objc.msgSendPointer
+final _objc_msgSend_262 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Pointer<objc.ObjCObject> Function(
@@ -80203,44 +80547,41 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
   }
 
   CUPHTTPStreamToNSInputStreamAdapter initWithPort_(DartDart_Port sendPort) {
-    final _ret = _objc_msgSend_243(this.pointer, _sel_initWithPort_, sendPort);
+    final _ret = _objc_msgSend_246(this.pointer, _sel_initWithPort_, sendPort);
     return CUPHTTPStreamToNSInputStreamAdapter.castFromPointer(_ret,
         retain: true, release: true);
   }
 
   DartNSUInteger addData_(objc.NSData data) {
-    return _objc_msgSend_260(this.pointer, _sel_addData_, data.pointer);
+    return _objc_msgSend_263(this.pointer, _sel_addData_, data.pointer);
   }
 
   void setDone() {
-    _objc_msgSend_11(this.pointer, _sel_setDone);
+    _objc_msgSend_44(this.pointer, _sel_setDone);
   }
 
   void setError_(objc.NSError error) {
-    _objc_msgSend_261(this.pointer, _sel_setError_, error.pointer);
+    _objc_msgSend_264(this.pointer, _sel_setError_, error.pointer);
   }
 
-  @override
   CUPHTTPStreamToNSInputStreamAdapter initWithData_(objc.NSData data) {
     final _ret =
-        _objc_msgSend_48(this.pointer, _sel_initWithData_, data.pointer);
+        _objc_msgSend_40(this.pointer, _sel_initWithData_, data.pointer);
     return CUPHTTPStreamToNSInputStreamAdapter.castFromPointer(_ret,
         retain: true, release: true);
   }
 
-  @override
   CUPHTTPStreamToNSInputStreamAdapter? initWithURL_(objc.NSURL url) {
-    final _ret = _objc_msgSend_49(this.pointer, _sel_initWithURL_, url.pointer);
+    final _ret = _objc_msgSend_41(this.pointer, _sel_initWithURL_, url.pointer);
     return _ret.address == 0
         ? null
         : CUPHTTPStreamToNSInputStreamAdapter.castFromPointer(_ret,
             retain: true, release: true);
   }
 
-  @override
   CUPHTTPStreamToNSInputStreamAdapter? initWithFileAtPath_(objc.NSString path) {
     final _ret =
-        _objc_msgSend_50(this.pointer, _sel_initWithFileAtPath_, path.pointer);
+        _objc_msgSend_42(this.pointer, _sel_initWithFileAtPath_, path.pointer);
     return _ret.address == 0
         ? null
         : CUPHTTPStreamToNSInputStreamAdapter.castFromPointer(_ret,
@@ -80249,7 +80590,7 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
 
   static CUPHTTPStreamToNSInputStreamAdapter? inputStreamWithData_(
       objc.NSData data) {
-    final _ret = _objc_msgSend_51(_class_CUPHTTPStreamToNSInputStreamAdapter,
+    final _ret = _objc_msgSend_43(_class_CUPHTTPStreamToNSInputStreamAdapter,
         _sel_inputStreamWithData_, data.pointer);
     return _ret.address == 0
         ? null
@@ -80259,7 +80600,7 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
 
   static CUPHTTPStreamToNSInputStreamAdapter? inputStreamWithFileAtPath_(
       objc.NSString path) {
-    final _ret = _objc_msgSend_50(_class_CUPHTTPStreamToNSInputStreamAdapter,
+    final _ret = _objc_msgSend_42(_class_CUPHTTPStreamToNSInputStreamAdapter,
         _sel_inputStreamWithFileAtPath_, path.pointer);
     return _ret.address == 0
         ? null
@@ -80269,7 +80610,7 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
 
   static CUPHTTPStreamToNSInputStreamAdapter? inputStreamWithURL_(
       objc.NSURL url) {
-    final _ret = _objc_msgSend_49(_class_CUPHTTPStreamToNSInputStreamAdapter,
+    final _ret = _objc_msgSend_41(_class_CUPHTTPStreamToNSInputStreamAdapter,
         _sel_inputStreamWithURL_, url.pointer);
     return _ret.address == 0
         ? null
@@ -80282,7 +80623,7 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
       DartNSInteger port,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_61(
+    _objc_msgSend_54(
         _class_CUPHTTPStreamToNSInputStreamAdapter,
         _sel_getStreamsToHostWithName_port_inputStream_outputStream_,
         hostname.pointer,
@@ -80296,7 +80637,7 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
       DartNSInteger port,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_62(
+    _objc_msgSend_55(
         _class_CUPHTTPStreamToNSInputStreamAdapter,
         _sel_getStreamsToHost_port_inputStream_outputStream_,
         host.pointer,
@@ -80309,7 +80650,7 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
       DartNSUInteger bufferSize,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> inputStream,
       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> outputStream) {
-    _objc_msgSend_63(
+    _objc_msgSend_56(
         _class_CUPHTTPStreamToNSInputStreamAdapter,
         _sel_getBoundStreamsWithBufferSize_inputStream_outputStream_,
         bufferSize,
@@ -80317,7 +80658,6 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
         outputStream);
   }
 
-  @override
   CUPHTTPStreamToNSInputStreamAdapter init() {
     final _ret = _objc_msgSend_6(this.pointer, _sel_init);
     return CUPHTTPStreamToNSInputStreamAdapter.castFromPointer(_ret,
@@ -80350,7 +80690,7 @@ class CUPHTTPStreamToNSInputStreamAdapter extends NSInputStream {
 late final _class_CUPHTTPStreamToNSInputStreamAdapter =
     objc.getClass("CUPHTTPStreamToNSInputStreamAdapter");
 late final _sel_addData_ = objc.registerName("addData:");
-final _objc_msgSend_260 = objc.msgSendPointer
+final _objc_msgSend_263 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             NSUInteger Function(
@@ -80362,7 +80702,7 @@ final _objc_msgSend_260 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_setDone = objc.registerName("setDone");
 late final _sel_setError_ = objc.registerName("setError:");
-final _objc_msgSend_261 = objc.msgSendPointer
+final _objc_msgSend_264 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             ffi.Void Function(
