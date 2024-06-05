@@ -1,4 +1,4 @@
-## 1.3.1-wip
+## 1.3.1
 
 * Add relevant rules with the ProGuard to avoid runtime exceptions.
 * Upgrade `package:jnigen` to 0.9.2 to fix a bug for 32-bit architectures.
