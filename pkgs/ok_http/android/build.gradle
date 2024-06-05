@@ -4,7 +4,7 @@ group = "com.example.ok_http"
 version = "1.0"
 
 buildscript {
-    // Required to support `okhttp:4.12.0`
+    // Required to support `okhttp:4.12.0`.
     ext.kotlin_version = '1.9.23'
     repositories {
         google()
