@@ -1,7 +1,4 @@
-# To regenerate the JNI Bindings, download the OkHttp 4.12.0 JAR file from the Maven Repository
-# and place them in 'jar/'.
-# https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp/4.12.0
-# Then run the command: dart run jnigen --config jnigen.yaml
+# Regenerate the JNI Bindings using: dart run jnigen --config jnigen.yaml
 
 summarizer:
   backend: asm
@@ -10,6 +7,10 @@ output:
   dart:
     path: "lib/src/jni/bindings.dart"
     structure: single_file
+
+android_sdk_config:
+  add_gradle_deps: true
+  android_example: "example/"
 
 enable_experiment:
   - "interface_implementation"
@@ -81,6 +82,3 @@ exclude:
     - "okhttp3.Headers#-deprecated_size"
     - "okhttp3.Dispatcher#-deprecated_executorService"
     - "okhttp3.Cache#-deprecated_directory"
-
-class_path:
-  - "jar/okhttp-4.12.0.jar"

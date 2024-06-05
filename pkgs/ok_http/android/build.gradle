@@ -4,6 +4,8 @@ group = "com.example.ok_http"
 version = "1.0"
 
 buildscript {
+    // Required to support `okhttp:4.12.0`
+    ext.kotlin_version = '1.9.23'
     repositories {
         google()
         mavenCentral()
@@ -12,6 +14,7 @@ buildscript {
     dependencies {
         // The Android Gradle Plugin knows how to build native code with the NDK.
         classpath("com.android.tools.build:gradle:7.3.0")
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -23,10 +26,19 @@ rootProject.allprojects {
 }
 
 apply plugin: "com.android.library"
+apply plugin: 'kotlin-android'
 
 android {
     if (project.android.hasProperty("namespace")) {
         namespace = "com.example.ok_http"
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     // Bumping the plugin compileSdk version requires all clients of this plugin
