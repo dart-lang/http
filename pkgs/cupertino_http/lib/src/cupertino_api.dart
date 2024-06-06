@@ -68,7 +68,6 @@ void foo() {
   final response =
       ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
           .fromFunction((_, session, dataTask, response, completetionHandler) {
-    print('URLSession_dataTask_didReceiveResponse_completionHandler_');
     completetionHandler
         .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
   });
@@ -795,7 +794,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
       final error = ep == 0
           ? null
           : objc.NSError.castFromPointer(
-              Pointer.fromAddress(mp).cast<objc.ObjCObject>(),
+              Pointer.fromAddress(ep).cast<objc.ObjCObject>(),
               retain: false,
               release: true);
 
@@ -1217,7 +1216,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         _onFinishedDownloading = onFinishedDownloading,
         _onComplete = onComplete,
         _onWebSocketTaskOpened = onWebSocketTaskOpened,
-        _onWebSocketTaskClosed = onWebSocketTaskClosed;
+        _onWebSocketTaskClosed = onWebSocketTaskClosed {
+    helperLibs.timezone; // XXX: Force the initialization of the Dart API.
+  }
 
   /// A client with reasonable default behavior.
   ///

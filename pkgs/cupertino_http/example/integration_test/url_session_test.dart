@@ -73,7 +73,7 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       }).resume();
       await c.future;
 
-      expect(data!.bytes, 'Hello World'.codeUnits);
+      expect(data!.toList(), 'Hello World'.codeUnits);
       expect(response!.statusCode, 200);
       expect(error, null);
     });
@@ -117,7 +117,7 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       }).resume();
       await c.future;
 
-      expect(data!.bytes, 'Hello World'.codeUnits);
+      expect(data!.toList(), 'Hello World'.codeUnits);
       expect(response!.statusCode, 500);
       expect(error, null);
     });

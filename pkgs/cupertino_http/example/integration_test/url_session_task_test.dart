@@ -88,7 +88,7 @@ void testWebSocketTask() {
                   )));
 
       expect(task.closeCode, 4999);
-      expect(task.closeReason!.bytes, 'fun'.codeUnits);
+      expect(task.closeReason!.toList(), 'fun'.codeUnits);
       task.cancel();
     });
 
@@ -102,7 +102,7 @@ void testWebSocketTask() {
       final receivedMessage = await task.receiveMessage();
       expect(receivedMessage.type,
           URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeData);
-      expect(receivedMessage.data!.bytes, [1, 2, 3]);
+      expect(receivedMessage.data!.toList(), [1, 2, 3]);
       expect(receivedMessage.string, null);
       task.cancel();
     });
