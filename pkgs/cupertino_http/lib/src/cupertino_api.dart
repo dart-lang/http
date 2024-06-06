@@ -53,40 +53,6 @@ abstract class _ObjectHolder<T extends objc.NSObject> {
   int get hashCode => _nsObject.hashCode;
 }
 
-void foo() {
-  final protoBuilder = objc.ObjCProtocolBuilder();
-  final redirect =
-      ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
-          .fromFunction(
-              (_, session, task, response, request, completionHandler) {
-    completionHandler.call(request);
-  });
-  ncb.NSURLSessionTaskDelegate.addToBuilder(protoBuilder,
-      URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
-          redirect);
-
-  final response =
-      ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
-          .fromFunction((_, session, dataTask, response, completetionHandler) {
-    completetionHandler
-        .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
-  });
-  ncb.NSURLSessionDataDelegate.addToBuilder(protoBuilder,
-      URLSession_dataTask_didReceiveResponse_completionHandler_: response);
-
-  final data =
-      ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData
-          .fromFunction((_, session, dataTask, data) {});
-
-  final complete =
-      ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
-          .fromFunction((_, session, task, error) {});
-  ncb.NSURLSessionDataDelegate.addToBuilder(protoBuilder,
-      URLSession_dataTask_didReceiveData_: data,
-      URLSession_task_didCompleteWithError_: complete);
-  protoBuilder.build();
-}
-
 /// Settings for controlling whether cookies will be accepted.
 ///
 /// See [HTTPCookieAcceptPolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408933-httpcookieacceptpolicy).
@@ -1165,7 +1131,6 @@ void _setupDelegation(
 class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // Provide our own native delegate to `NSURLSession` because delegates can be
   // called on arbitrary threads and Dart code cannot be.
-  static final _delegate = ncb.CUPHTTPClientDelegate.new1();
   // Indicates if the session is a background session. Copied from the
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
@@ -1187,6 +1152,45 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       _onWebSocketTaskOpened;
   final void Function(URLSession session, URLSessionWebSocketTask task,
       int closeCode, objc.NSData? reason)? _onWebSocketTaskClosed;
+
+  static objc.ObjCObjectBase delegate() {
+    print('delegate()');
+    final protoBuilder = objc.ObjCProtocolBuilder();
+    final redirect =
+        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
+            .listener((_, session, task, response, request, completionHandler) {
+      print('redirect');
+      completionHandler.call(request);
+    });
+    ncb.NSURLSessionTaskDelegate.addToBuilder(protoBuilder,
+        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
+            redirect);
+
+    final response =
+        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
+            .listener((_, session, dataTask, response, completetionHandler) {
+      print('response');
+      completetionHandler
+          .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
+    });
+    final data =
+        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData
+            .listener((_, session, dataTask, data) {
+      print('data');
+    });
+
+    final complete =
+        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
+            .listener((_, session, task, error) {
+      print('complete');
+    });
+    ncb.NSURLSessionDataDelegate.addToBuilder(protoBuilder,
+        URLSession_dataTask_didReceiveData_: data,
+        URLSession_task_didCompleteWithError_: complete,
+        URLSession_dataTask_didReceiveResponse_completionHandler_: response);
+    print('building delegate');
+    return protoBuilder.build();
+  }
 
   URLSession._(
     super.c, {
@@ -1298,7 +1302,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     return URLSession._(
         ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
-            config._nsObject, _delegate, queue),
+            config._nsObject, delegate(), queue),
         isBackground: config._isBackground,
         onRedirect: onRedirect,
         onResponse: onResponse,
@@ -1329,12 +1333,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionTask dataTaskWithRequest(URLRequest request) {
     final task =
         URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
-    _setupDelegation(_delegate, this, task,
-        onComplete: _onComplete,
-        onData: _onData,
-        onFinishedDownloading: _onFinishedDownloading,
-        onRedirect: _onRedirect,
-        onResponse: _onResponse);
     return task;
   }
 
@@ -1358,6 +1356,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     // 2. use a delegate to send information about the task to the port
     // 3. call the user-provided completion function when we receive the
     //    `CompletedMessage` message type.
+    throw UnsupportedError('dataTaskWithCompletionHandler');
+    /*
     final task =
         URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
 
@@ -1377,7 +1377,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       completion(allData, finalResponse, error);
     });
 
-    return URLSessionTask._(task._nsObject);
+    return URLSessionTask._(task._nsObject);*/
   }
 
   /// Creates a [URLSessionDownloadTask] that downloads the data from a server
@@ -1390,12 +1390,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) {
     final task = URLSessionDownloadTask._(
         _nsObject.downloadTaskWithRequest_(request._nsObject));
-    _setupDelegation(_delegate, this, task,
-        onComplete: _onComplete,
-        onData: _onData,
-        onFinishedDownloading: _onFinishedDownloading,
-        onRedirect: _onRedirect,
-        onResponse: _onResponse);
     return task;
   }
 
@@ -1413,14 +1407,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
     final task = URLSessionWebSocketTask._(
         _nsObject.webSocketTaskWithRequest_(request._nsObject));
-    _setupDelegation(_delegate, this, task,
-        onComplete: _onComplete,
-        onData: _onData,
-        onFinishedDownloading: _onFinishedDownloading,
-        onRedirect: _onRedirect,
-        onResponse: _onResponse,
-        onWebSocketTaskOpened: _onWebSocketTaskOpened,
-        onWebSocketTaskClosed: _onWebSocketTaskClosed);
     return task;
   }
 
@@ -1444,14 +1430,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           _nsObject.webSocketTaskWithURL_protocols_(
               uriToNSURL(uri), stringIterableToNSArray(protocols)));
     }
-    _setupDelegation(_delegate, this, task,
-        onComplete: _onComplete,
-        onData: _onData,
-        onFinishedDownloading: _onFinishedDownloading,
-        onRedirect: _onRedirect,
-        onResponse: _onResponse,
-        onWebSocketTaskOpened: _onWebSocketTaskOpened,
-        onWebSocketTaskClosed: _onWebSocketTaskClosed);
     return task;
   }
 
