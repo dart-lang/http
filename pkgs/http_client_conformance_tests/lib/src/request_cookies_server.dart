@@ -25,7 +25,7 @@ void hybridMain(StreamChannel<Object?> channel) async {
       final request = utf8.decoder.bind(socket).transform(const LineSplitter());
 
       final cookies = <String>[];
-      request.listen((line) {
+      await for (final line in request) {
         if (line.toLowerCase().startsWith('cookie:')) {
           cookies.add(line);
         }
@@ -33,8 +33,9 @@ void hybridMain(StreamChannel<Object?> channel) async {
         if (line.isEmpty) {
           // A blank line indicates the end of the headers.
           channel.sink.add(cookies);
+          break;
         }
-      });
+      }
 
       socket.writeAll(
         [
