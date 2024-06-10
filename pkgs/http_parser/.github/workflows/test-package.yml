@@ -44,7 +44,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        sdk: [3.0.0, dev]
+        sdk: [3.4, dev]
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
       - uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30
@@ -61,5 +61,4 @@ jobs:
         if: always() && steps.install.outcome == 'success'
       - name: Run Chrome tests - wasm
         run: dart test --platform chrome --compiler dart2wasm
-        # TODO: drop `dev` filter when dart2wasm is working on stable
-        if: always() && steps.install.outcome == 'success' && matrix.sdk == 'dev'
+        if: always() && steps.install.outcome == 'success'

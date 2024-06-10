@@ -1,6 +1,6 @@
-## 4.0.3-dev
+## 4.0.3-wip
 
-* Require Dart 3.0
+* Require Dart 3.4
 
 ## 4.0.2
 
