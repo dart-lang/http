@@ -56,3 +56,10 @@ android {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // "com.squareup.okhttp3:okhttp:4.12.0" is only present so that
+    // `jnigen` will work. Applications should not include this line.
+    // The version should be synced with `pkgs/ok_http/android/build.gradle`.
+    implementation('com.squareup.okhttp3:okhttp:4.12.0')
+}
