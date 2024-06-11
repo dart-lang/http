@@ -25,6 +25,7 @@ Future<void> testConformance() async {
     testServerErrors(OkHttpClient());
     testClose(OkHttpClient.new);
     testIsolate(OkHttpClient.new);
+    testRequestCookies(OkHttpClient(), canSendCookieHeaders: true);
     testResponseCookies(OkHttpClient(), canReceiveSetCookieHeaders: true);
   });
 }
