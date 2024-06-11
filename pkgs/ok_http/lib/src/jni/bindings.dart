@@ -9437,3 +9437,184 @@ final class $CacheType extends jni.JObjType<Cache> {
     return other.runtimeType == ($CacheType) && other is $CacheType;
   }
 }
+
+/// from: com.example.ok_http.RedirectInterceptor$Companion
+class RedirectInterceptor_Companion extends jni.JObject {
+  @override
+  late final jni.JObjType<RedirectInterceptor_Companion> $type = type;
+
+  RedirectInterceptor_Companion.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class =
+      jni.JClass.forName(r"com/example/ok_http/RedirectInterceptor$Companion");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $RedirectInterceptor_CompanionType();
+  static final _id_addRedirectInterceptor = _class.instanceMethodId(
+    r"addRedirectInterceptor",
+    r"(Lokhttp3/OkHttpClient$Builder;IZ)Lokhttp3/OkHttpClient$Builder;",
+  );
+
+  static final _addRedirectInterceptor = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Int64,
+                        ffi.Int64
+                      )>)>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public final okhttp3.OkHttpClient$Builder addRedirectInterceptor(okhttp3.OkHttpClient$Builder builder, int i, boolean z)
+  /// The returned object must be released after use, by calling the [release] method.
+  OkHttpClient_Builder addRedirectInterceptor(
+    OkHttpClient_Builder builder,
+    int i,
+    bool z,
+  ) {
+    return _addRedirectInterceptor(
+            reference.pointer,
+            _id_addRedirectInterceptor as jni.JMethodIDPtr,
+            builder.reference.pointer,
+            i,
+            z ? 1 : 0)
+        .object(const $OkHttpClient_BuilderType());
+  }
+
+  static final _id_new0 = _class.constructorId(
+    r"(Lkotlin/jvm/internal/DefaultConstructorMarker;)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory RedirectInterceptor_Companion(
+    jni.JObject defaultConstructorMarker,
+  ) {
+    return RedirectInterceptor_Companion.fromReference(_new0(
+            _class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr,
+            defaultConstructorMarker.reference.pointer)
+        .reference);
+  }
+}
+
+final class $RedirectInterceptor_CompanionType
+    extends jni.JObjType<RedirectInterceptor_Companion> {
+  const $RedirectInterceptor_CompanionType();
+
+  @override
+  String get signature =>
+      r"Lcom/example/ok_http/RedirectInterceptor$Companion;";
+
+  @override
+  RedirectInterceptor_Companion fromReference(jni.JReference reference) =>
+      RedirectInterceptor_Companion.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($RedirectInterceptor_CompanionType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($RedirectInterceptor_CompanionType) &&
+        other is $RedirectInterceptor_CompanionType;
+  }
+}
+
+/// from: com.example.ok_http.RedirectInterceptor
+class RedirectInterceptor extends jni.JObject {
+  @override
+  late final jni.JObjType<RedirectInterceptor> $type = type;
+
+  RedirectInterceptor.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class =
+      jni.JClass.forName(r"com/example/ok_http/RedirectInterceptor");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $RedirectInterceptorType();
+  static final _id_Companion = _class.staticFieldId(
+    r"Companion",
+    r"Lcom/example/ok_http/RedirectInterceptor$Companion;",
+  );
+
+  /// from: static public final com.example.ok_http.RedirectInterceptor$Companion Companion
+  /// The returned object must be released after use, by calling the [release] method.
+  static RedirectInterceptor_Companion get Companion =>
+      _id_Companion.get(_class, const $RedirectInterceptor_CompanionType());
+
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void <init>()
+  /// The returned object must be released after use, by calling the [release] method.
+  factory RedirectInterceptor() {
+    return RedirectInterceptor.fromReference(
+        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+            .reference);
+  }
+}
+
+final class $RedirectInterceptorType extends jni.JObjType<RedirectInterceptor> {
+  const $RedirectInterceptorType();
+
+  @override
+  String get signature => r"Lcom/example/ok_http/RedirectInterceptor;";
+
+  @override
+  RedirectInterceptor fromReference(jni.JReference reference) =>
+      RedirectInterceptor.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($RedirectInterceptorType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($RedirectInterceptorType) &&
+        other is $RedirectInterceptorType;
+  }
+}

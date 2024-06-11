@@ -89,6 +89,8 @@ class OkHttpClient extends BaseClient {
     var requestHeaders = request.headers;
     var requestMethod = request.method;
     var requestBody = await request.finalize().toBytes();
+    var maxRedirects = request.maxRedirects;
+    var followRedirects = request.followRedirects;
 
     final responseCompleter = Completer<StreamedResponse>();
 
@@ -112,9 +114,22 @@ class OkHttpClient extends BaseClient {
       okReqBody,
     );
 
+    // To configure the client per-request, we create a new client with the
+    // builder associated with `_client`.
+    // They share the same connection pool and dispatcher.
+    // https://square.github.io/okhttp/recipes/#per-call-configuration-kt-java
+    //
+    // `followRedirects` is set to `false` to handle redirects manually.
+    // (Since OkHttp sets a hard limit of 20 redirects.)
+    // https://github.com/square/okhttp/blob/54238b4c713080c3fd32fb1a070fb5d6814c9a09/okhttp/src/main/kotlin/okhttp3/internal/http/RetryAndFollowUpInterceptor.kt#L350
+    final reqConfiguredClient = bindings.RedirectInterceptor.Companion
+        .addRedirectInterceptor(_client.newBuilder().followRedirects(false),
+            maxRedirects, followRedirects)
+        .build();
+
     // `enqueue()` schedules the request to be executed in the future.
     // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-call/enqueue.html
-    _client
+    reqConfiguredClient
         .newCall(reqBuilder.build())
         .enqueue(bindings.Callback.implement(bindings.$CallbackImpl(
           onResponse: (bindings.Call call, bindings.Response response) {
@@ -159,9 +174,15 @@ class OkHttpClient extends BaseClient {
               headers: responseHeaders,
               request: request,
               contentLength: contentLength,
+              isRedirect: response.isRedirect(),
             ));
           },
           onFailure: (bindings.Call call, JObject ioException) {
+            if (ioException.toString().contains('Redirect limit exceeded')) {
+              responseCompleter.completeError(
+                  ClientException('Redirect limit exceeded', request.url));
+              return;
+            }
             responseCompleter.completeError(
                 ClientException(ioException.toString(), request.url));
           },

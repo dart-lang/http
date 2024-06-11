@@ -26,10 +26,19 @@ rootProject.allprojects {
 }
 
 apply plugin: "com.android.library"
+apply plugin: 'kotlin-android'
 
 android {
     if (project.android.hasProperty("namespace")) {
         namespace = "com.example.ok_http"
+    }
+    
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     // Bumping the plugin compileSdk version requires all clients of this plugin

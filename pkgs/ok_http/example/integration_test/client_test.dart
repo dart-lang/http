@@ -22,9 +22,11 @@ Future<void> testConformance() async {
     testResponseHeaders(OkHttpClient(), supportsFoldedHeaders: false);
     testResponseStatusLine(OkHttpClient());
     testCompressedResponseBody(OkHttpClient());
+    testRedirect(OkHttpClient());
     testServerErrors(OkHttpClient());
     testClose(OkHttpClient.new);
     testIsolate(OkHttpClient.new);
+    testRequestCookies(OkHttpClient(), canSendCookieHeaders: true);
     testResponseCookies(OkHttpClient(), canReceiveSetCookieHeaders: true);
   });
 }
