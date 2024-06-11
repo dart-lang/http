@@ -114,7 +114,7 @@ the [`RetryClient()`][new RetryClient] constructor.
 
 ## Choosing an implementation
 
-There are multiple implementations of the `package:http` [`Client`][client] interface. By default, `package:http` uses [`BrowserClient`][browserclient] on the web and [`IOClient`][ioclient] on all other platforms. You an choose a different [`Client`][client] implementation based on the needs of your application.
+There are multiple implementations of the `package:http` [`Client`][client] interface. By default, `package:http` uses [`BrowserClient`][browserclient] on the web and [`IOClient`][ioclient] on all other platforms. You can choose a different [`Client`][client] implementation based on the needs of your application.
 
 You can change implementations without changing your application code, except
 for a few lines of [configuration](#2-configure-the-http-client).
