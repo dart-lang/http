@@ -29,18 +29,17 @@ class RedirectInterceptor {
             clientBuilder: OkHttpClient.Builder, maxRedirects: Int, followRedirects: Boolean
         ): OkHttpClient.Builder {
             return clientBuilder.addInterceptor(Interceptor { chain ->
-
                 var req = chain.request()
                 var response = chain.proceed(req)
                 var redirectCount = 0
 
                 while (response.isRedirect && followRedirects) {
-                    if (redirectCount > maxRedirects) {
+                    if (redirectCount >= maxRedirects) {
                         throw IOException("Redirect limit exceeded")
                     }
 
-                    val location = response.header("location")
-                    req = req.newBuilder().url(location!!).build()
+                    val location = response.header("location") ?: break
+                    req = req.newBuilder().url(location).build()
                     response.close()
                     response = chain.proceed(req)
                     redirectCount++
