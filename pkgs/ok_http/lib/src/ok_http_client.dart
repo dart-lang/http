@@ -112,9 +112,16 @@ class OkHttpClient extends BaseClient {
       okReqBody,
     );
 
+    // To configure the client per-request, we create a new client with the
+    // builder associated with `_client`.
+    // They share the same connection pool and dispatcher.
+    // https://square.github.io/okhttp/recipes/#per-call-configuration-kt-java
+    final reqConfiguredClient =
+        _client.newBuilder().followRedirects(request.followRedirects).build();
+
     // `enqueue()` schedules the request to be executed in the future.
     // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-call/enqueue.html
-    _client
+    reqConfiguredClient
         .newCall(reqBuilder.build())
         .enqueue(bindings.Callback.implement(bindings.$CallbackImpl(
           onResponse: (bindings.Call call, bindings.Response response) {
@@ -159,6 +166,7 @@ class OkHttpClient extends BaseClient {
               headers: responseHeaders,
               request: request,
               contentLength: contentLength,
+              isRedirect: response.isRedirect(),
             ));
           },
           onFailure: (bindings.Call call, JObject ioException) {

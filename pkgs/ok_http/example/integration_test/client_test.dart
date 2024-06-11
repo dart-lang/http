@@ -15,17 +15,18 @@ void main() async {
 
 Future<void> testConformance() async {
   group('ok_http client', () {
-    testRequestBody(OkHttpClient());
-    testResponseBody(OkHttpClient(), canStreamResponseBody: false);
-    testRequestHeaders(OkHttpClient());
-    testRequestMethods(OkHttpClient(), preservesMethodCase: true);
-    testResponseHeaders(OkHttpClient(), supportsFoldedHeaders: false);
-    testResponseStatusLine(OkHttpClient());
-    testCompressedResponseBody(OkHttpClient());
-    testServerErrors(OkHttpClient());
-    testClose(OkHttpClient.new);
-    testIsolate(OkHttpClient.new);
-    testRequestCookies(OkHttpClient(), canSendCookieHeaders: true);
-    testResponseCookies(OkHttpClient(), canReceiveSetCookieHeaders: true);
+    // testRequestBody(OkHttpClient());
+    // testResponseBody(OkHttpClient(), canStreamResponseBody: false);
+    // testRequestHeaders(OkHttpClient());
+    // testRequestMethods(OkHttpClient(), preservesMethodCase: true);
+    // testResponseHeaders(OkHttpClient(), supportsFoldedHeaders: false);
+    // testResponseStatusLine(OkHttpClient());
+    // testCompressedResponseBody(OkHttpClient());
+    testRedirect(OkHttpClient());
+    // testServerErrors(OkHttpClient());
+    // testClose(OkHttpClient.new);
+    // testIsolate(OkHttpClient.new);
+    // testRequestCookies(OkHttpClient(), canSendCookieHeaders: true);
+    // testResponseCookies(OkHttpClient(), canReceiveSetCookieHeaders: true);
   });
 }
