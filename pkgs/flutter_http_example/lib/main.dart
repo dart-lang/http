@@ -15,6 +15,7 @@ import 'http_client_factory.dart'
 
 void main() {
   runApp(Provider<Client>(
+      // Share a single `Client` throughout the application.
       create: (_) => http_factory.httpClient(),
       child: const BookSearchApp(),
       dispose: (_, client) => client.close()));
