@@ -9618,3 +9618,352 @@ final class $RedirectInterceptorType extends jni.JObjType<RedirectInterceptor> {
         other is $RedirectInterceptorType;
   }
 }
+
+/// from: com.example.ok_http.AsyncInputStreamReader
+class AsyncInputStreamReader extends jni.JObject {
+  @override
+  late final jni.JObjType<AsyncInputStreamReader> $type = type;
+
+  AsyncInputStreamReader.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class =
+      jni.JClass.forName(r"com/example/ok_http/AsyncInputStreamReader");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $AsyncInputStreamReaderType();
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void <init>()
+  /// The returned object must be released after use, by calling the [release] method.
+  factory AsyncInputStreamReader() {
+    return AsyncInputStreamReader.fromReference(
+        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_readAsync = _class.instanceMethodId(
+    r"readAsync",
+    r"(Ljava/io/InputStream;Lcom/example/ok_http/DataCallback;)Ljava/util/concurrent/Future;",
+  );
+
+  static final _readAsync = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final java.util.concurrent.Future readAsync(java.io.InputStream inputStream, com.example.ok_http.DataCallback dataCallback)
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JObject readAsync(
+    jni.JObject inputStream,
+    DataCallback dataCallback,
+  ) {
+    return _readAsync(reference.pointer, _id_readAsync as jni.JMethodIDPtr,
+            inputStream.reference.pointer, dataCallback.reference.pointer)
+        .object(const jni.JObjectType());
+  }
+
+  static final _id_shutdown = _class.instanceMethodId(
+    r"shutdown",
+    r"()V",
+  );
+
+  static final _shutdown = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final void shutdown()
+  void shutdown() {
+    _shutdown(reference.pointer, _id_shutdown as jni.JMethodIDPtr).check();
+  }
+}
+
+final class $AsyncInputStreamReaderType
+    extends jni.JObjType<AsyncInputStreamReader> {
+  const $AsyncInputStreamReaderType();
+
+  @override
+  String get signature => r"Lcom/example/ok_http/AsyncInputStreamReader;";
+
+  @override
+  AsyncInputStreamReader fromReference(jni.JReference reference) =>
+      AsyncInputStreamReader.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($AsyncInputStreamReaderType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($AsyncInputStreamReaderType) &&
+        other is $AsyncInputStreamReaderType;
+  }
+}
+
+/// from: com.example.ok_http.DataCallback
+class DataCallback extends jni.JObject {
+  @override
+  late final jni.JObjType<DataCallback> $type = type;
+
+  DataCallback.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"com/example/ok_http/DataCallback");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $DataCallbackType();
+  static final _id_onDataRead = _class.instanceMethodId(
+    r"onDataRead",
+    r"([B)V",
+  );
+
+  static final _onDataRead = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JThrowablePtr Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onDataRead(byte[] bs)
+  void onDataRead(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    _onDataRead(reference.pointer, _id_onDataRead as jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .check();
+  }
+
+  static final _id_onFinished = _class.instanceMethodId(
+    r"onFinished",
+    r"()V",
+  );
+
+  static final _onFinished = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public abstract void onFinished()
+  void onFinished() {
+    _onFinished(reference.pointer, _id_onFinished as jni.JMethodIDPtr).check();
+  }
+
+  static final _id_onError = _class.instanceMethodId(
+    r"onError",
+    r"(Ljava/io/IOException;)V",
+  );
+
+  static final _onError = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JThrowablePtr Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onError(java.io.IOException iOException)
+  void onError(
+    jni.JObject iOException,
+  ) {
+    _onError(reference.pointer, _id_onError as jni.JMethodIDPtr,
+            iOException.reference.pointer)
+        .check();
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final Map<int, $DataCallbackImpl> _$impls = {};
+  ReceivePort? _$p;
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r"onDataRead([B)V") {
+        _$impls[$p]!.onDataRead(
+          $a[0].castTo(const jni.JArrayType(jni.jbyteType()),
+              releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+      if ($d == r"onFinished()V") {
+        _$impls[$p]!.onFinished();
+        return jni.nullptr;
+      }
+      if ($d == r"onError(Ljava/io/IOException;)V") {
+        _$impls[$p]!.onError(
+          $a[0].castTo(const jni.JObjectType(), releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+    } catch (e) {
+      return ProtectedJniExtensions.newDartException(e.toString());
+    }
+    return jni.nullptr;
+  }
+
+  factory DataCallback.implement(
+    $DataCallbackImpl $impl,
+  ) {
+    final $p = ReceivePort();
+    final $x = DataCallback.fromReference(
+      ProtectedJniExtensions.newPortProxy(
+        r"com.example.ok_http.DataCallback",
+        $p,
+        _$invokePointer,
+      ),
+    ).._$p = $p;
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+    $p.listen(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    return $x;
+  }
+}
+
+abstract interface class $DataCallbackImpl {
+  factory $DataCallbackImpl({
+    required void Function(jni.JArray<jni.jbyte> bs) onDataRead,
+    required void Function() onFinished,
+    required void Function(jni.JObject iOException) onError,
+  }) = _$DataCallbackImpl;
+
+  void onDataRead(jni.JArray<jni.jbyte> bs);
+  void onFinished();
+  void onError(jni.JObject iOException);
+}
+
+class _$DataCallbackImpl implements $DataCallbackImpl {
+  _$DataCallbackImpl({
+    required void Function(jni.JArray<jni.jbyte> bs) onDataRead,
+    required void Function() onFinished,
+    required void Function(jni.JObject iOException) onError,
+  })  : _onDataRead = onDataRead,
+        _onFinished = onFinished,
+        _onError = onError;
+
+  final void Function(jni.JArray<jni.jbyte> bs) _onDataRead;
+  final void Function() _onFinished;
+  final void Function(jni.JObject iOException) _onError;
+
+  void onDataRead(jni.JArray<jni.jbyte> bs) {
+    return _onDataRead(bs);
+  }
+
+  void onFinished() {
+    return _onFinished();
+  }
+
+  void onError(jni.JObject iOException) {
+    return _onError(iOException);
+  }
+}
+
+final class $DataCallbackType extends jni.JObjType<DataCallback> {
+  const $DataCallbackType();
+
+  @override
+  String get signature => r"Lcom/example/ok_http/DataCallback;";
+
+  @override
+  DataCallback fromReference(jni.JReference reference) =>
+      DataCallback.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($DataCallbackType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($DataCallbackType) &&
+        other is $DataCallbackType;
+  }
+}
