@@ -2,10 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// This file exists to provide a function to asynchronously read data from an
-// `InputStream` using an `ExecutorService`. `DataCallback` is an interface 
-// that provides methods to handle data read, finished, or an error.
-
 package com.example.ok_http
 
 import java.io.IOException
@@ -15,12 +11,18 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
 
+/**
+ * Callback interface utilized by the [AsyncInputStreamReader].
+ */
 interface DataCallback {
     fun onDataRead(data: ByteArray)
     fun onFinished()
     fun onError(e: IOException)
 }
 
+/**
+ * Provides functions to read data from an InputStream asynchronously.
+ */
 class AsyncInputStreamReader {
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
