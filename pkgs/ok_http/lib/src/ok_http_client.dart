@@ -133,6 +133,9 @@ class OkHttpClient extends BaseClient {
         .newCall(reqBuilder.build())
         .enqueue(bindings.Callback.implement(bindings.$CallbackImpl(
           onResponse: (bindings.Call call, bindings.Response response) {
+            var reader = bindings.AsyncInputStreamReader();
+            var respBodyStreamController = StreamController<List<int>>();
+
             var responseHeaders = <String, String>{};
 
             response.headers().toMultimap().forEach((key, value) {
@@ -153,21 +156,30 @@ class OkHttpClient extends BaseClient {
               }
             }
 
-            // Exceptions while reading the response body such as
-            // `java.net.ProtocolException` & `java.net.SocketTimeoutException`
-            // crash the app if un-handled.
-            var responseBody = Uint8List.fromList([]);
-            try {
-              // Blocking call to read the response body.
-              responseBody = response.body().bytes().toUint8List();
-            } catch (e) {
-              responseCompleter
-                  .completeError(ClientException(e.toString(), request.url));
-              return;
-            }
+            var responseBodyByteStream = response.body().byteStream();
+            reader.readAsync(
+                responseBodyByteStream,
+                bindings.DataCallback.implement(
+                  bindings.$DataCallbackImpl(
+                    onDataRead: (JArray<jbyte> data) {
+                      respBodyStreamController.sink.add(data.toUint8List());
+                    },
+                    onFinished: () async {
+                      reader.shutdown();
+                      await respBodyStreamController.sink.close();
+                    },
+                    onError: (iOException) async {
+                      respBodyStreamController.sink.addError(
+                          ClientException(iOException.toString(), request.url));
+
+                      reader.shutdown();
+                      await respBodyStreamController.sink.close();
+                    },
+                  ),
+                ));
 
             responseCompleter.complete(StreamedResponse(
-              Stream.value(responseBody),
+              respBodyStreamController.stream,
               response.code(),
               reasonPhrase:
                   response.message().toDartString(releaseOriginal: true),
