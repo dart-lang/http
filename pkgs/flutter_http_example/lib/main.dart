@@ -15,7 +15,14 @@ import 'http_client_factory.dart'
 
 void main() {
   runApp(Provider<Client>(
-      // Share a single `Client` throughout the application.
+      // `Provider` calls its `create` argument once when a `Client` is
+      // first requested (through `BuildContext.read<Client>()`) and uses that
+      // same instance for all future requests.
+      //
+      // Reusing the same `Client` may:
+      // - reduce memory usage
+      // - allow caching of fetched URLs
+      // - allow connections to be persisted
       create: (_) => http_factory.httpClient(),
       child: const BookSearchApp(),
       dispose: (_, client) => client.close()));
