@@ -26,4 +26,10 @@ void main() {
     expect(map, containsPair('FoO', 'bAr'));
     expect(map, equals({'fOo': 'bAr'}));
   });
+
+  test('.fromEntries() converts an existing map', () {
+    final map = CaseInsensitiveMap.fromEntries({'fOo': 'bAr'}.entries);
+    expect(map, containsPair('FoO', 'bAr'));
+    expect(map, equals({'fOo': 'bAr'}));
+  });
 }
