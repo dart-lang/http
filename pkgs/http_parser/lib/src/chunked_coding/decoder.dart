@@ -173,63 +173,63 @@ class _Sink extends ByteConversionSinkBase {
 
 /// An enumeration of states that [_Sink] can exist in when decoded a chunked
 /// message.
-class _State {
+enum _State {
   /// The parser has fully parsed one chunk and is expecting the header for the
   /// next chunk.
   ///
   /// Transitions to [size].
-  static const boundary = _State._('boundary');
+  boundary('boundary'),
 
   /// The parser has parsed at least one digit of the chunk size header, but has
   /// not yet parsed the `CR LF` sequence that indicates the end of that header.
   ///
   /// Transitions to [sizeBeforeLF].
-  static const size = _State._('size');
+  size('size'),
 
   /// The parser has parsed the chunk size header and the CR character after it,
   /// but not the LF.
   ///
   /// Transitions to [body] or [bodyBeforeCR].
-  static const sizeBeforeLF = _State._('size before LF');
+  sizeBeforeLF('size before LF'),
 
   /// The parser has parsed a chunk header and possibly some of the body, but
   /// still needs to consume more bytes.
   ///
   /// Transitions to [bodyBeforeCR].
-  static const body = _State._('body');
+  body('body'),
 
   // The parser has parsed all the bytes in a chunk body but not the CR LF
   // sequence that follows it.
   //
   // Transitions to [bodyBeforeLF].
-  static const bodyBeforeCR = _State._('body before CR');
+  bodyBeforeCR('body before CR'),
 
   // The parser has parsed all the bytes in a chunk body and the CR that follows
   // it, but not the LF after that.
   //
-  // Transitions to [bounday].
-  static const bodyBeforeLF = _State._('body before LF');
+  // Transitions to [boundary].
+  bodyBeforeLF('body before LF'),
 
   /// The parser has parsed the final empty chunk but not the CR LF sequence
   /// that follows it.
   ///
   /// Transitions to [endBeforeLF].
-  static const endBeforeCR = _State._('end before CR');
+  endBeforeCR('end before CR'),
 
   /// The parser has parsed the final empty chunk and the CR that follows it,
   /// but not the LF after that.
   ///
   /// Transitions to [end].
-  static const endBeforeLF = _State._('end before LF');
+  endBeforeLF('end before LF'),
 
   /// The parser has parsed the final empty chunk as well as the CR LF that
   /// follows, and expects no more data.
-  static const end = _State._('end');
+  end('end');
 
-  final String _name;
+  const _State(this.name);
 
-  const _State._(this._name);
+  final String name;
 
   @override
-  String toString() => _name;
+  String toString() => name;
 }

@@ -1,10 +1,8 @@
-## 4.0.3-wip
+## 4.1.0
 
 * `CaseInsensitiveMap`: added constructor `fromEntries`.
-
-* Require Dart 3.4
-
-* collection: ^1.19.0
+* Require `package:collection` `^1.19.0`
+* Require Dart `^3.4.0`
 
 ## 4.0.2
 

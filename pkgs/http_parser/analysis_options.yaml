@@ -1,4 +1,4 @@
-# https://dart.dev/guides/language/analysis-options
+# https://dart.dev/tools/analysis#the-analysis-options-file
 include: package:dart_flutter_team_lints/analysis_options.yaml
 
 analyzer:
