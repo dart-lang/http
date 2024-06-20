@@ -25,4 +25,4 @@ linter:
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
 # Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+# https://dart.dev/tools/analysis

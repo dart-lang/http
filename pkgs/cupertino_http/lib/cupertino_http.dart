@@ -9,7 +9,7 @@
 /// configuration on macOS) then the
 /// [`com.apple.security.network.client`](https://developer.apple.com/documentation/bundleresources/entitlements/com_apple_security_network_client)
 /// entitlement is required to use `package:cupertino_http`. See
-/// [Entitlements and the App Sandbox](https://docs.flutter.dev/platform-integration/macos/building#entitlements-and-the-app-sandbox).
+/// [Entitlements and the App Sandbox](https://flutter.dev/to/macos-entitlements).
 ///
 /// # CupertinoClient
 ///
