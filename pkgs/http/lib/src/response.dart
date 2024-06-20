@@ -71,7 +71,7 @@ class Response extends BaseResponse {
 Encoding _encodingForHeaders(Map<String, String> headers) =>
     encodingForCharset(_contentTypeForHeaders(headers).parameters['charset']);
 
-/// Returns the [MediaType] object for the given headers's content-type.
+/// Returns the [MediaType] object for the given headers' content-type.
 ///
 /// Defaults to `application/octet-stream`.
 MediaType _contentTypeForHeaders(Map<String, String> headers) {

@@ -7,7 +7,7 @@ A macOS/iOS Flutter plugin that provides access to the
 ## Motivation
 
 Using the [Foundation URL Loading System][], rather than the socket-based
-[dart:io HttpClient][] implemententation, has several advantages:
+[dart:io HttpClient][] implementation, has several advantages:
 
 1. It automatically supports iOS/macOS platform features such VPNs and HTTP
    proxies. 
@@ -17,7 +17,7 @@ Using the [Foundation URL Loading System][], rather than the socket-based
 
 ## Using
 
-The easiest way to use this library is via the the high-level interface
+The easiest way to use this library is via the high-level interface
 defined by [package:http Client][].
 
 This approach allows the same HTTP code to be used on all platforms, while
