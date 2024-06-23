@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
 void testOnComplete(URLSessionConfiguration config) {
@@ -29,7 +30,7 @@ void testOnComplete(URLSessionConfiguration config) {
 
     test('success', () async {
       final c = Completer<void>();
-      Error? actualError;
+      NSError? actualError;
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
@@ -53,7 +54,7 @@ void testOnComplete(URLSessionConfiguration config) {
 
     test('bad host', () async {
       final c = Completer<void>();
-      Error? actualError;
+      NSError? actualError;
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
@@ -163,7 +164,7 @@ void testOnData(URLSessionConfiguration config) {
 
     test('success', () async {
       final c = Completer<void>();
-      final actualData = MutableData.empty();
+      final actualData = NSMutableData.data();
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
@@ -172,7 +173,7 @@ void testOnData(URLSessionConfiguration config) {
           onData: (s, t, d) {
             actualSession = s;
             actualTask = t;
-            actualData.appendBytes(d.bytes);
+            actualData.appendData_(d);
           });
 
       final task = session.dataTaskWithRequest(
@@ -181,7 +182,7 @@ void testOnData(URLSessionConfiguration config) {
       await c.future;
       expect(actualSession, session);
       expect(actualTask, task);
-      expect(actualData.bytes, 'Hello World'.codeUnits);
+      expect(actualData.toList(), 'Hello World'.codeUnits);
     });
   });
 }
@@ -263,7 +264,7 @@ void testOnRedirect(URLSessionConfiguration config) {
                   null);
       final c = Completer<void>();
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -288,7 +289,7 @@ void testOnRedirect(URLSessionConfiguration config) {
                   newRequest);
       final c = Completer<void>();
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -314,7 +315,7 @@ void testOnRedirect(URLSessionConfiguration config) {
       );
       final c = Completer<void>();
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -341,7 +342,7 @@ void testOnRedirect(URLSessionConfiguration config) {
       final c = Completer<void>();
       HTTPURLResponse? response;
       // ignore: unused_local_variable
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -391,7 +392,7 @@ void testOnRedirect(URLSessionConfiguration config) {
       );
       final c = Completer<void>();
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -418,7 +419,7 @@ void testOnRedirect(URLSessionConfiguration config) {
       );
       final c = Completer<void>();
       HTTPURLResponse? response;
-      Error? error;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -568,7 +569,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
         actualSession = session;
         actualTask = task;
         actualCloseCode = closeCode!;
-        actualReason = utf8.decode(reason!.bytes);
+        actualReason = utf8.decode(reason!.toList());
         c.complete();
       });
 
@@ -579,7 +580,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
 
       expect(
           task.receiveMessage(),
-          throwsA(isA<Error>()
+          throwsA(isA<NSError>()
               .having((e) => e.code, 'code', 57 // Socket is not connected.
                   )));
       await c.future;
@@ -605,7 +606,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
         actualSession = session;
         actualTask = task;
         actualCloseCode = closeCode!;
-        actualReason = utf8.decode(reason!.bytes);
+        actualReason = utf8.decode(reason!.toList());
         c.complete();
       });
 
@@ -616,7 +617,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
 
       expect(
           task.receiveMessage(),
-          throwsA(isA<Error>()
+          throwsA(isA<NSError>()
               .having((e) => e.code, 'code', 57 // Socket is not connected.
                   )));
       await c.future;
@@ -642,7 +643,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
         actualSession = session;
         actualTask = task;
         actualCloseCode = closeCode!;
-        actualReason = utf8.decode(reason!.bytes);
+        actualReason = utf8.decode(reason!.toList());
         c.complete();
       });
 
@@ -653,7 +654,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
 
       expect(
           task.receiveMessage(),
-          throwsA(isA<Error>()
+          throwsA(isA<NSError>()
               .having((e) => e.code, 'code', 57 // Socket is not connected.
                   )));
       await c.future;
