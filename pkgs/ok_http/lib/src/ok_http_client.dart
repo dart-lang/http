@@ -16,6 +16,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:http/http.dart';
+import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
 
 import 'jni/bindings.dart' as bindings;
@@ -78,11 +79,46 @@ class OkHttpClient extends BaseClient {
     _isClosed = true;
   }
 
+  HttpClientRequestProfile? _createProfile(BaseRequest request) =>
+      HttpClientRequestProfile.profile(
+          requestStartTime: DateTime.now(),
+          requestMethod: request.method,
+          requestUri: request.url.toString());
+
+  void addProfileError(HttpClientRequestProfile? profile, String error) {
+    if (profile != null) {
+      if (profile.requestData.endTime == null) {
+        profile.requestData.closeWithError(error.toString());
+      } else {
+        profile.responseData.closeWithError(error.toString());
+      }
+    }
+  }
+
   @override
   Future<StreamedResponse> send(BaseRequest request) async {
     if (_isClosed) {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
+    }
+
+    final profile = _createProfile(request);
+    profile?.connectionInfo = {
+      'package': 'package:ok_http',
+      'client': 'OkHttpClient',
+    };
+
+    profile?.requestData
+      ?..contentLength = request.contentLength
+      ..followRedirects = request.followRedirects
+      ..headersCommaValues = request.headers
+      ..maxRedirects = request.maxRedirects;
+
+    if (profile != null && request.contentLength != null) {
+      profile.requestData.headersListValues = {
+        'Content-Length': ['${request.contentLength}'],
+        ...profile.requestData.headers!
+      };
     }
 
     var requestUrl = request.url.toString();
@@ -91,6 +127,8 @@ class OkHttpClient extends BaseClient {
     var requestBody = await request.finalize().toBytes();
     var maxRedirects = request.maxRedirects;
     var followRedirects = request.followRedirects;
+
+    profile?.requestData.bodySink.add(requestBody);
 
     final responseCompleter = Completer<StreamedResponse>();
 
@@ -161,16 +199,22 @@ class OkHttpClient extends BaseClient {
                 responseBodyByteStream,
                 bindings.DataCallback.implement(
                   bindings.$DataCallbackImpl(
-                    onDataRead: (JArray<jbyte> data) {
-                      respBodyStreamController.sink.add(data.toUint8List());
+                    onDataRead: (JArray<jbyte> bytesRead) {
+                      var data = bytesRead.toUint8List();
+
+                      respBodyStreamController.sink.add(data);
+                      profile?.responseData.bodySink.add(data);
                     },
                     onFinished: () async {
                       reader.shutdown();
                       await respBodyStreamController.sink.close();
+                      await profile?.responseData.close();
                     },
                     onError: (iOException) async {
                       respBodyStreamController.sink.addError(
                           ClientException(iOException.toString(), request.url));
+
+                      addProfileError(profile, iOException.toString());
 
                       reader.shutdown();
                       await respBodyStreamController.sink.close();
@@ -188,15 +232,25 @@ class OkHttpClient extends BaseClient {
               contentLength: contentLength,
               isRedirect: response.isRedirect(),
             ));
+
+            profile?.requestData.close();
+            profile?.responseData
+              ?..contentLength = contentLength
+              ..headersCommaValues = responseHeaders
+              ..isRedirect = false
+              ..reasonPhrase =
+                  response.message().toDartString(releaseOriginal: true)
+              ..startTime = DateTime.now()
+              ..statusCode = response.code();
           },
           onFailure: (bindings.Call call, JObject ioException) {
-            if (ioException.toString().contains('Redirect limit exceeded')) {
-              responseCompleter.completeError(
-                  ClientException('Redirect limit exceeded', request.url));
-              return;
+            var msg = ioException.toString();
+            if (msg.contains('Redirect limit exceeded')) {
+              msg = 'Redirect limit exceeded';
             }
-            responseCompleter.completeError(
-                ClientException(ioException.toString(), request.url));
+
+            responseCompleter.completeError(ClientException(msg, request.url));
+            addProfileError(profile, msg);
           },
         )));
 
