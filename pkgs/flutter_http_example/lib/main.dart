@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Get the list of books matching `query`.
-  // The `get` call will automatically use the `client` configurated in `main`.
+  // The `get` call will automatically use the `client` configured in `main`.
   Future<List<Book>> _findMatchingBooks(String query) async {
     final response = await _client.get(
       Uri.https(

@@ -23,7 +23,7 @@ Using [Cronet][], rather than the socket-based
 
 ## Using
 
-The easiest way to use this library is via the the high-level interface
+The easiest way to use this library is via the high-level interface
 defined by [package:http Client][].
 
 This approach allows the same HTTP code to be used on all platforms, while
