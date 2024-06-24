@@ -27,6 +27,7 @@ classes:
   - "okhttp3.ConnectionPool"
   - "okhttp3.Dispatcher"
   - "okhttp3.Cache"
+  - "com.example.ok_http.RedirectReceivedCallback"
   - "com.example.ok_http.RedirectInterceptor"
   - "com.example.ok_http.AsyncInputStreamReader"
   - "com.example.ok_http.DataCallback"
