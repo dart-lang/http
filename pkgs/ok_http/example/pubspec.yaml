@@ -23,6 +23,7 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   http_client_conformance_tests:
     path: ../../http_client_conformance_tests/
+  http_profile: ^0.1.0
   integration_test:
     sdk: flutter
   test: ^1.23.1
