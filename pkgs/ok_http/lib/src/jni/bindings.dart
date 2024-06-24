@@ -1087,8 +1087,8 @@ class RequestBody_Companion extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Int64
+                        ffi.Int32,
+                        ffi.Int32
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1211,8 +1211,8 @@ class RequestBody_Companion extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Int64
+                        ffi.Int32,
+                        ffi.Int32
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1275,7 +1275,7 @@ class RequestBody_Companion extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64
+                        ffi.Int32
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1363,7 +1363,7 @@ class RequestBody_Companion extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64
+                        ffi.Int32
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1706,8 +1706,8 @@ class RequestBody extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Int64
+                        ffi.Int32,
+                        ffi.Int32
                       )>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1830,8 +1830,8 @@ class RequestBody extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Int64
+                        ffi.Int32,
+                        ffi.Int32
                       )>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1894,7 +1894,7 @@ class RequestBody extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64
+                        ffi.Int32
                       )>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1982,7 +1982,7 @@ class RequestBody extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64
+                        ffi.Int32
                       )>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -2178,7 +2178,7 @@ class Response_Builder extends jni.JObject {
   static final _code = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -2584,7 +2584,7 @@ class Response extends jni.JObject {
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
+                        ffi.Int32,
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
@@ -3341,8 +3341,8 @@ class ResponseBody_BomAwareReader extends jni.JObject {
                   ffi.VarArgs<
                       (
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Int64
+                        ffi.Int32,
+                        ffi.Int32
                       )>)>>("globalEnv_CallIntMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -4539,7 +4539,7 @@ class OkHttpClient_Builder extends jni.JObject {
   static final _retryOnConnectionFailure = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -4590,7 +4590,7 @@ class OkHttpClient_Builder extends jni.JObject {
   static final _followRedirects = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -4613,7 +4613,7 @@ class OkHttpClient_Builder extends jni.JObject {
   static final _followSslRedirects = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -7571,7 +7571,7 @@ class Headers extends jni.JObject {
   static final _name = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -7593,7 +7593,7 @@ class Headers extends jni.JObject {
   static final _value = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -8188,7 +8188,7 @@ class ConnectionPool extends jni.JObject {
                   jni.JMethodIDPtr,
                   ffi.VarArgs<
                       (
-                        ffi.Int64,
+                        ffi.Int32,
                         ffi.Int64,
                         ffi.Pointer<ffi.Void>
                       )>)>>("globalEnv_NewObject")
@@ -8400,7 +8400,7 @@ class Dispatcher extends jni.JObject {
               jni.JThrowablePtr Function(
                   ffi.Pointer<ffi.Void>,
                   jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallVoidMethod")
+                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallVoidMethod")
       .asFunction<
           jni.JThrowablePtr Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -8448,7 +8448,7 @@ class Dispatcher extends jni.JObject {
               jni.JThrowablePtr Function(
                   ffi.Pointer<ffi.Void>,
                   jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>("globalEnv_CallVoidMethod")
+                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallVoidMethod")
       .asFunction<
           jni.JThrowablePtr Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -9438,6 +9438,174 @@ final class $CacheType extends jni.JObjType<Cache> {
   }
 }
 
+/// from: com.example.ok_http.RedirectReceivedCallback
+class RedirectReceivedCallback extends jni.JObject {
+  @override
+  late final jni.JObjType<RedirectReceivedCallback> $type = type;
+
+  RedirectReceivedCallback.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class =
+      jni.JClass.forName(r"com/example/ok_http/RedirectReceivedCallback");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $RedirectReceivedCallbackType();
+  static final _id_onRedirectReceived = _class.instanceMethodId(
+    r"onRedirectReceived",
+    r"(Lokhttp3/Response;Ljava/lang/String;)V",
+  );
+
+  static final _onRedirectReceived = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onRedirectReceived(okhttp3.Response response, java.lang.String string)
+  void onRedirectReceived(
+    Response response,
+    jni.JString string,
+  ) {
+    _onRedirectReceived(
+            reference.pointer,
+            _id_onRedirectReceived as jni.JMethodIDPtr,
+            response.reference.pointer,
+            string.reference.pointer)
+        .check();
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final Map<int, $RedirectReceivedCallbackImpl> _$impls = {};
+  ReceivePort? _$p;
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r"onRedirectReceived(Lokhttp3/Response;Ljava/lang/String;)V") {
+        _$impls[$p]!.onRedirectReceived(
+          $a[0].castTo(const $ResponseType(), releaseOriginal: true),
+          $a[1].castTo(const jni.JStringType(), releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+    } catch (e) {
+      return ProtectedJniExtensions.newDartException(e.toString());
+    }
+    return jni.nullptr;
+  }
+
+  factory RedirectReceivedCallback.implement(
+    $RedirectReceivedCallbackImpl $impl,
+  ) {
+    final $p = ReceivePort();
+    final $x = RedirectReceivedCallback.fromReference(
+      ProtectedJniExtensions.newPortProxy(
+        r"com.example.ok_http.RedirectReceivedCallback",
+        $p,
+        _$invokePointer,
+      ),
+    ).._$p = $p;
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+    $p.listen(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    return $x;
+  }
+}
+
+abstract interface class $RedirectReceivedCallbackImpl {
+  factory $RedirectReceivedCallbackImpl({
+    required void Function(Response response, jni.JString string)
+        onRedirectReceived,
+  }) = _$RedirectReceivedCallbackImpl;
+
+  void onRedirectReceived(Response response, jni.JString string);
+}
+
+class _$RedirectReceivedCallbackImpl implements $RedirectReceivedCallbackImpl {
+  _$RedirectReceivedCallbackImpl({
+    required void Function(Response response, jni.JString string)
+        onRedirectReceived,
+  }) : _onRedirectReceived = onRedirectReceived;
+
+  final void Function(Response response, jni.JString string)
+      _onRedirectReceived;
+
+  void onRedirectReceived(Response response, jni.JString string) {
+    return _onRedirectReceived(response, string);
+  }
+}
+
+final class $RedirectReceivedCallbackType
+    extends jni.JObjType<RedirectReceivedCallback> {
+  const $RedirectReceivedCallbackType();
+
+  @override
+  String get signature => r"Lcom/example/ok_http/RedirectReceivedCallback;";
+
+  @override
+  RedirectReceivedCallback fromReference(jni.JReference reference) =>
+      RedirectReceivedCallback.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($RedirectReceivedCallbackType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($RedirectReceivedCallbackType) &&
+        other is $RedirectReceivedCallbackType;
+  }
+}
+
 /// from: com.example.ok_http.RedirectInterceptor$Companion
 class RedirectInterceptor_Companion extends jni.JObject {
   @override
@@ -9454,7 +9622,7 @@ class RedirectInterceptor_Companion extends jni.JObject {
   static const type = $RedirectInterceptor_CompanionType();
   static final _id_addRedirectInterceptor = _class.instanceMethodId(
     r"addRedirectInterceptor",
-    r"(Lokhttp3/OkHttpClient$Builder;IZ)Lokhttp3/OkHttpClient$Builder;",
+    r"(Lokhttp3/OkHttpClient$Builder;IZLcom/example/ok_http/RedirectReceivedCallback;)Lokhttp3/OkHttpClient$Builder;",
   );
 
   static final _addRedirectInterceptor = ProtectedJniExtensions.lookup<
@@ -9465,26 +9633,29 @@ class RedirectInterceptor_Companion extends jni.JObject {
                   ffi.VarArgs<
                       (
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Int64
+                        ffi.Int32,
+                        ffi.Uint8,
+                        ffi.Pointer<ffi.Void>
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, int)>();
+              ffi.Pointer<ffi.Void>, int, int, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addRedirectInterceptor(okhttp3.OkHttpClient$Builder builder, int i, boolean z)
+  /// from: public final okhttp3.OkHttpClient$Builder addRedirectInterceptor(okhttp3.OkHttpClient$Builder builder, int i, boolean z, com.example.ok_http.RedirectReceivedCallback redirectReceivedCallback)
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addRedirectInterceptor(
     OkHttpClient_Builder builder,
     int i,
     bool z,
+    RedirectReceivedCallback redirectReceivedCallback,
   ) {
     return _addRedirectInterceptor(
             reference.pointer,
             _id_addRedirectInterceptor as jni.JMethodIDPtr,
             builder.reference.pointer,
             i,
-            z ? 1 : 0)
+            z ? 1 : 0,
+            redirectReceivedCallback.reference.pointer)
         .object(const $OkHttpClient_BuilderType());
   }
 

@@ -261,7 +261,7 @@ void testRequestBody(Client client) {
     });
 
     test('client.send() with persistentConnection', () async {
-      // Do five requests to verify that the connection persistance logic is
+      // Do five requests to verify that the connection persistence logic is
       // correct.
       for (var i = 0; i < 5; ++i) {
         final request = Request('POST', Uri.http(host, ''))

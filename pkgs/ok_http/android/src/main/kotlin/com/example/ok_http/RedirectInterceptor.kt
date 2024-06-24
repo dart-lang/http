@@ -11,7 +11,18 @@ package com.example.ok_http
 
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import java.io.IOException
+
+/**
+ * Callback interface utilized by the [RedirectInterceptor].
+ *
+ * Allows Dart code to operate upon the intermediate redirect responses.
+ */
+interface RedirectReceivedCallback {
+    fun onRedirectReceived(response: Response, location: String)
+}
+
 
 class RedirectInterceptor {
     companion object {
@@ -26,7 +37,10 @@ class RedirectInterceptor {
          * @return OkHttpClient.Builder
          */
         fun addRedirectInterceptor(
-            clientBuilder: OkHttpClient.Builder, maxRedirects: Int, followRedirects: Boolean
+            clientBuilder: OkHttpClient.Builder,
+            maxRedirects: Int,
+            followRedirects: Boolean,
+            redirectCallback: RedirectReceivedCallback,
         ): OkHttpClient.Builder {
             return clientBuilder.addInterceptor(Interceptor { chain ->
                 var req = chain.request()
@@ -39,6 +53,9 @@ class RedirectInterceptor {
                     }
 
                     val location = response.header("location") ?: break
+
+                    redirectCallback.onRedirectReceived(response, location)
+
                     req = req.newBuilder().url(location).build()
                     response.close()
                     response = chain.proceed(req)

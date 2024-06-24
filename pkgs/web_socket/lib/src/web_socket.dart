@@ -169,7 +169,7 @@ abstract interface class WebSocket {
   ///
   /// - A close frame was received from the peer. [CloseReceived.code] and
   ///   [CloseReceived.reason] will be set by the peer.
-  /// - A failure occured (e.g. the peer disconnected). [CloseReceived.code] and
+  /// - A failure occurred (e.g. the peer disconnected). [CloseReceived.code] and
   ///   [CloseReceived.reason] will be a failure code defined by
   ///   (RFC-6455)[https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1]
   ///   (e.g. 1006).
