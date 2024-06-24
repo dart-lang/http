@@ -85,7 +85,7 @@ class OkHttpClient extends BaseClient {
           requestMethod: request.method,
           requestUri: request.url.toString());
 
-  void addProfileError(HttpClientRequestProfile? profile, String error) {
+  void addProfileError(HttpClientRequestProfile? profile, Exception error) {
     if (profile != null) {
       if (profile.requestData.endTime == null) {
         profile.requestData.closeWithError(error.toString());
@@ -129,6 +129,7 @@ class OkHttpClient extends BaseClient {
     var followRedirects = request.followRedirects;
 
     profile?.requestData.bodySink.add(requestBody);
+    var profileRespClosed = false;
 
     final responseCompleter = Completer<StreamedResponse>();
 
@@ -161,9 +162,20 @@ class OkHttpClient extends BaseClient {
     // (Since OkHttp sets a hard limit of 20 redirects.)
     // https://github.com/square/okhttp/blob/54238b4c713080c3fd32fb1a070fb5d6814c9a09/okhttp/src/main/kotlin/okhttp3/internal/http/RetryAndFollowUpInterceptor.kt#L350
     final reqConfiguredClient = bindings.RedirectInterceptor.Companion
-        .addRedirectInterceptor(_client.newBuilder().followRedirects(false),
-            maxRedirects, followRedirects)
-        .build();
+        .addRedirectInterceptor(
+            _client.newBuilder().followRedirects(false),
+            maxRedirects,
+            followRedirects, bindings.RedirectReceivedCallback.implement(
+                bindings.$RedirectReceivedCallbackImpl(
+      onRedirectReceived: (response, newLocation) {
+        profile?.responseData.addRedirect(HttpProfileRedirectData(
+          statusCode: response.code(),
+          method:
+              response.request().method().toDartString(releaseOriginal: true),
+          location: newLocation.toDartString(releaseOriginal: true),
+        ));
+      },
+    ))).build();
 
     // `enqueue()` schedules the request to be executed in the future.
     // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-call/enqueue.html
@@ -205,19 +217,24 @@ class OkHttpClient extends BaseClient {
                       respBodyStreamController.sink.add(data);
                       profile?.responseData.bodySink.add(data);
                     },
-                    onFinished: () async {
+                    onFinished: () {
                       reader.shutdown();
-                      await respBodyStreamController.sink.close();
-                      await profile?.responseData.close();
+                      respBodyStreamController.sink.close();
+                      if (!profileRespClosed) {
+                        profile?.responseData.close();
+                        profileRespClosed = true;
+                      }
                     },
-                    onError: (iOException) async {
-                      respBodyStreamController.sink.addError(
-                          ClientException(iOException.toString(), request.url));
+                    onError: (iOException) {
+                      var exception =
+                          ClientException(iOException.toString(), request.url);
 
-                      addProfileError(profile, iOException.toString());
+                      respBodyStreamController.sink.addError(exception);
+                      addProfileError(profile, exception);
+                      profileRespClosed = true;
 
                       reader.shutdown();
-                      await respBodyStreamController.sink.close();
+                      respBodyStreamController.sink.close();
                     },
                   ),
                 ));
@@ -237,7 +254,7 @@ class OkHttpClient extends BaseClient {
             profile?.responseData
               ?..contentLength = contentLength
               ..headersCommaValues = responseHeaders
-              ..isRedirect = false
+              ..isRedirect = response.isRedirect()
               ..reasonPhrase =
                   response.message().toDartString(releaseOriginal: true)
               ..startTime = DateTime.now()
@@ -248,14 +265,26 @@ class OkHttpClient extends BaseClient {
             if (msg.contains('Redirect limit exceeded')) {
               msg = 'Redirect limit exceeded';
             }
-
-            responseCompleter.completeError(ClientException(msg, request.url));
-            addProfileError(profile, msg);
+            var exception = ClientException(msg, request.url);
+            responseCompleter.completeError(exception);
+            addProfileError(profile, exception);
+            profileRespClosed = true;
           },
         )));
 
     return responseCompleter.future;
   }
+}
+
+/// A test-only class that makes the [HttpClientRequestProfile] data available.
+class OkHttpClientWithProfile extends OkHttpClient {
+  HttpClientRequestProfile? profile;
+
+  @override
+  HttpClientRequestProfile? _createProfile(BaseRequest request) =>
+      profile = super._createProfile(request);
+
+  OkHttpClientWithProfile() : super();
 }
 
 extension on Uint8List {
