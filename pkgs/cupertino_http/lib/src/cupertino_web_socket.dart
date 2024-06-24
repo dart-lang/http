@@ -166,7 +166,7 @@ class CupertinoWebSocket implements WebSocket {
     }
     _task
         .sendMessage(URLSessionWebSocketMessage.fromData(Data.fromList(b)))
-        .then((_) => _, onError: _closeConnectionWithError);
+        .then((value) => value, onError: _closeConnectionWithError);
   }
 
   @override
@@ -176,7 +176,7 @@ class CupertinoWebSocket implements WebSocket {
     }
     _task
         .sendMessage(URLSessionWebSocketMessage.fromString(s))
-        .then((_) => _, onError: _closeConnectionWithError);
+        .then((value) => value, onError: _closeConnectionWithError);
   }
 
   @override
