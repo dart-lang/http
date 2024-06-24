@@ -84,7 +84,7 @@ class CupertinoWebSocket implements WebSocket {
         //    called and `_connectionClosed` is a no-op.
         // 2. we sent a close Frame (through `close()`) and `_connectionClosed`
         //    is a no-op.
-        // 3. an error occured (e.g. network failure) and `_connectionClosed`
+        // 3. an error occurred (e.g. network failure) and `_connectionClosed`
         //    will signal that and close `event`.
         webSocket._connectionClosed(
             1006, Data.fromList('abnormal close'.codeUnits));

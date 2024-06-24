@@ -119,7 +119,7 @@ There are multiple implementations of the `package:http` [`Client`][client] inte
 You can change implementations without changing your application code, except
 for a few lines of [configuration](#2-configure-the-http-client).
 
-Some well supported implementations are:
+Some well-supported implementations are:
 
 | Implementation | Supported Platforms | SDK | Caching | HTTP3/QUIC | Platform Native | 
 | -------------- | ------------------- | ----| ------- | ---------- | --------------- |
@@ -130,7 +130,7 @@ Some well supported implementations are:
 | [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient] | Web | Dart, Flutter | ✅︎ | ✅︎ | ✅︎ |
 
 > [!TIP]
-> If you are writing a Dart package or Flutter pluggin that uses
+> If you are writing a Dart package or Flutter plugin that uses
 > `package:http`, you should not depend on a particular [`Client`][client]
 > implementation. Let the application author decide what implementation is
 > best for their project. You can make that easier by accepting an explicit
@@ -145,7 +145,7 @@ Some well supported implementations are:
 
 ## Configuration
 
-To use a HTTP client implementation other than the default, you must:
+To use an HTTP client implementation other than the default, you must:
 1. Add the HTTP client as a dependency.
 2. Configure the HTTP client.
 3. Connect the HTTP client to the code that uses it.
@@ -204,7 +204,7 @@ Client httpClient() {
 #### Supporting browser and native
 
 If your application can be run in the browser and natively, you must put your
-browser and native configurations in seperate files and import the correct file
+browser and native configurations in separate files and import the correct file
 based on the platform.
 
 For example:
@@ -250,7 +250,7 @@ void main() {
 ```
 
 In Flutter, you can use a one of many
-[state mangement approaches][flutterstatemanagement].
+[state management approaches][flutterstatemanagement].
 
 If you depend on code that uses top-level functions (e.g. `http.post`) or
 calls the [`Client()`][clientconstructor] constructor, then you can use
