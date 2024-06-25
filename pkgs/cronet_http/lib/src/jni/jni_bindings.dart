@@ -294,7 +294,7 @@ class UrlRequestCallbackProxy_UrlRequestCallbackInterface extends jni.JObject {
         return jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e.toString());
+      return ProtectedJniExtensions.newDartException(e);
     }
     return jni.nullptr;
   }
@@ -749,7 +749,7 @@ class URL extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
+                        $Int32,
                         ffi.Pointer<ffi.Void>
                       )>)>>("globalEnv_NewObject")
       .asFunction<
@@ -831,7 +831,7 @@ class URL extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
+                        $Int32,
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>
                       )>)>>("globalEnv_NewObject")
@@ -1542,10 +1542,9 @@ class Executors extends jni.JObject {
   );
 
   static final _newFixedThreadPool = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr, ffi.VarArgs<(ffi.Int32,)>)>>(
-          "globalEnv_CallStaticObjectMethod")
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -1566,10 +1565,9 @@ class Executors extends jni.JObject {
   );
 
   static final _newWorkStealingPool = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr, ffi.VarArgs<(ffi.Int32,)>)>>(
-          "globalEnv_CallStaticObjectMethod")
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -1619,7 +1617,7 @@ class Executors extends jni.JObject {
                   jni.JniResult Function(
                       ffi.Pointer<ffi.Void>,
                       jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int32, ffi.Pointer<ffi.Void>)>)>>(
+                      ffi.VarArgs<($Int32, ffi.Pointer<ffi.Void>)>)>>(
           "globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
@@ -1806,10 +1804,9 @@ class Executors extends jni.JObject {
   );
 
   static final _newScheduledThreadPool = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr, ffi.VarArgs<(ffi.Int32,)>)>>(
-          "globalEnv_CallStaticObjectMethod")
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -1834,7 +1831,7 @@ class Executors extends jni.JObject {
                   jni.JniResult Function(
                       ffi.Pointer<ffi.Void>,
                       jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int32, ffi.Pointer<ffi.Void>)>)>>(
+                      ffi.VarArgs<($Int32, ffi.Pointer<ffi.Void>)>)>>(
           "globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
@@ -2457,7 +2454,7 @@ class CronetEngine_Builder extends jni.JObject {
   static final _enableQuic = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -2480,7 +2477,7 @@ class CronetEngine_Builder extends jni.JObject {
   static final _enableHttp2 = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -2503,7 +2500,7 @@ class CronetEngine_Builder extends jni.JObject {
   static final _enableSdch = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -2526,7 +2523,7 @@ class CronetEngine_Builder extends jni.JObject {
   static final _enableBrotli = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -2549,7 +2546,7 @@ class CronetEngine_Builder extends jni.JObject {
   static final _enableHttpCache = ProtectedJniExtensions.lookup<
               ffi.NativeFunction<
                   jni.JniResult Function(ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr, ffi.VarArgs<(ffi.Int32, ffi.Int64)>)>>(
+                      jni.JMethodIDPtr, ffi.VarArgs<($Int32, ffi.Int64)>)>>(
           "globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
@@ -2572,16 +2569,12 @@ class CronetEngine_Builder extends jni.JObject {
   );
 
   static final _addQuicHint = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
-                      (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
-                        ffi.Int32
-                      )>)>>("globalEnv_CallObjectMethod")
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32, $Int32)>)>>(
+          "globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, int)>();
@@ -2612,7 +2605,7 @@ class CronetEngine_Builder extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Uint8,
+                        $Int32,
                         ffi.Pointer<ffi.Void>
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
@@ -2654,7 +2647,7 @@ class CronetEngine_Builder extends jni.JObject {
                   jni.JniResult Function(
                       ffi.Pointer<ffi.Void>,
                       jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
+                      ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
           .asFunction<
               jni.JniResult Function(
                   ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -2818,7 +2811,7 @@ class CronetEngine extends jni.JObject {
                   jni.JThrowablePtr Function(
                       ffi.Pointer<ffi.Void>,
                       jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, ffi.Uint8)>)>>(
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
           "globalEnv_CallVoidMethod")
       .asFunction<
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -3172,16 +3165,12 @@ class UploadDataProviders extends jni.JObject {
   );
 
   static final _create3 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
-                      (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
-                        ffi.Int32
-                      )>)>>("globalEnv_CallStaticObjectMethod")
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32, $Int32)>)>>(
+          "globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, int)>();
@@ -3393,7 +3382,7 @@ class UrlRequest_Builder extends jni.JObject {
   static final _setPriority = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -3927,7 +3916,7 @@ class UrlRequest_StatusListener extends jni.JObject {
               jni.JThrowablePtr Function(
                   ffi.Pointer<ffi.Void>,
                   jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallVoidMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallVoidMethod")
       .asFunction<
           jni.JThrowablePtr Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();

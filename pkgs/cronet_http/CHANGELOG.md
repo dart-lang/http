@@ -1,3 +1,7 @@
+## 1.3.2-wip
+
+* Upgrade `package:jni` and `package:0.9.3` to fix method calling bugs.
+
 ## 1.3.1
 
 * Add relevant rules with the ProGuard to avoid runtime exceptions.
