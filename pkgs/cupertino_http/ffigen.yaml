@@ -5,7 +5,9 @@ description: |
 
   Regenerate bindings with `flutter packages pub run ffigen --config ffigen.yaml`.
 language: 'objc'
-output: 'lib/src/native_cupertino_bindings.dart'
+output:
+  bindings: 'lib/src/native_cupertino_bindings.dart'
+  objc-bindings: 'src/native_cupertino_bindings.m'
 headers:
   entry-points:
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSArray.h'

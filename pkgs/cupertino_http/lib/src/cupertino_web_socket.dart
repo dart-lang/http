@@ -68,7 +68,7 @@ class CupertinoWebSocket implements WebSocket {
       readyCompleter.complete(webSocket);
     }, onWebSocketTaskClosed: (session, task, closeCode, reason) {
       assert(readyCompleter.isCompleted);
-      webSocket._connectionClosed(closeCode, reason);
+      webSocket._connectionClosed(closeCode!, reason);
     }, onComplete: (session, task, error) {
       if (!readyCompleter.isCompleted) {
         // `onWebSocketTaskOpened should have been called and completed
@@ -90,7 +90,9 @@ class CupertinoWebSocket implements WebSocket {
         // 3. an error occured (e.g. network failure) and `_connectionClosed`
         //    will signal that and close `event`.
         webSocket._connectionClosed(
-            1006, 'abnormal close'.codeUnits.toNSData());
+            NSURLSessionWebSocketCloseCode
+                .NSURLSessionWebSocketCloseCodeAbnormalClosure,
+            'abnormal close'.codeUnits.toNSData());
       }
     });
 
@@ -113,10 +115,12 @@ class CupertinoWebSocket implements WebSocket {
 
     late WebSocketEvent event;
     switch (value.type) {
-      case URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeString:
+      case NSURLSessionWebSocketMessageType
+            .NSURLSessionWebSocketMessageTypeString:
         event = TextDataReceived(value.string!);
         break;
-      case URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeData:
+      case NSURLSessionWebSocketMessageType
+            .NSURLSessionWebSocketMessageTypeData:
         event = BinaryDataReceived(value.data!.toList());
         break;
     }
@@ -148,18 +152,21 @@ class CupertinoWebSocket implements WebSocket {
         _ => (1006, e.localizedDescription.toString())
       };
       _task.cancel();
-      _connectionClosed(code, reason.codeUnits.toNSData());
+      _connectionClosed(
+          NSURLSessionWebSocketCloseCode.fromValue(code), // XXX incorrect!
+          reason.codeUnits.toNSData());
     } else {
       throw StateError('unexpected error: $e');
     }
   }
 
-  void _connectionClosed(int? closeCode, NSData? reason) {
+  void _connectionClosed(
+      NSURLSessionWebSocketCloseCode closeCode, NSData? reason) {
     if (!_events.isClosed) {
       final closeReason = reason == null ? '' : utf8.decode(reason.toList());
 
       _events
-        ..add(CloseReceived(closeCode, closeReason))
+        ..add(CloseReceived(closeCode.value, closeReason))
         ..close();
     }
   }
@@ -203,7 +210,9 @@ class CupertinoWebSocket implements WebSocket {
       unawaited(_events.close());
       if (code != null) {
         reason = reason ?? '';
-        _task.cancelWithCloseCode(code, utf8.encode(reason).toNSData());
+        _task.cancelWithCloseCode(
+            NSURLSessionWebSocketCloseCode.fromValue(code), // XXX incorrect!
+            utf8.encode(reason).toNSData());
       } else {
         _task.cancel();
       }

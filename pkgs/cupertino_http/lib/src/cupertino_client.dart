@@ -223,13 +223,13 @@ class CupertinoClient extends BaseClient {
     return null;
   }
 
-  static URLSessionResponseDisposition _onResponse(
+  static NSURLSessionResponseDisposition _onResponse(
       URLSession session, URLSessionTask task, URLResponse response) {
     final taskTracker = _tracker(task);
     taskTracker.responseCompleter.complete(response);
     unawaited(taskTracker.profile?.requestData.close());
 
-    return URLSessionResponseDisposition.urlSessionResponseAllow;
+    return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
   }
 
   /// A [Client] with the default configuration.

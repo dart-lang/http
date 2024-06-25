@@ -36,6 +36,17 @@ import 'package:objective_c/objective_c.dart' as objc;
 import 'native_cupertino_bindings.dart' as ncb;
 import 'utils.dart';
 
+export 'native_cupertino_bindings.dart'
+    show
+        NSHTTPCookieAcceptPolicy,
+        NSURLRequestCachePolicy,
+        NSURLRequestNetworkServiceType,
+        NSURLSessionMultipathServiceType,
+        NSURLSessionResponseDisposition,
+        NSURLSessionTaskState,
+        NSURLSessionWebSocketCloseCode,
+        NSURLSessionWebSocketMessageType;
+
 abstract class _ObjectHolder<T extends objc.NSObject> {
   final T _nsObject;
 
@@ -51,72 +62,6 @@ abstract class _ObjectHolder<T extends objc.NSObject> {
 
   @override
   int get hashCode => _nsObject.hashCode;
-}
-
-/// Settings for controlling whether cookies will be accepted.
-///
-/// See [HTTPCookieAcceptPolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408933-httpcookieacceptpolicy).
-enum HTTPCookieAcceptPolicy {
-  httpCookieAcceptPolicyAlways,
-  httpCookieAcceptPolicyNever,
-  httpCookieAcceptPolicyOnlyFromMainDocumentDomain,
-}
-
-/// Controls how response data is cached.
-///
-/// See [URLRequestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequestcachepolicy).
-enum URLRequestCachePolicy {
-  useProtocolCachePolicy,
-  reloadIgnoringLocalCacheData,
-  returnCacheDataElseLoad,
-  returnCacheDataDontLoad,
-  reloadIgnoringLocalAndRemoteCacheData,
-  reloadRevalidatingCacheData,
-}
-
-// Controls how multipath TCP should be used.
-//
-// See [NSURLSessionMultipathServiceType](https://developer.apple.com/documentation/foundation/nsurlsessionmultipathservicetype).
-enum URLSessionMultipathServiceType {
-  multipathServiceTypeNone,
-  multipathServiceTypeHandover,
-  multipathServiceTypeInteractive,
-  multipathServiceTypeAggregate,
-}
-
-/// Controls how [URLSessionTask] execute will proceed after the response is
-/// received.
-///
-/// See [NSURLSessionResponseDisposition](https://developer.apple.com/documentation/foundation/nsurlsessionresponsedisposition).
-enum URLSessionResponseDisposition {
-  urlSessionResponseCancel,
-  urlSessionResponseAllow,
-  urlSessionResponseBecomeDownload,
-  urlSessionResponseBecomeStream
-}
-
-/// Provides in indication to the operating system on what type of requests
-/// are being sent.
-///
-/// See [NSURLRequestNetworkServiceType](https://developer.apple.com/documentation/foundation/nsurlrequestnetworkservicetype).
-enum URLRequestNetworkService {
-  networkServiceTypeDefault,
-  networkServiceTypeVoIP,
-  networkServiceTypeVideo,
-  networkServiceTypeBackground,
-  networkServiceTypeVoice,
-  networkServiceTypeResponsiveData,
-  networkServiceTypeAVStreaming,
-  networkServiceTypeResponsiveAV,
-  networkServiceTypeCallSignaling
-}
-
-/// The type of a WebSocket message i.e. text or data.
-///
-/// See [NSURLSessionWebSocketMessageType](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessagetype)
-enum URLSessionWebSocketMessageType {
-  urlSessionWebSocketMessageTypeData,
-  urlSessionWebSocketMessageTypeString,
 }
 
 ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
@@ -298,10 +243,10 @@ class URLSessionConfiguration
   /// What policy to use when deciding whether to accept cookies.
   ///
   /// See [NSURLSessionConfiguration.HTTPCookieAcceptPolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408933-httpcookieacceptpolicy).
-  HTTPCookieAcceptPolicy get httpCookieAcceptPolicy =>
-      HTTPCookieAcceptPolicy.values[_nsObject.HTTPCookieAcceptPolicy];
-  set httpCookieAcceptPolicy(HTTPCookieAcceptPolicy value) =>
-      _nsObject.HTTPCookieAcceptPolicy = value.index;
+  ncb.NSHTTPCookieAcceptPolicy get httpCookieAcceptPolicy =>
+      _nsObject.HTTPCookieAcceptPolicy;
+  set httpCookieAcceptPolicy(ncb.NSHTTPCookieAcceptPolicy value) =>
+      _nsObject.HTTPCookieAcceptPolicy = value;
 
   /// The maximum number of connections that a URLSession can have open to the
   /// same host.
@@ -329,27 +274,27 @@ class URLSessionConfiguration
   /// What type of Multipath TCP connections to use.
   ///
   /// See [NSURLSessionConfiguration.multipathServiceType](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/2875967-multipathservicetype)
-  URLSessionMultipathServiceType get multipathServiceType =>
-      URLSessionMultipathServiceType.values[_nsObject.multipathServiceType];
-  set multipathServiceType(URLSessionMultipathServiceType value) =>
-      _nsObject.multipathServiceType = value.index;
+  ncb.NSURLSessionMultipathServiceType get multipathServiceType =>
+      _nsObject.multipathServiceType;
+  set multipathServiceType(ncb.NSURLSessionMultipathServiceType value) =>
+      _nsObject.multipathServiceType = value;
 
   /// Provides in indication to the operating system on what type of requests
   /// are being sent.
   ///
   /// See [NSURLSessionConfiguration.networkServiceType](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411606-networkservicetype).
-  URLRequestNetworkService get networkServiceType =>
-      URLRequestNetworkService.values[_nsObject.networkServiceType];
-  set networkServiceType(URLRequestNetworkService value) =>
-      _nsObject.networkServiceType = value.index;
+  ncb.NSURLRequestNetworkServiceType get networkServiceType =>
+      _nsObject.networkServiceType;
+  set networkServiceType(ncb.NSURLRequestNetworkServiceType value) =>
+      _nsObject.networkServiceType = value;
 
   /// Controls how to deal with response caching.
   ///
   /// See [NSURLSessionConfiguration.requestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411655-requestcachepolicy)
-  URLRequestCachePolicy get requestCachePolicy =>
-      URLRequestCachePolicy.values[_nsObject.requestCachePolicy];
-  set requestCachePolicy(URLRequestCachePolicy value) =>
-      _nsObject.requestCachePolicy = value.index;
+  ncb.NSURLRequestCachePolicy get requestCachePolicy =>
+      _nsObject.requestCachePolicy;
+  set requestCachePolicy(ncb.NSURLRequestCachePolicy value) =>
+      _nsObject.requestCachePolicy = value;
 
   /// Whether the app should be resumed when background tasks complete.
   ///
@@ -468,16 +413,6 @@ class HTTPURLResponse extends URLResponse {
       ']';
 }
 
-/// The possible states of a [URLSessionTask].
-///
-/// See [NSURLSessionTaskState](https://developer.apple.com/documentation/foundation/nsurlsessiontaskstate)
-enum URLSessionTaskState {
-  urlSessionTaskStateRunning,
-  urlSessionTaskStateSuspended,
-  urlSessionTaskStateCanceling,
-  urlSessionTaskStateCompleted,
-}
-
 /// A WebSocket message.
 ///
 /// See [NSURLSessionWebSocketMessage](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage)
@@ -516,8 +451,7 @@ class URLSessionWebSocketMessage
   /// The type of the WebSocket message.
   ///
   /// See [NSURLSessionWebSocketMessage.type](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181195-type)
-  URLSessionWebSocketMessageType get type =>
-      URLSessionWebSocketMessageType.values[_nsObject.type];
+  ncb.NSURLSessionWebSocketMessageType get type => _nsObject.type;
 
   @override
   String toString() =>
@@ -554,7 +488,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   /// The current state of the task.
   ///
   /// See [NSURLSessionTask.state](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1409888-state)
-  URLSessionTaskState get state => URLSessionTaskState.values[_nsObject.state];
+  ncb.NSURLSessionTaskState get state => _nsObject.state;
 
   /// The relative priority [0, 1] that the host should use to handle the
   /// request.
@@ -702,7 +636,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
   /// The close code set when the WebSocket connection is closed.
   ///
   /// See [NSURLSessionWebSocketTask.closeCode](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181201-closecode)
-  int get closeCode => _urlSessionWebSocketTask.closeCode;
+  ncb.NSURLSessionWebSocketCloseCode get closeCode =>
+      _urlSessionWebSocketTask.closeCode;
 
   /// The close reason set when the WebSocket connection is closed.
   /// If there is no close reason available this property will be null.
@@ -780,7 +715,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
   /// Sends close frame with the given code and optional reason.
   ///
   /// See [NSURLSessionWebSocketTask.cancelWithCloseCode:reason:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181200-cancelwithclosecode)
-  void cancelWithCloseCode(int closeCode, objc.NSData? reason) {
+  void cancelWithCloseCode(
+      ncb.NSURLSessionWebSocketCloseCode closeCode, objc.NSData? reason) {
     _urlSessionWebSocketTask.cancelWithCloseCode_reason_(closeCode, reason);
   }
 
@@ -814,8 +750,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// Controls how to deal with caching for the request.
   ///
   /// See [NSURLSession.cachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequest/1407944-cachepolicy)
-  URLRequestCachePolicy get cachePolicy =>
-      URLRequestCachePolicy.values[_nsObject.cachePolicy];
+  ncb.NSURLRequestCachePolicy get cachePolicy => _nsObject.cachePolicy;
 
   /// The body of the request.
   ///
@@ -878,8 +813,8 @@ class MutableURLRequest extends URLRequest {
     return MutableURLRequest._(ncb.NSMutableURLRequest.requestWithURL_(url));
   }
 
-  set cachePolicy(URLRequestCachePolicy value) =>
-      _mutableUrlRequest.cachePolicy = value.index;
+  set cachePolicy(ncb.NSURLRequestCachePolicy value) =>
+      _mutableUrlRequest.cachePolicy;
 
   set httpBody(objc.NSData? data) {
     _mutableUrlRequest.HTTPBody = data;
@@ -934,7 +869,7 @@ void _setupDelegation(
   URLRequest? Function(URLSession session, URLSessionTask task,
           HTTPURLResponse response, URLRequest newRequest)?
       onRedirect,
-  URLSessionResponseDisposition Function(
+  ncb.NSURLSessionResponseDisposition Function(
           URLSession session, URLSessionTask task, URLResponse response)?
       onResponse,
   void Function(URLSession session, URLSessionTask task, objc.NSData error)?
@@ -946,8 +881,8 @@ void _setupDelegation(
   void Function(
           URLSession session, URLSessionWebSocketTask task, String? protocol)?
       onWebSocketTaskOpened,
-  void Function(URLSession session, URLSessionWebSocketTask task, int closeCode,
-          objc.NSData? reason)?
+  void Function(URLSession session, URLSessionWebSocketTask task,
+          ncb.NSURLSessionWebSocketCloseCode closeCode, objc.NSData? reason)?
       onWebSocketTaskClosed,
 }) {
   final responsePort = ReceivePort();
@@ -990,11 +925,12 @@ void _setupDelegation(
         final forwardedResponse =
             ncb.CUPHTTPForwardedResponse.castFrom(forwardedDelegate);
         var disposition =
-            URLSessionResponseDisposition.urlSessionResponseCancel;
+            ncb.NSURLSessionResponseDisposition.NSURLSessionResponseCancel;
 
         try {
           if (onResponse == null) {
-            disposition = URLSessionResponseDisposition.urlSessionResponseAllow;
+            disposition =
+                ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
             break;
           }
           final response =
@@ -1008,7 +944,7 @@ void _setupDelegation(
             // with it.
           }
         } finally {
-          forwardedResponse.finishWithDisposition_(disposition.index);
+          forwardedResponse.finishWithDisposition_(disposition);
         }
         break;
       case ncb.MessageType.DataMessage:
@@ -1137,7 +1073,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
   final URLRequest? Function(URLSession session, URLSessionTask task,
       HTTPURLResponse response, URLRequest newRequest)? _onRedirect;
-  final URLSessionResponseDisposition Function(
+  final ncb.NSURLSessionResponseDisposition Function(
           URLSession session, URLSessionTask task, URLResponse response)?
       _onResponse;
   final void Function(
@@ -1150,22 +1086,50 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   final void Function(
           URLSession session, URLSessionWebSocketTask task, String? protocol)?
       _onWebSocketTaskOpened;
-  final void Function(URLSession session, URLSessionWebSocketTask task,
-      int closeCode, objc.NSData? reason)? _onWebSocketTaskClosed;
+  final void Function(
+      URLSession session,
+      URLSessionWebSocketTask task,
+      ncb.NSURLSessionWebSocketCloseCode closeCode,
+      objc.NSData? reason)? _onWebSocketTaskClosed;
 
   static objc.ObjCObjectBase delegate() {
     print('delegate()');
+    final protoBuilder = objc.ObjCProtocolBuilder()
+      ..implementMethodAsListener(
+          ncb.NSURLSessionDataDelegate
+              .URLSession_dataTask_didReceiveResponse_completionHandler_,
+          (ncb.NSURLSession session,
+              ncb.NSURLSessionDataTask dataTask,
+              ncb.NSURLResponse response,
+              ncb.ObjCBlock_ffiVoid_NSURLSessionResponseDisposition
+                  completetionHandler) {
+        print('response');
+        completetionHandler.call(
+            ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
+      });
+    return protoBuilder.build();
+  }
+
+/*
+  static objc.ObjCObjectBase delegate() {
+    print('delegate()');
     final protoBuilder = objc.ObjCProtocolBuilder();
+    /*
     final redirect =
         ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .listener((_, session, task, response, request, completionHandler) {
       print('redirect');
+      session.release();
       completionHandler.call(request);
-    });
+    });*/
     ncb.NSURLSessionTaskDelegate.addToBuilder(protoBuilder,
         URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
-            redirect);
+            (session, task, response, request, completionHandler) {
+      print('redirect');
+      completionHandler.call(request);
+    });
 
+/*
     final response =
         ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
             .listener((_, session, dataTask, response, completetionHandler) {
@@ -1184,21 +1148,30 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             .listener((_, session, task, error) {
       print('complete');
     });
+    */
+
     ncb.NSURLSessionDataDelegate.addToBuilder(protoBuilder,
-        URLSession_dataTask_didReceiveData_: data,
-        URLSession_task_didCompleteWithError_: complete,
-        URLSession_dataTask_didReceiveResponse_completionHandler_: response);
+        URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
+      print('data');
+    }, URLSession_task_didCompleteWithError_: (session, task, error) {
+      print('complete');
+    }, URLSession_dataTask_didReceiveResponse_completionHandler_:
+            (session, dataTask, response, completetionHandler) {
+      print('response');
+      completetionHandler
+          .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
+    });
     print('building delegate');
     return protoBuilder.build();
   }
-
+*/
   URLSession._(
     super.c, {
     required bool isBackground,
     URLRequest? Function(URLSession session, URLSessionTask task,
             HTTPURLResponse response, URLRequest newRequest)?
         onRedirect,
-    URLSessionResponseDisposition Function(
+    ncb.NSURLSessionResponseDisposition Function(
             URLSession session, URLSessionTask task, URLResponse response)?
         onResponse,
     void Function(URLSession session, URLSessionTask task, objc.NSData error)?
@@ -1211,7 +1184,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             URLSession session, URLSessionWebSocketTask task, String? protocol)?
         onWebSocketTaskOpened,
     void Function(URLSession session, URLSessionWebSocketTask task,
-            int closeCode, objc.NSData? reason)?
+            ncb.NSURLSessionWebSocketCloseCode closeCode, objc.NSData? reason)?
         onWebSocketTaskClosed,
   })  : _isBackground = isBackground,
         _onRedirect = onRedirect,
@@ -1274,7 +1247,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     URLRequest? Function(URLSession session, URLSessionTask task,
             HTTPURLResponse response, URLRequest newRequest)?
         onRedirect,
-    URLSessionResponseDisposition Function(
+    ncb.NSURLSessionResponseDisposition Function(
             URLSession session, URLSessionTask task, URLResponse response)?
         onResponse,
     void Function(URLSession session, URLSessionTask task, objc.NSData data)?
@@ -1287,7 +1260,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             URLSession session, URLSessionWebSocketTask task, String? protocol)?
         onWebSocketTaskOpened,
     void Function(URLSession session, URLSessionWebSocketTask task,
-            int? closeCode, objc.NSData? reason)?
+            ncb.NSURLSessionWebSocketCloseCode? closeCode, objc.NSData? reason)?
         onWebSocketTaskClosed,
   }) {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
