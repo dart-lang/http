@@ -1,6 +1,8 @@
 ## 1.5.1-wip
 
 * Allow `1000` as a `code` argument in `CupertinoWebSocket.close`.
+* Fix a bug where the `Content-Length` header would not be set under certain
+  circumstances.
 
 ## 1.5.0
 
