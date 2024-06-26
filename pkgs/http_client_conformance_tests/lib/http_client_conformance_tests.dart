@@ -7,6 +7,7 @@ import 'package:http/http.dart';
 import 'src/close_tests.dart';
 import 'src/compressed_response_body_tests.dart';
 import 'src/isolate_test.dart';
+import 'src/multipart_tests.dart';
 import 'src/multiple_clients_tests.dart';
 import 'src/redirect_tests.dart';
 import 'src/request_body_streamed_tests.dart';
@@ -25,6 +26,7 @@ export 'src/close_tests.dart' show testClose;
 export 'src/compressed_response_body_tests.dart'
     show testCompressedResponseBody;
 export 'src/isolate_test.dart' show testIsolate;
+export 'src/multipart_tests.dart' show testMultipartRequests;
 export 'src/multiple_clients_tests.dart' show testMultipleClients;
 export 'src/redirect_tests.dart' show testRedirect;
 export 'src/request_body_streamed_tests.dart' show testRequestBodyStreamed;
@@ -97,6 +99,7 @@ void testAll(
   testServerErrors(clientFactory());
   testCompressedResponseBody(clientFactory());
   testMultipleClients(clientFactory);
+  testMultipartRequests(clientFactory());
   testClose(clientFactory);
   testIsolate(clientFactory, canWorkInIsolates: canWorkInIsolates);
   testRequestCookies(clientFactory(),
