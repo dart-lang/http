@@ -69,6 +69,9 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [supportsFoldedHeaders] is `false` then the tests that assume that the
 /// [Client] can parse folded headers will be skipped.
 ///
+/// If [supportsMultipartRequest] is `false` then tests that assume that
+/// multipart requests can be sent will be skipped.
+///
 /// The tests are run against a series of HTTP servers that are started by the
 /// tests. If the tests are run in the browser, then the test servers are
 /// started in another process. Otherwise, the test servers are run in-process.
@@ -82,6 +85,7 @@ void testAll(
   bool supportsFoldedHeaders = true,
   bool canSendCookieHeaders = false,
   bool canReceiveSetCookieHeaders = false,
+  bool supportsMultipartRequest = true,
 }) {
   testRequestBody(clientFactory());
   testRequestBodyStreamed(clientFactory(),
@@ -99,7 +103,8 @@ void testAll(
   testServerErrors(clientFactory());
   testCompressedResponseBody(clientFactory());
   testMultipleClients(clientFactory);
-  testMultipartRequests(clientFactory());
+  testMultipartRequests(clientFactory(),
+      supportsMultipartRequest: supportsMultipartRequest);
   testClose(clientFactory);
   testIsolate(clientFactory, canWorkInIsolates: canWorkInIsolates);
   testRequestCookies(clientFactory(),

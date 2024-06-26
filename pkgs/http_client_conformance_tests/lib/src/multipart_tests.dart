@@ -11,7 +11,11 @@ import 'multipart_server_vm.dart'
     if (dart.library.js_interop) 'multipart_server_web.dart';
 
 /// Tests that the [Client] correctly sends [MultipartRequest].
-void testMultipartRequests(Client client) async {
+///
+/// If [supportsMultipartRequest] is `false` then tests that assume that
+/// multipart requests can be sent will be skipped.
+void testMultipartRequests(Client client,
+    {required bool supportsMultipartRequest}) async {
   group('multipart requests', () {
     late final String host;
     late final StreamChannel<Object?> httpServerChannel;
@@ -40,5 +44,8 @@ content-disposition: form-data; name="file1"\r
 \r
 Hello World'''));
     });
-  });
+  },
+      skip: supportsMultipartRequest
+          ? false
+          : 'does not support multipart requests');
 }

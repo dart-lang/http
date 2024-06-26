@@ -14,5 +14,6 @@ void main() {
       redirectAlwaysAllowed: true,
       canStreamRequestBody: false,
       canStreamResponseBody: false,
-      canWorkInIsolates: false);
+      canWorkInIsolates: false,
+      supportsMultipartRequest: false);
 }
