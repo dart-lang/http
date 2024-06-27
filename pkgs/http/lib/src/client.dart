@@ -202,34 +202,26 @@ Client? get zoneClient {
 /// HTTP requests made using `dart:io` or `dart:html` APIs,
 /// or using specifically instantiated client implementations, are not affected.
 ///
-/// When used in the context of Flutter, [runWithClient] should be called before
-/// [`WidgetsFlutterBinding.ensureInitialized`](https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html)
-/// because Flutter runs in whatever [Zone] was current at the time that the
-/// bindings were initialized.
-///
-/// [`runApp`](https://api.flutter.dev/flutter/widgets/runApp.html) calls
-/// [`WidgetsFlutterBinding.ensureInitialized`](https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html)
-/// so the easiest approach is to call that in [body]:
-/// ```
-/// void main() {
-///  var clientFactory = Client.new; // Constructs the default client.
-///  if (Platform.isAndroid) {
-///     clientFactory = MyAndroidHttpClient.new;
-///  }
-///  runWithClient(() => runApp(const MyApp()), clientFactory);
-/// }
-/// ```
-///
 /// If [runWithClient] is used and the environment defines
 /// `no_default_http_client=true` then generated binaries may be smaller e.g.
 /// ```shell
-/// $ flutter build appbundle --dart-define=no_default_http_client=true ...
 /// $ dart compile exe --define=no_default_http_client=true ...
 /// ```
 ///
 /// If `no_default_http_client=true` is set then any call to the [Client]
 /// factory (i.e. `Client()`) outside of the [Zone] created by [runWithClient]
 /// will throw [StateError].
+///
+/// > [!IMPORTANT]
+/// > Flutter does not guarantee that callbacks are executed in a particular
+/// > [Zone].
+/// >
+/// > Instead of using [runWithClient], Flutter developers can use a framework,
+/// > such as [`package:provider`](https://pub.dev/packages/provider), to make
+/// > a [Client] available throughout their applications.
+/// >
+/// > See the
+/// > [Flutter Http Example](https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example).
 R runWithClient<R>(R Function() body, Client Function() clientFactory,
         {ZoneSpecification? zoneSpecification}) =>
     runZoned(body,
