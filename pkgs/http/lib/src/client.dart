@@ -198,6 +198,10 @@ Client? get zoneClient {
 /// and the convenience HTTP functions (e.g. [http.get]). If [clientFactory]
 /// returns `Client()` then the default [Client] is used.
 ///
+/// Only fresh `Client` instances using the default constructor are impacted.
+/// HTTP requests made using `dart:io` or `dart:html` APIs,
+/// or using specifically instantiated client implementations, are not affected.
+///
 /// When used in the context of Flutter, [runWithClient] should be called before
 /// [`WidgetsFlutterBinding.ensureInitialized`](https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html)
 /// because Flutter runs in whatever [Zone] was current at the time that the
