@@ -249,15 +249,22 @@ void main() {
 }
 ```
 
-In Flutter, you can use a one of many
+When using the Flutter SDK, you can use a one of many
 [state management approaches][flutterstatemanagement].
 
-If you depend on code that uses top-level functions (e.g. `http.post`) or
-calls the [`Client()`][clientconstructor] constructor, then you can use
-[`runWithClient`][runwithclient] to ensure that the correct
-`Client` is used. When an [Isolate][isolate] is spawned, it does not inherit
-any variables from the calling Zone, so `runWithClient` needs to be used in
-each Isolate that uses `package:http`.
+> [!TIP]
+> [The Flutter HTTP example application][flutterhttpexample] demonstrates
+> how to make the configured [`Client`][client] available using
+> [`package:provider`][provider] and
+> [`package:http_image_provider`][http_image_provider].
+
+When using the Dart SDK, you can use [`runWithClient`][runwithclient] to
+ensure that the correct [`Client`][client] is used when explicit argument
+passing is not an option. For example, if you depend on code that uses
+top-level functions (e.g. `http.post`) or calls the
+[`Client()`][clientconstructor] constructor. When an [Isolate][isolate] is
+spawned, it does not inherit any variables from the calling Zone, so
+`runWithClient` needs to be used in each Isolate that uses `package:http`.
 
 You can ensure that only the `Client` that you have explicitly configured is
 used by defining `no_default_http_client=true` in the environment. This will
@@ -268,11 +275,6 @@ a reduced application size.
 $ flutter build appbundle --dart-define=no_default_http_client=true ...
 $ dart compile exe --define=no_default_http_client=true ...
 ```
-
-> [!TIP]
-> [The Flutter HTTP example application][flutterhttpexample] demonstrates
-> how to make the configured [`Client`][client] available using
-> [`package:provider`][provider] and [`package:http_image_provider`][http_image_provider].
 
 [browserclient]: https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html
 [client]: https://pub.dev/documentation/http/latest/http/Client-class.html
