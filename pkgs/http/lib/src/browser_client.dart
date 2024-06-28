@@ -62,16 +62,16 @@ class BrowserClient extends BaseClient {
       ..open(request.method, '${request.url}', true)
       ..responseType = 'arraybuffer'
       ..withCredentials = withCredentials;
-    for (var header in request.headers.entries) {
-      xhr.setRequestHeader(header.key, header.value);
+    for (var MapEntry(key: headerName, :value) in request.headers.entries) {
+      xhr.setRequestHeader(headerName, value);
     }
 
     var completer = Completer<StreamedResponse>();
 
     unawaited(xhr.onLoad.first.then((_) {
-      if (xhr.responseHeaders['content-length'] case final contentLengthHeader
-          when contentLengthHeader != null &&
-              !_digitRegex.hasMatch(contentLengthHeader)) {
+      var responseHeaders = xhr.responseHeaders;
+      if (responseHeaders['content-length'] case final contentLengthHeader?
+          when !_digitRegex.hasMatch(contentLengthHeader)) {
         completer.completeError(ClientException(
           'Invalid content-length header [$contentLengthHeader].',
           request.url,
@@ -82,20 +82,23 @@ class BrowserClient extends BaseClient {
       var responseUrl = xhr.responseURL;
       var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : request.url;
       completer.complete(StreamedResponseV2(
-          ByteStream.fromBytes(body), xhr.status,
-          contentLength: body.length,
-          request: request,
-          url: url,
-          headers: xhr.responseHeaders,
-          reasonPhrase: xhr.statusText));
+        ByteStream.fromBytes(body),
+        xhr.status,
+        contentLength: body.length,
+        request: request,
+        url: url,
+        headers: responseHeaders,
+        reasonPhrase: xhr.statusText,
+      ));
     }));
 
     unawaited(xhr.onError.first.then((_) {
       // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
       // specific information about the error itself.
       completer.completeError(
-          ClientException('XMLHttpRequest error.', request.url),
-          StackTrace.current);
+        ClientException('XMLHttpRequest error.', request.url),
+        StackTrace.current,
+      );
     }));
 
     xhr.send(bytes.toJS);
@@ -137,8 +140,8 @@ extension on XMLHttpRequest {
       }
       var key = header.substring(0, splitIdx).toLowerCase();
       var value = header.substring(splitIdx + 2);
-      if (headers.containsKey(key)) {
-        headers[key] = '${headers[key]}, $value';
+      if (headers[key] case final existingValue?) {
+        headers[key] = '$existingValue, $value';
       } else {
         headers[key] = value;
       }
