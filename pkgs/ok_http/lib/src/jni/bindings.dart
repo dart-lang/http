@@ -1087,8 +1087,8 @@ class RequestBody_Companion extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
-                        ffi.Int32
+                        $Int32,
+                        $Int32
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1211,8 +1211,8 @@ class RequestBody_Companion extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
-                        ffi.Int32
+                        $Int32,
+                        $Int32
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1275,7 +1275,7 @@ class RequestBody_Companion extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32
+                        $Int32
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1363,7 +1363,7 @@ class RequestBody_Companion extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32
+                        $Int32
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1706,8 +1706,8 @@ class RequestBody extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
-                        ffi.Int32
+                        $Int32,
+                        $Int32
                       )>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1830,8 +1830,8 @@ class RequestBody extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
-                        ffi.Int32
+                        $Int32,
+                        $Int32
                       )>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1894,7 +1894,7 @@ class RequestBody extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32
+                        $Int32
                       )>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -1982,7 +1982,7 @@ class RequestBody extends jni.JObject {
                       (
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32
+                        $Int32
                       )>)>>("globalEnv_CallStaticObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
@@ -2178,7 +2178,7 @@ class Response_Builder extends jni.JObject {
   static final _code = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -2584,7 +2584,7 @@ class Response extends jni.JObject {
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
+                        $Int32,
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
                         ffi.Pointer<ffi.Void>,
@@ -3334,16 +3334,12 @@ class ResponseBody_BomAwareReader extends jni.JObject {
   );
 
   static final _read = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
-                      (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
-                        ffi.Int32
-                      )>)>>("globalEnv_CallIntMethod")
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32, $Int32)>)>>(
+          "globalEnv_CallIntMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, int)>();
@@ -4539,7 +4535,7 @@ class OkHttpClient_Builder extends jni.JObject {
   static final _retryOnConnectionFailure = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -4590,7 +4586,7 @@ class OkHttpClient_Builder extends jni.JObject {
   static final _followRedirects = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -4613,7 +4609,7 @@ class OkHttpClient_Builder extends jni.JObject {
   static final _followSslRedirects = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Uint8,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -6418,7 +6414,7 @@ class Call_Factory extends jni.JObject {
             .toPointer();
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e.toString());
+      return ProtectedJniExtensions.newDartException(e);
     }
     return jni.nullptr;
   }
@@ -6777,7 +6773,7 @@ class Call extends jni.JObject {
             .toPointer();
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e.toString());
+      return ProtectedJniExtensions.newDartException(e);
     }
     return jni.nullptr;
   }
@@ -7571,7 +7567,7 @@ class Headers extends jni.JObject {
   static final _name = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -7593,7 +7589,7 @@ class Headers extends jni.JObject {
   static final _value = ProtectedJniExtensions.lookup<
           ffi.NativeFunction<
               jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallObjectMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -8053,7 +8049,7 @@ class Callback extends jni.JObject {
         return jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e.toString());
+      return ProtectedJniExtensions.newDartException(e);
     }
     return jni.nullptr;
   }
@@ -8188,7 +8184,7 @@ class ConnectionPool extends jni.JObject {
                   jni.JMethodIDPtr,
                   ffi.VarArgs<
                       (
-                        ffi.Int32,
+                        $Int32,
                         ffi.Int64,
                         ffi.Pointer<ffi.Void>
                       )>)>>("globalEnv_NewObject")
@@ -8400,7 +8396,7 @@ class Dispatcher extends jni.JObject {
               jni.JThrowablePtr Function(
                   ffi.Pointer<ffi.Void>,
                   jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallVoidMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallVoidMethod")
       .asFunction<
           jni.JThrowablePtr Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -8448,7 +8444,7 @@ class Dispatcher extends jni.JObject {
               jni.JThrowablePtr Function(
                   ffi.Pointer<ffi.Void>,
                   jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int32,)>)>>("globalEnv_CallVoidMethod")
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallVoidMethod")
       .asFunction<
           jni.JThrowablePtr Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
@@ -9524,7 +9520,7 @@ class RedirectReceivedCallback extends jni.JObject {
         return jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e.toString());
+      return ProtectedJniExtensions.newDartException(e);
     }
     return jni.nullptr;
   }
@@ -9633,8 +9629,8 @@ class RedirectInterceptor_Companion extends jni.JObject {
                   ffi.VarArgs<
                       (
                         ffi.Pointer<ffi.Void>,
-                        ffi.Int32,
-                        ffi.Uint8,
+                        $Int32,
+                        $Int32,
                         ffi.Pointer<ffi.Void>
                       )>)>>("globalEnv_CallObjectMethod")
       .asFunction<
@@ -10043,7 +10039,7 @@ class DataCallback extends jni.JObject {
         return jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e.toString());
+      return ProtectedJniExtensions.newDartException(e);
     }
     return jni.nullptr;
   }
