@@ -26,6 +26,7 @@ classes:
   - "okhttp3.Callback"
   - "okhttp3.ConnectionPool"
   - "okhttp3.Dispatcher"
+  - "java.util.concurrent.ExecutorService"
   - "okhttp3.Cache"
   - "com.example.ok_http.RedirectReceivedCallback"
   - "com.example.ok_http.RedirectInterceptor"
@@ -86,3 +87,12 @@ exclude:
     - "okhttp3.Headers#-deprecated_size"
     - "okhttp3.Dispatcher#-deprecated_executorService"
     - "okhttp3.Cache#-deprecated_directory"
+    - "java.util.concurrent.ExecutorService#invokeAll"
+    - "java.util.concurrent.ExecutorService#invokeAny"
+    - "java.util.concurrent.ExecutorService#submit"
+
+preamble: |
+  // ignore_for_file: prefer_single_quotes 
+  // ignore_for_file: directives_ordering
+  // ignore_for_file: prefer_expression_function_bodies
+  // ignore_for_file: unnecessary_parenthesis
