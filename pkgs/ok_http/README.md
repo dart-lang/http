@@ -10,7 +10,7 @@ An Android Flutter plugin that provides access to the
 
 `package:ok_http` is smaller and works on more devices than other packages.
 
-This size of the [example application]() APK file using different packages:
+This size of the [example application][] APK file using different packages:
 
 | Package | APK Size (MiB) |
 |-|-|
@@ -38,5 +38,6 @@ Your feedback is valuable and will help us evolve this package. For general
 feedback, suggestions, and comments, please file an issue in the
 [bug tracker](https://github.com/dart-lang/http/issues).
 
+[example application]: https://github.com/dart-lang/http/tree/master/pkgs/flutter_http_example
 [OkHttp]: https://square.github.io/okhttp/
 [Google Play Services]: https://developers.google.com/android/guides/overview
