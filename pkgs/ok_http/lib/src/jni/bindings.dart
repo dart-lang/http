@@ -1070,7 +1070,7 @@ class RequestBody_Companion extends jni.JObject {
   /// from: public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create1(
-    jni.JObject byteString,
+    ByteString byteString,
     jni.JObject mediaType,
   ) {
     return _create1(reference.pointer, _id_create1 as jni.JMethodIDPtr,
@@ -1195,7 +1195,7 @@ class RequestBody_Companion extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create5(
     jni.JObject mediaType,
-    jni.JObject byteString,
+    ByteString byteString,
   ) {
     return _create5(reference.pointer, _id_create5 as jni.JMethodIDPtr,
             mediaType.reference.pointer, byteString.reference.pointer)
@@ -1689,7 +1689,7 @@ class RequestBody extends jni.JObject {
   /// from: static public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create1(
-    jni.JObject byteString,
+    ByteString byteString,
     jni.JObject mediaType,
   ) {
     return _create1(_class.reference.pointer, _id_create1 as jni.JMethodIDPtr,
@@ -1814,7 +1814,7 @@ class RequestBody extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create5(
     jni.JObject mediaType,
-    jni.JObject byteString,
+    ByteString byteString,
   ) {
     return _create5(_class.reference.pointer, _id_create5 as jni.JMethodIDPtr,
             mediaType.reference.pointer, byteString.reference.pointer)
@@ -3505,7 +3505,7 @@ class ResponseBody_Companion extends jni.JObject {
   /// from: public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create2(
-    jni.JObject byteString,
+    ByteString byteString,
     jni.JObject mediaType,
   ) {
     return _create2(reference.pointer, _id_create2 as jni.JMethodIDPtr,
@@ -3628,7 +3628,7 @@ class ResponseBody_Companion extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create6(
     jni.JObject mediaType,
-    jni.JObject byteString,
+    ByteString byteString,
   ) {
     return _create6(reference.pointer, _id_create6 as jni.JMethodIDPtr,
             mediaType.reference.pointer, byteString.reference.pointer)
@@ -3908,9 +3908,9 @@ class ResponseBody extends jni.JObject {
 
   /// from: public final okio.ByteString byteString()
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject byteString() {
+  ByteString byteString() {
     return _byteString(reference.pointer, _id_byteString as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+        .object(const $ByteStringType());
   }
 
   static final _id_charStream = _class.instanceMethodId(
@@ -4065,7 +4065,7 @@ class ResponseBody extends jni.JObject {
   /// from: static public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create2(
-    jni.JObject byteString,
+    ByteString byteString,
     jni.JObject mediaType,
   ) {
     return _create2(_class.reference.pointer, _id_create2 as jni.JMethodIDPtr,
@@ -4188,7 +4188,7 @@ class ResponseBody extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create6(
     jni.JObject mediaType,
-    jni.JObject byteString,
+    ByteString byteString,
   ) {
     return _create6(_class.reference.pointer, _id_create6 as jni.JMethodIDPtr,
             mediaType.reference.pointer, byteString.reference.pointer)
@@ -6251,16 +6251,16 @@ class OkHttpClient extends jni.JObject {
 
   /// from: public okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject newWebSocket(
+  WebSocket newWebSocket(
     Request request,
-    jni.JObject webSocketListener,
+    WebSocketListener webSocketListener,
   ) {
     return _newWebSocket(
             reference.pointer,
             _id_newWebSocket as jni.JMethodIDPtr,
             request.reference.pointer,
             webSocketListener.reference.pointer)
-        .object(const jni.JObjectType());
+        .object(const $WebSocketType());
   }
 
   static final _id_newBuilder = _class.instanceMethodId(
@@ -10448,5 +10448,2428 @@ final class $DataCallbackType extends jni.JObjType<DataCallback> {
   bool operator ==(Object other) {
     return other.runtimeType == ($DataCallbackType) &&
         other is $DataCallbackType;
+  }
+}
+
+/// from: okhttp3.WebSocket$Factory
+class WebSocket_Factory extends jni.JObject {
+  @override
+  late final jni.JObjType<WebSocket_Factory> $type = type;
+
+  WebSocket_Factory.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/WebSocket$Factory");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $WebSocket_FactoryType();
+  static final _id_newWebSocket = _class.instanceMethodId(
+    r"newWebSocket",
+    r"(Lokhttp3/Request;Lokhttp3/WebSocketListener;)Lokhttp3/WebSocket;",
+  );
+
+  static final _newWebSocket = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)
+  /// The returned object must be released after use, by calling the [release] method.
+  WebSocket newWebSocket(
+    Request request,
+    WebSocketListener webSocketListener,
+  ) {
+    return _newWebSocket(
+            reference.pointer,
+            _id_newWebSocket as jni.JMethodIDPtr,
+            request.reference.pointer,
+            webSocketListener.reference.pointer)
+        .object(const $WebSocketType());
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final Map<int, $WebSocket_FactoryImpl> _$impls = {};
+  ReceivePort? _$p;
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d ==
+          r"newWebSocket(Lokhttp3/Request;Lokhttp3/WebSocketListener;)Lokhttp3/WebSocket;") {
+        final $r = _$impls[$p]!.newWebSocket(
+          $a[0].castTo(const $RequestType(), releaseOriginal: true),
+          $a[1].castTo(const $WebSocketListenerType(), releaseOriginal: true),
+        );
+        return ($r as jni.JObject)
+            .castTo(const jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+    } catch (e) {
+      return ProtectedJniExtensions.newDartException(e);
+    }
+    return jni.nullptr;
+  }
+
+  factory WebSocket_Factory.implement(
+    $WebSocket_FactoryImpl $impl,
+  ) {
+    final $p = ReceivePort();
+    final $x = WebSocket_Factory.fromReference(
+      ProtectedJniExtensions.newPortProxy(
+        r"okhttp3.WebSocket$Factory",
+        $p,
+        _$invokePointer,
+      ),
+    ).._$p = $p;
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+    $p.listen(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    return $x;
+  }
+}
+
+abstract interface class $WebSocket_FactoryImpl {
+  factory $WebSocket_FactoryImpl({
+    required WebSocket Function(
+            Request request, WebSocketListener webSocketListener)
+        newWebSocket,
+  }) = _$WebSocket_FactoryImpl;
+
+  WebSocket newWebSocket(Request request, WebSocketListener webSocketListener);
+}
+
+class _$WebSocket_FactoryImpl implements $WebSocket_FactoryImpl {
+  _$WebSocket_FactoryImpl({
+    required WebSocket Function(
+            Request request, WebSocketListener webSocketListener)
+        newWebSocket,
+  }) : _newWebSocket = newWebSocket;
+
+  final WebSocket Function(Request request, WebSocketListener webSocketListener)
+      _newWebSocket;
+
+  WebSocket newWebSocket(Request request, WebSocketListener webSocketListener) {
+    return _newWebSocket(request, webSocketListener);
+  }
+}
+
+final class $WebSocket_FactoryType extends jni.JObjType<WebSocket_Factory> {
+  const $WebSocket_FactoryType();
+
+  @override
+  String get signature => r"Lokhttp3/WebSocket$Factory;";
+
+  @override
+  WebSocket_Factory fromReference(jni.JReference reference) =>
+      WebSocket_Factory.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($WebSocket_FactoryType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($WebSocket_FactoryType) &&
+        other is $WebSocket_FactoryType;
+  }
+}
+
+/// from: okhttp3.WebSocket
+class WebSocket extends jni.JObject {
+  @override
+  late final jni.JObjType<WebSocket> $type = type;
+
+  WebSocket.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/WebSocket");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $WebSocketType();
+  static final _id_request = _class.instanceMethodId(
+    r"request",
+    r"()Lokhttp3/Request;",
+  );
+
+  static final _request = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public abstract okhttp3.Request request()
+  /// The returned object must be released after use, by calling the [release] method.
+  Request request() {
+    return _request(reference.pointer, _id_request as jni.JMethodIDPtr)
+        .object(const $RequestType());
+  }
+
+  static final _id_queueSize = _class.instanceMethodId(
+    r"queueSize",
+    r"()J",
+  );
+
+  static final _queueSize = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallLongMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public abstract long queueSize()
+  int queueSize() {
+    return _queueSize(reference.pointer, _id_queueSize as jni.JMethodIDPtr)
+        .long;
+  }
+
+  static final _id_send = _class.instanceMethodId(
+    r"send",
+    r"(Ljava/lang/String;)Z",
+  );
+
+  static final _send = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract boolean send(java.lang.String string)
+  bool send(
+    jni.JString string,
+  ) {
+    return _send(reference.pointer, _id_send as jni.JMethodIDPtr,
+            string.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_send1 = _class.instanceMethodId(
+    r"send",
+    r"(Lokio/ByteString;)Z",
+  );
+
+  static final _send1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract boolean send(okio.ByteString byteString)
+  bool send1(
+    ByteString byteString,
+  ) {
+    return _send1(reference.pointer, _id_send1 as jni.JMethodIDPtr,
+            byteString.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_close = _class.instanceMethodId(
+    r"close",
+    r"(ILjava/lang/String;)Z",
+  );
+
+  static final _close = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<($Int32, ffi.Pointer<ffi.Void>)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract boolean close(int i, java.lang.String string)
+  bool close(
+    int i,
+    jni.JString string,
+  ) {
+    return _close(reference.pointer, _id_close as jni.JMethodIDPtr, i,
+            string.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_cancel = _class.instanceMethodId(
+    r"cancel",
+    r"()V",
+  );
+
+  static final _cancel = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public abstract void cancel()
+  void cancel() {
+    _cancel(reference.pointer, _id_cancel as jni.JMethodIDPtr).check();
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final Map<int, $WebSocketImpl> _$impls = {};
+  ReceivePort? _$p;
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r"request()Lokhttp3/Request;") {
+        final $r = _$impls[$p]!.request();
+        return ($r as jni.JObject)
+            .castTo(const jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d == r"queueSize()J") {
+        final $r = _$impls[$p]!.queueSize();
+        return jni.JLong($r).reference.toPointer();
+      }
+      if ($d == r"send(Ljava/lang/String;)Z") {
+        final $r = _$impls[$p]!.send(
+          $a[0].castTo(const jni.JStringType(), releaseOriginal: true),
+        );
+        return jni.JBoolean($r).reference.toPointer();
+      }
+      if ($d == r"send(Lokio/ByteString;)Z") {
+        final $r = _$impls[$p]!.send1(
+          $a[0].castTo(const $ByteStringType(), releaseOriginal: true),
+        );
+        return jni.JBoolean($r).reference.toPointer();
+      }
+      if ($d == r"close(ILjava/lang/String;)Z") {
+        final $r = _$impls[$p]!.close(
+          $a[0]
+              .castTo(const jni.JIntegerType(), releaseOriginal: true)
+              .intValue(releaseOriginal: true),
+          $a[1].castTo(const jni.JStringType(), releaseOriginal: true),
+        );
+        return jni.JBoolean($r).reference.toPointer();
+      }
+      if ($d == r"cancel()V") {
+        _$impls[$p]!.cancel();
+        return jni.nullptr;
+      }
+    } catch (e) {
+      return ProtectedJniExtensions.newDartException(e);
+    }
+    return jni.nullptr;
+  }
+
+  factory WebSocket.implement(
+    $WebSocketImpl $impl,
+  ) {
+    final $p = ReceivePort();
+    final $x = WebSocket.fromReference(
+      ProtectedJniExtensions.newPortProxy(
+        r"okhttp3.WebSocket",
+        $p,
+        _$invokePointer,
+      ),
+    ).._$p = $p;
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+    $p.listen(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    return $x;
+  }
+}
+
+abstract interface class $WebSocketImpl {
+  factory $WebSocketImpl({
+    required Request Function() request,
+    required int Function() queueSize,
+    required bool Function(jni.JString string) send,
+    required bool Function(ByteString byteString) send1,
+    required bool Function(int i, jni.JString string) close,
+    required void Function() cancel,
+  }) = _$WebSocketImpl;
+
+  Request request();
+  int queueSize();
+  bool send(jni.JString string);
+  bool send1(ByteString byteString);
+  bool close(int i, jni.JString string);
+  void cancel();
+}
+
+class _$WebSocketImpl implements $WebSocketImpl {
+  _$WebSocketImpl({
+    required Request Function() request,
+    required int Function() queueSize,
+    required bool Function(jni.JString string) send,
+    required bool Function(ByteString byteString) send1,
+    required bool Function(int i, jni.JString string) close,
+    required void Function() cancel,
+  })  : _request = request,
+        _queueSize = queueSize,
+        _send = send,
+        _send1 = send1,
+        _close = close,
+        _cancel = cancel;
+
+  final Request Function() _request;
+  final int Function() _queueSize;
+  final bool Function(jni.JString string) _send;
+  final bool Function(ByteString byteString) _send1;
+  final bool Function(int i, jni.JString string) _close;
+  final void Function() _cancel;
+
+  Request request() {
+    return _request();
+  }
+
+  int queueSize() {
+    return _queueSize();
+  }
+
+  bool send(jni.JString string) {
+    return _send(string);
+  }
+
+  bool send1(ByteString byteString) {
+    return _send1(byteString);
+  }
+
+  bool close(int i, jni.JString string) {
+    return _close(i, string);
+  }
+
+  void cancel() {
+    return _cancel();
+  }
+}
+
+final class $WebSocketType extends jni.JObjType<WebSocket> {
+  const $WebSocketType();
+
+  @override
+  String get signature => r"Lokhttp3/WebSocket;";
+
+  @override
+  WebSocket fromReference(jni.JReference reference) =>
+      WebSocket.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($WebSocketType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($WebSocketType) && other is $WebSocketType;
+  }
+}
+
+/// from: okhttp3.WebSocketListener
+class WebSocketListener extends jni.JObject {
+  @override
+  late final jni.JObjType<WebSocketListener> $type = type;
+
+  WebSocketListener.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okhttp3/WebSocketListener");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $WebSocketListenerType();
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void <init>()
+  /// The returned object must be released after use, by calling the [release] method.
+  factory WebSocketListener() {
+    return WebSocketListener.fromReference(
+        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_onOpen = _class.instanceMethodId(
+    r"onOpen",
+    r"(Lokhttp3/WebSocket;Lokhttp3/Response;)V",
+  );
+
+  static final _onOpen = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)
+  void onOpen(
+    WebSocket webSocket,
+    Response response,
+  ) {
+    _onOpen(reference.pointer, _id_onOpen as jni.JMethodIDPtr,
+            webSocket.reference.pointer, response.reference.pointer)
+        .check();
+  }
+
+  static final _id_onMessage = _class.instanceMethodId(
+    r"onMessage",
+    r"(Lokhttp3/WebSocket;Ljava/lang/String;)V",
+  );
+
+  static final _onMessage = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)
+  void onMessage(
+    WebSocket webSocket,
+    jni.JString string,
+  ) {
+    _onMessage(reference.pointer, _id_onMessage as jni.JMethodIDPtr,
+            webSocket.reference.pointer, string.reference.pointer)
+        .check();
+  }
+
+  static final _id_onMessage1 = _class.instanceMethodId(
+    r"onMessage",
+    r"(Lokhttp3/WebSocket;Lokio/ByteString;)V",
+  );
+
+  static final _onMessage1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)
+  void onMessage1(
+    WebSocket webSocket,
+    ByteString byteString,
+  ) {
+    _onMessage1(reference.pointer, _id_onMessage1 as jni.JMethodIDPtr,
+            webSocket.reference.pointer, byteString.reference.pointer)
+        .check();
+  }
+
+  static final _id_onClosing = _class.instanceMethodId(
+    r"onClosing",
+    r"(Lokhttp3/WebSocket;ILjava/lang/String;)V",
+  );
+
+  static final _onClosing = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        $Int32,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)
+  void onClosing(
+    WebSocket webSocket,
+    int i,
+    jni.JString string,
+  ) {
+    _onClosing(reference.pointer, _id_onClosing as jni.JMethodIDPtr,
+            webSocket.reference.pointer, i, string.reference.pointer)
+        .check();
+  }
+
+  static final _id_onClosed = _class.instanceMethodId(
+    r"onClosed",
+    r"(Lokhttp3/WebSocket;ILjava/lang/String;)V",
+  );
+
+  static final _onClosed = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        $Int32,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void onClosed(okhttp3.WebSocket webSocket, int i, java.lang.String string)
+  void onClosed(
+    WebSocket webSocket,
+    int i,
+    jni.JString string,
+  ) {
+    _onClosed(reference.pointer, _id_onClosed as jni.JMethodIDPtr,
+            webSocket.reference.pointer, i, string.reference.pointer)
+        .check();
+  }
+
+  static final _id_onFailure = _class.instanceMethodId(
+    r"onFailure",
+    r"(Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V",
+  );
+
+  static final _onFailure = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+              ffi.Pointer<ffi.Void>,
+              jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)
+  void onFailure(
+    WebSocket webSocket,
+    jni.JObject throwable,
+    Response response,
+  ) {
+    _onFailure(
+            reference.pointer,
+            _id_onFailure as jni.JMethodIDPtr,
+            webSocket.reference.pointer,
+            throwable.reference.pointer,
+            response.reference.pointer)
+        .check();
+  }
+}
+
+final class $WebSocketListenerType extends jni.JObjType<WebSocketListener> {
+  const $WebSocketListenerType();
+
+  @override
+  String get signature => r"Lokhttp3/WebSocketListener;";
+
+  @override
+  WebSocketListener fromReference(jni.JReference reference) =>
+      WebSocketListener.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($WebSocketListenerType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($WebSocketListenerType) &&
+        other is $WebSocketListenerType;
+  }
+}
+
+/// from: okio.ByteString$Companion
+class ByteString_Companion extends jni.JObject {
+  @override
+  late final jni.JObjType<ByteString_Companion> $type = type;
+
+  ByteString_Companion.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okio/ByteString$Companion");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $ByteString_CompanionType();
+  static final _id_of = _class.instanceMethodId(
+    r"of",
+    r"([B)Lokio/ByteString;",
+  );
+
+  static final _of = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final okio.ByteString of(byte[] bs)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString of(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return _of(
+            reference.pointer, _id_of as jni.JMethodIDPtr, bs.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_of1 = _class.instanceMethodId(
+    r"of",
+    r"([BII)Lokio/ByteString;",
+  );
+
+  static final _of1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32, $Int32)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public final okio.ByteString of(byte[] bs, int i, int i1)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString of1(
+    jni.JArray<jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return _of1(reference.pointer, _id_of1 as jni.JMethodIDPtr,
+            bs.reference.pointer, i, i1)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_of2 = _class.instanceMethodId(
+    r"of",
+    r"(Ljava/nio/ByteBuffer;)Lokio/ByteString;",
+  );
+
+  static final _of2 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString of2(
+    jni.JByteBuffer byteBuffer,
+  ) {
+    return _of2(reference.pointer, _id_of2 as jni.JMethodIDPtr,
+            byteBuffer.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_encodeUtf8 = _class.instanceMethodId(
+    r"encodeUtf8",
+    r"(Ljava/lang/String;)Lokio/ByteString;",
+  );
+
+  static final _encodeUtf8 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final okio.ByteString encodeUtf8(java.lang.String string)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString encodeUtf8(
+    jni.JString string,
+  ) {
+    return _encodeUtf8(reference.pointer, _id_encodeUtf8 as jni.JMethodIDPtr,
+            string.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_encodeString = _class.instanceMethodId(
+    r"encodeString",
+    r"(Ljava/lang/String;Ljava/nio/charset/Charset;)Lokio/ByteString;",
+  );
+
+  static final _encodeString = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString encodeString(
+    jni.JString string,
+    jni.JObject charset,
+  ) {
+    return _encodeString(
+            reference.pointer,
+            _id_encodeString as jni.JMethodIDPtr,
+            string.reference.pointer,
+            charset.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_decodeBase64 = _class.instanceMethodId(
+    r"decodeBase64",
+    r"(Ljava/lang/String;)Lokio/ByteString;",
+  );
+
+  static final _decodeBase64 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final okio.ByteString decodeBase64(java.lang.String string)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString decodeBase64(
+    jni.JString string,
+  ) {
+    return _decodeBase64(reference.pointer,
+            _id_decodeBase64 as jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_decodeHex = _class.instanceMethodId(
+    r"decodeHex",
+    r"(Ljava/lang/String;)Lokio/ByteString;",
+  );
+
+  static final _decodeHex = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final okio.ByteString decodeHex(java.lang.String string)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString decodeHex(
+    jni.JString string,
+  ) {
+    return _decodeHex(reference.pointer, _id_decodeHex as jni.JMethodIDPtr,
+            string.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_read = _class.instanceMethodId(
+    r"read",
+    r"(Ljava/io/InputStream;I)Lokio/ByteString;",
+  );
+
+  static final _read = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public final okio.ByteString read(java.io.InputStream inputStream, int i)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString read(
+    jni.JObject inputStream,
+    int i,
+  ) {
+    return _read(reference.pointer, _id_read as jni.JMethodIDPtr,
+            inputStream.reference.pointer, i)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_new0 = _class.constructorId(
+    r"(Lkotlin/jvm/internal/DefaultConstructorMarker;)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ByteString_Companion(
+    jni.JObject defaultConstructorMarker,
+  ) {
+    return ByteString_Companion.fromReference(_new0(
+            _class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr,
+            defaultConstructorMarker.reference.pointer)
+        .reference);
+  }
+}
+
+final class $ByteString_CompanionType
+    extends jni.JObjType<ByteString_Companion> {
+  const $ByteString_CompanionType();
+
+  @override
+  String get signature => r"Lokio/ByteString$Companion;";
+
+  @override
+  ByteString_Companion fromReference(jni.JReference reference) =>
+      ByteString_Companion.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($ByteString_CompanionType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($ByteString_CompanionType) &&
+        other is $ByteString_CompanionType;
+  }
+}
+
+/// from: okio.ByteString
+class ByteString extends jni.JObject {
+  @override
+  late final jni.JObjType<ByteString> $type = type;
+
+  ByteString.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r"okio/ByteString");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $ByteStringType();
+  static final _id_Companion = _class.staticFieldId(
+    r"Companion",
+    r"Lokio/ByteString$Companion;",
+  );
+
+  /// from: static public final okio.ByteString$Companion Companion
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString_Companion get Companion =>
+      _id_Companion.get(_class, const $ByteString_CompanionType());
+
+  static final _id_EMPTY = _class.staticFieldId(
+    r"EMPTY",
+    r"Lokio/ByteString;",
+  );
+
+  /// from: static public final okio.ByteString EMPTY
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString get EMPTY => _id_EMPTY.get(_class, const $ByteStringType());
+
+  static final _id_new0 = _class.constructorId(
+    r"([B)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(byte[] bs)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ByteString(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return ByteString.fromReference(_new0(_class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr, bs.reference.pointer)
+        .reference);
+  }
+
+  static final _id_utf8 = _class.instanceMethodId(
+    r"utf8",
+    r"()Ljava/lang/String;",
+  );
+
+  static final _utf8 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public java.lang.String utf8()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JString utf8() {
+    return _utf8(reference.pointer, _id_utf8 as jni.JMethodIDPtr)
+        .object(const jni.JStringType());
+  }
+
+  static final _id_string = _class.instanceMethodId(
+    r"string",
+    r"(Ljava/nio/charset/Charset;)Ljava/lang/String;",
+  );
+
+  static final _string = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public java.lang.String string(java.nio.charset.Charset charset)
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JString string(
+    jni.JObject charset,
+  ) {
+    return _string(reference.pointer, _id_string as jni.JMethodIDPtr,
+            charset.reference.pointer)
+        .object(const jni.JStringType());
+  }
+
+  static final _id_base64 = _class.instanceMethodId(
+    r"base64",
+    r"()Ljava/lang/String;",
+  );
+
+  static final _base64 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public java.lang.String base64()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JString base64() {
+    return _base64(reference.pointer, _id_base64 as jni.JMethodIDPtr)
+        .object(const jni.JStringType());
+  }
+
+  static final _id_md5 = _class.instanceMethodId(
+    r"md5",
+    r"()Lokio/ByteString;",
+  );
+
+  static final _md5 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final okio.ByteString md5()
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString md5() {
+    return _md5(reference.pointer, _id_md5 as jni.JMethodIDPtr)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_sha1 = _class.instanceMethodId(
+    r"sha1",
+    r"()Lokio/ByteString;",
+  );
+
+  static final _sha1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final okio.ByteString sha1()
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString sha1() {
+    return _sha1(reference.pointer, _id_sha1 as jni.JMethodIDPtr)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_sha256 = _class.instanceMethodId(
+    r"sha256",
+    r"()Lokio/ByteString;",
+  );
+
+  static final _sha256 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final okio.ByteString sha256()
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString sha256() {
+    return _sha256(reference.pointer, _id_sha256 as jni.JMethodIDPtr)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_sha512 = _class.instanceMethodId(
+    r"sha512",
+    r"()Lokio/ByteString;",
+  );
+
+  static final _sha512 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final okio.ByteString sha512()
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString sha512() {
+    return _sha512(reference.pointer, _id_sha512 as jni.JMethodIDPtr)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_hmacSha1 = _class.instanceMethodId(
+    r"hmacSha1",
+    r"(Lokio/ByteString;)Lokio/ByteString;",
+  );
+
+  static final _hmacSha1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public okio.ByteString hmacSha1(okio.ByteString byteString)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString hmacSha1(
+    ByteString byteString,
+  ) {
+    return _hmacSha1(reference.pointer, _id_hmacSha1 as jni.JMethodIDPtr,
+            byteString.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_hmacSha256 = _class.instanceMethodId(
+    r"hmacSha256",
+    r"(Lokio/ByteString;)Lokio/ByteString;",
+  );
+
+  static final _hmacSha256 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public okio.ByteString hmacSha256(okio.ByteString byteString)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString hmacSha256(
+    ByteString byteString,
+  ) {
+    return _hmacSha256(reference.pointer, _id_hmacSha256 as jni.JMethodIDPtr,
+            byteString.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_hmacSha512 = _class.instanceMethodId(
+    r"hmacSha512",
+    r"(Lokio/ByteString;)Lokio/ByteString;",
+  );
+
+  static final _hmacSha512 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public okio.ByteString hmacSha512(okio.ByteString byteString)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString hmacSha512(
+    ByteString byteString,
+  ) {
+    return _hmacSha512(reference.pointer, _id_hmacSha512 as jni.JMethodIDPtr,
+            byteString.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_base64Url = _class.instanceMethodId(
+    r"base64Url",
+    r"()Ljava/lang/String;",
+  );
+
+  static final _base64Url = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public java.lang.String base64Url()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JString base64Url() {
+    return _base64Url(reference.pointer, _id_base64Url as jni.JMethodIDPtr)
+        .object(const jni.JStringType());
+  }
+
+  static final _id_hex = _class.instanceMethodId(
+    r"hex",
+    r"()Ljava/lang/String;",
+  );
+
+  static final _hex = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public java.lang.String hex()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JString hex() {
+    return _hex(reference.pointer, _id_hex as jni.JMethodIDPtr)
+        .object(const jni.JStringType());
+  }
+
+  static final _id_toAsciiLowercase = _class.instanceMethodId(
+    r"toAsciiLowercase",
+    r"()Lokio/ByteString;",
+  );
+
+  static final _toAsciiLowercase = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public okio.ByteString toAsciiLowercase()
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString toAsciiLowercase() {
+    return _toAsciiLowercase(
+            reference.pointer, _id_toAsciiLowercase as jni.JMethodIDPtr)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_toAsciiUppercase = _class.instanceMethodId(
+    r"toAsciiUppercase",
+    r"()Lokio/ByteString;",
+  );
+
+  static final _toAsciiUppercase = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public okio.ByteString toAsciiUppercase()
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString toAsciiUppercase() {
+    return _toAsciiUppercase(
+            reference.pointer, _id_toAsciiUppercase as jni.JMethodIDPtr)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_substring = _class.instanceMethodId(
+    r"substring",
+    r"(II)Lokio/ByteString;",
+  );
+
+  static final _substring = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<($Int32, $Int32)>)>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int, int)>();
+
+  /// from: public okio.ByteString substring(int i, int i1)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString substring(
+    int i,
+    int i1,
+  ) {
+    return _substring(
+            reference.pointer, _id_substring as jni.JMethodIDPtr, i, i1)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_getByte = _class.instanceMethodId(
+    r"getByte",
+    r"(I)B",
+  );
+
+  static final _getByte = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallByteMethod")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public final byte getByte(int i)
+  int getByte(
+    int i,
+  ) {
+    return _getByte(reference.pointer, _id_getByte as jni.JMethodIDPtr, i).byte;
+  }
+
+  static final _id_size = _class.instanceMethodId(
+    r"size",
+    r"()I",
+  );
+
+  static final _size = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final int size()
+  int size() {
+    return _size(reference.pointer, _id_size as jni.JMethodIDPtr).integer;
+  }
+
+  static final _id_toByteArray = _class.instanceMethodId(
+    r"toByteArray",
+    r"()[B",
+  );
+
+  static final _toByteArray = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public byte[] toByteArray()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JArray<jni.jbyte> toByteArray() {
+    return _toByteArray(reference.pointer, _id_toByteArray as jni.JMethodIDPtr)
+        .object(const jni.JArrayType(jni.jbyteType()));
+  }
+
+  static final _id_asByteBuffer = _class.instanceMethodId(
+    r"asByteBuffer",
+    r"()Ljava/nio/ByteBuffer;",
+  );
+
+  static final _asByteBuffer = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public java.nio.ByteBuffer asByteBuffer()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JByteBuffer asByteBuffer() {
+    return _asByteBuffer(
+            reference.pointer, _id_asByteBuffer as jni.JMethodIDPtr)
+        .object(const jni.JByteBufferType());
+  }
+
+  static final _id_write = _class.instanceMethodId(
+    r"write",
+    r"(Ljava/io/OutputStream;)V",
+  );
+
+  static final _write = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JThrowablePtr Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void write(java.io.OutputStream outputStream)
+  void write(
+    jni.JObject outputStream,
+  ) {
+    _write(reference.pointer, _id_write as jni.JMethodIDPtr,
+            outputStream.reference.pointer)
+        .check();
+  }
+
+  static final _id_rangeEquals = _class.instanceMethodId(
+    r"rangeEquals",
+    r"(ILokio/ByteString;II)Z",
+  );
+
+  static final _rangeEquals = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        $Int32,
+                        ffi.Pointer<ffi.Void>,
+                        $Int32,
+                        $Int32
+                      )>)>>("globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
+              ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public boolean rangeEquals(int i, okio.ByteString byteString, int i1, int i2)
+  bool rangeEquals(
+    int i,
+    ByteString byteString,
+    int i1,
+    int i2,
+  ) {
+    return _rangeEquals(reference.pointer, _id_rangeEquals as jni.JMethodIDPtr,
+            i, byteString.reference.pointer, i1, i2)
+        .boolean;
+  }
+
+  static final _id_rangeEquals1 = _class.instanceMethodId(
+    r"rangeEquals",
+    r"(I[BII)Z",
+  );
+
+  static final _rangeEquals1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        $Int32,
+                        ffi.Pointer<ffi.Void>,
+                        $Int32,
+                        $Int32
+                      )>)>>("globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
+              ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public boolean rangeEquals(int i, byte[] bs, int i1, int i2)
+  bool rangeEquals1(
+    int i,
+    jni.JArray<jni.jbyte> bs,
+    int i1,
+    int i2,
+  ) {
+    return _rangeEquals1(
+            reference.pointer,
+            _id_rangeEquals1 as jni.JMethodIDPtr,
+            i,
+            bs.reference.pointer,
+            i1,
+            i2)
+        .boolean;
+  }
+
+  static final _id_copyInto = _class.instanceMethodId(
+    r"copyInto",
+    r"(I[BII)V",
+  );
+
+  static final _copyInto = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        $Int32,
+                        ffi.Pointer<ffi.Void>,
+                        $Int32,
+                        $Int32
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              int, ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: public void copyInto(int i, byte[] bs, int i1, int i2)
+  void copyInto(
+    int i,
+    jni.JArray<jni.jbyte> bs,
+    int i1,
+    int i2,
+  ) {
+    _copyInto(reference.pointer, _id_copyInto as jni.JMethodIDPtr, i,
+            bs.reference.pointer, i1, i2)
+        .check();
+  }
+
+  static final _id_startsWith = _class.instanceMethodId(
+    r"startsWith",
+    r"(Lokio/ByteString;)Z",
+  );
+
+  static final _startsWith = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final boolean startsWith(okio.ByteString byteString)
+  bool startsWith(
+    ByteString byteString,
+  ) {
+    return _startsWith(reference.pointer, _id_startsWith as jni.JMethodIDPtr,
+            byteString.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_startsWith1 = _class.instanceMethodId(
+    r"startsWith",
+    r"([B)Z",
+  );
+
+  static final _startsWith1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final boolean startsWith(byte[] bs)
+  bool startsWith1(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return _startsWith1(reference.pointer, _id_startsWith1 as jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_endsWith = _class.instanceMethodId(
+    r"endsWith",
+    r"(Lokio/ByteString;)Z",
+  );
+
+  static final _endsWith = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final boolean endsWith(okio.ByteString byteString)
+  bool endsWith(
+    ByteString byteString,
+  ) {
+    return _endsWith(reference.pointer, _id_endsWith as jni.JMethodIDPtr,
+            byteString.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_endsWith1 = _class.instanceMethodId(
+    r"endsWith",
+    r"([B)Z",
+  );
+
+  static final _endsWith1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final boolean endsWith(byte[] bs)
+  bool endsWith1(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return _endsWith1(reference.pointer, _id_endsWith1 as jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_indexOf = _class.instanceMethodId(
+    r"indexOf",
+    r"(Lokio/ByteString;I)I",
+  );
+
+  static final _indexOf = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public final int indexOf(okio.ByteString byteString, int i)
+  int indexOf(
+    ByteString byteString,
+    int i,
+  ) {
+    return _indexOf(reference.pointer, _id_indexOf as jni.JMethodIDPtr,
+            byteString.reference.pointer, i)
+        .integer;
+  }
+
+  static final _id_indexOf1 = _class.instanceMethodId(
+    r"indexOf",
+    r"([BI)I",
+  );
+
+  static final _indexOf1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public int indexOf(byte[] bs, int i)
+  int indexOf1(
+    jni.JArray<jni.jbyte> bs,
+    int i,
+  ) {
+    return _indexOf1(reference.pointer, _id_indexOf1 as jni.JMethodIDPtr,
+            bs.reference.pointer, i)
+        .integer;
+  }
+
+  static final _id_lastIndexOf = _class.instanceMethodId(
+    r"lastIndexOf",
+    r"(Lokio/ByteString;I)I",
+  );
+
+  static final _lastIndexOf = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public final int lastIndexOf(okio.ByteString byteString, int i)
+  int lastIndexOf(
+    ByteString byteString,
+    int i,
+  ) {
+    return _lastIndexOf(reference.pointer, _id_lastIndexOf as jni.JMethodIDPtr,
+            byteString.reference.pointer, i)
+        .integer;
+  }
+
+  static final _id_lastIndexOf1 = _class.instanceMethodId(
+    r"lastIndexOf",
+    r"([BI)I",
+  );
+
+  static final _lastIndexOf1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public int lastIndexOf(byte[] bs, int i)
+  int lastIndexOf1(
+    jni.JArray<jni.jbyte> bs,
+    int i,
+  ) {
+    return _lastIndexOf1(reference.pointer,
+            _id_lastIndexOf1 as jni.JMethodIDPtr, bs.reference.pointer, i)
+        .integer;
+  }
+
+  static final _id_equals = _class.instanceMethodId(
+    r"equals",
+    r"(Ljava/lang/Object;)Z",
+  );
+
+  static final _equals = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallBooleanMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public boolean equals(java.lang.Object object)
+  bool equals(
+    jni.JObject object,
+  ) {
+    return _equals(reference.pointer, _id_equals as jni.JMethodIDPtr,
+            object.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_hashCode1 = _class.instanceMethodId(
+    r"hashCode",
+    r"()I",
+  );
+
+  static final _hashCode1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public int hashCode()
+  int hashCode1() {
+    return _hashCode1(reference.pointer, _id_hashCode1 as jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_compareTo = _class.instanceMethodId(
+    r"compareTo",
+    r"(Lokio/ByteString;)I",
+  );
+
+  static final _compareTo = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int compareTo(okio.ByteString byteString)
+  int compareTo(
+    ByteString byteString,
+  ) {
+    return _compareTo(reference.pointer, _id_compareTo as jni.JMethodIDPtr,
+            byteString.reference.pointer)
+        .integer;
+  }
+
+  static final _id_toString1 = _class.instanceMethodId(
+    r"toString",
+    r"()Ljava/lang/String;",
+  );
+
+  static final _toString1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public java.lang.String toString()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JString toString1() {
+    return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
+        .object(const jni.JStringType());
+  }
+
+  static final _id_substring1 = _class.instanceMethodId(
+    r"substring",
+    r"(I)Lokio/ByteString;",
+  );
+
+  static final _substring1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<($Int32,)>)>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public final okio.ByteString substring(int i)
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString substring1(
+    int i,
+  ) {
+    return _substring1(reference.pointer, _id_substring1 as jni.JMethodIDPtr, i)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_substring2 = _class.instanceMethodId(
+    r"substring",
+    r"()Lokio/ByteString;",
+  );
+
+  static final _substring2 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public final okio.ByteString substring()
+  /// The returned object must be released after use, by calling the [release] method.
+  ByteString substring2() {
+    return _substring2(reference.pointer, _id_substring2 as jni.JMethodIDPtr)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_indexOf2 = _class.instanceMethodId(
+    r"indexOf",
+    r"(Lokio/ByteString;)I",
+  );
+
+  static final _indexOf2 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int indexOf(okio.ByteString byteString)
+  int indexOf2(
+    ByteString byteString,
+  ) {
+    return _indexOf2(reference.pointer, _id_indexOf2 as jni.JMethodIDPtr,
+            byteString.reference.pointer)
+        .integer;
+  }
+
+  static final _id_indexOf3 = _class.instanceMethodId(
+    r"indexOf",
+    r"([B)I",
+  );
+
+  static final _indexOf3 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int indexOf(byte[] bs)
+  int indexOf3(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return _indexOf3(reference.pointer, _id_indexOf3 as jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .integer;
+  }
+
+  static final _id_lastIndexOf2 = _class.instanceMethodId(
+    r"lastIndexOf",
+    r"(Lokio/ByteString;)I",
+  );
+
+  static final _lastIndexOf2 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int lastIndexOf(okio.ByteString byteString)
+  int lastIndexOf2(
+    ByteString byteString,
+  ) {
+    return _lastIndexOf2(reference.pointer,
+            _id_lastIndexOf2 as jni.JMethodIDPtr, byteString.reference.pointer)
+        .integer;
+  }
+
+  static final _id_lastIndexOf3 = _class.instanceMethodId(
+    r"lastIndexOf",
+    r"([B)I",
+  );
+
+  static final _lastIndexOf3 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final int lastIndexOf(byte[] bs)
+  int lastIndexOf3(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return _lastIndexOf3(reference.pointer,
+            _id_lastIndexOf3 as jni.JMethodIDPtr, bs.reference.pointer)
+        .integer;
+  }
+
+  static final _id_of = _class.staticMethodId(
+    r"of",
+    r"([B)Lokio/ByteString;",
+  );
+
+  static final _of = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public final okio.ByteString of(byte[] bs)
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString of(
+    jni.JArray<jni.jbyte> bs,
+  ) {
+    return _of(_class.reference.pointer, _id_of as jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_of1 = _class.staticMethodId(
+    r"of",
+    r"([BII)Lokio/ByteString;",
+  );
+
+  static final _of1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32, $Int32)>)>>(
+          "globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int, int)>();
+
+  /// from: static public final okio.ByteString of(byte[] bs, int i, int i1)
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString of1(
+    jni.JArray<jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return _of1(_class.reference.pointer, _id_of1 as jni.JMethodIDPtr,
+            bs.reference.pointer, i, i1)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_of2 = _class.staticMethodId(
+    r"of",
+    r"(Ljava/nio/ByteBuffer;)Lokio/ByteString;",
+  );
+
+  static final _of2 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString of2(
+    jni.JByteBuffer byteBuffer,
+  ) {
+    return _of2(_class.reference.pointer, _id_of2 as jni.JMethodIDPtr,
+            byteBuffer.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_encodeUtf8 = _class.staticMethodId(
+    r"encodeUtf8",
+    r"(Ljava/lang/String;)Lokio/ByteString;",
+  );
+
+  static final _encodeUtf8 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public final okio.ByteString encodeUtf8(java.lang.String string)
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString encodeUtf8(
+    jni.JString string,
+  ) {
+    return _encodeUtf8(_class.reference.pointer,
+            _id_encodeUtf8 as jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_encodeString = _class.staticMethodId(
+    r"encodeString",
+    r"(Ljava/lang/String;Ljava/nio/charset/Charset;)Lokio/ByteString;",
+  );
+
+  static final _encodeString = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString encodeString(
+    jni.JString string,
+    jni.JObject charset,
+  ) {
+    return _encodeString(
+            _class.reference.pointer,
+            _id_encodeString as jni.JMethodIDPtr,
+            string.reference.pointer,
+            charset.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_decodeBase64 = _class.staticMethodId(
+    r"decodeBase64",
+    r"(Ljava/lang/String;)Lokio/ByteString;",
+  );
+
+  static final _decodeBase64 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public final okio.ByteString decodeBase64(java.lang.String string)
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString decodeBase64(
+    jni.JString string,
+  ) {
+    return _decodeBase64(_class.reference.pointer,
+            _id_decodeBase64 as jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_decodeHex = _class.staticMethodId(
+    r"decodeHex",
+    r"(Ljava/lang/String;)Lokio/ByteString;",
+  );
+
+  static final _decodeHex = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public final okio.ByteString decodeHex(java.lang.String string)
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString decodeHex(
+    jni.JString string,
+  ) {
+    return _decodeHex(_class.reference.pointer,
+            _id_decodeHex as jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_read = _class.staticMethodId(
+    r"read",
+    r"(Ljava/io/InputStream;I)Lokio/ByteString;",
+  );
+
+  static final _read = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+          "globalEnv_CallStaticObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: static public final okio.ByteString read(java.io.InputStream inputStream, int i)
+  /// The returned object must be released after use, by calling the [release] method.
+  static ByteString read(
+    jni.JObject inputStream,
+    int i,
+  ) {
+    return _read(_class.reference.pointer, _id_read as jni.JMethodIDPtr,
+            inputStream.reference.pointer, i)
+        .object(const $ByteStringType());
+  }
+
+  static final _id_compareTo1 = _class.instanceMethodId(
+    r"compareTo",
+    r"(Ljava/lang/Object;)I",
+  );
+
+  static final _compareTo1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallIntMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public int compareTo(java.lang.Object object)
+  int compareTo1(
+    jni.JObject object,
+  ) {
+    return _compareTo1(reference.pointer, _id_compareTo1 as jni.JMethodIDPtr,
+            object.reference.pointer)
+        .integer;
+  }
+}
+
+final class $ByteStringType extends jni.JObjType<ByteString> {
+  const $ByteStringType();
+
+  @override
+  String get signature => r"Lokio/ByteString;";
+
+  @override
+  ByteString fromReference(jni.JReference reference) =>
+      ByteString.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($ByteStringType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($ByteStringType) && other is $ByteStringType;
   }
 }
