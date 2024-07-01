@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.0.0
-  http_image_provider: ^0.0.2
+  http_image_provider: ^0.0.3
   ok_http:
     path: ../
   provider: ^6.1.1

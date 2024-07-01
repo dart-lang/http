@@ -138,7 +138,7 @@ class _BookListState extends State<BookList> {
           key: ValueKey(widget.books[index].title),
           child: ListTile(
             leading: Image(
-                image: HttpImage(
+                image: HttpImageProvider(
                     widget.books[index].imageUrl.replace(scheme: 'https'),
                     client: context.read<Client>())),
             title: Text(widget.books[index].title),
