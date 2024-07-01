@@ -21,8 +21,8 @@ jobs:
       matrix:
         sdk: [dev]
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
-      - uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -44,8 +44,8 @@ jobs:
         os: [ubuntu-latest]
         sdk: [3.3, dev]
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
-      - uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -65,7 +65,7 @@ jobs:
   downgrade:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
-      - uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: dart-lang/setup-dart@0a8a0fc875eb934c15d08629302413c671d3f672
       - run: dart pub downgrade
       - run: dart analyze
