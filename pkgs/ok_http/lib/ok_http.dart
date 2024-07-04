@@ -53,3 +53,4 @@ import 'package:http/http.dart';
 import 'src/ok_http_client.dart';
 
 export 'src/ok_http_client.dart';
+export 'src/ok_http_web_socket.dart';
