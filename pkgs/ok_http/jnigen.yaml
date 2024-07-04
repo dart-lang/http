@@ -33,8 +33,10 @@ classes:
   - "com.example.ok_http.AsyncInputStreamReader"
   - "com.example.ok_http.DataCallback"
   - "okhttp3.WebSocket"
-  - "okhttp3.WebSocketListener"
+  - "com.example.ok_http.WebSocketListenerProxy"
   - "okio.ByteString"
+  - "com.example.ok_http.WSInterceptedCallback"
+  - "com.example.ok_http.WSInterceptor"
 
 # Exclude the deprecated methods listed below
 # They cause syntax errors during the `dart format` step of JNIGen.

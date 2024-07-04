@@ -6253,7 +6253,7 @@ class OkHttpClient extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   WebSocket newWebSocket(
     Request request,
-    WebSocketListener webSocketListener,
+    jni.JObject webSocketListener,
   ) {
     return _newWebSocket(
             reference.pointer,
@@ -10487,7 +10487,7 @@ class WebSocket_Factory extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   WebSocket newWebSocket(
     Request request,
-    WebSocketListener webSocketListener,
+    jni.JObject webSocketListener,
   ) {
     return _newWebSocket(
             reference.pointer,
@@ -10533,7 +10533,7 @@ class WebSocket_Factory extends jni.JObject {
           r"newWebSocket(Lokhttp3/Request;Lokhttp3/WebSocketListener;)Lokhttp3/WebSocket;") {
         final $r = _$impls[$p]!.newWebSocket(
           $a[0].castTo(const $RequestType(), releaseOriginal: true),
-          $a[1].castTo(const $WebSocketListenerType(), releaseOriginal: true),
+          $a[1].castTo(const jni.JObjectType(), releaseOriginal: true),
         );
         return ($r as jni.JObject)
             .castTo(const jni.JObjectType())
@@ -10575,25 +10575,23 @@ class WebSocket_Factory extends jni.JObject {
 
 abstract interface class $WebSocket_FactoryImpl {
   factory $WebSocket_FactoryImpl({
-    required WebSocket Function(
-            Request request, WebSocketListener webSocketListener)
+    required WebSocket Function(Request request, jni.JObject webSocketListener)
         newWebSocket,
   }) = _$WebSocket_FactoryImpl;
 
-  WebSocket newWebSocket(Request request, WebSocketListener webSocketListener);
+  WebSocket newWebSocket(Request request, jni.JObject webSocketListener);
 }
 
 class _$WebSocket_FactoryImpl implements $WebSocket_FactoryImpl {
   _$WebSocket_FactoryImpl({
-    required WebSocket Function(
-            Request request, WebSocketListener webSocketListener)
+    required WebSocket Function(Request request, jni.JObject webSocketListener)
         newWebSocket,
   }) : _newWebSocket = newWebSocket;
 
-  final WebSocket Function(Request request, WebSocketListener webSocketListener)
+  final WebSocket Function(Request request, jni.JObject webSocketListener)
       _newWebSocket;
 
-  WebSocket newWebSocket(Request request, WebSocketListener webSocketListener) {
+  WebSocket newWebSocket(Request request, jni.JObject webSocketListener) {
     return _newWebSocket(request, webSocketListener);
   }
 }
@@ -10973,41 +10971,419 @@ final class $WebSocketType extends jni.JObjType<WebSocket> {
   }
 }
 
-/// from: okhttp3.WebSocketListener
-class WebSocketListener extends jni.JObject {
+/// from: com.example.ok_http.WebSocketListenerProxy$WebSocketListener
+class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
   @override
-  late final jni.JObjType<WebSocketListener> $type = type;
+  late final jni.JObjType<WebSocketListenerProxy_WebSocketListener> $type =
+      type;
 
-  WebSocketListener.fromReference(
+  WebSocketListenerProxy_WebSocketListener.fromReference(
     jni.JReference reference,
   ) : super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r"okhttp3/WebSocketListener");
+  static final _class = jni.JClass.forName(
+      r"com/example/ok_http/WebSocketListenerProxy$WebSocketListener");
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WebSocketListenerType();
+  static const type = $WebSocketListenerProxy_WebSocketListenerType();
+  static final _id_onOpen = _class.instanceMethodId(
+    r"onOpen",
+    r"(Lokhttp3/WebSocket;Lokhttp3/Response;)V",
+  );
+
+  static final _onOpen = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)
+  void onOpen(
+    WebSocket webSocket,
+    Response response,
+  ) {
+    _onOpen(reference.pointer, _id_onOpen as jni.JMethodIDPtr,
+            webSocket.reference.pointer, response.reference.pointer)
+        .check();
+  }
+
+  static final _id_onMessage = _class.instanceMethodId(
+    r"onMessage",
+    r"(Lokhttp3/WebSocket;Ljava/lang/String;)V",
+  );
+
+  static final _onMessage = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)
+  void onMessage(
+    WebSocket webSocket,
+    jni.JString string,
+  ) {
+    _onMessage(reference.pointer, _id_onMessage as jni.JMethodIDPtr,
+            webSocket.reference.pointer, string.reference.pointer)
+        .check();
+  }
+
+  static final _id_onMessage1 = _class.instanceMethodId(
+    r"onMessage",
+    r"(Lokhttp3/WebSocket;Lokio/ByteString;)V",
+  );
+
+  static final _onMessage1 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)
+  void onMessage1(
+    WebSocket webSocket,
+    ByteString byteString,
+  ) {
+    _onMessage1(reference.pointer, _id_onMessage1 as jni.JMethodIDPtr,
+            webSocket.reference.pointer, byteString.reference.pointer)
+        .check();
+  }
+
+  static final _id_onClosing = _class.instanceMethodId(
+    r"onClosing",
+    r"(Lokhttp3/WebSocket;ILjava/lang/String;)V",
+  );
+
+  static final _onClosing = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        $Int32,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)
+  void onClosing(
+    WebSocket webSocket,
+    int i,
+    jni.JString string,
+  ) {
+    _onClosing(reference.pointer, _id_onClosing as jni.JMethodIDPtr,
+            webSocket.reference.pointer, i, string.reference.pointer)
+        .check();
+  }
+
+  static final _id_onFailure = _class.instanceMethodId(
+    r"onFailure",
+    r"(Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V",
+  );
+
+  static final _onFailure = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(
+              ffi.Pointer<ffi.Void>,
+              jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)
+  void onFailure(
+    WebSocket webSocket,
+    jni.JObject throwable,
+    Response response,
+  ) {
+    _onFailure(
+            reference.pointer,
+            _id_onFailure as jni.JMethodIDPtr,
+            webSocket.reference.pointer,
+            throwable.reference.pointer,
+            response.reference.pointer)
+        .check();
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final Map<int, $WebSocketListenerProxy_WebSocketListenerImpl> _$impls =
+      {};
+  ReceivePort? _$p;
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r"onOpen(Lokhttp3/WebSocket;Lokhttp3/Response;)V") {
+        _$impls[$p]!.onOpen(
+          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
+          $a[1].castTo(const $ResponseType(), releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+      if ($d == r"onMessage(Lokhttp3/WebSocket;Ljava/lang/String;)V") {
+        _$impls[$p]!.onMessage(
+          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
+          $a[1].castTo(const jni.JStringType(), releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+      if ($d == r"onMessage(Lokhttp3/WebSocket;Lokio/ByteString;)V") {
+        _$impls[$p]!.onMessage1(
+          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
+          $a[1].castTo(const $ByteStringType(), releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+      if ($d == r"onClosing(Lokhttp3/WebSocket;ILjava/lang/String;)V") {
+        _$impls[$p]!.onClosing(
+          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
+          $a[1]
+              .castTo(const jni.JIntegerType(), releaseOriginal: true)
+              .intValue(releaseOriginal: true),
+          $a[2].castTo(const jni.JStringType(), releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+      if ($d ==
+          r"onFailure(Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V") {
+        _$impls[$p]!.onFailure(
+          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
+          $a[1].castTo(const jni.JObjectType(), releaseOriginal: true),
+          $a[2].castTo(const $ResponseType(), releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+    } catch (e) {
+      return ProtectedJniExtensions.newDartException(e);
+    }
+    return jni.nullptr;
+  }
+
+  factory WebSocketListenerProxy_WebSocketListener.implement(
+    $WebSocketListenerProxy_WebSocketListenerImpl $impl,
+  ) {
+    final $p = ReceivePort();
+    final $x = WebSocketListenerProxy_WebSocketListener.fromReference(
+      ProtectedJniExtensions.newPortProxy(
+        r"com.example.ok_http.WebSocketListenerProxy$WebSocketListener",
+        $p,
+        _$invokePointer,
+      ),
+    ).._$p = $p;
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+    $p.listen(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    return $x;
+  }
+}
+
+abstract interface class $WebSocketListenerProxy_WebSocketListenerImpl {
+  factory $WebSocketListenerProxy_WebSocketListenerImpl({
+    required void Function(WebSocket webSocket, Response response) onOpen,
+    required void Function(WebSocket webSocket, jni.JString string) onMessage,
+    required void Function(WebSocket webSocket, ByteString byteString)
+        onMessage1,
+    required void Function(WebSocket webSocket, int i, jni.JString string)
+        onClosing,
+    required void Function(
+            WebSocket webSocket, jni.JObject throwable, Response response)
+        onFailure,
+  }) = _$WebSocketListenerProxy_WebSocketListenerImpl;
+
+  void onOpen(WebSocket webSocket, Response response);
+  void onMessage(WebSocket webSocket, jni.JString string);
+  void onMessage1(WebSocket webSocket, ByteString byteString);
+  void onClosing(WebSocket webSocket, int i, jni.JString string);
+  void onFailure(WebSocket webSocket, jni.JObject throwable, Response response);
+}
+
+class _$WebSocketListenerProxy_WebSocketListenerImpl
+    implements $WebSocketListenerProxy_WebSocketListenerImpl {
+  _$WebSocketListenerProxy_WebSocketListenerImpl({
+    required void Function(WebSocket webSocket, Response response) onOpen,
+    required void Function(WebSocket webSocket, jni.JString string) onMessage,
+    required void Function(WebSocket webSocket, ByteString byteString)
+        onMessage1,
+    required void Function(WebSocket webSocket, int i, jni.JString string)
+        onClosing,
+    required void Function(
+            WebSocket webSocket, jni.JObject throwable, Response response)
+        onFailure,
+  })  : _onOpen = onOpen,
+        _onMessage = onMessage,
+        _onMessage1 = onMessage1,
+        _onClosing = onClosing,
+        _onFailure = onFailure;
+
+  final void Function(WebSocket webSocket, Response response) _onOpen;
+  final void Function(WebSocket webSocket, jni.JString string) _onMessage;
+  final void Function(WebSocket webSocket, ByteString byteString) _onMessage1;
+  final void Function(WebSocket webSocket, int i, jni.JString string)
+      _onClosing;
+  final void Function(
+      WebSocket webSocket, jni.JObject throwable, Response response) _onFailure;
+
+  void onOpen(WebSocket webSocket, Response response) {
+    return _onOpen(webSocket, response);
+  }
+
+  void onMessage(WebSocket webSocket, jni.JString string) {
+    return _onMessage(webSocket, string);
+  }
+
+  void onMessage1(WebSocket webSocket, ByteString byteString) {
+    return _onMessage1(webSocket, byteString);
+  }
+
+  void onClosing(WebSocket webSocket, int i, jni.JString string) {
+    return _onClosing(webSocket, i, string);
+  }
+
+  void onFailure(
+      WebSocket webSocket, jni.JObject throwable, Response response) {
+    return _onFailure(webSocket, throwable, response);
+  }
+}
+
+final class $WebSocketListenerProxy_WebSocketListenerType
+    extends jni.JObjType<WebSocketListenerProxy_WebSocketListener> {
+  const $WebSocketListenerProxy_WebSocketListenerType();
+
+  @override
+  String get signature =>
+      r"Lcom/example/ok_http/WebSocketListenerProxy$WebSocketListener;";
+
+  @override
+  WebSocketListenerProxy_WebSocketListener fromReference(
+          jni.JReference reference) =>
+      WebSocketListenerProxy_WebSocketListener.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($WebSocketListenerProxy_WebSocketListenerType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType ==
+            ($WebSocketListenerProxy_WebSocketListenerType) &&
+        other is $WebSocketListenerProxy_WebSocketListenerType;
+  }
+}
+
+/// from: com.example.ok_http.WebSocketListenerProxy
+class WebSocketListenerProxy extends jni.JObject {
+  @override
+  late final jni.JObjType<WebSocketListenerProxy> $type = type;
+
+  WebSocketListenerProxy.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class =
+      jni.JClass.forName(r"com/example/ok_http/WebSocketListenerProxy");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $WebSocketListenerProxyType();
   static final _id_new0 = _class.constructorId(
-    r"()V",
+    r"(Lcom/example/ok_http/WebSocketListenerProxy$WebSocketListener;)V",
   );
 
   static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
-              )>>("globalEnv_NewObject")
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
-          )>();
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>()
+  /// from: public void <init>(com.example.ok_http.WebSocketListenerProxy$WebSocketListener webSocketListener)
   /// The returned object must be released after use, by calling the [release] method.
-  factory WebSocketListener() {
-    return WebSocketListener.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
-            .reference);
+  factory WebSocketListenerProxy(
+    WebSocketListenerProxy_WebSocketListener webSocketListener,
+  ) {
+    return WebSocketListenerProxy.fromReference(_new0(_class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr, webSocketListener.reference.pointer)
+        .reference);
   }
 
   static final _id_onOpen = _class.instanceMethodId(
@@ -11128,37 +11504,6 @@ class WebSocketListener extends jni.JObject {
         .check();
   }
 
-  static final _id_onClosed = _class.instanceMethodId(
-    r"onClosed",
-    r"(Lokhttp3/WebSocket;ILjava/lang/String;)V",
-  );
-
-  static final _onClosed = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
-                      (
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        ffi.Pointer<ffi.Void>
-                      )>)>>("globalEnv_CallVoidMethod")
-      .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
-
-  /// from: public void onClosed(okhttp3.WebSocket webSocket, int i, java.lang.String string)
-  void onClosed(
-    WebSocket webSocket,
-    int i,
-    jni.JString string,
-  ) {
-    _onClosed(reference.pointer, _id_onClosed as jni.JMethodIDPtr,
-            webSocket.reference.pointer, i, string.reference.pointer)
-        .check();
-  }
-
   static final _id_onFailure = _class.instanceMethodId(
     r"onFailure",
     r"(Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V",
@@ -11199,15 +11544,16 @@ class WebSocketListener extends jni.JObject {
   }
 }
 
-final class $WebSocketListenerType extends jni.JObjType<WebSocketListener> {
-  const $WebSocketListenerType();
+final class $WebSocketListenerProxyType
+    extends jni.JObjType<WebSocketListenerProxy> {
+  const $WebSocketListenerProxyType();
 
   @override
-  String get signature => r"Lokhttp3/WebSocketListener;";
+  String get signature => r"Lcom/example/ok_http/WebSocketListenerProxy;";
 
   @override
-  WebSocketListener fromReference(jni.JReference reference) =>
-      WebSocketListener.fromReference(reference);
+  WebSocketListenerProxy fromReference(jni.JReference reference) =>
+      WebSocketListenerProxy.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -11216,12 +11562,12 @@ final class $WebSocketListenerType extends jni.JObjType<WebSocketListener> {
   final superCount = 1;
 
   @override
-  int get hashCode => ($WebSocketListenerType).hashCode;
+  int get hashCode => ($WebSocketListenerProxyType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == ($WebSocketListenerType) &&
-        other is $WebSocketListenerType;
+    return other.runtimeType == ($WebSocketListenerProxyType) &&
+        other is $WebSocketListenerProxyType;
   }
 }
 
@@ -12871,5 +13217,344 @@ final class $ByteStringType extends jni.JObjType<ByteString> {
   @override
   bool operator ==(Object other) {
     return other.runtimeType == ($ByteStringType) && other is $ByteStringType;
+  }
+}
+
+/// from: com.example.ok_http.WSInterceptedCallback
+class WSInterceptedCallback extends jni.JObject {
+  @override
+  late final jni.JObjType<WSInterceptedCallback> $type = type;
+
+  WSInterceptedCallback.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class =
+      jni.JClass.forName(r"com/example/ok_http/WSInterceptedCallback");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $WSInterceptedCallbackType();
+  static final _id_onWS = _class.instanceMethodId(
+    r"onWS",
+    r"(Lokhttp3/Request;Lokhttp3/Response;)V",
+  );
+
+  static final _onWS = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallVoidMethod")
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public abstract void onWS(okhttp3.Request request, okhttp3.Response response)
+  void onWS(
+    Request request,
+    Response response,
+  ) {
+    _onWS(reference.pointer, _id_onWS as jni.JMethodIDPtr,
+            request.reference.pointer, response.reference.pointer)
+        .check();
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final Map<int, $WSInterceptedCallbackImpl> _$impls = {};
+  ReceivePort? _$p;
+
+  static jni.JObjectPtr _$invoke(
+    int port,
+    jni.JObjectPtr descriptor,
+    jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      $MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final ffi.Pointer<
+          ffi.NativeFunction<
+              jni.JObjectPtr Function(
+                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
+      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+
+  static ffi.Pointer<ffi.Void> _$invokeMethod(
+    int $p,
+    $MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r"onWS(Lokhttp3/Request;Lokhttp3/Response;)V") {
+        _$impls[$p]!.onWS(
+          $a[0].castTo(const $RequestType(), releaseOriginal: true),
+          $a[1].castTo(const $ResponseType(), releaseOriginal: true),
+        );
+        return jni.nullptr;
+      }
+    } catch (e) {
+      return ProtectedJniExtensions.newDartException(e);
+    }
+    return jni.nullptr;
+  }
+
+  factory WSInterceptedCallback.implement(
+    $WSInterceptedCallbackImpl $impl,
+  ) {
+    final $p = ReceivePort();
+    final $x = WSInterceptedCallback.fromReference(
+      ProtectedJniExtensions.newPortProxy(
+        r"com.example.ok_http.WSInterceptedCallback",
+        $p,
+        _$invokePointer,
+      ),
+    ).._$p = $p;
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+    $p.listen(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    return $x;
+  }
+}
+
+abstract interface class $WSInterceptedCallbackImpl {
+  factory $WSInterceptedCallbackImpl({
+    required void Function(Request request, Response response) onWS,
+  }) = _$WSInterceptedCallbackImpl;
+
+  void onWS(Request request, Response response);
+}
+
+class _$WSInterceptedCallbackImpl implements $WSInterceptedCallbackImpl {
+  _$WSInterceptedCallbackImpl({
+    required void Function(Request request, Response response) onWS,
+  }) : _onWS = onWS;
+
+  final void Function(Request request, Response response) _onWS;
+
+  void onWS(Request request, Response response) {
+    return _onWS(request, response);
+  }
+}
+
+final class $WSInterceptedCallbackType
+    extends jni.JObjType<WSInterceptedCallback> {
+  const $WSInterceptedCallbackType();
+
+  @override
+  String get signature => r"Lcom/example/ok_http/WSInterceptedCallback;";
+
+  @override
+  WSInterceptedCallback fromReference(jni.JReference reference) =>
+      WSInterceptedCallback.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($WSInterceptedCallbackType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($WSInterceptedCallbackType) &&
+        other is $WSInterceptedCallbackType;
+  }
+}
+
+/// from: com.example.ok_http.WSInterceptor$Companion
+class WSInterceptor_Companion extends jni.JObject {
+  @override
+  late final jni.JObjType<WSInterceptor_Companion> $type = type;
+
+  WSInterceptor_Companion.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class =
+      jni.JClass.forName(r"com/example/ok_http/WSInterceptor$Companion");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $WSInterceptor_CompanionType();
+  static final _id_addWSInterceptor = _class.instanceMethodId(
+    r"addWSInterceptor",
+    r"(Lokhttp3/OkHttpClient$Builder;Lcom/example/ok_http/WSInterceptedCallback;)Lokhttp3/OkHttpClient$Builder;",
+  );
+
+  static final _addWSInterceptor = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<
+                      (
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<ffi.Void>
+                      )>)>>("globalEnv_CallObjectMethod")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+
+  /// from: public final okhttp3.OkHttpClient$Builder addWSInterceptor(okhttp3.OkHttpClient$Builder builder, com.example.ok_http.WSInterceptedCallback wSInterceptedCallback)
+  /// The returned object must be released after use, by calling the [release] method.
+  OkHttpClient_Builder addWSInterceptor(
+    OkHttpClient_Builder builder,
+    WSInterceptedCallback wSInterceptedCallback,
+  ) {
+    return _addWSInterceptor(
+            reference.pointer,
+            _id_addWSInterceptor as jni.JMethodIDPtr,
+            builder.reference.pointer,
+            wSInterceptedCallback.reference.pointer)
+        .object(const $OkHttpClient_BuilderType());
+  }
+
+  static final _id_new0 = _class.constructorId(
+    r"(Lkotlin/jvm/internal/DefaultConstructorMarker;)V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// The returned object must be released after use, by calling the [release] method.
+  factory WSInterceptor_Companion(
+    jni.JObject defaultConstructorMarker,
+  ) {
+    return WSInterceptor_Companion.fromReference(_new0(
+            _class.reference.pointer,
+            _id_new0 as jni.JMethodIDPtr,
+            defaultConstructorMarker.reference.pointer)
+        .reference);
+  }
+}
+
+final class $WSInterceptor_CompanionType
+    extends jni.JObjType<WSInterceptor_Companion> {
+  const $WSInterceptor_CompanionType();
+
+  @override
+  String get signature => r"Lcom/example/ok_http/WSInterceptor$Companion;";
+
+  @override
+  WSInterceptor_Companion fromReference(jni.JReference reference) =>
+      WSInterceptor_Companion.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($WSInterceptor_CompanionType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($WSInterceptor_CompanionType) &&
+        other is $WSInterceptor_CompanionType;
+  }
+}
+
+/// from: com.example.ok_http.WSInterceptor
+class WSInterceptor extends jni.JObject {
+  @override
+  late final jni.JObjType<WSInterceptor> $type = type;
+
+  WSInterceptor.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class =
+      jni.JClass.forName(r"com/example/ok_http/WSInterceptor");
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $WSInterceptorType();
+  static final _id_Companion = _class.staticFieldId(
+    r"Companion",
+    r"Lcom/example/ok_http/WSInterceptor$Companion;",
+  );
+
+  /// from: static public final com.example.ok_http.WSInterceptor$Companion Companion
+  /// The returned object must be released after use, by calling the [release] method.
+  static WSInterceptor_Companion get Companion =>
+      _id_Companion.get(_class, const $WSInterceptor_CompanionType());
+
+  static final _id_new0 = _class.constructorId(
+    r"()V",
+  );
+
+  static final _new0 = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>("globalEnv_NewObject")
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public void <init>()
+  /// The returned object must be released after use, by calling the [release] method.
+  factory WSInterceptor() {
+    return WSInterceptor.fromReference(
+        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+            .reference);
+  }
+}
+
+final class $WSInterceptorType extends jni.JObjType<WSInterceptor> {
+  const $WSInterceptorType();
+
+  @override
+  String get signature => r"Lcom/example/ok_http/WSInterceptor;";
+
+  @override
+  WSInterceptor fromReference(jni.JReference reference) =>
+      WSInterceptor.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($WSInterceptorType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($WSInterceptorType) &&
+        other is $WSInterceptorType;
   }
 }
