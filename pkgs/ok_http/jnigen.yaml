@@ -35,7 +35,6 @@ classes:
   - "okhttp3.WebSocket"
   - "com.example.ok_http.WebSocketListenerProxy"
   - "okio.ByteString"
-  - "com.example.ok_http.WSInterceptedCallback"
   - "com.example.ok_http.WSInterceptor"
 
 # Exclude the deprecated methods listed below

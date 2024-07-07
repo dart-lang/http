@@ -1,3 +1,7 @@
+// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
@@ -6,6 +10,7 @@ import 'package:jni/jni.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'jni/bindings.dart' as bindings;
+import 'ok_http_client.dart';
 
 class OkHttpWebSocket implements WebSocket {
   late bindings.OkHttpClient _client;
@@ -14,13 +19,10 @@ class OkHttpWebSocket implements WebSocket {
   String? _protocol;
 
   OkHttpWebSocket._() {
+    // Add the WSInterceptor to prevent response parsing errors.
     _client = bindings.WSInterceptor.Companion
-        .addWSInterceptor(bindings.OkHttpClient_Builder(),
-            bindings.WSInterceptedCallback.implement(
-                bindings.$WSInterceptedCallbackImpl(onWS: (req, res) {
-      print(req.headers().toString1());
-      print(res.headers().toString1());
-    }))).build();
+        .addWSInterceptor(bindings.OkHttpClient_Builder())
+        .build();
   }
 
   static Future<WebSocket> connect(Uri url,
@@ -55,7 +57,6 @@ class OkHttpWebSocket implements WebSocket {
                 response.header1('sec-websocket-protocol'.toJString());
             if (!protocolHeader.isNull) {
               _protocol = protocolHeader.toDartString();
-              print('$_protocol; $protocols');
               if (!(protocols?.contains(_protocol) ?? true)) {
                 openCompleter
                     .completeError(WebSocketException('Protocol mismatch. '
@@ -78,31 +79,30 @@ class OkHttpWebSocket implements WebSocket {
           },
           onClosing:
               (bindings.WebSocket webSocket, int i, JString string) async {
-            if (_events.isClosed) throw WebSocketConnectionClosed();
+            okHttpClientClose();
+
+            if (_events.isClosed) return;
 
             _events.add(CloseReceived(i, string.toDartString()));
             await _events.close();
-
-            _client.dispatcher().executorService().shutdown();
-            _client.connectionPool().evictAll();
-            var cache = _client.cache();
-            if (!cache.isNull) {
-              cache.close();
-            }
-            _client.release();
           },
           onFailure: (bindings.WebSocket webSocket, JObject throwable,
               bindings.Response response) {
+            if (_events.isClosed) return;
+
             var throwableString = throwable.toString();
-            if (throwableString.contains('java.io.EOFException') ||
-                throwableString.contains(
-                    // ignore: lines_longer_than_80_chars
-                    'java.net.ProtocolException: Control frames must be final.')) {
+
+            // If the throwable is:
+            // - java.net.ProtocolException: Control frames must be final.
+            // - java.io.EOFException
+            // - java.net.SocketException: Socket closed
+            // Then the connection was closed abnormally.
+            if (throwableString.contains(RegExp(
+                r'(java\.net\.ProtocolException: Control frames must be final\.|java\.io\.EOFException|java\.net\.SocketException: Socket closed)'))) {
               _events.add(CloseReceived(1006, 'closed abnormal'));
               unawaited(_events.close());
               return;
             }
-            print('problems $throwableString');
             var error = WebSocketException(
                 'Connection ended unexpectedly $throwableString');
             if (openCompleter.isCompleted) {
@@ -131,10 +131,16 @@ class OkHttpWebSocket implements WebSocket {
           'reason must be <= 123 bytes long when encoded as UTF-8');
     }
 
-    // unawaited(_events.close());
+    unawaited(_events.close());
 
-    _webSocket.close(code ?? 1010,
-        reason?.toJString() ?? JString.fromReference(jNullReference));
+    // When no code is provided, cause an abnormal closure to send 1005.
+    if (code == null) {
+      _webSocket.cancel();
+      return;
+    }
+
+    _webSocket.close(
+        code, reason?.toJString() ?? JString.fromReference(jNullReference));
   }
 
   @override
@@ -158,20 +164,15 @@ class OkHttpWebSocket implements WebSocket {
     }
     _webSocket.send(s.toJString());
   }
-}
 
-extension on Uint8List {
-  JArray<jbyte> toJArray() =>
-      JArray(jbyte.type, length)..setRange(0, length, this);
-}
-
-extension on JArray<jbyte> {
-  Uint8List toUint8List({int? length}) {
-    length ??= this.length;
-    final list = Uint8List(length);
-    for (var i = 0; i < length; i++) {
-      list[i] = this[i];
+  /// Closes the OkHttpClient using the recommended shutdown procedure.
+  void okHttpClientClose() {
+    _client.dispatcher().executorService().shutdown();
+    _client.connectionPool().evictAll();
+    var cache = _client.cache();
+    if (!cache.isNull) {
+      cache.close();
     }
-    return list;
+    _client.release();
   }
 }

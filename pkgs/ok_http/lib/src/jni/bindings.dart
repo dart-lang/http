@@ -13220,168 +13220,6 @@ final class $ByteStringType extends jni.JObjType<ByteString> {
   }
 }
 
-/// from: com.example.ok_http.WSInterceptedCallback
-class WSInterceptedCallback extends jni.JObject {
-  @override
-  late final jni.JObjType<WSInterceptedCallback> $type = type;
-
-  WSInterceptedCallback.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
-
-  static final _class =
-      jni.JClass.forName(r"com/example/ok_http/WSInterceptedCallback");
-
-  /// The type which includes information such as the signature of this class.
-  static const type = $WSInterceptedCallbackType();
-  static final _id_onWS = _class.instanceMethodId(
-    r"onWS",
-    r"(Lokhttp3/Request;Lokhttp3/Response;)V",
-  );
-
-  static final _onWS = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
-                      (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
-                      )>)>>("globalEnv_CallVoidMethod")
-      .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
-
-  /// from: public abstract void onWS(okhttp3.Request request, okhttp3.Response response)
-  void onWS(
-    Request request,
-    Response response,
-  ) {
-    _onWS(reference.pointer, _id_onWS as jni.JMethodIDPtr,
-            request.reference.pointer, response.reference.pointer)
-        .check();
-  }
-
-  /// Maps a specific port to the implemented interface.
-  static final Map<int, $WSInterceptedCallbackImpl> _$impls = {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
-    int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
-  ) {
-    return _$invokeMethod(
-      port,
-      $MethodInvocation.fromAddresses(
-        0,
-        descriptor.address,
-        args.address,
-      ),
-    );
-  }
-
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
-
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
-    int $p,
-    $MethodInvocation $i,
-  ) {
-    try {
-      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
-      final $a = $i.args;
-      if ($d == r"onWS(Lokhttp3/Request;Lokhttp3/Response;)V") {
-        _$impls[$p]!.onWS(
-          $a[0].castTo(const $RequestType(), releaseOriginal: true),
-          $a[1].castTo(const $ResponseType(), releaseOriginal: true),
-        );
-        return jni.nullptr;
-      }
-    } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
-    }
-    return jni.nullptr;
-  }
-
-  factory WSInterceptedCallback.implement(
-    $WSInterceptedCallbackImpl $impl,
-  ) {
-    final $p = ReceivePort();
-    final $x = WSInterceptedCallback.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r"com.example.ok_http.WSInterceptedCallback",
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
-      if ($m == null) {
-        _$impls.remove($p.sendPort.nativePort);
-        $p.close();
-        return;
-      }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
-      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
-    });
-    return $x;
-  }
-}
-
-abstract interface class $WSInterceptedCallbackImpl {
-  factory $WSInterceptedCallbackImpl({
-    required void Function(Request request, Response response) onWS,
-  }) = _$WSInterceptedCallbackImpl;
-
-  void onWS(Request request, Response response);
-}
-
-class _$WSInterceptedCallbackImpl implements $WSInterceptedCallbackImpl {
-  _$WSInterceptedCallbackImpl({
-    required void Function(Request request, Response response) onWS,
-  }) : _onWS = onWS;
-
-  final void Function(Request request, Response response) _onWS;
-
-  void onWS(Request request, Response response) {
-    return _onWS(request, response);
-  }
-}
-
-final class $WSInterceptedCallbackType
-    extends jni.JObjType<WSInterceptedCallback> {
-  const $WSInterceptedCallbackType();
-
-  @override
-  String get signature => r"Lcom/example/ok_http/WSInterceptedCallback;";
-
-  @override
-  WSInterceptedCallback fromReference(jni.JReference reference) =>
-      WSInterceptedCallback.fromReference(reference);
-
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
-
-  @override
-  final superCount = 1;
-
-  @override
-  int get hashCode => ($WSInterceptedCallbackType).hashCode;
-
-  @override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($WSInterceptedCallbackType) &&
-        other is $WSInterceptedCallbackType;
-  }
-}
-
 /// from: com.example.ok_http.WSInterceptor$Companion
 class WSInterceptor_Companion extends jni.JObject {
   @override
@@ -13398,34 +13236,27 @@ class WSInterceptor_Companion extends jni.JObject {
   static const type = $WSInterceptor_CompanionType();
   static final _id_addWSInterceptor = _class.instanceMethodId(
     r"addWSInterceptor",
-    r"(Lokhttp3/OkHttpClient$Builder;Lcom/example/ok_http/WSInterceptedCallback;)Lokhttp3/OkHttpClient$Builder;",
+    r"(Lokhttp3/OkHttpClient$Builder;)Lokhttp3/OkHttpClient$Builder;",
   );
 
   static final _addWSInterceptor = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
-                      (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
-                      )>)>>("globalEnv_CallObjectMethod")
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          "globalEnv_CallObjectMethod")
       .asFunction<
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+              ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addWSInterceptor(okhttp3.OkHttpClient$Builder builder, com.example.ok_http.WSInterceptedCallback wSInterceptedCallback)
+  /// from: public final okhttp3.OkHttpClient$Builder addWSInterceptor(okhttp3.OkHttpClient$Builder builder)
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addWSInterceptor(
     OkHttpClient_Builder builder,
-    WSInterceptedCallback wSInterceptedCallback,
   ) {
-    return _addWSInterceptor(
-            reference.pointer,
-            _id_addWSInterceptor as jni.JMethodIDPtr,
-            builder.reference.pointer,
-            wSInterceptedCallback.reference.pointer)
+    return _addWSInterceptor(reference.pointer,
+            _id_addWSInterceptor as jni.JMethodIDPtr, builder.reference.pointer)
         .object(const $OkHttpClient_BuilderType());
   }
 

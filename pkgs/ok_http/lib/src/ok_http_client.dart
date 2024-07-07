@@ -279,12 +279,12 @@ class OkHttpClientWithProfile extends OkHttpClient {
   OkHttpClientWithProfile() : super();
 }
 
-extension on Uint8List {
+extension JUint8List on Uint8List {
   JArray<jbyte> toJArray() =>
       JArray(jbyte.type, length)..setRange(0, length, this);
 }
 
-extension on JArray<jbyte> {
+extension DartJArray on JArray<jbyte> {
   Uint8List toUint8List({int? length}) {
     length ??= this.length;
     final list = Uint8List(length);

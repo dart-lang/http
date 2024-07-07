@@ -50,7 +50,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   final _labels = ['HTTP', 'WebSocket'];
 
   @override
@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+/// Example to demonstrate HTTP Calls with [OkHttpClient].
 class BookSearch extends StatefulWidget {
   const BookSearch({super.key});
 
@@ -186,6 +187,8 @@ class _BookListState extends State<BookList> {
       );
 }
 
+/// Example to demonstrate WebSocket communication with [OkHttpWebSocket],
+/// using the echo server at `wss://echo.websocket.org`.
 class WebSocketEcho extends StatefulWidget {
   const WebSocketEcho({super.key});
 
@@ -194,6 +197,7 @@ class WebSocketEcho extends StatefulWidget {
 }
 
 class _WebSocketEchoState extends State<WebSocketEcho> {
+  // Contains a list of pairs [String message, bool isSent].
   final List<List> _messages = [];
   final msgController = TextEditingController();
 
@@ -231,6 +235,7 @@ class _WebSocketEchoState extends State<WebSocketEcho> {
                                 break;
                               case CloseReceived():
                                 _messages.add(['Connection closed', false]);
+                              // For this example, binary data is not expected.
                               default:
                                 _messages.add(
                                     ['Unknown message received $event', false]);
@@ -242,7 +247,13 @@ class _WebSocketEchoState extends State<WebSocketEcho> {
               const SizedBox(width: 16),
               Expanded(
                   child: ElevatedButton(
-                      onPressed: () => _webSocket.close(),
+                      onPressed: () {
+                        try {
+                          _webSocket.close();
+                        } on WebSocketException catch (e) {
+                          print('Error closing WebSocket: ${e.message}');
+                        }
+                      },
                       child: const Text('Disconnect'))),
             ],
           ),
@@ -259,7 +270,6 @@ class _WebSocketEchoState extends State<WebSocketEcho> {
               ElevatedButton(
                   onPressed: () {
                     _webSocket.sendText(msgController.text);
-
                     setState(() {
                       _messages.add([msgController.text, true]);
                     });
