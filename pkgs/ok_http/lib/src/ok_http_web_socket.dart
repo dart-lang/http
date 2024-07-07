@@ -12,6 +12,9 @@ import 'package:web_socket/web_socket.dart';
 import 'jni/bindings.dart' as bindings;
 import 'ok_http_client.dart';
 
+/// A [WebSocket] implemented using the OkHttp library's
+/// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
+/// API.
 class OkHttpWebSocket implements WebSocket {
   late bindings.OkHttpClient _client;
   late final bindings.WebSocket _webSocket;
@@ -25,6 +28,15 @@ class OkHttpWebSocket implements WebSocket {
         .build();
   }
 
+  /// Create a new WebSocket connection using `OkHttp`'s
+  /// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
+  /// API.
+  ///
+  /// The URL supplied in [url] must use the scheme ws or wss.
+  ///
+  /// If provided, the [protocols] argument indicates that subprotocols that
+  /// the peer is able to select. See
+  /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   static Future<WebSocket> connect(Uri url,
           {Iterable<dynamic>? protocols}) async =>
       OkHttpWebSocket._()._connect(url, protocols);
@@ -79,7 +91,7 @@ class OkHttpWebSocket implements WebSocket {
           },
           onClosing:
               (bindings.WebSocket webSocket, int i, JString string) async {
-            okHttpClientClose();
+            _okHttpClientClose();
 
             if (_events.isClosed) return;
 
@@ -166,7 +178,7 @@ class OkHttpWebSocket implements WebSocket {
   }
 
   /// Closes the OkHttpClient using the recommended shutdown procedure.
-  void okHttpClientClose() {
+  void _okHttpClientClose() {
     _client.dispatcher().executorService().shutdown();
     _client.connectionPool().evictAll();
     var cache = _client.cache();

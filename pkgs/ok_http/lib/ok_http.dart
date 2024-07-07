@@ -3,7 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// An Android Flutter plugin that provides access to the
-/// [OkHttp](https://square.github.io/okhttp/) HTTP client.
+/// [OkHttp](https://square.github.io/okhttp/) HTTP client, and the OkHttp
+/// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
+/// API
 ///
 /// ```
 /// import 'package:ok_http/ok_http.dart';
