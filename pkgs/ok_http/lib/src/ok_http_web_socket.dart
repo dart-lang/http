@@ -111,7 +111,7 @@ class OkHttpWebSocket implements WebSocket {
             // Then the connection was closed abnormally.
             if (throwableString.contains(RegExp(
                 r'(java\.net\.ProtocolException: Control frames must be final\.|java\.io\.EOFException|java\.net\.SocketException: Socket closed)'))) {
-              _events.add(CloseReceived(1006, 'closed abnormal'));
+              _events.add(CloseReceived(1006, 'Closed abnormal'));
               unawaited(_events.close());
               return;
             }

@@ -48,5 +48,4 @@ feedback, suggestions, and comments, please file an issue in the
 [OkHttp]: https://square.github.io/okhttp/
 [Google Play Services]: https://developers.google.com/android/guides/overview
 [WebSocket]: https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html
-
-[OkHttp Example App]: https://github.com/dart-lang/http/tree/master/pkgs/ok_http/example/]
+[OkHttp Example App]: https://github.com/dart-lang/http/tree/master/pkgs/ok_http/example/
