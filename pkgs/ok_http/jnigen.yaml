@@ -26,6 +26,7 @@ classes:
   - "okhttp3.Callback"
   - "okhttp3.ConnectionPool"
   - "okhttp3.Dispatcher"
+  - "java.util.concurrent.ExecutorService"
   - "okhttp3.Cache"
   - "com.example.ok_http.RedirectReceivedCallback"
   - "com.example.ok_http.RedirectInterceptor"
