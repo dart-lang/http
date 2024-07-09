@@ -1093,20 +1093,23 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       objc.NSData? reason)? _onWebSocketTaskClosed;
 
   static objc.ObjCObjectBase delegate() {
-    print('delegate()');
-    final protoBuilder = objc.ObjCProtocolBuilder()
-      ..implementMethodAsListener(
-          ncb.NSURLSessionDataDelegate
-              .URLSession_dataTask_didReceiveResponse_completionHandler_,
-          (ncb.NSURLSession session,
-              ncb.NSURLSessionDataTask dataTask,
-              ncb.NSURLResponse response,
-              ncb.ObjCBlock_ffiVoid_NSURLSessionResponseDisposition
-                  completetionHandler) {
-        print('response');
-        completetionHandler.call(
-            ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
-      });
+    final protoBuilder = objc.ObjCProtocolBuilder();
+
+    ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
+        URLSession_dataTask_didReceiveResponse_completionHandler_:
+            (session, dataTask, response, completionHandler) {
+      print('Got a response.');
+      completionHandler
+          .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
+    }, URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
+      print('Do something with the data.');
+    });
+
+    ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
+        URLSession_downloadTask_didFinishDownloadingToURL_:
+            (session, task, url) {
+      print('Do something.');
+    });
     return protoBuilder.build();
   }
 

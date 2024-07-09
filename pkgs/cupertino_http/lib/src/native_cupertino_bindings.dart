@@ -46715,28 +46715,28 @@ abstract final class NSObject {
       required objc.NSString Function() description,
       objc.NSString Function()? debugDescription}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(NSObject.isEqual_, isEqual_);
-    builder.implementMethod(NSObject.class1, class1);
-    builder.implementMethod(NSObject.self, self);
-    builder.implementMethod(NSObject.performSelector_, performSelector_);
-    builder.implementMethod(
-        NSObject.performSelector_withObject_, performSelector_withObject_);
-    builder.implementMethod(NSObject.performSelector_withObject_withObject_,
-        performSelector_withObject_withObject_);
-    builder.implementMethod(NSObject.isProxy, isProxy);
-    builder.implementMethod(NSObject.isKindOfClass_, isKindOfClass_);
-    builder.implementMethod(NSObject.isMemberOfClass_, isMemberOfClass_);
-    builder.implementMethod(NSObject.conformsToProtocol_, conformsToProtocol_);
-    builder.implementMethod(NSObject.respondsToSelector_, respondsToSelector_);
-    builder.implementMethod(NSObject.retain, retain);
-    builder.implementMethod(NSObject.release, release);
-    builder.implementMethod(NSObject.autorelease, autorelease);
-    builder.implementMethod(NSObject.retainCount, retainCount);
-    builder.implementMethod(NSObject.zone, zone);
-    builder.implementMethod(NSObject.hash, hash);
-    builder.implementMethod(NSObject.superclass, superclass);
-    builder.implementMethod(NSObject.description, description);
-    builder.implementMethod(NSObject.debugDescription, debugDescription);
+    NSObject.isEqual_.implement(builder, isEqual_);
+    NSObject.class1.implement(builder, class1);
+    NSObject.self.implement(builder, self);
+    NSObject.performSelector_.implement(builder, performSelector_);
+    NSObject.performSelector_withObject_
+        .implement(builder, performSelector_withObject_);
+    NSObject.performSelector_withObject_withObject_
+        .implement(builder, performSelector_withObject_withObject_);
+    NSObject.isProxy.implement(builder, isProxy);
+    NSObject.isKindOfClass_.implement(builder, isKindOfClass_);
+    NSObject.isMemberOfClass_.implement(builder, isMemberOfClass_);
+    NSObject.conformsToProtocol_.implement(builder, conformsToProtocol_);
+    NSObject.respondsToSelector_.implement(builder, respondsToSelector_);
+    NSObject.retain.implement(builder, retain);
+    NSObject.release.implement(builder, release);
+    NSObject.autorelease.implement(builder, autorelease);
+    NSObject.retainCount.implement(builder, retainCount);
+    NSObject.zone.implement(builder, zone);
+    NSObject.hash.implement(builder, hash);
+    NSObject.superclass.implement(builder, superclass);
+    NSObject.description.implement(builder, description);
+    NSObject.debugDescription.implement(builder, debugDescription);
     return builder.build();
   }
 
@@ -46769,32 +46769,143 @@ abstract final class NSObject {
       required objc.ObjCObjectBase Function() superclass,
       required objc.NSString Function() description,
       objc.NSString Function()? debugDescription}) {
-    builder.implementMethod(NSObject.isEqual_, isEqual_);
-    builder.implementMethod(NSObject.class1, class1);
-    builder.implementMethod(NSObject.self, self);
-    builder.implementMethod(NSObject.performSelector_, performSelector_);
-    builder.implementMethod(
-        NSObject.performSelector_withObject_, performSelector_withObject_);
-    builder.implementMethod(NSObject.performSelector_withObject_withObject_,
-        performSelector_withObject_withObject_);
-    builder.implementMethod(NSObject.isProxy, isProxy);
-    builder.implementMethod(NSObject.isKindOfClass_, isKindOfClass_);
-    builder.implementMethod(NSObject.isMemberOfClass_, isMemberOfClass_);
-    builder.implementMethod(NSObject.conformsToProtocol_, conformsToProtocol_);
-    builder.implementMethod(NSObject.respondsToSelector_, respondsToSelector_);
-    builder.implementMethod(NSObject.retain, retain);
-    builder.implementMethod(NSObject.release, release);
-    builder.implementMethod(NSObject.autorelease, autorelease);
-    builder.implementMethod(NSObject.retainCount, retainCount);
-    builder.implementMethod(NSObject.zone, zone);
-    builder.implementMethod(NSObject.hash, hash);
-    builder.implementMethod(NSObject.superclass, superclass);
-    builder.implementMethod(NSObject.description, description);
-    builder.implementMethod(NSObject.debugDescription, debugDescription);
+    NSObject.isEqual_.implement(builder, isEqual_);
+    NSObject.class1.implement(builder, class1);
+    NSObject.self.implement(builder, self);
+    NSObject.performSelector_.implement(builder, performSelector_);
+    NSObject.performSelector_withObject_
+        .implement(builder, performSelector_withObject_);
+    NSObject.performSelector_withObject_withObject_
+        .implement(builder, performSelector_withObject_withObject_);
+    NSObject.isProxy.implement(builder, isProxy);
+    NSObject.isKindOfClass_.implement(builder, isKindOfClass_);
+    NSObject.isMemberOfClass_.implement(builder, isMemberOfClass_);
+    NSObject.conformsToProtocol_.implement(builder, conformsToProtocol_);
+    NSObject.respondsToSelector_.implement(builder, respondsToSelector_);
+    NSObject.retain.implement(builder, retain);
+    NSObject.release.implement(builder, release);
+    NSObject.autorelease.implement(builder, autorelease);
+    NSObject.retainCount.implement(builder, retainCount);
+    NSObject.zone.implement(builder, zone);
+    NSObject.hash.implement(builder, hash);
+    NSObject.superclass.implement(builder, superclass);
+    NSObject.description.implement(builder, description);
+    NSObject.debugDescription.implement(builder, debugDescription);
+  }
+
+  /// Builds an object that implements the NSObject protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {required bool Function(objc.ObjCObjectBase) isEqual_,
+      required objc.ObjCObjectBase Function() class1,
+      required objc.ObjCObjectBase Function() self,
+      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>)
+          performSelector_,
+      required objc.ObjCObjectBase Function(
+              ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)
+          performSelector_withObject_,
+      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
+              objc.ObjCObjectBase, objc.ObjCObjectBase)
+          performSelector_withObject_withObject_,
+      required bool Function() isProxy,
+      required bool Function(objc.ObjCObjectBase) isKindOfClass_,
+      required bool Function(objc.ObjCObjectBase) isMemberOfClass_,
+      required bool Function(objc.Protocol) conformsToProtocol_,
+      required bool Function(ffi.Pointer<objc.ObjCSelector>)
+          respondsToSelector_,
+      required objc.ObjCObjectBase Function() retain,
+      required void Function() release,
+      required objc.ObjCObjectBase Function() autorelease,
+      required DartNSUInteger Function() retainCount,
+      required ffi.Pointer<_NSZone> Function() zone,
+      required DartNSUInteger Function() hash,
+      required objc.ObjCObjectBase Function() superclass,
+      required objc.NSString Function() description,
+      objc.NSString Function()? debugDescription}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSObject.isEqual_.implement(builder, isEqual_);
+    NSObject.class1.implement(builder, class1);
+    NSObject.self.implement(builder, self);
+    NSObject.performSelector_.implement(builder, performSelector_);
+    NSObject.performSelector_withObject_
+        .implement(builder, performSelector_withObject_);
+    NSObject.performSelector_withObject_withObject_
+        .implement(builder, performSelector_withObject_withObject_);
+    NSObject.isProxy.implement(builder, isProxy);
+    NSObject.isKindOfClass_.implement(builder, isKindOfClass_);
+    NSObject.isMemberOfClass_.implement(builder, isMemberOfClass_);
+    NSObject.conformsToProtocol_.implement(builder, conformsToProtocol_);
+    NSObject.respondsToSelector_.implement(builder, respondsToSelector_);
+    NSObject.retain.implement(builder, retain);
+    NSObject.release.implementAsListener(builder, release);
+    NSObject.autorelease.implement(builder, autorelease);
+    NSObject.retainCount.implement(builder, retainCount);
+    NSObject.zone.implement(builder, zone);
+    NSObject.hash.implement(builder, hash);
+    NSObject.superclass.implement(builder, superclass);
+    NSObject.description.implement(builder, description);
+    NSObject.debugDescription.implement(builder, debugDescription);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSObject protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {required bool Function(objc.ObjCObjectBase) isEqual_,
+      required objc.ObjCObjectBase Function() class1,
+      required objc.ObjCObjectBase Function() self,
+      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>)
+          performSelector_,
+      required objc.ObjCObjectBase Function(
+              ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)
+          performSelector_withObject_,
+      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
+              objc.ObjCObjectBase, objc.ObjCObjectBase)
+          performSelector_withObject_withObject_,
+      required bool Function() isProxy,
+      required bool Function(objc.ObjCObjectBase) isKindOfClass_,
+      required bool Function(objc.ObjCObjectBase) isMemberOfClass_,
+      required bool Function(objc.Protocol) conformsToProtocol_,
+      required bool Function(ffi.Pointer<objc.ObjCSelector>)
+          respondsToSelector_,
+      required objc.ObjCObjectBase Function() retain,
+      required void Function() release,
+      required objc.ObjCObjectBase Function() autorelease,
+      required DartNSUInteger Function() retainCount,
+      required ffi.Pointer<_NSZone> Function() zone,
+      required DartNSUInteger Function() hash,
+      required objc.ObjCObjectBase Function() superclass,
+      required objc.NSString Function() description,
+      objc.NSString Function()? debugDescription}) {
+    NSObject.isEqual_.implement(builder, isEqual_);
+    NSObject.class1.implement(builder, class1);
+    NSObject.self.implement(builder, self);
+    NSObject.performSelector_.implement(builder, performSelector_);
+    NSObject.performSelector_withObject_
+        .implement(builder, performSelector_withObject_);
+    NSObject.performSelector_withObject_withObject_
+        .implement(builder, performSelector_withObject_withObject_);
+    NSObject.isProxy.implement(builder, isProxy);
+    NSObject.isKindOfClass_.implement(builder, isKindOfClass_);
+    NSObject.isMemberOfClass_.implement(builder, isMemberOfClass_);
+    NSObject.conformsToProtocol_.implement(builder, conformsToProtocol_);
+    NSObject.respondsToSelector_.implement(builder, respondsToSelector_);
+    NSObject.retain.implement(builder, retain);
+    NSObject.release.implementAsListener(builder, release);
+    NSObject.autorelease.implement(builder, autorelease);
+    NSObject.retainCount.implement(builder, retainCount);
+    NSObject.zone.implement(builder, zone);
+    NSObject.hash.implement(builder, hash);
+    NSObject.superclass.implement(builder, superclass);
+    NSObject.description.implement(builder, description);
+    NSObject.debugDescription.implement(builder, debugDescription);
   }
 
   /// isEqual:
-  static final isEqual_ = objc.ObjCProtocolMethod(
+  static final isEqual_ =
+      objc.ObjCProtocolMethod<bool Function(objc.ObjCObjectBase)>(
     _sel_isEqual_,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46802,13 +46913,13 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is bool Function(objc.ObjCObjectBase),
-    (Function func) => ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
+    (bool Function(objc.ObjCObjectBase) func) =>
+        ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
   );
 
   /// class
-  static final class1 = objc.ObjCProtocolMethod(
+  static final class1 = objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
     _sel_class,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46816,15 +46927,15 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.ObjCObjectBase Function(),
-    (Function func) => ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
+    (objc.ObjCObjectBase Function() func) =>
+        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
-        func()),
+            func()),
   );
 
   /// self
-  static final self = objc.ObjCProtocolMethod(
+  static final self = objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
     _sel_self,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46832,15 +46943,16 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.ObjCObjectBase Function(),
-    (Function func) => ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
+    (objc.ObjCObjectBase Function() func) =>
+        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
-        func()),
+            func()),
   );
 
   /// performSelector:
-  static final performSelector_ = objc.ObjCProtocolMethod(
+  static final performSelector_ = objc.ObjCProtocolMethod<
+      objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>)>(
     _sel_performSelector_,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46848,16 +46960,16 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>),
-    (Function func) =>
+    (objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>) func) =>
         ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector.fromFunction(
             (ffi.Pointer<ffi.Void> _, ffi.Pointer<objc.ObjCSelector> arg1) =>
                 func(arg1)),
   );
 
   /// performSelector:withObject:
-  static final performSelector_withObject_ = objc.ObjCProtocolMethod(
+  static final performSelector_withObject_ = objc.ObjCProtocolMethod<
+      objc.ObjCObjectBase Function(
+          ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)>(
     _sel_performSelector_withObject_,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46865,9 +46977,9 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.ObjCObjectBase Function(
-        ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase),
-    (Function func) =>
+    (objc.ObjCObjectBase Function(
+                ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)
+            func) =>
         ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     ffi.Pointer<objc.ObjCSelector> arg1,
@@ -46876,7 +46988,9 @@ abstract final class NSObject {
   );
 
   /// performSelector:withObject:withObject:
-  static final performSelector_withObject_withObject_ = objc.ObjCProtocolMethod(
+  static final performSelector_withObject_withObject_ = objc.ObjCProtocolMethod<
+      objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
+          objc.ObjCObjectBase, objc.ObjCObjectBase)>(
     _sel_performSelector_withObject_withObject_,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46884,11 +46998,9 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.ObjCObjectBase Function(
-        ffi.Pointer<objc.ObjCSelector>,
-        objc.ObjCObjectBase,
-        objc.ObjCObjectBase),
-    (Function func) =>
+    (objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
+                objc.ObjCObjectBase, objc.ObjCObjectBase)
+            func) =>
         ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     ffi.Pointer<objc.ObjCSelector> arg1,
@@ -46898,7 +47010,7 @@ abstract final class NSObject {
   );
 
   /// isProxy
-  static final isProxy = objc.ObjCProtocolMethod(
+  static final isProxy = objc.ObjCProtocolMethod<bool Function()>(
     _sel_isProxy,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46906,15 +47018,15 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is bool Function(),
-    (Function func) => ObjCBlock_bool_ffiVoid.fromFunction((
+    (bool Function() func) => ObjCBlock_bool_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
   );
 
   /// isKindOfClass:
-  static final isKindOfClass_ = objc.ObjCProtocolMethod(
+  static final isKindOfClass_ =
+      objc.ObjCProtocolMethod<bool Function(objc.ObjCObjectBase)>(
     _sel_isKindOfClass_,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46922,13 +47034,14 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is bool Function(objc.ObjCObjectBase),
-    (Function func) => ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
+    (bool Function(objc.ObjCObjectBase) func) =>
+        ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
   );
 
   /// isMemberOfClass:
-  static final isMemberOfClass_ = objc.ObjCProtocolMethod(
+  static final isMemberOfClass_ =
+      objc.ObjCProtocolMethod<bool Function(objc.ObjCObjectBase)>(
     _sel_isMemberOfClass_,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46936,13 +47049,14 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is bool Function(objc.ObjCObjectBase),
-    (Function func) => ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
+    (bool Function(objc.ObjCObjectBase) func) =>
+        ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
   );
 
   /// conformsToProtocol:
-  static final conformsToProtocol_ = objc.ObjCProtocolMethod(
+  static final conformsToProtocol_ =
+      objc.ObjCProtocolMethod<bool Function(objc.Protocol)>(
     _sel_conformsToProtocol_,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46950,13 +47064,14 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is bool Function(objc.Protocol),
-    (Function func) => ObjCBlock_bool_ffiVoid_Protocol.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.Protocol arg1) => func(arg1)),
+    (bool Function(objc.Protocol) func) =>
+        ObjCBlock_bool_ffiVoid_Protocol.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.Protocol arg1) => func(arg1)),
   );
 
   /// respondsToSelector:
-  static final respondsToSelector_ = objc.ObjCProtocolMethod(
+  static final respondsToSelector_ =
+      objc.ObjCProtocolMethod<bool Function(ffi.Pointer<objc.ObjCSelector>)>(
     _sel_respondsToSelector_,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46964,14 +47079,14 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is bool Function(ffi.Pointer<objc.ObjCSelector>),
-    (Function func) => ObjCBlock_bool_ffiVoid_objcObjCSelector.fromFunction(
-        (ffi.Pointer<ffi.Void> _, ffi.Pointer<objc.ObjCSelector> arg1) =>
-            func(arg1)),
+    (bool Function(ffi.Pointer<objc.ObjCSelector>) func) =>
+        ObjCBlock_bool_ffiVoid_objcObjCSelector.fromFunction(
+            (ffi.Pointer<ffi.Void> _, ffi.Pointer<objc.ObjCSelector> arg1) =>
+                func(arg1)),
   );
 
   /// retain
-  static final retain = objc.ObjCProtocolMethod(
+  static final retain = objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
     _sel_retain,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46979,15 +47094,15 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.ObjCObjectBase Function(),
-    (Function func) => ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
+    (objc.ObjCObjectBase Function() func) =>
+        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
-        func()),
+            func()),
   );
 
   /// release
-  static final release = objc.ObjCProtocolListenableMethod(
+  static final release = objc.ObjCProtocolListenableMethod<void Function()>(
     _sel_release,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -46995,19 +47110,19 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid.listener((
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
   );
 
   /// autorelease
-  static final autorelease = objc.ObjCProtocolMethod(
+  static final autorelease =
+      objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
     _sel_autorelease,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -47015,15 +47130,15 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.ObjCObjectBase Function(),
-    (Function func) => ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
+    (objc.ObjCObjectBase Function() func) =>
+        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
-        func()),
+            func()),
   );
 
   /// retainCount
-  static final retainCount = objc.ObjCProtocolMethod(
+  static final retainCount = objc.ObjCProtocolMethod<DartNSUInteger Function()>(
     _sel_retainCount,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -47031,15 +47146,15 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is DartNSUInteger Function(),
-    (Function func) => ObjCBlock_NSUInteger_ffiVoid.fromFunction((
+    (DartNSUInteger Function() func) =>
+        ObjCBlock_NSUInteger_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
-        func()),
+            func()),
   );
 
   /// zone
-  static final zone = objc.ObjCProtocolMethod(
+  static final zone = objc.ObjCProtocolMethod<ffi.Pointer<_NSZone> Function()>(
     _sel_zone,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -47047,15 +47162,15 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is ffi.Pointer<_NSZone> Function(),
-    (Function func) => ObjCBlock_NSZone_ffiVoid.fromFunction((
+    (ffi.Pointer<_NSZone> Function() func) =>
+        ObjCBlock_NSZone_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
-        func()),
+            func()),
   );
 
   /// hash
-  static final hash = objc.ObjCProtocolMethod(
+  static final hash = objc.ObjCProtocolMethod<DartNSUInteger Function()>(
     _sel_hash,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -47063,15 +47178,16 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is DartNSUInteger Function(),
-    (Function func) => ObjCBlock_NSUInteger_ffiVoid.fromFunction((
+    (DartNSUInteger Function() func) =>
+        ObjCBlock_NSUInteger_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
-        func()),
+            func()),
   );
 
   /// superclass
-  static final superclass = objc.ObjCProtocolMethod(
+  static final superclass =
+      objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
     _sel_superclass,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -47079,15 +47195,15 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.ObjCObjectBase Function(),
-    (Function func) => ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
+    (objc.ObjCObjectBase Function() func) =>
+        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
-        func()),
+            func()),
   );
 
   /// description
-  static final description = objc.ObjCProtocolMethod(
+  static final description = objc.ObjCProtocolMethod<objc.NSString Function()>(
     _sel_description,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -47095,15 +47211,15 @@ abstract final class NSObject {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.NSString Function(),
-    (Function func) => ObjCBlock_NSString_ffiVoid.fromFunction((
+    (objc.NSString Function() func) => ObjCBlock_NSString_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
   );
 
   /// debugDescription
-  static final debugDescription = objc.ObjCProtocolMethod(
+  static final debugDescription =
+      objc.ObjCProtocolMethod<objc.NSString Function()>(
     _sel_debugDescription,
     objc.getProtocolMethodSignature(
       _protocol_NSObject,
@@ -47111,8 +47227,7 @@ abstract final class NSObject {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.NSString Function(),
-    (Function func) => ObjCBlock_NSString_ffiVoid.fromFunction((
+    (objc.NSString Function() func) => ObjCBlock_NSString_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
@@ -48236,52 +48351,6 @@ late final _sel_debugDescription = objc.registerName("debugDescription");
 typedef va_list = __builtin_va_list;
 typedef __builtin_va_list = ffi.Pointer<ffi.Char>;
 
-enum NSComparisonResult {
-  NSOrderedAscending(-1),
-  NSOrderedSame(0),
-  NSOrderedDescending(1);
-
-  final int value;
-  const NSComparisonResult(this.value);
-
-  static NSComparisonResult fromValue(int value) => switch (value) {
-        -1 => NSOrderedAscending,
-        0 => NSOrderedSame,
-        1 => NSOrderedDescending,
-        _ =>
-          throw ArgumentError("Unknown value for NSComparisonResult: $value"),
-      };
-}
-
-enum NSEnumerationOptions {
-  NSEnumerationConcurrent(1),
-  NSEnumerationReverse(2);
-
-  final int value;
-  const NSEnumerationOptions(this.value);
-
-  static NSEnumerationOptions fromValue(int value) => switch (value) {
-        1 => NSEnumerationConcurrent,
-        2 => NSEnumerationReverse,
-        _ =>
-          throw ArgumentError("Unknown value for NSEnumerationOptions: $value"),
-      };
-}
-
-enum NSSortOptions {
-  NSSortConcurrent(1),
-  NSSortStable(16);
-
-  final int value;
-  const NSSortOptions(this.value);
-
-  static NSSortOptions fromValue(int value) => switch (value) {
-        1 => NSSortConcurrent,
-        16 => NSSortStable,
-        _ => throw ArgumentError("Unknown value for NSSortOptions: $value"),
-      };
-}
-
 enum NSQualityOfService {
   NSQualityOfServiceUserInteractive(33),
   NSQualityOfServiceUserInitiated(25),
@@ -48648,7 +48717,7 @@ abstract final class NSCopying {
       {required objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)
           copyWithZone_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(NSCopying.copyWithZone_, copyWithZone_);
+    NSCopying.copyWithZone_.implement(builder, copyWithZone_);
     return builder.build();
   }
 
@@ -48657,11 +48726,12 @@ abstract final class NSCopying {
   static void addToBuilder(objc.ObjCProtocolBuilder builder,
       {required objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)
           copyWithZone_}) {
-    builder.implementMethod(NSCopying.copyWithZone_, copyWithZone_);
+    NSCopying.copyWithZone_.implement(builder, copyWithZone_);
   }
 
   /// copyWithZone:
-  static final copyWithZone_ = objc.ObjCProtocolMethod(
+  static final copyWithZone_ = objc.ObjCProtocolMethod<
+      objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)>(
     _sel_copyWithZone_,
     objc.getProtocolMethodSignature(
       _protocol_NSCopying,
@@ -48669,10 +48739,9 @@ abstract final class NSCopying {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is objc.ObjCObjectBase Function(ffi.Pointer<NSZone>),
-    (Function func) => ObjCBlock_objcObjCObject_ffiVoid_NSZone.fromFunction(
-        (ffi.Pointer<ffi.Void> _, ffi.Pointer<NSZone> arg1) => func(arg1)),
+    (objc.ObjCObjectBase Function(ffi.Pointer<NSZone>) func) =>
+        ObjCBlock_objcObjCObject_ffiVoid_NSZone.fromFunction(
+            (ffi.Pointer<ffi.Void> _, ffi.Pointer<NSZone> arg1) => func(arg1)),
   );
 }
 
@@ -48784,8 +48853,8 @@ abstract final class NSMutableCopying {
       {required objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)
           mutableCopyWithZone_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSMutableCopying.mutableCopyWithZone_, mutableCopyWithZone_);
+    NSMutableCopying.mutableCopyWithZone_
+        .implement(builder, mutableCopyWithZone_);
     return builder.build();
   }
 
@@ -48794,12 +48863,13 @@ abstract final class NSMutableCopying {
   static void addToBuilder(objc.ObjCProtocolBuilder builder,
       {required objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)
           mutableCopyWithZone_}) {
-    builder.implementMethod(
-        NSMutableCopying.mutableCopyWithZone_, mutableCopyWithZone_);
+    NSMutableCopying.mutableCopyWithZone_
+        .implement(builder, mutableCopyWithZone_);
   }
 
   /// mutableCopyWithZone:
-  static final mutableCopyWithZone_ = objc.ObjCProtocolMethod(
+  static final mutableCopyWithZone_ = objc.ObjCProtocolMethod<
+      objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)>(
     _sel_mutableCopyWithZone_,
     objc.getProtocolMethodSignature(
       _protocol_NSMutableCopying,
@@ -48807,10 +48877,9 @@ abstract final class NSMutableCopying {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is objc.ObjCObjectBase Function(ffi.Pointer<NSZone>),
-    (Function func) => ObjCBlock_objcObjCObject_ffiVoid_NSZone.fromFunction(
-        (ffi.Pointer<ffi.Void> _, ffi.Pointer<NSZone> arg1) => func(arg1)),
+    (objc.ObjCObjectBase Function(ffi.Pointer<NSZone>) func) =>
+        ObjCBlock_objcObjCObject_ffiVoid_NSZone.fromFunction(
+            (ffi.Pointer<ffi.Void> _, ffi.Pointer<NSZone> arg1) => func(arg1)),
   );
 }
 
@@ -48826,8 +48895,8 @@ abstract final class NSCoding {
       {required void Function(objc.NSCoder) encodeWithCoder_,
       required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(NSCoding.encodeWithCoder_, encodeWithCoder_);
-    builder.implementMethod(NSCoding.initWithCoder_, initWithCoder_);
+    NSCoding.encodeWithCoder_.implement(builder, encodeWithCoder_);
+    NSCoding.initWithCoder_.implement(builder, initWithCoder_);
     return builder.build();
   }
 
@@ -48836,12 +48905,35 @@ abstract final class NSCoding {
   static void addToBuilder(objc.ObjCProtocolBuilder builder,
       {required void Function(objc.NSCoder) encodeWithCoder_,
       required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    builder.implementMethod(NSCoding.encodeWithCoder_, encodeWithCoder_);
-    builder.implementMethod(NSCoding.initWithCoder_, initWithCoder_);
+    NSCoding.encodeWithCoder_.implement(builder, encodeWithCoder_);
+    NSCoding.initWithCoder_.implement(builder, initWithCoder_);
+  }
+
+  /// Builds an object that implements the NSCoding protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {required void Function(objc.NSCoder) encodeWithCoder_,
+      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSCoding.encodeWithCoder_.implementAsListener(builder, encodeWithCoder_);
+    NSCoding.initWithCoder_.implement(builder, initWithCoder_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSCoding protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {required void Function(objc.NSCoder) encodeWithCoder_,
+      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
+    NSCoding.encodeWithCoder_.implementAsListener(builder, encodeWithCoder_);
+    NSCoding.initWithCoder_.implement(builder, initWithCoder_);
   }
 
   /// encodeWithCoder:
-  static final encodeWithCoder_ = objc.ObjCProtocolListenableMethod(
+  static final encodeWithCoder_ =
+      objc.ObjCProtocolListenableMethod<void Function(objc.NSCoder)>(
     _sel_encodeWithCoder_,
     objc.getProtocolMethodSignature(
       _protocol_NSCoding,
@@ -48849,15 +48941,17 @@ abstract final class NSCoding {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(objc.NSCoder),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSCoder.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSCoder.listener(
-        (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
+    (void Function(objc.NSCoder) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSCoder.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
+    (void Function(objc.NSCoder) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSCoder.listener(
+            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
   );
 
   /// initWithCoder:
-  static final initWithCoder_ = objc.ObjCProtocolMethod(
+  static final initWithCoder_ =
+      objc.ObjCProtocolMethod<Dartinstancetype? Function(objc.NSCoder)>(
     _sel_initWithCoder_,
     objc.getProtocolMethodSignature(
       _protocol_NSCoding,
@@ -48865,9 +48959,9 @@ abstract final class NSCoding {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is Dartinstancetype? Function(objc.NSCoder),
-    (Function func) => ObjCBlock_instancetype_ffiVoid_NSCoder.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
+    (Dartinstancetype? Function(objc.NSCoder) func) =>
+        ObjCBlock_instancetype_ffiVoid_NSCoder.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
   );
 }
 
@@ -49099,10 +49193,10 @@ abstract final class NSSecureCoding {
       required void Function(objc.NSCoder) encodeWithCoder_,
       required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSSecureCoding.supportsSecureCoding, supportsSecureCoding);
-    builder.implementMethod(NSSecureCoding.encodeWithCoder_, encodeWithCoder_);
-    builder.implementMethod(NSSecureCoding.initWithCoder_, initWithCoder_);
+    NSSecureCoding.supportsSecureCoding
+        .implement(builder, supportsSecureCoding);
+    NSSecureCoding.encodeWithCoder_.implement(builder, encodeWithCoder_);
+    NSSecureCoding.initWithCoder_.implement(builder, initWithCoder_);
     return builder.build();
   }
 
@@ -49112,14 +49206,44 @@ abstract final class NSSecureCoding {
       {required bool Function() supportsSecureCoding,
       required void Function(objc.NSCoder) encodeWithCoder_,
       required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    builder.implementMethod(
-        NSSecureCoding.supportsSecureCoding, supportsSecureCoding);
-    builder.implementMethod(NSSecureCoding.encodeWithCoder_, encodeWithCoder_);
-    builder.implementMethod(NSSecureCoding.initWithCoder_, initWithCoder_);
+    NSSecureCoding.supportsSecureCoding
+        .implement(builder, supportsSecureCoding);
+    NSSecureCoding.encodeWithCoder_.implement(builder, encodeWithCoder_);
+    NSSecureCoding.initWithCoder_.implement(builder, initWithCoder_);
+  }
+
+  /// Builds an object that implements the NSSecureCoding protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {required bool Function() supportsSecureCoding,
+      required void Function(objc.NSCoder) encodeWithCoder_,
+      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSSecureCoding.supportsSecureCoding
+        .implement(builder, supportsSecureCoding);
+    NSSecureCoding.encodeWithCoder_
+        .implementAsListener(builder, encodeWithCoder_);
+    NSSecureCoding.initWithCoder_.implement(builder, initWithCoder_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSSecureCoding protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {required bool Function() supportsSecureCoding,
+      required void Function(objc.NSCoder) encodeWithCoder_,
+      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
+    NSSecureCoding.supportsSecureCoding
+        .implement(builder, supportsSecureCoding);
+    NSSecureCoding.encodeWithCoder_
+        .implementAsListener(builder, encodeWithCoder_);
+    NSSecureCoding.initWithCoder_.implement(builder, initWithCoder_);
   }
 
   /// supportsSecureCoding
-  static final supportsSecureCoding = objc.ObjCProtocolMethod(
+  static final supportsSecureCoding = objc.ObjCProtocolMethod<bool Function()>(
     _sel_supportsSecureCoding,
     objc.getProtocolMethodSignature(
       _protocol_NSSecureCoding,
@@ -49127,15 +49251,15 @@ abstract final class NSSecureCoding {
       isRequired: true,
       isInstanceMethod: false,
     ),
-    (Function func) => func is bool Function(),
-    (Function func) => ObjCBlock_bool_ffiVoid.fromFunction((
+    (bool Function() func) => ObjCBlock_bool_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
   );
 
   /// encodeWithCoder:
-  static final encodeWithCoder_ = objc.ObjCProtocolListenableMethod(
+  static final encodeWithCoder_ =
+      objc.ObjCProtocolListenableMethod<void Function(objc.NSCoder)>(
     _sel_encodeWithCoder_,
     objc.getProtocolMethodSignature(
       _protocol_NSSecureCoding,
@@ -49143,15 +49267,17 @@ abstract final class NSSecureCoding {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(objc.NSCoder),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSCoder.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSCoder.listener(
-        (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
+    (void Function(objc.NSCoder) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSCoder.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
+    (void Function(objc.NSCoder) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSCoder.listener(
+            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
   );
 
   /// initWithCoder:
-  static final initWithCoder_ = objc.ObjCProtocolMethod(
+  static final initWithCoder_ =
+      objc.ObjCProtocolMethod<Dartinstancetype? Function(objc.NSCoder)>(
     _sel_initWithCoder_,
     objc.getProtocolMethodSignature(
       _protocol_NSSecureCoding,
@@ -49159,9 +49285,9 @@ abstract final class NSSecureCoding {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is Dartinstancetype? Function(objc.NSCoder),
-    (Function func) => ObjCBlock_instancetype_ffiVoid_NSCoder.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
+    (Dartinstancetype? Function(objc.NSCoder) func) =>
+        ObjCBlock_instancetype_ffiVoid_NSCoder.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
   );
 }
 
@@ -49179,14 +49305,13 @@ abstract final class NSDiscardableContent {
       required void Function() discardContentIfPossible,
       required bool Function() isContentDiscarded}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSDiscardableContent.beginContentAccess, beginContentAccess);
-    builder.implementMethod(
-        NSDiscardableContent.endContentAccess, endContentAccess);
-    builder.implementMethod(NSDiscardableContent.discardContentIfPossible,
-        discardContentIfPossible);
-    builder.implementMethod(
-        NSDiscardableContent.isContentDiscarded, isContentDiscarded);
+    NSDiscardableContent.beginContentAccess
+        .implement(builder, beginContentAccess);
+    NSDiscardableContent.endContentAccess.implement(builder, endContentAccess);
+    NSDiscardableContent.discardContentIfPossible
+        .implement(builder, discardContentIfPossible);
+    NSDiscardableContent.isContentDiscarded
+        .implement(builder, isContentDiscarded);
     return builder.build();
   }
 
@@ -49197,18 +49322,55 @@ abstract final class NSDiscardableContent {
       required void Function() endContentAccess,
       required void Function() discardContentIfPossible,
       required bool Function() isContentDiscarded}) {
-    builder.implementMethod(
-        NSDiscardableContent.beginContentAccess, beginContentAccess);
-    builder.implementMethod(
-        NSDiscardableContent.endContentAccess, endContentAccess);
-    builder.implementMethod(NSDiscardableContent.discardContentIfPossible,
-        discardContentIfPossible);
-    builder.implementMethod(
-        NSDiscardableContent.isContentDiscarded, isContentDiscarded);
+    NSDiscardableContent.beginContentAccess
+        .implement(builder, beginContentAccess);
+    NSDiscardableContent.endContentAccess.implement(builder, endContentAccess);
+    NSDiscardableContent.discardContentIfPossible
+        .implement(builder, discardContentIfPossible);
+    NSDiscardableContent.isContentDiscarded
+        .implement(builder, isContentDiscarded);
+  }
+
+  /// Builds an object that implements the NSDiscardableContent protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {required bool Function() beginContentAccess,
+      required void Function() endContentAccess,
+      required void Function() discardContentIfPossible,
+      required bool Function() isContentDiscarded}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSDiscardableContent.beginContentAccess
+        .implement(builder, beginContentAccess);
+    NSDiscardableContent.endContentAccess
+        .implementAsListener(builder, endContentAccess);
+    NSDiscardableContent.discardContentIfPossible
+        .implementAsListener(builder, discardContentIfPossible);
+    NSDiscardableContent.isContentDiscarded
+        .implement(builder, isContentDiscarded);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSDiscardableContent protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {required bool Function() beginContentAccess,
+      required void Function() endContentAccess,
+      required void Function() discardContentIfPossible,
+      required bool Function() isContentDiscarded}) {
+    NSDiscardableContent.beginContentAccess
+        .implement(builder, beginContentAccess);
+    NSDiscardableContent.endContentAccess
+        .implementAsListener(builder, endContentAccess);
+    NSDiscardableContent.discardContentIfPossible
+        .implementAsListener(builder, discardContentIfPossible);
+    NSDiscardableContent.isContentDiscarded
+        .implement(builder, isContentDiscarded);
   }
 
   /// beginContentAccess
-  static final beginContentAccess = objc.ObjCProtocolMethod(
+  static final beginContentAccess = objc.ObjCProtocolMethod<bool Function()>(
     _sel_beginContentAccess,
     objc.getProtocolMethodSignature(
       _protocol_NSDiscardableContent,
@@ -49216,15 +49378,15 @@ abstract final class NSDiscardableContent {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is bool Function(),
-    (Function func) => ObjCBlock_bool_ffiVoid.fromFunction((
+    (bool Function() func) => ObjCBlock_bool_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
   );
 
   /// endContentAccess
-  static final endContentAccess = objc.ObjCProtocolListenableMethod(
+  static final endContentAccess =
+      objc.ObjCProtocolListenableMethod<void Function()>(
     _sel_endContentAccess,
     objc.getProtocolMethodSignature(
       _protocol_NSDiscardableContent,
@@ -49232,19 +49394,19 @@ abstract final class NSDiscardableContent {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid.listener((
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
   );
 
   /// discardContentIfPossible
-  static final discardContentIfPossible = objc.ObjCProtocolListenableMethod(
+  static final discardContentIfPossible =
+      objc.ObjCProtocolListenableMethod<void Function()>(
     _sel_discardContentIfPossible,
     objc.getProtocolMethodSignature(
       _protocol_NSDiscardableContent,
@@ -49252,19 +49414,18 @@ abstract final class NSDiscardableContent {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid.listener((
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
   );
 
   /// isContentDiscarded
-  static final isContentDiscarded = objc.ObjCProtocolMethod(
+  static final isContentDiscarded = objc.ObjCProtocolMethod<bool Function()>(
     _sel_isContentDiscarded,
     objc.getProtocolMethodSignature(
       _protocol_NSDiscardableContent,
@@ -49272,8 +49433,7 @@ abstract final class NSDiscardableContent {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is bool Function(),
-    (Function func) => ObjCBlock_bool_ffiVoid.fromFunction((
+    (bool Function() func) => ObjCBlock_bool_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
@@ -49288,47 +49448,39 @@ late final _sel_discardContentIfPossible =
     objc.registerName("discardContentIfPossible");
 late final _sel_isContentDiscarded = objc.registerName("isContentDiscarded");
 
-final class NSFastEnumerationState extends ffi.Struct {
-  @ffi.UnsignedLong()
-  external int state;
-
-  external ffi.Pointer<ffi.Pointer<objc.ObjCObject>> itemsPtr;
-
-  external ffi.Pointer<ffi.UnsignedLong> mutationsPtr;
-
-  @ffi.Array.multi([5])
-  external ffi.Array<ffi.UnsignedLong> extra;
-}
-
 /// NSFastEnumeration
 abstract final class NSFastEnumeration {
   /// Builds an object that implements the NSFastEnumeration protocol. To implement
   /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
   static objc.ObjCObjectBase implement(
-      {required DartNSUInteger Function(ffi.Pointer<NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, DartNSUInteger)
+      {required DartNSUInteger Function(
+              ffi.Pointer<objc.NSFastEnumerationState>,
+              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+              DartNSUInteger)
           countByEnumeratingWithState_objects_count_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSFastEnumeration.countByEnumeratingWithState_objects_count_,
-        countByEnumeratingWithState_objects_count_);
+    NSFastEnumeration.countByEnumeratingWithState_objects_count_
+        .implement(builder, countByEnumeratingWithState_objects_count_);
     return builder.build();
   }
 
   /// Adds the implementation of the NSFastEnumeration protocol to an existing
   /// [objc.ObjCProtocolBuilder].
   static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required DartNSUInteger Function(ffi.Pointer<NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, DartNSUInteger)
+      {required DartNSUInteger Function(
+              ffi.Pointer<objc.NSFastEnumerationState>,
+              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+              DartNSUInteger)
           countByEnumeratingWithState_objects_count_}) {
-    builder.implementMethod(
-        NSFastEnumeration.countByEnumeratingWithState_objects_count_,
-        countByEnumeratingWithState_objects_count_);
+    NSFastEnumeration.countByEnumeratingWithState_objects_count_
+        .implement(builder, countByEnumeratingWithState_objects_count_);
   }
 
   /// countByEnumeratingWithState:objects:count:
   static final countByEnumeratingWithState_objects_count_ =
-      objc.ObjCProtocolMethod(
+      objc.ObjCProtocolMethod<
+          DartNSUInteger Function(ffi.Pointer<objc.NSFastEnumerationState>,
+              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, DartNSUInteger)>(
     _sel_countByEnumeratingWithState_objects_count_,
     objc.getProtocolMethodSignature(
       _protocol_NSFastEnumeration,
@@ -49336,14 +49488,12 @@ abstract final class NSFastEnumeration {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is DartNSUInteger Function(
-        ffi.Pointer<NSFastEnumerationState>,
-        ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-        DartNSUInteger),
-    (Function func) =>
+    (DartNSUInteger Function(ffi.Pointer<objc.NSFastEnumerationState>,
+                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, DartNSUInteger)
+            func) =>
         ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger
             .fromFunction((ffi.Pointer<ffi.Void> _,
-                    ffi.Pointer<NSFastEnumerationState> arg1,
+                    ffi.Pointer<objc.NSFastEnumerationState> arg1,
                     ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
                     DartNSUInteger arg3) =>
                 func(arg1, arg2, arg3)),
@@ -49356,7 +49506,7 @@ late final _sel_countByEnumeratingWithState_objects_count_ =
 int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlock> block,
         ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<NSFastEnumerationState> arg1,
+        ffi.Pointer<objc.NSFastEnumerationState> arg1,
         ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
         int arg3) =>
     block.ref.target
@@ -49364,24 +49514,24 @@ int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteg
             ffi.NativeFunction<
                 NSUInteger Function(
                     ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<NSFastEnumerationState> arg1,
+                    ffi.Pointer<objc.NSFastEnumerationState> arg1,
                     ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
                     NSUInteger arg3)>>()
         .asFunction<
             int Function(
                 ffi.Pointer<ffi.Void>,
-                ffi.Pointer<NSFastEnumerationState>,
+                ffi.Pointer<objc.NSFastEnumerationState>,
                 ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
                 int)>()(arg0, arg1, arg2, arg3);
 int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureTrampoline(
         ffi.Pointer<objc.ObjCBlock> block,
         ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<NSFastEnumerationState> arg1,
+        ffi.Pointer<objc.NSFastEnumerationState> arg1,
         ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
         int arg3) =>
     (objc.getBlockClosure(block) as int Function(
         ffi.Pointer<ffi.Void>,
-        ffi.Pointer<NSFastEnumerationState>,
+        ffi.Pointer<objc.NSFastEnumerationState>,
         ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
         int))(arg0, arg1, arg2, arg3);
 
@@ -49408,10 +49558,11 @@ class ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInte
   /// will result in a crash.
   ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger.fromFunctionPointer(
       ffi.Pointer<
-              ffi.NativeFunction<
+              ffi
+              .NativeFunction<
                   NSUInteger Function(
                       ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<NSFastEnumerationState> arg1,
+                      ffi.Pointer<objc.NSFastEnumerationState> arg1,
                       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
                       NSUInteger arg3)>>
           ptr)
@@ -49420,7 +49571,7 @@ class ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInte
                         NSUInteger Function(
                             ffi.Pointer<objc.ObjCBlock>,
                             ffi.Pointer<ffi.Void>,
-                            ffi.Pointer<NSFastEnumerationState>,
+                            ffi.Pointer<objc.NSFastEnumerationState>,
                             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
                             NSUInteger)>(
                     _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrTrampoline,
@@ -49437,7 +49588,7 @@ class ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInte
   ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger.fromFunction(
       DartNSUInteger Function(
               ffi.Pointer<ffi.Void>,
-              ffi.Pointer<NSFastEnumerationState>,
+              ffi.Pointer<objc.NSFastEnumerationState>,
               ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
               DartNSUInteger)
           fn)
@@ -49446,18 +49597,18 @@ class ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInte
                         NSUInteger Function(
                             ffi.Pointer<objc.ObjCBlock>,
                             ffi.Pointer<ffi.Void>,
-                            ffi.Pointer<NSFastEnumerationState>,
+                            ffi.Pointer<objc.NSFastEnumerationState>,
                             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
                             NSUInteger)>(
                     _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureTrampoline, 0)
                 .cast(),
-            (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<NSFastEnumerationState> arg1, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2, int arg3) =>
+            (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.NSFastEnumerationState> arg1, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2, int arg3) =>
                 fn(arg0, arg1, arg2, arg3)));
   static ffi.Pointer<ffi.Void>? _dartFuncTrampoline;
 
   DartNSUInteger call(
           ffi.Pointer<ffi.Void> arg0,
-          ffi.Pointer<NSFastEnumerationState> arg1,
+          ffi.Pointer<objc.NSFastEnumerationState> arg1,
           ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
           DartNSUInteger arg3) =>
       pointer.ref.invoke
@@ -49466,14 +49617,14 @@ class ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInte
                   NSUInteger Function(
                       ffi.Pointer<objc.ObjCBlock> block,
                       ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<NSFastEnumerationState> arg1,
+                      ffi.Pointer<objc.NSFastEnumerationState> arg1,
                       ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
                       NSUInteger arg3)>>()
           .asFunction<
               int Function(
                   ffi.Pointer<objc.ObjCBlock>,
                   ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<NSFastEnumerationState>,
+                  ffi.Pointer<objc.NSFastEnumerationState>,
                   ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
                   int)>()(pointer, arg0, arg1, arg2, arg3);
 }
@@ -49774,24 +49925,6 @@ final _objc_msgSend_0 = objc.msgSendPointer
     .asFunction<
         bool Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-
-enum NSOrderedCollectionDifferenceCalculationOptions {
-  NSOrderedCollectionDifferenceCalculationOmitInsertedObjects(1),
-  NSOrderedCollectionDifferenceCalculationOmitRemovedObjects(2),
-  NSOrderedCollectionDifferenceCalculationInferMoves(4);
-
-  final int value;
-  const NSOrderedCollectionDifferenceCalculationOptions(this.value);
-
-  static NSOrderedCollectionDifferenceCalculationOptions fromValue(int value) =>
-      switch (value) {
-        1 => NSOrderedCollectionDifferenceCalculationOmitInsertedObjects,
-        2 => NSOrderedCollectionDifferenceCalculationOmitRemovedObjects,
-        4 => NSOrderedCollectionDifferenceCalculationInferMoves,
-        _ => throw ArgumentError(
-            "Unknown value for NSOrderedCollectionDifferenceCalculationOptions: $value"),
-      };
-}
 
 /// NSOrderedCollectionDifference
 class NSOrderedCollectionDifference extends objc.NSObject {
@@ -50100,188 +50233,6 @@ final _objc_msgSend_14 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlock>)>();
 late final _sel_inverseDifference = objc.registerName("inverseDifference");
-
-enum NSBinarySearchingOptions {
-  NSBinarySearchingFirstEqual(256),
-  NSBinarySearchingLastEqual(512),
-  NSBinarySearchingInsertionIndex(1024);
-
-  final int value;
-  const NSBinarySearchingOptions(this.value);
-
-  static NSBinarySearchingOptions fromValue(int value) => switch (value) {
-        256 => NSBinarySearchingFirstEqual,
-        512 => NSBinarySearchingLastEqual,
-        1024 => NSBinarySearchingInsertionIndex,
-        _ => throw ArgumentError(
-            "Unknown value for NSBinarySearchingOptions: $value"),
-      };
-}
-
-/// Read/Write Options
-enum NSDataReadingOptions {
-  /// Hint to map the file in if possible and safe
-  NSDataReadingMappedIfSafe(1),
-
-  /// Hint to get the file not to be cached in the kernel
-  NSDataReadingUncached(2),
-
-  /// Hint to map the file in if possible. This takes precedence over NSDataReadingMappedIfSafe if both are given.
-  NSDataReadingMappedAlways(8);
-
-  /// Deprecated name for NSDataReadingMappedIfSafe
-  static const NSDataReadingMapped = NSDataReadingMappedIfSafe;
-
-  /// Deprecated name for NSDataReadingMapped
-  static const NSMappedRead = NSDataReadingMappedIfSafe;
-
-  /// Deprecated name for NSDataReadingUncached
-  static const NSUncachedRead = NSDataReadingUncached;
-
-  final int value;
-  const NSDataReadingOptions(this.value);
-
-  static NSDataReadingOptions fromValue(int value) => switch (value) {
-        1 => NSDataReadingMappedIfSafe,
-        2 => NSDataReadingUncached,
-        8 => NSDataReadingMappedAlways,
-        _ =>
-          throw ArgumentError("Unknown value for NSDataReadingOptions: $value"),
-      };
-
-  @override
-  String toString() {
-    if (this == NSDataReadingMappedIfSafe)
-      return "NSDataReadingOptions.NSDataReadingMappedIfSafe, NSDataReadingOptions.NSDataReadingMapped, NSDataReadingOptions.NSMappedRead";
-    if (this == NSDataReadingUncached)
-      return "NSDataReadingOptions.NSDataReadingUncached, NSDataReadingOptions.NSUncachedRead";
-    return super.toString();
-  }
-}
-
-enum NSDataWritingOptions {
-  /// Hint to use auxiliary file when saving; equivalent to atomically:YES
-  NSDataWritingAtomic(1),
-
-  /// Hint to  prevent overwriting an existing file. Cannot be combined with NSDataWritingAtomic.
-  NSDataWritingWithoutOverwriting(2),
-  NSDataWritingFileProtectionNone(268435456),
-  NSDataWritingFileProtectionComplete(536870912),
-  NSDataWritingFileProtectionCompleteUnlessOpen(805306368),
-  NSDataWritingFileProtectionCompleteUntilFirstUserAuthentication(1073741824),
-  NSDataWritingFileProtectionCompleteWhenUserInactive(1342177280),
-  NSDataWritingFileProtectionMask(4026531840);
-
-  /// Deprecated name for NSDataWritingAtomic
-  static const NSAtomicWrite = NSDataWritingAtomic;
-
-  final int value;
-  const NSDataWritingOptions(this.value);
-
-  static NSDataWritingOptions fromValue(int value) => switch (value) {
-        1 => NSDataWritingAtomic,
-        2 => NSDataWritingWithoutOverwriting,
-        268435456 => NSDataWritingFileProtectionNone,
-        536870912 => NSDataWritingFileProtectionComplete,
-        805306368 => NSDataWritingFileProtectionCompleteUnlessOpen,
-        1073741824 =>
-          NSDataWritingFileProtectionCompleteUntilFirstUserAuthentication,
-        1342177280 => NSDataWritingFileProtectionCompleteWhenUserInactive,
-        4026531840 => NSDataWritingFileProtectionMask,
-        _ =>
-          throw ArgumentError("Unknown value for NSDataWritingOptions: $value"),
-      };
-
-  @override
-  String toString() {
-    if (this == NSDataWritingAtomic)
-      return "NSDataWritingOptions.NSDataWritingAtomic, NSDataWritingOptions.NSAtomicWrite";
-    return super.toString();
-  }
-}
-
-/// Data Search Options
-enum NSDataSearchOptions {
-  NSDataSearchBackwards(1),
-  NSDataSearchAnchored(2);
-
-  final int value;
-  const NSDataSearchOptions(this.value);
-
-  static NSDataSearchOptions fromValue(int value) => switch (value) {
-        1 => NSDataSearchBackwards,
-        2 => NSDataSearchAnchored,
-        _ =>
-          throw ArgumentError("Unknown value for NSDataSearchOptions: $value"),
-      };
-}
-
-/// Base 64 Options
-enum NSDataBase64EncodingOptions {
-  /// Use zero or one of the following to control the maximum line length after which a line ending is inserted. No line endings are inserted by default.
-  NSDataBase64Encoding64CharacterLineLength(1),
-  NSDataBase64Encoding76CharacterLineLength(2),
-
-  /// Use zero or more of the following to specify which kind of line ending is inserted. The default line ending is CR LF.
-  NSDataBase64EncodingEndLineWithCarriageReturn(16),
-  NSDataBase64EncodingEndLineWithLineFeed(32);
-
-  final int value;
-  const NSDataBase64EncodingOptions(this.value);
-
-  static NSDataBase64EncodingOptions fromValue(int value) => switch (value) {
-        1 => NSDataBase64Encoding64CharacterLineLength,
-        2 => NSDataBase64Encoding76CharacterLineLength,
-        16 => NSDataBase64EncodingEndLineWithCarriageReturn,
-        32 => NSDataBase64EncodingEndLineWithLineFeed,
-        _ => throw ArgumentError(
-            "Unknown value for NSDataBase64EncodingOptions: $value"),
-      };
-}
-
-enum NSDataBase64DecodingOptions {
-  /// Use the following option to modify the decoding algorithm so that it ignores unknown non-Base64 bytes, including line ending characters.
-  NSDataBase64DecodingIgnoreUnknownCharacters(1);
-
-  final int value;
-  const NSDataBase64DecodingOptions(this.value);
-
-  static NSDataBase64DecodingOptions fromValue(int value) => switch (value) {
-        1 => NSDataBase64DecodingIgnoreUnknownCharacters,
-        _ => throw ArgumentError(
-            "Unknown value for NSDataBase64DecodingOptions: $value"),
-      };
-}
-
-/// Various algorithms provided for compression APIs. See NSData and NSMutableData.
-enum NSDataCompressionAlgorithm {
-  /// LZFSE is the recommended compression algorithm if you don't have a specific reason to use another algorithm. Note that LZFSE is intended for use with Apple devices only. This algorithm generally compresses better than Zlib, but not as well as LZMA. It is generally slower than LZ4.
-  NSDataCompressionAlgorithmLZFSE(0),
-
-  /// LZ4 is appropriate if compression speed is critical. LZ4 generally sacrifices compression ratio in order to achieve its greater speed.
-  /// This implementation of LZ4 makes a small modification to the standard format, which is described in greater detail in <compression.h>.
-  NSDataCompressionAlgorithmLZ4(1),
-
-  /// LZMA is appropriate if compression ratio is critical and memory usage and compression speed are not a factor. LZMA is an order of magnitude slower for both compression and decompression than other algorithms. It can also use a very large amount of memory, so if you need to compress large amounts of data on embedded devices with limited memory you should probably avoid LZMA.
-  /// Encoding uses LZMA level 6 only, but decompression works with any compression level.
-  NSDataCompressionAlgorithmLZMA(2),
-
-  /// Zlib is appropriate if you want a good balance between compression speed and compression ratio, but only if you need interoperability with non-Apple platforms. Otherwise, LZFSE is generally a better choice than Zlib.
-  /// Encoding uses Zlib level 5 only, but decompression works with any compression level. It uses the raw DEFLATE format as described in IETF RFC 1951.
-  NSDataCompressionAlgorithmZlib(3);
-
-  final int value;
-  const NSDataCompressionAlgorithm(this.value);
-
-  static NSDataCompressionAlgorithm fromValue(int value) => switch (value) {
-        0 => NSDataCompressionAlgorithmLZFSE,
-        1 => NSDataCompressionAlgorithmLZ4,
-        2 => NSDataCompressionAlgorithmLZMA,
-        3 => NSDataCompressionAlgorithmZlib,
-        _ => throw ArgumentError(
-            "Unknown value for NSDataCompressionAlgorithm: $value"),
-      };
-}
 
 /// Purgeable Data
 class NSPurgeableData extends objc.NSMutableData {
@@ -55964,7 +55915,7 @@ abstract final class NSProgressReporting {
   static objc.ObjCObjectBase implement(
       {required NSProgress Function() progress}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(NSProgressReporting.progress, progress);
+    NSProgressReporting.progress.implement(builder, progress);
     return builder.build();
   }
 
@@ -55972,11 +55923,11 @@ abstract final class NSProgressReporting {
   /// [objc.ObjCProtocolBuilder].
   static void addToBuilder(objc.ObjCProtocolBuilder builder,
       {required NSProgress Function() progress}) {
-    builder.implementMethod(NSProgressReporting.progress, progress);
+    NSProgressReporting.progress.implement(builder, progress);
   }
 
   /// progress
-  static final progress = objc.ObjCProtocolMethod(
+  static final progress = objc.ObjCProtocolMethod<NSProgress Function()>(
     _sel_progress,
     objc.getProtocolMethodSignature(
       _protocol_NSProgressReporting,
@@ -55984,8 +55935,7 @@ abstract final class NSProgressReporting {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is NSProgress Function(),
-    (Function func) => ObjCBlock_NSProgress_ffiVoid.fromFunction((
+    (NSProgress Function() func) => ObjCBlock_NSProgress_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
@@ -68143,15 +68093,12 @@ abstract final class NSURLSessionDelegate {
       void Function(NSURLSession)?
           URLSessionDidFinishEventsForBackgroundURLSession_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_.implement(
+        builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
     return builder.build();
   }
 
@@ -68165,22 +68112,63 @@ abstract final class NSURLSessionDelegate {
           URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)?
           URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    builder.implementMethod(
-        NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_.implement(
+        builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+  }
+
+  /// Builds an object that implements the NSURLSessionDelegate protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {void Function(NSURLSession, objc.NSError?)?
+          URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)?
+          URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSURLSessionDelegate protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {void Function(NSURLSession, objc.NSError?)?
+          URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)?
+          URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
   }
 
   /// The last message a session receives.  A session will only become
   /// invalid because of a systemic error or when it has been
   /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ =
-      objc.ObjCProtocolListenableMethod(
+  static final URLSession_didBecomeInvalidWithError_ = objc
+      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
     _sel_URLSession_didBecomeInvalidWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDelegate,
@@ -68188,14 +68176,14 @@ abstract final class NSURLSessionDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
                 func(arg1, arg2)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-            func(arg1, arg2)),
+    (void Function(NSURLSession, objc.NSError?) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
+                func(arg1, arg2)),
   );
 
   /// If implemented, when a connection level authentication challenge
@@ -68207,7 +68195,9 @@ abstract final class NSURLSessionDelegate {
   /// behavior will be to use the default handling, which may involve user
   /// interaction.
   static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDelegate,
@@ -68215,11 +68205,9 @@ abstract final class NSURLSessionDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -68227,7 +68215,9 @@ abstract final class NSURLSessionDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -68245,7 +68235,7 @@ abstract final class NSURLSessionDelegate {
   /// completion handler, or to begin any internal updates that will
   /// result in invoking the completion handler.
   static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
     _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDelegate,
@@ -68253,11 +68243,12 @@ abstract final class NSURLSessionDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
   );
 }
 
@@ -68891,55 +68882,44 @@ abstract final class NSURLSessionTaskDelegate {
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(NSURLSessionTaskDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionTaskDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_.implement(
+        builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionTaskDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_.implement(
+        builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_.implement(
+        builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionTaskDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionTaskDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
     return builder.build();
   }
 
@@ -68972,55 +68952,194 @@ abstract final class NSURLSessionTaskDelegate {
       void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    builder.implementMethod(NSURLSessionTaskDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionTaskDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionTaskDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_.implement(
+        builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionTaskDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_.implement(
+        builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_.implement(
+        builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionTaskDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionTaskDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+  }
+
+  /// Builds an object that implements the NSURLSessionTaskDelegate protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)?
+          URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)?
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)?
+          URLSession_task_needNewBodyStream_,
+      void Function(
+              NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)?
+          URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSURLSessionTaskDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionTaskDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionTaskDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionTaskDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSURLSessionTaskDelegate protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)?
+          URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)?
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)?
+          URLSession_task_needNewBodyStream_,
+      void Function(
+              NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)?
+          URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    NSURLSessionTaskDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionTaskDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionTaskDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionTaskDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionTaskDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
   }
 
   /// Notification that a task has been created.  This method is the first message
@@ -69028,7 +69147,8 @@ abstract final class NSURLSessionTaskDelegate {
   ///
   /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
   /// invoked synchronously before the task creation method returns.
-  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod(
+  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod<
+      void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_didCreateTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69036,13 +69156,12 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -69070,7 +69189,9 @@ abstract final class NSURLSessionTaskDelegate {
   /// URLSession:task:didCompleteWithError: task delegate will be called with error
   /// NSURLErrorCancelled.
   static final URLSession_task_willBeginDelayedRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)>(
     _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69078,12 +69199,9 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLRequest,
-        ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69092,7 +69210,9 @@ abstract final class NSURLSessionTaskDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69113,7 +69233,8 @@ abstract final class NSURLSessionTaskDelegate {
   /// This delegate callback will never be called for background sessions, because
   /// the waitForConnectivity property is ignored by those sessions.
   static final URLSession_taskIsWaitingForConnectivity_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_taskIsWaitingForConnectivity_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69121,13 +69242,12 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -69143,7 +69263,9 @@ abstract final class NSURLSessionTaskDelegate {
   ///
   /// For tasks in background sessions, redirections will always be followed and this method will not be called.
   static final URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)>(
     _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69151,9 +69273,9 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask,
-        NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69162,7 +69284,9 @@ abstract final class NSURLSessionTaskDelegate {
                     NSURLRequest arg4,
                     ObjCBlock_ffiVoid_NSURLRequest arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69178,7 +69302,12 @@ abstract final class NSURLSessionTaskDelegate {
   /// will *NOT* be called and the behavior will be the same as using the default handling
   /// disposition.
   static final URLSession_task_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_task_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69186,12 +69315,9 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69200,7 +69326,9 @@ abstract final class NSURLSessionTaskDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69215,7 +69343,9 @@ abstract final class NSURLSessionTaskDelegate {
   /// necessary when authentication has failed for any request that
   /// involves a body stream.
   static final URLSession_task_needNewBodyStream_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStream_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69223,16 +69353,18 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
                     NSURLSessionTask arg2,
                     ObjCBlock_ffiVoid_NSInputStream arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69249,7 +69381,9 @@ abstract final class NSURLSessionTaskDelegate {
   /// - Parameter offset: The starting offset required for the body stream.
   /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
   static final URLSession_task_needNewBodyStreamFromOffset_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int,
+              ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69257,9 +69391,9 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69267,7 +69401,9 @@ abstract final class NSURLSessionTaskDelegate {
                     int arg3,
                     ObjCBlock_ffiVoid_NSInputStream arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69280,7 +69416,8 @@ abstract final class NSURLSessionTaskDelegate {
   /// Sent periodically to notify the delegate of upload progress.  This
   /// information is also available as properties of the task.
   static final URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int, int, int)>(
     _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69288,14 +69425,12 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, int, int, int),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
@@ -69304,7 +69439,8 @@ abstract final class NSURLSessionTaskDelegate {
 
   /// Sent for each informational response received except 101 switching protocols.
   static final URLSession_task_didReceiveInformationalResponse_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)>(
     _sel_URLSession_task_didReceiveInformationalResponse_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69312,14 +69448,12 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSHTTPURLResponse),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
@@ -69328,7 +69462,9 @@ abstract final class NSURLSessionTaskDelegate {
 
   /// Sent when complete statistics information has been collected for the task.
   static final URLSession_task_didFinishCollectingMetrics_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)>(
     _sel_URLSession_task_didFinishCollectingMetrics_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69336,14 +69472,14 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
@@ -69353,7 +69489,8 @@ abstract final class NSURLSessionTaskDelegate {
   /// Sent as the last message related to a specific task.  Error may be
   /// nil, which implies that no error occurred and this task is complete.
   static final URLSession_task_didCompleteWithError_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, objc.NSError?)>(
     _sel_URLSession_task_didCompleteWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69361,14 +69498,12 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
@@ -69378,8 +69513,8 @@ abstract final class NSURLSessionTaskDelegate {
   /// The last message a session receives.  A session will only become
   /// invalid because of a systemic error or when it has been
   /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ =
-      objc.ObjCProtocolListenableMethod(
+  static final URLSession_didBecomeInvalidWithError_ = objc
+      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
     _sel_URLSession_didBecomeInvalidWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69387,14 +69522,14 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
                 func(arg1, arg2)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-            func(arg1, arg2)),
+    (void Function(NSURLSession, objc.NSError?) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
+                func(arg1, arg2)),
   );
 
   /// If implemented, when a connection level authentication challenge
@@ -69406,7 +69541,9 @@ abstract final class NSURLSessionTaskDelegate {
   /// behavior will be to use the default handling, which may involve user
   /// interaction.
   static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69414,11 +69551,9 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69426,7 +69561,9 @@ abstract final class NSURLSessionTaskDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -69444,7 +69581,7 @@ abstract final class NSURLSessionTaskDelegate {
   /// completion handler, or to begin any internal updates that will
   /// result in invoking the completion handler.
   static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
     _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionTaskDelegate,
@@ -69452,11 +69589,12 @@ abstract final class NSURLSessionTaskDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
   );
 }
 
@@ -71826,72 +71964,58 @@ abstract final class NSURLSessionDataDelegate {
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_dataTask_didReceiveResponse_completionHandler_,
-        URLSession_dataTask_didReceiveResponse_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_dataTask_didBecomeDownloadTask_,
-        URLSession_dataTask_didBecomeDownloadTask_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_dataTask_didBecomeStreamTask_,
-        URLSession_dataTask_didBecomeStreamTask_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_,
-        URLSession_dataTask_didReceiveData_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_dataTask_willCacheResponse_completionHandler_,
-        URLSession_dataTask_willCacheResponse_completionHandler_);
-    builder.implementMethod(NSURLSessionDataDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionDataDelegate
+            .URLSession_dataTask_didReceiveResponse_completionHandler_
+        .implement(
+            builder, URLSession_dataTask_didReceiveResponse_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didBecomeDownloadTask_
+        .implement(builder, URLSession_dataTask_didBecomeDownloadTask_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didBecomeStreamTask_.implement(
+        builder, URLSession_dataTask_didBecomeStreamTask_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_.implement(
+        builder, URLSession_dataTask_didReceiveData_);
+    NSURLSessionDataDelegate
+            .URLSession_dataTask_willCacheResponse_completionHandler_
+        .implement(
+            builder, URLSession_dataTask_willCacheResponse_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionDataDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_taskIsWaitingForConnectivity_.implement(
+        builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionDataDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionDataDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionDataDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionDataDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionDataDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionDataDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_.implement(
+        builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionDataDelegate.URLSession_didBecomeInvalidWithError_.implement(
+        builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDataDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDataDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
     return builder.build();
   }
 
@@ -71927,72 +72051,244 @@ abstract final class NSURLSessionDataDelegate {
       void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_dataTask_didReceiveResponse_completionHandler_,
-        URLSession_dataTask_didReceiveResponse_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_dataTask_didBecomeDownloadTask_,
-        URLSession_dataTask_didBecomeDownloadTask_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_dataTask_didBecomeStreamTask_,
-        URLSession_dataTask_didBecomeStreamTask_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_,
-        URLSession_dataTask_didReceiveData_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_dataTask_willCacheResponse_completionHandler_,
-        URLSession_dataTask_willCacheResponse_completionHandler_);
-    builder.implementMethod(NSURLSessionDataDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDataDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionDataDelegate
+            .URLSession_dataTask_didReceiveResponse_completionHandler_
+        .implement(
+            builder, URLSession_dataTask_didReceiveResponse_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didBecomeDownloadTask_
+        .implement(builder, URLSession_dataTask_didBecomeDownloadTask_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didBecomeStreamTask_.implement(
+        builder, URLSession_dataTask_didBecomeStreamTask_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_.implement(
+        builder, URLSession_dataTask_didReceiveData_);
+    NSURLSessionDataDelegate
+            .URLSession_dataTask_willCacheResponse_completionHandler_
+        .implement(
+            builder, URLSession_dataTask_willCacheResponse_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionDataDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_taskIsWaitingForConnectivity_.implement(
+        builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionDataDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionDataDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionDataDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionDataDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionDataDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionDataDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_.implement(
+        builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionDataDelegate.URLSession_didBecomeInvalidWithError_.implement(
+        builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDataDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDataDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+  }
+
+  /// Builds an object that implements the NSURLSessionDataDelegate protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {void Function(NSURLSession, NSURLSessionDataTask, NSURLResponse,
+              ObjCBlock_ffiVoid_NSURLSessionResponseDisposition)?
+          URLSession_dataTask_didReceiveResponse_completionHandler_,
+      void Function(
+              NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)?
+          URLSession_dataTask_didBecomeDownloadTask_,
+      void Function(NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)?
+          URLSession_dataTask_didBecomeStreamTask_,
+      void Function(NSURLSession, NSURLSessionDataTask, objc.NSData)?
+          URLSession_dataTask_didReceiveData_,
+      void Function(NSURLSession, NSURLSessionDataTask, NSCachedURLResponse,
+              ObjCBlock_ffiVoid_NSCachedURLResponse)?
+          URLSession_dataTask_willCacheResponse_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)? URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStream_,
+      void Function(NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSURLSessionDataDelegate
+            .URLSession_dataTask_didReceiveResponse_completionHandler_
+        .implementAsListener(
+            builder, URLSession_dataTask_didReceiveResponse_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didBecomeDownloadTask_
+        .implementAsListener(
+            builder, URLSession_dataTask_didBecomeDownloadTask_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didBecomeStreamTask_
+        .implementAsListener(builder, URLSession_dataTask_didBecomeStreamTask_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_
+        .implementAsListener(builder, URLSession_dataTask_didReceiveData_);
+    NSURLSessionDataDelegate
+            .URLSession_dataTask_willCacheResponse_completionHandler_
+        .implementAsListener(
+            builder, URLSession_dataTask_willCacheResponse_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionDataDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionDataDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionDataDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionDataDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionDataDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionDataDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionDataDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionDataDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDataDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDataDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSURLSessionDataDelegate protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {void Function(NSURLSession, NSURLSessionDataTask, NSURLResponse,
+              ObjCBlock_ffiVoid_NSURLSessionResponseDisposition)?
+          URLSession_dataTask_didReceiveResponse_completionHandler_,
+      void Function(
+              NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)?
+          URLSession_dataTask_didBecomeDownloadTask_,
+      void Function(NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)?
+          URLSession_dataTask_didBecomeStreamTask_,
+      void Function(NSURLSession, NSURLSessionDataTask, objc.NSData)?
+          URLSession_dataTask_didReceiveData_,
+      void Function(NSURLSession, NSURLSessionDataTask, NSCachedURLResponse,
+              ObjCBlock_ffiVoid_NSCachedURLResponse)?
+          URLSession_dataTask_willCacheResponse_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)? URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStream_,
+      void Function(NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    NSURLSessionDataDelegate
+            .URLSession_dataTask_didReceiveResponse_completionHandler_
+        .implementAsListener(
+            builder, URLSession_dataTask_didReceiveResponse_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didBecomeDownloadTask_
+        .implementAsListener(
+            builder, URLSession_dataTask_didBecomeDownloadTask_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didBecomeStreamTask_
+        .implementAsListener(builder, URLSession_dataTask_didBecomeStreamTask_);
+    NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_
+        .implementAsListener(builder, URLSession_dataTask_didReceiveData_);
+    NSURLSessionDataDelegate
+            .URLSession_dataTask_willCacheResponse_completionHandler_
+        .implementAsListener(
+            builder, URLSession_dataTask_willCacheResponse_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionDataDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionDataDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionDataDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionDataDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionDataDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionDataDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionDataDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionDataDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionDataDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDataDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDataDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
   }
 
   /// The task has received a response and no further messages will be
@@ -72003,7 +72299,9 @@ abstract final class NSURLSessionDataDelegate {
   ///
   /// This method will not be called for background upload tasks (which cannot be converted to download tasks).
   static final URLSession_dataTask_didReceiveResponse_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionDataTask, NSURLResponse,
+              ObjCBlock_ffiVoid_NSURLSessionResponseDisposition)>(
     _sel_URLSession_dataTask_didReceiveResponse_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72011,9 +72309,9 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionDataTask,
-        NSURLResponse, ObjCBlock_ffiVoid_NSURLSessionResponseDisposition),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, NSURLResponse,
+                ObjCBlock_ffiVoid_NSURLSessionResponseDisposition)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72021,7 +72319,9 @@ abstract final class NSURLSessionDataDelegate {
                     NSURLResponse arg3,
                     ObjCBlock_ffiVoid_NSURLSessionResponseDisposition arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, NSURLResponse,
+                ObjCBlock_ffiVoid_NSURLSessionResponseDisposition)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72034,7 +72334,9 @@ abstract final class NSURLSessionDataDelegate {
   /// Notification that a data task has become a download task.  No
   /// future messages will be sent to the data task.
   static final URLSession_dataTask_didBecomeDownloadTask_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>(
     _sel_URLSession_dataTask_didBecomeDownloadTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72042,14 +72344,14 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDataTask arg2, NSURLSessionDownloadTask arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDataTask arg2, NSURLSessionDownloadTask arg3) =>
@@ -72071,7 +72373,9 @@ abstract final class NSURLSessionDataDelegate {
   /// connection cache and won't count against the total number of
   /// connections per host.
   static final URLSession_dataTask_didBecomeStreamTask_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)>(
     _sel_URLSession_dataTask_didBecomeStreamTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72079,14 +72383,14 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDataTask arg2, NSURLSessionStreamTask arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDataTask arg2, NSURLSessionStreamTask arg3) =>
@@ -72097,7 +72401,8 @@ abstract final class NSURLSessionDataDelegate {
   /// data may be discontiguous, you should use
   /// [NSData enumerateByteRangesUsingBlock:] to access it.
   static final URLSession_dataTask_didReceiveData_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionDataTask, objc.NSData)>(
     _sel_URLSession_dataTask_didReceiveData_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72105,14 +72410,12 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionDataTask, objc.NSData),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, objc.NSData) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDataTask arg2, objc.NSData arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, objc.NSData) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDataTask arg2, objc.NSData arg3) =>
@@ -72125,7 +72428,9 @@ abstract final class NSURLSessionDataDelegate {
   /// attempted for a given resource, and you should not rely on this
   /// message to receive the resource data.
   static final URLSession_dataTask_willCacheResponse_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionDataTask, NSCachedURLResponse,
+              ObjCBlock_ffiVoid_NSCachedURLResponse)>(
     _sel_URLSession_dataTask_willCacheResponse_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72133,9 +72438,9 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionDataTask,
-        NSCachedURLResponse, ObjCBlock_ffiVoid_NSCachedURLResponse),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, NSCachedURLResponse,
+                ObjCBlock_ffiVoid_NSCachedURLResponse)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72143,7 +72448,9 @@ abstract final class NSURLSessionDataDelegate {
                     NSCachedURLResponse arg3,
                     ObjCBlock_ffiVoid_NSCachedURLResponse arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDataTask, NSCachedURLResponse,
+                ObjCBlock_ffiVoid_NSCachedURLResponse)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72158,7 +72465,8 @@ abstract final class NSURLSessionDataDelegate {
   ///
   /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
   /// invoked synchronously before the task creation method returns.
-  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod(
+  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod<
+      void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_didCreateTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72166,13 +72474,12 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -72200,7 +72507,9 @@ abstract final class NSURLSessionDataDelegate {
   /// URLSession:task:didCompleteWithError: task delegate will be called with error
   /// NSURLErrorCancelled.
   static final URLSession_task_willBeginDelayedRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)>(
     _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72208,12 +72517,9 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLRequest,
-        ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72222,7 +72528,9 @@ abstract final class NSURLSessionDataDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72243,7 +72551,8 @@ abstract final class NSURLSessionDataDelegate {
   /// This delegate callback will never be called for background sessions, because
   /// the waitForConnectivity property is ignored by those sessions.
   static final URLSession_taskIsWaitingForConnectivity_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_taskIsWaitingForConnectivity_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72251,13 +72560,12 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -72273,7 +72581,9 @@ abstract final class NSURLSessionDataDelegate {
   ///
   /// For tasks in background sessions, redirections will always be followed and this method will not be called.
   static final URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)>(
     _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72281,9 +72591,9 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask,
-        NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72292,7 +72602,9 @@ abstract final class NSURLSessionDataDelegate {
                     NSURLRequest arg4,
                     ObjCBlock_ffiVoid_NSURLRequest arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72308,7 +72620,12 @@ abstract final class NSURLSessionDataDelegate {
   /// will *NOT* be called and the behavior will be the same as using the default handling
   /// disposition.
   static final URLSession_task_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_task_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72316,12 +72633,9 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72330,7 +72644,9 @@ abstract final class NSURLSessionDataDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72345,7 +72661,9 @@ abstract final class NSURLSessionDataDelegate {
   /// necessary when authentication has failed for any request that
   /// involves a body stream.
   static final URLSession_task_needNewBodyStream_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStream_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72353,16 +72671,18 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
                     NSURLSessionTask arg2,
                     ObjCBlock_ffiVoid_NSInputStream arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72379,7 +72699,9 @@ abstract final class NSURLSessionDataDelegate {
   /// - Parameter offset: The starting offset required for the body stream.
   /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
   static final URLSession_task_needNewBodyStreamFromOffset_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int,
+              ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72387,9 +72709,9 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72397,7 +72719,9 @@ abstract final class NSURLSessionDataDelegate {
                     int arg3,
                     ObjCBlock_ffiVoid_NSInputStream arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72410,7 +72734,8 @@ abstract final class NSURLSessionDataDelegate {
   /// Sent periodically to notify the delegate of upload progress.  This
   /// information is also available as properties of the task.
   static final URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int, int, int)>(
     _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72418,14 +72743,12 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, int, int, int),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
@@ -72434,7 +72757,8 @@ abstract final class NSURLSessionDataDelegate {
 
   /// Sent for each informational response received except 101 switching protocols.
   static final URLSession_task_didReceiveInformationalResponse_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)>(
     _sel_URLSession_task_didReceiveInformationalResponse_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72442,14 +72766,12 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSHTTPURLResponse),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
@@ -72458,7 +72780,9 @@ abstract final class NSURLSessionDataDelegate {
 
   /// Sent when complete statistics information has been collected for the task.
   static final URLSession_task_didFinishCollectingMetrics_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)>(
     _sel_URLSession_task_didFinishCollectingMetrics_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72466,14 +72790,14 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
@@ -72483,7 +72807,8 @@ abstract final class NSURLSessionDataDelegate {
   /// Sent as the last message related to a specific task.  Error may be
   /// nil, which implies that no error occurred and this task is complete.
   static final URLSession_task_didCompleteWithError_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, objc.NSError?)>(
     _sel_URLSession_task_didCompleteWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72491,14 +72816,12 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
@@ -72508,8 +72831,8 @@ abstract final class NSURLSessionDataDelegate {
   /// The last message a session receives.  A session will only become
   /// invalid because of a systemic error or when it has been
   /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ =
-      objc.ObjCProtocolListenableMethod(
+  static final URLSession_didBecomeInvalidWithError_ = objc
+      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
     _sel_URLSession_didBecomeInvalidWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72517,14 +72840,14 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
                 func(arg1, arg2)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-            func(arg1, arg2)),
+    (void Function(NSURLSession, objc.NSError?) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
+                func(arg1, arg2)),
   );
 
   /// If implemented, when a connection level authentication challenge
@@ -72536,7 +72859,9 @@ abstract final class NSURLSessionDataDelegate {
   /// behavior will be to use the default handling, which may involve user
   /// interaction.
   static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72544,11 +72869,9 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72556,7 +72879,9 @@ abstract final class NSURLSessionDataDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -72574,7 +72899,7 @@ abstract final class NSURLSessionDataDelegate {
   /// completion handler, or to begin any internal updates that will
   /// result in invoking the completion handler.
   static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
     _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDataDelegate,
@@ -72582,11 +72907,12 @@ abstract final class NSURLSessionDataDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
   );
 }
 
@@ -73554,69 +73880,58 @@ abstract final class NSURLSessionDownloadDelegate {
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_downloadTask_didFinishDownloadingToURL_,
-        URLSession_downloadTask_didFinishDownloadingToURL_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_,
-        URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_,
-        URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didFinishDownloadingToURL_
+        .implement(builder, URLSession_downloadTask_didFinishDownloadingToURL_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_
+        .implement(builder,
+            URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_
+        .implement(builder,
+            URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_);
+    NSURLSessionDownloadDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionDownloadDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implement(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionDownloadDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionDownloadDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionDownloadDelegate.URLSession_task_didCompleteWithError_
+        .implement(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionDownloadDelegate.URLSession_didBecomeInvalidWithError_
+        .implement(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDownloadDelegate
+            .URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
     return builder.build();
   }
 
@@ -73654,69 +73969,248 @@ abstract final class NSURLSessionDownloadDelegate {
       void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_downloadTask_didFinishDownloadingToURL_,
-        URLSession_downloadTask_didFinishDownloadingToURL_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_,
-        URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_,
-        URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionDownloadDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didFinishDownloadingToURL_
+        .implement(builder, URLSession_downloadTask_didFinishDownloadingToURL_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_
+        .implement(builder,
+            URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_
+        .implement(builder,
+            URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_);
+    NSURLSessionDownloadDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionDownloadDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implement(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionDownloadDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionDownloadDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionDownloadDelegate.URLSession_task_didCompleteWithError_
+        .implement(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionDownloadDelegate.URLSession_didBecomeInvalidWithError_
+        .implement(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDownloadDelegate
+            .URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+  }
+
+  /// Builds an object that implements the NSURLSessionDownloadDelegate protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {required void Function(NSURLSession, NSURLSessionDownloadTask, objc.NSURL)
+          URLSession_downloadTask_didFinishDownloadingToURL_,
+      void Function(NSURLSession, NSURLSessionDownloadTask, int, int, int)?
+          URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_,
+      void Function(NSURLSession, NSURLSessionDownloadTask, int, int)?
+          URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)?
+          URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)?
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)?
+          URLSession_task_needNewBodyStream_,
+      void Function(NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didFinishDownloadingToURL_
+        .implementAsListener(
+            builder, URLSession_downloadTask_didFinishDownloadingToURL_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_
+        .implementAsListener(builder,
+            URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_
+        .implementAsListener(builder,
+            URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_);
+    NSURLSessionDownloadDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionDownloadDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionDownloadDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionDownloadDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionDownloadDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionDownloadDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDownloadDelegate
+            .URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSURLSessionDownloadDelegate protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {required void Function(NSURLSession, NSURLSessionDownloadTask, objc.NSURL)
+          URLSession_downloadTask_didFinishDownloadingToURL_,
+      void Function(NSURLSession, NSURLSessionDownloadTask, int, int, int)?
+          URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_,
+      void Function(NSURLSession, NSURLSessionDownloadTask, int, int)?
+          URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)?
+          URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)?
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)?
+          URLSession_task_needNewBodyStream_,
+      void Function(NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didFinishDownloadingToURL_
+        .implementAsListener(
+            builder, URLSession_downloadTask_didFinishDownloadingToURL_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_
+        .implementAsListener(builder,
+            URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_);
+    NSURLSessionDownloadDelegate
+            .URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_
+        .implementAsListener(builder,
+            URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_);
+    NSURLSessionDownloadDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionDownloadDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionDownloadDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionDownloadDelegate
+            .URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionDownloadDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionDownloadDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionDownloadDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionDownloadDelegate
+            .URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionDownloadDelegate
+            .URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
   }
 
   /// Sent when a download task that has completed a download.  The delegate should
@@ -73724,7 +74218,8 @@ abstract final class NSURLSessionDownloadDelegate {
   /// removed when the delegate message returns. URLSession:task:didCompleteWithError: will
   /// still be called.
   static final URLSession_downloadTask_didFinishDownloadingToURL_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>(
     _sel_URLSession_downloadTask_didFinishDownloadingToURL_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -73732,14 +74227,12 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionDownloadTask, objc.NSURL),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDownloadTask, objc.NSURL) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDownloadTask arg2, objc.NSURL arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDownloadTask, objc.NSURL) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDownloadTask arg2, objc.NSURL arg3) =>
@@ -73748,7 +74241,8 @@ abstract final class NSURLSessionDownloadDelegate {
 
   /// Sent periodically to notify the delegate of download progress.
   static final URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionDownloadTask, int, int, int)>(
     _sel_URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -73756,9 +74250,8 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionDownloadTask, int, int, int),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDownloadTask, int, int, int)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -73767,7 +74260,8 @@ abstract final class NSURLSessionDownloadDelegate {
                     int arg4,
                     int arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDownloadTask, int, int, int)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -73783,7 +74277,8 @@ abstract final class NSURLSessionDownloadDelegate {
   /// NSURLSessionDownloadTaskResumeData key, whose value is the resume
   /// data.
   static final URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionDownloadTask, int, int)>(
     _sel_URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -73791,14 +74286,12 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionDownloadTask, int, int),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDownloadTask, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDownloadTask arg2, int arg3, int arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionDownloadTask, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionDownloadTask arg2, int arg3, int arg4) =>
@@ -73810,7 +74303,8 @@ abstract final class NSURLSessionDownloadDelegate {
   ///
   /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
   /// invoked synchronously before the task creation method returns.
-  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod(
+  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod<
+      void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_didCreateTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -73818,13 +74312,12 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -73852,7 +74345,9 @@ abstract final class NSURLSessionDownloadDelegate {
   /// URLSession:task:didCompleteWithError: task delegate will be called with error
   /// NSURLErrorCancelled.
   static final URLSession_task_willBeginDelayedRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)>(
     _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -73860,12 +74355,9 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLRequest,
-        ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -73874,7 +74366,9 @@ abstract final class NSURLSessionDownloadDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -73895,7 +74389,8 @@ abstract final class NSURLSessionDownloadDelegate {
   /// This delegate callback will never be called for background sessions, because
   /// the waitForConnectivity property is ignored by those sessions.
   static final URLSession_taskIsWaitingForConnectivity_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_taskIsWaitingForConnectivity_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -73903,13 +74398,12 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -73925,7 +74419,9 @@ abstract final class NSURLSessionDownloadDelegate {
   ///
   /// For tasks in background sessions, redirections will always be followed and this method will not be called.
   static final URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)>(
     _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -73933,9 +74429,9 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask,
-        NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -73944,7 +74440,9 @@ abstract final class NSURLSessionDownloadDelegate {
                     NSURLRequest arg4,
                     ObjCBlock_ffiVoid_NSURLRequest arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -73960,7 +74458,12 @@ abstract final class NSURLSessionDownloadDelegate {
   /// will *NOT* be called and the behavior will be the same as using the default handling
   /// disposition.
   static final URLSession_task_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_task_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -73968,12 +74471,9 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -73982,7 +74482,9 @@ abstract final class NSURLSessionDownloadDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -73997,7 +74499,9 @@ abstract final class NSURLSessionDownloadDelegate {
   /// necessary when authentication has failed for any request that
   /// involves a body stream.
   static final URLSession_task_needNewBodyStream_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStream_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74005,16 +74509,18 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
                     NSURLSessionTask arg2,
                     ObjCBlock_ffiVoid_NSInputStream arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -74031,7 +74537,9 @@ abstract final class NSURLSessionDownloadDelegate {
   /// - Parameter offset: The starting offset required for the body stream.
   /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
   static final URLSession_task_needNewBodyStreamFromOffset_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int,
+              ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74039,9 +74547,9 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -74049,7 +74557,9 @@ abstract final class NSURLSessionDownloadDelegate {
                     int arg3,
                     ObjCBlock_ffiVoid_NSInputStream arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -74062,7 +74572,8 @@ abstract final class NSURLSessionDownloadDelegate {
   /// Sent periodically to notify the delegate of upload progress.  This
   /// information is also available as properties of the task.
   static final URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int, int, int)>(
     _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74070,14 +74581,12 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, int, int, int),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
@@ -74086,7 +74595,8 @@ abstract final class NSURLSessionDownloadDelegate {
 
   /// Sent for each informational response received except 101 switching protocols.
   static final URLSession_task_didReceiveInformationalResponse_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)>(
     _sel_URLSession_task_didReceiveInformationalResponse_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74094,14 +74604,12 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSHTTPURLResponse),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
@@ -74110,7 +74618,9 @@ abstract final class NSURLSessionDownloadDelegate {
 
   /// Sent when complete statistics information has been collected for the task.
   static final URLSession_task_didFinishCollectingMetrics_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)>(
     _sel_URLSession_task_didFinishCollectingMetrics_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74118,14 +74628,14 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
@@ -74135,7 +74645,8 @@ abstract final class NSURLSessionDownloadDelegate {
   /// Sent as the last message related to a specific task.  Error may be
   /// nil, which implies that no error occurred and this task is complete.
   static final URLSession_task_didCompleteWithError_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, objc.NSError?)>(
     _sel_URLSession_task_didCompleteWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74143,14 +74654,12 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
@@ -74160,8 +74669,8 @@ abstract final class NSURLSessionDownloadDelegate {
   /// The last message a session receives.  A session will only become
   /// invalid because of a systemic error or when it has been
   /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ =
-      objc.ObjCProtocolListenableMethod(
+  static final URLSession_didBecomeInvalidWithError_ = objc
+      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
     _sel_URLSession_didBecomeInvalidWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74169,14 +74678,14 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
                 func(arg1, arg2)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-            func(arg1, arg2)),
+    (void Function(NSURLSession, objc.NSError?) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
+                func(arg1, arg2)),
   );
 
   /// If implemented, when a connection level authentication challenge
@@ -74188,7 +74697,9 @@ abstract final class NSURLSessionDownloadDelegate {
   /// behavior will be to use the default handling, which may involve user
   /// interaction.
   static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74196,11 +74707,9 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -74208,7 +74717,9 @@ abstract final class NSURLSessionDownloadDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -74226,7 +74737,7 @@ abstract final class NSURLSessionDownloadDelegate {
   /// completion handler, or to begin any internal updates that will
   /// result in invoking the completion handler.
   static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
     _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
@@ -74234,11 +74745,12 @@ abstract final class NSURLSessionDownloadDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
   );
 }
 
@@ -74798,70 +75310,54 @@ abstract final class NSURLSessionStreamDelegate {
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_,
-        URLSession_readClosedForStreamTask_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_,
-        URLSession_writeClosedForStreamTask_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_betterRouteDiscoveredForStreamTask_,
-        URLSession_betterRouteDiscoveredForStreamTask_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_streamTask_didBecomeInputStream_outputStream_,
-        URLSession_streamTask_didBecomeInputStream_outputStream_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_.implement(
+        builder, URLSession_readClosedForStreamTask_);
+    NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_.implement(
+        builder, URLSession_writeClosedForStreamTask_);
+    NSURLSessionStreamDelegate.URLSession_betterRouteDiscoveredForStreamTask_
+        .implement(builder, URLSession_betterRouteDiscoveredForStreamTask_);
+    NSURLSessionStreamDelegate
+            .URLSession_streamTask_didBecomeInputStream_outputStream_
+        .implement(
+            builder, URLSession_streamTask_didBecomeInputStream_outputStream_);
+    NSURLSessionStreamDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implement(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionStreamDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_.implement(
+        builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_.implement(
+        builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionStreamDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionStreamDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
     return builder.build();
   }
 
@@ -74901,70 +75397,240 @@ abstract final class NSURLSessionStreamDelegate {
       void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_,
-        URLSession_readClosedForStreamTask_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_,
-        URLSession_writeClosedForStreamTask_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_betterRouteDiscoveredForStreamTask_,
-        URLSession_betterRouteDiscoveredForStreamTask_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_streamTask_didBecomeInputStream_outputStream_,
-        URLSession_streamTask_didBecomeInputStream_outputStream_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionStreamDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_.implement(
+        builder, URLSession_readClosedForStreamTask_);
+    NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_.implement(
+        builder, URLSession_writeClosedForStreamTask_);
+    NSURLSessionStreamDelegate.URLSession_betterRouteDiscoveredForStreamTask_
+        .implement(builder, URLSession_betterRouteDiscoveredForStreamTask_);
+    NSURLSessionStreamDelegate
+            .URLSession_streamTask_didBecomeInputStream_outputStream_
+        .implement(
+            builder, URLSession_streamTask_didBecomeInputStream_outputStream_);
+    NSURLSessionStreamDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implement(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionStreamDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_.implement(
+        builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_.implement(
+        builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionStreamDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionStreamDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+  }
+
+  /// Builds an object that implements the NSURLSessionStreamDelegate protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {void Function(NSURLSession, NSURLSessionStreamTask)?
+          URLSession_readClosedForStreamTask_,
+      void Function(NSURLSession, NSURLSessionStreamTask)?
+          URLSession_writeClosedForStreamTask_,
+      void Function(NSURLSession, NSURLSessionStreamTask)?
+          URLSession_betterRouteDiscoveredForStreamTask_,
+      void Function(NSURLSession, NSURLSessionStreamTask, NSInputStream,
+              NSOutputStream)?
+          URLSession_streamTask_didBecomeInputStream_outputStream_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)?
+          URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)?
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStream_,
+      void Function(NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_
+        .implementAsListener(builder, URLSession_readClosedForStreamTask_);
+    NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_
+        .implementAsListener(builder, URLSession_writeClosedForStreamTask_);
+    NSURLSessionStreamDelegate.URLSession_betterRouteDiscoveredForStreamTask_
+        .implementAsListener(
+            builder, URLSession_betterRouteDiscoveredForStreamTask_);
+    NSURLSessionStreamDelegate
+            .URLSession_streamTask_didBecomeInputStream_outputStream_
+        .implementAsListener(
+            builder, URLSession_streamTask_didBecomeInputStream_outputStream_);
+    NSURLSessionStreamDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionStreamDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionStreamDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionStreamDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSURLSessionStreamDelegate protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {void Function(NSURLSession, NSURLSessionStreamTask)?
+          URLSession_readClosedForStreamTask_,
+      void Function(NSURLSession, NSURLSessionStreamTask)?
+          URLSession_writeClosedForStreamTask_,
+      void Function(NSURLSession, NSURLSessionStreamTask)?
+          URLSession_betterRouteDiscoveredForStreamTask_,
+      void Function(NSURLSession, NSURLSessionStreamTask, NSInputStream,
+              NSOutputStream)?
+          URLSession_streamTask_didBecomeInputStream_outputStream_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)?
+          URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)?
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStream_,
+      void Function(NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_
+        .implementAsListener(builder, URLSession_readClosedForStreamTask_);
+    NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_
+        .implementAsListener(builder, URLSession_writeClosedForStreamTask_);
+    NSURLSessionStreamDelegate.URLSession_betterRouteDiscoveredForStreamTask_
+        .implementAsListener(
+            builder, URLSession_betterRouteDiscoveredForStreamTask_);
+    NSURLSessionStreamDelegate
+            .URLSession_streamTask_didBecomeInputStream_outputStream_
+        .implementAsListener(
+            builder, URLSession_streamTask_didBecomeInputStream_outputStream_);
+    NSURLSessionStreamDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionStreamDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionStreamDelegate.URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionStreamDelegate.URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionStreamDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
   }
 
   /// Indicates that the read side of a connection has been closed.  Any
@@ -74974,7 +75640,8 @@ abstract final class NSURLSessionStreamDelegate {
   /// available.  You only know that no more bytes are available when you
   /// are able to read until EOF.
   static final URLSession_readClosedForStreamTask_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionStreamTask)>(
     _sel_URLSession_readClosedForStreamTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -74982,14 +75649,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionStreamTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionStreamTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionStreamTask arg2) =>
@@ -75000,7 +75665,8 @@ abstract final class NSURLSessionStreamDelegate {
   /// Any outstanding writes complete, but future writes will immediately
   /// fail.
   static final URLSession_writeClosedForStreamTask_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionStreamTask)>(
     _sel_URLSession_writeClosedForStreamTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75008,14 +75674,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionStreamTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionStreamTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionStreamTask arg2) =>
@@ -75030,7 +75694,8 @@ abstract final class NSURLSessionStreamDelegate {
   /// to the host, so callers should should be prepared for failure of
   /// reads and writes over any new interface.
   static final URLSession_betterRouteDiscoveredForStreamTask_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionStreamTask)>(
     _sel_URLSession_betterRouteDiscoveredForStreamTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75038,14 +75703,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionStreamTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionStreamTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionStreamTask arg2) =>
@@ -75058,7 +75721,9 @@ abstract final class NSURLSessionStreamDelegate {
   /// completed (including any necessary handshakes.)  The streamTask
   /// will not receive any further delegate messages.
   static final URLSession_streamTask_didBecomeInputStream_outputStream_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionStreamTask, NSInputStream,
+              NSOutputStream)>(
     _sel_URLSession_streamTask_didBecomeInputStream_outputStream_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75066,9 +75731,9 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionStreamTask, NSInputStream, NSOutputStream),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionStreamTask, NSInputStream,
+                NSOutputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75076,7 +75741,9 @@ abstract final class NSURLSessionStreamDelegate {
                     NSInputStream arg3,
                     NSOutputStream arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionStreamTask, NSInputStream,
+                NSOutputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75091,7 +75758,8 @@ abstract final class NSURLSessionStreamDelegate {
   ///
   /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
   /// invoked synchronously before the task creation method returns.
-  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod(
+  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod<
+      void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_didCreateTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75099,13 +75767,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -75133,7 +75800,9 @@ abstract final class NSURLSessionStreamDelegate {
   /// URLSession:task:didCompleteWithError: task delegate will be called with error
   /// NSURLErrorCancelled.
   static final URLSession_task_willBeginDelayedRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)>(
     _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75141,12 +75810,9 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLRequest,
-        ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75155,7 +75821,9 @@ abstract final class NSURLSessionStreamDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75176,7 +75844,8 @@ abstract final class NSURLSessionStreamDelegate {
   /// This delegate callback will never be called for background sessions, because
   /// the waitForConnectivity property is ignored by those sessions.
   static final URLSession_taskIsWaitingForConnectivity_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_taskIsWaitingForConnectivity_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75184,13 +75853,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -75206,7 +75874,9 @@ abstract final class NSURLSessionStreamDelegate {
   ///
   /// For tasks in background sessions, redirections will always be followed and this method will not be called.
   static final URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)>(
     _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75214,9 +75884,9 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask,
-        NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75225,7 +75895,9 @@ abstract final class NSURLSessionStreamDelegate {
                     NSURLRequest arg4,
                     ObjCBlock_ffiVoid_NSURLRequest arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75241,7 +75913,12 @@ abstract final class NSURLSessionStreamDelegate {
   /// will *NOT* be called and the behavior will be the same as using the default handling
   /// disposition.
   static final URLSession_task_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_task_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75249,12 +75926,9 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75263,7 +75937,9 @@ abstract final class NSURLSessionStreamDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75278,7 +75954,9 @@ abstract final class NSURLSessionStreamDelegate {
   /// necessary when authentication has failed for any request that
   /// involves a body stream.
   static final URLSession_task_needNewBodyStream_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStream_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75286,16 +75964,18 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
                     NSURLSessionTask arg2,
                     ObjCBlock_ffiVoid_NSInputStream arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75312,7 +75992,9 @@ abstract final class NSURLSessionStreamDelegate {
   /// - Parameter offset: The starting offset required for the body stream.
   /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
   static final URLSession_task_needNewBodyStreamFromOffset_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int,
+              ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75320,9 +76002,9 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75330,7 +76012,9 @@ abstract final class NSURLSessionStreamDelegate {
                     int arg3,
                     ObjCBlock_ffiVoid_NSInputStream arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75343,7 +76027,8 @@ abstract final class NSURLSessionStreamDelegate {
   /// Sent periodically to notify the delegate of upload progress.  This
   /// information is also available as properties of the task.
   static final URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int, int, int)>(
     _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75351,14 +76036,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, int, int, int),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
@@ -75367,7 +76050,8 @@ abstract final class NSURLSessionStreamDelegate {
 
   /// Sent for each informational response received except 101 switching protocols.
   static final URLSession_task_didReceiveInformationalResponse_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)>(
     _sel_URLSession_task_didReceiveInformationalResponse_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75375,14 +76059,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSHTTPURLResponse),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
@@ -75391,7 +76073,9 @@ abstract final class NSURLSessionStreamDelegate {
 
   /// Sent when complete statistics information has been collected for the task.
   static final URLSession_task_didFinishCollectingMetrics_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)>(
     _sel_URLSession_task_didFinishCollectingMetrics_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75399,14 +76083,14 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
@@ -75416,7 +76100,8 @@ abstract final class NSURLSessionStreamDelegate {
   /// Sent as the last message related to a specific task.  Error may be
   /// nil, which implies that no error occurred and this task is complete.
   static final URLSession_task_didCompleteWithError_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, objc.NSError?)>(
     _sel_URLSession_task_didCompleteWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75424,14 +76109,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
@@ -75441,8 +76124,8 @@ abstract final class NSURLSessionStreamDelegate {
   /// The last message a session receives.  A session will only become
   /// invalid because of a systemic error or when it has been
   /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ =
-      objc.ObjCProtocolListenableMethod(
+  static final URLSession_didBecomeInvalidWithError_ = objc
+      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
     _sel_URLSession_didBecomeInvalidWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75450,14 +76133,14 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
                 func(arg1, arg2)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-            func(arg1, arg2)),
+    (void Function(NSURLSession, objc.NSError?) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
+                func(arg1, arg2)),
   );
 
   /// If implemented, when a connection level authentication challenge
@@ -75469,7 +76152,9 @@ abstract final class NSURLSessionStreamDelegate {
   /// behavior will be to use the default handling, which may involve user
   /// interaction.
   static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75477,11 +76162,9 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75489,7 +76172,9 @@ abstract final class NSURLSessionStreamDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -75507,7 +76192,7 @@ abstract final class NSURLSessionStreamDelegate {
   /// completion handler, or to begin any internal updates that will
   /// result in invoking the completion handler.
   static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
     _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionStreamDelegate,
@@ -75515,11 +76200,12 @@ abstract final class NSURLSessionStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
   );
 }
 
@@ -75888,65 +76574,52 @@ abstract final class NSURLSessionWebSocketDelegate {
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_webSocketTask_didOpenWithProtocol_,
-        URLSession_webSocketTask_didOpenWithProtocol_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_webSocketTask_didCloseWithCode_reason_,
-        URLSession_webSocketTask_didCloseWithCode_reason_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionWebSocketDelegate.URLSession_webSocketTask_didOpenWithProtocol_
+        .implement(builder, URLSession_webSocketTask_didOpenWithProtocol_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_webSocketTask_didCloseWithCode_reason_
+        .implement(builder, URLSession_webSocketTask_didCloseWithCode_reason_);
+    NSURLSessionWebSocketDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionWebSocketDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implement(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionWebSocketDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionWebSocketDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionWebSocketDelegate.URLSession_task_didCompleteWithError_
+        .implement(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionWebSocketDelegate.URLSession_didBecomeInvalidWithError_
+        .implement(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
     return builder.build();
   }
 
@@ -75982,71 +76655,236 @@ abstract final class NSURLSessionWebSocketDelegate {
       void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
       void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
       void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_webSocketTask_didOpenWithProtocol_,
-        URLSession_webSocketTask_didOpenWithProtocol_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_webSocketTask_didCloseWithCode_reason_,
-        URLSession_webSocketTask_didCloseWithCode_reason_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_didCreateTask_,
-        URLSession_didCreateTask_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_,
-        URLSession_task_willBeginDelayedRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_taskIsWaitingForConnectivity_,
-        URLSession_taskIsWaitingForConnectivity_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_,
-        URLSession_task_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_task_needNewBodyStream_,
-        URLSession_task_needNewBodyStream_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-        URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-        URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_didReceiveInformationalResponse_,
-        URLSession_task_didReceiveInformationalResponse_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_task_didFinishCollectingMetrics_,
-        URLSession_task_didFinishCollectingMetrics_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_task_didCompleteWithError_,
-        URLSession_task_didCompleteWithError_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate.URLSession_didBecomeInvalidWithError_,
-        URLSession_didBecomeInvalidWithError_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSession_didReceiveChallenge_completionHandler_,
-        URLSession_didReceiveChallenge_completionHandler_);
-    builder.implementMethod(
-        NSURLSessionWebSocketDelegate
-            .URLSessionDidFinishEventsForBackgroundURLSession_,
-        URLSessionDidFinishEventsForBackgroundURLSession_);
+    NSURLSessionWebSocketDelegate.URLSession_webSocketTask_didOpenWithProtocol_
+        .implement(builder, URLSession_webSocketTask_didOpenWithProtocol_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_webSocketTask_didCloseWithCode_reason_
+        .implement(builder, URLSession_webSocketTask_didCloseWithCode_reason_);
+    NSURLSessionWebSocketDelegate.URLSession_didCreateTask_.implement(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionWebSocketDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implement(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implement(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implement(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionWebSocketDelegate.URLSession_task_needNewBodyStream_.implement(
+        builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implement(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implement(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didReceiveInformationalResponse_
+        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionWebSocketDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionWebSocketDelegate.URLSession_task_didCompleteWithError_
+        .implement(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionWebSocketDelegate.URLSession_didBecomeInvalidWithError_
+        .implement(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_didReceiveChallenge_completionHandler_
+        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSessionDidFinishEventsForBackgroundURLSession_
+        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+  }
+
+  /// Builds an object that implements the NSURLSessionWebSocketDelegate protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {void Function(NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)?
+          URLSession_webSocketTask_didOpenWithProtocol_,
+      void Function(NSURLSession, NSURLSessionWebSocketTask,
+              NSURLSessionWebSocketCloseCode, objc.NSData?)?
+          URLSession_webSocketTask_didCloseWithCode_reason_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)?
+          URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)?
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStream_,
+      void Function(NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSURLSessionWebSocketDelegate.URLSession_webSocketTask_didOpenWithProtocol_
+        .implementAsListener(
+            builder, URLSession_webSocketTask_didOpenWithProtocol_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_webSocketTask_didCloseWithCode_reason_
+        .implementAsListener(
+            builder, URLSession_webSocketTask_didCloseWithCode_reason_);
+    NSURLSessionWebSocketDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionWebSocketDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionWebSocketDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionWebSocketDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionWebSocketDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionWebSocketDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSURLSessionWebSocketDelegate protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {void Function(NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)?
+          URLSession_webSocketTask_didOpenWithProtocol_,
+      void Function(NSURLSession, NSURLSessionWebSocketTask,
+              NSURLSessionWebSocketCloseCode, objc.NSData?)?
+          URLSession_webSocketTask_didCloseWithCode_reason_,
+      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)?
+          URLSession_task_willBeginDelayedRequest_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask)?
+          URLSession_taskIsWaitingForConnectivity_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)?
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
+      void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)?
+          URLSession_task_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStream_,
+      void Function(NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
+      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
+      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
+      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
+      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
+      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
+      void Function(NSURLSession, NSURLAuthenticationChallenge, ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)? URLSession_didReceiveChallenge_completionHandler_,
+      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
+    NSURLSessionWebSocketDelegate.URLSession_webSocketTask_didOpenWithProtocol_
+        .implementAsListener(
+            builder, URLSession_webSocketTask_didOpenWithProtocol_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_webSocketTask_didCloseWithCode_reason_
+        .implementAsListener(
+            builder, URLSession_webSocketTask_didCloseWithCode_reason_);
+    NSURLSessionWebSocketDelegate.URLSession_didCreateTask_.implementAsListener(
+        builder, URLSession_didCreateTask_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_willBeginDelayedRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willBeginDelayedRequest_completionHandler_);
+    NSURLSessionWebSocketDelegate.URLSession_taskIsWaitingForConnectivity_
+        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveChallenge_completionHandler_);
+    NSURLSessionWebSocketDelegate.URLSession_task_needNewBodyStream_
+        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
+        .implementAsListener(builder,
+            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
+        .implementAsListener(builder,
+            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_task_didReceiveInformationalResponse_
+        .implementAsListener(
+            builder, URLSession_task_didReceiveInformationalResponse_);
+    NSURLSessionWebSocketDelegate.URLSession_task_didFinishCollectingMetrics_
+        .implementAsListener(
+            builder, URLSession_task_didFinishCollectingMetrics_);
+    NSURLSessionWebSocketDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
+    NSURLSessionWebSocketDelegate.URLSession_didBecomeInvalidWithError_
+        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
+    NSURLSessionWebSocketDelegate
+            .URLSession_didReceiveChallenge_completionHandler_
+        .implementAsListener(
+            builder, URLSession_didReceiveChallenge_completionHandler_);
+    NSURLSessionWebSocketDelegate
+            .URLSessionDidFinishEventsForBackgroundURLSession_
+        .implementAsListener(
+            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
   }
 
   /// Indicates that the WebSocket handshake was successful and the connection has been upgraded to webSockets.
   /// It will also provide the protocol that is picked in the handshake. If the handshake fails, this delegate will not be invoked.
   static final URLSession_webSocketTask_didOpenWithProtocol_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)>(
     _sel_URLSession_webSocketTask_didOpenWithProtocol_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76054,14 +76892,14 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionWebSocketTask, objc.NSString?),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionWebSocketTask arg2, objc.NSString? arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionWebSocketTask arg2, objc.NSString? arg3) =>
@@ -76072,7 +76910,9 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// The close code and the close reason may be provided by the delegate if the server elects to send
   /// this information in the close frame
   static final URLSession_webSocketTask_didCloseWithCode_reason_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionWebSocketTask,
+              NSURLSessionWebSocketCloseCode, objc.NSData?)>(
     _sel_URLSession_webSocketTask_didCloseWithCode_reason_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76080,12 +76920,9 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionWebSocketTask,
-        NSURLSessionWebSocketCloseCode,
-        objc.NSData?),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionWebSocketTask,
+                NSURLSessionWebSocketCloseCode, objc.NSData?)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76093,7 +76930,9 @@ abstract final class NSURLSessionWebSocketDelegate {
                     NSURLSessionWebSocketCloseCode arg3,
                     objc.NSData? arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionWebSocketTask,
+                NSURLSessionWebSocketCloseCode, objc.NSData?)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76108,7 +76947,8 @@ abstract final class NSURLSessionWebSocketDelegate {
   ///
   /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
   /// invoked synchronously before the task creation method returns.
-  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod(
+  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod<
+      void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_didCreateTask_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76116,13 +76956,12 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -76150,7 +76989,9 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// URLSession:task:didCompleteWithError: task delegate will be called with error
   /// NSURLErrorCancelled.
   static final URLSession_task_willBeginDelayedRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+              ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)>(
     _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76158,12 +76999,9 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLRequest,
-        ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76172,7 +77010,9 @@ abstract final class NSURLSessionWebSocketDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76193,7 +77033,8 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// This delegate callback will never be called for background sessions, because
   /// the waitForConnectivity property is ignored by those sessions.
   static final URLSession_taskIsWaitingForConnectivity_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask)>(
     _sel_URLSession_taskIsWaitingForConnectivity_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76201,13 +77042,12 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2) =>
@@ -76223,7 +77063,9 @@ abstract final class NSURLSessionWebSocketDelegate {
   ///
   /// For tasks in background sessions, redirections will always be followed and this method will not be called.
   static final URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+              NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)>(
     _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76231,9 +77073,9 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, NSURLSessionTask,
-        NSHTTPURLResponse, NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76242,7 +77084,9 @@ abstract final class NSURLSessionWebSocketDelegate {
                     NSURLRequest arg4,
                     ObjCBlock_ffiVoid_NSURLRequest arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
+                NSURLRequest, ObjCBlock_ffiVoid_NSURLRequest)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76258,7 +77102,12 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// will *NOT* be called and the behavior will be the same as using the default handling
   /// disposition.
   static final URLSession_task_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_task_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76266,12 +77115,9 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLSessionTask,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76280,7 +77126,9 @@ abstract final class NSURLSessionWebSocketDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76295,7 +77143,9 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// necessary when authentication has failed for any request that
   /// involves a body stream.
   static final URLSession_task_needNewBodyStream_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStream_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76303,16 +77153,18 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
                     NSURLSessionTask arg2,
                     ObjCBlock_ffiVoid_NSInputStream arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(
+                NSURLSession, NSURLSessionTask, ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76329,7 +77181,9 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// - Parameter offset: The starting offset required for the body stream.
   /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
   static final URLSession_task_needNewBodyStreamFromOffset_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int,
+              ObjCBlock_ffiVoid_NSInputStream)>(
     _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76337,9 +77191,9 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, int, ObjCBlock_ffiVoid_NSInputStream),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76347,7 +77201,9 @@ abstract final class NSURLSessionWebSocketDelegate {
                     int arg3,
                     ObjCBlock_ffiVoid_NSInputStream arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int,
+                ObjCBlock_ffiVoid_NSInputStream)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76360,7 +77216,8 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// Sent periodically to notify the delegate of upload progress.  This
   /// information is also available as properties of the task.
   static final URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, int, int, int)>(
     _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76368,14 +77225,12 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, int, int, int),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
                 func(arg1, arg2, arg3, arg4, arg5)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
@@ -76384,7 +77239,8 @@ abstract final class NSURLSessionWebSocketDelegate {
 
   /// Sent for each informational response received except 101 switching protocols.
   static final URLSession_task_didReceiveInformationalResponse_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)>(
     _sel_URLSession_task_didReceiveInformationalResponse_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76392,14 +77248,12 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSHTTPURLResponse),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
@@ -76408,7 +77262,9 @@ abstract final class NSURLSessionWebSocketDelegate {
 
   /// Sent when complete statistics information has been collected for the task.
   static final URLSession_task_didFinishCollectingMetrics_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(
+              NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)>(
     _sel_URLSession_task_didFinishCollectingMetrics_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76416,14 +77272,14 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
@@ -76433,7 +77289,8 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// Sent as the last message related to a specific task.  Error may be
   /// nil, which implies that no error occurred and this task is complete.
   static final URLSession_task_didCompleteWithError_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLSessionTask, objc.NSError?)>(
     _sel_URLSession_task_didCompleteWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76441,14 +77298,12 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is void Function(NSURLSession, NSURLSessionTask, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
             .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
                     NSURLSessionTask arg2, objc.NSError? arg3) =>
@@ -76458,8 +77313,8 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// The last message a session receives.  A session will only become
   /// invalid because of a systemic error or when it has been
   /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ =
-      objc.ObjCProtocolListenableMethod(
+  static final URLSession_didBecomeInvalidWithError_ = objc
+      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
     _sel_URLSession_didBecomeInvalidWithError_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76467,14 +77322,14 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession, objc.NSError?),
-    (Function func) =>
+    (void Function(NSURLSession, objc.NSError?) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
                 func(arg1, arg2)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-            func(arg1, arg2)),
+    (void Function(NSURLSession, objc.NSError?) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
+                func(arg1, arg2)),
   );
 
   /// If implemented, when a connection level authentication challenge
@@ -76486,7 +77341,9 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// behavior will be to use the default handling, which may involve user
   /// interaction.
   static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(NSURLSession, NSURLAuthenticationChallenge,
+              ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)>(
     _sel_URLSession_didReceiveChallenge_completionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76494,11 +77351,9 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(
-        NSURLSession,
-        NSURLAuthenticationChallenge,
-        ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76506,7 +77361,9 @@ abstract final class NSURLSessionWebSocketDelegate {
                     ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                         arg3) =>
                 func(arg1, arg2, arg3)),
-    (Function func) =>
+    (void Function(NSURLSession, NSURLAuthenticationChallenge,
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential)
+            func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
@@ -76524,7 +77381,7 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// completion handler, or to begin any internal updates that will
   /// result in invoking the completion handler.
   static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
     _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -76532,11 +77389,12 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSURLSession),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-        (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
+    (void Function(NSURLSession) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
+            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
   );
 }
 
@@ -77367,90 +78225,56 @@ final _objc_msgSend_194 = objc.msgSendPointer
         int Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 
-enum NSItemProviderRepresentationVisibility {
-  NSItemProviderRepresentationVisibilityAll(0),
-  NSItemProviderRepresentationVisibilityTeam(1),
-  NSItemProviderRepresentationVisibilityGroup(2),
-  NSItemProviderRepresentationVisibilityOwnProcess(3);
-
-  final int value;
-  const NSItemProviderRepresentationVisibility(this.value);
-
-  static NSItemProviderRepresentationVisibility fromValue(int value) =>
-      switch (value) {
-        0 => NSItemProviderRepresentationVisibilityAll,
-        1 => NSItemProviderRepresentationVisibilityTeam,
-        2 => NSItemProviderRepresentationVisibilityGroup,
-        3 => NSItemProviderRepresentationVisibilityOwnProcess,
-        _ => throw ArgumentError(
-            "Unknown value for NSItemProviderRepresentationVisibility: $value"),
-      };
-}
-
-enum NSItemProviderFileOptions {
-  NSItemProviderFileOptionOpenInPlace(1);
-
-  final int value;
-  const NSItemProviderFileOptions(this.value);
-
-  static NSItemProviderFileOptions fromValue(int value) => switch (value) {
-        1 => NSItemProviderFileOptionOpenInPlace,
-        _ => throw ArgumentError(
-            "Unknown value for NSItemProviderFileOptions: $value"),
-      };
-}
-
 /// NSItemProviderWriting
 abstract final class NSItemProviderWriting {
   /// Builds an object that implements the NSItemProviderWriting protocol. To implement
   /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
   static objc.ObjCObjectBase implement(
-      {NSItemProviderRepresentationVisibility Function(objc.NSString)?
+      {objc.NSItemProviderRepresentationVisibility Function(objc.NSString)?
           itemProviderVisibilityForRepresentationWithTypeIdentifier_,
       required NSProgress? Function(
               objc.NSString, ObjCBlock_ffiVoid_NSData_NSError)
           loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
       objc.NSArray Function()? writableTypeIdentifiersForItemProvider}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSItemProviderWriting
-            .itemProviderVisibilityForRepresentationWithTypeIdentifier_,
-        itemProviderVisibilityForRepresentationWithTypeIdentifier_);
-    builder.implementMethod(
-        NSItemProviderWriting
-            .loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
-        loadDataWithTypeIdentifier_forItemProviderCompletionHandler_);
-    builder.implementMethod(
-        NSItemProviderWriting.writableTypeIdentifiersForItemProvider,
-        writableTypeIdentifiersForItemProvider);
+    NSItemProviderWriting
+        .itemProviderVisibilityForRepresentationWithTypeIdentifier_
+        .implement(builder,
+            itemProviderVisibilityForRepresentationWithTypeIdentifier_);
+    NSItemProviderWriting
+        .loadDataWithTypeIdentifier_forItemProviderCompletionHandler_
+        .implement(builder,
+            loadDataWithTypeIdentifier_forItemProviderCompletionHandler_);
+    NSItemProviderWriting.writableTypeIdentifiersForItemProvider
+        .implement(builder, writableTypeIdentifiersForItemProvider);
     return builder.build();
   }
 
   /// Adds the implementation of the NSItemProviderWriting protocol to an existing
   /// [objc.ObjCProtocolBuilder].
   static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {NSItemProviderRepresentationVisibility Function(objc.NSString)?
+      {objc.NSItemProviderRepresentationVisibility Function(objc.NSString)?
           itemProviderVisibilityForRepresentationWithTypeIdentifier_,
       required NSProgress? Function(
               objc.NSString, ObjCBlock_ffiVoid_NSData_NSError)
           loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
       objc.NSArray Function()? writableTypeIdentifiersForItemProvider}) {
-    builder.implementMethod(
-        NSItemProviderWriting
-            .itemProviderVisibilityForRepresentationWithTypeIdentifier_,
-        itemProviderVisibilityForRepresentationWithTypeIdentifier_);
-    builder.implementMethod(
-        NSItemProviderWriting
-            .loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
-        loadDataWithTypeIdentifier_forItemProviderCompletionHandler_);
-    builder.implementMethod(
-        NSItemProviderWriting.writableTypeIdentifiersForItemProvider,
-        writableTypeIdentifiersForItemProvider);
+    NSItemProviderWriting
+        .itemProviderVisibilityForRepresentationWithTypeIdentifier_
+        .implement(builder,
+            itemProviderVisibilityForRepresentationWithTypeIdentifier_);
+    NSItemProviderWriting
+        .loadDataWithTypeIdentifier_forItemProviderCompletionHandler_
+        .implement(builder,
+            loadDataWithTypeIdentifier_forItemProviderCompletionHandler_);
+    NSItemProviderWriting.writableTypeIdentifiersForItemProvider
+        .implement(builder, writableTypeIdentifiersForItemProvider);
   }
 
   /// itemProviderVisibilityForRepresentationWithTypeIdentifier:
   static final itemProviderVisibilityForRepresentationWithTypeIdentifier_ =
-      objc.ObjCProtocolMethod(
+      objc.ObjCProtocolMethod<
+          objc.NSItemProviderRepresentationVisibility Function(objc.NSString)>(
     _sel_itemProviderVisibilityForRepresentationWithTypeIdentifier_,
     objc.getProtocolMethodSignature(
       _protocol_NSItemProviderWriting,
@@ -77458,9 +78282,8 @@ abstract final class NSItemProviderWriting {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) =>
-        func is NSItemProviderRepresentationVisibility Function(objc.NSString),
-    (Function func) =>
+    (objc.NSItemProviderRepresentationVisibility Function(objc.NSString)
+            func) =>
         ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString
             .fromFunction(
                 (ffi.Pointer<ffi.Void> _, objc.NSString arg1) => func(arg1)),
@@ -77468,7 +78291,9 @@ abstract final class NSItemProviderWriting {
 
   /// loadDataWithTypeIdentifier:forItemProviderCompletionHandler:
   static final loadDataWithTypeIdentifier_forItemProviderCompletionHandler_ =
-      objc.ObjCProtocolMethod(
+      objc.ObjCProtocolMethod<
+          NSProgress? Function(
+              objc.NSString, ObjCBlock_ffiVoid_NSData_NSError)>(
     _sel_loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
     objc.getProtocolMethodSignature(
       _protocol_NSItemProviderWriting,
@@ -77476,9 +78301,8 @@ abstract final class NSItemProviderWriting {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is NSProgress? Function(
-        objc.NSString, ObjCBlock_ffiVoid_NSData_NSError),
-    (Function func) =>
+    (NSProgress? Function(objc.NSString, ObjCBlock_ffiVoid_NSData_NSError)
+            func) =>
         ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError.fromFunction(
             (ffi.Pointer<ffi.Void> _, objc.NSString arg1,
                     ObjCBlock_ffiVoid_NSData_NSError arg2) =>
@@ -77486,7 +78310,8 @@ abstract final class NSItemProviderWriting {
   );
 
   /// writableTypeIdentifiersForItemProvider
-  static final writableTypeIdentifiersForItemProvider = objc.ObjCProtocolMethod(
+  static final writableTypeIdentifiersForItemProvider =
+      objc.ObjCProtocolMethod<objc.NSArray Function()>(
     _sel_writableTypeIdentifiersForItemProvider,
     objc.getProtocolMethodSignature(
       _protocol_NSItemProviderWriting,
@@ -77494,8 +78319,7 @@ abstract final class NSItemProviderWriting {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is objc.NSArray Function(),
-    (Function func) => ObjCBlock_NSArray_ffiVoid.fromFunction((
+    (objc.NSArray Function() func) => ObjCBlock_NSArray_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
@@ -77573,7 +78397,7 @@ class ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
   ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString.fromFunction(
-      NSItemProviderRepresentationVisibility Function(
+      objc.NSItemProviderRepresentationVisibility Function(
               ffi.Pointer<ffi.Void>, objc.NSString)
           fn)
       : this._(objc.newClosureBlock(
@@ -77588,19 +78412,17 @@ class ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString
                 fn(arg0, objc.NSString.castFromPointer(arg1, retain: true, release: true)).value));
   static ffi.Pointer<ffi.Void>? _dartFuncTrampoline;
 
-  NSItemProviderRepresentationVisibility call(
-          ffi.Pointer<ffi.Void> arg0, objc.NSString arg1) =>
-      NSItemProviderRepresentationVisibility.fromValue(pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      NSInteger Function(
-                          ffi.Pointer<objc.ObjCBlock> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>()
-              .asFunction<
-                  int Function(ffi.Pointer<objc.ObjCBlock>,
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
-          pointer, arg0, arg1.pointer));
+  objc.NSItemProviderRepresentationVisibility call(ffi.Pointer<ffi.Void> arg0, objc.NSString arg1) =>
+      objc.NSItemProviderRepresentationVisibility.fromValue(pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
+                  NSInteger Function(
+                      ffi.Pointer<objc.ObjCBlock> block,
+                      ffi.Pointer<ffi.Void> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1)>>()
+          .asFunction<
+              int Function(ffi.Pointer<objc.ObjCBlock>, ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<objc.ObjCObject>)>()(pointer, arg0, arg1.pointer));
 }
 
 void _ObjCBlock_ffiVoid_NSData_NSError_fnPtrTrampoline(
@@ -77939,12 +78761,10 @@ abstract final class NSItemProviderReading {
       required objc.NSArray Function()
           readableTypeIdentifiersForItemProvider}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSItemProviderReading.objectWithItemProviderData_typeIdentifier_error_,
-        objectWithItemProviderData_typeIdentifier_error_);
-    builder.implementMethod(
-        NSItemProviderReading.readableTypeIdentifiersForItemProvider,
-        readableTypeIdentifiersForItemProvider);
+    NSItemProviderReading.objectWithItemProviderData_typeIdentifier_error_
+        .implement(builder, objectWithItemProviderData_typeIdentifier_error_);
+    NSItemProviderReading.readableTypeIdentifiersForItemProvider
+        .implement(builder, readableTypeIdentifiersForItemProvider);
     return builder.build();
   }
 
@@ -77956,17 +78776,17 @@ abstract final class NSItemProviderReading {
           objectWithItemProviderData_typeIdentifier_error_,
       required objc.NSArray Function()
           readableTypeIdentifiersForItemProvider}) {
-    builder.implementMethod(
-        NSItemProviderReading.objectWithItemProviderData_typeIdentifier_error_,
-        objectWithItemProviderData_typeIdentifier_error_);
-    builder.implementMethod(
-        NSItemProviderReading.readableTypeIdentifiersForItemProvider,
-        readableTypeIdentifiersForItemProvider);
+    NSItemProviderReading.objectWithItemProviderData_typeIdentifier_error_
+        .implement(builder, objectWithItemProviderData_typeIdentifier_error_);
+    NSItemProviderReading.readableTypeIdentifiersForItemProvider
+        .implement(builder, readableTypeIdentifiersForItemProvider);
   }
 
   /// objectWithItemProviderData:typeIdentifier:error:
   static final objectWithItemProviderData_typeIdentifier_error_ =
-      objc.ObjCProtocolMethod(
+      objc.ObjCProtocolMethod<
+          Dartinstancetype? Function(objc.NSData, objc.NSString,
+              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>(
     _sel_objectWithItemProviderData_typeIdentifier_error_,
     objc.getProtocolMethodSignature(
       _protocol_NSItemProviderReading,
@@ -77974,9 +78794,9 @@ abstract final class NSItemProviderReading {
       isRequired: true,
       isInstanceMethod: false,
     ),
-    (Function func) => func is Dartinstancetype? Function(
-        objc.NSData, objc.NSString, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>),
-    (Function func) =>
+    (Dartinstancetype? Function(objc.NSData, objc.NSString,
+                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)
+            func) =>
         ObjCBlock_instancetype_ffiVoid_NSData_NSString_NSError.fromFunction(
             (ffi.Pointer<ffi.Void> _, objc.NSData arg1, objc.NSString arg2,
                     ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg3) =>
@@ -77984,7 +78804,8 @@ abstract final class NSItemProviderReading {
   );
 
   /// readableTypeIdentifiersForItemProvider
-  static final readableTypeIdentifiersForItemProvider = objc.ObjCProtocolMethod(
+  static final readableTypeIdentifiersForItemProvider =
+      objc.ObjCProtocolMethod<objc.NSArray Function()>(
     _sel_readableTypeIdentifiersForItemProvider,
     objc.getProtocolMethodSignature(
       _protocol_NSItemProviderReading,
@@ -77992,8 +78813,7 @@ abstract final class NSItemProviderReading {
       isRequired: true,
       isInstanceMethod: false,
     ),
-    (Function func) => func is objc.NSArray Function(),
-    (Function func) => ObjCBlock_NSArray_ffiVoid.fromFunction((
+    (objc.NSArray Function() func) => ObjCBlock_NSArray_ffiVoid.fromFunction((
       ffi.Pointer<ffi.Void> _,
     ) =>
         func()),
@@ -78157,84 +78977,7 @@ enum NSItemProviderErrorCode {
       };
 }
 
-enum NSStringCompareOptions {
-  NSCaseInsensitiveSearch(1),
-  NSLiteralSearch(2),
-  NSBackwardsSearch(4),
-  NSAnchoredSearch(8),
-  NSNumericSearch(64),
-  NSDiacriticInsensitiveSearch(128),
-  NSWidthInsensitiveSearch(256),
-  NSForcedOrderingSearch(512),
-  NSRegularExpressionSearch(1024);
-
-  final int value;
-  const NSStringCompareOptions(this.value);
-
-  static NSStringCompareOptions fromValue(int value) => switch (value) {
-        1 => NSCaseInsensitiveSearch,
-        2 => NSLiteralSearch,
-        4 => NSBackwardsSearch,
-        8 => NSAnchoredSearch,
-        64 => NSNumericSearch,
-        128 => NSDiacriticInsensitiveSearch,
-        256 => NSWidthInsensitiveSearch,
-        512 => NSForcedOrderingSearch,
-        1024 => NSRegularExpressionSearch,
-        _ => throw ArgumentError(
-            "Unknown value for NSStringCompareOptions: $value"),
-      };
-}
-
 typedef NSStringEncoding = NSUInteger;
-
-enum NSStringEncodingConversionOptions {
-  NSStringEncodingConversionAllowLossy(1),
-  NSStringEncodingConversionExternalRepresentation(2);
-
-  final int value;
-  const NSStringEncodingConversionOptions(this.value);
-
-  static NSStringEncodingConversionOptions fromValue(int value) =>
-      switch (value) {
-        1 => NSStringEncodingConversionAllowLossy,
-        2 => NSStringEncodingConversionExternalRepresentation,
-        _ => throw ArgumentError(
-            "Unknown value for NSStringEncodingConversionOptions: $value"),
-      };
-}
-
-enum NSStringEnumerationOptions {
-  NSStringEnumerationByLines(0),
-  NSStringEnumerationByParagraphs(1),
-  NSStringEnumerationByComposedCharacterSequences(2),
-  NSStringEnumerationByWords(3),
-  NSStringEnumerationBySentences(4),
-  NSStringEnumerationByCaretPositions(5),
-  NSStringEnumerationByDeletionClusters(6),
-  NSStringEnumerationReverse(256),
-  NSStringEnumerationSubstringNotRequired(512),
-  NSStringEnumerationLocalized(1024);
-
-  final int value;
-  const NSStringEnumerationOptions(this.value);
-
-  static NSStringEnumerationOptions fromValue(int value) => switch (value) {
-        0 => NSStringEnumerationByLines,
-        1 => NSStringEnumerationByParagraphs,
-        2 => NSStringEnumerationByComposedCharacterSequences,
-        3 => NSStringEnumerationByWords,
-        4 => NSStringEnumerationBySentences,
-        5 => NSStringEnumerationByCaretPositions,
-        6 => NSStringEnumerationByDeletionClusters,
-        256 => NSStringEnumerationReverse,
-        512 => NSStringEnumerationSubstringNotRequired,
-        1024 => NSStringEnumerationLocalized,
-        _ => throw ArgumentError(
-            "Unknown value for NSStringEnumerationOptions: $value"),
-      };
-}
-
 typedef NSStringTransform = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSStringTransform = objc.NSString;
 typedef NSStringEncodingDetectionOptionsKey = ffi.Pointer<objc.ObjCObject>;
@@ -80415,24 +81158,6 @@ late final _sel_URLQueryAllowedCharacterSet =
 late final _sel_URLFragmentAllowedCharacterSet =
     objc.registerName("URLFragmentAllowedCharacterSet");
 
-enum NSURLHandleStatus {
-  NSURLHandleNotLoaded(0),
-  NSURLHandleLoadSucceeded(1),
-  NSURLHandleLoadInProgress(2),
-  NSURLHandleLoadFailed(3);
-
-  final int value;
-  const NSURLHandleStatus(this.value);
-
-  static NSURLHandleStatus fromValue(int value) => switch (value) {
-        0 => NSURLHandleNotLoaded,
-        1 => NSURLHandleLoadSucceeded,
-        2 => NSURLHandleLoadInProgress,
-        3 => NSURLHandleLoadFailed,
-        _ => throw ArgumentError("Unknown value for NSURLHandleStatus: $value"),
-      };
-}
-
 /// NSURLHandleClient
 abstract final class NSURLHandleClient {
   /// Builds an object that implements the NSURLHandleClient protocol. To implement
@@ -80449,20 +81174,16 @@ abstract final class NSURLHandleClient {
       required void Function(objc.NSURLHandle, objc.NSString)
           URLHandle_resourceDidFailLoadingWithReason_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_,
-        URLHandle_resourceDataDidBecomeAvailable_);
-    builder.implementMethod(NSURLHandleClient.URLHandleResourceDidBeginLoading_,
-        URLHandleResourceDidBeginLoading_);
-    builder.implementMethod(
-        NSURLHandleClient.URLHandleResourceDidFinishLoading_,
-        URLHandleResourceDidFinishLoading_);
-    builder.implementMethod(
-        NSURLHandleClient.URLHandleResourceDidCancelLoading_,
-        URLHandleResourceDidCancelLoading_);
-    builder.implementMethod(
-        NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_,
-        URLHandle_resourceDidFailLoadingWithReason_);
+    NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_.implement(
+        builder, URLHandle_resourceDataDidBecomeAvailable_);
+    NSURLHandleClient.URLHandleResourceDidBeginLoading_.implement(
+        builder, URLHandleResourceDidBeginLoading_);
+    NSURLHandleClient.URLHandleResourceDidFinishLoading_.implement(
+        builder, URLHandleResourceDidFinishLoading_);
+    NSURLHandleClient.URLHandleResourceDidCancelLoading_.implement(
+        builder, URLHandleResourceDidCancelLoading_);
+    NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_.implement(
+        builder, URLHandle_resourceDidFailLoadingWithReason_);
     return builder.build();
   }
 
@@ -80479,25 +81200,80 @@ abstract final class NSURLHandleClient {
           URLHandleResourceDidCancelLoading_,
       required void Function(objc.NSURLHandle, objc.NSString)
           URLHandle_resourceDidFailLoadingWithReason_}) {
-    builder.implementMethod(
-        NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_,
-        URLHandle_resourceDataDidBecomeAvailable_);
-    builder.implementMethod(NSURLHandleClient.URLHandleResourceDidBeginLoading_,
-        URLHandleResourceDidBeginLoading_);
-    builder.implementMethod(
-        NSURLHandleClient.URLHandleResourceDidFinishLoading_,
-        URLHandleResourceDidFinishLoading_);
-    builder.implementMethod(
-        NSURLHandleClient.URLHandleResourceDidCancelLoading_,
-        URLHandleResourceDidCancelLoading_);
-    builder.implementMethod(
-        NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_,
-        URLHandle_resourceDidFailLoadingWithReason_);
+    NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_.implement(
+        builder, URLHandle_resourceDataDidBecomeAvailable_);
+    NSURLHandleClient.URLHandleResourceDidBeginLoading_.implement(
+        builder, URLHandleResourceDidBeginLoading_);
+    NSURLHandleClient.URLHandleResourceDidFinishLoading_.implement(
+        builder, URLHandleResourceDidFinishLoading_);
+    NSURLHandleClient.URLHandleResourceDidCancelLoading_.implement(
+        builder, URLHandleResourceDidCancelLoading_);
+    NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_.implement(
+        builder, URLHandle_resourceDidFailLoadingWithReason_);
+  }
+
+  /// Builds an object that implements the NSURLHandleClient protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {required void Function(objc.NSURLHandle, objc.NSData)
+          URLHandle_resourceDataDidBecomeAvailable_,
+      required void Function(objc.NSURLHandle)
+          URLHandleResourceDidBeginLoading_,
+      required void Function(objc.NSURLHandle)
+          URLHandleResourceDidFinishLoading_,
+      required void Function(objc.NSURLHandle)
+          URLHandleResourceDidCancelLoading_,
+      required void Function(objc.NSURLHandle, objc.NSString)
+          URLHandle_resourceDidFailLoadingWithReason_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_
+        .implementAsListener(
+            builder, URLHandle_resourceDataDidBecomeAvailable_);
+    NSURLHandleClient.URLHandleResourceDidBeginLoading_.implementAsListener(
+        builder, URLHandleResourceDidBeginLoading_);
+    NSURLHandleClient.URLHandleResourceDidFinishLoading_.implementAsListener(
+        builder, URLHandleResourceDidFinishLoading_);
+    NSURLHandleClient.URLHandleResourceDidCancelLoading_.implementAsListener(
+        builder, URLHandleResourceDidCancelLoading_);
+    NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_
+        .implementAsListener(
+            builder, URLHandle_resourceDidFailLoadingWithReason_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSURLHandleClient protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {required void Function(objc.NSURLHandle, objc.NSData)
+          URLHandle_resourceDataDidBecomeAvailable_,
+      required void Function(objc.NSURLHandle)
+          URLHandleResourceDidBeginLoading_,
+      required void Function(objc.NSURLHandle)
+          URLHandleResourceDidFinishLoading_,
+      required void Function(objc.NSURLHandle)
+          URLHandleResourceDidCancelLoading_,
+      required void Function(objc.NSURLHandle, objc.NSString)
+          URLHandle_resourceDidFailLoadingWithReason_}) {
+    NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_
+        .implementAsListener(
+            builder, URLHandle_resourceDataDidBecomeAvailable_);
+    NSURLHandleClient.URLHandleResourceDidBeginLoading_.implementAsListener(
+        builder, URLHandleResourceDidBeginLoading_);
+    NSURLHandleClient.URLHandleResourceDidFinishLoading_.implementAsListener(
+        builder, URLHandleResourceDidFinishLoading_);
+    NSURLHandleClient.URLHandleResourceDidCancelLoading_.implementAsListener(
+        builder, URLHandleResourceDidCancelLoading_);
+    NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_
+        .implementAsListener(
+            builder, URLHandle_resourceDidFailLoadingWithReason_);
   }
 
   /// URLHandle:resourceDataDidBecomeAvailable:
   static final URLHandle_resourceDataDidBecomeAvailable_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(objc.NSURLHandle, objc.NSData)>(
     _sel_URLHandle_resourceDataDidBecomeAvailable_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLHandleClient,
@@ -80505,20 +81281,21 @@ abstract final class NSURLHandleClient {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(objc.NSURLHandle, objc.NSData),
-    (Function func) =>
+    (void Function(objc.NSURLHandle, objc.NSData) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData.fromFunction(
             (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1,
                     objc.NSData arg2) =>
                 func(arg1, arg2)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData.listener(
-        (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1, objc.NSData arg2) =>
-            func(arg1, arg2)),
+    (void Function(objc.NSURLHandle, objc.NSData) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData.listener(
+            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1,
+                    objc.NSData arg2) =>
+                func(arg1, arg2)),
   );
 
   /// URLHandleResourceDidBeginLoading:
   static final URLHandleResourceDidBeginLoading_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(objc.NSURLHandle)>(
     _sel_URLHandleResourceDidBeginLoading_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLHandleClient,
@@ -80526,16 +81303,17 @@ abstract final class NSURLHandleClient {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(objc.NSURLHandle),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
-        (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
+    (void Function(objc.NSURLHandle) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
+    (void Function(objc.NSURLHandle) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
+            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
   );
 
   /// URLHandleResourceDidFinishLoading:
   static final URLHandleResourceDidFinishLoading_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(objc.NSURLHandle)>(
     _sel_URLHandleResourceDidFinishLoading_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLHandleClient,
@@ -80543,16 +81321,17 @@ abstract final class NSURLHandleClient {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(objc.NSURLHandle),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
-        (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
+    (void Function(objc.NSURLHandle) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
+    (void Function(objc.NSURLHandle) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
+            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
   );
 
   /// URLHandleResourceDidCancelLoading:
   static final URLHandleResourceDidCancelLoading_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<void Function(objc.NSURLHandle)>(
     _sel_URLHandleResourceDidCancelLoading_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLHandleClient,
@@ -80560,16 +81339,18 @@ abstract final class NSURLHandleClient {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(objc.NSURLHandle),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
-        (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
-        (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
+    (void Function(objc.NSURLHandle) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
+            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
+    (void Function(objc.NSURLHandle) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
+            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
   );
 
   /// URLHandle:resourceDidFailLoadingWithReason:
   static final URLHandle_resourceDidFailLoadingWithReason_ =
-      objc.ObjCProtocolListenableMethod(
+      objc.ObjCProtocolListenableMethod<
+          void Function(objc.NSURLHandle, objc.NSString)>(
     _sel_URLHandle_resourceDidFailLoadingWithReason_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLHandleClient,
@@ -80577,15 +81358,16 @@ abstract final class NSURLHandleClient {
       isRequired: true,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(objc.NSURLHandle, objc.NSString),
-    (Function func) =>
+    (void Function(objc.NSURLHandle, objc.NSString) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString.fromFunction(
             (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1,
                     objc.NSString arg2) =>
                 func(arg1, arg2)),
-    (Function func) => ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString.listener(
-        (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1, objc.NSString arg2) =>
-            func(arg1, arg2)),
+    (void Function(objc.NSURLHandle, objc.NSString) func) =>
+        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString.listener(
+            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1,
+                    objc.NSString arg2) =>
+                func(arg1, arg2)),
   );
 }
 
@@ -81011,67 +81793,6 @@ typedef NSURLUbiquitousSharedItemRole = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSURLUbiquitousSharedItemRole = objc.NSString;
 typedef NSURLUbiquitousSharedItemPermissions = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSURLUbiquitousSharedItemPermissions = objc.NSString;
-
-/// Working with Bookmarks and alias (bookmark) files
-enum NSURLBookmarkCreationOptions {
-  /// This option does nothing and has no effect on bookmark resolution
-  NSURLBookmarkCreationPreferFileIDResolution(256),
-
-  /// creates bookmark data with "less" information, which may be smaller but still be able to resolve in certain ways
-  NSURLBookmarkCreationMinimalBookmark(512),
-
-  /// include the properties required by writeBookmarkData:toURL:options: in the bookmark data created
-  NSURLBookmarkCreationSuitableForBookmarkFile(1024),
-
-  /// include information in the bookmark data which allows the same sandboxed process to access the resource after being relaunched
-  NSURLBookmarkCreationWithSecurityScope(2048),
-
-  /// if used with kCFURLBookmarkCreationWithSecurityScope, at resolution time only read access to the resource will be granted
-  NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess(4096),
-
-  /// Disable automatic embedding of an implicit security scope. The resolving process will not be able gain access to the resource by security scope, either implicitly or explicitly, through the returned URL. Not applicable to security-scoped bookmarks.
-  NSURLBookmarkCreationWithoutImplicitSecurityScope(536870912);
-
-  final int value;
-  const NSURLBookmarkCreationOptions(this.value);
-
-  static NSURLBookmarkCreationOptions fromValue(int value) => switch (value) {
-        256 => NSURLBookmarkCreationPreferFileIDResolution,
-        512 => NSURLBookmarkCreationMinimalBookmark,
-        1024 => NSURLBookmarkCreationSuitableForBookmarkFile,
-        2048 => NSURLBookmarkCreationWithSecurityScope,
-        4096 => NSURLBookmarkCreationSecurityScopeAllowOnlyReadAccess,
-        536870912 => NSURLBookmarkCreationWithoutImplicitSecurityScope,
-        _ => throw ArgumentError(
-            "Unknown value for NSURLBookmarkCreationOptions: $value"),
-      };
-}
-
-enum NSURLBookmarkResolutionOptions {
-  /// don't perform any user interaction during bookmark resolution
-  NSURLBookmarkResolutionWithoutUI(256),
-
-  /// don't mount a volume during bookmark resolution
-  NSURLBookmarkResolutionWithoutMounting(512),
-
-  /// use the secure information included at creation time to provide the ability to access the resource in a sandboxed process
-  NSURLBookmarkResolutionWithSecurityScope(1024),
-
-  /// Disable implicitly starting access of the ephemeral security-scoped resource during resolution. Instead, call `-[NSURL startAccessingSecurityScopedResource]` on the returned URL when ready to use the resource. Not applicable to security-scoped bookmarks.
-  NSURLBookmarkResolutionWithoutImplicitStartAccessing(32768);
-
-  final int value;
-  const NSURLBookmarkResolutionOptions(this.value);
-
-  static NSURLBookmarkResolutionOptions fromValue(int value) => switch (value) {
-        256 => NSURLBookmarkResolutionWithoutUI,
-        512 => NSURLBookmarkResolutionWithoutMounting,
-        1024 => NSURLBookmarkResolutionWithSecurityScope,
-        32768 => NSURLBookmarkResolutionWithoutImplicitStartAccessing,
-        _ => throw ArgumentError(
-            "Unknown value for NSURLBookmarkResolutionOptions: $value"),
-      };
-}
 
 /// NSURLQueryItem encapsulates a single query name-value pair. The name and value strings of a query name-value pair are not percent encoded. For use with the NSURLComponents queryItems property.
 class NSURLQueryItem extends objc.NSObject {
@@ -84602,8 +85323,8 @@ abstract final class NSStreamDelegate {
   static objc.ObjCObjectBase implement(
       {void Function(NSStream, NSStreamEvent)? stream_handleEvent_}) {
     final builder = objc.ObjCProtocolBuilder();
-    builder.implementMethod(
-        NSStreamDelegate.stream_handleEvent_, stream_handleEvent_);
+    NSStreamDelegate.stream_handleEvent_
+        .implement(builder, stream_handleEvent_);
     return builder.build();
   }
 
@@ -84611,12 +85332,33 @@ abstract final class NSStreamDelegate {
   /// [objc.ObjCProtocolBuilder].
   static void addToBuilder(objc.ObjCProtocolBuilder builder,
       {void Function(NSStream, NSStreamEvent)? stream_handleEvent_}) {
-    builder.implementMethod(
-        NSStreamDelegate.stream_handleEvent_, stream_handleEvent_);
+    NSStreamDelegate.stream_handleEvent_
+        .implement(builder, stream_handleEvent_);
+  }
+
+  /// Builds an object that implements the NSStreamDelegate protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {void Function(NSStream, NSStreamEvent)? stream_handleEvent_}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSStreamDelegate.stream_handleEvent_
+        .implementAsListener(builder, stream_handleEvent_);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSStreamDelegate protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {void Function(NSStream, NSStreamEvent)? stream_handleEvent_}) {
+    NSStreamDelegate.stream_handleEvent_
+        .implementAsListener(builder, stream_handleEvent_);
   }
 
   /// stream:handleEvent:
-  static final stream_handleEvent_ = objc.ObjCProtocolListenableMethod(
+  static final stream_handleEvent_ =
+      objc.ObjCProtocolListenableMethod<void Function(NSStream, NSStreamEvent)>(
     _sel_stream_handleEvent_,
     objc.getProtocolMethodSignature(
       _protocol_NSStreamDelegate,
@@ -84624,12 +85366,11 @@ abstract final class NSStreamDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (Function func) => func is void Function(NSStream, NSStreamEvent),
-    (Function func) =>
+    (void Function(NSStream, NSStreamEvent) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSStream_NSStreamEvent.fromFunction(
             (ffi.Pointer<ffi.Void> _, NSStream arg1, NSStreamEvent arg2) =>
                 func(arg1, arg2)),
-    (Function func) =>
+    (void Function(NSStream, NSStreamEvent) func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSStream_NSStreamEvent.listener(
             (ffi.Pointer<ffi.Void> _, NSStream arg1, NSStreamEvent arg2) =>
                 func(arg1, arg2)),
