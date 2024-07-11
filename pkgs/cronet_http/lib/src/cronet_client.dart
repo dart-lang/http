@@ -2,17 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// An Android Flutter plugin that provides access to the
-/// [Cronet](https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/package-summary)
-/// HTTP client.
-///
-/// The platform interface must be initialized before using this plugin e.g. by
-/// calling
-/// [`WidgetsFlutterBinding.ensureInitialized`](https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html)
-/// or
-/// [`runApp`](https://api.flutter.dev/flutter/widgets/runApp.html).
-library;
-
 import 'dart:async';
 
 import 'package:http/http.dart';
@@ -296,28 +285,6 @@ jb.UrlRequestCallbackProxy_UrlRequestCallbackInterface _urlRequestCallbacks(
 /// A HTTP [Client] based on the
 /// [Cronet](https://developer.android.com/guide/topics/connectivity/cronet)
 /// network stack.
-///
-/// For example:
-/// ```
-/// void main() async {
-///   var client = CronetClient.defaultCronetEngine();
-///   final response = await client.get(
-///       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'}));
-///   if (response.statusCode != 200) {
-///     throw HttpException('bad response: ${response.statusCode}');
-///   }
-///
-///   final decodedResponse =
-///       jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-///
-///   final itemCount = decodedResponse['totalItems'];
-///   print('Number of books about http: $itemCount.');
-///   for (var i = 0; i < min(itemCount, 10); ++i) {
-///     print(decodedResponse['items'][i]['volumeInfo']['title']);
-///   }
-/// }
-/// ```
-///
 class CronetClient extends BaseClient {
   static final _executor = jb.Executors.newCachedThreadPool();
   CronetEngine? _engine;
