@@ -6,50 +6,41 @@
 /// [Cronet](https://developer.android.com/guide/topics/connectivity/cronet/reference/org/chromium/net/package-summary)
 /// HTTP client.
 ///
-/// ```
-/// import 'package:cronet_http/cronet_http.dart';
-///
-/// void main() async {
-///   var client = CronetClient.defaultCronetEngine();
-///   final response = await client.get(
-///       Uri.https('www.googleapis.com', '/books/v1/volumes', {'q': '{http}'}));
-///   if (response.statusCode != 200) {
-///     throw HttpException('bad response: ${response.statusCode}');
-///   }
-///
-///   final decodedResponse =
-///       jsonDecode(utf8.decode(response.bodyBytes)) as Map;
-///
-///   final itemCount = decodedResponse['totalItems'];
-///   print('Number of books about http: $itemCount.');
-///   for (var i = 0; i < min(itemCount, 10); ++i) {
-///     print(decodedResponse['items'][i]['volumeInfo']['title']);
-///   }
-/// }
-/// ```
+/// The platform interface must be initialized before using this plugin e.g. by
+/// calling
+/// [`WidgetsFlutterBinding.ensureInitialized`](https://api.flutter.dev/flutter/widgets/WidgetsFlutterBinding/ensureInitialized.html)
+/// or
+/// [`runApp`](https://api.flutter.dev/flutter/widgets/runApp.html).
 ///
 /// [CronetClient] is an implementation of the `package:http` [Client],
 /// which means that it can easily used conditionally based on the current
 /// platform.
 ///
 /// ```
+/// import 'package:provider/provider.dart';
+///
 /// void main() {
-///   var clientFactory = Client.new; // Constructs the default client.
+///   final Client httpClient;
 ///   if (Platform.isAndroid) {
-///     Future<CronetEngine>? engine;
-///     clientFactory = () {
-///       engine ??= CronetEngine.build(
-///           cacheMode: CacheMode.memory, userAgent: 'MyAgent');
-///       return CronetClient.fromCronetEngineFuture(engine!);
-///     };
+///     // `package:cronet_http` cannot be used until
+///     // `WidgetsFlutterBinding.ensureInitialized()` or `runApp` is called.
+///     WidgetsFlutterBinding.ensureInitialized();
+///     final engine = CronetEngine.build(
+///         cacheMode: CacheMode.memory,
+///         cacheMaxSize: 2 * 1024 * 1024,
+///         userAgent: 'Book Agent');
+///     httpClient = CronetClient.fromCronetEngine(engine, closeEngine: true);
+///   } else {
+///     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
 ///   }
-///   runWithClient(() => runApp(const MyFlutterApp()), clientFactory);
+///
+///   runApp(Provider<Client>(
+///       create: (_) => httpClient,
+///       child: const BookSearchApp(),
+///       dispose: (_, client) => client.close()));
+///   }
 /// }
 /// ```
-///
-/// After the above setup, calling [Client] methods or any of the
-/// `package:http` convenient functions (e.g. [get]) will result in
-/// [CronetClient] being used on Android.
 library;
 
 import 'package:http/http.dart';
