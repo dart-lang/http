@@ -1092,7 +1092,11 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       ncb.NSURLSessionWebSocketCloseCode closeCode,
       objc.NSData? reason)? _onWebSocketTaskClosed;
 
-  static objc.ObjCObjectBase delegate() {
+  objc.ObjCObjectBase delegate(
+    URLRequest? Function(URLSession session, URLSessionTask task,
+            HTTPURLResponse response, URLRequest newRequest)?
+        onRedirect,
+  ) {
     final protoBuilder = objc.ObjCProtocolBuilder();
 
     ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
@@ -1103,6 +1107,25 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
     }, URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
       print('Do something with the data.');
+    }, URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
+            (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
+      final request = URLRequest._(nsRequest);
+      URLRequest? redirectRequest;
+
+      if (onRedirect == null) {
+        redirectRequest = request;
+      } else {
+        try {
+          final response = HTTPURLResponse._(nsResponse);
+          redirectRequest =
+              onRedirect(session, URLSessionTask._(nsTask), response, request);
+        } catch (e) {
+          // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
+          // this exception as an `Error` and call the completion function
+          // with it.
+        }
+      }
+      nsRequestCompleter(request._nsObject);
     });
 
     ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
@@ -1269,12 +1292,48 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
     // by only allowing callbacks to execute sequentially.
     // See https://developer.apple.com/forums/thread/47252
-    // NOTE: this is likely to reduce throughput when there are multiple
-    // requests in flight because each call to a delegate waits on a lock
-    // that is unlocked by Dart code.
     final queue = ncb.NSOperationQueue.new1()
       ..maxConcurrentOperationCount = 1
       ..name = 'cupertino_http.NSURLSessionDelegateQueue'.toNSString();
+
+    final protoBuilder = objc.ObjCProtocolBuilder();
+    late URLSession session;
+
+    ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
+        URLSession_dataTask_didReceiveResponse_completionHandler_:
+            (session, dataTask, response, completionHandler) {
+      print('Got a response.');
+      completionHandler
+          .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
+    }, URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
+      print('Do something with the data.');
+    }, URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
+            (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
+      final request = URLRequest._(nsRequest);
+      URLRequest? redirectRequest;
+
+      if (onRedirect == null) {
+        redirectRequest = request;
+      } else {
+        try {
+          final response = HTTPURLResponse._(nsResponse);
+          redirectRequest =
+              onRedirect(session, URLSessionTask._(nsTask), response, request);
+        } catch (e) {
+          // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
+          // this exception as an `Error` and call the completion function
+          // with it.
+        }
+      }
+      nsRequestCompleter(redirectRequest._nsObject);
+    });
+
+    ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
+        URLSession_downloadTask_didFinishDownloadingToURL_:
+            (session, task, url) {
+      print('Do something.');
+    });
+    final delegate = protoBuilder.build();
 
     return URLSession._(
         ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
