@@ -44,17 +44,22 @@
 ///
 /// ```
 /// void main() {
-///   var clientFactory = Client.new; // The default Client.
+///   final Client httpClient;
 ///   if (Platform.isIOS || Platform.isMacOS) {
-///     clientFactory = CupertinoClient.defaultSessionConfiguration.call;
+///     final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+///       ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024)
+///       ..httpAdditionalHeaders = {'User-Agent': 'Book Agent'};
+///     httpClient = CupertinoClient.fromSessionConfiguration(config);
+///   } else {
+///     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
 ///   }
-///   runWithClient(() => runApp(const MyFlutterApp()), clientFactory);
-/// }
-/// ```
 ///
-/// After the above setup, calling [Client] methods or any of the
-/// `package:http` convenient functions (e.g. [get]) will result in
-/// [CupertinoClient] being used on macOS and iOS.
+///   runApp(Provider<Client>(
+///       create: (_) => httpClient,
+///       child: const BookSearchApp(),
+///       dispose: (_, client) => client.close()));
+///  }
+/// ```
 ///
 /// # NSURLSession API
 ///
