@@ -1,6 +1,8 @@
 ## 1.3.2-wip
 
-* Upgrade `package:jni` and `package:0.9.3` to fix method calling bugs.
+* Upgrade `package:jni` to 0.10.1 and `package:jnigen` to 0.10.0 to fix method
+  calling bugs and a
+  [debug mode issue](https://github.com/dart-lang/http/issues/1260).
 
 ## 1.3.1
 
