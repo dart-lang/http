@@ -1,4 +1,4 @@
-## 1.3.2-wip
+## 1.3.2
 
 * Upgrade `package:jni` to 0.10.1 and `package:jnigen` to 0.10.0 to fix method
   calling bugs and a
