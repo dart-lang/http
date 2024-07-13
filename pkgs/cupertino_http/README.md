@@ -49,7 +49,6 @@ void main() async {
 [CupertinoWebSocket][] provides a [package:web_socket][] [WebSocket][]
 implementation.
 
-
 ```dart
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:web_socket/web_socket.dart';
