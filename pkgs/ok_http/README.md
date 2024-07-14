@@ -12,12 +12,12 @@ An Android Flutter plugin that provides access to the
 
 This size of the [example application][] APK file using different packages:
 
-| Package                                                                                   | APK Size (MiB) |
-| ----------------------------------------------------------------------------------------- | -------------- |
-| **`ok_http`**                                                                             | **20.3**       |
-| [`cronet_http`](https://pub.dev/packages/cronet_http) [^1]                                | 20.6           |
-| [`cronet_http` (embedded)](https://pub.dev/packages/cronet_http#use-embedded-cronet) [^2] | 34.4           |
-| `dart:io` [^3]                                                                            | 20.4           |
+| Package | APK Size (MiB) |
+|-|-|
+| **`ok_http`** | **20.3**  |
+| [`cronet_http`](https://pub.dev/packages/cronet_http) [^1] | 20.6 |
+| [`cronet_http` (embedded)](https://pub.dev/packages/cronet_http#use-embedded-cronet) [^2] | 34.4 |
+| `dart:io` [^3] | 20.4 |
 
 [^1]: Requires [Google Play Services][], which are not available on all devices.
 [^2]: Embeds the Cronet HTTP library.
@@ -25,9 +25,30 @@ This size of the [example application][] APK file using different packages:
 
 ### 🔌 Supports WebSockets out of the box
 
-`package:ok_http` wraps the OkHttp [WebSocket][] API, allowing you to use it in your Flutter app with ease.
+`package:ok_http` wraps the OkHttp [WebSocket][] API which supports:
 
-See the [OkHttp Example App][] for usage notes.
+- Configured System Proxy on Android
+- HTTP/2
+
+```dart
+import 'package:ok_http/ok_http.dart';
+import 'package:web_socket/web_socket.dart';
+void main() async {
+  final socket = await OkHttpWebSocket.connect(
+      Uri.parse('wss://ws.postman-echo.com/raw'));
+  socket.events.listen((e) async {
+    switch (e) {
+      case TextDataReceived(text: final text):
+        print('Received Text: $text');
+        await socket.close();
+      case BinaryDataReceived(data: final data):
+        print('Received Binary: $data');
+      case CloseReceived(code: final code, reason: final reason):
+        print('Connection to server closed: $code [$reason]');
+    }
+  });
+}
+```
 
 ## Status: experimental
 
@@ -48,4 +69,3 @@ feedback, suggestions, and comments, please file an issue in the
 [OkHttp]: https://square.github.io/okhttp/
 [Google Play Services]: https://developers.google.com/android/guides/overview
 [WebSocket]: https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html
-[OkHttp Example App]: https://github.com/dart-lang/http/tree/master/pkgs/ok_http/example/

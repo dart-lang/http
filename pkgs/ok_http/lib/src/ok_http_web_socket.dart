@@ -14,6 +14,29 @@ import 'jni/bindings.dart' as bindings;
 /// A [WebSocket] implemented using the OkHttp library's
 /// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
 /// API.
+///
+///
+/// ```dart
+/// import 'package:ok_http/ok_http.dart';
+/// import 'package:web_socket/web_socket.dart';
+///
+/// void main() async {
+///   final socket = await OkHttpWebSocket.connect(
+///       Uri.parse('wss://ws.postman-echo.com/raw'));
+///
+///   socket.events.listen((e) async {
+///     switch (e) {
+///       case TextDataReceived(text: final text):
+///         print('Received Text: $text');
+///         await socket.close();
+///       case BinaryDataReceived(data: final data):
+///         print('Received Binary: $data');
+///       case CloseReceived(code: final code, reason: final reason):
+///         print('Connection to server closed: $code [$reason]');
+///     }
+///   });
+/// }
+/// ```
 class OkHttpWebSocket implements WebSocket {
   late bindings.OkHttpClient _client;
   late final bindings.WebSocket _webSocket;
