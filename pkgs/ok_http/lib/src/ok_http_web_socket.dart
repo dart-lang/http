@@ -10,7 +10,6 @@ import 'package:jni/jni.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'jni/bindings.dart' as bindings;
-import 'ok_http_client.dart';
 
 /// A [WebSocket] implemented using the OkHttp library's
 /// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
@@ -187,4 +186,14 @@ class OkHttpWebSocket implements WebSocket {
     }
     _client.release();
   }
+}
+
+extension on Uint8List {
+  JArray<jbyte> toJArray() =>
+      JArray(jbyte.type, length)..setRange(0, length, this);
+}
+
+extension on JArray<jbyte> {
+  Uint8List toUint8List({int? length}) =>
+      Uint8List.fromList(getRange(0, length ?? this.length));
 }
