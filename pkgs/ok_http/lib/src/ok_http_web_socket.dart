@@ -20,8 +20,13 @@ class OkHttpWebSocket implements WebSocket {
   final _events = StreamController<WebSocketEvent>();
   String? _protocol;
 
+  /// Private constructor to prevent direct instantiation.
+  ///
+  /// Used by [connect] to create a new WebSocket connection, which requires a
+  /// [bindings.OkHttpClient] instance (see [_connect]), and cannot be accessed
+  /// statically.
   OkHttpWebSocket._() {
-    // Add the WSInterceptor to prevent response parsing errors.
+    // Add the WebSocketInterceptor to prevent response parsing errors.
     _client = bindings.WSInterceptor.Companion
         .addWSInterceptor(bindings.OkHttpClient_Builder())
         .build();
@@ -33,7 +38,7 @@ class OkHttpWebSocket implements WebSocket {
   ///
   /// The URL supplied in [url] must use the scheme ws or wss.
   ///
-  /// If provided, the [protocols] argument indicates that subprotocols that
+  /// If provided, the [protocols] argument indicates the subprotocols that
   /// the peer is able to select. See
   /// [RFC-6455 1.9](https://datatracker.ietf.org/doc/html/rfc6455#section-1.9).
   static Future<WebSocket> connect(Uri url,
@@ -67,7 +72,7 @@ class OkHttpWebSocket implements WebSocket {
             var protocolHeader =
                 response.header1('sec-websocket-protocol'.toJString());
             if (!protocolHeader.isNull) {
-              _protocol = protocolHeader.toDartString();
+              _protocol = protocolHeader.toDartString(releaseOriginal: true);
               if (!(protocols?.contains(_protocol) ?? true)) {
                 openCompleter
                     .completeError(WebSocketException('Protocol mismatch. '
@@ -110,7 +115,7 @@ class OkHttpWebSocket implements WebSocket {
             // Then the connection was closed abnormally.
             if (throwableString.contains(RegExp(
                 r'(java\.net\.ProtocolException: Control frames must be final\.|java\.io\.EOFException|java\.net\.SocketException: Socket closed)'))) {
-              _events.add(CloseReceived(1006, 'Closed abnormal'));
+              _events.add(CloseReceived(1006, 'abnormal close'));
               unawaited(_events.close());
               return;
             }
@@ -177,6 +182,8 @@ class OkHttpWebSocket implements WebSocket {
   }
 
   /// Closes the OkHttpClient using the recommended shutdown procedure.
+  ///
+  /// https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/index.html#:~:text=Shutdown
   void _okHttpClientClose() {
     _client.dispatcher().executorService().shutdown();
     _client.connectionPool().evictAll();
