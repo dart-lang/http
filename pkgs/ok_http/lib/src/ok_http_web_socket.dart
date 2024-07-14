@@ -27,7 +27,7 @@ class OkHttpWebSocket implements WebSocket {
   /// statically.
   OkHttpWebSocket._() {
     // Add the WebSocketInterceptor to prevent response parsing errors.
-    _client = bindings.WSInterceptor.Companion
+    _client = bindings.WebSocketInterceptor.Companion
         .addWSInterceptor(bindings.OkHttpClient_Builder())
         .build();
   }

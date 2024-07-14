@@ -13220,20 +13220,20 @@ final class $ByteStringType extends jni.JObjType<ByteString> {
   }
 }
 
-/// from: com.example.ok_http.WSInterceptor$Companion
-class WSInterceptor_Companion extends jni.JObject {
+/// from: com.example.ok_http.WebSocketInterceptor$Companion
+class WebSocketInterceptor_Companion extends jni.JObject {
   @override
-  late final jni.JObjType<WSInterceptor_Companion> $type = type;
+  late final jni.JObjType<WebSocketInterceptor_Companion> $type = type;
 
-  WSInterceptor_Companion.fromReference(
+  WebSocketInterceptor_Companion.fromReference(
     jni.JReference reference,
   ) : super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r"com/example/ok_http/WSInterceptor$Companion");
+      jni.JClass.forName(r"com/example/ok_http/WebSocketInterceptor$Companion");
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WSInterceptor_CompanionType();
+  static const type = $WebSocketInterceptor_CompanionType();
   static final _id_addWSInterceptor = _class.instanceMethodId(
     r"addWSInterceptor",
     r"(Lokhttp3/OkHttpClient$Builder;)Lokhttp3/OkHttpClient$Builder;",
@@ -13277,10 +13277,10 @@ class WSInterceptor_Companion extends jni.JObject {
 
   /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
   /// The returned object must be released after use, by calling the [release] method.
-  factory WSInterceptor_Companion(
+  factory WebSocketInterceptor_Companion(
     jni.JObject defaultConstructorMarker,
   ) {
-    return WSInterceptor_Companion.fromReference(_new0(
+    return WebSocketInterceptor_Companion.fromReference(_new0(
             _class.reference.pointer,
             _id_new0 as jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
@@ -13288,16 +13288,17 @@ class WSInterceptor_Companion extends jni.JObject {
   }
 }
 
-final class $WSInterceptor_CompanionType
-    extends jni.JObjType<WSInterceptor_Companion> {
-  const $WSInterceptor_CompanionType();
+final class $WebSocketInterceptor_CompanionType
+    extends jni.JObjType<WebSocketInterceptor_Companion> {
+  const $WebSocketInterceptor_CompanionType();
 
   @override
-  String get signature => r"Lcom/example/ok_http/WSInterceptor$Companion;";
+  String get signature =>
+      r"Lcom/example/ok_http/WebSocketInterceptor$Companion;";
 
   @override
-  WSInterceptor_Companion fromReference(jni.JReference reference) =>
-      WSInterceptor_Companion.fromReference(reference);
+  WebSocketInterceptor_Companion fromReference(jni.JReference reference) =>
+      WebSocketInterceptor_Companion.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -13306,38 +13307,38 @@ final class $WSInterceptor_CompanionType
   final superCount = 1;
 
   @override
-  int get hashCode => ($WSInterceptor_CompanionType).hashCode;
+  int get hashCode => ($WebSocketInterceptor_CompanionType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == ($WSInterceptor_CompanionType) &&
-        other is $WSInterceptor_CompanionType;
+    return other.runtimeType == ($WebSocketInterceptor_CompanionType) &&
+        other is $WebSocketInterceptor_CompanionType;
   }
 }
 
-/// from: com.example.ok_http.WSInterceptor
-class WSInterceptor extends jni.JObject {
+/// from: com.example.ok_http.WebSocketInterceptor
+class WebSocketInterceptor extends jni.JObject {
   @override
-  late final jni.JObjType<WSInterceptor> $type = type;
+  late final jni.JObjType<WebSocketInterceptor> $type = type;
 
-  WSInterceptor.fromReference(
+  WebSocketInterceptor.fromReference(
     jni.JReference reference,
   ) : super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r"com/example/ok_http/WSInterceptor");
+      jni.JClass.forName(r"com/example/ok_http/WebSocketInterceptor");
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WSInterceptorType();
+  static const type = $WebSocketInterceptorType();
   static final _id_Companion = _class.staticFieldId(
     r"Companion",
-    r"Lcom/example/ok_http/WSInterceptor$Companion;",
+    r"Lcom/example/ok_http/WebSocketInterceptor$Companion;",
   );
 
-  /// from: static public final com.example.ok_http.WSInterceptor$Companion Companion
+  /// from: static public final com.example.ok_http.WebSocketInterceptor$Companion Companion
   /// The returned object must be released after use, by calling the [release] method.
-  static WSInterceptor_Companion get Companion =>
-      _id_Companion.get(_class, const $WSInterceptor_CompanionType());
+  static WebSocketInterceptor_Companion get Companion =>
+      _id_Companion.get(_class, const $WebSocketInterceptor_CompanionType());
 
   static final _id_new0 = _class.constructorId(
     r"()V",
@@ -13357,22 +13358,23 @@ class WSInterceptor extends jni.JObject {
 
   /// from: public void <init>()
   /// The returned object must be released after use, by calling the [release] method.
-  factory WSInterceptor() {
-    return WSInterceptor.fromReference(
+  factory WebSocketInterceptor() {
+    return WebSocketInterceptor.fromReference(
         _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
             .reference);
   }
 }
 
-final class $WSInterceptorType extends jni.JObjType<WSInterceptor> {
-  const $WSInterceptorType();
+final class $WebSocketInterceptorType
+    extends jni.JObjType<WebSocketInterceptor> {
+  const $WebSocketInterceptorType();
 
   @override
-  String get signature => r"Lcom/example/ok_http/WSInterceptor;";
+  String get signature => r"Lcom/example/ok_http/WebSocketInterceptor;";
 
   @override
-  WSInterceptor fromReference(jni.JReference reference) =>
-      WSInterceptor.fromReference(reference);
+  WebSocketInterceptor fromReference(jni.JReference reference) =>
+      WebSocketInterceptor.fromReference(reference);
 
   @override
   jni.JObjType get superType => const jni.JObjectType();
@@ -13381,11 +13383,11 @@ final class $WSInterceptorType extends jni.JObjType<WSInterceptor> {
   final superCount = 1;
 
   @override
-  int get hashCode => ($WSInterceptorType).hashCode;
+  int get hashCode => ($WebSocketInterceptorType).hashCode;
 
   @override
   bool operator ==(Object other) {
-    return other.runtimeType == ($WSInterceptorType) &&
-        other is $WSInterceptorType;
+    return other.runtimeType == ($WebSocketInterceptorType) &&
+        other is $WebSocketInterceptorType;
   }
 }
