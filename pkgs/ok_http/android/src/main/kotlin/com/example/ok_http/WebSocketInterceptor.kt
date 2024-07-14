@@ -10,6 +10,8 @@ import okhttp3.OkHttpClient
 /**
  * Usage of `chain.proceed(...)` via JNI Bindings leads to threading issues. This is a workaround
  * to intercept the response before it is parsed by the WebSocketReader, to prevent response parsing errors.
+ *
+ * https://github.com/dart-lang/native/issues/1337
  */
 class WebSocketInterceptor {
     companion object {
