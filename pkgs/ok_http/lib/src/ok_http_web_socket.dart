@@ -15,7 +15,7 @@ import 'jni/bindings.dart' as bindings;
 /// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
 /// API.
 ///
-///
+/// Example usage of [OkHttpWebSocket]:
 /// ```dart
 /// import 'package:ok_http/ok_http.dart';
 /// import 'package:web_socket/web_socket.dart';

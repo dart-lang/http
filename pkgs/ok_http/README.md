@@ -30,6 +30,8 @@ This size of the [example application][] APK file using different packages:
 - Configured System Proxy on Android
 - HTTP/2
 
+**Example Usage of `OkHttpWebSocket`:**
+
 ```dart
 import 'package:ok_http/ok_http.dart';
 import 'package:web_socket/web_socket.dart';
