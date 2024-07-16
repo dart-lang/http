@@ -225,5 +225,5 @@ extension on Uint8List {
 
 extension on JArray<jbyte> {
   Uint8List toUint8List({int? length}) =>
-      Uint8List.fromList(getRange(0, length ?? this.length));
+      getRange(0, length ?? this.length).buffer.asUint8List();
 }

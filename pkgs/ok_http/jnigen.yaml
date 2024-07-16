@@ -106,7 +106,4 @@ exclude:
     - "okio.ByteString#-deprecated_size"
 
 preamble: |
-  // ignore_for_file: prefer_single_quotes 
-  // ignore_for_file: directives_ordering
   // ignore_for_file: prefer_expression_function_bodies
-  // ignore_for_file: unnecessary_parenthesis
