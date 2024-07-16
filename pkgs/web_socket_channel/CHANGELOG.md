@@ -1,7 +1,8 @@
-## 3.0.1-wip
+## 3.0.1
 
 - Remove unnecessary `dependency_overrides`.
 - Remove obsolete documentation for `WebSocketChannel.new`.
+- Update package `web: '>=0.5.0 <2.0.0'`.
 
 ## 3.0.0
 

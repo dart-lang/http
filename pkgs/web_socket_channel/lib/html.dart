@@ -37,13 +37,13 @@ class HtmlWebSocketChannel extends StreamChannelMixin
   /// The close code set by the local user.
   ///
   /// To ensure proper ordering, this is stored until we get a done event on
-  /// [_controller.local.stream].
+  /// [StreamChannelController.local]`.stream`.
   int? _localCloseCode;
 
   /// The close reason set by the local user.
   ///
   /// To ensure proper ordering, this is stored until we get a done event on
-  /// [_controller.local.stream].
+  /// [StreamChannelController.local]`.stream`.
   String? _localCloseReason;
 
   /// Completer for [ready].
