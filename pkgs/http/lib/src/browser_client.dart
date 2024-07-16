@@ -5,7 +5,7 @@
 import 'dart:async';
 import 'dart:js_interop';
 
-import 'package:web/web.dart' show XMLHttpRequest, XHRGetters;
+import 'package:web/web.dart' show XHRGetters, XMLHttpRequest;
 
 import 'base_client.dart';
 import 'base_request.dart';
