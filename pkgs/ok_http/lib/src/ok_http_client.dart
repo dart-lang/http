@@ -57,14 +57,7 @@ class OkHttpClient extends BaseClient {
       // Refer to OkHttp documentation for the shutdown procedure:
       // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/index.html#:~:text=Shutdown
 
-      // Bindings for `java.util.concurrent.ExecutorService` are erroneous.
-      // https://github.com/dart-lang/native/issues/588
-      // So, use the JClass API to call the `shutdown` method by its signature.
-      _client
-          .dispatcher()
-          .executorService()
-          .jClass
-          .instanceMethodId('shutdown', '()V');
+      _client.dispatcher().executorService().shutdown();
 
       // Remove all idle connections from the resource pool.
       _client.connectionPool().evictAll();
@@ -293,12 +286,6 @@ extension on Uint8List {
 }
 
 extension on JArray<jbyte> {
-  Uint8List toUint8List({int? length}) {
-    length ??= this.length;
-    final list = Uint8List(length);
-    for (var i = 0; i < length; i++) {
-      list[i] = this[i];
-    }
-    return list;
-  }
+  Uint8List toUint8List({int? length}) =>
+      getRange(0, length ?? this.length).buffer.asUint8List();
 }

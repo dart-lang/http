@@ -26,11 +26,16 @@ classes:
   - "okhttp3.Callback"
   - "okhttp3.ConnectionPool"
   - "okhttp3.Dispatcher"
+  - "java.util.concurrent.ExecutorService"
   - "okhttp3.Cache"
   - "com.example.ok_http.RedirectReceivedCallback"
   - "com.example.ok_http.RedirectInterceptor"
   - "com.example.ok_http.AsyncInputStreamReader"
   - "com.example.ok_http.DataCallback"
+  - "okhttp3.WebSocket"
+  - "com.example.ok_http.WebSocketListenerProxy"
+  - "okio.ByteString"
+  - "com.example.ok_http.WebSocketInterceptor"
 
 # Exclude the deprecated methods listed below
 # They cause syntax errors during the `dart format` step of JNIGen.
@@ -86,3 +91,19 @@ exclude:
     - "okhttp3.Headers#-deprecated_size"
     - "okhttp3.Dispatcher#-deprecated_executorService"
     - "okhttp3.Cache#-deprecated_directory"
+    - "java.util.concurrent.ExecutorService#invokeAll"
+    - "java.util.concurrent.ExecutorService#invokeAny"
+    - "java.util.concurrent.ExecutorService#submit"
+    - "okio.ByteString$Companion#-deprecated_getByte"
+    - "okio.ByteString$Companion#-deprecated_size"
+    - 'okio.ByteString\$Companion#-deprecated_decodeBase64'
+    - 'okio.ByteString\$Companion#-deprecated_decodeHex'
+    - 'okio.ByteString\$Companion#-deprecated_encodeString'
+    - 'okio.ByteString\$Companion#-deprecated_encodeUtf8'
+    - 'okio.ByteString\$Companion#-deprecated_of'
+    - 'okio.ByteString\$Companion#-deprecated_read'
+    - "okio.ByteString#-deprecated_getByte"
+    - "okio.ByteString#-deprecated_size"
+
+preamble: |
+  // ignore_for_file: prefer_expression_function_bodies

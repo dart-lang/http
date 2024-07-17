@@ -16,6 +16,7 @@ dependencies:
   ok_http:
     path: ../
   provider: ^6.1.1
+  web_socket: ^0.1.5
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
@@ -27,6 +28,8 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   test: ^1.23.1
+  web_socket_conformance_tests:
+    path: ../../web_socket_conformance_tests/
 
 flutter:
   uses-material-design: true
