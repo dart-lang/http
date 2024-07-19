@@ -3,7 +3,6 @@ version: 0.1.0
 description: >-
   An Android Flutter plugin that provides access to the OkHttp HTTP client.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/ok_http
-publish_to: none
 
 environment:
   sdk: ^3.4.0
