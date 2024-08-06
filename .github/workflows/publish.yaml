@@ -13,10 +13,7 @@ jobs:
     if: ${{ github.repository_owner == 'dart-lang' }}
     uses: dart-lang/ecosystem/.github/workflows/publish.yaml@main
     with:
-      ignore-packages: |
-        pkgs/cupertino_http
-        pkgs/cronet_http
-        pkgs/ok_http
+      ignore-packages: pkgs/cupertino_http,pkgs/cronet_http,pkgs/ok_http
     permissions:
       id-token: write # Required for authentication using OIDC
       pull-requests: write # Required for writing the pull request note
