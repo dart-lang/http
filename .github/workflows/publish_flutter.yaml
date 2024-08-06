@@ -1,6 +1,6 @@
 # A CI configuration to auto-publish pub packages.
 
-name: Publish Dart Packages
+name: Publish Flutter Packages
 
 on:
   pull_request:
@@ -15,4 +15,5 @@ jobs:
     permissions:
       id-token: write # Required for authentication using OIDC
       pull-requests: write # Required for writing the pull request note
-    ignore-packages: pkgs/cupertino_http/,pkgs/cronet_http/,pkgs/ok_http/
+    use-flutter: true
+    ignore-packages: pkgs/http/,pkgs/http_profile/,pkgs/web_socket/,
