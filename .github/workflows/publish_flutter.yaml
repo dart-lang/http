@@ -12,8 +12,9 @@ jobs:
   publish:
     if: ${{ github.repository_owner == 'dart-lang' }}
     uses: dart-lang/ecosystem/.github/workflows/publish.yaml@main
+    with:
+      use-flutter: true
+      ignore-packages: pkgs/http/,pkgs/http_profile/,pkgs/web_socket/,
     permissions:
       id-token: write # Required for authentication using OIDC
       pull-requests: write # Required for writing the pull request note
-    use-flutter: true
-    ignore-packages: pkgs/http/,pkgs/http_profile/,pkgs/web_socket/,
