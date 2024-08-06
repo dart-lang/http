@@ -1,7 +1,3 @@
-## 1.2.3
-
-* Foo. DO NOT SUBMIT
-
 ## 1.2.2
 
 * Require package `web: '>=0.5.0 <2.0.0'`.
