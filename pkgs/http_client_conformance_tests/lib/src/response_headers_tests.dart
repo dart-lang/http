@@ -132,9 +132,7 @@ void testResponseHeaders(Client client,
         httpServerChannel.sink.add('content-length: \t 0 \t \r\n');
         final response = await client.get(Uri.http(host, ''));
         expect(response.contentLength, 0);
-      },
-          skip: 'Enable after https://github.com/dart-lang/sdk/issues/51532 '
-              'is fixed');
+      });
 
       test('non-integer', () async {
         httpServerChannel.sink.add('content-length: cat\r\n');
@@ -163,9 +161,7 @@ void testResponseHeaders(Client client,
 
         final response = await client.get(Uri.http(host, ''));
         expect(response.headers['foo'], 'BAR BAZ');
-      },
-          skip: 'Enable after https://github.com/dart-lang/sdk/issues/53185 '
-              'is fixed');
+      });
 
       test('extra whitespace', () async {
         httpServerChannel.sink.add('foo: BAR   \t   \r\n   \t   BAZ \t \r\n');
