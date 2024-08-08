@@ -21,6 +21,49 @@ import 'package:jni/jni.dart';
 
 import 'jni/bindings.dart' as bindings;
 
+/// Configurations for the [OkHttpClient].
+class OkHttpClientConfiguration {
+  /// The maximum duration (in milliseconds) to wait for a call to complete.
+  ///
+  /// If a call does not finish within the specified time, it will throw a
+  /// `ClientException` with the message "java.io.InterruptedIOException...".
+  /// Default is set to `0`, which indicates no timeout.
+  ///
+  /// See [OkHttpClient.Builder.callTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/call-timeout.html).
+  final int callTimeout;
+
+  /// The maximum duration (in milliseconds) to wait while connecting a TCP
+  /// Socket to the target host.
+  ///
+  /// Default is set to `10000` milliseconds.
+  ///
+  /// See [OkHttpClient.Builder.connectTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/connect-timeout.html).
+  final int connectTimeout;
+
+  /// The maximum duration (in milliseconds) to wait for a TCP Socket and for
+  /// individual read IO operations.
+  ///
+  /// Default is set to `10000` milliseconds.
+  ///
+  /// See [OkHttpClient.Builder.readTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/read-timeout.html).
+  final int readTimeout;
+
+  /// The maximum duration (in milliseconds) to wait for individual write IO
+  /// operations.
+  ///
+  /// Default is set to `10000` milliseconds.
+  ///
+  /// See [OkHttpClient.Builder.writeTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html).
+  final int writeTimeout;
+
+  OkHttpClientConfiguration({
+    this.callTimeout = 0,
+    this.connectTimeout = 10000,
+    this.readTimeout = 0,
+    this.writeTimeout = 0,
+  });
+}
+
 /// An HTTP [Client] utilizing the [OkHttp](https://square.github.io/okhttp/) client.
 ///
 /// Example Usage:
@@ -47,7 +90,12 @@ class OkHttpClient extends BaseClient {
   late bindings.OkHttpClient _client;
   bool _isClosed = false;
 
-  OkHttpClient() {
+  /// The configuration for this client, applied on a per-call basis.
+  /// It can be updated multiple times during the client's lifecycle.
+  OkHttpClientConfiguration? configuration;
+
+  /// Creates a new instance of [OkHttpClient] with the given [configuration].
+  OkHttpClient({this.configuration}) {
     _client = bindings.OkHttpClient.new1();
   }
 
@@ -160,15 +208,26 @@ class OkHttpClient extends BaseClient {
             maxRedirects,
             followRedirects, bindings.RedirectReceivedCallback.implement(
                 bindings.$RedirectReceivedCallbackImpl(
-      onRedirectReceived: (response, newLocation) {
-        profile?.responseData.addRedirect(HttpProfileRedirectData(
-          statusCode: response.code(),
-          method:
-              response.request().method().toDartString(releaseOriginal: true),
-          location: newLocation.toDartString(releaseOriginal: true),
-        ));
-      },
-    ))).build();
+          onRedirectReceived: (response, newLocation) {
+            profile?.responseData.addRedirect(HttpProfileRedirectData(
+              statusCode: response.code(),
+              method: response
+                  .request()
+                  .method()
+                  .toDartString(releaseOriginal: true),
+              location: newLocation.toDartString(releaseOriginal: true),
+            ));
+          },
+        )))
+        .callTimeout(
+            configuration?.callTimeout ?? 0, bindings.TimeUnit.MILLISECONDS)
+        .connectTimeout(configuration?.connectTimeout ?? 10000,
+            bindings.TimeUnit.MILLISECONDS)
+        .readTimeout(
+            configuration?.readTimeout ?? 10000, bindings.TimeUnit.MILLISECONDS)
+        .writeTimeout(configuration?.writeTimeout ?? 10000,
+            bindings.TimeUnit.MILLISECONDS)
+        .build();
 
     // `enqueue()` schedules the request to be executed in the future.
     // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-call/enqueue.html
