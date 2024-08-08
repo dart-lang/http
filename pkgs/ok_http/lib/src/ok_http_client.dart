@@ -56,7 +56,7 @@ class OkHttpClientConfiguration {
   /// See [OkHttpClient.Builder.writeTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html).
   final int writeTimeout;
 
-  OkHttpClientConfiguration({
+  const OkHttpClientConfiguration({
     this.callTimeout = 0,
     this.connectTimeout = 10000,
     this.readTimeout = 0,
@@ -92,10 +92,12 @@ class OkHttpClient extends BaseClient {
 
   /// The configuration for this client, applied on a per-call basis.
   /// It can be updated multiple times during the client's lifecycle.
-  OkHttpClientConfiguration? configuration;
+  OkHttpClientConfiguration configuration;
 
   /// Creates a new instance of [OkHttpClient] with the given [configuration].
-  OkHttpClient({this.configuration}) {
+  OkHttpClient({
+    this.configuration = const OkHttpClientConfiguration(),
+  }) {
     _client = bindings.OkHttpClient.new1();
   }
 
@@ -219,14 +221,12 @@ class OkHttpClient extends BaseClient {
             ));
           },
         )))
-        .callTimeout(
-            configuration?.callTimeout ?? 0, bindings.TimeUnit.MILLISECONDS)
-        .connectTimeout(configuration?.connectTimeout ?? 10000,
-            bindings.TimeUnit.MILLISECONDS)
-        .readTimeout(
-            configuration?.readTimeout ?? 10000, bindings.TimeUnit.MILLISECONDS)
-        .writeTimeout(configuration?.writeTimeout ?? 10000,
-            bindings.TimeUnit.MILLISECONDS)
+        .callTimeout(configuration.callTimeout, bindings.TimeUnit.MILLISECONDS)
+        .connectTimeout(
+            configuration.connectTimeout, bindings.TimeUnit.MILLISECONDS)
+        .readTimeout(configuration.readTimeout, bindings.TimeUnit.MILLISECONDS)
+        .writeTimeout(
+            configuration.writeTimeout, bindings.TimeUnit.MILLISECONDS)
         .build();
 
     // `enqueue()` schedules the request to be executed in the future.
