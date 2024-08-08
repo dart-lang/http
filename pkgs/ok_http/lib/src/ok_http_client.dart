@@ -59,8 +59,8 @@ class OkHttpClientConfiguration {
   const OkHttpClientConfiguration({
     this.callTimeout = 0,
     this.connectTimeout = 10000,
-    this.readTimeout = 0,
-    this.writeTimeout = 0,
+    this.readTimeout = 10000,
+    this.writeTimeout = 10000,
   });
 }
 
