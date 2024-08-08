@@ -10,13 +10,13 @@ const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
 /// Splits comma-separated header values.
 var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 
-/// Splits comma-separated "Set-Cookie" header values.
+/// Splits comma-seperated "Set-Cookie" header values.
 ///
 /// Set-Cookie strings can contain commas. In particular, the following
 /// productions defined in RFC-6265, section 4.1.1:
-/// - <sane-cookie-date> e.g. "Expires=Sun, 06 Nov 1994 08:49:37 GMT"
-/// - <path-value> e.g. "Path=somepath,"
-/// - <extension-av> e.g. "AnyString,Really,"
+/// - `<sane-cookie-date>` e.g. "Expires=Sun, 06 Nov 1994 08:49:37 GMT"
+/// - `<path-value>` e.g. "Path=somepath,"
+/// - `<extension-av>` e.g. "AnyString,Really,"
 ///
 /// Some values are ambiguous e.g.
 /// "Set-Cookie: lang=en; Path=/foo/"
@@ -25,8 +25,9 @@ var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 /// "Set-Cookie: lang=en; Path=/foo/,SID=x23"
 /// would both be result in `response.headers` => "lang=en; Path=/foo/,SID=x23"
 ///
-/// The idea behind this regex is that ",<valid token>=" is more likely to
-/// start a new <cookie-pair> then be part of <path-value> or <extension-av>.
+/// The idea behind this regex is that `,<valid token>=` is more likely to
+/// start a new `<cookie-pair>` then be part of `<path-value>` or
+/// `<extension-av>`.
 ///
 /// See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
 var _setCookieSplitter = RegExp(r'[ \t]*,[ \t]*(?=[' + _tokenChars + r']+=)');
