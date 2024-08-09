@@ -129,7 +129,7 @@ var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 /// would both be result in `response.headers` => "lang=en; Path=/foo/,SID=x23"
 ///
 /// The idea behind this regex is that `,<valid token>=` is more likely to
-/// start a new `<cookie-pair>` then be part of `<path-value>` or
+/// start a new `<cookie-pair>` than be part of `<path-value>` or
 /// `<extension-av>`.
 ///
 /// See https://datatracker.ietf.org/doc/html/rfc6265#section-4.1.1
