@@ -13,7 +13,7 @@ import 'package:stream_channel/stream_channel.dart';
 ///    On Startup:
 ///     - send port
 ///    On Request Received:
-///     - send headers as Map<String, List<String>>
+///     - send headers as `Map<String, List<String>>`
 ///    When Receive Anything:
 ///     - exit
 void hybridMain(StreamChannel<Object?> channel) async {
