@@ -10,7 +10,7 @@ const _tokenChars = r"!#$%&'*+\-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ^_`"
 /// Splits comma-separated header values.
 var _headerSplitter = RegExp(r'[ \t]*,[ \t]*');
 
-/// Splits comma-seperated "Set-Cookie" header values.
+/// Splits comma-separated "Set-Cookie" header values.
 ///
 /// Set-Cookie strings can contain commas. In particular, the following
 /// productions defined in RFC-6265, section 4.1.1:
