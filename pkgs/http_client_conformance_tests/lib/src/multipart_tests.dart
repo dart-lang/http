@@ -34,8 +34,9 @@ void testMultipartRequests(Client client,
       request.files.add(MultipartFile.fromString('file1', 'Hello World'));
 
       await client.send(request);
-      final (headers, body) =
-          await httpServerQueue.next as (Map<String, List<String>>, String);
+      final serverRequest = await httpServerQueue.next as List;
+      final headers = (serverRequest[0] as Map).cast<String, List<Object?>>();
+      final body = serverRequest[1] as String;
       expect(headers['content-length']!.single, '${request.contentLength}');
       expect(headers['content-type']!.single,
           startsWith('multipart/form-data; boundary='));
