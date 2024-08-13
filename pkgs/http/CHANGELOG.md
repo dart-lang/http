@@ -1,3 +1,7 @@
+## 1.2.3-wip
+
+* Fixed unintended HTML tags in doc comments. 
+
 ## 1.2.2
 
 * Require package `web: '>=0.5.0 <2.0.0'`.

@@ -18,7 +18,7 @@ import 'package:stream_channel/stream_channel.dart';
 ///    ".../9" |       ".../8"
 ///        ... |           ...
 ///    ".../1" |           "/"
-///        "/" |  <200 return>
+///        "/" |  &lt;200 return&gt;
 void hybridMain(StreamChannel<Object?> channel) async {
   late HttpServer server;
 
