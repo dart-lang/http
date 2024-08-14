@@ -125,7 +125,7 @@ class BrowserWebSocket implements WebSocket {
       throw WebSocketConnectionClosed();
     }
 
-    checkCloseCode(code);
+    checkCloseCodeWeb(code);
     checkCloseReason(reason);
 
     unawaited(_events.close());
