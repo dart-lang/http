@@ -27,7 +27,8 @@ class OkHttpClientConfiguration {
   ///
   /// If a call does not finish within the specified time, it will throw a
   /// [ClientException] with the message "java.io.InterruptedIOException...".
-  /// Default is set to [Duration.zero], which indicates no timeout.
+  ///
+  /// [Duration.zero] indicates no timeout.
   ///
   /// See [OkHttpClient.Builder.callTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/call-timeout.html).
   final Duration callTimeout;
@@ -35,22 +36,16 @@ class OkHttpClientConfiguration {
   /// The maximum duration to wait while connecting a TCP Socket to the target
   /// host.
   ///
-  /// Default is set to `10000` milliseconds.
-  ///
   /// See [OkHttpClient.Builder.connectTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/connect-timeout.html).
   final Duration connectTimeout;
 
   /// The maximum duration to wait for a TCP Socket and for individual read
   /// IO operations.
   ///
-  /// Default is set to `10000` milliseconds.
-  ///
   /// See [OkHttpClient.Builder.readTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/read-timeout.html).
   final Duration readTimeout;
 
   /// The maximum duration to wait for individual write IO operations.
-  ///
-  /// Default is set to `10000` milliseconds.
   ///
   /// See [OkHttpClient.Builder.writeTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html).
   final Duration writeTimeout;
