@@ -1,5 +1,5 @@
 name: ok_http
-version: 0.1.0
+version: 0.1.1-wip
 description: >-
   An Android Flutter plugin that provides access to the OkHttp HTTP client.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/ok_http
