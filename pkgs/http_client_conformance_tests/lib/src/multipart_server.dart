@@ -23,12 +23,17 @@ void hybridMain(StreamChannel<Object?> channel) async {
   server = (await HttpServer.bind('localhost', 0))
     ..listen((request) async {
       request.response.headers.set('Access-Control-Allow-Origin', '*');
+      request.response
+        ..contentLength = 0
+        ..statusCode = HttpStatus.ok;
+
       if (request.method == 'OPTIONS') {
         // Handle a CORS preflight request:
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#preflighted_requests
         request.response.headers
           ..set('Access-Control-Allow-Methods', '*')
           ..set('Access-Control-Allow-Headers', '*');
+        await request.response.close();
       } else {
         final headers = <String, List<String>>{};
         request.headers.forEach((field, value) {
@@ -36,9 +41,9 @@ void hybridMain(StreamChannel<Object?> channel) async {
         });
         final body =
             await const Utf8Decoder().bind(request).fold('', (x, y) => '$x$y');
-        channel.sink.add((headers, body));
+        await request.response.close();
+        channel.sink.add([headers, body]);
       }
-      unawaited(request.response.close());
     });
 
   channel.sink.add(server.port);
