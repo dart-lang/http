@@ -7,6 +7,7 @@ let package = Package(
     name: "cupertino_http",
     platforms: [
         .iOS("12.0"),
+        .macOS("10.4"),
     ],
     products: [
         .library(name: "cupertino-http", targets: ["cupertino_http"])
@@ -31,6 +32,7 @@ let package = Package(
             ],
             cSettings: [
                 // TODO: Update your plugin name.
+                .headerSearchPath("include")
                 .headerSearchPath("include/cupertino_http")
             ]
         )

@@ -1,22 +1,23 @@
 PODS:
   - cupertino_http (0.0.1):
+    - Flutter
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
 
 DEPENDENCIES:
-  - cupertino_http (from `Flutter/ephemeral/.symlinks/plugins/cupertino_http/macos`)
+  - cupertino_http (from `Flutter/ephemeral/.symlinks/plugins/cupertino_http/darwin`)
   - FlutterMacOS (from `Flutter/ephemeral`)
 
 EXTERNAL SOURCES:
   cupertino_http:
-    :path: Flutter/ephemeral/.symlinks/plugins/cupertino_http/macos
+    :path: Flutter/ephemeral/.symlinks/plugins/cupertino_http/darwin
   FlutterMacOS:
     :path: Flutter/ephemeral
 
 SPEC CHECKSUMS:
-  cupertino_http: afa11b9e2786b62da2671e4ddd32caf792503748
-  FlutterMacOS: 85f90bfb3f1703249cf1539e4dfbff31e8584698
+  cupertino_http: 1c08a57f2f5de1fb61844cf904b226be50f2bee1
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
 
-PODFILE CHECKSUM: a884f6dd3f7494f3892ee6c81feea3a3abbf9153
+PODFILE CHECKSUM: 353c8bcc5d5b0994e508d035b5431cfe18c1dea7
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.15.2

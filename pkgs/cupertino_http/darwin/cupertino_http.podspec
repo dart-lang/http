@@ -13,11 +13,6 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
   s.author           = { 'TODO' => 'use-valid-author' }
 
-  # This will ensure the source files in Classes/ are included in the native
-  # builds of apps using this FFI plugin. Podspec does not support relative
-  # paths, so Classes contains a forwarder C file that relatively imports
-  # `../src/*` so that the C sources can be shared among all target platforms.
-  s.source           = { :path => '.' }
   s.source_files = 'cupertino_http/Sources/cupertino_http/**/*'
   s.ios.dependency 'Flutter'
   s.osx.dependency 'FlutterMacOS'
