@@ -18,11 +18,13 @@ Pod::Spec.new do |s|
   # paths, so Classes contains a forwarder C file that relatively imports
   # `../src/*` so that the C sources can be shared among all target platforms.
   s.source           = { :path => '.' }
-  s.source_files     = 'Classes/**/*'
-  s.dependency 'FlutterMacOS'
+  s.source_files = 'cupertino_http/Sources/cupertino_http/**/*'
+  s.ios.dependency 'Flutter'
+  s.osx.dependency 'FlutterMacOS'
+  s.ios.deployment_target = '12.0'
+  s.osx.deployment_target = '10.14'
   s.requires_arc = []
 
-  s.platform = :osx, '10.14'
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'
 end

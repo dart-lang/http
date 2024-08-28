@@ -5008,7 +5008,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder callTimeout(
     int j,
-    jni.JObject timeUnit,
+    TimeUnit timeUnit,
   ) {
     return _callTimeout(reference.pointer, _id_callTimeout as jni.JMethodIDPtr,
             j, timeUnit.reference.pointer)
@@ -5061,7 +5061,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectTimeout(
     int j,
-    jni.JObject timeUnit,
+    TimeUnit timeUnit,
   ) {
     return _connectTimeout(
             reference.pointer,
@@ -5117,7 +5117,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder readTimeout(
     int j,
-    jni.JObject timeUnit,
+    TimeUnit timeUnit,
   ) {
     return _readTimeout(reference.pointer, _id_readTimeout as jni.JMethodIDPtr,
             j, timeUnit.reference.pointer)
@@ -5170,7 +5170,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder writeTimeout(
     int j,
-    jni.JObject timeUnit,
+    TimeUnit timeUnit,
   ) {
     return _writeTimeout(reference.pointer,
             _id_writeTimeout as jni.JMethodIDPtr, j, timeUnit.reference.pointer)
@@ -5223,7 +5223,7 @@ class OkHttpClient_Builder extends jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder pingInterval(
     int j,
-    jni.JObject timeUnit,
+    TimeUnit timeUnit,
   ) {
     return _pingInterval(reference.pointer,
             _id_pingInterval as jni.JMethodIDPtr, j, timeUnit.reference.pointer)
@@ -8204,7 +8204,7 @@ class ConnectionPool extends jni.JObject {
   factory ConnectionPool.new1(
     int i,
     int j,
-    jni.JObject timeUnit,
+    TimeUnit timeUnit,
   ) {
     return ConnectionPool.fromReference(_new1(_class.reference.pointer,
             _id_new1 as jni.JMethodIDPtr, i, j, timeUnit.reference.pointer)
@@ -8836,7 +8836,7 @@ class ExecutorService extends jni.JObject {
   /// from: public abstract boolean awaitTermination(long j, java.util.concurrent.TimeUnit timeUnit)
   bool awaitTermination(
     int j,
-    jni.JObject timeUnit,
+    TimeUnit timeUnit,
   ) {
     return _awaitTermination(
             reference.pointer,
@@ -8902,7 +8902,7 @@ class ExecutorService extends jni.JObject {
           $a[0]
               .castTo(const jni.JLongType(), releaseOriginal: true)
               .longValue(releaseOriginal: true),
-          $a[1].castTo(const jni.JObjectType(), releaseOriginal: true),
+          $a[1].castTo(const $TimeUnitType(), releaseOriginal: true),
         );
         return jni.JBoolean($r).reference.toPointer();
       }
@@ -8945,14 +8945,14 @@ abstract interface class $ExecutorServiceImpl {
     required jni.JList<jni.JObject> Function() shutdownNow,
     required bool Function() isShutdown,
     required bool Function() isTerminated,
-    required bool Function(int j, jni.JObject timeUnit) awaitTermination,
+    required bool Function(int j, TimeUnit timeUnit) awaitTermination,
   }) = _$ExecutorServiceImpl;
 
   void shutdown();
   jni.JList<jni.JObject> shutdownNow();
   bool isShutdown();
   bool isTerminated();
-  bool awaitTermination(int j, jni.JObject timeUnit);
+  bool awaitTermination(int j, TimeUnit timeUnit);
 }
 
 class _$ExecutorServiceImpl implements $ExecutorServiceImpl {
@@ -8961,7 +8961,7 @@ class _$ExecutorServiceImpl implements $ExecutorServiceImpl {
     required jni.JList<jni.JObject> Function() shutdownNow,
     required bool Function() isShutdown,
     required bool Function() isTerminated,
-    required bool Function(int j, jni.JObject timeUnit) awaitTermination,
+    required bool Function(int j, TimeUnit timeUnit) awaitTermination,
   })  : _shutdown = shutdown,
         _shutdownNow = shutdownNow,
         _isShutdown = isShutdown,
@@ -8972,7 +8972,7 @@ class _$ExecutorServiceImpl implements $ExecutorServiceImpl {
   final jni.JList<jni.JObject> Function() _shutdownNow;
   final bool Function() _isShutdown;
   final bool Function() _isTerminated;
-  final bool Function(int j, jni.JObject timeUnit) _awaitTermination;
+  final bool Function(int j, TimeUnit timeUnit) _awaitTermination;
 
   void shutdown() {
     return _shutdown();
@@ -8990,7 +8990,7 @@ class _$ExecutorServiceImpl implements $ExecutorServiceImpl {
     return _isTerminated();
   }
 
-  bool awaitTermination(int j, jni.JObject timeUnit) {
+  bool awaitTermination(int j, TimeUnit timeUnit) {
     return _awaitTermination(j, timeUnit);
   }
 }
@@ -13391,5 +13391,480 @@ final class $WebSocketInterceptorType
   bool operator ==(Object other) {
     return other.runtimeType == ($WebSocketInterceptorType) &&
         other is $WebSocketInterceptorType;
+  }
+}
+
+/// from: java.util.concurrent.TimeUnit
+class TimeUnit extends jni.JObject {
+  @override
+  late final jni.JObjType<TimeUnit> $type = type;
+
+  TimeUnit.fromReference(
+    jni.JReference reference,
+  ) : super.fromReference(reference);
+
+  static final _class = jni.JClass.forName(r'java/util/concurrent/TimeUnit');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $TimeUnitType();
+  static final _id_NANOSECONDS = _class.staticFieldId(
+    r'NANOSECONDS',
+    r'Ljava/util/concurrent/TimeUnit;',
+  );
+
+  /// from: static public final java.util.concurrent.TimeUnit NANOSECONDS
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit get NANOSECONDS =>
+      _id_NANOSECONDS.get(_class, const $TimeUnitType());
+
+  static final _id_MICROSECONDS = _class.staticFieldId(
+    r'MICROSECONDS',
+    r'Ljava/util/concurrent/TimeUnit;',
+  );
+
+  /// from: static public final java.util.concurrent.TimeUnit MICROSECONDS
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit get MICROSECONDS =>
+      _id_MICROSECONDS.get(_class, const $TimeUnitType());
+
+  static final _id_MILLISECONDS = _class.staticFieldId(
+    r'MILLISECONDS',
+    r'Ljava/util/concurrent/TimeUnit;',
+  );
+
+  /// from: static public final java.util.concurrent.TimeUnit MILLISECONDS
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit get MILLISECONDS =>
+      _id_MILLISECONDS.get(_class, const $TimeUnitType());
+
+  static final _id_SECONDS = _class.staticFieldId(
+    r'SECONDS',
+    r'Ljava/util/concurrent/TimeUnit;',
+  );
+
+  /// from: static public final java.util.concurrent.TimeUnit SECONDS
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit get SECONDS => _id_SECONDS.get(_class, const $TimeUnitType());
+
+  static final _id_MINUTES = _class.staticFieldId(
+    r'MINUTES',
+    r'Ljava/util/concurrent/TimeUnit;',
+  );
+
+  /// from: static public final java.util.concurrent.TimeUnit MINUTES
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit get MINUTES => _id_MINUTES.get(_class, const $TimeUnitType());
+
+  static final _id_HOURS = _class.staticFieldId(
+    r'HOURS',
+    r'Ljava/util/concurrent/TimeUnit;',
+  );
+
+  /// from: static public final java.util.concurrent.TimeUnit HOURS
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit get HOURS => _id_HOURS.get(_class, const $TimeUnitType());
+
+  static final _id_DAYS = _class.staticFieldId(
+    r'DAYS',
+    r'Ljava/util/concurrent/TimeUnit;',
+  );
+
+  /// from: static public final java.util.concurrent.TimeUnit DAYS
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit get DAYS => _id_DAYS.get(_class, const $TimeUnitType());
+
+  static final _id_values = _class.staticMethodId(
+    r'values',
+    r'()[Ljava/util/concurrent/TimeUnit;',
+  );
+
+  static final _values = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: static public java.util.concurrent.TimeUnit[] values()
+  /// The returned object must be released after use, by calling the [release] method.
+  static jni.JArray<TimeUnit> values() {
+    return _values(_class.reference.pointer, _id_values as jni.JMethodIDPtr)
+        .object(const jni.JArrayType($TimeUnitType()));
+  }
+
+  static final _id_valueOf = _class.staticMethodId(
+    r'valueOf',
+    r'(Ljava/lang/String;)Ljava/util/concurrent/TimeUnit;',
+  );
+
+  static final _valueOf = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.util.concurrent.TimeUnit valueOf(java.lang.String string)
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit valueOf(
+    jni.JString string,
+  ) {
+    return _valueOf(_class.reference.pointer, _id_valueOf as jni.JMethodIDPtr,
+            string.reference.pointer)
+        .object(const $TimeUnitType());
+  }
+
+  static final _id_convert = _class.instanceMethodId(
+    r'convert',
+    r'(JLjava/util/concurrent/TimeUnit;)J',
+  );
+
+  static final _convert = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Int64, ffi.Pointer<ffi.Void>)>)>>(
+          'globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public long convert(long j, java.util.concurrent.TimeUnit timeUnit)
+  int convert(
+    int j,
+    TimeUnit timeUnit,
+  ) {
+    return _convert(reference.pointer, _id_convert as jni.JMethodIDPtr, j,
+            timeUnit.reference.pointer)
+        .long;
+  }
+
+  static final _id_convert1 = _class.instanceMethodId(
+    r'convert',
+    r'(Ljava/time/Duration;)J',
+  );
+
+  static final _convert1 = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          'globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: public long convert(java.time.Duration duration)
+  int convert1(
+    jni.JObject duration,
+  ) {
+    return _convert1(reference.pointer, _id_convert1 as jni.JMethodIDPtr,
+            duration.reference.pointer)
+        .long;
+  }
+
+  static final _id_toNanos = _class.instanceMethodId(
+    r'toNanos',
+    r'(J)J',
+  );
+
+  static final _toNanos = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public long toNanos(long j)
+  int toNanos(
+    int j,
+  ) {
+    return _toNanos(reference.pointer, _id_toNanos as jni.JMethodIDPtr, j).long;
+  }
+
+  static final _id_toMicros = _class.instanceMethodId(
+    r'toMicros',
+    r'(J)J',
+  );
+
+  static final _toMicros = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public long toMicros(long j)
+  int toMicros(
+    int j,
+  ) {
+    return _toMicros(reference.pointer, _id_toMicros as jni.JMethodIDPtr, j)
+        .long;
+  }
+
+  static final _id_toMillis = _class.instanceMethodId(
+    r'toMillis',
+    r'(J)J',
+  );
+
+  static final _toMillis = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public long toMillis(long j)
+  int toMillis(
+    int j,
+  ) {
+    return _toMillis(reference.pointer, _id_toMillis as jni.JMethodIDPtr, j)
+        .long;
+  }
+
+  static final _id_toSeconds = _class.instanceMethodId(
+    r'toSeconds',
+    r'(J)J',
+  );
+
+  static final _toSeconds = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public long toSeconds(long j)
+  int toSeconds(
+    int j,
+  ) {
+    return _toSeconds(reference.pointer, _id_toSeconds as jni.JMethodIDPtr, j)
+        .long;
+  }
+
+  static final _id_toMinutes = _class.instanceMethodId(
+    r'toMinutes',
+    r'(J)J',
+  );
+
+  static final _toMinutes = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public long toMinutes(long j)
+  int toMinutes(
+    int j,
+  ) {
+    return _toMinutes(reference.pointer, _id_toMinutes as jni.JMethodIDPtr, j)
+        .long;
+  }
+
+  static final _id_toHours = _class.instanceMethodId(
+    r'toHours',
+    r'(J)J',
+  );
+
+  static final _toHours = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public long toHours(long j)
+  int toHours(
+    int j,
+  ) {
+    return _toHours(reference.pointer, _id_toHours as jni.JMethodIDPtr, j).long;
+  }
+
+  static final _id_toDays = _class.instanceMethodId(
+    r'toDays',
+    r'(J)J',
+  );
+
+  static final _toDays = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+      .asFunction<
+          jni.JniResult Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public long toDays(long j)
+  int toDays(
+    int j,
+  ) {
+    return _toDays(reference.pointer, _id_toDays as jni.JMethodIDPtr, j).long;
+  }
+
+  static final _id_timedWait = _class.instanceMethodId(
+    r'timedWait',
+    r'(Ljava/lang/Object;J)V',
+  );
+
+  static final _timedWait = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JThrowablePtr Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, ffi.Int64)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public void timedWait(java.lang.Object object, long j)
+  void timedWait(
+    jni.JObject object,
+    int j,
+  ) {
+    _timedWait(reference.pointer, _id_timedWait as jni.JMethodIDPtr,
+            object.reference.pointer, j)
+        .check();
+  }
+
+  static final _id_timedJoin = _class.instanceMethodId(
+    r'timedJoin',
+    r'(Ljava/lang/Thread;J)V',
+  );
+
+  static final _timedJoin = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JThrowablePtr Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, ffi.Int64)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>, int)>();
+
+  /// from: public void timedJoin(java.lang.Thread thread, long j)
+  void timedJoin(
+    jni.JObject thread,
+    int j,
+  ) {
+    _timedJoin(reference.pointer, _id_timedJoin as jni.JMethodIDPtr,
+            thread.reference.pointer, j)
+        .check();
+  }
+
+  static final _id_sleep = _class.instanceMethodId(
+    r'sleep',
+    r'(J)V',
+  );
+
+  static final _sleep = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JThrowablePtr Function(
+                  ffi.Pointer<ffi.Void>,
+                  jni.JMethodIDPtr,
+                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          jni.JThrowablePtr Function(
+              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+
+  /// from: public void sleep(long j)
+  void sleep(
+    int j,
+  ) {
+    _sleep(reference.pointer, _id_sleep as jni.JMethodIDPtr, j).check();
+  }
+
+  static final _id_toChronoUnit = _class.instanceMethodId(
+    r'toChronoUnit',
+    r'()Ljava/time/temporal/ChronoUnit;',
+  );
+
+  static final _toChronoUnit = ProtectedJniExtensions.lookup<
+          ffi.NativeFunction<
+              jni.JniResult Function(
+                ffi.Pointer<ffi.Void>,
+                jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          jni.JniResult Function(
+            ffi.Pointer<ffi.Void>,
+            jni.JMethodIDPtr,
+          )>();
+
+  /// from: public java.time.temporal.ChronoUnit toChronoUnit()
+  /// The returned object must be released after use, by calling the [release] method.
+  jni.JObject toChronoUnit() {
+    return _toChronoUnit(
+            reference.pointer, _id_toChronoUnit as jni.JMethodIDPtr)
+        .object(const jni.JObjectType());
+  }
+
+  static final _id_of = _class.staticMethodId(
+    r'of',
+    r'(Ljava/time/temporal/ChronoUnit;)Ljava/util/concurrent/TimeUnit;',
+  );
+
+  static final _of = ProtectedJniExtensions.lookup<
+              ffi.NativeFunction<
+                  jni.JniResult Function(
+                      ffi.Pointer<ffi.Void>,
+                      jni.JMethodIDPtr,
+                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
+              ffi.Pointer<ffi.Void>)>();
+
+  /// from: static public java.util.concurrent.TimeUnit of(java.time.temporal.ChronoUnit chronoUnit)
+  /// The returned object must be released after use, by calling the [release] method.
+  static TimeUnit of(
+    jni.JObject chronoUnit,
+  ) {
+    return _of(_class.reference.pointer, _id_of as jni.JMethodIDPtr,
+            chronoUnit.reference.pointer)
+        .object(const $TimeUnitType());
+  }
+}
+
+final class $TimeUnitType extends jni.JObjType<TimeUnit> {
+  const $TimeUnitType();
+
+  @override
+  String get signature => r'Ljava/util/concurrent/TimeUnit;';
+
+  @override
+  TimeUnit fromReference(jni.JReference reference) =>
+      TimeUnit.fromReference(reference);
+
+  @override
+  jni.JObjType get superType => const jni.JObjectType();
+
+  @override
+  final superCount = 1;
+
+  @override
+  int get hashCode => ($TimeUnitType).hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($TimeUnitType) && other is $TimeUnitType;
   }
 }
