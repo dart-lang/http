@@ -23,8 +23,9 @@ class ConnectionException extends WebSocketException {
 /// A [WebSocket] implemented using the
 /// [NSURLSessionWebSocketTask API](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask).
 ///
-/// NOTE: the [WebSocket] interface is currently experimental and may change in
-/// the future.
+/// > [!NOTE]
+/// > The [WebSocket] interface is currently experimental and may change in the
+/// > future.
 ///
 /// ```dart
 /// import 'package:cupertino_http/cupertino_http.dart';
@@ -47,6 +48,11 @@ class ConnectionException extends WebSocketException {
 ///   });
 /// }
 /// ```
+///
+/// > [!TIP]
+/// > [`AdapterWebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/adapter_web_socket_channel/AdapterWebSocketChannel-class.html)
+/// > can be used to adapt a [CupertinoWebSocket] into a
+/// > [`WebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html).
 class CupertinoWebSocket implements WebSocket {
   /// Create a new WebSocket connection using the
   /// [NSURLSessionWebSocketTask API](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask).
