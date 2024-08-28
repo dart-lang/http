@@ -392,8 +392,22 @@ class CronetClient extends BaseClient {
     headers.forEach((k, v) => builder.addHeader(k.toJString(), v.toJString()));
 
     if (body.isNotEmpty) {
+      final JByteBuffer data;
+      try {
+        data = body.toJByteBuffer();
+      } on JniException catch (e) {
+        // There are no unit tests for this code. You can verify this behavior
+        // manually by incrementally increasing the amount of body data in
+        // `CronetClient.post` until you get this exception.
+        if (e.message.contains('java.lang.OutOfMemoryError:')) {
+          throw ClientException(
+              'Not enough memory for request body: ${e.message}', request.url);
+        }
+        rethrow;
+      }
+
       builder.setUploadDataProvider(
-          jb.UploadDataProviders.create2(body.toJByteBuffer()), _executor);
+          jb.UploadDataProviders.create2(data), _executor);
     }
     builder.build().start();
     return responseCompleter.future;
