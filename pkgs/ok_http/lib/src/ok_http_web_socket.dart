@@ -15,6 +15,10 @@ import 'jni/bindings.dart' as bindings;
 /// [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html)
 /// API.
 ///
+/// > [!NOTE]
+/// > The [WebSocket] interface is currently experimental and may change in the
+/// > future.
+///
 /// Example usage of [OkHttpWebSocket]:
 /// ```dart
 /// import 'package:ok_http/ok_http.dart';
@@ -37,6 +41,11 @@ import 'jni/bindings.dart' as bindings;
 ///   });
 /// }
 /// ```
+///
+/// > [!TIP]
+/// > [`AdapterWebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/adapter_web_socket_channel/AdapterWebSocketChannel-class.html)
+/// > can be used to adapt a [OkHttpWebSocket] into a
+/// > [`WebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html).
 class OkHttpWebSocket implements WebSocket {
   late bindings.OkHttpClient _client;
   late final bindings.WebSocket _webSocket;
