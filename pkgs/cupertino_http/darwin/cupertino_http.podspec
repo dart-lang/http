@@ -12,6 +12,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/dart-lang/http/tree/master/pkgs/cupertino_http'
   s.license          = { :type => 'BSD', :file => '../LICENSE' }
   s.author           = { 'TODO' => 'use-valid-author' }
+  s.source = { :http => 'https://github.com/dart-lang/http/tree/master/pkgs/cupertino_http' }
 
   s.source_files = 'cupertino_http/Sources/cupertino_http/**/*'
   s.ios.dependency 'Flutter'
