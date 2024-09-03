@@ -7,7 +7,7 @@ A macOS/iOS Flutter plugin that provides access to the
 ## Motivation
 
 Using the [Foundation URL Loading System][], rather than the socket-based
-[dart:io HttpClient][] implemententation, has several advantages:
+[dart:io HttpClient][] implementation, has several advantages:
 
 1. It automatically supports iOS/macOS platform features such VPNs and HTTP
    proxies. 
@@ -17,7 +17,7 @@ Using the [Foundation URL Loading System][], rather than the socket-based
 
 ## Using
 
-The easiest way to use this library is via the the high-level interface
+The easiest way to use this library is via the high-level interface
 defined by [package:http Client][].
 
 This approach allows the same HTTP code to be used on all platforms, while
@@ -46,6 +46,31 @@ void main() async {
 }
 ```
 
+[CupertinoWebSocket][] provides a [package:web_socket][] [WebSocket][]
+implementation.
+
+```dart
+import 'package:cupertino_http/cupertino_http.dart';
+import 'package:web_socket/web_socket.dart';
+
+void main() async {
+  final socket = await CupertinoWebSocket.connect(
+      Uri.parse('wss://ws.postman-echo.com/raw'));
+
+  socket.events.listen((e) async {
+    switch (e) {
+      case TextDataReceived(text: final text):
+        print('Received Text: $text');
+        await socket.close();
+      case BinaryDataReceived(data: final data):
+        print('Received Binary: $data');
+      case CloseReceived(code: final code, reason: final reason):
+        print('Connection to server closed: $code [$reason]');
+    }
+  });
+}
+```
+
 You can also use the [Foundation URL Loading System] API directly.
 
 ```dart
@@ -63,6 +88,9 @@ final task = session.dataTaskWithCompletionHandler(URLRequest.fromUrl(url),
 task.resume();
 ```
 
-[package:http Client]: https://pub.dev/documentation/http/latest/http/Client-class.html
-[Foundation URL Loading System]: https://developer.apple.com/documentation/foundation/url_loading_system
+[CupertinoWebSocket]: https://pub.dev/documentation/cupertino_http/latest/cupertino_http/CupertinoWebSocket-class.html
 [dart:io HttpClient]: https://api.dart.dev/stable/dart-io/HttpClient-class.html
+[Foundation URL Loading System]: https://developer.apple.com/documentation/foundation/url_loading_system
+[package:http Client]: https://pub.dev/documentation/http/latest/http/Client-class.html
+[package:web_socket]: https://pub.dev/packages/web_socket
+[WebSocket]: https://pub.dev/documentation/web_socket/latest/web_socket/WebSocket-class.html

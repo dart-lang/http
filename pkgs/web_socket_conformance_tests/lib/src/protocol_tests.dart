@@ -48,7 +48,7 @@ void testProtocols(
       socket.sendText('Hello World!');
     });
 
-    test('mutiple protocols', () async {
+    test('multiple protocols', () async {
       final socket = await channelFactory(
           uri.replace(queryParameters: {'protocol': 'text.example.com'}),
           protocols: ['chat.example.com', 'text.example.com']);

@@ -2,10 +2,6 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// A [Client] implementation based on the
-/// [Foundation URL Loading System](https://developer.apple.com/documentation/foundation/url_loading_system).
-library;
-
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
@@ -309,15 +305,17 @@ class CupertinoClient extends BaseClient {
       ..headersCommaValues = request.headers
       ..maxRedirects = request.maxRedirects;
 
-    if (profile != null && request.contentLength != null) {
-      profile.requestData.headersListValues = {
+    final urlRequest = MutableURLRequest.fromUrl(request.url)
+      ..httpMethod = request.method;
+
+    if (request.contentLength != null) {
+      profile?.requestData.headersListValues = {
         'Content-Length': ['${request.contentLength}'],
         ...profile.requestData.headers!
       };
+      urlRequest.setValueForHttpHeaderField(
+          'Content-Length', '${request.contentLength}');
     }
-
-    final urlRequest = MutableURLRequest.fromUrl(request.url)
-      ..httpMethod = request.method;
 
     if (request is Request) {
       // Optimize the (typical) `Request` case since assigning to

@@ -24,7 +24,7 @@ the Dart virtual machine, meaning all platforms except the web browser.
 This library used to create `package:http` `Client`s when the app is run inside
 a web browser.
 
-Web configuration must be done in a seperate library because Dart code cannot
+Web configuration must be done in a separate library because Dart code cannot
 import `dart:ffi` or `dart:io` when run in a web browser.
 
 ### `main.dart`

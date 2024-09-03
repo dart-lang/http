@@ -11,7 +11,8 @@ import 'response_headers_server_vm.dart'
     if (dart.library.js_interop) 'response_headers_server_web.dart';
 
 /// Tests that the [Client] correctly processes response headers.
-void testResponseHeaders(Client client) async {
+void testResponseHeaders(Client client,
+    {bool supportsFoldedHeaders = true}) async {
   group('server headers', () {
     late String host;
     late StreamChannel<Object?> httpServerChannel;
@@ -131,9 +132,7 @@ void testResponseHeaders(Client client) async {
         httpServerChannel.sink.add('content-length: \t 0 \t \r\n');
         final response = await client.get(Uri.http(host, ''));
         expect(response.contentLength, 0);
-      },
-          skip: 'Enable after https://github.com/dart-lang/sdk/issues/51532 '
-              'is fixed');
+      });
 
       test('non-integer', () async {
         httpServerChannel.sink.add('content-length: cat\r\n');
@@ -162,9 +161,7 @@ void testResponseHeaders(Client client) async {
 
         final response = await client.get(Uri.http(host, ''));
         expect(response.headers['foo'], 'BAR BAZ');
-      },
-          skip: 'Enable after https://github.com/dart-lang/sdk/issues/53185 '
-              'is fixed');
+      });
 
       test('extra whitespace', () async {
         httpServerChannel.sink.add('foo: BAR   \t   \r\n   \t   BAZ \t \r\n');
@@ -177,6 +174,8 @@ void testResponseHeaders(Client client) async {
             allOf(matches(RegExp(r'BAR {0,3}[ \t]? {0,7}[ \t]? {0,3}BAZ')),
                 contains(' ')));
       });
-    });
+    },
+        skip:
+            !supportsFoldedHeaders ? 'does not support folded headers' : false);
   });
 }

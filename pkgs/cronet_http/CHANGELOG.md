@@ -1,6 +1,18 @@
-## 1.3.1-wip
+## 1.3.3-wip
+
+* Throw `ClientException` if `CronetClient.send` runs out of Java heap while
+  allocating memory for the request body.
+
+## 1.3.2
+
+* Upgrade `package:jni` to 0.10.1 and `package:jnigen` to 0.10.0 to fix method
+  calling bugs and a
+  [debug mode issue](https://github.com/dart-lang/http/issues/1260).
+
+## 1.3.1
 
 * Add relevant rules with the ProGuard to avoid runtime exceptions.
+* Upgrade `package:jnigen` to 0.9.2 to fix a bug for 32-bit architectures.
 
 ## 1.3.0
 

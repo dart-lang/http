@@ -17,7 +17,7 @@ Future<void> _testPost(Client Function() clientFactory, String host) async {
       () => clientFactory().post(Uri.http(host, ''), body: 'Hello World!'));
 }
 
-/// Tests that the [Client] is useable from Isolates other than the main
+/// Tests that the [Client] is usable from Isolates other than the main
 /// isolate.
 ///
 /// If [canWorkInIsolates] is `false` then the tests will be skipped.

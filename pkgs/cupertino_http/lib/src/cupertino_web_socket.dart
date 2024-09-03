@@ -6,28 +6,53 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:objective_c/objective_c.dart';
 import 'package:web_socket/web_socket.dart';
 
 import 'cupertino_api.dart';
-import 'utils.dart';
 
 /// An error occurred while connecting to the peer.
 class ConnectionException extends WebSocketException {
-  final NSError error;
+  final Error error;
 
   ConnectionException(super.message, this.error);
 
   @override
-  String toString() =>
-      'CupertinoErrorWebSocketException: $message ${errorString(error)}';
+  String toString() => 'CupertinoErrorWebSocketException: $message $error';
 }
 
 /// A [WebSocket] implemented using the
 /// [NSURLSessionWebSocketTask API](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask).
 ///
-/// NOTE: the [WebSocket] interface is currently experimental and may change in
-/// the future.
+/// > [!NOTE]
+/// > The [WebSocket] interface is currently experimental and may change in the
+/// > future.
+///
+/// ```dart
+/// import 'package:cupertino_http/cupertino_http.dart';
+/// import 'package:web_socket/web_socket.dart';
+///
+/// void main() async {
+///   final socket = await CupertinoWebSocket.connect(
+///       Uri.parse('wss://ws.postman-echo.com/raw'));
+///
+///   socket.events.listen((e) async {
+///     switch (e) {
+///       case TextDataReceived(text: final text):
+///         print('Received Text: $text');
+///         await socket.close();
+///       case BinaryDataReceived(data: final data):
+///         print('Received Binary: $data');
+///       case CloseReceived(code: final code, reason: final reason):
+///         print('Connection to server closed: $code [$reason]');
+///     }
+///   });
+/// }
+/// ```
+///
+/// > [!TIP]
+/// > [`AdapterWebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/adapter_web_socket_channel/AdapterWebSocketChannel-class.html)
+/// > can be used to adapt a [CupertinoWebSocket] into a
+/// > [`WebSocketChannel`](https://pub.dev/documentation/web_socket_channel/latest/web_socket_channel/WebSocketChannel-class.html).
 class CupertinoWebSocket implements WebSocket {
   /// Create a new WebSocket connection using the
   /// [NSURLSessionWebSocketTask API](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask).
@@ -68,7 +93,7 @@ class CupertinoWebSocket implements WebSocket {
       readyCompleter.complete(webSocket);
     }, onWebSocketTaskClosed: (session, task, closeCode, reason) {
       assert(readyCompleter.isCompleted);
-      webSocket._connectionClosed(closeCode!, reason);
+      webSocket._connectionClosed(closeCode, reason);
     }, onComplete: (session, task, error) {
       if (!readyCompleter.isCompleted) {
         // `onWebSocketTaskOpened should have been called and completed
@@ -87,12 +112,10 @@ class CupertinoWebSocket implements WebSocket {
         //    called and `_connectionClosed` is a no-op.
         // 2. we sent a close Frame (through `close()`) and `_connectionClosed`
         //    is a no-op.
-        // 3. an error occured (e.g. network failure) and `_connectionClosed`
+        // 3. an error occurred (e.g. network failure) and `_connectionClosed`
         //    will signal that and close `event`.
         webSocket._connectionClosed(
-            NSURLSessionWebSocketCloseCode
-                .NSURLSessionWebSocketCloseCodeAbnormalClosure,
-            'abnormal close'.codeUnits.toNSData());
+            1006, Data.fromList('abnormal close'.codeUnits));
       }
     });
 
@@ -115,13 +138,11 @@ class CupertinoWebSocket implements WebSocket {
 
     late WebSocketEvent event;
     switch (value.type) {
-      case NSURLSessionWebSocketMessageType
-            .NSURLSessionWebSocketMessageTypeString:
+      case URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeString:
         event = TextDataReceived(value.string!);
         break;
-      case NSURLSessionWebSocketMessageType
-            .NSURLSessionWebSocketMessageTypeData:
-        event = BinaryDataReceived(value.data!.toList());
+      case URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeData:
+        event = BinaryDataReceived(value.data!.bytes);
         break;
     }
     _events.add(event);
@@ -137,36 +158,31 @@ class CupertinoWebSocket implements WebSocket {
   /// Close the WebSocket connection due to an error and send the
   /// [CloseReceived] event.
   void _closeConnectionWithError(Object e) {
-    if (e is NSError) {
-      if (e.domain.toString() == 'NSPOSIXErrorDomain' && e.code == 57) {
+    if (e is Error) {
+      if (e.domain == 'NSPOSIXErrorDomain' && e.code == 57) {
         // Socket is not connected.
         // onWebSocketTaskClosed/onComplete will be invoked and may indicate a
         // close code.
         return;
       }
-      var (int code, String? reason) = switch ([e.domain.toString(), e.code]) {
-        ['NSPOSIXErrorDomain', 100] => (
-            1002,
-            e.localizedDescription.toString()
-          ),
-        _ => (1006, e.localizedDescription.toString())
+      var (int code, String? reason) = switch ([e.domain, e.code]) {
+        ['NSPOSIXErrorDomain', 100] => (1002, e.localizedDescription),
+        _ => (1006, e.localizedDescription)
       };
       _task.cancel();
       _connectionClosed(
-          NSURLSessionWebSocketCloseCode.fromValue(code), // XXX incorrect!
-          reason.codeUnits.toNSData());
+          code, reason == null ? null : Data.fromList(reason.codeUnits));
     } else {
       throw StateError('unexpected error: $e');
     }
   }
 
-  void _connectionClosed(
-      NSURLSessionWebSocketCloseCode closeCode, NSData? reason) {
+  void _connectionClosed(int? closeCode, Data? reason) {
     if (!_events.isClosed) {
-      final closeReason = reason == null ? '' : utf8.decode(reason.toList());
+      final closeReason = reason == null ? '' : utf8.decode(reason.bytes);
 
       _events
-        ..add(CloseReceived(closeCode.value, closeReason))
+        ..add(CloseReceived(closeCode, closeReason))
         ..close();
     }
   }
@@ -177,8 +193,8 @@ class CupertinoWebSocket implements WebSocket {
       throw WebSocketConnectionClosed();
     }
     _task
-        .sendMessage(URLSessionWebSocketMessage.fromData(b.toNSData()))
-        .then((_) => _, onError: _closeConnectionWithError);
+        .sendMessage(URLSessionWebSocketMessage.fromData(Data.fromList(b)))
+        .then((value) => value, onError: _closeConnectionWithError);
   }
 
   @override
@@ -188,7 +204,7 @@ class CupertinoWebSocket implements WebSocket {
     }
     _task
         .sendMessage(URLSessionWebSocketMessage.fromString(s))
-        .then((_) => _, onError: _closeConnectionWithError);
+        .then((value) => value, onError: _closeConnectionWithError);
   }
 
   @override
@@ -210,9 +226,7 @@ class CupertinoWebSocket implements WebSocket {
       unawaited(_events.close());
       if (code != null) {
         reason = reason ?? '';
-        _task.cancelWithCloseCode(
-            NSURLSessionWebSocketCloseCode.fromValue(code), // XXX incorrect!
-            utf8.encode(reason).toNSData());
+        _task.cancelWithCloseCode(code, Data.fromList(utf8.encode(reason)));
       } else {
         _task.cancel();
       }

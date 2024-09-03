@@ -28,12 +28,12 @@ jobs:
       run:
         working-directory: pkgs/ok_http
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
         with:
           distribution: 'zulu'
           java-version: '17'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           channel: 'stable'
       - id: install
@@ -45,3 +45,14 @@ jobs:
       - name: Analyze code
         if: always() && steps.install.outcome == 'success'
         run: flutter analyze --fatal-infos
+      - name: Run tests
+        uses: reactivecircus/android-emulator-runner@77986be26589807b8ebab3fde7bbf5c60dabec32
+        if: always() && steps.install.outcome == 'success'
+        with:
+          # api-level/minSdkVersion should be help in sync in:
+          # - .github/workflows/ok.yml
+          # - pkgs/ok_http/android/build.gradle
+          # - pkgs/ok_http/example/android/app/build.gradle
+          api-level: 21
+          arch: x86_64
+          script: cd pkgs/ok_http/example && flutter test --timeout=1200s integration_test/
