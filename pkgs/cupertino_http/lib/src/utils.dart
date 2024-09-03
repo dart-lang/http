@@ -27,21 +27,32 @@ final ncb.NativeCupertinoHttp linkedLibs = () {
 /// library.
 final ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
 
-DynamicLibrary _loadHelperDynamicLibrary() {
-  if (Platform.isMacOS || Platform.isIOS) {
-    return DynamicLibrary.open('$_libName.framework/$_libName');
+ncb.NativeCupertinoHttp _loadHelperLibrary() {
+  if (!Platform.isMacOS && !Platform.isIOS) {
+    throw UnsupportedError(
+        'Platform ${Platform.operatingSystem} is not supported');
   }
 
-  throw UnsupportedError(
-      'Platform ${Platform.operatingSystem} is not supported');
-}
+  late DynamicLibrary lib;
+  late int Function(Pointer<Void>) initializeApi;
+  late int initializeResult;
 
-ncb.NativeCupertinoHttp _loadHelperLibrary() {
-  final lib = _loadHelperDynamicLibrary();
+  lib = DynamicLibrary.process();
+  try {
+    initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
+        int Function(Pointer<Void>)>('Dart_InitializeApiDL');
+    // ignore: avoid_catching_errors
+  } on ArgumentError {
+    // Dart_InitializeApiDL is not available in the current process. Assume
+    // that is was build as a dynamic library.
+    // TODO: remove this when package:cupertino_http no longer supports
+    // CocoaPods (which uses dynamic linking).
+    lib = DynamicLibrary.open('$_libName.framework/$_libName');
+    initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
+        int Function(Pointer<Void>)>('Dart_InitializeApiDL');
+  }
 
-  final initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
-      int Function(Pointer<Void>)>('Dart_InitializeApiDL');
-  final initializeResult = initializeApi(NativeApi.initializeApiDLData);
+  initializeResult = initializeApi(NativeApi.initializeApiDLData);
   if (initializeResult != 0) {
     throw StateError('failed to init API.');
   }
