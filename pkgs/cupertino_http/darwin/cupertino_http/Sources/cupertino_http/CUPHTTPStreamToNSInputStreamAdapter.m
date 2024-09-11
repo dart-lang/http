@@ -31,13 +31,6 @@
   return self;
 }
 
-- (void)dealloc {
-  [_dataCondition release];
-  [_data release];
-  [_error release];
-  [super dealloc];
-}
-
 - (NSUInteger)addData:(NSData *)data {
   [_dataCondition lock];
   [_data appendData: data];
@@ -55,8 +48,7 @@
 
 - (void)setError:(NSError *)error {
   [_dataCondition lock];
-  [_error release];
-  _error = [error retain];
+  _error = error;
   _status = NSStreamStatusError;
   [_dataCondition broadcast];
   [_dataCondition unlock];
@@ -128,7 +120,6 @@
 
     const bool success = Dart_PostCObject_DL(_sendPort, &message_cobj);
     NSCAssert(success, @"Dart_PostCObject_DL failed.");
-
     [_dataCondition wait];
   }
 

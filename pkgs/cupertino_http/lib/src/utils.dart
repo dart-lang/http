@@ -39,15 +39,17 @@ DynamicLibrary _loadHelperDynamicLibrary() {
 }
 
 ncb.NativeCupertinoHttp _loadHelperLibrary() {
+  print('_loadHelperLibrary');
   final lib = _loadHelperDynamicLibrary();
-
+  print('load done');
+/*
   final initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
       int Function(Pointer<Void>)>('Dart_InitializeApiDL');
   final initializeResult = initializeApi(NativeApi.initializeApiDLData);
   if (initializeResult != 0) {
     throw StateError('failed to init API.');
   }
-
+*/
   return ncb.NativeCupertinoHttp(lib);
 }
 
@@ -87,7 +89,7 @@ NSError error(String domain, int code, String localizedDescription) {
   final userInfo = NSMutableDictionary.new1()
     ..setObject_forKey_(
       localizedDescription.toNSString(),
-      NSString.castFromPointer(linkedLibs.NSLocalizedDescriptionKey),
+      linkedLibs.NSLocalizedDescriptionKey,
     );
 
   return NSError.alloc()
@@ -103,3 +105,4 @@ String errorString(NSError error) => '[NSError '
     ']';
 
 NSURL uriToNSURL(Uri uri) => NSURL.URLWithString_(uri.toString().toNSString())!;
+Uri nsurlToUri(NSURL url) => Uri.parse(url.absoluteString!.toString());

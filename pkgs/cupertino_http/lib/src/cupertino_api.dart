@@ -652,6 +652,10 @@ class URLSessionWebSocketTask extends URLSessionTask {
   ///
   /// See [NSURLSessionWebSocketTask.sendMessage:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181205-sendmessage)
   Future<void> sendMessage(URLSessionWebSocketMessage message) async {
+    /*
+    _urlSessionWebSocketTask.sendMessage_completionHandler_(
+        message._nsObject, (error)  error);
+
     final completer = Completer<void>();
     final completionPort = ReceivePort();
     completionPort.listen((message) {
@@ -669,6 +673,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
     helperLibs.CUPHTTPSendMessage(_urlSessionWebSocketTask, message._nsObject,
         completionPort.sendPort.nativePort);
     await completer.future;
+    */
   }
 
   /// Receives a single WebSocket message.
@@ -707,8 +712,8 @@ class URLSessionWebSocketTask extends URLSessionTask {
       completionPort.close();
     });
 
-    helperLibs.CUPHTTPReceiveMessage(
-        _urlSessionWebSocketTask, completionPort.sendPort.nativePort);
+//    helperLibs.CUPHTTPReceiveMessage(
+//        _urlSessionWebSocketTask, completionPort.sendPort.nativePort);
     return completer.future;
   }
 
@@ -781,7 +786,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
     if (nsUrl == null) {
       return null;
     }
-    return Uri.parse(nsUrl.absoluteString!.toString());
+    return nsurlToUri(nsUrl);
   }
 
   @override
@@ -855,212 +860,6 @@ class MutableURLRequest extends URLRequest {
       ']';
 }
 
-/// Setup delegation for the given [task] to the given methods.
-///
-/// Specifically, this causes the Objective-C-implemented delegate installed
-/// with
-/// [sessionWithConfiguration:delegate:delegateQueue:](https://developer.apple.com/documentation/foundation/nsurlsession/1411597-sessionwithconfiguration)
-/// to send a [ncb.CUPHTTPForwardedDelegate] object to a send port, which is
-/// then processed by [_setupDelegation] and forwarded to the given methods.
-void _setupDelegation(
-  ncb.CUPHTTPClientDelegate delegate,
-  URLSession session,
-  URLSessionTask task, {
-  URLRequest? Function(URLSession session, URLSessionTask task,
-          HTTPURLResponse response, URLRequest newRequest)?
-      onRedirect,
-  ncb.NSURLSessionResponseDisposition Function(
-          URLSession session, URLSessionTask task, URLResponse response)?
-      onResponse,
-  void Function(URLSession session, URLSessionTask task, objc.NSData error)?
-      onData,
-  void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
-      onFinishedDownloading,
-  void Function(URLSession session, URLSessionTask task, objc.NSError? error)?
-      onComplete,
-  void Function(
-          URLSession session, URLSessionWebSocketTask task, String? protocol)?
-      onWebSocketTaskOpened,
-  void Function(URLSession session, URLSessionWebSocketTask task,
-          ncb.NSURLSessionWebSocketCloseCode closeCode, objc.NSData? reason)?
-      onWebSocketTaskClosed,
-}) {
-  final responsePort = ReceivePort();
-  responsePort.listen((d) {
-    final message = d as List;
-    final messageType = message[0];
-    final dp = Pointer<objc.ObjCObject>.fromAddress(message[1] as int);
-
-    final forwardedDelegate = ncb.CUPHTTPForwardedDelegate.castFromPointer(dp,
-        retain: true, release: true);
-
-    switch (messageType) {
-      case ncb.MessageType.RedirectMessage:
-        final forwardedRedirect =
-            ncb.CUPHTTPForwardedRedirect.castFrom(forwardedDelegate);
-        URLRequest? redirectRequest;
-
-        try {
-          final request = URLRequest._(
-              ncb.NSURLRequest.castFrom(forwardedRedirect.request));
-
-          if (onRedirect == null) {
-            redirectRequest = request;
-            break;
-          }
-          try {
-            final response = HTTPURLResponse._(
-                ncb.NSHTTPURLResponse.castFrom(forwardedRedirect.response));
-            redirectRequest = onRedirect(session, task, response, request);
-          } catch (e) {
-            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-            // this exception as an `Error` and call the completion function
-            // with it.
-          }
-        } finally {
-          forwardedRedirect.finishWithRequest_(redirectRequest?._nsObject);
-        }
-        break;
-      case ncb.MessageType.ResponseMessage:
-        final forwardedResponse =
-            ncb.CUPHTTPForwardedResponse.castFrom(forwardedDelegate);
-        var disposition =
-            ncb.NSURLSessionResponseDisposition.NSURLSessionResponseCancel;
-
-        try {
-          if (onResponse == null) {
-            disposition =
-                ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
-            break;
-          }
-          final response =
-              URLResponse._exactURLResponseType(forwardedResponse.response);
-
-          try {
-            disposition = onResponse(session, task, response);
-          } catch (e) {
-            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-            // this exception as an `Error` and call the completion function
-            // with it.
-          }
-        } finally {
-          forwardedResponse.finishWithDisposition_(disposition);
-        }
-        break;
-      case ncb.MessageType.DataMessage:
-        final forwardedData =
-            ncb.CUPHTTPForwardedData.castFrom(forwardedDelegate);
-
-        try {
-          if (onData == null) {
-            break;
-          }
-          try {
-            onData(session, task, forwardedData.data);
-          } catch (e) {
-            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-            // this exception as an `Error` and call the completion function
-            // with it.
-          }
-        } finally {
-          forwardedData.finish();
-        }
-        break;
-      case ncb.MessageType.FinishedDownloading:
-        final finishedDownloading =
-            ncb.CUPHTTPForwardedFinishedDownloading.castFrom(forwardedDelegate);
-        try {
-          if (onFinishedDownloading == null) {
-            break;
-          }
-          try {
-            onFinishedDownloading(
-                session,
-                task as URLSessionDownloadTask,
-                Uri.parse(
-                    finishedDownloading.location.absoluteString!.toString()));
-          } catch (e) {
-            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-            // this exception as an `Error` and call the completion function
-            // with it.
-          }
-        } finally {
-          finishedDownloading.finish();
-        }
-        break;
-      case ncb.MessageType.CompletedMessage:
-        final forwardedComplete =
-            ncb.CUPHTTPForwardedComplete.castFrom(forwardedDelegate);
-
-        try {
-          if (onComplete == null) {
-            break;
-          }
-          objc.NSError? error;
-          if (forwardedComplete.error != null) {
-            error = objc.NSError.castFrom(forwardedComplete.error!);
-          }
-          try {
-            onComplete(session, task, error);
-          } catch (e) {
-            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-            // this exception as an `Error` and call the completion function
-            // with it.
-          }
-        } finally {
-          forwardedComplete.finish();
-          responsePort.close();
-        }
-        break;
-      case ncb.MessageType.WebSocketOpened:
-        final webSocketOpened =
-            ncb.CUPHTTPForwardedWebSocketOpened.castFrom(forwardedDelegate);
-
-        try {
-          if (onWebSocketTaskOpened == null) {
-            break;
-          }
-          try {
-            onWebSocketTaskOpened(session, task as URLSessionWebSocketTask,
-                webSocketOpened.protocol?.toString());
-          } catch (e) {
-            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-            // this exception as an `Error` and call the completion function
-            // with it.
-          }
-        } finally {
-          webSocketOpened.finish();
-        }
-        break;
-      case ncb.MessageType.WebSocketClosed:
-        final webSocketClosed =
-            ncb.CUPHTTPForwardedWebSocketClosed.castFrom(forwardedDelegate);
-
-        try {
-          if (onWebSocketTaskClosed == null) {
-            break;
-          }
-          try {
-            onWebSocketTaskClosed(session, task as URLSessionWebSocketTask,
-                webSocketClosed.closeCode, webSocketClosed.reason);
-          } catch (e) {
-            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-            // this exception as an `Error` and call the completion function
-            // with it.
-          }
-        } finally {
-          webSocketClosed.finish();
-        }
-        break;
-    }
-  });
-  final config = ncb.CUPHTTPTaskConfiguration.castFrom(
-      ncb.CUPHTTPTaskConfiguration.alloc()
-          .initWithPort_(responsePort.sendPort.nativePort));
-
-  delegate.registerTask_withConfiguration_(task._nsObject, config);
-}
-
 /// A client that can make network requests to a server.
 ///
 /// See [NSURLSession](https://developer.apple.com/documentation/foundation/nsurlsession)
@@ -1071,129 +870,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
 
-  final URLRequest? Function(URLSession session, URLSessionTask task,
-      HTTPURLResponse response, URLRequest newRequest)? _onRedirect;
-  final ncb.NSURLSessionResponseDisposition Function(
-          URLSession session, URLSessionTask task, URLResponse response)?
-      _onResponse;
-  final void Function(
-      URLSession session, URLSessionTask task, objc.NSData data)? _onData;
-  final void Function(
-          URLSession session, URLSessionTask task, objc.NSError? error)?
-      _onComplete;
-  final void Function(URLSession session, URLSessionDownloadTask task, Uri uri)?
-      _onFinishedDownloading;
-  final void Function(
-          URLSession session, URLSessionWebSocketTask task, String? protocol)?
-      _onWebSocketTaskOpened;
-  final void Function(
-      URLSession session,
-      URLSessionWebSocketTask task,
-      ncb.NSURLSessionWebSocketCloseCode closeCode,
-      objc.NSData? reason)? _onWebSocketTaskClosed;
-
-  objc.ObjCObjectBase delegate(
-    URLRequest? Function(URLSession session, URLSessionTask task,
-            HTTPURLResponse response, URLRequest newRequest)?
-        onRedirect,
-  ) {
-    final protoBuilder = objc.ObjCProtocolBuilder();
-
-    ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
-        URLSession_dataTask_didReceiveResponse_completionHandler_:
-            (session, dataTask, response, completionHandler) {
-      print('Got a response.');
-      completionHandler
-          .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
-    }, URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
-      print('Do something with the data.');
-    }, URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
-            (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
-      final request = URLRequest._(nsRequest);
-      URLRequest? redirectRequest;
-
-      if (onRedirect == null) {
-        redirectRequest = request;
-      } else {
-        try {
-          final response = HTTPURLResponse._(nsResponse);
-          redirectRequest =
-              onRedirect(session, URLSessionTask._(nsTask), response, request);
-        } catch (e) {
-          // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-          // this exception as an `Error` and call the completion function
-          // with it.
-        }
-      }
-      nsRequestCompleter(request._nsObject);
-    });
-
-    ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
-        URLSession_downloadTask_didFinishDownloadingToURL_:
-            (session, task, url) {
-      print('Do something.');
-    });
-    return protoBuilder.build();
-  }
-
-/*
-  static objc.ObjCObjectBase delegate() {
-    print('delegate()');
-    final protoBuilder = objc.ObjCProtocolBuilder();
-    /*
-    final redirect =
-        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
-            .listener((_, session, task, response, request, completionHandler) {
-      print('redirect');
-      session.release();
-      completionHandler.call(request);
-    });*/
-    ncb.NSURLSessionTaskDelegate.addToBuilder(protoBuilder,
-        URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
-            (session, task, response, request, completionHandler) {
-      print('redirect');
-      completionHandler.call(request);
-    });
-
-/*
-    final response =
-        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
-            .listener((_, session, dataTask, response, completetionHandler) {
-      print('response');
-      completetionHandler
-          .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
-    });
-    final data =
-        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData
-            .listener((_, session, dataTask, data) {
-      print('data');
-    });
-
-    final complete =
-        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
-            .listener((_, session, task, error) {
-      print('complete');
-    });
-    */
-
-    ncb.NSURLSessionDataDelegate.addToBuilder(protoBuilder,
-        URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
-      print('data');
-    }, URLSession_task_didCompleteWithError_: (session, task, error) {
-      print('complete');
-    }, URLSession_dataTask_didReceiveResponse_completionHandler_:
-            (session, dataTask, response, completetionHandler) {
-      print('response');
-      completetionHandler
-          .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
-    });
-    print('building delegate');
-    return protoBuilder.build();
-  }
-*/
-  URLSession._(
-    super.c, {
-    required bool isBackground,
+  static objc.ObjCObjectBase delegate(
+    bool isBackground, {
     URLRequest? Function(URLSession session, URLSessionTask task,
             HTTPURLResponse response, URLRequest newRequest)?
         onRedirect,
@@ -1212,14 +890,82 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     void Function(URLSession session, URLSessionWebSocketTask task,
             ncb.NSURLSessionWebSocketCloseCode closeCode, objc.NSData? reason)?
         onWebSocketTaskClosed,
-  })  : _isBackground = isBackground,
-        _onRedirect = onRedirect,
-        _onResponse = onResponse,
-        _onData = onData,
-        _onFinishedDownloading = onFinishedDownloading,
-        _onComplete = onComplete,
-        _onWebSocketTaskOpened = onWebSocketTaskOpened,
-        _onWebSocketTaskClosed = onWebSocketTaskClosed {
+  }) {
+    final protoBuilder = objc.ObjCProtocolBuilder();
+
+    ncb.NSURLSessionDataDelegate.addToBuilderAsListener(
+      protoBuilder,
+      URLSession_dataTask_didReceiveResponse_completionHandler_:
+          (session, dataTask, response, completionHandler) {
+        print('URLSession_dataTask_didReceiveResponse_completionHandler_:');
+        var disposition =
+            ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
+
+        if (onResponse != null) {
+          final exactResponse = URLResponse._exactURLResponseType(response);
+          disposition = onResponse(
+              URLSession._(session, isBackground: isBackground),
+              URLSessionTask._(dataTask),
+              exactResponse);
+        }
+        completionHandler.call(disposition);
+      },
+      URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
+        print('URLSession_dataTask_didReceiveData_:');
+        if (onData != null) {
+          onData(URLSession._(session, isBackground: isBackground),
+              URLSessionTask._(dataTask), data);
+        }
+      },
+      URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
+          (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
+        final request = URLRequest._(nsRequest);
+        URLRequest? redirectRequest;
+
+        if (onRedirect == null) {
+          redirectRequest = request;
+        } else {
+          try {
+            final response = URLResponse._exactURLResponseType(nsResponse)
+                as HTTPURLResponse;
+            redirectRequest = onRedirect(
+                URLSession._(nsSession, isBackground: isBackground),
+                URLSessionTask._(nsTask),
+                response,
+                request);
+          } catch (e) {
+            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
+            // this exception as an `Error` and call the completion function
+            // with it.
+          }
+        }
+        nsRequestCompleter.call(redirectRequest?._nsObject);
+      },
+      URLSession_task_didCompleteWithError_: (nsSession, nsTask, nsError) {
+        if (onComplete != null) {
+          onComplete(URLSession._(nsSession, isBackground: isBackground),
+              URLSessionTask._(nsTask), nsError);
+        }
+      },
+    );
+
+    ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
+        URLSession_downloadTask_didFinishDownloadingToURL_:
+            (nsSession, nsTask, nsUrl) {
+      if (onFinishedDownloading != null) {
+        onFinishedDownloading(
+            URLSession._(nsSession, isBackground: isBackground),
+            URLSessionDownloadTask._(nsTask),
+            nsurlToUri(nsUrl));
+      }
+    });
+    return protoBuilder.build();
+  }
+
+  URLSession._(
+    super.c, {
+    required bool isBackground,
+  }) : _isBackground = isBackground {
     helperLibs.timezone; // XXX: Force the initialization of the Dart API.
   }
 
@@ -1296,56 +1042,20 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       ..maxConcurrentOperationCount = 1
       ..name = 'cupertino_http.NSURLSessionDelegateQueue'.toNSString();
 
-    final protoBuilder = objc.ObjCProtocolBuilder();
-    late URLSession session;
-
-    ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
-        URLSession_dataTask_didReceiveResponse_completionHandler_:
-            (session, dataTask, response, completionHandler) {
-      print('Got a response.');
-      completionHandler
-          .call(ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow);
-    }, URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
-      print('Do something with the data.');
-    }, URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
-            (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
-      final request = URLRequest._(nsRequest);
-      URLRequest? redirectRequest;
-
-      if (onRedirect == null) {
-        redirectRequest = request;
-      } else {
-        try {
-          final response = HTTPURLResponse._(nsResponse);
-          redirectRequest =
-              onRedirect(session, URLSessionTask._(nsTask), response, request);
-        } catch (e) {
-          // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-          // this exception as an `Error` and call the completion function
-          // with it.
-        }
-      }
-      nsRequestCompleter(redirectRequest._nsObject);
-    });
-
-    ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
-        URLSession_downloadTask_didFinishDownloadingToURL_:
-            (session, task, url) {
-      print('Do something.');
-    });
-    final delegate = protoBuilder.build();
-
     return URLSession._(
-        ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
-            config._nsObject, delegate(), queue),
-        isBackground: config._isBackground,
-        onRedirect: onRedirect,
-        onResponse: onResponse,
-        onData: onData,
-        onFinishedDownloading: onFinishedDownloading,
-        onComplete: onComplete,
-        onWebSocketTaskOpened: onWebSocketTaskOpened,
-        onWebSocketTaskClosed: onWebSocketTaskClosed);
+      ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
+          config._nsObject,
+          delegate(config._isBackground,
+              onRedirect: onRedirect,
+              onResponse: onResponse,
+              onData: onData,
+              onFinishedDownloading: onFinishedDownloading,
+              onComplete: onComplete,
+              onWebSocketTaskOpened: onWebSocketTaskOpened,
+              onWebSocketTaskClosed: onWebSocketTaskClosed),
+          queue),
+      isBackground: config._isBackground,
+    );
   }
 
   /// A **copy** of the configuration for this session.

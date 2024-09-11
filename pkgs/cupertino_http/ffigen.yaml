@@ -7,7 +7,7 @@ description: |
 language: 'objc'
 output:
   bindings: 'lib/src/native_cupertino_bindings.dart'
-  objc-bindings: 'src/native_cupertino_bindings.m'
+  objc-bindings: 'darwin/cupertino_http/Sources/cupertino_http/native_cupertino_bindings.m'
 headers:
   entry-points:
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSArray.h'
@@ -16,6 +16,7 @@ headers:
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLCache.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLRequest.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLSession.h'
+    - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLHandle.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURL.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSProgress.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLResponse.h'
@@ -23,10 +24,10 @@ headers:
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSOperation.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSError.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSDictionary.h'
-    - 'src/CUPHTTPClientDelegate.h'
-    - 'src/CUPHTTPForwardedDelegate.h'
-    - 'src/CUPHTTPCompletionHelper.h'
-    - 'src/CUPHTTPStreamToNSInputStreamAdapter.h'
+#    - 'src/CUPHTTPClientDelegate.h'
+#    - 'src/CUPHTTPForwardedDelegate.h'
+#    - 'src/CUPHTTPCompletionHelper.h'
+    - 'darwin/cupertino_http/Sources/cupertino_http/CUPHTTPStreamToNSInputStreamAdapter.h'
 preamble: |
   // ignore_for_file: always_specify_types
   // ignore_for_file: camel_case_types
