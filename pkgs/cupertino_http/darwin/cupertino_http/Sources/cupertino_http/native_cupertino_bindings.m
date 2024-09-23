@@ -13,7 +13,6 @@
 #import <Foundation/NSOperation.h>
 #import <Foundation/NSError.h>
 #import <Foundation/NSDictionary.h>
-#import "CUPHTTPStreamToNSInputStreamAdapter.h"
 
 #if !__has_feature(objc_arc)
 #error "This file must be compiled with ARC enabled"
@@ -390,12 +389,5 @@ typedef void  (^ListenerBlock52)(NSData* , NSError* );
 ListenerBlock52 wrapListenerBlock_ObjCBlock_ffiVoid_NSData_NSError(ListenerBlock52 block) NS_RETURNS_RETAINED {
   return ^void(NSData* arg0, NSError* arg1) {
     block(objc_retain(arg0), objc_retain(arg1));
-  };
-}
-
-typedef void  (^ListenerBlock53)(void * , NSStream* , NSStreamEvent );
-ListenerBlock53 wrapListenerBlock_ObjCBlock_ffiVoid_ffiVoid_NSStream_NSStreamEvent(ListenerBlock53 block) NS_RETURNS_RETAINED {
-  return ^void(void * arg0, NSStream* arg1, NSStreamEvent arg2) {
-    block(arg0, objc_retain(arg1), arg2);
   };
 }

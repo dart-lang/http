@@ -64,47 +64,8 @@ abstract class _ObjectHolder<T extends objc.NSObject> {
   int get hashCode => _nsObject.hashCode;
 }
 
-ncb.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) {
-  const maxReadAheadSize = 4096;
-  final queue = StreamQueue(stream);
-  final port = ReceivePort();
-  final inputStream = ncb.CUPHTTPStreamToNSInputStreamAdapter.alloc()
-      .initWithPort_(port.sendPort.nativePort);
-
-  late StreamSubscription<dynamic> s;
-  // Messages from `CUPHTTPStreamToNSInputStreamAdapter` indicate that the task
-  // is attempting to read more data but there is none available.
-  s = port.listen((_) async {
-    if (inputStream.streamStatus == ncb.NSStreamStatus.NSStreamStatusClosed) {
-      return;
-    }
-
-    // Prevent multiple executions of this code to be in flight at once.
-    s.pause();
-    while (await queue.hasNext &&
-        inputStream.streamStatus != ncb.NSStreamStatus.NSStreamStatusClosed) {
-      late final List<int> next;
-      try {
-        next = await queue.next;
-      } catch (e) {
-        inputStream.setError_(error('DartError', 0, e.toString()));
-        break;
-      }
-      // In practice the read length request will be large (>1MB) so,
-      // instead of adding that much data, try to keep the buffer
-      // at least `maxReadAheadSize`.
-      if (inputStream.addData_(next.toNSData()) > maxReadAheadSize) {
-        break;
-      }
-    }
-    if (!await queue.hasNext) {
-      inputStream.setDone();
-    } else {
-      s.resume();
-    }
-  });
-  return inputStream;
-}
+objc.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) =>
+    stream.toNSInputStream();
 
 /// A cache for [URLRequest]s. Used by [URLSessionConfiguration.cache].
 ///
