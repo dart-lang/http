@@ -2,6 +2,7 @@
 
 * Throw `ClientException` if `CronetClient.send` runs out of Java heap while
   allocating memory for the request body.
+* Upgrade `package:jni` and `package:jnigen` to 0.12.0.
 
 ## 1.3.2
 
