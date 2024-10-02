@@ -25,7 +25,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/objective_c/ios"
 
 SPEC CHECKSUMS:
-  cupertino_http: 222f5dff3a997b4f7e878011aab45bca5af51190
+  cupertino_http: bb40bc788129d67b47aeea3946d724324d8ae510
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
   objective_c: 77e887b5ba1827970907e10e832eec1683f3431d
