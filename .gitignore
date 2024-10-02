@@ -6,3 +6,6 @@
 .packages
 pubspec.lock
 pubspec_overrides.yaml
+
+# From the Mac OS X Finder
+.DS_Store
