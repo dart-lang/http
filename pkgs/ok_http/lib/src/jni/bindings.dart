@@ -30,7 +30,7 @@ import 'dart:isolate' show ReceivePort;
 import 'package:jni/internal_helpers_for_jnigen.dart';
 import 'package:jni/jni.dart' as jni;
 
-/// from: okhttp3.Request$Builder
+/// from: `okhttp3.Request$Builder`
 class Request_Builder extends jni.JObject {
   @override
   late final jni.JObjType<Request_Builder> $type = type;
@@ -59,7 +59,7 @@ class Request_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory Request_Builder() {
     return Request_Builder.fromReference(
@@ -82,7 +82,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(okhttp3.Request request)
+  /// from: `public void <init>(okhttp3.Request request)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Request_Builder.new1(
     Request request,
@@ -108,7 +108,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder url(okhttp3.HttpUrl httpUrl)
+  /// from: `public okhttp3.Request$Builder url(okhttp3.HttpUrl httpUrl)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder url(
     jni.JObject httpUrl,
@@ -134,7 +134,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder url(java.lang.String string)
+  /// from: `public okhttp3.Request$Builder url(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder url1(
     jni.JString string,
@@ -160,7 +160,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder url(java.net.URL uRL)
+  /// from: `public okhttp3.Request$Builder url(java.net.URL uRL)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder url2(
     jni.JObject uRL,
@@ -189,7 +189,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder header(java.lang.String string, java.lang.String string1)
+  /// from: `public okhttp3.Request$Builder header(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder header(
     jni.JString string,
@@ -219,7 +219,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder addHeader(java.lang.String string, java.lang.String string1)
+  /// from: `public okhttp3.Request$Builder addHeader(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder addHeader(
     jni.JString string,
@@ -246,7 +246,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder removeHeader(java.lang.String string)
+  /// from: `public okhttp3.Request$Builder removeHeader(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder removeHeader(
     jni.JString string,
@@ -272,7 +272,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder headers(okhttp3.Headers headers)
+  /// from: `public okhttp3.Request$Builder headers(okhttp3.Headers headers)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder headers(
     Headers headers,
@@ -298,7 +298,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder cacheControl(okhttp3.CacheControl cacheControl)
+  /// from: `public okhttp3.Request$Builder cacheControl(okhttp3.CacheControl cacheControl)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder cacheControl(
     jni.JObject cacheControl,
@@ -327,7 +327,7 @@ class Request_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.Request$Builder get()
+  /// from: `public okhttp3.Request$Builder get()`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder get0() {
     return _get0(reference.pointer, _id_get0 as jni.JMethodIDPtr)
@@ -351,7 +351,7 @@ class Request_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.Request$Builder head()
+  /// from: `public okhttp3.Request$Builder head()`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder head() {
     return _head(reference.pointer, _id_head as jni.JMethodIDPtr)
@@ -374,7 +374,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder post(okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder post(okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder post(
     RequestBody requestBody,
@@ -400,7 +400,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder delete(okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder delete(okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder delete(
     RequestBody requestBody,
@@ -426,7 +426,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder put(okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder put(okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder put(
     RequestBody requestBody,
@@ -452,7 +452,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder patch(okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder patch(okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder patch(
     RequestBody requestBody,
@@ -481,7 +481,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder method(java.lang.String string, okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder method(java.lang.String string, okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder method(
     jni.JString string,
@@ -508,7 +508,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder tag(java.lang.Object object)
+  /// from: `public okhttp3.Request$Builder tag(java.lang.Object object)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder tag(
     jni.JObject object,
@@ -537,7 +537,7 @@ class Request_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Request$Builder tag(java.lang.Class class, T object)
+  /// from: `public okhttp3.Request$Builder tag(java.lang.Class class, T object)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder tag1<$T extends jni.JObject>(
     jni.JObject class0,
@@ -569,7 +569,7 @@ class Request_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.Request build()
+  /// from: `public okhttp3.Request build()`
   /// The returned object must be released after use, by calling the [release] method.
   Request build() {
     return _build(reference.pointer, _id_build as jni.JMethodIDPtr)
@@ -593,7 +593,7 @@ class Request_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Request$Builder delete()
+  /// from: `public final okhttp3.Request$Builder delete()`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder delete1() {
     return _delete1(reference.pointer, _id_delete1 as jni.JMethodIDPtr)
@@ -627,7 +627,7 @@ final class $Request_BuilderType extends jni.JObjType<Request_Builder> {
   }
 }
 
-/// from: okhttp3.Request
+/// from: `okhttp3.Request`
 class Request extends jni.JObject {
   @override
   late final jni.JObjType<Request> $type = type;
@@ -667,7 +667,7 @@ class Request extends jni.JObject {
               ffi.Pointer<ffi.Void>,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(okhttp3.HttpUrl httpUrl, java.lang.String string, okhttp3.Headers headers, okhttp3.RequestBody requestBody, java.util.Map map)
+  /// from: `public void <init>(okhttp3.HttpUrl httpUrl, java.lang.String string, okhttp3.Headers headers, okhttp3.RequestBody requestBody, java.util.Map map)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Request(
     jni.JObject httpUrl,
@@ -704,7 +704,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.HttpUrl url()
+  /// from: `public final okhttp3.HttpUrl url()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject url() {
     return _url(reference.pointer, _id_url as jni.JMethodIDPtr)
@@ -728,7 +728,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.String method()
+  /// from: `public final java.lang.String method()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString method() {
     return _method(reference.pointer, _id_method as jni.JMethodIDPtr)
@@ -752,7 +752,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers headers()
+  /// from: `public final okhttp3.Headers headers()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers headers() {
     return _headers(reference.pointer, _id_headers as jni.JMethodIDPtr)
@@ -776,7 +776,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.RequestBody body()
+  /// from: `public final okhttp3.RequestBody body()`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody body() {
     return _body(reference.pointer, _id_body as jni.JMethodIDPtr)
@@ -800,7 +800,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean isHttps()
+  /// from: `public final boolean isHttps()`
   bool isHttps() {
     return _isHttps(reference.pointer, _id_isHttps as jni.JMethodIDPtr).boolean;
   }
@@ -821,7 +821,7 @@ class Request extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.lang.String header(java.lang.String string)
+  /// from: `public final java.lang.String header(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString header(
     jni.JString string,
@@ -847,7 +847,7 @@ class Request extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.util.List headers(java.lang.String string)
+  /// from: `public final java.util.List headers(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JString> headers1(
     jni.JString string,
@@ -874,7 +874,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.Object tag()
+  /// from: `public final java.lang.Object tag()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject tag() {
     return _tag(reference.pointer, _id_tag as jni.JMethodIDPtr)
@@ -897,7 +897,7 @@ class Request extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final T tag(java.lang.Class class)
+  /// from: `public final T tag(java.lang.Class class)`
   /// The returned object must be released after use, by calling the [release] method.
   $T tag1<$T extends jni.JObject>(
     jni.JObject class0, {
@@ -925,7 +925,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Request$Builder newBuilder()
+  /// from: `public final okhttp3.Request$Builder newBuilder()`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder newBuilder() {
     return _newBuilder(reference.pointer, _id_newBuilder as jni.JMethodIDPtr)
@@ -949,7 +949,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.CacheControl cacheControl()
+  /// from: `public final okhttp3.CacheControl cacheControl()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject cacheControl() {
     return _cacheControl(
@@ -974,7 +974,7 @@ class Request extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String toString()
+  /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString toString1() {
     return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
@@ -1007,7 +1007,7 @@ final class $RequestType extends jni.JObjType<Request> {
   }
 }
 
-/// from: okhttp3.RequestBody$Companion
+/// from: `okhttp3.RequestBody$Companion`
 class RequestBody_Companion extends jni.JObject {
   @override
   late final jni.JObjType<RequestBody_Companion> $type = type;
@@ -1039,7 +1039,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(java.lang.String string, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.RequestBody create(java.lang.String string, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create(
     jni.JString string,
@@ -1069,7 +1069,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create1(
     ByteString byteString,
@@ -1101,7 +1101,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i, int i1)
+  /// from: `public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create2(
     jni.JArray<jni.jbyte> bs,
@@ -1133,7 +1133,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(java.io.File file, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.RequestBody create(java.io.File file, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create3(
     jni.JObject file,
@@ -1163,7 +1163,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.lang.String string)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create4(
     jni.JObject mediaType,
@@ -1193,7 +1193,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create5(
     jni.JObject mediaType,
@@ -1225,7 +1225,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i, int i1)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create6(
     jni.JObject mediaType,
@@ -1257,7 +1257,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.io.File file)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.io.File file)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create7(
     jni.JObject mediaType,
@@ -1288,7 +1288,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i)
+  /// from: `public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create8(
     jni.JArray<jni.jbyte> bs,
@@ -1319,7 +1319,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create9(
     jni.JArray<jni.jbyte> bs,
@@ -1346,7 +1346,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(byte[] bs)
+  /// from: `public final okhttp3.RequestBody create(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create10(
     jni.JArray<jni.jbyte> bs,
@@ -1376,7 +1376,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create11(
     jni.JObject mediaType,
@@ -1407,7 +1407,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create12(
     jni.JObject mediaType,
@@ -1433,7 +1433,7 @@ class RequestBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory RequestBody_Companion(
     jni.JObject defaultConstructorMarker,
@@ -1473,7 +1473,7 @@ final class $RequestBody_CompanionType
   }
 }
 
-/// from: okhttp3.RequestBody
+/// from: `okhttp3.RequestBody`
 class RequestBody extends jni.JObject {
   @override
   late final jni.JObjType<RequestBody> $type = type;
@@ -1491,7 +1491,7 @@ class RequestBody extends jni.JObject {
     r'Lokhttp3/RequestBody$Companion;',
   );
 
-  /// from: static public final okhttp3.RequestBody$Companion Companion
+  /// from: `static public final okhttp3.RequestBody$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody_Companion get Companion =>
       _id_Companion.get(_class, const $RequestBody_CompanionType());
@@ -1512,7 +1512,7 @@ class RequestBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory RequestBody() {
     return RequestBody.fromReference(
@@ -1537,7 +1537,7 @@ class RequestBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.MediaType contentType()
+  /// from: `public abstract okhttp3.MediaType contentType()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject contentType() {
     return _contentType(reference.pointer, _id_contentType as jni.JMethodIDPtr)
@@ -1561,7 +1561,7 @@ class RequestBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public long contentLength()
+  /// from: `public long contentLength()`
   int contentLength() {
     return _contentLength(
             reference.pointer, _id_contentLength as jni.JMethodIDPtr)
@@ -1584,7 +1584,7 @@ class RequestBody extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void writeTo(okio.BufferedSink bufferedSink)
+  /// from: `public abstract void writeTo(okio.BufferedSink bufferedSink)`
   void writeTo(
     jni.JObject bufferedSink,
   ) {
@@ -1610,7 +1610,7 @@ class RequestBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public boolean isDuplex()
+  /// from: `public boolean isDuplex()`
   bool isDuplex() {
     return _isDuplex(reference.pointer, _id_isDuplex as jni.JMethodIDPtr)
         .boolean;
@@ -1633,7 +1633,7 @@ class RequestBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public boolean isOneShot()
+  /// from: `public boolean isOneShot()`
   bool isOneShot() {
     return _isOneShot(reference.pointer, _id_isOneShot as jni.JMethodIDPtr)
         .boolean;
@@ -1658,7 +1658,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(java.lang.String string, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.RequestBody create(java.lang.String string, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create(
     jni.JString string,
@@ -1688,7 +1688,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create1(
     ByteString byteString,
@@ -1720,7 +1720,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i, int i1)
+  /// from: `static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create2(
     jni.JArray<jni.jbyte> bs,
@@ -1752,7 +1752,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(java.io.File file, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.RequestBody create(java.io.File file, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create3(
     jni.JObject file,
@@ -1782,7 +1782,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.lang.String string)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create4(
     jni.JObject mediaType,
@@ -1812,7 +1812,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create5(
     jni.JObject mediaType,
@@ -1844,7 +1844,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i, int i1)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create6(
     jni.JObject mediaType,
@@ -1876,7 +1876,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.io.File file)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.io.File file)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create7(
     jni.JObject mediaType,
@@ -1907,7 +1907,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i)
+  /// from: `static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create8(
     jni.JArray<jni.jbyte> bs,
@@ -1938,7 +1938,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create9(
     jni.JArray<jni.jbyte> bs,
@@ -1965,7 +1965,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(byte[] bs)
+  /// from: `static public final okhttp3.RequestBody create(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create10(
     jni.JArray<jni.jbyte> bs,
@@ -1995,7 +1995,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create11(
     jni.JObject mediaType,
@@ -2026,7 +2026,7 @@ class RequestBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create12(
     jni.JObject mediaType,
@@ -2063,7 +2063,7 @@ final class $RequestBodyType extends jni.JObjType<RequestBody> {
   }
 }
 
-/// from: okhttp3.Response$Builder
+/// from: `okhttp3.Response$Builder`
 class Response_Builder extends jni.JObject {
   @override
   late final jni.JObjType<Response_Builder> $type = type;
@@ -2092,7 +2092,7 @@ class Response_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory Response_Builder() {
     return Response_Builder.fromReference(
@@ -2115,7 +2115,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(okhttp3.Response response)
+  /// from: `public void <init>(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Response_Builder.new1(
     Response response,
@@ -2141,7 +2141,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder request(okhttp3.Request request)
+  /// from: `public okhttp3.Response$Builder request(okhttp3.Request request)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder request(
     Request request,
@@ -2167,7 +2167,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder protocol(okhttp3.Protocol protocol)
+  /// from: `public okhttp3.Response$Builder protocol(okhttp3.Protocol protocol)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder protocol(
     jni.JObject protocol,
@@ -2190,7 +2190,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public okhttp3.Response$Builder code(int i)
+  /// from: `public okhttp3.Response$Builder code(int i)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder code(
     int i,
@@ -2215,7 +2215,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder message(java.lang.String string)
+  /// from: `public okhttp3.Response$Builder message(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder message(
     jni.JString string,
@@ -2241,7 +2241,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder handshake(okhttp3.Handshake handshake)
+  /// from: `public okhttp3.Response$Builder handshake(okhttp3.Handshake handshake)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder handshake(
     jni.JObject handshake,
@@ -2270,7 +2270,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder header(java.lang.String string, java.lang.String string1)
+  /// from: `public okhttp3.Response$Builder header(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder header(
     jni.JString string,
@@ -2300,7 +2300,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder addHeader(java.lang.String string, java.lang.String string1)
+  /// from: `public okhttp3.Response$Builder addHeader(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder addHeader(
     jni.JString string,
@@ -2327,7 +2327,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder removeHeader(java.lang.String string)
+  /// from: `public okhttp3.Response$Builder removeHeader(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder removeHeader(
     jni.JString string,
@@ -2353,7 +2353,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder headers(okhttp3.Headers headers)
+  /// from: `public okhttp3.Response$Builder headers(okhttp3.Headers headers)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder headers(
     Headers headers,
@@ -2379,7 +2379,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder body(okhttp3.ResponseBody responseBody)
+  /// from: `public okhttp3.Response$Builder body(okhttp3.ResponseBody responseBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder body(
     ResponseBody responseBody,
@@ -2405,7 +2405,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder networkResponse(okhttp3.Response response)
+  /// from: `public okhttp3.Response$Builder networkResponse(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder networkResponse(
     Response response,
@@ -2431,7 +2431,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder cacheResponse(okhttp3.Response response)
+  /// from: `public okhttp3.Response$Builder cacheResponse(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder cacheResponse(
     Response response,
@@ -2457,7 +2457,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Response$Builder priorResponse(okhttp3.Response response)
+  /// from: `public okhttp3.Response$Builder priorResponse(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder priorResponse(
     Response response,
@@ -2480,7 +2480,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public okhttp3.Response$Builder sentRequestAtMillis(long j)
+  /// from: `public okhttp3.Response$Builder sentRequestAtMillis(long j)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder sentRequestAtMillis(
     int j,
@@ -2503,7 +2503,7 @@ class Response_Builder extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public okhttp3.Response$Builder receivedResponseAtMillis(long j)
+  /// from: `public okhttp3.Response$Builder receivedResponseAtMillis(long j)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder receivedResponseAtMillis(
     int j,
@@ -2530,7 +2530,7 @@ class Response_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.Response build()
+  /// from: `public okhttp3.Response build()`
   /// The returned object must be released after use, by calling the [release] method.
   Response build() {
     return _build(reference.pointer, _id_build as jni.JMethodIDPtr)
@@ -2564,7 +2564,7 @@ final class $Response_BuilderType extends jni.JObjType<Response_Builder> {
   }
 }
 
-/// from: okhttp3.Response
+/// from: `okhttp3.Response`
 class Response extends jni.JObject {
   @override
   late final jni.JObjType<Response> $type = type;
@@ -2620,7 +2620,7 @@ class Response extends jni.JObject {
               int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(okhttp3.Request request, okhttp3.Protocol protocol, java.lang.String string, int i, okhttp3.Handshake handshake, okhttp3.Headers headers, okhttp3.ResponseBody responseBody, okhttp3.Response response, okhttp3.Response response1, okhttp3.Response response2, long j, long j1, okhttp3.internal.connection.Exchange exchange)
+  /// from: `public void <init>(okhttp3.Request request, okhttp3.Protocol protocol, java.lang.String string, int i, okhttp3.Handshake handshake, okhttp3.Headers headers, okhttp3.ResponseBody responseBody, okhttp3.Response response, okhttp3.Response response1, okhttp3.Response response2, long j, long j1, okhttp3.internal.connection.Exchange exchange)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Response(
     Request request,
@@ -2673,7 +2673,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Request request()
+  /// from: `public final okhttp3.Request request()`
   /// The returned object must be released after use, by calling the [release] method.
   Request request() {
     return _request(reference.pointer, _id_request as jni.JMethodIDPtr)
@@ -2697,7 +2697,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Protocol protocol()
+  /// from: `public final okhttp3.Protocol protocol()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject protocol() {
     return _protocol(reference.pointer, _id_protocol as jni.JMethodIDPtr)
@@ -2721,7 +2721,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.String message()
+  /// from: `public final java.lang.String message()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString message() {
     return _message(reference.pointer, _id_message as jni.JMethodIDPtr)
@@ -2745,7 +2745,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int code()
+  /// from: `public final int code()`
   int code() {
     return _code(reference.pointer, _id_code as jni.JMethodIDPtr).integer;
   }
@@ -2767,7 +2767,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Handshake handshake()
+  /// from: `public final okhttp3.Handshake handshake()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject handshake() {
     return _handshake(reference.pointer, _id_handshake as jni.JMethodIDPtr)
@@ -2791,7 +2791,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers headers()
+  /// from: `public final okhttp3.Headers headers()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers headers() {
     return _headers(reference.pointer, _id_headers as jni.JMethodIDPtr)
@@ -2815,7 +2815,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.ResponseBody body()
+  /// from: `public final okhttp3.ResponseBody body()`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody body() {
     return _body(reference.pointer, _id_body as jni.JMethodIDPtr)
@@ -2839,7 +2839,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Response networkResponse()
+  /// from: `public final okhttp3.Response networkResponse()`
   /// The returned object must be released after use, by calling the [release] method.
   Response networkResponse() {
     return _networkResponse(
@@ -2864,7 +2864,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Response cacheResponse()
+  /// from: `public final okhttp3.Response cacheResponse()`
   /// The returned object must be released after use, by calling the [release] method.
   Response cacheResponse() {
     return _cacheResponse(
@@ -2889,7 +2889,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Response priorResponse()
+  /// from: `public final okhttp3.Response priorResponse()`
   /// The returned object must be released after use, by calling the [release] method.
   Response priorResponse() {
     return _priorResponse(
@@ -2914,7 +2914,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long sentRequestAtMillis()
+  /// from: `public final long sentRequestAtMillis()`
   int sentRequestAtMillis() {
     return _sentRequestAtMillis(
             reference.pointer, _id_sentRequestAtMillis as jni.JMethodIDPtr)
@@ -2938,7 +2938,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long receivedResponseAtMillis()
+  /// from: `public final long receivedResponseAtMillis()`
   int receivedResponseAtMillis() {
     return _receivedResponseAtMillis(
             reference.pointer, _id_receivedResponseAtMillis as jni.JMethodIDPtr)
@@ -2962,7 +2962,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.internal.connection.Exchange exchange()
+  /// from: `public final okhttp3.internal.connection.Exchange exchange()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject exchange() {
     return _exchange(reference.pointer, _id_exchange as jni.JMethodIDPtr)
@@ -2986,7 +2986,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean isSuccessful()
+  /// from: `public final boolean isSuccessful()`
   bool isSuccessful() {
     return _isSuccessful(
             reference.pointer, _id_isSuccessful as jni.JMethodIDPtr)
@@ -3009,7 +3009,7 @@ class Response extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.util.List headers(java.lang.String string)
+  /// from: `public final java.util.List headers(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JString> headers1(
     jni.JString string,
@@ -3038,7 +3038,7 @@ class Response extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.lang.String header(java.lang.String string, java.lang.String string1)
+  /// from: `public final java.lang.String header(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString header(
     jni.JString string,
@@ -3066,7 +3066,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers trailers()
+  /// from: `public final okhttp3.Headers trailers()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers trailers() {
     return _trailers(reference.pointer, _id_trailers as jni.JMethodIDPtr)
@@ -3086,7 +3086,7 @@ class Response extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.ResponseBody peekBody(long j)
+  /// from: `public final okhttp3.ResponseBody peekBody(long j)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody peekBody(
     int j,
@@ -3112,7 +3112,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Response$Builder newBuilder()
+  /// from: `public final okhttp3.Response$Builder newBuilder()`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder newBuilder() {
     return _newBuilder(reference.pointer, _id_newBuilder as jni.JMethodIDPtr)
@@ -3136,7 +3136,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean isRedirect()
+  /// from: `public final boolean isRedirect()`
   bool isRedirect() {
     return _isRedirect(reference.pointer, _id_isRedirect as jni.JMethodIDPtr)
         .boolean;
@@ -3159,7 +3159,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List challenges()
+  /// from: `public final java.util.List challenges()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> challenges() {
     return _challenges(reference.pointer, _id_challenges as jni.JMethodIDPtr)
@@ -3183,7 +3183,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.CacheControl cacheControl()
+  /// from: `public final okhttp3.CacheControl cacheControl()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject cacheControl() {
     return _cacheControl(
@@ -3208,7 +3208,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void close()
+  /// from: `public void close()`
   void close() {
     _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
   }
@@ -3230,7 +3230,7 @@ class Response extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String toString()
+  /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString toString1() {
     return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
@@ -3253,7 +3253,7 @@ class Response extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.lang.String header(java.lang.String string)
+  /// from: `public final java.lang.String header(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString header1(
     jni.JString string,
@@ -3289,7 +3289,7 @@ final class $ResponseType extends jni.JObjType<Response> {
   }
 }
 
-/// from: okhttp3.ResponseBody$BomAwareReader
+/// from: `okhttp3.ResponseBody$BomAwareReader`
 class ResponseBody_BomAwareReader extends jni.JObject {
   @override
   late final jni.JObjType<ResponseBody_BomAwareReader> $type = type;
@@ -3321,7 +3321,7 @@ class ResponseBody_BomAwareReader extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(okio.BufferedSource bufferedSource, java.nio.charset.Charset charset)
+  /// from: `public void <init>(okio.BufferedSource bufferedSource, java.nio.charset.Charset charset)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ResponseBody_BomAwareReader(
     jni.JObject bufferedSource,
@@ -3351,7 +3351,7 @@ class ResponseBody_BomAwareReader extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: public int read(char[] cs, int i, int i1)
+  /// from: `public int read(char[] cs, int i, int i1)`
   int read(
     jni.JArray<jni.jchar> cs,
     int i,
@@ -3379,7 +3379,7 @@ class ResponseBody_BomAwareReader extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void close()
+  /// from: `public void close()`
   void close() {
     _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
   }
@@ -3412,7 +3412,7 @@ final class $ResponseBody_BomAwareReaderType
   }
 }
 
-/// from: okhttp3.ResponseBody$Companion
+/// from: `okhttp3.ResponseBody$Companion`
 class ResponseBody_Companion extends jni.JObject {
   @override
   late final jni.JObjType<ResponseBody_Companion> $type = type;
@@ -3444,7 +3444,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(java.lang.String string, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.ResponseBody create(java.lang.String string, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create(
     jni.JString string,
@@ -3474,7 +3474,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(byte[] bs, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.ResponseBody create(byte[] bs, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create1(
     jni.JArray<jni.jbyte> bs,
@@ -3504,7 +3504,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create2(
     ByteString byteString,
@@ -3535,7 +3535,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public final okhttp3.ResponseBody create(okio.BufferedSource bufferedSource, okhttp3.MediaType mediaType, long j)
+  /// from: `public final okhttp3.ResponseBody create(okio.BufferedSource bufferedSource, okhttp3.MediaType mediaType, long j)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create3(
     jni.JObject bufferedSource,
@@ -3566,7 +3566,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, java.lang.String string)
+  /// from: `public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create4(
     jni.JObject mediaType,
@@ -3596,7 +3596,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, byte[] bs)
+  /// from: `public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create5(
     jni.JObject mediaType,
@@ -3626,7 +3626,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)
+  /// from: `public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create6(
     jni.JObject mediaType,
@@ -3657,7 +3657,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, long j, okio.BufferedSource bufferedSource)
+  /// from: `public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, long j, okio.BufferedSource bufferedSource)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create7(
     jni.JObject mediaType,
@@ -3684,7 +3684,7 @@ class ResponseBody_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ResponseBody_Companion(
     jni.JObject defaultConstructorMarker,
@@ -3724,7 +3724,7 @@ final class $ResponseBody_CompanionType
   }
 }
 
-/// from: okhttp3.ResponseBody
+/// from: `okhttp3.ResponseBody`
 class ResponseBody extends jni.JObject {
   @override
   late final jni.JObjType<ResponseBody> $type = type;
@@ -3742,7 +3742,7 @@ class ResponseBody extends jni.JObject {
     r'Lokhttp3/ResponseBody$Companion;',
   );
 
-  /// from: static public final okhttp3.ResponseBody$Companion Companion
+  /// from: `static public final okhttp3.ResponseBody$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody_Companion get Companion =>
       _id_Companion.get(_class, const $ResponseBody_CompanionType());
@@ -3763,7 +3763,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory ResponseBody() {
     return ResponseBody.fromReference(
@@ -3788,7 +3788,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.MediaType contentType()
+  /// from: `public abstract okhttp3.MediaType contentType()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject contentType() {
     return _contentType(reference.pointer, _id_contentType as jni.JMethodIDPtr)
@@ -3812,7 +3812,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract long contentLength()
+  /// from: `public abstract long contentLength()`
   int contentLength() {
     return _contentLength(
             reference.pointer, _id_contentLength as jni.JMethodIDPtr)
@@ -3836,7 +3836,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.io.InputStream byteStream()
+  /// from: `public final java.io.InputStream byteStream()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject byteStream() {
     return _byteStream(reference.pointer, _id_byteStream as jni.JMethodIDPtr)
@@ -3860,7 +3860,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okio.BufferedSource source()
+  /// from: `public abstract okio.BufferedSource source()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject source() {
     return _source(reference.pointer, _id_source as jni.JMethodIDPtr)
@@ -3884,7 +3884,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final byte[] bytes()
+  /// from: `public final byte[] bytes()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JArray<jni.jbyte> bytes() {
     return _bytes(reference.pointer, _id_bytes as jni.JMethodIDPtr)
@@ -3908,7 +3908,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString byteString()
+  /// from: `public final okio.ByteString byteString()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString byteString() {
     return _byteString(reference.pointer, _id_byteString as jni.JMethodIDPtr)
@@ -3932,7 +3932,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.io.Reader charStream()
+  /// from: `public final java.io.Reader charStream()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject charStream() {
     return _charStream(reference.pointer, _id_charStream as jni.JMethodIDPtr)
@@ -3956,7 +3956,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.String string()
+  /// from: `public final java.lang.String string()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString string() {
     return _string(reference.pointer, _id_string as jni.JMethodIDPtr)
@@ -3980,7 +3980,7 @@ class ResponseBody extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void close()
+  /// from: `public void close()`
   void close() {
     _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
   }
@@ -4004,7 +4004,7 @@ class ResponseBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(java.lang.String string, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.ResponseBody create(java.lang.String string, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create(
     jni.JString string,
@@ -4034,7 +4034,7 @@ class ResponseBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(byte[] bs, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.ResponseBody create(byte[] bs, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create1(
     jni.JArray<jni.jbyte> bs,
@@ -4064,7 +4064,7 @@ class ResponseBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create2(
     ByteString byteString,
@@ -4095,7 +4095,7 @@ class ResponseBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okio.BufferedSource bufferedSource, okhttp3.MediaType mediaType, long j)
+  /// from: `static public final okhttp3.ResponseBody create(okio.BufferedSource bufferedSource, okhttp3.MediaType mediaType, long j)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create3(
     jni.JObject bufferedSource,
@@ -4126,7 +4126,7 @@ class ResponseBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, java.lang.String string)
+  /// from: `static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create4(
     jni.JObject mediaType,
@@ -4156,7 +4156,7 @@ class ResponseBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, byte[] bs)
+  /// from: `static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create5(
     jni.JObject mediaType,
@@ -4186,7 +4186,7 @@ class ResponseBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)
+  /// from: `static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create6(
     jni.JObject mediaType,
@@ -4217,7 +4217,7 @@ class ResponseBody extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, long j, okio.BufferedSource bufferedSource)
+  /// from: `static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, long j, okio.BufferedSource bufferedSource)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create7(
     jni.JObject mediaType,
@@ -4256,7 +4256,7 @@ final class $ResponseBodyType extends jni.JObjType<ResponseBody> {
   }
 }
 
-/// from: okhttp3.OkHttpClient$Builder
+/// from: `okhttp3.OkHttpClient$Builder`
 class OkHttpClient_Builder extends jni.JObject {
   @override
   late final jni.JObjType<OkHttpClient_Builder> $type = type;
@@ -4285,7 +4285,7 @@ class OkHttpClient_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory OkHttpClient_Builder() {
     return OkHttpClient_Builder.fromReference(
@@ -4308,7 +4308,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(okhttp3.OkHttpClient okHttpClient)
+  /// from: `public void <init>(okhttp3.OkHttpClient okHttpClient)`
   /// The returned object must be released after use, by calling the [release] method.
   factory OkHttpClient_Builder.new1(
     OkHttpClient okHttpClient,
@@ -4334,7 +4334,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder dispatcher(okhttp3.Dispatcher dispatcher)
+  /// from: `public final okhttp3.OkHttpClient$Builder dispatcher(okhttp3.Dispatcher dispatcher)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder dispatcher(
     Dispatcher dispatcher,
@@ -4360,7 +4360,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder connectionPool(okhttp3.ConnectionPool connectionPool)
+  /// from: `public final okhttp3.OkHttpClient$Builder connectionPool(okhttp3.ConnectionPool connectionPool)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectionPool(
     ConnectionPool connectionPool,
@@ -4389,7 +4389,7 @@ class OkHttpClient_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List interceptors()
+  /// from: `public final java.util.List interceptors()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> interceptors() {
     return _interceptors(
@@ -4413,7 +4413,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addInterceptor(okhttp3.Interceptor interceptor)
+  /// from: `public final okhttp3.OkHttpClient$Builder addInterceptor(okhttp3.Interceptor interceptor)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addInterceptor(
     jni.JObject interceptor,
@@ -4442,7 +4442,7 @@ class OkHttpClient_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List networkInterceptors()
+  /// from: `public final java.util.List networkInterceptors()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> networkInterceptors() {
     return _networkInterceptors(
@@ -4466,7 +4466,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addNetworkInterceptor(okhttp3.Interceptor interceptor)
+  /// from: `public final okhttp3.OkHttpClient$Builder addNetworkInterceptor(okhttp3.Interceptor interceptor)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addNetworkInterceptor(
     jni.JObject interceptor,
@@ -4494,7 +4494,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder eventListener(okhttp3.EventListener eventListener)
+  /// from: `public final okhttp3.OkHttpClient$Builder eventListener(okhttp3.EventListener eventListener)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder eventListener(
     jni.JObject eventListener,
@@ -4522,7 +4522,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder eventListenerFactory(okhttp3.EventListener$Factory factory)
+  /// from: `public final okhttp3.OkHttpClient$Builder eventListenerFactory(okhttp3.EventListener$Factory factory)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder eventListenerFactory(
     jni.JObject factory0,
@@ -4547,7 +4547,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder retryOnConnectionFailure(boolean z)
+  /// from: `public final okhttp3.OkHttpClient$Builder retryOnConnectionFailure(boolean z)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder retryOnConnectionFailure(
     bool z,
@@ -4573,7 +4573,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder authenticator(okhttp3.Authenticator authenticator)
+  /// from: `public final okhttp3.OkHttpClient$Builder authenticator(okhttp3.Authenticator authenticator)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder authenticator(
     jni.JObject authenticator,
@@ -4598,7 +4598,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder followRedirects(boolean z)
+  /// from: `public final okhttp3.OkHttpClient$Builder followRedirects(boolean z)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder followRedirects(
     bool z,
@@ -4621,7 +4621,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder followSslRedirects(boolean z)
+  /// from: `public final okhttp3.OkHttpClient$Builder followSslRedirects(boolean z)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder followSslRedirects(
     bool z,
@@ -4647,7 +4647,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder cookieJar(okhttp3.CookieJar cookieJar)
+  /// from: `public final okhttp3.OkHttpClient$Builder cookieJar(okhttp3.CookieJar cookieJar)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder cookieJar(
     jni.JObject cookieJar,
@@ -4673,7 +4673,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder cache(okhttp3.Cache cache)
+  /// from: `public final okhttp3.OkHttpClient$Builder cache(okhttp3.Cache cache)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder cache(
     Cache cache,
@@ -4699,7 +4699,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder dns(okhttp3.Dns dns)
+  /// from: `public final okhttp3.OkHttpClient$Builder dns(okhttp3.Dns dns)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder dns(
     jni.JObject dns,
@@ -4725,7 +4725,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder proxy(java.net.Proxy proxy)
+  /// from: `public final okhttp3.OkHttpClient$Builder proxy(java.net.Proxy proxy)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder proxy(
     jni.JObject proxy,
@@ -4751,7 +4751,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder proxySelector(java.net.ProxySelector proxySelector)
+  /// from: `public final okhttp3.OkHttpClient$Builder proxySelector(java.net.ProxySelector proxySelector)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder proxySelector(
     jni.JObject proxySelector,
@@ -4779,7 +4779,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder proxyAuthenticator(okhttp3.Authenticator authenticator)
+  /// from: `public final okhttp3.OkHttpClient$Builder proxyAuthenticator(okhttp3.Authenticator authenticator)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder proxyAuthenticator(
     jni.JObject authenticator,
@@ -4807,7 +4807,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder socketFactory(javax.net.SocketFactory socketFactory)
+  /// from: `public final okhttp3.OkHttpClient$Builder socketFactory(javax.net.SocketFactory socketFactory)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder socketFactory(
     jni.JObject socketFactory,
@@ -4835,7 +4835,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory)
+  /// from: `public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder sslSocketFactory(
     jni.JObject sSLSocketFactory,
@@ -4866,7 +4866,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory, javax.net.ssl.X509TrustManager x509TrustManager)
+  /// from: `public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory, javax.net.ssl.X509TrustManager x509TrustManager)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder sslSocketFactory1(
     jni.JObject sSLSocketFactory,
@@ -4896,7 +4896,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder connectionSpecs(java.util.List list)
+  /// from: `public final okhttp3.OkHttpClient$Builder connectionSpecs(java.util.List list)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectionSpecs(
     jni.JList<jni.JObject> list,
@@ -4922,7 +4922,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder protocols(java.util.List list)
+  /// from: `public final okhttp3.OkHttpClient$Builder protocols(java.util.List list)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder protocols(
     jni.JList<jni.JObject> list,
@@ -4948,7 +4948,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder hostnameVerifier(javax.net.ssl.HostnameVerifier hostnameVerifier)
+  /// from: `public final okhttp3.OkHttpClient$Builder hostnameVerifier(javax.net.ssl.HostnameVerifier hostnameVerifier)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder hostnameVerifier(
     jni.JObject hostnameVerifier,
@@ -4976,7 +4976,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder certificatePinner(okhttp3.CertificatePinner certificatePinner)
+  /// from: `public final okhttp3.OkHttpClient$Builder certificatePinner(okhttp3.CertificatePinner certificatePinner)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder certificatePinner(
     jni.JObject certificatePinner,
@@ -5004,7 +5004,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder callTimeout(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder callTimeout(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder callTimeout(
     int j,
@@ -5031,7 +5031,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder callTimeout(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder callTimeout(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder callTimeout1(
     jni.JObject duration,
@@ -5057,7 +5057,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder connectTimeout(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder connectTimeout(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectTimeout(
     int j,
@@ -5087,7 +5087,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder connectTimeout(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder connectTimeout(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectTimeout1(
     jni.JObject duration,
@@ -5113,7 +5113,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder readTimeout(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder readTimeout(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder readTimeout(
     int j,
@@ -5140,7 +5140,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder readTimeout(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder readTimeout(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder readTimeout1(
     jni.JObject duration,
@@ -5166,7 +5166,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder writeTimeout(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder writeTimeout(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder writeTimeout(
     int j,
@@ -5193,7 +5193,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder writeTimeout(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder writeTimeout(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder writeTimeout1(
     jni.JObject duration,
@@ -5219,7 +5219,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder pingInterval(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder pingInterval(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder pingInterval(
     int j,
@@ -5246,7 +5246,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder pingInterval(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder pingInterval(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder pingInterval1(
     jni.JObject duration,
@@ -5269,7 +5269,7 @@ class OkHttpClient_Builder extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder minWebSocketMessageToCompress(long j)
+  /// from: `public final okhttp3.OkHttpClient$Builder minWebSocketMessageToCompress(long j)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder minWebSocketMessageToCompress(
     int j,
@@ -5296,7 +5296,7 @@ class OkHttpClient_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.OkHttpClient build()
+  /// from: `public final okhttp3.OkHttpClient build()`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient build() {
     return _build(reference.pointer, _id_build as jni.JMethodIDPtr)
@@ -5331,7 +5331,7 @@ final class $OkHttpClient_BuilderType
   }
 }
 
-/// from: okhttp3.OkHttpClient$Companion
+/// from: `okhttp3.OkHttpClient$Companion`
 class OkHttpClient_Companion extends jni.JObject {
   @override
   late final jni.JObjType<OkHttpClient_Companion> $type = type;
@@ -5359,7 +5359,7 @@ class OkHttpClient_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory OkHttpClient_Companion(
     jni.JObject defaultConstructorMarker,
@@ -5399,7 +5399,7 @@ final class $OkHttpClient_CompanionType
   }
 }
 
-/// from: okhttp3.OkHttpClient
+/// from: `okhttp3.OkHttpClient`
 class OkHttpClient extends jni.JObject {
   @override
   late final jni.JObjType<OkHttpClient> $type = type;
@@ -5417,7 +5417,7 @@ class OkHttpClient extends jni.JObject {
     r'Lokhttp3/OkHttpClient$Companion;',
   );
 
-  /// from: static public final okhttp3.OkHttpClient$Companion Companion
+  /// from: `static public final okhttp3.OkHttpClient$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static OkHttpClient_Companion get Companion =>
       _id_Companion.get(_class, const $OkHttpClient_CompanionType());
@@ -5437,7 +5437,7 @@ class OkHttpClient extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(okhttp3.OkHttpClient$Builder builder)
+  /// from: `public void <init>(okhttp3.OkHttpClient$Builder builder)`
   /// The returned object must be released after use, by calling the [release] method.
   factory OkHttpClient(
     OkHttpClient_Builder builder,
@@ -5464,7 +5464,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Dispatcher dispatcher()
+  /// from: `public final okhttp3.Dispatcher dispatcher()`
   /// The returned object must be released after use, by calling the [release] method.
   Dispatcher dispatcher() {
     return _dispatcher(reference.pointer, _id_dispatcher as jni.JMethodIDPtr)
@@ -5488,7 +5488,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.ConnectionPool connectionPool()
+  /// from: `public final okhttp3.ConnectionPool connectionPool()`
   /// The returned object must be released after use, by calling the [release] method.
   ConnectionPool connectionPool() {
     return _connectionPool(
@@ -5513,7 +5513,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List interceptors()
+  /// from: `public final java.util.List interceptors()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> interceptors() {
     return _interceptors(
@@ -5538,7 +5538,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List networkInterceptors()
+  /// from: `public final java.util.List networkInterceptors()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> networkInterceptors() {
     return _networkInterceptors(
@@ -5563,7 +5563,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.EventListener$Factory eventListenerFactory()
+  /// from: `public final okhttp3.EventListener$Factory eventListenerFactory()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject eventListenerFactory() {
     return _eventListenerFactory(
@@ -5588,7 +5588,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean retryOnConnectionFailure()
+  /// from: `public final boolean retryOnConnectionFailure()`
   bool retryOnConnectionFailure() {
     return _retryOnConnectionFailure(
             reference.pointer, _id_retryOnConnectionFailure as jni.JMethodIDPtr)
@@ -5612,7 +5612,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Authenticator authenticator()
+  /// from: `public final okhttp3.Authenticator authenticator()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject authenticator() {
     return _authenticator(
@@ -5637,7 +5637,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean followRedirects()
+  /// from: `public final boolean followRedirects()`
   bool followRedirects() {
     return _followRedirects(
             reference.pointer, _id_followRedirects as jni.JMethodIDPtr)
@@ -5661,7 +5661,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean followSslRedirects()
+  /// from: `public final boolean followSslRedirects()`
   bool followSslRedirects() {
     return _followSslRedirects(
             reference.pointer, _id_followSslRedirects as jni.JMethodIDPtr)
@@ -5685,7 +5685,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.CookieJar cookieJar()
+  /// from: `public final okhttp3.CookieJar cookieJar()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject cookieJar() {
     return _cookieJar(reference.pointer, _id_cookieJar as jni.JMethodIDPtr)
@@ -5709,7 +5709,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Cache cache()
+  /// from: `public final okhttp3.Cache cache()`
   /// The returned object must be released after use, by calling the [release] method.
   Cache cache() {
     return _cache(reference.pointer, _id_cache as jni.JMethodIDPtr)
@@ -5733,7 +5733,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Dns dns()
+  /// from: `public final okhttp3.Dns dns()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject dns() {
     return _dns(reference.pointer, _id_dns as jni.JMethodIDPtr)
@@ -5757,7 +5757,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.net.Proxy proxy()
+  /// from: `public final java.net.Proxy proxy()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject proxy() {
     return _proxy(reference.pointer, _id_proxy as jni.JMethodIDPtr)
@@ -5781,7 +5781,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.net.ProxySelector proxySelector()
+  /// from: `public final java.net.ProxySelector proxySelector()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject proxySelector() {
     return _proxySelector(
@@ -5806,7 +5806,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Authenticator proxyAuthenticator()
+  /// from: `public final okhttp3.Authenticator proxyAuthenticator()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject proxyAuthenticator() {
     return _proxyAuthenticator(
@@ -5831,7 +5831,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final javax.net.SocketFactory socketFactory()
+  /// from: `public final javax.net.SocketFactory socketFactory()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject socketFactory() {
     return _socketFactory(
@@ -5856,7 +5856,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final javax.net.ssl.SSLSocketFactory sslSocketFactory()
+  /// from: `public final javax.net.ssl.SSLSocketFactory sslSocketFactory()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject sslSocketFactory() {
     return _sslSocketFactory(
@@ -5881,7 +5881,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final javax.net.ssl.X509TrustManager x509TrustManager()
+  /// from: `public final javax.net.ssl.X509TrustManager x509TrustManager()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject x509TrustManager() {
     return _x509TrustManager(
@@ -5906,7 +5906,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List connectionSpecs()
+  /// from: `public final java.util.List connectionSpecs()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> connectionSpecs() {
     return _connectionSpecs(
@@ -5931,7 +5931,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List protocols()
+  /// from: `public final java.util.List protocols()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> protocols() {
     return _protocols(reference.pointer, _id_protocols as jni.JMethodIDPtr)
@@ -5955,7 +5955,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final javax.net.ssl.HostnameVerifier hostnameVerifier()
+  /// from: `public final javax.net.ssl.HostnameVerifier hostnameVerifier()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject hostnameVerifier() {
     return _hostnameVerifier(
@@ -5980,7 +5980,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.CertificatePinner certificatePinner()
+  /// from: `public final okhttp3.CertificatePinner certificatePinner()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject certificatePinner() {
     return _certificatePinner(
@@ -6005,7 +6005,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.internal.tls.CertificateChainCleaner certificateChainCleaner()
+  /// from: `public final okhttp3.internal.tls.CertificateChainCleaner certificateChainCleaner()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject certificateChainCleaner() {
     return _certificateChainCleaner(
@@ -6030,7 +6030,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int callTimeoutMillis()
+  /// from: `public final int callTimeoutMillis()`
   int callTimeoutMillis() {
     return _callTimeoutMillis(
             reference.pointer, _id_callTimeoutMillis as jni.JMethodIDPtr)
@@ -6054,7 +6054,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int connectTimeoutMillis()
+  /// from: `public final int connectTimeoutMillis()`
   int connectTimeoutMillis() {
     return _connectTimeoutMillis(
             reference.pointer, _id_connectTimeoutMillis as jni.JMethodIDPtr)
@@ -6078,7 +6078,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int readTimeoutMillis()
+  /// from: `public final int readTimeoutMillis()`
   int readTimeoutMillis() {
     return _readTimeoutMillis(
             reference.pointer, _id_readTimeoutMillis as jni.JMethodIDPtr)
@@ -6102,7 +6102,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int writeTimeoutMillis()
+  /// from: `public final int writeTimeoutMillis()`
   int writeTimeoutMillis() {
     return _writeTimeoutMillis(
             reference.pointer, _id_writeTimeoutMillis as jni.JMethodIDPtr)
@@ -6126,7 +6126,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int pingIntervalMillis()
+  /// from: `public final int pingIntervalMillis()`
   int pingIntervalMillis() {
     return _pingIntervalMillis(
             reference.pointer, _id_pingIntervalMillis as jni.JMethodIDPtr)
@@ -6150,7 +6150,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long minWebSocketMessageToCompress()
+  /// from: `public final long minWebSocketMessageToCompress()`
   int minWebSocketMessageToCompress() {
     return _minWebSocketMessageToCompress(reference.pointer,
             _id_minWebSocketMessageToCompress as jni.JMethodIDPtr)
@@ -6174,7 +6174,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.internal.connection.RouteDatabase getRouteDatabase()
+  /// from: `public final okhttp3.internal.connection.RouteDatabase getRouteDatabase()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject getRouteDatabase() {
     return _getRouteDatabase(
@@ -6198,7 +6198,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory OkHttpClient.new1() {
     return OkHttpClient.fromReference(
@@ -6222,7 +6222,7 @@ class OkHttpClient extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.Call newCall(okhttp3.Request request)
+  /// from: `public okhttp3.Call newCall(okhttp3.Request request)`
   /// The returned object must be released after use, by calling the [release] method.
   Call newCall(
     Request request,
@@ -6251,7 +6251,7 @@ class OkHttpClient extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)
+  /// from: `public okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)`
   /// The returned object must be released after use, by calling the [release] method.
   WebSocket newWebSocket(
     Request request,
@@ -6282,7 +6282,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.OkHttpClient$Builder newBuilder()
+  /// from: `public okhttp3.OkHttpClient$Builder newBuilder()`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder newBuilder() {
     return _newBuilder(reference.pointer, _id_newBuilder as jni.JMethodIDPtr)
@@ -6306,7 +6306,7 @@ class OkHttpClient extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.Object clone()
+  /// from: `public java.lang.Object clone()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject clone() {
     return _clone(reference.pointer, _id_clone as jni.JMethodIDPtr)
@@ -6340,7 +6340,7 @@ final class $OkHttpClientType extends jni.JObjType<OkHttpClient> {
   }
 }
 
-/// from: okhttp3.Call$Factory
+/// from: `okhttp3.Call$Factory`
 class Call_Factory extends jni.JObject {
   @override
   late final jni.JObjType<Call_Factory> $type = type;
@@ -6369,7 +6369,7 @@ class Call_Factory extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract okhttp3.Call newCall(okhttp3.Request request)
+  /// from: `public abstract okhttp3.Call newCall(okhttp3.Request request)`
   /// The returned object must be released after use, by calling the [release] method.
   Call newCall(
     Request request,
@@ -6499,7 +6499,7 @@ final class $Call_FactoryType extends jni.JObjType<Call_Factory> {
   }
 }
 
-/// from: okhttp3.Call
+/// from: `okhttp3.Call`
 class Call extends jni.JObject {
   @override
   late final jni.JObjType<Call> $type = type;
@@ -6529,7 +6529,7 @@ class Call extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.Request request()
+  /// from: `public abstract okhttp3.Request request()`
   /// The returned object must be released after use, by calling the [release] method.
   Request request() {
     return _request(reference.pointer, _id_request as jni.JMethodIDPtr)
@@ -6553,7 +6553,7 @@ class Call extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.Response execute()
+  /// from: `public abstract okhttp3.Response execute()`
   /// The returned object must be released after use, by calling the [release] method.
   Response execute() {
     return _execute(reference.pointer, _id_execute as jni.JMethodIDPtr)
@@ -6576,7 +6576,7 @@ class Call extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void enqueue(okhttp3.Callback callback)
+  /// from: `public abstract void enqueue(okhttp3.Callback callback)`
   void enqueue(
     Callback callback,
   ) {
@@ -6602,7 +6602,7 @@ class Call extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract void cancel()
+  /// from: `public abstract void cancel()`
   void cancel() {
     _cancel(reference.pointer, _id_cancel as jni.JMethodIDPtr).check();
   }
@@ -6624,7 +6624,7 @@ class Call extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract boolean isExecuted()
+  /// from: `public abstract boolean isExecuted()`
   bool isExecuted() {
     return _isExecuted(reference.pointer, _id_isExecuted as jni.JMethodIDPtr)
         .boolean;
@@ -6647,7 +6647,7 @@ class Call extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract boolean isCanceled()
+  /// from: `public abstract boolean isCanceled()`
   bool isCanceled() {
     return _isCanceled(reference.pointer, _id_isCanceled as jni.JMethodIDPtr)
         .boolean;
@@ -6670,7 +6670,7 @@ class Call extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okio.Timeout timeout()
+  /// from: `public abstract okio.Timeout timeout()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject timeout() {
     return _timeout(reference.pointer, _id_timeout as jni.JMethodIDPtr)
@@ -6694,7 +6694,7 @@ class Call extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.Call clone()
+  /// from: `public abstract okhttp3.Call clone()`
   /// The returned object must be released after use, by calling the [release] method.
   Call clone() {
     return _clone(reference.pointer, _id_clone as jni.JMethodIDPtr)
@@ -6919,7 +6919,7 @@ final class $CallType extends jni.JObjType<Call> {
   }
 }
 
-/// from: okhttp3.Headers$Builder
+/// from: `okhttp3.Headers$Builder`
 class Headers_Builder extends jni.JObject {
   @override
   late final jni.JObjType<Headers_Builder> $type = type;
@@ -6948,7 +6948,7 @@ class Headers_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory Headers_Builder() {
     return Headers_Builder.fromReference(
@@ -6972,7 +6972,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder add(java.lang.String string)
+  /// from: `public final okhttp3.Headers$Builder add(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder add(
     jni.JString string,
@@ -7001,7 +7001,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder add(java.lang.String string, java.lang.String string1)
+  /// from: `public final okhttp3.Headers$Builder add(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder add1(
     jni.JString string,
@@ -7031,7 +7031,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder addUnsafeNonAscii(java.lang.String string, java.lang.String string1)
+  /// from: `public final okhttp3.Headers$Builder addUnsafeNonAscii(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder addUnsafeNonAscii(
     jni.JString string,
@@ -7061,7 +7061,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder addAll(okhttp3.Headers headers)
+  /// from: `public final okhttp3.Headers$Builder addAll(okhttp3.Headers headers)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder addAll(
     Headers headers,
@@ -7090,7 +7090,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder add(java.lang.String string, java.util.Date date)
+  /// from: `public final okhttp3.Headers$Builder add(java.lang.String string, java.util.Date date)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder add2(
     jni.JString string,
@@ -7120,7 +7120,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder add(java.lang.String string, java.time.Instant instant)
+  /// from: `public final okhttp3.Headers$Builder add(java.lang.String string, java.time.Instant instant)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder add3(
     jni.JString string,
@@ -7150,7 +7150,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder set(java.lang.String string, java.util.Date date)
+  /// from: `public final okhttp3.Headers$Builder set(java.lang.String string, java.util.Date date)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder set0(
     jni.JString string,
@@ -7180,7 +7180,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder set(java.lang.String string, java.time.Instant instant)
+  /// from: `public final okhttp3.Headers$Builder set(java.lang.String string, java.time.Instant instant)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder set1(
     jni.JString string,
@@ -7207,7 +7207,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder removeAll(java.lang.String string)
+  /// from: `public final okhttp3.Headers$Builder removeAll(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder removeAll(
     jni.JString string,
@@ -7236,7 +7236,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder set(java.lang.String string, java.lang.String string1)
+  /// from: `public final okhttp3.Headers$Builder set(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder set2(
     jni.JString string,
@@ -7263,7 +7263,7 @@ class Headers_Builder extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.lang.String get(java.lang.String string)
+  /// from: `public final java.lang.String get(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString get0(
     jni.JString string,
@@ -7290,7 +7290,7 @@ class Headers_Builder extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers build()
+  /// from: `public final okhttp3.Headers build()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers build() {
     return _build(reference.pointer, _id_build as jni.JMethodIDPtr)
@@ -7324,7 +7324,7 @@ final class $Headers_BuilderType extends jni.JObjType<Headers_Builder> {
   }
 }
 
-/// from: okhttp3.Headers$Companion
+/// from: `okhttp3.Headers$Companion`
 class Headers_Companion extends jni.JObject {
   @override
   late final jni.JObjType<Headers_Companion> $type = type;
@@ -7353,7 +7353,7 @@ class Headers_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers of(java.lang.String[] strings)
+  /// from: `public final okhttp3.Headers of(java.lang.String[] strings)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers of(
     jni.JArray<jni.JString> strings,
@@ -7379,7 +7379,7 @@ class Headers_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers of(java.util.Map map)
+  /// from: `public final okhttp3.Headers of(java.util.Map map)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers of1(
     jni.JMap<jni.JString, jni.JString> map,
@@ -7404,7 +7404,7 @@ class Headers_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Headers_Companion(
     jni.JObject defaultConstructorMarker,
@@ -7443,7 +7443,7 @@ final class $Headers_CompanionType extends jni.JObjType<Headers_Companion> {
   }
 }
 
-/// from: okhttp3.Headers
+/// from: `okhttp3.Headers`
 class Headers extends jni.JObject {
   @override
   late final jni.JObjType<Headers> $type = type;
@@ -7461,7 +7461,7 @@ class Headers extends jni.JObject {
     r'Lokhttp3/Headers$Companion;',
   );
 
-  /// from: static public final okhttp3.Headers$Companion Companion
+  /// from: `static public final okhttp3.Headers$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static Headers_Companion get Companion =>
       _id_Companion.get(_class, const $Headers_CompanionType());
@@ -7482,7 +7482,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.lang.String get(java.lang.String string)
+  /// from: `public final java.lang.String get(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString get0(
     jni.JString string,
@@ -7508,7 +7508,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.util.Date getDate(java.lang.String string)
+  /// from: `public final java.util.Date getDate(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject getDate(
     jni.JString string,
@@ -7534,7 +7534,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.time.Instant getInstant(java.lang.String string)
+  /// from: `public final java.time.Instant getInstant(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject getInstant(
     jni.JString string,
@@ -7561,7 +7561,7 @@ class Headers extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int size()
+  /// from: `public final int size()`
   int size() {
     return _size(reference.pointer, _id_size as jni.JMethodIDPtr).integer;
   }
@@ -7579,7 +7579,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final java.lang.String name(int i)
+  /// from: `public final java.lang.String name(int i)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString name(
     int i,
@@ -7601,7 +7601,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final java.lang.String value(int i)
+  /// from: `public final java.lang.String value(int i)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString value(
     int i,
@@ -7627,7 +7627,7 @@ class Headers extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.Set names()
+  /// from: `public final java.util.Set names()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JSet<jni.JString> names() {
     return _names(reference.pointer, _id_names as jni.JMethodIDPtr)
@@ -7650,7 +7650,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.util.List values(java.lang.String string)
+  /// from: `public final java.util.List values(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JString> values(
     jni.JString string,
@@ -7677,7 +7677,7 @@ class Headers extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long byteCount()
+  /// from: `public final long byteCount()`
   int byteCount() {
     return _byteCount(reference.pointer, _id_byteCount as jni.JMethodIDPtr)
         .long;
@@ -7700,7 +7700,7 @@ class Headers extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.util.Iterator iterator()
+  /// from: `public java.util.Iterator iterator()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JIterator<jni.JObject> iterator() {
     return _iterator(reference.pointer, _id_iterator as jni.JMethodIDPtr)
@@ -7724,7 +7724,7 @@ class Headers extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers$Builder newBuilder()
+  /// from: `public final okhttp3.Headers$Builder newBuilder()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder newBuilder() {
     return _newBuilder(reference.pointer, _id_newBuilder as jni.JMethodIDPtr)
@@ -7747,7 +7747,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public boolean equals(java.lang.Object object)
+  /// from: `public boolean equals(java.lang.Object object)`
   bool equals(
     jni.JObject object,
   ) {
@@ -7773,7 +7773,7 @@ class Headers extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public int hashCode()
+  /// from: `public int hashCode()`
   int hashCode1() {
     return _hashCode1(reference.pointer, _id_hashCode1 as jni.JMethodIDPtr)
         .integer;
@@ -7796,7 +7796,7 @@ class Headers extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String toString()
+  /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString toString1() {
     return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
@@ -7820,7 +7820,7 @@ class Headers extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.Map toMultimap()
+  /// from: `public final java.util.Map toMultimap()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JMap<jni.JString, jni.JList<jni.JString>> toMultimap() {
     return _toMultimap(reference.pointer, _id_toMultimap as jni.JMethodIDPtr)
@@ -7844,7 +7844,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.Headers of(java.lang.String[] strings)
+  /// from: `static public final okhttp3.Headers of(java.lang.String[] strings)`
   /// The returned object must be released after use, by calling the [release] method.
   static Headers of(
     jni.JArray<jni.JString> strings,
@@ -7870,7 +7870,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okhttp3.Headers of(java.util.Map map)
+  /// from: `static public final okhttp3.Headers of(java.util.Map map)`
   /// The returned object must be released after use, by calling the [release] method.
   static Headers of1(
     jni.JMap<jni.JString, jni.JString> map,
@@ -7898,7 +7898,7 @@ class Headers extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(java.lang.String[] strings, kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(java.lang.String[] strings, kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Headers(
     jni.JArray<jni.JString> strings,
@@ -7938,7 +7938,7 @@ final class $HeadersType extends jni.JObjType<Headers> {
   }
 }
 
-/// from: okhttp3.Callback
+/// from: `okhttp3.Callback`
 class Callback extends jni.JObject {
   @override
   late final jni.JObjType<Callback> $type = type;
@@ -7970,7 +7970,7 @@ class Callback extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onFailure(okhttp3.Call call, java.io.IOException iOException)
+  /// from: `public abstract void onFailure(okhttp3.Call call, java.io.IOException iOException)`
   void onFailure(
     Call call,
     jni.JObject iOException,
@@ -7999,7 +7999,7 @@ class Callback extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onResponse(okhttp3.Call call, okhttp3.Response response)
+  /// from: `public abstract void onResponse(okhttp3.Call call, okhttp3.Response response)`
   void onResponse(
     Call call,
     Response response,
@@ -8142,7 +8142,7 @@ final class $CallbackType extends jni.JObjType<Callback> {
   }
 }
 
-/// from: okhttp3.ConnectionPool
+/// from: `okhttp3.ConnectionPool`
 class ConnectionPool extends jni.JObject {
   @override
   late final jni.JObjType<ConnectionPool> $type = type;
@@ -8170,7 +8170,7 @@ class ConnectionPool extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(okhttp3.internal.connection.RealConnectionPool realConnectionPool)
+  /// from: `public void <init>(okhttp3.internal.connection.RealConnectionPool realConnectionPool)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ConnectionPool(
     jni.JObject realConnectionPool,
@@ -8199,7 +8199,7 @@ class ConnectionPool extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               int, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(int i, long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public void <init>(int i, long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ConnectionPool.new1(
     int i,
@@ -8227,7 +8227,7 @@ class ConnectionPool extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory ConnectionPool.new2() {
     return ConnectionPool.fromReference(
@@ -8252,7 +8252,7 @@ class ConnectionPool extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int idleConnectionCount()
+  /// from: `public final int idleConnectionCount()`
   int idleConnectionCount() {
     return _idleConnectionCount(
             reference.pointer, _id_idleConnectionCount as jni.JMethodIDPtr)
@@ -8276,7 +8276,7 @@ class ConnectionPool extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int connectionCount()
+  /// from: `public final int connectionCount()`
   int connectionCount() {
     return _connectionCount(
             reference.pointer, _id_connectionCount as jni.JMethodIDPtr)
@@ -8300,7 +8300,7 @@ class ConnectionPool extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void evictAll()
+  /// from: `public final void evictAll()`
   void evictAll() {
     _evictAll(reference.pointer, _id_evictAll as jni.JMethodIDPtr).check();
   }
@@ -8332,7 +8332,7 @@ final class $ConnectionPoolType extends jni.JObjType<ConnectionPool> {
   }
 }
 
-/// from: okhttp3.Dispatcher
+/// from: `okhttp3.Dispatcher`
 class Dispatcher extends jni.JObject {
   @override
   late final jni.JObjType<Dispatcher> $type = type;
@@ -8361,7 +8361,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory Dispatcher() {
     return Dispatcher.fromReference(
@@ -8386,7 +8386,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int getMaxRequests()
+  /// from: `public final int getMaxRequests()`
   int getMaxRequests() {
     return _getMaxRequests(
             reference.pointer, _id_getMaxRequests as jni.JMethodIDPtr)
@@ -8408,7 +8408,7 @@ class Dispatcher extends jni.JObject {
           jni.JThrowablePtr Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final void setMaxRequests(int i)
+  /// from: `public final void setMaxRequests(int i)`
   void setMaxRequests(
     int i,
   ) {
@@ -8434,7 +8434,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int getMaxRequestsPerHost()
+  /// from: `public final int getMaxRequestsPerHost()`
   int getMaxRequestsPerHost() {
     return _getMaxRequestsPerHost(
             reference.pointer, _id_getMaxRequestsPerHost as jni.JMethodIDPtr)
@@ -8456,7 +8456,7 @@ class Dispatcher extends jni.JObject {
           jni.JThrowablePtr Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final void setMaxRequestsPerHost(int i)
+  /// from: `public final void setMaxRequestsPerHost(int i)`
   void setMaxRequestsPerHost(
     int i,
   ) {
@@ -8482,7 +8482,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.Runnable getIdleCallback()
+  /// from: `public final java.lang.Runnable getIdleCallback()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject getIdleCallback() {
     return _getIdleCallback(
@@ -8506,7 +8506,7 @@ class Dispatcher extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final void setIdleCallback(java.lang.Runnable runnable)
+  /// from: `public final void setIdleCallback(java.lang.Runnable runnable)`
   void setIdleCallback(
     jni.JObject runnable,
   ) {
@@ -8532,7 +8532,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.concurrent.ExecutorService executorService()
+  /// from: `public final java.util.concurrent.ExecutorService executorService()`
   /// The returned object must be released after use, by calling the [release] method.
   ExecutorService executorService() {
     return _executorService(
@@ -8555,7 +8555,7 @@ class Dispatcher extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(java.util.concurrent.ExecutorService executorService)
+  /// from: `public void <init>(java.util.concurrent.ExecutorService executorService)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Dispatcher.new1(
     ExecutorService executorService,
@@ -8582,7 +8582,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void cancelAll()
+  /// from: `public final void cancelAll()`
   void cancelAll() {
     _cancelAll(reference.pointer, _id_cancelAll as jni.JMethodIDPtr).check();
   }
@@ -8604,7 +8604,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List queuedCalls()
+  /// from: `public final java.util.List queuedCalls()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<Call> queuedCalls() {
     return _queuedCalls(reference.pointer, _id_queuedCalls as jni.JMethodIDPtr)
@@ -8628,7 +8628,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List runningCalls()
+  /// from: `public final java.util.List runningCalls()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<Call> runningCalls() {
     return _runningCalls(
@@ -8653,7 +8653,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int queuedCallsCount()
+  /// from: `public final int queuedCallsCount()`
   int queuedCallsCount() {
     return _queuedCallsCount(
             reference.pointer, _id_queuedCallsCount as jni.JMethodIDPtr)
@@ -8677,7 +8677,7 @@ class Dispatcher extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int runningCallsCount()
+  /// from: `public final int runningCallsCount()`
   int runningCallsCount() {
     return _runningCallsCount(
             reference.pointer, _id_runningCallsCount as jni.JMethodIDPtr)
@@ -8710,7 +8710,7 @@ final class $DispatcherType extends jni.JObjType<Dispatcher> {
   }
 }
 
-/// from: java.util.concurrent.ExecutorService
+/// from: `java.util.concurrent.ExecutorService`
 class ExecutorService extends jni.JObject {
   @override
   late final jni.JObjType<ExecutorService> $type = type;
@@ -8741,7 +8741,7 @@ class ExecutorService extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract void shutdown()
+  /// from: `public abstract void shutdown()`
   void shutdown() {
     _shutdown(reference.pointer, _id_shutdown as jni.JMethodIDPtr).check();
   }
@@ -8763,7 +8763,7 @@ class ExecutorService extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract java.util.List shutdownNow()
+  /// from: `public abstract java.util.List shutdownNow()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JList<jni.JObject> shutdownNow() {
     return _shutdownNow(reference.pointer, _id_shutdownNow as jni.JMethodIDPtr)
@@ -8787,7 +8787,7 @@ class ExecutorService extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract boolean isShutdown()
+  /// from: `public abstract boolean isShutdown()`
   bool isShutdown() {
     return _isShutdown(reference.pointer, _id_isShutdown as jni.JMethodIDPtr)
         .boolean;
@@ -8810,7 +8810,7 @@ class ExecutorService extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract boolean isTerminated()
+  /// from: `public abstract boolean isTerminated()`
   bool isTerminated() {
     return _isTerminated(
             reference.pointer, _id_isTerminated as jni.JMethodIDPtr)
@@ -8833,7 +8833,7 @@ class ExecutorService extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract boolean awaitTermination(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public abstract boolean awaitTermination(long j, java.util.concurrent.TimeUnit timeUnit)`
   bool awaitTermination(
     int j,
     TimeUnit timeUnit,
@@ -9021,7 +9021,7 @@ final class $ExecutorServiceType extends jni.JObjType<ExecutorService> {
   }
 }
 
-/// from: okhttp3.Cache$Companion
+/// from: `okhttp3.Cache$Companion`
 class Cache_Companion extends jni.JObject {
   @override
   late final jni.JObjType<Cache_Companion> $type = type;
@@ -9050,7 +9050,7 @@ class Cache_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.lang.String key(okhttp3.HttpUrl httpUrl)
+  /// from: `public final java.lang.String key(okhttp3.HttpUrl httpUrl)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString key(
     jni.JObject httpUrl,
@@ -9084,7 +9084,7 @@ class Cache_Companion extends jni.JObject {
               ffi.Pointer<ffi.Void>,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final boolean varyMatches(okhttp3.Response response, okhttp3.Headers headers, okhttp3.Request request)
+  /// from: `public final boolean varyMatches(okhttp3.Response response, okhttp3.Headers headers, okhttp3.Request request)`
   bool varyMatches(
     Response response,
     Headers headers,
@@ -9115,7 +9115,7 @@ class Cache_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final boolean hasVaryAll(okhttp3.Response response)
+  /// from: `public final boolean hasVaryAll(okhttp3.Response response)`
   bool hasVaryAll(
     Response response,
   ) {
@@ -9140,7 +9140,7 @@ class Cache_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.Headers varyHeaders(okhttp3.Response response)
+  /// from: `public final okhttp3.Headers varyHeaders(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers varyHeaders(
     Response response,
@@ -9165,7 +9165,7 @@ class Cache_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Cache_Companion(
     jni.JObject defaultConstructorMarker,
@@ -9204,7 +9204,7 @@ final class $Cache_CompanionType extends jni.JObjType<Cache_Companion> {
   }
 }
 
-/// from: okhttp3.Cache$Entry$Companion
+/// from: `okhttp3.Cache$Entry$Companion`
 class Cache_Entry_Companion extends jni.JObject {
   @override
   late final jni.JObjType<Cache_Entry_Companion> $type = type;
@@ -9232,7 +9232,7 @@ class Cache_Entry_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Cache_Entry_Companion(
     jni.JObject defaultConstructorMarker,
@@ -9272,7 +9272,7 @@ final class $Cache_Entry_CompanionType
   }
 }
 
-/// from: okhttp3.Cache
+/// from: `okhttp3.Cache`
 class Cache extends jni.JObject {
   @override
   late final jni.JObjType<Cache> $type = type;
@@ -9290,7 +9290,7 @@ class Cache extends jni.JObject {
     r'Lokhttp3/Cache$Companion;',
   );
 
-  /// from: static public final okhttp3.Cache$Companion Companion
+  /// from: `static public final okhttp3.Cache$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static Cache_Companion get Companion =>
       _id_Companion.get(_class, const $Cache_CompanionType());
@@ -9314,7 +9314,7 @@ class Cache extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(java.io.File file, long j, okhttp3.internal.io.FileSystem fileSystem)
+  /// from: `public void <init>(java.io.File file, long j, okhttp3.internal.io.FileSystem fileSystem)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Cache(
     jni.JObject file,
@@ -9347,7 +9347,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean isClosed()
+  /// from: `public final boolean isClosed()`
   bool isClosed() {
     return _isClosed(reference.pointer, _id_isClosed as jni.JMethodIDPtr)
         .boolean;
@@ -9368,7 +9368,7 @@ class Cache extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public void <init>(java.io.File file, long j)
+  /// from: `public void <init>(java.io.File file, long j)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Cache.new1(
     jni.JObject file,
@@ -9396,7 +9396,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void initialize()
+  /// from: `public final void initialize()`
   void initialize() {
     _initialize(reference.pointer, _id_initialize as jni.JMethodIDPtr).check();
   }
@@ -9418,7 +9418,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void delete()
+  /// from: `public final void delete()`
   void delete() {
     _delete(reference.pointer, _id_delete as jni.JMethodIDPtr).check();
   }
@@ -9440,7 +9440,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void evictAll()
+  /// from: `public final void evictAll()`
   void evictAll() {
     _evictAll(reference.pointer, _id_evictAll as jni.JMethodIDPtr).check();
   }
@@ -9462,7 +9462,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.Iterator urls()
+  /// from: `public final java.util.Iterator urls()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JIterator<jni.JString> urls() {
     return _urls(reference.pointer, _id_urls as jni.JMethodIDPtr)
@@ -9486,7 +9486,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int writeAbortCount()
+  /// from: `public final int writeAbortCount()`
   int writeAbortCount() {
     return _writeAbortCount(
             reference.pointer, _id_writeAbortCount as jni.JMethodIDPtr)
@@ -9510,7 +9510,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int writeSuccessCount()
+  /// from: `public final int writeSuccessCount()`
   int writeSuccessCount() {
     return _writeSuccessCount(
             reference.pointer, _id_writeSuccessCount as jni.JMethodIDPtr)
@@ -9534,7 +9534,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long size()
+  /// from: `public final long size()`
   int size() {
     return _size(reference.pointer, _id_size as jni.JMethodIDPtr).long;
   }
@@ -9556,7 +9556,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long maxSize()
+  /// from: `public final long maxSize()`
   int maxSize() {
     return _maxSize(reference.pointer, _id_maxSize as jni.JMethodIDPtr).long;
   }
@@ -9578,7 +9578,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void flush()
+  /// from: `public void flush()`
   void flush() {
     _flush(reference.pointer, _id_flush as jni.JMethodIDPtr).check();
   }
@@ -9600,7 +9600,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void close()
+  /// from: `public void close()`
   void close() {
     _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
   }
@@ -9622,7 +9622,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.io.File directory()
+  /// from: `public final java.io.File directory()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject directory() {
     return _directory(reference.pointer, _id_directory as jni.JMethodIDPtr)
@@ -9646,7 +9646,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int networkCount()
+  /// from: `public final int networkCount()`
   int networkCount() {
     return _networkCount(
             reference.pointer, _id_networkCount as jni.JMethodIDPtr)
@@ -9670,7 +9670,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int hitCount()
+  /// from: `public final int hitCount()`
   int hitCount() {
     return _hitCount(reference.pointer, _id_hitCount as jni.JMethodIDPtr)
         .integer;
@@ -9693,7 +9693,7 @@ class Cache extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int requestCount()
+  /// from: `public final int requestCount()`
   int requestCount() {
     return _requestCount(
             reference.pointer, _id_requestCount as jni.JMethodIDPtr)
@@ -9716,7 +9716,7 @@ class Cache extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final java.lang.String key(okhttp3.HttpUrl httpUrl)
+  /// from: `static public final java.lang.String key(okhttp3.HttpUrl httpUrl)`
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JString key(
     jni.JObject httpUrl,
@@ -9752,7 +9752,7 @@ final class $CacheType extends jni.JObjType<Cache> {
   }
 }
 
-/// from: com.example.ok_http.RedirectReceivedCallback
+/// from: `com.example.ok_http.RedirectReceivedCallback`
 class RedirectReceivedCallback extends jni.JObject {
   @override
   late final jni.JObjType<RedirectReceivedCallback> $type = type;
@@ -9785,7 +9785,7 @@ class RedirectReceivedCallback extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onRedirectReceived(okhttp3.Response response, java.lang.String string)
+  /// from: `public abstract void onRedirectReceived(okhttp3.Response response, java.lang.String string)`
   void onRedirectReceived(
     Response response,
     jni.JString string,
@@ -9920,7 +9920,7 @@ final class $RedirectReceivedCallbackType
   }
 }
 
-/// from: com.example.ok_http.RedirectInterceptor$Companion
+/// from: `com.example.ok_http.RedirectInterceptor$Companion`
 class RedirectInterceptor_Companion extends jni.JObject {
   @override
   late final jni.JObjType<RedirectInterceptor_Companion> $type = type;
@@ -9955,7 +9955,7 @@ class RedirectInterceptor_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, int, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addRedirectInterceptor(okhttp3.OkHttpClient$Builder builder, int i, boolean z, com.example.ok_http.RedirectReceivedCallback redirectReceivedCallback)
+  /// from: `public final okhttp3.OkHttpClient$Builder addRedirectInterceptor(okhttp3.OkHttpClient$Builder builder, int i, boolean z, com.example.ok_http.RedirectReceivedCallback redirectReceivedCallback)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addRedirectInterceptor(
     OkHttpClient_Builder builder,
@@ -9988,7 +9988,7 @@ class RedirectInterceptor_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory RedirectInterceptor_Companion(
     jni.JObject defaultConstructorMarker,
@@ -10029,7 +10029,7 @@ final class $RedirectInterceptor_CompanionType
   }
 }
 
-/// from: com.example.ok_http.RedirectInterceptor
+/// from: `com.example.ok_http.RedirectInterceptor`
 class RedirectInterceptor extends jni.JObject {
   @override
   late final jni.JObjType<RedirectInterceptor> $type = type;
@@ -10048,7 +10048,7 @@ class RedirectInterceptor extends jni.JObject {
     r'Lcom/example/ok_http/RedirectInterceptor$Companion;',
   );
 
-  /// from: static public final com.example.ok_http.RedirectInterceptor$Companion Companion
+  /// from: `static public final com.example.ok_http.RedirectInterceptor$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static RedirectInterceptor_Companion get Companion =>
       _id_Companion.get(_class, const $RedirectInterceptor_CompanionType());
@@ -10069,7 +10069,7 @@ class RedirectInterceptor extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory RedirectInterceptor() {
     return RedirectInterceptor.fromReference(
@@ -10104,7 +10104,7 @@ final class $RedirectInterceptorType extends jni.JObjType<RedirectInterceptor> {
   }
 }
 
-/// from: com.example.ok_http.AsyncInputStreamReader
+/// from: `com.example.ok_http.AsyncInputStreamReader`
 class AsyncInputStreamReader extends jni.JObject {
   @override
   late final jni.JObjType<AsyncInputStreamReader> $type = type;
@@ -10134,7 +10134,7 @@ class AsyncInputStreamReader extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory AsyncInputStreamReader() {
     return AsyncInputStreamReader.fromReference(
@@ -10161,7 +10161,7 @@ class AsyncInputStreamReader extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final java.util.concurrent.Future readAsync(java.io.InputStream inputStream, com.example.ok_http.DataCallback dataCallback)
+  /// from: `public final java.util.concurrent.Future readAsync(java.io.InputStream inputStream, com.example.ok_http.DataCallback dataCallback)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject readAsync(
     jni.JObject inputStream,
@@ -10189,7 +10189,7 @@ class AsyncInputStreamReader extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void shutdown()
+  /// from: `public final void shutdown()`
   void shutdown() {
     _shutdown(reference.pointer, _id_shutdown as jni.JMethodIDPtr).check();
   }
@@ -10222,7 +10222,7 @@ final class $AsyncInputStreamReaderType
   }
 }
 
-/// from: com.example.ok_http.DataCallback
+/// from: `com.example.ok_http.DataCallback`
 class DataCallback extends jni.JObject {
   @override
   late final jni.JObjType<DataCallback> $type = type;
@@ -10251,7 +10251,7 @@ class DataCallback extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onDataRead(byte[] bs)
+  /// from: `public abstract void onDataRead(byte[] bs)`
   void onDataRead(
     jni.JArray<jni.jbyte> bs,
   ) {
@@ -10277,7 +10277,7 @@ class DataCallback extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract void onFinished()
+  /// from: `public abstract void onFinished()`
   void onFinished() {
     _onFinished(reference.pointer, _id_onFinished as jni.JMethodIDPtr).check();
   }
@@ -10298,7 +10298,7 @@ class DataCallback extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onError(java.io.IOException iOException)
+  /// from: `public abstract void onError(java.io.IOException iOException)`
   void onError(
     jni.JObject iOException,
   ) {
@@ -10453,7 +10453,7 @@ final class $DataCallbackType extends jni.JObjType<DataCallback> {
   }
 }
 
-/// from: okhttp3.WebSocket$Factory
+/// from: `okhttp3.WebSocket$Factory`
 class WebSocket_Factory extends jni.JObject {
   @override
   late final jni.JObjType<WebSocket_Factory> $type = type;
@@ -10485,7 +10485,7 @@ class WebSocket_Factory extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)
+  /// from: `public abstract okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)`
   /// The returned object must be released after use, by calling the [release] method.
   WebSocket newWebSocket(
     Request request,
@@ -10624,7 +10624,7 @@ final class $WebSocket_FactoryType extends jni.JObjType<WebSocket_Factory> {
   }
 }
 
-/// from: okhttp3.WebSocket
+/// from: `okhttp3.WebSocket`
 class WebSocket extends jni.JObject {
   @override
   late final jni.JObjType<WebSocket> $type = type;
@@ -10654,7 +10654,7 @@ class WebSocket extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.Request request()
+  /// from: `public abstract okhttp3.Request request()`
   /// The returned object must be released after use, by calling the [release] method.
   Request request() {
     return _request(reference.pointer, _id_request as jni.JMethodIDPtr)
@@ -10678,7 +10678,7 @@ class WebSocket extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract long queueSize()
+  /// from: `public abstract long queueSize()`
   int queueSize() {
     return _queueSize(reference.pointer, _id_queueSize as jni.JMethodIDPtr)
         .long;
@@ -10700,7 +10700,7 @@ class WebSocket extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract boolean send(java.lang.String string)
+  /// from: `public abstract boolean send(java.lang.String string)`
   bool send(
     jni.JString string,
   ) {
@@ -10725,7 +10725,7 @@ class WebSocket extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract boolean send(okio.ByteString byteString)
+  /// from: `public abstract boolean send(okio.ByteString byteString)`
   bool send1(
     ByteString byteString,
   ) {
@@ -10750,7 +10750,7 @@ class WebSocket extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract boolean close(int i, java.lang.String string)
+  /// from: `public abstract boolean close(int i, java.lang.String string)`
   bool close(
     int i,
     jni.JString string,
@@ -10777,7 +10777,7 @@ class WebSocket extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract void cancel()
+  /// from: `public abstract void cancel()`
   void cancel() {
     _cancel(reference.pointer, _id_cancel as jni.JMethodIDPtr).check();
   }
@@ -10973,7 +10973,7 @@ final class $WebSocketType extends jni.JObjType<WebSocket> {
   }
 }
 
-/// from: com.example.ok_http.WebSocketListenerProxy$WebSocketListener
+/// from: `com.example.ok_http.WebSocketListenerProxy$WebSocketListener`
 class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
   @override
   late final jni.JObjType<WebSocketListenerProxy_WebSocketListener> $type =
@@ -11007,7 +11007,7 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)
+  /// from: `public abstract void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)`
   void onOpen(
     WebSocket webSocket,
     Response response,
@@ -11036,7 +11036,7 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)
+  /// from: `public abstract void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)`
   void onMessage(
     WebSocket webSocket,
     jni.JString string,
@@ -11065,7 +11065,7 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)
+  /// from: `public abstract void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)`
   void onMessage1(
     WebSocket webSocket,
     ByteString byteString,
@@ -11095,7 +11095,7 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)
+  /// from: `public abstract void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)`
   void onClosing(
     WebSocket webSocket,
     int i,
@@ -11130,7 +11130,7 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
               ffi.Pointer<ffi.Void>,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public abstract void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)
+  /// from: `public abstract void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)`
   void onFailure(
     WebSocket webSocket,
     jni.JObject throwable,
@@ -11349,7 +11349,7 @@ final class $WebSocketListenerProxy_WebSocketListenerType
   }
 }
 
-/// from: com.example.ok_http.WebSocketListenerProxy
+/// from: `com.example.ok_http.WebSocketListenerProxy`
 class WebSocketListenerProxy extends jni.JObject {
   @override
   late final jni.JObjType<WebSocketListenerProxy> $type = type;
@@ -11378,7 +11378,7 @@ class WebSocketListenerProxy extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(com.example.ok_http.WebSocketListenerProxy$WebSocketListener webSocketListener)
+  /// from: `public void <init>(com.example.ok_http.WebSocketListenerProxy$WebSocketListener webSocketListener)`
   /// The returned object must be released after use, by calling the [release] method.
   factory WebSocketListenerProxy(
     WebSocketListenerProxy_WebSocketListener webSocketListener,
@@ -11407,7 +11407,7 @@ class WebSocketListenerProxy extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)
+  /// from: `public void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)`
   void onOpen(
     WebSocket webSocket,
     Response response,
@@ -11436,7 +11436,7 @@ class WebSocketListenerProxy extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)
+  /// from: `public void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)`
   void onMessage(
     WebSocket webSocket,
     jni.JString string,
@@ -11465,7 +11465,7 @@ class WebSocketListenerProxy extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)
+  /// from: `public void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)`
   void onMessage1(
     WebSocket webSocket,
     ByteString byteString,
@@ -11495,7 +11495,7 @@ class WebSocketListenerProxy extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)
+  /// from: `public void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)`
   void onClosing(
     WebSocket webSocket,
     int i,
@@ -11530,7 +11530,7 @@ class WebSocketListenerProxy extends jni.JObject {
               ffi.Pointer<ffi.Void>,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)
+  /// from: `public void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)`
   void onFailure(
     WebSocket webSocket,
     jni.JObject throwable,
@@ -11573,7 +11573,7 @@ final class $WebSocketListenerProxyType
   }
 }
 
-/// from: okio.ByteString$Companion
+/// from: `okio.ByteString$Companion`
 class ByteString_Companion extends jni.JObject {
   @override
   late final jni.JObjType<ByteString_Companion> $type = type;
@@ -11602,7 +11602,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okio.ByteString of(byte[] bs)
+  /// from: `public final okio.ByteString of(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString of(
     jni.JArray<jni.jbyte> bs,
@@ -11628,7 +11628,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: public final okio.ByteString of(byte[] bs, int i, int i1)
+  /// from: `public final okio.ByteString of(byte[] bs, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString of1(
     jni.JArray<jni.jbyte> bs,
@@ -11656,7 +11656,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)
+  /// from: `public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString of2(
     jni.JByteBuffer byteBuffer,
@@ -11682,7 +11682,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okio.ByteString encodeUtf8(java.lang.String string)
+  /// from: `public final okio.ByteString encodeUtf8(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString encodeUtf8(
     jni.JString string,
@@ -11711,7 +11711,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)
+  /// from: `public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString encodeString(
     jni.JString string,
@@ -11741,7 +11741,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okio.ByteString decodeBase64(java.lang.String string)
+  /// from: `public final okio.ByteString decodeBase64(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString decodeBase64(
     jni.JString string,
@@ -11767,7 +11767,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okio.ByteString decodeHex(java.lang.String string)
+  /// from: `public final okio.ByteString decodeHex(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString decodeHex(
     jni.JString string,
@@ -11793,7 +11793,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public final okio.ByteString read(java.io.InputStream inputStream, int i)
+  /// from: `public final okio.ByteString read(java.io.InputStream inputStream, int i)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString read(
     jni.JObject inputStream,
@@ -11819,7 +11819,7 @@ class ByteString_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ByteString_Companion(
     jni.JObject defaultConstructorMarker,
@@ -11859,7 +11859,7 @@ final class $ByteString_CompanionType
   }
 }
 
-/// from: okio.ByteString
+/// from: `okio.ByteString`
 class ByteString extends jni.JObject {
   @override
   late final jni.JObjType<ByteString> $type = type;
@@ -11877,7 +11877,7 @@ class ByteString extends jni.JObject {
     r'Lokio/ByteString$Companion;',
   );
 
-  /// from: static public final okio.ByteString$Companion Companion
+  /// from: `static public final okio.ByteString$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString_Companion get Companion =>
       _id_Companion.get(_class, const $ByteString_CompanionType());
@@ -11887,7 +11887,7 @@ class ByteString extends jni.JObject {
     r'Lokio/ByteString;',
   );
 
-  /// from: static public final okio.ByteString EMPTY
+  /// from: `static public final okio.ByteString EMPTY`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString get EMPTY => _id_EMPTY.get(_class, const $ByteStringType());
 
@@ -11906,7 +11906,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(byte[] bs)
+  /// from: `public void <init>(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ByteString(
     jni.JArray<jni.jbyte> bs,
@@ -11933,7 +11933,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String utf8()
+  /// from: `public java.lang.String utf8()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString utf8() {
     return _utf8(reference.pointer, _id_utf8 as jni.JMethodIDPtr)
@@ -11956,7 +11956,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public java.lang.String string(java.nio.charset.Charset charset)
+  /// from: `public java.lang.String string(java.nio.charset.Charset charset)`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString string(
     jni.JObject charset,
@@ -11983,7 +11983,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String base64()
+  /// from: `public java.lang.String base64()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString base64() {
     return _base64(reference.pointer, _id_base64 as jni.JMethodIDPtr)
@@ -12007,7 +12007,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString md5()
+  /// from: `public final okio.ByteString md5()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString md5() {
     return _md5(reference.pointer, _id_md5 as jni.JMethodIDPtr)
@@ -12031,7 +12031,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString sha1()
+  /// from: `public final okio.ByteString sha1()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString sha1() {
     return _sha1(reference.pointer, _id_sha1 as jni.JMethodIDPtr)
@@ -12055,7 +12055,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString sha256()
+  /// from: `public final okio.ByteString sha256()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString sha256() {
     return _sha256(reference.pointer, _id_sha256 as jni.JMethodIDPtr)
@@ -12079,7 +12079,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString sha512()
+  /// from: `public final okio.ByteString sha512()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString sha512() {
     return _sha512(reference.pointer, _id_sha512 as jni.JMethodIDPtr)
@@ -12102,7 +12102,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okio.ByteString hmacSha1(okio.ByteString byteString)
+  /// from: `public okio.ByteString hmacSha1(okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString hmacSha1(
     ByteString byteString,
@@ -12128,7 +12128,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okio.ByteString hmacSha256(okio.ByteString byteString)
+  /// from: `public okio.ByteString hmacSha256(okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString hmacSha256(
     ByteString byteString,
@@ -12154,7 +12154,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public okio.ByteString hmacSha512(okio.ByteString byteString)
+  /// from: `public okio.ByteString hmacSha512(okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString hmacSha512(
     ByteString byteString,
@@ -12181,7 +12181,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String base64Url()
+  /// from: `public java.lang.String base64Url()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString base64Url() {
     return _base64Url(reference.pointer, _id_base64Url as jni.JMethodIDPtr)
@@ -12205,7 +12205,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String hex()
+  /// from: `public java.lang.String hex()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString hex() {
     return _hex(reference.pointer, _id_hex as jni.JMethodIDPtr)
@@ -12229,7 +12229,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public okio.ByteString toAsciiLowercase()
+  /// from: `public okio.ByteString toAsciiLowercase()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString toAsciiLowercase() {
     return _toAsciiLowercase(
@@ -12254,7 +12254,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public okio.ByteString toAsciiUppercase()
+  /// from: `public okio.ByteString toAsciiUppercase()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString toAsciiUppercase() {
     return _toAsciiUppercase(
@@ -12275,7 +12275,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int, int)>();
 
-  /// from: public okio.ByteString substring(int i, int i1)
+  /// from: `public okio.ByteString substring(int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString substring(
     int i,
@@ -12299,7 +12299,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final byte getByte(int i)
+  /// from: `public final byte getByte(int i)`
   int getByte(
     int i,
   ) {
@@ -12323,7 +12323,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int size()
+  /// from: `public final int size()`
   int size() {
     return _size(reference.pointer, _id_size as jni.JMethodIDPtr).integer;
   }
@@ -12345,7 +12345,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public byte[] toByteArray()
+  /// from: `public byte[] toByteArray()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JArray<jni.jbyte> toByteArray() {
     return _toByteArray(reference.pointer, _id_toByteArray as jni.JMethodIDPtr)
@@ -12369,7 +12369,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.nio.ByteBuffer asByteBuffer()
+  /// from: `public java.nio.ByteBuffer asByteBuffer()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JByteBuffer asByteBuffer() {
     return _asByteBuffer(
@@ -12393,7 +12393,7 @@ class ByteString extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void write(java.io.OutputStream outputStream)
+  /// from: `public void write(java.io.OutputStream outputStream)`
   void write(
     jni.JObject outputStream,
   ) {
@@ -12423,7 +12423,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: public boolean rangeEquals(int i, okio.ByteString byteString, int i1, int i2)
+  /// from: `public boolean rangeEquals(int i, okio.ByteString byteString, int i1, int i2)`
   bool rangeEquals(
     int i,
     ByteString byteString,
@@ -12456,7 +12456,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: public boolean rangeEquals(int i, byte[] bs, int i1, int i2)
+  /// from: `public boolean rangeEquals(int i, byte[] bs, int i1, int i2)`
   bool rangeEquals1(
     int i,
     jni.JArray<jni.jbyte> bs,
@@ -12494,7 +12494,7 @@ class ByteString extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               int, ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: public void copyInto(int i, byte[] bs, int i1, int i2)
+  /// from: `public void copyInto(int i, byte[] bs, int i1, int i2)`
   void copyInto(
     int i,
     jni.JArray<jni.jbyte> bs,
@@ -12522,7 +12522,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final boolean startsWith(okio.ByteString byteString)
+  /// from: `public final boolean startsWith(okio.ByteString byteString)`
   bool startsWith(
     ByteString byteString,
   ) {
@@ -12547,7 +12547,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final boolean startsWith(byte[] bs)
+  /// from: `public final boolean startsWith(byte[] bs)`
   bool startsWith1(
     jni.JArray<jni.jbyte> bs,
   ) {
@@ -12572,7 +12572,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final boolean endsWith(okio.ByteString byteString)
+  /// from: `public final boolean endsWith(okio.ByteString byteString)`
   bool endsWith(
     ByteString byteString,
   ) {
@@ -12597,7 +12597,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final boolean endsWith(byte[] bs)
+  /// from: `public final boolean endsWith(byte[] bs)`
   bool endsWith1(
     jni.JArray<jni.jbyte> bs,
   ) {
@@ -12622,7 +12622,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public final int indexOf(okio.ByteString byteString, int i)
+  /// from: `public final int indexOf(okio.ByteString byteString, int i)`
   int indexOf(
     ByteString byteString,
     int i,
@@ -12648,7 +12648,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public int indexOf(byte[] bs, int i)
+  /// from: `public int indexOf(byte[] bs, int i)`
   int indexOf1(
     jni.JArray<jni.jbyte> bs,
     int i,
@@ -12674,7 +12674,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public final int lastIndexOf(okio.ByteString byteString, int i)
+  /// from: `public final int lastIndexOf(okio.ByteString byteString, int i)`
   int lastIndexOf(
     ByteString byteString,
     int i,
@@ -12700,7 +12700,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public int lastIndexOf(byte[] bs, int i)
+  /// from: `public int lastIndexOf(byte[] bs, int i)`
   int lastIndexOf1(
     jni.JArray<jni.jbyte> bs,
     int i,
@@ -12726,7 +12726,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public boolean equals(java.lang.Object object)
+  /// from: `public boolean equals(java.lang.Object object)`
   bool equals(
     jni.JObject object,
   ) {
@@ -12752,7 +12752,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public int hashCode()
+  /// from: `public int hashCode()`
   int hashCode1() {
     return _hashCode1(reference.pointer, _id_hashCode1 as jni.JMethodIDPtr)
         .integer;
@@ -12774,7 +12774,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public int compareTo(okio.ByteString byteString)
+  /// from: `public int compareTo(okio.ByteString byteString)`
   int compareTo(
     ByteString byteString,
   ) {
@@ -12800,7 +12800,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String toString()
+  /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JString toString1() {
     return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
@@ -12820,7 +12820,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public final okio.ByteString substring(int i)
+  /// from: `public final okio.ByteString substring(int i)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString substring1(
     int i,
@@ -12846,7 +12846,7 @@ class ByteString extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString substring()
+  /// from: `public final okio.ByteString substring()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString substring2() {
     return _substring2(reference.pointer, _id_substring2 as jni.JMethodIDPtr)
@@ -12869,7 +12869,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final int indexOf(okio.ByteString byteString)
+  /// from: `public final int indexOf(okio.ByteString byteString)`
   int indexOf2(
     ByteString byteString,
   ) {
@@ -12894,7 +12894,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final int indexOf(byte[] bs)
+  /// from: `public final int indexOf(byte[] bs)`
   int indexOf3(
     jni.JArray<jni.jbyte> bs,
   ) {
@@ -12919,7 +12919,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final int lastIndexOf(okio.ByteString byteString)
+  /// from: `public final int lastIndexOf(okio.ByteString byteString)`
   int lastIndexOf2(
     ByteString byteString,
   ) {
@@ -12944,7 +12944,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final int lastIndexOf(byte[] bs)
+  /// from: `public final int lastIndexOf(byte[] bs)`
   int lastIndexOf3(
     jni.JArray<jni.jbyte> bs,
   ) {
@@ -12969,7 +12969,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okio.ByteString of(byte[] bs)
+  /// from: `static public final okio.ByteString of(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString of(
     jni.JArray<jni.jbyte> bs,
@@ -12995,7 +12995,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int, int)>();
 
-  /// from: static public final okio.ByteString of(byte[] bs, int i, int i1)
+  /// from: `static public final okio.ByteString of(byte[] bs, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString of1(
     jni.JArray<jni.jbyte> bs,
@@ -13023,7 +13023,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)
+  /// from: `static public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString of2(
     jni.JByteBuffer byteBuffer,
@@ -13049,7 +13049,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okio.ByteString encodeUtf8(java.lang.String string)
+  /// from: `static public final okio.ByteString encodeUtf8(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString encodeUtf8(
     jni.JString string,
@@ -13078,7 +13078,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)
+  /// from: `static public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString encodeString(
     jni.JString string,
@@ -13108,7 +13108,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okio.ByteString decodeBase64(java.lang.String string)
+  /// from: `static public final okio.ByteString decodeBase64(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString decodeBase64(
     jni.JString string,
@@ -13134,7 +13134,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public final okio.ByteString decodeHex(java.lang.String string)
+  /// from: `static public final okio.ByteString decodeHex(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString decodeHex(
     jni.JString string,
@@ -13160,7 +13160,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: static public final okio.ByteString read(java.io.InputStream inputStream, int i)
+  /// from: `static public final okio.ByteString read(java.io.InputStream inputStream, int i)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString read(
     jni.JObject inputStream,
@@ -13187,7 +13187,7 @@ class ByteString extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public int compareTo(java.lang.Object object)
+  /// from: `synthetic public bridge int compareTo(java.lang.Object object)`
   int compareTo1(
     jni.JObject object,
   ) {
@@ -13222,7 +13222,7 @@ final class $ByteStringType extends jni.JObjType<ByteString> {
   }
 }
 
-/// from: com.example.ok_http.WebSocketInterceptor$Companion
+/// from: `com.example.ok_http.WebSocketInterceptor$Companion`
 class WebSocketInterceptor_Companion extends jni.JObject {
   @override
   late final jni.JObjType<WebSocketInterceptor_Companion> $type = type;
@@ -13252,7 +13252,7 @@ class WebSocketInterceptor_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addWSInterceptor(okhttp3.OkHttpClient$Builder builder)
+  /// from: `public final okhttp3.OkHttpClient$Builder addWSInterceptor(okhttp3.OkHttpClient$Builder builder)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addWSInterceptor(
     OkHttpClient_Builder builder,
@@ -13277,7 +13277,7 @@ class WebSocketInterceptor_Companion extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory WebSocketInterceptor_Companion(
     jni.JObject defaultConstructorMarker,
@@ -13318,7 +13318,7 @@ final class $WebSocketInterceptor_CompanionType
   }
 }
 
-/// from: com.example.ok_http.WebSocketInterceptor
+/// from: `com.example.ok_http.WebSocketInterceptor`
 class WebSocketInterceptor extends jni.JObject {
   @override
   late final jni.JObjType<WebSocketInterceptor> $type = type;
@@ -13337,7 +13337,7 @@ class WebSocketInterceptor extends jni.JObject {
     r'Lcom/example/ok_http/WebSocketInterceptor$Companion;',
   );
 
-  /// from: static public final com.example.ok_http.WebSocketInterceptor$Companion Companion
+  /// from: `static public final com.example.ok_http.WebSocketInterceptor$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static WebSocketInterceptor_Companion get Companion =>
       _id_Companion.get(_class, const $WebSocketInterceptor_CompanionType());
@@ -13358,7 +13358,7 @@ class WebSocketInterceptor extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory WebSocketInterceptor() {
     return WebSocketInterceptor.fromReference(
@@ -13394,7 +13394,7 @@ final class $WebSocketInterceptorType
   }
 }
 
-/// from: java.util.concurrent.TimeUnit
+/// from: `java.util.concurrent.TimeUnit`
 class TimeUnit extends jni.JObject {
   @override
   late final jni.JObjType<TimeUnit> $type = type;
@@ -13412,7 +13412,7 @@ class TimeUnit extends jni.JObject {
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit NANOSECONDS
+  /// from: `static public final java.util.concurrent.TimeUnit NANOSECONDS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get NANOSECONDS =>
       _id_NANOSECONDS.get(_class, const $TimeUnitType());
@@ -13422,7 +13422,7 @@ class TimeUnit extends jni.JObject {
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit MICROSECONDS
+  /// from: `static public final java.util.concurrent.TimeUnit MICROSECONDS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get MICROSECONDS =>
       _id_MICROSECONDS.get(_class, const $TimeUnitType());
@@ -13432,7 +13432,7 @@ class TimeUnit extends jni.JObject {
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit MILLISECONDS
+  /// from: `static public final java.util.concurrent.TimeUnit MILLISECONDS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get MILLISECONDS =>
       _id_MILLISECONDS.get(_class, const $TimeUnitType());
@@ -13442,7 +13442,7 @@ class TimeUnit extends jni.JObject {
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit SECONDS
+  /// from: `static public final java.util.concurrent.TimeUnit SECONDS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get SECONDS => _id_SECONDS.get(_class, const $TimeUnitType());
 
@@ -13451,7 +13451,7 @@ class TimeUnit extends jni.JObject {
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit MINUTES
+  /// from: `static public final java.util.concurrent.TimeUnit MINUTES`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get MINUTES => _id_MINUTES.get(_class, const $TimeUnitType());
 
@@ -13460,7 +13460,7 @@ class TimeUnit extends jni.JObject {
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit HOURS
+  /// from: `static public final java.util.concurrent.TimeUnit HOURS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get HOURS => _id_HOURS.get(_class, const $TimeUnitType());
 
@@ -13469,7 +13469,7 @@ class TimeUnit extends jni.JObject {
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit DAYS
+  /// from: `static public final java.util.concurrent.TimeUnit DAYS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get DAYS => _id_DAYS.get(_class, const $TimeUnitType());
 
@@ -13490,7 +13490,7 @@ class TimeUnit extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: static public java.util.concurrent.TimeUnit[] values()
+  /// from: `static public java.util.concurrent.TimeUnit[] values()`
   /// The returned object must be released after use, by calling the [release] method.
   static jni.JArray<TimeUnit> values() {
     return _values(_class.reference.pointer, _id_values as jni.JMethodIDPtr)
@@ -13513,7 +13513,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public java.util.concurrent.TimeUnit valueOf(java.lang.String string)
+  /// from: `static public java.util.concurrent.TimeUnit valueOf(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit valueOf(
     jni.JString string,
@@ -13539,7 +13539,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public long convert(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public long convert(long j, java.util.concurrent.TimeUnit timeUnit)`
   int convert(
     int j,
     TimeUnit timeUnit,
@@ -13565,7 +13565,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: public long convert(java.time.Duration duration)
+  /// from: `public long convert(java.time.Duration duration)`
   int convert1(
     jni.JObject duration,
   ) {
@@ -13587,7 +13587,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public long toNanos(long j)
+  /// from: `public long toNanos(long j)`
   int toNanos(
     int j,
   ) {
@@ -13607,7 +13607,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public long toMicros(long j)
+  /// from: `public long toMicros(long j)`
   int toMicros(
     int j,
   ) {
@@ -13628,7 +13628,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public long toMillis(long j)
+  /// from: `public long toMillis(long j)`
   int toMillis(
     int j,
   ) {
@@ -13649,7 +13649,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public long toSeconds(long j)
+  /// from: `public long toSeconds(long j)`
   int toSeconds(
     int j,
   ) {
@@ -13670,7 +13670,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public long toMinutes(long j)
+  /// from: `public long toMinutes(long j)`
   int toMinutes(
     int j,
   ) {
@@ -13691,7 +13691,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public long toHours(long j)
+  /// from: `public long toHours(long j)`
   int toHours(
     int j,
   ) {
@@ -13711,7 +13711,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public long toDays(long j)
+  /// from: `public long toDays(long j)`
   int toDays(
     int j,
   ) {
@@ -13734,7 +13734,7 @@ class TimeUnit extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public void timedWait(java.lang.Object object, long j)
+  /// from: `public void timedWait(java.lang.Object object, long j)`
   void timedWait(
     jni.JObject object,
     int j,
@@ -13760,7 +13760,7 @@ class TimeUnit extends jni.JObject {
           jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>, int)>();
 
-  /// from: public void timedJoin(java.lang.Thread thread, long j)
+  /// from: `public void timedJoin(java.lang.Thread thread, long j)`
   void timedJoin(
     jni.JObject thread,
     int j,
@@ -13785,7 +13785,7 @@ class TimeUnit extends jni.JObject {
           jni.JThrowablePtr Function(
               ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
 
-  /// from: public void sleep(long j)
+  /// from: `public void sleep(long j)`
   void sleep(
     int j,
   ) {
@@ -13809,7 +13809,7 @@ class TimeUnit extends jni.JObject {
             jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.time.temporal.ChronoUnit toChronoUnit()
+  /// from: `public java.time.temporal.ChronoUnit toChronoUnit()`
   /// The returned object must be released after use, by calling the [release] method.
   jni.JObject toChronoUnit() {
     return _toChronoUnit(
@@ -13833,7 +13833,7 @@ class TimeUnit extends jni.JObject {
           jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
               ffi.Pointer<ffi.Void>)>();
 
-  /// from: static public java.util.concurrent.TimeUnit of(java.time.temporal.ChronoUnit chronoUnit)
+  /// from: `static public java.util.concurrent.TimeUnit of(java.time.temporal.ChronoUnit chronoUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit of(
     jni.JObject chronoUnit,
