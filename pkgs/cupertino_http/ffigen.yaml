@@ -37,3 +37,7 @@ preamble: |
 comments:
   style: any
   length: full
+enums:
+  as-int: 
+    include:
+      - 'NSURLSessionWebSocketCloseCode'

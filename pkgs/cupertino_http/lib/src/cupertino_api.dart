@@ -27,10 +27,8 @@
 library;
 
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:isolate';
 
-import 'package:async/async.dart';
 import 'package:objective_c/objective_c.dart' as objc;
 
 import 'native_cupertino_bindings.dart' as ncb;
@@ -597,8 +595,7 @@ class URLSessionWebSocketTask extends URLSessionTask {
   /// The close code set when the WebSocket connection is closed.
   ///
   /// See [NSURLSessionWebSocketTask.closeCode](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181201-closecode)
-  ncb.NSURLSessionWebSocketCloseCode get closeCode =>
-      _urlSessionWebSocketTask.closeCode;
+  int get closeCode => _urlSessionWebSocketTask.closeCode;
 
   /// The close reason set when the WebSocket connection is closed.
   /// If there is no close reason available this property will be null.
@@ -613,28 +610,17 @@ class URLSessionWebSocketTask extends URLSessionTask {
   ///
   /// See [NSURLSessionWebSocketTask.sendMessage:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181205-sendmessage)
   Future<void> sendMessage(URLSessionWebSocketMessage message) async {
-    /*
-    _urlSessionWebSocketTask.sendMessage_completionHandler_(
-        message._nsObject, (error)  error);
-
     final completer = Completer<void>();
-    final completionPort = ReceivePort();
-    completionPort.listen((message) {
-      final ep = Pointer<objc.ObjCObject>.fromAddress(message as int);
-      if (ep.address == 0) {
+    _urlSessionWebSocketTask.sendMessage_completionHandler_(message._nsObject,
+        ncb.ObjCBlock_ffiVoid_NSError.listener((error) {
+      if (error == null) {
         completer.complete();
       } else {
-        final error =
-            objc.NSError.castFromPointer(ep, retain: false, release: true);
         completer.completeError(error);
       }
-      completionPort.close();
-    });
+    }));
 
-    helperLibs.CUPHTTPSendMessage(_urlSessionWebSocketTask, message._nsObject,
-        completionPort.sendPort.nativePort);
     await completer.future;
-    */
   }
 
   /// Receives a single WebSocket message.
@@ -644,45 +630,25 @@ class URLSessionWebSocketTask extends URLSessionTask {
   /// See [NSURLSessionWebSocketTask.receiveMessageWithCompletionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181204-receivemessagewithcompletionhand)
   Future<URLSessionWebSocketMessage> receiveMessage() async {
     final completer = Completer<URLSessionWebSocketMessage>();
-    final completionPort = ReceivePort();
-    completionPort.listen((d) {
-      final messageAndError = d as List;
-
-      final mp = messageAndError[0] as int;
-      final ep = messageAndError[1] as int;
-
-      final message = mp == 0
-          ? null
-          : URLSessionWebSocketMessage._(
-              ncb.NSURLSessionWebSocketMessage.castFromPointer(
-                  Pointer.fromAddress(mp).cast<objc.ObjCObject>(),
-                  retain: false,
-                  release: true));
-      final error = ep == 0
-          ? null
-          : objc.NSError.castFromPointer(
-              Pointer.fromAddress(ep).cast<objc.ObjCObject>(),
-              retain: false,
-              release: true);
-
+    _urlSessionWebSocketTask.receiveMessageWithCompletionHandler_(
+        ncb.ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError.listener(
+            (message, error) {
       if (error != null) {
         completer.completeError(error);
+      } else if (message != null) {
+        completer.complete(URLSessionWebSocketMessage._(message));
       } else {
-        completer.complete(message!);
+        completer.completeError(
+            StateError('one of message or error must be non-null'));
       }
-      completionPort.close();
-    });
-
-//    helperLibs.CUPHTTPReceiveMessage(
-//        _urlSessionWebSocketTask, completionPort.sendPort.nativePort);
+    }));
     return completer.future;
   }
 
   /// Sends close frame with the given code and optional reason.
   ///
   /// See [NSURLSessionWebSocketTask.cancelWithCloseCode:reason:](https://developer.apple.com/documentation/foundation/nsurlsessionwebsockettask/3181200-cancelwithclosecode)
-  void cancelWithCloseCode(
-      ncb.NSURLSessionWebSocketCloseCode closeCode, objc.NSData? reason) {
+  void cancelWithCloseCode(int closeCode, objc.NSData? reason) {
     _urlSessionWebSocketTask.cancelWithCloseCode_reason_(closeCode, reason);
   }
 
@@ -868,7 +834,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             URLSession session, URLSessionWebSocketTask task, String? protocol)?
         onWebSocketTaskOpened,
     void Function(URLSession session, URLSessionWebSocketTask task,
-            ncb.NSURLSessionWebSocketCloseCode closeCode, objc.NSData? reason)?
+            int closeCode, objc.NSData? reason)?
         onWebSocketTaskClosed,
   }) {
     final protoBuilder = objc.ObjCProtocolBuilder();
@@ -936,6 +902,21 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             URLSession._(nsSession, isBackground: isBackground),
             URLSessionDownloadTask._(nsTask),
             nsurlToUri(nsUrl));
+      }
+    });
+
+    ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
+        URLSession_webSocketTask_didOpenWithProtocol_:
+            (session, task, protocol) {
+      if (onWebSocketTaskOpened != null) {
+        onWebSocketTaskOpened(URLSession._(session, isBackground: isBackground),
+            URLSessionWebSocketTask._(task), protocol?.toString());
+      }
+    }, URLSession_webSocketTask_didCloseWithCode_reason_:
+            (session, task, closeCode, reason) {
+      if (onWebSocketTaskClosed != null) {
+        onWebSocketTaskClosed(URLSession._(session, isBackground: isBackground),
+            URLSessionWebSocketTask._(task), closeCode, reason);
       }
     });
     return protoBuilder.build();
@@ -1011,7 +992,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             URLSession session, URLSessionWebSocketTask task, String? protocol)?
         onWebSocketTaskOpened,
     void Function(URLSession session, URLSessionWebSocketTask task,
-            ncb.NSURLSessionWebSocketCloseCode? closeCode, objc.NSData? reason)?
+            int? closeCode, objc.NSData? reason)?
         onWebSocketTaskClosed,
   }) {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
@@ -1148,7 +1129,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       throw UnsupportedError(
           'WebSocket tasks are not supported in background sessions');
     }
-
     final URLSessionWebSocketTask task;
     if (protocols == null) {
       task = URLSessionWebSocketTask._(

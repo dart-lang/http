@@ -62375,9 +62375,9 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
   /// Sends a close frame with the given closeCode. An optional reason can be provided while sending the close frame.
   /// Simply calling cancel on the task will result in a cancellation frame being sent without any reason.
   void cancelWithCloseCode_reason_(
-      NSURLSessionWebSocketCloseCode closeCode, objc.NSData? reason) {
+      DartNSInteger closeCode, objc.NSData? reason) {
     _objc_msgSend_18im7ej(this.ref.pointer, _sel_cancelWithCloseCode_reason_,
-        closeCode.value, reason?.ref.pointer ?? ffi.nullptr);
+        closeCode, reason?.ref.pointer ?? ffi.nullptr);
   }
 
   /// The maximum number of bytes to be buffered before erroring out. This includes the sum of all bytes from continuation frames. Receive calls will error out if this value is reached
@@ -62392,9 +62392,8 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
   }
 
   /// A task can be queried for it's close code at any point. When the task is not closed, it will be set to NSURLSessionWebSocketCloseCodeInvalid
-  NSURLSessionWebSocketCloseCode get closeCode {
-    final _ret = _objc_msgSend_a13zbl(this.ref.pointer, _sel_closeCode);
-    return NSURLSessionWebSocketCloseCode.fromValue(_ret);
+  DartNSInteger get closeCode {
+    return _objc_msgSend_a13zbl(this.ref.pointer, _sel_closeCode);
   }
 
   /// A task can be queried for it's close reason at any point. A nil value indicates no closeReason or that the task is still running
@@ -62734,41 +62733,20 @@ late final _sel_sendPingWithPongReceiveHandler_ =
     objc.registerName("sendPingWithPongReceiveHandler:");
 
 /// The WebSocket close codes follow the close codes given in the RFC
-enum NSURLSessionWebSocketCloseCode {
-  NSURLSessionWebSocketCloseCodeInvalid(0),
-  NSURLSessionWebSocketCloseCodeNormalClosure(1000),
-  NSURLSessionWebSocketCloseCodeGoingAway(1001),
-  NSURLSessionWebSocketCloseCodeProtocolError(1002),
-  NSURLSessionWebSocketCloseCodeUnsupportedData(1003),
-  NSURLSessionWebSocketCloseCodeNoStatusReceived(1005),
-  NSURLSessionWebSocketCloseCodeAbnormalClosure(1006),
-  NSURLSessionWebSocketCloseCodeInvalidFramePayloadData(1007),
-  NSURLSessionWebSocketCloseCodePolicyViolation(1008),
-  NSURLSessionWebSocketCloseCodeMessageTooBig(1009),
-  NSURLSessionWebSocketCloseCodeMandatoryExtensionMissing(1010),
-  NSURLSessionWebSocketCloseCodeInternalServerError(1011),
-  NSURLSessionWebSocketCloseCodeTLSHandshakeFailure(1015);
-
-  final int value;
-  const NSURLSessionWebSocketCloseCode(this.value);
-
-  static NSURLSessionWebSocketCloseCode fromValue(int value) => switch (value) {
-        0 => NSURLSessionWebSocketCloseCodeInvalid,
-        1000 => NSURLSessionWebSocketCloseCodeNormalClosure,
-        1001 => NSURLSessionWebSocketCloseCodeGoingAway,
-        1002 => NSURLSessionWebSocketCloseCodeProtocolError,
-        1003 => NSURLSessionWebSocketCloseCodeUnsupportedData,
-        1005 => NSURLSessionWebSocketCloseCodeNoStatusReceived,
-        1006 => NSURLSessionWebSocketCloseCodeAbnormalClosure,
-        1007 => NSURLSessionWebSocketCloseCodeInvalidFramePayloadData,
-        1008 => NSURLSessionWebSocketCloseCodePolicyViolation,
-        1009 => NSURLSessionWebSocketCloseCodeMessageTooBig,
-        1010 => NSURLSessionWebSocketCloseCodeMandatoryExtensionMissing,
-        1011 => NSURLSessionWebSocketCloseCodeInternalServerError,
-        1015 => NSURLSessionWebSocketCloseCodeTLSHandshakeFailure,
-        _ => throw ArgumentError(
-            "Unknown value for NSURLSessionWebSocketCloseCode: $value"),
-      };
+sealed class NSURLSessionWebSocketCloseCode {
+  static const NSURLSessionWebSocketCloseCodeInvalid = 0;
+  static const NSURLSessionWebSocketCloseCodeNormalClosure = 1000;
+  static const NSURLSessionWebSocketCloseCodeGoingAway = 1001;
+  static const NSURLSessionWebSocketCloseCodeProtocolError = 1002;
+  static const NSURLSessionWebSocketCloseCodeUnsupportedData = 1003;
+  static const NSURLSessionWebSocketCloseCodeNoStatusReceived = 1005;
+  static const NSURLSessionWebSocketCloseCodeAbnormalClosure = 1006;
+  static const NSURLSessionWebSocketCloseCodeInvalidFramePayloadData = 1007;
+  static const NSURLSessionWebSocketCloseCodePolicyViolation = 1008;
+  static const NSURLSessionWebSocketCloseCodeMessageTooBig = 1009;
+  static const NSURLSessionWebSocketCloseCodeMandatoryExtensionMissing = 1010;
+  static const NSURLSessionWebSocketCloseCodeInternalServerError = 1011;
+  static const NSURLSessionWebSocketCloseCodeTLSHandshakeFailure = 1015;
 }
 
 late final _sel_cancelWithCloseCode_reason_ =
@@ -73262,8 +73240,7 @@ abstract final class NSURLSessionWebSocketDelegate {
   static objc.ObjCObjectBase implement(
       {void Function(NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)?
           URLSession_webSocketTask_didOpenWithProtocol_,
-      void Function(NSURLSession, NSURLSessionWebSocketTask,
-              NSURLSessionWebSocketCloseCode, objc.NSData?)?
+      void Function(NSURLSession, NSURLSessionWebSocketTask, DartNSInteger, objc.NSData?)?
           URLSession_webSocketTask_didCloseWithCode_reason_,
       void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
       void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
@@ -73280,7 +73257,9 @@ abstract final class NSURLSessionWebSocketDelegate {
               NSURLAuthenticationChallenge,
               objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
           URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStream_,
+      void Function(
+              NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
+          URLSession_task_needNewBodyStream_,
       void Function(NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
       void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
       void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
@@ -73344,8 +73323,7 @@ abstract final class NSURLSessionWebSocketDelegate {
   static void addToBuilder(objc.ObjCProtocolBuilder builder,
       {void Function(NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)?
           URLSession_webSocketTask_didOpenWithProtocol_,
-      void Function(NSURLSession, NSURLSessionWebSocketTask,
-              NSURLSessionWebSocketCloseCode, objc.NSData?)?
+      void Function(NSURLSession, NSURLSessionWebSocketTask, DartNSInteger, objc.NSData?)?
           URLSession_webSocketTask_didCloseWithCode_reason_,
       void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
       void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
@@ -73362,7 +73340,9 @@ abstract final class NSURLSessionWebSocketDelegate {
               NSURLAuthenticationChallenge,
               objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
           URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStream_,
+      void Function(
+              NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
+          URLSession_task_needNewBodyStream_,
       void Function(NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
       void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
       void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
@@ -73425,8 +73405,7 @@ abstract final class NSURLSessionWebSocketDelegate {
   static objc.ObjCObjectBase implementAsListener(
       {void Function(NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)?
           URLSession_webSocketTask_didOpenWithProtocol_,
-      void Function(NSURLSession, NSURLSessionWebSocketTask,
-              NSURLSessionWebSocketCloseCode, objc.NSData?)?
+      void Function(NSURLSession, NSURLSessionWebSocketTask, DartNSInteger, objc.NSData?)?
           URLSession_webSocketTask_didCloseWithCode_reason_,
       void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
       void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
@@ -73443,7 +73422,9 @@ abstract final class NSURLSessionWebSocketDelegate {
               NSURLAuthenticationChallenge,
               objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
           URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStream_,
+      void Function(
+              NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
+          URLSession_task_needNewBodyStream_,
       void Function(NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
       void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
       void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
@@ -73514,8 +73495,7 @@ abstract final class NSURLSessionWebSocketDelegate {
   static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
       {void Function(NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)?
           URLSession_webSocketTask_didOpenWithProtocol_,
-      void Function(NSURLSession, NSURLSessionWebSocketTask,
-              NSURLSessionWebSocketCloseCode, objc.NSData?)?
+      void Function(NSURLSession, NSURLSessionWebSocketTask, DartNSInteger, objc.NSData?)?
           URLSession_webSocketTask_didCloseWithCode_reason_,
       void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
       void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
@@ -73532,7 +73512,9 @@ abstract final class NSURLSessionWebSocketDelegate {
               NSURLAuthenticationChallenge,
               objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
           URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStream_,
+      void Function(
+              NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
+          URLSession_task_needNewBodyStream_,
       void Function(NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
       void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
       void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
@@ -73627,8 +73609,8 @@ abstract final class NSURLSessionWebSocketDelegate {
   /// this information in the close frame
   static final URLSession_webSocketTask_didCloseWithCode_reason_ =
       objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionWebSocketTask,
-              NSURLSessionWebSocketCloseCode, objc.NSData?)>(
+          void Function(NSURLSession, NSURLSessionWebSocketTask, DartNSInteger,
+              objc.NSData?)>(
     _sel_URLSession_webSocketTask_didCloseWithCode_reason_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionWebSocketDelegate,
@@ -73636,24 +73618,24 @@ abstract final class NSURLSessionWebSocketDelegate {
       isRequired: false,
       isInstanceMethod: true,
     ),
-    (void Function(NSURLSession, NSURLSessionWebSocketTask,
-                NSURLSessionWebSocketCloseCode, objc.NSData?)
+    (void Function(NSURLSession, NSURLSessionWebSocketTask, DartNSInteger,
+                objc.NSData?)
             func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData
             .fromFunction((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
                     NSURLSessionWebSocketTask arg2,
-                    NSURLSessionWebSocketCloseCode arg3,
+                    DartNSInteger arg3,
                     objc.NSData? arg4) =>
                 func(arg1, arg2, arg3, arg4)),
-    (void Function(NSURLSession, NSURLSessionWebSocketTask,
-                NSURLSessionWebSocketCloseCode, objc.NSData?)
+    (void Function(NSURLSession, NSURLSessionWebSocketTask, DartNSInteger,
+                objc.NSData?)
             func) =>
         ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData
             .listener((ffi.Pointer<ffi.Void> _,
                     NSURLSession arg1,
                     NSURLSessionWebSocketTask arg2,
-                    NSURLSessionWebSocketCloseCode arg3,
+                    DartNSInteger arg3,
                     objc.NSData? arg4) =>
                 func(arg1, arg2, arg3, arg4)),
   );
@@ -74475,7 +74457,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionWebSocketTask, NSInteger, objc.NSData?)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionWebSocketTask, NSURLSessionWebSocketCloseCode, objc.NSData?) fn) =>
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionWebSocketTask, NSInteger, objc.NSData?)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionWebSocketTask, DartNSInteger, objc.NSData?) fn) =>
       objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionWebSocketTask, NSInteger, objc.NSData?)>(
           objc.newClosureBlock(
               _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_closureCallable,
@@ -74488,7 +74470,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
                       arg0,
                       NSURLSession.castFromPointer(arg1, retain: true, release: true),
                       NSURLSessionWebSocketTask.castFromPointer(arg2, retain: true, release: true),
-                      NSURLSessionWebSocketCloseCode.fromValue(arg3),
+                      arg3,
                       arg4.address == 0 ? null : objc.NSData.castFromPointer(arg4, retain: true, release: true))),
           retain: false,
           release: true);
@@ -74505,12 +74487,8 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
   static objc.ObjCBlock<
       ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
           NSURLSessionWebSocketTask, NSInteger, objc.NSData?)> listener(
-      void Function(
-              ffi.Pointer<ffi.Void>,
-              NSURLSession,
-              NSURLSessionWebSocketTask,
-              NSURLSessionWebSocketCloseCode,
-              objc.NSData?)
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionWebSocketTask, DartNSInteger, objc.NSData?)
           fn) {
     final raw = objc.newClosureBlock(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_listenerCallable
@@ -74527,7 +74505,7 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
                     retain: false, release: true),
                 NSURLSessionWebSocketTask.castFromPointer(arg2,
                     retain: false, release: true),
-                NSURLSessionWebSocketCloseCode.fromValue(arg3),
+                arg3,
                 arg4.address == 0
                     ? null
                     : objc.NSData.castFromPointer(arg4,
@@ -74553,7 +74531,7 @@ extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURL
           ffi.Pointer<ffi.Void> arg0,
           NSURLSession arg1,
           NSURLSessionWebSocketTask arg2,
-          NSURLSessionWebSocketCloseCode arg3,
+          DartNSInteger arg3,
           objc.NSData? arg4) =>
       ref.pointer.ref.invoke
               .cast<
@@ -74577,7 +74555,7 @@ extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURL
           arg0,
           arg1.ref.pointer,
           arg2.ref.pointer,
-          arg3.value,
+          arg3,
           arg4?.ref.pointer ?? ffi.nullptr);
 }
 
