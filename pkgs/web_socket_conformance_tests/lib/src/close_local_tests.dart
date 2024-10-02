@@ -55,11 +55,16 @@ void testCloseLocal(
       httpServerChannel.sink.add(null);
     });
 
-    test('reserved close code: 1004', () async {
-      final channel = await channelFactory(uri);
-      await expectLater(
-          () => channel.close(1004), throwsA(isA<ArgumentError>()));
-    });
+    /// Codes 1004-1006 and 1015 cannot be used in close() calls.
+    for (final reservedCode in [1004, 1005, 1006, 1015]) {
+      test('reserved close code: $reservedCode', () async {
+        final channel = await channelFactory(uri);
+        await expectLater(
+          () => channel.close(reservedCode),
+          throwsA(isA<ArgumentError>()),
+        );
+      });
+    }
 
     test('reserved close code: 2999', () async {
       final channel = await channelFactory(uri);
