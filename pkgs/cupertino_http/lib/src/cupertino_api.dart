@@ -830,6 +830,25 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // Indicates if the session is a background session. Copied from the
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
+  static var _taskCount = 0;
+  static ReceivePort? _port = null;
+
+  static void _incrementTaskCount() {
+    if (_port == null) {
+      _port = ReceivePort();
+    }
+    ++_taskCount;
+  }
+
+  static void _decrementTaskCount() {
+    assert(_taskCount > 0);
+    --_taskCount;
+    if (_taskCount == 0 && _port != null) {
+      _port?.close();
+      _port = null;
+      _taskCount = 0;
+    }
+  }
 
   static objc.ObjCObjectBase delegate(
     bool isBackground, {
@@ -858,7 +877,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       protoBuilder,
       URLSession_dataTask_didReceiveResponse_completionHandler_:
           (session, dataTask, response, completionHandler) {
-//        print('URLSession_dataTask_didReceiveResponse_completionHandler_:');
         var disposition =
             ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
 
@@ -872,7 +890,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         completionHandler.call(disposition);
       },
       URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
-//        print('URLSession_dataTask_didReceiveData_:');
         if (onData != null) {
           onData(URLSession._(session, isBackground: isBackground),
               URLSessionTask._(dataTask), data);
@@ -903,6 +920,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         nsRequestCompleter.call(redirectRequest?._nsObject);
       },
       URLSession_task_didCompleteWithError_: (nsSession, nsTask, nsError) {
+        _decrementTaskCount();
         if (onComplete != null) {
           onComplete(URLSession._(nsSession, isBackground: isBackground),
               URLSessionTask._(nsTask), nsError);
@@ -1039,6 +1057,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionTask dataTaskWithRequest(URLRequest request) {
     final task =
         URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
+    _incrementTaskCount();
     return task;
   }
 
@@ -1062,6 +1081,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     // 2. use a delegate to send information about the task to the port
     // 3. call the user-provided completion function when we receive the
     //    `CompletedMessage` message type.
+    _incrementTaskCount();
     throw UnsupportedError('dataTaskWithCompletionHandler');
     /*
     final task =
@@ -1096,6 +1116,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) {
     final task = URLSessionDownloadTask._(
         _nsObject.downloadTaskWithRequest_(request._nsObject));
+    _incrementTaskCount();
     return task;
   }
 
@@ -1113,6 +1134,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
     final task = URLSessionWebSocketTask._(
         _nsObject.webSocketTaskWithRequest_(request._nsObject));
+    _incrementTaskCount();
     return task;
   }
 
@@ -1136,6 +1158,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           _nsObject.webSocketTaskWithURL_protocols_(
               uriToNSURL(uri), stringIterableToNSArray(protocols)));
     }
+    _incrementTaskCount();
     return task;
   }
 
