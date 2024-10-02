@@ -842,11 +842,11 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
   static void _decrementTaskCount() {
     assert(_taskCount > 0);
+    assert(_port != null);
     --_taskCount;
-    if (_taskCount == 0 && _port != null) {
+    if (_taskCount == 0) {
       _port?.close();
       _port = null;
-      _taskCount = 0;
     }
   }
 
