@@ -925,9 +925,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSession._(
     super.c, {
     required bool isBackground,
-  }) : _isBackground = isBackground {
-    helperLibs.timezone; // XXX: Force the initialization of the Dart API.
-  }
+  }) : _isBackground = isBackground;
 
   /// A client with reasonable default behavior.
   ///

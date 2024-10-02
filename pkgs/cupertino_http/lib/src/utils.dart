@@ -9,9 +9,6 @@ import 'package:objective_c/objective_c.dart';
 
 import 'native_cupertino_bindings.dart' as ncb;
 
-const _packageName = 'cupertino_http';
-const _libName = _packageName;
-
 /// Access to symbols that are linked into the process.
 ///
 /// The "Foundation" framework is linked to Dart so no additional
@@ -24,34 +21,6 @@ final ncb.NativeCupertinoHttp linkedLibs = () {
   throw UnsupportedError(
       'Platform ${Platform.operatingSystem} is not supported');
 }();
-
-/// Access to symbols that are available in the cupertino_http helper shared
-/// library.
-final ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
-
-DynamicLibrary _loadHelperDynamicLibrary() {
-  if (Platform.isMacOS || Platform.isIOS) {
-    return DynamicLibrary.open('$_libName.framework/$_libName');
-  }
-
-  throw UnsupportedError(
-      'Platform ${Platform.operatingSystem} is not supported');
-}
-
-ncb.NativeCupertinoHttp _loadHelperLibrary() {
-  print('_loadHelperLibrary');
-  final lib = _loadHelperDynamicLibrary();
-  print('load done');
-/*
-  final initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
-      int Function(Pointer<Void>)>('Dart_InitializeApiDL');
-  final initializeResult = initializeApi(NativeApi.initializeApiDLData);
-  if (initializeResult != 0) {
-    throw StateError('failed to init API.');
-  }
-*/
-  return ncb.NativeCupertinoHttp(lib);
-}
 
 /// Converts a NSDictionary containing NSString keys and NSString values into
 /// an equivalent map.
@@ -84,25 +53,6 @@ NSArray stringIterableToNSArray(Iterable<String> strings) {
   }
   return array;
 }
-
-NSError error(String domain, int code, String localizedDescription) {
-  final userInfo = NSMutableDictionary.new1()
-    ..setObject_forKey_(
-      localizedDescription.toNSString(),
-      linkedLibs.NSLocalizedDescriptionKey,
-    );
-
-  return NSError.alloc()
-      .initWithDomain_code_userInfo_(domain.toNSString(), code, userInfo);
-}
-
-String errorString(NSError error) => '[NSError '
-    'domain=${error.domain} '
-    'code=${error.code} '
-    'localizedDescription=${error.localizedDescription} '
-    'localizedFailureReason=${error.localizedFailureReason} '
-    'localizedRecoverySuggestion=${error.localizedRecoverySuggestion} '
-    ']';
 
 NSURL uriToNSURL(Uri uri) => NSURL.URLWithString_(uri.toString().toNSString())!;
 Uri nsurlToUri(NSURL url) => Uri.parse(url.absoluteString!.toString());
