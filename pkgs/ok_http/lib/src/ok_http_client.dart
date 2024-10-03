@@ -50,11 +50,15 @@ class OkHttpClientConfiguration {
   /// See [OkHttpClient.Builder.writeTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html).
   final Duration writeTimeout;
 
+  /// TODO: Some documentation.
+  final int? cacheSize;
+
   const OkHttpClientConfiguration({
     this.callTimeout = Duration.zero,
     this.connectTimeout = const Duration(milliseconds: 10000),
     this.readTimeout = const Duration(milliseconds: 10000),
     this.writeTimeout = const Duration(milliseconds: 10000),
+    this.cacheSize,
   });
 }
 
@@ -92,7 +96,14 @@ class OkHttpClient extends BaseClient {
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
   }) {
-    _client = bindings.OkHttpClient.new1();
+    if (configuration.cacheSize != null) {
+      _client = bindings.OkHttpClient_Builder.new()
+          .cache(bindings.Cache.new1(
+              bindings.File("".toJString()), configuration.cacheSize!))
+          .build();
+    } else {
+      _client = bindings.OkHttpClient.new1();
+    }
   }
 
   @override
@@ -198,7 +209,7 @@ class OkHttpClient extends BaseClient {
     // `followRedirects` is set to `false` to handle redirects manually.
     // (Since OkHttp sets a hard limit of 20 redirects.)
     // https://github.com/square/okhttp/blob/54238b4c713080c3fd32fb1a070fb5d6814c9a09/okhttp/src/main/kotlin/okhttp3/internal/http/RetryAndFollowUpInterceptor.kt#L350
-    final reqConfiguredClient = bindings.RedirectInterceptor.Companion
+    final reqConfiguredClientBuilder = bindings.RedirectInterceptor.Companion
         .addRedirectInterceptor(
             _client.newBuilder().followRedirects(false),
             maxRedirects,
@@ -222,8 +233,9 @@ class OkHttpClient extends BaseClient {
         .readTimeout(configuration.readTimeout.inMilliseconds,
             bindings.TimeUnit.MILLISECONDS)
         .writeTimeout(configuration.writeTimeout.inMilliseconds,
-            bindings.TimeUnit.MILLISECONDS)
-        .build();
+            bindings.TimeUnit.MILLISECONDS);
+
+    final reqConfiguredClient = reqConfiguredClientBuilder.build();
 
     // `enqueue()` schedules the request to be executed in the future.
     // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-call/enqueue.html
@@ -231,6 +243,16 @@ class OkHttpClient extends BaseClient {
         .newCall(reqBuilder.build())
         .enqueue(bindings.Callback.implement(bindings.$CallbackImpl(
           onResponse: (bindings.Call call, bindings.Response response) {
+            var cacheResponse = response.cacheResponse();
+            if (!cacheResponse.isNull) {
+              print('Cache response: ${cacheResponse.toString()}');
+            }
+
+            var networkResponse = response.networkResponse();
+            if (!networkResponse.isNull) {
+              print('Network response: ${networkResponse.toString()}');
+            }
+
             var reader = bindings.AsyncInputStreamReader();
             var respBodyStreamController = StreamController<List<int>>();
 
