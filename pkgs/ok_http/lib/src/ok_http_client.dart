@@ -209,7 +209,7 @@ class OkHttpClient extends BaseClient {
     // `followRedirects` is set to `false` to handle redirects manually.
     // (Since OkHttp sets a hard limit of 20 redirects.)
     // https://github.com/square/okhttp/blob/54238b4c713080c3fd32fb1a070fb5d6814c9a09/okhttp/src/main/kotlin/okhttp3/internal/http/RetryAndFollowUpInterceptor.kt#L350
-    final reqConfiguredClientBuilder = bindings.RedirectInterceptor.Companion
+    final reqConfiguredClient = bindings.RedirectInterceptor.Companion
         .addRedirectInterceptor(
             _client.newBuilder().followRedirects(false),
             maxRedirects,
@@ -233,9 +233,8 @@ class OkHttpClient extends BaseClient {
         .readTimeout(configuration.readTimeout.inMilliseconds,
             bindings.TimeUnit.MILLISECONDS)
         .writeTimeout(configuration.writeTimeout.inMilliseconds,
-            bindings.TimeUnit.MILLISECONDS);
-
-    final reqConfiguredClient = reqConfiguredClientBuilder.build();
+            bindings.TimeUnit.MILLISECONDS)
+        .build();
 
     // `enqueue()` schedules the request to be executed in the future.
     // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-call/enqueue.html
