@@ -37,6 +37,9 @@ classes:
   - "okio.ByteString"
   - "com.example.ok_http.WebSocketInterceptor"
   - "java.util.concurrent.TimeUnit"
+  - "okhttp3.Cache"
+  - "okhttp3.CacheControl"
+  - "java.io.File"
 
 # Exclude the deprecated methods listed below
 # They cause syntax errors during the `dart format` step of JNIGen.
@@ -105,6 +108,16 @@ exclude:
     - 'okio.ByteString\$Companion#-deprecated_read'
     - "okio.ByteString#-deprecated_getByte"
     - "okio.ByteString#-deprecated_size"
+    - "okhttp3.CacheControl#-deprecated_noCache"
+    - "okhttp3.CacheControl#-deprecated_noStore"
+    - "okhttp3.CacheControl#-deprecated_maxAgeSeconds"
+    - "okhttp3.CacheControl#-deprecated_sMaxAgeSeconds"
+    - "okhttp3.CacheControl#-deprecated_mustRevalidate"
+    - "okhttp3.CacheControl#-deprecated_maxStaleSeconds"
+    - "okhttp3.CacheControl#-deprecated_minFreshSeconds"
+    - "okhttp3.CacheControl#-deprecated_onlyIfCached"
+    - "okhttp3.CacheControl#-deprecated_noTransform"
+    - "okhttp3.CacheControl#-deprecated_immutable"
 
 preamble: |
   // ignore_for_file: prefer_expression_function_bodies

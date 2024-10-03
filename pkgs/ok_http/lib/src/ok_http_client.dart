@@ -50,11 +50,15 @@ class OkHttpClientConfiguration {
   /// See [OkHttpClient.Builder.writeTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html).
   final Duration writeTimeout;
 
+  /// TODO: Some documentation.
+  final int? cacheSize;
+
   const OkHttpClientConfiguration({
     this.callTimeout = Duration.zero,
     this.connectTimeout = const Duration(milliseconds: 10000),
     this.readTimeout = const Duration(milliseconds: 10000),
     this.writeTimeout = const Duration(milliseconds: 10000),
+    this.cacheSize,
   });
 }
 
@@ -92,7 +96,14 @@ class OkHttpClient extends BaseClient {
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
   }) {
-    _client = bindings.OkHttpClient.new1();
+    if (configuration.cacheSize != null) {
+      _client = bindings.OkHttpClient_Builder.new()
+          .cache(bindings.Cache.new1(
+              bindings.File("".toJString()), configuration.cacheSize!))
+          .build();
+    } else {
+      _client = bindings.OkHttpClient.new1();
+    }
   }
 
   @override
@@ -231,6 +242,16 @@ class OkHttpClient extends BaseClient {
         .newCall(reqBuilder.build())
         .enqueue(bindings.Callback.implement(bindings.$CallbackImpl(
           onResponse: (bindings.Call call, bindings.Response response) {
+            var cacheResponse = response.cacheResponse();
+            if (!cacheResponse.isNull) {
+              print('Cache response: ${cacheResponse.toString()}');
+            }
+
+            var networkResponse = response.networkResponse();
+            if (!networkResponse.isNull) {
+              print('Network response: ${networkResponse.toString()}');
+            }
+
             var reader = bindings.AsyncInputStreamReader();
             var respBodyStreamController = StreamController<List<int>>();
 
