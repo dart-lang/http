@@ -60,7 +60,7 @@ void testDataTaskWithCompletionHandler(URLSession session) {
     test('success', () async {
       final c = Completer<void>();
       NSData? data;
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(
@@ -74,14 +74,17 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       await c.future;
 
       expect(data!.toList(), 'Hello World'.codeUnits);
-      expect(response!.statusCode, 200);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
     });
 
     test('success no data', () async {
       final c = Completer<void>();
       NSData? data;
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       final request = MutableURLRequest.fromUrl(
@@ -97,14 +100,17 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       await c.future;
 
       expect(data, null);
-      expect(response!.statusCode, 200);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
     });
 
     test('500 response', () async {
       final c = Completer<void>();
       NSData? data;
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(
@@ -118,7 +124,10 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       await c.future;
 
       expect(data!.toList(), 'Hello World'.codeUnits);
-      expect(response!.statusCode, 500);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 500));
       expect(error, null);
     });
 
@@ -127,7 +136,7 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       // does not interfere with the default redirect behavior.
       final c = Completer<void>();
       NSData? data;
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(
@@ -149,7 +158,7 @@ void testDataTaskWithCompletionHandler(URLSession session) {
     test('unable to connect', () async {
       final c = Completer<void>();
       NSData? data;
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(
@@ -197,7 +206,8 @@ void testURLSession(URLSession session) {
       final task = session.dataTaskWithRequest(
           URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
         ..resume();
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>.delayed(const Duration());
       }
@@ -209,7 +219,8 @@ void testURLSession(URLSession session) {
       final task = session.downloadTaskWithRequest(
           URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
         ..resume();
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>.delayed(const Duration());
       }

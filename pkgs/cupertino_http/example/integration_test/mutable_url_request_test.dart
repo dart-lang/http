@@ -19,9 +19,9 @@ void main() {
     setUp(() => request = MutableURLRequest.fromUrl(uri));
 
     test('set', () {
-      request.cachePolicy = URLRequestCachePolicy.returnCacheDataDontLoad;
+      request.cachePolicy = NSURLRequestCachePolicy.NSURLRequestReturnCacheDataDontLoad;
       expect(
-          request.cachePolicy, URLRequestCachePolicy.returnCacheDataDontLoad);
+          request.cachePolicy, NSURLRequestCachePolicy.NSURLRequestReturnCacheDataDontLoad);
       request.toString(); // Just verify that there is no crash.
     });
   });

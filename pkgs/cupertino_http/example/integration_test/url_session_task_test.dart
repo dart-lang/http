@@ -100,8 +100,10 @@ void testWebSocketTask() {
       await task.sendMessage(
           URLSessionWebSocketMessage.fromData([1, 2, 3].toNSData()));
       final receivedMessage = await task.receiveMessage();
-      expect(receivedMessage.type,
-          URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeData);
+      expect(
+          receivedMessage.type,
+          NSURLSessionWebSocketMessageType
+              .NSURLSessionWebSocketMessageTypeData);
       expect(receivedMessage.data!.toList(), [1, 2, 3]);
       expect(receivedMessage.string, null);
       task.cancel();
@@ -115,8 +117,10 @@ void testWebSocketTask() {
       await task
           .sendMessage(URLSessionWebSocketMessage.fromString('Hello World!'));
       final receivedMessage = await task.receiveMessage();
-      expect(receivedMessage.type,
-          URLSessionWebSocketMessageType.urlSessionWebSocketMessageTypeString);
+      expect(
+          receivedMessage.type,
+          NSURLSessionWebSocketMessageType
+              .NSURLSessionWebSocketMessageTypeString);
       expect(receivedMessage.data, null);
       expect(receivedMessage.string, 'Hello World!');
       task.cancel();
@@ -176,14 +180,14 @@ void testURLSessionTaskCommon(
       server.close();
     });
     test('starts suspended', () {
-      expect(task.state, URLSessionTaskState.urlSessionTaskStateSuspended);
+      expect(task.state, NSURLSessionTaskState.NSURLSessionTaskStateSuspended);
       expect(task.response, null);
       task.toString(); // Just verify that there is no crash.
     });
 
     test('resume to running', () {
       task.resume();
-      expect(task.state, URLSessionTaskState.urlSessionTaskStateRunning);
+      expect(task.state, NSURLSessionTaskState.NSURLSessionTaskStateRunning);
       expect(task.response, null);
       task.toString(); // Just verify that there is no crash.
     });
@@ -191,9 +195,11 @@ void testURLSessionTaskCommon(
     test('cancel', () {
       task.cancel();
       if (suspendedAfterCancel) {
-        expect(task.state, URLSessionTaskState.urlSessionTaskStateSuspended);
+        expect(
+            task.state, NSURLSessionTaskState.NSURLSessionTaskStateSuspended);
       } else {
-        expect(task.state, URLSessionTaskState.urlSessionTaskStateCanceling);
+        expect(
+            task.state, NSURLSessionTaskState.NSURLSessionTaskStateCanceling);
       }
       expect(task.response, null);
       task.toString(); // Just verify that there is no crash.
@@ -201,7 +207,8 @@ void testURLSessionTaskCommon(
 
     test('completed', () async {
       task.resume();
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }
@@ -230,7 +237,8 @@ void testURLSessionTaskCommon(
         ..taskDescription = 'my task description'
         ..resume();
 
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }
@@ -301,7 +309,8 @@ void testURLSessionTaskCommon(
           MutableURLRequest.fromUrl(Uri.parse('http://notarealserver')))
         ..resume();
 
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }
@@ -345,7 +354,8 @@ void testURLSessionTaskCommon(
           Uri.parse('http://localhost:${server.port}/launch')))
         ..resume();
 
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>(() {});
       }

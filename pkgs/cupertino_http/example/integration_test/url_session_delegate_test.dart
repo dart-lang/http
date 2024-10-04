@@ -111,7 +111,7 @@ void testOnResponse(URLSessionConfiguration config) {
         actualTask = t;
         actualResponse = r as HTTPURLResponse;
         c.complete();
-        return URLSessionResponseDisposition.urlSessionResponseAllow;
+        return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
       });
 
       final task = session.dataTaskWithRequest(
@@ -132,7 +132,7 @@ void testOnResponse(URLSessionConfiguration config) {
           onComplete: (session, task, error) => c.complete(),
           onResponse: (s, t, r) {
             called = true;
-            return URLSessionResponseDisposition.urlSessionResponseAllow;
+            return NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
           });
 
       session
@@ -263,7 +263,7 @@ void testOnRedirect(URLSessionConfiguration config) {
               (redirectSession, redirectTask, redirectResponse, newRequest) =>
                   null);
       final c = Completer<void>();
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(
@@ -276,9 +276,14 @@ void testOnRedirect(URLSessionConfiguration config) {
       }).resume();
       await c.future;
 
-      expect(response!.statusCode, 302);
-      expect(response!.allHeaderFields['Location'],
-          'http://localhost:${redirectServer.port}/99');
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 302)
+              .having(
+                  (r) => r.allHeaderFields['Location'],
+                  "allHeaderFields['Location']",
+                  'http://localhost:${redirectServer.port}/99'));
       expect(error, null);
     });
 
@@ -288,7 +293,7 @@ void testOnRedirect(URLSessionConfiguration config) {
               (redirectSession, redirectTask, redirectResponse, newRequest) =>
                   newRequest);
       final c = Completer<void>();
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(
@@ -301,7 +306,10 @@ void testOnRedirect(URLSessionConfiguration config) {
       }).resume();
       await c.future;
 
-      expect(response!.statusCode, 200);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
     });
 
@@ -314,7 +322,7 @@ void testOnRedirect(URLSessionConfiguration config) {
                 Uri.parse('http://localhost:${redirectServer.port}/')),
       );
       final c = Completer<void>();
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(
@@ -327,7 +335,10 @@ void testOnRedirect(URLSessionConfiguration config) {
       }).resume();
       await c.future;
 
-      expect(response!.statusCode, 200);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
     });
 
@@ -340,7 +351,7 @@ void testOnRedirect(URLSessionConfiguration config) {
         },
       );
       final c = Completer<void>();
-      HTTPURLResponse? response;
+      URLResponse? response;
       // ignore: unused_local_variable
       NSError? error;
 
@@ -354,7 +365,10 @@ void testOnRedirect(URLSessionConfiguration config) {
       }).resume();
       await c.future;
 
-      expect(response!.statusCode, 302);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 302));
       // TODO(https://github.com/dart-lang/ffigen/issues/386): Check that the
       // error is set.
     }, skip: 'Error not set for redirect exceptions.');
@@ -391,7 +405,7 @@ void testOnRedirect(URLSessionConfiguration config) {
         },
       );
       final c = Completer<void>();
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(
@@ -404,7 +418,10 @@ void testOnRedirect(URLSessionConfiguration config) {
       }).resume();
       await c.future;
 
-      expect(response!.statusCode, 200);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
     });
 
@@ -418,7 +435,7 @@ void testOnRedirect(URLSessionConfiguration config) {
                 newRequest,
       );
       final c = Completer<void>();
-      HTTPURLResponse? response;
+      URLResponse? response;
       NSError? error;
 
       session.dataTaskWithCompletionHandler(

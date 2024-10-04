@@ -746,7 +746,7 @@ class MutableURLRequest extends URLRequest {
   }
 
   set cachePolicy(ncb.NSURLRequestCachePolicy value) =>
-      _mutableUrlRequest.cachePolicy;
+      _mutableUrlRequest.cachePolicy = value;
 
   set httpBody(objc.NSData? data) {
     _mutableUrlRequest.HTTPBody = data;
@@ -839,6 +839,29 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   }) {
     final protoBuilder = objc.ObjCProtocolBuilder();
 
+    if (onRedirect != null) {
+      ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
+          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
+              (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
+        final request = URLRequest._(nsRequest);
+        URLRequest? redirectRequest;
+
+        try {
+          final response =
+              URLResponse._exactURLResponseType(nsResponse) as HTTPURLResponse;
+          redirectRequest = onRedirect(
+              URLSession._(nsSession, isBackground: isBackground),
+              URLSessionTask._(nsTask),
+              response,
+              request);
+        } catch (e) {
+          // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
+          // this exception as an `Error` and call the completion function
+          // with it.
+        }
+        nsRequestCompleter.call(redirectRequest?._nsObject ?? nsRequest);
+      });
+    }
     ncb.NSURLSessionDataDelegate.addToBuilderAsListener(
       protoBuilder,
       URLSession_dataTask_didReceiveResponse_completionHandler_:
@@ -861,30 +884,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
               URLSessionTask._(dataTask), data);
         }
       },
-      URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
-          (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
-        final request = URLRequest._(nsRequest);
-        URLRequest? redirectRequest;
-
-        if (onRedirect == null) {
-          redirectRequest = request;
-        } else {
-          try {
-            final response = URLResponse._exactURLResponseType(nsResponse)
-                as HTTPURLResponse;
-            redirectRequest = onRedirect(
-                URLSession._(nsSession, isBackground: isBackground),
-                URLSessionTask._(nsTask),
-                response,
-                request);
-          } catch (e) {
-            // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
-            // this exception as an `Error` and call the completion function
-            // with it.
-          }
-        }
-        nsRequestCompleter.call(redirectRequest?._nsObject);
-      },
       URLSession_task_didCompleteWithError_: (nsSession, nsTask, nsError) {
         _decrementTaskCount();
         if (onComplete != null) {
@@ -894,16 +893,17 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       },
     );
 
-    ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
-        URLSession_downloadTask_didFinishDownloadingToURL_:
-            (nsSession, nsTask, nsUrl) {
-      if (onFinishedDownloading != null) {
+    if (onFinishedDownloading != null) {
+      ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
+          URLSession_downloadTask_didFinishDownloadingToURL_:
+              (nsSession, nsTask, nsUrl) {
+        print('onFinishDownloading');
         onFinishedDownloading(
             URLSession._(nsSession, isBackground: isBackground),
             URLSessionDownloadTask._(nsTask),
             nsurlToUri(nsUrl));
-      }
-    });
+      });
+    }
 
     ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
         URLSession_webSocketTask_didOpenWithProtocol_:
@@ -1047,42 +1047,22 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionTask dataTaskWithCompletionHandler(
       URLRequest request,
       void Function(
-              objc.NSData? data, HTTPURLResponse? response, objc.NSError? error)
+              objc.NSData? data, URLResponse? response, objc.NSError? error)
           completion) {
-    // This method cannot be implemented by simply calling
-    // `dataTaskWithRequest:completionHandler:` because the completion handler
-    // will invoke the Dart callback on an arbitrary thread and Dart code
-    // cannot be run that way
-    // (see https://github.com/dart-lang/sdk/issues/37022).
-    //
-    // Instead, we use `dataTaskWithRequest:` and:
-    // 1. create a port to receive information about the request.
-    // 2. use a delegate to send information about the task to the port
-    // 3. call the user-provided completion function when we receive the
-    //    `CompletedMessage` message type.
+    final task = _nsObject
+        .dataTaskWithRequest_completionHandler_(request._nsObject,
+            ncb.ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError.listener(
+                (data, response, error) {
+      _decrementTaskCount();
+      completion(
+        data,
+        response == null ? null : URLResponse._exactURLResponseType(response),
+        error,
+      );
+    }));
+
     _incrementTaskCount();
-    throw UnsupportedError('dataTaskWithCompletionHandler');
-    /*
-    final task =
-        URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
-
-    HTTPURLResponse? finalResponse;
-    objc.NSMutableData? allData;
-
-    _setupDelegation(_delegate, this, task, onRedirect: _onRedirect, onResponse:
-        (URLSession session, URLSessionTask task, URLResponse response) {
-      finalResponse =
-          HTTPURLResponse._(ncb.NSHTTPURLResponse.castFrom(response._nsObject));
-      return URLSessionResponseDisposition.urlSessionResponseAllow;
-    }, onData: (URLSession session, URLSessionTask task, objc.NSData data) {
-      allData ??= objc.NSMutableData.data();
-      allData!.appendData_(data);
-    }, onComplete:
-        (URLSession session, URLSessionTask task, objc.NSError? error) {
-      completion(allData, finalResponse, error);
-    });
-
-    return URLSessionTask._(task._nsObject);*/
+    return URLSessionTask._(task);
   }
 
   /// Creates a [URLSessionDownloadTask] that downloads the data from a server
