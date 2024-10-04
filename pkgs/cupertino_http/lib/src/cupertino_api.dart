@@ -854,12 +854,12 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
               URLSessionTask._(nsTask),
               response,
               request);
+          nsRequestCompleter.call(redirectRequest?._nsObject);
         } catch (e) {
           // TODO(https://github.com/dart-lang/ffigen/issues/386): Package
           // this exception as an `Error` and call the completion function
           // with it.
         }
-        nsRequestCompleter.call(redirectRequest?._nsObject ?? nsRequest);
       });
     }
     ncb.NSURLSessionDataDelegate.addToBuilderAsListener(
