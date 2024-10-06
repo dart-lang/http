@@ -1,6 +1,7 @@
 ## 1.2.3-wip
 
 * Fixed unintended HTML tags in doc comments. 
+* Added `onSendProgress` callback
 
 ## 1.2.2
 
