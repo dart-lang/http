@@ -11,7 +11,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
-void testOnComplete(URLSessionConfiguration config) {
+void testOnComplete(URLSessionConfiguration Function() config) {
   group('onComplete', () {
     late HttpServer server;
 
@@ -35,7 +35,7 @@ void testOnComplete(URLSessionConfiguration config) {
       late URLSessionTask actualTask;
 
       final session =
-          URLSession.sessionWithConfiguration(config, onComplete: (s, t, e) {
+          URLSession.sessionWithConfiguration(config(), onComplete: (s, t, e) {
         actualSession = s;
         actualTask = t;
         actualError = e;
@@ -50,6 +50,7 @@ void testOnComplete(URLSessionConfiguration config) {
       expect(actualSession, session);
       expect(actualTask, task);
       expect(actualError, null);
+      session.finishTasksAndInvalidate();
     });
 
     test('bad host', () async {
@@ -59,7 +60,7 @@ void testOnComplete(URLSessionConfiguration config) {
       late URLSessionTask actualTask;
 
       final session =
-          URLSession.sessionWithConfiguration(config, onComplete: (s, t, e) {
+          URLSession.sessionWithConfiguration(config(), onComplete: (s, t, e) {
         actualSession = s;
         actualTask = t;
         actualError = e;
@@ -78,11 +79,12 @@ void testOnComplete(URLSessionConfiguration config) {
             -1001, // kCFURLErrorTimedOut
             -1003, // kCFURLErrorCannotFindHost
           ));
+      session.finishTasksAndInvalidate();
     });
   });
 }
 
-void testOnResponse(URLSessionConfiguration config) {
+void testOnResponse(URLSessionConfiguration Function() config) {
   group('onResponse', () {
     late HttpServer server;
 
@@ -106,7 +108,7 @@ void testOnResponse(URLSessionConfiguration config) {
       late URLSessionTask actualTask;
 
       final session =
-          URLSession.sessionWithConfiguration(config, onResponse: (s, t, r) {
+          URLSession.sessionWithConfiguration(config(), onResponse: (s, t, r) {
         actualSession = s;
         actualTask = t;
         actualResponse = r as HTTPURLResponse;
@@ -121,6 +123,7 @@ void testOnResponse(URLSessionConfiguration config) {
       expect(actualSession, session);
       expect(actualTask, task);
       expect(actualResponse.statusCode, 200);
+      session.finishTasksAndInvalidate();
     });
 
     test('bad host', () async {
@@ -128,7 +131,7 @@ void testOnResponse(URLSessionConfiguration config) {
       final c = Completer<void>();
       var called = false;
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onComplete: (session, task, error) => c.complete(),
           onResponse: (s, t, r) {
             called = true;
@@ -141,11 +144,12 @@ void testOnResponse(URLSessionConfiguration config) {
           .resume();
       await c.future;
       expect(called, false);
+      session.finishTasksAndInvalidate();
     });
   });
 }
 
-void testOnData(URLSessionConfiguration config) {
+void testOnData(URLSessionConfiguration Function() config) {
   group('onData', () {
     late HttpServer server;
 
@@ -168,7 +172,7 @@ void testOnData(URLSessionConfiguration config) {
       late URLSession actualSession;
       late URLSessionTask actualTask;
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onComplete: (s, t, r) => c.complete(),
           onData: (s, t, d) {
             actualSession = s;
@@ -183,11 +187,12 @@ void testOnData(URLSessionConfiguration config) {
       expect(actualSession, session);
       expect(actualTask, task);
       expect(actualData.toList(), 'Hello World'.codeUnits);
+      session.finishTasksAndInvalidate();
     });
   });
 }
 
-void testOnFinishedDownloading(URLSessionConfiguration config) {
+void testOnFinishedDownloading(URLSessionConfiguration Function() config) {
   group('onFinishedDownloading', () {
     late HttpServer server;
 
@@ -210,7 +215,7 @@ void testOnFinishedDownloading(URLSessionConfiguration config) {
       late URLSessionDownloadTask actualTask;
       late String actualContent;
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onComplete: (s, t, r) => c.complete(),
           onFinishedDownloading: (s, t, uri) {
             actualSession = s;
@@ -225,11 +230,12 @@ void testOnFinishedDownloading(URLSessionConfiguration config) {
       expect(actualSession, session);
       expect(actualTask, task);
       expect(actualContent, 'Hello World');
+      session.finishTasksAndInvalidate();
     });
   }, skip: 'XXX will not work with current approach');
 }
 
-void testOnRedirect(URLSessionConfiguration config) {
+void testOnRedirect(URLSessionConfiguration Function() config) {
   group('onRedirect', () {
     late HttpServer redirectServer;
 
@@ -258,7 +264,7 @@ void testOnRedirect(URLSessionConfiguration config) {
     });
 
     test('disallow redirect', () async {
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onRedirect:
               (redirectSession, redirectTask, redirectResponse, newRequest) =>
                   null);
@@ -285,10 +291,11 @@ void testOnRedirect(URLSessionConfiguration config) {
                   "allHeaderFields['Location']",
                   'http://localhost:${redirectServer.port}/99'));
       expect(error, null);
+      session.finishTasksAndInvalidate();
     });
 
-    test('use preposed redirect request', () async {
-      final session = URLSession.sessionWithConfiguration(config,
+    test('use proposed redirect request', () async {
+      final session = URLSession.sessionWithConfiguration(config(),
           onRedirect:
               (redirectSession, redirectTask, redirectResponse, newRequest) =>
                   newRequest);
@@ -311,11 +318,12 @@ void testOnRedirect(URLSessionConfiguration config) {
           isA<HTTPURLResponse>()
               .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
+      session.finishTasksAndInvalidate();
     });
 
     test('use custom redirect request', () async {
       final session = URLSession.sessionWithConfiguration(
-        config,
+        config(),
         onRedirect: (redirectSession, redirectTask, redirectResponse,
                 newRequest) =>
             URLRequest.fromUrl(
@@ -340,11 +348,12 @@ void testOnRedirect(URLSessionConfiguration config) {
           isA<HTTPURLResponse>()
               .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
+      session.finishTasksAndInvalidate();
     });
 
     test('exception in http redirection', () async {
       final session = URLSession.sessionWithConfiguration(
-        config,
+        config(),
         onRedirect:
             (redirectSession, redirectTask, redirectResponse, newRequest) {
           throw UnimplementedError();
@@ -371,12 +380,13 @@ void testOnRedirect(URLSessionConfiguration config) {
               .having((r) => r.statusCode, 'statusCode', 302));
       // TODO(https://github.com/dart-lang/ffigen/issues/386): Check that the
       // error is set.
+      session.finishTasksAndInvalidate();
     }, skip: 'Error not set for redirect exceptions.');
 
     test('3 redirects', () async {
       var redirectCounter = 0;
       final session = URLSession.sessionWithConfiguration(
-        config,
+        config(),
         onRedirect:
             (redirectSession, redirectTask, redirectResponse, newRequest) {
           expect(redirectResponse.statusCode, 302);
@@ -423,13 +433,14 @@ void testOnRedirect(URLSessionConfiguration config) {
           isA<HTTPURLResponse>()
               .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
+      session.finishTasksAndInvalidate();
     });
 
     test('allow too many redirects', () async {
       // The Foundation URL Loading System limits the number of redirects
       // even when a redirect delegate is present and allows the redirect.
       final session = URLSession.sessionWithConfiguration(
-        config,
+        config(),
         onRedirect:
             (redirectSession, redirectTask, redirectResponse, newRequest) =>
                 newRequest,
@@ -448,13 +459,22 @@ void testOnRedirect(URLSessionConfiguration config) {
       }).resume();
       await c.future;
 
-      expect(response, null);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 302)
+              .having(
+                  (r) => r.allHeaderFields['Location'],
+                  "r.allHeaderFields['Location']",
+                  matches(
+                      'http://localhost:${redirectServer.port}/' + r'\d+')));
       expect(error!.code, -1007); // kCFURLErrorHTTPTooManyRedirects
+      session.finishTasksAndInvalidate();
     });
   });
 }
 
-void testOnWebSocketTaskOpened(URLSessionConfiguration config) {
+void testOnWebSocketTaskOpened(URLSessionConfiguration Function() config) {
   group('onWebSocketTaskOpened', () {
     late HttpServer server;
 
@@ -483,7 +503,7 @@ void testOnWebSocketTaskOpened(URLSessionConfiguration config) {
       late URLSession actualSession;
       late URLSessionWebSocketTask actualTask;
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onWebSocketTaskOpened: (s, t, p) {
         actualSession = s;
         actualTask = t;
@@ -500,6 +520,7 @@ void testOnWebSocketTaskOpened(URLSessionConfiguration config) {
       expect(actualSession, session);
       expect(actualTask, task);
       expect(actualProtocol, 'myprotocol');
+      session.finishTasksAndInvalidate();
     });
 
     test('without protocol', () async {
@@ -508,7 +529,7 @@ void testOnWebSocketTaskOpened(URLSessionConfiguration config) {
       late URLSession actualSession;
       late URLSessionWebSocketTask actualTask;
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onWebSocketTaskOpened: (s, t, p) {
         actualSession = s;
         actualTask = t;
@@ -523,13 +544,14 @@ void testOnWebSocketTaskOpened(URLSessionConfiguration config) {
       expect(actualSession, session);
       expect(actualTask, task);
       expect(actualProtocol, null);
+      session.finishTasksAndInvalidate();
     });
 
     test('server failure', () async {
       final c = Completer<void>();
       var onWebSocketTaskOpenedCalled = false;
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onWebSocketTaskOpened: (s, t, p) {
         onWebSocketTaskOpenedCalled = true;
       }, onComplete: (s, t, e) {
@@ -542,11 +564,12 @@ void testOnWebSocketTaskOpened(URLSessionConfiguration config) {
       session.webSocketTaskWithRequest(request).resume();
       await c.future;
       expect(onWebSocketTaskOpenedCalled, false);
+      session.finishTasksAndInvalidate();
     });
   });
 }
 
-void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
+void testOnWebSocketTaskClosed(URLSessionConfiguration Function() config) {
   group('testOnWebSocketTaskClosed', () {
     late HttpServer server;
     late int? serverCode;
@@ -580,7 +603,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
       serverCode = null;
       serverReason = null;
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onWebSocketTaskOpened: (session, task, protocol) {},
           onWebSocketTaskClosed: (session, task, closeCode, reason) {
         actualSession = session;
@@ -605,6 +628,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
       expect(actualTask, task);
       expect(actualCloseCode, 1005);
       expect(actualReason, '');
+      session.finishTasksAndInvalidate();
     });
 
     test('close code', () async {
@@ -617,7 +641,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
       serverCode = 4000;
       serverReason = null;
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onWebSocketTaskOpened: (session, task, protocol) {},
           onWebSocketTaskClosed: (session, task, closeCode, reason) {
         actualSession = session;
@@ -642,6 +666,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
       expect(actualTask, task);
       expect(actualCloseCode, serverCode);
       expect(actualReason, '');
+      session.finishTasksAndInvalidate();
     });
 
     test('close code and reason', () async {
@@ -654,7 +679,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
       serverCode = 4000;
       serverReason = 'no real reason';
 
-      final session = URLSession.sessionWithConfiguration(config,
+      final session = URLSession.sessionWithConfiguration(config(),
           onWebSocketTaskOpened: (session, task, protocol) {},
           onWebSocketTaskClosed: (session, task, closeCode, reason) {
         actualSession = session;
@@ -679,6 +704,7 @@ void testOnWebSocketTaskClosed(URLSessionConfiguration config) {
       expect(actualTask, task);
       expect(actualCloseCode, serverCode);
       expect(actualReason, serverReason);
+      session.finishTasksAndInvalidate();
     });
   });
 }
@@ -687,8 +713,9 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('backgroundSession', () {
-    final config =
-        URLSessionConfiguration.backgroundSession('backgroundSession');
+    var count = 0;
+    final config = () => URLSessionConfiguration.backgroundSession(
+        'backgroundSession{$count++}');
     testOnComplete(config);
     testOnResponse(config);
     testOnData(config);
@@ -698,7 +725,7 @@ void main() {
   });
 
   group('defaultSessionConfiguration', () {
-    final config = URLSessionConfiguration.defaultSessionConfiguration();
+    final config = () => URLSessionConfiguration.defaultSessionConfiguration();
     testOnComplete(config);
     testOnResponse(config);
     testOnData(config);
@@ -709,7 +736,8 @@ void main() {
   });
 
   group('ephemeralSessionConfiguration', () {
-    final config = URLSessionConfiguration.ephemeralSessionConfiguration();
+    final config =
+        () => URLSessionConfiguration.ephemeralSessionConfiguration();
     testOnComplete(config);
     testOnResponse(config);
     testOnData(config);
