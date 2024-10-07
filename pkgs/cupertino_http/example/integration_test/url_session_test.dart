@@ -99,7 +99,7 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       }).resume();
       await c.future;
 
-      expect(data, null);
+      expect(data!.length, 0);
       expect(
           response,
           isA<HTTPURLResponse>()
