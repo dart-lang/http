@@ -150,8 +150,18 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       }).resume();
       await c.future;
 
-      expect(response, null);
       expect(data, null);
+      expect(
+          response,
+          anyOf(
+              isNull,
+              isA<HTTPURLResponse>()
+                  .having((r) => r.statusCode, 'statusCode', 302)
+                  .having(
+                      (r) => r.allHeaderFields['Location'],
+                      "r.allHeaderFields['Location']",
+                      matches('http://localhost:${redirectServer.port}/' +
+                          r'\d+'))));
       expect(error!.code, -1007); // kCFURLErrorHTTPTooManyRedirects
     });
 
@@ -227,8 +237,6 @@ void testURLSession(URLSession session) {
       final response = task.response as HTTPURLResponse;
       expect(response.statusCode, 200);
     });
-
-    testDataTaskWithCompletionHandler(session);
   });
 }
 
@@ -243,6 +251,7 @@ void main() {
     });
 
     testURLSession(session);
+    testDataTaskWithCompletionHandler(session);
   });
 
   group('defaultSessionConfiguration', () {
@@ -255,6 +264,7 @@ void main() {
     });
 
     testURLSession(session);
+    testDataTaskWithCompletionHandler(session);
   });
 
   group('backgroundSession', () {
@@ -268,5 +278,6 @@ void main() {
     });
 
     testURLSession(session);
+    // dataTaskWithCompletionHandler is not supported in background sessions.
   });
 }

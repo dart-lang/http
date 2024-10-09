@@ -6,6 +6,7 @@
 #import <Foundation/NSURLRequest.h>
 #import <Foundation/NSURLSession.h>
 #import <Foundation/NSURL.h>
+#import <Foundation/NSLock.h>
 #import <Foundation/NSProgress.h>
 #import <Foundation/NSURLResponse.h>
 #import <Foundation/NSHTTPCookieStorage.h>

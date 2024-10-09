@@ -796,6 +796,13 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // Indicates if the session is a background session. Copied from the
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
+  final bool _hasDelegate;
+  // Pending Dart-implemented protocols/blocks do not keep the isolate alive.
+  // So we create a `ReceivePort` to keep the isolate alive.
+  // When a new task is created in a `URLSession` with a delegate installed
+  // (`_hasDelegate`), `_taskCount` is incremented. When a task completes,
+  // `_taskCount` is decremented. When `_taskCount` is 0 then the `ReceivePort`
+  // is closed.
   static var _taskCount = 0;
   static ReceivePort? _port = null;
 
@@ -839,6 +846,20 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   }) {
     final protoBuilder = objc.ObjCProtocolBuilder();
 
+    ncb.NSURLSessionDataDelegate.addToBuilderAsListener(
+      protoBuilder,
+      URLSession_task_didCompleteWithError_: (nsSession, nsTask, nsError) {
+        _decrementTaskCount();
+        if (onComplete != null) {
+          onComplete(
+              URLSession._(nsSession,
+                  isBackground: isBackground, hasDelegate: true),
+              URLSessionTask._(nsTask),
+              nsError);
+        }
+      },
+    );
+
     if (onRedirect != null) {
       ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
           URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
@@ -850,7 +871,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           final response =
               URLResponse._exactURLResponseType(nsResponse) as HTTPURLResponse;
           redirectRequest = onRedirect(
-              URLSession._(nsSession, isBackground: isBackground),
+              URLSession._(nsSession,
+                  isBackground: isBackground, hasDelegate: true),
               URLSessionTask._(nsTask),
               response,
               request);
@@ -862,76 +884,85 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
         }
       });
     }
-    ncb.NSURLSessionDataDelegate.addToBuilderAsListener(
-      protoBuilder,
-      URLSession_dataTask_didReceiveResponse_completionHandler_:
-          (session, dataTask, response, completionHandler) {
-        var disposition =
-            ncb.NSURLSessionResponseDisposition.NSURLSessionResponseAllow;
 
-        if (onResponse != null) {
-          final exactResponse = URLResponse._exactURLResponseType(response);
-          disposition = onResponse(
-              URLSession._(session, isBackground: isBackground),
-              URLSessionTask._(dataTask),
-              exactResponse);
-        }
+    if (onResponse != null) {
+      ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
+          URLSession_dataTask_didReceiveResponse_completionHandler_:
+              (session, dataTask, response, completionHandler) {
+        final exactResponse = URLResponse._exactURLResponseType(response);
+        final disposition = onResponse(
+            URLSession._(session,
+                isBackground: isBackground, hasDelegate: true),
+            URLSessionTask._(dataTask),
+            exactResponse);
         completionHandler.call(disposition);
-      },
-      URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
-        if (onData != null) {
-          onData(URLSession._(session, isBackground: isBackground),
-              URLSessionTask._(dataTask), data);
-        }
-      },
-      URLSession_task_didCompleteWithError_: (nsSession, nsTask, nsError) {
-        _decrementTaskCount();
-        if (onComplete != null) {
-          onComplete(URLSession._(nsSession, isBackground: isBackground),
-              URLSessionTask._(nsTask), nsError);
-        }
-      },
-    );
+      });
+    }
+
+    if (onData != null) {
+      ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
+          URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
+        onData(
+            URLSession._(session,
+                isBackground: isBackground, hasDelegate: true),
+            URLSessionTask._(dataTask),
+            data);
+      });
+    }
 
     if (onFinishedDownloading != null) {
       ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
           URLSession_downloadTask_didFinishDownloadingToURL_:
               (nsSession, nsTask, nsUrl) {
-        print('onFinishDownloading');
         onFinishedDownloading(
-            URLSession._(nsSession, isBackground: isBackground),
+            URLSession._(nsSession,
+                isBackground: isBackground, hasDelegate: true),
             URLSessionDownloadTask._(nsTask),
             nsurlToUri(nsUrl));
       });
     }
 
-    ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
-        URLSession_webSocketTask_didOpenWithProtocol_:
-            (session, task, protocol) {
-      if (onWebSocketTaskOpened != null) {
-        onWebSocketTaskOpened(URLSession._(session, isBackground: isBackground),
-            URLSessionWebSocketTask._(task), protocol?.toString());
-      }
-    }, URLSession_webSocketTask_didCloseWithCode_reason_:
-            (session, task, closeCode, reason) {
-      if (onWebSocketTaskClosed != null) {
-        onWebSocketTaskClosed(URLSession._(session, isBackground: isBackground),
-            URLSessionWebSocketTask._(task), closeCode, reason);
-      }
-    });
+    if (onWebSocketTaskOpened != null) {
+      ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
+          URLSession_webSocketTask_didOpenWithProtocol_:
+              (session, task, protocol) {
+        onWebSocketTaskOpened(
+            URLSession._(session,
+                isBackground: isBackground, hasDelegate: true),
+            URLSessionWebSocketTask._(task),
+            protocol?.toString());
+      });
+    }
+
+    if (onWebSocketTaskClosed != null) {
+      ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
+          URLSession_webSocketTask_didCloseWithCode_reason_:
+              (session, task, closeCode, reason) {
+        onWebSocketTaskClosed(
+            URLSession._(session,
+                isBackground: isBackground, hasDelegate: true),
+            URLSessionWebSocketTask._(task),
+            closeCode,
+            reason);
+      });
+    }
+
     return protoBuilder.build();
   }
 
   URLSession._(
     super.c, {
     required bool isBackground,
-  }) : _isBackground = isBackground;
+    required bool hasDelegate,
+  })  : _isBackground = isBackground,
+        _hasDelegate = hasDelegate;
 
   /// A client with reasonable default behavior.
   ///
   /// See [NSURLSession.sharedSession](https://developer.apple.com/documentation/foundation/nsurlsession/1409000-sharedsession)
-  factory URLSession.sharedSession() => URLSession.sessionWithConfiguration(
-      URLSessionConfiguration.defaultSessionConfiguration());
+  factory URLSession.sharedSession() =>
+      URLSession._(ncb.NSURLSession.getSharedSession(),
+          isBackground: false, hasDelegate: false);
 
   /// A client with a given configuration.
   ///
@@ -1000,20 +1031,37 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       ..maxConcurrentOperationCount = 1
       ..name = 'cupertino_http.NSURLSessionDelegateQueue'.toNSString();
 
-    return URLSession._(
-      ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
-          config._nsObject,
-          delegate(config._isBackground,
-              onRedirect: onRedirect,
-              onResponse: onResponse,
-              onData: onData,
-              onFinishedDownloading: onFinishedDownloading,
-              onComplete: onComplete,
-              onWebSocketTaskOpened: onWebSocketTaskOpened,
-              onWebSocketTaskClosed: onWebSocketTaskClosed),
-          queue),
-      isBackground: config._isBackground,
-    );
+    final hasDelegate = (onRedirect ??
+            onResponse ??
+            onData ??
+            onFinishedDownloading ??
+            onComplete ??
+            onWebSocketTaskOpened ??
+            onWebSocketTaskClosed) !=
+        null;
+
+    if (hasDelegate) {
+      return URLSession._(
+        ncb.NSURLSession.sessionWithConfiguration_delegate_delegateQueue_(
+            config._nsObject,
+            delegate(config._isBackground,
+                onRedirect: onRedirect,
+                onResponse: onResponse,
+                onData: onData,
+                onFinishedDownloading: onFinishedDownloading,
+                onComplete: onComplete,
+                onWebSocketTaskOpened: onWebSocketTaskOpened,
+                onWebSocketTaskClosed: onWebSocketTaskClosed),
+            queue),
+        isBackground: config._isBackground,
+        hasDelegate: true,
+      );
+    } else {
+      return URLSession._(
+          ncb.NSURLSession.sessionWithConfiguration_(config._nsObject),
+          isBackground: config._isBackground,
+          hasDelegate: false);
+    }
   }
 
   /// A **copy** of the configuration for this session.
@@ -1036,7 +1084,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionTask dataTaskWithRequest(URLRequest request) {
     final task =
         URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
-    _incrementTaskCount();
+    if (_hasDelegate) {
+      _incrementTaskCount();
+    }
     return task;
   }
 
@@ -1049,17 +1099,26 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       void Function(
               objc.NSData? data, URLResponse? response, objc.NSError? error)
           completion) {
-    final task = _nsObject
-        .dataTaskWithRequest_completionHandler_(request._nsObject,
-            ncb.ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError.listener(
-                (data, response, error) {
+    if (_isBackground) {
+      throw UnsupportedError(
+          'dataTaskWithCompletionHandler is not supported in background '
+          'sessions');
+    }
+    final completer =
+        ncb.ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError.listener(
+            (data, response, error) {
       _decrementTaskCount();
       completion(
         data,
         response == null ? null : URLResponse._exactURLResponseType(response),
         error,
       );
-    }));
+    });
+
+    final task = _nsObject.dataTaskWithRequest_completionHandler_(
+      request._nsObject,
+      completer,
+    );
 
     _incrementTaskCount();
     return URLSessionTask._(task);
@@ -1075,7 +1134,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) {
     final task = URLSessionDownloadTask._(
         _nsObject.downloadTaskWithRequest_(request._nsObject));
-    _incrementTaskCount();
+    if (_hasDelegate) {
+      _incrementTaskCount();
+    }
     return task;
   }
 
@@ -1093,7 +1154,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
     final task = URLSessionWebSocketTask._(
         _nsObject.webSocketTaskWithRequest_(request._nsObject));
-    _incrementTaskCount();
+    if (_hasDelegate) {
+      _incrementTaskCount();
+    }
     return task;
   }
 
@@ -1116,7 +1179,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           _nsObject.webSocketTaskWithURL_protocols_(
               uriToNSURL(uri), stringIterableToNSArray(protocols)));
     }
-    _incrementTaskCount();
+    if (_hasDelegate) {
+      _incrementTaskCount();
+    }
     return task;
   }
 

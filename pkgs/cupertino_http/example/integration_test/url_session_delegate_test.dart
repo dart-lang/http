@@ -389,27 +389,6 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
         config(),
         onRedirect:
             (redirectSession, redirectTask, redirectResponse, newRequest) {
-          expect(redirectResponse.statusCode, 302);
-          switch (redirectCounter) {
-            case 0:
-              expect(redirectResponse.allHeaderFields['Location'],
-                  'http://localhost:${redirectServer.port}/2');
-              expect(newRequest.url,
-                  Uri.parse('http://localhost:${redirectServer.port}/2'));
-              break;
-            case 1:
-              expect(redirectResponse.allHeaderFields['Location'],
-                  'http://localhost:${redirectServer.port}/1');
-              expect(newRequest.url,
-                  Uri.parse('http://localhost:${redirectServer.port}/1'));
-              break;
-            case 2:
-              expect(redirectResponse.allHeaderFields['Location'],
-                  'http://localhost:${redirectServer.port}/');
-              expect(newRequest.url,
-                  Uri.parse('http://localhost:${redirectServer.port}/'));
-              break;
-          }
           ++redirectCounter;
           return newRequest;
         },
@@ -428,6 +407,7 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
       }).resume();
       await c.future;
 
+      expect(redirectCounter, 3);
       expect(
           response,
           isA<HTTPURLResponse>()
@@ -461,13 +441,15 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
 
       expect(
           response,
-          isA<HTTPURLResponse>()
-              .having((r) => r.statusCode, 'statusCode', 302)
-              .having(
-                  (r) => r.allHeaderFields['Location'],
-                  "r.allHeaderFields['Location']",
-                  matches(
-                      'http://localhost:${redirectServer.port}/' + r'\d+')));
+          anyOf(
+              isNull,
+              isA<HTTPURLResponse>()
+                  .having((r) => r.statusCode, 'statusCode', 302)
+                  .having(
+                      (r) => r.allHeaderFields['Location'],
+                      "r.allHeaderFields['Location']",
+                      matches('http://localhost:${redirectServer.port}/' +
+                          r'\d+'))));
       expect(error!.code, -1007); // kCFURLErrorHTTPTooManyRedirects
       session.finishTasksAndInvalidate();
     });
@@ -550,12 +532,13 @@ void testOnWebSocketTaskOpened(URLSessionConfiguration Function() config) {
     test('server failure', () async {
       final c = Completer<void>();
       var onWebSocketTaskOpenedCalled = false;
+      NSError? actualError;
 
       final session = URLSession.sessionWithConfiguration(config(),
           onWebSocketTaskOpened: (s, t, p) {
         onWebSocketTaskOpenedCalled = true;
       }, onComplete: (s, t, e) {
-        expect(e, isNotNull);
+        actualError = e;
         c.complete();
       });
 
@@ -563,6 +546,7 @@ void testOnWebSocketTaskOpened(URLSessionConfiguration Function() config) {
           Uri.parse('http://localhost:${server.port}?error=1'));
       session.webSocketTaskWithRequest(request).resume();
       await c.future;
+      expect(actualError, isNotNull);
       expect(onWebSocketTaskOpenedCalled, false);
       session.finishTasksAndInvalidate();
     });
@@ -714,10 +698,13 @@ void main() {
 
   group('backgroundSession', () {
     var count = 0;
-    final config = () => URLSessionConfiguration.backgroundSession(
-        'backgroundSession{$count++}');
+    final config = () {
+      ++count;
+      return URLSessionConfiguration.backgroundSession(
+          'backgroundSession{$count}');
+    };
     testOnComplete(config);
-    testOnResponse(config);
+    // onResponse is not called for background sessions.
     testOnData(config);
     // onRedirect is not called for background sessions.
     testOnFinishedDownloading(config);

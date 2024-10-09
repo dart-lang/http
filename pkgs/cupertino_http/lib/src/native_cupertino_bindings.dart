@@ -79237,6 +79237,522 @@ class NSFileSecurity extends objc.NSObject {
 
 late final _class_NSFileSecurity = objc.getClass("NSFileSecurity");
 
+/// NSLocking
+abstract final class NSLocking {
+  /// Builds an object that implements the NSLocking protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
+  static objc.ObjCObjectBase implement(
+      {required void Function() lock, required void Function() unlock}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSLocking.lock.implement(builder, lock);
+    NSLocking.unlock.implement(builder, unlock);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSLocking protocol to an existing
+  /// [objc.ObjCProtocolBuilder].
+  static void addToBuilder(objc.ObjCProtocolBuilder builder,
+      {required void Function() lock, required void Function() unlock}) {
+    NSLocking.lock.implement(builder, lock);
+    NSLocking.unlock.implement(builder, unlock);
+  }
+
+  /// Builds an object that implements the NSLocking protocol. To implement
+  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
+  /// methods that can be implemented as listeners will be.
+  static objc.ObjCObjectBase implementAsListener(
+      {required void Function() lock, required void Function() unlock}) {
+    final builder = objc.ObjCProtocolBuilder();
+    NSLocking.lock.implementAsListener(builder, lock);
+    NSLocking.unlock.implementAsListener(builder, unlock);
+    return builder.build();
+  }
+
+  /// Adds the implementation of the NSLocking protocol to an existing
+  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
+  /// be.
+  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
+      {required void Function() lock, required void Function() unlock}) {
+    NSLocking.lock.implementAsListener(builder, lock);
+    NSLocking.unlock.implementAsListener(builder, unlock);
+  }
+
+  /// lock
+  static final lock = objc.ObjCProtocolListenableMethod<void Function()>(
+    _sel_lock,
+    objc.getProtocolMethodSignature(
+      _protocol_NSLocking,
+      _sel_lock,
+      isRequired: true,
+      isInstanceMethod: true,
+    ),
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
+      ffi.Pointer<ffi.Void> _,
+    ) =>
+        func()),
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
+      ffi.Pointer<ffi.Void> _,
+    ) =>
+        func()),
+  );
+
+  /// unlock
+  static final unlock = objc.ObjCProtocolListenableMethod<void Function()>(
+    _sel_unlock,
+    objc.getProtocolMethodSignature(
+      _protocol_NSLocking,
+      _sel_unlock,
+      isRequired: true,
+      isInstanceMethod: true,
+    ),
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
+      ffi.Pointer<ffi.Void> _,
+    ) =>
+        func()),
+    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
+      ffi.Pointer<ffi.Void> _,
+    ) =>
+        func()),
+  );
+}
+
+late final _protocol_NSLocking = objc.getProtocol("NSLocking");
+late final _sel_lock = objc.registerName("lock");
+late final _sel_unlock = objc.registerName("unlock");
+
+/// NSLock
+class NSLock extends objc.NSObject {
+  NSLock._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSLock] that points to the same underlying object as [other].
+  NSLock.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSLock] that wraps the given raw object pointer.
+  NSLock.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSLock].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_l8lotg(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSLock);
+  }
+
+  /// tryLock
+  bool tryLock() {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_tryLock);
+  }
+
+  /// lockBeforeDate:
+  bool lockBeforeDate_(objc.NSDate limit) {
+    return _objc_msgSend_l8lotg(
+        this.ref.pointer, _sel_lockBeforeDate_, limit.ref.pointer);
+  }
+
+  /// name
+  objc.NSString? get name {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setName:
+  set name(objc.NSString? value) {
+    return _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// init
+  NSLock init() {
+    final _ret =
+        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
+    return NSLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSLock new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSLock, _sel_new);
+    return NSLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSLock allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret =
+        _objc_msgSend_1b3ihd0(_class_NSLock, _sel_allocWithZone_, zone);
+    return NSLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static NSLock alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSLock, _sel_alloc);
+    return NSLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// lock
+  void lock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
+  }
+
+  /// unlock
+  void unlock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
+  }
+}
+
+late final _class_NSLock = objc.getClass("NSLock");
+late final _sel_tryLock = objc.registerName("tryLock");
+late final _sel_lockBeforeDate_ = objc.registerName("lockBeforeDate:");
+final _objc_msgSend_l8lotg = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Bool Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        bool Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+
+/// NSConditionLock
+class NSConditionLock extends objc.NSObject {
+  NSConditionLock._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSConditionLock] that points to the same underlying object as [other].
+  NSConditionLock.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSConditionLock] that wraps the given raw object pointer.
+  NSConditionLock.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSConditionLock].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_l8lotg(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSConditionLock);
+  }
+
+  /// initWithCondition:
+  NSConditionLock initWithCondition_(DartNSInteger condition) {
+    final _ret = _objc_msgSend_crtxa9(
+        this.ref.retainAndReturnPointer(), _sel_initWithCondition_, condition);
+    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// condition
+  DartNSInteger get condition {
+    return _objc_msgSend_z1fx1b(this.ref.pointer, _sel_condition);
+  }
+
+  /// lockWhenCondition:
+  void lockWhenCondition_(DartNSInteger condition) {
+    _objc_msgSend_ke7qz2(this.ref.pointer, _sel_lockWhenCondition_, condition);
+  }
+
+  /// tryLock
+  bool tryLock() {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_tryLock);
+  }
+
+  /// tryLockWhenCondition:
+  bool tryLockWhenCondition_(DartNSInteger condition) {
+    return _objc_msgSend_1lf2jtk(
+        this.ref.pointer, _sel_tryLockWhenCondition_, condition);
+  }
+
+  /// unlockWithCondition:
+  void unlockWithCondition_(DartNSInteger condition) {
+    _objc_msgSend_ke7qz2(
+        this.ref.pointer, _sel_unlockWithCondition_, condition);
+  }
+
+  /// lockBeforeDate:
+  bool lockBeforeDate_(objc.NSDate limit) {
+    return _objc_msgSend_l8lotg(
+        this.ref.pointer, _sel_lockBeforeDate_, limit.ref.pointer);
+  }
+
+  /// lockWhenCondition:beforeDate:
+  bool lockWhenCondition_beforeDate_(
+      DartNSInteger condition, objc.NSDate limit) {
+    return _objc_msgSend_1kafn4b(this.ref.pointer,
+        _sel_lockWhenCondition_beforeDate_, condition, limit.ref.pointer);
+  }
+
+  /// name
+  objc.NSString? get name {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setName:
+  set name(objc.NSString? value) {
+    return _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// init
+  NSConditionLock init() {
+    final _ret =
+        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
+    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSConditionLock new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSConditionLock, _sel_new);
+    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSConditionLock allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret = _objc_msgSend_1b3ihd0(
+        _class_NSConditionLock, _sel_allocWithZone_, zone);
+    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static NSConditionLock alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSConditionLock, _sel_alloc);
+    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// lock
+  void lock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
+  }
+
+  /// unlock
+  void unlock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
+  }
+}
+
+late final _class_NSConditionLock = objc.getClass("NSConditionLock");
+late final _sel_initWithCondition_ = objc.registerName("initWithCondition:");
+late final _sel_condition = objc.registerName("condition");
+late final _sel_lockWhenCondition_ = objc.registerName("lockWhenCondition:");
+late final _sel_tryLockWhenCondition_ =
+    objc.registerName("tryLockWhenCondition:");
+final _objc_msgSend_1lf2jtk = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, NSInteger)>>()
+    .asFunction<
+        bool Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, int)>();
+late final _sel_unlockWithCondition_ =
+    objc.registerName("unlockWithCondition:");
+late final _sel_lockWhenCondition_beforeDate_ =
+    objc.registerName("lockWhenCondition:beforeDate:");
+final _objc_msgSend_1kafn4b = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Bool Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                NSInteger,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        bool Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            int,
+            ffi.Pointer<objc.ObjCObject>)>();
+
+/// NSRecursiveLock
+class NSRecursiveLock extends objc.NSObject {
+  NSRecursiveLock._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSRecursiveLock] that points to the same underlying object as [other].
+  NSRecursiveLock.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSRecursiveLock] that wraps the given raw object pointer.
+  NSRecursiveLock.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSRecursiveLock].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_l8lotg(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSRecursiveLock);
+  }
+
+  /// tryLock
+  bool tryLock() {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_tryLock);
+  }
+
+  /// lockBeforeDate:
+  bool lockBeforeDate_(objc.NSDate limit) {
+    return _objc_msgSend_l8lotg(
+        this.ref.pointer, _sel_lockBeforeDate_, limit.ref.pointer);
+  }
+
+  /// name
+  objc.NSString? get name {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setName:
+  set name(objc.NSString? value) {
+    return _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// init
+  NSRecursiveLock init() {
+    final _ret =
+        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
+    return NSRecursiveLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSRecursiveLock new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSRecursiveLock, _sel_new);
+    return NSRecursiveLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSRecursiveLock allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret = _objc_msgSend_1b3ihd0(
+        _class_NSRecursiveLock, _sel_allocWithZone_, zone);
+    return NSRecursiveLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static NSRecursiveLock alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSRecursiveLock, _sel_alloc);
+    return NSRecursiveLock.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// lock
+  void lock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
+  }
+
+  /// unlock
+  void unlock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
+  }
+}
+
+late final _class_NSRecursiveLock = objc.getClass("NSRecursiveLock");
+
+/// NSCondition
+class NSCondition extends objc.NSObject {
+  NSCondition._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSCondition] that points to the same underlying object as [other].
+  NSCondition.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSCondition] that wraps the given raw object pointer.
+  NSCondition.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSCondition].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_l8lotg(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSCondition);
+  }
+
+  /// wait
+  void wait1() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_wait);
+  }
+
+  /// waitUntilDate:
+  bool waitUntilDate_(objc.NSDate limit) {
+    return _objc_msgSend_l8lotg(
+        this.ref.pointer, _sel_waitUntilDate_, limit.ref.pointer);
+  }
+
+  /// signal
+  void signal() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_signal);
+  }
+
+  /// broadcast
+  void broadcast() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_broadcast);
+  }
+
+  /// name
+  objc.NSString? get name {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setName:
+  set name(objc.NSString? value) {
+    return _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// init
+  NSCondition init() {
+    final _ret =
+        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSCondition new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSCondition, _sel_new);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSCondition allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret =
+        _objc_msgSend_1b3ihd0(_class_NSCondition, _sel_allocWithZone_, zone);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static NSCondition alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSCondition, _sel_alloc);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// lock
+  void lock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
+  }
+
+  /// unlock
+  void unlock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
+  }
+}
+
+late final _class_NSCondition = objc.getClass("NSCondition");
+late final _sel_wait = objc.registerName("wait");
+late final _sel_waitUntilDate_ = objc.registerName("waitUntilDate:");
+late final _sel_signal = objc.registerName("signal");
+late final _sel_broadcast = objc.registerName("broadcast");
+
 /// NSException
 class NSException extends objc.NSObject {
   NSException._(ffi.Pointer<objc.ObjCObject> pointer,
@@ -89661,14 +90177,3 @@ const int NSOperationQualityOfServiceUserInitiated = 25;
 const int NSOperationQualityOfServiceUtility = 17;
 
 const int NSOperationQualityOfServiceBackground = 9;
-
-final _objc_msgSend_l8lotg = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Bool Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        bool Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();

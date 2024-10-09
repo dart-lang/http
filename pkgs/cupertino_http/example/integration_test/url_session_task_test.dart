@@ -53,6 +53,7 @@ void testWebSocketTask() {
           () => session.webSocketTaskWithRequest(URLRequest.fromUrl(
               Uri.parse('ws://localhost:${server.port}/?noclose'))),
           throwsUnsupportedError);
+      session.finishTasksAndInvalidate();
     });
 
     test('client code and reason', () async {
@@ -90,6 +91,7 @@ void testWebSocketTask() {
       expect(task.closeCode, 4999);
       expect(task.closeReason!.toList(), 'fun'.codeUnits);
       task.cancel();
+      session.finishTasksAndInvalidate();
     });
 
     test('data message', () async {
