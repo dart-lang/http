@@ -40413,6 +40413,27 @@ class NativeCupertinoHttp {
         .release();
     _NSFilePathErrorKey.value = value.ref.retainAndReturnPointer();
   }
+
+  /// Create a block useable as a
+  /// `URLSession:downloadTask:didFinishDownloadingToURL:` that can be used to
+  /// make an async Dart callback behave synchronously.
+  Dart_DidFinish adaptFinishWithLock(
+    Dart_DidFinishWithLock block,
+  ) {
+    return ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL
+        .castFromPointer(
+            _adaptFinishWithLock(
+              block.ref.pointer,
+            ),
+            retain: true,
+            release: true);
+  }
+
+  late final _adaptFinishWithLockPtr =
+      _lookup<ffi.NativeFunction<_DidFinish Function(_DidFinishWithLock)>>(
+          'adaptFinishWithLock');
+  late final _adaptFinishWithLock = _adaptFinishWithLockPtr
+      .asFunction<_DidFinish Function(_DidFinishWithLock)>();
 }
 
 @ffi.Native<
@@ -40650,6 +40671,13 @@ external ffi.Pointer<objc.ObjCBlockImpl> _wrapListenerBlock_zpobzb(
     ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl> _wrapListenerBlock_vzqe8w(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl> _wrapListenerBlock_19b8ge5(
   ffi.Pointer<objc.ObjCBlockImpl> block,
 );
 
@@ -60288,12 +60316,7 @@ class NSURLSession extends objc.NSObject {
     return NSURLSession.castFromPointer(_ret, retain: false, release: true);
   }
 
-  /// data task convenience methods.  These methods create tasks that
-  /// bypass the normal delegate calls for response and data delivery,
-  /// and provide a simple cancelable asynchronous interface to receiving
-  /// data.  Errors will be returned in the NSURLErrorDomain,
-  /// see <Foundation/NSURLError.h>.  The delegate, if any, will still be
-  /// called for authentication challenges.
+  /// dataTaskWithRequest:completionHandler:
   NSURLSessionDataTask dataTaskWithRequest_completionHandler_(
       NSURLRequest request,
       objc.ObjCBlock<
@@ -60323,7 +60346,7 @@ class NSURLSession extends objc.NSObject {
         retain: true, release: true);
   }
 
-  /// upload convenience method.
+  /// uploadTaskWithRequest:fromFile:completionHandler:
   NSURLSessionUploadTask uploadTaskWithRequest_fromFile_completionHandler_(
       NSURLRequest request,
       objc.NSURL fileURL,
@@ -60357,12 +60380,7 @@ class NSURLSession extends objc.NSObject {
         retain: true, release: true);
   }
 
-  /// Creates a URLSessionUploadTask from a resume data blob. If resuming from an upload
-  /// file, the file must still exist and be unmodified.
-  ///
-  /// - Parameter resumeData: Resume data blob from an incomplete upload, such as data returned by the cancelByProducingResumeData: method.
-  /// - Parameter completionHandler: The completion handler to call when the load request is complete.
-  /// - Returns: A new session upload task, or nil if the resumeData is invalid.
+  /// uploadTaskWithResumeData:completionHandler:
   NSURLSessionUploadTask uploadTaskWithResumeData_completionHandler_(
       objc.NSData resumeData,
       objc.ObjCBlock<
@@ -60377,10 +60395,7 @@ class NSURLSession extends objc.NSObject {
         retain: true, release: true);
   }
 
-  /// download task convenience methods.  When a download successfully
-  /// completes, the NSURL will point to a file that must be read or
-  /// copied during the invocation of the completion routine.  The file
-  /// will be removed automatically.
+  /// downloadTaskWithRequest:completionHandler:
   NSURLSessionDownloadTask downloadTaskWithRequest_completionHandler_(
       NSURLRequest request,
       objc.ObjCBlock<
@@ -77640,7 +77655,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
             retain: false, release: true);
   }
 
-  /// Returns a character set containing the characters allowed in a URL's user subcomponent.
+  /// URLUserAllowedCharacterSet
   static objc.NSCharacterSet getURLUserAllowedCharacterSet() {
     final _ret = _objc_msgSend_1unuoxw(
         _class_NSMutableCharacterSet, _sel_URLUserAllowedCharacterSet);
@@ -77648,7 +77663,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
         retain: true, release: true);
   }
 
-  /// Returns a character set containing the characters allowed in a URL's password subcomponent.
+  /// URLPasswordAllowedCharacterSet
   static objc.NSCharacterSet getURLPasswordAllowedCharacterSet() {
     final _ret = _objc_msgSend_1unuoxw(
         _class_NSMutableCharacterSet, _sel_URLPasswordAllowedCharacterSet);
@@ -77656,7 +77671,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
         retain: true, release: true);
   }
 
-  /// Returns a character set containing the characters allowed in a URL's host subcomponent.
+  /// URLHostAllowedCharacterSet
   static objc.NSCharacterSet getURLHostAllowedCharacterSet() {
     final _ret = _objc_msgSend_1unuoxw(
         _class_NSMutableCharacterSet, _sel_URLHostAllowedCharacterSet);
@@ -77664,7 +77679,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
         retain: true, release: true);
   }
 
-  /// Returns a character set containing the characters allowed in a URL's path component. ';' is a legal path character, but it is recommended that it be percent-encoded for best compatibility with NSURL (-stringByAddingPercentEncodingWithAllowedCharacters: will percent-encode any ';' characters if you pass the URLPathAllowedCharacterSet).
+  /// URLPathAllowedCharacterSet
   static objc.NSCharacterSet getURLPathAllowedCharacterSet() {
     final _ret = _objc_msgSend_1unuoxw(
         _class_NSMutableCharacterSet, _sel_URLPathAllowedCharacterSet);
@@ -77672,7 +77687,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
         retain: true, release: true);
   }
 
-  /// Returns a character set containing the characters allowed in a URL's query component.
+  /// URLQueryAllowedCharacterSet
   static objc.NSCharacterSet getURLQueryAllowedCharacterSet() {
     final _ret = _objc_msgSend_1unuoxw(
         _class_NSMutableCharacterSet, _sel_URLQueryAllowedCharacterSet);
@@ -77680,7 +77695,7 @@ class NSMutableCharacterSet extends objc.NSCharacterSet {
         retain: true, release: true);
   }
 
-  /// Returns a character set containing the characters allowed in a URL's fragment component.
+  /// URLFragmentAllowedCharacterSet
   static objc.NSCharacterSet getURLFragmentAllowedCharacterSet() {
     final _ret = _objc_msgSend_1unuoxw(
         _class_NSMutableCharacterSet, _sel_URLFragmentAllowedCharacterSet);
@@ -80237,6 +80252,222 @@ typedef NSErrorDomain = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSErrorDomain = objc.NSString;
 typedef NSErrorUserInfoKey = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSErrorUserInfoKey = objc.NSString;
+typedef _DidFinish = ffi.Pointer<objc.ObjCBlockImpl>;
+typedef Dart_DidFinish = objc.ObjCBlock<
+    ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+        NSURLSessionDownloadTask, objc.NSURL)>;
+typedef _DidFinishWithLock = ffi.Pointer<objc.ObjCBlockImpl>;
+typedef Dart_DidFinishWithLock = objc.ObjCBlock<
+    ffi.Void Function(
+        NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>;
+void
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<objc.ObjCObject> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3) =>
+        block.ref.target
+            .cast<
+                ffi.NativeFunction<
+                    ffi.Void Function(
+                        ffi.Pointer<objc.ObjCObject> arg0,
+                        ffi.Pointer<objc.ObjCObject> arg1,
+                        ffi.Pointer<objc.ObjCObject> arg2,
+                        ffi.Pointer<objc.ObjCObject> arg3)>>()
+            .asFunction<
+                void Function(
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_fnPtrTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<objc.ObjCObject> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3) =>
+        (objc.getBlockClosure(block) as void Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_closureTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_listenerTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<objc.ObjCObject> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_listenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>`.
+abstract final class ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+          ffi.Void Function(
+              NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+              ffi.Void Function(
+                  NSCondition,
+                  NSURLSession,
+                  NSURLSessionDownloadTask,
+                  objc.NSURL)>(pointer, retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3)>> ptr) =>
+          objc.ObjCBlock<
+                  ffi.Void Function(NSCondition, NSURLSession,
+                      NSURLSessionDownloadTask, objc.NSURL)>(
+              objc.newPointerBlock(
+                  _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_fnPtrCallable,
+                  ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)> fromFunction(void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL) fn) =>
+      objc.ObjCBlock<ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_closureCallable,
+              (ffi.Pointer<objc.ObjCObject> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1,
+                      ffi.Pointer<objc.ObjCObject> arg2,
+                      ffi.Pointer<objc.ObjCObject> arg3) =>
+                  fn(
+                      NSCondition.castFromPointer(arg0, retain: true, release: true),
+                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
+                      NSURLSessionDownloadTask.castFromPointer(arg2, retain: true, release: true),
+                      objc.NSURL.castFromPointer(arg3, retain: true, release: true))),
+          retain: false,
+          release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<
+      ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask,
+          objc.NSURL)> listener(
+      void Function(
+              NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)
+          fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_listenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                NSCondition.castFromPointer(arg0, retain: false, release: true),
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                objc.NSURL
+                    .castFromPointer(arg3, retain: false, release: true)));
+    final wrapper = _wrapListenerBlock_19b8ge5(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask,
+            objc.NSURL)>(wrapper, retain: false, release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>`.
+extension ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_CallExtension
+    on objc.ObjCBlock<
+        ffi.Void Function(
+            NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)> {
+  void call(NSCondition arg0, NSURLSession arg1, NSURLSessionDownloadTask arg2,
+          objc.NSURL arg3) =>
+      ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<objc.ObjCObject> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCObject> arg2,
+                          ffi.Pointer<objc.ObjCObject> arg3)>>()
+              .asFunction<
+                  void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>)>()(
+          ref.pointer,
+          arg0.ref.pointer,
+          arg1.ref.pointer,
+          arg2.ref.pointer,
+          arg3.ref.pointer);
+}
 
 const int noErr = 0;
 

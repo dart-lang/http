@@ -232,7 +232,7 @@ void testOnFinishedDownloading(URLSessionConfiguration Function() config) {
       expect(actualContent, 'Hello World');
       session.finishTasksAndInvalidate();
     });
-  }, skip: 'XXX will not work with current approach');
+  });
 }
 
 void testOnRedirect(URLSessionConfiguration Function() config) {

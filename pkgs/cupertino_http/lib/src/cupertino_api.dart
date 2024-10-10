@@ -911,15 +911,28 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onFinishedDownloading != null) {
-      ncb.NSURLSessionDownloadDelegate.addToBuilderAsListener(protoBuilder,
-          URLSession_downloadTask_didFinishDownloadingToURL_:
-              (nsSession, nsTask, nsUrl) {
-        onFinishedDownloading(
-            URLSession._(nsSession,
-                isBackground: isBackground, hasDelegate: true),
-            URLSessionDownloadTask._(nsTask),
-            nsurlToUri(nsUrl));
+      final asyncFinishDownloading =
+          ncb.ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL
+              .listener((nsCondition, nsSession, nsTask, nsUrl) {
+        try {
+          onFinishedDownloading(
+              URLSession._(nsSession,
+                  isBackground: isBackground, hasDelegate: true),
+              URLSessionDownloadTask._(nsTask),
+              nsurlToUri(nsUrl));
+        } finally {
+          nsCondition.unlock();
+        }
       });
+
+      final downloadDelegate = objc.getProtocol('NSURLSessionDownloadDelegate');
+      final didFinishDownloadingToURL = objc
+          .registerName('URLSession:downloadTask:didFinishDownloadingToURL:');
+      final signature = objc.getProtocolMethodSignature(
+          downloadDelegate, didFinishDownloadingToURL,
+          isRequired: true, isInstanceMethod: true);
+      protoBuilder.implementMethod(didFinishDownloadingToURL, signature,
+          linkedLibs.adaptFinishWithLock(asyncFinishDownloading));
     }
 
     if (onWebSocketTaskOpened != null) {

@@ -13,6 +13,7 @@
 #import <Foundation/NSOperation.h>
 #import <Foundation/NSError.h>
 #import <Foundation/NSDictionary.h>
+#import "utils.h"
 
 #if !__has_feature(objc_arc)
 #error "This file must be compiled with ARC enabled"
@@ -290,5 +291,13 @@ _ListenerTrampoline33 _wrapListenerBlock_vzqe8w(_ListenerTrampoline33 block) NS_
   return ^void(void * arg0, unsigned long arg1) {
     objc_retainBlock(block);
     block(arg0, arg1);
+  };
+}
+
+typedef void  (^_ListenerTrampoline34)(id arg0, id arg1, id arg2, id arg3);
+_ListenerTrampoline34 _wrapListenerBlock_19b8ge5(_ListenerTrampoline34 block) NS_RETURNS_RETAINED {
+  return ^void(id arg0, id arg1, id arg2, id arg3) {
+    objc_retainBlock(block);
+    block(objc_retain(arg0), objc_retain(arg1), objc_retain(arg2), objc_retain(arg3));
   };
 }
