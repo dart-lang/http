@@ -10,9 +10,6 @@ output:
   objc-bindings: 'darwin/cupertino_http/Sources/cupertino_http/native_cupertino_bindings.m'
 headers:
   entry-points:
-    - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSArray.h'
-    - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSData.h'
-    - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSDictionary.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLCache.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLRequest.h'
     - '/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Versions/C/Headers/NSURLSession.h'
@@ -32,10 +29,32 @@ preamble: |
   // ignore_for_file: unused_element
   // ignore_for_file: unused_field
   // ignore_for_file: return_of_invalid_type
+objc-interfaces:
+  include:
+    - 'NSHTTPURLResponse'
+    - 'NSMutableURLRequest'
+    - 'NSOperationQueue'
+    - 'NSURLCache'
+    - 'NSURLRequest'
+    - 'NSURLResponse'
+    - 'NSURLSession'
+    - 'NSURLSessionConfiguration'
+    - 'NSURLSessionDownloadTask'
+    - 'NSURLSessionTask'
+    - 'NSURLSessionWebSocketMessage'
+    - 'NSURLSessionWebSocketTask'
 comments:
   style: any
   length: full
 enums:
+  include:
+    - 'NSHTTPCookieAcceptPolicy'
+    - 'NSURLRequestCachePolicy'
+    - 'NSURLRequestNetworkServiceType'
+    - 'NSURLSessionMultipathServiceType'
+    - 'NSURLSessionResponseDisposition'
+    - 'NSURLSessionTaskState'
+    - 'NSURLSessionWebSocketMessageType'
   as-int: 
     include:
       - 'NSURLSessionWebSocketCloseCode'

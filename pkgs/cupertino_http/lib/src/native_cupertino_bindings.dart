@@ -3763,69 +3763,6 @@ class NativeCupertinoHttp {
   late final _NSExtraRefCount = _NSExtraRefCountPtr.asFunction<
       int Function(ffi.Pointer<objc.ObjCObject>)>();
 
-  NSRange NSUnionRange(
-    NSRange range1,
-    NSRange range2,
-  ) {
-    return _NSUnionRange(
-      range1,
-      range2,
-    );
-  }
-
-  late final _NSUnionRangePtr =
-      _lookup<ffi.NativeFunction<NSRange Function(NSRange, NSRange)>>(
-          'NSUnionRange');
-  late final _NSUnionRange =
-      _NSUnionRangePtr.asFunction<NSRange Function(NSRange, NSRange)>();
-
-  NSRange NSIntersectionRange(
-    NSRange range1,
-    NSRange range2,
-  ) {
-    return _NSIntersectionRange(
-      range1,
-      range2,
-    );
-  }
-
-  late final _NSIntersectionRangePtr =
-      _lookup<ffi.NativeFunction<NSRange Function(NSRange, NSRange)>>(
-          'NSIntersectionRange');
-  late final _NSIntersectionRange =
-      _NSIntersectionRangePtr.asFunction<NSRange Function(NSRange, NSRange)>();
-
-  objc.NSString NSStringFromRange(
-    NSRange range,
-  ) {
-    return objc.NSString.castFromPointer(
-        _NSStringFromRange(
-          range,
-        ),
-        retain: true,
-        release: true);
-  }
-
-  late final _NSStringFromRangePtr = _lookup<
-          ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(NSRange)>>(
-      'NSStringFromRange');
-  late final _NSStringFromRange = _NSStringFromRangePtr.asFunction<
-      ffi.Pointer<objc.ObjCObject> Function(NSRange)>();
-
-  NSRange NSRangeFromString(
-    objc.NSString aString,
-  ) {
-    return _NSRangeFromString(
-      aString.ref.pointer,
-    );
-  }
-
-  late final _NSRangeFromStringPtr = _lookup<
-          ffi.NativeFunction<NSRange Function(ffi.Pointer<objc.ObjCObject>)>>(
-      'NSRangeFromString');
-  late final _NSRangeFromString = _NSRangeFromStringPtr.asFunction<
-      NSRange Function(ffi.Pointer<objc.ObjCObject>)>();
-
   late final ffi.Pointer<NSNotificationName>
       _NSSystemClockDidChangeNotification =
       _lookup<NSNotificationName>('NSSystemClockDidChangeNotification');
@@ -36607,6 +36544,69 @@ class NativeCupertinoHttp {
         value.ref.retainAndReturnPointer();
   }
 
+  NSRange NSUnionRange(
+    NSRange range1,
+    NSRange range2,
+  ) {
+    return _NSUnionRange(
+      range1,
+      range2,
+    );
+  }
+
+  late final _NSUnionRangePtr =
+      _lookup<ffi.NativeFunction<NSRange Function(NSRange, NSRange)>>(
+          'NSUnionRange');
+  late final _NSUnionRange =
+      _NSUnionRangePtr.asFunction<NSRange Function(NSRange, NSRange)>();
+
+  NSRange NSIntersectionRange(
+    NSRange range1,
+    NSRange range2,
+  ) {
+    return _NSIntersectionRange(
+      range1,
+      range2,
+    );
+  }
+
+  late final _NSIntersectionRangePtr =
+      _lookup<ffi.NativeFunction<NSRange Function(NSRange, NSRange)>>(
+          'NSIntersectionRange');
+  late final _NSIntersectionRange =
+      _NSIntersectionRangePtr.asFunction<NSRange Function(NSRange, NSRange)>();
+
+  objc.NSString NSStringFromRange(
+    NSRange range,
+  ) {
+    return objc.NSString.castFromPointer(
+        _NSStringFromRange(
+          range,
+        ),
+        retain: true,
+        release: true);
+  }
+
+  late final _NSStringFromRangePtr = _lookup<
+          ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(NSRange)>>(
+      'NSStringFromRange');
+  late final _NSStringFromRange = _NSStringFromRangePtr.asFunction<
+      ffi.Pointer<objc.ObjCObject> Function(NSRange)>();
+
+  NSRange NSRangeFromString(
+    objc.NSString aString,
+  ) {
+    return _NSRangeFromString(
+      aString.ref.pointer,
+    );
+  }
+
+  late final _NSRangeFromStringPtr = _lookup<
+          ffi.NativeFunction<NSRange Function(ffi.Pointer<objc.ObjCObject>)>>(
+      'NSRangeFromString');
+  late final _NSRangeFromString = _NSRangeFromStringPtr.asFunction<
+      NSRange Function(ffi.Pointer<objc.ObjCObject>)>();
+
   late final ffi.Pointer<ffi.Pointer<objc.ObjCObject>>
       _NSItemProviderPreferredImageSizeKey =
       _lookup<ffi.Pointer<objc.ObjCObject>>(
@@ -40663,20 +40663,6 @@ external ffi.Pointer<objc.ObjCBlockImpl> _wrapListenerBlock_10hgvcc(
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _wrapListenerBlock_zpobzb(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl> _wrapListenerBlock_vzqe8w(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl> _wrapListenerBlock_19b8ge5(
   ffi.Pointer<objc.ObjCBlockImpl> block,
 );
@@ -40771,22 +40757,6 @@ final class _opaque_pthread_t extends ffi.Struct {
 
   @ffi.Array.multi([8176])
   external ffi.Array<ffi.Char> __opaque;
-}
-
-enum idtype_t {
-  P_ALL(0),
-  P_PID(1),
-  P_PGID(2);
-
-  final int value;
-  const idtype_t(this.value);
-
-  static idtype_t fromValue(int value) => switch (value) {
-        0 => P_ALL,
-        1 => P_PID,
-        2 => P_PGID,
-        _ => throw ArgumentError("Unknown value for idtype_t: $value"),
-      };
 }
 
 final class __darwin_arm_exception_state extends ffi.Struct {
@@ -41784,6 +41754,22 @@ final class _OSUnalignedU64 extends ffi.Struct {
 }
 
 final class wait extends ffi.Opaque {}
+
+enum idtype_t {
+  P_ALL(0),
+  P_PID(1),
+  P_PGID(2);
+
+  final int value;
+  const idtype_t(this.value);
+
+  static idtype_t fromValue(int value) => switch (value) {
+        0 => P_ALL,
+        1 => P_PID,
+        2 => P_PGID,
+        _ => throw ArgumentError("Unknown value for idtype_t: $value"),
+      };
+}
 
 final class div_t extends ffi.Struct {
   @ffi.Int()
@@ -43820,79 +43806,8 @@ extension ObjCBlock_NSString_ffiVoid_CallExtension
 late final _sel_debugDescription = objc.registerName("debugDescription");
 typedef va_list = __builtin_va_list;
 typedef __builtin_va_list = ffi.Pointer<ffi.Char>;
-
-enum NSQualityOfService {
-  NSQualityOfServiceUserInteractive(33),
-  NSQualityOfServiceUserInitiated(25),
-  NSQualityOfServiceUtility(17),
-  NSQualityOfServiceBackground(9),
-  NSQualityOfServiceDefault(-1);
-
-  final int value;
-  const NSQualityOfService(this.value);
-
-  static NSQualityOfService fromValue(int value) => switch (value) {
-        33 => NSQualityOfServiceUserInteractive,
-        25 => NSQualityOfServiceUserInitiated,
-        17 => NSQualityOfServiceUtility,
-        9 => NSQualityOfServiceBackground,
-        -1 => NSQualityOfServiceDefault,
-        _ =>
-          throw ArgumentError("Unknown value for NSQualityOfService: $value"),
-      };
-}
-
 typedef NSInteger = ffi.Long;
 typedef DartNSInteger = int;
-
-enum ptrauth_key {
-  ptrauth_key_none(-1),
-  ptrauth_key_asia(0),
-  ptrauth_key_asib(1),
-  ptrauth_key_asda(2),
-  ptrauth_key_asdb(3);
-
-  static const ptrauth_key_process_independent_code = ptrauth_key_asia;
-  static const ptrauth_key_process_dependent_code = ptrauth_key_asib;
-  static const ptrauth_key_process_independent_data = ptrauth_key_asda;
-  static const ptrauth_key_process_dependent_data = ptrauth_key_asdb;
-  static const ptrauth_key_function_pointer = ptrauth_key_asia;
-  static const ptrauth_key_return_address = ptrauth_key_asib;
-  static const ptrauth_key_frame_pointer = ptrauth_key_asdb;
-  static const ptrauth_key_block_function = ptrauth_key_asia;
-  static const ptrauth_key_cxx_vtable_pointer = ptrauth_key_asda;
-  static const ptrauth_key_method_list_pointer = ptrauth_key_asda;
-  static const ptrauth_key_objc_isa_pointer = ptrauth_key_asda;
-  static const ptrauth_key_objc_super_pointer = ptrauth_key_asda;
-  static const ptrauth_key_block_descriptor_pointer = ptrauth_key_asda;
-  static const ptrauth_key_objc_sel_pointer = ptrauth_key_asdb;
-  static const ptrauth_key_objc_class_ro_pointer = ptrauth_key_asda;
-
-  final int value;
-  const ptrauth_key(this.value);
-
-  static ptrauth_key fromValue(int value) => switch (value) {
-        -1 => ptrauth_key_none,
-        0 => ptrauth_key_asia,
-        1 => ptrauth_key_asib,
-        2 => ptrauth_key_asda,
-        3 => ptrauth_key_asdb,
-        _ => throw ArgumentError("Unknown value for ptrauth_key: $value"),
-      };
-
-  @override
-  String toString() {
-    if (this == ptrauth_key_asia)
-      return "ptrauth_key.ptrauth_key_asia, ptrauth_key.ptrauth_key_process_independent_code, ptrauth_key.ptrauth_key_function_pointer, ptrauth_key.ptrauth_key_block_function";
-    if (this == ptrauth_key_asib)
-      return "ptrauth_key.ptrauth_key_asib, ptrauth_key.ptrauth_key_process_dependent_code, ptrauth_key.ptrauth_key_return_address";
-    if (this == ptrauth_key_asda)
-      return "ptrauth_key.ptrauth_key_asda, ptrauth_key.ptrauth_key_process_independent_data, ptrauth_key.ptrauth_key_cxx_vtable_pointer, ptrauth_key.ptrauth_key_method_list_pointer, ptrauth_key.ptrauth_key_objc_isa_pointer, ptrauth_key.ptrauth_key_objc_super_pointer, ptrauth_key.ptrauth_key_block_descriptor_pointer, ptrauth_key.ptrauth_key_objc_class_ro_pointer";
-    if (this == ptrauth_key_asdb)
-      return "ptrauth_key.ptrauth_key_asdb, ptrauth_key.ptrauth_key_process_dependent_data, ptrauth_key.ptrauth_key_frame_pointer, ptrauth_key.ptrauth_key_objc_sel_pointer";
-    return super.toString();
-  }
-}
 
 @ffi.Packed(2)
 final class wide extends ffi.Struct {
@@ -44063,23 +43978,6 @@ final class VersRec extends ffi.Struct {
 typedef ConstStr255Param = ffi.Pointer<ffi.UnsignedChar>;
 
 final class __CFString extends ffi.Opaque {}
-
-enum CFComparisonResult {
-  kCFCompareLessThan(-1),
-  kCFCompareEqualTo(0),
-  kCFCompareGreaterThan(1);
-
-  final int value;
-  const CFComparisonResult(this.value);
-
-  static CFComparisonResult fromValue(int value) => switch (value) {
-        -1 => kCFCompareLessThan,
-        0 => kCFCompareEqualTo,
-        1 => kCFCompareGreaterThan,
-        _ =>
-          throw ArgumentError("Unknown value for CFComparisonResult: $value"),
-      };
-}
 
 typedef CFIndex = ffi.Long;
 typedef DartCFIndex = int;
@@ -44954,409 +44852,302 @@ late final _sel_discardContentIfPossible =
     objc.registerName("discardContentIfPossible");
 late final _sel_isContentDiscarded = objc.registerName("isContentDiscarded");
 
-/// NSFastEnumeration
-abstract final class NSFastEnumeration {
-  /// Builds an object that implements the NSFastEnumeration protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required DartNSUInteger Function(
-              ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-              DartNSUInteger)
-          countByEnumeratingWithState_objects_count_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSFastEnumeration.countByEnumeratingWithState_objects_count_
-        .implement(builder, countByEnumeratingWithState_objects_count_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSFastEnumeration protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required DartNSUInteger Function(
-              ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-              DartNSUInteger)
-          countByEnumeratingWithState_objects_count_}) {
-    NSFastEnumeration.countByEnumeratingWithState_objects_count_
-        .implement(builder, countByEnumeratingWithState_objects_count_);
-  }
-
-  /// countByEnumeratingWithState:objects:count:
-  static final countByEnumeratingWithState_objects_count_ =
-      objc.ObjCProtocolMethod<
-          DartNSUInteger Function(ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, DartNSUInteger)>(
-    _sel_countByEnumeratingWithState_objects_count_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSFastEnumeration,
-      _sel_countByEnumeratingWithState_objects_count_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (DartNSUInteger Function(ffi.Pointer<objc.NSFastEnumerationState>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, DartNSUInteger)
-            func) =>
-        ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    ffi.Pointer<objc.NSFastEnumerationState> arg1,
-                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-                    DartNSUInteger arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-}
-
-late final _protocol_NSFastEnumeration = objc.getProtocol("NSFastEnumeration");
-late final _sel_countByEnumeratingWithState_objects_count_ =
-    objc.registerName("countByEnumeratingWithState:objects:count:");
-int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.NSFastEnumerationState> arg1,
-        ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-        int arg3) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                NSUInteger Function(
-                    ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.NSFastEnumerationState> arg1,
-                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-                    NSUInteger arg3)>>()
-        .asFunction<
-            int Function(
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.NSFastEnumerationState>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                int)>()(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                NSUInteger Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.NSFastEnumerationState>,
-                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                    NSUInteger)>(
-            _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrTrampoline,
-            0)
-        .cast();
-int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.NSFastEnumerationState> arg1,
-        ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-        int arg3) =>
-    (objc.getBlockClosure(block) as int Function(
-        ffi.Pointer<ffi.Void>,
-        ffi.Pointer<objc.NSFastEnumerationState>,
-        ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-        int))(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureCallable =
-    ffi.Pointer.fromFunction<
-                NSUInteger Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.NSFastEnumerationState>,
-                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                    NSUInteger)>(
-            _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureTrampoline,
-            0)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>`.
-abstract final class ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.UnsignedLong Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-              ffi.UnsignedLong)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.UnsignedLong Function(
-                  ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<objc.NSFastEnumerationState>,
-                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                  ffi.UnsignedLong)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.UnsignedLong Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-              ffi.UnsignedLong)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<NSUInteger Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.NSFastEnumerationState> arg1, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2, NSUInteger arg3)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.UnsignedLong Function(
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.NSFastEnumerationState>,
-                      ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                      ffi.UnsignedLong)>(
-              objc.newPointerBlock(_ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)> fromFunction(
-          DartNSUInteger Function(
-                  ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<objc.NSFastEnumerationState>,
-                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                  DartNSUInteger)
-              fn) =>
-      objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>(
-          objc.newClosureBlock(
-              _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.NSFastEnumerationState> arg1, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2, int arg3) =>
-                  fn(arg0, arg1, arg2, arg3)),
-          retain: false,
-          release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>`.
-extension ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_CallExtension
-    on objc.ObjCBlock<
-        ffi.UnsignedLong Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.NSFastEnumerationState>,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-            ffi.UnsignedLong)> {
-  DartNSUInteger call(
-          ffi.Pointer<ffi.Void> arg0,
-          ffi.Pointer<objc.NSFastEnumerationState> arg1,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-          DartNSUInteger arg3) =>
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  NSUInteger Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.NSFastEnumerationState> arg1,
-                      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-                      NSUInteger arg3)>>()
-          .asFunction<
-              int Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<objc.NSFastEnumerationState>,
-                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                  int)>()(ref.pointer, arg0, arg1, arg2, arg3);
-}
-
-typedef NSRange = objc.NSRange;
-
-enum NSCollectionChangeType {
-  NSCollectionChangeInsert(0),
-  NSCollectionChangeRemove(1);
-
-  final int value;
-  const NSCollectionChangeType(this.value);
-
-  static NSCollectionChangeType fromValue(int value) => switch (value) {
-        0 => NSCollectionChangeInsert,
-        1 => NSCollectionChangeRemove,
-        _ => throw ArgumentError(
-            "Unknown value for NSCollectionChangeType: $value"),
-      };
-}
-
-/// NSOrderedCollectionChange
-class NSOrderedCollectionChange extends objc.NSObject {
-  NSOrderedCollectionChange._(ffi.Pointer<objc.ObjCObject> pointer,
+/// NSURLCache
+class NSURLCache extends objc.NSObject {
+  NSURLCache._(ffi.Pointer<objc.ObjCObject> pointer,
       {bool retain = false, bool release = false})
       : super.castFromPointer(pointer, retain: retain, release: release);
 
-  /// Constructs a [NSOrderedCollectionChange] that points to the same underlying object as [other].
-  NSOrderedCollectionChange.castFrom(objc.ObjCObjectBase other)
+  /// Constructs a [NSURLCache] that points to the same underlying object as [other].
+  NSURLCache.castFrom(objc.ObjCObjectBase other)
       : this._(other.ref.pointer, retain: true, release: true);
 
-  /// Constructs a [NSOrderedCollectionChange] that wraps the given raw object pointer.
-  NSOrderedCollectionChange.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+  /// Constructs a [NSURLCache] that wraps the given raw object pointer.
+  NSURLCache.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
       {bool retain = false, bool release = false})
       : this._(other, retain: retain, release: release);
 
-  /// Returns whether [obj] is an instance of [NSOrderedCollectionChange].
+  /// Returns whether [obj] is an instance of [NSURLCache].
   static bool isInstance(objc.ObjCObjectBase obj) {
     return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSOrderedCollectionChange);
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSURLCache);
   }
 
-  /// changeWithObject:type:index:
-  static NSOrderedCollectionChange changeWithObject_type_index_(
-      objc.ObjCObjectBase? anObject,
-      NSCollectionChangeType type,
-      DartNSUInteger index) {
-    final _ret = _objc_msgSend_klnnzp(
-        _class_NSOrderedCollectionChange,
-        _sel_changeWithObject_type_index_,
-        anObject?.ref.pointer ?? ffi.nullptr,
-        type.value,
-        index);
-    return NSOrderedCollectionChange.castFromPointer(_ret,
-        retain: true, release: true);
+  /// !
+  /// @property sharedURLCache
+  /// @abstract Returns the shared NSURLCache instance or
+  /// sets the NSURLCache instance shared by all clients of
+  /// the current process. This will be the new object returned when
+  /// calls to the <tt>sharedURLCache</tt> method are made.
+  /// @discussion Unless set explicitly through a call to
+  /// <tt>+setSharedURLCache:</tt>, this method returns an NSURLCache
+  /// instance created with the following default values:
+  /// <ul>
+  /// <li>Memory capacity: 4 megabytes (4 * 1024 * 1024 bytes)
+  /// <li>Disk capacity: 20 megabytes (20 * 1024 * 1024 bytes)
+  /// <li>Disk path: <nobr>(user home directory)/Library/Caches/(application bundle id)</nobr>
+  /// </ul>
+  /// <p>Users who do not have special caching requirements or
+  /// constraints should find the default shared cache instance
+  /// acceptable. If this default shared cache instance is not
+  /// acceptable, <tt>+setSharedURLCache:</tt> can be called to set a
+  /// different NSURLCache instance to be returned from this method.
+  /// Callers should take care to ensure that the setter is called
+  /// at a time when no other caller has a reference to the previously-set
+  /// shared URL cache. This is to prevent storing cache data from
+  /// becoming unexpectedly unretrievable.
+  /// @result the shared NSURLCache instance.
+  static NSURLCache getSharedURLCache() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSURLCache, _sel_sharedURLCache);
+    return NSURLCache.castFromPointer(_ret, retain: true, release: true);
   }
 
-  /// changeWithObject:type:index:associatedIndex:
-  static NSOrderedCollectionChange changeWithObject_type_index_associatedIndex_(
-      objc.ObjCObjectBase? anObject,
-      NSCollectionChangeType type,
-      DartNSUInteger index,
-      DartNSUInteger associatedIndex) {
-    final _ret = _objc_msgSend_fg75bt(
-        _class_NSOrderedCollectionChange,
-        _sel_changeWithObject_type_index_associatedIndex_,
-        anObject?.ref.pointer ?? ffi.nullptr,
-        type.value,
-        index,
-        associatedIndex);
-    return NSOrderedCollectionChange.castFromPointer(_ret,
-        retain: true, release: true);
+  /// !
+  /// @property sharedURLCache
+  /// @abstract Returns the shared NSURLCache instance or
+  /// sets the NSURLCache instance shared by all clients of
+  /// the current process. This will be the new object returned when
+  /// calls to the <tt>sharedURLCache</tt> method are made.
+  /// @discussion Unless set explicitly through a call to
+  /// <tt>+setSharedURLCache:</tt>, this method returns an NSURLCache
+  /// instance created with the following default values:
+  /// <ul>
+  /// <li>Memory capacity: 4 megabytes (4 * 1024 * 1024 bytes)
+  /// <li>Disk capacity: 20 megabytes (20 * 1024 * 1024 bytes)
+  /// <li>Disk path: <nobr>(user home directory)/Library/Caches/(application bundle id)</nobr>
+  /// </ul>
+  /// <p>Users who do not have special caching requirements or
+  /// constraints should find the default shared cache instance
+  /// acceptable. If this default shared cache instance is not
+  /// acceptable, <tt>+setSharedURLCache:</tt> can be called to set a
+  /// different NSURLCache instance to be returned from this method.
+  /// Callers should take care to ensure that the setter is called
+  /// at a time when no other caller has a reference to the previously-set
+  /// shared URL cache. This is to prevent storing cache data from
+  /// becoming unexpectedly unretrievable.
+  /// @result the shared NSURLCache instance.
+  static void setSharedURLCache(NSURLCache value) {
+    return _objc_msgSend_ukcdfq(
+        _class_NSURLCache, _sel_setSharedURLCache_, value.ref.pointer);
   }
 
-  /// object
-  objc.ObjCObjectBase? get object {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_object);
+  /// !
+  /// @method initWithMemoryCapacity:diskCapacity:diskPath:
+  /// @abstract Initializes an NSURLCache with the given capacity and
+  /// path.
+  /// @discussion The returned NSURLCache is backed by disk, so
+  /// developers can be more liberal with space when choosing the
+  /// capacity for this kind of cache. A disk cache measured in the tens
+  /// of megabytes should be acceptable in most cases.
+  /// @param memoryCapacity the capacity, measured in bytes, for the cache in memory.
+  /// @param diskCapacity the capacity, measured in bytes, for the cache on disk.
+  /// @param path the path on disk where the cache data is stored.
+  /// @result an initialized NSURLCache, with the given capacity, backed
+  /// by disk.
+  NSURLCache initWithMemoryCapacity_diskCapacity_diskPath_(
+      DartNSUInteger memoryCapacity,
+      DartNSUInteger diskCapacity,
+      objc.NSString? path) {
+    final _ret = _objc_msgSend_ebb7er(
+        this.ref.retainAndReturnPointer(),
+        _sel_initWithMemoryCapacity_diskCapacity_diskPath_,
+        memoryCapacity,
+        diskCapacity,
+        path?.ref.pointer ?? ffi.nullptr);
+    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @method initWithMemoryCapacity:diskCapacity:directoryURL:
+  /// @abstract Initializes an NSURLCache with the given capacity and directory.
+  /// @param memoryCapacity the capacity, measured in bytes, for the cache in memory. Or 0 to disable memory cache.
+  /// @param diskCapacity the capacity, measured in bytes, for the cache on disk. Or 0 to disable disk cache.
+  /// @param directoryURL the path to a directory on disk where the cache data is stored. Or nil for default directory.
+  /// @result an initialized NSURLCache, with the given capacity, optionally backed by disk.
+  NSURLCache initWithMemoryCapacity_diskCapacity_directoryURL_(
+      DartNSUInteger memoryCapacity,
+      DartNSUInteger diskCapacity,
+      objc.NSURL? directoryURL) {
+    final _ret = _objc_msgSend_ebb7er(
+        this.ref.retainAndReturnPointer(),
+        _sel_initWithMemoryCapacity_diskCapacity_directoryURL_,
+        memoryCapacity,
+        diskCapacity,
+        directoryURL?.ref.pointer ?? ffi.nullptr);
+    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// !
+  /// @method cachedResponseForRequest:
+  /// @abstract Returns the NSCachedURLResponse stored in the cache with
+  /// the given request.
+  /// @discussion The method returns nil if there is no
+  /// NSCachedURLResponse stored using the given request.
+  /// @param request the NSURLRequest to use as a key for the lookup.
+  /// @result The NSCachedURLResponse stored in the cache with the given
+  /// request, or nil if there is no NSCachedURLResponse stored with the
+  /// given request.
+  NSCachedURLResponse? cachedResponseForRequest_(NSURLRequest request) {
+    final _ret = _objc_msgSend_juohf7(
+        this.ref.pointer, _sel_cachedResponseForRequest_, request.ref.pointer);
     return _ret.address == 0
         ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
+        : NSCachedURLResponse.castFromPointer(_ret,
+            retain: true, release: true);
   }
 
-  /// changeType
-  NSCollectionChangeType get changeType {
-    final _ret = _objc_msgSend_1ocvcq4(this.ref.pointer, _sel_changeType);
-    return NSCollectionChangeType.fromValue(_ret);
+  /// !
+  /// @method storeCachedResponse:forRequest:
+  /// @abstract Stores the given NSCachedURLResponse in the cache using
+  /// the given request.
+  /// @param cachedResponse The cached response to store.
+  /// @param request the NSURLRequest to use as a key for the storage.
+  void storeCachedResponse_forRequest_(
+      NSCachedURLResponse cachedResponse, NSURLRequest request) {
+    _objc_msgSend_1tjlcwl(
+        this.ref.pointer,
+        _sel_storeCachedResponse_forRequest_,
+        cachedResponse.ref.pointer,
+        request.ref.pointer);
   }
 
-  /// index
-  DartNSUInteger get index {
-    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_index);
+  /// !
+  /// @method removeCachedResponseForRequest:
+  /// @abstract Removes the NSCachedURLResponse from the cache that is
+  /// stored using the given request.
+  /// @discussion No action is taken if there is no NSCachedURLResponse
+  /// stored with the given request.
+  /// @param request the NSURLRequest to use as a key for the lookup.
+  void removeCachedResponseForRequest_(NSURLRequest request) {
+    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_removeCachedResponseForRequest_,
+        request.ref.pointer);
   }
 
-  /// associatedIndex
-  DartNSUInteger get associatedIndex {
-    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_associatedIndex);
+  /// !
+  /// @method removeAllCachedResponses
+  /// @abstract Clears the given cache, removing all NSCachedURLResponse
+  /// objects that it stores.
+  void removeAllCachedResponses() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_removeAllCachedResponses);
+  }
+
+  /// !
+  /// @method removeCachedResponsesSince:
+  /// @abstract Clears the given cache of any cached responses since the provided date.
+  void removeCachedResponsesSinceDate_(objc.NSDate date) {
+    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_removeCachedResponsesSinceDate_,
+        date.ref.pointer);
+  }
+
+  /// !
+  /// @abstract In-memory capacity of the receiver.
+  /// @discussion At the time this call is made, the in-memory cache will truncate its contents to the size given, if necessary.
+  /// @result The in-memory capacity, measured in bytes, for the receiver.
+  DartNSUInteger get memoryCapacity {
+    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_memoryCapacity);
+  }
+
+  /// !
+  /// @abstract In-memory capacity of the receiver.
+  /// @discussion At the time this call is made, the in-memory cache will truncate its contents to the size given, if necessary.
+  /// @result The in-memory capacity, measured in bytes, for the receiver.
+  set memoryCapacity(DartNSUInteger value) {
+    return _objc_msgSend_1k4zaz5(
+        this.ref.pointer, _sel_setMemoryCapacity_, value);
+  }
+
+  /// !
+  /// @abstract The on-disk capacity of the receiver.
+  /// @discussion The on-disk capacity, measured in bytes, for the receiver. On mutation the on-disk cache will truncate its contents to the size given, if necessary.
+  DartNSUInteger get diskCapacity {
+    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_diskCapacity);
+  }
+
+  /// !
+  /// @abstract The on-disk capacity of the receiver.
+  /// @discussion The on-disk capacity, measured in bytes, for the receiver. On mutation the on-disk cache will truncate its contents to the size given, if necessary.
+  set diskCapacity(DartNSUInteger value) {
+    return _objc_msgSend_1k4zaz5(
+        this.ref.pointer, _sel_setDiskCapacity_, value);
+  }
+
+  /// !
+  /// @abstract Returns the current amount of space consumed by the
+  /// in-memory cache of the receiver.
+  /// @discussion This size, measured in bytes, indicates the current
+  /// usage of the in-memory cache.
+  /// @result the current usage of the in-memory cache of the receiver.
+  DartNSUInteger get currentMemoryUsage {
+    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_currentMemoryUsage);
+  }
+
+  /// !
+  /// @abstract Returns the current amount of space consumed by the
+  /// on-disk cache of the receiver.
+  /// @discussion This size, measured in bytes, indicates the current
+  /// usage of the on-disk cache.
+  /// @result the current usage of the on-disk cache of the receiver.
+  DartNSUInteger get currentDiskUsage {
+    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_currentDiskUsage);
+  }
+
+  /// storeCachedResponse:forDataTask:
+  void storeCachedResponse_forDataTask_(
+      NSCachedURLResponse cachedResponse, NSURLSessionDataTask dataTask) {
+    _objc_msgSend_1tjlcwl(
+        this.ref.pointer,
+        _sel_storeCachedResponse_forDataTask_,
+        cachedResponse.ref.pointer,
+        dataTask.ref.pointer);
+  }
+
+  /// getCachedResponseForDataTask:completionHandler:
+  void getCachedResponseForDataTask_completionHandler_(
+      NSURLSessionDataTask dataTask,
+      objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>
+          completionHandler) {
+    _objc_msgSend_cmbt6k(
+        this.ref.pointer,
+        _sel_getCachedResponseForDataTask_completionHandler_,
+        dataTask.ref.pointer,
+        completionHandler.ref.pointer);
+  }
+
+  /// removeCachedResponseForDataTask:
+  void removeCachedResponseForDataTask_(NSURLSessionDataTask dataTask) {
+    _objc_msgSend_ukcdfq(this.ref.pointer,
+        _sel_removeCachedResponseForDataTask_, dataTask.ref.pointer);
   }
 
   /// init
-  NSOrderedCollectionChange init() {
+  NSURLCache init() {
     final _ret =
         _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSOrderedCollectionChange.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// initWithObject:type:index:
-  NSOrderedCollectionChange initWithObject_type_index_(
-      objc.ObjCObjectBase? anObject,
-      NSCollectionChangeType type,
-      DartNSUInteger index) {
-    final _ret = _objc_msgSend_klnnzp(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithObject_type_index_,
-        anObject?.ref.pointer ?? ffi.nullptr,
-        type.value,
-        index);
-    return NSOrderedCollectionChange.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// initWithObject:type:index:associatedIndex:
-  NSOrderedCollectionChange initWithObject_type_index_associatedIndex_(
-      objc.ObjCObjectBase? anObject,
-      NSCollectionChangeType type,
-      DartNSUInteger index,
-      DartNSUInteger associatedIndex) {
-    final _ret = _objc_msgSend_fg75bt(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithObject_type_index_associatedIndex_,
-        anObject?.ref.pointer ?? ffi.nullptr,
-        type.value,
-        index,
-        associatedIndex);
-    return NSOrderedCollectionChange.castFromPointer(_ret,
-        retain: false, release: true);
+    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
   }
 
   /// new
-  static NSOrderedCollectionChange new1() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_NSOrderedCollectionChange, _sel_new);
-    return NSOrderedCollectionChange.castFromPointer(_ret,
-        retain: false, release: true);
+  static NSURLCache new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSURLCache, _sel_new);
+    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
   }
 
   /// allocWithZone:
-  static NSOrderedCollectionChange allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSOrderedCollectionChange, _sel_allocWithZone_, zone);
-    return NSOrderedCollectionChange.castFromPointer(_ret,
-        retain: false, release: true);
+  static NSURLCache allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret =
+        _objc_msgSend_1b3ihd0(_class_NSURLCache, _sel_allocWithZone_, zone);
+    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
   }
 
   /// alloc
-  static NSOrderedCollectionChange alloc() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_NSOrderedCollectionChange, _sel_alloc);
-    return NSOrderedCollectionChange.castFromPointer(_ret,
-        retain: false, release: true);
+  static NSURLCache alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSURLCache, _sel_alloc);
+    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
   }
 }
 
-late final _class_NSOrderedCollectionChange =
-    objc.getClass("NSOrderedCollectionChange");
-late final _sel_changeWithObject_type_index_ =
-    objc.registerName("changeWithObject:type:index:");
-final _objc_msgSend_klnnzp = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                NSInteger,
-                NSUInteger)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            int,
-            int)>();
-late final _sel_changeWithObject_type_index_associatedIndex_ =
-    objc.registerName("changeWithObject:type:index:associatedIndex:");
-final _objc_msgSend_fg75bt = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                NSInteger,
-                NSUInteger,
-                NSUInteger)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            int,
-            int,
-            int)>();
-late final _sel_object = objc.registerName("object");
+late final _class_NSURLCache = objc.getClass("NSURLCache");
+late final _sel_sharedURLCache = objc.registerName("sharedURLCache");
 final _objc_msgSend_1unuoxw = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
@@ -45365,529 +45156,37 @@ final _objc_msgSend_1unuoxw = objc.msgSendPointer
     .asFunction<
         ffi.Pointer<objc.ObjCObject> Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_changeType = objc.registerName("changeType");
-final _objc_msgSend_1ocvcq4 = objc.msgSendPointer
+late final _sel_setSharedURLCache_ = objc.registerName("setSharedURLCache:");
+final _objc_msgSend_ukcdfq = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
-            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_index = objc.registerName("index");
-final _objc_msgSend_eldhrq = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSUInteger Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_associatedIndex = objc.registerName("associatedIndex");
-late final _sel_init = objc.registerName("init");
-late final _sel_initWithObject_type_index_ =
-    objc.registerName("initWithObject:type:index:");
-late final _sel_initWithObject_type_index_associatedIndex_ =
-    objc.registerName("initWithObject:type:index:associatedIndex:");
-late final _sel_new = objc.registerName("new");
-late final _sel_allocWithZone_ = objc.registerName("allocWithZone:");
-final _objc_msgSend_1b3ihd0 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<_NSZone>)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<_NSZone>)>();
-late final _sel_alloc = objc.registerName("alloc");
-
-/// NSOrderedCollectionDifference
-class NSOrderedCollectionDifference extends objc.NSObject {
-  NSOrderedCollectionDifference._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSOrderedCollectionDifference] that points to the same underlying object as [other].
-  NSOrderedCollectionDifference.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSOrderedCollectionDifference] that wraps the given raw object pointer.
-  NSOrderedCollectionDifference.castFromPointer(
-      ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false,
-      bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSOrderedCollectionDifference].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(obj.ref.pointer, _sel_isKindOfClass_,
-        _class_NSOrderedCollectionDifference);
-  }
-
-  /// initWithChanges:
-  NSOrderedCollectionDifference initWithChanges_(objc.ObjCObjectBase changes) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithChanges_, changes.ref.pointer);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// initWithInsertIndexes:insertedObjects:removeIndexes:removedObjects:additionalChanges:
-  NSOrderedCollectionDifference
-      initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_additionalChanges_(
-          objc.NSIndexSet inserts,
-          objc.ObjCObjectBase? insertedObjects,
-          objc.NSIndexSet removes,
-          objc.ObjCObjectBase? removedObjects,
-          objc.ObjCObjectBase changes) {
-    final _ret = _objc_msgSend_1hu94wz(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_additionalChanges_,
-        inserts.ref.pointer,
-        insertedObjects?.ref.pointer ?? ffi.nullptr,
-        removes.ref.pointer,
-        removedObjects?.ref.pointer ?? ffi.nullptr,
-        changes.ref.pointer);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// initWithInsertIndexes:insertedObjects:removeIndexes:removedObjects:
-  NSOrderedCollectionDifference
-      initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_(
-          objc.NSIndexSet inserts,
-          objc.ObjCObjectBase? insertedObjects,
-          objc.NSIndexSet removes,
-          objc.ObjCObjectBase? removedObjects) {
-    final _ret = _objc_msgSend_1qje3rk(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_,
-        inserts.ref.pointer,
-        insertedObjects?.ref.pointer ?? ffi.nullptr,
-        removes.ref.pointer,
-        removedObjects?.ref.pointer ?? ffi.nullptr);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// insertions
-  objc.ObjCObjectBase get insertions {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_insertions);
-    return objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// removals
-  objc.ObjCObjectBase get removals {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_removals);
-    return objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// hasChanges
-  bool get hasChanges {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_hasChanges);
-  }
-
-  /// differenceByTransformingChangesWithBlock:
-  NSOrderedCollectionDifference differenceByTransformingChangesWithBlock_(
-      objc.ObjCBlock<
-              NSOrderedCollectionChange Function(NSOrderedCollectionChange)>
-          block) {
-    final _ret = _objc_msgSend_3c0puu(this.ref.pointer,
-        _sel_differenceByTransformingChangesWithBlock_, block.ref.pointer);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// inverseDifference
-  NSOrderedCollectionDifference inverseDifference() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_inverseDifference);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// init
-  NSOrderedCollectionDifference init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// new
-  static NSOrderedCollectionDifference new1() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_NSOrderedCollectionDifference, _sel_new);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSOrderedCollectionDifference allocWithZone_(
-      ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSOrderedCollectionDifference, _sel_allocWithZone_, zone);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// alloc
-  static NSOrderedCollectionDifference alloc() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_NSOrderedCollectionDifference, _sel_alloc);
-    return NSOrderedCollectionDifference.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// countByEnumeratingWithState:objects:count:
-  DartNSUInteger countByEnumeratingWithState_objects_count_(
-      ffi.Pointer<objc.NSFastEnumerationState> state,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> buffer,
-      DartNSUInteger len) {
-    return _objc_msgSend_q12f7y(this.ref.pointer,
-        _sel_countByEnumeratingWithState_objects_count_, state, buffer, len);
-  }
-}
-
-late final _class_NSOrderedCollectionDifference =
-    objc.getClass("NSOrderedCollectionDifference");
-late final _sel_initWithChanges_ = objc.registerName("initWithChanges:");
-final _objc_msgSend_juohf7 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
+            ffi.Void Function(
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCSelector>,
                 ffi.Pointer<objc.ObjCObject>)>>()
     .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
+        void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_additionalChanges_ =
-    objc.registerName(
-        "initWithInsertIndexes:insertedObjects:removeIndexes:removedObjects:additionalChanges:");
-final _objc_msgSend_1hu94wz = objc.msgSendPointer
+late final _sel_initWithMemoryCapacity_diskCapacity_diskPath_ =
+    objc.registerName("initWithMemoryCapacity:diskCapacity:diskPath:");
+final _objc_msgSend_ebb7er = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
             instancetype Function(
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
+                NSUInteger,
+                NSUInteger,
                 ffi.Pointer<objc.ObjCObject>)>>()
     .asFunction<
         instancetype Function(
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
+            int,
+            int,
             ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_initWithInsertIndexes_insertedObjects_removeIndexes_removedObjects_ =
-    objc.registerName(
-        "initWithInsertIndexes:insertedObjects:removeIndexes:removedObjects:");
-final _objc_msgSend_1qje3rk = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_insertions = objc.registerName("insertions");
-late final _sel_removals = objc.registerName("removals");
-late final _sel_hasChanges = objc.registerName("hasChanges");
-final _objc_msgSend_olxnu1 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        bool Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<objc.ObjCObject> arg0) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Pointer<objc.ObjCObject> Function(
-                        ffi.Pointer<objc.ObjCObject> arg0)>>()
-            .asFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCObject>)>()(arg0);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<objc.ObjCObject> arg0) =>
-        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>))(arg0);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<NSOrderedCollectionChange Function(NSOrderedCollectionChange)>`.
-abstract final class ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc
-      .ObjCBlock<NSOrderedCollectionChange Function(NSOrderedCollectionChange)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  NSOrderedCollectionChange Function(
-                      NSOrderedCollectionChange)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<NSOrderedCollectionChange Function(NSOrderedCollectionChange)>
-      fromFunctionPointer(
-              ffi.Pointer<
-                      ffi.NativeFunction<
-                          ffi.Pointer<objc.ObjCObject> Function(
-                              ffi.Pointer<objc.ObjCObject> arg0)>>
-                  ptr) =>
-          objc.ObjCBlock<
-                  NSOrderedCollectionChange Function(NSOrderedCollectionChange)>(
-              objc.newPointerBlock(
-                  _ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_fnPtrCallable,
-                  ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<NSOrderedCollectionChange Function(NSOrderedCollectionChange)>
-      fromFunction(NSOrderedCollectionChange Function(NSOrderedCollectionChange) fn) =>
-          objc.ObjCBlock<NSOrderedCollectionChange Function(NSOrderedCollectionChange)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_closureCallable,
-                  (ffi.Pointer<objc.ObjCObject> arg0) => fn(
-                          NSOrderedCollectionChange.castFromPointer(arg0,
-                              retain: true, release: true))
-                      .ref
-                      .retainAndAutorelease()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<NSOrderedCollectionChange Function(NSOrderedCollectionChange)>`.
-extension ObjCBlock_NSOrderedCollectionChange_NSOrderedCollectionChange_CallExtension
-    on objc
-    .ObjCBlock<NSOrderedCollectionChange Function(NSOrderedCollectionChange)> {
-  NSOrderedCollectionChange call(NSOrderedCollectionChange arg0) =>
-      NSOrderedCollectionChange.castFromPointer(
-          ref.pointer.ref.invoke
-                  .cast<
-                      ffi.NativeFunction<
-                          ffi.Pointer<objc.ObjCObject> Function(
-                              ffi.Pointer<objc.ObjCBlockImpl> block,
-                              ffi.Pointer<objc.ObjCObject> arg0)>>()
-                  .asFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlockImpl>,
-                          ffi.Pointer<objc.ObjCObject>)>()(
-              ref.pointer, arg0.ref.pointer),
-          retain: true,
-          release: true);
-}
-
-late final _sel_differenceByTransformingChangesWithBlock_ =
-    objc.registerName("differenceByTransformingChangesWithBlock:");
-final _objc_msgSend_3c0puu = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCBlockImpl>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCBlockImpl>)>();
-late final _sel_inverseDifference = objc.registerName("inverseDifference");
-final _objc_msgSend_q12f7y = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSUInteger Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.NSFastEnumerationState>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                NSUInteger)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.NSFastEnumerationState>,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-            int)>();
-
-/// Purgeable Data
-class NSPurgeableData extends objc.NSMutableData {
-  NSPurgeableData._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSPurgeableData] that points to the same underlying object as [other].
-  NSPurgeableData.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSPurgeableData] that wraps the given raw object pointer.
-  NSPurgeableData.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSPurgeableData].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSPurgeableData);
-  }
-
-  /// dataWithCapacity:
-  static NSPurgeableData? dataWithCapacity_(DartNSUInteger aNumItems) {
-    final _ret = _objc_msgSend_ehxl2g(
-        _class_NSPurgeableData, _sel_dataWithCapacity_, aNumItems);
-    return _ret.address == 0
-        ? null
-        : NSPurgeableData.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// dataWithLength:
-  static NSPurgeableData? dataWithLength_(DartNSUInteger length) {
-    final _ret = _objc_msgSend_ehxl2g(
-        _class_NSPurgeableData, _sel_dataWithLength_, length);
-    return _ret.address == 0
-        ? null
-        : NSPurgeableData.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// initWithCapacity:
-  NSPurgeableData? initWithCapacity_(DartNSUInteger capacity) {
-    final _ret = _objc_msgSend_ehxl2g(
-        this.ref.retainAndReturnPointer(), _sel_initWithCapacity_, capacity);
-    return _ret.address == 0
-        ? null
-        : NSPurgeableData.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithLength:
-  NSPurgeableData? initWithLength_(DartNSUInteger length) {
-    final _ret = _objc_msgSend_ehxl2g(
-        this.ref.retainAndReturnPointer(), _sel_initWithLength_, length);
-    return _ret.address == 0
-        ? null
-        : NSPurgeableData.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// beginContentAccess
-  bool beginContentAccess() {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_beginContentAccess);
-  }
-
-  /// endContentAccess
-  void endContentAccess() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_endContentAccess);
-  }
-
-  /// discardContentIfPossible
-  void discardContentIfPossible() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_discardContentIfPossible);
-  }
-
-  /// isContentDiscarded
-  bool isContentDiscarded() {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isContentDiscarded);
-  }
-}
-
-late final _class_NSPurgeableData = objc.getClass("NSPurgeableData");
-late final _sel_dataWithCapacity_ = objc.registerName("dataWithCapacity:");
-final _objc_msgSend_ehxl2g = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSUInteger)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int)>();
-late final _sel_dataWithLength_ = objc.registerName("dataWithLength:");
-late final _sel_initWithCapacity_ = objc.registerName("initWithCapacity:");
-late final _sel_initWithLength_ = objc.registerName("initWithLength:");
-final _objc_msgSend_ksby9f = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        void Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-
-/// !
-/// @enum NSURLCacheStoragePolicy
-///
-/// @discussion The NSURLCacheStoragePolicy enum defines constants that
-/// can be used to specify the type of storage that is allowable for an
-/// NSCachedURLResponse object that is to be stored in an NSURLCache.
-///
-/// @constant NSURLCacheStorageAllowed Specifies that storage in an
-/// NSURLCache is allowed without restriction.
-///
-/// @constant NSURLCacheStorageAllowedInMemoryOnly Specifies that
-/// storage in an NSURLCache is allowed; however storage should be
-/// done in memory only, no disk storage should be done.
-///
-/// @constant NSURLCacheStorageNotAllowed Specifies that storage in an
-/// NSURLCache is not allowed in any fashion, either in memory or on
-/// disk.
-enum NSURLCacheStoragePolicy {
-  NSURLCacheStorageAllowed(0),
-  NSURLCacheStorageAllowedInMemoryOnly(1),
-  NSURLCacheStorageNotAllowed(2);
-
-  final int value;
-  const NSURLCacheStoragePolicy(this.value);
-
-  static NSURLCacheStoragePolicy fromValue(int value) => switch (value) {
-        0 => NSURLCacheStorageAllowed,
-        1 => NSURLCacheStorageAllowedInMemoryOnly,
-        2 => NSURLCacheStorageNotAllowed,
-        _ => throw ArgumentError(
-            "Unknown value for NSURLCacheStoragePolicy: $value"),
-      };
-}
+late final _sel_initWithMemoryCapacity_diskCapacity_directoryURL_ =
+    objc.registerName("initWithMemoryCapacity:diskCapacity:directoryURL:");
 
 /// !
 /// @class NSCachedURLResponse
@@ -46254,15 +45553,35 @@ final _objc_msgSend_e94jsr = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_textEncodingName = objc.registerName("textEncodingName");
 late final _sel_suggestedFilename = objc.registerName("suggestedFilename");
-final _objc_msgSend_ukcdfq = objc.msgSendPointer
+late final _sel_init = objc.registerName("init");
+late final _sel_new = objc.registerName("new");
+late final _sel_allocWithZone_ = objc.registerName("allocWithZone:");
+final _objc_msgSend_1b3ihd0 = objc.msgSendPointer
     .cast<
         ffi.NativeFunction<
-            ffi.Void Function(
+            instancetype Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<_NSZone>)>>()
+    .asFunction<
+        instancetype Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<_NSZone>)>();
+late final _sel_alloc = objc.registerName("alloc");
+final _objc_msgSend_olxnu1 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        bool Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+final _objc_msgSend_juohf7 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            instancetype Function(
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCSelector>,
                 ffi.Pointer<objc.ObjCObject>)>>()
     .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
+        instancetype Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_initWithResponse_data_ =
     objc.registerName("initWithResponse:data:");
@@ -46280,6 +45599,41 @@ final _objc_msgSend_iq11qg = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>,
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>();
+
+/// !
+/// @enum NSURLCacheStoragePolicy
+///
+/// @discussion The NSURLCacheStoragePolicy enum defines constants that
+/// can be used to specify the type of storage that is allowable for an
+/// NSCachedURLResponse object that is to be stored in an NSURLCache.
+///
+/// @constant NSURLCacheStorageAllowed Specifies that storage in an
+/// NSURLCache is allowed without restriction.
+///
+/// @constant NSURLCacheStorageAllowedInMemoryOnly Specifies that
+/// storage in an NSURLCache is allowed; however storage should be
+/// done in memory only, no disk storage should be done.
+///
+/// @constant NSURLCacheStorageNotAllowed Specifies that storage in an
+/// NSURLCache is not allowed in any fashion, either in memory or on
+/// disk.
+enum NSURLCacheStoragePolicy {
+  NSURLCacheStorageAllowed(0),
+  NSURLCacheStorageAllowedInMemoryOnly(1),
+  NSURLCacheStorageNotAllowed(2);
+
+  final int value;
+  const NSURLCacheStoragePolicy(this.value);
+
+  static NSURLCacheStoragePolicy fromValue(int value) => switch (value) {
+        0 => NSURLCacheStorageAllowed,
+        1 => NSURLCacheStorageAllowedInMemoryOnly,
+        2 => NSURLCacheStorageNotAllowed,
+        _ => throw ArgumentError(
+            "Unknown value for NSURLCacheStoragePolicy: $value"),
+      };
+}
+
 late final _sel_initWithResponse_data_userInfo_storagePolicy_ =
     objc.registerName("initWithResponse:data:userInfo:storagePolicy:");
 final _objc_msgSend_nhp99d = objc.msgSendPointer
@@ -46312,324 +45666,6 @@ final _objc_msgSend_1xh4qg4 = objc.msgSendPointer
     .asFunction<
         int Function(
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-
-/// NSURLCache
-class NSURLCache extends objc.NSObject {
-  NSURLCache._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSURLCache] that points to the same underlying object as [other].
-  NSURLCache.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSURLCache] that wraps the given raw object pointer.
-  NSURLCache.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSURLCache].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSURLCache);
-  }
-
-  /// !
-  /// @property sharedURLCache
-  /// @abstract Returns the shared NSURLCache instance or
-  /// sets the NSURLCache instance shared by all clients of
-  /// the current process. This will be the new object returned when
-  /// calls to the <tt>sharedURLCache</tt> method are made.
-  /// @discussion Unless set explicitly through a call to
-  /// <tt>+setSharedURLCache:</tt>, this method returns an NSURLCache
-  /// instance created with the following default values:
-  /// <ul>
-  /// <li>Memory capacity: 4 megabytes (4 * 1024 * 1024 bytes)
-  /// <li>Disk capacity: 20 megabytes (20 * 1024 * 1024 bytes)
-  /// <li>Disk path: <nobr>(user home directory)/Library/Caches/(application bundle id)</nobr>
-  /// </ul>
-  /// <p>Users who do not have special caching requirements or
-  /// constraints should find the default shared cache instance
-  /// acceptable. If this default shared cache instance is not
-  /// acceptable, <tt>+setSharedURLCache:</tt> can be called to set a
-  /// different NSURLCache instance to be returned from this method.
-  /// Callers should take care to ensure that the setter is called
-  /// at a time when no other caller has a reference to the previously-set
-  /// shared URL cache. This is to prevent storing cache data from
-  /// becoming unexpectedly unretrievable.
-  /// @result the shared NSURLCache instance.
-  static NSURLCache getSharedURLCache() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSURLCache, _sel_sharedURLCache);
-    return NSURLCache.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// !
-  /// @property sharedURLCache
-  /// @abstract Returns the shared NSURLCache instance or
-  /// sets the NSURLCache instance shared by all clients of
-  /// the current process. This will be the new object returned when
-  /// calls to the <tt>sharedURLCache</tt> method are made.
-  /// @discussion Unless set explicitly through a call to
-  /// <tt>+setSharedURLCache:</tt>, this method returns an NSURLCache
-  /// instance created with the following default values:
-  /// <ul>
-  /// <li>Memory capacity: 4 megabytes (4 * 1024 * 1024 bytes)
-  /// <li>Disk capacity: 20 megabytes (20 * 1024 * 1024 bytes)
-  /// <li>Disk path: <nobr>(user home directory)/Library/Caches/(application bundle id)</nobr>
-  /// </ul>
-  /// <p>Users who do not have special caching requirements or
-  /// constraints should find the default shared cache instance
-  /// acceptable. If this default shared cache instance is not
-  /// acceptable, <tt>+setSharedURLCache:</tt> can be called to set a
-  /// different NSURLCache instance to be returned from this method.
-  /// Callers should take care to ensure that the setter is called
-  /// at a time when no other caller has a reference to the previously-set
-  /// shared URL cache. This is to prevent storing cache data from
-  /// becoming unexpectedly unretrievable.
-  /// @result the shared NSURLCache instance.
-  static void setSharedURLCache(NSURLCache value) {
-    return _objc_msgSend_ukcdfq(
-        _class_NSURLCache, _sel_setSharedURLCache_, value.ref.pointer);
-  }
-
-  /// !
-  /// @method initWithMemoryCapacity:diskCapacity:diskPath:
-  /// @abstract Initializes an NSURLCache with the given capacity and
-  /// path.
-  /// @discussion The returned NSURLCache is backed by disk, so
-  /// developers can be more liberal with space when choosing the
-  /// capacity for this kind of cache. A disk cache measured in the tens
-  /// of megabytes should be acceptable in most cases.
-  /// @param memoryCapacity the capacity, measured in bytes, for the cache in memory.
-  /// @param diskCapacity the capacity, measured in bytes, for the cache on disk.
-  /// @param path the path on disk where the cache data is stored.
-  /// @result an initialized NSURLCache, with the given capacity, backed
-  /// by disk.
-  NSURLCache initWithMemoryCapacity_diskCapacity_diskPath_(
-      DartNSUInteger memoryCapacity,
-      DartNSUInteger diskCapacity,
-      objc.NSString? path) {
-    final _ret = _objc_msgSend_ebb7er(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithMemoryCapacity_diskCapacity_diskPath_,
-        memoryCapacity,
-        diskCapacity,
-        path?.ref.pointer ?? ffi.nullptr);
-    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// !
-  /// @method initWithMemoryCapacity:diskCapacity:directoryURL:
-  /// @abstract Initializes an NSURLCache with the given capacity and directory.
-  /// @param memoryCapacity the capacity, measured in bytes, for the cache in memory. Or 0 to disable memory cache.
-  /// @param diskCapacity the capacity, measured in bytes, for the cache on disk. Or 0 to disable disk cache.
-  /// @param directoryURL the path to a directory on disk where the cache data is stored. Or nil for default directory.
-  /// @result an initialized NSURLCache, with the given capacity, optionally backed by disk.
-  NSURLCache initWithMemoryCapacity_diskCapacity_directoryURL_(
-      DartNSUInteger memoryCapacity,
-      DartNSUInteger diskCapacity,
-      objc.NSURL? directoryURL) {
-    final _ret = _objc_msgSend_ebb7er(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithMemoryCapacity_diskCapacity_directoryURL_,
-        memoryCapacity,
-        diskCapacity,
-        directoryURL?.ref.pointer ?? ffi.nullptr);
-    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// !
-  /// @method cachedResponseForRequest:
-  /// @abstract Returns the NSCachedURLResponse stored in the cache with
-  /// the given request.
-  /// @discussion The method returns nil if there is no
-  /// NSCachedURLResponse stored using the given request.
-  /// @param request the NSURLRequest to use as a key for the lookup.
-  /// @result The NSCachedURLResponse stored in the cache with the given
-  /// request, or nil if there is no NSCachedURLResponse stored with the
-  /// given request.
-  NSCachedURLResponse? cachedResponseForRequest_(NSURLRequest request) {
-    final _ret = _objc_msgSend_juohf7(
-        this.ref.pointer, _sel_cachedResponseForRequest_, request.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : NSCachedURLResponse.castFromPointer(_ret,
-            retain: true, release: true);
-  }
-
-  /// !
-  /// @method storeCachedResponse:forRequest:
-  /// @abstract Stores the given NSCachedURLResponse in the cache using
-  /// the given request.
-  /// @param cachedResponse The cached response to store.
-  /// @param request the NSURLRequest to use as a key for the storage.
-  void storeCachedResponse_forRequest_(
-      NSCachedURLResponse cachedResponse, NSURLRequest request) {
-    _objc_msgSend_1tjlcwl(
-        this.ref.pointer,
-        _sel_storeCachedResponse_forRequest_,
-        cachedResponse.ref.pointer,
-        request.ref.pointer);
-  }
-
-  /// !
-  /// @method removeCachedResponseForRequest:
-  /// @abstract Removes the NSCachedURLResponse from the cache that is
-  /// stored using the given request.
-  /// @discussion No action is taken if there is no NSCachedURLResponse
-  /// stored with the given request.
-  /// @param request the NSURLRequest to use as a key for the lookup.
-  void removeCachedResponseForRequest_(NSURLRequest request) {
-    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_removeCachedResponseForRequest_,
-        request.ref.pointer);
-  }
-
-  /// !
-  /// @method removeAllCachedResponses
-  /// @abstract Clears the given cache, removing all NSCachedURLResponse
-  /// objects that it stores.
-  void removeAllCachedResponses() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_removeAllCachedResponses);
-  }
-
-  /// !
-  /// @method removeCachedResponsesSince:
-  /// @abstract Clears the given cache of any cached responses since the provided date.
-  void removeCachedResponsesSinceDate_(objc.NSDate date) {
-    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_removeCachedResponsesSinceDate_,
-        date.ref.pointer);
-  }
-
-  /// !
-  /// @abstract In-memory capacity of the receiver.
-  /// @discussion At the time this call is made, the in-memory cache will truncate its contents to the size given, if necessary.
-  /// @result The in-memory capacity, measured in bytes, for the receiver.
-  DartNSUInteger get memoryCapacity {
-    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_memoryCapacity);
-  }
-
-  /// !
-  /// @abstract In-memory capacity of the receiver.
-  /// @discussion At the time this call is made, the in-memory cache will truncate its contents to the size given, if necessary.
-  /// @result The in-memory capacity, measured in bytes, for the receiver.
-  set memoryCapacity(DartNSUInteger value) {
-    return _objc_msgSend_1k4zaz5(
-        this.ref.pointer, _sel_setMemoryCapacity_, value);
-  }
-
-  /// !
-  /// @abstract The on-disk capacity of the receiver.
-  /// @discussion The on-disk capacity, measured in bytes, for the receiver. On mutation the on-disk cache will truncate its contents to the size given, if necessary.
-  DartNSUInteger get diskCapacity {
-    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_diskCapacity);
-  }
-
-  /// !
-  /// @abstract The on-disk capacity of the receiver.
-  /// @discussion The on-disk capacity, measured in bytes, for the receiver. On mutation the on-disk cache will truncate its contents to the size given, if necessary.
-  set diskCapacity(DartNSUInteger value) {
-    return _objc_msgSend_1k4zaz5(
-        this.ref.pointer, _sel_setDiskCapacity_, value);
-  }
-
-  /// !
-  /// @abstract Returns the current amount of space consumed by the
-  /// in-memory cache of the receiver.
-  /// @discussion This size, measured in bytes, indicates the current
-  /// usage of the in-memory cache.
-  /// @result the current usage of the in-memory cache of the receiver.
-  DartNSUInteger get currentMemoryUsage {
-    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_currentMemoryUsage);
-  }
-
-  /// !
-  /// @abstract Returns the current amount of space consumed by the
-  /// on-disk cache of the receiver.
-  /// @discussion This size, measured in bytes, indicates the current
-  /// usage of the on-disk cache.
-  /// @result the current usage of the on-disk cache of the receiver.
-  DartNSUInteger get currentDiskUsage {
-    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_currentDiskUsage);
-  }
-
-  /// storeCachedResponse:forDataTask:
-  void storeCachedResponse_forDataTask_(
-      NSCachedURLResponse cachedResponse, NSURLSessionDataTask dataTask) {
-    _objc_msgSend_1tjlcwl(
-        this.ref.pointer,
-        _sel_storeCachedResponse_forDataTask_,
-        cachedResponse.ref.pointer,
-        dataTask.ref.pointer);
-  }
-
-  /// getCachedResponseForDataTask:completionHandler:
-  void getCachedResponseForDataTask_completionHandler_(
-      NSURLSessionDataTask dataTask,
-      objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>
-          completionHandler) {
-    _objc_msgSend_cmbt6k(
-        this.ref.pointer,
-        _sel_getCachedResponseForDataTask_completionHandler_,
-        dataTask.ref.pointer,
-        completionHandler.ref.pointer);
-  }
-
-  /// removeCachedResponseForDataTask:
-  void removeCachedResponseForDataTask_(NSURLSessionDataTask dataTask) {
-    _objc_msgSend_ukcdfq(this.ref.pointer,
-        _sel_removeCachedResponseForDataTask_, dataTask.ref.pointer);
-  }
-
-  /// init
-  NSURLCache init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSURLCache new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSURLCache, _sel_new);
-    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSURLCache allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret =
-        _objc_msgSend_1b3ihd0(_class_NSURLCache, _sel_allocWithZone_, zone);
-    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSURLCache alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSURLCache, _sel_alloc);
-    return NSURLCache.castFromPointer(_ret, retain: false, release: true);
-  }
-}
-
-late final _class_NSURLCache = objc.getClass("NSURLCache");
-late final _sel_sharedURLCache = objc.registerName("sharedURLCache");
-late final _sel_setSharedURLCache_ = objc.registerName("setSharedURLCache:");
-late final _sel_initWithMemoryCapacity_diskCapacity_diskPath_ =
-    objc.registerName("initWithMemoryCapacity:diskCapacity:diskPath:");
-final _objc_msgSend_ebb7er = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                NSUInteger,
-                NSUInteger,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            int,
-            int,
-            ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_initWithMemoryCapacity_diskCapacity_directoryURL_ =
-    objc.registerName("initWithMemoryCapacity:diskCapacity:directoryURL:");
 
 /// NSURLRequest
 class NSURLRequest extends objc.NSObject {
@@ -47232,9 +46268,25 @@ late final _sel_removeCachedResponseForRequest_ =
     objc.registerName("removeCachedResponseForRequest:");
 late final _sel_removeAllCachedResponses =
     objc.registerName("removeAllCachedResponses");
+final _objc_msgSend_ksby9f = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        void Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_removeCachedResponsesSinceDate_ =
     objc.registerName("removeCachedResponsesSinceDate:");
 late final _sel_memoryCapacity = objc.registerName("memoryCapacity");
+final _objc_msgSend_eldhrq = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            NSUInteger Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        int Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setMemoryCapacity_ = objc.registerName("setMemoryCapacity:");
 final _objc_msgSend_1k4zaz5 = objc.msgSendPointer
     .cast<
@@ -48681,838 +47733,8 @@ final _objc_msgSend_cmbt6k = objc.msgSendPointer
             ffi.Pointer<objc.ObjCBlockImpl>)>();
 late final _sel_removeCachedResponseForDataTask_ =
     objc.registerName("removeCachedResponseForDataTask:");
-
-/// NSNotificationCenter
-class NSNotificationCenter extends objc.NSObject {
-  NSNotificationCenter._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSNotificationCenter] that points to the same underlying object as [other].
-  NSNotificationCenter.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSNotificationCenter] that wraps the given raw object pointer.
-  NSNotificationCenter.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSNotificationCenter].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSNotificationCenter);
-  }
-
-  /// defaultCenter
-  static NSNotificationCenter getDefaultCenter() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_NSNotificationCenter, _sel_defaultCenter);
-    return NSNotificationCenter.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// addObserver:selector:name:object:
-  void addObserver_selector_name_object_(
-      objc.ObjCObjectBase observer,
-      ffi.Pointer<objc.ObjCSelector> aSelector,
-      DartNSNotificationName aName,
-      objc.ObjCObjectBase? anObject) {
-    _objc_msgSend_1ad0ap(
-        this.ref.pointer,
-        _sel_addObserver_selector_name_object_,
-        observer.ref.pointer,
-        aSelector,
-        aName.ref.pointer,
-        anObject?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// postNotification:
-  void postNotification_(objc.NSNotification notification) {
-    _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_postNotification_, notification.ref.pointer);
-  }
-
-  /// postNotificationName:object:
-  void postNotificationName_object_(
-      DartNSNotificationName aName, objc.ObjCObjectBase? anObject) {
-    _objc_msgSend_1tjlcwl(this.ref.pointer, _sel_postNotificationName_object_,
-        aName.ref.pointer, anObject?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// postNotificationName:object:userInfo:
-  void postNotificationName_object_userInfo_(DartNSNotificationName aName,
-      objc.ObjCObjectBase? anObject, objc.NSDictionary? aUserInfo) {
-    _objc_msgSend_tenbla(
-        this.ref.pointer,
-        _sel_postNotificationName_object_userInfo_,
-        aName.ref.pointer,
-        anObject?.ref.pointer ?? ffi.nullptr,
-        aUserInfo?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// removeObserver:
-  void removeObserver_(objc.ObjCObjectBase observer) {
-    _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_removeObserver_, observer.ref.pointer);
-  }
-
-  /// removeObserver:name:object:
-  void removeObserver_name_object_(objc.ObjCObjectBase observer,
-      DartNSNotificationName aName, objc.ObjCObjectBase? anObject) {
-    _objc_msgSend_tenbla(
-        this.ref.pointer,
-        _sel_removeObserver_name_object_,
-        observer.ref.pointer,
-        aName.ref.pointer,
-        anObject?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// addObserverForName:object:queue:usingBlock:
-  objc.ObjCObjectBase addObserverForName_object_queue_usingBlock_(
-      DartNSNotificationName name,
-      objc.ObjCObjectBase? obj,
-      NSOperationQueue? queue,
-      objc.ObjCBlock<ffi.Void Function(objc.NSNotification)> block) {
-    final _ret = _objc_msgSend_tpi3yv(
-        this.ref.pointer,
-        _sel_addObserverForName_object_queue_usingBlock_,
-        name.ref.pointer,
-        obj?.ref.pointer ?? ffi.nullptr,
-        queue?.ref.pointer ?? ffi.nullptr,
-        block.ref.pointer);
-    return objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// init
-  NSNotificationCenter init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSNotificationCenter.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// new
-  static NSNotificationCenter new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSNotificationCenter, _sel_new);
-    return NSNotificationCenter.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSNotificationCenter allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSNotificationCenter, _sel_allocWithZone_, zone);
-    return NSNotificationCenter.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// alloc
-  static NSNotificationCenter alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSNotificationCenter, _sel_alloc);
-    return NSNotificationCenter.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-}
-
-late final _class_NSNotificationCenter = objc.getClass("NSNotificationCenter");
-late final _sel_defaultCenter = objc.registerName("defaultCenter");
 typedef NSNotificationName = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSNotificationName = objc.NSString;
-late final _sel_addObserver_selector_name_object_ =
-    objc.registerName("addObserver:selector:name:object:");
-final _objc_msgSend_1ad0ap = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                NSNotificationName,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            NSNotificationName,
-            ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_postNotification_ = objc.registerName("postNotification:");
-late final _sel_postNotificationName_object_ =
-    objc.registerName("postNotificationName:object:");
-late final _sel_postNotificationName_object_userInfo_ =
-    objc.registerName("postNotificationName:object:userInfo:");
-final _objc_msgSend_tenbla = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                NSNotificationName,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            NSNotificationName,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_removeObserver_ = objc.registerName("removeObserver:");
-late final _sel_removeObserver_name_object_ =
-    objc.registerName("removeObserver:name:object:");
-
-/// NSOperationQueue
-class NSOperationQueue extends objc.NSObject {
-  NSOperationQueue._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSOperationQueue] that points to the same underlying object as [other].
-  NSOperationQueue.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSOperationQueue] that wraps the given raw object pointer.
-  NSOperationQueue.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSOperationQueue].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSOperationQueue);
-  }
-
-  /// @property progress
-  /// @discussion     The `progress` property represents a total progress of the operations executed in the queue. By default NSOperationQueue
-  /// does not report progress until the `totalUnitCount` of the progress is set. When the `totalUnitCount` property of the progress is set the
-  /// queue then opts into participating in progress reporting. When enabled, each operation will contribute 1 unit of completion to the
-  /// overall progress of the queue for operations that are finished by the end of main (operations that override start and do not invoke super
-  /// will not contribute to progress). Special attention to race conditions should be made when updating the `totalUnitCount` of the progress
-  /// as well as care should be taken to avoid 'backwards progress'. For example; when a NSOperationQueue's progress is 5/10, representing 50%
-  /// completed, and there are 90 more operations about to be added and the `totalUnitCount` that would then make the progress report as 5/100
-  /// which represents 5%. In this example it would mean that any progress bar would jump from displaying 50% back to 5%, which might not be
-  /// desirable. In the cases where the `totalUnitCount` needs to be adjusted it is suggested to do this for thread-safety in a barrier by
-  /// using the `addBarrierBlock:` API. This ensures that no un-expected execution state occurs adjusting into a potentially backwards moving
-  /// progress scenario.
-  ///
-  /// @example
-  /// NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-  /// queue.progress.totalUnitCount = 10;
-  NSProgress get progress {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_progress);
-    return NSProgress.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// addOperation:
-  void addOperation_(NSOperation op) {
-    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_addOperation_, op.ref.pointer);
-  }
-
-  /// addOperations:waitUntilFinished:
-  void addOperations_waitUntilFinished_(objc.NSArray ops, bool wait) {
-    _objc_msgSend_1n1qwdd(this.ref.pointer,
-        _sel_addOperations_waitUntilFinished_, ops.ref.pointer, wait);
-  }
-
-  /// addOperationWithBlock:
-  void addOperationWithBlock_(objc.ObjCBlock<ffi.Void Function()> block) {
-    _objc_msgSend_4daxhl(
-        this.ref.pointer, _sel_addOperationWithBlock_, block.ref.pointer);
-  }
-
-  /// @method addBarrierBlock:
-  /// @param barrier      A block to execute
-  /// @discussion         The `addBarrierBlock:` method executes the block when the NSOperationQueue has finished all enqueued operations and
-  /// prevents any subsequent operations to be executed until the barrier has been completed. This acts similarly to the
-  /// `dispatch_barrier_async` function.
-  void addBarrierBlock_(objc.ObjCBlock<ffi.Void Function()> barrier) {
-    _objc_msgSend_4daxhl(
-        this.ref.pointer, _sel_addBarrierBlock_, barrier.ref.pointer);
-  }
-
-  /// maxConcurrentOperationCount
-  DartNSInteger get maxConcurrentOperationCount {
-    return _objc_msgSend_z1fx1b(
-        this.ref.pointer, _sel_maxConcurrentOperationCount);
-  }
-
-  /// setMaxConcurrentOperationCount:
-  set maxConcurrentOperationCount(DartNSInteger value) {
-    return _objc_msgSend_ke7qz2(
-        this.ref.pointer, _sel_setMaxConcurrentOperationCount_, value);
-  }
-
-  /// isSuspended
-  bool get suspended {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isSuspended);
-  }
-
-  /// setSuspended:
-  set suspended(bool value) {
-    return _objc_msgSend_117qins(this.ref.pointer, _sel_setSuspended_, value);
-  }
-
-  /// name
-  objc.NSString? get name {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setName:
-  set name(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// qualityOfService
-  NSQualityOfService get qualityOfService {
-    final _ret = _objc_msgSend_17dnyeh(this.ref.pointer, _sel_qualityOfService);
-    return NSQualityOfService.fromValue(_ret);
-  }
-
-  /// setQualityOfService:
-  set qualityOfService(NSQualityOfService value) {
-    return _objc_msgSend_1fcr8u4(
-        this.ref.pointer, _sel_setQualityOfService_, value.value);
-  }
-
-  /// actually retain
-  Dartdispatch_queue_t get underlyingQueue {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_underlyingQueue);
-    return objc.NSObject.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// actually retain
-  set underlyingQueue(Dartdispatch_queue_t value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setUnderlyingQueue_, value.ref.pointer);
-  }
-
-  /// cancelAllOperations
-  void cancelAllOperations() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_cancelAllOperations);
-  }
-
-  /// waitUntilAllOperationsAreFinished
-  void waitUntilAllOperationsAreFinished() {
-    _objc_msgSend_ksby9f(
-        this.ref.pointer, _sel_waitUntilAllOperationsAreFinished);
-  }
-
-  /// currentQueue
-  static NSOperationQueue? getCurrentQueue() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_NSOperationQueue, _sel_currentQueue);
-    return _ret.address == 0
-        ? null
-        : NSOperationQueue.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// mainQueue
-  static NSOperationQueue getMainQueue() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSOperationQueue, _sel_mainQueue);
-    return NSOperationQueue.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// These two functions are inherently a race condition and should be avoided if possible
-  objc.NSArray get operations {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_operations);
-    return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// operationCount
-  DartNSUInteger get operationCount {
-    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_operationCount);
-  }
-
-  /// init
-  NSOperationQueue init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSOperationQueue new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSOperationQueue, _sel_new);
-    return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSOperationQueue allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSOperationQueue, _sel_allocWithZone_, zone);
-    return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSOperationQueue alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSOperationQueue, _sel_alloc);
-    return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
-  }
-}
-
-late final _class_NSOperationQueue = objc.getClass("NSOperationQueue");
-
-/// NSOperation
-class NSOperation extends objc.NSObject {
-  NSOperation._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSOperation] that points to the same underlying object as [other].
-  NSOperation.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSOperation] that wraps the given raw object pointer.
-  NSOperation.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSOperation].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSOperation);
-  }
-
-  /// start
-  void start() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_start);
-  }
-
-  /// main
-  void main() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_main);
-  }
-
-  /// isCancelled
-  bool get cancelled {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isCancelled);
-  }
-
-  /// cancel
-  void cancel() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_cancel);
-  }
-
-  /// isExecuting
-  bool get executing {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isExecuting);
-  }
-
-  /// isFinished
-  bool get finished {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isFinished);
-  }
-
-  /// To be deprecated; use and override 'asynchronous' below
-  bool get concurrent {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isConcurrent);
-  }
-
-  /// isAsynchronous
-  bool get asynchronous {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isAsynchronous);
-  }
-
-  /// isReady
-  bool get ready {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isReady);
-  }
-
-  /// addDependency:
-  void addDependency_(NSOperation op) {
-    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_addDependency_, op.ref.pointer);
-  }
-
-  /// removeDependency:
-  void removeDependency_(NSOperation op) {
-    _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_removeDependency_, op.ref.pointer);
-  }
-
-  /// dependencies
-  objc.NSArray get dependencies {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_dependencies);
-    return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// queuePriority
-  NSOperationQueuePriority get queuePriority {
-    final _ret = _objc_msgSend_10n15g8(this.ref.pointer, _sel_queuePriority);
-    return NSOperationQueuePriority.fromValue(_ret);
-  }
-
-  /// setQueuePriority:
-  set queuePriority(NSOperationQueuePriority value) {
-    return _objc_msgSend_d8yjnr(
-        this.ref.pointer, _sel_setQueuePriority_, value.value);
-  }
-
-  /// completionBlock
-  objc.ObjCBlock<ffi.Void Function()>? get completionBlock {
-    final _ret = _objc_msgSend_2osec1(this.ref.pointer, _sel_completionBlock);
-    return _ret.address == 0
-        ? null
-        : ObjCBlock_ffiVoid.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setCompletionBlock:
-  set completionBlock(objc.ObjCBlock<ffi.Void Function()>? value) {
-    return _objc_msgSend_4daxhl(this.ref.pointer, _sel_setCompletionBlock_,
-        value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// waitUntilFinished
-  void waitUntilFinished() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_waitUntilFinished);
-  }
-
-  /// threadPriority
-  double get threadPriority {
-    return _objc_msgSend_10noklm(this.ref.pointer, _sel_threadPriority);
-  }
-
-  /// setThreadPriority:
-  set threadPriority(double value) {
-    return _objc_msgSend_suh039(
-        this.ref.pointer, _sel_setThreadPriority_, value);
-  }
-
-  /// qualityOfService
-  NSQualityOfService get qualityOfService {
-    final _ret = _objc_msgSend_17dnyeh(this.ref.pointer, _sel_qualityOfService);
-    return NSQualityOfService.fromValue(_ret);
-  }
-
-  /// setQualityOfService:
-  set qualityOfService(NSQualityOfService value) {
-    return _objc_msgSend_1fcr8u4(
-        this.ref.pointer, _sel_setQualityOfService_, value.value);
-  }
-
-  /// name
-  objc.NSString? get name {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setName:
-  set name(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// init
-  NSOperation init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSOperation.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSOperation new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSOperation, _sel_new);
-    return NSOperation.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSOperation allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret =
-        _objc_msgSend_1b3ihd0(_class_NSOperation, _sel_allocWithZone_, zone);
-    return NSOperation.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSOperation alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSOperation, _sel_alloc);
-    return NSOperation.castFromPointer(_ret, retain: false, release: true);
-  }
-}
-
-late final _class_NSOperation = objc.getClass("NSOperation");
-late final _sel_start = objc.registerName("start");
-late final _sel_main = objc.registerName("main");
-late final _sel_isExecuting = objc.registerName("isExecuting");
-late final _sel_isConcurrent = objc.registerName("isConcurrent");
-late final _sel_isAsynchronous = objc.registerName("isAsynchronous");
-late final _sel_isReady = objc.registerName("isReady");
-late final _sel_addDependency_ = objc.registerName("addDependency:");
-late final _sel_removeDependency_ = objc.registerName("removeDependency:");
-late final _sel_dependencies = objc.registerName("dependencies");
-
-enum NSOperationQueuePriority {
-  NSOperationQueuePriorityVeryLow(-8),
-  NSOperationQueuePriorityLow(-4),
-  NSOperationQueuePriorityNormal(0),
-  NSOperationQueuePriorityHigh(4),
-  NSOperationQueuePriorityVeryHigh(8);
-
-  final int value;
-  const NSOperationQueuePriority(this.value);
-
-  static NSOperationQueuePriority fromValue(int value) => switch (value) {
-        -8 => NSOperationQueuePriorityVeryLow,
-        -4 => NSOperationQueuePriorityLow,
-        0 => NSOperationQueuePriorityNormal,
-        4 => NSOperationQueuePriorityHigh,
-        8 => NSOperationQueuePriorityVeryHigh,
-        _ => throw ArgumentError(
-            "Unknown value for NSOperationQueuePriority: $value"),
-      };
-}
-
-late final _sel_queuePriority = objc.registerName("queuePriority");
-final _objc_msgSend_10n15g8 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_setQueuePriority_ = objc.registerName("setQueuePriority:");
-final _objc_msgSend_d8yjnr = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSInteger)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int)>();
-late final _sel_completionBlock = objc.registerName("completionBlock");
-late final _sel_setCompletionBlock_ = objc.registerName("setCompletionBlock:");
-late final _sel_waitUntilFinished = objc.registerName("waitUntilFinished");
-late final _sel_threadPriority = objc.registerName("threadPriority");
-late final _sel_setThreadPriority_ = objc.registerName("setThreadPriority:");
-final _objc_msgSend_suh039 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, ffi.Double)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, double)>();
-late final _sel_qualityOfService = objc.registerName("qualityOfService");
-final _objc_msgSend_17dnyeh = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_setQualityOfService_ =
-    objc.registerName("setQualityOfService:");
-final _objc_msgSend_1fcr8u4 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSInteger)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int)>();
-late final _sel_name = objc.registerName("name");
-late final _sel_setName_ = objc.registerName("setName:");
-late final _sel_addOperation_ = objc.registerName("addOperation:");
-late final _sel_addOperations_waitUntilFinished_ =
-    objc.registerName("addOperations:waitUntilFinished:");
-final _objc_msgSend_1n1qwdd = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Bool)>>()
-    .asFunction<
-        void Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            bool)>();
-late final _sel_addOperationWithBlock_ =
-    objc.registerName("addOperationWithBlock:");
-late final _sel_addBarrierBlock_ = objc.registerName("addBarrierBlock:");
-late final _sel_maxConcurrentOperationCount =
-    objc.registerName("maxConcurrentOperationCount");
-final _objc_msgSend_z1fx1b = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_setMaxConcurrentOperationCount_ =
-    objc.registerName("setMaxConcurrentOperationCount:");
-final _objc_msgSend_ke7qz2 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSInteger)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int)>();
-late final _sel_isSuspended = objc.registerName("isSuspended");
-late final _sel_setSuspended_ = objc.registerName("setSuspended:");
-typedef dispatch_queue_t = ffi.Pointer<objc.ObjCObject>;
-typedef Dartdispatch_queue_t = objc.NSObject;
-late final _sel_underlyingQueue = objc.registerName("underlyingQueue");
-late final _sel_setUnderlyingQueue_ = objc.registerName("setUnderlyingQueue:");
-late final _sel_cancelAllOperations = objc.registerName("cancelAllOperations");
-late final _sel_waitUntilAllOperationsAreFinished =
-    objc.registerName("waitUntilAllOperationsAreFinished");
-late final _sel_currentQueue = objc.registerName("currentQueue");
-late final _sel_mainQueue = objc.registerName("mainQueue");
-late final _sel_operations = objc.registerName("operations");
-late final _sel_operationCount = objc.registerName("operationCount");
-void _ObjCBlock_ffiVoid_NSNotification_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<objc.ObjCObject> arg0) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0)>>()
-        .asFunction<void Function(ffi.Pointer<objc.ObjCObject>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSNotification_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSNotification_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_NSNotification_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<objc.ObjCObject> arg0) =>
-    (objc.getBlockClosure(block) as void Function(
-        ffi.Pointer<objc.ObjCObject>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSNotification_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSNotification_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_NSNotification_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<objc.ObjCObject> arg0) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<objc.ObjCObject>))(arg0);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_NSNotification_listenerCallable = ffi.NativeCallable<
-            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_NSNotification_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSNotification)>`.
-abstract final class ObjCBlock_ffiVoid_NSNotification {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSNotification)> castFromPointer(
-          ffi.Pointer<objc.ObjCBlockImpl> pointer,
-          {bool retain = false,
-          bool release = false}) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSNotification)>(pointer,
-          retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSNotification)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSNotification)>(
-          objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_NSNotification_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSNotification)> fromFunction(
-          void Function(objc.NSNotification) fn) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSNotification)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_NSNotification_closureCallable,
-              (ffi.Pointer<objc.ObjCObject> arg0) => fn(
-                  objc.NSNotification.castFromPointer(arg0,
-                      retain: true, release: true))),
-          retain: false,
-          release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSNotification)> listener(
-      void Function(objc.NSNotification) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_NSNotification_listenerCallable.nativeFunction
-            .cast(),
-        (ffi.Pointer<objc.ObjCObject> arg0) => fn(
-            objc.NSNotification.castFromPointer(arg0,
-                retain: false, release: true)));
-    final wrapper = _wrapListenerBlock_ukcdfq(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(objc.NSNotification)>(wrapper,
-        retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSNotification)>`.
-extension ObjCBlock_ffiVoid_NSNotification_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(objc.NSNotification)> {
-  void call(objc.NSNotification arg0) => ref.pointer.ref.invoke
-      .cast<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
-                  ffi.Pointer<objc.ObjCObject> arg0)>>()
-      .asFunction<
-          void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0.ref.pointer);
-}
-
-late final _sel_addObserverForName_object_queue_usingBlock_ =
-    objc.registerName("addObserverForName:object:queue:usingBlock:");
-final _objc_msgSend_tpi3yv = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                NSNotificationName,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCBlockImpl>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            NSNotificationName,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCBlockImpl>)>();
 
 /// !
 /// @class NSMutableURLRequest
@@ -50018,6 +48240,14 @@ final _objc_msgSend_12vaadl = objc.msgSendPointer
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_setTimeoutInterval_ = objc.registerName("setTimeoutInterval:");
+final _objc_msgSend_suh039 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, NSTimeInterval)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, double)>();
 late final _sel_setMainDocumentURL_ = objc.registerName("setMainDocumentURL:");
 late final _sel_setNetworkServiceType_ =
     objc.registerName("setNetworkServiceType:");
@@ -50120,11 +48350,11 @@ class NSHTTPCookieStorage extends objc.NSObject {
   }
 
   /// cookies
-  objc.NSArray? get cookies {
+  objc.ObjCObjectBase? get cookies {
     final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_cookies);
     return _ret.address == 0
         ? null
-        : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
+        : objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
   /// setCookie:
@@ -50145,17 +48375,17 @@ class NSHTTPCookieStorage extends objc.NSObject {
   }
 
   /// cookiesForURL:
-  objc.NSArray? cookiesForURL_(objc.NSURL URL) {
+  objc.ObjCObjectBase? cookiesForURL_(objc.NSURL URL) {
     final _ret = _objc_msgSend_juohf7(
         this.ref.pointer, _sel_cookiesForURL_, URL.ref.pointer);
     return _ret.address == 0
         ? null
-        : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
+        : objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
   /// setCookies:forURL:mainDocumentURL:
-  void setCookies_forURL_mainDocumentURL_(
-      objc.NSArray cookies, objc.NSURL? URL, objc.NSURL? mainDocumentURL) {
+  void setCookies_forURL_mainDocumentURL_(objc.ObjCObjectBase cookies,
+      objc.NSURL? URL, objc.NSURL? mainDocumentURL) {
     _objc_msgSend_tenbla(
         this.ref.pointer,
         _sel_setCookies_forURL_mainDocumentURL_,
@@ -50178,10 +48408,11 @@ class NSHTTPCookieStorage extends objc.NSObject {
   }
 
   /// sortedCookiesUsingDescriptors:
-  objc.NSArray sortedCookiesUsingDescriptors_(objc.NSArray sortOrder) {
+  objc.ObjCObjectBase sortedCookiesUsingDescriptors_(
+      objc.ObjCObjectBase sortOrder) {
     final _ret = _objc_msgSend_juohf7(this.ref.pointer,
         _sel_sortedCookiesUsingDescriptors_, sortOrder.ref.pointer);
-    return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
+    return objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
   /// storeCookies:forTask:
@@ -50268,6 +48499,22 @@ late final _sel_removeCookiesSinceDate_ =
 late final _sel_cookiesForURL_ = objc.registerName("cookiesForURL:");
 late final _sel_setCookies_forURL_mainDocumentURL_ =
     objc.registerName("setCookies:forURL:mainDocumentURL:");
+final _objc_msgSend_tenbla = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        void Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_cookieAcceptPolicy = objc.registerName("cookieAcceptPolicy");
 final _objc_msgSend_1jpuqgg = objc.msgSendPointer
     .cast<
@@ -50471,55 +48718,22 @@ typedef DartCFComparatorFunctionFunction = CFComparisonResult Function(
     ffi.Pointer<ffi.Void> val2,
     ffi.Pointer<ffi.Void> context);
 
-/// OS_object
-class OS_object extends objc.NSObject {
-  OS_object._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
+enum CFComparisonResult {
+  kCFCompareLessThan(-1),
+  kCFCompareEqualTo(0),
+  kCFCompareGreaterThan(1);
 
-  /// Constructs a [OS_object] that points to the same underlying object as [other].
-  OS_object.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
+  final int value;
+  const CFComparisonResult(this.value);
 
-  /// Constructs a [OS_object] that wraps the given raw object pointer.
-  OS_object.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [OS_object].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_OS_object);
-  }
-
-  /// init
-  OS_object init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return OS_object.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static OS_object new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_OS_object, _sel_new);
-    return OS_object.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static OS_object allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret =
-        _objc_msgSend_1b3ihd0(_class_OS_object, _sel_allocWithZone_, zone);
-    return OS_object.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static OS_object alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_OS_object, _sel_alloc);
-    return OS_object.castFromPointer(_ret, retain: false, release: true);
-  }
+  static CFComparisonResult fromValue(int value) => switch (value) {
+        -1 => kCFCompareLessThan,
+        0 => kCFCompareEqualTo,
+        1 => kCFCompareGreaterThan,
+        _ =>
+          throw ArgumentError("Unknown value for CFComparisonResult: $value"),
+      };
 }
-
-late final _class_OS_object = objc.getClass("OS_object");
 
 /// OS_sec_object
 abstract final class OS_sec_object {
@@ -51063,22 +49277,6 @@ typedef CFBitVectorRef = ffi.Pointer<__CFBitVector>;
 typedef CFMutableBitVectorRef = ffi.Pointer<__CFBitVector>;
 typedef CFBit = UInt32;
 
-enum __CFByteOrder {
-  CFByteOrderUnknown(0),
-  CFByteOrderLittleEndian(1),
-  CFByteOrderBigEndian(2);
-
-  final int value;
-  const __CFByteOrder(this.value);
-
-  static __CFByteOrder fromValue(int value) => switch (value) {
-        0 => CFByteOrderUnknown,
-        1 => CFByteOrderLittleEndian,
-        2 => CFByteOrderBigEndian,
-        _ => throw ArgumentError("Unknown value for __CFByteOrder: $value"),
-      };
-}
-
 final class CFSwappedFloat32 extends ffi.Struct {
   @ffi.Uint32()
   external int v;
@@ -51161,6 +49359,23 @@ typedef DartCFDictionaryApplierFunctionFunction = void Function(
 
 final class __CFNotificationCenter extends ffi.Opaque {}
 
+typedef CFNotificationCenterRef = ffi.Pointer<__CFNotificationCenter>;
+typedef CFNotificationCallback
+    = ffi.Pointer<ffi.NativeFunction<CFNotificationCallbackFunction>>;
+typedef CFNotificationCallbackFunction = ffi.Void Function(
+    CFNotificationCenterRef center,
+    ffi.Pointer<ffi.Void> observer,
+    CFNotificationName name,
+    ffi.Pointer<ffi.Void> object,
+    CFDictionaryRef userInfo);
+typedef DartCFNotificationCallbackFunction = void Function(
+    CFNotificationCenterRef center,
+    ffi.Pointer<ffi.Void> observer,
+    CFNotificationName name,
+    ffi.Pointer<ffi.Void> object,
+    CFDictionaryRef userInfo);
+typedef CFNotificationName = CFStringRef;
+
 enum CFNotificationSuspensionBehavior {
   CFNotificationSuspensionBehaviorDrop(1),
   CFNotificationSuspensionBehaviorCoalesce(2),
@@ -51180,23 +49395,6 @@ enum CFNotificationSuspensionBehavior {
             "Unknown value for CFNotificationSuspensionBehavior: $value"),
       };
 }
-
-typedef CFNotificationCenterRef = ffi.Pointer<__CFNotificationCenter>;
-typedef CFNotificationCallback
-    = ffi.Pointer<ffi.NativeFunction<CFNotificationCallbackFunction>>;
-typedef CFNotificationCallbackFunction = ffi.Void Function(
-    CFNotificationCenterRef center,
-    ffi.Pointer<ffi.Void> observer,
-    CFNotificationName name,
-    ffi.Pointer<ffi.Void> object,
-    CFDictionaryRef userInfo);
-typedef DartCFNotificationCallbackFunction = void Function(
-    CFNotificationCenterRef center,
-    ffi.Pointer<ffi.Void> observer,
-    CFNotificationName name,
-    ffi.Pointer<ffi.Void> object,
-    CFDictionaryRef userInfo);
-typedef CFNotificationName = CFStringRef;
 
 final class __CFLocale extends ffi.Opaque {}
 
@@ -51281,31 +49479,6 @@ final class CFGregorianUnits extends ffi.Struct {
   external double seconds;
 }
 
-enum CFGregorianUnitFlags {
-  kCFGregorianUnitsYears(1),
-  kCFGregorianUnitsMonths(2),
-  kCFGregorianUnitsDays(4),
-  kCFGregorianUnitsHours(8),
-  kCFGregorianUnitsMinutes(16),
-  kCFGregorianUnitsSeconds(32),
-  kCFGregorianAllUnits(16777215);
-
-  final int value;
-  const CFGregorianUnitFlags(this.value);
-
-  static CFGregorianUnitFlags fromValue(int value) => switch (value) {
-        1 => kCFGregorianUnitsYears,
-        2 => kCFGregorianUnitsMonths,
-        4 => kCFGregorianUnitsDays,
-        8 => kCFGregorianUnitsHours,
-        16 => kCFGregorianUnitsMinutes,
-        32 => kCFGregorianUnitsSeconds,
-        16777215 => kCFGregorianAllUnits,
-        _ =>
-          throw ArgumentError("Unknown value for CFGregorianUnitFlags: $value"),
-      };
-}
-
 typedef CFTimeZoneRef = ffi.Pointer<__CFTimeZone>;
 
 final class __CFData extends ffi.Opaque {}
@@ -51328,6 +49501,8 @@ enum CFDataSearchFlags {
 }
 
 final class __CFCharacterSet extends ffi.Opaque {}
+
+typedef CFCharacterSetRef = ffi.Pointer<__CFCharacterSet>;
 
 enum CFCharacterSetPredefinedSet {
   kCFCharacterSetControl(1),
@@ -51370,7 +49545,6 @@ enum CFCharacterSetPredefinedSet {
       };
 }
 
-typedef CFCharacterSetRef = ffi.Pointer<__CFCharacterSet>;
 typedef CFMutableCharacterSetRef = ffi.Pointer<__CFCharacterSet>;
 typedef UniChar = UInt16;
 typedef UTF32Char = UInt32;
@@ -51379,53 +49553,6 @@ final class __CFError extends ffi.Opaque {}
 
 typedef CFErrorDomain = CFStringRef;
 typedef CFErrorRef = ffi.Pointer<__CFError>;
-
-enum CFStringBuiltInEncodings {
-  kCFStringEncodingMacRoman(0),
-  kCFStringEncodingWindowsLatin1(1280),
-  kCFStringEncodingISOLatin1(513),
-  kCFStringEncodingNextStepLatin(2817),
-  kCFStringEncodingASCII(1536),
-  kCFStringEncodingUnicode(256),
-  kCFStringEncodingUTF8(134217984),
-  kCFStringEncodingNonLossyASCII(3071),
-  kCFStringEncodingUTF16BE(268435712),
-  kCFStringEncodingUTF16LE(335544576),
-  kCFStringEncodingUTF32(201326848),
-  kCFStringEncodingUTF32BE(402653440),
-  kCFStringEncodingUTF32LE(469762304);
-
-  static const kCFStringEncodingUTF16 = kCFStringEncodingUnicode;
-
-  final int value;
-  const CFStringBuiltInEncodings(this.value);
-
-  static CFStringBuiltInEncodings fromValue(int value) => switch (value) {
-        0 => kCFStringEncodingMacRoman,
-        1280 => kCFStringEncodingWindowsLatin1,
-        513 => kCFStringEncodingISOLatin1,
-        2817 => kCFStringEncodingNextStepLatin,
-        1536 => kCFStringEncodingASCII,
-        256 => kCFStringEncodingUnicode,
-        134217984 => kCFStringEncodingUTF8,
-        3071 => kCFStringEncodingNonLossyASCII,
-        268435712 => kCFStringEncodingUTF16BE,
-        335544576 => kCFStringEncodingUTF16LE,
-        201326848 => kCFStringEncodingUTF32,
-        402653440 => kCFStringEncodingUTF32BE,
-        469762304 => kCFStringEncodingUTF32LE,
-        _ => throw ArgumentError(
-            "Unknown value for CFStringBuiltInEncodings: $value"),
-      };
-
-  @override
-  String toString() {
-    if (this == kCFStringEncodingUnicode)
-      return "CFStringBuiltInEncodings.kCFStringEncodingUnicode, CFStringBuiltInEncodings.kCFStringEncodingUTF16";
-    return super.toString();
-  }
-}
-
 typedef CFStringEncoding = UInt32;
 typedef CFMutableStringRef = ffi.Pointer<__CFString>;
 typedef StringPtr = ffi.Pointer<ffi.UnsignedChar>;
@@ -51596,24 +49723,6 @@ final class CGRect extends ffi.Struct {
   external CGSize size;
 }
 
-enum CGRectEdge {
-  CGRectMinXEdge(0),
-  CGRectMinYEdge(1),
-  CGRectMaxXEdge(2),
-  CGRectMaxYEdge(3);
-
-  final int value;
-  const CGRectEdge(this.value);
-
-  static CGRectEdge fromValue(int value) => switch (value) {
-        0 => CGRectMinXEdge,
-        1 => CGRectMinYEdge,
-        2 => CGRectMaxXEdge,
-        3 => CGRectMaxYEdge,
-        _ => throw ArgumentError("Unknown value for CGRectEdge: $value"),
-      };
-}
-
 final class CGAffineTransform extends ffi.Struct {
   @CGFloat()
   external double a;
@@ -51648,26 +49757,7 @@ final class CGAffineTransformComponents extends ffi.Struct {
 
 final class __CFDateFormatter extends ffi.Opaque {}
 
-enum CFDateFormatterStyle {
-  kCFDateFormatterNoStyle(0),
-  kCFDateFormatterShortStyle(1),
-  kCFDateFormatterMediumStyle(2),
-  kCFDateFormatterLongStyle(3),
-  kCFDateFormatterFullStyle(4);
-
-  final int value;
-  const CFDateFormatterStyle(this.value);
-
-  static CFDateFormatterStyle fromValue(int value) => switch (value) {
-        0 => kCFDateFormatterNoStyle,
-        1 => kCFDateFormatterShortStyle,
-        2 => kCFDateFormatterMediumStyle,
-        3 => kCFDateFormatterLongStyle,
-        4 => kCFDateFormatterFullStyle,
-        _ =>
-          throw ArgumentError("Unknown value for CFDateFormatterStyle: $value"),
-      };
-}
+typedef CFDateFormatterRef = ffi.Pointer<__CFDateFormatter>;
 
 enum CFISO8601DateFormatOptions {
   kCFISO8601DateFormatWithYear(1),
@@ -51708,12 +49798,36 @@ enum CFISO8601DateFormatOptions {
       };
 }
 
-typedef CFDateFormatterRef = ffi.Pointer<__CFDateFormatter>;
+enum CFDateFormatterStyle {
+  kCFDateFormatterNoStyle(0),
+  kCFDateFormatterShortStyle(1),
+  kCFDateFormatterMediumStyle(2),
+  kCFDateFormatterLongStyle(3),
+  kCFDateFormatterFullStyle(4);
+
+  final int value;
+  const CFDateFormatterStyle(this.value);
+
+  static CFDateFormatterStyle fromValue(int value) => switch (value) {
+        0 => kCFDateFormatterNoStyle,
+        1 => kCFDateFormatterShortStyle,
+        2 => kCFDateFormatterMediumStyle,
+        3 => kCFDateFormatterLongStyle,
+        4 => kCFDateFormatterFullStyle,
+        _ =>
+          throw ArgumentError("Unknown value for CFDateFormatterStyle: $value"),
+      };
+}
+
 typedef CFDateFormatterKey = CFStringRef;
 
 final class __CFBoolean extends ffi.Opaque {}
 
 typedef CFBooleanRef = ffi.Pointer<__CFBoolean>;
+
+final class __CFNumber extends ffi.Opaque {}
+
+typedef CFNumberRef = ffi.Pointer<__CFNumber>;
 
 enum CFNumberType {
   kCFNumberSInt8Type(1),
@@ -51766,11 +49880,9 @@ enum CFNumberType {
   }
 }
 
-final class __CFNumber extends ffi.Opaque {}
-
-typedef CFNumberRef = ffi.Pointer<__CFNumber>;
-
 final class __CFNumberFormatter extends ffi.Opaque {}
+
+typedef CFNumberFormatterRef = ffi.Pointer<__CFNumberFormatter>;
 
 enum CFNumberFormatterStyle {
   kCFNumberFormatterNoStyle(0),
@@ -51803,68 +49915,12 @@ enum CFNumberFormatterStyle {
       };
 }
 
-typedef CFNumberFormatterRef = ffi.Pointer<__CFNumberFormatter>;
-
-enum CFNumberFormatterOptionFlags {
-  kCFNumberFormatterParseIntegersOnly(1);
-
-  final int value;
-  const CFNumberFormatterOptionFlags(this.value);
-
-  static CFNumberFormatterOptionFlags fromValue(int value) => switch (value) {
-        1 => kCFNumberFormatterParseIntegersOnly,
-        _ => throw ArgumentError(
-            "Unknown value for CFNumberFormatterOptionFlags: $value"),
-      };
-}
-
 typedef CFNumberFormatterKey = CFStringRef;
-
-enum CFNumberFormatterRoundingMode {
-  kCFNumberFormatterRoundCeiling(0),
-  kCFNumberFormatterRoundFloor(1),
-  kCFNumberFormatterRoundDown(2),
-  kCFNumberFormatterRoundUp(3),
-  kCFNumberFormatterRoundHalfEven(4),
-  kCFNumberFormatterRoundHalfDown(5),
-  kCFNumberFormatterRoundHalfUp(6);
-
-  final int value;
-  const CFNumberFormatterRoundingMode(this.value);
-
-  static CFNumberFormatterRoundingMode fromValue(int value) => switch (value) {
-        0 => kCFNumberFormatterRoundCeiling,
-        1 => kCFNumberFormatterRoundFloor,
-        2 => kCFNumberFormatterRoundDown,
-        3 => kCFNumberFormatterRoundUp,
-        4 => kCFNumberFormatterRoundHalfEven,
-        5 => kCFNumberFormatterRoundHalfDown,
-        6 => kCFNumberFormatterRoundHalfUp,
-        _ => throw ArgumentError(
-            "Unknown value for CFNumberFormatterRoundingMode: $value"),
-      };
-}
-
-enum CFNumberFormatterPadPosition {
-  kCFNumberFormatterPadBeforePrefix(0),
-  kCFNumberFormatterPadAfterPrefix(1),
-  kCFNumberFormatterPadBeforeSuffix(2),
-  kCFNumberFormatterPadAfterSuffix(3);
-
-  final int value;
-  const CFNumberFormatterPadPosition(this.value);
-
-  static CFNumberFormatterPadPosition fromValue(int value) => switch (value) {
-        0 => kCFNumberFormatterPadBeforePrefix,
-        1 => kCFNumberFormatterPadAfterPrefix,
-        2 => kCFNumberFormatterPadBeforeSuffix,
-        3 => kCFNumberFormatterPadAfterSuffix,
-        _ => throw ArgumentError(
-            "Unknown value for CFNumberFormatterPadPosition: $value"),
-      };
-}
-
 typedef CFPropertyListRef = CFTypeRef;
+
+final class __CFURL extends ffi.Opaque {}
+
+typedef CFURLRef = ffi.Pointer<__CFURL>;
 
 enum CFURLPathStyle {
   kCFURLPOSIXPathStyle(0),
@@ -51881,10 +49937,6 @@ enum CFURLPathStyle {
         _ => throw ArgumentError("Unknown value for CFURLPathStyle: $value"),
       };
 }
-
-final class __CFURL extends ffi.Opaque {}
-
-typedef CFURLRef = ffi.Pointer<__CFURL>;
 
 enum CFURLComponentType {
   kCFURLComponentScheme(1),
@@ -52082,72 +50134,6 @@ final class UnnamedUnion1 extends ffi.Union {
 typedef mach_port_name_t = natural_t;
 typedef mach_service_port_info_t = ffi.Pointer<mach_service_port_info>;
 
-enum mach_port_guard_exception_codes {
-  kGUARD_EXC_DESTROY(1),
-  kGUARD_EXC_MOD_REFS(2),
-  kGUARD_EXC_INVALID_OPTIONS(3),
-  kGUARD_EXC_SET_CONTEXT(4),
-  kGUARD_EXC_THREAD_SET_STATE(5),
-  kGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE(6),
-  kGUARD_EXC_UNGUARDED(8),
-  kGUARD_EXC_INCORRECT_GUARD(16),
-  kGUARD_EXC_IMMOVABLE(32),
-  kGUARD_EXC_STRICT_REPLY(64),
-  kGUARD_EXC_MSG_FILTERED(128),
-  kGUARD_EXC_INVALID_RIGHT(256),
-  kGUARD_EXC_INVALID_NAME(512),
-  kGUARD_EXC_INVALID_VALUE(1024),
-  kGUARD_EXC_INVALID_ARGUMENT(2048),
-  kGUARD_EXC_RIGHT_EXISTS(4096),
-  kGUARD_EXC_KERN_NO_SPACE(8192),
-  kGUARD_EXC_KERN_FAILURE(16384),
-  kGUARD_EXC_KERN_RESOURCE(32768),
-  kGUARD_EXC_SEND_INVALID_REPLY(65536),
-  kGUARD_EXC_SEND_INVALID_VOUCHER(131072),
-  kGUARD_EXC_SEND_INVALID_RIGHT(262144),
-  kGUARD_EXC_RCV_INVALID_NAME(524288),
-  kGUARD_EXC_RCV_GUARDED_DESC(1048576),
-  kGUARD_EXC_MOD_REFS_NON_FATAL(2097152),
-  kGUARD_EXC_IMMOVABLE_NON_FATAL(4194304),
-  kGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS(8388608);
-
-  final int value;
-  const mach_port_guard_exception_codes(this.value);
-
-  static mach_port_guard_exception_codes fromValue(int value) =>
-      switch (value) {
-        1 => kGUARD_EXC_DESTROY,
-        2 => kGUARD_EXC_MOD_REFS,
-        3 => kGUARD_EXC_INVALID_OPTIONS,
-        4 => kGUARD_EXC_SET_CONTEXT,
-        5 => kGUARD_EXC_THREAD_SET_STATE,
-        6 => kGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE,
-        8 => kGUARD_EXC_UNGUARDED,
-        16 => kGUARD_EXC_INCORRECT_GUARD,
-        32 => kGUARD_EXC_IMMOVABLE,
-        64 => kGUARD_EXC_STRICT_REPLY,
-        128 => kGUARD_EXC_MSG_FILTERED,
-        256 => kGUARD_EXC_INVALID_RIGHT,
-        512 => kGUARD_EXC_INVALID_NAME,
-        1024 => kGUARD_EXC_INVALID_VALUE,
-        2048 => kGUARD_EXC_INVALID_ARGUMENT,
-        4096 => kGUARD_EXC_RIGHT_EXISTS,
-        8192 => kGUARD_EXC_KERN_NO_SPACE,
-        16384 => kGUARD_EXC_KERN_FAILURE,
-        32768 => kGUARD_EXC_KERN_RESOURCE,
-        65536 => kGUARD_EXC_SEND_INVALID_REPLY,
-        131072 => kGUARD_EXC_SEND_INVALID_VOUCHER,
-        262144 => kGUARD_EXC_SEND_INVALID_RIGHT,
-        524288 => kGUARD_EXC_RCV_INVALID_NAME,
-        1048576 => kGUARD_EXC_RCV_GUARDED_DESC,
-        2097152 => kGUARD_EXC_MOD_REFS_NON_FATAL,
-        4194304 => kGUARD_EXC_IMMOVABLE_NON_FATAL,
-        8388608 => kGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS,
-        _ => throw ArgumentError(
-            "Unknown value for mach_port_guard_exception_codes: $value"),
-      };
-}
-
 final class __CFRunLoop extends ffi.Opaque {}
 
 final class __CFRunLoopSource extends ffi.Opaque {}
@@ -52155,6 +50141,9 @@ final class __CFRunLoopSource extends ffi.Opaque {}
 final class __CFRunLoopObserver extends ffi.Opaque {}
 
 final class __CFRunLoopTimer extends ffi.Opaque {}
+
+typedef CFRunLoopMode = CFStringRef;
+typedef CFRunLoopRef = ffi.Pointer<__CFRunLoop>;
 
 enum CFRunLoopRunResult {
   kCFRunLoopRunFinished(1),
@@ -52175,32 +50164,6 @@ enum CFRunLoopRunResult {
       };
 }
 
-enum CFRunLoopActivity {
-  kCFRunLoopEntry(1),
-  kCFRunLoopBeforeTimers(2),
-  kCFRunLoopBeforeSources(4),
-  kCFRunLoopBeforeWaiting(32),
-  kCFRunLoopAfterWaiting(64),
-  kCFRunLoopExit(128),
-  kCFRunLoopAllActivities(268435455);
-
-  final int value;
-  const CFRunLoopActivity(this.value);
-
-  static CFRunLoopActivity fromValue(int value) => switch (value) {
-        1 => kCFRunLoopEntry,
-        2 => kCFRunLoopBeforeTimers,
-        4 => kCFRunLoopBeforeSources,
-        32 => kCFRunLoopBeforeWaiting,
-        64 => kCFRunLoopAfterWaiting,
-        128 => kCFRunLoopExit,
-        268435455 => kCFRunLoopAllActivities,
-        _ => throw ArgumentError("Unknown value for CFRunLoopActivity: $value"),
-      };
-}
-
-typedef CFRunLoopMode = CFStringRef;
-typedef CFRunLoopRef = ffi.Pointer<__CFRunLoop>;
 typedef CFRunLoopSourceRef = ffi.Pointer<__CFRunLoopSource>;
 typedef CFRunLoopObserverRef = ffi.Pointer<__CFRunLoopObserver>;
 typedef CFRunLoopTimerRef = ffi.Pointer<__CFRunLoopTimer>;
@@ -52318,6 +50281,31 @@ typedef DartCFRunLoopObserverCallBackFunction = void Function(
     CFRunLoopObserverRef observer,
     CFRunLoopActivity activity,
     ffi.Pointer<ffi.Void> info);
+
+enum CFRunLoopActivity {
+  kCFRunLoopEntry(1),
+  kCFRunLoopBeforeTimers(2),
+  kCFRunLoopBeforeSources(4),
+  kCFRunLoopBeforeWaiting(32),
+  kCFRunLoopAfterWaiting(64),
+  kCFRunLoopExit(128),
+  kCFRunLoopAllActivities(268435455);
+
+  final int value;
+  const CFRunLoopActivity(this.value);
+
+  static CFRunLoopActivity fromValue(int value) => switch (value) {
+        1 => kCFRunLoopEntry,
+        2 => kCFRunLoopBeforeTimers,
+        4 => kCFRunLoopBeforeSources,
+        32 => kCFRunLoopBeforeWaiting,
+        64 => kCFRunLoopAfterWaiting,
+        128 => kCFRunLoopExit,
+        268435455 => kCFRunLoopAllActivities,
+        _ => throw ArgumentError("Unknown value for CFRunLoopActivity: $value"),
+      };
+}
+
 void _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         CFRunLoopObserverRef arg0,
@@ -52594,22 +50582,6 @@ extension ObjCBlock_ffiVoid_CFRunLoopTimerRef_CallExtension
 
 final class __CFSocket extends ffi.Opaque {}
 
-enum CFSocketError {
-  kCFSocketSuccess(0),
-  kCFSocketError(-1),
-  kCFSocketTimeout(-2);
-
-  final int value;
-  const CFSocketError(this.value);
-
-  static CFSocketError fromValue(int value) => switch (value) {
-        0 => kCFSocketSuccess,
-        -1 => kCFSocketError,
-        -2 => kCFSocketTimeout,
-        _ => throw ArgumentError("Unknown value for CFSocketError: $value"),
-      };
-}
-
 final class CFSocketSignature extends ffi.Struct {
   @SInt32()
   external int protocolFamily;
@@ -52621,29 +50593,6 @@ final class CFSocketSignature extends ffi.Struct {
   external int protocol;
 
   external CFDataRef address;
-}
-
-enum CFSocketCallBackType {
-  kCFSocketNoCallBack(0),
-  kCFSocketReadCallBack(1),
-  kCFSocketAcceptCallBack(2),
-  kCFSocketDataCallBack(3),
-  kCFSocketConnectCallBack(4),
-  kCFSocketWriteCallBack(8);
-
-  final int value;
-  const CFSocketCallBackType(this.value);
-
-  static CFSocketCallBackType fromValue(int value) => switch (value) {
-        0 => kCFSocketNoCallBack,
-        1 => kCFSocketReadCallBack,
-        2 => kCFSocketAcceptCallBack,
-        3 => kCFSocketDataCallBack,
-        4 => kCFSocketConnectCallBack,
-        8 => kCFSocketWriteCallBack,
-        _ =>
-          throw ArgumentError("Unknown value for CFSocketCallBackType: $value"),
-      };
 }
 
 final class CFSocketContext extends ffi.Struct {
@@ -52680,8 +50629,48 @@ typedef DartCFSocketCallBackFunction = void Function(
     CFDataRef address,
     ffi.Pointer<ffi.Void> data,
     ffi.Pointer<ffi.Void> info);
+
+enum CFSocketCallBackType {
+  kCFSocketNoCallBack(0),
+  kCFSocketReadCallBack(1),
+  kCFSocketAcceptCallBack(2),
+  kCFSocketDataCallBack(3),
+  kCFSocketConnectCallBack(4),
+  kCFSocketWriteCallBack(8);
+
+  final int value;
+  const CFSocketCallBackType(this.value);
+
+  static CFSocketCallBackType fromValue(int value) => switch (value) {
+        0 => kCFSocketNoCallBack,
+        1 => kCFSocketReadCallBack,
+        2 => kCFSocketAcceptCallBack,
+        3 => kCFSocketDataCallBack,
+        4 => kCFSocketConnectCallBack,
+        8 => kCFSocketWriteCallBack,
+        _ =>
+          throw ArgumentError("Unknown value for CFSocketCallBackType: $value"),
+      };
+}
+
 typedef CFSocketNativeHandle = ffi.Int;
 typedef DartCFSocketNativeHandle = int;
+
+enum CFSocketError {
+  kCFSocketSuccess(0),
+  kCFSocketError(-1),
+  kCFSocketTimeout(-2);
+
+  final int value;
+  const CFSocketError(this.value);
+
+  static CFSocketError fromValue(int value) => switch (value) {
+        0 => kCFSocketSuccess,
+        -1 => kCFSocketError,
+        -2 => kCFSocketTimeout,
+        _ => throw ArgumentError("Unknown value for CFSocketError: $value"),
+      };
+}
 
 final class accessx_descriptor extends ffi.Struct {
   @ffi.UnsignedInt()
@@ -52866,6 +50855,8 @@ final class log2phys extends ffi.Struct {
 
 final class _filesec extends ffi.Opaque {}
 
+typedef filesec_t = ffi.Pointer<_filesec>;
+
 enum filesec_property_t {
   FILESEC_OWNER(1),
   FILESEC_GROUP(2),
@@ -52893,20 +50884,6 @@ enum filesec_property_t {
       };
 }
 
-typedef filesec_t = ffi.Pointer<_filesec>;
-
-enum os_clockid_t {
-  OS_CLOCK_MACH_ABSOLUTE_TIME(32);
-
-  final int value;
-  const os_clockid_t(this.value);
-
-  static os_clockid_t fromValue(int value) => switch (value) {
-        32 => OS_CLOCK_MACH_ABSOLUTE_TIME,
-        _ => throw ArgumentError("Unknown value for os_clockid_t: $value"),
-      };
-}
-
 final class os_workgroup_attr_opaque_s extends ffi.Struct {
   @ffi.Uint32()
   external int sig;
@@ -52930,6 +50907,9 @@ final class os_workgroup_join_token_opaque_s extends ffi.Struct {
   @ffi.Array.multi([36])
   external ffi.Array<ffi.Char> opaque;
 }
+
+typedef os_workgroup_t = ffi.Pointer<objc.ObjCObject>;
+typedef Dartos_workgroup_t = OS_os_workgroup;
 
 /// OS_os_workgroup
 class OS_os_workgroup extends OS_object {
@@ -52980,8 +50960,56 @@ class OS_os_workgroup extends OS_object {
 }
 
 late final _class_OS_os_workgroup = objc.getClass("OS_os_workgroup");
-typedef os_workgroup_t = ffi.Pointer<objc.ObjCObject>;
-typedef Dartos_workgroup_t = OS_os_workgroup;
+
+/// OS_object
+class OS_object extends objc.NSObject {
+  OS_object._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [OS_object] that points to the same underlying object as [other].
+  OS_object.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [OS_object] that wraps the given raw object pointer.
+  OS_object.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [OS_object].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_l8lotg(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_OS_object);
+  }
+
+  /// init
+  OS_object init() {
+    final _ret =
+        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
+    return OS_object.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static OS_object new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_OS_object, _sel_new);
+    return OS_object.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static OS_object allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret =
+        _objc_msgSend_1b3ihd0(_class_OS_object, _sel_allocWithZone_, zone);
+    return OS_object.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static OS_object alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_OS_object, _sel_alloc);
+    return OS_object.castFromPointer(_ret, retain: false, release: true);
+  }
+}
+
+late final _class_OS_object = objc.getClass("OS_object");
 typedef os_workgroup_join_token_t
     = ffi.Pointer<os_workgroup_join_token_opaque_s>;
 typedef os_workgroup_working_arena_destructor_t = ffi.Pointer<
@@ -53017,63 +51045,6 @@ abstract final class OS_os_workgroup_interval {
 
 late final _protocol_OS_os_workgroup_interval =
     objc.getProtocol("OS_os_workgroup_interval");
-
-/// OS_os_workgroup_interval
-class OS_os_workgroup_interval1 extends OS_os_workgroup {
-  OS_os_workgroup_interval1._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [OS_os_workgroup_interval1] that points to the same underlying object as [other].
-  OS_os_workgroup_interval1.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [OS_os_workgroup_interval1] that wraps the given raw object pointer.
-  OS_os_workgroup_interval1.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [OS_os_workgroup_interval1].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_OS_os_workgroup_interval);
-  }
-
-  /// init
-  OS_os_workgroup_interval1 init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return OS_os_workgroup_interval1.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// new
-  static OS_os_workgroup_interval1 new1() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_OS_os_workgroup_interval, _sel_new);
-    return OS_os_workgroup_interval1.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static OS_os_workgroup_interval1 allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_OS_os_workgroup_interval, _sel_allocWithZone_, zone);
-    return OS_os_workgroup_interval1.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// alloc
-  static OS_os_workgroup_interval1 alloc() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_OS_os_workgroup_interval, _sel_alloc);
-    return OS_os_workgroup_interval1.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-}
-
-late final _class_OS_os_workgroup_interval =
-    objc.getClass("OS_os_workgroup_interval");
 typedef os_workgroup_interval_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartos_workgroup_interval_t = OS_os_workgroup;
 typedef os_workgroup_interval_data_t
@@ -53098,63 +51069,6 @@ abstract final class OS_os_workgroup_parallel {
 
 late final _protocol_OS_os_workgroup_parallel =
     objc.getProtocol("OS_os_workgroup_parallel");
-
-/// OS_os_workgroup_parallel
-class OS_os_workgroup_parallel1 extends OS_os_workgroup {
-  OS_os_workgroup_parallel1._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [OS_os_workgroup_parallel1] that points to the same underlying object as [other].
-  OS_os_workgroup_parallel1.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [OS_os_workgroup_parallel1] that wraps the given raw object pointer.
-  OS_os_workgroup_parallel1.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [OS_os_workgroup_parallel1].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_OS_os_workgroup_parallel);
-  }
-
-  /// init
-  OS_os_workgroup_parallel1 init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return OS_os_workgroup_parallel1.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// new
-  static OS_os_workgroup_parallel1 new1() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_OS_os_workgroup_parallel, _sel_new);
-    return OS_os_workgroup_parallel1.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static OS_os_workgroup_parallel1 allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_OS_os_workgroup_parallel, _sel_allocWithZone_, zone);
-    return OS_os_workgroup_parallel1.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// alloc
-  static OS_os_workgroup_parallel1 alloc() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_OS_os_workgroup_parallel, _sel_alloc);
-    return OS_os_workgroup_parallel1.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-}
-
-late final _class_OS_os_workgroup_parallel =
-    objc.getClass("OS_os_workgroup_parallel");
 typedef os_workgroup_parallel_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartos_workgroup_parallel_t = OS_os_workgroup;
 typedef os_workgroup_attr_t = ffi.Pointer<os_workgroup_attr_opaque_s>;
@@ -53351,6 +51265,8 @@ abstract final class OS_dispatch_queue_concurrent {
 
 late final _protocol_OS_dispatch_queue_concurrent =
     objc.getProtocol("OS_dispatch_queue_concurrent");
+typedef dispatch_queue_t = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_queue_t = objc.NSObject;
 void _ObjCBlock_ffiVoid_ffiSize_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block, int arg0) =>
     block.ref.target
@@ -54364,54 +52280,6 @@ final class CFStreamError extends ffi.Struct {
   external int error;
 }
 
-enum CFStreamStatus {
-  kCFStreamStatusNotOpen(0),
-  kCFStreamStatusOpening(1),
-  kCFStreamStatusOpen(2),
-  kCFStreamStatusReading(3),
-  kCFStreamStatusWriting(4),
-  kCFStreamStatusAtEnd(5),
-  kCFStreamStatusClosed(6),
-  kCFStreamStatusError(7);
-
-  final int value;
-  const CFStreamStatus(this.value);
-
-  static CFStreamStatus fromValue(int value) => switch (value) {
-        0 => kCFStreamStatusNotOpen,
-        1 => kCFStreamStatusOpening,
-        2 => kCFStreamStatusOpen,
-        3 => kCFStreamStatusReading,
-        4 => kCFStreamStatusWriting,
-        5 => kCFStreamStatusAtEnd,
-        6 => kCFStreamStatusClosed,
-        7 => kCFStreamStatusError,
-        _ => throw ArgumentError("Unknown value for CFStreamStatus: $value"),
-      };
-}
-
-enum CFStreamEventType {
-  kCFStreamEventNone(0),
-  kCFStreamEventOpenCompleted(1),
-  kCFStreamEventHasBytesAvailable(2),
-  kCFStreamEventCanAcceptBytes(4),
-  kCFStreamEventErrorOccurred(8),
-  kCFStreamEventEndEncountered(16);
-
-  final int value;
-  const CFStreamEventType(this.value);
-
-  static CFStreamEventType fromValue(int value) => switch (value) {
-        0 => kCFStreamEventNone,
-        1 => kCFStreamEventOpenCompleted,
-        2 => kCFStreamEventHasBytesAvailable,
-        4 => kCFStreamEventCanAcceptBytes,
-        8 => kCFStreamEventErrorOccurred,
-        16 => kCFStreamEventEndEncountered,
-        _ => throw ArgumentError("Unknown value for CFStreamEventType: $value"),
-      };
-}
-
 final class CFStreamClientContext extends ffi.Struct {
   @CFIndex()
   external int version;
@@ -54438,6 +52306,33 @@ final class __CFWriteStream extends ffi.Opaque {}
 typedef CFStreamPropertyKey = CFStringRef;
 typedef CFReadStreamRef = ffi.Pointer<__CFReadStream>;
 typedef CFWriteStreamRef = ffi.Pointer<__CFWriteStream>;
+
+enum CFStreamStatus {
+  kCFStreamStatusNotOpen(0),
+  kCFStreamStatusOpening(1),
+  kCFStreamStatusOpen(2),
+  kCFStreamStatusReading(3),
+  kCFStreamStatusWriting(4),
+  kCFStreamStatusAtEnd(5),
+  kCFStreamStatusClosed(6),
+  kCFStreamStatusError(7);
+
+  final int value;
+  const CFStreamStatus(this.value);
+
+  static CFStreamStatus fromValue(int value) => switch (value) {
+        0 => kCFStreamStatusNotOpen,
+        1 => kCFStreamStatusOpening,
+        2 => kCFStreamStatusOpen,
+        3 => kCFStreamStatusReading,
+        4 => kCFStreamStatusWriting,
+        5 => kCFStreamStatusAtEnd,
+        6 => kCFStreamStatusClosed,
+        7 => kCFStreamStatusError,
+        _ => throw ArgumentError("Unknown value for CFStreamStatus: $value"),
+      };
+}
+
 typedef CFReadStreamClientCallBack
     = ffi.Pointer<ffi.NativeFunction<CFReadStreamClientCallBackFunction>>;
 typedef CFReadStreamClientCallBackFunction = ffi.Void Function(
@@ -54448,6 +52343,29 @@ typedef DartCFReadStreamClientCallBackFunction = void Function(
     CFReadStreamRef stream,
     CFStreamEventType type,
     ffi.Pointer<ffi.Void> clientCallBackInfo);
+
+enum CFStreamEventType {
+  kCFStreamEventNone(0),
+  kCFStreamEventOpenCompleted(1),
+  kCFStreamEventHasBytesAvailable(2),
+  kCFStreamEventCanAcceptBytes(4),
+  kCFStreamEventErrorOccurred(8),
+  kCFStreamEventEndEncountered(16);
+
+  final int value;
+  const CFStreamEventType(this.value);
+
+  static CFStreamEventType fromValue(int value) => switch (value) {
+        0 => kCFStreamEventNone,
+        1 => kCFStreamEventOpenCompleted,
+        2 => kCFStreamEventHasBytesAvailable,
+        4 => kCFStreamEventCanAcceptBytes,
+        8 => kCFStreamEventErrorOccurred,
+        16 => kCFStreamEventEndEncountered,
+        _ => throw ArgumentError("Unknown value for CFStreamEventType: $value"),
+      };
+}
+
 typedef CFWriteStreamClientCallBack
     = ffi.Pointer<ffi.NativeFunction<CFWriteStreamClientCallBackFunction>>;
 typedef CFWriteStreamClientCallBackFunction = ffi.Void Function(
@@ -54458,41 +52376,6 @@ typedef DartCFWriteStreamClientCallBackFunction = void Function(
     CFWriteStreamRef stream,
     CFStreamEventType type,
     ffi.Pointer<ffi.Void> clientCallBackInfo);
-
-enum CFStreamErrorDomain {
-  kCFStreamErrorDomainCustom(-1),
-  kCFStreamErrorDomainPOSIX(1),
-  kCFStreamErrorDomainMacOSStatus(2);
-
-  final int value;
-  const CFStreamErrorDomain(this.value);
-
-  static CFStreamErrorDomain fromValue(int value) => switch (value) {
-        -1 => kCFStreamErrorDomainCustom,
-        1 => kCFStreamErrorDomainPOSIX,
-        2 => kCFStreamErrorDomainMacOSStatus,
-        _ =>
-          throw ArgumentError("Unknown value for CFStreamErrorDomain: $value"),
-      };
-}
-
-enum CFPropertyListMutabilityOptions {
-  kCFPropertyListImmutable(0),
-  kCFPropertyListMutableContainers(1),
-  kCFPropertyListMutableContainersAndLeaves(2);
-
-  final int value;
-  const CFPropertyListMutabilityOptions(this.value);
-
-  static CFPropertyListMutabilityOptions fromValue(int value) =>
-      switch (value) {
-        0 => kCFPropertyListImmutable,
-        1 => kCFPropertyListMutableContainers,
-        2 => kCFPropertyListMutableContainersAndLeaves,
-        _ => throw ArgumentError(
-            "Unknown value for CFPropertyListMutabilityOptions: $value"),
-      };
-}
 
 enum CFPropertyListFormat {
   kCFPropertyListOpenStepFormat(1),
@@ -54564,282 +52447,6 @@ typedef CFSetApplierFunctionFunction = ffi.Void Function(
 typedef DartCFSetApplierFunctionFunction = void Function(
     ffi.Pointer<ffi.Void> value, ffi.Pointer<ffi.Void> context);
 
-enum CFStringEncodings {
-  kCFStringEncodingMacJapanese(1),
-  kCFStringEncodingMacChineseTrad(2),
-  kCFStringEncodingMacKorean(3),
-  kCFStringEncodingMacArabic(4),
-  kCFStringEncodingMacHebrew(5),
-  kCFStringEncodingMacGreek(6),
-  kCFStringEncodingMacCyrillic(7),
-  kCFStringEncodingMacDevanagari(9),
-  kCFStringEncodingMacGurmukhi(10),
-  kCFStringEncodingMacGujarati(11),
-  kCFStringEncodingMacOriya(12),
-  kCFStringEncodingMacBengali(13),
-  kCFStringEncodingMacTamil(14),
-  kCFStringEncodingMacTelugu(15),
-  kCFStringEncodingMacKannada(16),
-  kCFStringEncodingMacMalayalam(17),
-  kCFStringEncodingMacSinhalese(18),
-  kCFStringEncodingMacBurmese(19),
-  kCFStringEncodingMacKhmer(20),
-  kCFStringEncodingMacThai(21),
-  kCFStringEncodingMacLaotian(22),
-  kCFStringEncodingMacGeorgian(23),
-  kCFStringEncodingMacArmenian(24),
-  kCFStringEncodingMacChineseSimp(25),
-  kCFStringEncodingMacTibetan(26),
-  kCFStringEncodingMacMongolian(27),
-  kCFStringEncodingMacEthiopic(28),
-  kCFStringEncodingMacCentralEurRoman(29),
-  kCFStringEncodingMacVietnamese(30),
-  kCFStringEncodingMacExtArabic(31),
-  kCFStringEncodingMacSymbol(33),
-  kCFStringEncodingMacDingbats(34),
-  kCFStringEncodingMacTurkish(35),
-  kCFStringEncodingMacCroatian(36),
-  kCFStringEncodingMacIcelandic(37),
-  kCFStringEncodingMacRomanian(38),
-  kCFStringEncodingMacCeltic(39),
-  kCFStringEncodingMacGaelic(40),
-  kCFStringEncodingMacFarsi(140),
-  kCFStringEncodingMacUkrainian(152),
-  kCFStringEncodingMacInuit(236),
-  kCFStringEncodingMacVT100(252),
-  kCFStringEncodingMacHFS(255),
-  kCFStringEncodingISOLatin2(514),
-  kCFStringEncodingISOLatin3(515),
-  kCFStringEncodingISOLatin4(516),
-  kCFStringEncodingISOLatinCyrillic(517),
-  kCFStringEncodingISOLatinArabic(518),
-  kCFStringEncodingISOLatinGreek(519),
-  kCFStringEncodingISOLatinHebrew(520),
-  kCFStringEncodingISOLatin5(521),
-  kCFStringEncodingISOLatin6(522),
-  kCFStringEncodingISOLatinThai(523),
-  kCFStringEncodingISOLatin7(525),
-  kCFStringEncodingISOLatin8(526),
-  kCFStringEncodingISOLatin9(527),
-  kCFStringEncodingISOLatin10(528),
-  kCFStringEncodingDOSLatinUS(1024),
-  kCFStringEncodingDOSGreek(1029),
-  kCFStringEncodingDOSBalticRim(1030),
-  kCFStringEncodingDOSLatin1(1040),
-  kCFStringEncodingDOSGreek1(1041),
-  kCFStringEncodingDOSLatin2(1042),
-  kCFStringEncodingDOSCyrillic(1043),
-  kCFStringEncodingDOSTurkish(1044),
-  kCFStringEncodingDOSPortuguese(1045),
-  kCFStringEncodingDOSIcelandic(1046),
-  kCFStringEncodingDOSHebrew(1047),
-  kCFStringEncodingDOSCanadianFrench(1048),
-  kCFStringEncodingDOSArabic(1049),
-  kCFStringEncodingDOSNordic(1050),
-  kCFStringEncodingDOSRussian(1051),
-  kCFStringEncodingDOSGreek2(1052),
-  kCFStringEncodingDOSThai(1053),
-  kCFStringEncodingDOSJapanese(1056),
-  kCFStringEncodingDOSChineseSimplif(1057),
-  kCFStringEncodingDOSKorean(1058),
-  kCFStringEncodingDOSChineseTrad(1059),
-  kCFStringEncodingWindowsLatin2(1281),
-  kCFStringEncodingWindowsCyrillic(1282),
-  kCFStringEncodingWindowsGreek(1283),
-  kCFStringEncodingWindowsLatin5(1284),
-  kCFStringEncodingWindowsHebrew(1285),
-  kCFStringEncodingWindowsArabic(1286),
-  kCFStringEncodingWindowsBalticRim(1287),
-  kCFStringEncodingWindowsVietnamese(1288),
-  kCFStringEncodingWindowsKoreanJohab(1296),
-  kCFStringEncodingANSEL(1537),
-  kCFStringEncodingJIS_X0201_76(1568),
-  kCFStringEncodingJIS_X0208_83(1569),
-  kCFStringEncodingJIS_X0208_90(1570),
-  kCFStringEncodingJIS_X0212_90(1571),
-  kCFStringEncodingJIS_C6226_78(1572),
-  kCFStringEncodingShiftJIS_X0213(1576),
-  kCFStringEncodingShiftJIS_X0213_MenKuTen(1577),
-  kCFStringEncodingGB_2312_80(1584),
-  kCFStringEncodingGBK_95(1585),
-  kCFStringEncodingGB_18030_2000(1586),
-  kCFStringEncodingKSC_5601_87(1600),
-  kCFStringEncodingKSC_5601_92_Johab(1601),
-  kCFStringEncodingCNS_11643_92_P1(1617),
-  kCFStringEncodingCNS_11643_92_P2(1618),
-  kCFStringEncodingCNS_11643_92_P3(1619),
-  kCFStringEncodingISO_2022_JP(2080),
-  kCFStringEncodingISO_2022_JP_2(2081),
-  kCFStringEncodingISO_2022_JP_1(2082),
-  kCFStringEncodingISO_2022_JP_3(2083),
-  kCFStringEncodingISO_2022_CN(2096),
-  kCFStringEncodingISO_2022_CN_EXT(2097),
-  kCFStringEncodingISO_2022_KR(2112),
-  kCFStringEncodingEUC_JP(2336),
-  kCFStringEncodingEUC_CN(2352),
-  kCFStringEncodingEUC_TW(2353),
-  kCFStringEncodingEUC_KR(2368),
-  kCFStringEncodingShiftJIS(2561),
-  kCFStringEncodingKOI8_R(2562),
-  kCFStringEncodingBig5(2563),
-  kCFStringEncodingMacRomanLatin1(2564),
-  kCFStringEncodingHZ_GB_2312(2565),
-  kCFStringEncodingBig5_HKSCS_1999(2566),
-  kCFStringEncodingVISCII(2567),
-  kCFStringEncodingKOI8_U(2568),
-  kCFStringEncodingBig5_E(2569),
-  kCFStringEncodingNextStepJapanese(2818),
-  kCFStringEncodingEBCDIC_US(3073),
-  kCFStringEncodingEBCDIC_CP037(3074),
-  kCFStringEncodingUTF7(67109120),
-  kCFStringEncodingUTF7_IMAP(2576);
-
-  static const kCFStringEncodingShiftJIS_X0213_00 =
-      kCFStringEncodingShiftJIS_X0213;
-
-  final int value;
-  const CFStringEncodings(this.value);
-
-  static CFStringEncodings fromValue(int value) => switch (value) {
-        1 => kCFStringEncodingMacJapanese,
-        2 => kCFStringEncodingMacChineseTrad,
-        3 => kCFStringEncodingMacKorean,
-        4 => kCFStringEncodingMacArabic,
-        5 => kCFStringEncodingMacHebrew,
-        6 => kCFStringEncodingMacGreek,
-        7 => kCFStringEncodingMacCyrillic,
-        9 => kCFStringEncodingMacDevanagari,
-        10 => kCFStringEncodingMacGurmukhi,
-        11 => kCFStringEncodingMacGujarati,
-        12 => kCFStringEncodingMacOriya,
-        13 => kCFStringEncodingMacBengali,
-        14 => kCFStringEncodingMacTamil,
-        15 => kCFStringEncodingMacTelugu,
-        16 => kCFStringEncodingMacKannada,
-        17 => kCFStringEncodingMacMalayalam,
-        18 => kCFStringEncodingMacSinhalese,
-        19 => kCFStringEncodingMacBurmese,
-        20 => kCFStringEncodingMacKhmer,
-        21 => kCFStringEncodingMacThai,
-        22 => kCFStringEncodingMacLaotian,
-        23 => kCFStringEncodingMacGeorgian,
-        24 => kCFStringEncodingMacArmenian,
-        25 => kCFStringEncodingMacChineseSimp,
-        26 => kCFStringEncodingMacTibetan,
-        27 => kCFStringEncodingMacMongolian,
-        28 => kCFStringEncodingMacEthiopic,
-        29 => kCFStringEncodingMacCentralEurRoman,
-        30 => kCFStringEncodingMacVietnamese,
-        31 => kCFStringEncodingMacExtArabic,
-        33 => kCFStringEncodingMacSymbol,
-        34 => kCFStringEncodingMacDingbats,
-        35 => kCFStringEncodingMacTurkish,
-        36 => kCFStringEncodingMacCroatian,
-        37 => kCFStringEncodingMacIcelandic,
-        38 => kCFStringEncodingMacRomanian,
-        39 => kCFStringEncodingMacCeltic,
-        40 => kCFStringEncodingMacGaelic,
-        140 => kCFStringEncodingMacFarsi,
-        152 => kCFStringEncodingMacUkrainian,
-        236 => kCFStringEncodingMacInuit,
-        252 => kCFStringEncodingMacVT100,
-        255 => kCFStringEncodingMacHFS,
-        514 => kCFStringEncodingISOLatin2,
-        515 => kCFStringEncodingISOLatin3,
-        516 => kCFStringEncodingISOLatin4,
-        517 => kCFStringEncodingISOLatinCyrillic,
-        518 => kCFStringEncodingISOLatinArabic,
-        519 => kCFStringEncodingISOLatinGreek,
-        520 => kCFStringEncodingISOLatinHebrew,
-        521 => kCFStringEncodingISOLatin5,
-        522 => kCFStringEncodingISOLatin6,
-        523 => kCFStringEncodingISOLatinThai,
-        525 => kCFStringEncodingISOLatin7,
-        526 => kCFStringEncodingISOLatin8,
-        527 => kCFStringEncodingISOLatin9,
-        528 => kCFStringEncodingISOLatin10,
-        1024 => kCFStringEncodingDOSLatinUS,
-        1029 => kCFStringEncodingDOSGreek,
-        1030 => kCFStringEncodingDOSBalticRim,
-        1040 => kCFStringEncodingDOSLatin1,
-        1041 => kCFStringEncodingDOSGreek1,
-        1042 => kCFStringEncodingDOSLatin2,
-        1043 => kCFStringEncodingDOSCyrillic,
-        1044 => kCFStringEncodingDOSTurkish,
-        1045 => kCFStringEncodingDOSPortuguese,
-        1046 => kCFStringEncodingDOSIcelandic,
-        1047 => kCFStringEncodingDOSHebrew,
-        1048 => kCFStringEncodingDOSCanadianFrench,
-        1049 => kCFStringEncodingDOSArabic,
-        1050 => kCFStringEncodingDOSNordic,
-        1051 => kCFStringEncodingDOSRussian,
-        1052 => kCFStringEncodingDOSGreek2,
-        1053 => kCFStringEncodingDOSThai,
-        1056 => kCFStringEncodingDOSJapanese,
-        1057 => kCFStringEncodingDOSChineseSimplif,
-        1058 => kCFStringEncodingDOSKorean,
-        1059 => kCFStringEncodingDOSChineseTrad,
-        1281 => kCFStringEncodingWindowsLatin2,
-        1282 => kCFStringEncodingWindowsCyrillic,
-        1283 => kCFStringEncodingWindowsGreek,
-        1284 => kCFStringEncodingWindowsLatin5,
-        1285 => kCFStringEncodingWindowsHebrew,
-        1286 => kCFStringEncodingWindowsArabic,
-        1287 => kCFStringEncodingWindowsBalticRim,
-        1288 => kCFStringEncodingWindowsVietnamese,
-        1296 => kCFStringEncodingWindowsKoreanJohab,
-        1537 => kCFStringEncodingANSEL,
-        1568 => kCFStringEncodingJIS_X0201_76,
-        1569 => kCFStringEncodingJIS_X0208_83,
-        1570 => kCFStringEncodingJIS_X0208_90,
-        1571 => kCFStringEncodingJIS_X0212_90,
-        1572 => kCFStringEncodingJIS_C6226_78,
-        1576 => kCFStringEncodingShiftJIS_X0213,
-        1577 => kCFStringEncodingShiftJIS_X0213_MenKuTen,
-        1584 => kCFStringEncodingGB_2312_80,
-        1585 => kCFStringEncodingGBK_95,
-        1586 => kCFStringEncodingGB_18030_2000,
-        1600 => kCFStringEncodingKSC_5601_87,
-        1601 => kCFStringEncodingKSC_5601_92_Johab,
-        1617 => kCFStringEncodingCNS_11643_92_P1,
-        1618 => kCFStringEncodingCNS_11643_92_P2,
-        1619 => kCFStringEncodingCNS_11643_92_P3,
-        2080 => kCFStringEncodingISO_2022_JP,
-        2081 => kCFStringEncodingISO_2022_JP_2,
-        2082 => kCFStringEncodingISO_2022_JP_1,
-        2083 => kCFStringEncodingISO_2022_JP_3,
-        2096 => kCFStringEncodingISO_2022_CN,
-        2097 => kCFStringEncodingISO_2022_CN_EXT,
-        2112 => kCFStringEncodingISO_2022_KR,
-        2336 => kCFStringEncodingEUC_JP,
-        2352 => kCFStringEncodingEUC_CN,
-        2353 => kCFStringEncodingEUC_TW,
-        2368 => kCFStringEncodingEUC_KR,
-        2561 => kCFStringEncodingShiftJIS,
-        2562 => kCFStringEncodingKOI8_R,
-        2563 => kCFStringEncodingBig5,
-        2564 => kCFStringEncodingMacRomanLatin1,
-        2565 => kCFStringEncodingHZ_GB_2312,
-        2566 => kCFStringEncodingBig5_HKSCS_1999,
-        2567 => kCFStringEncodingVISCII,
-        2568 => kCFStringEncodingKOI8_U,
-        2569 => kCFStringEncodingBig5_E,
-        2818 => kCFStringEncodingNextStepJapanese,
-        3073 => kCFStringEncodingEBCDIC_US,
-        3074 => kCFStringEncodingEBCDIC_CP037,
-        67109120 => kCFStringEncodingUTF7,
-        2576 => kCFStringEncodingUTF7_IMAP,
-        _ => throw ArgumentError("Unknown value for CFStringEncodings: $value"),
-      };
-
-  @override
-  String toString() {
-    if (this == kCFStringEncodingShiftJIS_X0213)
-      return "CFStringEncodings.kCFStringEncodingShiftJIS_X0213, CFStringEncodings.kCFStringEncodingShiftJIS_X0213_00";
-    return super.toString();
-  }
-}
-
 final class CFTreeContext extends ffi.Struct {
   @CFIndex()
   external int version;
@@ -54877,34 +52484,6 @@ typedef CFTreeApplierFunctionFunction = ffi.Void Function(
     ffi.Pointer<ffi.Void> value, ffi.Pointer<ffi.Void> context);
 typedef DartCFTreeApplierFunctionFunction = void Function(
     ffi.Pointer<ffi.Void> value, ffi.Pointer<ffi.Void> context);
-
-enum CFURLError {
-  kCFURLUnknownError(-10),
-  kCFURLUnknownSchemeError(-11),
-  kCFURLResourceNotFoundError(-12),
-  kCFURLResourceAccessViolationError(-13),
-  kCFURLRemoteHostUnavailableError(-14),
-  kCFURLImproperArgumentsError(-15),
-  kCFURLUnknownPropertyKeyError(-16),
-  kCFURLPropertyKeyUnavailableError(-17),
-  kCFURLTimeoutError(-18);
-
-  final int value;
-  const CFURLError(this.value);
-
-  static CFURLError fromValue(int value) => switch (value) {
-        -10 => kCFURLUnknownError,
-        -11 => kCFURLUnknownSchemeError,
-        -12 => kCFURLResourceNotFoundError,
-        -13 => kCFURLResourceAccessViolationError,
-        -14 => kCFURLRemoteHostUnavailableError,
-        -15 => kCFURLImproperArgumentsError,
-        -16 => kCFURLUnknownPropertyKeyError,
-        -17 => kCFURLPropertyKeyUnavailableError,
-        -18 => kCFURLTimeoutError,
-        _ => throw ArgumentError("Unknown value for CFURLError: $value"),
-      };
-}
 
 final class __CFUUID extends ffi.Opaque {}
 
@@ -55075,6 +52654,8 @@ typedef CFMutableAttributedStringRef = ffi.Pointer<__CFAttributedString>;
 
 final class __CFURLEnumerator extends ffi.Opaque {}
 
+typedef CFURLEnumeratorRef = ffi.Pointer<__CFURLEnumerator>;
+
 enum CFURLEnumeratorOptions {
   kCFURLEnumeratorDefaultBehavior(0),
   kCFURLEnumeratorDescendRecursively(1),
@@ -55101,8 +52682,6 @@ enum CFURLEnumeratorOptions {
             "Unknown value for CFURLEnumeratorOptions: $value"),
       };
 }
-
-typedef CFURLEnumeratorRef = ffi.Pointer<__CFURLEnumerator>;
 
 enum CFURLEnumeratorResult {
   kCFURLEnumeratorSuccess(1),
@@ -55251,6 +52830,43 @@ final class kauth_filesec extends ffi.Struct {
   external kauth_acl fsec_acl;
 }
 
+final class _acl extends ffi.Opaque {}
+
+final class _acl_entry extends ffi.Opaque {}
+
+final class _acl_permset extends ffi.Opaque {}
+
+final class _acl_flagset extends ffi.Opaque {}
+
+typedef acl_t = ffi.Pointer<_acl>;
+typedef acl_entry_t = ffi.Pointer<_acl_entry>;
+
+enum acl_type_t {
+  ACL_TYPE_EXTENDED(256),
+  ACL_TYPE_ACCESS(0),
+  ACL_TYPE_DEFAULT(1),
+  ACL_TYPE_AFS(2),
+  ACL_TYPE_CODA(3),
+  ACL_TYPE_NTFS(4),
+  ACL_TYPE_NWFS(5);
+
+  final int value;
+  const acl_type_t(this.value);
+
+  static acl_type_t fromValue(int value) => switch (value) {
+        256 => ACL_TYPE_EXTENDED,
+        0 => ACL_TYPE_ACCESS,
+        1 => ACL_TYPE_DEFAULT,
+        2 => ACL_TYPE_AFS,
+        3 => ACL_TYPE_CODA,
+        4 => ACL_TYPE_NTFS,
+        5 => ACL_TYPE_NWFS,
+        _ => throw ArgumentError("Unknown value for acl_type_t: $value"),
+      };
+}
+
+typedef acl_permset_t = ffi.Pointer<_acl_permset>;
+
 enum acl_perm_t {
   ACL_READ_DATA(2),
   ACL_WRITE_DATA(4),
@@ -55307,61 +52923,8 @@ enum acl_perm_t {
   }
 }
 
-enum acl_tag_t {
-  ACL_UNDEFINED_TAG(0),
-  ACL_EXTENDED_ALLOW(1),
-  ACL_EXTENDED_DENY(2);
-
-  final int value;
-  const acl_tag_t(this.value);
-
-  static acl_tag_t fromValue(int value) => switch (value) {
-        0 => ACL_UNDEFINED_TAG,
-        1 => ACL_EXTENDED_ALLOW,
-        2 => ACL_EXTENDED_DENY,
-        _ => throw ArgumentError("Unknown value for acl_tag_t: $value"),
-      };
-}
-
-enum acl_type_t {
-  ACL_TYPE_EXTENDED(256),
-  ACL_TYPE_ACCESS(0),
-  ACL_TYPE_DEFAULT(1),
-  ACL_TYPE_AFS(2),
-  ACL_TYPE_CODA(3),
-  ACL_TYPE_NTFS(4),
-  ACL_TYPE_NWFS(5);
-
-  final int value;
-  const acl_type_t(this.value);
-
-  static acl_type_t fromValue(int value) => switch (value) {
-        256 => ACL_TYPE_EXTENDED,
-        0 => ACL_TYPE_ACCESS,
-        1 => ACL_TYPE_DEFAULT,
-        2 => ACL_TYPE_AFS,
-        3 => ACL_TYPE_CODA,
-        4 => ACL_TYPE_NTFS,
-        5 => ACL_TYPE_NWFS,
-        _ => throw ArgumentError("Unknown value for acl_type_t: $value"),
-      };
-}
-
-enum acl_entry_id_t {
-  ACL_FIRST_ENTRY(0),
-  ACL_NEXT_ENTRY(-1),
-  ACL_LAST_ENTRY(-2);
-
-  final int value;
-  const acl_entry_id_t(this.value);
-
-  static acl_entry_id_t fromValue(int value) => switch (value) {
-        0 => ACL_FIRST_ENTRY,
-        -1 => ACL_NEXT_ENTRY,
-        -2 => ACL_LAST_ENTRY,
-        _ => throw ArgumentError("Unknown value for acl_entry_id_t: $value"),
-      };
-}
+typedef acl_permset_mask_t = u_int64_t;
+typedef acl_flagset_t = ffi.Pointer<_acl_flagset>;
 
 enum acl_flag_t {
   ACL_FLAG_DEFER_INHERIT(1),
@@ -55387,19 +52950,21 @@ enum acl_flag_t {
       };
 }
 
-final class _acl extends ffi.Opaque {}
+enum acl_tag_t {
+  ACL_UNDEFINED_TAG(0),
+  ACL_EXTENDED_ALLOW(1),
+  ACL_EXTENDED_DENY(2);
 
-final class _acl_entry extends ffi.Opaque {}
+  final int value;
+  const acl_tag_t(this.value);
 
-final class _acl_permset extends ffi.Opaque {}
-
-final class _acl_flagset extends ffi.Opaque {}
-
-typedef acl_t = ffi.Pointer<_acl>;
-typedef acl_entry_t = ffi.Pointer<_acl_entry>;
-typedef acl_permset_t = ffi.Pointer<_acl_permset>;
-typedef acl_permset_mask_t = u_int64_t;
-typedef acl_flagset_t = ffi.Pointer<_acl_flagset>;
+  static acl_tag_t fromValue(int value) => switch (value) {
+        0 => ACL_UNDEFINED_TAG,
+        1 => ACL_EXTENDED_ALLOW,
+        2 => ACL_EXTENDED_DENY,
+        _ => throw ArgumentError("Unknown value for acl_tag_t: $value"),
+      };
+}
 
 final class __CFFileSecurity extends ffi.Opaque {}
 
@@ -55430,6 +52995,8 @@ enum CFFileSecurityClearOptions {
 
 final class __CFStringTokenizer extends ffi.Opaque {}
 
+typedef CFStringTokenizerRef = ffi.Pointer<__CFStringTokenizer>;
+
 enum CFStringTokenizerTokenType {
   kCFStringTokenizerTokenNone(0),
   kCFStringTokenizerTokenNormal(1),
@@ -55454,8 +53021,6 @@ enum CFStringTokenizerTokenType {
             "Unknown value for CFStringTokenizerTokenType: $value"),
       };
 }
-
-typedef CFStringTokenizerRef = ffi.Pointer<__CFStringTokenizer>;
 
 final class __CFFileDescriptor extends ffi.Opaque {}
 
@@ -55503,46 +53068,6 @@ typedef DartCFUserNotificationCallBackFunction = void Function(
     CFUserNotificationRef userNotification, DartCFOptionFlags responseFlags);
 
 final class __CFXMLNode extends ffi.Opaque {}
-
-enum CFXMLNodeTypeCode {
-  kCFXMLNodeTypeDocument(1),
-  kCFXMLNodeTypeElement(2),
-  kCFXMLNodeTypeAttribute(3),
-  kCFXMLNodeTypeProcessingInstruction(4),
-  kCFXMLNodeTypeComment(5),
-  kCFXMLNodeTypeText(6),
-  kCFXMLNodeTypeCDATASection(7),
-  kCFXMLNodeTypeDocumentFragment(8),
-  kCFXMLNodeTypeEntity(9),
-  kCFXMLNodeTypeEntityReference(10),
-  kCFXMLNodeTypeDocumentType(11),
-  kCFXMLNodeTypeWhitespace(12),
-  kCFXMLNodeTypeNotation(13),
-  kCFXMLNodeTypeElementTypeDeclaration(14),
-  kCFXMLNodeTypeAttributeListDeclaration(15);
-
-  final int value;
-  const CFXMLNodeTypeCode(this.value);
-
-  static CFXMLNodeTypeCode fromValue(int value) => switch (value) {
-        1 => kCFXMLNodeTypeDocument,
-        2 => kCFXMLNodeTypeElement,
-        3 => kCFXMLNodeTypeAttribute,
-        4 => kCFXMLNodeTypeProcessingInstruction,
-        5 => kCFXMLNodeTypeComment,
-        6 => kCFXMLNodeTypeText,
-        7 => kCFXMLNodeTypeCDATASection,
-        8 => kCFXMLNodeTypeDocumentFragment,
-        9 => kCFXMLNodeTypeEntity,
-        10 => kCFXMLNodeTypeEntityReference,
-        11 => kCFXMLNodeTypeDocumentType,
-        12 => kCFXMLNodeTypeWhitespace,
-        13 => kCFXMLNodeTypeNotation,
-        14 => kCFXMLNodeTypeElementTypeDeclaration,
-        15 => kCFXMLNodeTypeAttributeListDeclaration,
-        _ => throw ArgumentError("Unknown value for CFXMLNodeTypeCode: $value"),
-      };
-}
 
 final class CFXMLElementInfo extends ffi.Struct {
   external CFDictionaryRef attributes;
@@ -55600,6 +53125,20 @@ final class CFXMLAttributeListDeclarationInfo extends ffi.Struct {
   external ffi.Pointer<CFXMLAttributeDeclarationInfo> attributes;
 }
 
+final class CFXMLEntityInfo extends ffi.Struct {
+  @CFIndex()
+  external int entityTypeAsInt;
+
+  CFXMLEntityTypeCode get entityType =>
+      CFXMLEntityTypeCode.fromValue(entityTypeAsInt);
+
+  external CFStringRef replacementText;
+
+  external CFXMLExternalID entityID;
+
+  external CFStringRef notationName;
+}
+
 enum CFXMLEntityTypeCode {
   kCFXMLEntityTypeParameter(0),
   kCFXMLEntityTypeParsedInternal(1),
@@ -55621,20 +53160,6 @@ enum CFXMLEntityTypeCode {
       };
 }
 
-final class CFXMLEntityInfo extends ffi.Struct {
-  @CFIndex()
-  external int entityTypeAsInt;
-
-  CFXMLEntityTypeCode get entityType =>
-      CFXMLEntityTypeCode.fromValue(entityTypeAsInt);
-
-  external CFStringRef replacementText;
-
-  external CFXMLExternalID entityID;
-
-  external CFStringRef notationName;
-}
-
 final class CFXMLEntityReferenceInfo extends ffi.Struct {
   @CFIndex()
   external int entityTypeAsInt;
@@ -55644,83 +53169,50 @@ final class CFXMLEntityReferenceInfo extends ffi.Struct {
 }
 
 typedef CFXMLNodeRef = ffi.Pointer<__CFXMLNode>;
+
+enum CFXMLNodeTypeCode {
+  kCFXMLNodeTypeDocument(1),
+  kCFXMLNodeTypeElement(2),
+  kCFXMLNodeTypeAttribute(3),
+  kCFXMLNodeTypeProcessingInstruction(4),
+  kCFXMLNodeTypeComment(5),
+  kCFXMLNodeTypeText(6),
+  kCFXMLNodeTypeCDATASection(7),
+  kCFXMLNodeTypeDocumentFragment(8),
+  kCFXMLNodeTypeEntity(9),
+  kCFXMLNodeTypeEntityReference(10),
+  kCFXMLNodeTypeDocumentType(11),
+  kCFXMLNodeTypeWhitespace(12),
+  kCFXMLNodeTypeNotation(13),
+  kCFXMLNodeTypeElementTypeDeclaration(14),
+  kCFXMLNodeTypeAttributeListDeclaration(15);
+
+  final int value;
+  const CFXMLNodeTypeCode(this.value);
+
+  static CFXMLNodeTypeCode fromValue(int value) => switch (value) {
+        1 => kCFXMLNodeTypeDocument,
+        2 => kCFXMLNodeTypeElement,
+        3 => kCFXMLNodeTypeAttribute,
+        4 => kCFXMLNodeTypeProcessingInstruction,
+        5 => kCFXMLNodeTypeComment,
+        6 => kCFXMLNodeTypeText,
+        7 => kCFXMLNodeTypeCDATASection,
+        8 => kCFXMLNodeTypeDocumentFragment,
+        9 => kCFXMLNodeTypeEntity,
+        10 => kCFXMLNodeTypeEntityReference,
+        11 => kCFXMLNodeTypeDocumentType,
+        12 => kCFXMLNodeTypeWhitespace,
+        13 => kCFXMLNodeTypeNotation,
+        14 => kCFXMLNodeTypeElementTypeDeclaration,
+        15 => kCFXMLNodeTypeAttributeListDeclaration,
+        _ => throw ArgumentError("Unknown value for CFXMLNodeTypeCode: $value"),
+      };
+}
+
 typedef CFXMLTreeRef = CFTreeRef;
 
 final class __CFXMLParser extends ffi.Opaque {}
-
-enum CFXMLParserOptions {
-  kCFXMLParserValidateDocument(1),
-  kCFXMLParserSkipMetaData(2),
-  kCFXMLParserReplacePhysicalEntities(4),
-  kCFXMLParserSkipWhitespace(8),
-  kCFXMLParserResolveExternalEntities(16),
-  kCFXMLParserAddImpliedAttributes(32),
-  kCFXMLParserAllOptions(16777215),
-  kCFXMLParserNoOptions(0);
-
-  final int value;
-  const CFXMLParserOptions(this.value);
-
-  static CFXMLParserOptions fromValue(int value) => switch (value) {
-        1 => kCFXMLParserValidateDocument,
-        2 => kCFXMLParserSkipMetaData,
-        4 => kCFXMLParserReplacePhysicalEntities,
-        8 => kCFXMLParserSkipWhitespace,
-        16 => kCFXMLParserResolveExternalEntities,
-        32 => kCFXMLParserAddImpliedAttributes,
-        16777215 => kCFXMLParserAllOptions,
-        0 => kCFXMLParserNoOptions,
-        _ =>
-          throw ArgumentError("Unknown value for CFXMLParserOptions: $value"),
-      };
-}
-
-enum CFXMLParserStatusCode {
-  kCFXMLStatusParseNotBegun(-2),
-  kCFXMLStatusParseInProgress(-1),
-  kCFXMLStatusParseSuccessful(0),
-  kCFXMLErrorUnexpectedEOF(1),
-  kCFXMLErrorUnknownEncoding(2),
-  kCFXMLErrorEncodingConversionFailure(3),
-  kCFXMLErrorMalformedProcessingInstruction(4),
-  kCFXMLErrorMalformedDTD(5),
-  kCFXMLErrorMalformedName(6),
-  kCFXMLErrorMalformedCDSect(7),
-  kCFXMLErrorMalformedCloseTag(8),
-  kCFXMLErrorMalformedStartTag(9),
-  kCFXMLErrorMalformedDocument(10),
-  kCFXMLErrorElementlessDocument(11),
-  kCFXMLErrorMalformedComment(12),
-  kCFXMLErrorMalformedCharacterReference(13),
-  kCFXMLErrorMalformedParsedCharacterData(14),
-  kCFXMLErrorNoData(15);
-
-  final int value;
-  const CFXMLParserStatusCode(this.value);
-
-  static CFXMLParserStatusCode fromValue(int value) => switch (value) {
-        -2 => kCFXMLStatusParseNotBegun,
-        -1 => kCFXMLStatusParseInProgress,
-        0 => kCFXMLStatusParseSuccessful,
-        1 => kCFXMLErrorUnexpectedEOF,
-        2 => kCFXMLErrorUnknownEncoding,
-        3 => kCFXMLErrorEncodingConversionFailure,
-        4 => kCFXMLErrorMalformedProcessingInstruction,
-        5 => kCFXMLErrorMalformedDTD,
-        6 => kCFXMLErrorMalformedName,
-        7 => kCFXMLErrorMalformedCDSect,
-        8 => kCFXMLErrorMalformedCloseTag,
-        9 => kCFXMLErrorMalformedStartTag,
-        10 => kCFXMLErrorMalformedDocument,
-        11 => kCFXMLErrorElementlessDocument,
-        12 => kCFXMLErrorMalformedComment,
-        13 => kCFXMLErrorMalformedCharacterReference,
-        14 => kCFXMLErrorMalformedParsedCharacterData,
-        15 => kCFXMLErrorNoData,
-        _ => throw ArgumentError(
-            "Unknown value for CFXMLParserStatusCode: $value"),
-      };
-}
 
 final class CFXMLParserCallBacks extends ffi.Struct {
   @CFIndex()
@@ -55779,6 +53271,53 @@ typedef DartCFXMLParserHandleErrorCallBackFunction = DartBoolean Function(
     CFXMLParserRef parser,
     CFXMLParserStatusCode error,
     ffi.Pointer<ffi.Void> info);
+
+enum CFXMLParserStatusCode {
+  kCFXMLStatusParseNotBegun(-2),
+  kCFXMLStatusParseInProgress(-1),
+  kCFXMLStatusParseSuccessful(0),
+  kCFXMLErrorUnexpectedEOF(1),
+  kCFXMLErrorUnknownEncoding(2),
+  kCFXMLErrorEncodingConversionFailure(3),
+  kCFXMLErrorMalformedProcessingInstruction(4),
+  kCFXMLErrorMalformedDTD(5),
+  kCFXMLErrorMalformedName(6),
+  kCFXMLErrorMalformedCDSect(7),
+  kCFXMLErrorMalformedCloseTag(8),
+  kCFXMLErrorMalformedStartTag(9),
+  kCFXMLErrorMalformedDocument(10),
+  kCFXMLErrorElementlessDocument(11),
+  kCFXMLErrorMalformedComment(12),
+  kCFXMLErrorMalformedCharacterReference(13),
+  kCFXMLErrorMalformedParsedCharacterData(14),
+  kCFXMLErrorNoData(15);
+
+  final int value;
+  const CFXMLParserStatusCode(this.value);
+
+  static CFXMLParserStatusCode fromValue(int value) => switch (value) {
+        -2 => kCFXMLStatusParseNotBegun,
+        -1 => kCFXMLStatusParseInProgress,
+        0 => kCFXMLStatusParseSuccessful,
+        1 => kCFXMLErrorUnexpectedEOF,
+        2 => kCFXMLErrorUnknownEncoding,
+        3 => kCFXMLErrorEncodingConversionFailure,
+        4 => kCFXMLErrorMalformedProcessingInstruction,
+        5 => kCFXMLErrorMalformedDTD,
+        6 => kCFXMLErrorMalformedName,
+        7 => kCFXMLErrorMalformedCDSect,
+        8 => kCFXMLErrorMalformedCloseTag,
+        9 => kCFXMLErrorMalformedStartTag,
+        10 => kCFXMLErrorMalformedDocument,
+        11 => kCFXMLErrorElementlessDocument,
+        12 => kCFXMLErrorMalformedComment,
+        13 => kCFXMLErrorMalformedCharacterReference,
+        14 => kCFXMLErrorMalformedParsedCharacterData,
+        15 => kCFXMLErrorNoData,
+        _ => throw ArgumentError(
+            "Unknown value for CFXMLParserStatusCode: $value"),
+      };
+}
 
 final class CFXMLParserContext extends ffi.Struct {
   @CFIndex()
@@ -57170,23 +54709,6 @@ final class cssm_x509ext_basicConstraints extends ffi.Struct {
 
 typedef CSSM_X509_OPTION = CSSM_BOOL;
 
-enum extension_data_format {
-  CSSM_X509_DATAFORMAT_ENCODED(0),
-  CSSM_X509_DATAFORMAT_PARSED(1),
-  CSSM_X509_DATAFORMAT_PAIR(2);
-
-  final int value;
-  const extension_data_format(this.value);
-
-  static extension_data_format fromValue(int value) => switch (value) {
-        0 => CSSM_X509_DATAFORMAT_ENCODED,
-        1 => CSSM_X509_DATAFORMAT_PARSED,
-        2 => CSSM_X509_DATAFORMAT_PAIR,
-        _ => throw ArgumentError(
-            "Unknown value for extension_data_format: $value"),
-      };
-}
-
 final class cssm_x509_extensionTagAndValue extends ffi.Struct {
   @CSSM_BER_TAG()
   external int type;
@@ -57217,6 +54739,23 @@ final class cssm_x509_extension extends ffi.Struct {
   external cssm_x509ext_value value;
 
   external SecAsn1Item BERvalue;
+}
+
+enum extension_data_format {
+  CSSM_X509_DATAFORMAT_ENCODED(0),
+  CSSM_X509_DATAFORMAT_PARSED(1),
+  CSSM_X509_DATAFORMAT_PAIR(2);
+
+  final int value;
+  const extension_data_format(this.value);
+
+  static extension_data_format fromValue(int value) => switch (value) {
+        0 => CSSM_X509_DATAFORMAT_ENCODED,
+        1 => CSSM_X509_DATAFORMAT_PARSED,
+        2 => CSSM_X509_DATAFORMAT_PAIR,
+        _ => throw ArgumentError(
+            "Unknown value for extension_data_format: $value"),
+      };
 }
 
 final class cssm_x509ext_value extends ffi.Union {
@@ -57347,6 +54886,25 @@ final class cssm_x509_signed_crl extends ffi.Struct {
 
 typedef CSSM_X509_TBS_CERTLIST = cssm_x509_tbs_certlist;
 
+final class __CE_OtherName extends ffi.Struct {
+  external SecAsn1Oid typeId;
+
+  external SecAsn1Item value;
+}
+
+final class __CE_GeneralName extends ffi.Struct {
+  @ffi.UnsignedInt()
+  external int nameTypeAsInt;
+
+  __CE_GeneralNameType get nameType =>
+      __CE_GeneralNameType.fromValue(nameTypeAsInt);
+
+  @CSSM_BOOL()
+  external int berEncoded;
+
+  external SecAsn1Item name;
+}
+
 enum __CE_GeneralNameType {
   GNT_OtherName(0),
   GNT_RFC822Name(1),
@@ -57374,25 +54932,6 @@ enum __CE_GeneralNameType {
         _ =>
           throw ArgumentError("Unknown value for __CE_GeneralNameType: $value"),
       };
-}
-
-final class __CE_OtherName extends ffi.Struct {
-  external SecAsn1Oid typeId;
-
-  external SecAsn1Item value;
-}
-
-final class __CE_GeneralName extends ffi.Struct {
-  @ffi.UnsignedInt()
-  external int nameTypeAsInt;
-
-  __CE_GeneralNameType get nameType =>
-      __CE_GeneralNameType.fromValue(nameTypeAsInt);
-
-  @CSSM_BOOL()
-  external int berEncoded;
-
-  external SecAsn1Item name;
 }
 
 final class __CE_GeneralNames extends ffi.Struct {
@@ -57469,6 +55008,16 @@ final class __CE_CertPolicies extends ffi.Struct {
 
 typedef CE_PolicyInformation = __CE_PolicyInformation;
 
+final class __CE_DistributionPointName extends ffi.Struct {
+  @ffi.UnsignedInt()
+  external int nameTypeAsInt;
+
+  __CE_CrlDistributionPointNameType get nameType =>
+      __CE_CrlDistributionPointNameType.fromValue(nameTypeAsInt);
+
+  external UnnamedUnion5 dpn;
+}
+
 enum __CE_CrlDistributionPointNameType {
   CE_CDNT_FullName(0),
   CE_CDNT_NameRelativeToCrlIssuer(1);
@@ -57483,16 +55032,6 @@ enum __CE_CrlDistributionPointNameType {
         _ => throw ArgumentError(
             "Unknown value for __CE_CrlDistributionPointNameType: $value"),
       };
-}
-
-final class __CE_DistributionPointName extends ffi.Struct {
-  @ffi.UnsignedInt()
-  external int nameTypeAsInt;
-
-  __CE_CrlDistributionPointNameType get nameType =>
-      __CE_CrlDistributionPointNameType.fromValue(nameTypeAsInt);
-
-  external UnnamedUnion5 dpn;
 }
 
 final class UnnamedUnion5 extends ffi.Union {
@@ -57655,58 +55194,6 @@ final class __CE_PolicyConstraints extends ffi.Struct {
   external int inhibitPolicyMapping;
 }
 
-enum __CE_DataType {
-  DT_AuthorityKeyID(0),
-  DT_SubjectKeyID(1),
-  DT_KeyUsage(2),
-  DT_SubjectAltName(3),
-  DT_IssuerAltName(4),
-  DT_ExtendedKeyUsage(5),
-  DT_BasicConstraints(6),
-  DT_CertPolicies(7),
-  DT_NetscapeCertType(8),
-  DT_CrlNumber(9),
-  DT_DeltaCrl(10),
-  DT_CrlReason(11),
-  DT_CrlDistributionPoints(12),
-  DT_IssuingDistributionPoint(13),
-  DT_AuthorityInfoAccess(14),
-  DT_Other(15),
-  DT_QC_Statements(16),
-  DT_NameConstraints(17),
-  DT_PolicyMappings(18),
-  DT_PolicyConstraints(19),
-  DT_InhibitAnyPolicy(20);
-
-  final int value;
-  const __CE_DataType(this.value);
-
-  static __CE_DataType fromValue(int value) => switch (value) {
-        0 => DT_AuthorityKeyID,
-        1 => DT_SubjectKeyID,
-        2 => DT_KeyUsage,
-        3 => DT_SubjectAltName,
-        4 => DT_IssuerAltName,
-        5 => DT_ExtendedKeyUsage,
-        6 => DT_BasicConstraints,
-        7 => DT_CertPolicies,
-        8 => DT_NetscapeCertType,
-        9 => DT_CrlNumber,
-        10 => DT_DeltaCrl,
-        11 => DT_CrlReason,
-        12 => DT_CrlDistributionPoints,
-        13 => DT_IssuingDistributionPoint,
-        14 => DT_AuthorityInfoAccess,
-        15 => DT_Other,
-        16 => DT_QC_Statements,
-        17 => DT_NameConstraints,
-        18 => DT_PolicyMappings,
-        19 => DT_PolicyConstraints,
-        20 => DT_InhibitAnyPolicy,
-        _ => throw ArgumentError("Unknown value for __CE_DataType: $value"),
-      };
-}
-
 final class CE_Data extends ffi.Union {
   external CE_AuthorityKeyID authorityKeyID;
 
@@ -57788,6 +55275,58 @@ final class __CE_DataAndType extends ffi.Struct {
   external int critical;
 }
 
+enum __CE_DataType {
+  DT_AuthorityKeyID(0),
+  DT_SubjectKeyID(1),
+  DT_KeyUsage(2),
+  DT_SubjectAltName(3),
+  DT_IssuerAltName(4),
+  DT_ExtendedKeyUsage(5),
+  DT_BasicConstraints(6),
+  DT_CertPolicies(7),
+  DT_NetscapeCertType(8),
+  DT_CrlNumber(9),
+  DT_DeltaCrl(10),
+  DT_CrlReason(11),
+  DT_CrlDistributionPoints(12),
+  DT_IssuingDistributionPoint(13),
+  DT_AuthorityInfoAccess(14),
+  DT_Other(15),
+  DT_QC_Statements(16),
+  DT_NameConstraints(17),
+  DT_PolicyMappings(18),
+  DT_PolicyConstraints(19),
+  DT_InhibitAnyPolicy(20);
+
+  final int value;
+  const __CE_DataType(this.value);
+
+  static __CE_DataType fromValue(int value) => switch (value) {
+        0 => DT_AuthorityKeyID,
+        1 => DT_SubjectKeyID,
+        2 => DT_KeyUsage,
+        3 => DT_SubjectAltName,
+        4 => DT_IssuerAltName,
+        5 => DT_ExtendedKeyUsage,
+        6 => DT_BasicConstraints,
+        7 => DT_CertPolicies,
+        8 => DT_NetscapeCertType,
+        9 => DT_CrlNumber,
+        10 => DT_DeltaCrl,
+        11 => DT_CrlReason,
+        12 => DT_CrlDistributionPoints,
+        13 => DT_IssuingDistributionPoint,
+        14 => DT_AuthorityInfoAccess,
+        15 => DT_Other,
+        16 => DT_QC_Statements,
+        17 => DT_NameConstraints,
+        18 => DT_PolicyMappings,
+        19 => DT_PolicyConstraints,
+        20 => DT_InhibitAnyPolicy,
+        _ => throw ArgumentError("Unknown value for __CE_DataType: $value"),
+      };
+}
+
 final class cssm_acl_process_subject_selector extends ffi.Struct {
   @uint16()
   external int version;
@@ -57808,20 +55347,6 @@ final class cssm_acl_keychain_prompt_selector extends ffi.Struct {
 
   @uint16()
   external int flags;
-}
-
-enum cssm_appledl_open_parameters_mask {
-  kCSSM_APPLEDL_MASK_MODE(1);
-
-  final int value;
-  const cssm_appledl_open_parameters_mask(this.value);
-
-  static cssm_appledl_open_parameters_mask fromValue(int value) =>
-      switch (value) {
-        1 => kCSSM_APPLEDL_MASK_MODE,
-        _ => throw ArgumentError(
-            "Unknown value for cssm_appledl_open_parameters_mask: $value"),
-      };
 }
 
 final class cssm_appledl_open_parameters extends ffi.Struct {
@@ -58007,6 +55532,10 @@ final class CSSM_APPLE_CL_CSR_REQUEST extends ffi.Struct {
   external ffi.Pointer<ffi.Char> challengeString;
 }
 
+final class __SecTrust extends ffi.Opaque {}
+
+typedef SecTrustRef = ffi.Pointer<__SecTrust>;
+
 enum SecTrustResultType {
   kSecTrustResultInvalid(0),
   kSecTrustResultProceed(1),
@@ -58034,9 +55563,6 @@ enum SecTrustResultType {
       };
 }
 
-final class __SecTrust extends ffi.Opaque {}
-
-typedef SecTrustRef = ffi.Pointer<__SecTrust>;
 typedef SecTrustCallback = ffi.Pointer<objc.ObjCBlockImpl>;
 typedef DartSecTrustCallback
     = objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__SecTrust>, ffi.Uint32)>;
@@ -58338,74 +55864,9 @@ enum SecTrustOptionFlags {
 typedef CSSM_TP_VERIFY_CONTEXT_RESULT_PTR
     = ffi.Pointer<cssm_tp_verify_context_result>;
 typedef SecKeychainRef = ffi.Pointer<__SecKeychain>;
-
-enum SecKeyUsage {
-  kSecKeyUsageUnspecified(0),
-  kSecKeyUsageDigitalSignature(1),
-  kSecKeyUsageNonRepudiation(2),
-  kSecKeyUsageKeyEncipherment(4),
-  kSecKeyUsageDataEncipherment(8),
-  kSecKeyUsageKeyAgreement(16),
-  kSecKeyUsageKeyCertSign(32),
-  kSecKeyUsageCRLSign(64),
-  kSecKeyUsageEncipherOnly(128),
-  kSecKeyUsageDecipherOnly(256),
-  kSecKeyUsageCritical(-2147483648),
-  kSecKeyUsageAll(2147483647);
-
-  static const kSecKeyUsageContentCommitment = kSecKeyUsageNonRepudiation;
-
-  final int value;
-  const SecKeyUsage(this.value);
-
-  static SecKeyUsage fromValue(int value) => switch (value) {
-        0 => kSecKeyUsageUnspecified,
-        1 => kSecKeyUsageDigitalSignature,
-        2 => kSecKeyUsageNonRepudiation,
-        4 => kSecKeyUsageKeyEncipherment,
-        8 => kSecKeyUsageDataEncipherment,
-        16 => kSecKeyUsageKeyAgreement,
-        32 => kSecKeyUsageKeyCertSign,
-        64 => kSecKeyUsageCRLSign,
-        128 => kSecKeyUsageEncipherOnly,
-        256 => kSecKeyUsageDecipherOnly,
-        -2147483648 => kSecKeyUsageCritical,
-        2147483647 => kSecKeyUsageAll,
-        _ => throw ArgumentError("Unknown value for SecKeyUsage: $value"),
-      };
-
-  @override
-  String toString() {
-    if (this == kSecKeyUsageNonRepudiation)
-      return "SecKeyUsage.kSecKeyUsageNonRepudiation, SecKeyUsage.kSecKeyUsageContentCommitment";
-    return super.toString();
-  }
-}
-
 typedef SecIdentityRef = ffi.Pointer<__SecIdentity>;
 typedef SSLCipherSuite = ffi.Uint16;
 typedef DartSSLCipherSuite = int;
-
-enum SSLCiphersuiteGroup {
-  kSSLCiphersuiteGroupDefault(0),
-  kSSLCiphersuiteGroupCompatibility(1),
-  kSSLCiphersuiteGroupLegacy(2),
-  kSSLCiphersuiteGroupATS(3),
-  kSSLCiphersuiteGroupATSCompatibility(4);
-
-  final int value;
-  const SSLCiphersuiteGroup(this.value);
-
-  static SSLCiphersuiteGroup fromValue(int value) => switch (value) {
-        0 => kSSLCiphersuiteGroupDefault,
-        1 => kSSLCiphersuiteGroupCompatibility,
-        2 => kSSLCiphersuiteGroupLegacy,
-        3 => kSSLCiphersuiteGroupATS,
-        4 => kSSLCiphersuiteGroupATSCompatibility,
-        _ =>
-          throw ArgumentError("Unknown value for SSLCiphersuiteGroup: $value"),
-      };
-}
 
 /// OS_sec_trust
 abstract final class OS_sec_trust {
@@ -58464,149 +55925,6 @@ abstract final class OS_sec_certificate {
 
 late final _protocol_OS_sec_certificate =
     objc.getProtocol("OS_sec_certificate");
-
-enum tls_protocol_version_t {
-  tls_protocol_version_TLSv10(769),
-  tls_protocol_version_TLSv11(770),
-  tls_protocol_version_TLSv12(771),
-  tls_protocol_version_TLSv13(772),
-  tls_protocol_version_DTLSv10(-257),
-  tls_protocol_version_DTLSv12(-259);
-
-  final int value;
-  const tls_protocol_version_t(this.value);
-
-  static tls_protocol_version_t fromValue(int value) => switch (value) {
-        769 => tls_protocol_version_TLSv10,
-        770 => tls_protocol_version_TLSv11,
-        771 => tls_protocol_version_TLSv12,
-        772 => tls_protocol_version_TLSv13,
-        -257 => tls_protocol_version_DTLSv10,
-        -259 => tls_protocol_version_DTLSv12,
-        _ => throw ArgumentError(
-            "Unknown value for tls_protocol_version_t: $value"),
-      };
-}
-
-enum tls_ciphersuite_t {
-  tls_ciphersuite_RSA_WITH_3DES_EDE_CBC_SHA(10),
-  tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA(47),
-  tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA(53),
-  tls_ciphersuite_RSA_WITH_AES_128_GCM_SHA256(156),
-  tls_ciphersuite_RSA_WITH_AES_256_GCM_SHA384(157),
-  tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA256(60),
-  tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA256(61),
-  tls_ciphersuite_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA(-16376),
-  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA(-16375),
-  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA(-16374),
-  tls_ciphersuite_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA(-16366),
-  tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA(-16365),
-  tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA(-16364),
-  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256(-16349),
-  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384(-16348),
-  tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA256(-16345),
-  tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA384(-16344),
-  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256(-16341),
-  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384(-16340),
-  tls_ciphersuite_ECDHE_RSA_WITH_AES_128_GCM_SHA256(-16337),
-  tls_ciphersuite_ECDHE_RSA_WITH_AES_256_GCM_SHA384(-16336),
-  tls_ciphersuite_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256(-13144),
-  tls_ciphersuite_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256(-13143),
-  tls_ciphersuite_AES_128_GCM_SHA256(4865),
-  tls_ciphersuite_AES_256_GCM_SHA384(4866),
-  tls_ciphersuite_CHACHA20_POLY1305_SHA256(4867);
-
-  final int value;
-  const tls_ciphersuite_t(this.value);
-
-  static tls_ciphersuite_t fromValue(int value) => switch (value) {
-        10 => tls_ciphersuite_RSA_WITH_3DES_EDE_CBC_SHA,
-        47 => tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA,
-        53 => tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA,
-        156 => tls_ciphersuite_RSA_WITH_AES_128_GCM_SHA256,
-        157 => tls_ciphersuite_RSA_WITH_AES_256_GCM_SHA384,
-        60 => tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA256,
-        61 => tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA256,
-        -16376 => tls_ciphersuite_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,
-        -16375 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
-        -16374 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
-        -16366 => tls_ciphersuite_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,
-        -16365 => tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA,
-        -16364 => tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA,
-        -16349 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
-        -16348 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,
-        -16345 => tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
-        -16344 => tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA384,
-        -16341 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-        -16340 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
-        -16337 => tls_ciphersuite_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-        -16336 => tls_ciphersuite_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-        -13144 => tls_ciphersuite_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
-        -13143 => tls_ciphersuite_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
-        4865 => tls_ciphersuite_AES_128_GCM_SHA256,
-        4866 => tls_ciphersuite_AES_256_GCM_SHA384,
-        4867 => tls_ciphersuite_CHACHA20_POLY1305_SHA256,
-        _ => throw ArgumentError("Unknown value for tls_ciphersuite_t: $value"),
-      };
-}
-
-enum tls_ciphersuite_group_t {
-  tls_ciphersuite_group_default(0),
-  tls_ciphersuite_group_compatibility(1),
-  tls_ciphersuite_group_legacy(2),
-  tls_ciphersuite_group_ats(3),
-  tls_ciphersuite_group_ats_compatibility(4);
-
-  final int value;
-  const tls_ciphersuite_group_t(this.value);
-
-  static tls_ciphersuite_group_t fromValue(int value) => switch (value) {
-        0 => tls_ciphersuite_group_default,
-        1 => tls_ciphersuite_group_compatibility,
-        2 => tls_ciphersuite_group_legacy,
-        3 => tls_ciphersuite_group_ats,
-        4 => tls_ciphersuite_group_ats_compatibility,
-        _ => throw ArgumentError(
-            "Unknown value for tls_ciphersuite_group_t: $value"),
-      };
-}
-
-enum SSLProtocol {
-  kSSLProtocolUnknown(0),
-  kTLSProtocol1(4),
-  kTLSProtocol11(7),
-  kTLSProtocol12(8),
-  kDTLSProtocol1(9),
-  kTLSProtocol13(10),
-  kDTLSProtocol12(11),
-  kTLSProtocolMaxSupported(999),
-  kSSLProtocol2(1),
-  kSSLProtocol3(2),
-  kSSLProtocol3Only(3),
-  kTLSProtocol1Only(5),
-  kSSLProtocolAll(6);
-
-  final int value;
-  const SSLProtocol(this.value);
-
-  static SSLProtocol fromValue(int value) => switch (value) {
-        0 => kSSLProtocolUnknown,
-        4 => kTLSProtocol1,
-        7 => kTLSProtocol11,
-        8 => kTLSProtocol12,
-        9 => kDTLSProtocol1,
-        10 => kTLSProtocol13,
-        11 => kDTLSProtocol12,
-        999 => kTLSProtocolMaxSupported,
-        1 => kSSLProtocol2,
-        2 => kSSLProtocol3,
-        3 => kSSLProtocol3Only,
-        5 => kTLSProtocol1Only,
-        6 => kSSLProtocolAll,
-        _ => throw ArgumentError("Unknown value for SSLProtocol: $value"),
-      };
-}
-
 typedef sec_trust_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartsec_trust_t = objc.NSObject;
 typedef sec_identity_t = ffi.Pointer<objc.ObjCObject>;
@@ -58745,6 +56063,128 @@ late final _protocol_OS_sec_protocol_metadata =
     objc.getProtocol("OS_sec_protocol_metadata");
 typedef sec_protocol_metadata_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartsec_protocol_metadata_t = objc.NSObject;
+
+enum tls_protocol_version_t {
+  tls_protocol_version_TLSv10(769),
+  tls_protocol_version_TLSv11(770),
+  tls_protocol_version_TLSv12(771),
+  tls_protocol_version_TLSv13(772),
+  tls_protocol_version_DTLSv10(-257),
+  tls_protocol_version_DTLSv12(-259);
+
+  final int value;
+  const tls_protocol_version_t(this.value);
+
+  static tls_protocol_version_t fromValue(int value) => switch (value) {
+        769 => tls_protocol_version_TLSv10,
+        770 => tls_protocol_version_TLSv11,
+        771 => tls_protocol_version_TLSv12,
+        772 => tls_protocol_version_TLSv13,
+        -257 => tls_protocol_version_DTLSv10,
+        -259 => tls_protocol_version_DTLSv12,
+        _ => throw ArgumentError(
+            "Unknown value for tls_protocol_version_t: $value"),
+      };
+}
+
+enum SSLProtocol {
+  kSSLProtocolUnknown(0),
+  kTLSProtocol1(4),
+  kTLSProtocol11(7),
+  kTLSProtocol12(8),
+  kDTLSProtocol1(9),
+  kTLSProtocol13(10),
+  kDTLSProtocol12(11),
+  kTLSProtocolMaxSupported(999),
+  kSSLProtocol2(1),
+  kSSLProtocol3(2),
+  kSSLProtocol3Only(3),
+  kTLSProtocol1Only(5),
+  kSSLProtocolAll(6);
+
+  final int value;
+  const SSLProtocol(this.value);
+
+  static SSLProtocol fromValue(int value) => switch (value) {
+        0 => kSSLProtocolUnknown,
+        4 => kTLSProtocol1,
+        7 => kTLSProtocol11,
+        8 => kTLSProtocol12,
+        9 => kDTLSProtocol1,
+        10 => kTLSProtocol13,
+        11 => kDTLSProtocol12,
+        999 => kTLSProtocolMaxSupported,
+        1 => kSSLProtocol2,
+        2 => kSSLProtocol3,
+        3 => kSSLProtocol3Only,
+        5 => kTLSProtocol1Only,
+        6 => kSSLProtocolAll,
+        _ => throw ArgumentError("Unknown value for SSLProtocol: $value"),
+      };
+}
+
+enum tls_ciphersuite_t {
+  tls_ciphersuite_RSA_WITH_3DES_EDE_CBC_SHA(10),
+  tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA(47),
+  tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA(53),
+  tls_ciphersuite_RSA_WITH_AES_128_GCM_SHA256(156),
+  tls_ciphersuite_RSA_WITH_AES_256_GCM_SHA384(157),
+  tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA256(60),
+  tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA256(61),
+  tls_ciphersuite_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA(-16376),
+  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA(-16375),
+  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA(-16374),
+  tls_ciphersuite_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA(-16366),
+  tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA(-16365),
+  tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA(-16364),
+  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256(-16349),
+  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384(-16348),
+  tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA256(-16345),
+  tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA384(-16344),
+  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256(-16341),
+  tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384(-16340),
+  tls_ciphersuite_ECDHE_RSA_WITH_AES_128_GCM_SHA256(-16337),
+  tls_ciphersuite_ECDHE_RSA_WITH_AES_256_GCM_SHA384(-16336),
+  tls_ciphersuite_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256(-13144),
+  tls_ciphersuite_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256(-13143),
+  tls_ciphersuite_AES_128_GCM_SHA256(4865),
+  tls_ciphersuite_AES_256_GCM_SHA384(4866),
+  tls_ciphersuite_CHACHA20_POLY1305_SHA256(4867);
+
+  final int value;
+  const tls_ciphersuite_t(this.value);
+
+  static tls_ciphersuite_t fromValue(int value) => switch (value) {
+        10 => tls_ciphersuite_RSA_WITH_3DES_EDE_CBC_SHA,
+        47 => tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA,
+        53 => tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA,
+        156 => tls_ciphersuite_RSA_WITH_AES_128_GCM_SHA256,
+        157 => tls_ciphersuite_RSA_WITH_AES_256_GCM_SHA384,
+        60 => tls_ciphersuite_RSA_WITH_AES_128_CBC_SHA256,
+        61 => tls_ciphersuite_RSA_WITH_AES_256_CBC_SHA256,
+        -16376 => tls_ciphersuite_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA,
+        -16375 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
+        -16374 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
+        -16366 => tls_ciphersuite_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA,
+        -16365 => tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA,
+        -16364 => tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA,
+        -16349 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
+        -16348 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,
+        -16345 => tls_ciphersuite_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
+        -16344 => tls_ciphersuite_ECDHE_RSA_WITH_AES_256_CBC_SHA384,
+        -16341 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+        -16340 => tls_ciphersuite_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
+        -16337 => tls_ciphersuite_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+        -16336 => tls_ciphersuite_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+        -13144 => tls_ciphersuite_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
+        -13143 => tls_ciphersuite_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+        4865 => tls_ciphersuite_AES_128_GCM_SHA256,
+        4866 => tls_ciphersuite_AES_256_GCM_SHA384,
+        4867 => tls_ciphersuite_CHACHA20_POLY1305_SHA256,
+        _ => throw ArgumentError("Unknown value for tls_ciphersuite_t: $value"),
+      };
+}
+
 void _ObjCBlock_ffiVoid_Uint16_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block, int arg0) =>
     block.ref.target
@@ -59003,6 +56443,49 @@ late final _protocol_OS_sec_protocol_options =
     objc.getProtocol("OS_sec_protocol_options");
 typedef sec_protocol_options_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartsec_protocol_options_t = objc.NSObject;
+
+enum tls_ciphersuite_group_t {
+  tls_ciphersuite_group_default(0),
+  tls_ciphersuite_group_compatibility(1),
+  tls_ciphersuite_group_legacy(2),
+  tls_ciphersuite_group_ats(3),
+  tls_ciphersuite_group_ats_compatibility(4);
+
+  final int value;
+  const tls_ciphersuite_group_t(this.value);
+
+  static tls_ciphersuite_group_t fromValue(int value) => switch (value) {
+        0 => tls_ciphersuite_group_default,
+        1 => tls_ciphersuite_group_compatibility,
+        2 => tls_ciphersuite_group_legacy,
+        3 => tls_ciphersuite_group_ats,
+        4 => tls_ciphersuite_group_ats_compatibility,
+        _ => throw ArgumentError(
+            "Unknown value for tls_ciphersuite_group_t: $value"),
+      };
+}
+
+enum SSLCiphersuiteGroup {
+  kSSLCiphersuiteGroupDefault(0),
+  kSSLCiphersuiteGroupCompatibility(1),
+  kSSLCiphersuiteGroupLegacy(2),
+  kSSLCiphersuiteGroupATS(3),
+  kSSLCiphersuiteGroupATSCompatibility(4);
+
+  final int value;
+  const SSLCiphersuiteGroup(this.value);
+
+  static SSLCiphersuiteGroup fromValue(int value) => switch (value) {
+        0 => kSSLCiphersuiteGroupDefault,
+        1 => kSSLCiphersuiteGroupCompatibility,
+        2 => kSSLCiphersuiteGroupLegacy,
+        3 => kSSLCiphersuiteGroupATS,
+        4 => kSSLCiphersuiteGroupATSCompatibility,
+        _ =>
+          throw ArgumentError("Unknown value for SSLCiphersuiteGroup: $value"),
+      };
+}
+
 typedef sec_protocol_pre_shared_key_selection_t
     = ffi.Pointer<objc.ObjCBlockImpl>;
 typedef Dartsec_protocol_pre_shared_key_selection_t = objc.ObjCBlock<
@@ -59833,6 +57316,56 @@ extension ObjCBlock_ffiVoid_bool_CallExtension
 
 final class SSLContext extends ffi.Opaque {}
 
+typedef SSLContextRef = ffi.Pointer<SSLContext>;
+
+enum SSLProtocolSide {
+  kSSLServerSide(0),
+  kSSLClientSide(1);
+
+  final int value;
+  const SSLProtocolSide(this.value);
+
+  static SSLProtocolSide fromValue(int value) => switch (value) {
+        0 => kSSLServerSide,
+        1 => kSSLClientSide,
+        _ => throw ArgumentError("Unknown value for SSLProtocolSide: $value"),
+      };
+}
+
+enum SSLConnectionType {
+  kSSLStreamType(0),
+  kSSLDatagramType(1);
+
+  final int value;
+  const SSLConnectionType(this.value);
+
+  static SSLConnectionType fromValue(int value) => switch (value) {
+        0 => kSSLStreamType,
+        1 => kSSLDatagramType,
+        _ => throw ArgumentError("Unknown value for SSLConnectionType: $value"),
+      };
+}
+
+enum SSLSessionState {
+  kSSLIdle(0),
+  kSSLHandshake(1),
+  kSSLConnected(2),
+  kSSLClosed(3),
+  kSSLAborted(4);
+
+  final int value;
+  const SSLSessionState(this.value);
+
+  static SSLSessionState fromValue(int value) => switch (value) {
+        0 => kSSLIdle,
+        1 => kSSLHandshake,
+        2 => kSSLConnected,
+        3 => kSSLClosed,
+        4 => kSSLAborted,
+        _ => throw ArgumentError("Unknown value for SSLSessionState: $value"),
+      };
+}
+
 enum SSLSessionOption {
   kSSLSessionOptionBreakOnServerAuth(0),
   kSSLSessionOptionBreakOnCertRequested(1),
@@ -59863,74 +57396,6 @@ enum SSLSessionOption {
       };
 }
 
-enum SSLSessionState {
-  kSSLIdle(0),
-  kSSLHandshake(1),
-  kSSLConnected(2),
-  kSSLClosed(3),
-  kSSLAborted(4);
-
-  final int value;
-  const SSLSessionState(this.value);
-
-  static SSLSessionState fromValue(int value) => switch (value) {
-        0 => kSSLIdle,
-        1 => kSSLHandshake,
-        2 => kSSLConnected,
-        3 => kSSLClosed,
-        4 => kSSLAborted,
-        _ => throw ArgumentError("Unknown value for SSLSessionState: $value"),
-      };
-}
-
-enum SSLClientCertificateState {
-  kSSLClientCertNone(0),
-  kSSLClientCertRequested(1),
-  kSSLClientCertSent(2),
-  kSSLClientCertRejected(3);
-
-  final int value;
-  const SSLClientCertificateState(this.value);
-
-  static SSLClientCertificateState fromValue(int value) => switch (value) {
-        0 => kSSLClientCertNone,
-        1 => kSSLClientCertRequested,
-        2 => kSSLClientCertSent,
-        3 => kSSLClientCertRejected,
-        _ => throw ArgumentError(
-            "Unknown value for SSLClientCertificateState: $value"),
-      };
-}
-
-enum SSLProtocolSide {
-  kSSLServerSide(0),
-  kSSLClientSide(1);
-
-  final int value;
-  const SSLProtocolSide(this.value);
-
-  static SSLProtocolSide fromValue(int value) => switch (value) {
-        0 => kSSLServerSide,
-        1 => kSSLClientSide,
-        _ => throw ArgumentError("Unknown value for SSLProtocolSide: $value"),
-      };
-}
-
-enum SSLConnectionType {
-  kSSLStreamType(0),
-  kSSLDatagramType(1);
-
-  final int value;
-  const SSLConnectionType(this.value);
-
-  static SSLConnectionType fromValue(int value) => switch (value) {
-        0 => kSSLStreamType,
-        1 => kSSLDatagramType,
-        _ => throw ArgumentError("Unknown value for SSLConnectionType: $value"),
-      };
-}
-
-typedef SSLContextRef = ffi.Pointer<SSLContext>;
 typedef SSLReadFunc = ffi.Pointer<ffi.NativeFunction<SSLReadFuncFunction>>;
 typedef SSLReadFuncFunction = OSStatus Function(SSLConnectionRef connection,
     ffi.Pointer<ffi.Void> data, ffi.Pointer<ffi.Size> dataLength);
@@ -59960,6 +57425,25 @@ enum SSLAuthenticate {
         1 => kAlwaysAuthenticate,
         2 => kTryAuthenticate,
         _ => throw ArgumentError("Unknown value for SSLAuthenticate: $value"),
+      };
+}
+
+enum SSLClientCertificateState {
+  kSSLClientCertNone(0),
+  kSSLClientCertRequested(1),
+  kSSLClientCertSent(2),
+  kSSLClientCertRejected(3);
+
+  final int value;
+  const SSLClientCertificateState(this.value);
+
+  static SSLClientCertificateState fromValue(int value) => switch (value) {
+        0 => kSSLClientCertNone,
+        1 => kSSLClientCertRequested,
+        2 => kSSLClientCertSent,
+        3 => kSSLClientCertRejected,
+        _ => throw ArgumentError(
+            "Unknown value for SSLClientCertificateState: $value"),
       };
 }
 
@@ -60153,7 +57637,8 @@ class NSURLSession extends objc.NSObject {
   /// invokes completionHandler with outstanding data, upload and download tasks.
   void getTasksWithCompletionHandler_(
       objc.ObjCBlock<
-              ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>
+              ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                  ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
           completionHandler) {
     _objc_msgSend_4daxhl(this.ref.pointer, _sel_getTasksWithCompletionHandler_,
         completionHandler.ref.pointer);
@@ -60161,7 +57646,8 @@ class NSURLSession extends objc.NSObject {
 
   /// invokes completionHandler with all outstanding tasks.
   void getAllTasksWithCompletionHandler_(
-      objc.ObjCBlock<ffi.Void Function(objc.NSArray)> completionHandler) {
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
+          completionHandler) {
     _objc_msgSend_4daxhl(this.ref.pointer,
         _sel_getAllTasksWithCompletionHandler_, completionHandler.ref.pointer);
   }
@@ -60283,7 +57769,7 @@ class NSURLSession extends objc.NSObject {
   /// negotiate a preferred protocol with the server
   /// Note - The protocol will not affect the WebSocket framing. More details on the protocol can be found by reading the WebSocket RFC
   NSURLSessionWebSocketTask webSocketTaskWithURL_protocols_(
-      objc.NSURL url, objc.NSArray protocols) {
+      objc.NSURL url, objc.ObjCObjectBase protocols) {
     final _ret = _objc_msgSend_iq11qg(
         this.ref.pointer,
         _sel_webSocketTaskWithURL_protocols_,
@@ -60903,11 +58389,11 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// than with an instance of NSURLSession.
   /// Custom NSURLProtocol subclasses are not available to background
   /// sessions.
-  objc.NSArray? get protocolClasses {
+  objc.ObjCObjectBase? get protocolClasses {
     final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_protocolClasses);
     return _ret.address == 0
         ? null
-        : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
+        : objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
   /// An optional array of Class objects which subclass NSURLProtocol.
@@ -60918,7 +58404,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// than with an instance of NSURLSession.
   /// Custom NSURLProtocol subclasses are not available to background
   /// sessions.
-  set protocolClasses(objc.NSArray? value) {
+  set protocolClasses(objc.ObjCObjectBase? value) {
     return _objc_msgSend_ukcdfq(this.ref.pointer, _sel_setProtocolClasses_,
         value?.ref.pointer ?? ffi.nullptr);
   }
@@ -61078,8 +58564,24 @@ late final _sel_setHTTPAdditionalHeaders_ =
     objc.registerName("setHTTPAdditionalHeaders:");
 late final _sel_HTTPMaximumConnectionsPerHost =
     objc.registerName("HTTPMaximumConnectionsPerHost");
+final _objc_msgSend_z1fx1b = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        int Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setHTTPMaximumConnectionsPerHost_ =
     objc.registerName("setHTTPMaximumConnectionsPerHost:");
+final _objc_msgSend_ke7qz2 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, NSInteger)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_HTTPCookieStorage = objc.registerName("HTTPCookieStorage");
 late final _sel_setHTTPCookieStorage_ =
     objc.registerName("setHTTPCookieStorage:");
@@ -61194,6 +58696,513 @@ late final _sel_backgroundSessionConfiguration_ =
     objc.registerName("backgroundSessionConfiguration:");
 late final _sel_sessionWithConfiguration_ =
     objc.registerName("sessionWithConfiguration:");
+
+/// NSOperationQueue
+class NSOperationQueue extends objc.NSObject {
+  NSOperationQueue._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSOperationQueue] that points to the same underlying object as [other].
+  NSOperationQueue.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSOperationQueue] that wraps the given raw object pointer.
+  NSOperationQueue.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSOperationQueue].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_l8lotg(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSOperationQueue);
+  }
+
+  /// @property progress
+  /// @discussion     The `progress` property represents a total progress of the operations executed in the queue. By default NSOperationQueue
+  /// does not report progress until the `totalUnitCount` of the progress is set. When the `totalUnitCount` property of the progress is set the
+  /// queue then opts into participating in progress reporting. When enabled, each operation will contribute 1 unit of completion to the
+  /// overall progress of the queue for operations that are finished by the end of main (operations that override start and do not invoke super
+  /// will not contribute to progress). Special attention to race conditions should be made when updating the `totalUnitCount` of the progress
+  /// as well as care should be taken to avoid 'backwards progress'. For example; when a NSOperationQueue's progress is 5/10, representing 50%
+  /// completed, and there are 90 more operations about to be added and the `totalUnitCount` that would then make the progress report as 5/100
+  /// which represents 5%. In this example it would mean that any progress bar would jump from displaying 50% back to 5%, which might not be
+  /// desirable. In the cases where the `totalUnitCount` needs to be adjusted it is suggested to do this for thread-safety in a barrier by
+  /// using the `addBarrierBlock:` API. This ensures that no un-expected execution state occurs adjusting into a potentially backwards moving
+  /// progress scenario.
+  ///
+  /// @example
+  /// NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+  /// queue.progress.totalUnitCount = 10;
+  NSProgress get progress {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_progress);
+    return NSProgress.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// addOperation:
+  void addOperation_(NSOperation op) {
+    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_addOperation_, op.ref.pointer);
+  }
+
+  /// addOperations:waitUntilFinished:
+  void addOperations_waitUntilFinished_(objc.NSArray ops, bool wait) {
+    _objc_msgSend_1n1qwdd(this.ref.pointer,
+        _sel_addOperations_waitUntilFinished_, ops.ref.pointer, wait);
+  }
+
+  /// addOperationWithBlock:
+  void addOperationWithBlock_(objc.ObjCBlock<ffi.Void Function()> block) {
+    _objc_msgSend_4daxhl(
+        this.ref.pointer, _sel_addOperationWithBlock_, block.ref.pointer);
+  }
+
+  /// @method addBarrierBlock:
+  /// @param barrier      A block to execute
+  /// @discussion         The `addBarrierBlock:` method executes the block when the NSOperationQueue has finished all enqueued operations and
+  /// prevents any subsequent operations to be executed until the barrier has been completed. This acts similarly to the
+  /// `dispatch_barrier_async` function.
+  void addBarrierBlock_(objc.ObjCBlock<ffi.Void Function()> barrier) {
+    _objc_msgSend_4daxhl(
+        this.ref.pointer, _sel_addBarrierBlock_, barrier.ref.pointer);
+  }
+
+  /// maxConcurrentOperationCount
+  DartNSInteger get maxConcurrentOperationCount {
+    return _objc_msgSend_z1fx1b(
+        this.ref.pointer, _sel_maxConcurrentOperationCount);
+  }
+
+  /// setMaxConcurrentOperationCount:
+  set maxConcurrentOperationCount(DartNSInteger value) {
+    return _objc_msgSend_ke7qz2(
+        this.ref.pointer, _sel_setMaxConcurrentOperationCount_, value);
+  }
+
+  /// isSuspended
+  bool get suspended {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isSuspended);
+  }
+
+  /// setSuspended:
+  set suspended(bool value) {
+    return _objc_msgSend_117qins(this.ref.pointer, _sel_setSuspended_, value);
+  }
+
+  /// name
+  objc.NSString? get name {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setName:
+  set name(objc.NSString? value) {
+    return _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// qualityOfService
+  NSQualityOfService get qualityOfService {
+    final _ret = _objc_msgSend_17dnyeh(this.ref.pointer, _sel_qualityOfService);
+    return NSQualityOfService.fromValue(_ret);
+  }
+
+  /// setQualityOfService:
+  set qualityOfService(NSQualityOfService value) {
+    return _objc_msgSend_1fcr8u4(
+        this.ref.pointer, _sel_setQualityOfService_, value.value);
+  }
+
+  /// actually retain
+  Dartdispatch_queue_t get underlyingQueue {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_underlyingQueue);
+    return objc.NSObject.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// actually retain
+  set underlyingQueue(Dartdispatch_queue_t value) {
+    return _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_setUnderlyingQueue_, value.ref.pointer);
+  }
+
+  /// cancelAllOperations
+  void cancelAllOperations() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_cancelAllOperations);
+  }
+
+  /// waitUntilAllOperationsAreFinished
+  void waitUntilAllOperationsAreFinished() {
+    _objc_msgSend_ksby9f(
+        this.ref.pointer, _sel_waitUntilAllOperationsAreFinished);
+  }
+
+  /// currentQueue
+  static NSOperationQueue? getCurrentQueue() {
+    final _ret =
+        _objc_msgSend_1unuoxw(_class_NSOperationQueue, _sel_currentQueue);
+    return _ret.address == 0
+        ? null
+        : NSOperationQueue.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// mainQueue
+  static NSOperationQueue getMainQueue() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSOperationQueue, _sel_mainQueue);
+    return NSOperationQueue.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// These two functions are inherently a race condition and should be avoided if possible
+  objc.NSArray get operations {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_operations);
+    return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// operationCount
+  DartNSUInteger get operationCount {
+    return _objc_msgSend_eldhrq(this.ref.pointer, _sel_operationCount);
+  }
+
+  /// init
+  NSOperationQueue init() {
+    final _ret =
+        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
+    return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSOperationQueue new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSOperationQueue, _sel_new);
+    return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSOperationQueue allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret = _objc_msgSend_1b3ihd0(
+        _class_NSOperationQueue, _sel_allocWithZone_, zone);
+    return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static NSOperationQueue alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSOperationQueue, _sel_alloc);
+    return NSOperationQueue.castFromPointer(_ret, retain: false, release: true);
+  }
+}
+
+late final _class_NSOperationQueue = objc.getClass("NSOperationQueue");
+
+/// NSOperation
+class NSOperation extends objc.NSObject {
+  NSOperation._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSOperation] that points to the same underlying object as [other].
+  NSOperation.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSOperation] that wraps the given raw object pointer.
+  NSOperation.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSOperation].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_l8lotg(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSOperation);
+  }
+
+  /// start
+  void start() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_start);
+  }
+
+  /// main
+  void main() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_main);
+  }
+
+  /// isCancelled
+  bool get cancelled {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isCancelled);
+  }
+
+  /// cancel
+  void cancel() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_cancel);
+  }
+
+  /// isExecuting
+  bool get executing {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isExecuting);
+  }
+
+  /// isFinished
+  bool get finished {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isFinished);
+  }
+
+  /// To be deprecated; use and override 'asynchronous' below
+  bool get concurrent {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isConcurrent);
+  }
+
+  /// isAsynchronous
+  bool get asynchronous {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isAsynchronous);
+  }
+
+  /// isReady
+  bool get ready {
+    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isReady);
+  }
+
+  /// addDependency:
+  void addDependency_(NSOperation op) {
+    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_addDependency_, op.ref.pointer);
+  }
+
+  /// removeDependency:
+  void removeDependency_(NSOperation op) {
+    _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_removeDependency_, op.ref.pointer);
+  }
+
+  /// dependencies
+  objc.NSArray get dependencies {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_dependencies);
+    return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// queuePriority
+  NSOperationQueuePriority get queuePriority {
+    final _ret = _objc_msgSend_10n15g8(this.ref.pointer, _sel_queuePriority);
+    return NSOperationQueuePriority.fromValue(_ret);
+  }
+
+  /// setQueuePriority:
+  set queuePriority(NSOperationQueuePriority value) {
+    return _objc_msgSend_d8yjnr(
+        this.ref.pointer, _sel_setQueuePriority_, value.value);
+  }
+
+  /// completionBlock
+  objc.ObjCBlock<ffi.Void Function()>? get completionBlock {
+    final _ret = _objc_msgSend_2osec1(this.ref.pointer, _sel_completionBlock);
+    return _ret.address == 0
+        ? null
+        : ObjCBlock_ffiVoid.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setCompletionBlock:
+  set completionBlock(objc.ObjCBlock<ffi.Void Function()>? value) {
+    return _objc_msgSend_4daxhl(this.ref.pointer, _sel_setCompletionBlock_,
+        value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// waitUntilFinished
+  void waitUntilFinished() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_waitUntilFinished);
+  }
+
+  /// threadPriority
+  double get threadPriority {
+    return _objc_msgSend_10noklm(this.ref.pointer, _sel_threadPriority);
+  }
+
+  /// setThreadPriority:
+  set threadPriority(double value) {
+    return _objc_msgSend_suh039(
+        this.ref.pointer, _sel_setThreadPriority_, value);
+  }
+
+  /// qualityOfService
+  NSQualityOfService get qualityOfService {
+    final _ret = _objc_msgSend_17dnyeh(this.ref.pointer, _sel_qualityOfService);
+    return NSQualityOfService.fromValue(_ret);
+  }
+
+  /// setQualityOfService:
+  set qualityOfService(NSQualityOfService value) {
+    return _objc_msgSend_1fcr8u4(
+        this.ref.pointer, _sel_setQualityOfService_, value.value);
+  }
+
+  /// name
+  objc.NSString? get name {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setName:
+  set name(objc.NSString? value) {
+    return _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// init
+  NSOperation init() {
+    final _ret =
+        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
+    return NSOperation.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSOperation new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSOperation, _sel_new);
+    return NSOperation.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSOperation allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret =
+        _objc_msgSend_1b3ihd0(_class_NSOperation, _sel_allocWithZone_, zone);
+    return NSOperation.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static NSOperation alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSOperation, _sel_alloc);
+    return NSOperation.castFromPointer(_ret, retain: false, release: true);
+  }
+}
+
+late final _class_NSOperation = objc.getClass("NSOperation");
+late final _sel_start = objc.registerName("start");
+late final _sel_main = objc.registerName("main");
+late final _sel_isExecuting = objc.registerName("isExecuting");
+late final _sel_isConcurrent = objc.registerName("isConcurrent");
+late final _sel_isAsynchronous = objc.registerName("isAsynchronous");
+late final _sel_isReady = objc.registerName("isReady");
+late final _sel_addDependency_ = objc.registerName("addDependency:");
+late final _sel_removeDependency_ = objc.registerName("removeDependency:");
+late final _sel_dependencies = objc.registerName("dependencies");
+
+enum NSOperationQueuePriority {
+  NSOperationQueuePriorityVeryLow(-8),
+  NSOperationQueuePriorityLow(-4),
+  NSOperationQueuePriorityNormal(0),
+  NSOperationQueuePriorityHigh(4),
+  NSOperationQueuePriorityVeryHigh(8);
+
+  final int value;
+  const NSOperationQueuePriority(this.value);
+
+  static NSOperationQueuePriority fromValue(int value) => switch (value) {
+        -8 => NSOperationQueuePriorityVeryLow,
+        -4 => NSOperationQueuePriorityLow,
+        0 => NSOperationQueuePriorityNormal,
+        4 => NSOperationQueuePriorityHigh,
+        8 => NSOperationQueuePriorityVeryHigh,
+        _ => throw ArgumentError(
+            "Unknown value for NSOperationQueuePriority: $value"),
+      };
+}
+
+late final _sel_queuePriority = objc.registerName("queuePriority");
+final _objc_msgSend_10n15g8 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        int Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+late final _sel_setQueuePriority_ = objc.registerName("setQueuePriority:");
+final _objc_msgSend_d8yjnr = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, NSInteger)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, int)>();
+late final _sel_completionBlock = objc.registerName("completionBlock");
+late final _sel_setCompletionBlock_ = objc.registerName("setCompletionBlock:");
+late final _sel_waitUntilFinished = objc.registerName("waitUntilFinished");
+late final _sel_threadPriority = objc.registerName("threadPriority");
+late final _sel_setThreadPriority_ = objc.registerName("setThreadPriority:");
+
+enum NSQualityOfService {
+  NSQualityOfServiceUserInteractive(33),
+  NSQualityOfServiceUserInitiated(25),
+  NSQualityOfServiceUtility(17),
+  NSQualityOfServiceBackground(9),
+  NSQualityOfServiceDefault(-1);
+
+  final int value;
+  const NSQualityOfService(this.value);
+
+  static NSQualityOfService fromValue(int value) => switch (value) {
+        33 => NSQualityOfServiceUserInteractive,
+        25 => NSQualityOfServiceUserInitiated,
+        17 => NSQualityOfServiceUtility,
+        9 => NSQualityOfServiceBackground,
+        -1 => NSQualityOfServiceDefault,
+        _ =>
+          throw ArgumentError("Unknown value for NSQualityOfService: $value"),
+      };
+}
+
+late final _sel_qualityOfService = objc.registerName("qualityOfService");
+final _objc_msgSend_17dnyeh = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        int Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+late final _sel_setQualityOfService_ =
+    objc.registerName("setQualityOfService:");
+final _objc_msgSend_1fcr8u4 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>, NSInteger)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, int)>();
+late final _sel_name = objc.registerName("name");
+late final _sel_setName_ = objc.registerName("setName:");
+late final _sel_addOperation_ = objc.registerName("addOperation:");
+late final _sel_addOperations_waitUntilFinished_ =
+    objc.registerName("addOperations:waitUntilFinished:");
+final _objc_msgSend_1n1qwdd = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Bool)>>()
+    .asFunction<
+        void Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            ffi.Pointer<objc.ObjCObject>,
+            bool)>();
+late final _sel_addOperationWithBlock_ =
+    objc.registerName("addOperationWithBlock:");
+late final _sel_addBarrierBlock_ = objc.registerName("addBarrierBlock:");
+late final _sel_maxConcurrentOperationCount =
+    objc.registerName("maxConcurrentOperationCount");
+late final _sel_setMaxConcurrentOperationCount_ =
+    objc.registerName("setMaxConcurrentOperationCount:");
+late final _sel_isSuspended = objc.registerName("isSuspended");
+late final _sel_setSuspended_ = objc.registerName("setSuspended:");
+late final _sel_underlyingQueue = objc.registerName("underlyingQueue");
+late final _sel_setUnderlyingQueue_ = objc.registerName("setUnderlyingQueue:");
+late final _sel_cancelAllOperations = objc.registerName("cancelAllOperations");
+late final _sel_waitUntilAllOperationsAreFinished =
+    objc.registerName("waitUntilAllOperationsAreFinished");
+late final _sel_currentQueue = objc.registerName("currentQueue");
+late final _sel_mainQueue = objc.registerName("mainQueue");
+late final _sel_operations = objc.registerName("operations");
+late final _sel_operationCount = objc.registerName("operationCount");
 late final _sel_sessionWithConfiguration_delegate_delegateQueue_ =
     objc.registerName("sessionWithConfiguration:delegate:delegateQueue:");
 final _objc_msgSend_aud7dn = objc.msgSendPointer
@@ -61224,56 +59233,60 @@ late final _sel_resetWithCompletionHandler_ =
     objc.registerName("resetWithCompletionHandler:");
 late final _sel_flushWithCompletionHandler_ =
     objc.registerName("flushWithCompletionHandler:");
-void _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<objc.ObjCObject> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCObject> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1,
-                    ffi.Pointer<objc.ObjCObject> arg2)>>()
-        .asFunction<
-            void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
+void
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<objc.ObjCObject> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2) =>
+        block.ref.target
+            .cast<
+                ffi.NativeFunction<
+                    ffi.Void Function(
+                        ffi.Pointer<objc.ObjCObject> arg0,
+                        ffi.Pointer<objc.ObjCObject> arg1,
+                        ffi.Pointer<objc.ObjCObject> arg2)>>()
+            .asFunction<
+                void Function(
                     ffi.Pointer<objc.ObjCObject>,
                     ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<objc.ObjCObject> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) =>
-    (objc.getBlockClosure(block) as void Function(
-        ffi.Pointer<objc.ObjCObject>,
-        ffi.Pointer<objc.ObjCObject>,
-        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
 ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_closureCallable =
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_fnPtrCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(
                     ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<objc.ObjCObject>,
                     ffi.Pointer<objc.ObjCObject>,
                     ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_closureTrampoline)
+            _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_fnPtrTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObject> arg0,
-    ffi.Pointer<objc.ObjCObject> arg1,
-    ffi.Pointer<objc.ObjCObject> arg2) {
+void
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<objc.ObjCObject> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2) =>
+        (objc.getBlockClosure(block) as void Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_closureTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<objc.ObjCObject> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2) {
   (objc.getBlockClosure(block) as void Function(
       ffi.Pointer<objc.ObjCObject>,
       ffi.Pointer<objc.ObjCObject>,
@@ -61287,64 +59300,66 @@ ffi.NativeCallable<
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_listenerCallable = ffi
-        .NativeCallable<
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerCallable =
+    ffi.NativeCallable<
             ffi.Void Function(
                 ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_listenerTrampoline)
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>`.
-abstract final class ObjCBlock_ffiVoid_NSArray_NSArray_NSArray {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
+abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject {
   /// Returns a block that wraps the given raw block pointer.
-  static objc
-      .ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+              ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
       castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
               {bool retain = false, bool release = false}) =>
           objc.ObjCBlock<
-              ffi.Void Function(objc.NSArray, objc.NSArray,
-                  objc.NSArray)>(pointer, retain: retain, release: release);
+                  ffi.Void Function(
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>)>(pointer,
+              retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCObject> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>(
-          objc.newPointerBlock(_ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+              ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2)>> ptr) =>
+          objc.ObjCBlock<
+                  ffi.Void Function(
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>)>(
+              objc.newPointerBlock(_ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
 
   /// Creates a block from a Dart function.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)> fromFunction(
-          void Function(objc.NSArray, objc.NSArray, objc.NSArray) fn) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_closureCallable,
-              (ffi.Pointer<objc.ObjCObject> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1,
-                      ffi.Pointer<objc.ObjCObject> arg2) =>
-                  fn(
-                      objc.NSArray.castFromPointer(arg0, retain: true, release: true),
-                      objc.NSArray.castFromPointer(arg1, retain: true, release: true),
-                      objc.NSArray.castFromPointer(arg2, retain: true, release: true))),
-          retain: false,
-          release: true);
+  static objc
+      .ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
+      fromFunction(void Function(objc.ObjCObjectBase, objc.ObjCObjectBase, objc.ObjCObjectBase) fn) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_closureCallable,
+                  (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2) => fn(
+                      objc.ObjCObjectBase(arg0, retain: true, release: true),
+                      objc.ObjCObjectBase(arg1, retain: true, release: true),
+                      objc.ObjCObjectBase(arg2, retain: true, release: true))),
+              retain: false,
+              release: true);
 
   /// Creates a listener block from a Dart function.
   ///
@@ -61355,34 +59370,40 @@ abstract final class ObjCBlock_ffiVoid_NSArray_NSArray_NSArray {
   ///
   /// Note that unlike the default behavior of NativeCallable.listener, listener
   /// blocks do not keep the isolate alive.
-  static objc
-      .ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>
-      listener(void Function(objc.NSArray, objc.NSArray, objc.NSArray) fn) {
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+          ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)> listener(
+      void Function(
+              objc.ObjCObjectBase, objc.ObjCObjectBase, objc.ObjCObjectBase)
+          fn) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_listenerCallable
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerCallable
             .nativeFunction
             .cast(),
         (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
                 ffi.Pointer<objc.ObjCObject> arg2) =>
             fn(
-                objc.NSArray.castFromPointer(arg0,
-                    retain: false, release: true),
-                objc.NSArray.castFromPointer(arg1,
-                    retain: false, release: true),
-                objc.NSArray.castFromPointer(arg2,
-                    retain: false, release: true)));
+                objc.ObjCObjectBase(arg0, retain: false, release: true),
+                objc.ObjCObjectBase(arg1, retain: false, release: true),
+                objc.ObjCObjectBase(arg2, retain: false, release: true)));
     final wrapper = _wrapListenerBlock_tenbla(raw);
     objc.objectRelease(raw.cast());
     return objc.ObjCBlock<
-        ffi.Void Function(objc.NSArray, objc.NSArray,
-            objc.NSArray)>(wrapper, retain: false, release: true);
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>(wrapper,
+        retain: false, release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)>`.
-extension ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_CallExtension on objc
-    .ObjCBlock<ffi.Void Function(objc.NSArray, objc.NSArray, objc.NSArray)> {
-  void call(objc.NSArray arg0, objc.NSArray arg1, objc.NSArray arg2) =>
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
+extension ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_CallExtension
+    on objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)> {
+  void call(objc.ObjCObjectBase arg0, objc.ObjCObjectBase arg1,
+          objc.ObjCObjectBase arg2) =>
       ref.pointer.ref.invoke
               .cast<
                   ffi.NativeFunction<
@@ -61402,7 +59423,7 @@ extension ObjCBlock_ffiVoid_NSArray_NSArray_NSArray_CallExtension on objc
 
 late final _sel_getTasksWithCompletionHandler_ =
     objc.registerName("getTasksWithCompletionHandler:");
-void _ObjCBlock_ffiVoid_NSArray1_fnPtrTrampoline(
+void _ObjCBlock_ffiVoid_objcObjCObject_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<objc.ObjCObject> arg0) =>
     block.ref.target
@@ -61410,24 +59431,24 @@ void _ObjCBlock_ffiVoid_NSArray1_fnPtrTrampoline(
             ffi.NativeFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0)>>()
         .asFunction<void Function(ffi.Pointer<objc.ObjCObject>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSArray1_fnPtrCallable =
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_objcObjCObject_fnPtrCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSArray1_fnPtrTrampoline)
+            _ObjCBlock_ffiVoid_objcObjCObject_fnPtrTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_NSArray1_closureTrampoline(
+void _ObjCBlock_ffiVoid_objcObjCObject_closureTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<objc.ObjCObject> arg0) =>
     (objc.getBlockClosure(block) as void Function(
         ffi.Pointer<objc.ObjCObject>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSArray1_closureCallable =
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_objcObjCObject_closureCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSArray1_closureTrampoline)
+            _ObjCBlock_ffiVoid_objcObjCObject_closureTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_NSArray1_listenerTrampoline(
+void _ObjCBlock_ffiVoid_objcObjCObject_listenerTrampoline(
     ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<objc.ObjCObject> arg0) {
   (objc.getBlockClosure(block) as void Function(
       ffi.Pointer<objc.ObjCObject>))(arg0);
@@ -61437,35 +59458,36 @@ void _ObjCBlock_ffiVoid_NSArray1_listenerTrampoline(
 ffi.NativeCallable<
         ffi.Void Function(
             ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_NSArray1_listenerCallable = ffi.NativeCallable<
+    _ObjCBlock_ffiVoid_objcObjCObject_listenerCallable = ffi.NativeCallable<
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_NSArray1_listenerTrampoline)
+        _ObjCBlock_ffiVoid_objcObjCObject_listenerTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSArray)>`.
-abstract final class ObjCBlock_ffiVoid_NSArray1 {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>`.
+abstract final class ObjCBlock_ffiVoid_objcObjCObject {
   /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> castFromPointer(
-          ffi.Pointer<objc.ObjCBlockImpl> pointer,
-          {bool retain = false,
-          bool release = false}) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(pointer,
-          retain: retain, release: release);
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
+              pointer,
+              retain: retain,
+              release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> fromFunctionPointer(
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)> fromFunctionPointer(
           ffi.Pointer<
                   ffi.NativeFunction<
                       ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0)>>
               ptr) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
           objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_NSArray1_fnPtrCallable, ptr.cast()),
+              _ObjCBlock_ffiVoid_objcObjCObject_fnPtrCallable, ptr.cast()),
           retain: false,
           release: true);
 
@@ -61474,16 +59496,15 @@ abstract final class ObjCBlock_ffiVoid_NSArray1 {
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> fromFunction(
-          void Function(objc.NSArray) fn) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_NSArray1_closureCallable,
-              (ffi.Pointer<objc.ObjCObject> arg0) => fn(
-                  objc.NSArray.castFromPointer(arg0,
-                      retain: true, release: true))),
-          retain: false,
-          release: true);
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
+      fromFunction(void Function(objc.ObjCObjectBase) fn) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_ffiVoid_objcObjCObject_closureCallable,
+                  (ffi.Pointer<objc.ObjCObject> arg0) => fn(
+                      objc.ObjCObjectBase(arg0, retain: true, release: true))),
+              retain: false,
+              release: true);
 
   /// Creates a listener block from a Dart function.
   ///
@@ -61494,23 +59515,26 @@ abstract final class ObjCBlock_ffiVoid_NSArray1 {
   ///
   /// Note that unlike the default behavior of NativeCallable.listener, listener
   /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSArray)> listener(
-      void Function(objc.NSArray) fn) {
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
+      listener(void Function(objc.ObjCObjectBase) fn) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_NSArray1_listenerCallable.nativeFunction.cast(),
-        (ffi.Pointer<objc.ObjCObject> arg0) => fn(
-            objc.NSArray.castFromPointer(arg0, retain: false, release: true)));
+        _ObjCBlock_ffiVoid_objcObjCObject_listenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) =>
+            fn(objc.ObjCObjectBase(arg0, retain: false, release: true)));
     final wrapper = _wrapListenerBlock_ukcdfq(raw);
     objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(objc.NSArray)>(wrapper,
-        retain: false, release: true);
+    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
+        wrapper,
+        retain: false,
+        release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSArray)>`.
-extension ObjCBlock_ffiVoid_NSArray1_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(objc.NSArray)> {
-  void call(objc.NSArray arg0) => ref.pointer.ref.invoke
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>`.
+extension ObjCBlock_ffiVoid_objcObjCObject_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)> {
+  void call(objc.ObjCObjectBase arg0) => ref.pointer.ref.invoke
       .cast<
           ffi.NativeFunction<
               ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
@@ -63204,57 +61228,6 @@ late final _sel_downloadTaskWithURL_completionHandler_ =
 late final _sel_downloadTaskWithResumeData_completionHandler_ =
     objc.registerName("downloadTaskWithResumeData:completionHandler:");
 
-/// Disposition options for various delegate messages
-enum NSURLSessionDelayedRequestDisposition {
-  /// Use the original request provided when the task was created; the request parameter is ignored.
-  NSURLSessionDelayedRequestContinueLoading(0),
-
-  /// Use the specified request, which may not be nil.
-  NSURLSessionDelayedRequestUseNewRequest(1),
-
-  /// Cancel the task; the request parameter is ignored.
-  NSURLSessionDelayedRequestCancel(2);
-
-  final int value;
-  const NSURLSessionDelayedRequestDisposition(this.value);
-
-  static NSURLSessionDelayedRequestDisposition fromValue(int value) =>
-      switch (value) {
-        0 => NSURLSessionDelayedRequestContinueLoading,
-        1 => NSURLSessionDelayedRequestUseNewRequest,
-        2 => NSURLSessionDelayedRequestCancel,
-        _ => throw ArgumentError(
-            "Unknown value for NSURLSessionDelayedRequestDisposition: $value"),
-      };
-}
-
-enum NSURLSessionAuthChallengeDisposition {
-  /// Use the specified credential, which may be nil
-  NSURLSessionAuthChallengeUseCredential(0),
-
-  /// Default handling for the challenge - as if this delegate were not implemented; the credential parameter is ignored.
-  NSURLSessionAuthChallengePerformDefaultHandling(1),
-
-  /// The entire request will be canceled; the credential parameter is ignored.
-  NSURLSessionAuthChallengeCancelAuthenticationChallenge(2),
-
-  /// This challenge is rejected and the next authentication protection space should be tried; the credential parameter is ignored.
-  NSURLSessionAuthChallengeRejectProtectionSpace(3);
-
-  final int value;
-  const NSURLSessionAuthChallengeDisposition(this.value);
-
-  static NSURLSessionAuthChallengeDisposition fromValue(int value) =>
-      switch (value) {
-        0 => NSURLSessionAuthChallengeUseCredential,
-        1 => NSURLSessionAuthChallengePerformDefaultHandling,
-        2 => NSURLSessionAuthChallengeCancelAuthenticationChallenge,
-        3 => NSURLSessionAuthChallengeRejectProtectionSpace,
-        _ => throw ArgumentError(
-            "Unknown value for NSURLSessionAuthChallengeDisposition: $value"),
-      };
-}
-
 enum NSURLSessionResponseDisposition {
   /// Cancel the load, this is the same as -[task cancel]
   NSURLSessionResponseCancel(0),
@@ -63805,6 +61778,33 @@ extension ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
                   void Function(ffi.Pointer<objc.ObjCBlockImpl>, int,
                       ffi.Pointer<objc.ObjCObject>)>()(
           ref.pointer, arg0.value, arg1?.ref.pointer ?? ffi.nullptr);
+}
+
+enum NSURLSessionAuthChallengeDisposition {
+  /// Use the specified credential, which may be nil
+  NSURLSessionAuthChallengeUseCredential(0),
+
+  /// Default handling for the challenge - as if this delegate were not implemented; the credential parameter is ignored.
+  NSURLSessionAuthChallengePerformDefaultHandling(1),
+
+  /// The entire request will be canceled; the credential parameter is ignored.
+  NSURLSessionAuthChallengeCancelAuthenticationChallenge(2),
+
+  /// This challenge is rejected and the next authentication protection space should be tried; the credential parameter is ignored.
+  NSURLSessionAuthChallengeRejectProtectionSpace(3);
+
+  final int value;
+  const NSURLSessionAuthChallengeDisposition(this.value);
+
+  static NSURLSessionAuthChallengeDisposition fromValue(int value) =>
+      switch (value) {
+        0 => NSURLSessionAuthChallengeUseCredential,
+        1 => NSURLSessionAuthChallengePerformDefaultHandling,
+        2 => NSURLSessionAuthChallengeCancelAuthenticationChallenge,
+        3 => NSURLSessionAuthChallengeRejectProtectionSpace,
+        _ => throw ArgumentError(
+            "Unknown value for NSURLSessionAuthChallengeDisposition: $value"),
+      };
 }
 
 /// NSURLCredential
@@ -65283,6 +63283,30 @@ extension ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_C
                   void Function(ffi.Pointer<objc.ObjCBlockImpl>, int,
                       ffi.Pointer<objc.ObjCObject>)>()(
           ref.pointer, arg0.value, arg1?.ref.pointer ?? ffi.nullptr);
+}
+
+/// Disposition options for various delegate messages
+enum NSURLSessionDelayedRequestDisposition {
+  /// Use the original request provided when the task was created; the request parameter is ignored.
+  NSURLSessionDelayedRequestContinueLoading(0),
+
+  /// Use the specified request, which may not be nil.
+  NSURLSessionDelayedRequestUseNewRequest(1),
+
+  /// Cancel the task; the request parameter is ignored.
+  NSURLSessionDelayedRequestCancel(2);
+
+  final int value;
+  const NSURLSessionDelayedRequestDisposition(this.value);
+
+  static NSURLSessionDelayedRequestDisposition fromValue(int value) =>
+      switch (value) {
+        0 => NSURLSessionDelayedRequestContinueLoading,
+        1 => NSURLSessionDelayedRequestUseNewRequest,
+        2 => NSURLSessionDelayedRequestCancel,
+        _ => throw ArgumentError(
+            "Unknown value for NSURLSessionDelayedRequestDisposition: $value"),
+      };
 }
 
 late final _sel_URLSession_task_willBeginDelayedRequest_completionHandler_ =
@@ -67497,10 +65521,10 @@ class NSURLSessionTaskMetrics extends objc.NSObject {
   }
 
   /// transactionMetrics array contains the metrics collected for every request/response transaction created during the task execution.
-  objc.NSArray get transactionMetrics {
+  objc.ObjCObjectBase get transactionMetrics {
     final _ret =
         _objc_msgSend_1unuoxw(this.ref.pointer, _sel_transactionMetrics);
-    return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
+    return objc.ObjCObjectBase(_ret, retain: true, release: true);
   }
 
   /// Interval from the task creation time to the task completion time.
@@ -74574,489 +72598,7 @@ extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURL
           arg4?.ref.pointer ?? ffi.nullptr);
 }
 
-/// The resource fetch type.
-enum NSURLSessionTaskMetricsResourceFetchType {
-  NSURLSessionTaskMetricsResourceFetchTypeUnknown(0),
-
-  /// The resource was loaded over the network.
-  NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad(1),
-
-  /// The resource was pushed by the server to the client.
-  NSURLSessionTaskMetricsResourceFetchTypeServerPush(2),
-
-  /// The resource was retrieved from the local storage.
-  NSURLSessionTaskMetricsResourceFetchTypeLocalCache(3);
-
-  final int value;
-  const NSURLSessionTaskMetricsResourceFetchType(this.value);
-
-  static NSURLSessionTaskMetricsResourceFetchType fromValue(int value) =>
-      switch (value) {
-        0 => NSURLSessionTaskMetricsResourceFetchTypeUnknown,
-        1 => NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad,
-        2 => NSURLSessionTaskMetricsResourceFetchTypeServerPush,
-        3 => NSURLSessionTaskMetricsResourceFetchTypeLocalCache,
-        _ => throw ArgumentError(
-            "Unknown value for NSURLSessionTaskMetricsResourceFetchType: $value"),
-      };
-}
-
-/// DNS protocol used for domain resolution.
-enum NSURLSessionTaskMetricsDomainResolutionProtocol {
-  NSURLSessionTaskMetricsDomainResolutionProtocolUnknown(0),
-
-  /// Resolution used DNS over UDP.
-  NSURLSessionTaskMetricsDomainResolutionProtocolUDP(1),
-
-  /// Resolution used DNS over TCP.
-  NSURLSessionTaskMetricsDomainResolutionProtocolTCP(2),
-
-  /// Resolution used DNS over TLS.
-  NSURLSessionTaskMetricsDomainResolutionProtocolTLS(3),
-
-  /// Resolution used DNS over HTTPS.
-  NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS(4);
-
-  final int value;
-  const NSURLSessionTaskMetricsDomainResolutionProtocol(this.value);
-
-  static NSURLSessionTaskMetricsDomainResolutionProtocol fromValue(int value) =>
-      switch (value) {
-        0 => NSURLSessionTaskMetricsDomainResolutionProtocolUnknown,
-        1 => NSURLSessionTaskMetricsDomainResolutionProtocolUDP,
-        2 => NSURLSessionTaskMetricsDomainResolutionProtocolTCP,
-        3 => NSURLSessionTaskMetricsDomainResolutionProtocolTLS,
-        4 => NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS,
-        _ => throw ArgumentError(
-            "Unknown value for NSURLSessionTaskMetricsDomainResolutionProtocol: $value"),
-      };
-}
-
-/// This class defines the performance metrics collected for a request/response transaction during the task execution.
-class NSURLSessionTaskTransactionMetrics extends objc.NSObject {
-  NSURLSessionTaskTransactionMetrics._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSURLSessionTaskTransactionMetrics] that points to the same underlying object as [other].
-  NSURLSessionTaskTransactionMetrics.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSURLSessionTaskTransactionMetrics] that wraps the given raw object pointer.
-  NSURLSessionTaskTransactionMetrics.castFromPointer(
-      ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false,
-      bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSURLSessionTaskTransactionMetrics].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(obj.ref.pointer, _sel_isKindOfClass_,
-        _class_NSURLSessionTaskTransactionMetrics);
-  }
-
-  /// Represents the transaction request.
-  NSURLRequest get request {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_request);
-    return NSURLRequest.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Represents the transaction response. Can be nil if error occurred and no response was generated.
-  NSURLResponse? get response {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_response);
-    return _ret.address == 0
-        ? null
-        : NSURLResponse.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// fetchStartDate returns the time when the user agent started fetching the resource, whether or not the resource was retrieved from the server or local resources.
-  ///
-  /// The following metrics will be set to nil, if a persistent connection was used or the resource was retrieved from local resources:
-  ///
-  /// domainLookupStartDate
-  /// domainLookupEndDate
-  /// connectStartDate
-  /// connectEndDate
-  /// secureConnectionStartDate
-  /// secureConnectionEndDate
-  objc.NSDate? get fetchStartDate {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_fetchStartDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// domainLookupStartDate returns the time immediately before the user agent started the name lookup for the resource.
-  objc.NSDate? get domainLookupStartDate {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_domainLookupStartDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// domainLookupEndDate returns the time after the name lookup was completed.
-  objc.NSDate? get domainLookupEndDate {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_domainLookupEndDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// connectStartDate is the time immediately before the user agent started establishing the connection to the server.
-  ///
-  /// For example, this would correspond to the time immediately before the user agent started trying to establish the TCP connection.
-  objc.NSDate? get connectStartDate {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_connectStartDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// If an encrypted connection was used, secureConnectionStartDate is the time immediately before the user agent started the security handshake to secure the current connection.
-  ///
-  /// For example, this would correspond to the time immediately before the user agent started the TLS handshake.
-  ///
-  /// If an encrypted connection was not used, this attribute is set to nil.
-  objc.NSDate? get secureConnectionStartDate {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_secureConnectionStartDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// If an encrypted connection was used, secureConnectionEndDate is the time immediately after the security handshake completed.
-  ///
-  /// If an encrypted connection was not used, this attribute is set to nil.
-  objc.NSDate? get secureConnectionEndDate {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_secureConnectionEndDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// connectEndDate is the time immediately after the user agent finished establishing the connection to the server, including completion of security-related and other handshakes.
-  objc.NSDate? get connectEndDate {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_connectEndDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// requestStartDate is the time immediately before the user agent started requesting the source, regardless of whether the resource was retrieved from the server or local resources.
-  ///
-  /// For example, this would correspond to the time immediately before the user agent sent an HTTP GET request.
-  objc.NSDate? get requestStartDate {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_requestStartDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// requestEndDate is the time immediately after the user agent finished requesting the source, regardless of whether the resource was retrieved from the server or local resources.
-  ///
-  /// For example, this would correspond to the time immediately after the user agent finished sending the last byte of the request.
-  objc.NSDate? get requestEndDate {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_requestEndDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// responseStartDate is the time immediately after the user agent received the first byte of the response from the server or from local resources.
-  ///
-  /// For example, this would correspond to the time immediately after the user agent received the first byte of an HTTP response.
-  objc.NSDate? get responseStartDate {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_responseStartDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// responseEndDate is the time immediately after the user agent received the last byte of the resource.
-  objc.NSDate? get responseEndDate {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_responseEndDate);
-    return _ret.address == 0
-        ? null
-        : objc.NSDate.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// The network protocol used to fetch the resource, as identified by the ALPN Protocol ID Identification Sequence [RFC7301].
-  /// E.g., h3, h2, http/1.1.
-  ///
-  /// When a proxy is configured AND a tunnel connection is established, then this attribute returns the value for the tunneled protocol.
-  ///
-  /// For example:
-  /// If no proxy were used, and HTTP/2 was negotiated, then h2 would be returned.
-  /// If HTTP/1.1 were used to the proxy, and the tunneled connection was HTTP/2, then h2 would be returned.
-  /// If HTTP/1.1 were used to the proxy, and there were no tunnel, then http/1.1 would be returned.
-  objc.NSString? get networkProtocolName {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_networkProtocolName);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// This property is set to YES if a proxy connection was used to fetch the resource.
-  bool get proxyConnection {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isProxyConnection);
-  }
-
-  /// This property is set to YES if a persistent connection was used to fetch the resource.
-  bool get reusedConnection {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isReusedConnection);
-  }
-
-  /// Indicates whether the resource was loaded, pushed or retrieved from the local cache.
-  NSURLSessionTaskMetricsResourceFetchType get resourceFetchType {
-    final _ret =
-        _objc_msgSend_1rchpmf(this.ref.pointer, _sel_resourceFetchType);
-    return NSURLSessionTaskMetricsResourceFetchType.fromValue(_ret);
-  }
-
-  /// countOfRequestHeaderBytesSent is the number of bytes transferred for request header.
-  int get countOfRequestHeaderBytesSent {
-    return _objc_msgSend_1voti03(
-        this.ref.pointer, _sel_countOfRequestHeaderBytesSent);
-  }
-
-  /// countOfRequestBodyBytesSent is the number of bytes transferred for request body.
-  /// It includes protocol-specific framing, transfer encoding, and content encoding.
-  int get countOfRequestBodyBytesSent {
-    return _objc_msgSend_1voti03(
-        this.ref.pointer, _sel_countOfRequestBodyBytesSent);
-  }
-
-  /// countOfRequestBodyBytesBeforeEncoding is the size of upload body data, file, or stream.
-  int get countOfRequestBodyBytesBeforeEncoding {
-    return _objc_msgSend_1voti03(
-        this.ref.pointer, _sel_countOfRequestBodyBytesBeforeEncoding);
-  }
-
-  /// countOfResponseHeaderBytesReceived is the number of bytes transferred for response header.
-  int get countOfResponseHeaderBytesReceived {
-    return _objc_msgSend_1voti03(
-        this.ref.pointer, _sel_countOfResponseHeaderBytesReceived);
-  }
-
-  /// countOfResponseBodyBytesReceived is the number of bytes transferred for response header.
-  /// It includes protocol-specific framing, transfer encoding, and content encoding.
-  int get countOfResponseBodyBytesReceived {
-    return _objc_msgSend_1voti03(
-        this.ref.pointer, _sel_countOfResponseBodyBytesReceived);
-  }
-
-  /// countOfResponseBodyBytesAfterDecoding is the size of data delivered to your delegate or completion handler.
-  int get countOfResponseBodyBytesAfterDecoding {
-    return _objc_msgSend_1voti03(
-        this.ref.pointer, _sel_countOfResponseBodyBytesAfterDecoding);
-  }
-
-  /// localAddress is the IP address string of the local interface for the connection.
-  ///
-  /// For multipath protocols, this is the local address of the initial flow.
-  ///
-  /// If a connection was not used, this attribute is set to nil.
-  objc.NSString? get localAddress {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_localAddress);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// localPort is the port number of the local interface for the connection.
-  ///
-  /// For multipath protocols, this is the local port of the initial flow.
-  ///
-  /// If a connection was not used, this attribute is set to nil.
-  objc.NSNumber? get localPort {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_localPort);
-    return _ret.address == 0
-        ? null
-        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// remoteAddress is the IP address string of the remote interface for the connection.
-  ///
-  /// For multipath protocols, this is the remote address of the initial flow.
-  ///
-  /// If a connection was not used, this attribute is set to nil.
-  objc.NSString? get remoteAddress {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_remoteAddress);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// remotePort is the port number of the remote interface for the connection.
-  ///
-  /// For multipath protocols, this is the remote port of the initial flow.
-  ///
-  /// If a connection was not used, this attribute is set to nil.
-  objc.NSNumber? get remotePort {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_remotePort);
-    return _ret.address == 0
-        ? null
-        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// negotiatedTLSProtocolVersion is the TLS protocol version negotiated for the connection.
-  /// It is a 2-byte sequence in host byte order.
-  ///
-  /// Please refer to tls_protocol_version_t enum in Security/SecProtocolTypes.h
-  ///
-  /// If an encrypted connection was not used, this attribute is set to nil.
-  objc.NSNumber? get negotiatedTLSProtocolVersion {
-    final _ret = _objc_msgSend_1unuoxw(
-        this.ref.pointer, _sel_negotiatedTLSProtocolVersion);
-    return _ret.address == 0
-        ? null
-        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// negotiatedTLSCipherSuite is the TLS cipher suite negotiated for the connection.
-  /// It is a 2-byte sequence in host byte order.
-  ///
-  /// Please refer to tls_ciphersuite_t enum in Security/SecProtocolTypes.h
-  ///
-  /// If an encrypted connection was not used, this attribute is set to nil.
-  objc.NSNumber? get negotiatedTLSCipherSuite {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_negotiatedTLSCipherSuite);
-    return _ret.address == 0
-        ? null
-        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Whether the connection is established over a cellular interface.
-  bool get cellular {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isCellular);
-  }
-
-  /// Whether the connection is established over an expensive interface.
-  bool get expensive {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isExpensive);
-  }
-
-  /// Whether the connection is established over a constrained interface.
-  bool get constrained {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isConstrained);
-  }
-
-  /// Whether a multipath protocol is successfully negotiated for the connection.
-  bool get multipath {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_isMultipath);
-  }
-
-  /// DNS protocol used for domain resolution.
-  NSURLSessionTaskMetricsDomainResolutionProtocol get domainResolutionProtocol {
-    final _ret =
-        _objc_msgSend_1r80n63(this.ref.pointer, _sel_domainResolutionProtocol);
-    return NSURLSessionTaskMetricsDomainResolutionProtocol.fromValue(_ret);
-  }
-
-  /// init
-  NSURLSessionTaskTransactionMetrics init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSURLSessionTaskTransactionMetrics.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// new
-  static NSURLSessionTaskTransactionMetrics new1() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSURLSessionTaskTransactionMetrics, _sel_new);
-    return NSURLSessionTaskTransactionMetrics.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSURLSessionTaskTransactionMetrics allocWithZone_(
-      ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSURLSessionTaskTransactionMetrics, _sel_allocWithZone_, zone);
-    return NSURLSessionTaskTransactionMetrics.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// alloc
-  static NSURLSessionTaskTransactionMetrics alloc() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSURLSessionTaskTransactionMetrics, _sel_alloc);
-    return NSURLSessionTaskTransactionMetrics.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-}
-
-late final _class_NSURLSessionTaskTransactionMetrics =
-    objc.getClass("NSURLSessionTaskTransactionMetrics");
-late final _sel_request = objc.registerName("request");
-late final _sel_fetchStartDate = objc.registerName("fetchStartDate");
-late final _sel_domainLookupStartDate =
-    objc.registerName("domainLookupStartDate");
-late final _sel_domainLookupEndDate = objc.registerName("domainLookupEndDate");
-late final _sel_connectStartDate = objc.registerName("connectStartDate");
-late final _sel_secureConnectionStartDate =
-    objc.registerName("secureConnectionStartDate");
-late final _sel_secureConnectionEndDate =
-    objc.registerName("secureConnectionEndDate");
-late final _sel_connectEndDate = objc.registerName("connectEndDate");
-late final _sel_requestStartDate = objc.registerName("requestStartDate");
-late final _sel_requestEndDate = objc.registerName("requestEndDate");
-late final _sel_responseStartDate = objc.registerName("responseStartDate");
-late final _sel_responseEndDate = objc.registerName("responseEndDate");
-late final _sel_networkProtocolName = objc.registerName("networkProtocolName");
-late final _sel_isProxyConnection = objc.registerName("isProxyConnection");
-late final _sel_isReusedConnection = objc.registerName("isReusedConnection");
-late final _sel_resourceFetchType = objc.registerName("resourceFetchType");
-final _objc_msgSend_1rchpmf = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_countOfRequestHeaderBytesSent =
-    objc.registerName("countOfRequestHeaderBytesSent");
-late final _sel_countOfRequestBodyBytesSent =
-    objc.registerName("countOfRequestBodyBytesSent");
-late final _sel_countOfRequestBodyBytesBeforeEncoding =
-    objc.registerName("countOfRequestBodyBytesBeforeEncoding");
-late final _sel_countOfResponseHeaderBytesReceived =
-    objc.registerName("countOfResponseHeaderBytesReceived");
-late final _sel_countOfResponseBodyBytesReceived =
-    objc.registerName("countOfResponseBodyBytesReceived");
-late final _sel_countOfResponseBodyBytesAfterDecoding =
-    objc.registerName("countOfResponseBodyBytesAfterDecoding");
-late final _sel_localAddress = objc.registerName("localAddress");
-late final _sel_localPort = objc.registerName("localPort");
-late final _sel_remoteAddress = objc.registerName("remoteAddress");
-late final _sel_remotePort = objc.registerName("remotePort");
-late final _sel_negotiatedTLSProtocolVersion =
-    objc.registerName("negotiatedTLSProtocolVersion");
-late final _sel_negotiatedTLSCipherSuite =
-    objc.registerName("negotiatedTLSCipherSuite");
-late final _sel_isCellular = objc.registerName("isCellular");
-late final _sel_isExpensive = objc.registerName("isExpensive");
-late final _sel_isConstrained = objc.registerName("isConstrained");
-late final _sel_isMultipath = objc.registerName("isMultipath");
-late final _sel_domainResolutionProtocol =
-    objc.registerName("domainResolutionProtocol");
-final _objc_msgSend_1r80n63 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSInteger Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
+typedef NSRange = objc.NSRange;
 
 /// NSItemProviderWriting
 abstract final class NSItemProviderWriting {
@@ -75868,26 +73410,6 @@ extension ObjCBlock_instancetype_ffiVoid_NSData_NSString_NSError_CallExtension
 
 late final _sel_readableTypeIdentifiersForItemProvider =
     objc.registerName("readableTypeIdentifiersForItemProvider");
-
-enum NSItemProviderErrorCode {
-  NSItemProviderUnknownError(-1),
-  NSItemProviderItemUnavailableError(-1000),
-  NSItemProviderUnexpectedValueClassError(-1100),
-  NSItemProviderUnavailableCoercionError(-1200);
-
-  final int value;
-  const NSItemProviderErrorCode(this.value);
-
-  static NSItemProviderErrorCode fromValue(int value) => switch (value) {
-        -1 => NSItemProviderUnknownError,
-        -1000 => NSItemProviderItemUnavailableError,
-        -1100 => NSItemProviderUnexpectedValueClassError,
-        -1200 => NSItemProviderUnavailableCoercionError,
-        _ => throw ArgumentError(
-            "Unknown value for NSItemProviderErrorCode: $value"),
-      };
-}
-
 typedef NSStringEncoding = NSUInteger;
 typedef NSStringTransform = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSStringTransform = objc.NSString;
@@ -75895,1902 +73417,6 @@ typedef NSStringEncodingDetectionOptionsKey = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSStringEncodingDetectionOptionsKey = objc.NSString;
 typedef NSExceptionName = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSExceptionName = objc.NSString;
-
-/// NSSimpleCString
-class NSSimpleCString extends objc.NSString {
-  NSSimpleCString._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSSimpleCString] that points to the same underlying object as [other].
-  NSSimpleCString.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSSimpleCString] that wraps the given raw object pointer.
-  NSSimpleCString.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSSimpleCString].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSSimpleCString);
-  }
-
-  /// init
-  NSSimpleCString init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithCoder:
-  NSSimpleCString? initWithCoder_(objc.NSCoder coder) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithCoder_, coder.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// availableStringEncodings
-  static ffi.Pointer<NSStringEncoding> getAvailableStringEncodings() {
-    return _objc_msgSend_gvd36k(
-        _class_NSSimpleCString, _sel_availableStringEncodings);
-  }
-
-  /// localizedNameOfStringEncoding:
-  static objc.NSString localizedNameOfStringEncoding_(DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_ehxl2g(
-        _class_NSSimpleCString, _sel_localizedNameOfStringEncoding_, encoding);
-    return objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// defaultCStringEncoding
-  static DartNSUInteger getDefaultCStringEncoding() {
-    return _objc_msgSend_eldhrq(
-        _class_NSSimpleCString, _sel_defaultCStringEncoding);
-  }
-
-  /// initWithCharactersNoCopy:length:freeWhenDone:
-  NSSimpleCString initWithCharactersNoCopy_length_freeWhenDone_(
-      ffi.Pointer<unichar> characters, DartNSUInteger length, bool freeBuffer) {
-    final _ret = _objc_msgSend_1rimh2f(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithCharactersNoCopy_length_freeWhenDone_,
-        characters,
-        length,
-        freeBuffer);
-    return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithCharactersNoCopy:length:deallocator:
-  NSSimpleCString initWithCharactersNoCopy_length_deallocator_(
-      ffi.Pointer<unichar> chars,
-      DartNSUInteger len,
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>?
-          deallocator) {
-    final _ret = _objc_msgSend_133nfze(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithCharactersNoCopy_length_deallocator_,
-        chars,
-        len,
-        deallocator?.ref.pointer ?? ffi.nullptr);
-    return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithCharacters:length:
-  NSSimpleCString initWithCharacters_length_(
-      ffi.Pointer<unichar> characters, DartNSUInteger length) {
-    final _ret = _objc_msgSend_syhe4c(this.ref.retainAndReturnPointer(),
-        _sel_initWithCharacters_length_, characters, length);
-    return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithUTF8String:
-  NSSimpleCString? initWithUTF8String_(
-      ffi.Pointer<ffi.Char> nullTerminatedCString) {
-    final _ret = _objc_msgSend_1og3t2d(this.ref.retainAndReturnPointer(),
-        _sel_initWithUTF8String_, nullTerminatedCString);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithString:
-  NSSimpleCString initWithString_(objc.NSString aString) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithString_, aString.ref.pointer);
-    return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithFormat:
-  NSSimpleCString initWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithFormat_, format.ref.pointer);
-    return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithFormat:locale:
-  NSSimpleCString initWithFormat_locale_(
-      objc.NSString format, objc.ObjCObjectBase? locale) {
-    final _ret = _objc_msgSend_iq11qg(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithFormat_locale_,
-        format.ref.pointer,
-        locale?.ref.pointer ?? ffi.nullptr);
-    return NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithValidatedFormat:validFormatSpecifiers:error:
-  NSSimpleCString? initWithValidatedFormat_validFormatSpecifiers_error_(
-      objc.NSString format,
-      objc.NSString validFormatSpecifiers,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1lpsn5w(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithValidatedFormat_validFormatSpecifiers_error_,
-        format.ref.pointer,
-        validFormatSpecifiers.ref.pointer,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithValidatedFormat:validFormatSpecifiers:locale:error:
-  NSSimpleCString? initWithValidatedFormat_validFormatSpecifiers_locale_error_(
-      objc.NSString format,
-      objc.NSString validFormatSpecifiers,
-      objc.ObjCObjectBase? locale,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_w9wiqt(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithValidatedFormat_validFormatSpecifiers_locale_error_,
-        format.ref.pointer,
-        validFormatSpecifiers.ref.pointer,
-        locale?.ref.pointer ?? ffi.nullptr,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithData:encoding:
-  NSSimpleCString? initWithData_encoding_(
-      objc.NSData data, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_183c8xv(this.ref.retainAndReturnPointer(),
-        _sel_initWithData_encoding_, data.ref.pointer, encoding);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithBytes:length:encoding:
-  NSSimpleCString? initWithBytes_length_encoding_(ffi.Pointer<ffi.Void> bytes,
-      DartNSUInteger len, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_1ea4mhr(this.ref.retainAndReturnPointer(),
-        _sel_initWithBytes_length_encoding_, bytes, len, encoding);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithBytesNoCopy:length:encoding:freeWhenDone:
-  NSSimpleCString? initWithBytesNoCopy_length_encoding_freeWhenDone_(
-      ffi.Pointer<ffi.Void> bytes,
-      DartNSUInteger len,
-      DartNSUInteger encoding,
-      bool freeBuffer) {
-    final _ret = _objc_msgSend_1idnlsy(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithBytesNoCopy_length_encoding_freeWhenDone_,
-        bytes,
-        len,
-        encoding,
-        freeBuffer);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithBytesNoCopy:length:encoding:deallocator:
-  NSSimpleCString? initWithBytesNoCopy_length_encoding_deallocator_(
-      ffi.Pointer<ffi.Void> bytes,
-      DartNSUInteger len,
-      DartNSUInteger encoding,
-      objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>?
-          deallocator) {
-    final _ret = _objc_msgSend_11b57dv(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithBytesNoCopy_length_encoding_deallocator_,
-        bytes,
-        len,
-        encoding,
-        deallocator?.ref.pointer ?? ffi.nullptr);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// string
-  static NSSimpleCString string() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSSimpleCString, _sel_string);
-    return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithString:
-  static NSSimpleCString stringWithString_(objc.NSString string) {
-    final _ret = _objc_msgSend_juohf7(
-        _class_NSSimpleCString, _sel_stringWithString_, string.ref.pointer);
-    return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithCharacters:length:
-  static NSSimpleCString stringWithCharacters_length_(
-      ffi.Pointer<unichar> characters, DartNSUInteger length) {
-    final _ret = _objc_msgSend_syhe4c(_class_NSSimpleCString,
-        _sel_stringWithCharacters_length_, characters, length);
-    return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithUTF8String:
-  static NSSimpleCString? stringWithUTF8String_(
-      ffi.Pointer<ffi.Char> nullTerminatedCString) {
-    final _ret = _objc_msgSend_1og3t2d(_class_NSSimpleCString,
-        _sel_stringWithUTF8String_, nullTerminatedCString);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithFormat:
-  static NSSimpleCString stringWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_juohf7(
-        _class_NSSimpleCString, _sel_stringWithFormat_, format.ref.pointer);
-    return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// localizedStringWithFormat:
-  static NSSimpleCString localizedStringWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_juohf7(_class_NSSimpleCString,
-        _sel_localizedStringWithFormat_, format.ref.pointer);
-    return NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithValidatedFormat:validFormatSpecifiers:error:
-  static NSSimpleCString?
-      stringWithValidatedFormat_validFormatSpecifiers_error_(
-          objc.NSString format,
-          objc.NSString validFormatSpecifiers,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1lpsn5w(
-        _class_NSSimpleCString,
-        _sel_stringWithValidatedFormat_validFormatSpecifiers_error_,
-        format.ref.pointer,
-        validFormatSpecifiers.ref.pointer,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// localizedStringWithValidatedFormat:validFormatSpecifiers:error:
-  static NSSimpleCString?
-      localizedStringWithValidatedFormat_validFormatSpecifiers_error_(
-          objc.NSString format,
-          objc.NSString validFormatSpecifiers,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1lpsn5w(
-        _class_NSSimpleCString,
-        _sel_localizedStringWithValidatedFormat_validFormatSpecifiers_error_,
-        format.ref.pointer,
-        validFormatSpecifiers.ref.pointer,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// initWithCString:encoding:
-  NSSimpleCString? initWithCString_encoding_(
-      ffi.Pointer<ffi.Char> nullTerminatedCString, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_1t5rcq1(this.ref.retainAndReturnPointer(),
-        _sel_initWithCString_encoding_, nullTerminatedCString, encoding);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// stringWithCString:encoding:
-  static NSSimpleCString? stringWithCString_encoding_(
-      ffi.Pointer<ffi.Char> cString, DartNSUInteger enc) {
-    final _ret = _objc_msgSend_1t5rcq1(
-        _class_NSSimpleCString, _sel_stringWithCString_encoding_, cString, enc);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// initWithContentsOfURL:encoding:error:
-  NSSimpleCString? initWithContentsOfURL_encoding_error_(objc.NSURL url,
-      DartNSUInteger enc, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1u9el4t(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithContentsOfURL_encoding_error_,
-        url.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithContentsOfFile:encoding:error:
-  NSSimpleCString? initWithContentsOfFile_encoding_error_(objc.NSString path,
-      DartNSUInteger enc, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1u9el4t(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithContentsOfFile_encoding_error_,
-        path.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// stringWithContentsOfURL:encoding:error:
-  static NSSimpleCString? stringWithContentsOfURL_encoding_error_(
-      objc.NSURL url,
-      DartNSUInteger enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1u9el4t(
-        _class_NSSimpleCString,
-        _sel_stringWithContentsOfURL_encoding_error_,
-        url.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithContentsOfFile:encoding:error:
-  static NSSimpleCString? stringWithContentsOfFile_encoding_error_(
-      objc.NSString path,
-      DartNSUInteger enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1u9el4t(
-        _class_NSSimpleCString,
-        _sel_stringWithContentsOfFile_encoding_error_,
-        path.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// initWithContentsOfURL:usedEncoding:error:
-  NSSimpleCString? initWithContentsOfURL_usedEncoding_error_(
-      objc.NSURL url,
-      ffi.Pointer<NSStringEncoding> enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1h339ej(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithContentsOfURL_usedEncoding_error_,
-        url.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithContentsOfFile:usedEncoding:error:
-  NSSimpleCString? initWithContentsOfFile_usedEncoding_error_(
-      objc.NSString path,
-      ffi.Pointer<NSStringEncoding> enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1h339ej(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithContentsOfFile_usedEncoding_error_,
-        path.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// stringWithContentsOfURL:usedEncoding:error:
-  static NSSimpleCString? stringWithContentsOfURL_usedEncoding_error_(
-      objc.NSURL url,
-      ffi.Pointer<NSStringEncoding> enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1h339ej(
-        _class_NSSimpleCString,
-        _sel_stringWithContentsOfURL_usedEncoding_error_,
-        url.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithContentsOfFile:usedEncoding:error:
-  static NSSimpleCString? stringWithContentsOfFile_usedEncoding_error_(
-      objc.NSString path,
-      ffi.Pointer<NSStringEncoding> enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1h339ej(
-        _class_NSSimpleCString,
-        _sel_stringWithContentsOfFile_usedEncoding_error_,
-        path.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSSimpleCString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:
-  static DartNSUInteger
-      stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_(
-          objc.NSData data,
-          objc.NSDictionary? opts,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> string,
-          ffi.Pointer<ffi.Bool> usedLossyConversion) {
-    return _objc_msgSend_1el0by7(
-        _class_NSSimpleCString,
-        _sel_stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_,
-        data.ref.pointer,
-        opts?.ref.pointer ?? ffi.nullptr,
-        string,
-        usedLossyConversion);
-  }
-
-  /// stringWithContentsOfFile:
-  static objc.ObjCObjectBase? stringWithContentsOfFile_(objc.NSString path) {
-    final _ret = _objc_msgSend_juohf7(_class_NSSimpleCString,
-        _sel_stringWithContentsOfFile_, path.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// stringWithContentsOfURL:
-  static objc.ObjCObjectBase? stringWithContentsOfURL_(objc.NSURL url) {
-    final _ret = _objc_msgSend_juohf7(
-        _class_NSSimpleCString, _sel_stringWithContentsOfURL_, url.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// stringWithCString:length:
-  static objc.ObjCObjectBase? stringWithCString_length_(
-      ffi.Pointer<ffi.Char> bytes, DartNSUInteger length) {
-    final _ret = _objc_msgSend_1t5rcq1(
-        _class_NSSimpleCString, _sel_stringWithCString_length_, bytes, length);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// stringWithCString:
-  static objc.ObjCObjectBase? stringWithCString_(ffi.Pointer<ffi.Char> bytes) {
-    final _ret = _objc_msgSend_1og3t2d(
-        _class_NSSimpleCString, _sel_stringWithCString_, bytes);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-}
-
-late final _class_NSSimpleCString = objc.getClass("NSSimpleCString");
-late final _sel_availableStringEncodings =
-    objc.registerName("availableStringEncodings");
-final _objc_msgSend_gvd36k = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<NSStringEncoding> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<NSStringEncoding> Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_localizedNameOfStringEncoding_ =
-    objc.registerName("localizedNameOfStringEncoding:");
-late final _sel_defaultCStringEncoding =
-    objc.registerName("defaultCStringEncoding");
-typedef unichar = ffi.UnsignedShort;
-typedef Dartunichar = int;
-late final _sel_initWithCharactersNoCopy_length_freeWhenDone_ =
-    objc.registerName("initWithCharactersNoCopy:length:freeWhenDone:");
-final _objc_msgSend_1rimh2f = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<unichar>,
-                NSUInteger,
-                ffi.Bool)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<unichar>, int, bool)>();
-void _ObjCBlock_ffiVoid_unichar_NSUInteger_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<unichar> arg0,
-        int arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(
-                    ffi.Pointer<unichar> arg0, NSUInteger arg1)>>()
-        .asFunction<void Function(ffi.Pointer<unichar>, int)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_unichar_NSUInteger_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<unichar>, NSUInteger)>(
-            _ObjCBlock_ffiVoid_unichar_NSUInteger_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_unichar_NSUInteger_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<unichar> arg0,
-        int arg1) =>
-    (objc.getBlockClosure(block) as void Function(ffi.Pointer<unichar>, int))(
-        arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_unichar_NSUInteger_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<unichar>, NSUInteger)>(
-            _ObjCBlock_ffiVoid_unichar_NSUInteger_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_unichar_NSUInteger_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<unichar> arg0,
-    int arg1) {
-  (objc.getBlockClosure(block) as void Function(ffi.Pointer<unichar>, int))(
-      arg0, arg1);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<unichar>, NSUInteger)>
-    _ObjCBlock_ffiVoid_unichar_NSUInteger_listenerCallable = ffi.NativeCallable<
-            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<unichar>, NSUInteger)>.listener(
-        _ObjCBlock_ffiVoid_unichar_NSUInteger_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>`.
-abstract final class ObjCBlock_ffiVoid_unichar_NSUInteger {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<unichar>,
-                  ffi.UnsignedLong)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)> fromFunctionPointer(
-          ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<unichar> arg0, NSUInteger arg1)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>(
-          objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_unichar_NSUInteger_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)> fromFunction(
-          void Function(ffi.Pointer<unichar>, DartNSUInteger) fn) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_unichar_NSUInteger_closureCallable,
-              (ffi.Pointer<unichar> arg0, int arg1) => fn(arg0, arg1)),
-          retain: false,
-          release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>
-      listener(void Function(ffi.Pointer<unichar>, DartNSUInteger) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_unichar_NSUInteger_listenerCallable.nativeFunction
-            .cast(),
-        (ffi.Pointer<unichar> arg0, int arg1) => fn(arg0, arg1));
-    final wrapper = _wrapListenerBlock_zpobzb(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-            ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>(wrapper,
-        retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>`.
-extension ObjCBlock_ffiVoid_unichar_NSUInteger_CallExtension on objc
-    .ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)> {
-  void call(ffi.Pointer<unichar> arg0, DartNSUInteger arg1) =>
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<unichar> arg0, NSUInteger arg1)>>()
-          .asFunction<
-              void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<unichar>, int)>()(ref.pointer, arg0, arg1);
-}
-
-late final _sel_initWithCharactersNoCopy_length_deallocator_ =
-    objc.registerName("initWithCharactersNoCopy:length:deallocator:");
-final _objc_msgSend_133nfze = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<unichar>,
-                NSUInteger,
-                ffi.Pointer<objc.ObjCBlockImpl>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<unichar>,
-            int,
-            ffi.Pointer<objc.ObjCBlockImpl>)>();
-late final _sel_initWithCharacters_length_ =
-    objc.registerName("initWithCharacters:length:");
-final _objc_msgSend_syhe4c = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<unichar>,
-                NSUInteger)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<unichar>, int)>();
-late final _sel_initWithUTF8String_ = objc.registerName("initWithUTF8String:");
-final _objc_msgSend_1og3t2d = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<ffi.Char>)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<ffi.Char>)>();
-late final _sel_initWithFormat_ = objc.registerName("initWithFormat:");
-late final _sel_initWithFormat_locale_ =
-    objc.registerName("initWithFormat:locale:");
-late final _sel_initWithValidatedFormat_validFormatSpecifiers_error_ =
-    objc.registerName("initWithValidatedFormat:validFormatSpecifiers:error:");
-final _objc_msgSend_1lpsn5w = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
-late final _sel_initWithValidatedFormat_validFormatSpecifiers_locale_error_ =
-    objc.registerName(
-        "initWithValidatedFormat:validFormatSpecifiers:locale:error:");
-final _objc_msgSend_w9wiqt = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
-late final _sel_initWithData_encoding_ =
-    objc.registerName("initWithData:encoding:");
-final _objc_msgSend_183c8xv = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                NSStringEncoding)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            int)>();
-late final _sel_initWithBytes_length_encoding_ =
-    objc.registerName("initWithBytes:length:encoding:");
-final _objc_msgSend_1ea4mhr = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<ffi.Void>,
-                NSUInteger,
-                NSStringEncoding)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<ffi.Void>, int, int)>();
-late final _sel_initWithBytesNoCopy_length_encoding_freeWhenDone_ =
-    objc.registerName("initWithBytesNoCopy:length:encoding:freeWhenDone:");
-final _objc_msgSend_1idnlsy = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<ffi.Void>,
-                NSUInteger,
-                NSStringEncoding,
-                ffi.Bool)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<ffi.Void>,
-            int,
-            int,
-            bool)>();
-void _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        int arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(
-                    ffi.Pointer<ffi.Void> arg0, NSUInteger arg1)>>()
-        .asFunction<void Function(ffi.Pointer<ffi.Void>, int)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, NSUInteger)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        int arg1) =>
-    (objc.getBlockClosure(block) as void Function(ffi.Pointer<ffi.Void>, int))(
-        arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, NSUInteger)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> arg0,
-    int arg1) {
-  (objc.getBlockClosure(block) as void Function(ffi.Pointer<ffi.Void>, int))(
-      arg0, arg1);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, NSUInteger)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_listenerCallable = ffi.NativeCallable<
-            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>, NSUInteger)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSUInteger {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>,
-                  ffi.UnsignedLong)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)> fromFunctionPointer(
-          ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, NSUInteger arg1)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>(
-          objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, DartNSUInteger) fn) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, int arg1) => fn(arg0, arg1)),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>
-      listener(void Function(ffi.Pointer<ffi.Void>, DartNSUInteger) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_listenerCallable.nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0, int arg1) => fn(arg0, arg1));
-    final wrapper = _wrapListenerBlock_vzqe8w(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-            ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>(wrapper,
-        retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSUInteger_CallExtension on objc
-    .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)> {
-  void call(ffi.Pointer<ffi.Void> arg0, DartNSUInteger arg1) =>
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0, NSUInteger arg1)>>()
-          .asFunction<
-              void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>, int)>()(ref.pointer, arg0, arg1);
-}
-
-late final _sel_initWithBytesNoCopy_length_encoding_deallocator_ =
-    objc.registerName("initWithBytesNoCopy:length:encoding:deallocator:");
-final _objc_msgSend_11b57dv = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<ffi.Void>,
-                NSUInteger,
-                NSStringEncoding,
-                ffi.Pointer<objc.ObjCBlockImpl>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<ffi.Void>,
-            int,
-            int,
-            ffi.Pointer<objc.ObjCBlockImpl>)>();
-late final _sel_stringWithString_ = objc.registerName("stringWithString:");
-late final _sel_stringWithCharacters_length_ =
-    objc.registerName("stringWithCharacters:length:");
-late final _sel_stringWithUTF8String_ =
-    objc.registerName("stringWithUTF8String:");
-late final _sel_stringWithFormat_ = objc.registerName("stringWithFormat:");
-late final _sel_localizedStringWithFormat_ =
-    objc.registerName("localizedStringWithFormat:");
-late final _sel_stringWithValidatedFormat_validFormatSpecifiers_error_ =
-    objc.registerName("stringWithValidatedFormat:validFormatSpecifiers:error:");
-late final _sel_localizedStringWithValidatedFormat_validFormatSpecifiers_error_ =
-    objc.registerName(
-        "localizedStringWithValidatedFormat:validFormatSpecifiers:error:");
-late final _sel_initWithCString_encoding_ =
-    objc.registerName("initWithCString:encoding:");
-final _objc_msgSend_1t5rcq1 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<ffi.Char>,
-                NSStringEncoding)>>()
-    .asFunction<
-        instancetype Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<ffi.Char>, int)>();
-late final _sel_stringWithCString_encoding_ =
-    objc.registerName("stringWithCString:encoding:");
-late final _sel_initWithContentsOfURL_encoding_error_ =
-    objc.registerName("initWithContentsOfURL:encoding:error:");
-final _objc_msgSend_1u9el4t = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                NSStringEncoding,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            int,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
-late final _sel_initWithContentsOfFile_encoding_error_ =
-    objc.registerName("initWithContentsOfFile:encoding:error:");
-late final _sel_stringWithContentsOfURL_encoding_error_ =
-    objc.registerName("stringWithContentsOfURL:encoding:error:");
-late final _sel_stringWithContentsOfFile_encoding_error_ =
-    objc.registerName("stringWithContentsOfFile:encoding:error:");
-late final _sel_initWithContentsOfURL_usedEncoding_error_ =
-    objc.registerName("initWithContentsOfURL:usedEncoding:error:");
-final _objc_msgSend_1h339ej = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<NSStringEncoding>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<NSStringEncoding>,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
-late final _sel_initWithContentsOfFile_usedEncoding_error_ =
-    objc.registerName("initWithContentsOfFile:usedEncoding:error:");
-late final _sel_stringWithContentsOfURL_usedEncoding_error_ =
-    objc.registerName("stringWithContentsOfURL:usedEncoding:error:");
-late final _sel_stringWithContentsOfFile_usedEncoding_error_ =
-    objc.registerName("stringWithContentsOfFile:usedEncoding:error:");
-late final _sel_stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_ =
-    objc.registerName(
-        "stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:");
-final _objc_msgSend_1el0by7 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSStringEncoding Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                ffi.Pointer<ffi.Bool>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-            ffi.Pointer<ffi.Bool>)>();
-late final _sel_stringWithContentsOfFile_ =
-    objc.registerName("stringWithContentsOfFile:");
-late final _sel_stringWithContentsOfURL_ =
-    objc.registerName("stringWithContentsOfURL:");
-late final _sel_stringWithCString_length_ =
-    objc.registerName("stringWithCString:length:");
-late final _sel_stringWithCString_ = objc.registerName("stringWithCString:");
-
-/// NSConstantString
-class NSConstantString extends NSSimpleCString {
-  NSConstantString._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSConstantString] that points to the same underlying object as [other].
-  NSConstantString.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSConstantString] that wraps the given raw object pointer.
-  NSConstantString.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSConstantString].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSConstantString);
-  }
-
-  /// init
-  NSConstantString init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithCoder:
-  NSConstantString? initWithCoder_(objc.NSCoder coder) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithCoder_, coder.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// availableStringEncodings
-  static ffi.Pointer<NSStringEncoding> getAvailableStringEncodings() {
-    return _objc_msgSend_gvd36k(
-        _class_NSConstantString, _sel_availableStringEncodings);
-  }
-
-  /// localizedNameOfStringEncoding:
-  static objc.NSString localizedNameOfStringEncoding_(DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_ehxl2g(
-        _class_NSConstantString, _sel_localizedNameOfStringEncoding_, encoding);
-    return objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// defaultCStringEncoding
-  static DartNSUInteger getDefaultCStringEncoding() {
-    return _objc_msgSend_eldhrq(
-        _class_NSConstantString, _sel_defaultCStringEncoding);
-  }
-
-  /// initWithCharactersNoCopy:length:freeWhenDone:
-  NSConstantString initWithCharactersNoCopy_length_freeWhenDone_(
-      ffi.Pointer<unichar> characters, DartNSUInteger length, bool freeBuffer) {
-    final _ret = _objc_msgSend_1rimh2f(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithCharactersNoCopy_length_freeWhenDone_,
-        characters,
-        length,
-        freeBuffer);
-    return NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithCharactersNoCopy:length:deallocator:
-  NSConstantString initWithCharactersNoCopy_length_deallocator_(
-      ffi.Pointer<unichar> chars,
-      DartNSUInteger len,
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>?
-          deallocator) {
-    final _ret = _objc_msgSend_133nfze(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithCharactersNoCopy_length_deallocator_,
-        chars,
-        len,
-        deallocator?.ref.pointer ?? ffi.nullptr);
-    return NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithCharacters:length:
-  NSConstantString initWithCharacters_length_(
-      ffi.Pointer<unichar> characters, DartNSUInteger length) {
-    final _ret = _objc_msgSend_syhe4c(this.ref.retainAndReturnPointer(),
-        _sel_initWithCharacters_length_, characters, length);
-    return NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithUTF8String:
-  NSConstantString? initWithUTF8String_(
-      ffi.Pointer<ffi.Char> nullTerminatedCString) {
-    final _ret = _objc_msgSend_1og3t2d(this.ref.retainAndReturnPointer(),
-        _sel_initWithUTF8String_, nullTerminatedCString);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithString:
-  NSConstantString initWithString_(objc.NSString aString) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithString_, aString.ref.pointer);
-    return NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithFormat:
-  NSConstantString initWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithFormat_, format.ref.pointer);
-    return NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithFormat:locale:
-  NSConstantString initWithFormat_locale_(
-      objc.NSString format, objc.ObjCObjectBase? locale) {
-    final _ret = _objc_msgSend_iq11qg(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithFormat_locale_,
-        format.ref.pointer,
-        locale?.ref.pointer ?? ffi.nullptr);
-    return NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithValidatedFormat:validFormatSpecifiers:error:
-  NSConstantString? initWithValidatedFormat_validFormatSpecifiers_error_(
-      objc.NSString format,
-      objc.NSString validFormatSpecifiers,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1lpsn5w(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithValidatedFormat_validFormatSpecifiers_error_,
-        format.ref.pointer,
-        validFormatSpecifiers.ref.pointer,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithValidatedFormat:validFormatSpecifiers:locale:error:
-  NSConstantString? initWithValidatedFormat_validFormatSpecifiers_locale_error_(
-      objc.NSString format,
-      objc.NSString validFormatSpecifiers,
-      objc.ObjCObjectBase? locale,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_w9wiqt(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithValidatedFormat_validFormatSpecifiers_locale_error_,
-        format.ref.pointer,
-        validFormatSpecifiers.ref.pointer,
-        locale?.ref.pointer ?? ffi.nullptr,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithData:encoding:
-  NSConstantString? initWithData_encoding_(
-      objc.NSData data, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_183c8xv(this.ref.retainAndReturnPointer(),
-        _sel_initWithData_encoding_, data.ref.pointer, encoding);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithBytes:length:encoding:
-  NSConstantString? initWithBytes_length_encoding_(ffi.Pointer<ffi.Void> bytes,
-      DartNSUInteger len, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_1ea4mhr(this.ref.retainAndReturnPointer(),
-        _sel_initWithBytes_length_encoding_, bytes, len, encoding);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithBytesNoCopy:length:encoding:freeWhenDone:
-  NSConstantString? initWithBytesNoCopy_length_encoding_freeWhenDone_(
-      ffi.Pointer<ffi.Void> bytes,
-      DartNSUInteger len,
-      DartNSUInteger encoding,
-      bool freeBuffer) {
-    final _ret = _objc_msgSend_1idnlsy(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithBytesNoCopy_length_encoding_freeWhenDone_,
-        bytes,
-        len,
-        encoding,
-        freeBuffer);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithBytesNoCopy:length:encoding:deallocator:
-  NSConstantString? initWithBytesNoCopy_length_encoding_deallocator_(
-      ffi.Pointer<ffi.Void> bytes,
-      DartNSUInteger len,
-      DartNSUInteger encoding,
-      objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>?
-          deallocator) {
-    final _ret = _objc_msgSend_11b57dv(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithBytesNoCopy_length_encoding_deallocator_,
-        bytes,
-        len,
-        encoding,
-        deallocator?.ref.pointer ?? ffi.nullptr);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// string
-  static NSConstantString string() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSConstantString, _sel_string);
-    return NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithString:
-  static NSConstantString stringWithString_(objc.NSString string) {
-    final _ret = _objc_msgSend_juohf7(
-        _class_NSConstantString, _sel_stringWithString_, string.ref.pointer);
-    return NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithCharacters:length:
-  static NSConstantString stringWithCharacters_length_(
-      ffi.Pointer<unichar> characters, DartNSUInteger length) {
-    final _ret = _objc_msgSend_syhe4c(_class_NSConstantString,
-        _sel_stringWithCharacters_length_, characters, length);
-    return NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithUTF8String:
-  static NSConstantString? stringWithUTF8String_(
-      ffi.Pointer<ffi.Char> nullTerminatedCString) {
-    final _ret = _objc_msgSend_1og3t2d(_class_NSConstantString,
-        _sel_stringWithUTF8String_, nullTerminatedCString);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithFormat:
-  static NSConstantString stringWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_juohf7(
-        _class_NSConstantString, _sel_stringWithFormat_, format.ref.pointer);
-    return NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// localizedStringWithFormat:
-  static NSConstantString localizedStringWithFormat_(objc.NSString format) {
-    final _ret = _objc_msgSend_juohf7(_class_NSConstantString,
-        _sel_localizedStringWithFormat_, format.ref.pointer);
-    return NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithValidatedFormat:validFormatSpecifiers:error:
-  static NSConstantString?
-      stringWithValidatedFormat_validFormatSpecifiers_error_(
-          objc.NSString format,
-          objc.NSString validFormatSpecifiers,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1lpsn5w(
-        _class_NSConstantString,
-        _sel_stringWithValidatedFormat_validFormatSpecifiers_error_,
-        format.ref.pointer,
-        validFormatSpecifiers.ref.pointer,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// localizedStringWithValidatedFormat:validFormatSpecifiers:error:
-  static NSConstantString?
-      localizedStringWithValidatedFormat_validFormatSpecifiers_error_(
-          objc.NSString format,
-          objc.NSString validFormatSpecifiers,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1lpsn5w(
-        _class_NSConstantString,
-        _sel_localizedStringWithValidatedFormat_validFormatSpecifiers_error_,
-        format.ref.pointer,
-        validFormatSpecifiers.ref.pointer,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// initWithCString:encoding:
-  NSConstantString? initWithCString_encoding_(
-      ffi.Pointer<ffi.Char> nullTerminatedCString, DartNSUInteger encoding) {
-    final _ret = _objc_msgSend_1t5rcq1(this.ref.retainAndReturnPointer(),
-        _sel_initWithCString_encoding_, nullTerminatedCString, encoding);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// stringWithCString:encoding:
-  static NSConstantString? stringWithCString_encoding_(
-      ffi.Pointer<ffi.Char> cString, DartNSUInteger enc) {
-    final _ret = _objc_msgSend_1t5rcq1(_class_NSConstantString,
-        _sel_stringWithCString_encoding_, cString, enc);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// initWithContentsOfURL:encoding:error:
-  NSConstantString? initWithContentsOfURL_encoding_error_(objc.NSURL url,
-      DartNSUInteger enc, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1u9el4t(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithContentsOfURL_encoding_error_,
-        url.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithContentsOfFile:encoding:error:
-  NSConstantString? initWithContentsOfFile_encoding_error_(objc.NSString path,
-      DartNSUInteger enc, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1u9el4t(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithContentsOfFile_encoding_error_,
-        path.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// stringWithContentsOfURL:encoding:error:
-  static NSConstantString? stringWithContentsOfURL_encoding_error_(
-      objc.NSURL url,
-      DartNSUInteger enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1u9el4t(
-        _class_NSConstantString,
-        _sel_stringWithContentsOfURL_encoding_error_,
-        url.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithContentsOfFile:encoding:error:
-  static NSConstantString? stringWithContentsOfFile_encoding_error_(
-      objc.NSString path,
-      DartNSUInteger enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1u9el4t(
-        _class_NSConstantString,
-        _sel_stringWithContentsOfFile_encoding_error_,
-        path.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// initWithContentsOfURL:usedEncoding:error:
-  NSConstantString? initWithContentsOfURL_usedEncoding_error_(
-      objc.NSURL url,
-      ffi.Pointer<NSStringEncoding> enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1h339ej(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithContentsOfURL_usedEncoding_error_,
-        url.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// initWithContentsOfFile:usedEncoding:error:
-  NSConstantString? initWithContentsOfFile_usedEncoding_error_(
-      objc.NSString path,
-      ffi.Pointer<NSStringEncoding> enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1h339ej(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithContentsOfFile_usedEncoding_error_,
-        path.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// stringWithContentsOfURL:usedEncoding:error:
-  static NSConstantString? stringWithContentsOfURL_usedEncoding_error_(
-      objc.NSURL url,
-      ffi.Pointer<NSStringEncoding> enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1h339ej(
-        _class_NSConstantString,
-        _sel_stringWithContentsOfURL_usedEncoding_error_,
-        url.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringWithContentsOfFile:usedEncoding:error:
-  static NSConstantString? stringWithContentsOfFile_usedEncoding_error_(
-      objc.NSString path,
-      ffi.Pointer<NSStringEncoding> enc,
-      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> error) {
-    final _ret = _objc_msgSend_1h339ej(
-        _class_NSConstantString,
-        _sel_stringWithContentsOfFile_usedEncoding_error_,
-        path.ref.pointer,
-        enc,
-        error);
-    return _ret.address == 0
-        ? null
-        : NSConstantString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// stringEncodingForData:encodingOptions:convertedString:usedLossyConversion:
-  static DartNSUInteger
-      stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_(
-          objc.NSData data,
-          objc.NSDictionary? opts,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> string,
-          ffi.Pointer<ffi.Bool> usedLossyConversion) {
-    return _objc_msgSend_1el0by7(
-        _class_NSConstantString,
-        _sel_stringEncodingForData_encodingOptions_convertedString_usedLossyConversion_,
-        data.ref.pointer,
-        opts?.ref.pointer ?? ffi.nullptr,
-        string,
-        usedLossyConversion);
-  }
-
-  /// stringWithContentsOfFile:
-  static objc.ObjCObjectBase? stringWithContentsOfFile_(objc.NSString path) {
-    final _ret = _objc_msgSend_juohf7(_class_NSConstantString,
-        _sel_stringWithContentsOfFile_, path.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// stringWithContentsOfURL:
-  static objc.ObjCObjectBase? stringWithContentsOfURL_(objc.NSURL url) {
-    final _ret = _objc_msgSend_juohf7(_class_NSConstantString,
-        _sel_stringWithContentsOfURL_, url.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// stringWithCString:length:
-  static objc.ObjCObjectBase? stringWithCString_length_(
-      ffi.Pointer<ffi.Char> bytes, DartNSUInteger length) {
-    final _ret = _objc_msgSend_1t5rcq1(
-        _class_NSConstantString, _sel_stringWithCString_length_, bytes, length);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// stringWithCString:
-  static objc.ObjCObjectBase? stringWithCString_(ffi.Pointer<ffi.Char> bytes) {
-    final _ret = _objc_msgSend_1og3t2d(
-        _class_NSConstantString, _sel_stringWithCString_, bytes);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-}
-
-late final _class_NSConstantString = objc.getClass("NSConstantString");
-
-/// NSMutableCharacterSet
-class NSMutableCharacterSet extends objc.NSCharacterSet {
-  NSMutableCharacterSet._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSMutableCharacterSet] that points to the same underlying object as [other].
-  NSMutableCharacterSet.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSMutableCharacterSet] that wraps the given raw object pointer.
-  NSMutableCharacterSet.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSMutableCharacterSet].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSMutableCharacterSet);
-  }
-
-  /// addCharactersInRange:
-  void addCharactersInRange_(NSRange aRange) {
-    _objc_msgSend_9xf7uy(this.ref.pointer, _sel_addCharactersInRange_, aRange);
-  }
-
-  /// removeCharactersInRange:
-  void removeCharactersInRange_(NSRange aRange) {
-    _objc_msgSend_9xf7uy(
-        this.ref.pointer, _sel_removeCharactersInRange_, aRange);
-  }
-
-  /// addCharactersInString:
-  void addCharactersInString_(objc.NSString aString) {
-    _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_addCharactersInString_, aString.ref.pointer);
-  }
-
-  /// removeCharactersInString:
-  void removeCharactersInString_(objc.NSString aString) {
-    _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_removeCharactersInString_, aString.ref.pointer);
-  }
-
-  /// formUnionWithCharacterSet:
-  void formUnionWithCharacterSet_(objc.NSCharacterSet otherSet) {
-    _objc_msgSend_ukcdfq(this.ref.pointer, _sel_formUnionWithCharacterSet_,
-        otherSet.ref.pointer);
-  }
-
-  /// formIntersectionWithCharacterSet:
-  void formIntersectionWithCharacterSet_(objc.NSCharacterSet otherSet) {
-    _objc_msgSend_ukcdfq(this.ref.pointer,
-        _sel_formIntersectionWithCharacterSet_, otherSet.ref.pointer);
-  }
-
-  /// invert
-  void invert() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_invert);
-  }
-
-  /// controlCharacterSet
-  static objc.NSCharacterSet getControlCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_controlCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// whitespaceCharacterSet
-  static objc.NSCharacterSet getWhitespaceCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_whitespaceCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// whitespaceAndNewlineCharacterSet
-  static objc.NSCharacterSet getWhitespaceAndNewlineCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_whitespaceAndNewlineCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// decimalDigitCharacterSet
-  static objc.NSCharacterSet getDecimalDigitCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_decimalDigitCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// letterCharacterSet
-  static objc.NSCharacterSet getLetterCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_letterCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// lowercaseLetterCharacterSet
-  static objc.NSCharacterSet getLowercaseLetterCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_lowercaseLetterCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// uppercaseLetterCharacterSet
-  static objc.NSCharacterSet getUppercaseLetterCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_uppercaseLetterCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// nonBaseCharacterSet
-  static objc.NSCharacterSet getNonBaseCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_nonBaseCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// alphanumericCharacterSet
-  static objc.NSCharacterSet getAlphanumericCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_alphanumericCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// decomposableCharacterSet
-  static objc.NSCharacterSet getDecomposableCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_decomposableCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// illegalCharacterSet
-  static objc.NSCharacterSet getIllegalCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_illegalCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// punctuationCharacterSet
-  static objc.NSCharacterSet getPunctuationCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_punctuationCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// capitalizedLetterCharacterSet
-  static objc.NSCharacterSet getCapitalizedLetterCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_capitalizedLetterCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// symbolCharacterSet
-  static objc.NSCharacterSet getSymbolCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_symbolCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// newlineCharacterSet
-  static objc.NSCharacterSet getNewlineCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_newlineCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// characterSetWithRange:
-  static objc.NSCharacterSet characterSetWithRange_(NSRange aRange) {
-    final _ret = _objc_msgSend_176f8tz(
-        _class_NSMutableCharacterSet, _sel_characterSetWithRange_, aRange);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// characterSetWithCharactersInString:
-  static objc.NSCharacterSet characterSetWithCharactersInString_(
-      objc.NSString aString) {
-    final _ret = _objc_msgSend_juohf7(_class_NSMutableCharacterSet,
-        _sel_characterSetWithCharactersInString_, aString.ref.pointer);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// characterSetWithBitmapRepresentation:
-  static objc.NSCharacterSet characterSetWithBitmapRepresentation_(
-      objc.NSData data) {
-    final _ret = _objc_msgSend_juohf7(_class_NSMutableCharacterSet,
-        _sel_characterSetWithBitmapRepresentation_, data.ref.pointer);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// characterSetWithContentsOfFile:
-  static objc.NSCharacterSet? characterSetWithContentsOfFile_(
-      objc.NSString fName) {
-    final _ret = _objc_msgSend_juohf7(_class_NSMutableCharacterSet,
-        _sel_characterSetWithContentsOfFile_, fName.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : objc.NSCharacterSet.castFromPointer(_ret,
-            retain: true, release: true);
-  }
-
-  /// initWithCoder:
-  NSMutableCharacterSet? initWithCoder_(objc.NSCoder coder) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithCoder_, coder.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : NSMutableCharacterSet.castFromPointer(_ret,
-            retain: false, release: true);
-  }
-
-  /// URLUserAllowedCharacterSet
-  static objc.NSCharacterSet getURLUserAllowedCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_URLUserAllowedCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// URLPasswordAllowedCharacterSet
-  static objc.NSCharacterSet getURLPasswordAllowedCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_URLPasswordAllowedCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// URLHostAllowedCharacterSet
-  static objc.NSCharacterSet getURLHostAllowedCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_URLHostAllowedCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// URLPathAllowedCharacterSet
-  static objc.NSCharacterSet getURLPathAllowedCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_URLPathAllowedCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// URLQueryAllowedCharacterSet
-  static objc.NSCharacterSet getURLQueryAllowedCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_URLQueryAllowedCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// URLFragmentAllowedCharacterSet
-  static objc.NSCharacterSet getURLFragmentAllowedCharacterSet() {
-    final _ret = _objc_msgSend_1unuoxw(
-        _class_NSMutableCharacterSet, _sel_URLFragmentAllowedCharacterSet);
-    return objc.NSCharacterSet.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// supportsSecureCoding
-  static bool supportsSecureCoding() {
-    return _objc_msgSend_olxnu1(
-        _class_NSMutableCharacterSet, _sel_supportsSecureCoding);
-  }
-
-  /// encodeWithCoder:
-  void encodeWithCoder_(objc.NSCoder coder) {
-    _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_encodeWithCoder_, coder.ref.pointer);
-  }
-}
-
-late final _class_NSMutableCharacterSet =
-    objc.getClass("NSMutableCharacterSet");
-late final _sel_addCharactersInRange_ =
-    objc.registerName("addCharactersInRange:");
-final _objc_msgSend_9xf7uy = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSRange)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, NSRange)>();
-late final _sel_removeCharactersInRange_ =
-    objc.registerName("removeCharactersInRange:");
-late final _sel_addCharactersInString_ =
-    objc.registerName("addCharactersInString:");
-late final _sel_removeCharactersInString_ =
-    objc.registerName("removeCharactersInString:");
-late final _sel_formUnionWithCharacterSet_ =
-    objc.registerName("formUnionWithCharacterSet:");
-late final _sel_formIntersectionWithCharacterSet_ =
-    objc.registerName("formIntersectionWithCharacterSet:");
-late final _sel_invert = objc.registerName("invert");
-late final _sel_controlCharacterSet = objc.registerName("controlCharacterSet");
-late final _sel_whitespaceCharacterSet =
-    objc.registerName("whitespaceCharacterSet");
-late final _sel_whitespaceAndNewlineCharacterSet =
-    objc.registerName("whitespaceAndNewlineCharacterSet");
-late final _sel_decimalDigitCharacterSet =
-    objc.registerName("decimalDigitCharacterSet");
-late final _sel_letterCharacterSet = objc.registerName("letterCharacterSet");
-late final _sel_lowercaseLetterCharacterSet =
-    objc.registerName("lowercaseLetterCharacterSet");
-late final _sel_uppercaseLetterCharacterSet =
-    objc.registerName("uppercaseLetterCharacterSet");
-late final _sel_nonBaseCharacterSet = objc.registerName("nonBaseCharacterSet");
-late final _sel_alphanumericCharacterSet =
-    objc.registerName("alphanumericCharacterSet");
-late final _sel_decomposableCharacterSet =
-    objc.registerName("decomposableCharacterSet");
-late final _sel_illegalCharacterSet = objc.registerName("illegalCharacterSet");
-late final _sel_punctuationCharacterSet =
-    objc.registerName("punctuationCharacterSet");
-late final _sel_capitalizedLetterCharacterSet =
-    objc.registerName("capitalizedLetterCharacterSet");
-late final _sel_symbolCharacterSet = objc.registerName("symbolCharacterSet");
-late final _sel_newlineCharacterSet = objc.registerName("newlineCharacterSet");
-late final _sel_characterSetWithRange_ =
-    objc.registerName("characterSetWithRange:");
-final _objc_msgSend_176f8tz = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSRange)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, NSRange)>();
-late final _sel_characterSetWithCharactersInString_ =
-    objc.registerName("characterSetWithCharactersInString:");
-late final _sel_characterSetWithBitmapRepresentation_ =
-    objc.registerName("characterSetWithBitmapRepresentation:");
-late final _sel_characterSetWithContentsOfFile_ =
-    objc.registerName("characterSetWithContentsOfFile:");
-late final _sel_URLUserAllowedCharacterSet =
-    objc.registerName("URLUserAllowedCharacterSet");
-late final _sel_URLPasswordAllowedCharacterSet =
-    objc.registerName("URLPasswordAllowedCharacterSet");
-late final _sel_URLHostAllowedCharacterSet =
-    objc.registerName("URLHostAllowedCharacterSet");
-late final _sel_URLPathAllowedCharacterSet =
-    objc.registerName("URLPathAllowedCharacterSet");
-late final _sel_URLQueryAllowedCharacterSet =
-    objc.registerName("URLQueryAllowedCharacterSet");
-late final _sel_URLFragmentAllowedCharacterSet =
-    objc.registerName("URLFragmentAllowedCharacterSet");
 
 /// NSURLHandleClient
 abstract final class NSURLHandleClient {
@@ -78521,737 +74147,6 @@ typedef DartNSURLUbiquitousSharedItemRole = objc.NSString;
 typedef NSURLUbiquitousSharedItemPermissions = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSURLUbiquitousSharedItemPermissions = objc.NSString;
 
-/// NSURLQueryItem encapsulates a single query name-value pair. The name and value strings of a query name-value pair are not percent encoded. For use with the NSURLComponents queryItems property.
-class NSURLQueryItem extends objc.NSObject {
-  NSURLQueryItem._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSURLQueryItem] that points to the same underlying object as [other].
-  NSURLQueryItem.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSURLQueryItem] that wraps the given raw object pointer.
-  NSURLQueryItem.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSURLQueryItem].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSURLQueryItem);
-  }
-
-  /// initWithName:value:
-  NSURLQueryItem initWithName_value_(objc.NSString name, objc.NSString? value) {
-    final _ret = _objc_msgSend_iq11qg(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithName_value_,
-        name.ref.pointer,
-        value?.ref.pointer ?? ffi.nullptr);
-    return NSURLQueryItem.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// queryItemWithName:value:
-  static NSURLQueryItem queryItemWithName_value_(
-      objc.NSString name, objc.NSString? value) {
-    final _ret = _objc_msgSend_iq11qg(
-        _class_NSURLQueryItem,
-        _sel_queryItemWithName_value_,
-        name.ref.pointer,
-        value?.ref.pointer ?? ffi.nullptr);
-    return NSURLQueryItem.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// name
-  objc.NSString get name {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
-    return objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// value
-  objc.NSString? get value {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_value);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// init
-  NSURLQueryItem init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSURLQueryItem.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSURLQueryItem new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSURLQueryItem, _sel_new);
-    return NSURLQueryItem.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSURLQueryItem allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret =
-        _objc_msgSend_1b3ihd0(_class_NSURLQueryItem, _sel_allocWithZone_, zone);
-    return NSURLQueryItem.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSURLQueryItem alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSURLQueryItem, _sel_alloc);
-    return NSURLQueryItem.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// supportsSecureCoding
-  static bool supportsSecureCoding() {
-    return _objc_msgSend_olxnu1(
-        _class_NSURLQueryItem, _sel_supportsSecureCoding);
-  }
-
-  /// encodeWithCoder:
-  void encodeWithCoder_(objc.NSCoder coder) {
-    _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_encodeWithCoder_, coder.ref.pointer);
-  }
-
-  /// initWithCoder:
-  NSURLQueryItem? initWithCoder_(objc.NSCoder coder) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithCoder_, coder.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : NSURLQueryItem.castFromPointer(_ret, retain: false, release: true);
-  }
-}
-
-late final _class_NSURLQueryItem = objc.getClass("NSURLQueryItem");
-late final _sel_initWithName_value_ = objc.registerName("initWithName:value:");
-late final _sel_queryItemWithName_value_ =
-    objc.registerName("queryItemWithName:value:");
-late final _sel_value = objc.registerName("value");
-
-/// NSURLComponents
-class NSURLComponents extends objc.NSObject {
-  NSURLComponents._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSURLComponents] that points to the same underlying object as [other].
-  NSURLComponents.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSURLComponents] that wraps the given raw object pointer.
-  NSURLComponents.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSURLComponents].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSURLComponents);
-  }
-
-  /// init
-  NSURLComponents init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSURLComponents.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// Initialize a NSURLComponents with the components of a URL. If resolvingAgainstBaseURL is YES and url is a relative URL, the components of [url absoluteURL] are used. If the url string from the NSURL is malformed, nil is returned.
-  NSURLComponents? initWithURL_resolvingAgainstBaseURL_(
-      objc.NSURL url, bool resolve) {
-    final _ret = _objc_msgSend_qqbb5y(this.ref.retainAndReturnPointer(),
-        _sel_initWithURL_resolvingAgainstBaseURL_, url.ref.pointer, resolve);
-    return _ret.address == 0
-        ? null
-        : NSURLComponents.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// Initializes and returns a newly created NSURLComponents with the components of a URL. If resolvingAgainstBaseURL is YES and url is a relative URL, the components of [url absoluteURL] are used. If the url string from the NSURL is malformed, nil is returned.
-  static NSURLComponents? componentsWithURL_resolvingAgainstBaseURL_(
-      objc.NSURL url, bool resolve) {
-    final _ret = _objc_msgSend_qqbb5y(
-        _class_NSURLComponents,
-        _sel_componentsWithURL_resolvingAgainstBaseURL_,
-        url.ref.pointer,
-        resolve);
-    return _ret.address == 0
-        ? null
-        : NSURLComponents.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Initialize a NSURLComponents with a URL string. If the URLString is malformed, nil is returned.
-  NSURLComponents? initWithString_(objc.NSString URLString) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithString_, URLString.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : NSURLComponents.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// Initializes and returns a newly created NSURLComponents with a URL string. If the URLString is malformed, nil is returned.
-  static NSURLComponents? componentsWithString_(objc.NSString URLString) {
-    final _ret = _objc_msgSend_juohf7(_class_NSURLComponents,
-        _sel_componentsWithString_, URLString.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : NSURLComponents.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Initializes an `NSURLComponents` with a URL string and the option to add (or skip) IDNA- and percent-encoding of invalid characters.
-  /// If `encodingInvalidCharacters` is false, and the URL string is invalid according to RFC 3986, `nil` is returned.
-  /// If `encodingInvalidCharacters` is true, `NSURLComponents` will try to encode the string to create a valid URL.
-  /// If the URL string is still invalid after encoding, `nil` is returned.
-  ///
-  /// - Parameter URLString: The URL string.
-  /// - Parameter encodingInvalidCharacters: True if `NSURLComponents` should try to encode an invalid URL string, false otherwise.
-  /// - Returns: An `NSURLComponents` instance for a valid URL, or `nil` if the URL is invalid.
-  NSURLComponents? initWithString_encodingInvalidCharacters_(
-      objc.NSString URLString, bool encodingInvalidCharacters) {
-    final _ret = _objc_msgSend_qqbb5y(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithString_encodingInvalidCharacters_,
-        URLString.ref.pointer,
-        encodingInvalidCharacters);
-    return _ret.address == 0
-        ? null
-        : NSURLComponents.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// Initializes and returns a newly created `NSURLComponents` with a URL string and the option to add (or skip) IDNA- and percent-encoding of invalid characters.
-  /// If `encodingInvalidCharacters` is false, and the URL string is invalid according to RFC 3986, `nil` is returned.
-  /// If `encodingInvalidCharacters` is true, `NSURLComponents` will try to encode the string to create a valid URL.
-  /// If the URL string is still invalid after encoding, nil is returned.
-  ///
-  /// - Parameter URLString: The URL string.
-  /// - Parameter encodingInvalidCharacters: True if `NSURLComponents` should try to encode an invalid URL string, false otherwise.
-  /// - Returns: An `NSURLComponents` instance for a valid URL, or `nil` if the URL is invalid.
-  static NSURLComponents? componentsWithString_encodingInvalidCharacters_(
-      objc.NSString URLString, bool encodingInvalidCharacters) {
-    final _ret = _objc_msgSend_qqbb5y(
-        _class_NSURLComponents,
-        _sel_componentsWithString_encodingInvalidCharacters_,
-        URLString.ref.pointer,
-        encodingInvalidCharacters);
-    return _ret.address == 0
-        ? null
-        : NSURLComponents.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Returns a URL created from the NSURLComponents. If the NSURLComponents has an authority component (user, password, host or port) and a path component, then the path must either begin with "/" or be an empty string. If the NSURLComponents does not have an authority component (user, password, host or port) and has a path component, the path component must not start with "//". If those requirements are not met, nil is returned.
-  objc.NSURL? get URL {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_URL);
-    return _ret.address == 0
-        ? null
-        : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Returns a URL created from the NSURLComponents relative to a base URL. If the NSURLComponents has an authority component (user, password, host or port) and a path component, then the path must either begin with "/" or be an empty string. If the NSURLComponents does not have an authority component (user, password, host or port) and has a path component, the path component must not start with "//". If those requirements are not met, nil is returned.
-  objc.NSURL? URLRelativeToURL_(objc.NSURL? baseURL) {
-    final _ret = _objc_msgSend_juohf7(this.ref.pointer, _sel_URLRelativeToURL_,
-        baseURL?.ref.pointer ?? ffi.nullptr);
-    return _ret.address == 0
-        ? null
-        : objc.NSURL.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Returns a URL string created from the NSURLComponents. If the NSURLComponents has an authority component (user, password, host or port) and a path component, then the path must either begin with "/" or be an empty string. If the NSURLComponents does not have an authority component (user, password, host or port) and has a path component, the path component must not start with "//". If those requirements are not met, nil is returned.
-  objc.NSString? get string {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_string);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Attempting to set the scheme with an invalid scheme string will cause an exception.
-  objc.NSString? get scheme {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_scheme);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Attempting to set the scheme with an invalid scheme string will cause an exception.
-  set scheme(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setScheme_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// user
-  objc.NSString? get user {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_user);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setUser:
-  set user(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setUser_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// password
-  objc.NSString? get password {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_password);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setPassword:
-  set password(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setPassword_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// host
-  objc.NSString? get host {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_host);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setHost:
-  set host(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setHost_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// Attempting to set a negative port number will cause an exception.
-  objc.NSNumber? get port {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_port);
-    return _ret.address == 0
-        ? null
-        : objc.NSNumber.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Attempting to set a negative port number will cause an exception.
-  set port(objc.NSNumber? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setPort_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// path
-  objc.NSString? get path {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_path);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setPath:
-  set path(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setPath_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// query
-  objc.NSString? get query {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_query);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setQuery:
-  set query(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setQuery_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// fragment
-  objc.NSString? get fragment {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_fragment);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setFragment:
-  set fragment(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setFragment_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// Getting these properties retains any percent encoding these components may have. Setting these properties assumes the component string is already correctly percent encoded. Attempting to set an incorrectly percent encoded string will cause an exception. Although ';' is a legal path character, it is recommended that it be percent-encoded for best compatibility with NSURL (-stringByAddingPercentEncodingWithAllowedCharacters: will percent-encode any ';' characters if you pass the URLPathAllowedCharacterSet).
-  objc.NSString? get percentEncodedUser {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_percentEncodedUser);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// Getting these properties retains any percent encoding these components may have. Setting these properties assumes the component string is already correctly percent encoded. Attempting to set an incorrectly percent encoded string will cause an exception. Although ';' is a legal path character, it is recommended that it be percent-encoded for best compatibility with NSURL (-stringByAddingPercentEncodingWithAllowedCharacters: will percent-encode any ';' characters if you pass the URLPathAllowedCharacterSet).
-  set percentEncodedUser(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer, _sel_setPercentEncodedUser_,
-        value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// percentEncodedPassword
-  objc.NSString? get percentEncodedPassword {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_percentEncodedPassword);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setPercentEncodedPassword:
-  set percentEncodedPassword(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer,
-        _sel_setPercentEncodedPassword_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// percentEncodedHost
-  objc.NSString? get percentEncodedHost {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_percentEncodedHost);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setPercentEncodedHost:
-  set percentEncodedHost(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer, _sel_setPercentEncodedHost_,
-        value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// percentEncodedPath
-  objc.NSString? get percentEncodedPath {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_percentEncodedPath);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setPercentEncodedPath:
-  set percentEncodedPath(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer, _sel_setPercentEncodedPath_,
-        value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// percentEncodedQuery
-  objc.NSString? get percentEncodedQuery {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_percentEncodedQuery);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setPercentEncodedQuery:
-  set percentEncodedQuery(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer, _sel_setPercentEncodedQuery_,
-        value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// percentEncodedFragment
-  objc.NSString? get percentEncodedFragment {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_percentEncodedFragment);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setPercentEncodedFragment:
-  set percentEncodedFragment(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer,
-        _sel_setPercentEncodedFragment_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// encodedHost
-  objc.NSString? get encodedHost {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_encodedHost);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setEncodedHost:
-  set encodedHost(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer, _sel_setEncodedHost_,
-        value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// These properties return the character range of a component in the URL string returned by -[NSURLComponents string]. If the component does not exist in the NSURLComponents object, {NSNotFound, 0} is returned. Note: Zero length components are legal. For example, the URL string "scheme://:@/?#" has a zero length user, password, host, query and fragment; the URL strings "scheme:" and "" both have a zero length path.
-  NSRange get rangeOfScheme {
-    return _objc_msgSend_vi3lef(this.ref.pointer, _sel_rangeOfScheme);
-  }
-
-  /// rangeOfUser
-  NSRange get rangeOfUser {
-    return _objc_msgSend_vi3lef(this.ref.pointer, _sel_rangeOfUser);
-  }
-
-  /// rangeOfPassword
-  NSRange get rangeOfPassword {
-    return _objc_msgSend_vi3lef(this.ref.pointer, _sel_rangeOfPassword);
-  }
-
-  /// rangeOfHost
-  NSRange get rangeOfHost {
-    return _objc_msgSend_vi3lef(this.ref.pointer, _sel_rangeOfHost);
-  }
-
-  /// rangeOfPort
-  NSRange get rangeOfPort {
-    return _objc_msgSend_vi3lef(this.ref.pointer, _sel_rangeOfPort);
-  }
-
-  /// rangeOfPath
-  NSRange get rangeOfPath {
-    return _objc_msgSend_vi3lef(this.ref.pointer, _sel_rangeOfPath);
-  }
-
-  /// rangeOfQuery
-  NSRange get rangeOfQuery {
-    return _objc_msgSend_vi3lef(this.ref.pointer, _sel_rangeOfQuery);
-  }
-
-  /// rangeOfFragment
-  NSRange get rangeOfFragment {
-    return _objc_msgSend_vi3lef(this.ref.pointer, _sel_rangeOfFragment);
-  }
-
-  /// The query component as an array of NSURLQueryItems for this NSURLComponents.
-  ///
-  /// Each NSURLQueryItem represents a single key-value pair,
-  ///
-  /// Note that a name may appear more than once in a single query string, so the name values are not guaranteed to be unique. If the NSURLComponents has an empty query component, returns an empty array. If the NSURLComponents has no query component, returns nil.
-  ///
-  /// The queryItems getter returns an array of NSURLQueryItems in the order in which they appear in the original query string. Any percent-encoding in a NSURLQueryItem name or value is removed.
-  ///
-  /// The queryItems setter combines an array containing any number of NSURLQueryItems, each of which represents a single key-value pair, into a query string and sets the NSURLComponents query property. If the NSURLQueryItems name or value strings contain any characters not allowed in a URL's query component, those characters are percent-encoded. In addition, any '&' and '=' characters in a NSURLQueryItem name are percent-encoded. Passing an empty array sets the query component of the NSURLComponents to an empty string. Passing nil removes the query component of the NSURLComponents.
-  ///
-  /// - note: If a NSURLQueryItem name-value pair is empty (i.e. the query string starts with '&', ends with '&', or has "&&" within it), you get a NSURLQueryItem with a zero-length name and a nil value. If a NSURLQueryItem name-value pair has nothing before the equals sign, you get a zero-length name. If a NSURLQueryItem name-value pair has nothing after the equals sign, you get a zero-length value. If a NSURLQueryItem name-value pair has no equals sign, the NSURLQueryItem name-value pair string is the name and you get a nil value.
-  objc.NSArray? get queryItems {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_queryItems);
-    return _ret.address == 0
-        ? null
-        : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// The query component as an array of NSURLQueryItems for this NSURLComponents.
-  ///
-  /// Each NSURLQueryItem represents a single key-value pair,
-  ///
-  /// Note that a name may appear more than once in a single query string, so the name values are not guaranteed to be unique. If the NSURLComponents has an empty query component, returns an empty array. If the NSURLComponents has no query component, returns nil.
-  ///
-  /// The queryItems getter returns an array of NSURLQueryItems in the order in which they appear in the original query string. Any percent-encoding in a NSURLQueryItem name or value is removed.
-  ///
-  /// The queryItems setter combines an array containing any number of NSURLQueryItems, each of which represents a single key-value pair, into a query string and sets the NSURLComponents query property. If the NSURLQueryItems name or value strings contain any characters not allowed in a URL's query component, those characters are percent-encoded. In addition, any '&' and '=' characters in a NSURLQueryItem name are percent-encoded. Passing an empty array sets the query component of the NSURLComponents to an empty string. Passing nil removes the query component of the NSURLComponents.
-  ///
-  /// - note: If a NSURLQueryItem name-value pair is empty (i.e. the query string starts with '&', ends with '&', or has "&&" within it), you get a NSURLQueryItem with a zero-length name and a nil value. If a NSURLQueryItem name-value pair has nothing before the equals sign, you get a zero-length name. If a NSURLQueryItem name-value pair has nothing after the equals sign, you get a zero-length value. If a NSURLQueryItem name-value pair has no equals sign, the NSURLQueryItem name-value pair string is the name and you get a nil value.
-  set queryItems(objc.NSArray? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer, _sel_setQueryItems_,
-        value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// The percentEncodedQueryItems getter returns an array of NSURLQueryItems in the order in which they appear in the original query string. Any percent-encoding in a NSURLQueryItem name or value is retained.
-  ///
-  /// The percentEncodedQueryItems setter combines an array containing any number of NSURLQueryItems, each of which represents a single key-value pair, into a query string and sets the NSURLComponents query property. This property assumes the NSURLQueryItem names and values are already correctly percent-encoded, and that the NSURLQueryItem names do not contain the query item delimiter characters '&' and '='. Attempting to set an incorrectly percent-encoded NSURLQueryItem or a NSURLQueryItem name with the query item delimiter characters '&' and '=' will cause an exception.
-  objc.NSArray? get percentEncodedQueryItems {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.pointer, _sel_percentEncodedQueryItems);
-    return _ret.address == 0
-        ? null
-        : objc.NSArray.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// The percentEncodedQueryItems getter returns an array of NSURLQueryItems in the order in which they appear in the original query string. Any percent-encoding in a NSURLQueryItem name or value is retained.
-  ///
-  /// The percentEncodedQueryItems setter combines an array containing any number of NSURLQueryItems, each of which represents a single key-value pair, into a query string and sets the NSURLComponents query property. This property assumes the NSURLQueryItem names and values are already correctly percent-encoded, and that the NSURLQueryItem names do not contain the query item delimiter characters '&' and '='. Attempting to set an incorrectly percent-encoded NSURLQueryItem or a NSURLQueryItem name with the query item delimiter characters '&' and '=' will cause an exception.
-  set percentEncodedQueryItems(objc.NSArray? value) {
-    return _objc_msgSend_ukcdfq(this.ref.pointer,
-        _sel_setPercentEncodedQueryItems_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// new
-  static NSURLComponents new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSURLComponents, _sel_new);
-    return NSURLComponents.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSURLComponents allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSURLComponents, _sel_allocWithZone_, zone);
-    return NSURLComponents.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSURLComponents alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSURLComponents, _sel_alloc);
-    return NSURLComponents.castFromPointer(_ret, retain: false, release: true);
-  }
-}
-
-late final _class_NSURLComponents = objc.getClass("NSURLComponents");
-late final _sel_initWithURL_resolvingAgainstBaseURL_ =
-    objc.registerName("initWithURL:resolvingAgainstBaseURL:");
-final _objc_msgSend_qqbb5y = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Bool)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            bool)>();
-late final _sel_componentsWithURL_resolvingAgainstBaseURL_ =
-    objc.registerName("componentsWithURL:resolvingAgainstBaseURL:");
-late final _sel_componentsWithString_ =
-    objc.registerName("componentsWithString:");
-late final _sel_initWithString_encodingInvalidCharacters_ =
-    objc.registerName("initWithString:encodingInvalidCharacters:");
-late final _sel_componentsWithString_encodingInvalidCharacters_ =
-    objc.registerName("componentsWithString:encodingInvalidCharacters:");
-late final _sel_URLRelativeToURL_ = objc.registerName("URLRelativeToURL:");
-late final _sel_scheme = objc.registerName("scheme");
-late final _sel_setScheme_ = objc.registerName("setScheme:");
-late final _sel_user = objc.registerName("user");
-late final _sel_setUser_ = objc.registerName("setUser:");
-late final _sel_password = objc.registerName("password");
-late final _sel_setPassword_ = objc.registerName("setPassword:");
-late final _sel_host = objc.registerName("host");
-late final _sel_setHost_ = objc.registerName("setHost:");
-late final _sel_port = objc.registerName("port");
-late final _sel_setPort_ = objc.registerName("setPort:");
-late final _sel_path = objc.registerName("path");
-late final _sel_setPath_ = objc.registerName("setPath:");
-late final _sel_query = objc.registerName("query");
-late final _sel_setQuery_ = objc.registerName("setQuery:");
-late final _sel_fragment = objc.registerName("fragment");
-late final _sel_setFragment_ = objc.registerName("setFragment:");
-late final _sel_percentEncodedUser = objc.registerName("percentEncodedUser");
-late final _sel_setPercentEncodedUser_ =
-    objc.registerName("setPercentEncodedUser:");
-late final _sel_percentEncodedPassword =
-    objc.registerName("percentEncodedPassword");
-late final _sel_setPercentEncodedPassword_ =
-    objc.registerName("setPercentEncodedPassword:");
-late final _sel_percentEncodedHost = objc.registerName("percentEncodedHost");
-late final _sel_setPercentEncodedHost_ =
-    objc.registerName("setPercentEncodedHost:");
-late final _sel_percentEncodedPath = objc.registerName("percentEncodedPath");
-late final _sel_setPercentEncodedPath_ =
-    objc.registerName("setPercentEncodedPath:");
-late final _sel_percentEncodedQuery = objc.registerName("percentEncodedQuery");
-late final _sel_setPercentEncodedQuery_ =
-    objc.registerName("setPercentEncodedQuery:");
-late final _sel_percentEncodedFragment =
-    objc.registerName("percentEncodedFragment");
-late final _sel_setPercentEncodedFragment_ =
-    objc.registerName("setPercentEncodedFragment:");
-late final _sel_encodedHost = objc.registerName("encodedHost");
-late final _sel_setEncodedHost_ = objc.registerName("setEncodedHost:");
-late final _sel_rangeOfScheme = objc.registerName("rangeOfScheme");
-final _objc_msgSend_vi3lef = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSRange Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        NSRange Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-late final _sel_rangeOfUser = objc.registerName("rangeOfUser");
-late final _sel_rangeOfPassword = objc.registerName("rangeOfPassword");
-late final _sel_rangeOfHost = objc.registerName("rangeOfHost");
-late final _sel_rangeOfPort = objc.registerName("rangeOfPort");
-late final _sel_rangeOfPath = objc.registerName("rangeOfPath");
-late final _sel_rangeOfQuery = objc.registerName("rangeOfQuery");
-late final _sel_rangeOfFragment = objc.registerName("rangeOfFragment");
-late final _sel_queryItems = objc.registerName("queryItems");
-late final _sel_setQueryItems_ = objc.registerName("setQueryItems:");
-late final _sel_percentEncodedQueryItems =
-    objc.registerName("percentEncodedQueryItems");
-late final _sel_setPercentEncodedQueryItems_ =
-    objc.registerName("setPercentEncodedQueryItems:");
-
-/// NSFileSecurity encapsulates a file system object's security information. NSFileSecurity and CFFileSecurity are toll-free bridged. Use the CFFileSecurity API for access to the low-level file security properties encapsulated by NSFileSecurity.
-class NSFileSecurity extends objc.NSObject {
-  NSFileSecurity._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSFileSecurity] that points to the same underlying object as [other].
-  NSFileSecurity.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSFileSecurity] that wraps the given raw object pointer.
-  NSFileSecurity.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSFileSecurity].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSFileSecurity);
-  }
-
-  /// initWithCoder:
-  NSFileSecurity? initWithCoder_(objc.NSCoder coder) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithCoder_, coder.ref.pointer);
-    return _ret.address == 0
-        ? null
-        : NSFileSecurity.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// init
-  NSFileSecurity init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSFileSecurity.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSFileSecurity new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSFileSecurity, _sel_new);
-    return NSFileSecurity.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSFileSecurity allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret =
-        _objc_msgSend_1b3ihd0(_class_NSFileSecurity, _sel_allocWithZone_, zone);
-    return NSFileSecurity.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSFileSecurity alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSFileSecurity, _sel_alloc);
-    return NSFileSecurity.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// supportsSecureCoding
-  static bool supportsSecureCoding() {
-    return _objc_msgSend_olxnu1(
-        _class_NSFileSecurity, _sel_supportsSecureCoding);
-  }
-
-  /// encodeWithCoder:
-  void encodeWithCoder_(objc.NSCoder coder) {
-    _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_encodeWithCoder_, coder.ref.pointer);
-  }
-}
-
-late final _class_NSFileSecurity = objc.getClass("NSFileSecurity");
-
 /// NSLocking
 abstract final class NSLocking {
   /// Builds an object that implements the NSLocking protocol. To implement
@@ -79334,439 +74229,6 @@ abstract final class NSLocking {
 late final _protocol_NSLocking = objc.getProtocol("NSLocking");
 late final _sel_lock = objc.registerName("lock");
 late final _sel_unlock = objc.registerName("unlock");
-
-/// NSLock
-class NSLock extends objc.NSObject {
-  NSLock._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSLock] that points to the same underlying object as [other].
-  NSLock.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSLock] that wraps the given raw object pointer.
-  NSLock.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSLock].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSLock);
-  }
-
-  /// tryLock
-  bool tryLock() {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_tryLock);
-  }
-
-  /// lockBeforeDate:
-  bool lockBeforeDate_(objc.NSDate limit) {
-    return _objc_msgSend_l8lotg(
-        this.ref.pointer, _sel_lockBeforeDate_, limit.ref.pointer);
-  }
-
-  /// name
-  objc.NSString? get name {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setName:
-  set name(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// init
-  NSLock init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSLock new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSLock, _sel_new);
-    return NSLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSLock allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret =
-        _objc_msgSend_1b3ihd0(_class_NSLock, _sel_allocWithZone_, zone);
-    return NSLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSLock alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSLock, _sel_alloc);
-    return NSLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// lock
-  void lock() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
-  }
-
-  /// unlock
-  void unlock() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
-  }
-}
-
-late final _class_NSLock = objc.getClass("NSLock");
-late final _sel_tryLock = objc.registerName("tryLock");
-late final _sel_lockBeforeDate_ = objc.registerName("lockBeforeDate:");
-final _objc_msgSend_l8lotg = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Bool Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        bool Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-
-/// NSConditionLock
-class NSConditionLock extends objc.NSObject {
-  NSConditionLock._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSConditionLock] that points to the same underlying object as [other].
-  NSConditionLock.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSConditionLock] that wraps the given raw object pointer.
-  NSConditionLock.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSConditionLock].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSConditionLock);
-  }
-
-  /// initWithCondition:
-  NSConditionLock initWithCondition_(DartNSInteger condition) {
-    final _ret = _objc_msgSend_crtxa9(
-        this.ref.retainAndReturnPointer(), _sel_initWithCondition_, condition);
-    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// condition
-  DartNSInteger get condition {
-    return _objc_msgSend_z1fx1b(this.ref.pointer, _sel_condition);
-  }
-
-  /// lockWhenCondition:
-  void lockWhenCondition_(DartNSInteger condition) {
-    _objc_msgSend_ke7qz2(this.ref.pointer, _sel_lockWhenCondition_, condition);
-  }
-
-  /// tryLock
-  bool tryLock() {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_tryLock);
-  }
-
-  /// tryLockWhenCondition:
-  bool tryLockWhenCondition_(DartNSInteger condition) {
-    return _objc_msgSend_1lf2jtk(
-        this.ref.pointer, _sel_tryLockWhenCondition_, condition);
-  }
-
-  /// unlockWithCondition:
-  void unlockWithCondition_(DartNSInteger condition) {
-    _objc_msgSend_ke7qz2(
-        this.ref.pointer, _sel_unlockWithCondition_, condition);
-  }
-
-  /// lockBeforeDate:
-  bool lockBeforeDate_(objc.NSDate limit) {
-    return _objc_msgSend_l8lotg(
-        this.ref.pointer, _sel_lockBeforeDate_, limit.ref.pointer);
-  }
-
-  /// lockWhenCondition:beforeDate:
-  bool lockWhenCondition_beforeDate_(
-      DartNSInteger condition, objc.NSDate limit) {
-    return _objc_msgSend_1kafn4b(this.ref.pointer,
-        _sel_lockWhenCondition_beforeDate_, condition, limit.ref.pointer);
-  }
-
-  /// name
-  objc.NSString? get name {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setName:
-  set name(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// init
-  NSConditionLock init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSConditionLock new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSConditionLock, _sel_new);
-    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSConditionLock allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSConditionLock, _sel_allocWithZone_, zone);
-    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSConditionLock alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSConditionLock, _sel_alloc);
-    return NSConditionLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// lock
-  void lock() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
-  }
-
-  /// unlock
-  void unlock() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
-  }
-}
-
-late final _class_NSConditionLock = objc.getClass("NSConditionLock");
-late final _sel_initWithCondition_ = objc.registerName("initWithCondition:");
-late final _sel_condition = objc.registerName("condition");
-late final _sel_lockWhenCondition_ = objc.registerName("lockWhenCondition:");
-late final _sel_tryLockWhenCondition_ =
-    objc.registerName("tryLockWhenCondition:");
-final _objc_msgSend_1lf2jtk = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>, NSInteger)>>()
-    .asFunction<
-        bool Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, int)>();
-late final _sel_unlockWithCondition_ =
-    objc.registerName("unlockWithCondition:");
-late final _sel_lockWhenCondition_beforeDate_ =
-    objc.registerName("lockWhenCondition:beforeDate:");
-final _objc_msgSend_1kafn4b = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Bool Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                NSInteger,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        bool Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            int,
-            ffi.Pointer<objc.ObjCObject>)>();
-
-/// NSRecursiveLock
-class NSRecursiveLock extends objc.NSObject {
-  NSRecursiveLock._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSRecursiveLock] that points to the same underlying object as [other].
-  NSRecursiveLock.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSRecursiveLock] that wraps the given raw object pointer.
-  NSRecursiveLock.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSRecursiveLock].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSRecursiveLock);
-  }
-
-  /// tryLock
-  bool tryLock() {
-    return _objc_msgSend_olxnu1(this.ref.pointer, _sel_tryLock);
-  }
-
-  /// lockBeforeDate:
-  bool lockBeforeDate_(objc.NSDate limit) {
-    return _objc_msgSend_l8lotg(
-        this.ref.pointer, _sel_lockBeforeDate_, limit.ref.pointer);
-  }
-
-  /// name
-  objc.NSString? get name {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setName:
-  set name(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// init
-  NSRecursiveLock init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSRecursiveLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSRecursiveLock new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSRecursiveLock, _sel_new);
-    return NSRecursiveLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSRecursiveLock allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSRecursiveLock, _sel_allocWithZone_, zone);
-    return NSRecursiveLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSRecursiveLock alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSRecursiveLock, _sel_alloc);
-    return NSRecursiveLock.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// lock
-  void lock() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
-  }
-
-  /// unlock
-  void unlock() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
-  }
-}
-
-late final _class_NSRecursiveLock = objc.getClass("NSRecursiveLock");
-
-/// NSCondition
-class NSCondition extends objc.NSObject {
-  NSCondition._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSCondition] that points to the same underlying object as [other].
-  NSCondition.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSCondition] that wraps the given raw object pointer.
-  NSCondition.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSCondition].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSCondition);
-  }
-
-  /// wait
-  void wait1() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_wait);
-  }
-
-  /// waitUntilDate:
-  bool waitUntilDate_(objc.NSDate limit) {
-    return _objc_msgSend_l8lotg(
-        this.ref.pointer, _sel_waitUntilDate_, limit.ref.pointer);
-  }
-
-  /// signal
-  void signal() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_signal);
-  }
-
-  /// broadcast
-  void broadcast() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_broadcast);
-  }
-
-  /// name
-  objc.NSString? get name {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
-    return _ret.address == 0
-        ? null
-        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// setName:
-  set name(objc.NSString? value) {
-    return _objc_msgSend_ukcdfq(
-        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// init
-  NSCondition init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSCondition.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSCondition new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSCondition, _sel_new);
-    return NSCondition.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSCondition allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret =
-        _objc_msgSend_1b3ihd0(_class_NSCondition, _sel_allocWithZone_, zone);
-    return NSCondition.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSCondition alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSCondition, _sel_alloc);
-    return NSCondition.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// lock
-  void lock() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
-  }
-
-  /// unlock
-  void unlock() {
-    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
-  }
-}
-
-late final _class_NSCondition = objc.getClass("NSCondition");
-late final _sel_wait = objc.registerName("wait");
-late final _sel_waitUntilDate_ = objc.registerName("waitUntilDate:");
-late final _sel_signal = objc.registerName("signal");
-late final _sel_broadcast = objc.registerName("broadcast");
 
 /// NSException
 class NSException extends objc.NSObject {
@@ -79921,333 +74383,6 @@ late final _sel_raise = objc.registerName("raise");
 late final _sel_raise_format_ = objc.registerName("raise:format:");
 typedef NSUncaughtExceptionHandler = ffi
     .NativeFunction<ffi.Void Function(ffi.Pointer<objc.ObjCObject> exception)>;
-
-/// NSAssertionHandler
-class NSAssertionHandler extends objc.NSObject {
-  NSAssertionHandler._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSAssertionHandler] that points to the same underlying object as [other].
-  NSAssertionHandler.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSAssertionHandler] that wraps the given raw object pointer.
-  NSAssertionHandler.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSAssertionHandler].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSAssertionHandler);
-  }
-
-  /// currentHandler
-  static NSAssertionHandler getCurrentHandler() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_NSAssertionHandler, _sel_currentHandler);
-    return NSAssertionHandler.castFromPointer(_ret,
-        retain: true, release: true);
-  }
-
-  /// handleFailureInMethod:object:file:lineNumber:description:
-  void handleFailureInMethod_object_file_lineNumber_description_(
-      ffi.Pointer<objc.ObjCSelector> selector,
-      objc.ObjCObjectBase object,
-      objc.NSString fileName,
-      DartNSInteger line,
-      objc.NSString? format) {
-    _objc_msgSend_1w2swws(
-        this.ref.pointer,
-        _sel_handleFailureInMethod_object_file_lineNumber_description_,
-        selector,
-        object.ref.pointer,
-        fileName.ref.pointer,
-        line,
-        format?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// handleFailureInFunction:file:lineNumber:description:
-  void handleFailureInFunction_file_lineNumber_description_(
-      objc.NSString functionName,
-      objc.NSString fileName,
-      DartNSInteger line,
-      objc.NSString? format) {
-    _objc_msgSend_16eawth(
-        this.ref.pointer,
-        _sel_handleFailureInFunction_file_lineNumber_description_,
-        functionName.ref.pointer,
-        fileName.ref.pointer,
-        line,
-        format?.ref.pointer ?? ffi.nullptr);
-  }
-
-  /// init
-  NSAssertionHandler init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSAssertionHandler.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// new
-  static NSAssertionHandler new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSAssertionHandler, _sel_new);
-    return NSAssertionHandler.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSAssertionHandler allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSAssertionHandler, _sel_allocWithZone_, zone);
-    return NSAssertionHandler.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// alloc
-  static NSAssertionHandler alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSAssertionHandler, _sel_alloc);
-    return NSAssertionHandler.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-}
-
-late final _class_NSAssertionHandler = objc.getClass("NSAssertionHandler");
-late final _sel_currentHandler = objc.registerName("currentHandler");
-late final _sel_handleFailureInMethod_object_file_lineNumber_description_ = objc
-    .registerName("handleFailureInMethod:object:file:lineNumber:description:");
-final _objc_msgSend_1w2swws = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                NSInteger,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            int,
-            ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_handleFailureInFunction_file_lineNumber_description_ =
-    objc.registerName("handleFailureInFunction:file:lineNumber:description:");
-final _objc_msgSend_16eawth = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                NSInteger,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            int,
-            ffi.Pointer<objc.ObjCObject>)>();
-
-/// NSBlockOperation
-class NSBlockOperation extends NSOperation {
-  NSBlockOperation._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSBlockOperation] that points to the same underlying object as [other].
-  NSBlockOperation.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSBlockOperation] that wraps the given raw object pointer.
-  NSBlockOperation.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSBlockOperation].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSBlockOperation);
-  }
-
-  /// blockOperationWithBlock:
-  static NSBlockOperation blockOperationWithBlock_(
-      objc.ObjCBlock<ffi.Void Function()> block) {
-    final _ret = _objc_msgSend_3c0puu(_class_NSBlockOperation,
-        _sel_blockOperationWithBlock_, block.ref.pointer);
-    return NSBlockOperation.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// addExecutionBlock:
-  void addExecutionBlock_(objc.ObjCBlock<ffi.Void Function()> block) {
-    _objc_msgSend_4daxhl(
-        this.ref.pointer, _sel_addExecutionBlock_, block.ref.pointer);
-  }
-
-  /// executionBlocks
-  objc.NSArray get executionBlocks {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_executionBlocks);
-    return objc.NSArray.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// init
-  NSBlockOperation init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSBlockOperation.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// new
-  static NSBlockOperation new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSBlockOperation, _sel_new);
-    return NSBlockOperation.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSBlockOperation allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSBlockOperation, _sel_allocWithZone_, zone);
-    return NSBlockOperation.castFromPointer(_ret, retain: false, release: true);
-  }
-
-  /// alloc
-  static NSBlockOperation alloc() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSBlockOperation, _sel_alloc);
-    return NSBlockOperation.castFromPointer(_ret, retain: false, release: true);
-  }
-}
-
-late final _class_NSBlockOperation = objc.getClass("NSBlockOperation");
-late final _sel_blockOperationWithBlock_ =
-    objc.registerName("blockOperationWithBlock:");
-late final _sel_addExecutionBlock_ = objc.registerName("addExecutionBlock:");
-late final _sel_executionBlocks = objc.registerName("executionBlocks");
-
-/// NSInvocationOperation
-class NSInvocationOperation extends NSOperation {
-  NSInvocationOperation._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSInvocationOperation] that points to the same underlying object as [other].
-  NSInvocationOperation.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSInvocationOperation] that wraps the given raw object pointer.
-  NSInvocationOperation.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-
-  /// Returns whether [obj] is an instance of [NSInvocationOperation].
-  static bool isInstance(objc.ObjCObjectBase obj) {
-    return _objc_msgSend_l8lotg(
-        obj.ref.pointer, _sel_isKindOfClass_, _class_NSInvocationOperation);
-  }
-
-  /// initWithTarget:selector:object:
-  NSInvocationOperation? initWithTarget_selector_object_(
-      objc.ObjCObjectBase target,
-      ffi.Pointer<objc.ObjCSelector> sel,
-      objc.ObjCObjectBase? arg) {
-    final _ret = _objc_msgSend_asgvlz(
-        this.ref.retainAndReturnPointer(),
-        _sel_initWithTarget_selector_object_,
-        target.ref.pointer,
-        sel,
-        arg?.ref.pointer ?? ffi.nullptr);
-    return _ret.address == 0
-        ? null
-        : NSInvocationOperation.castFromPointer(_ret,
-            retain: false, release: true);
-  }
-
-  /// initWithInvocation:
-  NSInvocationOperation initWithInvocation_(objc.NSInvocation inv) {
-    final _ret = _objc_msgSend_juohf7(this.ref.retainAndReturnPointer(),
-        _sel_initWithInvocation_, inv.ref.pointer);
-    return NSInvocationOperation.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// invocation
-  objc.NSInvocation get invocation {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_invocation);
-    return objc.NSInvocation.castFromPointer(_ret, retain: true, release: true);
-  }
-
-  /// result
-  objc.ObjCObjectBase? get result {
-    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_result);
-    return _ret.address == 0
-        ? null
-        : objc.ObjCObjectBase(_ret, retain: true, release: true);
-  }
-
-  /// init
-  NSInvocationOperation init() {
-    final _ret =
-        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
-    return NSInvocationOperation.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// new
-  static NSInvocationOperation new1() {
-    final _ret = _objc_msgSend_1unuoxw(_class_NSInvocationOperation, _sel_new);
-    return NSInvocationOperation.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// allocWithZone:
-  static NSInvocationOperation allocWithZone_(ffi.Pointer<_NSZone> zone) {
-    final _ret = _objc_msgSend_1b3ihd0(
-        _class_NSInvocationOperation, _sel_allocWithZone_, zone);
-    return NSInvocationOperation.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-
-  /// alloc
-  static NSInvocationOperation alloc() {
-    final _ret =
-        _objc_msgSend_1unuoxw(_class_NSInvocationOperation, _sel_alloc);
-    return NSInvocationOperation.castFromPointer(_ret,
-        retain: false, release: true);
-  }
-}
-
-late final _class_NSInvocationOperation =
-    objc.getClass("NSInvocationOperation");
-late final _sel_initWithTarget_selector_object_ =
-    objc.registerName("initWithTarget:selector:object:");
-final _objc_msgSend_asgvlz = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            instancetype Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        instancetype Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>)>();
-late final _sel_initWithInvocation_ = objc.registerName("initWithInvocation:");
-late final _sel_invocation = objc.registerName("invocation");
-late final _sel_result = objc.registerName("result");
 typedef NSErrorDomain = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSErrorDomain = objc.NSString;
 typedef NSErrorUserInfoKey = ffi.Pointer<objc.ObjCObject>;
@@ -80468,6 +74603,115 @@ extension ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NS
           arg2.ref.pointer,
           arg3.ref.pointer);
 }
+
+/// NSCondition
+class NSCondition extends objc.NSObject {
+  NSCondition._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSCondition] that points to the same underlying object as [other].
+  NSCondition.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSCondition] that wraps the given raw object pointer.
+  NSCondition.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSCondition].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_l8lotg(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSCondition);
+  }
+
+  /// wait
+  void wait1() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_wait);
+  }
+
+  /// waitUntilDate:
+  bool waitUntilDate_(objc.NSDate limit) {
+    return _objc_msgSend_l8lotg(
+        this.ref.pointer, _sel_waitUntilDate_, limit.ref.pointer);
+  }
+
+  /// signal
+  void signal() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_signal);
+  }
+
+  /// broadcast
+  void broadcast() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_broadcast);
+  }
+
+  /// name
+  objc.NSString? get name {
+    final _ret = _objc_msgSend_1unuoxw(this.ref.pointer, _sel_name);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setName:
+  set name(objc.NSString? value) {
+    return _objc_msgSend_ukcdfq(
+        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// init
+  NSCondition init() {
+    final _ret =
+        _objc_msgSend_1unuoxw(this.ref.retainAndReturnPointer(), _sel_init);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSCondition new1() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSCondition, _sel_new);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSCondition allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret =
+        _objc_msgSend_1b3ihd0(_class_NSCondition, _sel_allocWithZone_, zone);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static NSCondition alloc() {
+    final _ret = _objc_msgSend_1unuoxw(_class_NSCondition, _sel_alloc);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// lock
+  void lock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_lock);
+  }
+
+  /// unlock
+  void unlock() {
+    _objc_msgSend_ksby9f(this.ref.pointer, _sel_unlock);
+  }
+}
+
+late final _class_NSCondition = objc.getClass("NSCondition");
+late final _sel_wait = objc.registerName("wait");
+late final _sel_waitUntilDate_ = objc.registerName("waitUntilDate:");
+final _objc_msgSend_l8lotg = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Bool Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        bool Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+late final _sel_signal = objc.registerName("signal");
+late final _sel_broadcast = objc.registerName("broadcast");
 
 const int noErr = 0;
 

@@ -1,7 +1,4 @@
 #include <stdint.h>
-#import <Foundation/NSArray.h>
-#import <Foundation/NSData.h>
-#import <Foundation/NSDictionary.h>
 #import <Foundation/NSURLCache.h>
 #import <Foundation/NSURLRequest.h>
 #import <Foundation/NSURLSession.h>
@@ -278,24 +275,8 @@ _ListenerTrampoline31 _wrapListenerBlock_10hgvcc(_ListenerTrampoline31 block) NS
   };
 }
 
-typedef void  (^_ListenerTrampoline32)(unsigned short * arg0, unsigned long arg1);
-_ListenerTrampoline32 _wrapListenerBlock_zpobzb(_ListenerTrampoline32 block) NS_RETURNS_RETAINED {
-  return ^void(unsigned short * arg0, unsigned long arg1) {
-    objc_retainBlock(block);
-    block(arg0, arg1);
-  };
-}
-
-typedef void  (^_ListenerTrampoline33)(void * arg0, unsigned long arg1);
-_ListenerTrampoline33 _wrapListenerBlock_vzqe8w(_ListenerTrampoline33 block) NS_RETURNS_RETAINED {
-  return ^void(void * arg0, unsigned long arg1) {
-    objc_retainBlock(block);
-    block(arg0, arg1);
-  };
-}
-
-typedef void  (^_ListenerTrampoline34)(id arg0, id arg1, id arg2, id arg3);
-_ListenerTrampoline34 _wrapListenerBlock_19b8ge5(_ListenerTrampoline34 block) NS_RETURNS_RETAINED {
+typedef void  (^_ListenerTrampoline32)(id arg0, id arg1, id arg2, id arg3);
+_ListenerTrampoline32 _wrapListenerBlock_19b8ge5(_ListenerTrampoline32 block) NS_RETURNS_RETAINED {
   return ^void(id arg0, id arg1, id arg2, id arg3) {
     objc_retainBlock(block);
     block(objc_retain(arg0), objc_retain(arg1), objc_retain(arg2), objc_retain(arg3));
