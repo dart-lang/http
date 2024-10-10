@@ -1,7 +1,23 @@
 ## 2.0.0-wip
 
-* MutableURLRequest.httpBodyStream now takes a `NSInputStream` instead of a
-  `Stream<List<int>>`.
+* The behavior of `CupertinoClient` and `CupertinoWebSocket` has not changed.
+* **Breaking:** `MutableURLRequest.httpBodyStream` now takes a `NSInputStream`
+  instead of a `Stream<List<int>>`.
+* **Breaking:** The following enums/classes previous defined by
+  `package:cupertino_http` are now imported from `package:objective_c`:
+    * `NSData`
+    * `NSError`
+    * `NSHTTPCookieAcceptPolicy`
+    * `NSMutableData`
+    * `NSURLRequestCachePolicy`
+    * `NSURLRequestNetworkServiceType`
+    * `NSURLSessionMultipathServiceType`
+    * `NSURLSessionResponseDisposition`
+    * `NSURLSessionTaskState`
+    * `NSURLSessionWebSocketCloseCode`
+    * `NSURLSessionWebSocketMessageType`
+* **Breaking:** `URLSession.dataTaskWithCompletionHandler` is no longer
+  supported for background sessions.
 
 ## 1.5.1
 
