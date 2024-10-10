@@ -56,6 +56,7 @@ void main() {
       await doRequest(session);
 
       expect(uncachedRequestCount, 2);
+      session.finishTasksAndInvalidate();
     });
 
     test('with cache', () async {
@@ -67,6 +68,7 @@ void main() {
       await doRequest(session);
 
       expect(uncachedRequestCount, 1);
+      session.finishTasksAndInvalidate();
     });
   });
 }
