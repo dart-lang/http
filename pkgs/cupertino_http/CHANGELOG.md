@@ -1,4 +1,7 @@
-## 1.5.2-wip
+## 2.0.0-wip
+
+* MutableURLRequest.httpBodyStream now takes a `NSInputStream` instead of a
+  `Stream<List<int>>`.
 
 ## 1.5.1
 

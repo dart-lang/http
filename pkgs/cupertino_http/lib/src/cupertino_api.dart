@@ -62,9 +62,6 @@ abstract class _ObjectHolder<T extends objc.NSObject> {
   int get hashCode => _nsObject.hashCode;
 }
 
-objc.NSInputStream _streamToNSInputStream(Stream<List<int>> stream) =>
-    stream.toNSInputStream();
-
 /// A cache for [URLRequest]s. Used by [URLSessionConfiguration.cache].
 ///
 /// See [NSURLCache](https://developer.apple.com/documentation/foundation/nsurlcache)
@@ -755,8 +752,8 @@ class MutableURLRequest extends URLRequest {
   /// Sets the body of the request to the given [Stream].
   ///
   /// See [NSMutableURLRequest.HTTPBodyStream](https://developer.apple.com/documentation/foundation/nsurlrequest/1407341-httpbodystream).
-  set httpBodyStream(Stream<List<int>> stream) {
-    _mutableUrlRequest.HTTPBodyStream = _streamToNSInputStream(stream);
+  set httpBodyStream(objc.NSInputStream stream) {
+    _mutableUrlRequest.HTTPBodyStream = stream;
   }
 
   set httpMethod(String method) {

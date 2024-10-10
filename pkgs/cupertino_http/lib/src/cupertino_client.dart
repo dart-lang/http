@@ -327,10 +327,10 @@ class CupertinoClient extends BaseClient {
       // then setting `httpBodyStream` will cause the request to fail -
       // even if the stream is empty.
       if (profile == null) {
-        urlRequest.httpBodyStream = s;
+        urlRequest.httpBodyStream = s.toNSInputStream();
       } else {
         final splitter = StreamSplitter(s);
-        urlRequest.httpBodyStream = splitter.split();
+        urlRequest.httpBodyStream = splitter.split().toNSInputStream();
         unawaited(profile.requestData.bodySink.addStream(splitter.split()));
       }
     }
