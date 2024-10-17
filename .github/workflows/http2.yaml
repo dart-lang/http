@@ -1,11 +1,17 @@
 name: Dart CI
 
 on:
-  # Run on PRs and pushes to the default branch.
   push:
-    branches: [ master ]
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/workflows/http2.yaml'
+      - 'pkgs/http2/**'
   pull_request:
-    branches: [ master ]
+    paths:
+      - '.github/workflows/http2.yaml'
+      - 'pkgs/http2/**'
   schedule:
     - cron: "0 0 * * 0"
 

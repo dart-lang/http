@@ -1,4 +1,3 @@
-[![Dart CI](https://github.com/dart-lang/http2/actions/workflows/test-package.yml/badge.svg)](https://github.com/dart-lang/http2/actions/workflows/test-package.yml)
 [![pub package](https://img.shields.io/pub/v/http2.svg)](https://pub.dev/packages/http2)
 [![package publisher](https://img.shields.io/pub/publisher/http2.svg)](https://pub.dev/packages/http2/publisher)
 
@@ -54,11 +53,3 @@ Future<void> main() async {
 An example with better error handling is available [here][example].
 
 See the [API docs][api] for more details.
-
-## Features and bugs
-
-Please file feature requests and bugs at the [issue tracker][tracker].
-
-[tracker]: https://github.com/dart-lang/http2/issues
-[api]: https://pub.dev/documentation/http2/latest/
-[example]: https://github.com/dart-lang/http2/blob/master/example/display_headers.dart
