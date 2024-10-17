@@ -1,5 +1,5 @@
 name: http2
-version: 2.3.1-wip
+version: 2.3.1
 description: A HTTP/2 implementation in Dart.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http2
 

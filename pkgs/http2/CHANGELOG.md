@@ -1,7 +1,8 @@
-## 2.3.1-wip
+## 2.3.1
 
 - Require Dart 3.2
 - Add topics to `pubspec.yaml`
+- Move to `dart-lang/http` monorepo.
 
 ## 2.3.0
 
