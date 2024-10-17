@@ -1,16 +1,23 @@
-name: Dart CI
+name: package:http_parser
 
 on:
-  # Run on PRs and pushes to the default branch.
   push:
-    branches: [ master ]
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/workflows/http_parser.yaml'
+      - 'pkgs/http_parser/**'
   pull_request:
-    branches: [ master ]
+    paths:
+      - '.github/workflows/http_parser.yaml'
+      - 'pkgs/http_parser/**'
   schedule:
     - cron: "0 0 * * 0"
 
 env:
   PUB_ENVIRONMENT: bot.github
+
 permissions: read-all
 
 jobs:

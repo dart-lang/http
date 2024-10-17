@@ -1,3 +1,7 @@
+## 4.1.1
+
+* Move to `dart-lang/http` monorepo.
+
 ## 4.1.0
 
 * `CaseInsensitiveMap`: added constructor `fromEntries`.

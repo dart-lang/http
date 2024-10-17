@@ -1,4 +1,3 @@
-[![Build Status](https://github.com/dart-lang/http_parser/workflows/Dart%20CI/badge.svg)](https://github.com/dart-lang/http_parser/actions?query=workflow%3A"Dart+CI"+branch%3Amaster)
 [![Pub Package](https://img.shields.io/pub/v/http_parser.svg)](https://pub.dartlang.org/packages/http_parser)
 [![package publisher](https://img.shields.io/pub/publisher/http_parser.svg)](https://pub.dev/packages/http_parser/publisher)
 
