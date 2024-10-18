@@ -1,0 +1,2 @@
+tags:
+  flaky: # Tests that should be run as a separate job on Travis
