@@ -1,0 +1,9 @@
+# https://dart.dev/tools/analysis#the-analysis-options-file
+include: package:dart_flutter_team_lints/analysis_options.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+  errors:
+    # Disabled as there are several dozen violations.
+    constant_identifier_names: ignore
