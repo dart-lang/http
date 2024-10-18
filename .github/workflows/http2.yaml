@@ -3,7 +3,6 @@ name: package:http2
 on:
   push:
     branches:
-      - main
       - master
     paths:
       - '.github/workflows/http2.yaml'
@@ -14,6 +13,10 @@ on:
       - 'pkgs/http2/**'
   schedule:
     - cron: "0 0 * * 0"
+
+defaults:  
+  run:  
+    working-directory: pkgs/http2/
 
 env:
   PUB_ENVIRONMENT: bot.github
