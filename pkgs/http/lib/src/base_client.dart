@@ -9,6 +9,7 @@ import 'base_request.dart';
 import 'byte_stream.dart';
 import 'client.dart';
 import 'exception.dart';
+import 'progress.dart';
 import 'request.dart';
 import 'response.dart';
 import 'streamed_response.dart';
@@ -27,24 +28,72 @@ abstract mixin class BaseClient implements Client {
       _sendUnstreamed('GET', url, headers);
 
   @override
-  Future<Response> post(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('POST', url, headers, body, encoding);
+  Future<Response> post(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Progress? onSendProgress,
+  }) =>
+      _sendUnstreamed(
+        'POST',
+        url,
+        headers,
+        body,
+        encoding,
+        onSendProgress,
+      );
 
   @override
-  Future<Response> put(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PUT', url, headers, body, encoding);
+  Future<Response> put(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Progress? onSendProgress,
+  }) =>
+      _sendUnstreamed(
+        'PUT',
+        url,
+        headers,
+        body,
+        encoding,
+        onSendProgress,
+      );
 
   @override
-  Future<Response> patch(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('PATCH', url, headers, body, encoding);
+  Future<Response> patch(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Progress? onSendProgress,
+  }) =>
+      _sendUnstreamed(
+        'PATCH',
+        url,
+        headers,
+        body,
+        encoding,
+        onSendProgress,
+      );
 
   @override
-  Future<Response> delete(Uri url,
-          {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-      _sendUnstreamed('DELETE', url, headers, body, encoding);
+  Future<Response> delete(
+    Uri url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Progress? onSendProgress,
+  }) =>
+      _sendUnstreamed(
+        'DELETE',
+        url,
+        headers,
+        body,
+        encoding,
+        onSendProgress,
+      );
 
   @override
   Future<String> read(Uri url, {Map<String, String>? headers}) async {
@@ -68,12 +117,15 @@ abstract mixin class BaseClient implements Client {
   /// later point, or it could already be closed when it's returned. Any
   /// internal HTTP errors should be wrapped as [ClientException]s.
   @override
-  Future<StreamedResponse> send(BaseRequest request);
+  Future<StreamedResponse> send(
+    BaseRequest request, {
+    Progress? onSendProgress,
+  });
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<Response> _sendUnstreamed(
       String method, Uri url, Map<String, String>? headers,
-      [Object? body, Encoding? encoding]) async {
+      [Object? body, Encoding? encoding, Progress? onSendProgress]) async {
     var request = Request(method, url);
 
     if (headers != null) request.headers.addAll(headers);
@@ -90,7 +142,10 @@ abstract mixin class BaseClient implements Client {
       }
     }
 
-    return Response.fromStream(await send(request));
+    return Response.fromStream(await send(
+      request,
+      onSendProgress: onSendProgress,
+    ));
   }
 
   /// Throws an error if [response] is not successful.
