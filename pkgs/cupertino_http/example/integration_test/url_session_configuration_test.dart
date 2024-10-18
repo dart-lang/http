@@ -26,7 +26,7 @@ Future<Map<String, List<String>>> sentHeaders(
   final task = session.dataTaskWithRequest(URLRequest.fromUrl(
       Uri(scheme: 'http', host: 'localhost', port: server.port)))
     ..resume();
-  while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+  while (task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
     await pumpEventQueue();
   }
 
@@ -78,13 +78,13 @@ void testProperties(URLSessionConfiguration config) {
     });
     test('httpCookieAcceptPolicy', () {
       config.httpCookieAcceptPolicy =
-          HTTPCookieAcceptPolicy.httpCookieAcceptPolicyAlways;
+          NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyAlways;
       expect(config.httpCookieAcceptPolicy,
-          HTTPCookieAcceptPolicy.httpCookieAcceptPolicyAlways);
+          NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyAlways);
       config.httpCookieAcceptPolicy =
-          HTTPCookieAcceptPolicy.httpCookieAcceptPolicyNever;
+          NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyNever;
       expect(config.httpCookieAcceptPolicy,
-          HTTPCookieAcceptPolicy.httpCookieAcceptPolicyNever);
+          NSHTTPCookieAcceptPolicy.NSHTTPCookieAcceptPolicyNever);
     });
     test('httpMaximumConnectionsPerHost', () {
       config.httpMaximumConnectionsPerHost = 6;
@@ -105,37 +105,44 @@ void testProperties(URLSessionConfiguration config) {
       expect(config.httpShouldUsePipelining, false);
     });
     test('multipathServiceType', () {
-      expect(config.multipathServiceType,
-          URLSessionMultipathServiceType.multipathServiceTypeNone);
+      expect(
+          config.multipathServiceType,
+          NSURLSessionMultipathServiceType
+              .NSURLSessionMultipathServiceTypeNone);
+      config.multipathServiceType = NSURLSessionMultipathServiceType
+          .NSURLSessionMultipathServiceTypeAggregate;
+      expect(
+          config.multipathServiceType,
+          NSURLSessionMultipathServiceType
+              .NSURLSessionMultipathServiceTypeAggregate);
       config.multipathServiceType =
-          URLSessionMultipathServiceType.multipathServiceTypeAggregate;
-      expect(config.multipathServiceType,
-          URLSessionMultipathServiceType.multipathServiceTypeAggregate);
-      config.multipathServiceType =
-          URLSessionMultipathServiceType.multipathServiceTypeNone;
-      expect(config.multipathServiceType,
-          URLSessionMultipathServiceType.multipathServiceTypeNone);
+          NSURLSessionMultipathServiceType.NSURLSessionMultipathServiceTypeNone;
+      expect(
+          config.multipathServiceType,
+          NSURLSessionMultipathServiceType
+              .NSURLSessionMultipathServiceTypeNone);
     });
     test('networkServiceType', () {
       expect(config.networkServiceType,
-          URLRequestNetworkService.networkServiceTypeDefault);
+          NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault);
       config.networkServiceType =
-          URLRequestNetworkService.networkServiceTypeResponsiveData;
+          NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeResponsiveAV;
       expect(config.networkServiceType,
-          URLRequestNetworkService.networkServiceTypeResponsiveData);
+          NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeResponsiveAV);
       config.networkServiceType =
-          URLRequestNetworkService.networkServiceTypeDefault;
+          NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault;
       expect(config.networkServiceType,
-          URLRequestNetworkService.networkServiceTypeDefault);
+          NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault);
     });
     test('requestCachePolicy', () {
-      config.requestCachePolicy = URLRequestCachePolicy.returnCacheDataDontLoad;
-      expect(config.requestCachePolicy,
-          URLRequestCachePolicy.returnCacheDataDontLoad);
       config.requestCachePolicy =
-          URLRequestCachePolicy.reloadIgnoringLocalCacheData;
+          NSURLRequestCachePolicy.NSURLRequestReturnCacheDataDontLoad;
       expect(config.requestCachePolicy,
-          URLRequestCachePolicy.reloadIgnoringLocalCacheData);
+          NSURLRequestCachePolicy.NSURLRequestReturnCacheDataDontLoad);
+      config.requestCachePolicy =
+          NSURLRequestCachePolicy.NSURLRequestReloadIgnoringLocalCacheData;
+      expect(config.requestCachePolicy,
+          NSURLRequestCachePolicy.NSURLRequestReloadIgnoringLocalCacheData);
     });
     test('sessionSendsLaunchEvents', () {
       config.sessionSendsLaunchEvents = true;

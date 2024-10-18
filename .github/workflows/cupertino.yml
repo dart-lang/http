@@ -55,4 +55,4 @@ jobs:
         run: |
           cd example
           flutter pub get
-          flutter test integration_test/main.dart
+          flutter test integration_test/main.dart --test-randomize-ordering-seed=random

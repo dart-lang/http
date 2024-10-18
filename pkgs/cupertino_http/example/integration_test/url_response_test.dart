@@ -16,7 +16,8 @@ void main() {
       final task = session.dataTaskWithRequest(URLRequest.fromUrl(
           Uri.parse('data:text/fancy;charset=utf-8,Hello%20World')))
         ..resume();
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>.delayed(const Duration());
       }
