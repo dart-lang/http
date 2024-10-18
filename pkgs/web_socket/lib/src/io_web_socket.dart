@@ -105,7 +105,7 @@ class IOWebSocket implements WebSocket {
       throw WebSocketConnectionClosed();
     }
 
-    checkCloseCode(code);
+    checkCloseCodeRfc(code);
     checkCloseReason(reason);
 
     unawaited(_events.close());
