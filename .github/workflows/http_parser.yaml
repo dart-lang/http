@@ -3,7 +3,6 @@ name: package:http_parser
 on:
   push:
     branches:
-      - main
       - master
     paths:
       - '.github/workflows/http_parser.yaml'
@@ -17,6 +16,10 @@ on:
 
 env:
   PUB_ENVIRONMENT: bot.github
+
+defaults:  
+  run:  
+    working-directory: pkgs/http_parser/
 
 permissions: read-all
 
