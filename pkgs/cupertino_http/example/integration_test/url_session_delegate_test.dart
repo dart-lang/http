@@ -448,7 +448,7 @@ void testOnRedirect(URLSessionConfiguration Function() config) {
                   .having(
                       (r) => r.allHeaderFields['Location'],
                       "r.allHeaderFields['Location']",
-                      matches('http://localhost:${redirectServer.port}/' +
+                      matches('http://localhost:${redirectServer.port}/'
                           r'\d+'))));
       expect(error!.code, -1007); // kCFURLErrorHTTPTooManyRedirects
       session.finishTasksAndInvalidate();
@@ -698,11 +698,12 @@ void main() {
 
   group('backgroundSession', () {
     var count = 0;
-    final config = () {
+    URLSessionConfiguration config() {
       ++count;
       return URLSessionConfiguration.backgroundSession(
           'backgroundSession{$count}');
-    };
+    }
+
     testOnComplete(config);
     // onResponse is not called for background sessions.
     testOnData(config);
@@ -712,7 +713,8 @@ void main() {
   });
 
   group('defaultSessionConfiguration', () {
-    final config = () => URLSessionConfiguration.defaultSessionConfiguration();
+    URLSessionConfiguration config() =>
+        URLSessionConfiguration.defaultSessionConfiguration();
     testOnComplete(config);
     testOnResponse(config);
     testOnData(config);
@@ -723,8 +725,8 @@ void main() {
   });
 
   group('ephemeralSessionConfiguration', () {
-    final config =
-        () => URLSessionConfiguration.ephemeralSessionConfiguration();
+    URLSessionConfiguration config() =>
+        URLSessionConfiguration.ephemeralSessionConfiguration();
     testOnComplete(config);
     testOnResponse(config);
     testOnData(config);

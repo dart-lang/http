@@ -32,6 +32,15 @@ import 'dart:isolate';
 import 'package:objective_c/objective_c.dart' as objc;
 
 import 'native_cupertino_bindings.dart' as ncb;
+import 'native_cupertino_bindings.dart'
+    show
+        NSHTTPCookieAcceptPolicy,
+        NSURLRequestCachePolicy,
+        NSURLRequestNetworkServiceType,
+        NSURLSessionMultipathServiceType,
+        NSURLSessionResponseDisposition,
+        NSURLSessionTaskState,
+        NSURLSessionWebSocketMessageType;
 import 'utils.dart';
 
 export 'native_cupertino_bindings.dart'
@@ -199,9 +208,9 @@ class URLSessionConfiguration
   /// What policy to use when deciding whether to accept cookies.
   ///
   /// See [NSURLSessionConfiguration.HTTPCookieAcceptPolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1408933-httpcookieacceptpolicy).
-  ncb.NSHTTPCookieAcceptPolicy get httpCookieAcceptPolicy =>
+  NSHTTPCookieAcceptPolicy get httpCookieAcceptPolicy =>
       _nsObject.HTTPCookieAcceptPolicy;
-  set httpCookieAcceptPolicy(ncb.NSHTTPCookieAcceptPolicy value) =>
+  set httpCookieAcceptPolicy(NSHTTPCookieAcceptPolicy value) =>
       _nsObject.HTTPCookieAcceptPolicy = value;
 
   /// The maximum number of connections that a URLSession can have open to the
@@ -230,26 +239,26 @@ class URLSessionConfiguration
   /// What type of Multipath TCP connections to use.
   ///
   /// See [NSURLSessionConfiguration.multipathServiceType](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/2875967-multipathservicetype)
-  ncb.NSURLSessionMultipathServiceType get multipathServiceType =>
+  NSURLSessionMultipathServiceType get multipathServiceType =>
       _nsObject.multipathServiceType;
-  set multipathServiceType(ncb.NSURLSessionMultipathServiceType value) =>
+  set multipathServiceType(NSURLSessionMultipathServiceType value) =>
       _nsObject.multipathServiceType = value;
 
   /// Provides in indication to the operating system on what type of requests
   /// are being sent.
   ///
   /// See [NSURLSessionConfiguration.networkServiceType](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411606-networkservicetype).
-  ncb.NSURLRequestNetworkServiceType get networkServiceType =>
+  NSURLRequestNetworkServiceType get networkServiceType =>
       _nsObject.networkServiceType;
-  set networkServiceType(ncb.NSURLRequestNetworkServiceType value) =>
+  set networkServiceType(NSURLRequestNetworkServiceType value) =>
       _nsObject.networkServiceType = value;
 
   /// Controls how to deal with response caching.
   ///
   /// See [NSURLSessionConfiguration.requestCachePolicy](https://developer.apple.com/documentation/foundation/nsurlsessionconfiguration/1411655-requestcachepolicy)
-  ncb.NSURLRequestCachePolicy get requestCachePolicy =>
+  NSURLRequestCachePolicy get requestCachePolicy =>
       _nsObject.requestCachePolicy;
-  set requestCachePolicy(ncb.NSURLRequestCachePolicy value) =>
+  set requestCachePolicy(NSURLRequestCachePolicy value) =>
       _nsObject.requestCachePolicy = value;
 
   /// Whether the app should be resumed when background tasks complete.
@@ -407,7 +416,7 @@ class URLSessionWebSocketMessage
   /// The type of the WebSocket message.
   ///
   /// See [NSURLSessionWebSocketMessage.type](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181195-type)
-  ncb.NSURLSessionWebSocketMessageType get type => _nsObject.type;
+  NSURLSessionWebSocketMessageType get type => _nsObject.type;
 
   @override
   String toString() =>
@@ -444,7 +453,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   /// The current state of the task.
   ///
   /// See [NSURLSessionTask.state](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1409888-state)
-  ncb.NSURLSessionTaskState get state => _nsObject.state;
+  NSURLSessionTaskState get state => _nsObject.state;
 
   /// The relative priority [0, 1] that the host should use to handle the
   /// request.
@@ -679,7 +688,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// Controls how to deal with caching for the request.
   ///
   /// See [NSURLSession.cachePolicy](https://developer.apple.com/documentation/foundation/nsurlrequest/1407944-cachepolicy)
-  ncb.NSURLRequestCachePolicy get cachePolicy => _nsObject.cachePolicy;
+  NSURLRequestCachePolicy get cachePolicy => _nsObject.cachePolicy;
 
   /// The body of the request.
   ///
@@ -742,7 +751,7 @@ class MutableURLRequest extends URLRequest {
     return MutableURLRequest._(ncb.NSMutableURLRequest.requestWithURL_(url));
   }
 
-  set cachePolicy(ncb.NSURLRequestCachePolicy value) =>
+  set cachePolicy(NSURLRequestCachePolicy value) =>
       _mutableUrlRequest.cachePolicy = value;
 
   set httpBody(objc.NSData? data) {
@@ -801,12 +810,10 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // `_taskCount` is decremented. When `_taskCount` is 0 then the `ReceivePort`
   // is closed.
   static var _taskCount = 0;
-  static ReceivePort? _port = null;
+  static ReceivePort? _port;
 
   static void _incrementTaskCount() {
-    if (_port == null) {
-      _port = ReceivePort();
-    }
+    _port ??= ReceivePort();
     ++_taskCount;
   }
 
@@ -825,7 +832,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     URLRequest? Function(URLSession session, URLSessionTask task,
             HTTPURLResponse response, URLRequest newRequest)?
         onRedirect,
-    ncb.NSURLSessionResponseDisposition Function(
+    NSURLSessionResponseDisposition Function(
             URLSession session, URLSessionTask task, URLResponse response)?
         onResponse,
     void Function(URLSession session, URLSessionTask task, objc.NSData error)?
@@ -859,6 +866,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     if (onRedirect != null) {
       ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
+          // ignore: lines_longer_than_80_chars
           URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
               (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
         final request = URLRequest._(nsRequest);
@@ -909,6 +917,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
 
     if (onFinishedDownloading != null) {
       final asyncFinishDownloading =
+          // ignore: lines_longer_than_80_chars
           ncb.ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL
               .listener((nsCondition, nsSession, nsTask, nsUrl) {
         try {
@@ -987,7 +996,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// [URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiontaskdelegate/1411626-urlsession)
   ///
   /// If [onResponse] is set then it will be called whenever a valid response
-  /// is received. The returned [URLSessionResponseDisposition] will decide
+  /// is received. The returned [NSURLSessionResponseDisposition] will decide
   /// how the content of the response is processed. See
   /// [URLSession:dataTask:didReceiveResponse:completionHandler:](https://developer.apple.com/documentation/foundation/nsurlsessiondatadelegate/1410027-urlsession)
   ///
@@ -1018,7 +1027,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     URLRequest? Function(URLSession session, URLSessionTask task,
             HTTPURLResponse response, URLRequest newRequest)?
         onRedirect,
-    ncb.NSURLSessionResponseDisposition Function(
+    NSURLSessionResponseDisposition Function(
             URLSession session, URLSessionTask task, URLResponse response)?
         onResponse,
     void Function(URLSession session, URLSessionTask task, objc.NSData data)?

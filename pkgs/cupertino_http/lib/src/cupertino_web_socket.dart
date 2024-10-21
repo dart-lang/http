@@ -6,8 +6,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:web_socket/web_socket.dart';
 import 'package:objective_c/objective_c.dart' as objc;
+import 'package:web_socket/web_socket.dart';
 
 import 'cupertino_api.dart';
 

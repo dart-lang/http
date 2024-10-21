@@ -160,7 +160,7 @@ void testDataTaskWithCompletionHandler(URLSession session) {
                   .having(
                       (r) => r.allHeaderFields['Location'],
                       "r.allHeaderFields['Location']",
-                      matches('http://localhost:${redirectServer.port}/' +
+                      matches('http://localhost:${redirectServer.port}/'
                           r'\d+'))));
       expect(error!.code, -1007); // kCFURLErrorHTTPTooManyRedirects
     });
