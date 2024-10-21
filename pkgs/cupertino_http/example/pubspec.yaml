@@ -38,11 +38,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-dependency_overrides:
-  ffi:
-    path: /Users/bquinlan/dart/native/pkgs/ffi/
-  ffigen:
-    path: /Users/bquinlan/dart/native/pkgs/ffigen/
-  objective_c:
-    path: /Users/bquinlan/dart/native/pkgs/objective_c/

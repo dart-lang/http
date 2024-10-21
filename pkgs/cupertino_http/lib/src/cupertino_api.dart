@@ -885,25 +885,25 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     if (onResponse != null) {
       ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
           URLSession_dataTask_didReceiveResponse_completionHandler_:
-              (session, dataTask, response, completionHandler) {
-        final exactResponse = URLResponse._exactURLResponseType(response);
+              (nsSession, nsDataTask, nsResponse, nsCompletionHandler) {
+        final exactResponse = URLResponse._exactURLResponseType(nsResponse);
         final disposition = onResponse(
-            URLSession._(session,
+            URLSession._(nsSession,
                 isBackground: isBackground, hasDelegate: true),
-            URLSessionTask._(dataTask),
+            URLSessionTask._(nsDataTask),
             exactResponse);
-        completionHandler.call(disposition);
+        nsCompletionHandler.call(disposition);
       });
     }
 
     if (onData != null) {
       ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
-          URLSession_dataTask_didReceiveData_: (session, dataTask, data) {
+          URLSession_dataTask_didReceiveData_: (nsSession, nsDataTask, nsData) {
         onData(
-            URLSession._(session,
+            URLSession._(nsSession,
                 isBackground: isBackground, hasDelegate: true),
-            URLSessionTask._(dataTask),
-            data);
+            URLSessionTask._(nsDataTask),
+            nsData);
       });
     }
 
@@ -935,23 +935,23 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     if (onWebSocketTaskOpened != null) {
       ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
           URLSession_webSocketTask_didOpenWithProtocol_:
-              (session, task, protocol) {
+              (nsSession, nsTask, nsProtocol) {
         onWebSocketTaskOpened(
-            URLSession._(session,
+            URLSession._(nsSession,
                 isBackground: isBackground, hasDelegate: true),
-            URLSessionWebSocketTask._(task),
-            protocol?.toString());
+            URLSessionWebSocketTask._(nsTask),
+            nsProtocol?.toString());
       });
     }
 
     if (onWebSocketTaskClosed != null) {
       ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
           URLSession_webSocketTask_didCloseWithCode_reason_:
-              (session, task, closeCode, reason) {
+              (nsSession, nsTask, closeCode, reason) {
         onWebSocketTaskClosed(
-            URLSession._(session,
+            URLSession._(nsSession,
                 isBackground: isBackground, hasDelegate: true),
-            URLSessionWebSocketTask._(task),
+            URLSessionWebSocketTask._(nsTask),
             closeCode,
             reason);
       });
