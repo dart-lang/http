@@ -9,6 +9,7 @@ jobs:
     uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
     with:
       ignore_license: "**.g.dart"
+      ignore_packages: "pkgs/flutter_http_example,pkgs/http_client_conformance_tests,pkgs/web_socket_conformance_tests"
       sdk: dev
     permissions:
       pull-requests: write
