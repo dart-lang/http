@@ -24,6 +24,7 @@ jobs:
   verify:
     name: Format & Analyze & Test
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       matrix:
         cronetHttpNoPlay: ['false', 'true']
@@ -31,6 +32,10 @@ jobs:
       run:
         working-directory: pkgs/cronet_http
     steps:
+      - name: Delete unnecessary tools 🔧
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          android: false # Don't remove Android tools
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
         with:
