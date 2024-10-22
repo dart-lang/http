@@ -10,3 +10,12 @@ _DidFinish adaptFinishWithLock(_DidFinishWithLock block) {
     [lock unlock];
   };
 }
+
+void doNotCall() {
+  // TODO(https://github.com/dart-lang/native/issues/1672): Remove
+  // when fixed.
+  // Force the protocol information to be available at runtime.
+  @protocol (NSURLSessionDataDelegate);
+  @protocol (NSURLSessionDownloadDelegate);
+  @protocol (NSURLSessionWebSocketDelegate);
+}
