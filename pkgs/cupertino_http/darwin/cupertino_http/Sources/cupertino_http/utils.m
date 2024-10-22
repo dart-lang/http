@@ -4,9 +4,6 @@ _DidFinish adaptFinishWithLock(_DidFinishWithLock block) {
   return ^void(void *, NSURLSession *session,
                NSURLSessionDownloadTask *downloadTask, NSURL *location) {
     NSCondition *lock = [[NSCondition alloc] init];
-    // XXX
-    @protocol(NSURLSessionWebSocketDelegate);
-
     [lock lock];
     block(lock, session, downloadTask, location);
     [lock lock];

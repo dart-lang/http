@@ -17,3 +17,12 @@ typedef void (^_DidFinishWithLock)(NSCondition *lock, NSURLSession *session,
 /// `URLSession:downloadTask:didFinishDownloadingToURL:` that can be used to
 /// make an async Dart callback behave synchronously.
 _DidFinish adaptFinishWithLock(_DidFinishWithLock block);
+
+void doNotCall() {
+  // TODO(https://github.com/dart-lang/native/issues/1672): Remove
+  // when fixed.
+  // Force the protocol information to be available at runtime.
+  @protocol (NSURLSessionDataDelegate);
+  @protocol (NSURLSessionDownloadDelegate);
+  @protocol (NSURLSessionWebSocketDelegate);
+}
