@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.source_files = 'cupertino_http/Sources/cupertino_http/**/*'
   s.ios.dependency 'Flutter'
   s.osx.dependency 'FlutterMacOS'
-  s.ios.deployment_target = '12.0'
-  s.osx.deployment_target = '10.14'
+  s.ios.deployment_target = '13.0'  # Required for NSURLSessionWebSocketDelegate.
+  s.osx.deployment_target = '10.15' # Required for NSURLSessionWebSocketDelegate.
 
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'

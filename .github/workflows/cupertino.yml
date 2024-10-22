@@ -50,7 +50,7 @@ jobs:
       - uses: futureware-tech/simulator-action@bfa03d93ec9de6dacb0c5553bbf8da8afc6c2ee9
         with:
           os: iOS
-          os_version: '>=12.0'
+          os_version: '>=13.0'
       - name: Run tests
         run: |
           cd example
