@@ -1,0 +1,23 @@
+name: Dart Health
+on:
+  pull_request:
+    branches: [ master ]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+    paths:
+      - '.github/workflows/dart_health.yml'
+      - "pkgs/http/**"
+      - "pkgs/http_client_conformance_tests/**"
+      - "pkgs/http_parser/**"
+      - "pkgs/http_profile/**"
+      - "pkgs/http2/**"
+      - "pkgs/web_socket/**"
+      - "pkgs/web_socket_conformance_tests/**"
+
+jobs:
+  health:
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
+    with:
+      sdk: master
+      ignore_packages: "pkgs/cronet_http,pkgs/cupertino_http,pkgs/flutter_http_example,pkgs/java_http,pkgs/ok_http"
+    permissions:
+      pull-requests: write
