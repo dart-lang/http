@@ -71,4 +71,4 @@ jobs:
 
 defaults:
   run:
-    working-directory: pkgs/cronet_http  
+    working-directory: pkgs/cronet_http

@@ -62,4 +62,4 @@ jobs:
 
 defaults:
   run:
-    working-directory: pkgs/cupertino_http  
+    working-directory: pkgs/cupertino_http

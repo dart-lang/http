@@ -1,4 +1,4 @@
-name: Dart Health
+name: Dart Packages Health
 on:
   push:
     branches:
