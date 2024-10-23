@@ -5,7 +5,7 @@ on:
       - main
       - master
     paths:
-      - '.github/workflows/dart_health.yml'
+      - '.github/workflows/dart_health.yaml'
       - 'pkgs/http/**'
       - 'pkgs/http_client_conformance_tests/**'
       - 'pkgs/http_parser/**'
@@ -15,7 +15,7 @@ on:
       - 'pkgs/web_socket_conformance_tests/**'
   pull_request:
     paths:
-      - '.github/workflows/dart_health.yml'
+      - '.github/workflows/dart_health.yaml'
       - 'pkgs/http/**'
       - 'pkgs/http_client_conformance_tests/**'
       - 'pkgs/http_parser/**'
