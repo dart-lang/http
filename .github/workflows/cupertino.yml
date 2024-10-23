@@ -26,6 +26,7 @@ jobs:
     with:
       use-flutter: true
       fail_on: "changelog,license,coverage,breaking,do-not-submit,leaking"
+      warn_on: ""
       sdk: stable
   verify:
     name: Format & Analyze & Test

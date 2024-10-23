@@ -30,6 +30,7 @@ jobs:
     with:
       sdk: stable
       fail_on: "changelog,license,coverage,breaking,do-not-submit,leaking"
+      warn_on: ""
       ignore_packages: 'pkgs/cronet_http,pkgs/cupertino_http,pkgs/flutter_http_example,pkgs/java_http,pkgs/ok_http'
     permissions:
       pull-requests: write
