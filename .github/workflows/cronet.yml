@@ -21,6 +21,11 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
+  health:
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
+    with:
+      use-flutter: true
+      sdk: stable
   verify:
     name: Format & Analyze & Test
     runs-on: ubuntu-latest
@@ -29,9 +34,6 @@ jobs:
       fail-fast: false
       matrix:
         cronetHttpNoPlay: ['false', 'true']
-    defaults:
-      run:
-        working-directory: pkgs/cronet_http
     steps:
       - name: Delete unnecessary tools 🔧
         uses: jlumbroso/free-disk-space@v1.3.1
@@ -66,3 +68,7 @@ jobs:
           arch: x86_64
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
+
+defaults:
+  run:
+    working-directory: pkgs/cronet_http  

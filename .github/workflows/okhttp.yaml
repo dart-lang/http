@@ -21,12 +21,14 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
+  health:
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
+    with:
+      use-flutter: true
+      sdk: stable
   verify:
     name: Format & Analyze & Test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: pkgs/ok_http
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
@@ -56,3 +58,7 @@ jobs:
           api-level: 21
           arch: x86_64
           script: cd pkgs/ok_http/example && flutter test --timeout=1200s integration_test/
+
+defaults:
+  run:
+    working-directory: pkgs/ok_http  
