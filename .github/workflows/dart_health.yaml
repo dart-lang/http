@@ -28,7 +28,7 @@ jobs:
   health:
     uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
     with:
-      sdk: master
+      sdk: stable
       ignore_packages: 'pkgs/cronet_http,pkgs/cupertino_http,pkgs/flutter_http_example,pkgs/java_http,pkgs/ok_http'
     permissions:
       pull-requests: write
