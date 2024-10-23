@@ -28,8 +28,8 @@ jobs:
       run:
         working-directory: pkgs/ok_http
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
-      - uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-java@b36c23c0d998641eff861008f374ee103c25ac73
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -46,7 +46,7 @@ jobs:
         if: always() && steps.install.outcome == 'success'
         run: flutter analyze --fatal-infos
       - name: Run tests
-        uses: reactivecircus/android-emulator-runner@77986be26589807b8ebab3fde7bbf5c60dabec32
+        uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d
         if: always() && steps.install.outcome == 'success'
         with:
           # api-level/minSdkVersion should be help in sync in:
