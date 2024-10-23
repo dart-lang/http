@@ -21,12 +21,15 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
+  health:
+    uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
+    with:
+      use-flutter: true
+      fail_on: "changelog,license,coverage,breaking,do-not-submit,leaking"
+      sdk: stable
   verify:
     name: Format & Analyze & Test
     runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: pkgs/cupertino_http
     strategy:
       fail-fast: false
       matrix:
@@ -57,3 +60,7 @@ jobs:
           cd example
           flutter pub get
           flutter test integration_test/main.dart --test-randomize-ordering-seed=random
+
+defaults:
+  run:
+    working-directory: pkgs/cupertino_http  
