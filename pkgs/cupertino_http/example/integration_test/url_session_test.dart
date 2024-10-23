@@ -7,6 +7,7 @@ import 'dart:io';
 
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:objective_c/objective_c.dart';
 import 'package:test/test.dart';
 
 void testDataTaskWithCompletionHandler(URLSession session) {
@@ -58,9 +59,9 @@ void testDataTaskWithCompletionHandler(URLSession session) {
 
     test('success', () async {
       final c = Completer<void>();
-      Data? data;
-      HTTPURLResponse? response;
-      Error? error;
+      NSData? data;
+      URLResponse? response;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -72,16 +73,19 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       }).resume();
       await c.future;
 
-      expect(data!.bytes, 'Hello World'.codeUnits);
-      expect(response!.statusCode, 200);
+      expect(data!.toList(), 'Hello World'.codeUnits);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
     });
 
     test('success no data', () async {
       final c = Completer<void>();
-      Data? data;
-      HTTPURLResponse? response;
-      Error? error;
+      NSData? data;
+      URLResponse? response;
+      NSError? error;
 
       final request = MutableURLRequest.fromUrl(
           Uri.parse('http://localhost:${successServer.port}'))
@@ -95,16 +99,19 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       }).resume();
       await c.future;
 
-      expect(data, null);
-      expect(response!.statusCode, 200);
+      expect(data!.length, 0);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 200));
       expect(error, null);
     });
 
     test('500 response', () async {
       final c = Completer<void>();
-      Data? data;
-      HTTPURLResponse? response;
-      Error? error;
+      NSData? data;
+      URLResponse? response;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -116,8 +123,11 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       }).resume();
       await c.future;
 
-      expect(data!.bytes, 'Hello World'.codeUnits);
-      expect(response!.statusCode, 500);
+      expect(data!.toList(), 'Hello World'.codeUnits);
+      expect(
+          response,
+          isA<HTTPURLResponse>()
+              .having((r) => r.statusCode, 'statusCode', 500));
       expect(error, null);
     });
 
@@ -125,9 +135,9 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       // Ensures that the delegate used to implement the completion handler
       // does not interfere with the default redirect behavior.
       final c = Completer<void>();
-      Data? data;
-      HTTPURLResponse? response;
-      Error? error;
+      NSData? data;
+      URLResponse? response;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(
@@ -140,16 +150,26 @@ void testDataTaskWithCompletionHandler(URLSession session) {
       }).resume();
       await c.future;
 
-      expect(response, null);
       expect(data, null);
+      expect(
+          response,
+          anyOf(
+              isNull,
+              isA<HTTPURLResponse>()
+                  .having((r) => r.statusCode, 'statusCode', 302)
+                  .having(
+                      (r) => r.allHeaderFields['Location'],
+                      "r.allHeaderFields['Location']",
+                      matches('http://localhost:${redirectServer.port}/'
+                          r'\d+'))));
       expect(error!.code, -1007); // kCFURLErrorHTTPTooManyRedirects
     });
 
     test('unable to connect', () async {
       final c = Completer<void>();
-      Data? data;
-      HTTPURLResponse? response;
-      Error? error;
+      NSData? data;
+      URLResponse? response;
+      NSError? error;
 
       session.dataTaskWithCompletionHandler(
           URLRequest.fromUrl(Uri.parse('http://this is not a valid URL')),
@@ -196,7 +216,8 @@ void testURLSession(URLSession session) {
       final task = session.dataTaskWithRequest(
           URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
         ..resume();
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>.delayed(const Duration());
       }
@@ -208,15 +229,14 @@ void testURLSession(URLSession session) {
       final task = session.downloadTaskWithRequest(
           URLRequest.fromUrl(Uri.parse('http://localhost:${server.port}')))
         ..resume();
-      while (task.state != URLSessionTaskState.urlSessionTaskStateCompleted) {
+      while (
+          task.state != NSURLSessionTaskState.NSURLSessionTaskStateCompleted) {
         // Let the event loop run.
         await Future<void>.delayed(const Duration());
       }
       final response = task.response as HTTPURLResponse;
       expect(response.statusCode, 200);
     });
-
-    testDataTaskWithCompletionHandler(session);
   });
 }
 
@@ -231,6 +251,7 @@ void main() {
     });
 
     testURLSession(session);
+    testDataTaskWithCompletionHandler(session);
   });
 
   group('defaultSessionConfiguration', () {
@@ -243,6 +264,7 @@ void main() {
     });
 
     testURLSession(session);
+    testDataTaskWithCompletionHandler(session);
   });
 
   group('backgroundSession', () {
@@ -256,5 +278,6 @@ void main() {
     });
 
     testURLSession(session);
+    // dataTaskWithCompletionHandler is not supported in background sessions.
   });
 }
