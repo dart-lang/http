@@ -17,7 +17,9 @@ import 'book.dart';
 void main() {
   final Client httpClient;
   if (Platform.isAndroid) {
-    httpClient = OkHttpClient();
+    httpClient = OkHttpClient(
+        configuration:
+            const OkHttpClientConfiguration(cacheSize: 10 * 1024 * 1024));
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
