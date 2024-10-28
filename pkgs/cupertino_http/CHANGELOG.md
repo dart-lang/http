@@ -1,4 +1,4 @@
-## 2.0.0-wip
+## 2.0.0
 
 * The behavior of `CupertinoClient` and `CupertinoWebSocket` has not changed.
 * **Breaking:** `MutableURLRequest.httpBodyStream` now takes a `NSInputStream`
