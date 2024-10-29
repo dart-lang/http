@@ -19,7 +19,6 @@ linter:
   - literal_only_boolean_expressions
   - no_adjacent_strings_in_list
   - no_runtimeType_toString
-  - package_api_docs
   - prefer_const_declarations
   - prefer_expression_function_bodies
   - prefer_final_locals
