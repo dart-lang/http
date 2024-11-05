@@ -1,4 +1,4 @@
-## 2.0.1-wip
+## 2.0.1
 
 * Fix a [bug](https://github.com/dart-lang/http/issues/1398) where
   `package:cupertino_http` only worked with iOS 17+. 
