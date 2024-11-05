@@ -1,3 +1,8 @@
+## 2.0.1-wip
+
+* Fix a [bug](https://github.com/dart-lang/http/issues/1398) where
+  `package:cupertino_http` only worked with iOS 17+. 
+
 ## 2.0.0
 
 * The behavior of `CupertinoClient` and `CupertinoWebSocket` has not changed.

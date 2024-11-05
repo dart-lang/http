@@ -850,24 +850,26 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   }) {
     final protoBuilder = objc.ObjCProtocolBuilder();
 
-    ncb.NSURLSessionDataDelegate.addToBuilderAsListener(
-      protoBuilder,
-      URLSession_task_didCompleteWithError_: (nsSession, nsTask, nsError) {
-        _decrementTaskCount();
-        if (onComplete != null) {
-          onComplete(
-              URLSession._(nsSession,
-                  isBackground: isBackground, hasDelegate: true),
-              URLSessionTask._(nsTask),
-              nsError);
-        }
-      },
-    );
+    ncb.NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
+        .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
+      _decrementTaskCount();
+      if (onComplete != null) {
+        onComplete(
+            URLSession._(nsSession,
+                isBackground: isBackground, hasDelegate: true),
+            URLSessionTask._(nsTask),
+            nsError);
+      }
+    });
 
     if (onRedirect != null) {
-      ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
+      ncb
+          .NSURLSessionDataDelegate
           // ignore: lines_longer_than_80_chars
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_:
+          .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
+          .implementAsListener(protoBuilder,
+              // ignore: lines_longer_than_80_chars
+
               (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
         final request = URLRequest._(nsRequest);
         URLRequest? redirectRequest;
@@ -891,8 +893,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onResponse != null) {
-      ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
-          URLSession_dataTask_didReceiveResponse_completionHandler_:
+      ncb.NSURLSessionDataDelegate
+          .URLSession_dataTask_didReceiveResponse_completionHandler_
+          .implementAsListener(protoBuilder,
               (nsSession, nsDataTask, nsResponse, nsCompletionHandler) {
         final exactResponse = URLResponse._exactURLResponseType(nsResponse);
         final disposition = onResponse(
@@ -905,8 +908,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onData != null) {
-      ncb.NSURLSessionDataDelegate.addToBuilderAsListener(protoBuilder,
-          URLSession_dataTask_didReceiveData_: (nsSession, nsDataTask, nsData) {
+      ncb.NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_
+          .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
         onData(
             URLSession._(nsSession,
                 isBackground: isBackground, hasDelegate: true),
@@ -942,9 +945,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onWebSocketTaskOpened != null) {
-      ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
-          URLSession_webSocketTask_didOpenWithProtocol_:
-              (nsSession, nsTask, nsProtocol) {
+      ncb.NSURLSessionWebSocketDelegate
+          .URLSession_webSocketTask_didOpenWithProtocol_
+          .implementAsListener(protoBuilder, (nsSession, nsTask, nsProtocol) {
         onWebSocketTaskOpened(
             URLSession._(nsSession,
                 isBackground: isBackground, hasDelegate: true),
@@ -954,8 +957,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onWebSocketTaskClosed != null) {
-      ncb.NSURLSessionWebSocketDelegate.addToBuilderAsListener(protoBuilder,
-          URLSession_webSocketTask_didCloseWithCode_reason_:
+      ncb.NSURLSessionWebSocketDelegate
+          .URLSession_webSocketTask_didCloseWithCode_reason_
+          .implementAsListener(protoBuilder,
               (nsSession, nsTask, closeCode, reason) {
         onWebSocketTaskClosed(
             URLSession._(nsSession,
