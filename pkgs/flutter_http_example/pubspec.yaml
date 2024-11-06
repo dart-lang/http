@@ -10,7 +10,7 @@ environment:
 
 dependencies:
   cronet_http: ^1.0.0
-  cupertino_http: ^1.2.0
+  cupertino_http: ^2.0.0
   cupertino_icons: ^1.0.2
   fetch_client: ^1.0.2
   flutter:
