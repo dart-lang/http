@@ -10,8 +10,8 @@ import 'package:web/web.dart'
         AbortController,
         HeadersInit,
         ReadableStreamDefaultReader,
-        Response,
         RequestInit,
+        Response,
         window;
 
 import 'base_client.dart';
