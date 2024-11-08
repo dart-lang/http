@@ -10,6 +10,7 @@ import 'package:web/web.dart'
         AbortController,
         HeadersInit,
         ReadableStreamDefaultReader,
+        Response,
         RequestInit,
         window;
 
@@ -30,9 +31,9 @@ BaseClient createClient() {
 }
 
 /// A `package:web`-based HTTP client that runs in the browser and is backed by
-/// [fetch].
+/// `window.fetch`.
 ///
-/// This client inherits some limitations of [fetch].
+/// This client inherits some limitations of `window.fetch`.
 /// - [BaseRequest.persistentConnection];
 /// - Setting [BaseRequest.followRedirects] to `false` will cause
 /// `ClientException` when redirect is encountered;
@@ -95,48 +96,6 @@ class BrowserClient extends BaseClient {
         );
       }
 
-      final bodyStreamReader =
-          response.body?.getReader() as ReadableStreamDefaultReader?;
-      Stream<List<int>> _readLoop() async* {
-        if (bodyStreamReader == null) {
-          return;
-        }
-
-        var isDone = false, isError = false;
-        try {
-          while (true) {
-            final chunk = await bodyStreamReader.read().toDart;
-            if (chunk.done) {
-              isDone = true;
-              break;
-            }
-            yield (chunk.value! as JSUint8Array).toDart;
-          }
-        } catch (e, st) {
-          isError = true;
-          _rethrowAsClientException(e, st, request);
-        } finally {
-          if (!isDone) {
-            try {
-              // catchError here is a temporary workaround for
-              // http://dartbug.com/57046: an exception from cancel() will
-              // clobber an exception which is currently in flight.
-              await bodyStreamReader
-                  .cancel()
-                  .toDart
-                  .catchError((_) => null, test: (_) => isError);
-            } catch (e, st) {
-              // If we have already encountered an error swallow the
-              // error from cancel and simply let the original error to be
-              // rethrown.
-              if (!isError) {
-                _rethrowAsClientException(e, st, request);
-              }
-            }
-          }
-        }
-      }
-
       final headers = <String, String>{};
       (response.headers as _IterableHeaders)
           .forEach((String value, String header) {
@@ -144,7 +103,7 @@ class BrowserClient extends BaseClient {
       }.toJS);
 
       return StreamedResponseV2(
-        _readLoop(),
+        _readBody(request, response),
         response.status,
         headers: headers,
         request: request,
@@ -178,7 +137,50 @@ Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
   Error.throwWithStackTrace(e, st);
 }
 
-/// Workaround for [Headers] not providing a way to iterate the headers.
+Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
+  final bodyStreamReader =
+      response.body?.getReader() as ReadableStreamDefaultReader?;
+
+  if (bodyStreamReader == null) {
+    return;
+  }
+
+  var isDone = false, isError = false;
+  try {
+    while (true) {
+      final chunk = await bodyStreamReader.read().toDart;
+      if (chunk.done) {
+        isDone = true;
+        break;
+      }
+      yield (chunk.value! as JSUint8Array).toDart;
+    }
+  } catch (e, st) {
+    isError = true;
+    _rethrowAsClientException(e, st, request);
+  } finally {
+    if (!isDone) {
+      try {
+        // catchError here is a temporary workaround for
+        // http://dartbug.com/57046: an exception from cancel() will
+        // clobber an exception which is currently in flight.
+        await bodyStreamReader
+            .cancel()
+            .toDart
+            .catchError((_) => null, test: (_) => isError);
+      } catch (e, st) {
+        // If we have already encountered an error swallow the
+        // error from cancel and simply let the original error to be
+        // rethrown.
+        if (!isError) {
+          _rethrowAsClientException(e, st, request);
+        }
+      }
+    }
+  }
+}
+
+/// Workaround for `Headers` not providing a way to iterate the headers.
 @JS()
 extension type _IterableHeaders._(JSObject _) implements JSObject {
   external void forEach(JSFunction fn);
