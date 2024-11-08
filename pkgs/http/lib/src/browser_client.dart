@@ -5,15 +5,18 @@
 import 'dart:async';
 import 'dart:js_interop';
 
-import 'package:web/web.dart' show XHRGetters, XMLHttpRequest;
+import 'package:web/web.dart'
+    show
+        AbortController,
+        HeadersInit,
+        ReadableStreamDefaultReader,
+        RequestInit,
+        window;
 
 import 'base_client.dart';
 import 'base_request.dart';
-import 'byte_stream.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
-
-final _digitRegex = RegExp(r'^\d+$');
 
 /// Create a [BrowserClient].
 ///
@@ -27,18 +30,20 @@ BaseClient createClient() {
 }
 
 /// A `package:web`-based HTTP client that runs in the browser and is backed by
-/// [XMLHttpRequest].
+/// [fetch].
 ///
-/// This client inherits some of the limitations of XMLHttpRequest. It ignores
-/// the [BaseRequest.contentLength], [BaseRequest.persistentConnection],
-/// [BaseRequest.followRedirects], and [BaseRequest.maxRedirects] fields. It is
-/// also unable to stream requests or responses; a request will only be sent and
-/// a response will only be returned once all the data is available.
+/// This client inherits some limitations of [fetch].
+/// - [BaseRequest.persistentConnection];
+/// - Setting [BaseRequest.followRedirects] to `false` will cause
+/// `ClientException` when redirect is encountered;
+/// - Positive values of [BaseRequest.maxRedirects] are ignored, non-positive
+/// values are treated the same as setting [BaseRequest.followRedirects] to
+/// `false`.
+///
+/// Responses are streamed but requests are not. A request will only be sent
+/// once all the data is available.
 class BrowserClient extends BaseClient {
-  /// The currently active XHRs.
-  ///
-  /// These are aborted if the client is closed.
-  final _xhrs = <XMLHttpRequest>{};
+  final _abortController = AbortController();
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
@@ -55,55 +60,100 @@ class BrowserClient extends BaseClient {
       throw ClientException(
           'HTTP request failed. Client is already closed.', request.url);
     }
-    var bytes = await request.finalize().toBytes();
-    var xhr = XMLHttpRequest();
-    _xhrs.add(xhr);
-    xhr
-      ..open(request.method, '${request.url}', true)
-      ..responseType = 'arraybuffer'
-      ..withCredentials = withCredentials;
-    for (var header in request.headers.entries) {
-      xhr.setRequestHeader(header.key, header.value);
-    }
 
-    var completer = Completer<StreamedResponse>();
+    final bodyBytes = await request.finalize().toBytes();
+    try {
+      final response = await window
+          .fetch(
+            '${request.url}'.toJS,
+            RequestInit(
+              method: request.method,
+              body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
+              credentials: withCredentials ? 'include' : 'same-origin',
+              headers: {
+                if (request.contentLength case final contentLength?)
+                  'content-length': contentLength,
+                for (var header in request.headers.entries)
+                  header.key: header.value,
+              }.jsify()! as HeadersInit,
+              signal: _abortController.signal,
+              redirect: request.followRedirects ? 'follow' : 'error',
+            ),
+          )
+          .toDart;
 
-    unawaited(xhr.onLoad.first.then((_) {
-      if (xhr.responseHeaders['content-length'] case final contentLengthHeader
-          when contentLengthHeader != null &&
-              !_digitRegex.hasMatch(contentLengthHeader)) {
-        completer.completeError(ClientException(
+      final contentLengthHeader = response.headers.get('content-length');
+
+      final contentLength = contentLengthHeader != null
+          ? int.tryParse(contentLengthHeader)
+          : null;
+
+      if (contentLength == null && contentLengthHeader != null) {
+        throw ClientException(
           'Invalid content-length header [$contentLengthHeader].',
           request.url,
-        ));
-        return;
+        );
       }
-      var body = (xhr.response as JSArrayBuffer).toDart.asUint8List();
-      var responseUrl = xhr.responseURL;
-      var url = responseUrl.isNotEmpty ? Uri.parse(responseUrl) : request.url;
-      completer.complete(StreamedResponseV2(
-          ByteStream.fromBytes(body), xhr.status,
-          contentLength: body.length,
-          request: request,
-          url: url,
-          headers: xhr.responseHeaders,
-          reasonPhrase: xhr.statusText));
-    }));
 
-    unawaited(xhr.onError.first.then((_) {
-      // Unfortunately, the underlying XMLHttpRequest API doesn't expose any
-      // specific information about the error itself.
-      completer.completeError(
-          ClientException('XMLHttpRequest error.', request.url),
-          StackTrace.current);
-    }));
+      final bodyStreamReader =
+          response.body?.getReader() as ReadableStreamDefaultReader?;
+      Stream<List<int>> _readLoop() async* {
+        if (bodyStreamReader == null) {
+          return;
+        }
 
-    xhr.send(bytes.toJS);
+        var isDone = false, isError = false;
+        try {
+          while (true) {
+            final chunk = await bodyStreamReader.read().toDart;
+            if (chunk.done) {
+              isDone = true;
+              break;
+            }
+            yield (chunk.value! as JSUint8Array).toDart;
+          }
+        } catch (e, st) {
+          isError = true;
+          _rethrowAsClientException(e, st, request);
+        } finally {
+          if (!isDone) {
+            try {
+              // catchError here is a temporary workaround for
+              // http://dartbug.com/57046: an exception from cancel() will
+              // clobber an exception which is currently in flight.
+              await bodyStreamReader
+                  .cancel()
+                  .toDart
+                  .catchError((_) => null, test: (_) => isError);
+            } catch (e, st) {
+              // If we have already encountered an error swallow the
+              // error from cancel and simply let the original error to be
+              // rethrown.
+              if (!isError) {
+                _rethrowAsClientException(e, st, request);
+              }
+            }
+          }
+        }
+      }
 
-    try {
-      return await completer.future;
-    } finally {
-      _xhrs.remove(xhr);
+      final headers = <String, String>{};
+      (response.headers as _IterableHeaders)
+          .forEach((String value, String header) {
+        headers[header.toLowerCase()] = value;
+      }.toJS);
+
+      return StreamedResponseV2(
+        _readLoop(),
+        response.status,
+        headers: headers,
+        request: request,
+        contentLength: contentLength,
+        url: Uri.parse(response.url),
+        reasonPhrase: response.statusText,
+      );
+    } catch (e, st) {
+      _rethrowAsClientException(e, st, request);
     }
   }
 
@@ -113,36 +163,23 @@ class BrowserClient extends BaseClient {
   @override
   void close() {
     _isClosed = true;
-    for (var xhr in _xhrs) {
-      xhr.abort();
-    }
-    _xhrs.clear();
+    _abortController.abort();
   }
 }
 
-extension on XMLHttpRequest {
-  Map<String, String> get responseHeaders {
-    // from Closure's goog.net.Xhrio.getResponseHeaders.
-    var headers = <String, String>{};
-    var headersString = getAllResponseHeaders();
-    var headersList = headersString.split('\r\n');
-    for (var header in headersList) {
-      if (header.isEmpty) {
-        continue;
-      }
-
-      var splitIdx = header.indexOf(': ');
-      if (splitIdx == -1) {
-        continue;
-      }
-      var key = header.substring(0, splitIdx).toLowerCase();
-      var value = header.substring(splitIdx + 2);
-      if (headers.containsKey(key)) {
-        headers[key] = '${headers[key]}, $value';
-      } else {
-        headers[key] = value;
-      }
+Never _rethrowAsClientException(Object e, StackTrace st, BaseRequest request) {
+  if (e is! ClientException) {
+    var message = e.toString();
+    if (message.startsWith('TypeError: ')) {
+      message = message.substring('TypeError: '.length);
     }
-    return headers;
+    e = ClientException(message, request.url);
   }
+  Error.throwWithStackTrace(e, st);
+}
+
+/// Workaround for [Headers] not providing a way to iterate the headers.
+@JS()
+extension type _IterableHeaders._(JSObject _) implements JSObject {
+  external void forEach(JSFunction fn);
 }
