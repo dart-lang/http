@@ -28,12 +28,13 @@ jobs:
       run:
         working-directory: pkgs/cupertino_http
     strategy:
-      fail-fast: false
       matrix:
         # Test on the minimum supported flutter version and the latest
         # version.
         flutter-version: ["3.24.0", "any"]
-        os: [macos-12, macos-latest]
+        # It would be nice to test on older versions of macOS but macOS 13 is
+        # the oldest supported by GitHub.
+        os: [macos-13, macos-latest]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
