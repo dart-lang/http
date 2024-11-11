@@ -53,7 +53,7 @@ jobs:
         run: |
           cd example
           flutter pub get
-          flutter test -p macos integration_test/main.dart --test-randomize-ordering-seed=random  
+          flutter test -d macos integration_test/main.dart --test-randomize-ordering-seed=random  
   ios:
     name: "iOS: Test"
     runs-on: macos-latest
