@@ -31,15 +31,14 @@ BaseClient createClient() {
 }
 
 /// A `package:web`-based HTTP client that runs in the browser and is backed by
-/// `window.fetch`.
+/// [`window.fetch`](https://fetch.spec.whatwg.org/).
 ///
-/// This client inherits some limitations of `window.fetch`.
-/// - [BaseRequest.persistentConnection];
+/// This client inherits some limitations of `window.fetch`:
+///
+/// - [BaseRequest.persistentConnection] is ignored;
 /// - Setting [BaseRequest.followRedirects] to `false` will cause
-/// `ClientException` when redirect is encountered;
-/// - Positive values of [BaseRequest.maxRedirects] are ignored, non-positive
-/// values are treated the same as setting [BaseRequest.followRedirects] to
-/// `false`.
+///   [ClientException] when a redirect is encountered;
+/// - The value of [BaseRequest.maxRedirects] is ignored.
 ///
 /// Responses are streamed but requests are not. A request will only be sent
 /// once all the data is available.
