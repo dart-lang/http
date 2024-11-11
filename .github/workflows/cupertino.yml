@@ -21,8 +21,41 @@ env:
   PUB_ENVIRONMENT: bot.github
 
 jobs:
-  verify:
-    name: Format & Analyze & Test
+  macos:
+    name: "macOS: Format & Analyze & Test"
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: pkgs/cupertino_http
+    strategy:
+      fail-fast: false
+      matrix:
+        # Test on the minimum supported flutter version and the latest
+        # version.
+        flutter-version: ["3.24.0", "any"]
+        os: [macos-12, macos-latest]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
+        with:
+          flutter-version: ${{ matrix.flutter-version }}
+          channel: 'stable'
+      - id: install
+        name: Install dependencies
+        run: flutter pub get
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed .
+        if: always() && steps.install.outcome == 'success'
+      - name: Analyze code
+        run: flutter analyze --fatal-infos
+        if: always() && steps.install.outcome == 'success'
+      - name: Run tests
+        run: |
+          cd example
+          flutter pub get
+          flutter test -p macos integration_test/main.dart --test-randomize-ordering-seed=random  
+  ios:
+    name: "iOS: Test"
     runs-on: macos-latest
     defaults:
       run:
@@ -42,12 +75,6 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-      - name: Check formatting
-        run: dart format --output=none --set-exit-if-changed .
-        if: always() && steps.install.outcome == 'success'
-      - name: Analyze code
-        run: flutter analyze --fatal-infos
-        if: always() && steps.install.outcome == 'success'
       - uses: futureware-tech/simulator-action@dab10d813144ef59b48d401cd95da151222ef8cd
         with:
           os: iOS
