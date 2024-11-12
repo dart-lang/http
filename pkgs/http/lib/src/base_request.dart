@@ -11,6 +11,7 @@ import 'base_client.dart';
 import 'base_response.dart';
 import 'byte_stream.dart';
 import 'client.dart';
+import 'progress.dart';
 import 'streamed_response.dart';
 import 'utils.dart';
 
@@ -26,6 +27,9 @@ abstract class BaseRequest {
   /// Most commonly "GET" or "POST", less commonly "HEAD", "PUT", or "DELETE".
   /// Non-standard method names are also supported.
   final String method;
+
+  /// The callback to call for data send progress.
+  Progress? onSendProgress;
 
   /// The URL to which the request will be sent.
   final Uri url;
@@ -130,7 +134,10 @@ abstract class BaseRequest {
     var client = Client();
 
     try {
-      var response = await client.send(this);
+      var response = await client.send(
+        this,
+        onSendProgress: onSendProgress,
+      );
       var stream = onDone(response.stream, client.close);
 
       if (response case BaseResponseWithUrl(:final url)) {

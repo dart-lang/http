@@ -10,6 +10,7 @@ import 'dart:typed_data';
 
 import 'src/client.dart';
 import 'src/exception.dart';
+import 'src/progress.dart';
 import 'src/request.dart';
 import 'src/response.dart';
 import 'src/streamed_request.dart';
@@ -23,6 +24,7 @@ export 'src/client.dart' hide zoneClient;
 export 'src/exception.dart';
 export 'src/multipart_file.dart';
 export 'src/multipart_request.dart';
+export 'src/progress.dart';
 export 'src/request.dart';
 export 'src/response.dart';
 export 'src/streamed_request.dart';
@@ -64,12 +66,25 @@ Future<Response> get(Uri url, {Map<String, String>? headers}) =>
 ///
 /// [encoding] defaults to [utf8].
 ///
+/// If [onSendProgress] is provided it will be called to indicate
+/// the upload progress
+///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> post(Uri url,
-        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-    _withClient((client) =>
-        client.post(url, headers: headers, body: body, encoding: encoding));
+Future<Response> post(
+  Uri url, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+  Progress? onSendProgress,
+}) =>
+    _withClient((client) => client.post(
+          url,
+          headers: headers,
+          body: body,
+          encoding: encoding,
+          onSendProgress: onSendProgress,
+        ));
 
 /// Sends an HTTP PUT request with the given headers and body to the given URL.
 ///
@@ -87,12 +102,25 @@ Future<Response> post(Uri url,
 ///
 /// [encoding] defaults to [utf8].
 ///
+/// If [onSendProgress] is provided it will be called to indicate
+/// the upload progress
+///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> put(Uri url,
-        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-    _withClient((client) =>
-        client.put(url, headers: headers, body: body, encoding: encoding));
+Future<Response> put(
+  Uri url, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+  Progress? onSendProgress,
+}) =>
+    _withClient((client) => client.put(
+          url,
+          headers: headers,
+          body: body,
+          encoding: encoding,
+          onSendProgress: onSendProgress,
+        ));
 
 /// Sends an HTTP PATCH request with the given headers and body to the given
 /// URL.
@@ -111,12 +139,25 @@ Future<Response> put(Uri url,
 ///
 /// [encoding] defaults to [utf8].
 ///
+/// If [onSendProgress] is provided it will be called to indicate
+/// the upload progress
+///
 /// For more fine-grained control over the request, use [Request] or
 /// [StreamedRequest] instead.
-Future<Response> patch(Uri url,
-        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-    _withClient((client) =>
-        client.patch(url, headers: headers, body: body, encoding: encoding));
+Future<Response> patch(
+  Uri url, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+  Progress? onSendProgress,
+}) =>
+    _withClient((client) => client.patch(
+          url,
+          headers: headers,
+          body: body,
+          encoding: encoding,
+          onSendProgress: onSendProgress,
+        ));
 
 /// Sends an HTTP DELETE request with the given headers to the given URL.
 ///
@@ -124,11 +165,24 @@ Future<Response> patch(Uri url,
 /// the request is complete. If you're planning on making multiple requests to
 /// the same server, you should use a single [Client] for all of those requests.
 ///
+/// If [onSendProgress] is provided it will be called to indicate
+/// the upload progress
+///
 /// For more fine-grained control over the request, use [Request] instead.
-Future<Response> delete(Uri url,
-        {Map<String, String>? headers, Object? body, Encoding? encoding}) =>
-    _withClient((client) =>
-        client.delete(url, headers: headers, body: body, encoding: encoding));
+Future<Response> delete(
+  Uri url, {
+  Map<String, String>? headers,
+  Object? body,
+  Encoding? encoding,
+  Progress? onSendProgress,
+}) =>
+    _withClient((client) => client.delete(
+          url,
+          headers: headers,
+          body: body,
+          encoding: encoding,
+          onSendProgress: onSendProgress,
+        ));
 
 /// Sends an HTTP GET request with the given headers to the given URL and
 /// returns a Future that completes to the body of the response as a [String].
