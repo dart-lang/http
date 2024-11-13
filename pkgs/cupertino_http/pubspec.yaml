@@ -32,3 +32,9 @@ flutter:
       macos:
         ffiPlugin: true
         sharedDarwinSource: true
+
+dependency_overrides:
+  ffi:
+    path: /Users/bquinlan/dart/native/pkgs/ffi
+  objective_c:
+    path: /Users/bquinlan/dart/native/pkgs/objective_c
