@@ -40511,7 +40511,7 @@ external ffi.Pointer<objc.ObjCBlockImpl>
     ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
-    _NativeCupertinoHttp_wrapListenerBlock_ovsamd(
+    _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(
   ffi.Pointer<objc.ObjCBlockImpl> block,
 );
 
@@ -40520,14 +40520,6 @@ external ffi.Pointer<objc.ObjCBlockImpl>
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_wjovn7(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
-    _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(
   ffi.Pointer<objc.ObjCBlockImpl> block,
 );
 
@@ -40655,7 +40647,47 @@ external ffi.Pointer<objc.ObjCBlockImpl>
     ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapListenerBlock_16sve1d(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapListenerBlock_1f43wec(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_ao4xm9(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapListenerBlock_mn1xu3(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapListenerBlock_13vswqm(
   ffi.Pointer<objc.ObjCBlockImpl> block,
 );
 
@@ -40679,30 +40711,6 @@ external ffi.Pointer<objc.ObjCBlockImpl>
     ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
-    _NativeCupertinoHttp_wrapListenerBlock_mn1xu3(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
-    _NativeCupertinoHttp_wrapListenerBlock_1f43wec(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
-    _NativeCupertinoHttp_wrapListenerBlock_13vswqm(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_qm01og(
   ffi.Pointer<objc.ObjCBlockImpl> block,
 );
@@ -40719,31 +40727,7 @@ external ffi.Pointer<objc.ObjCBlockImpl>
     ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
-    _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
-    _NativeCupertinoHttp_wrapListenerBlock_16sve1d(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_9qxjkl(
-  ffi.Pointer<objc.ObjCBlockImpl> block,
-);
-
-@ffi.Native<
-    ffi.Pointer<objc.ObjCBlockImpl> Function(
-        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
-external ffi.Pointer<objc.ObjCBlockImpl>
-    _NativeCupertinoHttp_wrapListenerBlock_62mtml(
   ffi.Pointer<objc.ObjCBlockImpl> block,
 );
 
@@ -40800,6 +40784,14 @@ external ffi.Pointer<objc.ObjCBlockImpl>
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_zuf90e(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapListenerBlock_ovsamd(
   ffi.Pointer<objc.ObjCBlockImpl> block,
 );
 
@@ -42354,1915 +42346,8 @@ typedef NSInteger = ffi.Long;
 typedef DartNSInteger = int;
 typedef NSUInteger = ffi.UnsignedLong;
 typedef DartNSUInteger = int;
-late final _protocol_NSObject = objc.getProtocol("NSObject");
-late final _sel_isEqual_ = objc.registerName("isEqual:");
-final _objc_msgSend_69e0x1 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Bool Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        bool Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-bool _ObjCBlock_bool_ffiVoid_objcObjCObject_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Bool Function(ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            bool Function(ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_objcObjCObject_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_bool_ffiVoid_objcObjCObject_fnPtrTrampoline, false)
-        .cast();
-bool _ObjCBlock_bool_ffiVoid_objcObjCObject_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as bool Function(
-        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_objcObjCObject_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_bool_ffiVoid_objcObjCObject_closureTrampoline, false)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>`.
-abstract final class ObjCBlock_bool_ffiVoid_objcObjCObject {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Bool Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  ffi.Bool Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-              pointer,
-              retain: retain,
-              release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Bool Function(ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-          objc.newPointerBlock(_ObjCBlock_bool_ffiVoid_objcObjCObject_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-      fromFunction(
-              bool Function(ffi.Pointer<ffi.Void>, objc.ObjCObjectBase) fn) =>
-          objc.ObjCBlock<
-                  ffi.Bool Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_bool_ffiVoid_objcObjCObject_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
-                      fn(arg0, objc.ObjCObjectBase(arg1, retain: true, release: true))),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>`.
-extension ObjCBlock_bool_ffiVoid_objcObjCObject_CallExtension on objc.ObjCBlock<
-    ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)> {
-  bool call(ffi.Pointer<ffi.Void> arg0, objc.ObjCObjectBase arg1) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Bool Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>()
-              .asFunction<
-                  bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer, arg0, arg1.ref.pointer);
-}
-
-late final _sel_hash = objc.registerName("hash");
-final _objc_msgSend_xw2lbc = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.UnsignedLong Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-int _ObjCBlock_NSUInteger_ffiVoid_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    block.ref.target
-        .cast<
-            ffi
-            .NativeFunction<NSUInteger Function(ffi.Pointer<ffi.Void> arg0)>>()
-        .asFunction<int Function(ffi.Pointer<ffi.Void>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSUInteger_ffiVoid_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                NSUInteger Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSUInteger_ffiVoid_fnPtrTrampoline, 0)
-        .cast();
-int _ObjCBlock_NSUInteger_ffiVoid_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    (objc.getBlockClosure(block) as int Function(ffi.Pointer<ffi.Void>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSUInteger_ffiVoid_closureCallable =
-    ffi.Pointer.fromFunction<
-                NSUInteger Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSUInteger_ffiVoid_closureTrampoline, 0)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)>`.
-abstract final class ObjCBlock_NSUInteger_ffiVoid {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)>(
-              pointer,
-              retain: retain,
-              release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-      ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)> fromFunctionPointer(
-          ffi.Pointer<ffi.NativeFunction<NSUInteger Function(ffi.Pointer<ffi.Void> arg0)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)>(
-          objc.newPointerBlock(
-              _ObjCBlock_NSUInteger_ffiVoid_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)>
-      fromFunction(DartNSUInteger Function(ffi.Pointer<ffi.Void>) fn) =>
-          objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_NSUInteger_ffiVoid_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0) => fn(arg0)),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)>`.
-extension ObjCBlock_NSUInteger_ffiVoid_CallExtension
-    on objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>)> {
-  DartNSUInteger call(ffi.Pointer<ffi.Void> arg0) => ref.pointer.ref.invoke
-      .cast<
-          ffi.NativeFunction<
-              NSUInteger Function(ffi.Pointer<objc.ObjCBlockImpl> block,
-                  ffi.Pointer<ffi.Void> arg0)>>()
-      .asFunction<
-          int Function(ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0);
-}
-
-late final _sel_superclass = objc.registerName("superclass");
-final _objc_msgSend_1x359cv = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-ffi.Pointer<objc.ObjCObject> _ObjCBlock_objcObjCObject_ffiVoid_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<ffi.Void> arg0)>>()
-        .asFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<ffi.Void>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_objcObjCObject_ffiVoid_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0) =>
-        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<ffi.Void>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_objcObjCObject_ffiVoid_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>`.
-abstract final class ObjCBlock_objcObjCObject_ffiVoid {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc
-      .ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>(
-              pointer,
-              retain: retain,
-              release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>
-      fromFunctionPointer(
-              ffi.Pointer<
-                      ffi.NativeFunction<
-                          ffi.Pointer<objc.ObjCObject> Function(
-                              ffi.Pointer<ffi.Void> arg0)>>
-                  ptr) =>
-          objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>(
-              objc.newPointerBlock(_ObjCBlock_objcObjCObject_ffiVoid_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>
-      fromFunction(objc.ObjCObjectBase Function(ffi.Pointer<ffi.Void>) fn) =>
-          objc.ObjCBlock<
-                  ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_objcObjCObject_ffiVoid_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0) =>
-                      fn(arg0).ref.retainAndAutorelease()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>`.
-extension ObjCBlock_objcObjCObject_ffiVoid_CallExtension on objc
-    .ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)> {
-  objc.ObjCObjectBase call(ffi.Pointer<ffi.Void> arg0) => objc.ObjCObjectBase(
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0)>>()
-          .asFunction<
-              ffi.Pointer<objc.ObjCObject> Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
-      retain: true,
-      release: true);
-}
-
-late final _sel_class = objc.registerName("class");
-typedef instancetype = ffi.Pointer<objc.ObjCObject>;
-typedef Dartinstancetype = objc.ObjCObjectBase;
-late final _sel_self = objc.registerName("self");
-late final _sel_performSelector_ = objc.registerName("performSelector:");
-final _objc_msgSend_19hbqky = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCSelector>)>();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCSelector> arg1) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Pointer<objc.ObjCObject> Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCSelector> arg1)>>()
-            .asFunction<
-                ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCSelector> arg1) =>
-        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>))(arg0, arg1);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>`.
-abstract final class ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Pointer<objc.ObjCObject> Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>(
-              pointer,
-              retain: retain,
-              release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.Pointer<objc.ObjCObject> Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCSelector> arg1)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>(
-              objc.newPointerBlock(_ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>
-      fromFunction(objc.ObjCObjectBase Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>) fn) =>
-          objc.ObjCBlock<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCSelector> arg1) =>
-                      fn(arg0, arg1).ref.retainAndAutorelease()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>`.
-extension ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_CallExtension
-    on objc.ObjCBlock<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)> {
-  objc.ObjCObjectBase call(
-          ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCSelector> arg1) =>
-      objc.ObjCObjectBase(
-          ref.pointer.ref.invoke
-                  .cast<
-                      ffi.NativeFunction<
-                          ffi.Pointer<objc.ObjCObject> Function(
-                              ffi.Pointer<objc.ObjCBlockImpl> block,
-                              ffi.Pointer<ffi.Void> arg0,
-                              ffi.Pointer<objc.ObjCSelector> arg1)>>()
-                  .asFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlockImpl>,
-                          ffi.Pointer<ffi.Void>,
-                          ffi.Pointer<objc.ObjCSelector>)>()(
-              ref.pointer, arg0, arg1),
-          retain: true,
-          release: true);
-}
-
-late final _sel_performSelector_withObject_ =
-    objc.registerName("performSelector:withObject:");
-final _objc_msgSend_1wlgx7q = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>)>();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCSelector> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Pointer<objc.ObjCObject> Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCSelector> arg1,
-                        ffi.Pointer<objc.ObjCObject> arg2)>>()
-            .asFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>,
-                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCSelector> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2) =>
-        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>`.
-abstract final class ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>,
-              ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCSelector>,
-                      ffi.Pointer<objc.ObjCObject>)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>,
-              ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCSelector> arg1, ffi.Pointer<objc.ObjCObject> arg2)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCSelector>,
-                      ffi.Pointer<objc.ObjCObject>)>(
-              objc.newPointerBlock(_ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>
-      fromFunction(objc.ObjCObjectBase Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase) fn) =>
-          objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCSelector> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2) =>
-                      fn(arg0, arg1, objc.ObjCObjectBase(arg2, retain: true, release: true))
-                          .ref
-                          .retainAndAutorelease()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>`.
-extension ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_CallExtension
-    on objc.ObjCBlock<
-        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)> {
-  objc.ObjCObjectBase call(ffi.Pointer<ffi.Void> arg0,
-          ffi.Pointer<objc.ObjCSelector> arg1, objc.ObjCObjectBase arg2) =>
-      objc.ObjCObjectBase(
-          ref.pointer.ref.invoke
-                  .cast<
-                      ffi.NativeFunction<
-                          ffi.Pointer<objc.ObjCObject> Function(
-                              ffi.Pointer<objc.ObjCBlockImpl> block,
-                              ffi.Pointer<ffi.Void> arg0,
-                              ffi.Pointer<objc.ObjCSelector> arg1,
-                              ffi.Pointer<objc.ObjCObject> arg2)>>()
-                  .asFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlockImpl>,
-                          ffi.Pointer<ffi.Void>,
-                          ffi.Pointer<objc.ObjCSelector>,
-                          ffi.Pointer<objc.ObjCObject>)>()(
-              ref.pointer, arg0, arg1, arg2.ref.pointer),
-          retain: true,
-          release: true);
-}
-
-late final _sel_performSelector_withObject_withObject_ =
-    objc.registerName("performSelector:withObject:withObject:");
-final _objc_msgSend_189974q = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCSelector> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Pointer<objc.ObjCObject> Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCSelector> arg1,
-                        ffi.Pointer<objc.ObjCObject> arg2,
-                        ffi.Pointer<objc.ObjCObject> arg3)>>()
-            .asFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCSelector> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3) =>
-        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCSelector>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
-abstract final class ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Pointer<objc.ObjCObject> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<objc.ObjCSelector>,
-              ffi.Pointer<objc.ObjCObject>,
-              ffi.Pointer<objc.ObjCObject>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Pointer<objc.ObjCObject> Function(
-                  ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<objc.ObjCSelector>,
-                  ffi.Pointer<objc.ObjCObject>,
-                  ffi.Pointer<objc.ObjCObject>)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.Pointer<objc.ObjCObject> Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<objc.ObjCSelector>,
-              ffi.Pointer<objc.ObjCObject>,
-              ffi.Pointer<objc.ObjCObject>)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCSelector> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCSelector>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>(
-              objc.newPointerBlock(_ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
-      fromFunction(objc.ObjCObjectBase Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase, objc.ObjCObjectBase) fn) =>
-          objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCSelector> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCObject> arg3) =>
-                      fn(arg0, arg1, objc.ObjCObjectBase(arg2, retain: true, release: true), objc.ObjCObjectBase(arg3, retain: true, release: true))
-                          .ref
-                          .retainAndAutorelease()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
-extension ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject_CallExtension
-    on objc.ObjCBlock<
-        ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)> {
-  objc.ObjCObjectBase call(
-          ffi.Pointer<ffi.Void> arg0,
-          ffi.Pointer<objc.ObjCSelector> arg1,
-          objc.ObjCObjectBase arg2,
-          objc.ObjCObjectBase arg3) =>
-      objc.ObjCObjectBase(
-          ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCSelector> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCObject> arg3)>>()
-              .asFunction<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCSelector>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0, arg1, arg2.ref.pointer, arg3.ref.pointer),
-          retain: true,
-          release: true);
-}
-
-late final _sel_isProxy = objc.registerName("isProxy");
-final _objc_msgSend_91o635 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        bool Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-bool _ObjCBlock_bool_ffiVoid_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<ffi.Void> arg0)>>()
-        .asFunction<bool Function(ffi.Pointer<ffi.Void>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Bool Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_bool_ffiVoid_fnPtrTrampoline, false)
-        .cast();
-bool _ObjCBlock_bool_ffiVoid_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    (objc.getBlockClosure(block) as bool Function(ffi.Pointer<ffi.Void>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Bool Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_bool_ffiVoid_closureTrampoline, false)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>`.
-abstract final class ObjCBlock_bool_ffiVoid {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>
-      fromFunctionPointer(
-              ffi.Pointer<
-                      ffi.NativeFunction<
-                          ffi.Bool Function(ffi.Pointer<ffi.Void> arg0)>>
-                  ptr) =>
-          objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>(
-              objc.newPointerBlock(_ObjCBlock_bool_ffiVoid_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)> fromFunction(
-          bool Function(ffi.Pointer<ffi.Void>) fn) =>
-      objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>(
-          objc.newClosureBlock(_ObjCBlock_bool_ffiVoid_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0) => fn(arg0)),
-          retain: false,
-          release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>`.
-extension ObjCBlock_bool_ffiVoid_CallExtension
-    on objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)> {
-  bool call(ffi.Pointer<ffi.Void> arg0) => ref.pointer.ref.invoke
-      .cast<
-          ffi.NativeFunction<
-              ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl> block,
-                  ffi.Pointer<ffi.Void> arg0)>>()
-      .asFunction<
-          bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0);
-}
-
-late final _sel_isKindOfClass_ = objc.registerName("isKindOfClass:");
-late final _sel_isMemberOfClass_ = objc.registerName("isMemberOfClass:");
-late final _sel_conformsToProtocol_ = objc.registerName("conformsToProtocol:");
-bool _ObjCBlock_bool_ffiVoid_Protocol_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Bool Function(ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            bool Function(ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_Protocol_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_bool_ffiVoid_Protocol_fnPtrTrampoline, false)
-        .cast();
-bool _ObjCBlock_bool_ffiVoid_Protocol_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as bool Function(
-        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_Protocol_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_bool_ffiVoid_Protocol_closureTrampoline, false)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, objc.Protocol)>`.
-abstract final class ObjCBlock_bool_ffiVoid_Protocol {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, objc.Protocol)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Bool Function(ffi.Pointer<ffi.Void>,
-                  objc.Protocol)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, objc.Protocol)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Bool Function(ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, objc.Protocol)>(
-          objc.newPointerBlock(_ObjCBlock_bool_ffiVoid_Protocol_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, objc.Protocol)>
-      fromFunction(bool Function(ffi.Pointer<ffi.Void>, objc.Protocol) fn) =>
-          objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, objc.Protocol)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_bool_ffiVoid_Protocol_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
-                      fn(
-                          arg0,
-                          objc.Protocol.castFromPointer(arg1,
-                              retain: true, release: true))),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, objc.Protocol)>`.
-extension ObjCBlock_bool_ffiVoid_Protocol_CallExtension
-    on objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, objc.Protocol)> {
-  bool call(ffi.Pointer<ffi.Void> arg0, objc.Protocol arg1) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Bool Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>()
-              .asFunction<
-                  bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer, arg0, arg1.ref.pointer);
-}
-
-late final _sel_respondsToSelector_ = objc.registerName("respondsToSelector:");
-final _objc_msgSend_1srf6wk = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Bool Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        bool Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCSelector>)>();
-bool _ObjCBlock_bool_ffiVoid_objcObjCSelector_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCSelector> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Bool Function(ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCSelector> arg1)>>()
-        .asFunction<
-            bool Function(ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCSelector>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_objcObjCSelector_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>(
-            _ObjCBlock_bool_ffiVoid_objcObjCSelector_fnPtrTrampoline, false)
-        .cast();
-bool _ObjCBlock_bool_ffiVoid_objcObjCSelector_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCSelector> arg1) =>
-    (objc.getBlockClosure(block) as bool Function(
-        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_objcObjCSelector_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>(
-            _ObjCBlock_bool_ffiVoid_objcObjCSelector_closureTrampoline, false)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>`.
-abstract final class ObjCBlock_bool_ffiVoid_objcObjCSelector {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Bool Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  ffi.Bool Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>(
-              pointer,
-              retain: retain,
-              release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Bool Function(ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCSelector> arg1)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>(
-          objc.newPointerBlock(_ObjCBlock_bool_ffiVoid_objcObjCSelector_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>
-      fromFunction(bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>) fn) =>
-          objc.ObjCBlock<
-                  ffi.Bool Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_bool_ffiVoid_objcObjCSelector_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCSelector> arg1) =>
-                      fn(arg0, arg1)),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)>`.
-extension ObjCBlock_bool_ffiVoid_objcObjCSelector_CallExtension
-    on objc.ObjCBlock<
-        ffi.Bool Function(
-            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCSelector>)> {
-  bool call(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCSelector> arg1) =>
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Bool Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCSelector> arg1)>>()
-          .asFunction<
-              bool Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<objc.ObjCSelector>)>()(ref.pointer, arg0, arg1);
-}
-
-late final _sel_retain = objc.registerName("retain");
-late final _sel_release = objc.registerName("release");
-final _objc_msgSend_1pl9qdv = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        void Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-void _ObjCBlock_ffiVoid_ffiVoid_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0)>>()
-        .asFunction<void Function(ffi.Pointer<ffi.Void>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    (objc.getBlockClosure(block) as void Function(ffi.Pointer<ffi.Void>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) {
-  (objc.getBlockClosure(block) as void Function(ffi.Pointer<ffi.Void>))(arg0);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>
-    _ObjCBlock_ffiVoid_ffiVoid_listenerCallable = ffi.NativeCallable<
-            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<ffi.Void> arg0)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(
-          objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_ffiVoid_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> fromFunction(
-          void Function(ffi.Pointer<ffi.Void>) fn) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(
-          objc.newClosureBlock(_ObjCBlock_ffiVoid_ffiVoid_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0) => fn(arg0)),
-          retain: false,
-          release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> listener(
-      void Function(ffi.Pointer<ffi.Void>) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_listenerCallable.nativeFunction.cast(),
-        (ffi.Pointer<ffi.Void> arg0) => fn(arg0));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ovsamd(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(wrapper,
-        retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> {
-  void call(ffi.Pointer<ffi.Void> arg0) => ref.pointer.ref.invoke
-      .cast<
-          ffi.NativeFunction<
-              ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
-                  ffi.Pointer<ffi.Void> arg0)>>()
-      .asFunction<
-          void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-              ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0);
-}
-
-late final _sel_autorelease = objc.registerName("autorelease");
-late final _sel_retainCount = objc.registerName("retainCount");
 
 final class _NSZone extends ffi.Opaque {}
-
-late final _sel_zone = objc.registerName("zone");
-final _objc_msgSend_sz90oi = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<_NSZone> Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>)>>()
-    .asFunction<
-        ffi.Pointer<_NSZone> Function(
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
-ffi.Pointer<_NSZone> _ObjCBlock_NSZone_ffiVoid_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void> arg0)>>()
-        .asFunction<
-            ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSZone_ffiVoid_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<_NSZone> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSZone_ffiVoid_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<_NSZone> _ObjCBlock_NSZone_ffiVoid_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    (objc.getBlockClosure(block) as ffi.Pointer<_NSZone> Function(
-        ffi.Pointer<ffi.Void>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSZone_ffiVoid_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<_NSZone> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSZone_ffiVoid_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>`.
-abstract final class ObjCBlock_NSZone_ffiVoid {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>(
-              pointer,
-              retain: retain,
-              release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>
-      fromFunctionPointer(
-              ffi.Pointer<
-                      ffi.NativeFunction<
-                          ffi.Pointer<_NSZone> Function(
-                              ffi.Pointer<ffi.Void> arg0)>>
-                  ptr) =>
-          objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>(
-              objc.newPointerBlock(_ObjCBlock_NSZone_ffiVoid_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>
-      fromFunction(ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>) fn) =>
-          objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>(
-              objc.newClosureBlock(_ObjCBlock_NSZone_ffiVoid_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0) => fn(arg0)),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)>`.
-extension ObjCBlock_NSZone_ffiVoid_CallExtension
-    on objc.ObjCBlock<ffi.Pointer<_NSZone> Function(ffi.Pointer<ffi.Void>)> {
-  ffi.Pointer<_NSZone> call(ffi.Pointer<ffi.Void> arg0) =>
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Pointer<_NSZone> Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0)>>()
-          .asFunction<
-              ffi.Pointer<_NSZone> Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0);
-}
-
-late final _sel_description = objc.registerName("description");
-ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSString_ffiVoid_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<ffi.Void> arg0)>>()
-        .asFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<ffi.Void>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSString_ffiVoid_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSString_ffiVoid_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSString_ffiVoid_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-        ffi.Pointer<ffi.Void>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSString_ffiVoid_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSString_ffiVoid_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)>`.
-abstract final class ObjCBlock_NSString_ffiVoid {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)>
-      fromFunctionPointer(
-              ffi.Pointer<
-                      ffi.NativeFunction<
-                          ffi.Pointer<objc.ObjCObject> Function(
-                              ffi.Pointer<ffi.Void> arg0)>>
-                  ptr) =>
-          objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)>(
-              objc.newPointerBlock(_ObjCBlock_NSString_ffiVoid_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)>
-      fromFunction(objc.NSString Function(ffi.Pointer<ffi.Void>) fn) =>
-          objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_NSString_ffiVoid_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0) =>
-                      fn(arg0).ref.retainAndAutorelease()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)>`.
-extension ObjCBlock_NSString_ffiVoid_CallExtension
-    on objc.ObjCBlock<objc.NSString Function(ffi.Pointer<ffi.Void>)> {
-  objc.NSString call(ffi.Pointer<ffi.Void> arg0) =>
-      objc.NSString.castFromPointer(
-          ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0)>>()
-              .asFunction<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
-          retain: true,
-          release: true);
-}
-
-late final _sel_debugDescription = objc.registerName("debugDescription");
-
-/// NSObject
-abstract final class NSObject {
-  /// Builds an object that implements the NSObject protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required bool Function(objc.ObjCObjectBase) isEqual_,
-      required DartNSUInteger Function() hash,
-      required objc.ObjCObjectBase Function() superclass,
-      required objc.ObjCObjectBase Function() class1,
-      required objc.ObjCObjectBase Function() self,
-      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>)
-          performSelector_,
-      required objc.ObjCObjectBase Function(
-              ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)
-          performSelector_withObject_,
-      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
-              objc.ObjCObjectBase, objc.ObjCObjectBase)
-          performSelector_withObject_withObject_,
-      required bool Function() isProxy,
-      required bool Function(objc.ObjCObjectBase) isKindOfClass_,
-      required bool Function(objc.ObjCObjectBase) isMemberOfClass_,
-      required bool Function(objc.Protocol) conformsToProtocol_,
-      required bool Function(ffi.Pointer<objc.ObjCSelector>)
-          respondsToSelector_,
-      required objc.ObjCObjectBase Function() retain,
-      required void Function() release,
-      required objc.ObjCObjectBase Function() autorelease,
-      required DartNSUInteger Function() retainCount,
-      required ffi.Pointer<_NSZone> Function() zone,
-      required objc.NSString Function() description,
-      objc.NSString Function()? debugDescription}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSObject.isEqual_.implement(builder, isEqual_);
-    NSObject.hash.implement(builder, hash);
-    NSObject.superclass.implement(builder, superclass);
-    NSObject.class1.implement(builder, class1);
-    NSObject.self.implement(builder, self);
-    NSObject.performSelector_.implement(builder, performSelector_);
-    NSObject.performSelector_withObject_
-        .implement(builder, performSelector_withObject_);
-    NSObject.performSelector_withObject_withObject_
-        .implement(builder, performSelector_withObject_withObject_);
-    NSObject.isProxy.implement(builder, isProxy);
-    NSObject.isKindOfClass_.implement(builder, isKindOfClass_);
-    NSObject.isMemberOfClass_.implement(builder, isMemberOfClass_);
-    NSObject.conformsToProtocol_.implement(builder, conformsToProtocol_);
-    NSObject.respondsToSelector_.implement(builder, respondsToSelector_);
-    NSObject.retain.implement(builder, retain);
-    NSObject.release.implement(builder, release);
-    NSObject.autorelease.implement(builder, autorelease);
-    NSObject.retainCount.implement(builder, retainCount);
-    NSObject.zone.implement(builder, zone);
-    NSObject.description.implement(builder, description);
-    NSObject.debugDescription.implement(builder, debugDescription);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSObject protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required bool Function(objc.ObjCObjectBase) isEqual_,
-      required DartNSUInteger Function() hash,
-      required objc.ObjCObjectBase Function() superclass,
-      required objc.ObjCObjectBase Function() class1,
-      required objc.ObjCObjectBase Function() self,
-      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>)
-          performSelector_,
-      required objc.ObjCObjectBase Function(
-              ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)
-          performSelector_withObject_,
-      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
-              objc.ObjCObjectBase, objc.ObjCObjectBase)
-          performSelector_withObject_withObject_,
-      required bool Function() isProxy,
-      required bool Function(objc.ObjCObjectBase) isKindOfClass_,
-      required bool Function(objc.ObjCObjectBase) isMemberOfClass_,
-      required bool Function(objc.Protocol) conformsToProtocol_,
-      required bool Function(ffi.Pointer<objc.ObjCSelector>)
-          respondsToSelector_,
-      required objc.ObjCObjectBase Function() retain,
-      required void Function() release,
-      required objc.ObjCObjectBase Function() autorelease,
-      required DartNSUInteger Function() retainCount,
-      required ffi.Pointer<_NSZone> Function() zone,
-      required objc.NSString Function() description,
-      objc.NSString Function()? debugDescription}) {
-    NSObject.isEqual_.implement(builder, isEqual_);
-    NSObject.hash.implement(builder, hash);
-    NSObject.superclass.implement(builder, superclass);
-    NSObject.class1.implement(builder, class1);
-    NSObject.self.implement(builder, self);
-    NSObject.performSelector_.implement(builder, performSelector_);
-    NSObject.performSelector_withObject_
-        .implement(builder, performSelector_withObject_);
-    NSObject.performSelector_withObject_withObject_
-        .implement(builder, performSelector_withObject_withObject_);
-    NSObject.isProxy.implement(builder, isProxy);
-    NSObject.isKindOfClass_.implement(builder, isKindOfClass_);
-    NSObject.isMemberOfClass_.implement(builder, isMemberOfClass_);
-    NSObject.conformsToProtocol_.implement(builder, conformsToProtocol_);
-    NSObject.respondsToSelector_.implement(builder, respondsToSelector_);
-    NSObject.retain.implement(builder, retain);
-    NSObject.release.implement(builder, release);
-    NSObject.autorelease.implement(builder, autorelease);
-    NSObject.retainCount.implement(builder, retainCount);
-    NSObject.zone.implement(builder, zone);
-    NSObject.description.implement(builder, description);
-    NSObject.debugDescription.implement(builder, debugDescription);
-  }
-
-  /// Builds an object that implements the NSObject protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {required bool Function(objc.ObjCObjectBase) isEqual_,
-      required DartNSUInteger Function() hash,
-      required objc.ObjCObjectBase Function() superclass,
-      required objc.ObjCObjectBase Function() class1,
-      required objc.ObjCObjectBase Function() self,
-      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>)
-          performSelector_,
-      required objc.ObjCObjectBase Function(
-              ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)
-          performSelector_withObject_,
-      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
-              objc.ObjCObjectBase, objc.ObjCObjectBase)
-          performSelector_withObject_withObject_,
-      required bool Function() isProxy,
-      required bool Function(objc.ObjCObjectBase) isKindOfClass_,
-      required bool Function(objc.ObjCObjectBase) isMemberOfClass_,
-      required bool Function(objc.Protocol) conformsToProtocol_,
-      required bool Function(ffi.Pointer<objc.ObjCSelector>)
-          respondsToSelector_,
-      required objc.ObjCObjectBase Function() retain,
-      required void Function() release,
-      required objc.ObjCObjectBase Function() autorelease,
-      required DartNSUInteger Function() retainCount,
-      required ffi.Pointer<_NSZone> Function() zone,
-      required objc.NSString Function() description,
-      objc.NSString Function()? debugDescription}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSObject.isEqual_.implement(builder, isEqual_);
-    NSObject.hash.implement(builder, hash);
-    NSObject.superclass.implement(builder, superclass);
-    NSObject.class1.implement(builder, class1);
-    NSObject.self.implement(builder, self);
-    NSObject.performSelector_.implement(builder, performSelector_);
-    NSObject.performSelector_withObject_
-        .implement(builder, performSelector_withObject_);
-    NSObject.performSelector_withObject_withObject_
-        .implement(builder, performSelector_withObject_withObject_);
-    NSObject.isProxy.implement(builder, isProxy);
-    NSObject.isKindOfClass_.implement(builder, isKindOfClass_);
-    NSObject.isMemberOfClass_.implement(builder, isMemberOfClass_);
-    NSObject.conformsToProtocol_.implement(builder, conformsToProtocol_);
-    NSObject.respondsToSelector_.implement(builder, respondsToSelector_);
-    NSObject.retain.implement(builder, retain);
-    NSObject.release.implementAsListener(builder, release);
-    NSObject.autorelease.implement(builder, autorelease);
-    NSObject.retainCount.implement(builder, retainCount);
-    NSObject.zone.implement(builder, zone);
-    NSObject.description.implement(builder, description);
-    NSObject.debugDescription.implement(builder, debugDescription);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSObject protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {required bool Function(objc.ObjCObjectBase) isEqual_,
-      required DartNSUInteger Function() hash,
-      required objc.ObjCObjectBase Function() superclass,
-      required objc.ObjCObjectBase Function() class1,
-      required objc.ObjCObjectBase Function() self,
-      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>)
-          performSelector_,
-      required objc.ObjCObjectBase Function(
-              ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)
-          performSelector_withObject_,
-      required objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
-              objc.ObjCObjectBase, objc.ObjCObjectBase)
-          performSelector_withObject_withObject_,
-      required bool Function() isProxy,
-      required bool Function(objc.ObjCObjectBase) isKindOfClass_,
-      required bool Function(objc.ObjCObjectBase) isMemberOfClass_,
-      required bool Function(objc.Protocol) conformsToProtocol_,
-      required bool Function(ffi.Pointer<objc.ObjCSelector>)
-          respondsToSelector_,
-      required objc.ObjCObjectBase Function() retain,
-      required void Function() release,
-      required objc.ObjCObjectBase Function() autorelease,
-      required DartNSUInteger Function() retainCount,
-      required ffi.Pointer<_NSZone> Function() zone,
-      required objc.NSString Function() description,
-      objc.NSString Function()? debugDescription}) {
-    NSObject.isEqual_.implement(builder, isEqual_);
-    NSObject.hash.implement(builder, hash);
-    NSObject.superclass.implement(builder, superclass);
-    NSObject.class1.implement(builder, class1);
-    NSObject.self.implement(builder, self);
-    NSObject.performSelector_.implement(builder, performSelector_);
-    NSObject.performSelector_withObject_
-        .implement(builder, performSelector_withObject_);
-    NSObject.performSelector_withObject_withObject_
-        .implement(builder, performSelector_withObject_withObject_);
-    NSObject.isProxy.implement(builder, isProxy);
-    NSObject.isKindOfClass_.implement(builder, isKindOfClass_);
-    NSObject.isMemberOfClass_.implement(builder, isMemberOfClass_);
-    NSObject.conformsToProtocol_.implement(builder, conformsToProtocol_);
-    NSObject.respondsToSelector_.implement(builder, respondsToSelector_);
-    NSObject.retain.implement(builder, retain);
-    NSObject.release.implementAsListener(builder, release);
-    NSObject.autorelease.implement(builder, autorelease);
-    NSObject.retainCount.implement(builder, retainCount);
-    NSObject.zone.implement(builder, zone);
-    NSObject.description.implement(builder, description);
-    NSObject.debugDescription.implement(builder, debugDescription);
-  }
-
-  /// isEqual:
-  static final isEqual_ =
-      objc.ObjCProtocolMethod<bool Function(objc.ObjCObjectBase)>(
-    _protocol_NSObject,
-    _sel_isEqual_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_isEqual_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (bool Function(objc.ObjCObjectBase) func) =>
-        ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
-  );
-
-  /// hash
-  static final hash = objc.ObjCProtocolMethod<DartNSUInteger Function()>(
-    _protocol_NSObject,
-    _sel_hash,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_hash,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (DartNSUInteger Function() func) =>
-        ObjCBlock_NSUInteger_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-            func()),
-  );
-
-  /// superclass
-  static final superclass =
-      objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
-    _protocol_NSObject,
-    _sel_superclass,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_superclass,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function() func) =>
-        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-            func()),
-  );
-
-  /// class
-  static final class1 = objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
-    _protocol_NSObject,
-    _sel_class,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_class,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function() func) =>
-        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-            func()),
-  );
-
-  /// self
-  static final self = objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
-    _protocol_NSObject,
-    _sel_self,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_self,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function() func) =>
-        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-            func()),
-  );
-
-  /// performSelector:
-  static final performSelector_ = objc.ObjCProtocolMethod<
-      objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>)>(
-    _protocol_NSObject,
-    _sel_performSelector_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_performSelector_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>) func) =>
-        ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector.fromFunction(
-            (ffi.Pointer<ffi.Void> _, ffi.Pointer<objc.ObjCSelector> arg1) =>
-                func(arg1)),
-  );
-
-  /// performSelector:withObject:
-  static final performSelector_withObject_ = objc.ObjCProtocolMethod<
-      objc.ObjCObjectBase Function(
-          ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)>(
-    _protocol_NSObject,
-    _sel_performSelector_withObject_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_performSelector_withObject_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function(
-                ffi.Pointer<objc.ObjCSelector>, objc.ObjCObjectBase)
-            func) =>
-        ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    ffi.Pointer<objc.ObjCSelector> arg1,
-                    objc.ObjCObjectBase arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// performSelector:withObject:withObject:
-  static final performSelector_withObject_withObject_ = objc.ObjCProtocolMethod<
-      objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
-          objc.ObjCObjectBase, objc.ObjCObjectBase)>(
-    _protocol_NSObject,
-    _sel_performSelector_withObject_withObject_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_performSelector_withObject_withObject_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function(ffi.Pointer<objc.ObjCSelector>,
-                objc.ObjCObjectBase, objc.ObjCObjectBase)
-            func) =>
-        ObjCBlock_objcObjCObject_ffiVoid_objcObjCSelector_objcObjCObject_objcObjCObject
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    ffi.Pointer<objc.ObjCSelector> arg1,
-                    objc.ObjCObjectBase arg2,
-                    objc.ObjCObjectBase arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// isProxy
-  static final isProxy = objc.ObjCProtocolMethod<bool Function()>(
-    _protocol_NSObject,
-    _sel_isProxy,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_isProxy,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (bool Function() func) => ObjCBlock_bool_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-
-  /// isKindOfClass:
-  static final isKindOfClass_ =
-      objc.ObjCProtocolMethod<bool Function(objc.ObjCObjectBase)>(
-    _protocol_NSObject,
-    _sel_isKindOfClass_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_isKindOfClass_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (bool Function(objc.ObjCObjectBase) func) =>
-        ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
-  );
-
-  /// isMemberOfClass:
-  static final isMemberOfClass_ =
-      objc.ObjCProtocolMethod<bool Function(objc.ObjCObjectBase)>(
-    _protocol_NSObject,
-    _sel_isMemberOfClass_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_isMemberOfClass_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (bool Function(objc.ObjCObjectBase) func) =>
-        ObjCBlock_bool_ffiVoid_objcObjCObject.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.ObjCObjectBase arg1) => func(arg1)),
-  );
-
-  /// conformsToProtocol:
-  static final conformsToProtocol_ =
-      objc.ObjCProtocolMethod<bool Function(objc.Protocol)>(
-    _protocol_NSObject,
-    _sel_conformsToProtocol_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_conformsToProtocol_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (bool Function(objc.Protocol) func) =>
-        ObjCBlock_bool_ffiVoid_Protocol.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.Protocol arg1) => func(arg1)),
-  );
-
-  /// respondsToSelector:
-  static final respondsToSelector_ =
-      objc.ObjCProtocolMethod<bool Function(ffi.Pointer<objc.ObjCSelector>)>(
-    _protocol_NSObject,
-    _sel_respondsToSelector_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_respondsToSelector_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (bool Function(ffi.Pointer<objc.ObjCSelector>) func) =>
-        ObjCBlock_bool_ffiVoid_objcObjCSelector.fromFunction(
-            (ffi.Pointer<ffi.Void> _, ffi.Pointer<objc.ObjCSelector> arg1) =>
-                func(arg1)),
-  );
-
-  /// retain
-  static final retain = objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
-    _protocol_NSObject,
-    _sel_retain,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_retain,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function() func) =>
-        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-            func()),
-  );
-
-  /// release
-  static final release = objc.ObjCProtocolListenableMethod<void Function()>(
-    _protocol_NSObject,
-    _sel_release,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_release,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-
-  /// autorelease
-  static final autorelease =
-      objc.ObjCProtocolMethod<objc.ObjCObjectBase Function()>(
-    _protocol_NSObject,
-    _sel_autorelease,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_autorelease,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function() func) =>
-        ObjCBlock_objcObjCObject_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-            func()),
-  );
-
-  /// retainCount
-  static final retainCount = objc.ObjCProtocolMethod<DartNSUInteger Function()>(
-    _protocol_NSObject,
-    _sel_retainCount,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_retainCount,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (DartNSUInteger Function() func) =>
-        ObjCBlock_NSUInteger_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-            func()),
-  );
-
-  /// zone
-  static final zone = objc.ObjCProtocolMethod<ffi.Pointer<_NSZone> Function()>(
-    _protocol_NSObject,
-    _sel_zone,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_zone,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (ffi.Pointer<_NSZone> Function() func) =>
-        ObjCBlock_NSZone_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-            func()),
-  );
-
-  /// description
-  static final description = objc.ObjCProtocolMethod<objc.NSString Function()>(
-    _protocol_NSObject,
-    _sel_description,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_description,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.NSString Function() func) => ObjCBlock_NSString_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-
-  /// debugDescription
-  static final debugDescription =
-      objc.ObjCProtocolMethod<objc.NSString Function()>(
-    _protocol_NSObject,
-    _sel_debugDescription,
-    objc.getProtocolMethodSignature(
-      _protocol_NSObject,
-      _sel_debugDescription,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (objc.NSString Function() func) => ObjCBlock_NSString_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-}
 
 typedef va_list = __builtin_va_list;
 typedef __gnuc_va_list = __builtin_va_list;
@@ -44803,625 +42888,6 @@ final class CFAllocatorContext extends ffi.Struct {
 }
 
 typedef NSZone = _NSZone;
-late final _protocol_NSCopying = objc.getProtocol("NSCopying");
-late final _sel_copyWithZone_ = objc.registerName("copyWithZone:");
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_NSZone_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<NSZone> arg1) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Pointer<objc.ObjCObject> Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<NSZone> arg1)>>()
-            .asFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_objcObjCObject_ffiVoid_NSZone_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<NSZone>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_NSZone_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_objcObjCObject_ffiVoid_NSZone_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<NSZone> arg1) =>
-        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_objcObjCObject_ffiVoid_NSZone_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<NSZone>)>(
-            _ObjCBlock_objcObjCObject_ffiVoid_NSZone_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>`.
-abstract final class ObjCBlock_objcObjCObject_ffiVoid_NSZone {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(
-              ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<NSZone> arg1)>> ptr) =>
-          objc.ObjCBlock<
-                  objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>(
-              objc.newPointerBlock(_ObjCBlock_objcObjCObject_ffiVoid_NSZone_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>
-      fromFunction(objc.ObjCObjectBase Function(ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>) fn) =>
-          objc.ObjCBlock<
-                  objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(
-                      ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_objcObjCObject_ffiVoid_NSZone_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<NSZone> arg1) =>
-                      fn(arg0, arg1).ref.retainAndReturnPointer()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)>`.
-extension ObjCBlock_objcObjCObject_ffiVoid_NSZone_CallExtension
-    on objc.ObjCBlock<
-        objc.Retained<ffi.Pointer<objc.ObjCObject>> Function(
-            ffi.Pointer<ffi.Void>, ffi.Pointer<NSZone>)> {
-  objc.ObjCObjectBase call(
-          ffi.Pointer<ffi.Void> arg0, ffi.Pointer<NSZone> arg1) =>
-      objc.ObjCObjectBase(
-          ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<NSZone> arg1)>>()
-              .asFunction<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<NSZone>)>()(ref.pointer, arg0, arg1),
-          retain: false,
-          release: true);
-}
-
-/// NSCopying
-abstract final class NSCopying {
-  /// Builds an object that implements the NSCopying protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)
-          copyWithZone_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSCopying.copyWithZone_.implement(builder, copyWithZone_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSCopying protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)
-          copyWithZone_}) {
-    NSCopying.copyWithZone_.implement(builder, copyWithZone_);
-  }
-
-  /// copyWithZone:
-  static final copyWithZone_ = objc.ObjCProtocolMethod<
-      objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)>(
-    _protocol_NSCopying,
-    _sel_copyWithZone_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSCopying,
-      _sel_copyWithZone_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function(ffi.Pointer<NSZone>) func) =>
-        ObjCBlock_objcObjCObject_ffiVoid_NSZone.fromFunction(
-            (ffi.Pointer<ffi.Void> _, ffi.Pointer<NSZone> arg1) => func(arg1)),
-  );
-}
-
-late final _protocol_NSMutableCopying = objc.getProtocol("NSMutableCopying");
-late final _sel_mutableCopyWithZone_ =
-    objc.registerName("mutableCopyWithZone:");
-
-/// NSMutableCopying
-abstract final class NSMutableCopying {
-  /// Builds an object that implements the NSMutableCopying protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)
-          mutableCopyWithZone_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSMutableCopying.mutableCopyWithZone_
-        .implement(builder, mutableCopyWithZone_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSMutableCopying protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)
-          mutableCopyWithZone_}) {
-    NSMutableCopying.mutableCopyWithZone_
-        .implement(builder, mutableCopyWithZone_);
-  }
-
-  /// mutableCopyWithZone:
-  static final mutableCopyWithZone_ = objc.ObjCProtocolMethod<
-      objc.ObjCObjectBase Function(ffi.Pointer<NSZone>)>(
-    _protocol_NSMutableCopying,
-    _sel_mutableCopyWithZone_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSMutableCopying,
-      _sel_mutableCopyWithZone_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (objc.ObjCObjectBase Function(ffi.Pointer<NSZone>) func) =>
-        ObjCBlock_objcObjCObject_ffiVoid_NSZone.fromFunction(
-            (ffi.Pointer<ffi.Void> _, ffi.Pointer<NSZone> arg1) => func(arg1)),
-  );
-}
-
-late final _protocol_NSCoding = objc.getProtocol("NSCoding");
-late final _sel_encodeWithCoder_ = objc.registerName("encodeWithCoder:");
-final _objc_msgSend_1jdvcbf = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        void Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-void _ObjCBlock_ffiVoid_ffiVoid_NSCoder_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            void Function(ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSCoder_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSCoder_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSCoder_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as void Function(
-        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSCoder_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSCoder_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<objc.ObjCObject> arg1) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerCallable = ffi.NativeCallable<
-            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSCoder {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>,
-                  objc.NSCoder)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(
-          objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSCoder_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, objc.NSCoder) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSCoder_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
-                      fn(
-                          arg0,
-                          objc.NSCoder.castFromPointer(arg1,
-                              retain: true, release: true))),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>
-      listener(void Function(ffi.Pointer<ffi.Void>, objc.NSCoder) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerCallable.nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
-            arg0,
-            objc.NSCoder.castFromPointer(arg1, retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjovn7(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-            ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(wrapper,
-        retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSCoder_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)> {
-  void call(ffi.Pointer<ffi.Void> arg0, objc.NSCoder arg1) => ref
-          .pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1)>>()
-          .asFunction<
-              void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
-      ref.pointer, arg0, arg1.ref.pointer);
-}
-
-late final _sel_initWithCoder_ = objc.registerName("initWithCoder:");
-final _objc_msgSend_62nh5j = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-instancetype _ObjCBlock_instancetype_ffiVoid_NSCoder_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                instancetype Function(ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            instancetype Function(ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_instancetype_ffiVoid_NSCoder_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                instancetype Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_instancetype_ffiVoid_NSCoder_fnPtrTrampoline)
-        .cast();
-instancetype _ObjCBlock_instancetype_ffiVoid_NSCoder_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as instancetype Function(
-        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_instancetype_ffiVoid_NSCoder_closureCallable =
-    ffi.Pointer.fromFunction<
-                instancetype Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_instancetype_ffiVoid_NSCoder_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
-abstract final class ObjCBlock_instancetype_ffiVoid_NSCoder {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
-              ffi.Pointer<ffi.Void>, objc.NSCoder)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
-                  ffi.Pointer<ffi.Void>,
-                  objc.NSCoder)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
-              ffi.Pointer<ffi.Void>, objc.NSCoder)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<instancetype Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1)>> ptr) =>
-          objc.ObjCBlock<
-                  objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
-                      ffi.Pointer<ffi.Void>, objc.NSCoder)>(
-              objc.newPointerBlock(
-                  _ObjCBlock_instancetype_ffiVoid_NSCoder_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(ffi.Pointer<ffi.Void>, objc.NSCoder)> fromFunction(
-          Dartinstancetype? Function(ffi.Pointer<ffi.Void>, objc.NSCoder) fn) =>
-      objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(
-          objc.newClosureBlock(
-              _ObjCBlock_instancetype_ffiVoid_NSCoder_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
-                  fn(arg0, objc.NSCoder.castFromPointer(arg1, retain: true, release: true))
-                      ?.ref
-                      .retainAndReturnPointer() ??
-                  ffi.nullptr),
-          retain: false,
-          release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
-extension ObjCBlock_instancetype_ffiVoid_NSCoder_CallExtension
-    on objc.ObjCBlock<
-        objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
-            ffi.Pointer<ffi.Void>, objc.NSCoder)> {
-  Dartinstancetype? call(ffi.Pointer<ffi.Void> arg0, objc.NSCoder arg1) => ref
-              .pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      instancetype Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>()
-              .asFunction<instancetype Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()
-              (ref.pointer, arg0, arg1.ref.pointer)
-              .address ==
-          0
-      ? null
-      : objc.ObjCObjectBase(
-          ref.pointer.ref.invoke
-              .cast<ffi.NativeFunction<instancetype Function(ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1)>>()
-              .asFunction<instancetype Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0, arg1.ref.pointer),
-          retain: false,
-          release: true);
-}
-
-/// NSCoding
-abstract final class NSCoding {
-  /// Builds an object that implements the NSCoding protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required void Function(objc.NSCoder) encodeWithCoder_,
-      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSCoding.encodeWithCoder_.implement(builder, encodeWithCoder_);
-    NSCoding.initWithCoder_.implement(builder, initWithCoder_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSCoding protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required void Function(objc.NSCoder) encodeWithCoder_,
-      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    NSCoding.encodeWithCoder_.implement(builder, encodeWithCoder_);
-    NSCoding.initWithCoder_.implement(builder, initWithCoder_);
-  }
-
-  /// Builds an object that implements the NSCoding protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {required void Function(objc.NSCoder) encodeWithCoder_,
-      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSCoding.encodeWithCoder_.implementAsListener(builder, encodeWithCoder_);
-    NSCoding.initWithCoder_.implement(builder, initWithCoder_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSCoding protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {required void Function(objc.NSCoder) encodeWithCoder_,
-      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    NSCoding.encodeWithCoder_.implementAsListener(builder, encodeWithCoder_);
-    NSCoding.initWithCoder_.implement(builder, initWithCoder_);
-  }
-
-  /// encodeWithCoder:
-  static final encodeWithCoder_ =
-      objc.ObjCProtocolListenableMethod<void Function(objc.NSCoder)>(
-    _protocol_NSCoding,
-    _sel_encodeWithCoder_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSCoding,
-      _sel_encodeWithCoder_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function(objc.NSCoder) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSCoder.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
-    (void Function(objc.NSCoder) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSCoder.listener(
-            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
-  );
-
-  /// initWithCoder:
-  static final initWithCoder_ =
-      objc.ObjCProtocolMethod<Dartinstancetype? Function(objc.NSCoder)>(
-    _protocol_NSCoding,
-    _sel_initWithCoder_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSCoding,
-      _sel_initWithCoder_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (Dartinstancetype? Function(objc.NSCoder) func) =>
-        ObjCBlock_instancetype_ffiVoid_NSCoder.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
-  );
-}
-
-late final _protocol_NSSecureCoding = objc.getProtocol("NSSecureCoding");
-
-/// NSSecureCoding
-abstract final class NSSecureCoding {
-  /// Builds an object that implements the NSSecureCoding protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required void Function(objc.NSCoder) encodeWithCoder_,
-      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSSecureCoding.encodeWithCoder_.implement(builder, encodeWithCoder_);
-    NSSecureCoding.initWithCoder_.implement(builder, initWithCoder_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSSecureCoding protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required void Function(objc.NSCoder) encodeWithCoder_,
-      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    NSSecureCoding.encodeWithCoder_.implement(builder, encodeWithCoder_);
-    NSSecureCoding.initWithCoder_.implement(builder, initWithCoder_);
-  }
-
-  /// Builds an object that implements the NSSecureCoding protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {required void Function(objc.NSCoder) encodeWithCoder_,
-      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSSecureCoding.encodeWithCoder_
-        .implementAsListener(builder, encodeWithCoder_);
-    NSSecureCoding.initWithCoder_.implement(builder, initWithCoder_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSSecureCoding protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {required void Function(objc.NSCoder) encodeWithCoder_,
-      required Dartinstancetype? Function(objc.NSCoder) initWithCoder_}) {
-    NSSecureCoding.encodeWithCoder_
-        .implementAsListener(builder, encodeWithCoder_);
-    NSSecureCoding.initWithCoder_.implement(builder, initWithCoder_);
-  }
-
-  /// encodeWithCoder:
-  static final encodeWithCoder_ =
-      objc.ObjCProtocolListenableMethod<void Function(objc.NSCoder)>(
-    _protocol_NSSecureCoding,
-    _sel_encodeWithCoder_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSSecureCoding,
-      _sel_encodeWithCoder_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function(objc.NSCoder) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSCoder.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
-    (void Function(objc.NSCoder) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSCoder.listener(
-            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
-  );
-
-  /// initWithCoder:
-  static final initWithCoder_ =
-      objc.ObjCProtocolMethod<Dartinstancetype? Function(objc.NSCoder)>(
-    _protocol_NSSecureCoding,
-    _sel_initWithCoder_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSSecureCoding,
-      _sel_initWithCoder_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (Dartinstancetype? Function(objc.NSCoder) func) =>
-        ObjCBlock_instancetype_ffiVoid_NSCoder.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSCoder arg1) => func(arg1)),
-  );
-}
-
 late final _class_NSObject = objc.getClass("NSObject");
 late final _sel_version = objc.registerName("version");
 final _objc_msgSend_1hz7y9r = objc.msgSendPointer
@@ -45442,8 +42908,26 @@ final _objc_msgSend_4sp4xj = objc.msgSendPointer
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_classForCoder = objc.registerName("classForCoder");
+final _objc_msgSend_1x359cv = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_replacementObjectForCoder_ =
     objc.registerName("replacementObjectForCoder:");
+final _objc_msgSend_62nh5j = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_awakeAfterUsingCoder_ =
     objc.registerName("awakeAfterUsingCoder:");
 
@@ -45485,6 +42969,16 @@ extension NSCoderMethods on objc.NSObject {
 }
 
 late final _sel_poseAsClass_ = objc.registerName("poseAsClass:");
+final _objc_msgSend_1jdvcbf = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        void Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 
 /// NSDeprecatedMethods
 extension NSDeprecatedMethods on objc.NSObject {
@@ -45493,163 +42987,6 @@ extension NSDeprecatedMethods on objc.NSObject {
     _objc_msgSend_1jdvcbf(
         _class_NSObject, _sel_poseAsClass_, aClass.ref.pointer);
   }
-}
-
-late final _protocol_NSDiscardableContent =
-    objc.getProtocol("NSDiscardableContent");
-late final _sel_beginContentAccess = objc.registerName("beginContentAccess");
-late final _sel_endContentAccess = objc.registerName("endContentAccess");
-late final _sel_discardContentIfPossible =
-    objc.registerName("discardContentIfPossible");
-late final _sel_isContentDiscarded = objc.registerName("isContentDiscarded");
-
-/// NSDiscardableContent
-abstract final class NSDiscardableContent {
-  /// Builds an object that implements the NSDiscardableContent protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required bool Function() beginContentAccess,
-      required void Function() endContentAccess,
-      required void Function() discardContentIfPossible,
-      required bool Function() isContentDiscarded}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSDiscardableContent.beginContentAccess
-        .implement(builder, beginContentAccess);
-    NSDiscardableContent.endContentAccess.implement(builder, endContentAccess);
-    NSDiscardableContent.discardContentIfPossible
-        .implement(builder, discardContentIfPossible);
-    NSDiscardableContent.isContentDiscarded
-        .implement(builder, isContentDiscarded);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSDiscardableContent protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required bool Function() beginContentAccess,
-      required void Function() endContentAccess,
-      required void Function() discardContentIfPossible,
-      required bool Function() isContentDiscarded}) {
-    NSDiscardableContent.beginContentAccess
-        .implement(builder, beginContentAccess);
-    NSDiscardableContent.endContentAccess.implement(builder, endContentAccess);
-    NSDiscardableContent.discardContentIfPossible
-        .implement(builder, discardContentIfPossible);
-    NSDiscardableContent.isContentDiscarded
-        .implement(builder, isContentDiscarded);
-  }
-
-  /// Builds an object that implements the NSDiscardableContent protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {required bool Function() beginContentAccess,
-      required void Function() endContentAccess,
-      required void Function() discardContentIfPossible,
-      required bool Function() isContentDiscarded}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSDiscardableContent.beginContentAccess
-        .implement(builder, beginContentAccess);
-    NSDiscardableContent.endContentAccess
-        .implementAsListener(builder, endContentAccess);
-    NSDiscardableContent.discardContentIfPossible
-        .implementAsListener(builder, discardContentIfPossible);
-    NSDiscardableContent.isContentDiscarded
-        .implement(builder, isContentDiscarded);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSDiscardableContent protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {required bool Function() beginContentAccess,
-      required void Function() endContentAccess,
-      required void Function() discardContentIfPossible,
-      required bool Function() isContentDiscarded}) {
-    NSDiscardableContent.beginContentAccess
-        .implement(builder, beginContentAccess);
-    NSDiscardableContent.endContentAccess
-        .implementAsListener(builder, endContentAccess);
-    NSDiscardableContent.discardContentIfPossible
-        .implementAsListener(builder, discardContentIfPossible);
-    NSDiscardableContent.isContentDiscarded
-        .implement(builder, isContentDiscarded);
-  }
-
-  /// beginContentAccess
-  static final beginContentAccess = objc.ObjCProtocolMethod<bool Function()>(
-    _protocol_NSDiscardableContent,
-    _sel_beginContentAccess,
-    objc.getProtocolMethodSignature(
-      _protocol_NSDiscardableContent,
-      _sel_beginContentAccess,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (bool Function() func) => ObjCBlock_bool_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-
-  /// endContentAccess
-  static final endContentAccess =
-      objc.ObjCProtocolListenableMethod<void Function()>(
-    _protocol_NSDiscardableContent,
-    _sel_endContentAccess,
-    objc.getProtocolMethodSignature(
-      _protocol_NSDiscardableContent,
-      _sel_endContentAccess,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-
-  /// discardContentIfPossible
-  static final discardContentIfPossible =
-      objc.ObjCProtocolListenableMethod<void Function()>(
-    _protocol_NSDiscardableContent,
-    _sel_discardContentIfPossible,
-    objc.getProtocolMethodSignature(
-      _protocol_NSDiscardableContent,
-      _sel_discardContentIfPossible,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-
-  /// isContentDiscarded
-  static final isContentDiscarded = objc.ObjCProtocolMethod<bool Function()>(
-    _protocol_NSDiscardableContent,
-    _sel_isContentDiscarded,
-    objc.getProtocolMethodSignature(
-      _protocol_NSDiscardableContent,
-      _sel_isContentDiscarded,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (bool Function() func) => ObjCBlock_bool_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
 }
 
 late final _sel_autoContentAccessingProxy =
@@ -45724,6 +43061,17 @@ class NSCachedURLResponse extends objc.NSObject {
 }
 
 late final _class_NSURLCache = objc.getClass("NSURLCache");
+late final _sel_isKindOfClass_ = objc.registerName("isKindOfClass:");
+final _objc_msgSend_69e0x1 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Bool Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        bool Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 
 /// WARNING: NSURLSessionDataTask is a stub. To generate bindings for this class, include
 /// NSURLSessionDataTask in your config's objc-interfaces list.
@@ -45937,6 +43285,8 @@ extension NSURLSessionTaskAdditions on NSURLCache {
 
 late final _sel_sharedURLCache = objc.registerName("sharedURLCache");
 late final _sel_setSharedURLCache_ = objc.registerName("setSharedURLCache:");
+typedef instancetype = ffi.Pointer<objc.ObjCObject>;
+typedef Dartinstancetype = objc.ObjCObjectBase;
 late final _sel_initWithMemoryCapacity_diskCapacity_diskPath_ =
     objc.registerName("initWithMemoryCapacity:diskCapacity:diskPath:");
 final _objc_msgSend_1dlfwfh = objc.msgSendPointer
@@ -45966,6 +43316,14 @@ late final _sel_HTTPBody = objc.registerName("HTTPBody");
 late final _sel_HTTPBodyStream = objc.registerName("HTTPBodyStream");
 late final _sel_HTTPShouldHandleCookies =
     objc.registerName("HTTPShouldHandleCookies");
+final _objc_msgSend_91o635 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Bool Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        bool Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_HTTPShouldUsePipelining =
     objc.registerName("HTTPShouldUsePipelining");
 
@@ -46067,6 +43425,79 @@ extension NSHTTPURLRequest on NSURLRequest {
 late final _sel_requestWithURL_ = objc.registerName("requestWithURL:");
 late final _sel_supportsSecureCoding =
     objc.registerName("supportsSecureCoding");
+bool _ObjCBlock_bool_ffiVoid_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<ffi.Void> arg0)>>()
+        .asFunction<bool Function(ffi.Pointer<ffi.Void>)>()(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Bool Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_bool_ffiVoid_fnPtrTrampoline, false)
+        .cast();
+bool _ObjCBlock_bool_ffiVoid_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    (objc.getBlockClosure(block) as bool Function(ffi.Pointer<ffi.Void>))(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_bool_ffiVoid_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Bool Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_bool_ffiVoid_closureTrampoline, false)
+        .cast();
+
+/// Construction methods for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>`.
+abstract final class ObjCBlock_bool_ffiVoid {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>(pointer,
+              retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>
+      fromFunctionPointer(
+              ffi.Pointer<
+                      ffi.NativeFunction<
+                          ffi.Bool Function(ffi.Pointer<ffi.Void> arg0)>>
+                  ptr) =>
+          objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>(
+              objc.newPointerBlock(_ObjCBlock_bool_ffiVoid_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)> fromFunction(
+          bool Function(ffi.Pointer<ffi.Void>) fn) =>
+      objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>(
+          objc.newClosureBlock(_ObjCBlock_bool_ffiVoid_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0) => fn(arg0)),
+          retain: false,
+          release: true);
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)>`.
+extension ObjCBlock_bool_ffiVoid_CallExtension
+    on objc.ObjCBlock<ffi.Bool Function(ffi.Pointer<ffi.Void>)> {
+  bool call(ffi.Pointer<ffi.Void> arg0) => ref.pointer.ref.invoke
+      .cast<
+          ffi.NativeFunction<
+              ffi.Bool Function(ffi.Pointer<objc.ObjCBlockImpl> block,
+                  ffi.Pointer<ffi.Void> arg0)>>()
+      .asFunction<
+          bool Function(ffi.Pointer<objc.ObjCBlockImpl>,
+              ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0);
+}
 
 /// !
 /// @enum NSURLRequestCachePolicy
@@ -46340,6 +43771,345 @@ final _objc_msgSend_hzlb60 = objc.msgSendPointer
         ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<_NSZone>)>();
 late final _sel_alloc = objc.registerName("alloc");
+late final _sel_self = objc.registerName("self");
+ffi.Pointer<objc.ObjCObject> _ObjCBlock_objcObjCObject_ffiVoid_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<ffi.Void> arg0)>>()
+        .asFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<ffi.Void>)>()(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_objcObjCObject_ffiVoid_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_objcObjCObject_ffiVoid_fnPtrTrampoline)
+        .cast();
+ffi.Pointer<objc.ObjCObject>
+    _ObjCBlock_objcObjCObject_ffiVoid_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0) =>
+        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<ffi.Void>))(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_objcObjCObject_ffiVoid_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_objcObjCObject_ffiVoid_closureTrampoline)
+        .cast();
+
+/// Construction methods for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>`.
+abstract final class ObjCBlock_objcObjCObject_ffiVoid {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc
+      .ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+                  ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>(
+              pointer,
+              retain: retain,
+              release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>
+      fromFunctionPointer(
+              ffi.Pointer<
+                      ffi.NativeFunction<
+                          ffi.Pointer<objc.ObjCObject> Function(
+                              ffi.Pointer<ffi.Void> arg0)>>
+                  ptr) =>
+          objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>(
+              objc.newPointerBlock(_ObjCBlock_objcObjCObject_ffiVoid_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc
+      .ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>
+      fromFunction(objc.ObjCObjectBase Function(ffi.Pointer<ffi.Void>) fn) =>
+          objc.ObjCBlock<
+                  ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_objcObjCObject_ffiVoid_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0) =>
+                      fn(arg0).ref.retainAndAutorelease()),
+              retain: false,
+              release: true);
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)>`.
+extension ObjCBlock_objcObjCObject_ffiVoid_CallExtension on objc
+    .ObjCBlock<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void>)> {
+  objc.ObjCObjectBase call(ffi.Pointer<ffi.Void> arg0) => objc.ObjCObjectBase(
+      ref.pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
+                  ffi.Pointer<objc.ObjCObject> Function(
+                      ffi.Pointer<objc.ObjCBlockImpl> block,
+                      ffi.Pointer<ffi.Void> arg0)>>()
+          .asFunction<
+              ffi.Pointer<objc.ObjCObject> Function(
+                  ffi.Pointer<objc.ObjCBlockImpl>,
+                  ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
+      retain: true,
+      release: true);
+}
+
+late final _sel_retain = objc.registerName("retain");
+late final _sel_autorelease = objc.registerName("autorelease");
+late final _sel_encodeWithCoder_ = objc.registerName("encodeWithCoder:");
+void _ObjCBlock_ffiVoid_ffiVoid_NSCoder_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
+                    ffi.Pointer<objc.ObjCObject> arg1)>>()
+        .asFunction<
+            void Function(ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSCoder_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSCoder_fnPtrTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_ffiVoid_NSCoder_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSCoder_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSCoder_closureTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSCoder {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+              ffi.Void Function(ffi.Pointer<ffi.Void>,
+                  objc.NSCoder)>(pointer, retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)> fromFunctionPointer(
+          ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1)>>
+              ptr) =>
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(
+          objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSCoder_fnPtrCallable, ptr.cast()),
+          retain: false,
+          release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>
+      fromFunction(void Function(ffi.Pointer<ffi.Void>, objc.NSCoder) fn) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_ffiVoid_ffiVoid_NSCoder_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
+                      fn(
+                          arg0,
+                          objc.NSCoder.castFromPointer(arg1,
+                              retain: true, release: true))),
+              retain: false,
+              release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>
+      listener(void Function(ffi.Pointer<ffi.Void>, objc.NSCoder) fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            arg0,
+            objc.NSCoder.castFromPointer(arg1, retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjovn7(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(wrapper,
+        retain: false, release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSCoder_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)> {
+  void call(ffi.Pointer<ffi.Void> arg0, objc.NSCoder arg1) => ref
+          .pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
+                  ffi.Void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl> block,
+                      ffi.Pointer<ffi.Void> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1)>>()
+          .asFunction<
+              void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                  ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
+      ref.pointer, arg0, arg1.ref.pointer);
+}
+
+late final _sel_initWithCoder_ = objc.registerName("initWithCoder:");
+instancetype _ObjCBlock_instancetype_ffiVoid_NSCoder_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                instancetype Function(ffi.Pointer<ffi.Void> arg0,
+                    ffi.Pointer<objc.ObjCObject> arg1)>>()
+        .asFunction<
+            instancetype Function(ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_instancetype_ffiVoid_NSCoder_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                instancetype Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_instancetype_ffiVoid_NSCoder_fnPtrTrampoline)
+        .cast();
+instancetype _ObjCBlock_instancetype_ffiVoid_NSCoder_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    (objc.getBlockClosure(block) as instancetype Function(
+        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_instancetype_ffiVoid_NSCoder_closureCallable =
+    ffi.Pointer.fromFunction<
+                instancetype Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_instancetype_ffiVoid_NSCoder_closureTrampoline)
+        .cast();
+
+/// Construction methods for `objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
+abstract final class ObjCBlock_instancetype_ffiVoid_NSCoder {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+          objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
+              ffi.Pointer<ffi.Void>, objc.NSCoder)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+              objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
+                  ffi.Pointer<ffi.Void>,
+                  objc.NSCoder)>(pointer, retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<
+          objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
+              ffi.Pointer<ffi.Void>, objc.NSCoder)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<instancetype Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1)>> ptr) =>
+          objc.ObjCBlock<
+                  objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
+                      ffi.Pointer<ffi.Void>, objc.NSCoder)>(
+              objc.newPointerBlock(
+                  _ObjCBlock_instancetype_ffiVoid_NSCoder_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(ffi.Pointer<ffi.Void>, objc.NSCoder)> fromFunction(
+          Dartinstancetype? Function(ffi.Pointer<ffi.Void>, objc.NSCoder) fn) =>
+      objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(
+          objc.newClosureBlock(
+              _ObjCBlock_instancetype_ffiVoid_NSCoder_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
+                  fn(arg0, objc.NSCoder.castFromPointer(arg1, retain: true, release: true))
+                      ?.ref
+                      .retainAndReturnPointer() ??
+                  ffi.nullptr),
+          retain: false,
+          release: true);
+}
+
+/// Call operator for `objc.ObjCBlock<objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
+extension ObjCBlock_instancetype_ffiVoid_NSCoder_CallExtension
+    on objc.ObjCBlock<
+        objc.Retained<ffi.Pointer<objc.ObjCObject>?> Function(
+            ffi.Pointer<ffi.Void>, objc.NSCoder)> {
+  Dartinstancetype? call(ffi.Pointer<ffi.Void> arg0, objc.NSCoder arg1) => ref
+              .pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      instancetype Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1)>>()
+              .asFunction<instancetype Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()
+              (ref.pointer, arg0, arg1.ref.pointer)
+              .address ==
+          0
+      ? null
+      : objc.ObjCObjectBase(
+          ref.pointer.ref.invoke
+              .cast<ffi.NativeFunction<instancetype Function(ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1)>>()
+              .asFunction<instancetype Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0, arg1.ref.pointer),
+          retain: false,
+          release: true);
+}
 
 /// NSURLRequest
 class NSURLRequest extends objc.NSObject {
@@ -46629,9 +44399,25 @@ late final _sel_removeCachedResponseForRequest_ =
     objc.registerName("removeCachedResponseForRequest:");
 late final _sel_removeAllCachedResponses =
     objc.registerName("removeAllCachedResponses");
+final _objc_msgSend_1pl9qdv = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        void Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_removeCachedResponsesSinceDate_ =
     objc.registerName("removeCachedResponsesSinceDate:");
 late final _sel_memoryCapacity = objc.registerName("memoryCapacity");
+final _objc_msgSend_xw2lbc = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.UnsignedLong Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        int Function(
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_setMemoryCapacity_ = objc.registerName("setMemoryCapacity:");
 final _objc_msgSend_1i9r4xy = objc.msgSendPointer
     .cast<
@@ -47055,6 +44841,7 @@ final _objc_msgSend_1wpduvy = objc.msgSendPointer
         int Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
 late final _sel_isEqualToDate_ = objc.registerName("isEqualToDate:");
+late final _sel_description = objc.registerName("description");
 late final _sel_descriptionWithLocale_ =
     objc.registerName("descriptionWithLocale:");
 late final _sel_timeIntervalSinceReferenceDate =
@@ -47990,151 +45777,6 @@ class NSHTTPCookieStorage extends objc.NSObject {
 
 late final _class_NSHTTPCookieStorage = objc.getClass("NSHTTPCookieStorage");
 late final _class_NSURLSessionTask = objc.getClass("NSURLSessionTask");
-late final _protocol_NSProgressReporting =
-    objc.getProtocol("NSProgressReporting");
-
-/// WARNING: NSProgress is a stub. To generate bindings for this class, include
-/// NSProgress in your config's objc-interfaces list.
-///
-/// NSProgress
-class NSProgress extends objc.NSObject {
-  NSProgress._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super.castFromPointer(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSProgress] that points to the same underlying object as [other].
-  NSProgress.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSProgress] that wraps the given raw object pointer.
-  NSProgress.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-}
-
-late final _sel_progress = objc.registerName("progress");
-ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSProgress_ffiVoid_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<ffi.Void> arg0)>>()
-        .asFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<ffi.Void>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSProgress_ffiVoid_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSProgress_ffiVoid_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSProgress_ffiVoid_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-        ffi.Pointer<ffi.Void>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSProgress_ffiVoid_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSProgress_ffiVoid_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>`.
-abstract final class ObjCBlock_NSProgress_ffiVoid {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<ffi.Void> arg0)>>
-              ptr) =>
-      objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(
-          objc.newPointerBlock(
-              _ObjCBlock_NSProgress_ffiVoid_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>
-      fromFunction(NSProgress Function(ffi.Pointer<ffi.Void>) fn) =>
-          objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_NSProgress_ffiVoid_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0) =>
-                      fn(arg0).ref.retainAndAutorelease()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>`.
-extension ObjCBlock_NSProgress_ffiVoid_CallExtension
-    on objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)> {
-  NSProgress call(ffi.Pointer<ffi.Void> arg0) => NSProgress.castFromPointer(
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0)>>()
-          .asFunction<
-              ffi.Pointer<objc.ObjCObject> Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
-      retain: true,
-      release: true);
-}
-
-/// NSProgressReporting
-abstract final class NSProgressReporting {
-  /// Builds an object that implements the NSProgressReporting protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required NSProgress Function() progress}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSProgressReporting.progress.implement(builder, progress);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSProgressReporting protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required NSProgress Function() progress}) {
-    NSProgressReporting.progress.implement(builder, progress);
-  }
-
-  /// progress
-  static final progress = objc.ObjCProtocolMethod<NSProgress Function()>(
-    _protocol_NSProgressReporting,
-    _sel_progress,
-    objc.getProtocolMethodSignature(
-      _protocol_NSProgressReporting,
-      _sel_progress,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (NSProgress Function() func) => ObjCBlock_NSProgress_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-}
-
 late final _sel_taskIdentifier = objc.registerName("taskIdentifier");
 late final _sel_originalRequest = objc.registerName("originalRequest");
 late final _sel_currentRequest = objc.registerName("currentRequest");
@@ -48363,6 +46005,114 @@ class NSURLResponse extends objc.NSObject {
 late final _sel_response = objc.registerName("response");
 late final _sel_delegate = objc.registerName("delegate");
 late final _sel_setDelegate_ = objc.registerName("setDelegate:");
+
+/// WARNING: NSProgress is a stub. To generate bindings for this class, include
+/// NSProgress in your config's objc-interfaces list.
+///
+/// NSProgress
+class NSProgress extends objc.NSObject {
+  NSProgress._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super.castFromPointer(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSProgress] that points to the same underlying object as [other].
+  NSProgress.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSProgress] that wraps the given raw object pointer.
+  NSProgress.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+}
+
+late final _sel_progress = objc.registerName("progress");
+ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSProgress_ffiVoid_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<ffi.Void> arg0)>>()
+        .asFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<ffi.Void>)>()(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_NSProgress_ffiVoid_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_NSProgress_ffiVoid_fnPtrTrampoline)
+        .cast();
+ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSProgress_ffiVoid_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
+        ffi.Pointer<ffi.Void>))(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_NSProgress_ffiVoid_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_NSProgress_ffiVoid_closureTrampoline)
+        .cast();
+
+/// Construction methods for `objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>`.
+abstract final class ObjCBlock_NSProgress_ffiVoid {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(pointer,
+              retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)> fromFunctionPointer(
+          ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.Pointer<objc.ObjCObject> Function(
+                          ffi.Pointer<ffi.Void> arg0)>>
+              ptr) =>
+      objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(
+          objc.newPointerBlock(
+              _ObjCBlock_NSProgress_ffiVoid_fnPtrCallable, ptr.cast()),
+          retain: false,
+          release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>
+      fromFunction(NSProgress Function(ffi.Pointer<ffi.Void>) fn) =>
+          objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_NSProgress_ffiVoid_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0) =>
+                      fn(arg0).ref.retainAndAutorelease()),
+              retain: false,
+              release: true);
+}
+
+/// Call operator for `objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)>`.
+extension ObjCBlock_NSProgress_ffiVoid_CallExtension
+    on objc.ObjCBlock<NSProgress Function(ffi.Pointer<ffi.Void>)> {
+  NSProgress call(ffi.Pointer<ffi.Void> arg0) => NSProgress.castFromPointer(
+      ref.pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
+                  ffi.Pointer<objc.ObjCObject> Function(
+                      ffi.Pointer<objc.ObjCBlockImpl> block,
+                      ffi.Pointer<ffi.Void> arg0)>>()
+          .asFunction<
+              ffi.Pointer<objc.ObjCObject> Function(
+                  ffi.Pointer<objc.ObjCBlockImpl>,
+                  ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
+      retain: true,
+      release: true);
+}
+
 late final _sel_earliestBeginDate = objc.registerName("earliestBeginDate");
 late final _sel_setEarliestBeginDate_ =
     objc.registerName("setEarliestBeginDate:");
@@ -48939,226 +46689,6 @@ extension NSURLSessionTaskAdditions1 on NSHTTPCookieStorage {
   }
 }
 
-late final _protocol_NSFastEnumeration = objc.getProtocol("NSFastEnumeration");
-late final _sel_countByEnumeratingWithState_objects_count_ =
-    objc.registerName("countByEnumeratingWithState:objects:count:");
-final _objc_msgSend_1b5ysjl = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            ffi.UnsignedLong Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.NSFastEnumerationState>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                ffi.UnsignedLong)>>()
-    .asFunction<
-        int Function(
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>,
-            ffi.Pointer<objc.NSFastEnumerationState>,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-            int)>();
-int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.NSFastEnumerationState> arg1,
-        ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-        int arg3) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                NSUInteger Function(
-                    ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.NSFastEnumerationState> arg1,
-                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-                    NSUInteger arg3)>>()
-        .asFunction<
-            int Function(
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.NSFastEnumerationState>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                int)>()(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                NSUInteger Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.NSFastEnumerationState>,
-                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                    NSUInteger)>(
-            _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrTrampoline,
-            0)
-        .cast();
-int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.NSFastEnumerationState> arg1,
-        ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-        int arg3) =>
-    (objc.getBlockClosure(block) as int Function(
-        ffi.Pointer<ffi.Void>,
-        ffi.Pointer<objc.NSFastEnumerationState>,
-        ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-        int))(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureCallable =
-    ffi.Pointer.fromFunction<
-                NSUInteger Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.NSFastEnumerationState>,
-                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                    NSUInteger)>(
-            _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureTrampoline,
-            0)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>`.
-abstract final class ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.UnsignedLong Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-              ffi.UnsignedLong)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.UnsignedLong Function(
-                  ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<objc.NSFastEnumerationState>,
-                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                  ffi.UnsignedLong)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.UnsignedLong Function(
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-              ffi.UnsignedLong)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<NSUInteger Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.NSFastEnumerationState> arg1, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2, NSUInteger arg3)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.UnsignedLong Function(
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.NSFastEnumerationState>,
-                      ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                      ffi.UnsignedLong)>(
-              objc.newPointerBlock(_ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)> fromFunction(
-          DartNSUInteger Function(
-                  ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<objc.NSFastEnumerationState>,
-                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                  DartNSUInteger)
-              fn) =>
-      objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>(
-          objc.newClosureBlock(
-              _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.NSFastEnumerationState> arg1, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2, int arg3) =>
-                  fn(arg0, arg1, arg2, arg3)),
-          retain: false,
-          release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>`.
-extension ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_CallExtension
-    on objc.ObjCBlock<
-        ffi.UnsignedLong Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.NSFastEnumerationState>,
-            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-            ffi.UnsignedLong)> {
-  DartNSUInteger call(
-          ffi.Pointer<ffi.Void> arg0,
-          ffi.Pointer<objc.NSFastEnumerationState> arg1,
-          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-          DartNSUInteger arg3) =>
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  NSUInteger Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.NSFastEnumerationState> arg1,
-                      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-                      NSUInteger arg3)>>()
-          .asFunction<
-              int Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>,
-                  ffi.Pointer<objc.NSFastEnumerationState>,
-                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-                  int)>()(ref.pointer, arg0, arg1, arg2, arg3);
-}
-
-/// NSFastEnumeration
-abstract final class NSFastEnumeration {
-  /// Builds an object that implements the NSFastEnumeration protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required DartNSUInteger Function(
-              ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-              DartNSUInteger)
-          countByEnumeratingWithState_objects_count_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSFastEnumeration.countByEnumeratingWithState_objects_count_
-        .implement(builder, countByEnumeratingWithState_objects_count_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSFastEnumeration protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required DartNSUInteger Function(
-              ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
-              DartNSUInteger)
-          countByEnumeratingWithState_objects_count_}) {
-    NSFastEnumeration.countByEnumeratingWithState_objects_count_
-        .implement(builder, countByEnumeratingWithState_objects_count_);
-  }
-
-  /// countByEnumeratingWithState:objects:count:
-  static final countByEnumeratingWithState_objects_count_ =
-      objc.ObjCProtocolMethod<
-          DartNSUInteger Function(ffi.Pointer<objc.NSFastEnumerationState>,
-              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, DartNSUInteger)>(
-    _protocol_NSFastEnumeration,
-    _sel_countByEnumeratingWithState_objects_count_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSFastEnumeration,
-      _sel_countByEnumeratingWithState_objects_count_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (DartNSUInteger Function(ffi.Pointer<objc.NSFastEnumerationState>,
-                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, DartNSUInteger)
-            func) =>
-        ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    ffi.Pointer<objc.NSFastEnumerationState> arg1,
-                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
-                    DartNSUInteger arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-}
-
 late final _class_NSEnumerator = objc.getClass("NSEnumerator");
 late final _sel_allObjects = objc.registerName("allObjects");
 
@@ -49215,6 +46745,16 @@ final _objc_msgSend_blqzg8 = objc.msgSendPointer
             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
 late final _sel_keysSortedByValueUsingSelector_ =
     objc.registerName("keysSortedByValueUsingSelector:");
+final _objc_msgSend_19hbqky = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCSelector>)>>()
+    .asFunction<
+        ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_getObjects_andKeys_count_ =
     objc.registerName("getObjects:andKeys:count:");
 final _objc_msgSend_n2svg2 = objc.msgSendPointer
@@ -50195,6 +47735,172 @@ extension NSSharedKeySetDictionary1 on objc.NSMutableDictionary {
   }
 }
 
+late final _sel_countByEnumeratingWithState_objects_count_ =
+    objc.registerName("countByEnumeratingWithState:objects:count:");
+final _objc_msgSend_1b5ysjl = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            ffi.UnsignedLong Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.NSFastEnumerationState>,
+                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+                ffi.UnsignedLong)>>()
+    .asFunction<
+        int Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>,
+            ffi.Pointer<objc.NSFastEnumerationState>,
+            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+            int)>();
+int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.NSFastEnumerationState> arg1,
+        ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
+        int arg3) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                NSUInteger Function(
+                    ffi.Pointer<ffi.Void> arg0,
+                    ffi.Pointer<objc.NSFastEnumerationState> arg1,
+                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
+                    NSUInteger arg3)>>()
+        .asFunction<
+            int Function(
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.NSFastEnumerationState>,
+                ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+                int)>()(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                NSUInteger Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.NSFastEnumerationState>,
+                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+                    NSUInteger)>(
+            _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrTrampoline,
+            0)
+        .cast();
+int _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.NSFastEnumerationState> arg1,
+        ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
+        int arg3) =>
+    (objc.getBlockClosure(block) as int Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.NSFastEnumerationState>,
+        ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+        int))(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureCallable =
+    ffi.Pointer.fromFunction<
+                NSUInteger Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.NSFastEnumerationState>,
+                    ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+                    NSUInteger)>(
+            _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureTrampoline,
+            0)
+        .cast();
+
+/// Construction methods for `objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>`.
+abstract final class ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+          ffi.UnsignedLong Function(
+              ffi.Pointer<ffi.Void>,
+              ffi.Pointer<objc.NSFastEnumerationState>,
+              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+              ffi.UnsignedLong)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+              ffi.UnsignedLong Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<objc.NSFastEnumerationState>,
+                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+                  ffi.UnsignedLong)>(pointer, retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<
+          ffi.UnsignedLong Function(
+              ffi.Pointer<ffi.Void>,
+              ffi.Pointer<objc.NSFastEnumerationState>,
+              ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+              ffi.UnsignedLong)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<NSUInteger Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.NSFastEnumerationState> arg1, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2, NSUInteger arg3)>> ptr) =>
+          objc.ObjCBlock<
+                  ffi.UnsignedLong Function(
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<objc.NSFastEnumerationState>,
+                      ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+                      ffi.UnsignedLong)>(
+              objc.newPointerBlock(_ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)> fromFunction(
+          DartNSUInteger Function(
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<objc.NSFastEnumerationState>,
+                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+                  DartNSUInteger)
+              fn) =>
+      objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>(
+          objc.newClosureBlock(
+              _ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.NSFastEnumerationState> arg1, ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2, int arg3) =>
+                  fn(arg0, arg1, arg2, arg3)),
+          retain: false,
+          release: true);
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.UnsignedLong Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.NSFastEnumerationState>, ffi.Pointer<ffi.Pointer<objc.ObjCObject>>, ffi.UnsignedLong)>`.
+extension ObjCBlock_NSUInteger_ffiVoid_NSFastEnumerationState_objcObjCObject_NSUInteger_CallExtension
+    on objc.ObjCBlock<
+        ffi.UnsignedLong Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.NSFastEnumerationState>,
+            ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+            ffi.UnsignedLong)> {
+  DartNSUInteger call(
+          ffi.Pointer<ffi.Void> arg0,
+          ffi.Pointer<objc.NSFastEnumerationState> arg1,
+          ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
+          DartNSUInteger arg3) =>
+      ref.pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
+                  NSUInteger Function(
+                      ffi.Pointer<objc.ObjCBlockImpl> block,
+                      ffi.Pointer<ffi.Void> arg0,
+                      ffi.Pointer<objc.NSFastEnumerationState> arg1,
+                      ffi.Pointer<ffi.Pointer<objc.ObjCObject>> arg2,
+                      NSUInteger arg3)>>()
+          .asFunction<
+              int Function(
+                  ffi.Pointer<objc.ObjCBlockImpl>,
+                  ffi.Pointer<ffi.Void>,
+                  ffi.Pointer<objc.NSFastEnumerationState>,
+                  ffi.Pointer<ffi.Pointer<objc.ObjCObject>>,
+                  int)>()(ref.pointer, arg0, arg1, arg2, arg3);
+}
+
 /// NSGenericFastEnumeration
 extension NSGenericFastEnumeration on objc.NSDictionary {
   /// countByEnumeratingWithState:objects:count:
@@ -50393,25 +48099,6 @@ class OS_object extends objc.NSObject {
   OS_object.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
       {bool retain = false, bool release = false})
       : this._(other, retain: retain, release: release);
-}
-
-late final _protocol_OS_sec_object = objc.getProtocol("OS_sec_object");
-
-/// OS_sec_object
-abstract final class OS_sec_object {
-  /// Builds an object that implements the OS_sec_object protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_sec_object protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
 }
 
 typedef sec_object_t = ffi.Pointer<objc.ObjCObject>;
@@ -52662,51 +50349,11 @@ final class os_workgroup_max_parallel_threads_attr_s extends ffi.Opaque {}
 typedef os_workgroup_mpt_attr_s = os_workgroup_max_parallel_threads_attr_s;
 typedef os_workgroup_mpt_attr_t
     = ffi.Pointer<os_workgroup_max_parallel_threads_attr_s>;
-late final _protocol_OS_os_workgroup_interval =
-    objc.getProtocol("OS_os_workgroup_interval");
-
-/// OS_os_workgroup_interval
-abstract final class OS_os_workgroup_interval {
-  /// Builds an object that implements the OS_os_workgroup_interval protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_os_workgroup_interval protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef os_workgroup_interval_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartos_workgroup_interval_t = OS_os_workgroup;
 typedef os_workgroup_interval_data_s = os_workgroup_interval_data_opaque_s;
 typedef os_workgroup_interval_data_t
     = ffi.Pointer<os_workgroup_interval_data_opaque_s>;
-late final _protocol_OS_os_workgroup_parallel =
-    objc.getProtocol("OS_os_workgroup_parallel");
-
-/// OS_os_workgroup_parallel
-abstract final class OS_os_workgroup_parallel {
-  /// Builds an object that implements the OS_os_workgroup_parallel protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_os_workgroup_parallel protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef os_workgroup_parallel_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartos_workgroup_parallel_t = OS_os_workgroup;
 typedef dispatch_function_tFunction = ffi.Void Function(ffi.Pointer<ffi.Void>);
@@ -52769,159 +50416,20 @@ enum qos_class_t {
       };
 }
 
-late final _protocol_OS_dispatch_object =
-    objc.getProtocol("OS_dispatch_object");
-
-/// OS_dispatch_object
-abstract final class OS_dispatch_object {
-  /// Builds an object that implements the OS_dispatch_object protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_object protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_object_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_object_t = objc.NSObject;
 typedef dispatch_block_t = ffi.Pointer<objc.ObjCBlockImpl>;
 typedef Dartdispatch_block_t = objc.ObjCBlock<ffi.Void Function()>;
-late final _protocol_OS_dispatch_queue = objc.getProtocol("OS_dispatch_queue");
-
-/// OS_dispatch_queue
-abstract final class OS_dispatch_queue {
-  /// Builds an object that implements the OS_dispatch_queue protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_queue protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_queue_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_queue_t = objc.NSObject;
-late final _protocol_OS_dispatch_queue_global =
-    objc.getProtocol("OS_dispatch_queue_global");
-
-/// OS_dispatch_queue_global
-abstract final class OS_dispatch_queue_global {
-  /// Builds an object that implements the OS_dispatch_queue_global protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_queue_global protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_queue_global_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_queue_global_t = objc.NSObject;
-late final _protocol_OS_dispatch_queue_serial_executor =
-    objc.getProtocol("OS_dispatch_queue_serial_executor");
-
-/// OS_dispatch_queue_serial_executor
-abstract final class OS_dispatch_queue_serial_executor {
-  /// Builds an object that implements the OS_dispatch_queue_serial_executor protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_queue_serial_executor protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_queue_serial_executor_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_queue_serial_executor_t = objc.NSObject;
-late final _protocol_OS_dispatch_queue_serial =
-    objc.getProtocol("OS_dispatch_queue_serial");
-
-/// OS_dispatch_queue_serial
-abstract final class OS_dispatch_queue_serial {
-  /// Builds an object that implements the OS_dispatch_queue_serial protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_queue_serial protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_queue_serial_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_queue_serial_t = objc.NSObject;
-late final _protocol_OS_dispatch_queue_main =
-    objc.getProtocol("OS_dispatch_queue_main");
-
-/// OS_dispatch_queue_main
-abstract final class OS_dispatch_queue_main {
-  /// Builds an object that implements the OS_dispatch_queue_main protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_queue_main protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_queue_main_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_queue_main_t = objc.NSObject;
-late final _protocol_OS_dispatch_queue_concurrent =
-    objc.getProtocol("OS_dispatch_queue_concurrent");
-
-/// OS_dispatch_queue_concurrent
-abstract final class OS_dispatch_queue_concurrent {
-  /// Builds an object that implements the OS_dispatch_queue_concurrent protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_queue_concurrent protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_queue_concurrent_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_queue_concurrent_t = objc.NSObject;
 void _ObjCBlock_ffiVoid_ffiSize_fnPtrTrampoline(
@@ -53028,26 +50536,6 @@ final class dispatch_queue_s extends ffi.Opaque {}
 
 typedef dispatch_queue_priority_t = ffi.Long;
 typedef Dartdispatch_queue_priority_t = int;
-late final _protocol_OS_dispatch_queue_attr =
-    objc.getProtocol("OS_dispatch_queue_attr");
-
-/// OS_dispatch_queue_attr
-abstract final class OS_dispatch_queue_attr {
-  /// Builds an object that implements the OS_dispatch_queue_attr protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_queue_attr protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_queue_attr_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_queue_attr_t = objc.NSObject;
 
@@ -53305,26 +50793,6 @@ typedef mach_msg_type_size_t = natural_t;
 typedef mach_msg_type_number_t = natural_t;
 typedef mach_msg_option_t = integer_t;
 typedef mach_msg_return_t = kern_return_t;
-late final _protocol_OS_dispatch_source =
-    objc.getProtocol("OS_dispatch_source");
-
-/// OS_dispatch_source
-abstract final class OS_dispatch_source {
-  /// Builds an object that implements the OS_dispatch_source protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_source protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_source_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_source_t = objc.NSObject;
 
@@ -53343,70 +50811,12 @@ typedef dispatch_source_vnode_flags_t = ffi.UnsignedLong;
 typedef Dartdispatch_source_vnode_flags_t = int;
 typedef dispatch_source_timer_flags_t = ffi.UnsignedLong;
 typedef Dartdispatch_source_timer_flags_t = int;
-late final _protocol_OS_dispatch_group = objc.getProtocol("OS_dispatch_group");
-
-/// OS_dispatch_group
-abstract final class OS_dispatch_group {
-  /// Builds an object that implements the OS_dispatch_group protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_group protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_group_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_group_t = objc.NSObject;
-late final _protocol_OS_dispatch_semaphore =
-    objc.getProtocol("OS_dispatch_semaphore");
-
-/// OS_dispatch_semaphore
-abstract final class OS_dispatch_semaphore {
-  /// Builds an object that implements the OS_dispatch_semaphore protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_semaphore protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_semaphore_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_semaphore_t = objc.NSObject;
 typedef dispatch_once_t = ffi.IntPtr;
 typedef Dartdispatch_once_t = int;
-late final _protocol_OS_dispatch_data = objc.getProtocol("OS_dispatch_data");
-
-/// OS_dispatch_data
-abstract final class OS_dispatch_data {
-  /// Builds an object that implements the OS_dispatch_data protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_data protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_data_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_data_t = objc.NSObject;
 
@@ -53788,25 +51198,6 @@ extension ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_CallExtension
               int)>()(ref.pointer, arg0?.ref.pointer ?? ffi.nullptr, arg1);
 }
 
-late final _protocol_OS_dispatch_io = objc.getProtocol("OS_dispatch_io");
-
-/// OS_dispatch_io
-abstract final class OS_dispatch_io {
-  /// Builds an object that implements the OS_dispatch_io protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_io protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_io_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_io_t = objc.NSObject;
 typedef dispatch_io_type_t = ffi.UnsignedLong;
@@ -54063,26 +51454,6 @@ typedef dispatch_io_close_flags_t = ffi.UnsignedLong;
 typedef Dartdispatch_io_close_flags_t = int;
 typedef dispatch_io_interval_flags_t = ffi.UnsignedLong;
 typedef Dartdispatch_io_interval_flags_t = int;
-late final _protocol_OS_dispatch_workloop =
-    objc.getProtocol("OS_dispatch_workloop");
-
-/// OS_dispatch_workloop
-abstract final class OS_dispatch_workloop {
-  /// Builds an object that implements the OS_dispatch_workloop protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_dispatch_workloop protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef dispatch_workloop_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartdispatch_workloop_t = objc.NSObject;
 
@@ -58001,68 +55372,10 @@ enum SSLCiphersuiteGroup {
       };
 }
 
-late final _protocol_OS_sec_trust = objc.getProtocol("OS_sec_trust");
-
-/// OS_sec_trust
-abstract final class OS_sec_trust {
-  /// Builds an object that implements the OS_sec_trust protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_sec_trust protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef sec_trust_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartsec_trust_t = objc.NSObject;
-late final _protocol_OS_sec_identity = objc.getProtocol("OS_sec_identity");
-
-/// OS_sec_identity
-abstract final class OS_sec_identity {
-  /// Builds an object that implements the OS_sec_identity protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_sec_identity protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef sec_identity_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartsec_identity_t = objc.NSObject;
-late final _protocol_OS_sec_certificate =
-    objc.getProtocol("OS_sec_certificate");
-
-/// OS_sec_certificate
-abstract final class OS_sec_certificate {
-  /// Builds an object that implements the OS_sec_certificate protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_sec_certificate protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef sec_certificate_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartsec_certificate_t = objc.NSObject;
 
@@ -58318,26 +55631,6 @@ extension ObjCBlock_ffiVoid_seccertificatet_CallExtension
               sec_certificate_t)>()(ref.pointer, arg0.ref.pointer);
 }
 
-late final _protocol_OS_sec_protocol_metadata =
-    objc.getProtocol("OS_sec_protocol_metadata");
-
-/// OS_sec_protocol_metadata
-abstract final class OS_sec_protocol_metadata {
-  /// Builds an object that implements the OS_sec_protocol_metadata protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_sec_protocol_metadata protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 typedef sec_protocol_metadata_t = ffi.Pointer<objc.ObjCObject>;
 typedef Dartsec_protocol_metadata_t = objc.NSObject;
 void _ObjCBlock_ffiVoid_Uint16_fnPtrTrampoline(
@@ -58575,26 +55868,6 @@ extension ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_CallExtension
                   void Function(ffi.Pointer<objc.ObjCBlockImpl>,
                       dispatch_data_t, dispatch_data_t)>()(
           ref.pointer, arg0.ref.pointer, arg1.ref.pointer);
-}
-
-late final _protocol_OS_sec_protocol_options =
-    objc.getProtocol("OS_sec_protocol_options");
-
-/// OS_sec_protocol_options
-abstract final class OS_sec_protocol_options {
-  /// Builds an object that implements the OS_sec_protocol_options protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the OS_sec_protocol_options protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
 }
 
 typedef sec_protocol_options_t = ffi.Pointer<objc.ObjCObject>;
@@ -63066,302 +60339,64 @@ enum NSURLSessionResponseDisposition {
       };
 }
 
-late final _protocol_NSURLSessionDelegate =
-    objc.getProtocol("NSURLSessionDelegate");
-late final _sel_URLSession_didBecomeInvalidWithError_ =
-    objc.registerName("URLSession:didBecomeInvalidWithError:");
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) =>
+late final _protocol_NSURLSessionDataDelegate =
+    objc.getProtocol("NSURLSessionDataDelegate");
+void _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, int arg0) =>
     block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(
-                    ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1,
-                    ffi.Pointer<objc.ObjCObject> arg2)>>()
-        .asFunction<
-            void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
+        .cast<ffi.NativeFunction<ffi.Void Function(NSInteger arg0)>>()
+        .asFunction<void Function(int)>()(arg0);
 ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_fnPtrCallable =
+    _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_fnPtrCallable =
     ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_fnPtrTrampoline)
+                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>(
+            _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_fnPtrTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) =>
-    (objc.getBlockClosure(block) as void Function(
-        ffi.Pointer<ffi.Void>,
-        ffi.Pointer<objc.ObjCObject>,
-        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+void _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, int arg0) =>
+    (objc.getBlockClosure(block) as void Function(int))(arg0);
 ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_closureCallable =
+    _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_closureCallable =
     ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_closureTrampoline)
+                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>(
+            _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_closureTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<objc.ObjCObject> arg1,
-    ffi.Pointer<objc.ObjCObject> arg2) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+void _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block, int arg0) {
+  (objc.getBlockClosure(block) as void Function(int))(arg0);
   objc.objectRelease(block.cast());
 }
 
 ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerCallable = ffi
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>
+    _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerCallable = ffi
         .NativeCallable<
             ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerTrampoline)
+                ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>.listener(
+        _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSInteger)>`.
+abstract final class ObjCBlock_ffiVoid_NSURLSessionResponseDisposition {
   /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-                  objc.NSError?)>(pointer, retain: retain, release: release);
+  static objc.ObjCBlock<ffi.Void Function(NSInteger)> castFromPointer(
+          ffi.Pointer<objc.ObjCBlockImpl> pointer,
+          {bool retain = false,
+          bool release = false}) =>
+      objc.ObjCBlock<ffi.Void Function(NSInteger)>(pointer,
+          retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>
-      fromFunctionPointer(
-              ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2)>>
-                  ptr) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>(
-              objc.newPointerBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_fnPtrCallable,
-                  ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2) => fn(
-                      arg0,
-                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                      arg2.address == 0 ? null : objc.NSError.castFromPointer(arg2, retain: true, release: true))),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(
-          ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)> listener(
-      void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2) =>
-            fn(
-                arg0,
-                NSURLSession.castFromPointer(arg1,
-                    retain: false, release: true),
-                arg2.address == 0
-                    ? null
-                    : objc.NSError.castFromPointer(arg2,
-                        retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ao4xm9(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-            objc.NSError?)>(wrapper, retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)> {
-  void call(
-          ffi.Pointer<ffi.Void> arg0, NSURLSession arg1, objc.NSError? arg2) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0,
-          arg1.ref.pointer, arg2?.ref.pointer ?? ffi.nullptr);
-}
-
-/// WARNING: NSURLAuthenticationChallenge is a stub. To generate bindings for this class, include
-/// NSURLAuthenticationChallenge in your config's objc-interfaces list.
-///
-/// NSURLAuthenticationChallenge
-class NSURLAuthenticationChallenge extends objc.ObjCObjectBase {
-  NSURLAuthenticationChallenge._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSURLAuthenticationChallenge] that points to the same underlying object as [other].
-  NSURLAuthenticationChallenge.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSURLAuthenticationChallenge] that wraps the given raw object pointer.
-  NSURLAuthenticationChallenge.castFromPointer(
-      ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false,
-      bool release = false})
-      : this._(other, retain: retain, release: release);
-}
-
-/// WARNING: NSURLCredential is a stub. To generate bindings for this class, include
-/// NSURLCredential in your config's objc-interfaces list.
-///
-/// NSURLCredential
-class NSURLCredential extends objc.ObjCObjectBase {
-  NSURLCredential._(ffi.Pointer<objc.ObjCObject> pointer,
-      {bool retain = false, bool release = false})
-      : super(pointer, retain: retain, release: release);
-
-  /// Constructs a [NSURLCredential] that points to the same underlying object as [other].
-  NSURLCredential.castFrom(objc.ObjCObjectBase other)
-      : this._(other.ref.pointer, retain: true, release: true);
-
-  /// Constructs a [NSURLCredential] that wraps the given raw object pointer.
-  NSURLCredential.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
-      {bool retain = false, bool release = false})
-      : this._(other, retain: retain, release: release);
-}
-
-void
-    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            int arg0,
-            ffi.Pointer<objc.ObjCObject> arg1) =>
-        block.ref.target
-                .cast<
-                    ffi.NativeFunction<
-                        ffi.Void Function(NSInteger arg0,
-                            ffi.Pointer<objc.ObjCObject> arg1)>>()
-                .asFunction<void Function(int, ffi.Pointer<objc.ObjCObject>)>()(
-            arg0, arg1);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            int arg0,
-            ffi.Pointer<objc.ObjCObject> arg1) =>
-        (objc.getBlockClosure(block) as void Function(
-            int, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        int arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) {
-  (objc.getBlockClosure(block) as void Function(
-      int, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerCallable =
-    ffi.NativeCallable<
-            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>`.
-abstract final class ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
-              pointer,
-              retain: retain,
-              release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-      ffi.Void Function(NSInteger, NSURLCredential?)> fromFunctionPointer(
-          ffi.Pointer<ffi.NativeFunction<ffi.Void Function(NSInteger arg0, ffi.Pointer<objc.ObjCObject> arg1)>>
+  static objc.ObjCBlock<ffi.Void Function(NSInteger)> fromFunctionPointer(
+          ffi.Pointer<ffi.NativeFunction<ffi.Void Function(NSInteger arg0)>>
               ptr) =>
-      objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
+      objc.ObjCBlock<ffi.Void Function(NSInteger)>(
           objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_fnPtrCallable,
+              _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_fnPtrCallable,
               ptr.cast()),
           retain: false,
           release: true);
@@ -63371,18 +60406,15 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSUR
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
-      fromFunction(void Function(NSURLSessionAuthChallengeDisposition, NSURLCredential?) fn) =>
-          objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_closureCallable,
-                  (int arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
-                      NSURLSessionAuthChallengeDisposition.fromValue(arg0),
-                      arg1.address == 0
-                          ? null
-                          : NSURLCredential.castFromPointer(arg1, retain: true, release: true))),
-              retain: false,
-              release: true);
+  static objc.ObjCBlock<ffi.Void Function(NSInteger)> fromFunction(
+          void Function(NSURLSessionResponseDisposition) fn) =>
+      objc.ObjCBlock<ffi.Void Function(NSInteger)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_closureCallable,
+              (int arg0) =>
+                  fn(NSURLSessionResponseDisposition.fromValue(arg0))),
+          retain: false,
+          release: true);
 
   /// Creates a listener block from a Dart function.
   ///
@@ -63393,113 +60425,111 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSUR
   ///
   /// Note that unlike the default behavior of NativeCallable.listener, listener
   /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
-      listener(
-          void Function(NSURLSessionAuthChallengeDisposition, NSURLCredential?)
-              fn) {
+  static objc.ObjCBlock<ffi.Void Function(NSInteger)> listener(
+      void Function(NSURLSessionResponseDisposition) fn) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerCallable
+        _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerCallable
             .nativeFunction
             .cast(),
-        (int arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
-            NSURLSessionAuthChallengeDisposition.fromValue(arg0),
-            arg1.address == 0
-                ? null
-                : NSURLCredential.castFromPointer(arg1,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_37btrl(raw);
+        (int arg0) => fn(NSURLSessionResponseDisposition.fromValue(arg0)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_16sve1d(raw);
     objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
-        wrapper,
-        retain: false,
-        release: true);
+    return objc.ObjCBlock<ffi.Void Function(NSInteger)>(wrapper,
+        retain: false, release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>`.
-extension ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)> {
-  void call(NSURLSessionAuthChallengeDisposition arg0, NSURLCredential? arg1) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
-                          NSInteger arg0, ffi.Pointer<objc.ObjCObject> arg1)>>()
-              .asFunction<
-                  void Function(ffi.Pointer<objc.ObjCBlockImpl>, int,
-                      ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer, arg0.value, arg1?.ref.pointer ?? ffi.nullptr);
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(NSInteger)>`.
+extension ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(NSInteger)> {
+  void call(NSURLSessionResponseDisposition arg0) => ref.pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
+                  ffi.Void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl> block, NSInteger arg0)>>()
+          .asFunction<void Function(ffi.Pointer<objc.ObjCBlockImpl>, int)>()(
+      ref.pointer, arg0.value);
 }
 
-late final _sel_URLSession_didReceiveChallenge_completionHandler_ =
-    objc.registerName("URLSession:didReceiveChallenge:completionHandler:");
+late final _sel_URLSession_dataTask_didReceiveResponse_completionHandler_ = objc
+    .registerName("URLSession:dataTask:didReceiveResponse:completionHandler:");
 void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_fnPtrTrampoline(
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_fnPtrTrampoline(
             ffi.Pointer<objc.ObjCBlockImpl> block,
             ffi.Pointer<ffi.Void> arg0,
             ffi.Pointer<objc.ObjCObject> arg1,
             ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+            ffi.Pointer<objc.ObjCObject> arg3,
+            ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
         block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Void Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCObject> arg1,
-                        ffi.Pointer<objc.ObjCObject> arg2,
-                        ffi.Pointer<objc.ObjCBlockImpl> arg3)>>()
-            .asFunction<
-                void Function(
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCBlockImpl>)>()(arg0, arg1, arg2, arg3);
+                .cast<
+                    ffi.NativeFunction<
+                        ffi.Void Function(
+                            ffi.Pointer<ffi.Void> arg0,
+                            ffi.Pointer<objc.ObjCObject> arg1,
+                            ffi.Pointer<objc.ObjCObject> arg2,
+                            ffi.Pointer<objc.ObjCObject> arg3,
+                            ffi.Pointer<objc.ObjCBlockImpl> arg4)>>()
+                .asFunction<
+                    void Function(
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<objc.ObjCObject>,
+                        ffi.Pointer<objc.ObjCObject>,
+                        ffi.Pointer<objc.ObjCObject>,
+                        ffi.Pointer<objc.ObjCBlockImpl>)>()(
+            arg0, arg1, arg2, arg3, arg4);
 ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_fnPtrCallable =
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_fnPtrCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(
                     ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<ffi.Void>,
                     ffi.Pointer<objc.ObjCObject>,
                     ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
                     ffi.Pointer<objc.ObjCBlockImpl>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_fnPtrTrampoline)
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_fnPtrTrampoline)
         .cast();
 void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_closureTrampoline(
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_closureTrampoline(
             ffi.Pointer<objc.ObjCBlockImpl> block,
             ffi.Pointer<ffi.Void> arg0,
             ffi.Pointer<objc.ObjCObject> arg1,
             ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+            ffi.Pointer<objc.ObjCObject> arg3,
+            ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
         (objc.getBlockClosure(block) as void Function(
             ffi.Pointer<ffi.Void>,
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3);
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
 ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_closureCallable =
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_closureCallable =
     ffi.Pointer.fromFunction<
                 ffi.Void Function(
                     ffi.Pointer<objc.ObjCBlockImpl>,
                     ffi.Pointer<ffi.Void>,
                     ffi.Pointer<objc.ObjCObject>,
                     ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
                     ffi.Pointer<objc.ObjCBlockImpl>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_closureTrampoline)
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_closureTrampoline)
         .cast();
 void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerTrampoline(
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<ffi.Void> arg0,
         ffi.Pointer<objc.ObjCObject> arg1,
         ffi.Pointer<objc.ObjCObject> arg2,
-        ffi.Pointer<objc.ObjCBlockImpl> arg3) {
+        ffi.Pointer<objc.ObjCObject> arg3,
+        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
   (objc.getBlockClosure(block) as void Function(
       ffi.Pointer<ffi.Void>,
       ffi.Pointer<objc.ObjCObject>,
       ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3);
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
   objc.objectRelease(block.cast());
 }
 
@@ -63509,35 +60539,39 @@ ffi.NativeCallable<
             ffi.Pointer<ffi.Void>,
             ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCBlockImpl>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerCallable =
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerCallable =
     ffi.NativeCallable<
             ffi.Void Function(
                 ffi.Pointer<objc.ObjCBlockImpl>,
                 ffi.Pointer<ffi.Void>,
                 ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerTrampoline)
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition {
   /// Returns a block that wraps the given raw block pointer.
   static objc.ObjCBlock<
           ffi.Void Function(
               ffi.Pointer<ffi.Void>,
               NSURLSession,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer, {bool retain = false, bool release = false}) =>
+              NSURLSessionDataTask,
+              NSURLResponse,
+              objc.ObjCBlock<ffi.Void Function(NSInteger)>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
           objc.ObjCBlock<
-                  ffi.Void Function(
-                      ffi.Pointer<ffi.Void>,
-                      NSURLSession,
-                      NSURLAuthenticationChallenge,
-                      objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(pointer,
-              retain: retain, release: release);
+              ffi.Void Function(
+                  ffi.Pointer<ffi.Void>,
+                  NSURLSession,
+                  NSURLSessionDataTask,
+                  NSURLResponse,
+                  objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(pointer, retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
@@ -63545,39 +60579,41 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationC
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
   static objc.ObjCBlock<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>,
-              NSURLSession,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCBlockImpl> arg3)>> ptr) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
-              objc.newPointerBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_fnPtrCallable,
-                  ptr.cast()),
-              retain: false,
-              release: true);
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLSessionDataTask,
+          NSURLResponse,
+          objc.ObjCBlock<ffi.Void Function(NSInteger)>)> fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCBlockImpl> arg4)>> ptr) =>
+      objc.ObjCBlock<
+              ffi.Void Function(
+                  ffi.Pointer<ffi.Void>,
+                  NSURLSession,
+                  NSURLSessionDataTask,
+                  NSURLResponse,
+                  objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(
+          objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_fnPtrCallable, ptr.cast()),
+          retain: false,
+          release: true);
 
   /// Creates a block from a Dart function.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>) fn) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1,
-                      ffi.Pointer<objc.ObjCObject> arg2,
-                      ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
-                  fn(
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>
+      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>) fn) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCBlockImpl> arg4) => fn(
                       arg0,
                       NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                      NSURLAuthenticationChallenge.castFromPointer(arg2, retain: true, release: true),
-                      ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential.castFromPointer(arg3, retain: true, release: true))),
-          retain: false,
-          release: true);
+                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
+                      NSURLResponse.castFromPointer(arg3, retain: true, release: true),
+                      ObjCBlock_ffiVoid_NSURLSessionResponseDisposition.castFromPointer(arg4, retain: true, release: true))),
+              retain: false,
+              release: true);
 
   /// Creates a listener block from a Dart function.
   ///
@@ -63592,58 +60628,59 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationC
       ffi.Void Function(
           ffi.Pointer<ffi.Void>,
           NSURLSession,
-          NSURLAuthenticationChallenge,
-          objc.ObjCBlock<
-              ffi.Void Function(NSInteger, NSURLCredential?)>)> listener(
-      void Function(
-              ffi.Pointer<ffi.Void>,
-              NSURLSession,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
+          NSURLSessionDataTask,
+          NSURLResponse,
+          objc.ObjCBlock<ffi.Void Function(NSInteger)>)> listener(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
+              NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)
           fn) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerCallable
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerCallable
             .nativeFunction
             .cast(),
         (ffi.Pointer<ffi.Void> arg0,
                 ffi.Pointer<objc.ObjCObject> arg1,
                 ffi.Pointer<objc.ObjCObject> arg2,
-                ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
             fn(
                 arg0,
                 NSURLSession.castFromPointer(arg1,
                     retain: false, release: true),
-                NSURLAuthenticationChallenge.castFromPointer(arg2,
+                NSURLSessionDataTask.castFromPointer(arg2,
                     retain: false, release: true),
-                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
-                    .castFromPointer(arg3, retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_12nszru(raw);
+                NSURLResponse.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionResponseDisposition
+                    .castFromPointer(arg4, retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1f43wec(raw);
     objc.objectRelease(raw.cast());
     return objc.ObjCBlock<
             ffi.Void Function(
                 ffi.Pointer<ffi.Void>,
                 NSURLSession,
-                NSURLAuthenticationChallenge,
-                objc.ObjCBlock<
-                    ffi.Void Function(NSInteger, NSURLCredential?)>)>(wrapper,
+                NSURLSessionDataTask,
+                NSURLResponse,
+                objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(wrapper,
         retain: false, release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_CallExtension
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_CallExtension
     on objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
             NSURLSession,
-            NSURLAuthenticationChallenge,
-            objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)> {
+            NSURLSessionDataTask,
+            NSURLResponse,
+            objc.ObjCBlock<ffi.Void Function(NSInteger)>)> {
   void call(
           ffi.Pointer<ffi.Void> arg0,
           NSURLSession arg1,
-          NSURLAuthenticationChallenge arg2,
-          objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
-              arg3) =>
+          NSURLSessionDataTask arg2,
+          NSURLResponse arg3,
+          objc.ObjCBlock<ffi.Void Function(NSInteger)> arg4) =>
       ref.pointer.ref.invoke
               .cast<
                   ffi.NativeFunction<
@@ -63652,92 +60689,140 @@ extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ff
                           ffi.Pointer<ffi.Void> arg0,
                           ffi.Pointer<objc.ObjCObject> arg1,
                           ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCBlockImpl> arg3)>>()
+                          ffi.Pointer<objc.ObjCObject> arg3,
+                          ffi.Pointer<objc.ObjCBlockImpl> arg4)>>()
               .asFunction<
                   void Function(
                       ffi.Pointer<objc.ObjCBlockImpl>,
                       ffi.Pointer<ffi.Void>,
                       ffi.Pointer<objc.ObjCObject>,
                       ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
                       ffi.Pointer<objc.ObjCBlockImpl>)>()(
-          ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer, arg3.ref.pointer);
+          ref.pointer,
+          arg0,
+          arg1.ref.pointer,
+          arg2.ref.pointer,
+          arg3.ref.pointer,
+          arg4.ref.pointer);
 }
 
-late final _sel_URLSessionDidFinishEventsForBackgroundURLSession_ =
-    objc.registerName("URLSessionDidFinishEventsForBackgroundURLSession:");
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_fnPtrTrampoline(
+late final _sel_URLSession_dataTask_didBecomeDownloadTask_ =
+    objc.registerName("URLSession:dataTask:didBecomeDownloadTask:");
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3) =>
+        block.ref.target
+            .cast<
+                ffi.NativeFunction<
+                    ffi.Void Function(
+                        ffi.Pointer<ffi.Void> arg0,
+                        ffi.Pointer<objc.ObjCObject> arg1,
+                        ffi.Pointer<objc.ObjCObject> arg2,
+                        ffi.Pointer<objc.ObjCObject> arg3)>>()
+            .asFunction<
+                void Function(
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_fnPtrTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3) =>
+        (objc.getBlockClosure(block) as void Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_closureTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            void Function(ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as void Function(
-        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<objc.ObjCObject> arg1) {
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
   (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
   objc.objectRelease(block.cast());
 }
 
 ffi.NativeCallable<
-        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerCallable = ffi
-        .NativeCallable<
-            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerTrampoline)
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask {
   /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDataTask, NSURLSessionDownloadTask)>
       castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
               {bool retain = false, bool release = false}) =>
           objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>,
-                  NSURLSession)>(pointer, retain: retain, release: release);
+                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+                      NSURLSessionDataTask, NSURLSessionDownloadTask)>(pointer,
+              retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
-      fromFunctionPointer(
-              ffi.Pointer<
-                      ffi.NativeFunction<
-                          ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
-                              ffi.Pointer<objc.ObjCObject> arg1)>>
-                  ptr) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>(
-              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_fnPtrCallable, ptr.cast()),
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDataTask, NSURLSessionDownloadTask)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3)>> ptr) =>
+          objc.ObjCBlock<
+                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+                      NSURLSessionDataTask, NSURLSessionDownloadTask)>(
+              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_fnPtrCallable, ptr.cast()),
               retain: false,
               release: true);
 
@@ -63746,16 +60831,669 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession {
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>(
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask) fn) =>
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1,
+                      ffi.Pointer<objc.ObjCObject> arg2,
+                      ffi.Pointer<objc.ObjCObject> arg3) =>
+                  fn(
+                      arg0,
+                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
+                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
+                      NSURLSessionDownloadTask.castFromPointer(arg3, retain: true, release: true))),
+          retain: false,
+          release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDataTask, NSURLSessionDownloadTask)> listener(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
+              NSURLSessionDownloadTask)
+          fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDataTask,
+            NSURLSessionDownloadTask)>(wrapper, retain: false, release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_CallExtension
+    on objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+            NSURLSessionDataTask, NSURLSessionDownloadTask)> {
+  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1,
+          NSURLSessionDataTask arg2, NSURLSessionDownloadTask arg3) =>
+      ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCObject> arg2,
+                          ffi.Pointer<objc.ObjCObject> arg3)>>()
+              .asFunction<
+                  void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl>,
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0,
+          arg1.ref.pointer, arg2.ref.pointer, arg3.ref.pointer);
+}
+
+late final _sel_URLSession_dataTask_didBecomeStreamTask_ =
+    objc.registerName("URLSession:dataTask:didBecomeStreamTask:");
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3) =>
+        block.ref.target
+            .cast<
+                ffi.NativeFunction<
+                    ffi.Void Function(
+                        ffi.Pointer<ffi.Void> arg0,
+                        ffi.Pointer<objc.ObjCObject> arg1,
+                        ffi.Pointer<objc.ObjCObject> arg2,
+                        ffi.Pointer<objc.ObjCObject> arg3)>>()
+            .asFunction<
+                void Function(
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_fnPtrTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3) =>
+        (objc.getBlockClosure(block) as void Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_closureTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDataTask, NSURLSessionStreamTask)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+                      NSURLSessionDataTask, NSURLSessionStreamTask)>(pointer,
+              retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDataTask, NSURLSessionStreamTask)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3)>> ptr) =>
+          objc.ObjCBlock<
+                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+                      NSURLSessionDataTask, NSURLSessionStreamTask)>(
+              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask) fn) =>
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1,
+                      ffi.Pointer<objc.ObjCObject> arg2,
+                      ffi.Pointer<objc.ObjCObject> arg3) =>
+                  fn(
+                      arg0,
+                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
+                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
+                      NSURLSessionStreamTask.castFromPointer(arg3, retain: true, release: true))),
+          retain: false,
+          release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDataTask, NSURLSessionStreamTask)> listener(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
+              NSURLSessionStreamTask)
+          fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLSessionStreamTask.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDataTask,
+            NSURLSessionStreamTask)>(wrapper, retain: false, release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_CallExtension
+    on objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+            NSURLSessionDataTask, NSURLSessionStreamTask)> {
+  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1,
+          NSURLSessionDataTask arg2, NSURLSessionStreamTask arg3) =>
+      ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCObject> arg2,
+                          ffi.Pointer<objc.ObjCObject> arg3)>>()
+              .asFunction<
+                  void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl>,
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0,
+          arg1.ref.pointer, arg2.ref.pointer, arg3.ref.pointer);
+}
+
+late final _sel_URLSession_dataTask_didReceiveData_ =
+    objc.registerName("URLSession:dataTask:didReceiveData:");
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3) =>
+        block.ref.target
+            .cast<
+                ffi.NativeFunction<
+                    ffi.Void Function(
+                        ffi.Pointer<ffi.Void> arg0,
+                        ffi.Pointer<objc.ObjCObject> arg1,
+                        ffi.Pointer<objc.ObjCObject> arg2,
+                        ffi.Pointer<objc.ObjCObject> arg3)>>()
+            .asFunction<
+                void Function(
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_fnPtrTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3) =>
+        (objc.getBlockClosure(block) as void Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_closureTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDataTask, objc.NSData)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+              ffi.Void Function(
+                  ffi.Pointer<ffi.Void>,
+                  NSURLSession,
+                  NSURLSessionDataTask,
+                  objc.NSData)>(pointer, retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDataTask, objc.NSData)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3)>> ptr) =>
+          objc.ObjCBlock<
+                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+                      NSURLSessionDataTask, objc.NSData)>(
+              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData) fn) =>
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1,
+                      ffi.Pointer<objc.ObjCObject> arg2,
+                      ffi.Pointer<objc.ObjCObject> arg3) =>
+                  fn(
+                      arg0,
+                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
+                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
+                      objc.NSData.castFromPointer(arg3, retain: true, release: true))),
+          retain: false,
+          release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDataTask, objc.NSData)> listener(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
+              objc.NSData)
+          fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                objc.NSData.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDataTask,
+            objc.NSData)>(wrapper, retain: false, release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_CallExtension
+    on objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+            NSURLSessionDataTask, objc.NSData)> {
+  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1,
+          NSURLSessionDataTask arg2, objc.NSData arg3) =>
+      ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCObject> arg2,
+                          ffi.Pointer<objc.ObjCObject> arg3)>>()
+              .asFunction<
+                  void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl>,
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0,
+          arg1.ref.pointer, arg2.ref.pointer, arg3.ref.pointer);
+}
+
+late final _sel_URLSession_dataTask_willCacheResponse_completionHandler_ = objc
+    .registerName("URLSession:dataTask:willCacheResponse:completionHandler:");
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3,
+            ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+        block.ref.target
+                .cast<
+                    ffi.NativeFunction<
+                        ffi.Void Function(
+                            ffi.Pointer<ffi.Void> arg0,
+                            ffi.Pointer<objc.ObjCObject> arg1,
+                            ffi.Pointer<objc.ObjCObject> arg2,
+                            ffi.Pointer<objc.ObjCObject> arg3,
+                            ffi.Pointer<objc.ObjCBlockImpl> arg4)>>()
+                .asFunction<
+                    void Function(
+                        ffi.Pointer<ffi.Void>,
+                        ffi.Pointer<objc.ObjCObject>,
+                        ffi.Pointer<objc.ObjCObject>,
+                        ffi.Pointer<objc.ObjCObject>,
+                        ffi.Pointer<objc.ObjCBlockImpl>)>()(
+            arg0, arg1, arg2, arg3, arg4);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCBlockImpl>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_fnPtrTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCObject> arg3,
+            ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+        (objc.getBlockClosure(block) as void Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCBlockImpl>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_closureTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3,
+        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLSessionDataTask,
+              NSCachedURLResponse,
+              objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+              ffi.Void Function(
+                  ffi.Pointer<ffi.Void>,
+                  NSURLSession,
+                  NSURLSessionDataTask,
+                  NSCachedURLResponse,
+                  objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(pointer, retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLSessionDataTask,
+          NSCachedURLResponse,
+          objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)> fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCBlockImpl> arg4)>> ptr) =>
+      objc.ObjCBlock<
+              ffi.Void Function(
+                  ffi.Pointer<ffi.Void>,
+                  NSURLSession,
+                  NSURLSessionDataTask,
+                  NSCachedURLResponse,
+                  objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(
+          objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_fnPtrCallable, ptr.cast()),
+          retain: false,
+          release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>
+      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>) fn) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(
               objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
-                      fn(
-                          arg0,
-                          NSURLSession.castFromPointer(arg1,
-                              retain: true, release: true))),
+                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCBlockImpl> arg4) => fn(
+                      arg0,
+                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
+                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
+                      NSCachedURLResponse.castFromPointer(arg3, retain: true, release: true),
+                      ObjCBlock_ffiVoid_NSCachedURLResponse.castFromPointer(arg4, retain: true, release: true))),
               retain: false,
               release: true);
 
@@ -63768,218 +61506,95 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession {
   ///
   /// Note that unlike the default behavior of NativeCallable.listener, listener
   /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
-      listener(void Function(ffi.Pointer<ffi.Void>, NSURLSession) fn) {
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLSessionDataTask,
+          NSCachedURLResponse,
+          objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)> listener(
+      void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLSessionDataTask,
+              NSCachedURLResponse,
+              objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)
+          fn) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerCallable.nativeFunction
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerCallable
+            .nativeFunction
             .cast(),
-        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
-            arg0,
-            NSURLSession.castFromPointer(arg1, retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjovn7(raw);
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSCachedURLResponse.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSCachedURLResponse.castFromPointer(arg4,
+                    retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1f43wec(raw);
     objc.objectRelease(raw.cast());
     return objc.ObjCBlock<
-            ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>(wrapper,
-        retain: false, release: true);
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLSessionDataTask,
+                NSCachedURLResponse,
+                objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(
+        wrapper,
+        retain: false,
+        release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)> {
-  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1) => ref
-          .pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1)>>()
-          .asFunction<
-              void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
-      ref.pointer, arg0, arg1.ref.pointer);
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_CallExtension
+    on objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDataTask,
+            NSCachedURLResponse,
+            objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)> {
+  void call(
+          ffi.Pointer<ffi.Void> arg0,
+          NSURLSession arg1,
+          NSURLSessionDataTask arg2,
+          NSCachedURLResponse arg3,
+          objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)> arg4) =>
+      ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCObject> arg2,
+                          ffi.Pointer<objc.ObjCObject> arg3,
+                          ffi.Pointer<objc.ObjCBlockImpl> arg4)>>()
+              .asFunction<
+                  void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl>,
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCBlockImpl>)>()(
+          ref.pointer,
+          arg0,
+          arg1.ref.pointer,
+          arg2.ref.pointer,
+          arg3.ref.pointer,
+          arg4.ref.pointer);
 }
 
-/// Messages related to the URL session as a whole
-abstract final class NSURLSessionDelegate {
-  /// Builds an object that implements the NSURLSessionDelegate protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {void Function(NSURLSession, objc.NSError?)?
-          URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)?
-          URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_.implement(
-        builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSURLSessionDelegate protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {void Function(NSURLSession, objc.NSError?)?
-          URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)?
-          URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_.implement(
-        builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-  }
-
-  /// Builds an object that implements the NSURLSessionDelegate protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {void Function(NSURLSession, objc.NSError?)?
-          URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)?
-          URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_
-        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implementAsListener(
-            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSURLSessionDelegate protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {void Function(NSURLSession, objc.NSError?)?
-          URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)?
-          URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    NSURLSessionDelegate.URLSession_didBecomeInvalidWithError_
-        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implementAsListener(
-            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-  }
-
-  /// The last message a session receives.  A session will only become
-  /// invalid because of a systemic error or when it has been
-  /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ = objc
-      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
-    _protocol_NSURLSessionDelegate,
-    _sel_URLSession_didBecomeInvalidWithError_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionDelegate,
-      _sel_URLSession_didBecomeInvalidWithError_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// If implemented, when a connection level authentication challenge
-  /// has occurred, this delegate will be given the opportunity to
-  /// provide authentication credentials to the underlying
-  /// connection. Some types of authentication will apply to more than
-  /// one request on a given connection to a server (SSL Server Trust
-  /// challenges).  If this delegate message is not implemented, the
-  /// behavior will be to use the default handling, which may involve user
-  /// interaction.
-  static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
-    _protocol_NSURLSessionDelegate,
-    _sel_URLSession_didReceiveChallenge_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionDelegate,
-      _sel_URLSession_didReceiveChallenge_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLAuthenticationChallenge arg2,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLAuthenticationChallenge arg2,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// If an application has received an
-  /// -application:handleEventsForBackgroundURLSession:completionHandler:
-  /// message, the session delegate will receive this message to indicate
-  /// that all messages previously enqueued for this session have been
-  /// delivered.  At this time it is safe to invoke the previously stored
-  /// completion handler, or to begin any internal updates that will
-  /// result in invoking the completion handler.
-  static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
-    _protocol_NSURLSessionDelegate,
-    _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionDelegate,
-      _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (void Function(NSURLSession) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-  );
-}
-
-late final _protocol_NSURLSessionTaskDelegate =
-    objc.getProtocol("NSURLSessionTaskDelegate");
 late final _sel_URLSession_didCreateTask_ =
     objc.registerName("URLSession:didCreateTask:");
 void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_fnPtrTrampoline(
@@ -65197,6 +62812,191 @@ extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLRespo
           arg3.ref.pointer,
           arg4.ref.pointer,
           arg5.ref.pointer);
+}
+
+/// WARNING: NSURLAuthenticationChallenge is a stub. To generate bindings for this class, include
+/// NSURLAuthenticationChallenge in your config's objc-interfaces list.
+///
+/// NSURLAuthenticationChallenge
+class NSURLAuthenticationChallenge extends objc.ObjCObjectBase {
+  NSURLAuthenticationChallenge._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSURLAuthenticationChallenge] that points to the same underlying object as [other].
+  NSURLAuthenticationChallenge.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSURLAuthenticationChallenge] that wraps the given raw object pointer.
+  NSURLAuthenticationChallenge.castFromPointer(
+      ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false,
+      bool release = false})
+      : this._(other, retain: retain, release: release);
+}
+
+/// WARNING: NSURLCredential is a stub. To generate bindings for this class, include
+/// NSURLCredential in your config's objc-interfaces list.
+///
+/// NSURLCredential
+class NSURLCredential extends objc.ObjCObjectBase {
+  NSURLCredential._(ffi.Pointer<objc.ObjCObject> pointer,
+      {bool retain = false, bool release = false})
+      : super(pointer, retain: retain, release: release);
+
+  /// Constructs a [NSURLCredential] that points to the same underlying object as [other].
+  NSURLCredential.castFrom(objc.ObjCObjectBase other)
+      : this._(other.ref.pointer, retain: true, release: true);
+
+  /// Constructs a [NSURLCredential] that wraps the given raw object pointer.
+  NSURLCredential.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
+      {bool retain = false, bool release = false})
+      : this._(other, retain: retain, release: release);
+}
+
+void
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            int arg0,
+            ffi.Pointer<objc.ObjCObject> arg1) =>
+        block.ref.target
+                .cast<
+                    ffi.NativeFunction<
+                        ffi.Void Function(NSInteger arg0,
+                            ffi.Pointer<objc.ObjCObject> arg1)>>()
+                .asFunction<void Function(int, ffi.Pointer<objc.ObjCObject>)>()(
+            arg0, arg1);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_fnPtrTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            int arg0,
+            ffi.Pointer<objc.ObjCObject> arg1) =>
+        (objc.getBlockClosure(block) as void Function(
+            int, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_closureTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        int arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) {
+  (objc.getBlockClosure(block) as void Function(
+      int, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>`.
+abstract final class ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
+              pointer,
+              retain: retain,
+              release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<
+      ffi.Void Function(NSInteger, NSURLCredential?)> fromFunctionPointer(
+          ffi.Pointer<ffi.NativeFunction<ffi.Void Function(NSInteger arg0, ffi.Pointer<objc.ObjCObject> arg1)>>
+              ptr) =>
+      objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
+          objc.newPointerBlock(
+              _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_fnPtrCallable,
+              ptr.cast()),
+          retain: false,
+          release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
+      fromFunction(void Function(NSURLSessionAuthChallengeDisposition, NSURLCredential?) fn) =>
+          objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_closureCallable,
+                  (int arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+                      NSURLSessionAuthChallengeDisposition.fromValue(arg0),
+                      arg1.address == 0
+                          ? null
+                          : NSURLCredential.castFromPointer(arg1, retain: true, release: true))),
+              retain: false,
+              release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
+      listener(
+          void Function(NSURLSessionAuthChallengeDisposition, NSURLCredential?)
+              fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerCallable
+            .nativeFunction
+            .cast(),
+        (int arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            NSURLSessionAuthChallengeDisposition.fromValue(arg0),
+            arg1.address == 0
+                ? null
+                : NSURLCredential.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_37btrl(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>`.
+extension ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)> {
+  void call(NSURLSessionAuthChallengeDisposition arg0, NSURLCredential? arg1) =>
+      ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
+                          NSInteger arg0, ffi.Pointer<objc.ObjCObject> arg1)>>()
+              .asFunction<
+                  void Function(ffi.Pointer<objc.ObjCBlockImpl>, int,
+                      ffi.Pointer<objc.ObjCObject>)>()(
+          ref.pointer, arg0.value, arg1?.ref.pointer ?? ffi.nullptr);
 }
 
 late final _sel_URLSession_task_didReceiveChallenge_completionHandler_ =
@@ -66942,856 +64742,329 @@ extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_CallEx
           arg1.ref.pointer, arg2.ref.pointer, arg3?.ref.pointer ?? ffi.nullptr);
 }
 
-/// Messages related to the operation of a specific task.
-abstract final class NSURLSessionTaskDelegate {
-  /// Builds an object that implements the NSURLSessionTaskDelegate protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)?
-          URLSession_task_willBeginDelayedRequest_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask)?
-          URLSession_taskIsWaitingForConnectivity_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)?
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask,
-              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStream_,
-      void Function(
-              NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
-      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
-      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)? URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSURLSessionTaskDelegate.URLSession_didCreateTask_.implement(
-        builder, URLSession_didCreateTask_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_
-        .implement(builder,
-            URLSession_task_willBeginDelayedRequest_completionHandler_);
-    NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_.implement(
-        builder, URLSession_taskIsWaitingForConnectivity_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-        .implement(builder,
-            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_
-        .implement(
-            builder, URLSession_task_didReceiveChallenge_completionHandler_);
-    NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_.implement(
-        builder, URLSession_task_needNewBodyStream_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
-        .implement(builder,
-            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
-        .implement(builder,
-            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    NSURLSessionTaskDelegate.URLSession_task_didReceiveInformationalResponse_
-        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
-    NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_
-        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
-    NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_.implement(
-        builder, URLSession_task_didCompleteWithError_);
-    NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_.implement(
-        builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionTaskDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionTaskDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSURLSessionTaskDelegate protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)?
-          URLSession_task_willBeginDelayedRequest_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask)?
-          URLSession_taskIsWaitingForConnectivity_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)?
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStream_,
-      void Function(NSURLSession, NSURLSessionTask, int,
-              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
-      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
-      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)? URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    NSURLSessionTaskDelegate.URLSession_didCreateTask_.implement(
-        builder, URLSession_didCreateTask_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_
-        .implement(builder,
-            URLSession_task_willBeginDelayedRequest_completionHandler_);
-    NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_.implement(
-        builder, URLSession_taskIsWaitingForConnectivity_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-        .implement(builder,
-            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_
-        .implement(
-            builder, URLSession_task_didReceiveChallenge_completionHandler_);
-    NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_.implement(
-        builder, URLSession_task_needNewBodyStream_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
-        .implement(builder,
-            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
-        .implement(builder,
-            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    NSURLSessionTaskDelegate.URLSession_task_didReceiveInformationalResponse_
-        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
-    NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_
-        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
-    NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_.implement(
-        builder, URLSession_task_didCompleteWithError_);
-    NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_.implement(
-        builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionTaskDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionTaskDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-  }
-
-  /// Builds an object that implements the NSURLSessionTaskDelegate protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)?
-          URLSession_task_willBeginDelayedRequest_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask)?
-          URLSession_taskIsWaitingForConnectivity_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)?
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask,
-              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStream_,
-      void Function(
-              NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
-      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
-      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)? URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSURLSessionTaskDelegate.URLSession_didCreateTask_.implementAsListener(
-        builder, URLSession_didCreateTask_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_willBeginDelayedRequest_completionHandler_);
-    NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_
-        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_task_didReceiveChallenge_completionHandler_);
-    NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_
-        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
-        .implementAsListener(builder,
-            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    NSURLSessionTaskDelegate.URLSession_task_didReceiveInformationalResponse_
-        .implementAsListener(
-            builder, URLSession_task_didReceiveInformationalResponse_);
-    NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_
-        .implementAsListener(
-            builder, URLSession_task_didFinishCollectingMetrics_);
-    NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_
-        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
-    NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_
-        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionTaskDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionTaskDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implementAsListener(
-            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSURLSessionTaskDelegate protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)?
-          URLSession_task_willBeginDelayedRequest_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask)?
-          URLSession_taskIsWaitingForConnectivity_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)?
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStream_,
-      void Function(NSURLSession, NSURLSessionTask, int,
-              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
-      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
-      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)? URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    NSURLSessionTaskDelegate.URLSession_didCreateTask_.implementAsListener(
-        builder, URLSession_didCreateTask_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_willBeginDelayedRequest_completionHandler_);
-    NSURLSessionTaskDelegate.URLSession_taskIsWaitingForConnectivity_
-        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_task_didReceiveChallenge_completionHandler_);
-    NSURLSessionTaskDelegate.URLSession_task_needNewBodyStream_
-        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    NSURLSessionTaskDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
-        .implementAsListener(builder,
-            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    NSURLSessionTaskDelegate.URLSession_task_didReceiveInformationalResponse_
-        .implementAsListener(
-            builder, URLSession_task_didReceiveInformationalResponse_);
-    NSURLSessionTaskDelegate.URLSession_task_didFinishCollectingMetrics_
-        .implementAsListener(
-            builder, URLSession_task_didFinishCollectingMetrics_);
-    NSURLSessionTaskDelegate.URLSession_task_didCompleteWithError_
-        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
-    NSURLSessionTaskDelegate.URLSession_didBecomeInvalidWithError_
-        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionTaskDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionTaskDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implementAsListener(
-            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-  }
-
-  /// Notification that a task has been created.  This method is the first message
-  /// a task sends, providing a place to configure the task before it is resumed.
-  ///
-  /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
-  /// invoked synchronously before the task creation method returns.
-  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod<
-      void Function(NSURLSession, NSURLSessionTask)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_didCreateTask_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_didCreateTask_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, NSURLSessionTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// Sent when the system is ready to begin work for a task with a delayed start
-  /// time set (using the earliestBeginDate property). The completionHandler must
-  /// be invoked in order for loading to proceed. The disposition provided to the
-  /// completion handler continues the load with the original request provided to
-  /// the task, replaces the request with the specified task, or cancels the task.
-  /// If this delegate is not implemented, loading will proceed with the original
-  /// request.
-  ///
-  /// Recommendation: only implement this delegate if tasks that have the
-  /// earliestBeginDate property set may become stale and require alteration prior
-  /// to starting the network load.
-  ///
-  /// If a new request is specified, the allowsExpensiveNetworkAccess,
-  /// allowsConstrainedNetworkAccess, and allowsCellularAccess properties
-  /// from the new request will not be used; the properties from the
-  /// original request will continue to be used.
-  ///
-  /// Canceling the task is equivalent to calling the task's cancel method; the
-  /// URLSession:task:didCompleteWithError: task delegate will be called with error
-  /// NSURLErrorCancelled.
-  static final URLSession_task_willBeginDelayedRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSURLRequest arg3,
-                    objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSURLRequest arg3,
-                    objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-  );
-
-  /// Sent when a task cannot start the network loading process because the current
-  /// network connectivity is not available or sufficient for the task's request.
-  ///
-  /// This delegate will be called at most one time per task, and is only called if
-  /// the waitsForConnectivity property in the NSURLSessionConfiguration has been
-  /// set to YES.
-  ///
-  /// This delegate callback will never be called for background sessions, because
-  /// the waitForConnectivity property is ignored by those sessions.
-  static final URLSession_taskIsWaitingForConnectivity_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_taskIsWaitingForConnectivity_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_taskIsWaitingForConnectivity_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, NSURLSessionTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// An HTTP request is attempting to perform a redirection to a different
-  /// URL. You must invoke the completion routine to allow the
-  /// redirection, allow the redirection with a modified request, or
-  /// pass nil to the completionHandler to cause the body of the redirection
-  /// response to be delivered as the payload of this request. The default
-  /// is to follow redirections.
-  ///
-  /// For tasks in background sessions, redirections will always be followed and this method will not be called.
-  static final URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-                NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSHTTPURLResponse arg3,
-                    NSURLRequest arg4,
-                    objc.ObjCBlock<ffi.Void Function(NSURLRequest?)> arg5) =>
-                func(arg1, arg2, arg3, arg4, arg5)),
-    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-                NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSHTTPURLResponse arg3,
-                    NSURLRequest arg4,
-                    objc.ObjCBlock<ffi.Void Function(NSURLRequest?)> arg5) =>
-                func(arg1, arg2, arg3, arg4, arg5)),
-  );
-
-  /// The task has received a request specific authentication challenge.
-  /// If this delegate is not implemented, the session specific authentication challenge
-  /// will *NOT* be called and the behavior will be the same as using the default handling
-  /// disposition.
-  static final URLSession_task_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_didReceiveChallenge_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_didReceiveChallenge_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSURLAuthenticationChallenge arg3,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSURLAuthenticationChallenge arg3,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-  );
-
-  /// Sent if a task requires a new, unopened body stream.  This may be
-  /// necessary when authentication has failed for any request that
-  /// involves a body stream.
-  static final URLSession_task_needNewBodyStream_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask,
-              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_needNewBodyStream_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_needNewBodyStream_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask,
-                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLSessionTask,
-                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// Tells the delegate if a task requires a new body stream starting from the given offset. This may be
-  /// necessary when resuming a failed upload task.
-  ///
-  /// - Parameter session: The session containing the task that needs a new body stream from the given offset.
-  /// - Parameter task: The task that needs a new body stream.
-  /// - Parameter offset: The starting offset required for the body stream.
-  /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
-  static final URLSession_task_needNewBodyStreamFromOffset_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, int,
-              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, int,
-                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    int arg3,
-                    objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-    (void Function(NSURLSession, NSURLSessionTask, int,
-                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    int arg3,
-                    objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-  );
-
-  /// Sent periodically to notify the delegate of upload progress.  This
-  /// information is also available as properties of the task.
-  static final URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, int, int, int)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
-                func(arg1, arg2, arg3, arg4, arg5)),
-    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
-            .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
-                func(arg1, arg2, arg3, arg4, arg5)),
-  );
-
-  /// Sent for each informational response received except 101 switching protocols.
-  static final URLSession_task_didReceiveInformationalResponse_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_didReceiveInformationalResponse_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_didReceiveInformationalResponse_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
-            .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// Sent when complete statistics information has been collected for the task.
-  static final URLSession_task_didFinishCollectingMetrics_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(
-              NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_didFinishCollectingMetrics_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_didFinishCollectingMetrics_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
-            .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// Sent as the last message related to a specific task.  Error may be
-  /// nil, which implies that no error occurred and this task is complete.
-  static final URLSession_task_didCompleteWithError_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, objc.NSError?)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_task_didCompleteWithError_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_task_didCompleteWithError_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, objc.NSError? arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
-            .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, objc.NSError? arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// The last message a session receives.  A session will only become
-  /// invalid because of a systemic error or when it has been
-  /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ = objc
-      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_didBecomeInvalidWithError_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_didBecomeInvalidWithError_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// If implemented, when a connection level authentication challenge
-  /// has occurred, this delegate will be given the opportunity to
-  /// provide authentication credentials to the underlying
-  /// connection. Some types of authentication will apply to more than
-  /// one request on a given connection to a server (SSL Server Trust
-  /// challenges).  If this delegate message is not implemented, the
-  /// behavior will be to use the default handling, which may involve user
-  /// interaction.
-  static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSession_didReceiveChallenge_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSession_didReceiveChallenge_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLAuthenticationChallenge arg2,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLAuthenticationChallenge arg2,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// If an application has received an
-  /// -application:handleEventsForBackgroundURLSession:completionHandler:
-  /// message, the session delegate will receive this message to indicate
-  /// that all messages previously enqueued for this session have been
-  /// delivered.  At this time it is safe to invoke the previously stored
-  /// completion handler, or to begin any internal updates that will
-  /// result in invoking the completion handler.
-  static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
-    _protocol_NSURLSessionTaskDelegate,
-    _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionTaskDelegate,
-      _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (void Function(NSURLSession) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-  );
-}
-
-late final _protocol_NSURLSessionDataDelegate =
-    objc.getProtocol("NSURLSessionDataDelegate");
-void _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, int arg0) =>
+late final _sel_URLSession_didBecomeInvalidWithError_ =
+    objc.registerName("URLSession:didBecomeInvalidWithError:");
+void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2) =>
     block.ref.target
-        .cast<ffi.NativeFunction<ffi.Void Function(NSInteger arg0)>>()
-        .asFunction<void Function(int)>()(arg0);
+        .cast<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void> arg0,
+                    ffi.Pointer<objc.ObjCObject> arg1,
+                    ffi.Pointer<objc.ObjCObject> arg2)>>()
+        .asFunction<
+            void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
 ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_fnPtrCallable =
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_fnPtrCallable =
     ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>(
-            _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_fnPtrTrampoline)
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_fnPtrTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, int arg0) =>
-    (objc.getBlockClosure(block) as void Function(int))(arg0);
+void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2) =>
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
 ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_closureCallable =
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_closureCallable =
     ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>(
-            _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_closureTrampoline)
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_closureTrampoline)
         .cast();
-void _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block, int arg0) {
-  (objc.getBlockClosure(block) as void Function(int))(arg0);
+void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1,
+    ffi.Pointer<objc.ObjCObject> arg2) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
   objc.objectRelease(block.cast());
 }
 
 ffi.NativeCallable<
-        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>
-    _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerCallable = ffi
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerCallable = ffi
         .NativeCallable<
             ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>.listener(
-        _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerTrampoline)
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
 
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSInteger)>`.
-abstract final class ObjCBlock_ffiVoid_NSURLSessionResponseDisposition {
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError {
   /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(NSInteger)> castFromPointer(
-          ffi.Pointer<objc.ObjCBlockImpl> pointer,
-          {bool retain = false,
-          bool release = false}) =>
-      objc.ObjCBlock<ffi.Void Function(NSInteger)>(pointer,
-          retain: retain, release: release);
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+              ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+                  objc.NSError?)>(pointer, retain: retain, release: release);
 
   /// Creates a block from a C function pointer.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(NSInteger)> fromFunctionPointer(
-          ffi.Pointer<ffi.NativeFunction<ffi.Void Function(NSInteger arg0)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(NSInteger)>(
-          objc.newPointerBlock(
-              _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_fnPtrCallable,
-              ptr.cast()),
-          retain: false,
-          release: true);
+  static objc
+      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>
+      fromFunctionPointer(
+              ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2)>>
+                  ptr) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>(
+              objc.newPointerBlock(
+                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_fnPtrCallable,
+                  ptr.cast()),
+              retain: false,
+              release: true);
 
   /// Creates a block from a Dart function.
   ///
   /// This block must be invoked by native code running on the same thread as
   /// the isolate that registered it. Invoking the block on the wrong thread
   /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(NSInteger)> fromFunction(
-          void Function(NSURLSessionResponseDisposition) fn) =>
-      objc.ObjCBlock<ffi.Void Function(NSInteger)>(
+  static objc
+      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>
+      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?) fn) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2) => fn(
+                      arg0,
+                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
+                      arg2.address == 0 ? null : objc.NSError.castFromPointer(arg2, retain: true, release: true))),
+              retain: false,
+              release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)> listener(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?) fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                arg2.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg2,
+                        retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ao4xm9(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+            objc.NSError?)>(wrapper, retain: false, release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_CallExtension
+    on objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)> {
+  void call(
+          ffi.Pointer<ffi.Void> arg0, NSURLSession arg1, objc.NSError? arg2) =>
+      ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCObject> arg2)>>()
+              .asFunction<
+                  void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl>,
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0,
+          arg1.ref.pointer, arg2?.ref.pointer ?? ffi.nullptr);
+}
+
+late final _sel_URLSession_didReceiveChallenge_completionHandler_ =
+    objc.registerName("URLSession:didReceiveChallenge:completionHandler:");
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+        block.ref.target
+            .cast<
+                ffi.NativeFunction<
+                    ffi.Void Function(
+                        ffi.Pointer<ffi.Void> arg0,
+                        ffi.Pointer<objc.ObjCObject> arg1,
+                        ffi.Pointer<objc.ObjCObject> arg2,
+                        ffi.Pointer<objc.ObjCBlockImpl> arg3)>>()
+            .asFunction<
+                void Function(
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCBlockImpl>)>()(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCBlockImpl>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_fnPtrTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCObject> arg2,
+            ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+        (objc.getBlockClosure(block) as void Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCBlockImpl>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_closureTrampoline)
+        .cast();
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCBlockImpl> arg3) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<ffi.Void>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCObject>,
+      ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLAuthenticationChallenge,
+              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer, {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+                  ffi.Void Function(
+                      ffi.Pointer<ffi.Void>,
+                      NSURLSession,
+                      NSURLAuthenticationChallenge,
+                      objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(pointer,
+              retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLAuthenticationChallenge,
+              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCBlockImpl> arg3)>> ptr) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
+              objc.newPointerBlock(
+                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_fnPtrCallable,
+                  ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>) fn) =>
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
           objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_closureCallable,
-              (int arg0) =>
-                  fn(NSURLSessionResponseDisposition.fromValue(arg0))),
+              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1,
+                      ffi.Pointer<objc.ObjCObject> arg2,
+                      ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+                  fn(
+                      arg0,
+                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
+                      NSURLAuthenticationChallenge.castFromPointer(arg2, retain: true, release: true),
+                      ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential.castFromPointer(arg3, retain: true, release: true))),
           retain: false,
           release: true);
 
@@ -67804,1174 +65077,217 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionResponseDisposition {
   ///
   /// Note that unlike the default behavior of NativeCallable.listener, listener
   /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<ffi.Void Function(NSInteger)> listener(
-      void Function(NSURLSessionResponseDisposition) fn) {
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLAuthenticationChallenge,
+          objc.ObjCBlock<
+              ffi.Void Function(NSInteger, NSURLCredential?)>)> listener(
+      void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLAuthenticationChallenge,
+              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
+          fn) {
     final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerCallable
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerCallable
             .nativeFunction
             .cast(),
-        (int arg0) => fn(NSURLSessionResponseDisposition.fromValue(arg0)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_16sve1d(raw);
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLAuthenticationChallenge.castFromPointer(arg2,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
+                    .castFromPointer(arg3, retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_12nszru(raw);
     objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(NSInteger)>(wrapper,
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLAuthenticationChallenge,
+                objc.ObjCBlock<
+                    ffi.Void Function(NSInteger, NSURLCredential?)>)>(wrapper,
         retain: false, release: true);
   }
 }
 
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(NSInteger)>`.
-extension ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(NSInteger)> {
-  void call(NSURLSessionResponseDisposition arg0) => ref.pointer.ref.invoke
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_CallExtension
+    on objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLAuthenticationChallenge,
+            objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)> {
+  void call(
+          ffi.Pointer<ffi.Void> arg0,
+          NSURLSession arg1,
+          NSURLAuthenticationChallenge arg2,
+          objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
+              arg3) =>
+      ref.pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      ffi.Void Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCObject> arg2,
+                          ffi.Pointer<objc.ObjCBlockImpl> arg3)>>()
+              .asFunction<
+                  void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl>,
+                      ffi.Pointer<ffi.Void>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCObject>,
+                      ffi.Pointer<objc.ObjCBlockImpl>)>()(
+          ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer, arg3.ref.pointer);
+}
+
+late final _sel_URLSessionDidFinishEventsForBackgroundURLSession_ =
+    objc.registerName("URLSessionDidFinishEventsForBackgroundURLSession:");
+void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
+                    ffi.Pointer<objc.ObjCObject> arg1)>>()
+        .asFunction<
+            void Function(ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_fnPtrTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_closureTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+              ffi.Void Function(ffi.Pointer<ffi.Void>,
+                  NSURLSession)>(pointer, retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
+      fromFunctionPointer(
+              ffi.Pointer<
+                      ffi.NativeFunction<
+                          ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
+                              ffi.Pointer<objc.ObjCObject> arg1)>>
+                  ptr) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>(
+              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
+      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession) fn) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
+                      fn(
+                          arg0,
+                          NSURLSession.castFromPointer(arg1,
+                              retain: true, release: true))),
+              retain: false,
+              release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
+      listener(void Function(ffi.Pointer<ffi.Void>, NSURLSession) fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            arg0,
+            NSURLSession.castFromPointer(arg1, retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjovn7(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>(wrapper,
+        retain: false, release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)> {
+  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1) => ref
+          .pointer.ref.invoke
           .cast<
               ffi.NativeFunction<
                   ffi.Void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block, NSInteger arg0)>>()
-          .asFunction<void Function(ffi.Pointer<objc.ObjCBlockImpl>, int)>()(
-      ref.pointer, arg0.value);
-}
-
-late final _sel_URLSession_dataTask_didReceiveResponse_completionHandler_ = objc
-    .registerName("URLSession:dataTask:didReceiveResponse:completionHandler:");
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3,
-            ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
-        block.ref.target
-                .cast<
-                    ffi.NativeFunction<
-                        ffi.Void Function(
-                            ffi.Pointer<ffi.Void> arg0,
-                            ffi.Pointer<objc.ObjCObject> arg1,
-                            ffi.Pointer<objc.ObjCObject> arg2,
-                            ffi.Pointer<objc.ObjCObject> arg3,
-                            ffi.Pointer<objc.ObjCBlockImpl> arg4)>>()
-                .asFunction<
-                    void Function(
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCBlockImpl>)>()(
-            arg0, arg1, arg2, arg3, arg4);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCBlockImpl>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3,
-            ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
-        (objc.getBlockClosure(block) as void Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCBlockImpl>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2,
-        ffi.Pointer<objc.ObjCObject> arg3,
-        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCBlockImpl>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerCallable =
-    ffi.NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>,
-              NSURLSession,
-              NSURLSessionDataTask,
-              NSURLResponse,
-              objc.ObjCBlock<ffi.Void Function(NSInteger)>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(
-                  ffi.Pointer<ffi.Void>,
-                  NSURLSession,
-                  NSURLSessionDataTask,
-                  NSURLResponse,
-                  objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-      ffi.Void Function(
-          ffi.Pointer<ffi.Void>,
-          NSURLSession,
-          NSURLSessionDataTask,
-          NSURLResponse,
-          objc.ObjCBlock<ffi.Void Function(NSInteger)>)> fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCBlockImpl> arg4)>> ptr) =>
-      objc.ObjCBlock<
-              ffi.Void Function(
-                  ffi.Pointer<ffi.Void>,
-                  NSURLSession,
-                  NSURLSessionDataTask,
-                  NSURLResponse,
-                  objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(
-          objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCBlockImpl> arg4) => fn(
-                      arg0,
-                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
-                      NSURLResponse.castFromPointer(arg3, retain: true, release: true),
-                      ObjCBlock_ffiVoid_NSURLSessionResponseDisposition.castFromPointer(arg4, retain: true, release: true))),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(
-          ffi.Pointer<ffi.Void>,
-          NSURLSession,
-          NSURLSessionDataTask,
-          NSURLResponse,
-          objc.ObjCBlock<ffi.Void Function(NSInteger)>)> listener(
-      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
-              NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)
-          fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0,
-                ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2,
-                ffi.Pointer<objc.ObjCObject> arg3,
-                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
-            fn(
-                arg0,
-                NSURLSession.castFromPointer(arg1,
-                    retain: false, release: true),
-                NSURLSessionDataTask.castFromPointer(arg2,
-                    retain: false, release: true),
-                NSURLResponse.castFromPointer(arg3,
-                    retain: false, release: true),
-                ObjCBlock_ffiVoid_NSURLSessionResponseDisposition
-                    .castFromPointer(arg4, retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1f43wec(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-            ffi.Void Function(
-                ffi.Pointer<ffi.Void>,
-                NSURLSession,
-                NSURLSessionDataTask,
-                NSURLResponse,
-                objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(wrapper,
-        retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>,
-            NSURLSession,
-            NSURLSessionDataTask,
-            NSURLResponse,
-            objc.ObjCBlock<ffi.Void Function(NSInteger)>)> {
-  void call(
-          ffi.Pointer<ffi.Void> arg0,
-          NSURLSession arg1,
-          NSURLSessionDataTask arg2,
-          NSURLResponse arg3,
-          objc.ObjCBlock<ffi.Void Function(NSInteger)> arg4) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCObject> arg3,
-                          ffi.Pointer<objc.ObjCBlockImpl> arg4)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCBlockImpl>)>()(
-          ref.pointer,
-          arg0,
-          arg1.ref.pointer,
-          arg2.ref.pointer,
-          arg3.ref.pointer,
-          arg4.ref.pointer);
-}
-
-late final _sel_URLSession_dataTask_didBecomeDownloadTask_ =
-    objc.registerName("URLSession:dataTask:didBecomeDownloadTask:");
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Void Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCObject> arg1,
-                        ffi.Pointer<objc.ObjCObject> arg2,
-                        ffi.Pointer<objc.ObjCObject> arg3)>>()
-            .asFunction<
-                void Function(
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3) =>
-        (objc.getBlockClosure(block) as void Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2,
-        ffi.Pointer<objc.ObjCObject> arg3) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerCallable =
-    ffi.NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-              NSURLSessionDataTask, NSURLSessionDownloadTask)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-                      NSURLSessionDataTask, NSURLSessionDownloadTask)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-              NSURLSessionDataTask, NSURLSessionDownloadTask)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-                      NSURLSessionDataTask, NSURLSessionDownloadTask)>(
-              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask) fn) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1,
-                      ffi.Pointer<objc.ObjCObject> arg2,
-                      ffi.Pointer<objc.ObjCObject> arg3) =>
-                  fn(
-                      arg0,
-                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
-                      NSURLSessionDownloadTask.castFromPointer(arg3, retain: true, release: true))),
-          retain: false,
-          release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-          NSURLSessionDataTask, NSURLSessionDownloadTask)> listener(
-      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
-              NSURLSessionDownloadTask)
-          fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0,
-                ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2,
-                ffi.Pointer<objc.ObjCObject> arg3) =>
-            fn(
-                arg0,
-                NSURLSession.castFromPointer(arg1,
-                    retain: false, release: true),
-                NSURLSessionDataTask.castFromPointer(arg2,
-                    retain: false, release: true),
-                NSURLSessionDownloadTask.castFromPointer(arg3,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>,
-            NSURLSession,
-            NSURLSessionDataTask,
-            NSURLSessionDownloadTask)>(wrapper, retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-            NSURLSessionDataTask, NSURLSessionDownloadTask)> {
-  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1,
-          NSURLSessionDataTask arg2, NSURLSessionDownloadTask arg3) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCObject> arg3)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0,
-          arg1.ref.pointer, arg2.ref.pointer, arg3.ref.pointer);
-}
-
-late final _sel_URLSession_dataTask_didBecomeStreamTask_ =
-    objc.registerName("URLSession:dataTask:didBecomeStreamTask:");
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Void Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCObject> arg1,
-                        ffi.Pointer<objc.ObjCObject> arg2,
-                        ffi.Pointer<objc.ObjCObject> arg3)>>()
-            .asFunction<
-                void Function(
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3) =>
-        (objc.getBlockClosure(block) as void Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2,
-        ffi.Pointer<objc.ObjCObject> arg3) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerCallable =
-    ffi.NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-              NSURLSessionDataTask, NSURLSessionStreamTask)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-                      NSURLSessionDataTask, NSURLSessionStreamTask)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-              NSURLSessionDataTask, NSURLSessionStreamTask)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-                      NSURLSessionDataTask, NSURLSessionStreamTask)>(
-              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask) fn) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1,
-                      ffi.Pointer<objc.ObjCObject> arg2,
-                      ffi.Pointer<objc.ObjCObject> arg3) =>
-                  fn(
-                      arg0,
-                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
-                      NSURLSessionStreamTask.castFromPointer(arg3, retain: true, release: true))),
-          retain: false,
-          release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-          NSURLSessionDataTask, NSURLSessionStreamTask)> listener(
-      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
-              NSURLSessionStreamTask)
-          fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0,
-                ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2,
-                ffi.Pointer<objc.ObjCObject> arg3) =>
-            fn(
-                arg0,
-                NSURLSession.castFromPointer(arg1,
-                    retain: false, release: true),
-                NSURLSessionDataTask.castFromPointer(arg2,
-                    retain: false, release: true),
-                NSURLSessionStreamTask.castFromPointer(arg3,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>,
-            NSURLSession,
-            NSURLSessionDataTask,
-            NSURLSessionStreamTask)>(wrapper, retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-            NSURLSessionDataTask, NSURLSessionStreamTask)> {
-  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1,
-          NSURLSessionDataTask arg2, NSURLSessionStreamTask arg3) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCObject> arg3)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0,
-          arg1.ref.pointer, arg2.ref.pointer, arg3.ref.pointer);
-}
-
-late final _sel_URLSession_dataTask_didReceiveData_ =
-    objc.registerName("URLSession:dataTask:didReceiveData:");
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Void Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCObject> arg1,
-                        ffi.Pointer<objc.ObjCObject> arg2,
-                        ffi.Pointer<objc.ObjCObject> arg3)>>()
-            .asFunction<
-                void Function(
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3) =>
-        (objc.getBlockClosure(block) as void Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2,
-        ffi.Pointer<objc.ObjCObject> arg3) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerCallable =
-    ffi.NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-              NSURLSessionDataTask, objc.NSData)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(
-                  ffi.Pointer<ffi.Void>,
-                  NSURLSession,
-                  NSURLSessionDataTask,
-                  objc.NSData)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-              NSURLSessionDataTask, objc.NSData)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-                      NSURLSessionDataTask, objc.NSData)>(
-              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData) fn) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1,
-                      ffi.Pointer<objc.ObjCObject> arg2,
-                      ffi.Pointer<objc.ObjCObject> arg3) =>
-                  fn(
-                      arg0,
-                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
-                      objc.NSData.castFromPointer(arg3, retain: true, release: true))),
-          retain: false,
-          release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-          NSURLSessionDataTask, objc.NSData)> listener(
-      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
-              objc.NSData)
-          fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0,
-                ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2,
-                ffi.Pointer<objc.ObjCObject> arg3) =>
-            fn(
-                arg0,
-                NSURLSession.castFromPointer(arg1,
-                    retain: false, release: true),
-                NSURLSessionDataTask.castFromPointer(arg2,
-                    retain: false, release: true),
-                objc.NSData.castFromPointer(arg3,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>,
-            NSURLSession,
-            NSURLSessionDataTask,
-            objc.NSData)>(wrapper, retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-            NSURLSessionDataTask, objc.NSData)> {
-  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1,
-          NSURLSessionDataTask arg2, objc.NSData arg3) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCObject> arg3)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(ref.pointer, arg0,
-          arg1.ref.pointer, arg2.ref.pointer, arg3.ref.pointer);
-}
-
-late final _sel_URLSession_dataTask_willCacheResponse_completionHandler_ = objc
-    .registerName("URLSession:dataTask:willCacheResponse:completionHandler:");
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3,
-            ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
-        block.ref.target
-                .cast<
-                    ffi.NativeFunction<
-                        ffi.Void Function(
-                            ffi.Pointer<ffi.Void> arg0,
-                            ffi.Pointer<objc.ObjCObject> arg1,
-                            ffi.Pointer<objc.ObjCObject> arg2,
-                            ffi.Pointer<objc.ObjCObject> arg3,
-                            ffi.Pointer<objc.ObjCBlockImpl> arg4)>>()
-                .asFunction<
-                    void Function(
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCBlockImpl>)>()(
-            arg0, arg1, arg2, arg3, arg4);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCBlockImpl>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3,
-            ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
-        (objc.getBlockClosure(block) as void Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCBlockImpl>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2,
-        ffi.Pointer<objc.ObjCObject> arg3,
-        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCBlockImpl>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerCallable =
-    ffi.NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>,
-              NSURLSession,
-              NSURLSessionDataTask,
-              NSCachedURLResponse,
-              objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(
-                  ffi.Pointer<ffi.Void>,
-                  NSURLSession,
-                  NSURLSessionDataTask,
-                  NSCachedURLResponse,
-                  objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-      ffi.Void Function(
-          ffi.Pointer<ffi.Void>,
-          NSURLSession,
-          NSURLSessionDataTask,
-          NSCachedURLResponse,
-          objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)> fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCBlockImpl> arg4)>> ptr) =>
-      objc.ObjCBlock<
-              ffi.Void Function(
-                  ffi.Pointer<ffi.Void>,
-                  NSURLSession,
-                  NSURLSessionDataTask,
-                  NSCachedURLResponse,
-                  objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(
-          objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCBlockImpl> arg4) => fn(
-                      arg0,
-                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                      NSURLSessionDataTask.castFromPointer(arg2, retain: true, release: true),
-                      NSCachedURLResponse.castFromPointer(arg3, retain: true, release: true),
-                      ObjCBlock_ffiVoid_NSCachedURLResponse.castFromPointer(arg4, retain: true, release: true))),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(
-          ffi.Pointer<ffi.Void>,
-          NSURLSession,
-          NSURLSessionDataTask,
-          NSCachedURLResponse,
-          objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)> listener(
-      void Function(
-              ffi.Pointer<ffi.Void>,
-              NSURLSession,
-              NSURLSessionDataTask,
-              NSCachedURLResponse,
-              objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)
-          fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0,
-                ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2,
-                ffi.Pointer<objc.ObjCObject> arg3,
-                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
-            fn(
-                arg0,
-                NSURLSession.castFromPointer(arg1,
-                    retain: false, release: true),
-                NSURLSessionDataTask.castFromPointer(arg2,
-                    retain: false, release: true),
-                NSCachedURLResponse.castFromPointer(arg3,
-                    retain: false, release: true),
-                ObjCBlock_ffiVoid_NSCachedURLResponse.castFromPointer(arg4,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1f43wec(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-            ffi.Void Function(
-                ffi.Pointer<ffi.Void>,
-                NSURLSession,
-                NSURLSessionDataTask,
-                NSCachedURLResponse,
-                objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(
-        wrapper,
-        retain: false,
-        release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>,
-            NSURLSession,
-            NSURLSessionDataTask,
-            NSCachedURLResponse,
-            objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)> {
-  void call(
-          ffi.Pointer<ffi.Void> arg0,
-          NSURLSession arg1,
-          NSURLSessionDataTask arg2,
-          NSCachedURLResponse arg3,
-          objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)> arg4) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCObject> arg3,
-                          ffi.Pointer<objc.ObjCBlockImpl> arg4)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCBlockImpl>)>()(
-          ref.pointer,
-          arg0,
-          arg1.ref.pointer,
-          arg2.ref.pointer,
-          arg3.ref.pointer,
-          arg4.ref.pointer);
+                      ffi.Pointer<objc.ObjCBlockImpl> block,
+                      ffi.Pointer<ffi.Void> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1)>>()
+          .asFunction<
+              void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                  ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
+      ref.pointer, arg0, arg1.ref.pointer);
 }
 
 /// Messages related to the operation of a task that delivers data
@@ -71605,1416 +67921,6 @@ abstract final class NSURLSessionDownloadDelegate {
     _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
     objc.getProtocolMethodSignature(
       _protocol_NSURLSessionDownloadDelegate,
-      _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-    (void Function(NSURLSession) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1) => func(arg1)),
-  );
-}
-
-late final _protocol_NSURLSessionStreamDelegate =
-    objc.getProtocol("NSURLSessionStreamDelegate");
-late final _sel_URLSession_readClosedForStreamTask_ =
-    objc.registerName("URLSession:readClosedForStreamTask:");
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Void Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCObject> arg1,
-                        ffi.Pointer<objc.ObjCObject> arg2)>>()
-            .asFunction<
-                void Function(
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2) =>
-        (objc.getBlockClosure(block) as void Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_listenerTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_listenerCallable =
-    ffi.NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-                      NSURLSessionStreamTask)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)>(
-          objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2) =>
-                      fn(
-                          arg0,
-                          NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                          NSURLSessionStreamTask.castFromPointer(arg2, retain: true, release: true))),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-          NSURLSessionStreamTask)> listener(
-      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)
-          fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2) =>
-            fn(
-                arg0,
-                NSURLSession.castFromPointer(arg1,
-                    retain: false, release: true),
-                NSURLSessionStreamTask.castFromPointer(arg2,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ao4xm9(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-            NSURLSessionStreamTask)>(wrapper, retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask)> {
-  void call(ffi.Pointer<ffi.Void> arg0, NSURLSession arg1,
-          NSURLSessionStreamTask arg2) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer);
-}
-
-late final _sel_URLSession_writeClosedForStreamTask_ =
-    objc.registerName("URLSession:writeClosedForStreamTask:");
-late final _sel_URLSession_betterRouteDiscoveredForStreamTask_ =
-    objc.registerName("URLSession:betterRouteDiscoveredForStreamTask:");
-late final _sel_URLSession_streamTask_didBecomeInputStream_outputStream_ = objc
-    .registerName("URLSession:streamTask:didBecomeInputStream:outputStream:");
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3,
-            ffi.Pointer<objc.ObjCObject> arg4) =>
-        block.ref.target
-                .cast<
-                    ffi.NativeFunction<
-                        ffi.Void Function(
-                            ffi.Pointer<ffi.Void> arg0,
-                            ffi.Pointer<objc.ObjCObject> arg1,
-                            ffi.Pointer<objc.ObjCObject> arg2,
-                            ffi.Pointer<objc.ObjCObject> arg3,
-                            ffi.Pointer<objc.ObjCObject> arg4)>>()
-                .asFunction<
-                    void Function(
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCObject>,
-                        ffi.Pointer<objc.ObjCObject>)>()(
-            arg0, arg1, arg2, arg3, arg4);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_fnPtrTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCObject> arg2,
-            ffi.Pointer<objc.ObjCObject> arg3,
-            ffi.Pointer<objc.ObjCObject> arg4) =>
-        (objc.getBlockClosure(block) as void Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3, arg4);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_closureTrampoline)
-        .cast();
-void
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_listenerTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2,
-        ffi.Pointer<objc.ObjCObject> arg3,
-        ffi.Pointer<objc.ObjCObject> arg4) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3, arg4);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_listenerCallable =
-    ffi.NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-              NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(
-                  ffi.Pointer<ffi.Void>,
-                  NSURLSession,
-                  NSURLSessionStreamTask,
-                  objc.NSInputStream,
-                  objc.NSOutputStream)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-              NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2, ffi.Pointer<objc.ObjCObject> arg3, ffi.Pointer<objc.ObjCObject> arg4)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(
-                      ffi.Pointer<ffi.Void>,
-                      NSURLSession,
-                      NSURLSessionStreamTask,
-                      objc.NSInputStream,
-                      objc.NSOutputStream)>(
-              objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)> fromFunction(void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream) fn) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1,
-                      ffi.Pointer<objc.ObjCObject> arg2,
-                      ffi.Pointer<objc.ObjCObject> arg3,
-                      ffi.Pointer<objc.ObjCObject> arg4) =>
-                  fn(
-                      arg0,
-                      NSURLSession.castFromPointer(arg1, retain: true, release: true),
-                      NSURLSessionStreamTask.castFromPointer(arg2, retain: true, release: true),
-                      objc.NSInputStream.castFromPointer(arg3, retain: true, release: true),
-                      objc.NSOutputStream.castFromPointer(arg4, retain: true, release: true))),
-          retain: false,
-          release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(
-          ffi.Pointer<ffi.Void>,
-          NSURLSession,
-          NSURLSessionStreamTask,
-          objc.NSInputStream,
-          objc.NSOutputStream)> listener(
-      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask,
-              objc.NSInputStream, objc.NSOutputStream)
-          fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0,
-                ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2,
-                ffi.Pointer<objc.ObjCObject> arg3,
-                ffi.Pointer<objc.ObjCObject> arg4) =>
-            fn(
-                arg0,
-                NSURLSession.castFromPointer(arg1,
-                    retain: false, release: true),
-                NSURLSessionStreamTask.castFromPointer(arg2,
-                    retain: false, release: true),
-                objc.NSInputStream.castFromPointer(arg3,
-                    retain: false, release: true),
-                objc.NSOutputStream.castFromPointer(arg4,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_62mtml(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>,
-            NSURLSession,
-            NSURLSessionStreamTask,
-            objc.NSInputStream,
-            objc.NSOutputStream)>(wrapper, retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
-            NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)> {
-  void call(
-          ffi.Pointer<ffi.Void> arg0,
-          NSURLSession arg1,
-          NSURLSessionStreamTask arg2,
-          objc.NSInputStream arg3,
-          objc.NSOutputStream arg4) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2,
-                          ffi.Pointer<objc.ObjCObject> arg3,
-                          ffi.Pointer<objc.ObjCObject> arg4)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer,
-          arg0,
-          arg1.ref.pointer,
-          arg2.ref.pointer,
-          arg3.ref.pointer,
-          arg4.ref.pointer);
-}
-
-/// NSURLSessionStreamDelegate
-abstract final class NSURLSessionStreamDelegate {
-  /// Builds an object that implements the NSURLSessionStreamDelegate protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_readClosedForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_writeClosedForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_betterRouteDiscoveredForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)?
-          URLSession_streamTask_didBecomeInputStream_outputStream_,
-      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)?
-          URLSession_task_willBeginDelayedRequest_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask)?
-          URLSession_taskIsWaitingForConnectivity_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)?
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(
-              NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStream_,
-      void Function(NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
-      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
-      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)? URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_.implement(
-        builder, URLSession_readClosedForStreamTask_);
-    NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_.implement(
-        builder, URLSession_writeClosedForStreamTask_);
-    NSURLSessionStreamDelegate.URLSession_betterRouteDiscoveredForStreamTask_
-        .implement(builder, URLSession_betterRouteDiscoveredForStreamTask_);
-    NSURLSessionStreamDelegate
-            .URLSession_streamTask_didBecomeInputStream_outputStream_
-        .implement(
-            builder, URLSession_streamTask_didBecomeInputStream_outputStream_);
-    NSURLSessionStreamDelegate.URLSession_didCreateTask_.implement(
-        builder, URLSession_didCreateTask_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_
-        .implement(builder,
-            URLSession_task_willBeginDelayedRequest_completionHandler_);
-    NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_
-        .implement(builder, URLSession_taskIsWaitingForConnectivity_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-        .implement(builder,
-            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_
-        .implement(
-            builder, URLSession_task_didReceiveChallenge_completionHandler_);
-    NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_.implement(
-        builder, URLSession_task_needNewBodyStream_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
-        .implement(builder,
-            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
-        .implement(builder,
-            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    NSURLSessionStreamDelegate.URLSession_task_didReceiveInformationalResponse_
-        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
-    NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_
-        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
-    NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_.implement(
-        builder, URLSession_task_didCompleteWithError_);
-    NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_.implement(
-        builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionStreamDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionStreamDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSURLSessionStreamDelegate protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_readClosedForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_writeClosedForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_betterRouteDiscoveredForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)?
-          URLSession_streamTask_didBecomeInputStream_outputStream_,
-      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)?
-          URLSession_task_willBeginDelayedRequest_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask)?
-          URLSession_taskIsWaitingForConnectivity_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)?
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(
-              NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStream_,
-      void Function(NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
-      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
-      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)? URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_.implement(
-        builder, URLSession_readClosedForStreamTask_);
-    NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_.implement(
-        builder, URLSession_writeClosedForStreamTask_);
-    NSURLSessionStreamDelegate.URLSession_betterRouteDiscoveredForStreamTask_
-        .implement(builder, URLSession_betterRouteDiscoveredForStreamTask_);
-    NSURLSessionStreamDelegate
-            .URLSession_streamTask_didBecomeInputStream_outputStream_
-        .implement(
-            builder, URLSession_streamTask_didBecomeInputStream_outputStream_);
-    NSURLSessionStreamDelegate.URLSession_didCreateTask_.implement(
-        builder, URLSession_didCreateTask_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_
-        .implement(builder,
-            URLSession_task_willBeginDelayedRequest_completionHandler_);
-    NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_
-        .implement(builder, URLSession_taskIsWaitingForConnectivity_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-        .implement(builder,
-            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_
-        .implement(
-            builder, URLSession_task_didReceiveChallenge_completionHandler_);
-    NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_.implement(
-        builder, URLSession_task_needNewBodyStream_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
-        .implement(builder,
-            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
-        .implement(builder,
-            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    NSURLSessionStreamDelegate.URLSession_task_didReceiveInformationalResponse_
-        .implement(builder, URLSession_task_didReceiveInformationalResponse_);
-    NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_
-        .implement(builder, URLSession_task_didFinishCollectingMetrics_);
-    NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_.implement(
-        builder, URLSession_task_didCompleteWithError_);
-    NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_.implement(
-        builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionStreamDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implement(builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionStreamDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implement(builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-  }
-
-  /// Builds an object that implements the NSURLSessionStreamDelegate protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_readClosedForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_writeClosedForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_betterRouteDiscoveredForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)?
-          URLSession_streamTask_didBecomeInputStream_outputStream_,
-      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)?
-          URLSession_task_willBeginDelayedRequest_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask)?
-          URLSession_taskIsWaitingForConnectivity_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)?
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(
-              NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStream_,
-      void Function(NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
-      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
-      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)? URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_
-        .implementAsListener(builder, URLSession_readClosedForStreamTask_);
-    NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_
-        .implementAsListener(builder, URLSession_writeClosedForStreamTask_);
-    NSURLSessionStreamDelegate.URLSession_betterRouteDiscoveredForStreamTask_
-        .implementAsListener(
-            builder, URLSession_betterRouteDiscoveredForStreamTask_);
-    NSURLSessionStreamDelegate
-            .URLSession_streamTask_didBecomeInputStream_outputStream_
-        .implementAsListener(
-            builder, URLSession_streamTask_didBecomeInputStream_outputStream_);
-    NSURLSessionStreamDelegate.URLSession_didCreateTask_.implementAsListener(
-        builder, URLSession_didCreateTask_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_willBeginDelayedRequest_completionHandler_);
-    NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_
-        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_task_didReceiveChallenge_completionHandler_);
-    NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_
-        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
-        .implementAsListener(builder,
-            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    NSURLSessionStreamDelegate.URLSession_task_didReceiveInformationalResponse_
-        .implementAsListener(
-            builder, URLSession_task_didReceiveInformationalResponse_);
-    NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_
-        .implementAsListener(
-            builder, URLSession_task_didFinishCollectingMetrics_);
-    NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_
-        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
-    NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_
-        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionStreamDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionStreamDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implementAsListener(
-            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSURLSessionStreamDelegate protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_readClosedForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_writeClosedForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask)?
-          URLSession_betterRouteDiscoveredForStreamTask_,
-      void Function(NSURLSession, NSURLSessionStreamTask, objc.NSInputStream, objc.NSOutputStream)?
-          URLSession_streamTask_didBecomeInputStream_outputStream_,
-      void Function(NSURLSession, NSURLSessionTask)? URLSession_didCreateTask_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)?
-          URLSession_task_willBeginDelayedRequest_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask)?
-          URLSession_taskIsWaitingForConnectivity_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)?
-          URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)?
-          URLSession_task_didReceiveChallenge_completionHandler_,
-      void Function(
-              NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)?
-          URLSession_task_needNewBodyStream_,
-      void Function(NSURLSession, NSURLSessionTask, int, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)? URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      void Function(NSURLSession, NSURLSessionTask, int, int, int)? URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)? URLSession_task_didReceiveInformationalResponse_,
-      void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)? URLSession_task_didFinishCollectingMetrics_,
-      void Function(NSURLSession, NSURLSessionTask, objc.NSError?)? URLSession_task_didCompleteWithError_,
-      void Function(NSURLSession, objc.NSError?)? URLSession_didBecomeInvalidWithError_,
-      void Function(NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)? URLSession_didReceiveChallenge_completionHandler_,
-      void Function(NSURLSession)? URLSessionDidFinishEventsForBackgroundURLSession_}) {
-    NSURLSessionStreamDelegate.URLSession_readClosedForStreamTask_
-        .implementAsListener(builder, URLSession_readClosedForStreamTask_);
-    NSURLSessionStreamDelegate.URLSession_writeClosedForStreamTask_
-        .implementAsListener(builder, URLSession_writeClosedForStreamTask_);
-    NSURLSessionStreamDelegate.URLSession_betterRouteDiscoveredForStreamTask_
-        .implementAsListener(
-            builder, URLSession_betterRouteDiscoveredForStreamTask_);
-    NSURLSessionStreamDelegate
-            .URLSession_streamTask_didBecomeInputStream_outputStream_
-        .implementAsListener(
-            builder, URLSession_streamTask_didBecomeInputStream_outputStream_);
-    NSURLSessionStreamDelegate.URLSession_didCreateTask_.implementAsListener(
-        builder, URLSession_didCreateTask_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_willBeginDelayedRequest_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_willBeginDelayedRequest_completionHandler_);
-    NSURLSessionStreamDelegate.URLSession_taskIsWaitingForConnectivity_
-        .implementAsListener(builder, URLSession_taskIsWaitingForConnectivity_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_task_didReceiveChallenge_completionHandler_);
-    NSURLSessionStreamDelegate.URLSession_task_needNewBodyStream_
-        .implementAsListener(builder, URLSession_task_needNewBodyStream_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_needNewBodyStreamFromOffset_completionHandler_
-        .implementAsListener(builder,
-            URLSession_task_needNewBodyStreamFromOffset_completionHandler_);
-    NSURLSessionStreamDelegate
-            .URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_
-        .implementAsListener(builder,
-            URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_);
-    NSURLSessionStreamDelegate.URLSession_task_didReceiveInformationalResponse_
-        .implementAsListener(
-            builder, URLSession_task_didReceiveInformationalResponse_);
-    NSURLSessionStreamDelegate.URLSession_task_didFinishCollectingMetrics_
-        .implementAsListener(
-            builder, URLSession_task_didFinishCollectingMetrics_);
-    NSURLSessionStreamDelegate.URLSession_task_didCompleteWithError_
-        .implementAsListener(builder, URLSession_task_didCompleteWithError_);
-    NSURLSessionStreamDelegate.URLSession_didBecomeInvalidWithError_
-        .implementAsListener(builder, URLSession_didBecomeInvalidWithError_);
-    NSURLSessionStreamDelegate.URLSession_didReceiveChallenge_completionHandler_
-        .implementAsListener(
-            builder, URLSession_didReceiveChallenge_completionHandler_);
-    NSURLSessionStreamDelegate.URLSessionDidFinishEventsForBackgroundURLSession_
-        .implementAsListener(
-            builder, URLSessionDidFinishEventsForBackgroundURLSession_);
-  }
-
-  /// Indicates that the read side of a connection has been closed.  Any
-  /// outstanding reads complete, but future reads will immediately fail.
-  /// This may be sent even when no reads are in progress. However, when
-  /// this delegate message is received, there may still be bytes
-  /// available.  You only know that no more bytes are available when you
-  /// are able to read until EOF.
-  static final URLSession_readClosedForStreamTask_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionStreamTask)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_readClosedForStreamTask_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_readClosedForStreamTask_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionStreamTask arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionStreamTask arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// Indicates that the write side of a connection has been closed.
-  /// Any outstanding writes complete, but future writes will immediately
-  /// fail.
-  static final URLSession_writeClosedForStreamTask_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionStreamTask)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_writeClosedForStreamTask_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_writeClosedForStreamTask_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionStreamTask arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionStreamTask arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// A notification that the system has determined that a better route
-  /// to the host has been detected (eg, a wi-fi interface becoming
-  /// available.)  This is a hint to the delegate that it may be
-  /// desirable to create a new task for subsequent work.  Note that
-  /// there is no guarantee that the future task will be able to connect
-  /// to the host, so callers should should be prepared for failure of
-  /// reads and writes over any new interface.
-  static final URLSession_betterRouteDiscoveredForStreamTask_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionStreamTask)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_betterRouteDiscoveredForStreamTask_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_betterRouteDiscoveredForStreamTask_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionStreamTask arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, NSURLSessionStreamTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionStreamTask arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// The given task has been completed, and unopened NSInputStream and
-  /// NSOutputStream objects are created from the underlying network
-  /// connection.  This will only be invoked after all enqueued IO has
-  /// completed (including any necessary handshakes.)  The streamTask
-  /// will not receive any further delegate messages.
-  static final URLSession_streamTask_didBecomeInputStream_outputStream_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionStreamTask,
-              objc.NSInputStream, objc.NSOutputStream)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_streamTask_didBecomeInputStream_outputStream_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_streamTask_didBecomeInputStream_outputStream_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionStreamTask, objc.NSInputStream,
-                objc.NSOutputStream)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionStreamTask arg2,
-                    objc.NSInputStream arg3,
-                    objc.NSOutputStream arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-    (void Function(NSURLSession, NSURLSessionStreamTask, objc.NSInputStream,
-                objc.NSOutputStream)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionStreamTask_NSInputStream_NSOutputStream
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionStreamTask arg2,
-                    objc.NSInputStream arg3,
-                    objc.NSOutputStream arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-  );
-
-  /// Notification that a task has been created.  This method is the first message
-  /// a task sends, providing a place to configure the task before it is resumed.
-  ///
-  /// This delegate callback is *NOT* dispatched to the delegate queue.  It is
-  /// invoked synchronously before the task creation method returns.
-  static final URLSession_didCreateTask_ = objc.ObjCProtocolListenableMethod<
-      void Function(NSURLSession, NSURLSessionTask)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_didCreateTask_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_didCreateTask_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, NSURLSessionTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// Sent when the system is ready to begin work for a task with a delayed start
-  /// time set (using the earliestBeginDate property). The completionHandler must
-  /// be invoked in order for loading to proceed. The disposition provided to the
-  /// completion handler continues the load with the original request provided to
-  /// the task, replaces the request with the specified task, or cancels the task.
-  /// If this delegate is not implemented, loading will proceed with the original
-  /// request.
-  ///
-  /// Recommendation: only implement this delegate if tasks that have the
-  /// earliestBeginDate property set may become stale and require alteration prior
-  /// to starting the network load.
-  ///
-  /// If a new request is specified, the allowsExpensiveNetworkAccess,
-  /// allowsConstrainedNetworkAccess, and allowsCellularAccess properties
-  /// from the new request will not be used; the properties from the
-  /// original request will continue to be used.
-  ///
-  /// Canceling the task is equivalent to calling the task's cancel method; the
-  /// URLSession:task:didCompleteWithError: task delegate will be called with error
-  /// NSURLErrorCancelled.
-  static final URLSession_task_willBeginDelayedRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_willBeginDelayedRequest_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSURLRequest arg3,
-                    objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLRequest,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSURLRequest arg3,
-                    objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-  );
-
-  /// Sent when a task cannot start the network loading process because the current
-  /// network connectivity is not available or sufficient for the task's request.
-  ///
-  /// This delegate will be called at most one time per task, and is only called if
-  /// the waitsForConnectivity property in the NSURLSessionConfiguration has been
-  /// set to YES.
-  ///
-  /// This delegate callback will never be called for background sessions, because
-  /// the waitForConnectivity property is ignored by those sessions.
-  static final URLSession_taskIsWaitingForConnectivity_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_taskIsWaitingForConnectivity_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_taskIsWaitingForConnectivity_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, NSURLSessionTask) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// An HTTP request is attempting to perform a redirection to a different
-  /// URL. You must invoke the completion routine to allow the
-  /// redirection, allow the redirection with a modified request, or
-  /// pass nil to the completionHandler to cause the body of the redirection
-  /// response to be delivered as the payload of this request. The default
-  /// is to follow redirections.
-  ///
-  /// For tasks in background sessions, redirections will always be followed and this method will not be called.
-  static final URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-              NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-                NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSHTTPURLResponse arg3,
-                    NSURLRequest arg4,
-                    objc.ObjCBlock<ffi.Void Function(NSURLRequest?)> arg5) =>
-                func(arg1, arg2, arg3, arg4, arg5)),
-    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse,
-                NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSHTTPURLResponse arg3,
-                    NSURLRequest arg4,
-                    objc.ObjCBlock<ffi.Void Function(NSURLRequest?)> arg5) =>
-                func(arg1, arg2, arg3, arg4, arg5)),
-  );
-
-  /// The task has received a request specific authentication challenge.
-  /// If this delegate is not implemented, the session specific authentication challenge
-  /// will *NOT* be called and the behavior will be the same as using the default handling
-  /// disposition.
-  static final URLSession_task_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(
-              NSURLSession,
-              NSURLSessionTask,
-              NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_didReceiveChallenge_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_didReceiveChallenge_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSURLAuthenticationChallenge arg3,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    NSURLAuthenticationChallenge arg3,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-  );
-
-  /// Sent if a task requires a new, unopened body stream.  This may be
-  /// necessary when authentication has failed for any request that
-  /// involves a body stream.
-  static final URLSession_task_needNewBodyStream_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask,
-              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_needNewBodyStream_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_needNewBodyStream_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask,
-                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLSessionTask,
-                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// Tells the delegate if a task requires a new body stream starting from the given offset. This may be
-  /// necessary when resuming a failed upload task.
-  ///
-  /// - Parameter session: The session containing the task that needs a new body stream from the given offset.
-  /// - Parameter task: The task that needs a new body stream.
-  /// - Parameter offset: The starting offset required for the body stream.
-  /// - Parameter completionHandler: A completion handler that your delegate method should call with the new body stream.
-  static final URLSession_task_needNewBodyStreamFromOffset_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, int,
-              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_needNewBodyStreamFromOffset_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, int,
-                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    int arg3,
-                    objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-    (void Function(NSURLSession, NSURLSessionTask, int,
-                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLSessionTask arg2,
-                    int arg3,
-                    objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>
-                        arg4) =>
-                func(arg1, arg2, arg3, arg4)),
-  );
-
-  /// Sent periodically to notify the delegate of upload progress.  This
-  /// information is also available as properties of the task.
-  static final URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, int, int, int)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
-                func(arg1, arg2, arg3, arg4, arg5)),
-    (void Function(NSURLSession, NSURLSessionTask, int, int, int) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64
-            .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, int arg3, int arg4, int arg5) =>
-                func(arg1, arg2, arg3, arg4, arg5)),
-  );
-
-  /// Sent for each informational response received except 101 switching protocols.
-  static final URLSession_task_didReceiveInformationalResponse_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_didReceiveInformationalResponse_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_didReceiveInformationalResponse_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLSessionTask, NSHTTPURLResponse) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse
-            .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, NSHTTPURLResponse arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// Sent when complete statistics information has been collected for the task.
-  static final URLSession_task_didFinishCollectingMetrics_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(
-              NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_didFinishCollectingMetrics_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_didFinishCollectingMetrics_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics
-            .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, NSURLSessionTaskMetrics arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// Sent as the last message related to a specific task.  Error may be
-  /// nil, which implies that no error occurred and this task is complete.
-  static final URLSession_task_didCompleteWithError_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLSessionTask, objc.NSError?)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_task_didCompleteWithError_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_task_didCompleteWithError_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
-            .fromFunction((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, objc.NSError? arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLSessionTask, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
-            .listener((ffi.Pointer<ffi.Void> _, NSURLSession arg1,
-                    NSURLSessionTask arg2, objc.NSError? arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// The last message a session receives.  A session will only become
-  /// invalid because of a systemic error or when it has been
-  /// explicitly invalidated, in which case the error parameter will be nil.
-  static final URLSession_didBecomeInvalidWithError_ = objc
-      .ObjCProtocolListenableMethod<void Function(NSURLSession, objc.NSError?)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_didBecomeInvalidWithError_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_didBecomeInvalidWithError_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.fromFunction(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-                func(arg1, arg2)),
-    (void Function(NSURLSession, objc.NSError?) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError.listener(
-            (ffi.Pointer<ffi.Void> _, NSURLSession arg1, objc.NSError? arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// If implemented, when a connection level authentication challenge
-  /// has occurred, this delegate will be given the opportunity to
-  /// provide authentication credentials to the underlying
-  /// connection. Some types of authentication will apply to more than
-  /// one request on a given connection to a server (SSL Server Trust
-  /// challenges).  If this delegate message is not implemented, the
-  /// behavior will be to use the default handling, which may involve user
-  /// interaction.
-  static final URLSession_didReceiveChallenge_completionHandler_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(NSURLSession, NSURLAuthenticationChallenge,
-              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSession_didReceiveChallenge_completionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
-      _sel_URLSession_didReceiveChallenge_completionHandler_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (void Function(NSURLSession, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .fromFunction((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLAuthenticationChallenge arg2,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-    (void Function(NSURLSession, NSURLAuthenticationChallenge,
-                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
-            func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential
-            .listener((ffi.Pointer<ffi.Void> _,
-                    NSURLSession arg1,
-                    NSURLAuthenticationChallenge arg2,
-                    objc.ObjCBlock<
-                            ffi.Void Function(NSInteger, NSURLCredential?)>
-                        arg3) =>
-                func(arg1, arg2, arg3)),
-  );
-
-  /// If an application has received an
-  /// -application:handleEventsForBackgroundURLSession:completionHandler:
-  /// message, the session delegate will receive this message to indicate
-  /// that all messages previously enqueued for this session have been
-  /// delivered.  At this time it is safe to invoke the previously stored
-  /// completion handler, or to begin any internal updates that will
-  /// result in invoking the completion handler.
-  static final URLSessionDidFinishEventsForBackgroundURLSession_ =
-      objc.ObjCProtocolListenableMethod<void Function(NSURLSession)>(
-    _protocol_NSURLSessionStreamDelegate,
-    _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLSessionStreamDelegate,
       _sel_URLSessionDidFinishEventsForBackgroundURLSession_,
       isRequired: false,
       isInstanceMethod: true,
@@ -76431,624 +71337,6 @@ extension NSMutableArrayDiffing on objc.NSMutableArray {
   }
 }
 
-late final _protocol_NSItemProviderWriting =
-    objc.getProtocol("NSItemProviderWriting");
-late final _sel_writableTypeIdentifiersForItemProvider =
-    objc.registerName("writableTypeIdentifiersForItemProvider");
-ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSArray_ffiVoid_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<ffi.Void> arg0)>>()
-        .asFunction<
-            ffi.Pointer<objc.ObjCObject> Function(
-                ffi.Pointer<ffi.Void>)>()(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSArray_ffiVoid_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSArray_ffiVoid_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSArray_ffiVoid_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
-    (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-        ffi.Pointer<ffi.Void>))(arg0);
-ffi.Pointer<ffi.Void> _ObjCBlock_NSArray_ffiVoid_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
-            _ObjCBlock_NSArray_ffiVoid_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>`.
-abstract final class ObjCBlock_NSArray_ffiVoid {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>
-      fromFunctionPointer(
-              ffi.Pointer<
-                      ffi.NativeFunction<
-                          ffi.Pointer<objc.ObjCObject> Function(
-                              ffi.Pointer<ffi.Void> arg0)>>
-                  ptr) =>
-          objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>(
-              objc.newPointerBlock(_ObjCBlock_NSArray_ffiVoid_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>
-      fromFunction(objc.NSArray Function(ffi.Pointer<ffi.Void>) fn) =>
-          objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_NSArray_ffiVoid_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0) =>
-                      fn(arg0).ref.retainAndAutorelease()),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>`.
-extension ObjCBlock_NSArray_ffiVoid_CallExtension
-    on objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)> {
-  objc.NSArray call(ffi.Pointer<ffi.Void> arg0) => objc.NSArray.castFromPointer(
-      ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Pointer<objc.ObjCObject> Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0)>>()
-          .asFunction<
-              ffi.Pointer<objc.ObjCObject> Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
-      retain: true,
-      release: true);
-}
-
-late final _sel_itemProviderVisibilityForRepresentationWithTypeIdentifier_ =
-    objc.registerName(
-        "itemProviderVisibilityForRepresentationWithTypeIdentifier:");
-final _objc_msgSend_96wwe1 = objc.msgSendPointer
-    .cast<
-        ffi.NativeFunction<
-            NSInteger Function(
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCSelector>,
-                ffi.Pointer<objc.ObjCObject>)>>()
-    .asFunction<
-        int Function(ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
-int _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                NSInteger Function(ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            int Function(ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                NSInteger Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_fnPtrTrampoline,
-            0)
-        .cast();
-int _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as int Function(
-        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_closureCallable =
-    ffi.Pointer.fromFunction<
-                NSInteger Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_closureTrampoline,
-            0)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>`.
-abstract final class ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-      NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)> castFromPointer(
-          ffi.Pointer<objc.ObjCBlockImpl> pointer,
-          {bool retain = false,
-          bool release = false}) =>
-      objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>(
-          pointer,
-          retain: retain,
-          release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>
-      fromFunctionPointer(
-              ffi.Pointer<
-                      ffi.NativeFunction<
-                          NSInteger Function(ffi.Pointer<ffi.Void> arg0,
-                              ffi.Pointer<objc.ObjCObject> arg1)>>
-                  ptr) =>
-          objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>(
-              objc.newPointerBlock(_ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)> fromFunction(
-          objc.NSItemProviderRepresentationVisibility Function(
-                  ffi.Pointer<ffi.Void>, objc.NSString)
-              fn) =>
-      objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>(
-          objc.newClosureBlock(
-              _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_closureCallable,
-              (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
-                  fn(arg0, objc.NSString.castFromPointer(arg1, retain: true, release: true))
-                      .value),
-          retain: false,
-          release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>`.
-extension ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_CallExtension
-    on objc
-    .ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)> {
-  objc.NSItemProviderRepresentationVisibility call(
-          ffi.Pointer<ffi.Void> arg0, objc.NSString arg1) =>
-      objc.NSItemProviderRepresentationVisibility.fromValue(ref
-              .pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      NSInteger Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>()
-              .asFunction<int Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer, arg0, arg1.ref.pointer));
-}
-
-void _ObjCBlock_ffiVoid_NSData_NSError_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<objc.ObjCObject> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            void Function(ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSData_NSError_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSData_NSError_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_NSData_NSError_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<objc.ObjCObject> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as void Function(ffi.Pointer<objc.ObjCObject>,
-        ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSData_NSError_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_NSData_NSError_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_NSData_NSError_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<objc.ObjCObject> arg0,
-    ffi.Pointer<objc.ObjCObject> arg1) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_NSData_NSError_listenerCallable = ffi.NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_NSData_NSError_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>`.
-abstract final class ObjCBlock_ffiVoid_NSData_NSError {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
-              pointer,
-              retain: retain,
-              release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
-          objc.newPointerBlock(_ObjCBlock_ffiVoid_NSData_NSError_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> fromFunction(
-          void Function(objc.NSData?, objc.NSError?) fn) =>
-      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
-          objc.newClosureBlock(
-              _ObjCBlock_ffiVoid_NSData_NSError_closureCallable,
-              (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
-                  arg0.address == 0
-                      ? null
-                      : objc.NSData.castFromPointer(arg0,
-                          retain: true, release: true),
-                  arg1.address == 0 ? null : objc.NSError.castFromPointer(arg1, retain: true, release: true))),
-          retain: false,
-          release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
-      listener(void Function(objc.NSData?, objc.NSError?) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_NSData_NSError_listenerCallable.nativeFunction
-            .cast(),
-        (ffi.Pointer<objc.ObjCObject> arg0,
-                ffi.Pointer<objc.ObjCObject> arg1) =>
-            fn(
-                arg0.address == 0
-                    ? null
-                    : objc.NSData.castFromPointer(arg0,
-                        retain: false, release: true),
-                arg1.address == 0
-                    ? null
-                    : objc.NSError.castFromPointer(arg1,
-                        retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjvic9(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
-        wrapper,
-        retain: false,
-        release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>`.
-extension ObjCBlock_ffiVoid_NSData_NSError_CallExtension
-    on objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> {
-  void call(objc.NSData? arg0, objc.NSError? arg1) => ref.pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<objc.ObjCObject> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1)>>()
-          .asFunction<
-              void Function(
-                  ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<objc.ObjCObject>,
-                  ffi.Pointer<objc.ObjCObject>)>()(ref.pointer,
-      arg0?.ref.pointer ?? ffi.nullptr, arg1?.ref.pointer ?? ffi.nullptr);
-}
-
-late final _sel_loadDataWithTypeIdentifier_forItemProviderCompletionHandler_ =
-    objc.registerName(
-        "loadDataWithTypeIdentifier:forItemProviderCompletionHandler:");
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCBlockImpl> arg2) =>
-        block.ref.target
-            .cast<
-                ffi.NativeFunction<
-                    ffi.Pointer<objc.ObjCObject> Function(
-                        ffi.Pointer<ffi.Void> arg0,
-                        ffi.Pointer<objc.ObjCObject> arg1,
-                        ffi.Pointer<objc.ObjCBlockImpl> arg2)>>()
-            .asFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCBlockImpl>)>()(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCBlockImpl>)>(
-            _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrTrampoline)
-        .cast();
-ffi.Pointer<objc.ObjCObject>
-    _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureTrampoline(
-            ffi.Pointer<objc.ObjCBlockImpl> block,
-            ffi.Pointer<ffi.Void> arg0,
-            ffi.Pointer<objc.ObjCObject> arg1,
-            ffi.Pointer<objc.ObjCBlockImpl> arg2) =>
-        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Pointer<objc.ObjCObject> Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCBlockImpl>)>(
-            _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureTrampoline)
-        .cast();
-
-/// Construction methods for `objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>`.
-abstract final class ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
-              objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-                  NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
-                      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(pointer,
-              retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<
-          NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
-              objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlockImpl> arg2)>> ptr) =>
-          objc.ObjCBlock<
-                  NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
-                      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(
-              objc.newPointerBlock(_ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrCallable, ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
-      fromFunction(NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>) fn) =>
-          objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCBlockImpl> arg2) =>
-                      fn(arg0, objc.NSString.castFromPointer(arg1, retain: true, release: true), ObjCBlock_ffiVoid_NSData_NSError.castFromPointer(arg2, retain: true, release: true))
-                          ?.ref
-                          .retainAndAutorelease() ??
-                      ffi.nullptr),
-              retain: false,
-              release: true);
-}
-
-/// Call operator for `objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>`.
-extension ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_CallExtension
-    on objc.ObjCBlock<
-        NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
-            objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)> {
-  NSProgress? call(ffi.Pointer<ffi.Void> arg0, objc.NSString arg1, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> arg2) =>
-      ref.pointer.ref.invoke
-                  .cast<
-                      ffi.NativeFunction<
-                          ffi.Pointer<objc.ObjCObject> Function(
-                              ffi.Pointer<objc.ObjCBlockImpl> block,
-                              ffi.Pointer<ffi.Void> arg0,
-                              ffi.Pointer<objc.ObjCObject> arg1,
-                              ffi.Pointer<objc.ObjCBlockImpl> arg2)>>()
-                  .asFunction<
-                      ffi.Pointer<objc.ObjCObject> Function(
-                          ffi.Pointer<objc.ObjCBlockImpl>,
-                          ffi.Pointer<ffi.Void>,
-                          ffi.Pointer<objc.ObjCObject>,
-                          ffi.Pointer<objc.ObjCBlockImpl>)>()
-                  (ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer)
-                  .address ==
-              0
-          ? null
-          : NSProgress.castFromPointer(
-              ref.pointer.ref.invoke.cast<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlockImpl> arg2)>>().asFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCBlockImpl>)>()(ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer),
-              retain: true,
-              release: true);
-}
-
-/// NSItemProviderWriting
-abstract final class NSItemProviderWriting {
-  /// Builds an object that implements the NSItemProviderWriting protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {objc.NSArray Function()? writableTypeIdentifiersForItemProvider,
-      objc.NSItemProviderRepresentationVisibility Function(objc.NSString)?
-          itemProviderVisibilityForRepresentationWithTypeIdentifier_,
-      required NSProgress? Function(objc.NSString,
-              objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)
-          loadDataWithTypeIdentifier_forItemProviderCompletionHandler_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSItemProviderWriting.writableTypeIdentifiersForItemProvider
-        .implement(builder, writableTypeIdentifiersForItemProvider);
-    NSItemProviderWriting
-        .itemProviderVisibilityForRepresentationWithTypeIdentifier_
-        .implement(builder,
-            itemProviderVisibilityForRepresentationWithTypeIdentifier_);
-    NSItemProviderWriting
-        .loadDataWithTypeIdentifier_forItemProviderCompletionHandler_
-        .implement(builder,
-            loadDataWithTypeIdentifier_forItemProviderCompletionHandler_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSItemProviderWriting protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {objc.NSArray Function()? writableTypeIdentifiersForItemProvider,
-      objc.NSItemProviderRepresentationVisibility Function(objc.NSString)?
-          itemProviderVisibilityForRepresentationWithTypeIdentifier_,
-      required NSProgress? Function(objc.NSString,
-              objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)
-          loadDataWithTypeIdentifier_forItemProviderCompletionHandler_}) {
-    NSItemProviderWriting.writableTypeIdentifiersForItemProvider
-        .implement(builder, writableTypeIdentifiersForItemProvider);
-    NSItemProviderWriting
-        .itemProviderVisibilityForRepresentationWithTypeIdentifier_
-        .implement(builder,
-            itemProviderVisibilityForRepresentationWithTypeIdentifier_);
-    NSItemProviderWriting
-        .loadDataWithTypeIdentifier_forItemProviderCompletionHandler_
-        .implement(builder,
-            loadDataWithTypeIdentifier_forItemProviderCompletionHandler_);
-  }
-
-  /// writableTypeIdentifiersForItemProvider
-  static final writableTypeIdentifiersForItemProvider =
-      objc.ObjCProtocolMethod<objc.NSArray Function()>(
-    _protocol_NSItemProviderWriting,
-    _sel_writableTypeIdentifiersForItemProvider,
-    objc.getProtocolMethodSignature(
-      _protocol_NSItemProviderWriting,
-      _sel_writableTypeIdentifiersForItemProvider,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (objc.NSArray Function() func) => ObjCBlock_NSArray_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-
-  /// itemProviderVisibilityForRepresentationWithTypeIdentifier:
-  static final itemProviderVisibilityForRepresentationWithTypeIdentifier_ =
-      objc.ObjCProtocolMethod<
-          objc.NSItemProviderRepresentationVisibility Function(objc.NSString)>(
-    _protocol_NSItemProviderWriting,
-    _sel_itemProviderVisibilityForRepresentationWithTypeIdentifier_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSItemProviderWriting,
-      _sel_itemProviderVisibilityForRepresentationWithTypeIdentifier_,
-      isRequired: false,
-      isInstanceMethod: true,
-    ),
-    (objc.NSItemProviderRepresentationVisibility Function(objc.NSString)
-            func) =>
-        ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString
-            .fromFunction(
-                (ffi.Pointer<ffi.Void> _, objc.NSString arg1) => func(arg1)),
-  );
-
-  /// loadDataWithTypeIdentifier:forItemProviderCompletionHandler:
-  static final loadDataWithTypeIdentifier_forItemProviderCompletionHandler_ =
-      objc.ObjCProtocolMethod<
-          NSProgress? Function(objc.NSString,
-              objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(
-    _protocol_NSItemProviderWriting,
-    _sel_loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSItemProviderWriting,
-      _sel_loadDataWithTypeIdentifier_forItemProviderCompletionHandler_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (NSProgress? Function(objc.NSString,
-                objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)
-            func) =>
-        ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError.fromFunction(
-            (ffi.Pointer<ffi.Void> _,
-                    objc.NSString arg1,
-                    objc.ObjCBlock<
-                            ffi.Void Function(objc.NSData?, objc.NSError?)>
-                        arg2) =>
-                func(arg1, arg2)),
-  );
-}
-
-late final _protocol_NSItemProviderReading =
-    objc.getProtocol("NSItemProviderReading");
-
-/// NSItemProviderReading
-abstract final class NSItemProviderReading {
-  /// Builds an object that implements the NSItemProviderReading protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement() {
-    final builder = objc.ObjCProtocolBuilder();
-
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSItemProviderReading protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(
-    objc.ObjCProtocolBuilder builder,
-  ) {}
-}
-
 void _ObjCBlock_ffiVoid_objcObjCObject_NSError_fnPtrTrampoline(
         ffi.Pointer<objc.ObjCBlockImpl> block,
         ffi.Pointer<objc.ObjCObject> arg0,
@@ -78357,6 +72645,7 @@ final _objc_msgSend_1140663 = objc.msgSendPointer
             ffi.Pointer<ffi.Pointer<objc.ObjCObject>>)>();
 late final _sel_writeToFile_atomically_encoding_error_ =
     objc.registerName("writeToFile:atomically:encoding:error:");
+late final _sel_hash = objc.registerName("hash");
 late final _sel_initWithCharactersNoCopy_length_freeWhenDone_ =
     objc.registerName("initWithCharactersNoCopy:length:freeWhenDone:");
 final _objc_msgSend_zsd8q9 = objc.msgSendPointer
@@ -80063,6 +74352,93 @@ extension NSStringEncodingDetection on objc.NSString {
 
 late final _sel_readableTypeIdentifiersForItemProvider =
     objc.registerName("readableTypeIdentifiersForItemProvider");
+ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSArray_ffiVoid_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<ffi.Void> arg0)>>()
+        .asFunction<
+            ffi.Pointer<objc.ObjCObject> Function(
+                ffi.Pointer<ffi.Void>)>()(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_NSArray_ffiVoid_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_NSArray_ffiVoid_fnPtrTrampoline)
+        .cast();
+ffi.Pointer<objc.ObjCObject> _ObjCBlock_NSArray_ffiVoid_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
+        ffi.Pointer<ffi.Void>))(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_NSArray_ffiVoid_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_NSArray_ffiVoid_closureTrampoline)
+        .cast();
+
+/// Construction methods for `objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>`.
+abstract final class ObjCBlock_NSArray_ffiVoid {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>(pointer,
+              retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>
+      fromFunctionPointer(
+              ffi.Pointer<
+                      ffi.NativeFunction<
+                          ffi.Pointer<objc.ObjCObject> Function(
+                              ffi.Pointer<ffi.Void> arg0)>>
+                  ptr) =>
+          objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>(
+              objc.newPointerBlock(_ObjCBlock_NSArray_ffiVoid_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>
+      fromFunction(objc.NSArray Function(ffi.Pointer<ffi.Void>) fn) =>
+          objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_NSArray_ffiVoid_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0) =>
+                      fn(arg0).ref.retainAndAutorelease()),
+              retain: false,
+              release: true);
+}
+
+/// Call operator for `objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)>`.
+extension ObjCBlock_NSArray_ffiVoid_CallExtension
+    on objc.ObjCBlock<objc.NSArray Function(ffi.Pointer<ffi.Void>)> {
+  objc.NSArray call(ffi.Pointer<ffi.Void> arg0) => objc.NSArray.castFromPointer(
+      ref.pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
+                  ffi.Pointer<objc.ObjCObject> Function(
+                      ffi.Pointer<objc.ObjCBlockImpl> block,
+                      ffi.Pointer<ffi.Void> arg0)>>()
+          .asFunction<
+              ffi.Pointer<objc.ObjCObject> Function(
+                  ffi.Pointer<objc.ObjCBlockImpl>,
+                  ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0),
+      retain: true,
+      release: true);
+}
+
 late final _sel_objectWithItemProviderData_typeIdentifier_error_ =
     objc.registerName("objectWithItemProviderData:typeIdentifier:error:");
 instancetype
@@ -80214,6 +74590,407 @@ extension ObjCBlock_instancetype_ffiVoid_NSData_NSString_NSError_CallExtension
           release: true);
 }
 
+late final _sel_writableTypeIdentifiersForItemProvider =
+    objc.registerName("writableTypeIdentifiersForItemProvider");
+late final _sel_itemProviderVisibilityForRepresentationWithTypeIdentifier_ =
+    objc.registerName(
+        "itemProviderVisibilityForRepresentationWithTypeIdentifier:");
+final _objc_msgSend_96wwe1 = objc.msgSendPointer
+    .cast<
+        ffi.NativeFunction<
+            NSInteger Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCSelector>,
+                ffi.Pointer<objc.ObjCObject>)>>()
+    .asFunction<
+        int Function(ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCSelector>, ffi.Pointer<objc.ObjCObject>)>();
+int _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                NSInteger Function(ffi.Pointer<ffi.Void> arg0,
+                    ffi.Pointer<objc.ObjCObject> arg1)>>()
+        .asFunction<
+            int Function(ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                NSInteger Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_fnPtrTrampoline,
+            0)
+        .cast();
+int _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    (objc.getBlockClosure(block) as int Function(
+        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_closureCallable =
+    ffi.Pointer.fromFunction<
+                NSInteger Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_closureTrampoline,
+            0)
+        .cast();
+
+/// Construction methods for `objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>`.
+abstract final class ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+      NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)> castFromPointer(
+          ffi.Pointer<objc.ObjCBlockImpl> pointer,
+          {bool retain = false,
+          bool release = false}) =>
+      objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>(
+          pointer,
+          retain: retain,
+          release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>
+      fromFunctionPointer(
+              ffi.Pointer<
+                      ffi.NativeFunction<
+                          NSInteger Function(ffi.Pointer<ffi.Void> arg0,
+                              ffi.Pointer<objc.ObjCObject> arg1)>>
+                  ptr) =>
+          objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>(
+              objc.newPointerBlock(_ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)> fromFunction(
+          objc.NSItemProviderRepresentationVisibility Function(
+                  ffi.Pointer<ffi.Void>, objc.NSString)
+              fn) =>
+      objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>(
+          objc.newClosureBlock(
+              _ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) =>
+                  fn(arg0, objc.NSString.castFromPointer(arg1, retain: true, release: true))
+                      .value),
+          retain: false,
+          release: true);
+}
+
+/// Call operator for `objc.ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)>`.
+extension ObjCBlock_NSItemProviderRepresentationVisibility_ffiVoid_NSString_CallExtension
+    on objc
+    .ObjCBlock<NSInteger Function(ffi.Pointer<ffi.Void>, objc.NSString)> {
+  objc.NSItemProviderRepresentationVisibility call(
+          ffi.Pointer<ffi.Void> arg0, objc.NSString arg1) =>
+      objc.NSItemProviderRepresentationVisibility.fromValue(ref
+              .pointer.ref.invoke
+              .cast<
+                  ffi.NativeFunction<
+                      NSInteger Function(
+                          ffi.Pointer<objc.ObjCBlockImpl> block,
+                          ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1)>>()
+              .asFunction<int Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
+          ref.pointer, arg0, arg1.ref.pointer));
+}
+
+void _ObjCBlock_ffiVoid_NSData_NSError_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<objc.ObjCObject> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<
+                ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0,
+                    ffi.Pointer<objc.ObjCObject> arg1)>>()
+        .asFunction<
+            void Function(ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSData_NSError_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_NSData_NSError_fnPtrTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_NSData_NSError_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<objc.ObjCObject> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) =>
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_NSData_NSError_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCObject>)>(
+            _ObjCBlock_ffiVoid_NSData_NSError_closureTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_NSData_NSError_listenerTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1) {
+  (objc.getBlockClosure(block) as void Function(
+      ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  objc.objectRelease(block.cast());
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSData_NSError_listenerCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSData_NSError_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>`.
+abstract final class ObjCBlock_ffiVoid_NSData_NSError {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
+              pointer,
+              retain: retain,
+              release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> fromFunctionPointer(
+          ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.Void Function(ffi.Pointer<objc.ObjCObject> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1)>>
+              ptr) =>
+      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
+          objc.newPointerBlock(_ObjCBlock_ffiVoid_NSData_NSError_fnPtrCallable, ptr.cast()),
+          retain: false,
+          release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> fromFunction(
+          void Function(objc.NSData?, objc.NSError?) fn) =>
+      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
+          objc.newClosureBlock(
+              _ObjCBlock_ffiVoid_NSData_NSError_closureCallable,
+              (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+                  arg0.address == 0
+                      ? null
+                      : objc.NSData.castFromPointer(arg0,
+                          retain: true, release: true),
+                  arg1.address == 0 ? null : objc.NSError.castFromPointer(arg1, retain: true, release: true))),
+          retain: false,
+          release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
+      listener(void Function(objc.NSData?, objc.NSError?) fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSData_NSError_listenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSData.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg1,
+                        retain: false, release: true)));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjvic9(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>`.
+extension ObjCBlock_ffiVoid_NSData_NSError_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> {
+  void call(objc.NSData? arg0, objc.NSError? arg1) => ref.pointer.ref.invoke
+          .cast<
+              ffi.NativeFunction<
+                  ffi.Void Function(
+                      ffi.Pointer<objc.ObjCBlockImpl> block,
+                      ffi.Pointer<objc.ObjCObject> arg0,
+                      ffi.Pointer<objc.ObjCObject> arg1)>>()
+          .asFunction<
+              void Function(
+                  ffi.Pointer<objc.ObjCBlockImpl>,
+                  ffi.Pointer<objc.ObjCObject>,
+                  ffi.Pointer<objc.ObjCObject>)>()(ref.pointer,
+      arg0?.ref.pointer ?? ffi.nullptr, arg1?.ref.pointer ?? ffi.nullptr);
+}
+
+late final _sel_loadDataWithTypeIdentifier_forItemProviderCompletionHandler_ =
+    objc.registerName(
+        "loadDataWithTypeIdentifier:forItemProviderCompletionHandler:");
+ffi.Pointer<objc.ObjCObject>
+    _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCBlockImpl> arg2) =>
+        block.ref.target
+            .cast<
+                ffi.NativeFunction<
+                    ffi.Pointer<objc.ObjCObject> Function(
+                        ffi.Pointer<ffi.Void> arg0,
+                        ffi.Pointer<objc.ObjCObject> arg1,
+                        ffi.Pointer<objc.ObjCBlockImpl> arg2)>>()
+            .asFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCBlockImpl>)>()(arg0, arg1, arg2);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCBlockImpl>)>(
+            _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrTrampoline)
+        .cast();
+ffi.Pointer<objc.ObjCObject>
+    _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureTrampoline(
+            ffi.Pointer<objc.ObjCBlockImpl> block,
+            ffi.Pointer<ffi.Void> arg0,
+            ffi.Pointer<objc.ObjCObject> arg1,
+            ffi.Pointer<objc.ObjCBlockImpl> arg2) =>
+        (objc.getBlockClosure(block) as ffi.Pointer<objc.ObjCObject> Function(
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2);
+ffi.Pointer<ffi.Void>
+    _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Pointer<objc.ObjCObject> Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>,
+                    ffi.Pointer<ffi.Void>,
+                    ffi.Pointer<objc.ObjCObject>,
+                    ffi.Pointer<objc.ObjCBlockImpl>)>(
+            _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureTrampoline)
+        .cast();
+
+/// Construction methods for `objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>`.
+abstract final class ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<
+          NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+              objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<
+                  NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+                      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(pointer,
+              retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<
+          NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+              objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
+      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlockImpl> arg2)>> ptr) =>
+          objc.ObjCBlock<
+                  NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+                      objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(
+              objc.newPointerBlock(_ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_fnPtrCallable, ptr.cast()),
+              retain: false,
+              release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>
+      fromFunction(NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>) fn) =>
+          objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>(
+              objc.newClosureBlock(
+                  _ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_closureCallable,
+                  (ffi.Pointer<ffi.Void> arg0,
+                          ffi.Pointer<objc.ObjCObject> arg1,
+                          ffi.Pointer<objc.ObjCBlockImpl> arg2) =>
+                      fn(arg0, objc.NSString.castFromPointer(arg1, retain: true, release: true), ObjCBlock_ffiVoid_NSData_NSError.castFromPointer(arg2, retain: true, release: true))
+                          ?.ref
+                          .retainAndAutorelease() ??
+                      ffi.nullptr),
+              retain: false,
+              release: true);
+}
+
+/// Call operator for `objc.ObjCBlock<NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)>`.
+extension ObjCBlock_NSProgress_ffiVoid_NSString_ffiVoidNSDataNSError_CallExtension
+    on objc.ObjCBlock<
+        NSProgress? Function(ffi.Pointer<ffi.Void>, objc.NSString,
+            objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>)> {
+  NSProgress? call(ffi.Pointer<ffi.Void> arg0, objc.NSString arg1, objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)> arg2) =>
+      ref.pointer.ref.invoke
+                  .cast<
+                      ffi.NativeFunction<
+                          ffi.Pointer<objc.ObjCObject> Function(
+                              ffi.Pointer<objc.ObjCBlockImpl> block,
+                              ffi.Pointer<ffi.Void> arg0,
+                              ffi.Pointer<objc.ObjCObject> arg1,
+                              ffi.Pointer<objc.ObjCBlockImpl> arg2)>>()
+                  .asFunction<
+                      ffi.Pointer<objc.ObjCObject> Function(
+                          ffi.Pointer<objc.ObjCBlockImpl>,
+                          ffi.Pointer<ffi.Void>,
+                          ffi.Pointer<objc.ObjCObject>,
+                          ffi.Pointer<objc.ObjCBlockImpl>)>()
+                  (ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer)
+                  .address ==
+              0
+          ? null
+          : NSProgress.castFromPointer(
+              ref.pointer.ref.invoke.cast<ffi.NativeFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCBlockImpl> arg2)>>().asFunction<ffi.Pointer<objc.ObjCObject> Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCBlockImpl>)>()(ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer),
+              retain: true,
+              release: true);
+}
+
 /// NSItemProvider
 extension NSItemProvider on objc.NSString {
   /// readableTypeIdentifiersForItemProvider
@@ -80247,7 +75024,7 @@ extension NSItemProvider on objc.NSString {
   }
 
   /// writableTypeIdentifiersForItemProvider
-  objc.NSArray get writableTypeIdentifiersForItemProvider {
+  objc.NSArray get writableTypeIdentifiersForItemProvider1 {
     if (!objc.respondsToSelector(
         this.ref.pointer, _sel_writableTypeIdentifiersForItemProvider)) {
       throw objc.UnimplementedOptionalMethodException(
@@ -80690,725 +75467,6 @@ extension NSStringDeprecated on objc.NSString {
   }
 }
 
-late final _protocol_NSURLHandleClient = objc.getProtocol("NSURLHandleClient");
-late final _sel_URLHandle_resourceDataDidBecomeAvailable_ =
-    objc.registerName("URLHandle:resourceDataDidBecomeAvailable:");
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(
-                    ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1,
-                    ffi.Pointer<objc.ObjCObject> arg2)>>()
-        .asFunction<
-            void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) =>
-    (objc.getBlockClosure(block) as void Function(
-        ffi.Pointer<ffi.Void>,
-        ffi.Pointer<objc.ObjCObject>,
-        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<objc.ObjCObject> arg1,
-    ffi.Pointer<objc.ObjCObject> arg2) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_listenerCallable = ffi
-        .NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle,
-                  objc.NSData)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)>
-      fromFunctionPointer(
-              ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2)>>
-                  ptr) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)>(
-              objc.newPointerBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_fnPtrCallable,
-                  ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2) => fn(
-                      arg0,
-                      objc.NSURLHandle.castFromPointer(arg1, retain: true, release: true),
-                      objc.NSData.castFromPointer(arg2, retain: true, release: true))),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(
-          ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)> listener(
-      void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2) =>
-            fn(
-                arg0,
-                objc.NSURLHandle.castFromPointer(arg1,
-                    retain: false, release: true),
-                objc.NSData.castFromPointer(arg2,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ao4xm9(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle,
-            objc.NSData)>(wrapper, retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSData)> {
-  void call(ffi.Pointer<ffi.Void> arg0, objc.NSURLHandle arg1,
-          objc.NSData arg2) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer);
-}
-
-late final _sel_URLHandleResourceDidBeginLoading_ =
-    objc.registerName("URLHandleResourceDidBeginLoading:");
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1)>>()
-        .asFunction<
-            void Function(ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1) =>
-    (objc.getBlockClosure(block) as void Function(
-        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<objc.ObjCObject> arg1) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_listenerCallable = ffi
-        .NativeCallable<
-            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLHandle {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>,
-                  objc.NSURLHandle)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)> fromFunctionPointer(
-          ffi.Pointer<
-                  ffi.NativeFunction<
-                      ffi.Void Function(ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1)>>
-              ptr) =>
-      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)>(
-          objc.newPointerBlock(_ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_fnPtrCallable, ptr.cast()),
-          retain: false,
-          release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
-                      arg0,
-                      objc.NSURLHandle.castFromPointer(arg1,
-                          retain: true, release: true))),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)>
-      listener(void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle) fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_listenerCallable.nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
-            arg0,
-            objc.NSURLHandle.castFromPointer(arg1,
-                retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjovn7(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-            ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)>(wrapper,
-        retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_CallExtension on objc
-    .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle)> {
-  void call(ffi.Pointer<ffi.Void> arg0, objc.NSURLHandle arg1) => ref
-          .pointer.ref.invoke
-          .cast<
-              ffi.NativeFunction<
-                  ffi.Void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl> block,
-                      ffi.Pointer<ffi.Void> arg0,
-                      ffi.Pointer<objc.ObjCObject> arg1)>>()
-          .asFunction<
-              void Function(ffi.Pointer<objc.ObjCBlockImpl>,
-                  ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>()(
-      ref.pointer, arg0, arg1.ref.pointer);
-}
-
-late final _sel_URLHandleResourceDidFinishLoading_ =
-    objc.registerName("URLHandleResourceDidFinishLoading:");
-late final _sel_URLHandleResourceDidCancelLoading_ =
-    objc.registerName("URLHandleResourceDidCancelLoading:");
-late final _sel_URLHandle_resourceDidFailLoadingWithReason_ =
-    objc.registerName("URLHandle:resourceDidFailLoadingWithReason:");
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_fnPtrTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) =>
-    block.ref.target
-        .cast<
-            ffi.NativeFunction<
-                ffi.Void Function(
-                    ffi.Pointer<ffi.Void> arg0,
-                    ffi.Pointer<objc.ObjCObject> arg1,
-                    ffi.Pointer<objc.ObjCObject> arg2)>>()
-        .asFunction<
-            void Function(ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>()(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_fnPtrCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_fnPtrTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_closureTrampoline(
-        ffi.Pointer<objc.ObjCBlockImpl> block,
-        ffi.Pointer<ffi.Void> arg0,
-        ffi.Pointer<objc.ObjCObject> arg1,
-        ffi.Pointer<objc.ObjCObject> arg2) =>
-    (objc.getBlockClosure(block) as void Function(
-        ffi.Pointer<ffi.Void>,
-        ffi.Pointer<objc.ObjCObject>,
-        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
-ffi.Pointer<ffi.Void>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_closureCallable =
-    ffi.Pointer.fromFunction<
-                ffi.Void Function(
-                    ffi.Pointer<objc.ObjCBlockImpl>,
-                    ffi.Pointer<ffi.Void>,
-                    ffi.Pointer<objc.ObjCObject>,
-                    ffi.Pointer<objc.ObjCObject>)>(
-            _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_closureTrampoline)
-        .cast();
-void _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_listenerTrampoline(
-    ffi.Pointer<objc.ObjCBlockImpl> block,
-    ffi.Pointer<ffi.Void> arg0,
-    ffi.Pointer<objc.ObjCObject> arg1,
-    ffi.Pointer<objc.ObjCObject> arg2) {
-  (objc.getBlockClosure(block) as void Function(
-      ffi.Pointer<ffi.Void>,
-      ffi.Pointer<objc.ObjCObject>,
-      ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
-  objc.objectRelease(block.cast());
-}
-
-ffi.NativeCallable<
-        ffi.Void Function(
-            ffi.Pointer<objc.ObjCBlockImpl>,
-            ffi.Pointer<ffi.Void>,
-            ffi.Pointer<objc.ObjCObject>,
-            ffi.Pointer<objc.ObjCObject>)>
-    _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_listenerCallable = ffi
-        .NativeCallable<
-            ffi.Void Function(
-                ffi.Pointer<objc.ObjCBlockImpl>,
-                ffi.Pointer<ffi.Void>,
-                ffi.Pointer<objc.ObjCObject>,
-                ffi.Pointer<objc.ObjCObject>)>.listener(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_listenerTrampoline)
-      ..keepIsolateAlive = false;
-
-/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)>`.
-abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString {
-  /// Returns a block that wraps the given raw block pointer.
-  static objc.ObjCBlock<
-          ffi.Void Function(
-              ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)>
-      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
-              {bool retain = false, bool release = false}) =>
-          objc.ObjCBlock<
-              ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle,
-                  objc.NSString)>(pointer, retain: retain, release: release);
-
-  /// Creates a block from a C function pointer.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)>
-      fromFunctionPointer(ffi.Pointer<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2)>> ptr) =>
-          objc.ObjCBlock<
-                  ffi.Void Function(
-                      ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)>(
-              objc.newPointerBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_fnPtrCallable,
-                  ptr.cast()),
-              retain: false,
-              release: true);
-
-  /// Creates a block from a Dart function.
-  ///
-  /// This block must be invoked by native code running on the same thread as
-  /// the isolate that registered it. Invoking the block on the wrong thread
-  /// will result in a crash.
-  static objc
-      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)>
-      fromFunction(void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString) fn) =>
-          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)>(
-              objc.newClosureBlock(
-                  _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_closureCallable,
-                  (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1, ffi.Pointer<objc.ObjCObject> arg2) => fn(
-                      arg0,
-                      objc.NSURLHandle.castFromPointer(arg1, retain: true, release: true),
-                      objc.NSString.castFromPointer(arg2, retain: true, release: true))),
-              retain: false,
-              release: true);
-
-  /// Creates a listener block from a Dart function.
-  ///
-  /// This is based on FFI's NativeCallable.listener, and has the same
-  /// capabilities and limitations. This block can be invoked from any thread,
-  /// but only supports void functions, and is not run synchronously. See
-  /// NativeCallable.listener for more details.
-  ///
-  /// Note that unlike the default behavior of NativeCallable.listener, listener
-  /// blocks do not keep the isolate alive.
-  static objc.ObjCBlock<
-      ffi.Void Function(
-          ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)> listener(
-      void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)
-          fn) {
-    final raw = objc.newClosureBlock(
-        _ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_listenerCallable
-            .nativeFunction
-            .cast(),
-        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
-                ffi.Pointer<objc.ObjCObject> arg2) =>
-            fn(
-                arg0,
-                objc.NSURLHandle.castFromPointer(arg1,
-                    retain: false, release: true),
-                objc.NSString.castFromPointer(arg2,
-                    retain: false, release: true)));
-    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ao4xm9(raw);
-    objc.objectRelease(raw.cast());
-    return objc.ObjCBlock<
-        ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle,
-            objc.NSString)>(wrapper, retain: false, release: true);
-  }
-}
-
-/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)>`.
-extension ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString_CallExtension
-    on objc.ObjCBlock<
-        ffi.Void Function(
-            ffi.Pointer<ffi.Void>, objc.NSURLHandle, objc.NSString)> {
-  void call(ffi.Pointer<ffi.Void> arg0, objc.NSURLHandle arg1,
-          objc.NSString arg2) =>
-      ref.pointer.ref.invoke
-              .cast<
-                  ffi.NativeFunction<
-                      ffi.Void Function(
-                          ffi.Pointer<objc.ObjCBlockImpl> block,
-                          ffi.Pointer<ffi.Void> arg0,
-                          ffi.Pointer<objc.ObjCObject> arg1,
-                          ffi.Pointer<objc.ObjCObject> arg2)>>()
-              .asFunction<
-                  void Function(
-                      ffi.Pointer<objc.ObjCBlockImpl>,
-                      ffi.Pointer<ffi.Void>,
-                      ffi.Pointer<objc.ObjCObject>,
-                      ffi.Pointer<objc.ObjCObject>)>()(
-          ref.pointer, arg0, arg1.ref.pointer, arg2.ref.pointer);
-}
-
-/// NSURLHandleClient
-abstract final class NSURLHandleClient {
-  /// Builds an object that implements the NSURLHandleClient protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required void Function(objc.NSURLHandle, objc.NSData)
-          URLHandle_resourceDataDidBecomeAvailable_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidBeginLoading_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidFinishLoading_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidCancelLoading_,
-      required void Function(objc.NSURLHandle, objc.NSString)
-          URLHandle_resourceDidFailLoadingWithReason_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_.implement(
-        builder, URLHandle_resourceDataDidBecomeAvailable_);
-    NSURLHandleClient.URLHandleResourceDidBeginLoading_.implement(
-        builder, URLHandleResourceDidBeginLoading_);
-    NSURLHandleClient.URLHandleResourceDidFinishLoading_.implement(
-        builder, URLHandleResourceDidFinishLoading_);
-    NSURLHandleClient.URLHandleResourceDidCancelLoading_.implement(
-        builder, URLHandleResourceDidCancelLoading_);
-    NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_.implement(
-        builder, URLHandle_resourceDidFailLoadingWithReason_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSURLHandleClient protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required void Function(objc.NSURLHandle, objc.NSData)
-          URLHandle_resourceDataDidBecomeAvailable_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidBeginLoading_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidFinishLoading_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidCancelLoading_,
-      required void Function(objc.NSURLHandle, objc.NSString)
-          URLHandle_resourceDidFailLoadingWithReason_}) {
-    NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_.implement(
-        builder, URLHandle_resourceDataDidBecomeAvailable_);
-    NSURLHandleClient.URLHandleResourceDidBeginLoading_.implement(
-        builder, URLHandleResourceDidBeginLoading_);
-    NSURLHandleClient.URLHandleResourceDidFinishLoading_.implement(
-        builder, URLHandleResourceDidFinishLoading_);
-    NSURLHandleClient.URLHandleResourceDidCancelLoading_.implement(
-        builder, URLHandleResourceDidCancelLoading_);
-    NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_.implement(
-        builder, URLHandle_resourceDidFailLoadingWithReason_);
-  }
-
-  /// Builds an object that implements the NSURLHandleClient protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {required void Function(objc.NSURLHandle, objc.NSData)
-          URLHandle_resourceDataDidBecomeAvailable_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidBeginLoading_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidFinishLoading_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidCancelLoading_,
-      required void Function(objc.NSURLHandle, objc.NSString)
-          URLHandle_resourceDidFailLoadingWithReason_}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_
-        .implementAsListener(
-            builder, URLHandle_resourceDataDidBecomeAvailable_);
-    NSURLHandleClient.URLHandleResourceDidBeginLoading_.implementAsListener(
-        builder, URLHandleResourceDidBeginLoading_);
-    NSURLHandleClient.URLHandleResourceDidFinishLoading_.implementAsListener(
-        builder, URLHandleResourceDidFinishLoading_);
-    NSURLHandleClient.URLHandleResourceDidCancelLoading_.implementAsListener(
-        builder, URLHandleResourceDidCancelLoading_);
-    NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_
-        .implementAsListener(
-            builder, URLHandle_resourceDidFailLoadingWithReason_);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSURLHandleClient protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {required void Function(objc.NSURLHandle, objc.NSData)
-          URLHandle_resourceDataDidBecomeAvailable_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidBeginLoading_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidFinishLoading_,
-      required void Function(objc.NSURLHandle)
-          URLHandleResourceDidCancelLoading_,
-      required void Function(objc.NSURLHandle, objc.NSString)
-          URLHandle_resourceDidFailLoadingWithReason_}) {
-    NSURLHandleClient.URLHandle_resourceDataDidBecomeAvailable_
-        .implementAsListener(
-            builder, URLHandle_resourceDataDidBecomeAvailable_);
-    NSURLHandleClient.URLHandleResourceDidBeginLoading_.implementAsListener(
-        builder, URLHandleResourceDidBeginLoading_);
-    NSURLHandleClient.URLHandleResourceDidFinishLoading_.implementAsListener(
-        builder, URLHandleResourceDidFinishLoading_);
-    NSURLHandleClient.URLHandleResourceDidCancelLoading_.implementAsListener(
-        builder, URLHandleResourceDidCancelLoading_);
-    NSURLHandleClient.URLHandle_resourceDidFailLoadingWithReason_
-        .implementAsListener(
-            builder, URLHandle_resourceDidFailLoadingWithReason_);
-  }
-
-  /// URLHandle:resourceDataDidBecomeAvailable:
-  static final URLHandle_resourceDataDidBecomeAvailable_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(objc.NSURLHandle, objc.NSData)>(
-    _protocol_NSURLHandleClient,
-    _sel_URLHandle_resourceDataDidBecomeAvailable_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLHandleClient,
-      _sel_URLHandle_resourceDataDidBecomeAvailable_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function(objc.NSURLHandle, objc.NSData) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1,
-                    objc.NSData arg2) =>
-                func(arg1, arg2)),
-    (void Function(objc.NSURLHandle, objc.NSData) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSData.listener(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1,
-                    objc.NSData arg2) =>
-                func(arg1, arg2)),
-  );
-
-  /// URLHandleResourceDidBeginLoading:
-  static final URLHandleResourceDidBeginLoading_ =
-      objc.ObjCProtocolListenableMethod<void Function(objc.NSURLHandle)>(
-    _protocol_NSURLHandleClient,
-    _sel_URLHandleResourceDidBeginLoading_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLHandleClient,
-      _sel_URLHandleResourceDidBeginLoading_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function(objc.NSURLHandle) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-    (void Function(objc.NSURLHandle) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-  );
-
-  /// URLHandleResourceDidFinishLoading:
-  static final URLHandleResourceDidFinishLoading_ =
-      objc.ObjCProtocolListenableMethod<void Function(objc.NSURLHandle)>(
-    _protocol_NSURLHandleClient,
-    _sel_URLHandleResourceDidFinishLoading_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLHandleClient,
-      _sel_URLHandleResourceDidFinishLoading_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function(objc.NSURLHandle) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-    (void Function(objc.NSURLHandle) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-  );
-
-  /// URLHandleResourceDidCancelLoading:
-  static final URLHandleResourceDidCancelLoading_ =
-      objc.ObjCProtocolListenableMethod<void Function(objc.NSURLHandle)>(
-    _protocol_NSURLHandleClient,
-    _sel_URLHandleResourceDidCancelLoading_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLHandleClient,
-      _sel_URLHandleResourceDidCancelLoading_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function(objc.NSURLHandle) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-    (void Function(objc.NSURLHandle) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle.listener(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1) => func(arg1)),
-  );
-
-  /// URLHandle:resourceDidFailLoadingWithReason:
-  static final URLHandle_resourceDidFailLoadingWithReason_ =
-      objc.ObjCProtocolListenableMethod<
-          void Function(objc.NSURLHandle, objc.NSString)>(
-    _protocol_NSURLHandleClient,
-    _sel_URLHandle_resourceDidFailLoadingWithReason_,
-    objc.getProtocolMethodSignature(
-      _protocol_NSURLHandleClient,
-      _sel_URLHandle_resourceDidFailLoadingWithReason_,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function(objc.NSURLHandle, objc.NSString) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString.fromFunction(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1,
-                    objc.NSString arg2) =>
-                func(arg1, arg2)),
-    (void Function(objc.NSURLHandle, objc.NSString) func) =>
-        ObjCBlock_ffiVoid_ffiVoid_NSURLHandle_NSString.listener(
-            (ffi.Pointer<ffi.Void> _, objc.NSURLHandle arg1,
-                    objc.NSString arg2) =>
-                func(arg1, arg2)),
-  );
-}
-
 typedef NSURLResourceKey = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSURLResourceKey = objc.NSString;
 typedef NSURLFileResourceType = ffi.Pointer<objc.ObjCObject>;
@@ -81535,7 +75593,7 @@ extension NSItemProvider1 on objc.NSURL {
   }
 
   /// writableTypeIdentifiersForItemProvider
-  objc.NSArray get writableTypeIdentifiersForItemProvider {
+  objc.NSArray get writableTypeIdentifiersForItemProvider1 {
     if (!objc.respondsToSelector(
         this.ref.pointer, _sel_writableTypeIdentifiersForItemProvider)) {
       throw objc.UnimplementedOptionalMethodException(
@@ -81966,94 +76024,122 @@ extension NSURLLoading on objc.NSURL {
   }
 }
 
-late final _protocol_NSLocking = objc.getProtocol("NSLocking");
+late final _class_NSCondition = objc.getClass("NSCondition");
+late final _sel_wait = objc.registerName("wait");
+late final _sel_waitUntilDate_ = objc.registerName("waitUntilDate:");
+late final _sel_signal = objc.registerName("signal");
+late final _sel_broadcast = objc.registerName("broadcast");
 late final _sel_lock = objc.registerName("lock");
-late final _sel_unlock = objc.registerName("unlock");
-
-/// NSLocking
-abstract final class NSLocking {
-  /// Builds an object that implements the NSLocking protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly.
-  static objc.ObjCObjectBase implement(
-      {required void Function() lock, required void Function() unlock}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSLocking.lock.implement(builder, lock);
-    NSLocking.unlock.implement(builder, unlock);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSLocking protocol to an existing
-  /// [objc.ObjCProtocolBuilder].
-  static void addToBuilder(objc.ObjCProtocolBuilder builder,
-      {required void Function() lock, required void Function() unlock}) {
-    NSLocking.lock.implement(builder, lock);
-    NSLocking.unlock.implement(builder, unlock);
-  }
-
-  /// Builds an object that implements the NSLocking protocol. To implement
-  /// multiple protocols, use [addToBuilder] or [objc.ObjCProtocolBuilder] directly. All
-  /// methods that can be implemented as listeners will be.
-  static objc.ObjCObjectBase implementAsListener(
-      {required void Function() lock, required void Function() unlock}) {
-    final builder = objc.ObjCProtocolBuilder();
-    NSLocking.lock.implementAsListener(builder, lock);
-    NSLocking.unlock.implementAsListener(builder, unlock);
-    return builder.build();
-  }
-
-  /// Adds the implementation of the NSLocking protocol to an existing
-  /// [objc.ObjCProtocolBuilder]. All methods that can be implemented as listeners will
-  /// be.
-  static void addToBuilderAsListener(objc.ObjCProtocolBuilder builder,
-      {required void Function() lock, required void Function() unlock}) {
-    NSLocking.lock.implementAsListener(builder, lock);
-    NSLocking.unlock.implementAsListener(builder, unlock);
-  }
-
-  /// lock
-  static final lock = objc.ObjCProtocolListenableMethod<void Function()>(
-    _protocol_NSLocking,
-    _sel_lock,
-    objc.getProtocolMethodSignature(
-      _protocol_NSLocking,
-      _sel_lock,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
-
-  /// unlock
-  static final unlock = objc.ObjCProtocolListenableMethod<void Function()>(
-    _protocol_NSLocking,
-    _sel_unlock,
-    objc.getProtocolMethodSignature(
-      _protocol_NSLocking,
-      _sel_unlock,
-      isRequired: true,
-      isInstanceMethod: true,
-    ),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.fromFunction((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-    (void Function() func) => ObjCBlock_ffiVoid_ffiVoid.listener((
-      ffi.Pointer<ffi.Void> _,
-    ) =>
-        func()),
-  );
+void _ObjCBlock_ffiVoid_ffiVoid_fnPtrTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    block.ref.target
+        .cast<
+            ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void> arg0)>>()
+        .asFunction<void Function(ffi.Pointer<ffi.Void>)>()(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_fnPtrCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_fnPtrTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_ffiVoid_closureTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) =>
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<ffi.Void>))(arg0);
+ffi.Pointer<ffi.Void> _ObjCBlock_ffiVoid_ffiVoid_closureCallable =
+    ffi.Pointer.fromFunction<
+                ffi.Void Function(
+                    ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>(
+            _ObjCBlock_ffiVoid_ffiVoid_closureTrampoline)
+        .cast();
+void _ObjCBlock_ffiVoid_ffiVoid_listenerTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> arg0) {
+  (objc.getBlockClosure(block) as void Function(ffi.Pointer<ffi.Void>))(arg0);
+  objc.objectRelease(block.cast());
 }
 
-/// WARNING: NSCondition is a stub. To generate bindings for this class, include
-/// NSCondition in your config's objc-interfaces list.
-///
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>
+    _ObjCBlock_ffiVoid_ffiVoid_listenerCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_listenerTrampoline)
+      ..keepIsolateAlive = false;
+
+/// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>`.
+abstract final class ObjCBlock_ffiVoid_ffiVoid {
+  /// Returns a block that wraps the given raw block pointer.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>
+      castFromPointer(ffi.Pointer<objc.ObjCBlockImpl> pointer,
+              {bool retain = false, bool release = false}) =>
+          objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(pointer,
+              retain: retain, release: release);
+
+  /// Creates a block from a C function pointer.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> fromFunctionPointer(
+          ffi.Pointer<
+                  ffi.NativeFunction<
+                      ffi.Void Function(ffi.Pointer<ffi.Void> arg0)>>
+              ptr) =>
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(
+          objc.newPointerBlock(
+              _ObjCBlock_ffiVoid_ffiVoid_fnPtrCallable, ptr.cast()),
+          retain: false,
+          release: true);
+
+  /// Creates a block from a Dart function.
+  ///
+  /// This block must be invoked by native code running on the same thread as
+  /// the isolate that registered it. Invoking the block on the wrong thread
+  /// will result in a crash.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> fromFunction(
+          void Function(ffi.Pointer<ffi.Void>) fn) =>
+      objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(
+          objc.newClosureBlock(_ObjCBlock_ffiVoid_ffiVoid_closureCallable,
+              (ffi.Pointer<ffi.Void> arg0) => fn(arg0)),
+          retain: false,
+          release: true);
+
+  /// Creates a listener block from a Dart function.
+  ///
+  /// This is based on FFI's NativeCallable.listener, and has the same
+  /// capabilities and limitations. This block can be invoked from any thread,
+  /// but only supports void functions, and is not run synchronously. See
+  /// NativeCallable.listener for more details.
+  ///
+  /// Note that unlike the default behavior of NativeCallable.listener, listener
+  /// blocks do not keep the isolate alive.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> listener(
+      void Function(ffi.Pointer<ffi.Void>) fn) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_listenerCallable.nativeFunction.cast(),
+        (ffi.Pointer<ffi.Void> arg0) => fn(arg0));
+    final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ovsamd(raw);
+    objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(wrapper,
+        retain: false, release: true);
+  }
+}
+
+/// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>`.
+extension ObjCBlock_ffiVoid_ffiVoid_CallExtension
+    on objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> {
+  void call(ffi.Pointer<ffi.Void> arg0) => ref.pointer.ref.invoke
+      .cast<
+          ffi.NativeFunction<
+              ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl> block,
+                  ffi.Pointer<ffi.Void> arg0)>>()
+      .asFunction<
+          void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+              ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0);
+}
+
+late final _sel_unlock = objc.registerName("unlock");
+
 /// NSCondition
 class NSCondition extends objc.NSObject {
   NSCondition._(ffi.Pointer<objc.ObjCObject> pointer,
@@ -82068,6 +76154,101 @@ class NSCondition extends objc.NSObject {
   NSCondition.castFromPointer(ffi.Pointer<objc.ObjCObject> other,
       {bool retain = false, bool release = false})
       : this._(other, retain: retain, release: release);
+
+  /// Returns whether [obj] is an instance of [NSCondition].
+  static bool isInstance(objc.ObjCObjectBase obj) {
+    return _objc_msgSend_69e0x1(
+        obj.ref.pointer, _sel_isKindOfClass_, _class_NSCondition);
+  }
+
+  /// wait
+  void wait1() {
+    _objc_msgSend_1pl9qdv(this.ref.pointer, _sel_wait);
+  }
+
+  /// waitUntilDate:
+  bool waitUntilDate_(objc.NSDate limit) {
+    return _objc_msgSend_69e0x1(
+        this.ref.pointer, _sel_waitUntilDate_, limit.ref.pointer);
+  }
+
+  /// signal
+  void signal() {
+    _objc_msgSend_1pl9qdv(this.ref.pointer, _sel_signal);
+  }
+
+  /// broadcast
+  void broadcast() {
+    _objc_msgSend_1pl9qdv(this.ref.pointer, _sel_broadcast);
+  }
+
+  /// name
+  objc.NSString? get name {
+    final _ret = _objc_msgSend_1x359cv(this.ref.pointer, _sel_name);
+    return _ret.address == 0
+        ? null
+        : objc.NSString.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// setName:
+  set name(objc.NSString? value) {
+    return _objc_msgSend_1jdvcbf(
+        this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
+  }
+
+  /// init
+  NSCondition init() {
+    final _ret =
+        _objc_msgSend_1x359cv(this.ref.retainAndReturnPointer(), _sel_init);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// new
+  static NSCondition new1() {
+    final _ret = _objc_msgSend_1x359cv(_class_NSCondition, _sel_new);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// allocWithZone:
+  static NSCondition allocWithZone_(ffi.Pointer<_NSZone> zone) {
+    final _ret =
+        _objc_msgSend_hzlb60(_class_NSCondition, _sel_allocWithZone_, zone);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// alloc
+  static NSCondition alloc() {
+    final _ret = _objc_msgSend_1x359cv(_class_NSCondition, _sel_alloc);
+    return NSCondition.castFromPointer(_ret, retain: false, release: true);
+  }
+
+  /// self
+  NSCondition self() {
+    final _ret = _objc_msgSend_1x359cv(this.ref.pointer, _sel_self);
+    return NSCondition.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// retain
+  NSCondition retain() {
+    final _ret = _objc_msgSend_1x359cv(this.ref.pointer, _sel_retain);
+    return NSCondition.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// autorelease
+  NSCondition autorelease() {
+    final _ret = _objc_msgSend_1x359cv(this.ref.pointer, _sel_autorelease);
+    return NSCondition.castFromPointer(_ret, retain: true, release: true);
+  }
+
+  /// lock
+  void lock() {
+    _objc_msgSend_1pl9qdv(this.ref.pointer, _sel_lock);
+  }
+
+  /// unlock
+  void unlock() {
+    _objc_msgSend_1pl9qdv(this.ref.pointer, _sel_unlock);
+  }
 }
 
 typedef NSProgressKind1 = ffi.Pointer<objc.ObjCObject>;
