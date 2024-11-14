@@ -97,7 +97,7 @@ class BrowserClient extends BaseClient {
 
       final headers = <String, String>{};
       (response.headers as _IterableHeaders)
-          .forEach((String value, String header) {
+          .forEach((String value, String header, [JSAny? _]) {
         headers[header.toLowerCase()] = value;
       }.toJS);
 
