@@ -1,3 +1,7 @@
+## 2.0.2-wip
+
+* Upgrade to `package:objective_c` 4.0.
+
 ## 2.0.1
 
 * Fix a [bug](https://github.com/dart-lang/http/issues/1398) where
