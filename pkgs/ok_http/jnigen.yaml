@@ -12,9 +12,6 @@ android_sdk_config:
   add_gradle_deps: true
   android_example: "example/"
 
-enable_experiment:
-  - "interface_implementation"
-
 classes:
   - "okhttp3.Request"
   - "okhttp3.RequestBody"
