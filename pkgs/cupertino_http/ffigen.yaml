@@ -31,6 +31,7 @@ preamble: |
   // ignore_for_file: return_of_invalid_type
 objc-interfaces:
   include:
+    - 'NSCondition'
     - 'NSHTTPURLResponse'
     - 'NSMutableURLRequest'
     - 'NSOperationQueue'
@@ -43,6 +44,11 @@ objc-interfaces:
     - 'NSURLSessionTask'
     - 'NSURLSessionWebSocketMessage'
     - 'NSURLSessionWebSocketTask'
+objc-protocols:
+  include:
+    - 'NSURLSessionDataDelegate'
+    - 'NSURLSessionDownloadDelegate'
+    - 'NSURLSessionWebSocketDelegate'
 comments:
   style: any
   length: full

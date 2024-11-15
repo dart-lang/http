@@ -939,7 +939,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           .registerName('URLSession:downloadTask:didFinishDownloadingToURL:');
       final signature = objc.getProtocolMethodSignature(
           downloadDelegate, didFinishDownloadingToURL,
-          isRequired: true, isInstanceMethod: true);
+          isRequired: true, isInstanceMethod: true)!;
       protoBuilder.implementMethod(didFinishDownloadingToURL, signature,
           linkedLibs.adaptFinishWithLock(asyncFinishDownloading));
     }
