@@ -36,14 +36,14 @@ void main() {
     test('non-string value', () {
       final d = objc.NSMutableDictionary.new1()
         ..setObject_forKey_(
-            objc.NSNumber.numberWithInteger_(5), 'key'.toNSString());
+            objc.NSNumberCreation.numberWithInteger_(5), 'key'.toNSString());
       expect(() => stringNSDictionaryToMap(d), throwsUnsupportedError);
     });
 
     test('non-string key', () {
       final d = objc.NSMutableDictionary.new1()
         ..setObject_forKey_(
-            'value'.toNSString(), objc.NSNumber.numberWithInteger_(5));
+            'value'.toNSString(), objc.NSNumberCreation.numberWithInteger_(5));
       expect(() => stringNSDictionaryToMap(d), throwsUnsupportedError);
     });
   });
