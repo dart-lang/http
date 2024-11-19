@@ -7,7 +7,7 @@
 #error "This file must be compiled with ARC enabled"
 #endif
 
-typedef void (^_DidFinish)(void *, NSURLSession *session,
+typedef void (^_DidFinish)(void *closure, NSURLSession *session,
                            NSURLSessionDownloadTask *downloadTask,
                            NSURL *location);
 typedef void (^_DidFinishWithLock)(NSCondition *lock, NSURLSession *session,
