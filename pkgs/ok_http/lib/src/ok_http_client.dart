@@ -92,7 +92,7 @@ class OkHttpClient extends BaseClient {
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
   }) {
-    _client = bindings.OkHttpClient.new1();
+    _client = bindings.OkHttpClient_Builder().build();
   }
 
   @override
@@ -170,7 +170,7 @@ class OkHttpClient extends BaseClient {
 
     final responseCompleter = Completer<StreamedResponse>();
 
-    var reqBuilder = bindings.Request_Builder().url1(requestUrl.toJString());
+    var reqBuilder = bindings.Request_Builder().url$1(requestUrl.toJString());
 
     requestHeaders.forEach((headerName, headerValue) {
       reqBuilder.addHeader(headerName.toJString(), headerValue.toJString());
@@ -180,7 +180,7 @@ class OkHttpClient extends BaseClient {
     // So, we need to handle this case separately.
     bindings.RequestBody okReqBody;
     if (requestMethod != 'GET' && requestMethod != 'HEAD') {
-      okReqBody = bindings.RequestBody.create10(requestBody.toJArray());
+      okReqBody = bindings.RequestBody.create$10(requestBody.toJArray());
     } else {
       okReqBody = bindings.RequestBody.fromReference(jNullReference);
     }
@@ -203,7 +203,7 @@ class OkHttpClient extends BaseClient {
             _client.newBuilder().followRedirects(false),
             maxRedirects,
             followRedirects, bindings.RedirectReceivedCallback.implement(
-                bindings.$RedirectReceivedCallbackImpl(
+                bindings.$RedirectReceivedCallback(
           onRedirectReceived: (response, newLocation) {
             profile?.responseData.addRedirect(HttpProfileRedirectData(
               statusCode: response.code(),
@@ -229,7 +229,7 @@ class OkHttpClient extends BaseClient {
     // https://square.github.io/okhttp/5.x/okhttp/okhttp3/-call/enqueue.html
     reqConfiguredClient
         .newCall(reqBuilder.build())
-        .enqueue(bindings.Callback.implement(bindings.$CallbackImpl(
+        .enqueue(bindings.Callback.implement(bindings.$Callback(
           onResponse: (bindings.Call call, bindings.Response response) {
             var reader = bindings.AsyncInputStreamReader();
             var respBodyStreamController = StreamController<List<int>>();
@@ -258,7 +258,7 @@ class OkHttpClient extends BaseClient {
             reader.readAsync(
                 responseBodyByteStream,
                 bindings.DataCallback.implement(
-                  bindings.$DataCallbackImpl(
+                  bindings.$DataCallback(
                     onDataRead: (JArray<jbyte> bytesRead) {
                       var data = bytesRead.toUint8List();
 
