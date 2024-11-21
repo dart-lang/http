@@ -1,9 +1,10 @@
 name: http_profile
+version: 0.1.1-wip
 description: >-
   A library used by HTTP client authors to integrate with the DevTools Network
   View.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http_profile
-version: 0.1.1-wip
+issue_tracker: https://github.com/dart-lang/http/issues?q=is%3Aissue+is%3Aopen+label%3Apackage%3Ahttp_profile
 
 environment:
   sdk: ^3.4.0
