@@ -2,6 +2,7 @@ name: http2
 version: 2.3.1
 description: A HTTP/2 implementation in Dart.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http2
+issue_tracker: https://github.com/dart-lang/http/issues?q=is%3Aissue+is%3Aopen+label%3Apackage%3Ahttp2
 
 topics:
  - http
