@@ -35,8 +35,14 @@ classes:
   - "com.example.ok_http.WebSocketInterceptor"
   - "java.util.concurrent.TimeUnit"
   - "javax.net.ssl.X509TrustManager"
+  - "javax.net.ssl.SSLSocketFactory"
   - "javax.net.ssl.SSLContext"
   - "javax.net.ssl.TrustManagerFactory"
+  - "javax.net.ssl.TrustManager"
+  - "java.security.KeyStore"
+  - "javax.net.ssl.KeyManager"
+  - "java.security.SecureRandom"
+  - "javax.net.ssl.X509KeyManager"
 
 preamble: |
   // ignore_for_file: prefer_expression_function_bodies

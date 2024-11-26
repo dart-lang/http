@@ -5117,7 +5117,7 @@ class OkHttpClient_Builder extends _$jni.JObject {
   /// from: `public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder sslSocketFactory(
-    _$jni.JObject sSLSocketFactory,
+    SSLSocketFactory sSLSocketFactory,
   ) {
     return _sslSocketFactory(
             reference.pointer,
@@ -5151,8 +5151,8 @@ class OkHttpClient_Builder extends _$jni.JObject {
   /// from: `public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory, javax.net.ssl.X509TrustManager x509TrustManager)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder sslSocketFactory$1(
-    _$jni.JObject sSLSocketFactory,
-    _$jni.JObject x509TrustManager,
+    SSLSocketFactory sSLSocketFactory,
+    X509TrustManager x509TrustManager,
   ) {
     return _sslSocketFactory$1(
             reference.pointer,
@@ -6181,10 +6181,10 @@ class OkHttpClient extends _$jni.JObject {
 
   /// from: `public final javax.net.ssl.SSLSocketFactory sslSocketFactory()`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject sslSocketFactory() {
+  SSLSocketFactory sslSocketFactory() {
     return _sslSocketFactory(
             reference.pointer, _id_sslSocketFactory as _$jni.JMethodIDPtr)
-        .object(const _$jni.JObjectType());
+        .object(const $SSLSocketFactory$Type());
   }
 
   static final _id_x509TrustManager = _class.instanceMethodId(
@@ -6206,10 +6206,10 @@ class OkHttpClient extends _$jni.JObject {
 
   /// from: `public final javax.net.ssl.X509TrustManager x509TrustManager()`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject x509TrustManager() {
+  X509TrustManager x509TrustManager() {
     return _x509TrustManager(
             reference.pointer, _id_x509TrustManager as _$jni.JMethodIDPtr)
-        .object(const _$jni.JObjectType());
+        .object(const $X509TrustManager$Type());
   }
 
   static final _id_connectionSpecs = _class.instanceMethodId(
@@ -15080,5 +15080,5231 @@ final class $TimeUnit$Type extends _$jni.JObjType<TimeUnit> {
   @_$core.override
   bool operator ==(Object other) {
     return other.runtimeType == ($TimeUnit$Type) && other is $TimeUnit$Type;
+  }
+}
+
+/// from: `javax.net.ssl.X509TrustManager`
+class X509TrustManager extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<X509TrustManager> $type;
+
+  @_$jni.internal
+  X509TrustManager.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'javax/net/ssl/X509TrustManager');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $X509TrustManager$Type();
+  static final _id_checkClientTrusted = _class.instanceMethodId(
+    r'checkClientTrusted',
+    r'([Ljava/security/cert/X509Certificate;Ljava/lang/String;)V',
+  );
+
+  static final _checkClientTrusted = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract void checkClientTrusted(java.security.cert.X509Certificate[] x509Certificates, java.lang.String string)`
+  void checkClientTrusted(
+    _$jni.JArray<_$jni.JObject> x509Certificates,
+    _$jni.JString string,
+  ) {
+    _checkClientTrusted(
+            reference.pointer,
+            _id_checkClientTrusted as _$jni.JMethodIDPtr,
+            x509Certificates.reference.pointer,
+            string.reference.pointer)
+        .check();
+  }
+
+  static final _id_checkServerTrusted = _class.instanceMethodId(
+    r'checkServerTrusted',
+    r'([Ljava/security/cert/X509Certificate;Ljava/lang/String;)V',
+  );
+
+  static final _checkServerTrusted = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract void checkServerTrusted(java.security.cert.X509Certificate[] x509Certificates, java.lang.String string)`
+  void checkServerTrusted(
+    _$jni.JArray<_$jni.JObject> x509Certificates,
+    _$jni.JString string,
+  ) {
+    _checkServerTrusted(
+            reference.pointer,
+            _id_checkServerTrusted as _$jni.JMethodIDPtr,
+            x509Certificates.reference.pointer,
+            string.reference.pointer)
+        .check();
+  }
+
+  static final _id_getAcceptedIssuers = _class.instanceMethodId(
+    r'getAcceptedIssuers',
+    r'()[Ljava/security/cert/X509Certificate;',
+  );
+
+  static final _getAcceptedIssuers = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.security.cert.X509Certificate[] getAcceptedIssuers()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JObject> getAcceptedIssuers() {
+    return _getAcceptedIssuers(
+            reference.pointer, _id_getAcceptedIssuers as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.JObjectType()));
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $X509TrustManager> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d ==
+          r'checkClientTrusted([Ljava/security/cert/X509Certificate;Ljava/lang/String;)V') {
+        _$impls[$p]!.checkClientTrusted(
+          $a[0].as(const _$jni.JArrayType(_$jni.JObjectType()),
+              releaseOriginal: true),
+          $a[1].as(const _$jni.JStringType(), releaseOriginal: true),
+        );
+        return _$jni.nullptr;
+      }
+      if ($d ==
+          r'checkServerTrusted([Ljava/security/cert/X509Certificate;Ljava/lang/String;)V') {
+        _$impls[$p]!.checkServerTrusted(
+          $a[0].as(const _$jni.JArrayType(_$jni.JObjectType()),
+              releaseOriginal: true),
+          $a[1].as(const _$jni.JStringType(), releaseOriginal: true),
+        );
+        return _$jni.nullptr;
+      }
+      if ($d == r'getAcceptedIssuers()[Ljava/security/cert/X509Certificate;') {
+        final $r = _$impls[$p]!.getAcceptedIssuers();
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $X509TrustManager $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'javax.net.ssl.X509TrustManager',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.checkClientTrusted$async)
+          r'checkClientTrusted([Ljava/security/cert/X509Certificate;Ljava/lang/String;)V',
+        if ($impl.checkServerTrusted$async)
+          r'checkServerTrusted([Ljava/security/cert/X509Certificate;Ljava/lang/String;)V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory X509TrustManager.implement(
+    $X509TrustManager $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return X509TrustManager.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $X509TrustManager {
+  factory $X509TrustManager({
+    required void Function(
+            _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string)
+        checkClientTrusted,
+    bool checkClientTrusted$async,
+    required void Function(
+            _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string)
+        checkServerTrusted,
+    bool checkServerTrusted$async,
+    required _$jni.JArray<_$jni.JObject> Function() getAcceptedIssuers,
+  }) = _$X509TrustManager;
+
+  void checkClientTrusted(
+      _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string);
+  bool get checkClientTrusted$async => false;
+  void checkServerTrusted(
+      _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string);
+  bool get checkServerTrusted$async => false;
+  _$jni.JArray<_$jni.JObject> getAcceptedIssuers();
+}
+
+final class _$X509TrustManager with $X509TrustManager {
+  _$X509TrustManager({
+    required void Function(
+            _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string)
+        checkClientTrusted,
+    this.checkClientTrusted$async = false,
+    required void Function(
+            _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string)
+        checkServerTrusted,
+    this.checkServerTrusted$async = false,
+    required _$jni.JArray<_$jni.JObject> Function() getAcceptedIssuers,
+  })  : _checkClientTrusted = checkClientTrusted,
+        _checkServerTrusted = checkServerTrusted,
+        _getAcceptedIssuers = getAcceptedIssuers;
+
+  final void Function(
+          _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string)
+      _checkClientTrusted;
+  final bool checkClientTrusted$async;
+  final void Function(
+          _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string)
+      _checkServerTrusted;
+  final bool checkServerTrusted$async;
+  final _$jni.JArray<_$jni.JObject> Function() _getAcceptedIssuers;
+
+  void checkClientTrusted(
+      _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string) {
+    return _checkClientTrusted(x509Certificates, string);
+  }
+
+  void checkServerTrusted(
+      _$jni.JArray<_$jni.JObject> x509Certificates, _$jni.JString string) {
+    return _checkServerTrusted(x509Certificates, string);
+  }
+
+  _$jni.JArray<_$jni.JObject> getAcceptedIssuers() {
+    return _getAcceptedIssuers();
+  }
+}
+
+final class $X509TrustManager$Type extends _$jni.JObjType<X509TrustManager> {
+  @_$jni.internal
+  const $X509TrustManager$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/X509TrustManager;';
+
+  @_$jni.internal
+  @_$core.override
+  X509TrustManager fromReference(_$jni.JReference reference) =>
+      X509TrustManager.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($X509TrustManager$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($X509TrustManager$Type) &&
+        other is $X509TrustManager$Type;
+  }
+}
+
+/// from: `javax.net.ssl.SSLSocketFactory`
+class SSLSocketFactory extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<SSLSocketFactory> $type;
+
+  @_$jni.internal
+  SSLSocketFactory.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'javax/net/ssl/SSLSocketFactory');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $SSLSocketFactory$Type();
+  static final _id_getDefault = _class.staticMethodId(
+    r'getDefault',
+    r'()Ljavax/net/SocketFactory;',
+  );
+
+  static final _getDefault = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `static public javax.net.SocketFactory getDefault()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject getDefault() {
+    return _getDefault(
+            _class.reference.pointer, _id_getDefault as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getDefaultCipherSuites = _class.instanceMethodId(
+    r'getDefaultCipherSuites',
+    r'()[Ljava/lang/String;',
+  );
+
+  static final _getDefaultCipherSuites = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.lang.String[] getDefaultCipherSuites()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JString> getDefaultCipherSuites() {
+    return _getDefaultCipherSuites(
+            reference.pointer, _id_getDefaultCipherSuites as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.JStringType()));
+  }
+
+  static final _id_getSupportedCipherSuites = _class.instanceMethodId(
+    r'getSupportedCipherSuites',
+    r'()[Ljava/lang/String;',
+  );
+
+  static final _getSupportedCipherSuites = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.lang.String[] getSupportedCipherSuites()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JString> getSupportedCipherSuites() {
+    return _getSupportedCipherSuites(reference.pointer,
+            _id_getSupportedCipherSuites as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.JStringType()));
+  }
+
+  static final _id_createSocket = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/net/Socket;Ljava/lang/String;IZ)Ljava/net/Socket;',
+  );
+
+  static final _createSocket = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `public abstract java.net.Socket createSocket(java.net.Socket socket, java.lang.String string, int i, boolean z)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket(
+    _$jni.JObject socket,
+    _$jni.JString string,
+    int i,
+    bool z,
+  ) {
+    return _createSocket(
+            reference.pointer,
+            _id_createSocket as _$jni.JMethodIDPtr,
+            socket.reference.pointer,
+            string.reference.pointer,
+            i,
+            z ? 1 : 0)
+        .object(const _$jni.JObjectType());
+  }
+}
+
+final class $SSLSocketFactory$Type extends _$jni.JObjType<SSLSocketFactory> {
+  @_$jni.internal
+  const $SSLSocketFactory$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/SSLSocketFactory;';
+
+  @_$jni.internal
+  @_$core.override
+  SSLSocketFactory fromReference(_$jni.JReference reference) =>
+      SSLSocketFactory.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($SSLSocketFactory$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($SSLSocketFactory$Type) &&
+        other is $SSLSocketFactory$Type;
+  }
+}
+
+/// from: `javax.net.ssl.SSLContext`
+class SSLContext extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<SSLContext> $type;
+
+  @_$jni.internal
+  SSLContext.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'javax/net/ssl/SSLContext');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $SSLContext$Type();
+  static final _id_getDefault = _class.staticMethodId(
+    r'getDefault',
+    r'()Ljavax/net/ssl/SSLContext;',
+  );
+
+  static final _getDefault = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `static public javax.net.ssl.SSLContext getDefault()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SSLContext getDefault() {
+    return _getDefault(
+            _class.reference.pointer, _id_getDefault as _$jni.JMethodIDPtr)
+        .object(const $SSLContext$Type());
+  }
+
+  static final _id_setDefault = _class.staticMethodId(
+    r'setDefault',
+    r'(Ljavax/net/ssl/SSLContext;)V',
+  );
+
+  static final _setDefault = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void setDefault(javax.net.ssl.SSLContext sSLContext)`
+  static void setDefault(
+    SSLContext sSLContext,
+  ) {
+    _setDefault(_class.reference.pointer, _id_setDefault as _$jni.JMethodIDPtr,
+            sSLContext.reference.pointer)
+        .check();
+  }
+
+  static final _id_getInstance = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;',
+  );
+
+  static final _getInstance = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public javax.net.ssl.SSLContext getInstance(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SSLContext getInstance(
+    _$jni.JString string,
+  ) {
+    return _getInstance(_class.reference.pointer,
+            _id_getInstance as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $SSLContext$Type());
+  }
+
+  static final _id_getInstance$1 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/lang/String;)Ljavax/net/ssl/SSLContext;',
+  );
+
+  static final _getInstance$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public javax.net.ssl.SSLContext getInstance(java.lang.String string, java.lang.String string1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SSLContext getInstance$1(
+    _$jni.JString string,
+    _$jni.JString string1,
+  ) {
+    return _getInstance$1(
+            _class.reference.pointer,
+            _id_getInstance$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            string1.reference.pointer)
+        .object(const $SSLContext$Type());
+  }
+
+  static final _id_getInstance$2 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/security/Provider;)Ljavax/net/ssl/SSLContext;',
+  );
+
+  static final _getInstance$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public javax.net.ssl.SSLContext getInstance(java.lang.String string, java.security.Provider provider)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SSLContext getInstance$2(
+    _$jni.JString string,
+    _$jni.JObject provider,
+  ) {
+    return _getInstance$2(
+            _class.reference.pointer,
+            _id_getInstance$2 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            provider.reference.pointer)
+        .object(const $SSLContext$Type());
+  }
+
+  static final _id_getProtocol = _class.instanceMethodId(
+    r'getProtocol',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getProtocol = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.lang.String getProtocol()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getProtocol() {
+    return _getProtocol(
+            reference.pointer, _id_getProtocol as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getProvider = _class.instanceMethodId(
+    r'getProvider',
+    r'()Ljava/security/Provider;',
+  );
+
+  static final _getProvider = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.security.Provider getProvider()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getProvider() {
+    return _getProvider(
+            reference.pointer, _id_getProvider as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_init = _class.instanceMethodId(
+    r'init',
+    r'([Ljavax/net/ssl/KeyManager;[Ljavax/net/ssl/TrustManager;Ljava/security/SecureRandom;)V',
+  );
+
+  static final _init = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void init(javax.net.ssl.KeyManager[] keyManagers, javax.net.ssl.TrustManager[] trustManagers, java.security.SecureRandom secureRandom)`
+  void init(
+    _$jni.JArray<KeyManager> keyManagers,
+    _$jni.JArray<TrustManager> trustManagers,
+    SecureRandom secureRandom,
+  ) {
+    _init(
+            reference.pointer,
+            _id_init as _$jni.JMethodIDPtr,
+            keyManagers.reference.pointer,
+            trustManagers.reference.pointer,
+            secureRandom.reference.pointer)
+        .check();
+  }
+
+  static final _id_getSocketFactory = _class.instanceMethodId(
+    r'getSocketFactory',
+    r'()Ljavax/net/ssl/SSLSocketFactory;',
+  );
+
+  static final _getSocketFactory = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.SSLSocketFactory getSocketFactory()`
+  /// The returned object must be released after use, by calling the [release] method.
+  SSLSocketFactory getSocketFactory() {
+    return _getSocketFactory(
+            reference.pointer, _id_getSocketFactory as _$jni.JMethodIDPtr)
+        .object(const $SSLSocketFactory$Type());
+  }
+
+  static final _id_getServerSocketFactory = _class.instanceMethodId(
+    r'getServerSocketFactory',
+    r'()Ljavax/net/ssl/SSLServerSocketFactory;',
+  );
+
+  static final _getServerSocketFactory = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.SSLServerSocketFactory getServerSocketFactory()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getServerSocketFactory() {
+    return _getServerSocketFactory(
+            reference.pointer, _id_getServerSocketFactory as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSSLEngine = _class.instanceMethodId(
+    r'createSSLEngine',
+    r'()Ljavax/net/ssl/SSLEngine;',
+  );
+
+  static final _createSSLEngine = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.SSLEngine createSSLEngine()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSSLEngine() {
+    return _createSSLEngine(
+            reference.pointer, _id_createSSLEngine as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSSLEngine$1 = _class.instanceMethodId(
+    r'createSSLEngine',
+    r'(Ljava/lang/String;I)Ljavax/net/ssl/SSLEngine;',
+  );
+
+  static final _createSSLEngine$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `public final javax.net.ssl.SSLEngine createSSLEngine(java.lang.String string, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSSLEngine$1(
+    _$jni.JString string,
+    int i,
+  ) {
+    return _createSSLEngine$1(
+            reference.pointer,
+            _id_createSSLEngine$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            i)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getServerSessionContext = _class.instanceMethodId(
+    r'getServerSessionContext',
+    r'()Ljavax/net/ssl/SSLSessionContext;',
+  );
+
+  static final _getServerSessionContext = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.SSLSessionContext getServerSessionContext()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getServerSessionContext() {
+    return _getServerSessionContext(reference.pointer,
+            _id_getServerSessionContext as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getClientSessionContext = _class.instanceMethodId(
+    r'getClientSessionContext',
+    r'()Ljavax/net/ssl/SSLSessionContext;',
+  );
+
+  static final _getClientSessionContext = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.SSLSessionContext getClientSessionContext()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getClientSessionContext() {
+    return _getClientSessionContext(reference.pointer,
+            _id_getClientSessionContext as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getDefaultSSLParameters = _class.instanceMethodId(
+    r'getDefaultSSLParameters',
+    r'()Ljavax/net/ssl/SSLParameters;',
+  );
+
+  static final _getDefaultSSLParameters = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.SSLParameters getDefaultSSLParameters()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getDefaultSSLParameters() {
+    return _getDefaultSSLParameters(reference.pointer,
+            _id_getDefaultSSLParameters as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getSupportedSSLParameters = _class.instanceMethodId(
+    r'getSupportedSSLParameters',
+    r'()Ljavax/net/ssl/SSLParameters;',
+  );
+
+  static final _getSupportedSSLParameters = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.SSLParameters getSupportedSSLParameters()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getSupportedSSLParameters() {
+    return _getSupportedSSLParameters(reference.pointer,
+            _id_getSupportedSSLParameters as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+}
+
+final class $SSLContext$Type extends _$jni.JObjType<SSLContext> {
+  @_$jni.internal
+  const $SSLContext$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/SSLContext;';
+
+  @_$jni.internal
+  @_$core.override
+  SSLContext fromReference(_$jni.JReference reference) =>
+      SSLContext.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($SSLContext$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($SSLContext$Type) && other is $SSLContext$Type;
+  }
+}
+
+/// from: `javax.net.ssl.TrustManagerFactory`
+class TrustManagerFactory extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<TrustManagerFactory> $type;
+
+  @_$jni.internal
+  TrustManagerFactory.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'javax/net/ssl/TrustManagerFactory');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $TrustManagerFactory$Type();
+  static final _id_getDefaultAlgorithm = _class.staticMethodId(
+    r'getDefaultAlgorithm',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getDefaultAlgorithm = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `static public final java.lang.String getDefaultAlgorithm()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString getDefaultAlgorithm() {
+    return _getDefaultAlgorithm(_class.reference.pointer,
+            _id_getDefaultAlgorithm as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getAlgorithm = _class.instanceMethodId(
+    r'getAlgorithm',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getAlgorithm = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.lang.String getAlgorithm()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getAlgorithm() {
+    return _getAlgorithm(
+            reference.pointer, _id_getAlgorithm as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getInstance = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;)Ljavax/net/ssl/TrustManagerFactory;',
+  );
+
+  static final _getInstance = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public final javax.net.ssl.TrustManagerFactory getInstance(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static TrustManagerFactory getInstance(
+    _$jni.JString string,
+  ) {
+    return _getInstance(_class.reference.pointer,
+            _id_getInstance as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $TrustManagerFactory$Type());
+  }
+
+  static final _id_getInstance$1 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/lang/String;)Ljavax/net/ssl/TrustManagerFactory;',
+  );
+
+  static final _getInstance$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public final javax.net.ssl.TrustManagerFactory getInstance(java.lang.String string, java.lang.String string1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static TrustManagerFactory getInstance$1(
+    _$jni.JString string,
+    _$jni.JString string1,
+  ) {
+    return _getInstance$1(
+            _class.reference.pointer,
+            _id_getInstance$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            string1.reference.pointer)
+        .object(const $TrustManagerFactory$Type());
+  }
+
+  static final _id_getInstance$2 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/security/Provider;)Ljavax/net/ssl/TrustManagerFactory;',
+  );
+
+  static final _getInstance$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public final javax.net.ssl.TrustManagerFactory getInstance(java.lang.String string, java.security.Provider provider)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static TrustManagerFactory getInstance$2(
+    _$jni.JString string,
+    _$jni.JObject provider,
+  ) {
+    return _getInstance$2(
+            _class.reference.pointer,
+            _id_getInstance$2 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            provider.reference.pointer)
+        .object(const $TrustManagerFactory$Type());
+  }
+
+  static final _id_getProvider = _class.instanceMethodId(
+    r'getProvider',
+    r'()Ljava/security/Provider;',
+  );
+
+  static final _getProvider = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.security.Provider getProvider()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getProvider() {
+    return _getProvider(
+            reference.pointer, _id_getProvider as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_init = _class.instanceMethodId(
+    r'init',
+    r'(Ljava/security/KeyStore;)V',
+  );
+
+  static final _init = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void init(java.security.KeyStore keyStore)`
+  void init(
+    KeyStore keyStore,
+  ) {
+    _init(reference.pointer, _id_init as _$jni.JMethodIDPtr,
+            keyStore.reference.pointer)
+        .check();
+  }
+
+  static final _id_init$1 = _class.instanceMethodId(
+    r'init',
+    r'(Ljavax/net/ssl/ManagerFactoryParameters;)V',
+  );
+
+  static final _init$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void init(javax.net.ssl.ManagerFactoryParameters managerFactoryParameters)`
+  void init$1(
+    _$jni.JObject managerFactoryParameters,
+  ) {
+    _init$1(reference.pointer, _id_init$1 as _$jni.JMethodIDPtr,
+            managerFactoryParameters.reference.pointer)
+        .check();
+  }
+
+  static final _id_getTrustManagers = _class.instanceMethodId(
+    r'getTrustManagers',
+    r'()[Ljavax/net/ssl/TrustManager;',
+  );
+
+  static final _getTrustManagers = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.TrustManager[] getTrustManagers()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<TrustManager> getTrustManagers() {
+    return _getTrustManagers(
+            reference.pointer, _id_getTrustManagers as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType($TrustManager$Type()));
+  }
+}
+
+final class $TrustManagerFactory$Type
+    extends _$jni.JObjType<TrustManagerFactory> {
+  @_$jni.internal
+  const $TrustManagerFactory$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/TrustManagerFactory;';
+
+  @_$jni.internal
+  @_$core.override
+  TrustManagerFactory fromReference(_$jni.JReference reference) =>
+      TrustManagerFactory.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($TrustManagerFactory$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($TrustManagerFactory$Type) &&
+        other is $TrustManagerFactory$Type;
+  }
+}
+
+/// from: `javax.net.ssl.TrustManager`
+class TrustManager extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<TrustManager> $type;
+
+  @_$jni.internal
+  TrustManager.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'javax/net/ssl/TrustManager');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $TrustManager$Type();
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $TrustManager> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $TrustManager $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'javax.net.ssl.TrustManager',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory TrustManager.implement(
+    $TrustManager $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return TrustManager.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $TrustManager {
+  factory $TrustManager() = _$TrustManager;
+}
+
+final class _$TrustManager with $TrustManager {
+  _$TrustManager();
+}
+
+final class $TrustManager$Type extends _$jni.JObjType<TrustManager> {
+  @_$jni.internal
+  const $TrustManager$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/TrustManager;';
+
+  @_$jni.internal
+  @_$core.override
+  TrustManager fromReference(_$jni.JReference reference) =>
+      TrustManager.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($TrustManager$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($TrustManager$Type) &&
+        other is $TrustManager$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$Builder`
+class KeyStore_Builder extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_Builder> $type;
+
+  @_$jni.internal
+  KeyStore_Builder.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'java/security/KeyStore$Builder');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_Builder$Type();
+  static final _id_getKeyStore = _class.instanceMethodId(
+    r'getKeyStore',
+    r'()Ljava/security/KeyStore;',
+  );
+
+  static final _getKeyStore = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.security.KeyStore getKeyStore()`
+  /// The returned object must be released after use, by calling the [release] method.
+  KeyStore getKeyStore() {
+    return _getKeyStore(
+            reference.pointer, _id_getKeyStore as _$jni.JMethodIDPtr)
+        .object(const $KeyStore$Type());
+  }
+
+  static final _id_getProtectionParameter = _class.instanceMethodId(
+    r'getProtectionParameter',
+    r'(Ljava/lang/String;)Ljava/security/KeyStore$ProtectionParameter;',
+  );
+
+  static final _getProtectionParameter = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.security.KeyStore$ProtectionParameter getProtectionParameter(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  KeyStore_ProtectionParameter getProtectionParameter(
+    _$jni.JString string,
+  ) {
+    return _getProtectionParameter(
+            reference.pointer,
+            _id_getProtectionParameter as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .object(const $KeyStore_ProtectionParameter$Type());
+  }
+
+  static final _id_newInstance = _class.staticMethodId(
+    r'newInstance',
+    r'(Ljava/security/KeyStore;Ljava/security/KeyStore$ProtectionParameter;)Ljava/security/KeyStore$Builder;',
+  );
+
+  static final _newInstance = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.KeyStore$Builder newInstance(java.security.KeyStore keyStore, java.security.KeyStore$ProtectionParameter protectionParameter)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore_Builder newInstance(
+    KeyStore keyStore,
+    KeyStore_ProtectionParameter protectionParameter,
+  ) {
+    return _newInstance(
+            _class.reference.pointer,
+            _id_newInstance as _$jni.JMethodIDPtr,
+            keyStore.reference.pointer,
+            protectionParameter.reference.pointer)
+        .object(const $KeyStore_Builder$Type());
+  }
+
+  static final _id_newInstance$1 = _class.staticMethodId(
+    r'newInstance',
+    r'(Ljava/lang/String;Ljava/security/Provider;Ljava/io/File;Ljava/security/KeyStore$ProtectionParameter;)Ljava/security/KeyStore$Builder;',
+  );
+
+  static final _newInstance$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.KeyStore$Builder newInstance(java.lang.String string, java.security.Provider provider, java.io.File file, java.security.KeyStore$ProtectionParameter protectionParameter)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore_Builder newInstance$1(
+    _$jni.JString string,
+    _$jni.JObject provider,
+    _$jni.JObject file,
+    KeyStore_ProtectionParameter protectionParameter,
+  ) {
+    return _newInstance$1(
+            _class.reference.pointer,
+            _id_newInstance$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            provider.reference.pointer,
+            file.reference.pointer,
+            protectionParameter.reference.pointer)
+        .object(const $KeyStore_Builder$Type());
+  }
+
+  static final _id_newInstance$2 = _class.staticMethodId(
+    r'newInstance',
+    r'(Ljava/io/File;Ljava/security/KeyStore$ProtectionParameter;)Ljava/security/KeyStore$Builder;',
+  );
+
+  static final _newInstance$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.KeyStore$Builder newInstance(java.io.File file, java.security.KeyStore$ProtectionParameter protectionParameter)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore_Builder newInstance$2(
+    _$jni.JObject file,
+    KeyStore_ProtectionParameter protectionParameter,
+  ) {
+    return _newInstance$2(
+            _class.reference.pointer,
+            _id_newInstance$2 as _$jni.JMethodIDPtr,
+            file.reference.pointer,
+            protectionParameter.reference.pointer)
+        .object(const $KeyStore_Builder$Type());
+  }
+
+  static final _id_newInstance$3 = _class.staticMethodId(
+    r'newInstance',
+    r'(Ljava/lang/String;Ljava/security/Provider;Ljava/security/KeyStore$ProtectionParameter;)Ljava/security/KeyStore$Builder;',
+  );
+
+  static final _newInstance$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.KeyStore$Builder newInstance(java.lang.String string, java.security.Provider provider, java.security.KeyStore$ProtectionParameter protectionParameter)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore_Builder newInstance$3(
+    _$jni.JString string,
+    _$jni.JObject provider,
+    KeyStore_ProtectionParameter protectionParameter,
+  ) {
+    return _newInstance$3(
+            _class.reference.pointer,
+            _id_newInstance$3 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            provider.reference.pointer,
+            protectionParameter.reference.pointer)
+        .object(const $KeyStore_Builder$Type());
+  }
+}
+
+final class $KeyStore_Builder$Type extends _$jni.JObjType<KeyStore_Builder> {
+  @_$jni.internal
+  const $KeyStore_Builder$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$Builder;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_Builder fromReference(_$jni.JReference reference) =>
+      KeyStore_Builder.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_Builder$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_Builder$Type) &&
+        other is $KeyStore_Builder$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$CallbackHandlerProtection`
+class KeyStore_CallbackHandlerProtection extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_CallbackHandlerProtection> $type;
+
+  @_$jni.internal
+  KeyStore_CallbackHandlerProtection.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'java/security/KeyStore$CallbackHandlerProtection');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_CallbackHandlerProtection$Type();
+  static final _id_new$ = _class.constructorId(
+    r'(Ljavax/security/auth/callback/CallbackHandler;)V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(javax.security.auth.callback.CallbackHandler callbackHandler)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_CallbackHandlerProtection(
+    _$jni.JObject callbackHandler,
+  ) {
+    return KeyStore_CallbackHandlerProtection.fromReference(_new$(
+            _class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr,
+            callbackHandler.reference.pointer)
+        .reference);
+  }
+
+  static final _id_getCallbackHandler = _class.instanceMethodId(
+    r'getCallbackHandler',
+    r'()Ljavax/security/auth/callback/CallbackHandler;',
+  );
+
+  static final _getCallbackHandler = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public javax.security.auth.callback.CallbackHandler getCallbackHandler()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getCallbackHandler() {
+    return _getCallbackHandler(
+            reference.pointer, _id_getCallbackHandler as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+}
+
+final class $KeyStore_CallbackHandlerProtection$Type
+    extends _$jni.JObjType<KeyStore_CallbackHandlerProtection> {
+  @_$jni.internal
+  const $KeyStore_CallbackHandlerProtection$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$CallbackHandlerProtection;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_CallbackHandlerProtection fromReference(
+          _$jni.JReference reference) =>
+      KeyStore_CallbackHandlerProtection.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_CallbackHandlerProtection$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_CallbackHandlerProtection$Type) &&
+        other is $KeyStore_CallbackHandlerProtection$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$Entry$Attribute`
+class KeyStore_Entry_Attribute extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_Entry_Attribute> $type;
+
+  @_$jni.internal
+  KeyStore_Entry_Attribute.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'java/security/KeyStore$Entry$Attribute');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_Entry_Attribute$Type();
+  static final _id_getName = _class.instanceMethodId(
+    r'getName',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getName = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.lang.String getName()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getName() {
+    return _getName(reference.pointer, _id_getName as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getValue = _class.instanceMethodId(
+    r'getValue',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getValue = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.lang.String getValue()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getValue() {
+    return _getValue(reference.pointer, _id_getValue as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $KeyStore_Entry_Attribute> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r'getName()Ljava/lang/String;') {
+        final $r = _$impls[$p]!.getName();
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d == r'getValue()Ljava/lang/String;') {
+        final $r = _$impls[$p]!.getValue();
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $KeyStore_Entry_Attribute $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'java.security.KeyStore$Entry$Attribute',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory KeyStore_Entry_Attribute.implement(
+    $KeyStore_Entry_Attribute $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return KeyStore_Entry_Attribute.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $KeyStore_Entry_Attribute {
+  factory $KeyStore_Entry_Attribute({
+    required _$jni.JString Function() getName,
+    required _$jni.JString Function() getValue,
+  }) = _$KeyStore_Entry_Attribute;
+
+  _$jni.JString getName();
+  _$jni.JString getValue();
+}
+
+final class _$KeyStore_Entry_Attribute with $KeyStore_Entry_Attribute {
+  _$KeyStore_Entry_Attribute({
+    required _$jni.JString Function() getName,
+    required _$jni.JString Function() getValue,
+  })  : _getName = getName,
+        _getValue = getValue;
+
+  final _$jni.JString Function() _getName;
+  final _$jni.JString Function() _getValue;
+
+  _$jni.JString getName() {
+    return _getName();
+  }
+
+  _$jni.JString getValue() {
+    return _getValue();
+  }
+}
+
+final class $KeyStore_Entry_Attribute$Type
+    extends _$jni.JObjType<KeyStore_Entry_Attribute> {
+  @_$jni.internal
+  const $KeyStore_Entry_Attribute$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$Entry$Attribute;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_Entry_Attribute fromReference(_$jni.JReference reference) =>
+      KeyStore_Entry_Attribute.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_Entry_Attribute$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_Entry_Attribute$Type) &&
+        other is $KeyStore_Entry_Attribute$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$Entry`
+class KeyStore_Entry extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_Entry> $type;
+
+  @_$jni.internal
+  KeyStore_Entry.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'java/security/KeyStore$Entry');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_Entry$Type();
+  static final _id_getAttributes = _class.instanceMethodId(
+    r'getAttributes',
+    r'()Ljava/util/Set;',
+  );
+
+  static final _getAttributes = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.util.Set getAttributes()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JSet<KeyStore_Entry_Attribute> getAttributes() {
+    return _getAttributes(
+            reference.pointer, _id_getAttributes as _$jni.JMethodIDPtr)
+        .object(const _$jni.JSetType($KeyStore_Entry_Attribute$Type()));
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $KeyStore_Entry> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r'getAttributes()Ljava/util/Set;') {
+        final $r = _$impls[$p]!.getAttributes();
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $KeyStore_Entry $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'java.security.KeyStore$Entry',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory KeyStore_Entry.implement(
+    $KeyStore_Entry $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return KeyStore_Entry.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $KeyStore_Entry {
+  factory $KeyStore_Entry({
+    required _$jni.JSet<KeyStore_Entry_Attribute> Function() getAttributes,
+  }) = _$KeyStore_Entry;
+
+  _$jni.JSet<KeyStore_Entry_Attribute> getAttributes();
+}
+
+final class _$KeyStore_Entry with $KeyStore_Entry {
+  _$KeyStore_Entry({
+    required _$jni.JSet<KeyStore_Entry_Attribute> Function() getAttributes,
+  }) : _getAttributes = getAttributes;
+
+  final _$jni.JSet<KeyStore_Entry_Attribute> Function() _getAttributes;
+
+  _$jni.JSet<KeyStore_Entry_Attribute> getAttributes() {
+    return _getAttributes();
+  }
+}
+
+final class $KeyStore_Entry$Type extends _$jni.JObjType<KeyStore_Entry> {
+  @_$jni.internal
+  const $KeyStore_Entry$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$Entry;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_Entry fromReference(_$jni.JReference reference) =>
+      KeyStore_Entry.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_Entry$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_Entry$Type) &&
+        other is $KeyStore_Entry$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$LoadStoreParameter`
+class KeyStore_LoadStoreParameter extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_LoadStoreParameter> $type;
+
+  @_$jni.internal
+  KeyStore_LoadStoreParameter.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'java/security/KeyStore$LoadStoreParameter');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_LoadStoreParameter$Type();
+  static final _id_getProtectionParameter = _class.instanceMethodId(
+    r'getProtectionParameter',
+    r'()Ljava/security/KeyStore$ProtectionParameter;',
+  );
+
+  static final _getProtectionParameter = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.security.KeyStore$ProtectionParameter getProtectionParameter()`
+  /// The returned object must be released after use, by calling the [release] method.
+  KeyStore_ProtectionParameter getProtectionParameter() {
+    return _getProtectionParameter(
+            reference.pointer, _id_getProtectionParameter as _$jni.JMethodIDPtr)
+        .object(const $KeyStore_ProtectionParameter$Type());
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $KeyStore_LoadStoreParameter> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d ==
+          r'getProtectionParameter()Ljava/security/KeyStore$ProtectionParameter;') {
+        final $r = _$impls[$p]!.getProtectionParameter();
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $KeyStore_LoadStoreParameter $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'java.security.KeyStore$LoadStoreParameter',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory KeyStore_LoadStoreParameter.implement(
+    $KeyStore_LoadStoreParameter $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return KeyStore_LoadStoreParameter.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $KeyStore_LoadStoreParameter {
+  factory $KeyStore_LoadStoreParameter({
+    required KeyStore_ProtectionParameter Function() getProtectionParameter,
+  }) = _$KeyStore_LoadStoreParameter;
+
+  KeyStore_ProtectionParameter getProtectionParameter();
+}
+
+final class _$KeyStore_LoadStoreParameter with $KeyStore_LoadStoreParameter {
+  _$KeyStore_LoadStoreParameter({
+    required KeyStore_ProtectionParameter Function() getProtectionParameter,
+  }) : _getProtectionParameter = getProtectionParameter;
+
+  final KeyStore_ProtectionParameter Function() _getProtectionParameter;
+
+  KeyStore_ProtectionParameter getProtectionParameter() {
+    return _getProtectionParameter();
+  }
+}
+
+final class $KeyStore_LoadStoreParameter$Type
+    extends _$jni.JObjType<KeyStore_LoadStoreParameter> {
+  @_$jni.internal
+  const $KeyStore_LoadStoreParameter$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$LoadStoreParameter;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_LoadStoreParameter fromReference(_$jni.JReference reference) =>
+      KeyStore_LoadStoreParameter.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_LoadStoreParameter$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_LoadStoreParameter$Type) &&
+        other is $KeyStore_LoadStoreParameter$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$PasswordProtection`
+class KeyStore_PasswordProtection extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_PasswordProtection> $type;
+
+  @_$jni.internal
+  KeyStore_PasswordProtection.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'java/security/KeyStore$PasswordProtection');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_PasswordProtection$Type();
+  static final _id_new$ = _class.constructorId(
+    r'([C)V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(char[] cs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_PasswordProtection(
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    return KeyStore_PasswordProtection.fromReference(_new$(
+            _class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr,
+            cs.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new$1 = _class.constructorId(
+    r'([CLjava/lang/String;Ljava/security/spec/AlgorithmParameterSpec;)V',
+  );
+
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(char[] cs, java.lang.String string, java.security.spec.AlgorithmParameterSpec algorithmParameterSpec)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_PasswordProtection.new$1(
+    _$jni.JArray<_$jni.jchar> cs,
+    _$jni.JString string,
+    _$jni.JObject algorithmParameterSpec,
+  ) {
+    return KeyStore_PasswordProtection.fromReference(_new$1(
+            _class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            string.reference.pointer,
+            algorithmParameterSpec.reference.pointer)
+        .reference);
+  }
+
+  static final _id_getProtectionAlgorithm = _class.instanceMethodId(
+    r'getProtectionAlgorithm',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getProtectionAlgorithm = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String getProtectionAlgorithm()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getProtectionAlgorithm() {
+    return _getProtectionAlgorithm(
+            reference.pointer, _id_getProtectionAlgorithm as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getProtectionParameters = _class.instanceMethodId(
+    r'getProtectionParameters',
+    r'()Ljava/security/spec/AlgorithmParameterSpec;',
+  );
+
+  static final _getProtectionParameters = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.security.spec.AlgorithmParameterSpec getProtectionParameters()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getProtectionParameters() {
+    return _getProtectionParameters(reference.pointer,
+            _id_getProtectionParameters as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getPassword = _class.instanceMethodId(
+    r'getPassword',
+    r'()[C',
+  );
+
+  static final _getPassword = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public char[] getPassword()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.jchar> getPassword() {
+    return _getPassword(
+            reference.pointer, _id_getPassword as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.jcharType()));
+  }
+
+  static final _id_destroy = _class.instanceMethodId(
+    r'destroy',
+    r'()V',
+  );
+
+  static final _destroy = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void destroy()`
+  void destroy() {
+    _destroy(reference.pointer, _id_destroy as _$jni.JMethodIDPtr).check();
+  }
+
+  static final _id_isDestroyed = _class.instanceMethodId(
+    r'isDestroyed',
+    r'()Z',
+  );
+
+  static final _isDestroyed = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public boolean isDestroyed()`
+  bool isDestroyed() {
+    return _isDestroyed(
+            reference.pointer, _id_isDestroyed as _$jni.JMethodIDPtr)
+        .boolean;
+  }
+}
+
+final class $KeyStore_PasswordProtection$Type
+    extends _$jni.JObjType<KeyStore_PasswordProtection> {
+  @_$jni.internal
+  const $KeyStore_PasswordProtection$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$PasswordProtection;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_PasswordProtection fromReference(_$jni.JReference reference) =>
+      KeyStore_PasswordProtection.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_PasswordProtection$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_PasswordProtection$Type) &&
+        other is $KeyStore_PasswordProtection$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$PrivateKeyEntry`
+class KeyStore_PrivateKeyEntry extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_PrivateKeyEntry> $type;
+
+  @_$jni.internal
+  KeyStore_PrivateKeyEntry.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'java/security/KeyStore$PrivateKeyEntry');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_PrivateKeyEntry$Type();
+  static final _id_new$ = _class.constructorId(
+    r'(Ljava/security/PrivateKey;[Ljava/security/cert/Certificate;)V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(java.security.PrivateKey privateKey, java.security.cert.Certificate[] certificates)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_PrivateKeyEntry(
+    _$jni.JObject privateKey,
+    _$jni.JArray<_$jni.JObject> certificates,
+  ) {
+    return KeyStore_PrivateKeyEntry.fromReference(_new$(
+            _class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr,
+            privateKey.reference.pointer,
+            certificates.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new$1 = _class.constructorId(
+    r'(Ljava/security/PrivateKey;[Ljava/security/cert/Certificate;Ljava/util/Set;)V',
+  );
+
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(java.security.PrivateKey privateKey, java.lang.Object[] certificates, java.util.Set set)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_PrivateKeyEntry.new$1(
+    _$jni.JObject privateKey,
+    _$jni.JArray<_$jni.JObject> certificates,
+    _$jni.JSet<KeyStore_Entry_Attribute> set,
+  ) {
+    return KeyStore_PrivateKeyEntry.fromReference(_new$1(
+            _class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr,
+            privateKey.reference.pointer,
+            certificates.reference.pointer,
+            set.reference.pointer)
+        .reference);
+  }
+
+  static final _id_getPrivateKey = _class.instanceMethodId(
+    r'getPrivateKey',
+    r'()Ljava/security/PrivateKey;',
+  );
+
+  static final _getPrivateKey = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.security.PrivateKey getPrivateKey()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getPrivateKey() {
+    return _getPrivateKey(
+            reference.pointer, _id_getPrivateKey as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getCertificateChain = _class.instanceMethodId(
+    r'getCertificateChain',
+    r'()[Ljava/security/cert/Certificate;',
+  );
+
+  static final _getCertificateChain = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.security.cert.Certificate[] getCertificateChain()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JObject> getCertificateChain() {
+    return _getCertificateChain(
+            reference.pointer, _id_getCertificateChain as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.JObjectType()));
+  }
+
+  static final _id_getCertificate = _class.instanceMethodId(
+    r'getCertificate',
+    r'()Ljava/security/cert/Certificate;',
+  );
+
+  static final _getCertificate = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.security.cert.Certificate getCertificate()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getCertificate() {
+    return _getCertificate(
+            reference.pointer, _id_getCertificate as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getAttributes = _class.instanceMethodId(
+    r'getAttributes',
+    r'()Ljava/util/Set;',
+  );
+
+  static final _getAttributes = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.util.Set getAttributes()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JSet<KeyStore_Entry_Attribute> getAttributes() {
+    return _getAttributes(
+            reference.pointer, _id_getAttributes as _$jni.JMethodIDPtr)
+        .object(const _$jni.JSetType($KeyStore_Entry_Attribute$Type()));
+  }
+
+  static final _id_toString$1 = _class.instanceMethodId(
+    r'toString',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String toString()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+}
+
+final class $KeyStore_PrivateKeyEntry$Type
+    extends _$jni.JObjType<KeyStore_PrivateKeyEntry> {
+  @_$jni.internal
+  const $KeyStore_PrivateKeyEntry$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$PrivateKeyEntry;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_PrivateKeyEntry fromReference(_$jni.JReference reference) =>
+      KeyStore_PrivateKeyEntry.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_PrivateKeyEntry$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_PrivateKeyEntry$Type) &&
+        other is $KeyStore_PrivateKeyEntry$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$ProtectionParameter`
+class KeyStore_ProtectionParameter extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_ProtectionParameter> $type;
+
+  @_$jni.internal
+  KeyStore_ProtectionParameter.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'java/security/KeyStore$ProtectionParameter');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_ProtectionParameter$Type();
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $KeyStore_ProtectionParameter> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $KeyStore_ProtectionParameter $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'java.security.KeyStore$ProtectionParameter',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory KeyStore_ProtectionParameter.implement(
+    $KeyStore_ProtectionParameter $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return KeyStore_ProtectionParameter.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $KeyStore_ProtectionParameter {
+  factory $KeyStore_ProtectionParameter() = _$KeyStore_ProtectionParameter;
+}
+
+final class _$KeyStore_ProtectionParameter with $KeyStore_ProtectionParameter {
+  _$KeyStore_ProtectionParameter();
+}
+
+final class $KeyStore_ProtectionParameter$Type
+    extends _$jni.JObjType<KeyStore_ProtectionParameter> {
+  @_$jni.internal
+  const $KeyStore_ProtectionParameter$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$ProtectionParameter;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_ProtectionParameter fromReference(_$jni.JReference reference) =>
+      KeyStore_ProtectionParameter.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_ProtectionParameter$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_ProtectionParameter$Type) &&
+        other is $KeyStore_ProtectionParameter$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$SecretKeyEntry`
+class KeyStore_SecretKeyEntry extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_SecretKeyEntry> $type;
+
+  @_$jni.internal
+  KeyStore_SecretKeyEntry.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'java/security/KeyStore$SecretKeyEntry');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_SecretKeyEntry$Type();
+  static final _id_new$ = _class.constructorId(
+    r'(Ljavax/crypto/SecretKey;)V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(javax.crypto.SecretKey secretKey)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_SecretKeyEntry(
+    _$jni.JObject secretKey,
+  ) {
+    return KeyStore_SecretKeyEntry.fromReference(_new$(_class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr, secretKey.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new$1 = _class.constructorId(
+    r'(Ljavax/crypto/SecretKey;Ljava/util/Set;)V',
+  );
+
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(javax.crypto.SecretKey secretKey, java.util.Set set)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_SecretKeyEntry.new$1(
+    _$jni.JObject secretKey,
+    _$jni.JSet<KeyStore_Entry_Attribute> set,
+  ) {
+    return KeyStore_SecretKeyEntry.fromReference(_new$1(
+            _class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr,
+            secretKey.reference.pointer,
+            set.reference.pointer)
+        .reference);
+  }
+
+  static final _id_getSecretKey = _class.instanceMethodId(
+    r'getSecretKey',
+    r'()Ljavax/crypto/SecretKey;',
+  );
+
+  static final _getSecretKey = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public javax.crypto.SecretKey getSecretKey()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getSecretKey() {
+    return _getSecretKey(
+            reference.pointer, _id_getSecretKey as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getAttributes = _class.instanceMethodId(
+    r'getAttributes',
+    r'()Ljava/util/Set;',
+  );
+
+  static final _getAttributes = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.util.Set getAttributes()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JSet<KeyStore_Entry_Attribute> getAttributes() {
+    return _getAttributes(
+            reference.pointer, _id_getAttributes as _$jni.JMethodIDPtr)
+        .object(const _$jni.JSetType($KeyStore_Entry_Attribute$Type()));
+  }
+
+  static final _id_toString$1 = _class.instanceMethodId(
+    r'toString',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String toString()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+}
+
+final class $KeyStore_SecretKeyEntry$Type
+    extends _$jni.JObjType<KeyStore_SecretKeyEntry> {
+  @_$jni.internal
+  const $KeyStore_SecretKeyEntry$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$SecretKeyEntry;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_SecretKeyEntry fromReference(_$jni.JReference reference) =>
+      KeyStore_SecretKeyEntry.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_SecretKeyEntry$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_SecretKeyEntry$Type) &&
+        other is $KeyStore_SecretKeyEntry$Type;
+  }
+}
+
+/// from: `java.security.KeyStore$TrustedCertificateEntry`
+class KeyStore_TrustedCertificateEntry extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore_TrustedCertificateEntry> $type;
+
+  @_$jni.internal
+  KeyStore_TrustedCertificateEntry.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'java/security/KeyStore$TrustedCertificateEntry');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore_TrustedCertificateEntry$Type();
+  static final _id_new$ = _class.constructorId(
+    r'(Ljava/security/cert/Certificate;)V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(java.security.cert.Certificate certificate)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_TrustedCertificateEntry(
+    _$jni.JObject certificate,
+  ) {
+    return KeyStore_TrustedCertificateEntry.fromReference(_new$(
+            _class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr,
+            certificate.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new$1 = _class.constructorId(
+    r'(Ljava/security/cert/Certificate;Ljava/util/Set;)V',
+  );
+
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(java.security.cert.Certificate certificate, java.util.Set set)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyStore_TrustedCertificateEntry.new$1(
+    _$jni.JObject certificate,
+    _$jni.JSet<KeyStore_Entry_Attribute> set,
+  ) {
+    return KeyStore_TrustedCertificateEntry.fromReference(_new$1(
+            _class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr,
+            certificate.reference.pointer,
+            set.reference.pointer)
+        .reference);
+  }
+
+  static final _id_getTrustedCertificate = _class.instanceMethodId(
+    r'getTrustedCertificate',
+    r'()Ljava/security/cert/Certificate;',
+  );
+
+  static final _getTrustedCertificate = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.security.cert.Certificate getTrustedCertificate()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getTrustedCertificate() {
+    return _getTrustedCertificate(
+            reference.pointer, _id_getTrustedCertificate as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getAttributes = _class.instanceMethodId(
+    r'getAttributes',
+    r'()Ljava/util/Set;',
+  );
+
+  static final _getAttributes = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.util.Set getAttributes()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JSet<KeyStore_Entry_Attribute> getAttributes() {
+    return _getAttributes(
+            reference.pointer, _id_getAttributes as _$jni.JMethodIDPtr)
+        .object(const _$jni.JSetType($KeyStore_Entry_Attribute$Type()));
+  }
+
+  static final _id_toString$1 = _class.instanceMethodId(
+    r'toString',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String toString()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+}
+
+final class $KeyStore_TrustedCertificateEntry$Type
+    extends _$jni.JObjType<KeyStore_TrustedCertificateEntry> {
+  @_$jni.internal
+  const $KeyStore_TrustedCertificateEntry$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore$TrustedCertificateEntry;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore_TrustedCertificateEntry fromReference(_$jni.JReference reference) =>
+      KeyStore_TrustedCertificateEntry.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore_TrustedCertificateEntry$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore_TrustedCertificateEntry$Type) &&
+        other is $KeyStore_TrustedCertificateEntry$Type;
+  }
+}
+
+/// from: `java.security.KeyStore`
+class KeyStore extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyStore> $type;
+
+  @_$jni.internal
+  KeyStore.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'java/security/KeyStore');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyStore$Type();
+  static final _id_getInstance = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;)Ljava/security/KeyStore;',
+  );
+
+  static final _getInstance = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.KeyStore getInstance(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore getInstance(
+    _$jni.JString string,
+  ) {
+    return _getInstance(_class.reference.pointer,
+            _id_getInstance as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $KeyStore$Type());
+  }
+
+  static final _id_getInstance$1 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/lang/String;)Ljava/security/KeyStore;',
+  );
+
+  static final _getInstance$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.KeyStore getInstance(java.lang.String string, java.lang.String string1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore getInstance$1(
+    _$jni.JString string,
+    _$jni.JString string1,
+  ) {
+    return _getInstance$1(
+            _class.reference.pointer,
+            _id_getInstance$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            string1.reference.pointer)
+        .object(const $KeyStore$Type());
+  }
+
+  static final _id_getInstance$2 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/security/Provider;)Ljava/security/KeyStore;',
+  );
+
+  static final _getInstance$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.KeyStore getInstance(java.lang.String string, java.security.Provider provider)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore getInstance$2(
+    _$jni.JString string,
+    _$jni.JObject provider,
+  ) {
+    return _getInstance$2(
+            _class.reference.pointer,
+            _id_getInstance$2 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            provider.reference.pointer)
+        .object(const $KeyStore$Type());
+  }
+
+  static final _id_getDefaultType = _class.staticMethodId(
+    r'getDefaultType',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getDefaultType = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `static public final java.lang.String getDefaultType()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString getDefaultType() {
+    return _getDefaultType(
+            _class.reference.pointer, _id_getDefaultType as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getProvider = _class.instanceMethodId(
+    r'getProvider',
+    r'()Ljava/security/Provider;',
+  );
+
+  static final _getProvider = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.security.Provider getProvider()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getProvider() {
+    return _getProvider(
+            reference.pointer, _id_getProvider as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getType = _class.instanceMethodId(
+    r'getType',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getType = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.lang.String getType()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getType() {
+    return _getType(reference.pointer, _id_getType as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getKey = _class.instanceMethodId(
+    r'getKey',
+    r'(Ljava/lang/String;[C)Ljava/security/Key;',
+  );
+
+  static final _getKey = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final java.security.Key getKey(java.lang.String string, char[] cs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getKey(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    return _getKey(reference.pointer, _id_getKey as _$jni.JMethodIDPtr,
+            string.reference.pointer, cs.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getCertificateChain = _class.instanceMethodId(
+    r'getCertificateChain',
+    r'(Ljava/lang/String;)[Ljava/security/cert/Certificate;',
+  );
+
+  static final _getCertificateChain = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final java.security.cert.Certificate[] getCertificateChain(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JObject> getCertificateChain(
+    _$jni.JString string,
+  ) {
+    return _getCertificateChain(
+            reference.pointer,
+            _id_getCertificateChain as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .object(const _$jni.JArrayType(_$jni.JObjectType()));
+  }
+
+  static final _id_getCertificate = _class.instanceMethodId(
+    r'getCertificate',
+    r'(Ljava/lang/String;)Ljava/security/cert/Certificate;',
+  );
+
+  static final _getCertificate = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final java.security.cert.Certificate getCertificate(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getCertificate(
+    _$jni.JString string,
+  ) {
+    return _getCertificate(reference.pointer,
+            _id_getCertificate as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getCreationDate = _class.instanceMethodId(
+    r'getCreationDate',
+    r'(Ljava/lang/String;)Ljava/util/Date;',
+  );
+
+  static final _getCreationDate = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final java.util.Date getCreationDate(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getCreationDate(
+    _$jni.JString string,
+  ) {
+    return _getCreationDate(reference.pointer,
+            _id_getCreationDate as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_setKeyEntry = _class.instanceMethodId(
+    r'setKeyEntry',
+    r'(Ljava/lang/String;Ljava/security/Key;[C[Ljava/security/cert/Certificate;)V',
+  );
+
+  static final _setKeyEntry = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void setKeyEntry(java.lang.String string, java.security.Key key, char[] cs, java.security.cert.Certificate[] certificates)`
+  void setKeyEntry(
+    _$jni.JString string,
+    _$jni.JObject key,
+    _$jni.JArray<_$jni.jchar> cs,
+    _$jni.JArray<_$jni.JObject> certificates,
+  ) {
+    _setKeyEntry(
+            reference.pointer,
+            _id_setKeyEntry as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            key.reference.pointer,
+            cs.reference.pointer,
+            certificates.reference.pointer)
+        .check();
+  }
+
+  static final _id_setKeyEntry$1 = _class.instanceMethodId(
+    r'setKeyEntry',
+    r'(Ljava/lang/String;[B[Ljava/security/cert/Certificate;)V',
+  );
+
+  static final _setKeyEntry$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void setKeyEntry(java.lang.String string, byte[] bs, java.security.cert.Certificate[] certificates)`
+  void setKeyEntry$1(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JArray<_$jni.JObject> certificates,
+  ) {
+    _setKeyEntry$1(
+            reference.pointer,
+            _id_setKeyEntry$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            bs.reference.pointer,
+            certificates.reference.pointer)
+        .check();
+  }
+
+  static final _id_setCertificateEntry = _class.instanceMethodId(
+    r'setCertificateEntry',
+    r'(Ljava/lang/String;Ljava/security/cert/Certificate;)V',
+  );
+
+  static final _setCertificateEntry = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void setCertificateEntry(java.lang.String string, java.security.cert.Certificate certificate)`
+  void setCertificateEntry(
+    _$jni.JString string,
+    _$jni.JObject certificate,
+  ) {
+    _setCertificateEntry(
+            reference.pointer,
+            _id_setCertificateEntry as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            certificate.reference.pointer)
+        .check();
+  }
+
+  static final _id_deleteEntry = _class.instanceMethodId(
+    r'deleteEntry',
+    r'(Ljava/lang/String;)V',
+  );
+
+  static final _deleteEntry = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void deleteEntry(java.lang.String string)`
+  void deleteEntry(
+    _$jni.JString string,
+  ) {
+    _deleteEntry(reference.pointer, _id_deleteEntry as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .check();
+  }
+
+  static final _id_aliases = _class.instanceMethodId(
+    r'aliases',
+    r'()Ljava/util/Enumeration;',
+  );
+
+  static final _aliases = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.util.Enumeration aliases()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject aliases() {
+    return _aliases(reference.pointer, _id_aliases as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_containsAlias = _class.instanceMethodId(
+    r'containsAlias',
+    r'(Ljava/lang/String;)Z',
+  );
+
+  static final _containsAlias = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final boolean containsAlias(java.lang.String string)`
+  bool containsAlias(
+    _$jni.JString string,
+  ) {
+    return _containsAlias(reference.pointer,
+            _id_containsAlias as _$jni.JMethodIDPtr, string.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_size = _class.instanceMethodId(
+    r'size',
+    r'()I',
+  );
+
+  static final _size = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final int size()`
+  int size() {
+    return _size(reference.pointer, _id_size as _$jni.JMethodIDPtr).integer;
+  }
+
+  static final _id_isKeyEntry = _class.instanceMethodId(
+    r'isKeyEntry',
+    r'(Ljava/lang/String;)Z',
+  );
+
+  static final _isKeyEntry = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final boolean isKeyEntry(java.lang.String string)`
+  bool isKeyEntry(
+    _$jni.JString string,
+  ) {
+    return _isKeyEntry(reference.pointer, _id_isKeyEntry as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_isCertificateEntry = _class.instanceMethodId(
+    r'isCertificateEntry',
+    r'(Ljava/lang/String;)Z',
+  );
+
+  static final _isCertificateEntry = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final boolean isCertificateEntry(java.lang.String string)`
+  bool isCertificateEntry(
+    _$jni.JString string,
+  ) {
+    return _isCertificateEntry(
+            reference.pointer,
+            _id_isCertificateEntry as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_getCertificateAlias = _class.instanceMethodId(
+    r'getCertificateAlias',
+    r'(Ljava/security/cert/Certificate;)Ljava/lang/String;',
+  );
+
+  static final _getCertificateAlias = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final java.lang.String getCertificateAlias(java.security.cert.Certificate certificate)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getCertificateAlias(
+    _$jni.JObject certificate,
+  ) {
+    return _getCertificateAlias(
+            reference.pointer,
+            _id_getCertificateAlias as _$jni.JMethodIDPtr,
+            certificate.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_store = _class.instanceMethodId(
+    r'store',
+    r'(Ljava/io/OutputStream;[C)V',
+  );
+
+  static final _store = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void store(java.io.OutputStream outputStream, char[] cs)`
+  void store(
+    _$jni.JObject outputStream,
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    _store(reference.pointer, _id_store as _$jni.JMethodIDPtr,
+            outputStream.reference.pointer, cs.reference.pointer)
+        .check();
+  }
+
+  static final _id_store$1 = _class.instanceMethodId(
+    r'store',
+    r'(Ljava/security/KeyStore$LoadStoreParameter;)V',
+  );
+
+  static final _store$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void store(java.security.KeyStore$LoadStoreParameter loadStoreParameter)`
+  void store$1(
+    KeyStore_LoadStoreParameter loadStoreParameter,
+  ) {
+    _store$1(reference.pointer, _id_store$1 as _$jni.JMethodIDPtr,
+            loadStoreParameter.reference.pointer)
+        .check();
+  }
+
+  static final _id_load = _class.instanceMethodId(
+    r'load',
+    r'(Ljava/io/InputStream;[C)V',
+  );
+
+  static final _load = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void load(java.io.InputStream inputStream, char[] cs)`
+  void load(
+    _$jni.JObject inputStream,
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    _load(reference.pointer, _id_load as _$jni.JMethodIDPtr,
+            inputStream.reference.pointer, cs.reference.pointer)
+        .check();
+  }
+
+  static final _id_load$1 = _class.instanceMethodId(
+    r'load',
+    r'(Ljava/security/KeyStore$LoadStoreParameter;)V',
+  );
+
+  static final _load$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void load(java.security.KeyStore$LoadStoreParameter loadStoreParameter)`
+  void load$1(
+    KeyStore_LoadStoreParameter loadStoreParameter,
+  ) {
+    _load$1(reference.pointer, _id_load$1 as _$jni.JMethodIDPtr,
+            loadStoreParameter.reference.pointer)
+        .check();
+  }
+
+  static final _id_getEntry = _class.instanceMethodId(
+    r'getEntry',
+    r'(Ljava/lang/String;Ljava/security/KeyStore$ProtectionParameter;)Ljava/security/KeyStore$Entry;',
+  );
+
+  static final _getEntry = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final java.security.KeyStore$Entry getEntry(java.lang.String string, java.security.KeyStore$ProtectionParameter protectionParameter)`
+  /// The returned object must be released after use, by calling the [release] method.
+  KeyStore_Entry getEntry(
+    _$jni.JString string,
+    KeyStore_ProtectionParameter protectionParameter,
+  ) {
+    return _getEntry(reference.pointer, _id_getEntry as _$jni.JMethodIDPtr,
+            string.reference.pointer, protectionParameter.reference.pointer)
+        .object(const $KeyStore_Entry$Type());
+  }
+
+  static final _id_setEntry = _class.instanceMethodId(
+    r'setEntry',
+    r'(Ljava/lang/String;Ljava/security/KeyStore$Entry;Ljava/security/KeyStore$ProtectionParameter;)V',
+  );
+
+  static final _setEntry = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void setEntry(java.lang.String string, java.security.KeyStore$Entry entry, java.security.KeyStore$ProtectionParameter protectionParameter)`
+  void setEntry(
+    _$jni.JString string,
+    KeyStore_Entry entry,
+    KeyStore_ProtectionParameter protectionParameter,
+  ) {
+    _setEntry(
+            reference.pointer,
+            _id_setEntry as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            entry.reference.pointer,
+            protectionParameter.reference.pointer)
+        .check();
+  }
+
+  static final _id_entryInstanceOf = _class.instanceMethodId(
+    r'entryInstanceOf',
+    r'(Ljava/lang/String;Ljava/lang/Class;)Z',
+  );
+
+  static final _entryInstanceOf = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final boolean entryInstanceOf(java.lang.String string, java.lang.Class class)`
+  bool entryInstanceOf(
+    _$jni.JString string,
+    _$jni.JObject class$,
+  ) {
+    return _entryInstanceOf(
+            reference.pointer,
+            _id_entryInstanceOf as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            class$.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_getInstance$3 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/io/File;[C)Ljava/security/KeyStore;',
+  );
+
+  static final _getInstance$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public final java.security.KeyStore getInstance(java.io.File file, char[] cs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore getInstance$3(
+    _$jni.JObject file,
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    return _getInstance$3(
+            _class.reference.pointer,
+            _id_getInstance$3 as _$jni.JMethodIDPtr,
+            file.reference.pointer,
+            cs.reference.pointer)
+        .object(const $KeyStore$Type());
+  }
+
+  static final _id_getInstance$4 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/io/File;Ljava/security/KeyStore$LoadStoreParameter;)Ljava/security/KeyStore;',
+  );
+
+  static final _getInstance$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public final java.security.KeyStore getInstance(java.io.File file, java.security.KeyStore$LoadStoreParameter loadStoreParameter)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyStore getInstance$4(
+    _$jni.JObject file,
+    KeyStore_LoadStoreParameter loadStoreParameter,
+  ) {
+    return _getInstance$4(
+            _class.reference.pointer,
+            _id_getInstance$4 as _$jni.JMethodIDPtr,
+            file.reference.pointer,
+            loadStoreParameter.reference.pointer)
+        .object(const $KeyStore$Type());
+  }
+}
+
+final class $KeyStore$Type extends _$jni.JObjType<KeyStore> {
+  @_$jni.internal
+  const $KeyStore$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/KeyStore;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyStore fromReference(_$jni.JReference reference) =>
+      KeyStore.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyStore$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyStore$Type) && other is $KeyStore$Type;
+  }
+}
+
+/// from: `javax.net.ssl.KeyManager`
+class KeyManager extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyManager> $type;
+
+  @_$jni.internal
+  KeyManager.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'javax/net/ssl/KeyManager');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyManager$Type();
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $KeyManager> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $KeyManager $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'javax.net.ssl.KeyManager',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory KeyManager.implement(
+    $KeyManager $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return KeyManager.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $KeyManager {
+  factory $KeyManager() = _$KeyManager;
+}
+
+final class _$KeyManager with $KeyManager {
+  _$KeyManager();
+}
+
+final class $KeyManager$Type extends _$jni.JObjType<KeyManager> {
+  @_$jni.internal
+  const $KeyManager$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/KeyManager;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyManager fromReference(_$jni.JReference reference) =>
+      KeyManager.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyManager$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyManager$Type) && other is $KeyManager$Type;
+  }
+}
+
+/// from: `java.security.SecureRandom`
+class SecureRandom extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<SecureRandom> $type;
+
+  @_$jni.internal
+  SecureRandom.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'java/security/SecureRandom');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $SecureRandom$Type();
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory SecureRandom() {
+    return SecureRandom.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_new$1 = _class.constructorId(
+    r'([B)V',
+  );
+
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(byte[] bs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory SecureRandom.new$1(
+    _$jni.JArray<_$jni.jbyte> bs,
+  ) {
+    return SecureRandom.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr, bs.reference.pointer)
+        .reference);
+  }
+
+  static final _id_getInstance = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;)Ljava/security/SecureRandom;',
+  );
+
+  static final _getInstance = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.SecureRandom getInstance(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SecureRandom getInstance(
+    _$jni.JString string,
+  ) {
+    return _getInstance(_class.reference.pointer,
+            _id_getInstance as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $SecureRandom$Type());
+  }
+
+  static final _id_getInstance$1 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/lang/String;)Ljava/security/SecureRandom;',
+  );
+
+  static final _getInstance$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.SecureRandom getInstance(java.lang.String string, java.lang.String string1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SecureRandom getInstance$1(
+    _$jni.JString string,
+    _$jni.JString string1,
+  ) {
+    return _getInstance$1(
+            _class.reference.pointer,
+            _id_getInstance$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            string1.reference.pointer)
+        .object(const $SecureRandom$Type());
+  }
+
+  static final _id_getInstance$2 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/security/Provider;)Ljava/security/SecureRandom;',
+  );
+
+  static final _getInstance$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.SecureRandom getInstance(java.lang.String string, java.security.Provider provider)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SecureRandom getInstance$2(
+    _$jni.JString string,
+    _$jni.JObject provider,
+  ) {
+    return _getInstance$2(
+            _class.reference.pointer,
+            _id_getInstance$2 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            provider.reference.pointer)
+        .object(const $SecureRandom$Type());
+  }
+
+  static final _id_getProvider = _class.instanceMethodId(
+    r'getProvider',
+    r'()Ljava/security/Provider;',
+  );
+
+  static final _getProvider = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.security.Provider getProvider()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getProvider() {
+    return _getProvider(
+            reference.pointer, _id_getProvider as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getAlgorithm = _class.instanceMethodId(
+    r'getAlgorithm',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getAlgorithm = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String getAlgorithm()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getAlgorithm() {
+    return _getAlgorithm(
+            reference.pointer, _id_getAlgorithm as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_setSeed = _class.instanceMethodId(
+    r'setSeed',
+    r'([B)V',
+  );
+
+  static final _setSeed = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void setSeed(byte[] bs)`
+  void setSeed(
+    _$jni.JArray<_$jni.jbyte> bs,
+  ) {
+    _setSeed(reference.pointer, _id_setSeed as _$jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .check();
+  }
+
+  static final _id_setSeed$1 = _class.instanceMethodId(
+    r'setSeed',
+    r'(J)V',
+  );
+
+  static final _setSeed$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
+
+  /// from: `public void setSeed(long j)`
+  void setSeed$1(
+    int j,
+  ) {
+    _setSeed$1(reference.pointer, _id_setSeed$1 as _$jni.JMethodIDPtr, j)
+        .check();
+  }
+
+  static final _id_nextBytes = _class.instanceMethodId(
+    r'nextBytes',
+    r'([B)V',
+  );
+
+  static final _nextBytes = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void nextBytes(byte[] bs)`
+  void nextBytes(
+    _$jni.JArray<_$jni.jbyte> bs,
+  ) {
+    _nextBytes(reference.pointer, _id_nextBytes as _$jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .check();
+  }
+
+  static final _id_getSeed = _class.staticMethodId(
+    r'getSeed',
+    r'(I)[B',
+  );
+
+  static final _getSeed = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr, _$jni.VarArgs<(_$jni.Int32,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
+
+  /// from: `static public byte[] getSeed(int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jbyte> getSeed(
+    int i,
+  ) {
+    return _getSeed(
+            _class.reference.pointer, _id_getSeed as _$jni.JMethodIDPtr, i)
+        .object(const _$jni.JArrayType(_$jni.jbyteType()));
+  }
+
+  static final _id_generateSeed = _class.instanceMethodId(
+    r'generateSeed',
+    r'(I)[B',
+  );
+
+  static final _generateSeed = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
+
+  /// from: `public byte[] generateSeed(int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.jbyte> generateSeed(
+    int i,
+  ) {
+    return _generateSeed(
+            reference.pointer, _id_generateSeed as _$jni.JMethodIDPtr, i)
+        .object(const _$jni.JArrayType(_$jni.jbyteType()));
+  }
+
+  static final _id_getInstanceStrong = _class.staticMethodId(
+    r'getInstanceStrong',
+    r'()Ljava/security/SecureRandom;',
+  );
+
+  static final _getInstanceStrong = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `static public java.security.SecureRandom getInstanceStrong()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SecureRandom getInstanceStrong() {
+    return _getInstanceStrong(_class.reference.pointer,
+            _id_getInstanceStrong as _$jni.JMethodIDPtr)
+        .object(const $SecureRandom$Type());
+  }
+}
+
+final class $SecureRandom$Type extends _$jni.JObjType<SecureRandom> {
+  @_$jni.internal
+  const $SecureRandom$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/SecureRandom;';
+
+  @_$jni.internal
+  @_$core.override
+  SecureRandom fromReference(_$jni.JReference reference) =>
+      SecureRandom.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($SecureRandom$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($SecureRandom$Type) &&
+        other is $SecureRandom$Type;
+  }
+}
+
+/// from: `javax.net.ssl.X509KeyManager`
+class X509KeyManager extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<X509KeyManager> $type;
+
+  @_$jni.internal
+  X509KeyManager.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'javax/net/ssl/X509KeyManager');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $X509KeyManager$Type();
+  static final _id_getClientAliases = _class.instanceMethodId(
+    r'getClientAliases',
+    r'(Ljava/lang/String;[Ljava/security/Principal;)[Ljava/lang/String;',
+  );
+
+  static final _getClientAliases = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.lang.String[] getClientAliases(java.lang.String string, java.security.Principal[] principals)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JString> getClientAliases(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.JObject> principals,
+  ) {
+    return _getClientAliases(
+            reference.pointer,
+            _id_getClientAliases as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            principals.reference.pointer)
+        .object(const _$jni.JArrayType(_$jni.JStringType()));
+  }
+
+  static final _id_chooseClientAlias = _class.instanceMethodId(
+    r'chooseClientAlias',
+    r'([Ljava/lang/String;[Ljava/security/Principal;Ljava/net/Socket;)Ljava/lang/String;',
+  );
+
+  static final _chooseClientAlias = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.lang.String chooseClientAlias(java.lang.String[] strings, java.security.Principal[] principals, java.net.Socket socket)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString chooseClientAlias(
+    _$jni.JArray<_$jni.JString> strings,
+    _$jni.JArray<_$jni.JObject> principals,
+    _$jni.JObject socket,
+  ) {
+    return _chooseClientAlias(
+            reference.pointer,
+            _id_chooseClientAlias as _$jni.JMethodIDPtr,
+            strings.reference.pointer,
+            principals.reference.pointer,
+            socket.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getServerAliases = _class.instanceMethodId(
+    r'getServerAliases',
+    r'(Ljava/lang/String;[Ljava/security/Principal;)[Ljava/lang/String;',
+  );
+
+  static final _getServerAliases = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.lang.String[] getServerAliases(java.lang.String string, java.security.Principal[] principals)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JString> getServerAliases(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.JObject> principals,
+  ) {
+    return _getServerAliases(
+            reference.pointer,
+            _id_getServerAliases as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            principals.reference.pointer)
+        .object(const _$jni.JArrayType(_$jni.JStringType()));
+  }
+
+  static final _id_chooseServerAlias = _class.instanceMethodId(
+    r'chooseServerAlias',
+    r'(Ljava/lang/String;[Ljava/security/Principal;Ljava/net/Socket;)Ljava/lang/String;',
+  );
+
+  static final _chooseServerAlias = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.lang.String chooseServerAlias(java.lang.String string, java.security.Principal[] principals, java.net.Socket socket)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString chooseServerAlias(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.JObject> principals,
+    _$jni.JObject socket,
+  ) {
+    return _chooseServerAlias(
+            reference.pointer,
+            _id_chooseServerAlias as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            principals.reference.pointer,
+            socket.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getCertificateChain = _class.instanceMethodId(
+    r'getCertificateChain',
+    r'(Ljava/lang/String;)[Ljava/security/cert/X509Certificate;',
+  );
+
+  static final _getCertificateChain = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.security.cert.X509Certificate[] getCertificateChain(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JObject> getCertificateChain(
+    _$jni.JString string,
+  ) {
+    return _getCertificateChain(
+            reference.pointer,
+            _id_getCertificateChain as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .object(const _$jni.JArrayType(_$jni.JObjectType()));
+  }
+
+  static final _id_getPrivateKey = _class.instanceMethodId(
+    r'getPrivateKey',
+    r'(Ljava/lang/String;)Ljava/security/PrivateKey;',
+  );
+
+  static final _getPrivateKey = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.security.PrivateKey getPrivateKey(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getPrivateKey(
+    _$jni.JString string,
+  ) {
+    return _getPrivateKey(reference.pointer,
+            _id_getPrivateKey as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $X509KeyManager> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d ==
+          r'getClientAliases(Ljava/lang/String;[Ljava/security/Principal;)[Ljava/lang/String;') {
+        final $r = _$impls[$p]!.getClientAliases(
+          $a[0].as(const _$jni.JStringType(), releaseOriginal: true),
+          $a[1].as(const _$jni.JArrayType(_$jni.JObjectType()),
+              releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d ==
+          r'chooseClientAlias([Ljava/lang/String;[Ljava/security/Principal;Ljava/net/Socket;)Ljava/lang/String;') {
+        final $r = _$impls[$p]!.chooseClientAlias(
+          $a[0].as(const _$jni.JArrayType(_$jni.JStringType()),
+              releaseOriginal: true),
+          $a[1].as(const _$jni.JArrayType(_$jni.JObjectType()),
+              releaseOriginal: true),
+          $a[2].as(const _$jni.JObjectType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d ==
+          r'getServerAliases(Ljava/lang/String;[Ljava/security/Principal;)[Ljava/lang/String;') {
+        final $r = _$impls[$p]!.getServerAliases(
+          $a[0].as(const _$jni.JStringType(), releaseOriginal: true),
+          $a[1].as(const _$jni.JArrayType(_$jni.JObjectType()),
+              releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d ==
+          r'chooseServerAlias(Ljava/lang/String;[Ljava/security/Principal;Ljava/net/Socket;)Ljava/lang/String;') {
+        final $r = _$impls[$p]!.chooseServerAlias(
+          $a[0].as(const _$jni.JStringType(), releaseOriginal: true),
+          $a[1].as(const _$jni.JArrayType(_$jni.JObjectType()),
+              releaseOriginal: true),
+          $a[2].as(const _$jni.JObjectType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d ==
+          r'getCertificateChain(Ljava/lang/String;)[Ljava/security/cert/X509Certificate;') {
+        final $r = _$impls[$p]!.getCertificateChain(
+          $a[0].as(const _$jni.JStringType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d ==
+          r'getPrivateKey(Ljava/lang/String;)Ljava/security/PrivateKey;') {
+        final $r = _$impls[$p]!.getPrivateKey(
+          $a[0].as(const _$jni.JStringType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $X509KeyManager $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'javax.net.ssl.X509KeyManager',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory X509KeyManager.implement(
+    $X509KeyManager $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return X509KeyManager.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $X509KeyManager {
+  factory $X509KeyManager({
+    required _$jni.JArray<_$jni.JString> Function(
+            _$jni.JString string, _$jni.JArray<_$jni.JObject> principals)
+        getClientAliases,
+    required _$jni.JString Function(_$jni.JArray<_$jni.JString> strings,
+            _$jni.JArray<_$jni.JObject> principals, _$jni.JObject socket)
+        chooseClientAlias,
+    required _$jni.JArray<_$jni.JString> Function(
+            _$jni.JString string, _$jni.JArray<_$jni.JObject> principals)
+        getServerAliases,
+    required _$jni.JString Function(_$jni.JString string,
+            _$jni.JArray<_$jni.JObject> principals, _$jni.JObject socket)
+        chooseServerAlias,
+    required _$jni.JArray<_$jni.JObject> Function(_$jni.JString string)
+        getCertificateChain,
+    required _$jni.JObject Function(_$jni.JString string) getPrivateKey,
+  }) = _$X509KeyManager;
+
+  _$jni.JArray<_$jni.JString> getClientAliases(
+      _$jni.JString string, _$jni.JArray<_$jni.JObject> principals);
+  _$jni.JString chooseClientAlias(_$jni.JArray<_$jni.JString> strings,
+      _$jni.JArray<_$jni.JObject> principals, _$jni.JObject socket);
+  _$jni.JArray<_$jni.JString> getServerAliases(
+      _$jni.JString string, _$jni.JArray<_$jni.JObject> principals);
+  _$jni.JString chooseServerAlias(_$jni.JString string,
+      _$jni.JArray<_$jni.JObject> principals, _$jni.JObject socket);
+  _$jni.JArray<_$jni.JObject> getCertificateChain(_$jni.JString string);
+  _$jni.JObject getPrivateKey(_$jni.JString string);
+}
+
+final class _$X509KeyManager with $X509KeyManager {
+  _$X509KeyManager({
+    required _$jni.JArray<_$jni.JString> Function(
+            _$jni.JString string, _$jni.JArray<_$jni.JObject> principals)
+        getClientAliases,
+    required _$jni.JString Function(_$jni.JArray<_$jni.JString> strings,
+            _$jni.JArray<_$jni.JObject> principals, _$jni.JObject socket)
+        chooseClientAlias,
+    required _$jni.JArray<_$jni.JString> Function(
+            _$jni.JString string, _$jni.JArray<_$jni.JObject> principals)
+        getServerAliases,
+    required _$jni.JString Function(_$jni.JString string,
+            _$jni.JArray<_$jni.JObject> principals, _$jni.JObject socket)
+        chooseServerAlias,
+    required _$jni.JArray<_$jni.JObject> Function(_$jni.JString string)
+        getCertificateChain,
+    required _$jni.JObject Function(_$jni.JString string) getPrivateKey,
+  })  : _getClientAliases = getClientAliases,
+        _chooseClientAlias = chooseClientAlias,
+        _getServerAliases = getServerAliases,
+        _chooseServerAlias = chooseServerAlias,
+        _getCertificateChain = getCertificateChain,
+        _getPrivateKey = getPrivateKey;
+
+  final _$jni.JArray<_$jni.JString> Function(
+          _$jni.JString string, _$jni.JArray<_$jni.JObject> principals)
+      _getClientAliases;
+  final _$jni.JString Function(
+      _$jni.JArray<_$jni.JString> strings,
+      _$jni.JArray<_$jni.JObject> principals,
+      _$jni.JObject socket) _chooseClientAlias;
+  final _$jni.JArray<_$jni.JString> Function(
+          _$jni.JString string, _$jni.JArray<_$jni.JObject> principals)
+      _getServerAliases;
+  final _$jni.JString Function(
+      _$jni.JString string,
+      _$jni.JArray<_$jni.JObject> principals,
+      _$jni.JObject socket) _chooseServerAlias;
+  final _$jni.JArray<_$jni.JObject> Function(_$jni.JString string)
+      _getCertificateChain;
+  final _$jni.JObject Function(_$jni.JString string) _getPrivateKey;
+
+  _$jni.JArray<_$jni.JString> getClientAliases(
+      _$jni.JString string, _$jni.JArray<_$jni.JObject> principals) {
+    return _getClientAliases(string, principals);
+  }
+
+  _$jni.JString chooseClientAlias(_$jni.JArray<_$jni.JString> strings,
+      _$jni.JArray<_$jni.JObject> principals, _$jni.JObject socket) {
+    return _chooseClientAlias(strings, principals, socket);
+  }
+
+  _$jni.JArray<_$jni.JString> getServerAliases(
+      _$jni.JString string, _$jni.JArray<_$jni.JObject> principals) {
+    return _getServerAliases(string, principals);
+  }
+
+  _$jni.JString chooseServerAlias(_$jni.JString string,
+      _$jni.JArray<_$jni.JObject> principals, _$jni.JObject socket) {
+    return _chooseServerAlias(string, principals, socket);
+  }
+
+  _$jni.JArray<_$jni.JObject> getCertificateChain(_$jni.JString string) {
+    return _getCertificateChain(string);
+  }
+
+  _$jni.JObject getPrivateKey(_$jni.JString string) {
+    return _getPrivateKey(string);
+  }
+}
+
+final class $X509KeyManager$Type extends _$jni.JObjType<X509KeyManager> {
+  @_$jni.internal
+  const $X509KeyManager$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/X509KeyManager;';
+
+  @_$jni.internal
+  @_$core.override
+  X509KeyManager fromReference(_$jni.JReference reference) =>
+      X509KeyManager.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($X509KeyManager$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($X509KeyManager$Type) &&
+        other is $X509KeyManager$Type;
   }
 }

@@ -17,6 +17,7 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
+import 'package:jni/_internal.dart';
 import 'package:jni/jni.dart';
 
 import 'jni/bindings.dart' as bindings;
@@ -92,7 +93,38 @@ class OkHttpClient extends BaseClient {
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
   }) {
-    _client = bindings.OkHttpClient_Builder().build();
+    print('Creating client!!!!');
+    const alias = "foo";
+    final x509KeyManager = bindings.$X509KeyManager(
+        chooseClientAlias: (strings, principals, socket) => alias.toJString(),
+        getClientAliases: (string, principals) =>
+            JArray(JString.type, 1)..[0] = alias.toJString(),
+        getServerAliases: (string, principals) => JArray(JString.type, 0),
+        chooseServerAlias: (string, principals, socket) => "".toJString(),
+        getCertificateChain: (alias) {
+          print('getCertificateChain: $alias');
+          return JArray(JObject.type, 0);
+        },
+        getPrivateKey: (alias) {
+          print('getPrivateKey: $alias');
+          return JObject.fromReference(jNullReference);
+        });
+    final tm = bindings.TrustManagerFactory.getInstance(
+        bindings.TrustManagerFactory.getDefaultAlgorithm())
+      ..init(bindings.KeyStore.fromReference(jNullReference));
+
+    final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())
+      ..init(
+          JArray(bindings.KeyManager.type, 1)
+            ..[0] = bindings.X509KeyManager.implement(x509KeyManager)
+                .as(bindings.KeyManager.type),
+          JArray.fromReference(bindings.TrustManager.type, jNullReference),
+//          tm.getTrustManagers(),
+          bindings.SecureRandom());
+    _client = bindings.OkHttpClient_Builder()
+        .sslSocketFactory$1(sslContext.getSocketFactory(),
+            tm.getTrustManagers()[0].as(bindings.X509TrustManager.type))
+        .build();
   }
 
   @override
