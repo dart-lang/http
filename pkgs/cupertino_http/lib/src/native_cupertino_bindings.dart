@@ -618,10 +618,10 @@ class NativeCupertinoHttp {
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int)>();
 
   ffi.Pointer<ffi.Void> valloc(
-    int arg0,
+    int __size,
   ) {
     return _valloc(
-      arg0,
+      __size,
     );
   }
 
@@ -699,6 +699,22 @@ class NativeCupertinoHttp {
           ffi.Int Function(
               ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>>('atexit');
   late final _atexit = _atexitPtr.asFunction<
+      int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>();
+
+  int at_quick_exit(
+    ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> arg0,
+  ) {
+    return _at_quick_exit(
+      arg0,
+    );
+  }
+
+  late final _at_quick_exitPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Int Function(
+                  ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>>(
+      'at_quick_exit');
+  late final _at_quick_exit = _at_quick_exitPtr.asFunction<
       int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>();
 
   double atof(
@@ -979,6 +995,18 @@ class NativeCupertinoHttp {
               ffi.NativeFunction<
                   ffi.Int Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>)>();
+
+  void quick_exit(
+    int arg0,
+  ) {
+    return _quick_exit(
+      arg0,
+    );
+  }
+
+  late final _quick_exitPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('quick_exit');
+  late final _quick_exit = _quick_exitPtr.asFunction<void Function(int)>();
 
   int rand() {
     return _rand();
@@ -3091,6 +3119,99 @@ class NativeCupertinoHttp {
   late final _CFAllocatorCreate = _CFAllocatorCreatePtr.asFunction<
       CFAllocatorRef Function(
           CFAllocatorRef, ffi.Pointer<CFAllocatorContext>)>();
+
+  ffi.Pointer<ffi.Void> CFAllocatorAllocateTyped(
+    CFAllocatorRef allocator,
+    int size,
+    int descriptor,
+    int hint,
+  ) {
+    return _CFAllocatorAllocateTyped(
+      allocator,
+      size,
+      descriptor,
+      hint,
+    );
+  }
+
+  late final _CFAllocatorAllocateTypedPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(CFAllocatorRef, CFIndex,
+              CFAllocatorTypeID, CFOptionFlags)>>('CFAllocatorAllocateTyped');
+  late final _CFAllocatorAllocateTyped =
+      _CFAllocatorAllocateTypedPtr.asFunction<
+          ffi.Pointer<ffi.Void> Function(CFAllocatorRef, int, int, int)>();
+
+  ffi.Pointer<ffi.Void> CFAllocatorReallocateTyped(
+    CFAllocatorRef allocator,
+    ffi.Pointer<ffi.Void> ptr,
+    int newsize,
+    int descriptor,
+    int hint,
+  ) {
+    return _CFAllocatorReallocateTyped(
+      allocator,
+      ptr,
+      newsize,
+      descriptor,
+      hint,
+    );
+  }
+
+  late final _CFAllocatorReallocateTypedPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              CFAllocatorRef,
+              ffi.Pointer<ffi.Void>,
+              CFIndex,
+              CFAllocatorTypeID,
+              CFOptionFlags)>>('CFAllocatorReallocateTyped');
+  late final _CFAllocatorReallocateTyped =
+      _CFAllocatorReallocateTypedPtr.asFunction<
+          ffi.Pointer<ffi.Void> Function(
+              CFAllocatorRef, ffi.Pointer<ffi.Void>, int, int, int)>();
+
+  ffi.Pointer<ffi.Void> CFAllocatorAllocateBytes(
+    CFAllocatorRef allocator,
+    int size,
+    int hint,
+  ) {
+    return _CFAllocatorAllocateBytes(
+      allocator,
+      size,
+      hint,
+    );
+  }
+
+  late final _CFAllocatorAllocateBytesPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(CFAllocatorRef, CFIndex,
+              CFOptionFlags)>>('CFAllocatorAllocateBytes');
+  late final _CFAllocatorAllocateBytes = _CFAllocatorAllocateBytesPtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(CFAllocatorRef, int, int)>();
+
+  ffi.Pointer<ffi.Void> CFAllocatorReallocateBytes(
+    CFAllocatorRef allocator,
+    ffi.Pointer<ffi.Void> ptr,
+    int newsize,
+    int hint,
+  ) {
+    return _CFAllocatorReallocateBytes(
+      allocator,
+      ptr,
+      newsize,
+      hint,
+    );
+  }
+
+  late final _CFAllocatorReallocateBytesPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(CFAllocatorRef, ffi.Pointer<ffi.Void>,
+              CFIndex, CFOptionFlags)>>('CFAllocatorReallocateBytes');
+  late final _CFAllocatorReallocateBytes =
+      _CFAllocatorReallocateBytesPtr.asFunction<
+          ffi.Pointer<ffi.Void> Function(
+              CFAllocatorRef, ffi.Pointer<ffi.Void>, int, int)>();
 
   ffi.Pointer<ffi.Void> CFAllocatorAllocate(
     CFAllocatorRef allocator,
@@ -7138,6 +7259,20 @@ class NativeCupertinoHttp {
       int Function(
           int, ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>, int)>();
 
+  int printf(
+    ffi.Pointer<ffi.Char> arg0,
+  ) {
+    return _printf(
+      arg0,
+    );
+  }
+
+  late final _printfPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
+          'printf');
+  late final _printf =
+      _printfPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+
   late final ffi.Pointer<ffi.Pointer<FILE>> ___stdinp =
       _lookup<ffi.Pointer<FILE>>('__stdinp');
 
@@ -7512,20 +7647,6 @@ class NativeCupertinoHttp {
           'perror');
   late final _perror =
       _perrorPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
-
-  int printf(
-    ffi.Pointer<ffi.Char> arg0,
-  ) {
-    return _printf(
-      arg0,
-    );
-  }
-
-  late final _printfPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'printf');
-  late final _printf =
-      _printfPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   int putc(
     int arg0,
@@ -16732,6 +16853,13 @@ class NativeCupertinoHttp {
 
   CFNumberFormatterKey get kCFNumberFormatterMaxSignificantDigits =>
       _kCFNumberFormatterMaxSignificantDigits.value;
+
+  late final ffi.Pointer<CFNumberFormatterKey>
+      _kCFNumberFormatterMinGroupingDigits =
+      _lookup<CFNumberFormatterKey>('kCFNumberFormatterMinGroupingDigits');
+
+  CFNumberFormatterKey get kCFNumberFormatterMinGroupingDigits =>
+      _kCFNumberFormatterMinGroupingDigits.value;
 
   int CFNumberFormatterGetDecimalInfoForCurrencyCode(
     CFStringRef currencyCode,
@@ -30083,6 +30211,32 @@ class NativeCupertinoHttp {
   late final _CFAttributedStringEndEditing = _CFAttributedStringEndEditingPtr
       .asFunction<void Function(CFMutableAttributedStringRef)>();
 
+  bool CFAttributedStringGetBidiLevelsAndResolvedDirections(
+    CFAttributedStringRef attributedString,
+    CFRange range,
+    int baseDirection,
+    ffi.Pointer<ffi.Uint8> bidiLevels,
+    ffi.Pointer<ffi.Uint8> baseDirections,
+  ) {
+    return _CFAttributedStringGetBidiLevelsAndResolvedDirections(
+      attributedString,
+      range,
+      baseDirection,
+      bidiLevels,
+      baseDirections,
+    );
+  }
+
+  late final _CFAttributedStringGetBidiLevelsAndResolvedDirectionsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Bool Function(CFAttributedStringRef, CFRange, ffi.Int8,
+                  ffi.Pointer<ffi.Uint8>, ffi.Pointer<ffi.Uint8>)>>(
+      'CFAttributedStringGetBidiLevelsAndResolvedDirections');
+  late final _CFAttributedStringGetBidiLevelsAndResolvedDirections =
+      _CFAttributedStringGetBidiLevelsAndResolvedDirectionsPtr.asFunction<
+          bool Function(CFAttributedStringRef, CFRange, int,
+              ffi.Pointer<ffi.Uint8>, ffi.Pointer<ffi.Uint8>)>();
+
   int CFURLEnumeratorGetTypeID() {
     return _CFURLEnumeratorGetTypeID();
   }
@@ -33360,6 +33514,36 @@ class NativeCupertinoHttp {
   late final _SecCertificateCopySerialNumberData =
       _SecCertificateCopySerialNumberDataPtr.asFunction<
           CFDataRef Function(SecCertificateRef, ffi.Pointer<CFErrorRef>)>();
+
+  CFDateRef SecCertificateCopyNotValidBeforeDate(
+    SecCertificateRef certificate,
+  ) {
+    return _SecCertificateCopyNotValidBeforeDate(
+      certificate,
+    );
+  }
+
+  late final _SecCertificateCopyNotValidBeforeDatePtr =
+      _lookup<ffi.NativeFunction<CFDateRef Function(SecCertificateRef)>>(
+          'SecCertificateCopyNotValidBeforeDate');
+  late final _SecCertificateCopyNotValidBeforeDate =
+      _SecCertificateCopyNotValidBeforeDatePtr.asFunction<
+          CFDateRef Function(SecCertificateRef)>();
+
+  CFDateRef SecCertificateCopyNotValidAfterDate(
+    SecCertificateRef certificate,
+  ) {
+    return _SecCertificateCopyNotValidAfterDate(
+      certificate,
+    );
+  }
+
+  late final _SecCertificateCopyNotValidAfterDatePtr =
+      _lookup<ffi.NativeFunction<CFDateRef Function(SecCertificateRef)>>(
+          'SecCertificateCopyNotValidAfterDate');
+  late final _SecCertificateCopyNotValidAfterDate =
+      _SecCertificateCopyNotValidAfterDatePtr.asFunction<
+          CFDateRef Function(SecCertificateRef)>();
 
   CFDataRef SecCertificateCopySerialNumber(
     SecCertificateRef certificate,
@@ -41040,6 +41224,14 @@ final class __darwin_arm_exception_state64 extends ffi.Struct {
   external int __exception;
 }
 
+final class __darwin_arm_exception_state64_v2 extends ffi.Struct {
+  @__uint64_t()
+  external int __far;
+
+  @__uint64_t()
+  external int __esr;
+}
+
 final class __darwin_arm_thread_state extends ffi.Struct {
   @ffi.Array.multi([13])
   external ffi.Array<__uint32_t> __r;
@@ -41997,7 +42189,16 @@ final class rusage_info_v6 extends ffi.Struct {
   @ffi.Uint64()
   external int ri_secure_ptime_in_system;
 
-  @ffi.Array.multi([12])
+  @ffi.Uint64()
+  external int ri_neural_footprint;
+
+  @ffi.Uint64()
+  external int ri_lifetime_max_neural_footprint;
+
+  @ffi.Uint64()
+  external int ri_interval_max_neural_footprint;
+
+  @ffi.Array.multi([9])
   external ffi.Array<ffi.Uint64> ri_reserved;
 }
 
@@ -42017,24 +42218,6 @@ final class proc_rlimit_control_wakeupmon extends ffi.Struct {
 
   @ffi.Int32()
   external int wm_rate;
-}
-
-@ffi.Packed(1)
-final class _OSUnalignedU16 extends ffi.Struct {
-  @ffi.Uint16()
-  external int __val;
-}
-
-@ffi.Packed(1)
-final class _OSUnalignedU32 extends ffi.Struct {
-  @ffi.Uint32()
-  external int __val;
-}
-
-@ffi.Packed(1)
-final class _OSUnalignedU64 extends ffi.Struct {
-  @ffi.Uint64()
-  external int __val;
 }
 
 final class wait extends ffi.Opaque {}
@@ -42349,8 +42532,8 @@ typedef DartNSUInteger = int;
 
 final class _NSZone extends ffi.Opaque {}
 
-typedef va_list = __builtin_va_list;
 typedef __gnuc_va_list = __builtin_va_list;
+typedef va_list = __builtin_va_list;
 typedef NSExceptionName = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSExceptionName = objc.NSString;
 typedef NSRunLoopMode = ffi.Pointer<objc.ObjCObject>;
@@ -42760,6 +42943,8 @@ typedef UnsignedWidePtr = ffi.Pointer<UnsignedWide>;
 typedef extended80 = Float80;
 typedef extended96 = Float96;
 typedef VHSelect = SInt8;
+typedef CFAllocatorTypeID = ffi.UnsignedLongLong;
+typedef DartCFAllocatorTypeID = int;
 typedef CFTypeID = ffi.UnsignedLong;
 typedef DartCFTypeID = int;
 typedef CFOptionFlags = ffi.UnsignedLong;
@@ -43759,6 +43944,7 @@ final _objc_msgSend_i3avs9 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_requiresDNSSECValidation =
     objc.registerName("requiresDNSSECValidation");
+late final _sel_allowsPersistentDNS = objc.registerName("allowsPersistentDNS");
 late final _sel_init = objc.registerName("init");
 late final _sel_new = objc.registerName("new");
 late final _sel_allocWithZone_ = objc.registerName("allocWithZone:");
@@ -44329,6 +44515,16 @@ class NSURLRequest extends objc.NSObject {
   bool get requiresDNSSECValidation {
     return _objc_msgSend_91o635(
         this.ref.pointer, _sel_requiresDNSSECValidation);
+  }
+
+  /// !
+  /// @abstract Allows storing and usage of DNS answers, potentially beyond TTL expiry,
+  /// in a persistent per-process cache. This should only be set for hostnames whose resolutions
+  /// are not expected to change across networks.
+  /// @discussion YES, if the DNS lookup for this request is allowed to use a persistent per-process cache,
+  /// NO otherwise. Defaults to NO.
+  bool get allowsPersistentDNS {
+    return _objc_msgSend_91o635(this.ref.pointer, _sel_allowsPersistentDNS);
   }
 
   /// init
@@ -45315,6 +45511,8 @@ final _objc_msgSend_1nw1jep = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_setRequiresDNSSECValidation_ =
     objc.registerName("setRequiresDNSSECValidation:");
+late final _sel_setAllowsPersistentDNS_ =
+    objc.registerName("setAllowsPersistentDNS:");
 
 /// !
 /// @class NSMutableURLRequest
@@ -45590,6 +45788,27 @@ class NSMutableURLRequest extends NSURLRequest {
   set requiresDNSSECValidation(bool value) {
     return _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setRequiresDNSSECValidation_, value);
+  }
+
+  /// !
+  /// @abstract Allows storing and usage of DNS answers, potentially beyond TTL expiry,
+  /// in a persistent per-process cache. This should only be set for hostnames whose resolutions
+  /// are not expected to change across networks.
+  /// @discussion YES, if the DNS lookup for this request is allowed to use a persistent per-process cache,
+  /// NO otherwise. Defaults to NO.
+  bool get allowsPersistentDNS {
+    return _objc_msgSend_91o635(this.ref.pointer, _sel_allowsPersistentDNS);
+  }
+
+  /// !
+  /// @abstract Allows storing and usage of DNS answers, potentially beyond TTL expiry,
+  /// in a persistent per-process cache. This should only be set for hostnames whose resolutions
+  /// are not expected to change across networks.
+  /// @discussion YES, if the DNS lookup for this request is allowed to use a persistent per-process cache,
+  /// NO otherwise. Defaults to NO.
+  set allowsPersistentDNS(bool value) {
+    return _objc_msgSend_1s56lr9(
+        this.ref.pointer, _sel_setAllowsPersistentDNS_, value);
   }
 
   /// !
@@ -48630,6 +48849,25 @@ final class __CFBitVector extends ffi.Opaque {}
 
 typedef CFBitVectorRef = ffi.Pointer<__CFBitVector>;
 typedef CFMutableBitVectorRef = ffi.Pointer<__CFBitVector>;
+
+@ffi.Packed(1)
+final class _OSUnalignedU16 extends ffi.Struct {
+  @ffi.Uint16()
+  external int __val;
+}
+
+@ffi.Packed(1)
+final class _OSUnalignedU32 extends ffi.Struct {
+  @ffi.Uint32()
+  external int __val;
+}
+
+@ffi.Packed(1)
+final class _OSUnalignedU64 extends ffi.Struct {
+  @ffi.Uint64()
+  external int __val;
+}
+
 typedef CFByteOrder = CFIndex;
 
 final class CFSwappedFloat32 extends ffi.Struct {
@@ -49013,7 +49251,8 @@ enum CFCalendarUnit {
   kCFCalendarUnitQuarter(2048),
   kCFCalendarUnitWeekOfMonth(4096),
   kCFCalendarUnitWeekOfYear(8192),
-  kCFCalendarUnitYearForWeekOfYear(16384);
+  kCFCalendarUnitYearForWeekOfYear(16384),
+  kCFCalendarUnitDayOfYear(65536);
 
   final int value;
   const CFCalendarUnit(this.value);
@@ -49033,6 +49272,7 @@ enum CFCalendarUnit {
         4096 => kCFCalendarUnitWeekOfMonth,
         8192 => kCFCalendarUnitWeekOfYear,
         16384 => kCFCalendarUnitYearForWeekOfYear,
+        65536 => kCFCalendarUnitDayOfYear,
         _ => throw ArgumentError("Unknown value for CFCalendarUnit: $value"),
       };
 }
@@ -57997,8 +58237,8 @@ final _objc_msgSend_1hx005a = objc.msgSendPointer
 /// created, a copy of the configuration object is made - you cannot
 /// modify the configuration of a session after it has been created.
 ///
-/// The shared session uses the global singleton credential, cache
-/// and cookie storage objects.
+/// The shared session uses the global credential, cache and cookie
+/// storage objects.
 ///
 /// An ephemeral session has no persistent disk storage for cookies,
 /// cache or credentials.
@@ -60030,7 +60270,7 @@ class NSURLSession extends objc.NSObject {
   /// has been issued.
   ///
   /// -finishTasksAndInvalidate and -invalidateAndCancel do not
-  /// have any effect on the shared session singleton.
+  /// have any effect on the shared session instance.
   ///
   /// When invalidating a background session, it is not safe to create another background
   /// session with the same identifier until URLSession:didBecomeInvalidWithError: has
@@ -81159,6 +81399,8 @@ const int TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA = -16330;
 
 const int TLS_PSK_WITH_CHACHA20_POLY1305_SHA256 = -13141;
 
+const int TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256 = -13140;
+
 const int TLS_NULL_WITH_NULL_NULL = 0;
 
 const int TLS_RSA_WITH_NULL_MD5 = 1;
@@ -86251,6 +86493,8 @@ const int TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA1 = -16330;
 
 const int TLS_PSK_WITH_CHACHA20_POLY1305_SHA2561 = -13141;
 
+const int TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA2561 = -13140;
+
 const int TLS_NULL_WITH_NULL_NULL1 = 0;
 
 const int TLS_RSA_WITH_NULL_MD51 = 1;
@@ -86587,6 +86831,10 @@ const int __MAC_14_4 = 140400;
 
 const int __MAC_14_5 = 140500;
 
+const int __MAC_15_0 = 150000;
+
+const int __MAC_15_1 = 150100;
+
 const int __IPHONE_2_0 = 20000;
 
 const int __IPHONE_2_1 = 20100;
@@ -86745,6 +86993,10 @@ const int __IPHONE_17_4 = 170400;
 
 const int __IPHONE_17_5 = 170500;
 
+const int __IPHONE_18_0 = 180000;
+
+const int __IPHONE_18_1 = 180100;
+
 const int __WATCHOS_1_0 = 10000;
 
 const int __WATCHOS_2_0 = 20000;
@@ -86838,6 +87090,10 @@ const int __WATCHOS_10_3 = 100300;
 const int __WATCHOS_10_4 = 100400;
 
 const int __WATCHOS_10_5 = 100500;
+
+const int __WATCHOS_11_0 = 110000;
+
+const int __WATCHOS_11_1 = 110100;
 
 const int __TVOS_9_0 = 90000;
 
@@ -86935,6 +87191,10 @@ const int __TVOS_17_4 = 170400;
 
 const int __TVOS_17_5 = 170500;
 
+const int __TVOS_18_0 = 180000;
+
+const int __TVOS_18_1 = 180100;
+
 const int __BRIDGEOS_2_0 = 20000;
 
 const int __BRIDGEOS_3_0 = 30000;
@@ -86987,6 +87247,10 @@ const int __BRIDGEOS_8_4 = 80400;
 
 const int __BRIDGEOS_8_5 = 80500;
 
+const int __BRIDGEOS_9_0 = 90000;
+
+const int __BRIDGEOS_9_1 = 90100;
+
 const int __DRIVERKIT_19_0 = 190000;
 
 const int __DRIVERKIT_20_0 = 200000;
@@ -87013,11 +87277,19 @@ const int __DRIVERKIT_23_4 = 230400;
 
 const int __DRIVERKIT_23_5 = 230500;
 
+const int __DRIVERKIT_24_0 = 240000;
+
+const int __DRIVERKIT_24_1 = 240100;
+
 const int __VISIONOS_1_0 = 10000;
 
 const int __VISIONOS_1_1 = 10100;
 
 const int __VISIONOS_1_2 = 10200;
+
+const int __VISIONOS_2_0 = 20000;
+
+const int __VISIONOS_2_1 = 20100;
 
 const int MAC_OS_X_VERSION_10_0 = 1000;
 
@@ -87141,9 +87413,13 @@ const int MAC_OS_VERSION_14_4 = 140400;
 
 const int MAC_OS_VERSION_14_5 = 140500;
 
-const int __MAC_OS_X_VERSION_MIN_REQUIRED = 140000;
+const int MAC_OS_VERSION_15_0 = 150000;
 
-const int __MAC_OS_X_VERSION_MAX_ALLOWED = 140500;
+const int MAC_OS_VERSION_15_1 = 150100;
+
+const int __MAC_OS_X_VERSION_MIN_REQUIRED = 150000;
+
+const int __MAC_OS_X_VERSION_MAX_ALLOWED = 150100;
 
 const int __ENABLE_LEGACY_MAC_AVAILABILITY = 1;
 
@@ -87743,13 +88019,13 @@ const int __DARWIN_BIG_ENDIAN = 4321;
 
 const int __DARWIN_PDP_ENDIAN = 3412;
 
-const int __DARWIN_BYTE_ORDER = 1234;
-
 const int LITTLE_ENDIAN = 1234;
 
 const int BIG_ENDIAN = 4321;
 
 const int PDP_ENDIAN = 3412;
+
+const int __DARWIN_BYTE_ORDER = 1234;
 
 const int BYTE_ORDER = 1234;
 
@@ -87760,12 +88036,6 @@ const int EXIT_FAILURE = 1;
 const int EXIT_SUCCESS = 0;
 
 const int RAND_MAX = 2147483647;
-
-const int MAC_OS_X_VERSION_MIN_REQUIRED = 140000;
-
-const int MAC_OS_X_VERSION_MAX_ALLOWED = 140000;
-
-const int __AVAILABILITY_MACROS_USES_AVAILABILITY = 1;
 
 const int TARGET_OS_RTKIT = 0;
 
@@ -87813,35 +88083,11 @@ const int NFDBITS = 32;
 
 const int FD_SETSIZE = 1024;
 
-const int OBJC_API_VERSION = 2;
-
-const int OBJC_NO_GC = 1;
-
-const int NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER = 1;
-
-const int OBJC_OLD_DISPATCH_PROTOTYPES = 0;
-
 const int __bool_true_false_are_defined = 1;
 
 const int true1 = 1;
 
 const int false1 = 0;
-
-const int OBJC_BOOL_IS_BOOL = 1;
-
-const int YES = 1;
-
-const int NO = 0;
-
-const int NSIntegerMax = 9223372036854775807;
-
-const int NSIntegerMin = -9223372036854775808;
-
-const int NSUIntegerMax = -1;
-
-const int NSINTEGER_DEFINED = 1;
-
-const int __GNUC_VA_LIST = 1;
 
 const int __DARWIN_CLK_TCK = 100;
 
@@ -87899,183 +88145,7 @@ const int QUAD_MAX = 9223372036854775807;
 
 const int QUAD_MIN = -9223372036854775808;
 
-const int ARG_MAX = 1048576;
-
-const int CHILD_MAX = 266;
-
-const int GID_MAX = 2147483647;
-
-const int LINK_MAX = 32767;
-
-const int MAX_CANON = 1024;
-
-const int MAX_INPUT = 1024;
-
-const int NAME_MAX = 255;
-
-const int NGROUPS_MAX = 16;
-
-const int UID_MAX = 2147483647;
-
-const int OPEN_MAX = 10240;
-
-const int PATH_MAX = 1024;
-
-const int PIPE_BUF = 512;
-
-const int BC_BASE_MAX = 99;
-
-const int BC_DIM_MAX = 2048;
-
-const int BC_SCALE_MAX = 99;
-
-const int BC_STRING_MAX = 1000;
-
-const int CHARCLASS_NAME_MAX = 14;
-
-const int COLL_WEIGHTS_MAX = 2;
-
-const int EQUIV_CLASS_MAX = 2;
-
-const int EXPR_NEST_MAX = 32;
-
-const int LINE_MAX = 2048;
-
-const int RE_DUP_MAX = 255;
-
-const int NZERO = 20;
-
-const int _POSIX_ARG_MAX = 4096;
-
-const int _POSIX_CHILD_MAX = 25;
-
-const int _POSIX_LINK_MAX = 8;
-
-const int _POSIX_MAX_CANON = 255;
-
-const int _POSIX_MAX_INPUT = 255;
-
-const int _POSIX_NAME_MAX = 14;
-
-const int _POSIX_NGROUPS_MAX = 8;
-
-const int _POSIX_OPEN_MAX = 20;
-
-const int _POSIX_PATH_MAX = 256;
-
-const int _POSIX_PIPE_BUF = 512;
-
-const int _POSIX_SSIZE_MAX = 32767;
-
-const int _POSIX_STREAM_MAX = 8;
-
-const int _POSIX_TZNAME_MAX = 6;
-
-const int _POSIX2_BC_BASE_MAX = 99;
-
-const int _POSIX2_BC_DIM_MAX = 2048;
-
-const int _POSIX2_BC_SCALE_MAX = 99;
-
-const int _POSIX2_BC_STRING_MAX = 1000;
-
-const int _POSIX2_EQUIV_CLASS_MAX = 2;
-
-const int _POSIX2_EXPR_NEST_MAX = 32;
-
-const int _POSIX2_LINE_MAX = 2048;
-
-const int _POSIX2_RE_DUP_MAX = 255;
-
-const int _POSIX_AIO_LISTIO_MAX = 2;
-
-const int _POSIX_AIO_MAX = 1;
-
-const int _POSIX_DELAYTIMER_MAX = 32;
-
-const int _POSIX_MQ_OPEN_MAX = 8;
-
-const int _POSIX_MQ_PRIO_MAX = 32;
-
-const int _POSIX_RTSIG_MAX = 8;
-
-const int _POSIX_SEM_NSEMS_MAX = 256;
-
-const int _POSIX_SEM_VALUE_MAX = 32767;
-
-const int _POSIX_SIGQUEUE_MAX = 32;
-
-const int _POSIX_TIMER_MAX = 32;
-
-const int _POSIX_CLOCKRES_MIN = 20000000;
-
-const int _POSIX_THREAD_DESTRUCTOR_ITERATIONS = 4;
-
 const int _POSIX_THREAD_KEYS_MAX = 128;
-
-const int _POSIX_THREAD_THREADS_MAX = 64;
-
-const int PTHREAD_DESTRUCTOR_ITERATIONS = 4;
-
-const int PTHREAD_KEYS_MAX = 512;
-
-const int PTHREAD_STACK_MIN = 16384;
-
-const int _POSIX_HOST_NAME_MAX = 255;
-
-const int _POSIX_LOGIN_NAME_MAX = 9;
-
-const int _POSIX_SS_REPL_MAX = 4;
-
-const int _POSIX_SYMLINK_MAX = 255;
-
-const int _POSIX_SYMLOOP_MAX = 8;
-
-const int _POSIX_TRACE_EVENT_NAME_MAX = 30;
-
-const int _POSIX_TRACE_NAME_MAX = 8;
-
-const int _POSIX_TRACE_SYS_MAX = 8;
-
-const int _POSIX_TRACE_USER_EVENT_MAX = 32;
-
-const int _POSIX_TTY_NAME_MAX = 9;
-
-const int _POSIX2_CHARCLASS_NAME_MAX = 14;
-
-const int _POSIX2_COLL_WEIGHTS_MAX = 2;
-
-const int _POSIX_RE_DUP_MAX = 255;
-
-const int OFF_MIN = -9223372036854775808;
-
-const int OFF_MAX = 9223372036854775807;
-
-const int PASS_MAX = 128;
-
-const int NL_ARGMAX = 9;
-
-const int NL_LANGMAX = 14;
-
-const int NL_MSGMAX = 32767;
-
-const int NL_NMAX = 1;
-
-const int NL_SETMAX = 255;
-
-const int NL_TEXTMAX = 2048;
-
-const int _XOPEN_IOV_MAX = 16;
-
-const int IOV_MAX = 1024;
-
-const int _XOPEN_NAME_MAX = 255;
-
-const int _XOPEN_PATH_MAX = 1024;
-
-const int NS_BLOCKS_AVAILABLE = 1;
-
-const int __COREFOUNDATION_CFAVAILABILITY__ = 1;
 
 const int API_TO_BE_DEPRECATED = 100000;
 
@@ -88091,411 +88161,9 @@ const int API_TO_BE_DEPRECATED_DRIVERKIT = 100000;
 
 const int API_TO_BE_DEPRECATED_VISIONOS = 100000;
 
-const int __CF_ENUM_FIXED_IS_AVAILABLE = 1;
-
-const double NSFoundationVersionNumber10_0 = 397.4;
-
-const double NSFoundationVersionNumber10_1 = 425.0;
-
-const double NSFoundationVersionNumber10_1_1 = 425.0;
-
-const double NSFoundationVersionNumber10_1_2 = 425.0;
-
-const double NSFoundationVersionNumber10_1_3 = 425.0;
-
-const double NSFoundationVersionNumber10_1_4 = 425.0;
-
-const double NSFoundationVersionNumber10_2 = 462.0;
-
-const double NSFoundationVersionNumber10_2_1 = 462.0;
-
-const double NSFoundationVersionNumber10_2_2 = 462.0;
-
-const double NSFoundationVersionNumber10_2_3 = 462.0;
-
-const double NSFoundationVersionNumber10_2_4 = 462.0;
-
-const double NSFoundationVersionNumber10_2_5 = 462.0;
-
-const double NSFoundationVersionNumber10_2_6 = 462.0;
-
-const double NSFoundationVersionNumber10_2_7 = 462.7;
-
-const double NSFoundationVersionNumber10_2_8 = 462.7;
-
-const double NSFoundationVersionNumber10_3 = 500.0;
-
-const double NSFoundationVersionNumber10_3_1 = 500.0;
-
-const double NSFoundationVersionNumber10_3_2 = 500.3;
-
-const double NSFoundationVersionNumber10_3_3 = 500.54;
-
-const double NSFoundationVersionNumber10_3_4 = 500.56;
-
-const double NSFoundationVersionNumber10_3_5 = 500.56;
-
-const double NSFoundationVersionNumber10_3_6 = 500.56;
-
-const double NSFoundationVersionNumber10_3_7 = 500.56;
-
-const double NSFoundationVersionNumber10_3_8 = 500.56;
-
-const double NSFoundationVersionNumber10_3_9 = 500.58;
-
-const double NSFoundationVersionNumber10_4 = 567.0;
-
-const double NSFoundationVersionNumber10_4_1 = 567.0;
-
-const double NSFoundationVersionNumber10_4_2 = 567.12;
-
-const double NSFoundationVersionNumber10_4_3 = 567.21;
-
-const double NSFoundationVersionNumber10_4_4_Intel = 567.23;
-
-const double NSFoundationVersionNumber10_4_4_PowerPC = 567.21;
-
-const double NSFoundationVersionNumber10_4_5 = 567.25;
-
-const double NSFoundationVersionNumber10_4_6 = 567.26;
-
-const double NSFoundationVersionNumber10_4_7 = 567.27;
-
-const double NSFoundationVersionNumber10_4_8 = 567.28;
-
-const double NSFoundationVersionNumber10_4_9 = 567.29;
-
-const double NSFoundationVersionNumber10_4_10 = 567.29;
-
-const double NSFoundationVersionNumber10_4_11 = 567.36;
-
-const double NSFoundationVersionNumber10_5 = 677.0;
-
-const double NSFoundationVersionNumber10_5_1 = 677.1;
-
-const double NSFoundationVersionNumber10_5_2 = 677.15;
-
-const double NSFoundationVersionNumber10_5_3 = 677.19;
-
-const double NSFoundationVersionNumber10_5_4 = 677.19;
-
-const double NSFoundationVersionNumber10_5_5 = 677.21;
-
-const double NSFoundationVersionNumber10_5_6 = 677.22;
-
-const double NSFoundationVersionNumber10_5_7 = 677.24;
-
-const double NSFoundationVersionNumber10_5_8 = 677.26;
-
-const double NSFoundationVersionNumber10_6 = 751.0;
-
-const double NSFoundationVersionNumber10_6_1 = 751.0;
-
-const double NSFoundationVersionNumber10_6_2 = 751.14;
-
-const double NSFoundationVersionNumber10_6_3 = 751.21;
-
-const double NSFoundationVersionNumber10_6_4 = 751.29;
-
-const double NSFoundationVersionNumber10_6_5 = 751.42;
-
-const double NSFoundationVersionNumber10_6_6 = 751.53;
-
-const double NSFoundationVersionNumber10_6_7 = 751.53;
-
-const double NSFoundationVersionNumber10_6_8 = 751.62;
-
-const double NSFoundationVersionNumber10_7 = 833.1;
-
-const double NSFoundationVersionNumber10_7_1 = 833.1;
-
-const double NSFoundationVersionNumber10_7_2 = 833.2;
-
-const double NSFoundationVersionNumber10_7_3 = 833.24;
-
-const double NSFoundationVersionNumber10_7_4 = 833.25;
-
-const double NSFoundationVersionNumber10_8 = 945.0;
-
-const double NSFoundationVersionNumber10_8_1 = 945.0;
-
-const double NSFoundationVersionNumber10_8_2 = 945.11;
-
-const double NSFoundationVersionNumber10_8_3 = 945.16;
-
-const double NSFoundationVersionNumber10_8_4 = 945.18;
-
-const int NSFoundationVersionNumber10_9 = 1056;
-
-const int NSFoundationVersionNumber10_9_1 = 1056;
-
-const double NSFoundationVersionNumber10_9_2 = 1056.13;
-
-const double NSFoundationVersionNumber10_10 = 1151.16;
-
-const double NSFoundationVersionNumber10_10_1 = 1151.16;
-
-const double NSFoundationVersionNumber10_10_2 = 1152.14;
-
-const double NSFoundationVersionNumber10_10_3 = 1153.2;
-
-const double NSFoundationVersionNumber10_10_4 = 1153.2;
-
-const int NSFoundationVersionNumber10_10_5 = 1154;
-
-const int NSFoundationVersionNumber10_10_Max = 1199;
-
-const int NSFoundationVersionNumber10_11 = 1252;
-
-const double NSFoundationVersionNumber10_11_1 = 1255.1;
-
-const double NSFoundationVersionNumber10_11_2 = 1256.1;
-
-const double NSFoundationVersionNumber10_11_3 = 1256.1;
-
-const int NSFoundationVersionNumber10_11_4 = 1258;
-
-const int NSFoundationVersionNumber10_11_Max = 1299;
-
-const int __COREFOUNDATION_CFBASE__ = 1;
-
-const int UNIVERSAL_INTERFACES_VERSION = 1024;
-
-const int PRAGMA_IMPORT = 0;
-
-const int PRAGMA_ONCE = 0;
-
-const int PRAGMA_STRUCT_PACK = 1;
-
-const int PRAGMA_STRUCT_PACKPUSH = 1;
-
-const int PRAGMA_STRUCT_ALIGN = 0;
-
-const int PRAGMA_ENUM_PACK = 0;
-
-const int PRAGMA_ENUM_ALWAYSINT = 0;
-
-const int PRAGMA_ENUM_OPTIONS = 0;
-
-const int TYPE_EXTENDED = 0;
-
-const int TYPE_LONGDOUBLE_IS_DOUBLE = 0;
-
-const int TYPE_LONGLONG = 1;
-
-const int FUNCTION_PASCAL = 0;
-
-const int FUNCTION_DECLSPEC = 0;
-
-const int FUNCTION_WIN32CC = 0;
-
-const int TARGET_API_MAC_OS8 = 0;
-
-const int TARGET_API_MAC_CARBON = 1;
-
-const int TARGET_API_MAC_OSX = 1;
-
-const int TARGET_CARBON = 1;
-
-const int OLDROUTINENAMES = 0;
-
-const int OPAQUE_TOOLBOX_STRUCTS = 1;
-
-const int OPAQUE_UPP_TYPES = 1;
-
-const int ACCESSOR_CALLS_ARE_FUNCTIONS = 1;
-
-const int CALL_NOT_IN_CARBON = 0;
-
-const int MIXEDMODE_CALLS_ARE_FUNCTIONS = 1;
-
-const int ALLOW_OBSOLETE_CARBON_MACMEMORY = 0;
-
-const int ALLOW_OBSOLETE_CARBON_OSUTILS = 0;
-
-const int kInvalidID = 0;
-
 const int TRUE = 1;
 
 const int FALSE = 0;
-
-const double kCFCoreFoundationVersionNumber10_0 = 196.4;
-
-const double kCFCoreFoundationVersionNumber10_0_3 = 196.5;
-
-const double kCFCoreFoundationVersionNumber10_1 = 226.0;
-
-const double kCFCoreFoundationVersionNumber10_1_1 = 226.0;
-
-const double kCFCoreFoundationVersionNumber10_1_2 = 227.2;
-
-const double kCFCoreFoundationVersionNumber10_1_3 = 227.2;
-
-const double kCFCoreFoundationVersionNumber10_1_4 = 227.3;
-
-const double kCFCoreFoundationVersionNumber10_2 = 263.0;
-
-const double kCFCoreFoundationVersionNumber10_2_1 = 263.1;
-
-const double kCFCoreFoundationVersionNumber10_2_2 = 263.1;
-
-const double kCFCoreFoundationVersionNumber10_2_3 = 263.3;
-
-const double kCFCoreFoundationVersionNumber10_2_4 = 263.3;
-
-const double kCFCoreFoundationVersionNumber10_2_5 = 263.5;
-
-const double kCFCoreFoundationVersionNumber10_2_6 = 263.5;
-
-const double kCFCoreFoundationVersionNumber10_2_7 = 263.5;
-
-const double kCFCoreFoundationVersionNumber10_2_8 = 263.5;
-
-const double kCFCoreFoundationVersionNumber10_3 = 299.0;
-
-const double kCFCoreFoundationVersionNumber10_3_1 = 299.0;
-
-const double kCFCoreFoundationVersionNumber10_3_2 = 299.0;
-
-const double kCFCoreFoundationVersionNumber10_3_3 = 299.3;
-
-const double kCFCoreFoundationVersionNumber10_3_4 = 299.31;
-
-const double kCFCoreFoundationVersionNumber10_3_5 = 299.31;
-
-const double kCFCoreFoundationVersionNumber10_3_6 = 299.32;
-
-const double kCFCoreFoundationVersionNumber10_3_7 = 299.33;
-
-const double kCFCoreFoundationVersionNumber10_3_8 = 299.33;
-
-const double kCFCoreFoundationVersionNumber10_3_9 = 299.35;
-
-const double kCFCoreFoundationVersionNumber10_4 = 368.0;
-
-const double kCFCoreFoundationVersionNumber10_4_1 = 368.1;
-
-const double kCFCoreFoundationVersionNumber10_4_2 = 368.11;
-
-const double kCFCoreFoundationVersionNumber10_4_3 = 368.18;
-
-const double kCFCoreFoundationVersionNumber10_4_4_Intel = 368.26;
-
-const double kCFCoreFoundationVersionNumber10_4_4_PowerPC = 368.25;
-
-const double kCFCoreFoundationVersionNumber10_4_5_Intel = 368.26;
-
-const double kCFCoreFoundationVersionNumber10_4_5_PowerPC = 368.25;
-
-const double kCFCoreFoundationVersionNumber10_4_6_Intel = 368.26;
-
-const double kCFCoreFoundationVersionNumber10_4_6_PowerPC = 368.25;
-
-const double kCFCoreFoundationVersionNumber10_4_7 = 368.27;
-
-const double kCFCoreFoundationVersionNumber10_4_8 = 368.27;
-
-const double kCFCoreFoundationVersionNumber10_4_9 = 368.28;
-
-const double kCFCoreFoundationVersionNumber10_4_10 = 368.28;
-
-const double kCFCoreFoundationVersionNumber10_4_11 = 368.31;
-
-const double kCFCoreFoundationVersionNumber10_5 = 476.0;
-
-const double kCFCoreFoundationVersionNumber10_5_1 = 476.0;
-
-const double kCFCoreFoundationVersionNumber10_5_2 = 476.1;
-
-const double kCFCoreFoundationVersionNumber10_5_3 = 476.13;
-
-const double kCFCoreFoundationVersionNumber10_5_4 = 476.14;
-
-const double kCFCoreFoundationVersionNumber10_5_5 = 476.15;
-
-const double kCFCoreFoundationVersionNumber10_5_6 = 476.17;
-
-const double kCFCoreFoundationVersionNumber10_5_7 = 476.18;
-
-const double kCFCoreFoundationVersionNumber10_5_8 = 476.19;
-
-const double kCFCoreFoundationVersionNumber10_6 = 550.0;
-
-const double kCFCoreFoundationVersionNumber10_6_1 = 550.0;
-
-const double kCFCoreFoundationVersionNumber10_6_2 = 550.13;
-
-const double kCFCoreFoundationVersionNumber10_6_3 = 550.19;
-
-const double kCFCoreFoundationVersionNumber10_6_4 = 550.29;
-
-const double kCFCoreFoundationVersionNumber10_6_5 = 550.42;
-
-const double kCFCoreFoundationVersionNumber10_6_6 = 550.42;
-
-const double kCFCoreFoundationVersionNumber10_6_7 = 550.42;
-
-const double kCFCoreFoundationVersionNumber10_6_8 = 550.43;
-
-const double kCFCoreFoundationVersionNumber10_7 = 635.0;
-
-const double kCFCoreFoundationVersionNumber10_7_1 = 635.0;
-
-const double kCFCoreFoundationVersionNumber10_7_2 = 635.15;
-
-const double kCFCoreFoundationVersionNumber10_7_3 = 635.19;
-
-const double kCFCoreFoundationVersionNumber10_7_4 = 635.21;
-
-const double kCFCoreFoundationVersionNumber10_7_5 = 635.21;
-
-const double kCFCoreFoundationVersionNumber10_8 = 744.0;
-
-const double kCFCoreFoundationVersionNumber10_8_1 = 744.0;
-
-const double kCFCoreFoundationVersionNumber10_8_2 = 744.12;
-
-const double kCFCoreFoundationVersionNumber10_8_3 = 744.18;
-
-const double kCFCoreFoundationVersionNumber10_8_4 = 744.19;
-
-const double kCFCoreFoundationVersionNumber10_9 = 855.11;
-
-const double kCFCoreFoundationVersionNumber10_9_1 = 855.11;
-
-const double kCFCoreFoundationVersionNumber10_9_2 = 855.14;
-
-const double kCFCoreFoundationVersionNumber10_10 = 1151.16;
-
-const double kCFCoreFoundationVersionNumber10_10_1 = 1151.16;
-
-const int kCFCoreFoundationVersionNumber10_10_2 = 1152;
-
-const double kCFCoreFoundationVersionNumber10_10_3 = 1153.18;
-
-const double kCFCoreFoundationVersionNumber10_10_4 = 1153.18;
-
-const double kCFCoreFoundationVersionNumber10_10_5 = 1153.18;
-
-const int kCFCoreFoundationVersionNumber10_10_Max = 1199;
-
-const int kCFCoreFoundationVersionNumber10_11 = 1253;
-
-const double kCFCoreFoundationVersionNumber10_11_1 = 1255.1;
-
-const double kCFCoreFoundationVersionNumber10_11_2 = 1256.14;
-
-const double kCFCoreFoundationVersionNumber10_11_3 = 1256.14;
-
-const double kCFCoreFoundationVersionNumber10_11_4 = 1258.1;
-
-const int kCFCoreFoundationVersionNumber10_11_Max = 1299;
-
-const int ISA_PTRAUTH_DISCRIMINATOR = 27361;
-
-const double NSTimeIntervalSince1970 = 978307200.0;
-
-const int __COREFOUNDATION_CFARRAY__ = 1;
 
 const int OS_OBJECT_HAVE_OBJC_SUPPORT = 0;
 
@@ -88504,472 +88172,6 @@ const int OS_OBJECT_USE_OBJC = 0;
 const int OS_OBJECT_SWIFT3 = 0;
 
 const int OS_OBJECT_USE_OBJC_RETAIN_RELEASE = 0;
-
-const int SEC_OS_IPHONE = 0;
-
-const int SEC_OS_OSX = 1;
-
-const int SEC_OS_OSX_INCLUDES = 1;
-
-const int SECURITY_TYPE_UNIFICATION = 1;
-
-const int __COREFOUNDATION_COREFOUNDATION__ = 1;
-
-const int __COREFOUNDATION__ = 1;
-
-const String __ASSERT_FILE_NAME = 'temp_for_macros.hpp';
-
-const int _CACHED_RUNES = 256;
-
-const int _CRMASK = -256;
-
-const String _RUNE_MAGIC_A = 'RuneMagA';
-
-const int _CTYPE_A = 256;
-
-const int _CTYPE_C = 512;
-
-const int _CTYPE_D = 1024;
-
-const int _CTYPE_G = 2048;
-
-const int _CTYPE_L = 4096;
-
-const int _CTYPE_P = 8192;
-
-const int _CTYPE_S = 16384;
-
-const int _CTYPE_U = 32768;
-
-const int _CTYPE_X = 65536;
-
-const int _CTYPE_B = 131072;
-
-const int _CTYPE_R = 262144;
-
-const int _CTYPE_I = 524288;
-
-const int _CTYPE_T = 1048576;
-
-const int _CTYPE_Q = 2097152;
-
-const int _CTYPE_SW0 = 536870912;
-
-const int _CTYPE_SW1 = 1073741824;
-
-const int _CTYPE_SW2 = 2147483648;
-
-const int _CTYPE_SW3 = 3221225472;
-
-const int _CTYPE_SWM = 3758096384;
-
-const int _CTYPE_SWS = 30;
-
-const int EPERM = 1;
-
-const int ENOENT = 2;
-
-const int ESRCH = 3;
-
-const int EINTR = 4;
-
-const int EIO = 5;
-
-const int ENXIO = 6;
-
-const int E2BIG = 7;
-
-const int ENOEXEC = 8;
-
-const int EBADF = 9;
-
-const int ECHILD = 10;
-
-const int EDEADLK = 11;
-
-const int ENOMEM = 12;
-
-const int EACCES = 13;
-
-const int EFAULT = 14;
-
-const int ENOTBLK = 15;
-
-const int EBUSY = 16;
-
-const int EEXIST = 17;
-
-const int EXDEV = 18;
-
-const int ENODEV = 19;
-
-const int ENOTDIR = 20;
-
-const int EISDIR = 21;
-
-const int EINVAL = 22;
-
-const int ENFILE = 23;
-
-const int EMFILE = 24;
-
-const int ENOTTY = 25;
-
-const int ETXTBSY = 26;
-
-const int EFBIG = 27;
-
-const int ENOSPC = 28;
-
-const int ESPIPE = 29;
-
-const int EROFS = 30;
-
-const int EMLINK = 31;
-
-const int EPIPE = 32;
-
-const int EDOM = 33;
-
-const int ERANGE = 34;
-
-const int EAGAIN = 35;
-
-const int EWOULDBLOCK = 35;
-
-const int EINPROGRESS = 36;
-
-const int EALREADY = 37;
-
-const int ENOTSOCK = 38;
-
-const int EDESTADDRREQ = 39;
-
-const int EMSGSIZE = 40;
-
-const int EPROTOTYPE = 41;
-
-const int ENOPROTOOPT = 42;
-
-const int EPROTONOSUPPORT = 43;
-
-const int ESOCKTNOSUPPORT = 44;
-
-const int ENOTSUP = 45;
-
-const int EPFNOSUPPORT = 46;
-
-const int EAFNOSUPPORT = 47;
-
-const int EADDRINUSE = 48;
-
-const int EADDRNOTAVAIL = 49;
-
-const int ENETDOWN = 50;
-
-const int ENETUNREACH = 51;
-
-const int ENETRESET = 52;
-
-const int ECONNABORTED = 53;
-
-const int ECONNRESET = 54;
-
-const int ENOBUFS = 55;
-
-const int EISCONN = 56;
-
-const int ENOTCONN = 57;
-
-const int ESHUTDOWN = 58;
-
-const int ETOOMANYREFS = 59;
-
-const int ETIMEDOUT = 60;
-
-const int ECONNREFUSED = 61;
-
-const int ELOOP = 62;
-
-const int ENAMETOOLONG = 63;
-
-const int EHOSTDOWN = 64;
-
-const int EHOSTUNREACH = 65;
-
-const int ENOTEMPTY = 66;
-
-const int EPROCLIM = 67;
-
-const int EUSERS = 68;
-
-const int EDQUOT = 69;
-
-const int ESTALE = 70;
-
-const int EREMOTE = 71;
-
-const int EBADRPC = 72;
-
-const int ERPCMISMATCH = 73;
-
-const int EPROGUNAVAIL = 74;
-
-const int EPROGMISMATCH = 75;
-
-const int EPROCUNAVAIL = 76;
-
-const int ENOLCK = 77;
-
-const int ENOSYS = 78;
-
-const int EFTYPE = 79;
-
-const int EAUTH = 80;
-
-const int ENEEDAUTH = 81;
-
-const int EPWROFF = 82;
-
-const int EDEVERR = 83;
-
-const int EOVERFLOW = 84;
-
-const int EBADEXEC = 85;
-
-const int EBADARCH = 86;
-
-const int ESHLIBVERS = 87;
-
-const int EBADMACHO = 88;
-
-const int ECANCELED = 89;
-
-const int EIDRM = 90;
-
-const int ENOMSG = 91;
-
-const int EILSEQ = 92;
-
-const int ENOATTR = 93;
-
-const int EBADMSG = 94;
-
-const int EMULTIHOP = 95;
-
-const int ENODATA = 96;
-
-const int ENOLINK = 97;
-
-const int ENOSR = 98;
-
-const int ENOSTR = 99;
-
-const int EPROTO = 100;
-
-const int ETIME = 101;
-
-const int EOPNOTSUPP = 102;
-
-const int ENOPOLICY = 103;
-
-const int ENOTRECOVERABLE = 104;
-
-const int EOWNERDEAD = 105;
-
-const int EQFULL = 106;
-
-const int ELAST = 106;
-
-const int FLT_EVAL_METHOD = 0;
-
-const int FLT_RADIX = 2;
-
-const int FLT_MANT_DIG = 24;
-
-const int DBL_MANT_DIG = 53;
-
-const int LDBL_MANT_DIG = 53;
-
-const int FLT_DIG = 6;
-
-const int DBL_DIG = 15;
-
-const int LDBL_DIG = 15;
-
-const int FLT_MIN_EXP = -125;
-
-const int DBL_MIN_EXP = -1021;
-
-const int LDBL_MIN_EXP = -1021;
-
-const int FLT_MIN_10_EXP = -37;
-
-const int DBL_MIN_10_EXP = -307;
-
-const int LDBL_MIN_10_EXP = -307;
-
-const int FLT_MAX_EXP = 128;
-
-const int DBL_MAX_EXP = 1024;
-
-const int LDBL_MAX_EXP = 1024;
-
-const int FLT_MAX_10_EXP = 38;
-
-const int DBL_MAX_10_EXP = 308;
-
-const int LDBL_MAX_10_EXP = 308;
-
-const double FLT_MAX = 3.4028234663852886e+38;
-
-const double DBL_MAX = 1.7976931348623157e+308;
-
-const double LDBL_MAX = 1.7976931348623157e+308;
-
-const double FLT_EPSILON = 1.1920928955078125e-7;
-
-const double DBL_EPSILON = 2.220446049250313e-16;
-
-const double LDBL_EPSILON = 2.220446049250313e-16;
-
-const double FLT_MIN = 1.1754943508222875e-38;
-
-const double DBL_MIN = 2.2250738585072014e-308;
-
-const double LDBL_MIN = 2.2250738585072014e-308;
-
-const int DECIMAL_DIG = 17;
-
-const int FLT_HAS_SUBNORM = 1;
-
-const int DBL_HAS_SUBNORM = 1;
-
-const int LDBL_HAS_SUBNORM = 1;
-
-const double FLT_TRUE_MIN = 1.401298464324817e-45;
-
-const double DBL_TRUE_MIN = 5e-324;
-
-const double LDBL_TRUE_MIN = 5e-324;
-
-const int FLT_DECIMAL_DIG = 9;
-
-const int DBL_DECIMAL_DIG = 17;
-
-const int LDBL_DECIMAL_DIG = 17;
-
-const int LC_ALL = 0;
-
-const int LC_COLLATE = 1;
-
-const int LC_CTYPE = 2;
-
-const int LC_MONETARY = 3;
-
-const int LC_NUMERIC = 4;
-
-const int LC_TIME = 5;
-
-const int LC_MESSAGES = 6;
-
-const int _LC_LAST = 7;
-
-const double HUGE_VAL = double.infinity;
-
-const double HUGE_VALF = double.infinity;
-
-const double HUGE_VALL = double.infinity;
-
-const double NAN = double.nan;
-
-const double INFINITY = double.infinity;
-
-const int FP_NAN = 1;
-
-const int FP_INFINITE = 2;
-
-const int FP_ZERO = 3;
-
-const int FP_NORMAL = 4;
-
-const int FP_SUBNORMAL = 5;
-
-const int FP_SUPERNORMAL = 6;
-
-const int FP_FAST_FMA = 1;
-
-const int FP_FAST_FMAF = 1;
-
-const int FP_FAST_FMAL = 1;
-
-const int FP_ILOGB0 = -2147483648;
-
-const int FP_ILOGBNAN = -2147483648;
-
-const int MATH_ERRNO = 1;
-
-const int MATH_ERREXCEPT = 2;
-
-const double M_E = 2.718281828459045;
-
-const double M_LOG2E = 1.4426950408889634;
-
-const double M_LOG10E = 0.4342944819032518;
-
-const double M_LN2 = 0.6931471805599453;
-
-const double M_LN10 = 2.302585092994046;
-
-const double M_PI = 3.141592653589793;
-
-const double M_PI_2 = 1.5707963267948966;
-
-const double M_PI_4 = 0.7853981633974483;
-
-const double M_1_PI = 0.3183098861837907;
-
-const double M_2_PI = 0.6366197723675814;
-
-const double M_2_SQRTPI = 1.1283791670955126;
-
-const double M_SQRT2 = 1.4142135623730951;
-
-const double M_SQRT1_2 = 0.7071067811865476;
-
-const double MAXFLOAT = 3.4028234663852886e+38;
-
-const int FP_SNAN = 1;
-
-const int FP_QNAN = 1;
-
-const double HUGE = 3.4028234663852886e+38;
-
-const double X_TLOSS = 14148475504056880.0;
-
-const int DOMAIN = 1;
-
-const int SING = 2;
-
-const int OVERFLOW = 3;
-
-const int UNDERFLOW = 4;
-
-const int TLOSS = 5;
-
-const int PLOSS = 6;
-
-const int _JBLEN = 48;
-
-const int RENAME_SECLUDE = 1;
-
-const int RENAME_SWAP = 2;
-
-const int RENAME_EXCL = 4;
-
-const int RENAME_RESERVED1 = 8;
-
-const int RENAME_NOFOLLOW_ANY = 16;
 
 const int SEEK_SET = 0;
 
@@ -88980,144 +88182,6 @@ const int SEEK_END = 2;
 const int SEEK_HOLE = 3;
 
 const int SEEK_DATA = 4;
-
-const int __SLBF = 1;
-
-const int __SNBF = 2;
-
-const int __SRD = 4;
-
-const int __SWR = 8;
-
-const int __SRW = 16;
-
-const int __SEOF = 32;
-
-const int __SERR = 64;
-
-const int __SMBF = 128;
-
-const int __SAPP = 256;
-
-const int __SSTR = 512;
-
-const int __SOPT = 1024;
-
-const int __SNPT = 2048;
-
-const int __SOFF = 4096;
-
-const int __SMOD = 8192;
-
-const int __SALC = 16384;
-
-const int __SIGN = 32768;
-
-const int _IOFBF = 0;
-
-const int _IOLBF = 1;
-
-const int _IONBF = 2;
-
-const int BUFSIZ = 1024;
-
-const int EOF = -1;
-
-const int FOPEN_MAX = 20;
-
-const int FILENAME_MAX = 1024;
-
-const String P_tmpdir = '/var/tmp/';
-
-const int L_tmpnam = 1024;
-
-const int TMP_MAX = 308915776;
-
-const int L_ctermid = 1024;
-
-const int CLOCKS_PER_SEC = 1000000;
-
-const int CLOCK_REALTIME = 0;
-
-const int CLOCK_MONOTONIC = 6;
-
-const int CLOCK_MONOTONIC_RAW = 4;
-
-const int CLOCK_MONOTONIC_RAW_APPROX = 5;
-
-const int CLOCK_UPTIME_RAW = 8;
-
-const int CLOCK_UPTIME_RAW_APPROX = 9;
-
-const int CLOCK_PROCESS_CPUTIME_ID = 12;
-
-const int CLOCK_THREAD_CPUTIME_ID = 16;
-
-const int TIME_UTC = 1;
-
-const int __COREFOUNDATION_CFBAG__ = 1;
-
-const int __COREFOUNDATION_CFBINARYHEAP__ = 1;
-
-const int __COREFOUNDATION_CFBITVECTOR__ = 1;
-
-const int __COREFOUNDATION_CFBYTEORDER__ = 1;
-
-const int CF_USE_OSBYTEORDER_H = 1;
-
-const int __COREFOUNDATION_CFCALENDAR__ = 1;
-
-const int __COREFOUNDATION_CFLOCALE__ = 1;
-
-const int __COREFOUNDATION_CFDICTIONARY__ = 1;
-
-const int __COREFOUNDATION_CFNOTIFICATIONCENTER__ = 1;
-
-const int __COREFOUNDATION_CFDATE__ = 1;
-
-const int __COREFOUNDATION_CFTIMEZONE__ = 1;
-
-const int __COREFOUNDATION_CFDATA__ = 1;
-
-const int __COREFOUNDATION_CFSTRING__ = 1;
-
-const int __COREFOUNDATION_CFCHARACTERSET__ = 1;
-
-const int __COREFOUNDATION_CFERROR__ = 1;
-
-const int kCFStringEncodingInvalidId = 4294967295;
-
-const int __kCFStringInlineBufferLength = 64;
-
-const int __COREFOUNDATION_CFCGTYPES__ = 1;
-
-const int CGFLOAT_IS_DOUBLE = 1;
-
-const double CGFLOAT_MIN = 2.2250738585072014e-308;
-
-const double CGFLOAT_MAX = 1.7976931348623157e+308;
-
-const double CGFLOAT_EPSILON = 2.220446049250313e-16;
-
-const int CGFLOAT_DEFINED = 1;
-
-const int CGVECTOR_DEFINED = 1;
-
-const int __COREFOUNDATION_CFDATEFORMATTER__ = 1;
-
-const int __COREFOUNDATION_CFNUMBER__ = 1;
-
-const int __COREFOUNDATION_CFNUMBERFORMATTER__ = 1;
-
-const int __COREFOUNDATION_CFPREFERENCES__ = 1;
-
-const int __COREFOUNDATION_CFPROPERTYLIST__ = 1;
-
-const int __COREFOUNDATION_CFSTREAM__ = 1;
-
-const int __COREFOUNDATION_CFURL__ = 1;
-
-const int __COREFOUNDATION_CFRUNLOOP__ = 1;
 
 const int MACH_PORT_NULL = 0;
 
@@ -89151,6 +88215,12 @@ const int MACH_PORT_TYPE_DEAD_NAME = 1048576;
 
 const int MACH_PORT_TYPE_LABELH = 2097152;
 
+const int MACH_PORT_TYPE_DNREQUEST = 2147483648;
+
+const int MACH_PORT_TYPE_SPREQUEST = 1073741824;
+
+const int MACH_PORT_TYPE_SPREQUEST_DELAYED = 536870912;
+
 const int MACH_PORT_TYPE_SEND_RECEIVE = 196608;
 
 const int MACH_PORT_TYPE_SEND_RIGHTS = 327680;
@@ -89160,12 +88230,6 @@ const int MACH_PORT_TYPE_PORT_RIGHTS = 458752;
 const int MACH_PORT_TYPE_PORT_OR_DEAD = 1507328;
 
 const int MACH_PORT_TYPE_ALL_RIGHTS = 2031616;
-
-const int MACH_PORT_TYPE_DNREQUEST = 2147483648;
-
-const int MACH_PORT_TYPE_SPREQUEST = 1073741824;
-
-const int MACH_PORT_TYPE_SPREQUEST_DELAYED = 536870912;
 
 const int MACH_PORT_SRIGHTS_NONE = 0;
 
@@ -89267,7 +88331,7 @@ const int MPO_ENFORCE_REPLY_PORT_SEMANTICS = 8192;
 
 const int MPO_PROVISIONAL_REPLY_PORT = 16384;
 
-const int MPO_PROVISIONAL_ID_PROT_OPTOUT = 32768;
+const int MPO_EXCEPTION_PORT = 32768;
 
 const int GUARD_TYPE_MACH_PORT = 1;
 
@@ -89300,8 +88364,6 @@ const int MPG_FLAGS_IMMOVABLE_PINNED = 72057594037927936;
 const int MPG_STRICT = 1;
 
 const int MPG_IMMOVABLE_RECEIVE = 2;
-
-const int __COREFOUNDATION_CFSOCKET__ = 1;
 
 const int _POSIX_VERSION = 200112;
 
@@ -90149,6 +89211,8 @@ const int F_TRANSFEREXTENTS = 110;
 
 const int F_ATTRIBUTION_TAG = 111;
 
+const int F_ADDSIGS_MAIN_BINARY = 113;
+
 const int FCNTL_FS_SPECIFIC_BASE = 65536;
 
 const int F_DUPFD_CLOEXEC = 67;
@@ -90763,924 +89827,4 @@ const int DISPATCH_IO_STOP = 1;
 
 const int DISPATCH_IO_STRICT_INTERVAL = 1;
 
-const int __COREFOUNDATION_CFSET__ = 1;
-
-const int __COREFOUNDATION_CFSTRINGENCODINGEXT__ = 1;
-
-const int __COREFOUNDATION_CFTREE__ = 1;
-
-const int __COREFOUNDATION_CFURLACCESS__ = 1;
-
-const int __COREFOUNDATION_CFUUID__ = 1;
-
-const int __COREFOUNDATION_CFUTILITIES__ = 1;
-
-const int __COREFOUNDATION_CFBUNDLE__ = 1;
-
-const int CPU_STATE_MAX = 4;
-
-const int CPU_STATE_USER = 0;
-
-const int CPU_STATE_SYSTEM = 1;
-
-const int CPU_STATE_IDLE = 2;
-
-const int CPU_STATE_NICE = 3;
-
-const int CPU_ARCH_MASK = 4278190080;
-
-const int CPU_ARCH_ABI64 = 16777216;
-
-const int CPU_ARCH_ABI64_32 = 33554432;
-
-const int CPU_TYPE_ANY = -1;
-
-const int CPU_TYPE_VAX = 1;
-
-const int CPU_TYPE_MC680x0 = 6;
-
-const int CPU_TYPE_X86 = 7;
-
-const int CPU_TYPE_I386 = 7;
-
-const int CPU_TYPE_X86_64 = 16777223;
-
-const int CPU_TYPE_MC98000 = 10;
-
-const int CPU_TYPE_HPPA = 11;
-
-const int CPU_TYPE_ARM = 12;
-
-const int CPU_TYPE_ARM64 = 16777228;
-
-const int CPU_TYPE_ARM64_32 = 33554444;
-
-const int CPU_TYPE_MC88000 = 13;
-
-const int CPU_TYPE_SPARC = 14;
-
-const int CPU_TYPE_I860 = 15;
-
-const int CPU_TYPE_POWERPC = 18;
-
-const int CPU_TYPE_POWERPC64 = 16777234;
-
-const int CPU_SUBTYPE_MASK = 4278190080;
-
-const int CPU_SUBTYPE_LIB64 = 2147483648;
-
-const int CPU_SUBTYPE_PTRAUTH_ABI = 2147483648;
-
-const int CPU_SUBTYPE_ANY = -1;
-
-const int CPU_SUBTYPE_MULTIPLE = -1;
-
-const int CPU_SUBTYPE_LITTLE_ENDIAN = 0;
-
-const int CPU_SUBTYPE_BIG_ENDIAN = 1;
-
-const int CPU_THREADTYPE_NONE = 0;
-
-const int CPU_SUBTYPE_VAX_ALL = 0;
-
-const int CPU_SUBTYPE_VAX780 = 1;
-
-const int CPU_SUBTYPE_VAX785 = 2;
-
-const int CPU_SUBTYPE_VAX750 = 3;
-
-const int CPU_SUBTYPE_VAX730 = 4;
-
-const int CPU_SUBTYPE_UVAXI = 5;
-
-const int CPU_SUBTYPE_UVAXII = 6;
-
-const int CPU_SUBTYPE_VAX8200 = 7;
-
-const int CPU_SUBTYPE_VAX8500 = 8;
-
-const int CPU_SUBTYPE_VAX8600 = 9;
-
-const int CPU_SUBTYPE_VAX8650 = 10;
-
-const int CPU_SUBTYPE_VAX8800 = 11;
-
-const int CPU_SUBTYPE_UVAXIII = 12;
-
-const int CPU_SUBTYPE_MC680x0_ALL = 1;
-
-const int CPU_SUBTYPE_MC68030 = 1;
-
-const int CPU_SUBTYPE_MC68040 = 2;
-
-const int CPU_SUBTYPE_MC68030_ONLY = 3;
-
-const int CPU_SUBTYPE_I386_ALL = 3;
-
-const int CPU_SUBTYPE_386 = 3;
-
-const int CPU_SUBTYPE_486 = 4;
-
-const int CPU_SUBTYPE_486SX = 132;
-
-const int CPU_SUBTYPE_586 = 5;
-
-const int CPU_SUBTYPE_PENT = 5;
-
-const int CPU_SUBTYPE_PENTPRO = 22;
-
-const int CPU_SUBTYPE_PENTII_M3 = 54;
-
-const int CPU_SUBTYPE_PENTII_M5 = 86;
-
-const int CPU_SUBTYPE_CELERON = 103;
-
-const int CPU_SUBTYPE_CELERON_MOBILE = 119;
-
-const int CPU_SUBTYPE_PENTIUM_3 = 8;
-
-const int CPU_SUBTYPE_PENTIUM_3_M = 24;
-
-const int CPU_SUBTYPE_PENTIUM_3_XEON = 40;
-
-const int CPU_SUBTYPE_PENTIUM_M = 9;
-
-const int CPU_SUBTYPE_PENTIUM_4 = 10;
-
-const int CPU_SUBTYPE_PENTIUM_4_M = 26;
-
-const int CPU_SUBTYPE_ITANIUM = 11;
-
-const int CPU_SUBTYPE_ITANIUM_2 = 27;
-
-const int CPU_SUBTYPE_XEON = 12;
-
-const int CPU_SUBTYPE_XEON_MP = 28;
-
-const int CPU_SUBTYPE_INTEL_FAMILY_MAX = 15;
-
-const int CPU_SUBTYPE_INTEL_MODEL_ALL = 0;
-
-const int CPU_SUBTYPE_X86_ALL = 3;
-
-const int CPU_SUBTYPE_X86_64_ALL = 3;
-
-const int CPU_SUBTYPE_X86_ARCH1 = 4;
-
-const int CPU_SUBTYPE_X86_64_H = 8;
-
-const int CPU_THREADTYPE_INTEL_HTT = 1;
-
-const int CPU_SUBTYPE_MIPS_ALL = 0;
-
-const int CPU_SUBTYPE_MIPS_R2300 = 1;
-
-const int CPU_SUBTYPE_MIPS_R2600 = 2;
-
-const int CPU_SUBTYPE_MIPS_R2800 = 3;
-
-const int CPU_SUBTYPE_MIPS_R2000a = 4;
-
-const int CPU_SUBTYPE_MIPS_R2000 = 5;
-
-const int CPU_SUBTYPE_MIPS_R3000a = 6;
-
-const int CPU_SUBTYPE_MIPS_R3000 = 7;
-
-const int CPU_SUBTYPE_MC98000_ALL = 0;
-
-const int CPU_SUBTYPE_MC98601 = 1;
-
-const int CPU_SUBTYPE_HPPA_ALL = 0;
-
-const int CPU_SUBTYPE_HPPA_7100 = 0;
-
-const int CPU_SUBTYPE_HPPA_7100LC = 1;
-
-const int CPU_SUBTYPE_MC88000_ALL = 0;
-
-const int CPU_SUBTYPE_MC88100 = 1;
-
-const int CPU_SUBTYPE_MC88110 = 2;
-
-const int CPU_SUBTYPE_SPARC_ALL = 0;
-
-const int CPU_SUBTYPE_I860_ALL = 0;
-
-const int CPU_SUBTYPE_I860_860 = 1;
-
-const int CPU_SUBTYPE_POWERPC_ALL = 0;
-
-const int CPU_SUBTYPE_POWERPC_601 = 1;
-
-const int CPU_SUBTYPE_POWERPC_602 = 2;
-
-const int CPU_SUBTYPE_POWERPC_603 = 3;
-
-const int CPU_SUBTYPE_POWERPC_603e = 4;
-
-const int CPU_SUBTYPE_POWERPC_603ev = 5;
-
-const int CPU_SUBTYPE_POWERPC_604 = 6;
-
-const int CPU_SUBTYPE_POWERPC_604e = 7;
-
-const int CPU_SUBTYPE_POWERPC_620 = 8;
-
-const int CPU_SUBTYPE_POWERPC_750 = 9;
-
-const int CPU_SUBTYPE_POWERPC_7400 = 10;
-
-const int CPU_SUBTYPE_POWERPC_7450 = 11;
-
-const int CPU_SUBTYPE_POWERPC_970 = 100;
-
-const int CPU_SUBTYPE_ARM_ALL = 0;
-
-const int CPU_SUBTYPE_ARM_V4T = 5;
-
-const int CPU_SUBTYPE_ARM_V6 = 6;
-
-const int CPU_SUBTYPE_ARM_V5TEJ = 7;
-
-const int CPU_SUBTYPE_ARM_XSCALE = 8;
-
-const int CPU_SUBTYPE_ARM_V7 = 9;
-
-const int CPU_SUBTYPE_ARM_V7F = 10;
-
-const int CPU_SUBTYPE_ARM_V7S = 11;
-
-const int CPU_SUBTYPE_ARM_V7K = 12;
-
-const int CPU_SUBTYPE_ARM_V8 = 13;
-
-const int CPU_SUBTYPE_ARM_V6M = 14;
-
-const int CPU_SUBTYPE_ARM_V7M = 15;
-
-const int CPU_SUBTYPE_ARM_V7EM = 16;
-
-const int CPU_SUBTYPE_ARM_V8M = 17;
-
-const int CPU_SUBTYPE_ARM64_ALL = 0;
-
-const int CPU_SUBTYPE_ARM64_V8 = 1;
-
-const int CPU_SUBTYPE_ARM64E = 2;
-
-const int CPU_SUBTYPE_ARM64_PTR_AUTH_MASK = 251658240;
-
-const int CPU_SUBTYPE_ARM64_32_ALL = 0;
-
-const int CPU_SUBTYPE_ARM64_32_V8 = 1;
-
-const int CPUFAMILY_UNKNOWN = 0;
-
-const int CPUFAMILY_POWERPC_G3 = 3471054153;
-
-const int CPUFAMILY_POWERPC_G4 = 2009171118;
-
-const int CPUFAMILY_POWERPC_G5 = 3983988906;
-
-const int CPUFAMILY_INTEL_6_13 = 2855483691;
-
-const int CPUFAMILY_INTEL_PENRYN = 2028621756;
-
-const int CPUFAMILY_INTEL_NEHALEM = 1801080018;
-
-const int CPUFAMILY_INTEL_WESTMERE = 1463508716;
-
-const int CPUFAMILY_INTEL_SANDYBRIDGE = 1418770316;
-
-const int CPUFAMILY_INTEL_IVYBRIDGE = 526772277;
-
-const int CPUFAMILY_INTEL_HASWELL = 280134364;
-
-const int CPUFAMILY_INTEL_BROADWELL = 1479463068;
-
-const int CPUFAMILY_INTEL_SKYLAKE = 939270559;
-
-const int CPUFAMILY_INTEL_KABYLAKE = 260141638;
-
-const int CPUFAMILY_INTEL_ICELAKE = 943936839;
-
-const int CPUFAMILY_INTEL_COMETLAKE = 486055998;
-
-const int CPUFAMILY_ARM_9 = 3878847406;
-
-const int CPUFAMILY_ARM_11 = 2415272152;
-
-const int CPUFAMILY_ARM_XSCALE = 1404044789;
-
-const int CPUFAMILY_ARM_12 = 3172666089;
-
-const int CPUFAMILY_ARM_13 = 214503012;
-
-const int CPUFAMILY_ARM_14 = 2517073649;
-
-const int CPUFAMILY_ARM_15 = 2823887818;
-
-const int CPUFAMILY_ARM_SWIFT = 506291073;
-
-const int CPUFAMILY_ARM_CYCLONE = 933271106;
-
-const int CPUFAMILY_ARM_TYPHOON = 747742334;
-
-const int CPUFAMILY_ARM_TWISTER = 2465937352;
-
-const int CPUFAMILY_ARM_HURRICANE = 1741614739;
-
-const int CPUFAMILY_ARM_MONSOON_MISTRAL = 3894312694;
-
-const int CPUFAMILY_ARM_VORTEX_TEMPEST = 131287967;
-
-const int CPUFAMILY_ARM_LIGHTNING_THUNDER = 1176831186;
-
-const int CPUFAMILY_ARM_FIRESTORM_ICESTORM = 458787763;
-
-const int CPUFAMILY_ARM_BLIZZARD_AVALANCHE = 3660830781;
-
-const int CPUFAMILY_ARM_EVEREST_SAWTOOTH = 2271604202;
-
-const int CPUFAMILY_ARM_IBIZA = 4197663070;
-
-const int CPUFAMILY_ARM_PALMA = 1912690738;
-
-const int CPUFAMILY_ARM_COLL = 678884789;
-
-const int CPUFAMILY_ARM_LOBOS = 1598941843;
-
-const int CPUFAMILY_ARM_DONAN = 1867590060;
-
-const int CPUSUBFAMILY_UNKNOWN = 0;
-
-const int CPUSUBFAMILY_ARM_HP = 1;
-
-const int CPUSUBFAMILY_ARM_HG = 2;
-
-const int CPUSUBFAMILY_ARM_M = 3;
-
-const int CPUSUBFAMILY_ARM_HS = 4;
-
-const int CPUSUBFAMILY_ARM_HC_HD = 5;
-
-const int CPUSUBFAMILY_ARM_HA = 6;
-
-const int CPUFAMILY_INTEL_6_23 = 2028621756;
-
-const int CPUFAMILY_INTEL_6_26 = 1801080018;
-
-const int __COREFOUNDATION_CFMESSAGEPORT__ = 1;
-
-const int __COREFOUNDATION_CFPLUGIN__ = 1;
-
-const int COREFOUNDATION_CFPLUGINCOM_SEPARATE = 1;
-
-const int __COREFOUNDATION_CFMACHPORT__ = 1;
-
-const int __COREFOUNDATION_CFATTRIBUTEDSTRING__ = 1;
-
-const int __COREFOUNDATION_CFURLENUMERATOR__ = 1;
-
-const int __COREFOUNDATION_CFFILESECURITY__ = 1;
-
-const int KAUTH_GUID_SIZE = 16;
-
-const int KAUTH_UID_NONE = 4294967195;
-
-const int KAUTH_GID_NONE = 4294967195;
-
-const int KAUTH_NTSID_MAX_AUTHORITIES = 16;
-
-const int KAUTH_NTSID_HDRSIZE = 8;
-
-const int KAUTH_EXTLOOKUP_SUCCESS = 0;
-
-const int KAUTH_EXTLOOKUP_BADRQ = 1;
-
-const int KAUTH_EXTLOOKUP_FAILURE = 2;
-
-const int KAUTH_EXTLOOKUP_FATAL = 3;
-
-const int KAUTH_EXTLOOKUP_INPROG = 100;
-
-const int KAUTH_EXTLOOKUP_VALID_UID = 1;
-
-const int KAUTH_EXTLOOKUP_VALID_UGUID = 2;
-
-const int KAUTH_EXTLOOKUP_VALID_USID = 4;
-
-const int KAUTH_EXTLOOKUP_VALID_GID = 8;
-
-const int KAUTH_EXTLOOKUP_VALID_GGUID = 16;
-
-const int KAUTH_EXTLOOKUP_VALID_GSID = 32;
-
-const int KAUTH_EXTLOOKUP_WANT_UID = 64;
-
-const int KAUTH_EXTLOOKUP_WANT_UGUID = 128;
-
-const int KAUTH_EXTLOOKUP_WANT_USID = 256;
-
-const int KAUTH_EXTLOOKUP_WANT_GID = 512;
-
-const int KAUTH_EXTLOOKUP_WANT_GGUID = 1024;
-
-const int KAUTH_EXTLOOKUP_WANT_GSID = 2048;
-
-const int KAUTH_EXTLOOKUP_WANT_MEMBERSHIP = 4096;
-
-const int KAUTH_EXTLOOKUP_VALID_MEMBERSHIP = 8192;
-
-const int KAUTH_EXTLOOKUP_ISMEMBER = 16384;
-
-const int KAUTH_EXTLOOKUP_VALID_PWNAM = 32768;
-
-const int KAUTH_EXTLOOKUP_WANT_PWNAM = 65536;
-
-const int KAUTH_EXTLOOKUP_VALID_GRNAM = 131072;
-
-const int KAUTH_EXTLOOKUP_WANT_GRNAM = 262144;
-
-const int KAUTH_EXTLOOKUP_VALID_SUPGRPS = 524288;
-
-const int KAUTH_EXTLOOKUP_WANT_SUPGRPS = 1048576;
-
-const int KAUTH_EXTLOOKUP_REGISTER = 0;
-
-const int KAUTH_EXTLOOKUP_RESULT = 1;
-
-const int KAUTH_EXTLOOKUP_WORKER = 2;
-
-const int KAUTH_EXTLOOKUP_DEREGISTER = 4;
-
-const int KAUTH_GET_CACHE_SIZES = 8;
-
-const int KAUTH_SET_CACHE_SIZES = 16;
-
-const int KAUTH_CLEAR_CACHES = 32;
-
-const String IDENTITYSVC_ENTITLEMENT = 'com.apple.private.identitysvc';
-
-const int KAUTH_ACE_KINDMASK = 15;
-
-const int KAUTH_ACE_PERMIT = 1;
-
-const int KAUTH_ACE_DENY = 2;
-
-const int KAUTH_ACE_AUDIT = 3;
-
-const int KAUTH_ACE_ALARM = 4;
-
-const int KAUTH_ACE_INHERITED = 16;
-
-const int KAUTH_ACE_FILE_INHERIT = 32;
-
-const int KAUTH_ACE_DIRECTORY_INHERIT = 64;
-
-const int KAUTH_ACE_LIMIT_INHERIT = 128;
-
-const int KAUTH_ACE_ONLY_INHERIT = 256;
-
-const int KAUTH_ACE_SUCCESS = 512;
-
-const int KAUTH_ACE_FAILURE = 1024;
-
-const int KAUTH_ACE_INHERIT_CONTROL_FLAGS = 480;
-
-const int KAUTH_ACE_GENERIC_ALL = 2097152;
-
-const int KAUTH_ACE_GENERIC_EXECUTE = 4194304;
-
-const int KAUTH_ACE_GENERIC_WRITE = 8388608;
-
-const int KAUTH_ACE_GENERIC_READ = 16777216;
-
-const int KAUTH_ACL_MAX_ENTRIES = 128;
-
-const int KAUTH_ACL_FLAGS_PRIVATE = 65535;
-
-const int KAUTH_ACL_DEFER_INHERIT = 65536;
-
-const int KAUTH_ACL_NO_INHERIT = 131072;
-
-const int KAUTH_FILESEC_NOACL = 4294967295;
-
-const int KAUTH_FILESEC_MAGIC = 19710317;
-
-const int KAUTH_FILESEC_FLAGS_PRIVATE = 65535;
-
-const int KAUTH_FILESEC_DEFER_INHERIT = 65536;
-
-const int KAUTH_FILESEC_NO_INHERIT = 131072;
-
-const String KAUTH_FILESEC_XATTR = 'com.apple.system.Security';
-
-const int KAUTH_ENDIAN_HOST = 1;
-
-const int KAUTH_ENDIAN_DISK = 2;
-
-const int KAUTH_VNODE_READ_DATA = 2;
-
-const int KAUTH_VNODE_LIST_DIRECTORY = 2;
-
-const int KAUTH_VNODE_WRITE_DATA = 4;
-
-const int KAUTH_VNODE_ADD_FILE = 4;
-
-const int KAUTH_VNODE_EXECUTE = 8;
-
-const int KAUTH_VNODE_SEARCH = 8;
-
-const int KAUTH_VNODE_DELETE = 16;
-
-const int KAUTH_VNODE_APPEND_DATA = 32;
-
-const int KAUTH_VNODE_ADD_SUBDIRECTORY = 32;
-
-const int KAUTH_VNODE_DELETE_CHILD = 64;
-
-const int KAUTH_VNODE_READ_ATTRIBUTES = 128;
-
-const int KAUTH_VNODE_WRITE_ATTRIBUTES = 256;
-
-const int KAUTH_VNODE_READ_EXTATTRIBUTES = 512;
-
-const int KAUTH_VNODE_WRITE_EXTATTRIBUTES = 1024;
-
-const int KAUTH_VNODE_READ_SECURITY = 2048;
-
-const int KAUTH_VNODE_WRITE_SECURITY = 4096;
-
-const int KAUTH_VNODE_TAKE_OWNERSHIP = 8192;
-
-const int KAUTH_VNODE_CHANGE_OWNER = 8192;
-
-const int KAUTH_VNODE_SYNCHRONIZE = 1048576;
-
-const int KAUTH_VNODE_LINKTARGET = 33554432;
-
-const int KAUTH_VNODE_CHECKIMMUTABLE = 67108864;
-
-const int KAUTH_VNODE_ACCESS = 2147483648;
-
-const int KAUTH_VNODE_NOIMMUTABLE = 1073741824;
-
-const int KAUTH_VNODE_SEARCHBYANYONE = 536870912;
-
-const int KAUTH_VNODE_GENERIC_READ_BITS = 2690;
-
-const int KAUTH_VNODE_GENERIC_WRITE_BITS = 5492;
-
-const int KAUTH_VNODE_GENERIC_EXECUTE_BITS = 8;
-
-const int KAUTH_VNODE_GENERIC_ALL_BITS = 8190;
-
-const int KAUTH_VNODE_WRITE_RIGHTS = 100676980;
-
-const int __DARWIN_ACL_READ_DATA = 2;
-
-const int __DARWIN_ACL_LIST_DIRECTORY = 2;
-
-const int __DARWIN_ACL_WRITE_DATA = 4;
-
-const int __DARWIN_ACL_ADD_FILE = 4;
-
-const int __DARWIN_ACL_EXECUTE = 8;
-
-const int __DARWIN_ACL_SEARCH = 8;
-
-const int __DARWIN_ACL_DELETE = 16;
-
-const int __DARWIN_ACL_APPEND_DATA = 32;
-
-const int __DARWIN_ACL_ADD_SUBDIRECTORY = 32;
-
-const int __DARWIN_ACL_DELETE_CHILD = 64;
-
-const int __DARWIN_ACL_READ_ATTRIBUTES = 128;
-
-const int __DARWIN_ACL_WRITE_ATTRIBUTES = 256;
-
-const int __DARWIN_ACL_READ_EXTATTRIBUTES = 512;
-
-const int __DARWIN_ACL_WRITE_EXTATTRIBUTES = 1024;
-
-const int __DARWIN_ACL_READ_SECURITY = 2048;
-
-const int __DARWIN_ACL_WRITE_SECURITY = 4096;
-
-const int __DARWIN_ACL_CHANGE_OWNER = 8192;
-
-const int __DARWIN_ACL_SYNCHRONIZE = 1048576;
-
-const int __DARWIN_ACL_EXTENDED_ALLOW = 1;
-
-const int __DARWIN_ACL_EXTENDED_DENY = 2;
-
-const int __DARWIN_ACL_ENTRY_INHERITED = 16;
-
-const int __DARWIN_ACL_ENTRY_FILE_INHERIT = 32;
-
-const int __DARWIN_ACL_ENTRY_DIRECTORY_INHERIT = 64;
-
-const int __DARWIN_ACL_ENTRY_LIMIT_INHERIT = 128;
-
-const int __DARWIN_ACL_ENTRY_ONLY_INHERIT = 256;
-
-const int __DARWIN_ACL_FLAG_NO_INHERIT = 131072;
-
-const int ACL_MAX_ENTRIES = 128;
-
-const int ACL_UNDEFINED_ID = 0;
-
-const int __COREFOUNDATION_CFSTRINGTOKENIZER__ = 1;
-
-const int __COREFOUNDATION_CFFILEDESCRIPTOR__ = 1;
-
-const int __COREFOUNDATION_CFUSERNOTIFICATION__ = 1;
-
-const int __COREFOUNDATION_CFXMLNODE__ = 1;
-
-const int __COREFOUNDATION_CFXMLPARSER__ = 1;
-
-const int _CSSMTYPE_H_ = 1;
-
-const int _CSSMCONFIG_H_ = 1;
-
-const int SEC_ASN1_TAG_MASK = 255;
-
-const int SEC_ASN1_TAGNUM_MASK = 31;
-
-const int SEC_ASN1_BOOLEAN = 1;
-
-const int SEC_ASN1_INTEGER = 2;
-
-const int SEC_ASN1_BIT_STRING = 3;
-
-const int SEC_ASN1_OCTET_STRING = 4;
-
-const int SEC_ASN1_NULL = 5;
-
-const int SEC_ASN1_OBJECT_ID = 6;
-
-const int SEC_ASN1_OBJECT_DESCRIPTOR = 7;
-
-const int SEC_ASN1_REAL = 9;
-
-const int SEC_ASN1_ENUMERATED = 10;
-
-const int SEC_ASN1_EMBEDDED_PDV = 11;
-
-const int SEC_ASN1_UTF8_STRING = 12;
-
-const int SEC_ASN1_SEQUENCE = 16;
-
-const int SEC_ASN1_SET = 17;
-
-const int SEC_ASN1_NUMERIC_STRING = 18;
-
-const int SEC_ASN1_PRINTABLE_STRING = 19;
-
-const int SEC_ASN1_T61_STRING = 20;
-
-const int SEC_ASN1_VIDEOTEX_STRING = 21;
-
-const int SEC_ASN1_IA5_STRING = 22;
-
-const int SEC_ASN1_UTC_TIME = 23;
-
-const int SEC_ASN1_GENERALIZED_TIME = 24;
-
-const int SEC_ASN1_GRAPHIC_STRING = 25;
-
-const int SEC_ASN1_VISIBLE_STRING = 26;
-
-const int SEC_ASN1_GENERAL_STRING = 27;
-
-const int SEC_ASN1_UNIVERSAL_STRING = 28;
-
-const int SEC_ASN1_BMP_STRING = 30;
-
-const int SEC_ASN1_HIGH_TAG_NUMBER = 31;
-
-const int SEC_ASN1_TELETEX_STRING = 20;
-
-const int SEC_ASN1_METHOD_MASK = 32;
-
-const int SEC_ASN1_PRIMITIVE = 0;
-
-const int SEC_ASN1_CONSTRUCTED = 32;
-
-const int SEC_ASN1_CLASS_MASK = 192;
-
-const int SEC_ASN1_UNIVERSAL = 0;
-
-const int SEC_ASN1_APPLICATION = 64;
-
-const int SEC_ASN1_CONTEXT_SPECIFIC = 128;
-
-const int SEC_ASN1_PRIVATE = 192;
-
-const int SEC_ASN1_OPTIONAL = 256;
-
-const int SEC_ASN1_EXPLICIT = 512;
-
-const int SEC_ASN1_ANY = 1024;
-
-const int SEC_ASN1_INLINE = 2048;
-
-const int SEC_ASN1_POINTER = 4096;
-
-const int SEC_ASN1_GROUP = 8192;
-
-const int SEC_ASN1_DYNAMIC = 16384;
-
-const int SEC_ASN1_SKIP = 32768;
-
-const int SEC_ASN1_INNER = 65536;
-
-const int SEC_ASN1_SAVE = 131072;
-
-const int SEC_ASN1_SKIP_REST = 524288;
-
-const int SEC_ASN1_CHOICE = 1048576;
-
-const int SEC_ASN1_SIGNED_INT = 8388608;
-
-const int SEC_ASN1_SEQUENCE_OF = 8208;
-
-const int SEC_ASN1_SET_OF = 8209;
-
-const int SEC_ASN1_ANY_CONTENTS = 66560;
-
-const int _CSSMAPPLE_H_ = 1;
-
-const int _CSSMERR_H_ = 1;
-
-const int _X509DEFS_H_ = 1;
-
-const int BER_TAG_UNKNOWN = 0;
-
-const int BER_TAG_BOOLEAN = 1;
-
-const int BER_TAG_INTEGER = 2;
-
-const int BER_TAG_BIT_STRING = 3;
-
-const int BER_TAG_OCTET_STRING = 4;
-
-const int BER_TAG_NULL = 5;
-
-const int BER_TAG_OID = 6;
-
-const int BER_TAG_OBJECT_DESCRIPTOR = 7;
-
-const int BER_TAG_EXTERNAL = 8;
-
-const int BER_TAG_REAL = 9;
-
-const int BER_TAG_ENUMERATED = 10;
-
-const int BER_TAG_PKIX_UTF8_STRING = 12;
-
-const int BER_TAG_SEQUENCE = 16;
-
-const int BER_TAG_SET = 17;
-
-const int BER_TAG_NUMERIC_STRING = 18;
-
-const int BER_TAG_PRINTABLE_STRING = 19;
-
-const int BER_TAG_T61_STRING = 20;
-
-const int BER_TAG_TELETEX_STRING = 20;
-
-const int BER_TAG_VIDEOTEX_STRING = 21;
-
-const int BER_TAG_IA5_STRING = 22;
-
-const int BER_TAG_UTC_TIME = 23;
-
-const int BER_TAG_GENERALIZED_TIME = 24;
-
-const int BER_TAG_GRAPHIC_STRING = 25;
-
-const int BER_TAG_ISO646_STRING = 26;
-
-const int BER_TAG_GENERAL_STRING = 27;
-
-const int BER_TAG_VISIBLE_STRING = 26;
-
-const int BER_TAG_PKIX_UNIVERSAL_STRING = 28;
-
-const int BER_TAG_PKIX_BMP_STRING = 30;
-
-const int CSSM_X509_OPTION_PRESENT = 1;
-
-const int CSSM_X509_OPTION_NOT_PRESENT = 0;
-
-const int CE_KU_DigitalSignature = 32768;
-
-const int CE_KU_NonRepudiation = 16384;
-
-const int CE_KU_KeyEncipherment = 8192;
-
-const int CE_KU_DataEncipherment = 4096;
-
-const int CE_KU_KeyAgreement = 2048;
-
-const int CE_KU_KeyCertSign = 1024;
-
-const int CE_KU_CRLSign = 512;
-
-const int CE_KU_EncipherOnly = 256;
-
-const int CE_KU_DecipherOnly = 128;
-
-const int CE_CR_Unspecified = 0;
-
-const int CE_CR_KeyCompromise = 1;
-
-const int CE_CR_CACompromise = 2;
-
-const int CE_CR_AffiliationChanged = 3;
-
-const int CE_CR_Superseded = 4;
-
-const int CE_CR_CessationOfOperation = 5;
-
-const int CE_CR_CertificateHold = 6;
-
-const int CE_CR_RemoveFromCRL = 8;
-
-const int CE_CD_Unspecified = 128;
-
-const int CE_CD_KeyCompromise = 64;
-
-const int CE_CD_CACompromise = 32;
-
-const int CE_CD_AffiliationChanged = 16;
-
-const int CE_CD_Superseded = 8;
-
-const int CE_CD_CessationOfOperation = 4;
-
-const int CE_CD_CertificateHold = 2;
-
-const int CSSM_APPLE_TP_SSL_OPTS_VERSION = 1;
-
-const int CSSM_APPLE_TP_SSL_CLIENT = 1;
-
-const int CSSM_APPLE_TP_CRL_OPTS_VERSION = 0;
-
-const int CSSM_APPLE_TP_SMIME_OPTS_VERSION = 0;
-
-const int CSSM_APPLE_TP_ACTION_VERSION = 0;
-
-const int CSSM_TP_APPLE_EVIDENCE_VERSION = 0;
-
-const int CSSM_EVIDENCE_FORM_APPLE_CUSTOM = 2147483648;
-
-const String CSSM_APPLE_CRL_END_OF_TIME = '99991231235959';
-
-const String kKeychainSuffix = '.keychain';
-
-const String kKeychainDbSuffix = '.keychain-db';
-
-const String kSystemKeychainName = 'System.keychain';
-
-const String kSystemKeychainDir = '/Library/Keychains/';
-
-const String kSystemUnlockFile = '/var/db/SystemKey';
-
-const String kSystemKeychainPath = '/Library/Keychains/System.keychain';
-
-const String CSSM_APPLE_ACL_TAG_PARTITION_ID = '___PARTITION___';
-
-const String CSSM_APPLE_ACL_TAG_INTEGRITY = '___INTEGRITY___';
-
-const int errSecErrnoBase = 100000;
-
-const int errSecErrnoLimit = 100255;
-
-const int errSSLServerAuthCompleted = -9841;
-
-const int errSSLClientAuthCompleted = -9841;
-
-const int errSSLLast = -9849;
-
-const int NSMaximumStringLength = 2147483646;
-
-const int NS_UNICHAR_IS_EIGHT_BIT = 0;
-
 const int NSURLResponseUnknownLength = -1;
-
-const int NSOperationQualityOfServiceUserInteractive = 33;
-
-const int NSOperationQualityOfServiceUserInitiated = 25;
-
-const int NSOperationQualityOfServiceUtility = 17;
-
-const int NSOperationQualityOfServiceBackground = 9;
