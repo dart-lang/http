@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:ok_http/ok_http.dart';
 import 'package:test/test.dart';
 
 List<int> key = '''-----BEGIN PRIVATE KEY-----
@@ -88,7 +89,7 @@ void main() {
     final s = SecurityContext();
     s.setTrustedCertificatesBytes(cert);
 
-    httpClient = IOClient(HttpClient(context: s)..userAgent = 'Book Agent');
+    httpClient = OkHttpClient();
     await httpClient.get(Uri.https('localhost:8080', '/'));
   });
 }

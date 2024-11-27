@@ -5233,7 +5233,7 @@ class OkHttpClient_Builder extends _$jni.JObject {
   /// from: `public final okhttp3.OkHttpClient$Builder hostnameVerifier(javax.net.ssl.HostnameVerifier hostnameVerifier)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder hostnameVerifier(
-    _$jni.JObject hostnameVerifier,
+    HostnameVerifier hostnameVerifier,
   ) {
     return _hostnameVerifier(
             reference.pointer,
@@ -6280,10 +6280,10 @@ class OkHttpClient extends _$jni.JObject {
 
   /// from: `public final javax.net.ssl.HostnameVerifier hostnameVerifier()`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject hostnameVerifier() {
+  HostnameVerifier hostnameVerifier() {
     return _hostnameVerifier(
             reference.pointer, _id_hostnameVerifier as _$jni.JMethodIDPtr)
-        .object(const _$jni.JObjectType());
+        .object(const $HostnameVerifier$Type());
   }
 
   static final _id_certificatePinner = _class.instanceMethodId(
@@ -12704,6 +12704,283 @@ final class $WebSocketListenerProxy$Type
   bool operator ==(Object other) {
     return other.runtimeType == ($WebSocketListenerProxy$Type) &&
         other is $WebSocketListenerProxy$Type;
+  }
+}
+
+/// from: `com.example.ok_http.X509Foo`
+class X509Foo extends X509ExtendedKeyManager {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<X509Foo> $type;
+
+  @_$jni.internal
+  X509Foo.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'com/example/ok_http/X509Foo');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $X509Foo$Type();
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory X509Foo() {
+    return X509Foo.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_getClientAliases = _class.instanceMethodId(
+    r'getClientAliases',
+    r'(Ljava/lang/String;[Ljava/security/Principal;)[Ljava/lang/String;',
+  );
+
+  static final _getClientAliases = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public java.lang.String[] getClientAliases(java.lang.String string, java.security.Principal[] principals)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JString> getClientAliases(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.JObject> principals,
+  ) {
+    return _getClientAliases(
+            reference.pointer,
+            _id_getClientAliases as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            principals.reference.pointer)
+        .object(const _$jni.JArrayType(_$jni.JStringType()));
+  }
+
+  static final _id_chooseClientAlias = _class.instanceMethodId(
+    r'chooseClientAlias',
+    r'([Ljava/lang/String;[Ljava/security/Principal;Ljava/net/Socket;)Ljava/lang/String;',
+  );
+
+  static final _chooseClientAlias = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public java.lang.String chooseClientAlias(java.lang.String[] strings, java.security.Principal[] principals, java.net.Socket socket)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString chooseClientAlias(
+    _$jni.JArray<_$jni.JString> strings,
+    _$jni.JArray<_$jni.JObject> principals,
+    _$jni.JObject socket,
+  ) {
+    return _chooseClientAlias(
+            reference.pointer,
+            _id_chooseClientAlias as _$jni.JMethodIDPtr,
+            strings.reference.pointer,
+            principals.reference.pointer,
+            socket.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getServerAliases = _class.instanceMethodId(
+    r'getServerAliases',
+    r'(Ljava/lang/String;[Ljava/security/Principal;)[Ljava/lang/String;',
+  );
+
+  static final _getServerAliases = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public java.lang.String[] getServerAliases(java.lang.String string, java.security.Principal[] principals)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JString> getServerAliases(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.JObject> principals,
+  ) {
+    return _getServerAliases(
+            reference.pointer,
+            _id_getServerAliases as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            principals.reference.pointer)
+        .object(const _$jni.JArrayType(_$jni.JStringType()));
+  }
+
+  static final _id_chooseServerAlias = _class.instanceMethodId(
+    r'chooseServerAlias',
+    r'(Ljava/lang/String;[Ljava/security/Principal;Ljava/net/Socket;)Ljava/lang/String;',
+  );
+
+  static final _chooseServerAlias = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public java.lang.String chooseServerAlias(java.lang.String string, java.security.Principal[] principals, java.net.Socket socket)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString chooseServerAlias(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.JObject> principals,
+    _$jni.JObject socket,
+  ) {
+    return _chooseServerAlias(
+            reference.pointer,
+            _id_chooseServerAlias as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            principals.reference.pointer,
+            socket.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getCertificateChain = _class.instanceMethodId(
+    r'getCertificateChain',
+    r'(Ljava/lang/String;)[Ljava/security/cert/X509Certificate;',
+  );
+
+  static final _getCertificateChain = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public java.security.cert.X509Certificate[] getCertificateChain(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JObject> getCertificateChain(
+    _$jni.JString string,
+  ) {
+    return _getCertificateChain(
+            reference.pointer,
+            _id_getCertificateChain as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .object(const _$jni.JArrayType(_$jni.JObjectType()));
+  }
+
+  static final _id_getPrivateKey = _class.instanceMethodId(
+    r'getPrivateKey',
+    r'(Ljava/lang/String;)Ljava/security/PrivateKey;',
+  );
+
+  static final _getPrivateKey = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public java.security.PrivateKey getPrivateKey(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getPrivateKey(
+    _$jni.JString string,
+  ) {
+    return _getPrivateKey(reference.pointer,
+            _id_getPrivateKey as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+}
+
+final class $X509Foo$Type extends _$jni.JObjType<X509Foo> {
+  @_$jni.internal
+  const $X509Foo$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Lcom/example/ok_http/X509Foo;';
+
+  @_$jni.internal
+  @_$core.override
+  X509Foo fromReference(_$jni.JReference reference) =>
+      X509Foo.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const $X509ExtendedKeyManager$Type();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 2;
+
+  @_$core.override
+  int get hashCode => ($X509Foo$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($X509Foo$Type) && other is $X509Foo$Type;
   }
 }
 
@@ -20306,5 +20583,315 @@ final class $X509KeyManager$Type extends _$jni.JObjType<X509KeyManager> {
   bool operator ==(Object other) {
     return other.runtimeType == ($X509KeyManager$Type) &&
         other is $X509KeyManager$Type;
+  }
+}
+
+/// from: `javax.net.ssl.X509ExtendedKeyManager`
+class X509ExtendedKeyManager extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<X509ExtendedKeyManager> $type;
+
+  @_$jni.internal
+  X509ExtendedKeyManager.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'javax/net/ssl/X509ExtendedKeyManager');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $X509ExtendedKeyManager$Type();
+  static final _id_chooseEngineClientAlias = _class.instanceMethodId(
+    r'chooseEngineClientAlias',
+    r'([Ljava/lang/String;[Ljava/security/Principal;Ljavax/net/ssl/SSLEngine;)Ljava/lang/String;',
+  );
+
+  static final _chooseEngineClientAlias = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public java.lang.String chooseEngineClientAlias(java.lang.String[] strings, java.security.Principal[] principals, javax.net.ssl.SSLEngine sSLEngine)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString chooseEngineClientAlias(
+    _$jni.JArray<_$jni.JString> strings,
+    _$jni.JArray<_$jni.JObject> principals,
+    _$jni.JObject sSLEngine,
+  ) {
+    return _chooseEngineClientAlias(
+            reference.pointer,
+            _id_chooseEngineClientAlias as _$jni.JMethodIDPtr,
+            strings.reference.pointer,
+            principals.reference.pointer,
+            sSLEngine.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_chooseEngineServerAlias = _class.instanceMethodId(
+    r'chooseEngineServerAlias',
+    r'(Ljava/lang/String;[Ljava/security/Principal;Ljavax/net/ssl/SSLEngine;)Ljava/lang/String;',
+  );
+
+  static final _chooseEngineServerAlias = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public java.lang.String chooseEngineServerAlias(java.lang.String string, java.security.Principal[] principals, javax.net.ssl.SSLEngine sSLEngine)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString chooseEngineServerAlias(
+    _$jni.JString string,
+    _$jni.JArray<_$jni.JObject> principals,
+    _$jni.JObject sSLEngine,
+  ) {
+    return _chooseEngineServerAlias(
+            reference.pointer,
+            _id_chooseEngineServerAlias as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            principals.reference.pointer,
+            sSLEngine.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+}
+
+final class $X509ExtendedKeyManager$Type
+    extends _$jni.JObjType<X509ExtendedKeyManager> {
+  @_$jni.internal
+  const $X509ExtendedKeyManager$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/X509ExtendedKeyManager;';
+
+  @_$jni.internal
+  @_$core.override
+  X509ExtendedKeyManager fromReference(_$jni.JReference reference) =>
+      X509ExtendedKeyManager.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($X509ExtendedKeyManager$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($X509ExtendedKeyManager$Type) &&
+        other is $X509ExtendedKeyManager$Type;
+  }
+}
+
+/// from: `javax.net.ssl.HostnameVerifier`
+class HostnameVerifier extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<HostnameVerifier> $type;
+
+  @_$jni.internal
+  HostnameVerifier.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'javax/net/ssl/HostnameVerifier');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $HostnameVerifier$Type();
+  static final _id_verify = _class.instanceMethodId(
+    r'verify',
+    r'(Ljava/lang/String;Ljavax/net/ssl/SSLSession;)Z',
+  );
+
+  static final _verify = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract boolean verify(java.lang.String string, javax.net.ssl.SSLSession sSLSession)`
+  bool verify(
+    _$jni.JString string,
+    _$jni.JObject sSLSession,
+  ) {
+    return _verify(reference.pointer, _id_verify as _$jni.JMethodIDPtr,
+            string.reference.pointer, sSLSession.reference.pointer)
+        .boolean;
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $HostnameVerifier> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r'verify(Ljava/lang/String;Ljavax/net/ssl/SSLSession;)Z') {
+        final $r = _$impls[$p]!.verify(
+          $a[0].as(const _$jni.JStringType(), releaseOriginal: true),
+          $a[1].as(const _$jni.JObjectType(), releaseOriginal: true),
+        );
+        return _$jni.JBoolean($r).reference.toPointer();
+      }
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $HostnameVerifier $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'javax.net.ssl.HostnameVerifier',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory HostnameVerifier.implement(
+    $HostnameVerifier $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return HostnameVerifier.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $HostnameVerifier {
+  factory $HostnameVerifier({
+    required bool Function(_$jni.JString string, _$jni.JObject sSLSession)
+        verify,
+  }) = _$HostnameVerifier;
+
+  bool verify(_$jni.JString string, _$jni.JObject sSLSession);
+}
+
+final class _$HostnameVerifier with $HostnameVerifier {
+  _$HostnameVerifier({
+    required bool Function(_$jni.JString string, _$jni.JObject sSLSession)
+        verify,
+  }) : _verify = verify;
+
+  final bool Function(_$jni.JString string, _$jni.JObject sSLSession) _verify;
+
+  bool verify(_$jni.JString string, _$jni.JObject sSLSession) {
+    return _verify(string, sSLSession);
+  }
+}
+
+final class $HostnameVerifier$Type extends _$jni.JObjType<HostnameVerifier> {
+  @_$jni.internal
+  const $HostnameVerifier$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/HostnameVerifier;';
+
+  @_$jni.internal
+  @_$core.override
+  HostnameVerifier fromReference(_$jni.JReference reference) =>
+      HostnameVerifier.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($HostnameVerifier$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($HostnameVerifier$Type) &&
+        other is $HostnameVerifier$Type;
   }
 }

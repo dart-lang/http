@@ -93,12 +93,18 @@ class OkHttpClient extends BaseClient {
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
   }) {
+    // https://stackoverflow.com/questions/25509296/trusting-all-certificates-with-okhttp
     print('Creating client!!!!');
     const alias = "foo";
     final x509KeyManager = bindings.$X509KeyManager(
-        chooseClientAlias: (strings, principals, socket) => alias.toJString(),
-        getClientAliases: (string, principals) =>
-            JArray(JString.type, 1)..[0] = alias.toJString(),
+        chooseClientAlias: (strings, principals, socket) {
+          print('chooseClientAlias');
+          return alias.toJString();
+        },
+        getClientAliases: (string, principals) {
+          print('getClientAliases');
+          return JArray(JString.type, 1)..[0] = alias.toJString();
+        },
         getServerAliases: (string, principals) => JArray(JString.type, 0),
         chooseServerAlias: (string, principals, socket) => "".toJString(),
         getCertificateChain: (alias) {
@@ -116,10 +122,11 @@ class OkHttpClient extends BaseClient {
     final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())
       ..init(
           JArray(bindings.KeyManager.type, 1)
+//            ..[0] = bindings.X509Foo().as(bindings.KeyManager.type),
             ..[0] = bindings.X509KeyManager.implement(x509KeyManager)
                 .as(bindings.KeyManager.type),
-          JArray.fromReference(bindings.TrustManager.type, jNullReference),
-//          tm.getTrustManagers(),
+//          JArray.fromReference(bindings.TrustManager.type, jNullReference),
+          tm.getTrustManagers(),
           bindings.SecureRandom());
     _client = bindings.OkHttpClient_Builder()
         .sslSocketFactory$1(sslContext.getSocketFactory(),
