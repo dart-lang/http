@@ -1,13 +1,22 @@
-name: Dart CI
+name: package:http_multi_server
 
 on:
-  # Run on PRs and pushes to the default branch.
   push:
-    branches: [ master ]
+    branches:
+      - master
+    paths:
+      - '.github/workflows/http_multi_server.yaml'
+      - 'pkgs/http_multi_server/**'
   pull_request:
-    branches: [ master ]
+    paths:
+      - '.github/workflows/http_multi_server.yaml'
+      - 'pkgs/http_multi_server/**'
   schedule:
     - cron: "0 0 * * 0"
+
+defaults:  
+  run:  
+    working-directory: pkgs/http_multi_server/
 
 env:
   PUB_ENVIRONMENT: bot.github

@@ -20,10 +20,14 @@
   - changed-files:
       - any-glob-to-any-file: 'pkgs/http2/**'
 
-'package:http_parser':
-  - changed-files:
-      - any-glob-to-any-file: 'pkgs/http_parser/**'
-
 'package:http_client_conformance_tests':
   - changed-files:
       - any-glob-to-any-file: 'pkgs/http_client_conformance_tests/**'
+
+'package:http_multi_server':
+  - changed-files:
+      - any-glob-to-any-file: 'pkgs/http_multi_server/**'
+
+'package:http_parser':
+  - changed-files:
+      - any-glob-to-any-file: 'pkgs/http_parser/**'

@@ -1,4 +1,4 @@
-[![Dart CI](https://github.com/dart-lang/http_multi_server/actions/workflows/test-package.yml/badge.svg)](https://github.com/dart-lang/http_multi_server/actions/workflows/test-package.yml)
+[![Dart CI](https://github.com/dart-lang/http/actions/workflows/http_multi_server.yaml/badge.svg)](https://github.com/dart-lang/http/actions/workflows/http_multi_server.yaml)
 [![pub package](https://img.shields.io/pub/v/http_multi_server.svg)](https://pub.dev/packages/http_multi_server)
 [![package publisher](https://img.shields.io/pub/publisher/http_multi_server.svg)](https://pub.dev/packages/http_multi_server/publisher)
 

@@ -1,6 +1,7 @@
-## 3.2.2-wip
+## 3.2.2
 
 * Require Dart 3.2
+* Move to `dart-lang/http` monorepo.
 
 ## 3.2.1
 
