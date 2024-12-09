@@ -13,13 +13,13 @@ dependencies:
     sdk: flutter
   http: ^1.2.1
   http_profile: ^0.1.0
-  jni: ^0.10.1
+  jni: ^0.12.2
   plugin_platform_interface: ^2.0.2
   web_socket: ^0.1.5
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
-  jnigen: ^0.10.0
+  jnigen: ^0.12.2
 
 flutter:
   plugin:
