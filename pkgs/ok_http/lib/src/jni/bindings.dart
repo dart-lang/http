@@ -9,12 +9,18 @@
 // ignore_for_file: constant_identifier_names
 // ignore_for_file: doc_directive_unknown
 // ignore_for_file: file_names
+// ignore_for_file: inference_failure_on_untyped_parameter
+// ignore_for_file: invalid_internal_annotation
+// ignore_for_file: invalid_use_of_internal_member
+// ignore_for_file: library_prefixes
 // ignore_for_file: lines_longer_than_80_chars
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 // ignore_for_file: non_constant_identifier_names
 // ignore_for_file: only_throw_errors
 // ignore_for_file: overridden_fields
 // ignore_for_file: prefer_double_quotes
+// ignore_for_file: unintended_html_in_doc_comment
 // ignore_for_file: unnecessary_cast
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: unused_element
@@ -24,71 +30,74 @@
 // ignore_for_file: unused_shown_name
 // ignore_for_file: use_super_parameters
 
-import 'dart:ffi' as ffi;
-import 'dart:isolate' show ReceivePort;
+import 'dart:core' show Object, String, bool, double, int;
+import 'dart:core' as _$core;
 
-import 'package:jni/internal_helpers_for_jnigen.dart';
-import 'package:jni/jni.dart' as jni;
+import 'package:jni/_internal.dart' as _$jni;
+import 'package:jni/jni.dart' as _$jni;
 
-/// from: okhttp3.Request$Builder
-class Request_Builder extends jni.JObject {
-  @override
-  late final jni.JObjType<Request_Builder> $type = type;
+/// from: `okhttp3.Request$Builder`
+class Request_Builder extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Request_Builder> $type;
 
+  @_$jni.internal
   Request_Builder.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Request$Builder');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Request$Builder');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Request_BuilderType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $Request_Builder$Type();
+  static final _id_new$ = _class.constructorId(
     r'()V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory Request_Builder() {
     return Request_Builder.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
             .reference);
   }
 
-  static final _id_new1 = _class.constructorId(
+  static final _id_new$1 = _class.constructorId(
     r'(Lokhttp3/Request;)V',
   );
 
-  static final _new1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(okhttp3.Request request)
+  /// from: `public void <init>(okhttp3.Request request)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Request_Builder.new1(
+  factory Request_Builder.new$1(
     Request request,
   ) {
-    return Request_Builder.fromReference(_new1(_class.reference.pointer,
-            _id_new1 as jni.JMethodIDPtr, request.reference.pointer)
+    return Request_Builder.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr, request.reference.pointer)
         .reference);
   }
 
@@ -97,77 +106,77 @@ class Request_Builder extends jni.JObject {
     r'(Lokhttp3/HttpUrl;)Lokhttp3/Request$Builder;',
   );
 
-  static final _url = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _url = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder url(okhttp3.HttpUrl httpUrl)
+  /// from: `public okhttp3.Request$Builder url(okhttp3.HttpUrl httpUrl)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder url(
-    jni.JObject httpUrl,
+    _$jni.JObject httpUrl,
   ) {
-    return _url(reference.pointer, _id_url as jni.JMethodIDPtr,
+    return _url(reference.pointer, _id_url as _$jni.JMethodIDPtr,
             httpUrl.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
-  static final _id_url1 = _class.instanceMethodId(
+  static final _id_url$1 = _class.instanceMethodId(
     r'url',
     r'(Ljava/lang/String;)Lokhttp3/Request$Builder;',
   );
 
-  static final _url1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _url$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder url(java.lang.String string)
+  /// from: `public okhttp3.Request$Builder url(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  Request_Builder url1(
-    jni.JString string,
+  Request_Builder url$1(
+    _$jni.JString string,
   ) {
-    return _url1(reference.pointer, _id_url1 as jni.JMethodIDPtr,
+    return _url$1(reference.pointer, _id_url$1 as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
-  static final _id_url2 = _class.instanceMethodId(
+  static final _id_url$2 = _class.instanceMethodId(
     r'url',
     r'(Ljava/net/URL;)Lokhttp3/Request$Builder;',
   );
 
-  static final _url2 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _url$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder url(java.net.URL uRL)
+  /// from: `public okhttp3.Request$Builder url(java.net.URL uRL)`
   /// The returned object must be released after use, by calling the [release] method.
-  Request_Builder url2(
-    jni.JObject uRL,
+  Request_Builder url$2(
+    _$jni.JObject uRL,
   ) {
-    return _url2(reference.pointer, _id_url2 as jni.JMethodIDPtr,
+    return _url$2(reference.pointer, _id_url$2 as _$jni.JMethodIDPtr,
             uRL.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_header = _class.instanceMethodId(
@@ -175,29 +184,32 @@ class Request_Builder extends jni.JObject {
     r'(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;',
   );
 
-  static final _header = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _header = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder header(java.lang.String string, java.lang.String string1)
+  /// from: `public okhttp3.Request$Builder header(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder header(
-    jni.JString string,
-    jni.JString string1,
+    _$jni.JString string,
+    _$jni.JString string1,
   ) {
-    return _header(reference.pointer, _id_header as jni.JMethodIDPtr,
+    return _header(reference.pointer, _id_header as _$jni.JMethodIDPtr,
             string.reference.pointer, string1.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_addHeader = _class.instanceMethodId(
@@ -205,29 +217,32 @@ class Request_Builder extends jni.JObject {
     r'(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Request$Builder;',
   );
 
-  static final _addHeader = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _addHeader = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder addHeader(java.lang.String string, java.lang.String string1)
+  /// from: `public okhttp3.Request$Builder addHeader(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder addHeader(
-    jni.JString string,
-    jni.JString string1,
+    _$jni.JString string,
+    _$jni.JString string1,
   ) {
-    return _addHeader(reference.pointer, _id_addHeader as jni.JMethodIDPtr,
+    return _addHeader(reference.pointer, _id_addHeader as _$jni.JMethodIDPtr,
             string.reference.pointer, string1.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_removeHeader = _class.instanceMethodId(
@@ -235,25 +250,25 @@ class Request_Builder extends jni.JObject {
     r'(Ljava/lang/String;)Lokhttp3/Request$Builder;',
   );
 
-  static final _removeHeader = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _removeHeader = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder removeHeader(java.lang.String string)
+  /// from: `public okhttp3.Request$Builder removeHeader(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder removeHeader(
-    jni.JString string,
+    _$jni.JString string,
   ) {
     return _removeHeader(reference.pointer,
-            _id_removeHeader as jni.JMethodIDPtr, string.reference.pointer)
-        .object(const $Request_BuilderType());
+            _id_removeHeader as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_headers = _class.instanceMethodId(
@@ -261,25 +276,25 @@ class Request_Builder extends jni.JObject {
     r'(Lokhttp3/Headers;)Lokhttp3/Request$Builder;',
   );
 
-  static final _headers = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _headers = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder headers(okhttp3.Headers headers)
+  /// from: `public okhttp3.Request$Builder headers(okhttp3.Headers headers)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder headers(
     Headers headers,
   ) {
-    return _headers(reference.pointer, _id_headers as jni.JMethodIDPtr,
+    return _headers(reference.pointer, _id_headers as _$jni.JMethodIDPtr,
             headers.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_cacheControl = _class.instanceMethodId(
@@ -287,51 +302,51 @@ class Request_Builder extends jni.JObject {
     r'(Lokhttp3/CacheControl;)Lokhttp3/Request$Builder;',
   );
 
-  static final _cacheControl = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _cacheControl = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder cacheControl(okhttp3.CacheControl cacheControl)
+  /// from: `public okhttp3.Request$Builder cacheControl(okhttp3.CacheControl cacheControl)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder cacheControl(
-    jni.JObject cacheControl,
+    _$jni.JObject cacheControl,
   ) {
     return _cacheControl(
             reference.pointer,
-            _id_cacheControl as jni.JMethodIDPtr,
+            _id_cacheControl as _$jni.JMethodIDPtr,
             cacheControl.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
-  static final _id_get0 = _class.instanceMethodId(
+  static final _id_get = _class.instanceMethodId(
     r'get',
     r'()Lokhttp3/Request$Builder;',
   );
 
-  static final _get0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _get = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.Request$Builder get()
+  /// from: `public okhttp3.Request$Builder get()`
   /// The returned object must be released after use, by calling the [release] method.
-  Request_Builder get0() {
-    return _get0(reference.pointer, _id_get0 as jni.JMethodIDPtr)
-        .object(const $Request_BuilderType());
+  Request_Builder get() {
+    return _get(reference.pointer, _id_get as _$jni.JMethodIDPtr)
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_head = _class.instanceMethodId(
@@ -339,23 +354,23 @@ class Request_Builder extends jni.JObject {
     r'()Lokhttp3/Request$Builder;',
   );
 
-  static final _head = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _head = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.Request$Builder head()
+  /// from: `public okhttp3.Request$Builder head()`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder head() {
-    return _head(reference.pointer, _id_head as jni.JMethodIDPtr)
-        .object(const $Request_BuilderType());
+    return _head(reference.pointer, _id_head as _$jni.JMethodIDPtr)
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_post = _class.instanceMethodId(
@@ -363,25 +378,25 @@ class Request_Builder extends jni.JObject {
     r'(Lokhttp3/RequestBody;)Lokhttp3/Request$Builder;',
   );
 
-  static final _post = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _post = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder post(okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder post(okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder post(
     RequestBody requestBody,
   ) {
-    return _post(reference.pointer, _id_post as jni.JMethodIDPtr,
+    return _post(reference.pointer, _id_post as _$jni.JMethodIDPtr,
             requestBody.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_delete = _class.instanceMethodId(
@@ -389,25 +404,25 @@ class Request_Builder extends jni.JObject {
     r'(Lokhttp3/RequestBody;)Lokhttp3/Request$Builder;',
   );
 
-  static final _delete = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _delete = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder delete(okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder delete(okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder delete(
     RequestBody requestBody,
   ) {
-    return _delete(reference.pointer, _id_delete as jni.JMethodIDPtr,
+    return _delete(reference.pointer, _id_delete as _$jni.JMethodIDPtr,
             requestBody.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_put = _class.instanceMethodId(
@@ -415,25 +430,25 @@ class Request_Builder extends jni.JObject {
     r'(Lokhttp3/RequestBody;)Lokhttp3/Request$Builder;',
   );
 
-  static final _put = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _put = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder put(okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder put(okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder put(
     RequestBody requestBody,
   ) {
-    return _put(reference.pointer, _id_put as jni.JMethodIDPtr,
+    return _put(reference.pointer, _id_put as _$jni.JMethodIDPtr,
             requestBody.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_patch = _class.instanceMethodId(
@@ -441,25 +456,25 @@ class Request_Builder extends jni.JObject {
     r'(Lokhttp3/RequestBody;)Lokhttp3/Request$Builder;',
   );
 
-  static final _patch = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _patch = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder patch(okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder patch(okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder patch(
     RequestBody requestBody,
   ) {
-    return _patch(reference.pointer, _id_patch as jni.JMethodIDPtr,
+    return _patch(reference.pointer, _id_patch as _$jni.JMethodIDPtr,
             requestBody.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_method = _class.instanceMethodId(
@@ -467,29 +482,32 @@ class Request_Builder extends jni.JObject {
     r'(Ljava/lang/String;Lokhttp3/RequestBody;)Lokhttp3/Request$Builder;',
   );
 
-  static final _method = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _method = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder method(java.lang.String string, okhttp3.RequestBody requestBody)
+  /// from: `public okhttp3.Request$Builder method(java.lang.String string, okhttp3.RequestBody requestBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder method(
-    jni.JString string,
+    _$jni.JString string,
     RequestBody requestBody,
   ) {
-    return _method(reference.pointer, _id_method as jni.JMethodIDPtr,
+    return _method(reference.pointer, _id_method as _$jni.JMethodIDPtr,
             string.reference.pointer, requestBody.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_tag = _class.instanceMethodId(
@@ -497,59 +515,62 @@ class Request_Builder extends jni.JObject {
     r'(Ljava/lang/Object;)Lokhttp3/Request$Builder;',
   );
 
-  static final _tag = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _tag = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder tag(java.lang.Object object)
+  /// from: `public okhttp3.Request$Builder tag(java.lang.Object object)`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder tag(
-    jni.JObject object,
+    _$jni.JObject object,
   ) {
-    return _tag(reference.pointer, _id_tag as jni.JMethodIDPtr,
+    return _tag(reference.pointer, _id_tag as _$jni.JMethodIDPtr,
             object.reference.pointer)
-        .object(const $Request_BuilderType());
+        .object(const $Request_Builder$Type());
   }
 
-  static final _id_tag1 = _class.instanceMethodId(
+  static final _id_tag$1 = _class.instanceMethodId(
     r'tag',
     r'(Ljava/lang/Class;Ljava/lang/Object;)Lokhttp3/Request$Builder;',
   );
 
-  static final _tag1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _tag$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Request$Builder tag(java.lang.Class class, T object)
+  /// from: `public okhttp3.Request$Builder tag(java.lang.Class class, T object)`
   /// The returned object must be released after use, by calling the [release] method.
-  Request_Builder tag1<$T extends jni.JObject>(
-    jni.JObject class0,
+  Request_Builder tag$1<$T extends _$jni.JObject>(
+    _$jni.JObject class$,
     $T object, {
-    jni.JObjType<$T>? T,
+    _$jni.JObjType<$T>? T,
   }) {
-    T ??= jni.lowestCommonSuperType([
+    T ??= _$jni.lowestCommonSuperType([
       object.$type,
-    ]) as jni.JObjType<$T>;
-    return _tag1(reference.pointer, _id_tag1 as jni.JMethodIDPtr,
-            class0.reference.pointer, object.reference.pointer)
-        .object(const $Request_BuilderType());
+    ]) as _$jni.JObjType<$T>;
+    return _tag$1(reference.pointer, _id_tag$1 as _$jni.JMethodIDPtr,
+            class$.reference.pointer, object.reference.pointer)
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_build = _class.instanceMethodId(
@@ -557,128 +578,136 @@ class Request_Builder extends jni.JObject {
     r'()Lokhttp3/Request;',
   );
 
-  static final _build = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _build = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.Request build()
+  /// from: `public okhttp3.Request build()`
   /// The returned object must be released after use, by calling the [release] method.
   Request build() {
-    return _build(reference.pointer, _id_build as jni.JMethodIDPtr)
-        .object(const $RequestType());
+    return _build(reference.pointer, _id_build as _$jni.JMethodIDPtr)
+        .object(const $Request$Type());
   }
 
-  static final _id_delete1 = _class.instanceMethodId(
+  static final _id_delete$1 = _class.instanceMethodId(
     r'delete',
     r'()Lokhttp3/Request$Builder;',
   );
 
-  static final _delete1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _delete$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Request$Builder delete()
+  /// from: `public final okhttp3.Request$Builder delete()`
   /// The returned object must be released after use, by calling the [release] method.
-  Request_Builder delete1() {
-    return _delete1(reference.pointer, _id_delete1 as jni.JMethodIDPtr)
-        .object(const $Request_BuilderType());
+  Request_Builder delete$1() {
+    return _delete$1(reference.pointer, _id_delete$1 as _$jni.JMethodIDPtr)
+        .object(const $Request_Builder$Type());
   }
 }
 
-final class $Request_BuilderType extends jni.JObjType<Request_Builder> {
-  const $Request_BuilderType();
+final class $Request_Builder$Type extends _$jni.JObjType<Request_Builder> {
+  @_$jni.internal
+  const $Request_Builder$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Request$Builder;';
 
-  @override
-  Request_Builder fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Request_Builder fromReference(_$jni.JReference reference) =>
       Request_Builder.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($Request_BuilderType).hashCode;
+  @_$core.override
+  int get hashCode => ($Request_Builder$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($Request_BuilderType) &&
-        other is $Request_BuilderType;
+    return other.runtimeType == ($Request_Builder$Type) &&
+        other is $Request_Builder$Type;
   }
 }
 
-/// from: okhttp3.Request
-class Request extends jni.JObject {
-  @override
-  late final jni.JObjType<Request> $type = type;
+/// from: `okhttp3.Request`
+class Request extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Request> $type;
 
+  @_$jni.internal
   Request.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Request');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Request');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $RequestType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $Request$Type();
+  static final _id_new$ = _class.constructorId(
     r'(Lokhttp3/HttpUrl;Ljava/lang/String;Lokhttp3/Headers;Lokhttp3/RequestBody;Ljava/util/Map;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>,
-              jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(okhttp3.HttpUrl httpUrl, java.lang.String string, okhttp3.Headers headers, okhttp3.RequestBody requestBody, java.util.Map map)
+  /// from: `public void <init>(okhttp3.HttpUrl httpUrl, java.lang.String string, okhttp3.Headers headers, okhttp3.RequestBody requestBody, java.util.Map map)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Request(
-    jni.JObject httpUrl,
-    jni.JString string,
+    _$jni.JObject httpUrl,
+    _$jni.JString string,
     Headers headers,
     RequestBody requestBody,
-    jni.JMap<jni.JObject, jni.JObject> map,
+    _$jni.JMap<_$jni.JObject, _$jni.JObject> map,
   ) {
-    return Request.fromReference(_new0(
+    return Request.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             httpUrl.reference.pointer,
             string.reference.pointer,
             headers.reference.pointer,
@@ -692,23 +721,23 @@ class Request extends jni.JObject {
     r'()Lokhttp3/HttpUrl;',
   );
 
-  static final _url = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _url = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.HttpUrl url()
+  /// from: `public final okhttp3.HttpUrl url()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject url() {
-    return _url(reference.pointer, _id_url as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject url() {
+    return _url(reference.pointer, _id_url as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_method = _class.instanceMethodId(
@@ -716,23 +745,23 @@ class Request extends jni.JObject {
     r'()Ljava/lang/String;',
   );
 
-  static final _method = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _method = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.String method()
+  /// from: `public final java.lang.String method()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString method() {
-    return _method(reference.pointer, _id_method as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString method() {
+    return _method(reference.pointer, _id_method as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_headers = _class.instanceMethodId(
@@ -740,23 +769,23 @@ class Request extends jni.JObject {
     r'()Lokhttp3/Headers;',
   );
 
-  static final _headers = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _headers = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers headers()
+  /// from: `public final okhttp3.Headers headers()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers headers() {
-    return _headers(reference.pointer, _id_headers as jni.JMethodIDPtr)
-        .object(const $HeadersType());
+    return _headers(reference.pointer, _id_headers as _$jni.JMethodIDPtr)
+        .object(const $Headers$Type());
   }
 
   static final _id_body = _class.instanceMethodId(
@@ -764,23 +793,23 @@ class Request extends jni.JObject {
     r'()Lokhttp3/RequestBody;',
   );
 
-  static final _body = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _body = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.RequestBody body()
+  /// from: `public final okhttp3.RequestBody body()`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody body() {
-    return _body(reference.pointer, _id_body as jni.JMethodIDPtr)
-        .object(const $RequestBodyType());
+    return _body(reference.pointer, _id_body as _$jni.JMethodIDPtr)
+        .object(const $RequestBody$Type());
   }
 
   static final _id_isHttps = _class.instanceMethodId(
@@ -788,21 +817,22 @@ class Request extends jni.JObject {
     r'()Z',
   );
 
-  static final _isHttps = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isHttps = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean isHttps()
+  /// from: `public final boolean isHttps()`
   bool isHttps() {
-    return _isHttps(reference.pointer, _id_isHttps as jni.JMethodIDPtr).boolean;
+    return _isHttps(reference.pointer, _id_isHttps as _$jni.JMethodIDPtr)
+        .boolean;
   }
 
   static final _id_header = _class.instanceMethodId(
@@ -810,51 +840,51 @@ class Request extends jni.JObject {
     r'(Ljava/lang/String;)Ljava/lang/String;',
   );
 
-  static final _header = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _header = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.lang.String header(java.lang.String string)
+  /// from: `public final java.lang.String header(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString header(
-    jni.JString string,
+  _$jni.JString header(
+    _$jni.JString string,
   ) {
-    return _header(reference.pointer, _id_header as jni.JMethodIDPtr,
+    return _header(reference.pointer, _id_header as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JStringType());
+        .object(const _$jni.JStringType());
   }
 
-  static final _id_headers1 = _class.instanceMethodId(
+  static final _id_headers$1 = _class.instanceMethodId(
     r'headers',
     r'(Ljava/lang/String;)Ljava/util/List;',
   );
 
-  static final _headers1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _headers$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.util.List headers(java.lang.String string)
+  /// from: `public final java.util.List headers(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JString> headers1(
-    jni.JString string,
+  _$jni.JList<_$jni.JString> headers$1(
+    _$jni.JString string,
   ) {
-    return _headers1(reference.pointer, _id_headers1 as jni.JMethodIDPtr,
+    return _headers$1(reference.pointer, _id_headers$1 as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JListType(jni.JStringType()));
+        .object(const _$jni.JListType(_$jni.JStringType()));
   }
 
   static final _id_tag = _class.instanceMethodId(
@@ -862,49 +892,49 @@ class Request extends jni.JObject {
     r'()Ljava/lang/Object;',
   );
 
-  static final _tag = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _tag = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.Object tag()
+  /// from: `public final java.lang.Object tag()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject tag() {
-    return _tag(reference.pointer, _id_tag as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject tag() {
+    return _tag(reference.pointer, _id_tag as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
-  static final _id_tag1 = _class.instanceMethodId(
+  static final _id_tag$1 = _class.instanceMethodId(
     r'tag',
     r'(Ljava/lang/Class;)Ljava/lang/Object;',
   );
 
-  static final _tag1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _tag$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final T tag(java.lang.Class class)
+  /// from: `public final T tag(java.lang.Class class)`
   /// The returned object must be released after use, by calling the [release] method.
-  $T tag1<$T extends jni.JObject>(
-    jni.JObject class0, {
-    required jni.JObjType<$T> T,
+  $T tag$1<$T extends _$jni.JObject>(
+    _$jni.JObject class$, {
+    required _$jni.JObjType<$T> T,
   }) {
-    return _tag1(reference.pointer, _id_tag1 as jni.JMethodIDPtr,
-            class0.reference.pointer)
+    return _tag$1(reference.pointer, _id_tag$1 as _$jni.JMethodIDPtr,
+            class$.reference.pointer)
         .object(T);
   }
 
@@ -913,23 +943,23 @@ class Request extends jni.JObject {
     r'()Lokhttp3/Request$Builder;',
   );
 
-  static final _newBuilder = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _newBuilder = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Request$Builder newBuilder()
+  /// from: `public final okhttp3.Request$Builder newBuilder()`
   /// The returned object must be released after use, by calling the [release] method.
   Request_Builder newBuilder() {
-    return _newBuilder(reference.pointer, _id_newBuilder as jni.JMethodIDPtr)
-        .object(const $Request_BuilderType());
+    return _newBuilder(reference.pointer, _id_newBuilder as _$jni.JMethodIDPtr)
+        .object(const $Request_Builder$Type());
   }
 
   static final _id_cacheControl = _class.instanceMethodId(
@@ -937,611 +967,646 @@ class Request extends jni.JObject {
     r'()Lokhttp3/CacheControl;',
   );
 
-  static final _cacheControl = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _cacheControl = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.CacheControl cacheControl()
+  /// from: `public final okhttp3.CacheControl cacheControl()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject cacheControl() {
+  _$jni.JObject cacheControl() {
     return _cacheControl(
-            reference.pointer, _id_cacheControl as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_cacheControl as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
-  static final _id_toString1 = _class.instanceMethodId(
+  static final _id_toString$1 = _class.instanceMethodId(
     r'toString',
     r'()Ljava/lang/String;',
   );
 
-  static final _toString1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String toString()
+  /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString toString1() {
-    return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 }
 
-final class $RequestType extends jni.JObjType<Request> {
-  const $RequestType();
+final class $Request$Type extends _$jni.JObjType<Request> {
+  @_$jni.internal
+  const $Request$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Request;';
 
-  @override
-  Request fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Request fromReference(_$jni.JReference reference) =>
       Request.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($RequestType).hashCode;
+  @_$core.override
+  int get hashCode => ($Request$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($RequestType) && other is $RequestType;
+    return other.runtimeType == ($Request$Type) && other is $Request$Type;
   }
 }
 
-/// from: okhttp3.RequestBody$Companion
-class RequestBody_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<RequestBody_Companion> $type = type;
+/// from: `okhttp3.RequestBody$Companion`
+class RequestBody_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<RequestBody_Companion> $type;
 
+  @_$jni.internal
   RequestBody_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/RequestBody$Companion');
+  static final _class = _$jni.JClass.forName(r'okhttp3/RequestBody$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $RequestBody_CompanionType();
+  static const type = $RequestBody_Companion$Type();
   static final _id_create = _class.instanceMethodId(
     r'create',
     r'(Ljava/lang/String;Lokhttp3/MediaType;)Lokhttp3/RequestBody;',
   );
 
-  static final _create = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(java.lang.String string, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.RequestBody create(java.lang.String string, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   RequestBody create(
-    jni.JString string,
-    jni.JObject mediaType,
+    _$jni.JString string,
+    _$jni.JObject mediaType,
   ) {
-    return _create(reference.pointer, _id_create as jni.JMethodIDPtr,
+    return _create(reference.pointer, _id_create as _$jni.JMethodIDPtr,
             string.reference.pointer, mediaType.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create1 = _class.instanceMethodId(
+  static final _id_create$1 = _class.instanceMethodId(
     r'create',
     r'(Lokio/ByteString;Lokhttp3/MediaType;)Lokhttp3/RequestBody;',
   );
 
-  static final _create1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create1(
+  RequestBody create$1(
     ByteString byteString,
-    jni.JObject mediaType,
+    _$jni.JObject mediaType,
   ) {
-    return _create1(reference.pointer, _id_create1 as jni.JMethodIDPtr,
+    return _create$1(reference.pointer, _id_create$1 as _$jni.JMethodIDPtr,
             byteString.reference.pointer, mediaType.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create2 = _class.instanceMethodId(
+  static final _id_create$2 = _class.instanceMethodId(
     r'create',
     r'([BLokhttp3/MediaType;II)Lokhttp3/RequestBody;',
   );
 
-  static final _create2 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        $Int32
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
 
-  /// from: public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i, int i1)
+  /// from: `public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create2(
-    jni.JArray<jni.jbyte> bs,
-    jni.JObject mediaType,
+  RequestBody create$2(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JObject mediaType,
     int i,
     int i1,
   ) {
-    return _create2(reference.pointer, _id_create2 as jni.JMethodIDPtr,
+    return _create$2(reference.pointer, _id_create$2 as _$jni.JMethodIDPtr,
             bs.reference.pointer, mediaType.reference.pointer, i, i1)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create3 = _class.instanceMethodId(
+  static final _id_create$3 = _class.instanceMethodId(
     r'create',
     r'(Ljava/io/File;Lokhttp3/MediaType;)Lokhttp3/RequestBody;',
   );
 
-  static final _create3 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(java.io.File file, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.RequestBody create(java.io.File file, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create3(
-    jni.JObject file,
-    jni.JObject mediaType,
+  RequestBody create$3(
+    _$jni.JObject file,
+    _$jni.JObject mediaType,
   ) {
-    return _create3(reference.pointer, _id_create3 as jni.JMethodIDPtr,
+    return _create$3(reference.pointer, _id_create$3 as _$jni.JMethodIDPtr,
             file.reference.pointer, mediaType.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create4 = _class.instanceMethodId(
+  static final _id_create$4 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Ljava/lang/String;)Lokhttp3/RequestBody;',
   );
 
-  static final _create4 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.lang.String string)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create4(
-    jni.JObject mediaType,
-    jni.JString string,
+  RequestBody create$4(
+    _$jni.JObject mediaType,
+    _$jni.JString string,
   ) {
-    return _create4(reference.pointer, _id_create4 as jni.JMethodIDPtr,
+    return _create$4(reference.pointer, _id_create$4 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, string.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create5 = _class.instanceMethodId(
+  static final _id_create$5 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Lokio/ByteString;)Lokhttp3/RequestBody;',
   );
 
-  static final _create5 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create5(
-    jni.JObject mediaType,
+  RequestBody create$5(
+    _$jni.JObject mediaType,
     ByteString byteString,
   ) {
-    return _create5(reference.pointer, _id_create5 as jni.JMethodIDPtr,
+    return _create$5(reference.pointer, _id_create$5 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, byteString.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create6 = _class.instanceMethodId(
+  static final _id_create$6 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;[BII)Lokhttp3/RequestBody;',
   );
 
-  static final _create6 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        $Int32
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i, int i1)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create6(
-    jni.JObject mediaType,
-    jni.JArray<jni.jbyte> bs,
+  RequestBody create$6(
+    _$jni.JObject mediaType,
+    _$jni.JArray<_$jni.jbyte> bs,
     int i,
     int i1,
   ) {
-    return _create6(reference.pointer, _id_create6 as jni.JMethodIDPtr,
+    return _create$6(reference.pointer, _id_create$6 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, bs.reference.pointer, i, i1)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create7 = _class.instanceMethodId(
+  static final _id_create$7 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Ljava/io/File;)Lokhttp3/RequestBody;',
   );
 
-  static final _create7 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.io.File file)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.io.File file)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create7(
-    jni.JObject mediaType,
-    jni.JObject file,
+  RequestBody create$7(
+    _$jni.JObject mediaType,
+    _$jni.JObject file,
   ) {
-    return _create7(reference.pointer, _id_create7 as jni.JMethodIDPtr,
+    return _create$7(reference.pointer, _id_create$7 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, file.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create8 = _class.instanceMethodId(
+  static final _id_create$8 = _class.instanceMethodId(
     r'create',
     r'([BLokhttp3/MediaType;I)Lokhttp3/RequestBody;',
   );
 
-  static final _create8 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$8 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
 
-  /// from: public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i)
+  /// from: `public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create8(
-    jni.JArray<jni.jbyte> bs,
-    jni.JObject mediaType,
+  RequestBody create$8(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JObject mediaType,
     int i,
   ) {
-    return _create8(reference.pointer, _id_create8 as jni.JMethodIDPtr,
+    return _create$8(reference.pointer, _id_create$8 as _$jni.JMethodIDPtr,
             bs.reference.pointer, mediaType.reference.pointer, i)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create9 = _class.instanceMethodId(
+  static final _id_create$9 = _class.instanceMethodId(
     r'create',
     r'([BLokhttp3/MediaType;)Lokhttp3/RequestBody;',
   );
 
-  static final _create9 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create9(
-    jni.JArray<jni.jbyte> bs,
-    jni.JObject mediaType,
+  RequestBody create$9(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JObject mediaType,
   ) {
-    return _create9(reference.pointer, _id_create9 as jni.JMethodIDPtr,
+    return _create$9(reference.pointer, _id_create$9 as _$jni.JMethodIDPtr,
             bs.reference.pointer, mediaType.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create10 = _class.instanceMethodId(
+  static final _id_create$10 = _class.instanceMethodId(
     r'create',
     r'([B)Lokhttp3/RequestBody;',
   );
 
-  static final _create10 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _create$10 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(byte[] bs)
+  /// from: `public final okhttp3.RequestBody create(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create10(
-    jni.JArray<jni.jbyte> bs,
+  RequestBody create$10(
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _create10(reference.pointer, _id_create10 as jni.JMethodIDPtr,
+    return _create$10(reference.pointer, _id_create$10 as _$jni.JMethodIDPtr,
             bs.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create11 = _class.instanceMethodId(
+  static final _id_create$11 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;[BI)Lokhttp3/RequestBody;',
   );
 
-  static final _create11 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create11(
-    jni.JObject mediaType,
-    jni.JArray<jni.jbyte> bs,
+  RequestBody create$11(
+    _$jni.JObject mediaType,
+    _$jni.JArray<_$jni.jbyte> bs,
     int i,
   ) {
-    return _create11(reference.pointer, _id_create11 as jni.JMethodIDPtr,
+    return _create$11(reference.pointer, _id_create$11 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, bs.reference.pointer, i)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create12 = _class.instanceMethodId(
+  static final _id_create$12 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;[B)Lokhttp3/RequestBody;',
   );
 
-  static final _create12 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$12 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs)
+  /// from: `public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
-  RequestBody create12(
-    jni.JObject mediaType,
-    jni.JArray<jni.jbyte> bs,
+  RequestBody create$12(
+    _$jni.JObject mediaType,
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _create12(reference.pointer, _id_create12 as jni.JMethodIDPtr,
+    return _create$12(reference.pointer, _id_create$12 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, bs.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory RequestBody_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return RequestBody_Companion.fromReference(_new0(
+    return RequestBody_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $RequestBody_CompanionType
-    extends jni.JObjType<RequestBody_Companion> {
-  const $RequestBody_CompanionType();
+final class $RequestBody_Companion$Type
+    extends _$jni.JObjType<RequestBody_Companion> {
+  @_$jni.internal
+  const $RequestBody_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/RequestBody$Companion;';
 
-  @override
-  RequestBody_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  RequestBody_Companion fromReference(_$jni.JReference reference) =>
       RequestBody_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($RequestBody_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($RequestBody_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($RequestBody_CompanionType) &&
-        other is $RequestBody_CompanionType;
+    return other.runtimeType == ($RequestBody_Companion$Type) &&
+        other is $RequestBody_Companion$Type;
   }
 }
 
-/// from: okhttp3.RequestBody
-class RequestBody extends jni.JObject {
-  @override
-  late final jni.JObjType<RequestBody> $type = type;
+/// from: `okhttp3.RequestBody`
+class RequestBody extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<RequestBody> $type;
 
+  @_$jni.internal
   RequestBody.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/RequestBody');
+  static final _class = _$jni.JClass.forName(r'okhttp3/RequestBody');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $RequestBodyType();
+  static const type = $RequestBody$Type();
   static final _id_Companion = _class.staticFieldId(
     r'Companion',
     r'Lokhttp3/RequestBody$Companion;',
   );
 
-  /// from: static public final okhttp3.RequestBody$Companion Companion
+  /// from: `static public final okhttp3.RequestBody$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody_Companion get Companion =>
-      _id_Companion.get(_class, const $RequestBody_CompanionType());
-
-  static final _id_new0 = _class.constructorId(
-    r'()V',
-  );
-
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
-              )>>('globalEnv_NewObject')
-      .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
-          )>();
-
-  /// from: public void <init>()
-  /// The returned object must be released after use, by calling the [release] method.
-  factory RequestBody() {
-    return RequestBody.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
-            .reference);
-  }
+      _id_Companion.get(_class, const $RequestBody_Companion$Type());
 
   static final _id_contentType = _class.instanceMethodId(
     r'contentType',
     r'()Lokhttp3/MediaType;',
   );
 
-  static final _contentType = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _contentType = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.MediaType contentType()
+  /// from: `public abstract okhttp3.MediaType contentType()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject contentType() {
-    return _contentType(reference.pointer, _id_contentType as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject contentType() {
+    return _contentType(
+            reference.pointer, _id_contentType as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_contentLength = _class.instanceMethodId(
@@ -1549,22 +1614,22 @@ class RequestBody extends jni.JObject {
     r'()J',
   );
 
-  static final _contentLength = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _contentLength = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public long contentLength()
+  /// from: `public long contentLength()`
   int contentLength() {
     return _contentLength(
-            reference.pointer, _id_contentLength as jni.JMethodIDPtr)
+            reference.pointer, _id_contentLength as _$jni.JMethodIDPtr)
         .long;
   }
 
@@ -1573,22 +1638,22 @@ class RequestBody extends jni.JObject {
     r'(Lokio/BufferedSink;)V',
   );
 
-  static final _writeTo = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JThrowablePtr Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _writeTo = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void writeTo(okio.BufferedSink bufferedSink)
+  /// from: `public abstract void writeTo(okio.BufferedSink bufferedSink)`
   void writeTo(
-    jni.JObject bufferedSink,
+    _$jni.JObject bufferedSink,
   ) {
-    _writeTo(reference.pointer, _id_writeTo as jni.JMethodIDPtr,
+    _writeTo(reference.pointer, _id_writeTo as _$jni.JMethodIDPtr,
             bufferedSink.reference.pointer)
         .check();
   }
@@ -1598,21 +1663,21 @@ class RequestBody extends jni.JObject {
     r'()Z',
   );
 
-  static final _isDuplex = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isDuplex = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public boolean isDuplex()
+  /// from: `public boolean isDuplex()`
   bool isDuplex() {
-    return _isDuplex(reference.pointer, _id_isDuplex as jni.JMethodIDPtr)
+    return _isDuplex(reference.pointer, _id_isDuplex as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -1621,21 +1686,21 @@ class RequestBody extends jni.JObject {
     r'()Z',
   );
 
-  static final _isOneShot = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isOneShot = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public boolean isOneShot()
+  /// from: `public boolean isOneShot()`
   bool isOneShot() {
-    return _isOneShot(reference.pointer, _id_isOneShot as jni.JMethodIDPtr)
+    return _isOneShot(reference.pointer, _id_isOneShot as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -1644,484 +1709,574 @@ class RequestBody extends jni.JObject {
     r'(Ljava/lang/String;Lokhttp3/MediaType;)Lokhttp3/RequestBody;',
   );
 
-  static final _create = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(java.lang.String string, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.RequestBody create(java.lang.String string, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static RequestBody create(
-    jni.JString string,
-    jni.JObject mediaType,
+    _$jni.JString string,
+    _$jni.JObject mediaType,
   ) {
-    return _create(_class.reference.pointer, _id_create as jni.JMethodIDPtr,
+    return _create(_class.reference.pointer, _id_create as _$jni.JMethodIDPtr,
             string.reference.pointer, mediaType.reference.pointer)
-        .object(const $RequestBodyType());
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create1 = _class.staticMethodId(
+  static final _id_create$1 = _class.staticMethodId(
     r'create',
     r'(Lokio/ByteString;Lokhttp3/MediaType;)Lokhttp3/RequestBody;',
   );
 
-  static final _create1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.RequestBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create1(
+  static RequestBody create$1(
     ByteString byteString,
-    jni.JObject mediaType,
+    _$jni.JObject mediaType,
   ) {
-    return _create1(_class.reference.pointer, _id_create1 as jni.JMethodIDPtr,
-            byteString.reference.pointer, mediaType.reference.pointer)
-        .object(const $RequestBodyType());
+    return _create$1(
+            _class.reference.pointer,
+            _id_create$1 as _$jni.JMethodIDPtr,
+            byteString.reference.pointer,
+            mediaType.reference.pointer)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create2 = _class.staticMethodId(
+  static final _id_create$2 = _class.staticMethodId(
     r'create',
     r'([BLokhttp3/MediaType;II)Lokhttp3/RequestBody;',
   );
 
-  static final _create2 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        $Int32
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
 
-  /// from: static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i, int i1)
+  /// from: `static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create2(
-    jni.JArray<jni.jbyte> bs,
-    jni.JObject mediaType,
+  static RequestBody create$2(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JObject mediaType,
     int i,
     int i1,
   ) {
-    return _create2(_class.reference.pointer, _id_create2 as jni.JMethodIDPtr,
-            bs.reference.pointer, mediaType.reference.pointer, i, i1)
-        .object(const $RequestBodyType());
+    return _create$2(
+            _class.reference.pointer,
+            _id_create$2 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            mediaType.reference.pointer,
+            i,
+            i1)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create3 = _class.staticMethodId(
+  static final _id_create$3 = _class.staticMethodId(
     r'create',
     r'(Ljava/io/File;Lokhttp3/MediaType;)Lokhttp3/RequestBody;',
   );
 
-  static final _create3 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(java.io.File file, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.RequestBody create(java.io.File file, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create3(
-    jni.JObject file,
-    jni.JObject mediaType,
+  static RequestBody create$3(
+    _$jni.JObject file,
+    _$jni.JObject mediaType,
   ) {
-    return _create3(_class.reference.pointer, _id_create3 as jni.JMethodIDPtr,
-            file.reference.pointer, mediaType.reference.pointer)
-        .object(const $RequestBodyType());
+    return _create$3(
+            _class.reference.pointer,
+            _id_create$3 as _$jni.JMethodIDPtr,
+            file.reference.pointer,
+            mediaType.reference.pointer)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create4 = _class.staticMethodId(
+  static final _id_create$4 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Ljava/lang/String;)Lokhttp3/RequestBody;',
   );
 
-  static final _create4 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.lang.String string)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create4(
-    jni.JObject mediaType,
-    jni.JString string,
+  static RequestBody create$4(
+    _$jni.JObject mediaType,
+    _$jni.JString string,
   ) {
-    return _create4(_class.reference.pointer, _id_create4 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, string.reference.pointer)
-        .object(const $RequestBodyType());
+    return _create$4(
+            _class.reference.pointer,
+            _id_create$4 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            string.reference.pointer)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create5 = _class.staticMethodId(
+  static final _id_create$5 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Lokio/ByteString;)Lokhttp3/RequestBody;',
   );
 
-  static final _create5 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create5(
-    jni.JObject mediaType,
+  static RequestBody create$5(
+    _$jni.JObject mediaType,
     ByteString byteString,
   ) {
-    return _create5(_class.reference.pointer, _id_create5 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, byteString.reference.pointer)
-        .object(const $RequestBodyType());
+    return _create$5(
+            _class.reference.pointer,
+            _id_create$5 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            byteString.reference.pointer)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create6 = _class.staticMethodId(
+  static final _id_create$6 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;[BII)Lokhttp3/RequestBody;',
   );
 
-  static final _create6 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        $Int32
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i, int i1)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create6(
-    jni.JObject mediaType,
-    jni.JArray<jni.jbyte> bs,
+  static RequestBody create$6(
+    _$jni.JObject mediaType,
+    _$jni.JArray<_$jni.jbyte> bs,
     int i,
     int i1,
   ) {
-    return _create6(_class.reference.pointer, _id_create6 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, bs.reference.pointer, i, i1)
-        .object(const $RequestBodyType());
+    return _create$6(
+            _class.reference.pointer,
+            _id_create$6 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            bs.reference.pointer,
+            i,
+            i1)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create7 = _class.staticMethodId(
+  static final _id_create$7 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Ljava/io/File;)Lokhttp3/RequestBody;',
   );
 
-  static final _create7 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.io.File file)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, java.io.File file)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create7(
-    jni.JObject mediaType,
-    jni.JObject file,
+  static RequestBody create$7(
+    _$jni.JObject mediaType,
+    _$jni.JObject file,
   ) {
-    return _create7(_class.reference.pointer, _id_create7 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, file.reference.pointer)
-        .object(const $RequestBodyType());
+    return _create$7(
+            _class.reference.pointer,
+            _id_create$7 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            file.reference.pointer)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create8 = _class.staticMethodId(
+  static final _id_create$8 = _class.staticMethodId(
     r'create',
     r'([BLokhttp3/MediaType;I)Lokhttp3/RequestBody;',
   );
 
-  static final _create8 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$8 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
 
-  /// from: static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i)
+  /// from: `static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType, int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create8(
-    jni.JArray<jni.jbyte> bs,
-    jni.JObject mediaType,
+  static RequestBody create$8(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JObject mediaType,
     int i,
   ) {
-    return _create8(_class.reference.pointer, _id_create8 as jni.JMethodIDPtr,
-            bs.reference.pointer, mediaType.reference.pointer, i)
-        .object(const $RequestBodyType());
+    return _create$8(
+            _class.reference.pointer,
+            _id_create$8 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            mediaType.reference.pointer,
+            i)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create9 = _class.staticMethodId(
+  static final _id_create$9 = _class.staticMethodId(
     r'create',
     r'([BLokhttp3/MediaType;)Lokhttp3/RequestBody;',
   );
 
-  static final _create9 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.RequestBody create(byte[] bs, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create9(
-    jni.JArray<jni.jbyte> bs,
-    jni.JObject mediaType,
+  static RequestBody create$9(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JObject mediaType,
   ) {
-    return _create9(_class.reference.pointer, _id_create9 as jni.JMethodIDPtr,
-            bs.reference.pointer, mediaType.reference.pointer)
-        .object(const $RequestBodyType());
+    return _create$9(
+            _class.reference.pointer,
+            _id_create$9 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            mediaType.reference.pointer)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create10 = _class.staticMethodId(
+  static final _id_create$10 = _class.staticMethodId(
     r'create',
     r'([B)Lokhttp3/RequestBody;',
   );
 
-  static final _create10 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _create$10 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(byte[] bs)
+  /// from: `static public final okhttp3.RequestBody create(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create10(
-    jni.JArray<jni.jbyte> bs,
+  static RequestBody create$10(
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _create10(_class.reference.pointer, _id_create10 as jni.JMethodIDPtr,
-            bs.reference.pointer)
-        .object(const $RequestBodyType());
+    return _create$10(_class.reference.pointer,
+            _id_create$10 as _$jni.JMethodIDPtr, bs.reference.pointer)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create11 = _class.staticMethodId(
+  static final _id_create$11 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;[BI)Lokhttp3/RequestBody;',
   );
 
-  static final _create11 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs, int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create11(
-    jni.JObject mediaType,
-    jni.JArray<jni.jbyte> bs,
+  static RequestBody create$11(
+    _$jni.JObject mediaType,
+    _$jni.JArray<_$jni.jbyte> bs,
     int i,
   ) {
-    return _create11(_class.reference.pointer, _id_create11 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, bs.reference.pointer, i)
-        .object(const $RequestBodyType());
+    return _create$11(
+            _class.reference.pointer,
+            _id_create$11 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            bs.reference.pointer,
+            i)
+        .object(const $RequestBody$Type());
   }
 
-  static final _id_create12 = _class.staticMethodId(
+  static final _id_create$12 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;[B)Lokhttp3/RequestBody;',
   );
 
-  static final _create12 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$12 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs)
+  /// from: `static public final okhttp3.RequestBody create(okhttp3.MediaType mediaType, byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
-  static RequestBody create12(
-    jni.JObject mediaType,
-    jni.JArray<jni.jbyte> bs,
+  static RequestBody create$12(
+    _$jni.JObject mediaType,
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _create12(_class.reference.pointer, _id_create12 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, bs.reference.pointer)
-        .object(const $RequestBodyType());
+    return _create$12(
+            _class.reference.pointer,
+            _id_create$12 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            bs.reference.pointer)
+        .object(const $RequestBody$Type());
   }
 }
 
-final class $RequestBodyType extends jni.JObjType<RequestBody> {
-  const $RequestBodyType();
+final class $RequestBody$Type extends _$jni.JObjType<RequestBody> {
+  @_$jni.internal
+  const $RequestBody$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/RequestBody;';
 
-  @override
-  RequestBody fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  RequestBody fromReference(_$jni.JReference reference) =>
       RequestBody.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($RequestBodyType).hashCode;
+  @_$core.override
+  int get hashCode => ($RequestBody$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($RequestBodyType) && other is $RequestBodyType;
+    return other.runtimeType == ($RequestBody$Type) &&
+        other is $RequestBody$Type;
   }
 }
 
-/// from: okhttp3.Response$Builder
-class Response_Builder extends jni.JObject {
-  @override
-  late final jni.JObjType<Response_Builder> $type = type;
+/// from: `okhttp3.Response$Builder`
+class Response_Builder extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Response_Builder> $type;
 
+  @_$jni.internal
   Response_Builder.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Response$Builder');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Response$Builder');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Response_BuilderType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $Response_Builder$Type();
+  static final _id_new$ = _class.constructorId(
     r'()V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory Response_Builder() {
     return Response_Builder.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
             .reference);
   }
 
-  static final _id_new1 = _class.constructorId(
+  static final _id_new$1 = _class.constructorId(
     r'(Lokhttp3/Response;)V',
   );
 
-  static final _new1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(okhttp3.Response response)
+  /// from: `public void <init>(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Response_Builder.new1(
+  factory Response_Builder.new$1(
     Response response,
   ) {
-    return Response_Builder.fromReference(_new1(_class.reference.pointer,
-            _id_new1 as jni.JMethodIDPtr, response.reference.pointer)
+    return Response_Builder.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr, response.reference.pointer)
         .reference);
   }
 
@@ -2130,25 +2285,25 @@ class Response_Builder extends jni.JObject {
     r'(Lokhttp3/Request;)Lokhttp3/Response$Builder;',
   );
 
-  static final _request = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _request = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder request(okhttp3.Request request)
+  /// from: `public okhttp3.Response$Builder request(okhttp3.Request request)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder request(
     Request request,
   ) {
-    return _request(reference.pointer, _id_request as jni.JMethodIDPtr,
+    return _request(reference.pointer, _id_request as _$jni.JMethodIDPtr,
             request.reference.pointer)
-        .object(const $Response_BuilderType());
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_protocol = _class.instanceMethodId(
@@ -2156,25 +2311,25 @@ class Response_Builder extends jni.JObject {
     r'(Lokhttp3/Protocol;)Lokhttp3/Response$Builder;',
   );
 
-  static final _protocol = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _protocol = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder protocol(okhttp3.Protocol protocol)
+  /// from: `public okhttp3.Response$Builder protocol(okhttp3.Protocol protocol)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder protocol(
-    jni.JObject protocol,
+    _$jni.JObject protocol,
   ) {
-    return _protocol(reference.pointer, _id_protocol as jni.JMethodIDPtr,
+    return _protocol(reference.pointer, _id_protocol as _$jni.JMethodIDPtr,
             protocol.reference.pointer)
-        .object(const $Response_BuilderType());
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_code = _class.instanceMethodId(
@@ -2182,21 +2337,23 @@ class Response_Builder extends jni.JObject {
     r'(I)Lokhttp3/Response$Builder;',
   );
 
-  static final _code = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallObjectMethod')
+  static final _code = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public okhttp3.Response$Builder code(int i)
+  /// from: `public okhttp3.Response$Builder code(int i)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder code(
     int i,
   ) {
-    return _code(reference.pointer, _id_code as jni.JMethodIDPtr, i)
-        .object(const $Response_BuilderType());
+    return _code(reference.pointer, _id_code as _$jni.JMethodIDPtr, i)
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_message = _class.instanceMethodId(
@@ -2204,25 +2361,25 @@ class Response_Builder extends jni.JObject {
     r'(Ljava/lang/String;)Lokhttp3/Response$Builder;',
   );
 
-  static final _message = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _message = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder message(java.lang.String string)
+  /// from: `public okhttp3.Response$Builder message(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder message(
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    return _message(reference.pointer, _id_message as jni.JMethodIDPtr,
+    return _message(reference.pointer, _id_message as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const $Response_BuilderType());
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_handshake = _class.instanceMethodId(
@@ -2230,25 +2387,25 @@ class Response_Builder extends jni.JObject {
     r'(Lokhttp3/Handshake;)Lokhttp3/Response$Builder;',
   );
 
-  static final _handshake = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _handshake = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder handshake(okhttp3.Handshake handshake)
+  /// from: `public okhttp3.Response$Builder handshake(okhttp3.Handshake handshake)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder handshake(
-    jni.JObject handshake,
+    _$jni.JObject handshake,
   ) {
-    return _handshake(reference.pointer, _id_handshake as jni.JMethodIDPtr,
+    return _handshake(reference.pointer, _id_handshake as _$jni.JMethodIDPtr,
             handshake.reference.pointer)
-        .object(const $Response_BuilderType());
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_header = _class.instanceMethodId(
@@ -2256,29 +2413,32 @@ class Response_Builder extends jni.JObject {
     r'(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Response$Builder;',
   );
 
-  static final _header = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _header = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder header(java.lang.String string, java.lang.String string1)
+  /// from: `public okhttp3.Response$Builder header(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder header(
-    jni.JString string,
-    jni.JString string1,
+    _$jni.JString string,
+    _$jni.JString string1,
   ) {
-    return _header(reference.pointer, _id_header as jni.JMethodIDPtr,
+    return _header(reference.pointer, _id_header as _$jni.JMethodIDPtr,
             string.reference.pointer, string1.reference.pointer)
-        .object(const $Response_BuilderType());
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_addHeader = _class.instanceMethodId(
@@ -2286,29 +2446,32 @@ class Response_Builder extends jni.JObject {
     r'(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Response$Builder;',
   );
 
-  static final _addHeader = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _addHeader = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder addHeader(java.lang.String string, java.lang.String string1)
+  /// from: `public okhttp3.Response$Builder addHeader(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder addHeader(
-    jni.JString string,
-    jni.JString string1,
+    _$jni.JString string,
+    _$jni.JString string1,
   ) {
-    return _addHeader(reference.pointer, _id_addHeader as jni.JMethodIDPtr,
+    return _addHeader(reference.pointer, _id_addHeader as _$jni.JMethodIDPtr,
             string.reference.pointer, string1.reference.pointer)
-        .object(const $Response_BuilderType());
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_removeHeader = _class.instanceMethodId(
@@ -2316,25 +2479,25 @@ class Response_Builder extends jni.JObject {
     r'(Ljava/lang/String;)Lokhttp3/Response$Builder;',
   );
 
-  static final _removeHeader = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _removeHeader = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder removeHeader(java.lang.String string)
+  /// from: `public okhttp3.Response$Builder removeHeader(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder removeHeader(
-    jni.JString string,
+    _$jni.JString string,
   ) {
     return _removeHeader(reference.pointer,
-            _id_removeHeader as jni.JMethodIDPtr, string.reference.pointer)
-        .object(const $Response_BuilderType());
+            _id_removeHeader as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_headers = _class.instanceMethodId(
@@ -2342,25 +2505,25 @@ class Response_Builder extends jni.JObject {
     r'(Lokhttp3/Headers;)Lokhttp3/Response$Builder;',
   );
 
-  static final _headers = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _headers = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder headers(okhttp3.Headers headers)
+  /// from: `public okhttp3.Response$Builder headers(okhttp3.Headers headers)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder headers(
     Headers headers,
   ) {
-    return _headers(reference.pointer, _id_headers as jni.JMethodIDPtr,
+    return _headers(reference.pointer, _id_headers as _$jni.JMethodIDPtr,
             headers.reference.pointer)
-        .object(const $Response_BuilderType());
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_body = _class.instanceMethodId(
@@ -2368,25 +2531,25 @@ class Response_Builder extends jni.JObject {
     r'(Lokhttp3/ResponseBody;)Lokhttp3/Response$Builder;',
   );
 
-  static final _body = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _body = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder body(okhttp3.ResponseBody responseBody)
+  /// from: `public okhttp3.Response$Builder body(okhttp3.ResponseBody responseBody)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder body(
     ResponseBody responseBody,
   ) {
-    return _body(reference.pointer, _id_body as jni.JMethodIDPtr,
+    return _body(reference.pointer, _id_body as _$jni.JMethodIDPtr,
             responseBody.reference.pointer)
-        .object(const $Response_BuilderType());
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_networkResponse = _class.instanceMethodId(
@@ -2394,25 +2557,27 @@ class Response_Builder extends jni.JObject {
     r'(Lokhttp3/Response;)Lokhttp3/Response$Builder;',
   );
 
-  static final _networkResponse = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _networkResponse = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder networkResponse(okhttp3.Response response)
+  /// from: `public okhttp3.Response$Builder networkResponse(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder networkResponse(
     Response response,
   ) {
-    return _networkResponse(reference.pointer,
-            _id_networkResponse as jni.JMethodIDPtr, response.reference.pointer)
-        .object(const $Response_BuilderType());
+    return _networkResponse(
+            reference.pointer,
+            _id_networkResponse as _$jni.JMethodIDPtr,
+            response.reference.pointer)
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_cacheResponse = _class.instanceMethodId(
@@ -2420,25 +2585,25 @@ class Response_Builder extends jni.JObject {
     r'(Lokhttp3/Response;)Lokhttp3/Response$Builder;',
   );
 
-  static final _cacheResponse = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _cacheResponse = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder cacheResponse(okhttp3.Response response)
+  /// from: `public okhttp3.Response$Builder cacheResponse(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder cacheResponse(
     Response response,
   ) {
     return _cacheResponse(reference.pointer,
-            _id_cacheResponse as jni.JMethodIDPtr, response.reference.pointer)
-        .object(const $Response_BuilderType());
+            _id_cacheResponse as _$jni.JMethodIDPtr, response.reference.pointer)
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_priorResponse = _class.instanceMethodId(
@@ -2446,25 +2611,25 @@ class Response_Builder extends jni.JObject {
     r'(Lokhttp3/Response;)Lokhttp3/Response$Builder;',
   );
 
-  static final _priorResponse = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _priorResponse = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Response$Builder priorResponse(okhttp3.Response response)
+  /// from: `public okhttp3.Response$Builder priorResponse(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder priorResponse(
     Response response,
   ) {
     return _priorResponse(reference.pointer,
-            _id_priorResponse as jni.JMethodIDPtr, response.reference.pointer)
-        .object(const $Response_BuilderType());
+            _id_priorResponse as _$jni.JMethodIDPtr, response.reference.pointer)
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_sentRequestAtMillis = _class.instanceMethodId(
@@ -2472,22 +2637,24 @@ class Response_Builder extends jni.JObject {
     r'(J)Lokhttp3/Response$Builder;',
   );
 
-  static final _sentRequestAtMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallObjectMethod')
+  static final _sentRequestAtMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public okhttp3.Response$Builder sentRequestAtMillis(long j)
+  /// from: `public okhttp3.Response$Builder sentRequestAtMillis(long j)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder sentRequestAtMillis(
     int j,
   ) {
     return _sentRequestAtMillis(
-            reference.pointer, _id_sentRequestAtMillis as jni.JMethodIDPtr, j)
-        .object(const $Response_BuilderType());
+            reference.pointer, _id_sentRequestAtMillis as _$jni.JMethodIDPtr, j)
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_receivedResponseAtMillis = _class.instanceMethodId(
@@ -2495,22 +2662,24 @@ class Response_Builder extends jni.JObject {
     r'(J)Lokhttp3/Response$Builder;',
   );
 
-  static final _receivedResponseAtMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallObjectMethod')
+  static final _receivedResponseAtMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public okhttp3.Response$Builder receivedResponseAtMillis(long j)
+  /// from: `public okhttp3.Response$Builder receivedResponseAtMillis(long j)`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder receivedResponseAtMillis(
     int j,
   ) {
     return _receivedResponseAtMillis(reference.pointer,
-            _id_receivedResponseAtMillis as jni.JMethodIDPtr, j)
-        .object(const $Response_BuilderType());
+            _id_receivedResponseAtMillis as _$jni.JMethodIDPtr, j)
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_build = _class.instanceMethodId(
@@ -2518,116 +2687,124 @@ class Response_Builder extends jni.JObject {
     r'()Lokhttp3/Response;',
   );
 
-  static final _build = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _build = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.Response build()
+  /// from: `public okhttp3.Response build()`
   /// The returned object must be released after use, by calling the [release] method.
   Response build() {
-    return _build(reference.pointer, _id_build as jni.JMethodIDPtr)
-        .object(const $ResponseType());
+    return _build(reference.pointer, _id_build as _$jni.JMethodIDPtr)
+        .object(const $Response$Type());
   }
 }
 
-final class $Response_BuilderType extends jni.JObjType<Response_Builder> {
-  const $Response_BuilderType();
+final class $Response_Builder$Type extends _$jni.JObjType<Response_Builder> {
+  @_$jni.internal
+  const $Response_Builder$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Response$Builder;';
 
-  @override
-  Response_Builder fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Response_Builder fromReference(_$jni.JReference reference) =>
       Response_Builder.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($Response_BuilderType).hashCode;
+  @_$core.override
+  int get hashCode => ($Response_Builder$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($Response_BuilderType) &&
-        other is $Response_BuilderType;
+    return other.runtimeType == ($Response_Builder$Type) &&
+        other is $Response_Builder$Type;
   }
 }
 
-/// from: okhttp3.Response
-class Response extends jni.JObject {
-  @override
-  late final jni.JObjType<Response> $type = type;
+/// from: `okhttp3.Response`
+class Response extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Response> $type;
 
+  @_$jni.internal
   Response.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Response');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Response');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $ResponseType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $Response$Type();
+  static final _id_new$ = _class.constructorId(
     r'(Lokhttp3/Request;Lokhttp3/Protocol;Ljava/lang/String;ILokhttp3/Handshake;Lokhttp3/Headers;Lokhttp3/ResponseBody;Lokhttp3/Response;Lokhttp3/Response;Lokhttp3/Response;JJLokhttp3/internal/connection/Exchange;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Int64,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int64,
+                        _$jni.Int64,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>,
-              jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
               int,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
               int,
               int,
-              ffi.Pointer<ffi.Void>)>();
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(okhttp3.Request request, okhttp3.Protocol protocol, java.lang.String string, int i, okhttp3.Handshake handshake, okhttp3.Headers headers, okhttp3.ResponseBody responseBody, okhttp3.Response response, okhttp3.Response response1, okhttp3.Response response2, long j, long j1, okhttp3.internal.connection.Exchange exchange)
+  /// from: `public void <init>(okhttp3.Request request, okhttp3.Protocol protocol, java.lang.String string, int i, okhttp3.Handshake handshake, okhttp3.Headers headers, okhttp3.ResponseBody responseBody, okhttp3.Response response, okhttp3.Response response1, okhttp3.Response response2, long j, long j1, okhttp3.internal.connection.Exchange exchange)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Response(
     Request request,
-    jni.JObject protocol,
-    jni.JString string,
+    _$jni.JObject protocol,
+    _$jni.JString string,
     int i,
-    jni.JObject handshake,
+    _$jni.JObject handshake,
     Headers headers,
     ResponseBody responseBody,
     Response response,
@@ -2635,11 +2812,11 @@ class Response extends jni.JObject {
     Response response2,
     int j,
     int j1,
-    jni.JObject exchange,
+    _$jni.JObject exchange,
   ) {
-    return Response.fromReference(_new0(
+    return Response.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             request.reference.pointer,
             protocol.reference.pointer,
             string.reference.pointer,
@@ -2661,23 +2838,23 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Request;',
   );
 
-  static final _request = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _request = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Request request()
+  /// from: `public final okhttp3.Request request()`
   /// The returned object must be released after use, by calling the [release] method.
   Request request() {
-    return _request(reference.pointer, _id_request as jni.JMethodIDPtr)
-        .object(const $RequestType());
+    return _request(reference.pointer, _id_request as _$jni.JMethodIDPtr)
+        .object(const $Request$Type());
   }
 
   static final _id_protocol = _class.instanceMethodId(
@@ -2685,23 +2862,23 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Protocol;',
   );
 
-  static final _protocol = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _protocol = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Protocol protocol()
+  /// from: `public final okhttp3.Protocol protocol()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject protocol() {
-    return _protocol(reference.pointer, _id_protocol as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject protocol() {
+    return _protocol(reference.pointer, _id_protocol as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_message = _class.instanceMethodId(
@@ -2709,23 +2886,23 @@ class Response extends jni.JObject {
     r'()Ljava/lang/String;',
   );
 
-  static final _message = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _message = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.String message()
+  /// from: `public final java.lang.String message()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString message() {
-    return _message(reference.pointer, _id_message as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString message() {
+    return _message(reference.pointer, _id_message as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_code = _class.instanceMethodId(
@@ -2733,21 +2910,21 @@ class Response extends jni.JObject {
     r'()I',
   );
 
-  static final _code = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _code = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int code()
+  /// from: `public final int code()`
   int code() {
-    return _code(reference.pointer, _id_code as jni.JMethodIDPtr).integer;
+    return _code(reference.pointer, _id_code as _$jni.JMethodIDPtr).integer;
   }
 
   static final _id_handshake = _class.instanceMethodId(
@@ -2755,23 +2932,23 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Handshake;',
   );
 
-  static final _handshake = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _handshake = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Handshake handshake()
+  /// from: `public final okhttp3.Handshake handshake()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject handshake() {
-    return _handshake(reference.pointer, _id_handshake as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject handshake() {
+    return _handshake(reference.pointer, _id_handshake as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_headers = _class.instanceMethodId(
@@ -2779,23 +2956,23 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Headers;',
   );
 
-  static final _headers = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _headers = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers headers()
+  /// from: `public final okhttp3.Headers headers()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers headers() {
-    return _headers(reference.pointer, _id_headers as jni.JMethodIDPtr)
-        .object(const $HeadersType());
+    return _headers(reference.pointer, _id_headers as _$jni.JMethodIDPtr)
+        .object(const $Headers$Type());
   }
 
   static final _id_body = _class.instanceMethodId(
@@ -2803,23 +2980,23 @@ class Response extends jni.JObject {
     r'()Lokhttp3/ResponseBody;',
   );
 
-  static final _body = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _body = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.ResponseBody body()
+  /// from: `public final okhttp3.ResponseBody body()`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody body() {
-    return _body(reference.pointer, _id_body as jni.JMethodIDPtr)
-        .object(const $ResponseBodyType());
+    return _body(reference.pointer, _id_body as _$jni.JMethodIDPtr)
+        .object(const $ResponseBody$Type());
   }
 
   static final _id_networkResponse = _class.instanceMethodId(
@@ -2827,24 +3004,24 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Response;',
   );
 
-  static final _networkResponse = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _networkResponse = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Response networkResponse()
+  /// from: `public final okhttp3.Response networkResponse()`
   /// The returned object must be released after use, by calling the [release] method.
   Response networkResponse() {
     return _networkResponse(
-            reference.pointer, _id_networkResponse as jni.JMethodIDPtr)
-        .object(const $ResponseType());
+            reference.pointer, _id_networkResponse as _$jni.JMethodIDPtr)
+        .object(const $Response$Type());
   }
 
   static final _id_cacheResponse = _class.instanceMethodId(
@@ -2852,24 +3029,24 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Response;',
   );
 
-  static final _cacheResponse = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _cacheResponse = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Response cacheResponse()
+  /// from: `public final okhttp3.Response cacheResponse()`
   /// The returned object must be released after use, by calling the [release] method.
   Response cacheResponse() {
     return _cacheResponse(
-            reference.pointer, _id_cacheResponse as jni.JMethodIDPtr)
-        .object(const $ResponseType());
+            reference.pointer, _id_cacheResponse as _$jni.JMethodIDPtr)
+        .object(const $Response$Type());
   }
 
   static final _id_priorResponse = _class.instanceMethodId(
@@ -2877,24 +3054,24 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Response;',
   );
 
-  static final _priorResponse = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _priorResponse = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Response priorResponse()
+  /// from: `public final okhttp3.Response priorResponse()`
   /// The returned object must be released after use, by calling the [release] method.
   Response priorResponse() {
     return _priorResponse(
-            reference.pointer, _id_priorResponse as jni.JMethodIDPtr)
-        .object(const $ResponseType());
+            reference.pointer, _id_priorResponse as _$jni.JMethodIDPtr)
+        .object(const $Response$Type());
   }
 
   static final _id_sentRequestAtMillis = _class.instanceMethodId(
@@ -2902,22 +3079,22 @@ class Response extends jni.JObject {
     r'()J',
   );
 
-  static final _sentRequestAtMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _sentRequestAtMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long sentRequestAtMillis()
+  /// from: `public final long sentRequestAtMillis()`
   int sentRequestAtMillis() {
     return _sentRequestAtMillis(
-            reference.pointer, _id_sentRequestAtMillis as jni.JMethodIDPtr)
+            reference.pointer, _id_sentRequestAtMillis as _$jni.JMethodIDPtr)
         .long;
   }
 
@@ -2926,22 +3103,22 @@ class Response extends jni.JObject {
     r'()J',
   );
 
-  static final _receivedResponseAtMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _receivedResponseAtMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long receivedResponseAtMillis()
+  /// from: `public final long receivedResponseAtMillis()`
   int receivedResponseAtMillis() {
-    return _receivedResponseAtMillis(
-            reference.pointer, _id_receivedResponseAtMillis as jni.JMethodIDPtr)
+    return _receivedResponseAtMillis(reference.pointer,
+            _id_receivedResponseAtMillis as _$jni.JMethodIDPtr)
         .long;
   }
 
@@ -2950,23 +3127,23 @@ class Response extends jni.JObject {
     r'()Lokhttp3/internal/connection/Exchange;',
   );
 
-  static final _exchange = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _exchange = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.internal.connection.Exchange exchange()
+  /// from: `public final okhttp3.internal.connection.Exchange exchange()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject exchange() {
-    return _exchange(reference.pointer, _id_exchange as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject exchange() {
+    return _exchange(reference.pointer, _id_exchange as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_isSuccessful = _class.instanceMethodId(
@@ -2974,49 +3151,49 @@ class Response extends jni.JObject {
     r'()Z',
   );
 
-  static final _isSuccessful = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isSuccessful = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean isSuccessful()
+  /// from: `public final boolean isSuccessful()`
   bool isSuccessful() {
     return _isSuccessful(
-            reference.pointer, _id_isSuccessful as jni.JMethodIDPtr)
+            reference.pointer, _id_isSuccessful as _$jni.JMethodIDPtr)
         .boolean;
   }
 
-  static final _id_headers1 = _class.instanceMethodId(
+  static final _id_headers$1 = _class.instanceMethodId(
     r'headers',
     r'(Ljava/lang/String;)Ljava/util/List;',
   );
 
-  static final _headers1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _headers$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.util.List headers(java.lang.String string)
+  /// from: `public final java.util.List headers(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JString> headers1(
-    jni.JString string,
+  _$jni.JList<_$jni.JString> headers$1(
+    _$jni.JString string,
   ) {
-    return _headers1(reference.pointer, _id_headers1 as jni.JMethodIDPtr,
+    return _headers$1(reference.pointer, _id_headers$1 as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JListType(jni.JStringType()));
+        .object(const _$jni.JListType(_$jni.JStringType()));
   }
 
   static final _id_header = _class.instanceMethodId(
@@ -3024,29 +3201,32 @@ class Response extends jni.JObject {
     r'(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;',
   );
 
-  static final _header = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _header = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.lang.String header(java.lang.String string, java.lang.String string1)
+  /// from: `public final java.lang.String header(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString header(
-    jni.JString string,
-    jni.JString string1,
+  _$jni.JString header(
+    _$jni.JString string,
+    _$jni.JString string1,
   ) {
-    return _header(reference.pointer, _id_header as jni.JMethodIDPtr,
+    return _header(reference.pointer, _id_header as _$jni.JMethodIDPtr,
             string.reference.pointer, string1.reference.pointer)
-        .object(const jni.JStringType());
+        .object(const _$jni.JStringType());
   }
 
   static final _id_trailers = _class.instanceMethodId(
@@ -3054,23 +3234,23 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Headers;',
   );
 
-  static final _trailers = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _trailers = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers trailers()
+  /// from: `public final okhttp3.Headers trailers()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers trailers() {
-    return _trailers(reference.pointer, _id_trailers as jni.JMethodIDPtr)
-        .object(const $HeadersType());
+    return _trailers(reference.pointer, _id_trailers as _$jni.JMethodIDPtr)
+        .object(const $Headers$Type());
   }
 
   static final _id_peekBody = _class.instanceMethodId(
@@ -3078,21 +3258,23 @@ class Response extends jni.JObject {
     r'(J)Lokhttp3/ResponseBody;',
   );
 
-  static final _peekBody = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallObjectMethod')
+  static final _peekBody = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.ResponseBody peekBody(long j)
+  /// from: `public final okhttp3.ResponseBody peekBody(long j)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody peekBody(
     int j,
   ) {
-    return _peekBody(reference.pointer, _id_peekBody as jni.JMethodIDPtr, j)
-        .object(const $ResponseBodyType());
+    return _peekBody(reference.pointer, _id_peekBody as _$jni.JMethodIDPtr, j)
+        .object(const $ResponseBody$Type());
   }
 
   static final _id_newBuilder = _class.instanceMethodId(
@@ -3100,23 +3282,23 @@ class Response extends jni.JObject {
     r'()Lokhttp3/Response$Builder;',
   );
 
-  static final _newBuilder = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _newBuilder = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Response$Builder newBuilder()
+  /// from: `public final okhttp3.Response$Builder newBuilder()`
   /// The returned object must be released after use, by calling the [release] method.
   Response_Builder newBuilder() {
-    return _newBuilder(reference.pointer, _id_newBuilder as jni.JMethodIDPtr)
-        .object(const $Response_BuilderType());
+    return _newBuilder(reference.pointer, _id_newBuilder as _$jni.JMethodIDPtr)
+        .object(const $Response_Builder$Type());
   }
 
   static final _id_isRedirect = _class.instanceMethodId(
@@ -3124,21 +3306,21 @@ class Response extends jni.JObject {
     r'()Z',
   );
 
-  static final _isRedirect = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isRedirect = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean isRedirect()
+  /// from: `public final boolean isRedirect()`
   bool isRedirect() {
-    return _isRedirect(reference.pointer, _id_isRedirect as jni.JMethodIDPtr)
+    return _isRedirect(reference.pointer, _id_isRedirect as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -3147,23 +3329,23 @@ class Response extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _challenges = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _challenges = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List challenges()
+  /// from: `public final java.util.List challenges()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> challenges() {
-    return _challenges(reference.pointer, _id_challenges as jni.JMethodIDPtr)
-        .object(const jni.JListType(jni.JObjectType()));
+  _$jni.JList<_$jni.JObject> challenges() {
+    return _challenges(reference.pointer, _id_challenges as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
   }
 
   static final _id_cacheControl = _class.instanceMethodId(
@@ -3171,24 +3353,24 @@ class Response extends jni.JObject {
     r'()Lokhttp3/CacheControl;',
   );
 
-  static final _cacheControl = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _cacheControl = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.CacheControl cacheControl()
+  /// from: `public final okhttp3.CacheControl cacheControl()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject cacheControl() {
+  _$jni.JObject cacheControl() {
     return _cacheControl(
-            reference.pointer, _id_cacheControl as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_cacheControl as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_close = _class.instanceMethodId(
@@ -3196,140 +3378,151 @@ class Response extends jni.JObject {
     r'()V',
   );
 
-  static final _close = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _close = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void close()
+  /// from: `public void close()`
   void close() {
-    _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
+    _close(reference.pointer, _id_close as _$jni.JMethodIDPtr).check();
   }
 
-  static final _id_toString1 = _class.instanceMethodId(
+  static final _id_toString$1 = _class.instanceMethodId(
     r'toString',
     r'()Ljava/lang/String;',
   );
 
-  static final _toString1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String toString()
+  /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString toString1() {
-    return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
-  static final _id_header1 = _class.instanceMethodId(
+  static final _id_header$1 = _class.instanceMethodId(
     r'header',
     r'(Ljava/lang/String;)Ljava/lang/String;',
   );
 
-  static final _header1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _header$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.lang.String header(java.lang.String string)
+  /// from: `public final java.lang.String header(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString header1(
-    jni.JString string,
+  _$jni.JString header$1(
+    _$jni.JString string,
   ) {
-    return _header1(reference.pointer, _id_header1 as jni.JMethodIDPtr,
+    return _header$1(reference.pointer, _id_header$1 as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JStringType());
+        .object(const _$jni.JStringType());
   }
 }
 
-final class $ResponseType extends jni.JObjType<Response> {
-  const $ResponseType();
+final class $Response$Type extends _$jni.JObjType<Response> {
+  @_$jni.internal
+  const $Response$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Response;';
 
-  @override
-  Response fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Response fromReference(_$jni.JReference reference) =>
       Response.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($ResponseType).hashCode;
+  @_$core.override
+  int get hashCode => ($Response$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($ResponseType) && other is $ResponseType;
+    return other.runtimeType == ($Response$Type) && other is $Response$Type;
   }
 }
 
-/// from: okhttp3.ResponseBody$BomAwareReader
-class ResponseBody_BomAwareReader extends jni.JObject {
-  @override
-  late final jni.JObjType<ResponseBody_BomAwareReader> $type = type;
+/// from: `okhttp3.ResponseBody$BomAwareReader`
+class ResponseBody_BomAwareReader extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<ResponseBody_BomAwareReader> $type;
 
+  @_$jni.internal
   ResponseBody_BomAwareReader.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r'okhttp3/ResponseBody$BomAwareReader');
+      _$jni.JClass.forName(r'okhttp3/ResponseBody$BomAwareReader');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $ResponseBody_BomAwareReaderType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $ResponseBody_BomAwareReader$Type();
+  static final _id_new$ = _class.constructorId(
     r'(Lokio/BufferedSource;Ljava/nio/charset/Charset;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(okio.BufferedSource bufferedSource, java.nio.charset.Charset charset)
+  /// from: `public void <init>(okio.BufferedSource bufferedSource, java.nio.charset.Charset charset)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ResponseBody_BomAwareReader(
-    jni.JObject bufferedSource,
-    jni.JObject charset,
+    _$jni.JObject bufferedSource,
+    _$jni.JObject charset,
   ) {
-    return ResponseBody_BomAwareReader.fromReference(_new0(
+    return ResponseBody_BomAwareReader.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             bufferedSource.reference.pointer,
             charset.reference.pointer)
         .reference);
@@ -3340,24 +3533,28 @@ class ResponseBody_BomAwareReader extends jni.JObject {
     r'([CII)I',
   );
 
-  static final _read = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32, $Int32)>)>>(
-          'globalEnv_CallIntMethod')
+  static final _read = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
 
-  /// from: public int read(char[] cs, int i, int i1)
+  /// from: `public int read(char[] cs, int i, int i1)`
   int read(
-    jni.JArray<jni.jchar> cs,
+    _$jni.JArray<_$jni.jchar> cs,
     int i,
     int i1,
   ) {
-    return _read(reference.pointer, _id_read as jni.JMethodIDPtr,
+    return _read(reference.pointer, _id_read as _$jni.JMethodIDPtr,
             cs.reference.pointer, i, i1)
         .integer;
   }
@@ -3367,432 +3564,451 @@ class ResponseBody_BomAwareReader extends jni.JObject {
     r'()V',
   );
 
-  static final _close = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _close = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void close()
+  /// from: `public void close()`
   void close() {
-    _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
+    _close(reference.pointer, _id_close as _$jni.JMethodIDPtr).check();
   }
 }
 
-final class $ResponseBody_BomAwareReaderType
-    extends jni.JObjType<ResponseBody_BomAwareReader> {
-  const $ResponseBody_BomAwareReaderType();
+final class $ResponseBody_BomAwareReader$Type
+    extends _$jni.JObjType<ResponseBody_BomAwareReader> {
+  @_$jni.internal
+  const $ResponseBody_BomAwareReader$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/ResponseBody$BomAwareReader;';
 
-  @override
-  ResponseBody_BomAwareReader fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  ResponseBody_BomAwareReader fromReference(_$jni.JReference reference) =>
       ResponseBody_BomAwareReader.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($ResponseBody_BomAwareReaderType).hashCode;
+  @_$core.override
+  int get hashCode => ($ResponseBody_BomAwareReader$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($ResponseBody_BomAwareReaderType) &&
-        other is $ResponseBody_BomAwareReaderType;
+    return other.runtimeType == ($ResponseBody_BomAwareReader$Type) &&
+        other is $ResponseBody_BomAwareReader$Type;
   }
 }
 
-/// from: okhttp3.ResponseBody$Companion
-class ResponseBody_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<ResponseBody_Companion> $type = type;
+/// from: `okhttp3.ResponseBody$Companion`
+class ResponseBody_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<ResponseBody_Companion> $type;
 
+  @_$jni.internal
   ResponseBody_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/ResponseBody$Companion');
+  static final _class = _$jni.JClass.forName(r'okhttp3/ResponseBody$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $ResponseBody_CompanionType();
+  static const type = $ResponseBody_Companion$Type();
   static final _id_create = _class.instanceMethodId(
     r'create',
     r'(Ljava/lang/String;Lokhttp3/MediaType;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(java.lang.String string, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.ResponseBody create(java.lang.String string, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   ResponseBody create(
-    jni.JString string,
-    jni.JObject mediaType,
+    _$jni.JString string,
+    _$jni.JObject mediaType,
   ) {
-    return _create(reference.pointer, _id_create as jni.JMethodIDPtr,
+    return _create(reference.pointer, _id_create as _$jni.JMethodIDPtr,
             string.reference.pointer, mediaType.reference.pointer)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create1 = _class.instanceMethodId(
+  static final _id_create$1 = _class.instanceMethodId(
     r'create',
     r'([BLokhttp3/MediaType;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(byte[] bs, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.ResponseBody create(byte[] bs, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  ResponseBody create1(
-    jni.JArray<jni.jbyte> bs,
-    jni.JObject mediaType,
+  ResponseBody create$1(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JObject mediaType,
   ) {
-    return _create1(reference.pointer, _id_create1 as jni.JMethodIDPtr,
+    return _create$1(reference.pointer, _id_create$1 as _$jni.JMethodIDPtr,
             bs.reference.pointer, mediaType.reference.pointer)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create2 = _class.instanceMethodId(
+  static final _id_create$2 = _class.instanceMethodId(
     r'create',
     r'(Lokio/ByteString;Lokhttp3/MediaType;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create2 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
+  /// from: `public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  ResponseBody create2(
+  ResponseBody create$2(
     ByteString byteString,
-    jni.JObject mediaType,
+    _$jni.JObject mediaType,
   ) {
-    return _create2(reference.pointer, _id_create2 as jni.JMethodIDPtr,
+    return _create$2(reference.pointer, _id_create$2 as _$jni.JMethodIDPtr,
             byteString.reference.pointer, mediaType.reference.pointer)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create3 = _class.instanceMethodId(
+  static final _id_create$3 = _class.instanceMethodId(
     r'create',
     r'(Lokio/BufferedSource;Lokhttp3/MediaType;J)Lokhttp3/ResponseBody;',
   );
 
-  static final _create3 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int64
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int64
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
 
-  /// from: public final okhttp3.ResponseBody create(okio.BufferedSource bufferedSource, okhttp3.MediaType mediaType, long j)
+  /// from: `public final okhttp3.ResponseBody create(okio.BufferedSource bufferedSource, okhttp3.MediaType mediaType, long j)`
   /// The returned object must be released after use, by calling the [release] method.
-  ResponseBody create3(
-    jni.JObject bufferedSource,
-    jni.JObject mediaType,
+  ResponseBody create$3(
+    _$jni.JObject bufferedSource,
+    _$jni.JObject mediaType,
     int j,
   ) {
-    return _create3(reference.pointer, _id_create3 as jni.JMethodIDPtr,
+    return _create$3(reference.pointer, _id_create$3 as _$jni.JMethodIDPtr,
             bufferedSource.reference.pointer, mediaType.reference.pointer, j)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create4 = _class.instanceMethodId(
+  static final _id_create$4 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Ljava/lang/String;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create4 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, java.lang.String string)
+  /// from: `public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  ResponseBody create4(
-    jni.JObject mediaType,
-    jni.JString string,
+  ResponseBody create$4(
+    _$jni.JObject mediaType,
+    _$jni.JString string,
   ) {
-    return _create4(reference.pointer, _id_create4 as jni.JMethodIDPtr,
+    return _create$4(reference.pointer, _id_create$4 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, string.reference.pointer)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create5 = _class.instanceMethodId(
+  static final _id_create$5 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;[B)Lokhttp3/ResponseBody;',
   );
 
-  static final _create5 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, byte[] bs)
+  /// from: `public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
-  ResponseBody create5(
-    jni.JObject mediaType,
-    jni.JArray<jni.jbyte> bs,
+  ResponseBody create$5(
+    _$jni.JObject mediaType,
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _create5(reference.pointer, _id_create5 as jni.JMethodIDPtr,
+    return _create$5(reference.pointer, _id_create$5 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, bs.reference.pointer)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create6 = _class.instanceMethodId(
+  static final _id_create$6 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Lokio/ByteString;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create6 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)
+  /// from: `public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
-  ResponseBody create6(
-    jni.JObject mediaType,
+  ResponseBody create$6(
+    _$jni.JObject mediaType,
     ByteString byteString,
   ) {
-    return _create6(reference.pointer, _id_create6 as jni.JMethodIDPtr,
+    return _create$6(reference.pointer, _id_create$6 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, byteString.reference.pointer)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create7 = _class.instanceMethodId(
+  static final _id_create$7 = _class.instanceMethodId(
     r'create',
     r'(Lokhttp3/MediaType;JLokio/BufferedSource;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create7 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int64,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, long j, okio.BufferedSource bufferedSource)
+  /// from: `public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, long j, okio.BufferedSource bufferedSource)`
   /// The returned object must be released after use, by calling the [release] method.
-  ResponseBody create7(
-    jni.JObject mediaType,
+  ResponseBody create$7(
+    _$jni.JObject mediaType,
     int j,
-    jni.JObject bufferedSource,
+    _$jni.JObject bufferedSource,
   ) {
-    return _create7(reference.pointer, _id_create7 as jni.JMethodIDPtr,
+    return _create$7(reference.pointer, _id_create$7 as _$jni.JMethodIDPtr,
             mediaType.reference.pointer, j, bufferedSource.reference.pointer)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ResponseBody_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return ResponseBody_Companion.fromReference(_new0(
+    return ResponseBody_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $ResponseBody_CompanionType
-    extends jni.JObjType<ResponseBody_Companion> {
-  const $ResponseBody_CompanionType();
+final class $ResponseBody_Companion$Type
+    extends _$jni.JObjType<ResponseBody_Companion> {
+  @_$jni.internal
+  const $ResponseBody_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/ResponseBody$Companion;';
 
-  @override
-  ResponseBody_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  ResponseBody_Companion fromReference(_$jni.JReference reference) =>
       ResponseBody_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($ResponseBody_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($ResponseBody_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($ResponseBody_CompanionType) &&
-        other is $ResponseBody_CompanionType;
+    return other.runtimeType == ($ResponseBody_Companion$Type) &&
+        other is $ResponseBody_Companion$Type;
   }
 }
 
-/// from: okhttp3.ResponseBody
-class ResponseBody extends jni.JObject {
-  @override
-  late final jni.JObjType<ResponseBody> $type = type;
+/// from: `okhttp3.ResponseBody`
+class ResponseBody extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<ResponseBody> $type;
 
+  @_$jni.internal
   ResponseBody.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/ResponseBody');
+  static final _class = _$jni.JClass.forName(r'okhttp3/ResponseBody');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $ResponseBodyType();
+  static const type = $ResponseBody$Type();
   static final _id_Companion = _class.staticFieldId(
     r'Companion',
     r'Lokhttp3/ResponseBody$Companion;',
   );
 
-  /// from: static public final okhttp3.ResponseBody$Companion Companion
+  /// from: `static public final okhttp3.ResponseBody$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody_Companion get Companion =>
-      _id_Companion.get(_class, const $ResponseBody_CompanionType());
-
-  static final _id_new0 = _class.constructorId(
-    r'()V',
-  );
-
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
-              )>>('globalEnv_NewObject')
-      .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
-          )>();
-
-  /// from: public void <init>()
-  /// The returned object must be released after use, by calling the [release] method.
-  factory ResponseBody() {
-    return ResponseBody.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
-            .reference);
-  }
+      _id_Companion.get(_class, const $ResponseBody_Companion$Type());
 
   static final _id_contentType = _class.instanceMethodId(
     r'contentType',
     r'()Lokhttp3/MediaType;',
   );
 
-  static final _contentType = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _contentType = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.MediaType contentType()
+  /// from: `public abstract okhttp3.MediaType contentType()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject contentType() {
-    return _contentType(reference.pointer, _id_contentType as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject contentType() {
+    return _contentType(
+            reference.pointer, _id_contentType as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_contentLength = _class.instanceMethodId(
@@ -3800,22 +4016,22 @@ class ResponseBody extends jni.JObject {
     r'()J',
   );
 
-  static final _contentLength = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _contentLength = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract long contentLength()
+  /// from: `public abstract long contentLength()`
   int contentLength() {
     return _contentLength(
-            reference.pointer, _id_contentLength as jni.JMethodIDPtr)
+            reference.pointer, _id_contentLength as _$jni.JMethodIDPtr)
         .long;
   }
 
@@ -3824,23 +4040,23 @@ class ResponseBody extends jni.JObject {
     r'()Ljava/io/InputStream;',
   );
 
-  static final _byteStream = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _byteStream = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.io.InputStream byteStream()
+  /// from: `public final java.io.InputStream byteStream()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject byteStream() {
-    return _byteStream(reference.pointer, _id_byteStream as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject byteStream() {
+    return _byteStream(reference.pointer, _id_byteStream as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_source = _class.instanceMethodId(
@@ -3848,23 +4064,23 @@ class ResponseBody extends jni.JObject {
     r'()Lokio/BufferedSource;',
   );
 
-  static final _source = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _source = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okio.BufferedSource source()
+  /// from: `public abstract okio.BufferedSource source()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject source() {
-    return _source(reference.pointer, _id_source as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject source() {
+    return _source(reference.pointer, _id_source as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_bytes = _class.instanceMethodId(
@@ -3872,23 +4088,23 @@ class ResponseBody extends jni.JObject {
     r'()[B',
   );
 
-  static final _bytes = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _bytes = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final byte[] bytes()
+  /// from: `public final byte[] bytes()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JArray<jni.jbyte> bytes() {
-    return _bytes(reference.pointer, _id_bytes as jni.JMethodIDPtr)
-        .object(const jni.JArrayType(jni.jbyteType()));
+  _$jni.JArray<_$jni.jbyte> bytes() {
+    return _bytes(reference.pointer, _id_bytes as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.jbyteType()));
   }
 
   static final _id_byteString = _class.instanceMethodId(
@@ -3896,23 +4112,23 @@ class ResponseBody extends jni.JObject {
     r'()Lokio/ByteString;',
   );
 
-  static final _byteString = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _byteString = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString byteString()
+  /// from: `public final okio.ByteString byteString()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString byteString() {
-    return _byteString(reference.pointer, _id_byteString as jni.JMethodIDPtr)
-        .object(const $ByteStringType());
+    return _byteString(reference.pointer, _id_byteString as _$jni.JMethodIDPtr)
+        .object(const $ByteString$Type());
   }
 
   static final _id_charStream = _class.instanceMethodId(
@@ -3920,23 +4136,23 @@ class ResponseBody extends jni.JObject {
     r'()Ljava/io/Reader;',
   );
 
-  static final _charStream = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _charStream = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.io.Reader charStream()
+  /// from: `public final java.io.Reader charStream()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject charStream() {
-    return _charStream(reference.pointer, _id_charStream as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject charStream() {
+    return _charStream(reference.pointer, _id_charStream as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_string = _class.instanceMethodId(
@@ -3944,23 +4160,23 @@ class ResponseBody extends jni.JObject {
     r'()Ljava/lang/String;',
   );
 
-  static final _string = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _string = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.String string()
+  /// from: `public final java.lang.String string()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString string() {
-    return _string(reference.pointer, _id_string as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString string() {
+    return _string(reference.pointer, _id_string as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_close = _class.instanceMethodId(
@@ -3968,21 +4184,21 @@ class ResponseBody extends jni.JObject {
     r'()V',
   );
 
-  static final _close = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _close = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void close()
+  /// from: `public void close()`
   void close() {
-    _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
+    _close(reference.pointer, _id_close as _$jni.JMethodIDPtr).check();
   }
 
   static final _id_create = _class.staticMethodId(
@@ -3990,331 +4206,388 @@ class ResponseBody extends jni.JObject {
     r'(Ljava/lang/String;Lokhttp3/MediaType;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(java.lang.String string, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.ResponseBody create(java.lang.String string, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
   static ResponseBody create(
-    jni.JString string,
-    jni.JObject mediaType,
+    _$jni.JString string,
+    _$jni.JObject mediaType,
   ) {
-    return _create(_class.reference.pointer, _id_create as jni.JMethodIDPtr,
+    return _create(_class.reference.pointer, _id_create as _$jni.JMethodIDPtr,
             string.reference.pointer, mediaType.reference.pointer)
-        .object(const $ResponseBodyType());
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create1 = _class.staticMethodId(
+  static final _id_create$1 = _class.staticMethodId(
     r'create',
     r'([BLokhttp3/MediaType;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(byte[] bs, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.ResponseBody create(byte[] bs, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ResponseBody create1(
-    jni.JArray<jni.jbyte> bs,
-    jni.JObject mediaType,
+  static ResponseBody create$1(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JObject mediaType,
   ) {
-    return _create1(_class.reference.pointer, _id_create1 as jni.JMethodIDPtr,
-            bs.reference.pointer, mediaType.reference.pointer)
-        .object(const $ResponseBodyType());
+    return _create$1(
+            _class.reference.pointer,
+            _id_create$1 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            mediaType.reference.pointer)
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create2 = _class.staticMethodId(
+  static final _id_create$2 = _class.staticMethodId(
     r'create',
     r'(Lokio/ByteString;Lokhttp3/MediaType;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create2 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)
+  /// from: `static public final okhttp3.ResponseBody create(okio.ByteString byteString, okhttp3.MediaType mediaType)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ResponseBody create2(
+  static ResponseBody create$2(
     ByteString byteString,
-    jni.JObject mediaType,
+    _$jni.JObject mediaType,
   ) {
-    return _create2(_class.reference.pointer, _id_create2 as jni.JMethodIDPtr,
-            byteString.reference.pointer, mediaType.reference.pointer)
-        .object(const $ResponseBodyType());
+    return _create$2(
+            _class.reference.pointer,
+            _id_create$2 as _$jni.JMethodIDPtr,
+            byteString.reference.pointer,
+            mediaType.reference.pointer)
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create3 = _class.staticMethodId(
+  static final _id_create$3 = _class.staticMethodId(
     r'create',
     r'(Lokio/BufferedSource;Lokhttp3/MediaType;J)Lokhttp3/ResponseBody;',
   );
 
-  static final _create3 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int64
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int64
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okio.BufferedSource bufferedSource, okhttp3.MediaType mediaType, long j)
+  /// from: `static public final okhttp3.ResponseBody create(okio.BufferedSource bufferedSource, okhttp3.MediaType mediaType, long j)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ResponseBody create3(
-    jni.JObject bufferedSource,
-    jni.JObject mediaType,
+  static ResponseBody create$3(
+    _$jni.JObject bufferedSource,
+    _$jni.JObject mediaType,
     int j,
   ) {
-    return _create3(_class.reference.pointer, _id_create3 as jni.JMethodIDPtr,
-            bufferedSource.reference.pointer, mediaType.reference.pointer, j)
-        .object(const $ResponseBodyType());
+    return _create$3(
+            _class.reference.pointer,
+            _id_create$3 as _$jni.JMethodIDPtr,
+            bufferedSource.reference.pointer,
+            mediaType.reference.pointer,
+            j)
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create4 = _class.staticMethodId(
+  static final _id_create$4 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Ljava/lang/String;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create4 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, java.lang.String string)
+  /// from: `static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ResponseBody create4(
-    jni.JObject mediaType,
-    jni.JString string,
+  static ResponseBody create$4(
+    _$jni.JObject mediaType,
+    _$jni.JString string,
   ) {
-    return _create4(_class.reference.pointer, _id_create4 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, string.reference.pointer)
-        .object(const $ResponseBodyType());
+    return _create$4(
+            _class.reference.pointer,
+            _id_create$4 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            string.reference.pointer)
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create5 = _class.staticMethodId(
+  static final _id_create$5 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;[B)Lokhttp3/ResponseBody;',
   );
 
-  static final _create5 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, byte[] bs)
+  /// from: `static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ResponseBody create5(
-    jni.JObject mediaType,
-    jni.JArray<jni.jbyte> bs,
+  static ResponseBody create$5(
+    _$jni.JObject mediaType,
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _create5(_class.reference.pointer, _id_create5 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, bs.reference.pointer)
-        .object(const $ResponseBodyType());
+    return _create$5(
+            _class.reference.pointer,
+            _id_create$5 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            bs.reference.pointer)
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create6 = _class.staticMethodId(
+  static final _id_create$6 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;Lokio/ByteString;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create6 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)
+  /// from: `static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ResponseBody create6(
-    jni.JObject mediaType,
+  static ResponseBody create$6(
+    _$jni.JObject mediaType,
     ByteString byteString,
   ) {
-    return _create6(_class.reference.pointer, _id_create6 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, byteString.reference.pointer)
-        .object(const $ResponseBodyType());
+    return _create$6(
+            _class.reference.pointer,
+            _id_create$6 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            byteString.reference.pointer)
+        .object(const $ResponseBody$Type());
   }
 
-  static final _id_create7 = _class.staticMethodId(
+  static final _id_create$7 = _class.staticMethodId(
     r'create',
     r'(Lokhttp3/MediaType;JLokio/BufferedSource;)Lokhttp3/ResponseBody;',
   );
 
-  static final _create7 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _create$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int64,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, long j, okio.BufferedSource bufferedSource)
+  /// from: `static public final okhttp3.ResponseBody create(okhttp3.MediaType mediaType, long j, okio.BufferedSource bufferedSource)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ResponseBody create7(
-    jni.JObject mediaType,
+  static ResponseBody create$7(
+    _$jni.JObject mediaType,
     int j,
-    jni.JObject bufferedSource,
+    _$jni.JObject bufferedSource,
   ) {
-    return _create7(_class.reference.pointer, _id_create7 as jni.JMethodIDPtr,
-            mediaType.reference.pointer, j, bufferedSource.reference.pointer)
-        .object(const $ResponseBodyType());
+    return _create$7(
+            _class.reference.pointer,
+            _id_create$7 as _$jni.JMethodIDPtr,
+            mediaType.reference.pointer,
+            j,
+            bufferedSource.reference.pointer)
+        .object(const $ResponseBody$Type());
   }
 }
 
-final class $ResponseBodyType extends jni.JObjType<ResponseBody> {
-  const $ResponseBodyType();
+final class $ResponseBody$Type extends _$jni.JObjType<ResponseBody> {
+  @_$jni.internal
+  const $ResponseBody$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/ResponseBody;';
 
-  @override
-  ResponseBody fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  ResponseBody fromReference(_$jni.JReference reference) =>
       ResponseBody.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($ResponseBodyType).hashCode;
+  @_$core.override
+  int get hashCode => ($ResponseBody$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($ResponseBodyType) &&
-        other is $ResponseBodyType;
+    return other.runtimeType == ($ResponseBody$Type) &&
+        other is $ResponseBody$Type;
   }
 }
 
-/// from: okhttp3.OkHttpClient$Builder
-class OkHttpClient_Builder extends jni.JObject {
-  @override
-  late final jni.JObjType<OkHttpClient_Builder> $type = type;
+/// from: `okhttp3.OkHttpClient$Builder`
+class OkHttpClient_Builder extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<OkHttpClient_Builder> $type;
 
+  @_$jni.internal
   OkHttpClient_Builder.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/OkHttpClient$Builder');
+  static final _class = _$jni.JClass.forName(r'okhttp3/OkHttpClient$Builder');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $OkHttpClient_BuilderType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $OkHttpClient_Builder$Type();
+  static final _id_new$ = _class.constructorId(
     r'()V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory OkHttpClient_Builder() {
     return OkHttpClient_Builder.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
             .reference);
   }
 
-  static final _id_new1 = _class.constructorId(
+  static final _id_new$1 = _class.constructorId(
     r'(Lokhttp3/OkHttpClient;)V',
   );
 
-  static final _new1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(okhttp3.OkHttpClient okHttpClient)
+  /// from: `public void <init>(okhttp3.OkHttpClient okHttpClient)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory OkHttpClient_Builder.new1(
+  factory OkHttpClient_Builder.new$1(
     OkHttpClient okHttpClient,
   ) {
-    return OkHttpClient_Builder.fromReference(_new1(_class.reference.pointer,
-            _id_new1 as jni.JMethodIDPtr, okHttpClient.reference.pointer)
+    return OkHttpClient_Builder.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr, okHttpClient.reference.pointer)
         .reference);
   }
 
@@ -4323,25 +4596,25 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/Dispatcher;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _dispatcher = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _dispatcher = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder dispatcher(okhttp3.Dispatcher dispatcher)
+  /// from: `public final okhttp3.OkHttpClient$Builder dispatcher(okhttp3.Dispatcher dispatcher)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder dispatcher(
     Dispatcher dispatcher,
   ) {
-    return _dispatcher(reference.pointer, _id_dispatcher as jni.JMethodIDPtr,
+    return _dispatcher(reference.pointer, _id_dispatcher as _$jni.JMethodIDPtr,
             dispatcher.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_connectionPool = _class.instanceMethodId(
@@ -4349,27 +4622,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/ConnectionPool;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _connectionPool = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _connectionPool = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder connectionPool(okhttp3.ConnectionPool connectionPool)
+  /// from: `public final okhttp3.OkHttpClient$Builder connectionPool(okhttp3.ConnectionPool connectionPool)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectionPool(
     ConnectionPool connectionPool,
   ) {
     return _connectionPool(
             reference.pointer,
-            _id_connectionPool as jni.JMethodIDPtr,
+            _id_connectionPool as _$jni.JMethodIDPtr,
             connectionPool.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_interceptors = _class.instanceMethodId(
@@ -4377,24 +4650,24 @@ class OkHttpClient_Builder extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _interceptors = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _interceptors = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List interceptors()
+  /// from: `public final java.util.List interceptors()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> interceptors() {
+  _$jni.JList<_$jni.JObject> interceptors() {
     return _interceptors(
-            reference.pointer, _id_interceptors as jni.JMethodIDPtr)
-        .object(const jni.JListType(jni.JObjectType()));
+            reference.pointer, _id_interceptors as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
   }
 
   static final _id_addInterceptor = _class.instanceMethodId(
@@ -4402,27 +4675,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/Interceptor;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _addInterceptor = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _addInterceptor = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addInterceptor(okhttp3.Interceptor interceptor)
+  /// from: `public final okhttp3.OkHttpClient$Builder addInterceptor(okhttp3.Interceptor interceptor)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addInterceptor(
-    jni.JObject interceptor,
+    _$jni.JObject interceptor,
   ) {
     return _addInterceptor(
             reference.pointer,
-            _id_addInterceptor as jni.JMethodIDPtr,
+            _id_addInterceptor as _$jni.JMethodIDPtr,
             interceptor.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_networkInterceptors = _class.instanceMethodId(
@@ -4430,24 +4703,24 @@ class OkHttpClient_Builder extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _networkInterceptors = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _networkInterceptors = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List networkInterceptors()
+  /// from: `public final java.util.List networkInterceptors()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> networkInterceptors() {
+  _$jni.JList<_$jni.JObject> networkInterceptors() {
     return _networkInterceptors(
-            reference.pointer, _id_networkInterceptors as jni.JMethodIDPtr)
-        .object(const jni.JListType(jni.JObjectType()));
+            reference.pointer, _id_networkInterceptors as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
   }
 
   static final _id_addNetworkInterceptor = _class.instanceMethodId(
@@ -4455,27 +4728,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/Interceptor;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _addNetworkInterceptor = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _addNetworkInterceptor = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addNetworkInterceptor(okhttp3.Interceptor interceptor)
+  /// from: `public final okhttp3.OkHttpClient$Builder addNetworkInterceptor(okhttp3.Interceptor interceptor)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addNetworkInterceptor(
-    jni.JObject interceptor,
+    _$jni.JObject interceptor,
   ) {
     return _addNetworkInterceptor(
             reference.pointer,
-            _id_addNetworkInterceptor as jni.JMethodIDPtr,
+            _id_addNetworkInterceptor as _$jni.JMethodIDPtr,
             interceptor.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_eventListener = _class.instanceMethodId(
@@ -4483,27 +4756,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/EventListener;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _eventListener = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _eventListener = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder eventListener(okhttp3.EventListener eventListener)
+  /// from: `public final okhttp3.OkHttpClient$Builder eventListener(okhttp3.EventListener eventListener)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder eventListener(
-    jni.JObject eventListener,
+    _$jni.JObject eventListener,
   ) {
     return _eventListener(
             reference.pointer,
-            _id_eventListener as jni.JMethodIDPtr,
+            _id_eventListener as _$jni.JMethodIDPtr,
             eventListener.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_eventListenerFactory = _class.instanceMethodId(
@@ -4511,27 +4784,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/EventListener$Factory;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _eventListenerFactory = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _eventListenerFactory = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder eventListenerFactory(okhttp3.EventListener$Factory factory)
+  /// from: `public final okhttp3.OkHttpClient$Builder eventListenerFactory(okhttp3.EventListener$Factory factory)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder eventListenerFactory(
-    jni.JObject factory0,
+    _$jni.JObject factory,
   ) {
     return _eventListenerFactory(
             reference.pointer,
-            _id_eventListenerFactory as jni.JMethodIDPtr,
-            factory0.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+            _id_eventListenerFactory as _$jni.JMethodIDPtr,
+            factory.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_retryOnConnectionFailure = _class.instanceMethodId(
@@ -4539,22 +4812,24 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Z)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _retryOnConnectionFailure = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallObjectMethod')
+  static final _retryOnConnectionFailure = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder retryOnConnectionFailure(boolean z)
+  /// from: `public final okhttp3.OkHttpClient$Builder retryOnConnectionFailure(boolean z)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder retryOnConnectionFailure(
     bool z,
   ) {
     return _retryOnConnectionFailure(reference.pointer,
-            _id_retryOnConnectionFailure as jni.JMethodIDPtr, z ? 1 : 0)
-        .object(const $OkHttpClient_BuilderType());
+            _id_retryOnConnectionFailure as _$jni.JMethodIDPtr, z ? 1 : 0)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_authenticator = _class.instanceMethodId(
@@ -4562,27 +4837,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/Authenticator;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _authenticator = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _authenticator = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder authenticator(okhttp3.Authenticator authenticator)
+  /// from: `public final okhttp3.OkHttpClient$Builder authenticator(okhttp3.Authenticator authenticator)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder authenticator(
-    jni.JObject authenticator,
+    _$jni.JObject authenticator,
   ) {
     return _authenticator(
             reference.pointer,
-            _id_authenticator as jni.JMethodIDPtr,
+            _id_authenticator as _$jni.JMethodIDPtr,
             authenticator.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_followRedirects = _class.instanceMethodId(
@@ -4590,22 +4865,24 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Z)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _followRedirects = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallObjectMethod')
+  static final _followRedirects = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder followRedirects(boolean z)
+  /// from: `public final okhttp3.OkHttpClient$Builder followRedirects(boolean z)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder followRedirects(
     bool z,
   ) {
     return _followRedirects(reference.pointer,
-            _id_followRedirects as jni.JMethodIDPtr, z ? 1 : 0)
-        .object(const $OkHttpClient_BuilderType());
+            _id_followRedirects as _$jni.JMethodIDPtr, z ? 1 : 0)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_followSslRedirects = _class.instanceMethodId(
@@ -4613,22 +4890,24 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Z)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _followSslRedirects = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallObjectMethod')
+  static final _followSslRedirects = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder followSslRedirects(boolean z)
+  /// from: `public final okhttp3.OkHttpClient$Builder followSslRedirects(boolean z)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder followSslRedirects(
     bool z,
   ) {
     return _followSslRedirects(reference.pointer,
-            _id_followSslRedirects as jni.JMethodIDPtr, z ? 1 : 0)
-        .object(const $OkHttpClient_BuilderType());
+            _id_followSslRedirects as _$jni.JMethodIDPtr, z ? 1 : 0)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_cookieJar = _class.instanceMethodId(
@@ -4636,25 +4915,25 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/CookieJar;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _cookieJar = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _cookieJar = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder cookieJar(okhttp3.CookieJar cookieJar)
+  /// from: `public final okhttp3.OkHttpClient$Builder cookieJar(okhttp3.CookieJar cookieJar)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder cookieJar(
-    jni.JObject cookieJar,
+    _$jni.JObject cookieJar,
   ) {
-    return _cookieJar(reference.pointer, _id_cookieJar as jni.JMethodIDPtr,
+    return _cookieJar(reference.pointer, _id_cookieJar as _$jni.JMethodIDPtr,
             cookieJar.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_cache = _class.instanceMethodId(
@@ -4662,25 +4941,25 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/Cache;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _cache = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _cache = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder cache(okhttp3.Cache cache)
+  /// from: `public final okhttp3.OkHttpClient$Builder cache(okhttp3.Cache cache)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder cache(
     Cache cache,
   ) {
-    return _cache(reference.pointer, _id_cache as jni.JMethodIDPtr,
+    return _cache(reference.pointer, _id_cache as _$jni.JMethodIDPtr,
             cache.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_dns = _class.instanceMethodId(
@@ -4688,25 +4967,25 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/Dns;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _dns = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _dns = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder dns(okhttp3.Dns dns)
+  /// from: `public final okhttp3.OkHttpClient$Builder dns(okhttp3.Dns dns)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder dns(
-    jni.JObject dns,
+    _$jni.JObject dns,
   ) {
-    return _dns(reference.pointer, _id_dns as jni.JMethodIDPtr,
+    return _dns(reference.pointer, _id_dns as _$jni.JMethodIDPtr,
             dns.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_proxy = _class.instanceMethodId(
@@ -4714,25 +4993,25 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Ljava/net/Proxy;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _proxy = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _proxy = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder proxy(java.net.Proxy proxy)
+  /// from: `public final okhttp3.OkHttpClient$Builder proxy(java.net.Proxy proxy)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder proxy(
-    jni.JObject proxy,
+    _$jni.JObject proxy,
   ) {
-    return _proxy(reference.pointer, _id_proxy as jni.JMethodIDPtr,
+    return _proxy(reference.pointer, _id_proxy as _$jni.JMethodIDPtr,
             proxy.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_proxySelector = _class.instanceMethodId(
@@ -4740,27 +5019,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Ljava/net/ProxySelector;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _proxySelector = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _proxySelector = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder proxySelector(java.net.ProxySelector proxySelector)
+  /// from: `public final okhttp3.OkHttpClient$Builder proxySelector(java.net.ProxySelector proxySelector)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder proxySelector(
-    jni.JObject proxySelector,
+    _$jni.JObject proxySelector,
   ) {
     return _proxySelector(
             reference.pointer,
-            _id_proxySelector as jni.JMethodIDPtr,
+            _id_proxySelector as _$jni.JMethodIDPtr,
             proxySelector.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_proxyAuthenticator = _class.instanceMethodId(
@@ -4768,27 +5047,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/Authenticator;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _proxyAuthenticator = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _proxyAuthenticator = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder proxyAuthenticator(okhttp3.Authenticator authenticator)
+  /// from: `public final okhttp3.OkHttpClient$Builder proxyAuthenticator(okhttp3.Authenticator authenticator)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder proxyAuthenticator(
-    jni.JObject authenticator,
+    _$jni.JObject authenticator,
   ) {
     return _proxyAuthenticator(
             reference.pointer,
-            _id_proxyAuthenticator as jni.JMethodIDPtr,
+            _id_proxyAuthenticator as _$jni.JMethodIDPtr,
             authenticator.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_socketFactory = _class.instanceMethodId(
@@ -4796,27 +5075,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Ljavax/net/SocketFactory;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _socketFactory = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _socketFactory = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder socketFactory(javax.net.SocketFactory socketFactory)
+  /// from: `public final okhttp3.OkHttpClient$Builder socketFactory(javax.net.SocketFactory socketFactory)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder socketFactory(
-    jni.JObject socketFactory,
+    _$jni.JObject socketFactory,
   ) {
     return _socketFactory(
             reference.pointer,
-            _id_socketFactory as jni.JMethodIDPtr,
+            _id_socketFactory as _$jni.JMethodIDPtr,
             socketFactory.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_sslSocketFactory = _class.instanceMethodId(
@@ -4824,60 +5103,63 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Ljavax/net/ssl/SSLSocketFactory;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _sslSocketFactory = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _sslSocketFactory = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory)
+  /// from: `public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder sslSocketFactory(
-    jni.JObject sSLSocketFactory,
+    _$jni.JObject sSLSocketFactory,
   ) {
     return _sslSocketFactory(
             reference.pointer,
-            _id_sslSocketFactory as jni.JMethodIDPtr,
+            _id_sslSocketFactory as _$jni.JMethodIDPtr,
             sSLSocketFactory.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
-  static final _id_sslSocketFactory1 = _class.instanceMethodId(
+  static final _id_sslSocketFactory$1 = _class.instanceMethodId(
     r'sslSocketFactory',
     r'(Ljavax/net/ssl/SSLSocketFactory;Ljavax/net/ssl/X509TrustManager;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _sslSocketFactory1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _sslSocketFactory$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory, javax.net.ssl.X509TrustManager x509TrustManager)
+  /// from: `public final okhttp3.OkHttpClient$Builder sslSocketFactory(javax.net.ssl.SSLSocketFactory sSLSocketFactory, javax.net.ssl.X509TrustManager x509TrustManager)`
   /// The returned object must be released after use, by calling the [release] method.
-  OkHttpClient_Builder sslSocketFactory1(
-    jni.JObject sSLSocketFactory,
-    jni.JObject x509TrustManager,
+  OkHttpClient_Builder sslSocketFactory$1(
+    _$jni.JObject sSLSocketFactory,
+    _$jni.JObject x509TrustManager,
   ) {
-    return _sslSocketFactory1(
+    return _sslSocketFactory$1(
             reference.pointer,
-            _id_sslSocketFactory1 as jni.JMethodIDPtr,
+            _id_sslSocketFactory$1 as _$jni.JMethodIDPtr,
             sSLSocketFactory.reference.pointer,
             x509TrustManager.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_connectionSpecs = _class.instanceMethodId(
@@ -4885,25 +5167,25 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Ljava/util/List;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _connectionSpecs = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _connectionSpecs = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder connectionSpecs(java.util.List list)
+  /// from: `public final okhttp3.OkHttpClient$Builder connectionSpecs(java.util.List list)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectionSpecs(
-    jni.JList<jni.JObject> list,
+    _$jni.JList<_$jni.JObject> list,
   ) {
     return _connectionSpecs(reference.pointer,
-            _id_connectionSpecs as jni.JMethodIDPtr, list.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+            _id_connectionSpecs as _$jni.JMethodIDPtr, list.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_protocols = _class.instanceMethodId(
@@ -4911,25 +5193,25 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Ljava/util/List;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _protocols = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _protocols = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder protocols(java.util.List list)
+  /// from: `public final okhttp3.OkHttpClient$Builder protocols(java.util.List list)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder protocols(
-    jni.JList<jni.JObject> list,
+    _$jni.JList<_$jni.JObject> list,
   ) {
-    return _protocols(reference.pointer, _id_protocols as jni.JMethodIDPtr,
+    return _protocols(reference.pointer, _id_protocols as _$jni.JMethodIDPtr,
             list.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_hostnameVerifier = _class.instanceMethodId(
@@ -4937,27 +5219,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Ljavax/net/ssl/HostnameVerifier;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _hostnameVerifier = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _hostnameVerifier = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder hostnameVerifier(javax.net.ssl.HostnameVerifier hostnameVerifier)
+  /// from: `public final okhttp3.OkHttpClient$Builder hostnameVerifier(javax.net.ssl.HostnameVerifier hostnameVerifier)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder hostnameVerifier(
-    jni.JObject hostnameVerifier,
+    _$jni.JObject hostnameVerifier,
   ) {
     return _hostnameVerifier(
             reference.pointer,
-            _id_hostnameVerifier as jni.JMethodIDPtr,
+            _id_hostnameVerifier as _$jni.JMethodIDPtr,
             hostnameVerifier.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_certificatePinner = _class.instanceMethodId(
@@ -4965,27 +5247,27 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(Lokhttp3/CertificatePinner;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _certificatePinner = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _certificatePinner = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder certificatePinner(okhttp3.CertificatePinner certificatePinner)
+  /// from: `public final okhttp3.OkHttpClient$Builder certificatePinner(okhttp3.CertificatePinner certificatePinner)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder certificatePinner(
-    jni.JObject certificatePinner,
+    _$jni.JObject certificatePinner,
   ) {
     return _certificatePinner(
             reference.pointer,
-            _id_certificatePinner as jni.JMethodIDPtr,
+            _id_certificatePinner as _$jni.JMethodIDPtr,
             certificatePinner.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_callTimeout = _class.instanceMethodId(
@@ -4993,52 +5275,56 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(JLjava/util/concurrent/TimeUnit;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _callTimeout = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int64, ffi.Pointer<ffi.Void>)>)>>(
+  static final _callTimeout = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Int64, _$jni.Pointer<_$jni.Void>)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder callTimeout(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder callTimeout(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder callTimeout(
     int j,
     TimeUnit timeUnit,
   ) {
-    return _callTimeout(reference.pointer, _id_callTimeout as jni.JMethodIDPtr,
-            j, timeUnit.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _callTimeout(
+            reference.pointer,
+            _id_callTimeout as _$jni.JMethodIDPtr,
+            j,
+            timeUnit.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
-  static final _id_callTimeout1 = _class.instanceMethodId(
+  static final _id_callTimeout$1 = _class.instanceMethodId(
     r'callTimeout',
     r'(Ljava/time/Duration;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _callTimeout1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _callTimeout$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder callTimeout(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder callTimeout(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
-  OkHttpClient_Builder callTimeout1(
-    jni.JObject duration,
+  OkHttpClient_Builder callTimeout$1(
+    _$jni.JObject duration,
   ) {
-    return _callTimeout1(reference.pointer,
-            _id_callTimeout1 as jni.JMethodIDPtr, duration.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _callTimeout$1(reference.pointer,
+            _id_callTimeout$1 as _$jni.JMethodIDPtr, duration.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_connectTimeout = _class.instanceMethodId(
@@ -5046,18 +5332,19 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(JLjava/util/concurrent/TimeUnit;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _connectTimeout = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int64, ffi.Pointer<ffi.Void>)>)>>(
+  static final _connectTimeout = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Int64, _$jni.Pointer<_$jni.Void>)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder connectTimeout(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder connectTimeout(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder connectTimeout(
     int j,
@@ -5065,36 +5352,38 @@ class OkHttpClient_Builder extends jni.JObject {
   ) {
     return _connectTimeout(
             reference.pointer,
-            _id_connectTimeout as jni.JMethodIDPtr,
+            _id_connectTimeout as _$jni.JMethodIDPtr,
             j,
             timeUnit.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
-  static final _id_connectTimeout1 = _class.instanceMethodId(
+  static final _id_connectTimeout$1 = _class.instanceMethodId(
     r'connectTimeout',
     r'(Ljava/time/Duration;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _connectTimeout1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _connectTimeout$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder connectTimeout(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder connectTimeout(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
-  OkHttpClient_Builder connectTimeout1(
-    jni.JObject duration,
+  OkHttpClient_Builder connectTimeout$1(
+    _$jni.JObject duration,
   ) {
-    return _connectTimeout1(reference.pointer,
-            _id_connectTimeout1 as jni.JMethodIDPtr, duration.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _connectTimeout$1(
+            reference.pointer,
+            _id_connectTimeout$1 as _$jni.JMethodIDPtr,
+            duration.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_readTimeout = _class.instanceMethodId(
@@ -5102,52 +5391,56 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(JLjava/util/concurrent/TimeUnit;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _readTimeout = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int64, ffi.Pointer<ffi.Void>)>)>>(
+  static final _readTimeout = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Int64, _$jni.Pointer<_$jni.Void>)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder readTimeout(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder readTimeout(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder readTimeout(
     int j,
     TimeUnit timeUnit,
   ) {
-    return _readTimeout(reference.pointer, _id_readTimeout as jni.JMethodIDPtr,
-            j, timeUnit.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _readTimeout(
+            reference.pointer,
+            _id_readTimeout as _$jni.JMethodIDPtr,
+            j,
+            timeUnit.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
-  static final _id_readTimeout1 = _class.instanceMethodId(
+  static final _id_readTimeout$1 = _class.instanceMethodId(
     r'readTimeout',
     r'(Ljava/time/Duration;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _readTimeout1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _readTimeout$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder readTimeout(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder readTimeout(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
-  OkHttpClient_Builder readTimeout1(
-    jni.JObject duration,
+  OkHttpClient_Builder readTimeout$1(
+    _$jni.JObject duration,
   ) {
-    return _readTimeout1(reference.pointer,
-            _id_readTimeout1 as jni.JMethodIDPtr, duration.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _readTimeout$1(reference.pointer,
+            _id_readTimeout$1 as _$jni.JMethodIDPtr, duration.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_writeTimeout = _class.instanceMethodId(
@@ -5155,52 +5448,58 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(JLjava/util/concurrent/TimeUnit;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _writeTimeout = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int64, ffi.Pointer<ffi.Void>)>)>>(
+  static final _writeTimeout = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Int64, _$jni.Pointer<_$jni.Void>)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder writeTimeout(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder writeTimeout(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder writeTimeout(
     int j,
     TimeUnit timeUnit,
   ) {
-    return _writeTimeout(reference.pointer,
-            _id_writeTimeout as jni.JMethodIDPtr, j, timeUnit.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _writeTimeout(
+            reference.pointer,
+            _id_writeTimeout as _$jni.JMethodIDPtr,
+            j,
+            timeUnit.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
-  static final _id_writeTimeout1 = _class.instanceMethodId(
+  static final _id_writeTimeout$1 = _class.instanceMethodId(
     r'writeTimeout',
     r'(Ljava/time/Duration;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _writeTimeout1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _writeTimeout$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder writeTimeout(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder writeTimeout(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
-  OkHttpClient_Builder writeTimeout1(
-    jni.JObject duration,
+  OkHttpClient_Builder writeTimeout$1(
+    _$jni.JObject duration,
   ) {
-    return _writeTimeout1(reference.pointer,
-            _id_writeTimeout1 as jni.JMethodIDPtr, duration.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _writeTimeout$1(
+            reference.pointer,
+            _id_writeTimeout$1 as _$jni.JMethodIDPtr,
+            duration.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_pingInterval = _class.instanceMethodId(
@@ -5208,52 +5507,58 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(JLjava/util/concurrent/TimeUnit;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _pingInterval = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int64, ffi.Pointer<ffi.Void>)>)>>(
+  static final _pingInterval = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Int64, _$jni.Pointer<_$jni.Void>)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder pingInterval(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public final okhttp3.OkHttpClient$Builder pingInterval(long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder pingInterval(
     int j,
     TimeUnit timeUnit,
   ) {
-    return _pingInterval(reference.pointer,
-            _id_pingInterval as jni.JMethodIDPtr, j, timeUnit.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _pingInterval(
+            reference.pointer,
+            _id_pingInterval as _$jni.JMethodIDPtr,
+            j,
+            timeUnit.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
-  static final _id_pingInterval1 = _class.instanceMethodId(
+  static final _id_pingInterval$1 = _class.instanceMethodId(
     r'pingInterval',
     r'(Ljava/time/Duration;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _pingInterval1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _pingInterval$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder pingInterval(java.time.Duration duration)
+  /// from: `public final okhttp3.OkHttpClient$Builder pingInterval(java.time.Duration duration)`
   /// The returned object must be released after use, by calling the [release] method.
-  OkHttpClient_Builder pingInterval1(
-    jni.JObject duration,
+  OkHttpClient_Builder pingInterval$1(
+    _$jni.JObject duration,
   ) {
-    return _pingInterval1(reference.pointer,
-            _id_pingInterval1 as jni.JMethodIDPtr, duration.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _pingInterval$1(
+            reference.pointer,
+            _id_pingInterval$1 as _$jni.JMethodIDPtr,
+            duration.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_minWebSocketMessageToCompress = _class.instanceMethodId(
@@ -5261,22 +5566,24 @@ class OkHttpClient_Builder extends jni.JObject {
     r'(J)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _minWebSocketMessageToCompress = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+  static final _minWebSocketMessageToCompress =
+      _$jni.ProtectedJniExtensions.lookup<
+                  _$jni.NativeFunction<
+                      _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+                          _$jni.JMethodIDPtr, _$jni.VarArgs<(_$jni.Int64,)>)>>(
+              'globalEnv_CallObjectMethod')
+          .asFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder minWebSocketMessageToCompress(long j)
+  /// from: `public final okhttp3.OkHttpClient$Builder minWebSocketMessageToCompress(long j)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder minWebSocketMessageToCompress(
     int j,
   ) {
     return _minWebSocketMessageToCompress(reference.pointer,
-            _id_minWebSocketMessageToCompress as jni.JMethodIDPtr, j)
-        .object(const $OkHttpClient_BuilderType());
+            _id_minWebSocketMessageToCompress as _$jni.JMethodIDPtr, j)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_build = _class.instanceMethodId(
@@ -5284,166 +5591,182 @@ class OkHttpClient_Builder extends jni.JObject {
     r'()Lokhttp3/OkHttpClient;',
   );
 
-  static final _build = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _build = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.OkHttpClient build()
+  /// from: `public final okhttp3.OkHttpClient build()`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient build() {
-    return _build(reference.pointer, _id_build as jni.JMethodIDPtr)
-        .object(const $OkHttpClientType());
+    return _build(reference.pointer, _id_build as _$jni.JMethodIDPtr)
+        .object(const $OkHttpClient$Type());
   }
 }
 
-final class $OkHttpClient_BuilderType
-    extends jni.JObjType<OkHttpClient_Builder> {
-  const $OkHttpClient_BuilderType();
+final class $OkHttpClient_Builder$Type
+    extends _$jni.JObjType<OkHttpClient_Builder> {
+  @_$jni.internal
+  const $OkHttpClient_Builder$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/OkHttpClient$Builder;';
 
-  @override
-  OkHttpClient_Builder fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  OkHttpClient_Builder fromReference(_$jni.JReference reference) =>
       OkHttpClient_Builder.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($OkHttpClient_BuilderType).hashCode;
+  @_$core.override
+  int get hashCode => ($OkHttpClient_Builder$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($OkHttpClient_BuilderType) &&
-        other is $OkHttpClient_BuilderType;
+    return other.runtimeType == ($OkHttpClient_Builder$Type) &&
+        other is $OkHttpClient_Builder$Type;
   }
 }
 
-/// from: okhttp3.OkHttpClient$Companion
-class OkHttpClient_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<OkHttpClient_Companion> $type = type;
+/// from: `okhttp3.OkHttpClient$Companion`
+class OkHttpClient_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<OkHttpClient_Companion> $type;
 
+  @_$jni.internal
   OkHttpClient_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/OkHttpClient$Companion');
+  static final _class = _$jni.JClass.forName(r'okhttp3/OkHttpClient$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $OkHttpClient_CompanionType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $OkHttpClient_Companion$Type();
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory OkHttpClient_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return OkHttpClient_Companion.fromReference(_new0(
+    return OkHttpClient_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $OkHttpClient_CompanionType
-    extends jni.JObjType<OkHttpClient_Companion> {
-  const $OkHttpClient_CompanionType();
+final class $OkHttpClient_Companion$Type
+    extends _$jni.JObjType<OkHttpClient_Companion> {
+  @_$jni.internal
+  const $OkHttpClient_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/OkHttpClient$Companion;';
 
-  @override
-  OkHttpClient_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  OkHttpClient_Companion fromReference(_$jni.JReference reference) =>
       OkHttpClient_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($OkHttpClient_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($OkHttpClient_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($OkHttpClient_CompanionType) &&
-        other is $OkHttpClient_CompanionType;
+    return other.runtimeType == ($OkHttpClient_Companion$Type) &&
+        other is $OkHttpClient_Companion$Type;
   }
 }
 
-/// from: okhttp3.OkHttpClient
-class OkHttpClient extends jni.JObject {
-  @override
-  late final jni.JObjType<OkHttpClient> $type = type;
+/// from: `okhttp3.OkHttpClient`
+class OkHttpClient extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<OkHttpClient> $type;
 
+  @_$jni.internal
   OkHttpClient.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/OkHttpClient');
+  static final _class = _$jni.JClass.forName(r'okhttp3/OkHttpClient');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $OkHttpClientType();
+  static const type = $OkHttpClient$Type();
   static final _id_Companion = _class.staticFieldId(
     r'Companion',
     r'Lokhttp3/OkHttpClient$Companion;',
   );
 
-  /// from: static public final okhttp3.OkHttpClient$Companion Companion
+  /// from: `static public final okhttp3.OkHttpClient$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static OkHttpClient_Companion get Companion =>
-      _id_Companion.get(_class, const $OkHttpClient_CompanionType());
+      _id_Companion.get(_class, const $OkHttpClient_Companion$Type());
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Lokhttp3/OkHttpClient$Builder;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(okhttp3.OkHttpClient$Builder builder)
+  /// from: `public void <init>(okhttp3.OkHttpClient$Builder builder)`
   /// The returned object must be released after use, by calling the [release] method.
   factory OkHttpClient(
     OkHttpClient_Builder builder,
   ) {
-    return OkHttpClient.fromReference(_new0(_class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr, builder.reference.pointer)
+    return OkHttpClient.fromReference(_new$(_class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr, builder.reference.pointer)
         .reference);
   }
 
@@ -5452,23 +5775,23 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/Dispatcher;',
   );
 
-  static final _dispatcher = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _dispatcher = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Dispatcher dispatcher()
+  /// from: `public final okhttp3.Dispatcher dispatcher()`
   /// The returned object must be released after use, by calling the [release] method.
   Dispatcher dispatcher() {
-    return _dispatcher(reference.pointer, _id_dispatcher as jni.JMethodIDPtr)
-        .object(const $DispatcherType());
+    return _dispatcher(reference.pointer, _id_dispatcher as _$jni.JMethodIDPtr)
+        .object(const $Dispatcher$Type());
   }
 
   static final _id_connectionPool = _class.instanceMethodId(
@@ -5476,24 +5799,24 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/ConnectionPool;',
   );
 
-  static final _connectionPool = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _connectionPool = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.ConnectionPool connectionPool()
+  /// from: `public final okhttp3.ConnectionPool connectionPool()`
   /// The returned object must be released after use, by calling the [release] method.
   ConnectionPool connectionPool() {
     return _connectionPool(
-            reference.pointer, _id_connectionPool as jni.JMethodIDPtr)
-        .object(const $ConnectionPoolType());
+            reference.pointer, _id_connectionPool as _$jni.JMethodIDPtr)
+        .object(const $ConnectionPool$Type());
   }
 
   static final _id_interceptors = _class.instanceMethodId(
@@ -5501,24 +5824,24 @@ class OkHttpClient extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _interceptors = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _interceptors = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List interceptors()
+  /// from: `public final java.util.List interceptors()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> interceptors() {
+  _$jni.JList<_$jni.JObject> interceptors() {
     return _interceptors(
-            reference.pointer, _id_interceptors as jni.JMethodIDPtr)
-        .object(const jni.JListType(jni.JObjectType()));
+            reference.pointer, _id_interceptors as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
   }
 
   static final _id_networkInterceptors = _class.instanceMethodId(
@@ -5526,24 +5849,24 @@ class OkHttpClient extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _networkInterceptors = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _networkInterceptors = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List networkInterceptors()
+  /// from: `public final java.util.List networkInterceptors()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> networkInterceptors() {
+  _$jni.JList<_$jni.JObject> networkInterceptors() {
     return _networkInterceptors(
-            reference.pointer, _id_networkInterceptors as jni.JMethodIDPtr)
-        .object(const jni.JListType(jni.JObjectType()));
+            reference.pointer, _id_networkInterceptors as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
   }
 
   static final _id_eventListenerFactory = _class.instanceMethodId(
@@ -5551,24 +5874,24 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/EventListener$Factory;',
   );
 
-  static final _eventListenerFactory = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _eventListenerFactory = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.EventListener$Factory eventListenerFactory()
+  /// from: `public final okhttp3.EventListener$Factory eventListenerFactory()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject eventListenerFactory() {
+  _$jni.JObject eventListenerFactory() {
     return _eventListenerFactory(
-            reference.pointer, _id_eventListenerFactory as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_eventListenerFactory as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_retryOnConnectionFailure = _class.instanceMethodId(
@@ -5576,22 +5899,22 @@ class OkHttpClient extends jni.JObject {
     r'()Z',
   );
 
-  static final _retryOnConnectionFailure = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _retryOnConnectionFailure = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean retryOnConnectionFailure()
+  /// from: `public final boolean retryOnConnectionFailure()`
   bool retryOnConnectionFailure() {
-    return _retryOnConnectionFailure(
-            reference.pointer, _id_retryOnConnectionFailure as jni.JMethodIDPtr)
+    return _retryOnConnectionFailure(reference.pointer,
+            _id_retryOnConnectionFailure as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -5600,24 +5923,24 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/Authenticator;',
   );
 
-  static final _authenticator = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _authenticator = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Authenticator authenticator()
+  /// from: `public final okhttp3.Authenticator authenticator()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject authenticator() {
+  _$jni.JObject authenticator() {
     return _authenticator(
-            reference.pointer, _id_authenticator as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_authenticator as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_followRedirects = _class.instanceMethodId(
@@ -5625,22 +5948,22 @@ class OkHttpClient extends jni.JObject {
     r'()Z',
   );
 
-  static final _followRedirects = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _followRedirects = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean followRedirects()
+  /// from: `public final boolean followRedirects()`
   bool followRedirects() {
     return _followRedirects(
-            reference.pointer, _id_followRedirects as jni.JMethodIDPtr)
+            reference.pointer, _id_followRedirects as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -5649,22 +5972,22 @@ class OkHttpClient extends jni.JObject {
     r'()Z',
   );
 
-  static final _followSslRedirects = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _followSslRedirects = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean followSslRedirects()
+  /// from: `public final boolean followSslRedirects()`
   bool followSslRedirects() {
     return _followSslRedirects(
-            reference.pointer, _id_followSslRedirects as jni.JMethodIDPtr)
+            reference.pointer, _id_followSslRedirects as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -5673,23 +5996,23 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/CookieJar;',
   );
 
-  static final _cookieJar = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _cookieJar = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.CookieJar cookieJar()
+  /// from: `public final okhttp3.CookieJar cookieJar()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject cookieJar() {
-    return _cookieJar(reference.pointer, _id_cookieJar as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject cookieJar() {
+    return _cookieJar(reference.pointer, _id_cookieJar as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_cache = _class.instanceMethodId(
@@ -5697,23 +6020,23 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/Cache;',
   );
 
-  static final _cache = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _cache = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Cache cache()
+  /// from: `public final okhttp3.Cache cache()`
   /// The returned object must be released after use, by calling the [release] method.
   Cache cache() {
-    return _cache(reference.pointer, _id_cache as jni.JMethodIDPtr)
-        .object(const $CacheType());
+    return _cache(reference.pointer, _id_cache as _$jni.JMethodIDPtr)
+        .object(const $Cache$Type());
   }
 
   static final _id_dns = _class.instanceMethodId(
@@ -5721,23 +6044,23 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/Dns;',
   );
 
-  static final _dns = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _dns = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Dns dns()
+  /// from: `public final okhttp3.Dns dns()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject dns() {
-    return _dns(reference.pointer, _id_dns as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject dns() {
+    return _dns(reference.pointer, _id_dns as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_proxy = _class.instanceMethodId(
@@ -5745,23 +6068,23 @@ class OkHttpClient extends jni.JObject {
     r'()Ljava/net/Proxy;',
   );
 
-  static final _proxy = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _proxy = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.net.Proxy proxy()
+  /// from: `public final java.net.Proxy proxy()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject proxy() {
-    return _proxy(reference.pointer, _id_proxy as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject proxy() {
+    return _proxy(reference.pointer, _id_proxy as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_proxySelector = _class.instanceMethodId(
@@ -5769,24 +6092,24 @@ class OkHttpClient extends jni.JObject {
     r'()Ljava/net/ProxySelector;',
   );
 
-  static final _proxySelector = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _proxySelector = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.net.ProxySelector proxySelector()
+  /// from: `public final java.net.ProxySelector proxySelector()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject proxySelector() {
+  _$jni.JObject proxySelector() {
     return _proxySelector(
-            reference.pointer, _id_proxySelector as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_proxySelector as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_proxyAuthenticator = _class.instanceMethodId(
@@ -5794,24 +6117,24 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/Authenticator;',
   );
 
-  static final _proxyAuthenticator = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _proxyAuthenticator = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Authenticator proxyAuthenticator()
+  /// from: `public final okhttp3.Authenticator proxyAuthenticator()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject proxyAuthenticator() {
+  _$jni.JObject proxyAuthenticator() {
     return _proxyAuthenticator(
-            reference.pointer, _id_proxyAuthenticator as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_proxyAuthenticator as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_socketFactory = _class.instanceMethodId(
@@ -5819,24 +6142,24 @@ class OkHttpClient extends jni.JObject {
     r'()Ljavax/net/SocketFactory;',
   );
 
-  static final _socketFactory = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _socketFactory = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final javax.net.SocketFactory socketFactory()
+  /// from: `public final javax.net.SocketFactory socketFactory()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject socketFactory() {
+  _$jni.JObject socketFactory() {
     return _socketFactory(
-            reference.pointer, _id_socketFactory as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_socketFactory as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_sslSocketFactory = _class.instanceMethodId(
@@ -5844,24 +6167,24 @@ class OkHttpClient extends jni.JObject {
     r'()Ljavax/net/ssl/SSLSocketFactory;',
   );
 
-  static final _sslSocketFactory = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _sslSocketFactory = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final javax.net.ssl.SSLSocketFactory sslSocketFactory()
+  /// from: `public final javax.net.ssl.SSLSocketFactory sslSocketFactory()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject sslSocketFactory() {
+  _$jni.JObject sslSocketFactory() {
     return _sslSocketFactory(
-            reference.pointer, _id_sslSocketFactory as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_sslSocketFactory as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_x509TrustManager = _class.instanceMethodId(
@@ -5869,24 +6192,24 @@ class OkHttpClient extends jni.JObject {
     r'()Ljavax/net/ssl/X509TrustManager;',
   );
 
-  static final _x509TrustManager = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _x509TrustManager = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final javax.net.ssl.X509TrustManager x509TrustManager()
+  /// from: `public final javax.net.ssl.X509TrustManager x509TrustManager()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject x509TrustManager() {
+  _$jni.JObject x509TrustManager() {
     return _x509TrustManager(
-            reference.pointer, _id_x509TrustManager as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_x509TrustManager as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_connectionSpecs = _class.instanceMethodId(
@@ -5894,24 +6217,24 @@ class OkHttpClient extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _connectionSpecs = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _connectionSpecs = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List connectionSpecs()
+  /// from: `public final java.util.List connectionSpecs()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> connectionSpecs() {
+  _$jni.JList<_$jni.JObject> connectionSpecs() {
     return _connectionSpecs(
-            reference.pointer, _id_connectionSpecs as jni.JMethodIDPtr)
-        .object(const jni.JListType(jni.JObjectType()));
+            reference.pointer, _id_connectionSpecs as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
   }
 
   static final _id_protocols = _class.instanceMethodId(
@@ -5919,23 +6242,23 @@ class OkHttpClient extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _protocols = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _protocols = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List protocols()
+  /// from: `public final java.util.List protocols()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> protocols() {
-    return _protocols(reference.pointer, _id_protocols as jni.JMethodIDPtr)
-        .object(const jni.JListType(jni.JObjectType()));
+  _$jni.JList<_$jni.JObject> protocols() {
+    return _protocols(reference.pointer, _id_protocols as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
   }
 
   static final _id_hostnameVerifier = _class.instanceMethodId(
@@ -5943,24 +6266,24 @@ class OkHttpClient extends jni.JObject {
     r'()Ljavax/net/ssl/HostnameVerifier;',
   );
 
-  static final _hostnameVerifier = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _hostnameVerifier = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final javax.net.ssl.HostnameVerifier hostnameVerifier()
+  /// from: `public final javax.net.ssl.HostnameVerifier hostnameVerifier()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject hostnameVerifier() {
+  _$jni.JObject hostnameVerifier() {
     return _hostnameVerifier(
-            reference.pointer, _id_hostnameVerifier as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_hostnameVerifier as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_certificatePinner = _class.instanceMethodId(
@@ -5968,24 +6291,24 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/CertificatePinner;',
   );
 
-  static final _certificatePinner = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _certificatePinner = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.CertificatePinner certificatePinner()
+  /// from: `public final okhttp3.CertificatePinner certificatePinner()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject certificatePinner() {
+  _$jni.JObject certificatePinner() {
     return _certificatePinner(
-            reference.pointer, _id_certificatePinner as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_certificatePinner as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_certificateChainCleaner = _class.instanceMethodId(
@@ -5993,24 +6316,24 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/internal/tls/CertificateChainCleaner;',
   );
 
-  static final _certificateChainCleaner = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _certificateChainCleaner = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.internal.tls.CertificateChainCleaner certificateChainCleaner()
+  /// from: `public final okhttp3.internal.tls.CertificateChainCleaner certificateChainCleaner()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject certificateChainCleaner() {
-    return _certificateChainCleaner(
-            reference.pointer, _id_certificateChainCleaner as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject certificateChainCleaner() {
+    return _certificateChainCleaner(reference.pointer,
+            _id_certificateChainCleaner as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_callTimeoutMillis = _class.instanceMethodId(
@@ -6018,22 +6341,22 @@ class OkHttpClient extends jni.JObject {
     r'()I',
   );
 
-  static final _callTimeoutMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _callTimeoutMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int callTimeoutMillis()
+  /// from: `public final int callTimeoutMillis()`
   int callTimeoutMillis() {
     return _callTimeoutMillis(
-            reference.pointer, _id_callTimeoutMillis as jni.JMethodIDPtr)
+            reference.pointer, _id_callTimeoutMillis as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -6042,22 +6365,22 @@ class OkHttpClient extends jni.JObject {
     r'()I',
   );
 
-  static final _connectTimeoutMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _connectTimeoutMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int connectTimeoutMillis()
+  /// from: `public final int connectTimeoutMillis()`
   int connectTimeoutMillis() {
     return _connectTimeoutMillis(
-            reference.pointer, _id_connectTimeoutMillis as jni.JMethodIDPtr)
+            reference.pointer, _id_connectTimeoutMillis as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -6066,22 +6389,22 @@ class OkHttpClient extends jni.JObject {
     r'()I',
   );
 
-  static final _readTimeoutMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _readTimeoutMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int readTimeoutMillis()
+  /// from: `public final int readTimeoutMillis()`
   int readTimeoutMillis() {
     return _readTimeoutMillis(
-            reference.pointer, _id_readTimeoutMillis as jni.JMethodIDPtr)
+            reference.pointer, _id_readTimeoutMillis as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -6090,22 +6413,22 @@ class OkHttpClient extends jni.JObject {
     r'()I',
   );
 
-  static final _writeTimeoutMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _writeTimeoutMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int writeTimeoutMillis()
+  /// from: `public final int writeTimeoutMillis()`
   int writeTimeoutMillis() {
     return _writeTimeoutMillis(
-            reference.pointer, _id_writeTimeoutMillis as jni.JMethodIDPtr)
+            reference.pointer, _id_writeTimeoutMillis as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -6114,22 +6437,22 @@ class OkHttpClient extends jni.JObject {
     r'()I',
   );
 
-  static final _pingIntervalMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _pingIntervalMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int pingIntervalMillis()
+  /// from: `public final int pingIntervalMillis()`
   int pingIntervalMillis() {
     return _pingIntervalMillis(
-            reference.pointer, _id_pingIntervalMillis as jni.JMethodIDPtr)
+            reference.pointer, _id_pingIntervalMillis as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -6138,22 +6461,23 @@ class OkHttpClient extends jni.JObject {
     r'()J',
   );
 
-  static final _minWebSocketMessageToCompress = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
-              )>>('globalEnv_CallLongMethod')
-      .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
-          )>();
+  static final _minWebSocketMessageToCompress =
+      _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                    _$jni.Pointer<_$jni.Void>,
+                    _$jni.JMethodIDPtr,
+                  )>>('globalEnv_CallLongMethod')
+          .asFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>();
 
-  /// from: public final long minWebSocketMessageToCompress()
+  /// from: `public final long minWebSocketMessageToCompress()`
   int minWebSocketMessageToCompress() {
     return _minWebSocketMessageToCompress(reference.pointer,
-            _id_minWebSocketMessageToCompress as jni.JMethodIDPtr)
+            _id_minWebSocketMessageToCompress as _$jni.JMethodIDPtr)
         .long;
   }
 
@@ -6162,47 +6486,47 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/internal/connection/RouteDatabase;',
   );
 
-  static final _getRouteDatabase = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _getRouteDatabase = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.internal.connection.RouteDatabase getRouteDatabase()
+  /// from: `public final okhttp3.internal.connection.RouteDatabase getRouteDatabase()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject getRouteDatabase() {
+  _$jni.JObject getRouteDatabase() {
     return _getRouteDatabase(
-            reference.pointer, _id_getRouteDatabase as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_getRouteDatabase as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
-  static final _id_new1 = _class.constructorId(
+  static final _id_new$1 = _class.constructorId(
     r'()V',
   );
 
-  static final _new1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
-  factory OkHttpClient.new1() {
+  factory OkHttpClient.new$1() {
     return OkHttpClient.fromReference(
-        _new1(_class.reference.pointer, _id_new1 as jni.JMethodIDPtr)
+        _new$1(_class.reference.pointer, _id_new$1 as _$jni.JMethodIDPtr)
             .reference);
   }
 
@@ -6211,25 +6535,25 @@ class OkHttpClient extends jni.JObject {
     r'(Lokhttp3/Request;)Lokhttp3/Call;',
   );
 
-  static final _newCall = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _newCall = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.Call newCall(okhttp3.Request request)
+  /// from: `public okhttp3.Call newCall(okhttp3.Request request)`
   /// The returned object must be released after use, by calling the [release] method.
   Call newCall(
     Request request,
   ) {
-    return _newCall(reference.pointer, _id_newCall as jni.JMethodIDPtr,
+    return _newCall(reference.pointer, _id_newCall as _$jni.JMethodIDPtr,
             request.reference.pointer)
-        .object(const $CallType());
+        .object(const $Call$Type());
   }
 
   static final _id_newWebSocket = _class.instanceMethodId(
@@ -6237,32 +6561,35 @@ class OkHttpClient extends jni.JObject {
     r'(Lokhttp3/Request;Lokhttp3/WebSocketListener;)Lokhttp3/WebSocket;',
   );
 
-  static final _newWebSocket = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _newWebSocket = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)
+  /// from: `public okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)`
   /// The returned object must be released after use, by calling the [release] method.
   WebSocket newWebSocket(
     Request request,
-    jni.JObject webSocketListener,
+    _$jni.JObject webSocketListener,
   ) {
     return _newWebSocket(
             reference.pointer,
-            _id_newWebSocket as jni.JMethodIDPtr,
+            _id_newWebSocket as _$jni.JMethodIDPtr,
             request.reference.pointer,
             webSocketListener.reference.pointer)
-        .object(const $WebSocketType());
+        .object(const $WebSocket$Type());
   }
 
   static final _id_newBuilder = _class.instanceMethodId(
@@ -6270,23 +6597,23 @@ class OkHttpClient extends jni.JObject {
     r'()Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _newBuilder = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _newBuilder = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public okhttp3.OkHttpClient$Builder newBuilder()
+  /// from: `public okhttp3.OkHttpClient$Builder newBuilder()`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder newBuilder() {
-    return _newBuilder(reference.pointer, _id_newBuilder as jni.JMethodIDPtr)
-        .object(const $OkHttpClient_BuilderType());
+    return _newBuilder(reference.pointer, _id_newBuilder as _$jni.JMethodIDPtr)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
   static final _id_clone = _class.instanceMethodId(
@@ -6294,103 +6621,109 @@ class OkHttpClient extends jni.JObject {
     r'()Ljava/lang/Object;',
   );
 
-  static final _clone = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _clone = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.Object clone()
+  /// from: `public java.lang.Object clone()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject clone() {
-    return _clone(reference.pointer, _id_clone as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject clone() {
+    return _clone(reference.pointer, _id_clone as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 }
 
-final class $OkHttpClientType extends jni.JObjType<OkHttpClient> {
-  const $OkHttpClientType();
+final class $OkHttpClient$Type extends _$jni.JObjType<OkHttpClient> {
+  @_$jni.internal
+  const $OkHttpClient$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/OkHttpClient;';
 
-  @override
-  OkHttpClient fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  OkHttpClient fromReference(_$jni.JReference reference) =>
       OkHttpClient.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($OkHttpClientType).hashCode;
+  @_$core.override
+  int get hashCode => ($OkHttpClient$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($OkHttpClientType) &&
-        other is $OkHttpClientType;
+    return other.runtimeType == ($OkHttpClient$Type) &&
+        other is $OkHttpClient$Type;
   }
 }
 
-/// from: okhttp3.Call$Factory
-class Call_Factory extends jni.JObject {
-  @override
-  late final jni.JObjType<Call_Factory> $type = type;
+/// from: `okhttp3.Call$Factory`
+class Call_Factory extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Call_Factory> $type;
 
+  @_$jni.internal
   Call_Factory.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Call$Factory');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Call$Factory');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Call_FactoryType();
+  static const type = $Call_Factory$Type();
   static final _id_newCall = _class.instanceMethodId(
     r'newCall',
     r'(Lokhttp3/Request;)Lokhttp3/Call;',
   );
 
-  static final _newCall = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _newCall = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract okhttp3.Call newCall(okhttp3.Request request)
+  /// from: `public abstract okhttp3.Call newCall(okhttp3.Request request)`
   /// The returned object must be released after use, by calling the [release] method.
   Call newCall(
     Request request,
   ) {
-    return _newCall(reference.pointer, _id_newCall as jni.JMethodIDPtr,
+    return _newCall(reference.pointer, _id_newCall as _$jni.JMethodIDPtr,
             request.reference.pointer)
-        .object(const $CallType());
+        .object(const $Call$Type());
   }
 
   /// Maps a specific port to the implemented interface.
-  static final Map<int, $Call_FactoryImpl> _$impls = {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
+  static final _$core.Map<int, $Call_Factory> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -6398,71 +6731,80 @@ class Call_Factory extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d == r'newCall(Lokhttp3/Request;)Lokhttp3/Call;') {
         final $r = _$impls[$p]!.newCall(
-          $a[0].castTo(const $RequestType(), releaseOriginal: true),
+          $a[0].as(const $Request$Type(), releaseOriginal: true),
         );
-        return ($r as jni.JObject)
-            .castTo(const jni.JObjectType())
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
             .reference
             .toPointer();
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory Call_Factory.implement(
-    $Call_FactoryImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $Call_Factory $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = Call_Factory.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'okhttp3.Call$Factory',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'okhttp3.Call$Factory',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory Call_Factory.implement(
+    $Call_Factory $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return Call_Factory.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $Call_FactoryImpl {
-  factory $Call_FactoryImpl({
+abstract base mixin class $Call_Factory {
+  factory $Call_Factory({
     required Call Function(Request request) newCall,
-  }) = _$Call_FactoryImpl;
+  }) = _$Call_Factory;
 
   Call newCall(Request request);
 }
 
-class _$Call_FactoryImpl implements $Call_FactoryImpl {
-  _$Call_FactoryImpl({
+final class _$Call_Factory with $Call_Factory {
+  _$Call_Factory({
     required Call Function(Request request) newCall,
   }) : _newCall = newCall;
 
@@ -6473,67 +6815,75 @@ class _$Call_FactoryImpl implements $Call_FactoryImpl {
   }
 }
 
-final class $Call_FactoryType extends jni.JObjType<Call_Factory> {
-  const $Call_FactoryType();
+final class $Call_Factory$Type extends _$jni.JObjType<Call_Factory> {
+  @_$jni.internal
+  const $Call_Factory$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Call$Factory;';
 
-  @override
-  Call_Factory fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Call_Factory fromReference(_$jni.JReference reference) =>
       Call_Factory.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($Call_FactoryType).hashCode;
+  @_$core.override
+  int get hashCode => ($Call_Factory$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($Call_FactoryType) &&
-        other is $Call_FactoryType;
+    return other.runtimeType == ($Call_Factory$Type) &&
+        other is $Call_Factory$Type;
   }
 }
 
-/// from: okhttp3.Call
-class Call extends jni.JObject {
-  @override
-  late final jni.JObjType<Call> $type = type;
+/// from: `okhttp3.Call`
+class Call extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Call> $type;
 
+  @_$jni.internal
   Call.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Call');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Call');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $CallType();
+  static const type = $Call$Type();
   static final _id_request = _class.instanceMethodId(
     r'request',
     r'()Lokhttp3/Request;',
   );
 
-  static final _request = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _request = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.Request request()
+  /// from: `public abstract okhttp3.Request request()`
   /// The returned object must be released after use, by calling the [release] method.
   Request request() {
-    return _request(reference.pointer, _id_request as jni.JMethodIDPtr)
-        .object(const $RequestType());
+    return _request(reference.pointer, _id_request as _$jni.JMethodIDPtr)
+        .object(const $Request$Type());
   }
 
   static final _id_execute = _class.instanceMethodId(
@@ -6541,23 +6891,23 @@ class Call extends jni.JObject {
     r'()Lokhttp3/Response;',
   );
 
-  static final _execute = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _execute = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.Response execute()
+  /// from: `public abstract okhttp3.Response execute()`
   /// The returned object must be released after use, by calling the [release] method.
   Response execute() {
-    return _execute(reference.pointer, _id_execute as jni.JMethodIDPtr)
-        .object(const $ResponseType());
+    return _execute(reference.pointer, _id_execute as _$jni.JMethodIDPtr)
+        .object(const $Response$Type());
   }
 
   static final _id_enqueue = _class.instanceMethodId(
@@ -6565,22 +6915,22 @@ class Call extends jni.JObject {
     r'(Lokhttp3/Callback;)V',
   );
 
-  static final _enqueue = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JThrowablePtr Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _enqueue = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void enqueue(okhttp3.Callback callback)
+  /// from: `public abstract void enqueue(okhttp3.Callback callback)`
   void enqueue(
     Callback callback,
   ) {
-    _enqueue(reference.pointer, _id_enqueue as jni.JMethodIDPtr,
+    _enqueue(reference.pointer, _id_enqueue as _$jni.JMethodIDPtr,
             callback.reference.pointer)
         .check();
   }
@@ -6590,21 +6940,21 @@ class Call extends jni.JObject {
     r'()V',
   );
 
-  static final _cancel = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _cancel = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract void cancel()
+  /// from: `public abstract void cancel()`
   void cancel() {
-    _cancel(reference.pointer, _id_cancel as jni.JMethodIDPtr).check();
+    _cancel(reference.pointer, _id_cancel as _$jni.JMethodIDPtr).check();
   }
 
   static final _id_isExecuted = _class.instanceMethodId(
@@ -6612,21 +6962,21 @@ class Call extends jni.JObject {
     r'()Z',
   );
 
-  static final _isExecuted = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isExecuted = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract boolean isExecuted()
+  /// from: `public abstract boolean isExecuted()`
   bool isExecuted() {
-    return _isExecuted(reference.pointer, _id_isExecuted as jni.JMethodIDPtr)
+    return _isExecuted(reference.pointer, _id_isExecuted as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -6635,21 +6985,21 @@ class Call extends jni.JObject {
     r'()Z',
   );
 
-  static final _isCanceled = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isCanceled = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract boolean isCanceled()
+  /// from: `public abstract boolean isCanceled()`
   bool isCanceled() {
-    return _isCanceled(reference.pointer, _id_isCanceled as jni.JMethodIDPtr)
+    return _isCanceled(reference.pointer, _id_isCanceled as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -6658,23 +7008,23 @@ class Call extends jni.JObject {
     r'()Lokio/Timeout;',
   );
 
-  static final _timeout = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _timeout = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okio.Timeout timeout()
+  /// from: `public abstract okio.Timeout timeout()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject timeout() {
-    return _timeout(reference.pointer, _id_timeout as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject timeout() {
+    return _timeout(reference.pointer, _id_timeout as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_clone = _class.instanceMethodId(
@@ -6682,37 +7032,35 @@ class Call extends jni.JObject {
     r'()Lokhttp3/Call;',
   );
 
-  static final _clone = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _clone = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.Call clone()
+  /// from: `public abstract okhttp3.Call clone()`
   /// The returned object must be released after use, by calling the [release] method.
   Call clone() {
-    return _clone(reference.pointer, _id_clone as jni.JMethodIDPtr)
-        .object(const $CallType());
+    return _clone(reference.pointer, _id_clone as _$jni.JMethodIDPtr)
+        .object(const $Call$Type());
   }
 
   /// Maps a specific port to the implemented interface.
-  static final Map<int, $CallImpl> _$impls = {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
+  static final _$core.Map<int, $Call> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -6720,129 +7068,147 @@ class Call extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d == r'request()Lokhttp3/Request;') {
         final $r = _$impls[$p]!.request();
-        return ($r as jni.JObject)
-            .castTo(const jni.JObjectType())
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
             .reference
             .toPointer();
       }
       if ($d == r'execute()Lokhttp3/Response;') {
         final $r = _$impls[$p]!.execute();
-        return ($r as jni.JObject)
-            .castTo(const jni.JObjectType())
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
             .reference
             .toPointer();
       }
       if ($d == r'enqueue(Lokhttp3/Callback;)V') {
         _$impls[$p]!.enqueue(
-          $a[0].castTo(const $CallbackType(), releaseOriginal: true),
+          $a[0].as(const $Callback$Type(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'cancel()V') {
         _$impls[$p]!.cancel();
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'isExecuted()Z') {
         final $r = _$impls[$p]!.isExecuted();
-        return jni.JBoolean($r).reference.toPointer();
+        return _$jni.JBoolean($r).reference.toPointer();
       }
       if ($d == r'isCanceled()Z') {
         final $r = _$impls[$p]!.isCanceled();
-        return jni.JBoolean($r).reference.toPointer();
+        return _$jni.JBoolean($r).reference.toPointer();
       }
       if ($d == r'timeout()Lokio/Timeout;') {
         final $r = _$impls[$p]!.timeout();
-        return ($r as jni.JObject)
-            .castTo(const jni.JObjectType())
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
             .reference
             .toPointer();
       }
       if ($d == r'clone()Lokhttp3/Call;') {
         final $r = _$impls[$p]!.clone();
-        return ($r as jni.JObject)
-            .castTo(const jni.JObjectType())
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
             .reference
             .toPointer();
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory Call.implement(
-    $CallImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $Call $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = Call.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'okhttp3.Call',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'okhttp3.Call',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.enqueue$async) r'enqueue(Lokhttp3/Callback;)V',
+        if ($impl.cancel$async) r'cancel()V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory Call.implement(
+    $Call $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return Call.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $CallImpl {
-  factory $CallImpl({
+abstract base mixin class $Call {
+  factory $Call({
     required Request Function() request,
     required Response Function() execute,
     required void Function(Callback callback) enqueue,
+    bool enqueue$async,
     required void Function() cancel,
+    bool cancel$async,
     required bool Function() isExecuted,
     required bool Function() isCanceled,
-    required jni.JObject Function() timeout,
+    required _$jni.JObject Function() timeout,
     required Call Function() clone,
-  }) = _$CallImpl;
+  }) = _$Call;
 
   Request request();
   Response execute();
   void enqueue(Callback callback);
+  bool get enqueue$async => false;
   void cancel();
+  bool get cancel$async => false;
   bool isExecuted();
   bool isCanceled();
-  jni.JObject timeout();
+  _$jni.JObject timeout();
   Call clone();
 }
 
-class _$CallImpl implements $CallImpl {
-  _$CallImpl({
+final class _$Call with $Call {
+  _$Call({
     required Request Function() request,
     required Response Function() execute,
     required void Function(Callback callback) enqueue,
+    this.enqueue$async = false,
     required void Function() cancel,
+    this.cancel$async = false,
     required bool Function() isExecuted,
     required bool Function() isCanceled,
-    required jni.JObject Function() timeout,
+    required _$jni.JObject Function() timeout,
     required Call Function() clone,
   })  : _request = request,
         _execute = execute,
@@ -6856,10 +7222,12 @@ class _$CallImpl implements $CallImpl {
   final Request Function() _request;
   final Response Function() _execute;
   final void Function(Callback callback) _enqueue;
+  final bool enqueue$async;
   final void Function() _cancel;
+  final bool cancel$async;
   final bool Function() _isExecuted;
   final bool Function() _isCanceled;
-  final jni.JObject Function() _timeout;
+  final _$jni.JObject Function() _timeout;
   final Call Function() _clone;
 
   Request request() {
@@ -6886,7 +7254,7 @@ class _$CallImpl implements $CallImpl {
     return _isCanceled();
   }
 
-  jni.JObject timeout() {
+  _$jni.JObject timeout() {
     return _timeout();
   }
 
@@ -6895,64 +7263,73 @@ class _$CallImpl implements $CallImpl {
   }
 }
 
-final class $CallType extends jni.JObjType<Call> {
-  const $CallType();
+final class $Call$Type extends _$jni.JObjType<Call> {
+  @_$jni.internal
+  const $Call$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Call;';
 
-  @override
-  Call fromReference(jni.JReference reference) => Call.fromReference(reference);
+  @_$jni.internal
+  @_$core.override
+  Call fromReference(_$jni.JReference reference) =>
+      Call.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($CallType).hashCode;
+  @_$core.override
+  int get hashCode => ($Call$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($CallType) && other is $CallType;
+    return other.runtimeType == ($Call$Type) && other is $Call$Type;
   }
 }
 
-/// from: okhttp3.Headers$Builder
-class Headers_Builder extends jni.JObject {
-  @override
-  late final jni.JObjType<Headers_Builder> $type = type;
+/// from: `okhttp3.Headers$Builder`
+class Headers_Builder extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Headers_Builder> $type;
 
+  @_$jni.internal
   Headers_Builder.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Headers$Builder');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Headers$Builder');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Headers_BuilderType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $Headers_Builder$Type();
+  static final _id_new$ = _class.constructorId(
     r'()V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory Headers_Builder() {
     return Headers_Builder.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
             .reference);
   }
 
@@ -6961,55 +7338,58 @@ class Headers_Builder extends jni.JObject {
     r'(Ljava/lang/String;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _add = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _add = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder add(java.lang.String string)
+  /// from: `public final okhttp3.Headers$Builder add(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder add(
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    return _add(reference.pointer, _id_add as jni.JMethodIDPtr,
+    return _add(reference.pointer, _id_add as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
-  static final _id_add1 = _class.instanceMethodId(
+  static final _id_add$1 = _class.instanceMethodId(
     r'add',
     r'(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _add1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _add$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder add(java.lang.String string, java.lang.String string1)
+  /// from: `public final okhttp3.Headers$Builder add(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
-  Headers_Builder add1(
-    jni.JString string,
-    jni.JString string1,
+  Headers_Builder add$1(
+    _$jni.JString string,
+    _$jni.JString string1,
   ) {
-    return _add1(reference.pointer, _id_add1 as jni.JMethodIDPtr,
+    return _add$1(reference.pointer, _id_add$1 as _$jni.JMethodIDPtr,
             string.reference.pointer, string1.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
   static final _id_addUnsafeNonAscii = _class.instanceMethodId(
@@ -7017,32 +7397,35 @@ class Headers_Builder extends jni.JObject {
     r'(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _addUnsafeNonAscii = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _addUnsafeNonAscii = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder addUnsafeNonAscii(java.lang.String string, java.lang.String string1)
+  /// from: `public final okhttp3.Headers$Builder addUnsafeNonAscii(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder addUnsafeNonAscii(
-    jni.JString string,
-    jni.JString string1,
+    _$jni.JString string,
+    _$jni.JString string1,
   ) {
     return _addUnsafeNonAscii(
             reference.pointer,
-            _id_addUnsafeNonAscii as jni.JMethodIDPtr,
+            _id_addUnsafeNonAscii as _$jni.JMethodIDPtr,
             string.reference.pointer,
             string1.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
   static final _id_addAll = _class.instanceMethodId(
@@ -7050,145 +7433,157 @@ class Headers_Builder extends jni.JObject {
     r'(Lokhttp3/Headers;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _addAll = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _addAll = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder addAll(okhttp3.Headers headers)
+  /// from: `public final okhttp3.Headers$Builder addAll(okhttp3.Headers headers)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder addAll(
     Headers headers,
   ) {
-    return _addAll(reference.pointer, _id_addAll as jni.JMethodIDPtr,
+    return _addAll(reference.pointer, _id_addAll as _$jni.JMethodIDPtr,
             headers.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
-  static final _id_add2 = _class.instanceMethodId(
+  static final _id_add$2 = _class.instanceMethodId(
     r'add',
     r'(Ljava/lang/String;Ljava/util/Date;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _add2 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _add$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder add(java.lang.String string, java.util.Date date)
+  /// from: `public final okhttp3.Headers$Builder add(java.lang.String string, java.util.Date date)`
   /// The returned object must be released after use, by calling the [release] method.
-  Headers_Builder add2(
-    jni.JString string,
-    jni.JObject date,
+  Headers_Builder add$2(
+    _$jni.JString string,
+    _$jni.JObject date,
   ) {
-    return _add2(reference.pointer, _id_add2 as jni.JMethodIDPtr,
+    return _add$2(reference.pointer, _id_add$2 as _$jni.JMethodIDPtr,
             string.reference.pointer, date.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
-  static final _id_add3 = _class.instanceMethodId(
+  static final _id_add$3 = _class.instanceMethodId(
     r'add',
     r'(Ljava/lang/String;Ljava/time/Instant;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _add3 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _add$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder add(java.lang.String string, java.time.Instant instant)
+  /// from: `public final okhttp3.Headers$Builder add(java.lang.String string, java.time.Instant instant)`
   /// The returned object must be released after use, by calling the [release] method.
-  Headers_Builder add3(
-    jni.JString string,
-    jni.JObject instant,
+  Headers_Builder add$3(
+    _$jni.JString string,
+    _$jni.JObject instant,
   ) {
-    return _add3(reference.pointer, _id_add3 as jni.JMethodIDPtr,
+    return _add$3(reference.pointer, _id_add$3 as _$jni.JMethodIDPtr,
             string.reference.pointer, instant.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
-  static final _id_set0 = _class.instanceMethodId(
+  static final _id_set = _class.instanceMethodId(
     r'set',
     r'(Ljava/lang/String;Ljava/util/Date;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _set0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _set = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder set(java.lang.String string, java.util.Date date)
+  /// from: `public final okhttp3.Headers$Builder set(java.lang.String string, java.util.Date date)`
   /// The returned object must be released after use, by calling the [release] method.
-  Headers_Builder set0(
-    jni.JString string,
-    jni.JObject date,
+  Headers_Builder set(
+    _$jni.JString string,
+    _$jni.JObject date,
   ) {
-    return _set0(reference.pointer, _id_set0 as jni.JMethodIDPtr,
+    return _set(reference.pointer, _id_set as _$jni.JMethodIDPtr,
             string.reference.pointer, date.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
-  static final _id_set1 = _class.instanceMethodId(
+  static final _id_set$1 = _class.instanceMethodId(
     r'set',
     r'(Ljava/lang/String;Ljava/time/Instant;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _set1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _set$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder set(java.lang.String string, java.time.Instant instant)
+  /// from: `public final okhttp3.Headers$Builder set(java.lang.String string, java.time.Instant instant)`
   /// The returned object must be released after use, by calling the [release] method.
-  Headers_Builder set1(
-    jni.JString string,
-    jni.JObject instant,
+  Headers_Builder set$1(
+    _$jni.JString string,
+    _$jni.JObject instant,
   ) {
-    return _set1(reference.pointer, _id_set1 as jni.JMethodIDPtr,
+    return _set$1(reference.pointer, _id_set$1 as _$jni.JMethodIDPtr,
             string.reference.pointer, instant.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
   static final _id_removeAll = _class.instanceMethodId(
@@ -7196,81 +7591,84 @@ class Headers_Builder extends jni.JObject {
     r'(Ljava/lang/String;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _removeAll = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _removeAll = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder removeAll(java.lang.String string)
+  /// from: `public final okhttp3.Headers$Builder removeAll(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder removeAll(
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    return _removeAll(reference.pointer, _id_removeAll as jni.JMethodIDPtr,
+    return _removeAll(reference.pointer, _id_removeAll as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
-  static final _id_set2 = _class.instanceMethodId(
+  static final _id_set$2 = _class.instanceMethodId(
     r'set',
     r'(Ljava/lang/String;Ljava/lang/String;)Lokhttp3/Headers$Builder;',
   );
 
-  static final _set2 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _set$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers$Builder set(java.lang.String string, java.lang.String string1)
+  /// from: `public final okhttp3.Headers$Builder set(java.lang.String string, java.lang.String string1)`
   /// The returned object must be released after use, by calling the [release] method.
-  Headers_Builder set2(
-    jni.JString string,
-    jni.JString string1,
+  Headers_Builder set$2(
+    _$jni.JString string,
+    _$jni.JString string1,
   ) {
-    return _set2(reference.pointer, _id_set2 as jni.JMethodIDPtr,
+    return _set$2(reference.pointer, _id_set$2 as _$jni.JMethodIDPtr,
             string.reference.pointer, string1.reference.pointer)
-        .object(const $Headers_BuilderType());
+        .object(const $Headers_Builder$Type());
   }
 
-  static final _id_get0 = _class.instanceMethodId(
+  static final _id_get = _class.instanceMethodId(
     r'get',
     r'(Ljava/lang/String;)Ljava/lang/String;',
   );
 
-  static final _get0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _get = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.lang.String get(java.lang.String string)
+  /// from: `public final java.lang.String get(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString get0(
-    jni.JString string,
+  _$jni.JString get(
+    _$jni.JString string,
   ) {
-    return _get0(reference.pointer, _id_get0 as jni.JMethodIDPtr,
+    return _get(reference.pointer, _id_get as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JStringType());
+        .object(const _$jni.JStringType());
   }
 
   static final _id_build = _class.instanceMethodId(
@@ -7278,218 +7676,234 @@ class Headers_Builder extends jni.JObject {
     r'()Lokhttp3/Headers;',
   );
 
-  static final _build = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _build = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers build()
+  /// from: `public final okhttp3.Headers build()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers build() {
-    return _build(reference.pointer, _id_build as jni.JMethodIDPtr)
-        .object(const $HeadersType());
+    return _build(reference.pointer, _id_build as _$jni.JMethodIDPtr)
+        .object(const $Headers$Type());
   }
 }
 
-final class $Headers_BuilderType extends jni.JObjType<Headers_Builder> {
-  const $Headers_BuilderType();
+final class $Headers_Builder$Type extends _$jni.JObjType<Headers_Builder> {
+  @_$jni.internal
+  const $Headers_Builder$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Headers$Builder;';
 
-  @override
-  Headers_Builder fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Headers_Builder fromReference(_$jni.JReference reference) =>
       Headers_Builder.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($Headers_BuilderType).hashCode;
+  @_$core.override
+  int get hashCode => ($Headers_Builder$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($Headers_BuilderType) &&
-        other is $Headers_BuilderType;
+    return other.runtimeType == ($Headers_Builder$Type) &&
+        other is $Headers_Builder$Type;
   }
 }
 
-/// from: okhttp3.Headers$Companion
-class Headers_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<Headers_Companion> $type = type;
+/// from: `okhttp3.Headers$Companion`
+class Headers_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Headers_Companion> $type;
 
+  @_$jni.internal
   Headers_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Headers$Companion');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Headers$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Headers_CompanionType();
+  static const type = $Headers_Companion$Type();
   static final _id_of = _class.instanceMethodId(
     r'of',
     r'([Ljava/lang/String;)Lokhttp3/Headers;',
   );
 
-  static final _of = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers of(java.lang.String[] strings)
+  /// from: `public final okhttp3.Headers of(java.lang.String[] strings)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers of(
-    jni.JArray<jni.JString> strings,
+    _$jni.JArray<_$jni.JString> strings,
   ) {
-    return _of(reference.pointer, _id_of as jni.JMethodIDPtr,
+    return _of(reference.pointer, _id_of as _$jni.JMethodIDPtr,
             strings.reference.pointer)
-        .object(const $HeadersType());
+        .object(const $Headers$Type());
   }
 
-  static final _id_of1 = _class.instanceMethodId(
+  static final _id_of$1 = _class.instanceMethodId(
     r'of',
     r'(Ljava/util/Map;)Lokhttp3/Headers;',
   );
 
-  static final _of1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers of(java.util.Map map)
+  /// from: `public final okhttp3.Headers of(java.util.Map map)`
   /// The returned object must be released after use, by calling the [release] method.
-  Headers of1(
-    jni.JMap<jni.JString, jni.JString> map,
+  Headers of$1(
+    _$jni.JMap<_$jni.JString, _$jni.JString> map,
   ) {
-    return _of1(reference.pointer, _id_of1 as jni.JMethodIDPtr,
+    return _of$1(reference.pointer, _id_of$1 as _$jni.JMethodIDPtr,
             map.reference.pointer)
-        .object(const $HeadersType());
+        .object(const $Headers$Type());
   }
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Headers_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return Headers_Companion.fromReference(_new0(
+    return Headers_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $Headers_CompanionType extends jni.JObjType<Headers_Companion> {
-  const $Headers_CompanionType();
+final class $Headers_Companion$Type extends _$jni.JObjType<Headers_Companion> {
+  @_$jni.internal
+  const $Headers_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Headers$Companion;';
 
-  @override
-  Headers_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Headers_Companion fromReference(_$jni.JReference reference) =>
       Headers_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($Headers_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($Headers_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($Headers_CompanionType) &&
-        other is $Headers_CompanionType;
+    return other.runtimeType == ($Headers_Companion$Type) &&
+        other is $Headers_Companion$Type;
   }
 }
 
-/// from: okhttp3.Headers
-class Headers extends jni.JObject {
-  @override
-  late final jni.JObjType<Headers> $type = type;
+/// from: `okhttp3.Headers`
+class Headers extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Headers> $type;
 
+  @_$jni.internal
   Headers.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Headers');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Headers');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $HeadersType();
+  static const type = $Headers$Type();
   static final _id_Companion = _class.staticFieldId(
     r'Companion',
     r'Lokhttp3/Headers$Companion;',
   );
 
-  /// from: static public final okhttp3.Headers$Companion Companion
+  /// from: `static public final okhttp3.Headers$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static Headers_Companion get Companion =>
-      _id_Companion.get(_class, const $Headers_CompanionType());
+      _id_Companion.get(_class, const $Headers_Companion$Type());
 
-  static final _id_get0 = _class.instanceMethodId(
+  static final _id_get = _class.instanceMethodId(
     r'get',
     r'(Ljava/lang/String;)Ljava/lang/String;',
   );
 
-  static final _get0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _get = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.lang.String get(java.lang.String string)
+  /// from: `public final java.lang.String get(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString get0(
-    jni.JString string,
+  _$jni.JString get(
+    _$jni.JString string,
   ) {
-    return _get0(reference.pointer, _id_get0 as jni.JMethodIDPtr,
+    return _get(reference.pointer, _id_get as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JStringType());
+        .object(const _$jni.JStringType());
   }
 
   static final _id_getDate = _class.instanceMethodId(
@@ -7497,25 +7911,25 @@ class Headers extends jni.JObject {
     r'(Ljava/lang/String;)Ljava/util/Date;',
   );
 
-  static final _getDate = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _getDate = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.util.Date getDate(java.lang.String string)
+  /// from: `public final java.util.Date getDate(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject getDate(
-    jni.JString string,
+  _$jni.JObject getDate(
+    _$jni.JString string,
   ) {
-    return _getDate(reference.pointer, _id_getDate as jni.JMethodIDPtr,
+    return _getDate(reference.pointer, _id_getDate as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JObjectType());
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_getInstant = _class.instanceMethodId(
@@ -7523,25 +7937,25 @@ class Headers extends jni.JObject {
     r'(Ljava/lang/String;)Ljava/time/Instant;',
   );
 
-  static final _getInstant = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _getInstant = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.time.Instant getInstant(java.lang.String string)
+  /// from: `public final java.time.Instant getInstant(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject getInstant(
-    jni.JString string,
+  _$jni.JObject getInstant(
+    _$jni.JString string,
   ) {
-    return _getInstant(reference.pointer, _id_getInstant as jni.JMethodIDPtr,
+    return _getInstant(reference.pointer, _id_getInstant as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JObjectType());
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_size = _class.instanceMethodId(
@@ -7549,21 +7963,21 @@ class Headers extends jni.JObject {
     r'()I',
   );
 
-  static final _size = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _size = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int size()
+  /// from: `public final int size()`
   int size() {
-    return _size(reference.pointer, _id_size as jni.JMethodIDPtr).integer;
+    return _size(reference.pointer, _id_size as _$jni.JMethodIDPtr).integer;
   }
 
   static final _id_name = _class.instanceMethodId(
@@ -7571,21 +7985,23 @@ class Headers extends jni.JObject {
     r'(I)Ljava/lang/String;',
   );
 
-  static final _name = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallObjectMethod')
+  static final _name = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final java.lang.String name(int i)
+  /// from: `public final java.lang.String name(int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString name(
+  _$jni.JString name(
     int i,
   ) {
-    return _name(reference.pointer, _id_name as jni.JMethodIDPtr, i)
-        .object(const jni.JStringType());
+    return _name(reference.pointer, _id_name as _$jni.JMethodIDPtr, i)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_value = _class.instanceMethodId(
@@ -7593,21 +8009,23 @@ class Headers extends jni.JObject {
     r'(I)Ljava/lang/String;',
   );
 
-  static final _value = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallObjectMethod')
+  static final _value = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final java.lang.String value(int i)
+  /// from: `public final java.lang.String value(int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString value(
+  _$jni.JString value(
     int i,
   ) {
-    return _value(reference.pointer, _id_value as jni.JMethodIDPtr, i)
-        .object(const jni.JStringType());
+    return _value(reference.pointer, _id_value as _$jni.JMethodIDPtr, i)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_names = _class.instanceMethodId(
@@ -7615,23 +8033,23 @@ class Headers extends jni.JObject {
     r'()Ljava/util/Set;',
   );
 
-  static final _names = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _names = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.Set names()
+  /// from: `public final java.util.Set names()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JSet<jni.JString> names() {
-    return _names(reference.pointer, _id_names as jni.JMethodIDPtr)
-        .object(const jni.JSetType(jni.JStringType()));
+  _$jni.JSet<_$jni.JString> names() {
+    return _names(reference.pointer, _id_names as _$jni.JMethodIDPtr)
+        .object(const _$jni.JSetType(_$jni.JStringType()));
   }
 
   static final _id_values = _class.instanceMethodId(
@@ -7639,25 +8057,25 @@ class Headers extends jni.JObject {
     r'(Ljava/lang/String;)Ljava/util/List;',
   );
 
-  static final _values = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _values = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.util.List values(java.lang.String string)
+  /// from: `public final java.util.List values(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JString> values(
-    jni.JString string,
+  _$jni.JList<_$jni.JString> values(
+    _$jni.JString string,
   ) {
-    return _values(reference.pointer, _id_values as jni.JMethodIDPtr,
+    return _values(reference.pointer, _id_values as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const jni.JListType(jni.JStringType()));
+        .object(const _$jni.JListType(_$jni.JStringType()));
   }
 
   static final _id_byteCount = _class.instanceMethodId(
@@ -7665,21 +8083,21 @@ class Headers extends jni.JObject {
     r'()J',
   );
 
-  static final _byteCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _byteCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long byteCount()
+  /// from: `public final long byteCount()`
   int byteCount() {
-    return _byteCount(reference.pointer, _id_byteCount as jni.JMethodIDPtr)
+    return _byteCount(reference.pointer, _id_byteCount as _$jni.JMethodIDPtr)
         .long;
   }
 
@@ -7688,23 +8106,23 @@ class Headers extends jni.JObject {
     r'()Ljava/util/Iterator;',
   );
 
-  static final _iterator = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _iterator = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.util.Iterator iterator()
+  /// from: `public java.util.Iterator iterator()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JIterator<jni.JObject> iterator() {
-    return _iterator(reference.pointer, _id_iterator as jni.JMethodIDPtr)
-        .object(const jni.JIteratorType(jni.JObjectType()));
+  _$jni.JIterator<_$jni.JObject> iterator() {
+    return _iterator(reference.pointer, _id_iterator as _$jni.JMethodIDPtr)
+        .object(const _$jni.JIteratorType(_$jni.JObjectType()));
   }
 
   static final _id_newBuilder = _class.instanceMethodId(
@@ -7712,23 +8130,23 @@ class Headers extends jni.JObject {
     r'()Lokhttp3/Headers$Builder;',
   );
 
-  static final _newBuilder = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _newBuilder = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okhttp3.Headers$Builder newBuilder()
+  /// from: `public final okhttp3.Headers$Builder newBuilder()`
   /// The returned object must be released after use, by calling the [release] method.
   Headers_Builder newBuilder() {
-    return _newBuilder(reference.pointer, _id_newBuilder as jni.JMethodIDPtr)
-        .object(const $Headers_BuilderType());
+    return _newBuilder(reference.pointer, _id_newBuilder as _$jni.JMethodIDPtr)
+        .object(const $Headers_Builder$Type());
   }
 
   static final _id_equals = _class.instanceMethodId(
@@ -7736,71 +8154,71 @@ class Headers extends jni.JObject {
     r'(Ljava/lang/Object;)Z',
   );
 
-  static final _equals = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _equals = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public boolean equals(java.lang.Object object)
+  /// from: `public boolean equals(java.lang.Object object)`
   bool equals(
-    jni.JObject object,
+    _$jni.JObject object,
   ) {
-    return _equals(reference.pointer, _id_equals as jni.JMethodIDPtr,
+    return _equals(reference.pointer, _id_equals as _$jni.JMethodIDPtr,
             object.reference.pointer)
         .boolean;
   }
 
-  static final _id_hashCode1 = _class.instanceMethodId(
+  static final _id_hashCode$1 = _class.instanceMethodId(
     r'hashCode',
     r'()I',
   );
 
-  static final _hashCode1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _hashCode$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public int hashCode()
-  int hashCode1() {
-    return _hashCode1(reference.pointer, _id_hashCode1 as jni.JMethodIDPtr)
+  /// from: `public int hashCode()`
+  int hashCode$1() {
+    return _hashCode$1(reference.pointer, _id_hashCode$1 as _$jni.JMethodIDPtr)
         .integer;
   }
 
-  static final _id_toString1 = _class.instanceMethodId(
+  static final _id_toString$1 = _class.instanceMethodId(
     r'toString',
     r'()Ljava/lang/String;',
   );
 
-  static final _toString1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String toString()
+  /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString toString1() {
-    return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_toMultimap = _class.instanceMethodId(
@@ -7808,24 +8226,24 @@ class Headers extends jni.JObject {
     r'()Ljava/util/Map;',
   );
 
-  static final _toMultimap = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toMultimap = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.Map toMultimap()
+  /// from: `public final java.util.Map toMultimap()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JMap<jni.JString, jni.JList<jni.JString>> toMultimap() {
-    return _toMultimap(reference.pointer, _id_toMultimap as jni.JMethodIDPtr)
-        .object(const jni.JMapType(
-            jni.JStringType(), jni.JListType(jni.JStringType())));
+  _$jni.JMap<_$jni.JString, _$jni.JList<_$jni.JString>> toMultimap() {
+    return _toMultimap(reference.pointer, _id_toMultimap as _$jni.JMethodIDPtr)
+        .object(const _$jni.JMapType(
+            _$jni.JStringType(), _$jni.JListType(_$jni.JStringType())));
   }
 
   static final _id_of = _class.staticMethodId(
@@ -7833,149 +8251,163 @@ class Headers extends jni.JObject {
     r'([Ljava/lang/String;)Lokhttp3/Headers;',
   );
 
-  static final _of = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.Headers of(java.lang.String[] strings)
+  /// from: `static public final okhttp3.Headers of(java.lang.String[] strings)`
   /// The returned object must be released after use, by calling the [release] method.
   static Headers of(
-    jni.JArray<jni.JString> strings,
+    _$jni.JArray<_$jni.JString> strings,
   ) {
-    return _of(_class.reference.pointer, _id_of as jni.JMethodIDPtr,
+    return _of(_class.reference.pointer, _id_of as _$jni.JMethodIDPtr,
             strings.reference.pointer)
-        .object(const $HeadersType());
+        .object(const $Headers$Type());
   }
 
-  static final _id_of1 = _class.staticMethodId(
+  static final _id_of$1 = _class.staticMethodId(
     r'of',
     r'(Ljava/util/Map;)Lokhttp3/Headers;',
   );
 
-  static final _of1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okhttp3.Headers of(java.util.Map map)
+  /// from: `static public final okhttp3.Headers of(java.util.Map map)`
   /// The returned object must be released after use, by calling the [release] method.
-  static Headers of1(
-    jni.JMap<jni.JString, jni.JString> map,
+  static Headers of$1(
+    _$jni.JMap<_$jni.JString, _$jni.JString> map,
   ) {
-    return _of1(_class.reference.pointer, _id_of1 as jni.JMethodIDPtr,
+    return _of$1(_class.reference.pointer, _id_of$1 as _$jni.JMethodIDPtr,
             map.reference.pointer)
-        .object(const $HeadersType());
+        .object(const $Headers$Type());
   }
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'([Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(java.lang.String[] strings, kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(java.lang.String[] strings, kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Headers(
-    jni.JArray<jni.JString> strings,
-    jni.JObject defaultConstructorMarker,
+    _$jni.JArray<_$jni.JString> strings,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return Headers.fromReference(_new0(
+    return Headers.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             strings.reference.pointer,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $HeadersType extends jni.JObjType<Headers> {
-  const $HeadersType();
+final class $Headers$Type extends _$jni.JObjType<Headers> {
+  @_$jni.internal
+  const $Headers$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Headers;';
 
-  @override
-  Headers fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Headers fromReference(_$jni.JReference reference) =>
       Headers.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($HeadersType).hashCode;
+  @_$core.override
+  int get hashCode => ($Headers$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($HeadersType) && other is $HeadersType;
+    return other.runtimeType == ($Headers$Type) && other is $Headers$Type;
   }
 }
 
-/// from: okhttp3.Callback
-class Callback extends jni.JObject {
-  @override
-  late final jni.JObjType<Callback> $type = type;
+/// from: `okhttp3.Callback`
+class Callback extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Callback> $type;
 
+  @_$jni.internal
   Callback.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Callback');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Callback');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $CallbackType();
+  static const type = $Callback$Type();
   static final _id_onFailure = _class.instanceMethodId(
     r'onFailure',
     r'(Lokhttp3/Call;Ljava/io/IOException;)V',
   );
 
-  static final _onFailure = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onFailure = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onFailure(okhttp3.Call call, java.io.IOException iOException)
+  /// from: `public abstract void onFailure(okhttp3.Call call, java.io.IOException iOException)`
   void onFailure(
     Call call,
-    jni.JObject iOException,
+    _$jni.JObject iOException,
   ) {
-    _onFailure(reference.pointer, _id_onFailure as jni.JMethodIDPtr,
+    _onFailure(reference.pointer, _id_onFailure as _$jni.JMethodIDPtr,
             call.reference.pointer, iOException.reference.pointer)
         .check();
   }
@@ -7985,42 +8417,43 @@ class Callback extends jni.JObject {
     r'(Lokhttp3/Call;Lokhttp3/Response;)V',
   );
 
-  static final _onResponse = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onResponse = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onResponse(okhttp3.Call call, okhttp3.Response response)
+  /// from: `public abstract void onResponse(okhttp3.Call call, okhttp3.Response response)`
   void onResponse(
     Call call,
     Response response,
   ) {
-    _onResponse(reference.pointer, _id_onResponse as jni.JMethodIDPtr,
+    _onResponse(reference.pointer, _id_onResponse as _$jni.JMethodIDPtr,
             call.reference.pointer, response.reference.pointer)
         .check();
   }
 
   /// Maps a specific port to the implemented interface.
-  static final Map<int, $CallbackImpl> _$impls = {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
+  static final _$core.Map<int, $Callback> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -8028,87 +8461,109 @@ class Callback extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d == r'onFailure(Lokhttp3/Call;Ljava/io/IOException;)V') {
         _$impls[$p]!.onFailure(
-          $a[0].castTo(const $CallType(), releaseOriginal: true),
-          $a[1].castTo(const jni.JObjectType(), releaseOriginal: true),
+          $a[0].as(const $Call$Type(), releaseOriginal: true),
+          $a[1].as(const _$jni.JObjectType(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'onResponse(Lokhttp3/Call;Lokhttp3/Response;)V') {
         _$impls[$p]!.onResponse(
-          $a[0].castTo(const $CallType(), releaseOriginal: true),
-          $a[1].castTo(const $ResponseType(), releaseOriginal: true),
+          $a[0].as(const $Call$Type(), releaseOriginal: true),
+          $a[1].as(const $Response$Type(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory Callback.implement(
-    $CallbackImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $Callback $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = Callback.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'okhttp3.Callback',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'okhttp3.Callback',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.onFailure$async)
+          r'onFailure(Lokhttp3/Call;Ljava/io/IOException;)V',
+        if ($impl.onResponse$async)
+          r'onResponse(Lokhttp3/Call;Lokhttp3/Response;)V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory Callback.implement(
+    $Callback $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return Callback.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $CallbackImpl {
-  factory $CallbackImpl({
-    required void Function(Call call, jni.JObject iOException) onFailure,
+abstract base mixin class $Callback {
+  factory $Callback({
+    required void Function(Call call, _$jni.JObject iOException) onFailure,
+    bool onFailure$async,
     required void Function(Call call, Response response) onResponse,
-  }) = _$CallbackImpl;
+    bool onResponse$async,
+  }) = _$Callback;
 
-  void onFailure(Call call, jni.JObject iOException);
+  void onFailure(Call call, _$jni.JObject iOException);
+  bool get onFailure$async => false;
   void onResponse(Call call, Response response);
+  bool get onResponse$async => false;
 }
 
-class _$CallbackImpl implements $CallbackImpl {
-  _$CallbackImpl({
-    required void Function(Call call, jni.JObject iOException) onFailure,
+final class _$Callback with $Callback {
+  _$Callback({
+    required void Function(Call call, _$jni.JObject iOException) onFailure,
+    this.onFailure$async = false,
     required void Function(Call call, Response response) onResponse,
+    this.onResponse$async = false,
   })  : _onFailure = onFailure,
         _onResponse = onResponse;
 
-  final void Function(Call call, jni.JObject iOException) _onFailure;
+  final void Function(Call call, _$jni.JObject iOException) _onFailure;
+  final bool onFailure$async;
   final void Function(Call call, Response response) _onResponse;
+  final bool onResponse$async;
 
-  void onFailure(Call call, jni.JObject iOException) {
+  void onFailure(Call call, _$jni.JObject iOException) {
     return _onFailure(call, iOException);
   }
 
@@ -8117,121 +8572,131 @@ class _$CallbackImpl implements $CallbackImpl {
   }
 }
 
-final class $CallbackType extends jni.JObjType<Callback> {
-  const $CallbackType();
+final class $Callback$Type extends _$jni.JObjType<Callback> {
+  @_$jni.internal
+  const $Callback$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Callback;';
 
-  @override
-  Callback fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Callback fromReference(_$jni.JReference reference) =>
       Callback.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($CallbackType).hashCode;
+  @_$core.override
+  int get hashCode => ($Callback$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($CallbackType) && other is $CallbackType;
+    return other.runtimeType == ($Callback$Type) && other is $Callback$Type;
   }
 }
 
-/// from: okhttp3.ConnectionPool
-class ConnectionPool extends jni.JObject {
-  @override
-  late final jni.JObjType<ConnectionPool> $type = type;
+/// from: `okhttp3.ConnectionPool`
+class ConnectionPool extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<ConnectionPool> $type;
 
+  @_$jni.internal
   ConnectionPool.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/ConnectionPool');
+  static final _class = _$jni.JClass.forName(r'okhttp3/ConnectionPool');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $ConnectionPoolType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $ConnectionPool$Type();
+  static final _id_new$ = _class.constructorId(
     r'(Lokhttp3/internal/connection/RealConnectionPool;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(okhttp3.internal.connection.RealConnectionPool realConnectionPool)
+  /// from: `public void <init>(okhttp3.internal.connection.RealConnectionPool realConnectionPool)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ConnectionPool(
-    jni.JObject realConnectionPool,
+    _$jni.JObject realConnectionPool,
   ) {
-    return ConnectionPool.fromReference(_new0(_class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr, realConnectionPool.reference.pointer)
+    return ConnectionPool.fromReference(_new$(
+            _class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr,
+            realConnectionPool.reference.pointer)
         .reference);
   }
 
-  static final _id_new1 = _class.constructorId(
+  static final _id_new$1 = _class.constructorId(
     r'(IJLjava/util/concurrent/TimeUnit;)V',
   );
 
-  static final _new1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        $Int32,
-                        ffi.Int64,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Int32,
+                        _$jni.Int64,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              int, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(int i, long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public void <init>(int i, long j, java.util.concurrent.TimeUnit timeUnit)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory ConnectionPool.new1(
+  factory ConnectionPool.new$1(
     int i,
     int j,
     TimeUnit timeUnit,
   ) {
-    return ConnectionPool.fromReference(_new1(_class.reference.pointer,
-            _id_new1 as jni.JMethodIDPtr, i, j, timeUnit.reference.pointer)
+    return ConnectionPool.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr, i, j, timeUnit.reference.pointer)
         .reference);
   }
 
-  static final _id_new2 = _class.constructorId(
+  static final _id_new$2 = _class.constructorId(
     r'()V',
   );
 
-  static final _new2 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
-  factory ConnectionPool.new2() {
+  factory ConnectionPool.new$2() {
     return ConnectionPool.fromReference(
-        _new2(_class.reference.pointer, _id_new2 as jni.JMethodIDPtr)
+        _new$2(_class.reference.pointer, _id_new$2 as _$jni.JMethodIDPtr)
             .reference);
   }
 
@@ -8240,22 +8705,22 @@ class ConnectionPool extends jni.JObject {
     r'()I',
   );
 
-  static final _idleConnectionCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _idleConnectionCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int idleConnectionCount()
+  /// from: `public final int idleConnectionCount()`
   int idleConnectionCount() {
     return _idleConnectionCount(
-            reference.pointer, _id_idleConnectionCount as jni.JMethodIDPtr)
+            reference.pointer, _id_idleConnectionCount as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -8264,22 +8729,22 @@ class ConnectionPool extends jni.JObject {
     r'()I',
   );
 
-  static final _connectionCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _connectionCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int connectionCount()
+  /// from: `public final int connectionCount()`
   int connectionCount() {
     return _connectionCount(
-            reference.pointer, _id_connectionCount as jni.JMethodIDPtr)
+            reference.pointer, _id_connectionCount as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -8288,84 +8753,92 @@ class ConnectionPool extends jni.JObject {
     r'()V',
   );
 
-  static final _evictAll = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _evictAll = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void evictAll()
+  /// from: `public final void evictAll()`
   void evictAll() {
-    _evictAll(reference.pointer, _id_evictAll as jni.JMethodIDPtr).check();
+    _evictAll(reference.pointer, _id_evictAll as _$jni.JMethodIDPtr).check();
   }
 }
 
-final class $ConnectionPoolType extends jni.JObjType<ConnectionPool> {
-  const $ConnectionPoolType();
+final class $ConnectionPool$Type extends _$jni.JObjType<ConnectionPool> {
+  @_$jni.internal
+  const $ConnectionPool$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/ConnectionPool;';
 
-  @override
-  ConnectionPool fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  ConnectionPool fromReference(_$jni.JReference reference) =>
       ConnectionPool.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($ConnectionPoolType).hashCode;
+  @_$core.override
+  int get hashCode => ($ConnectionPool$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($ConnectionPoolType) &&
-        other is $ConnectionPoolType;
+    return other.runtimeType == ($ConnectionPool$Type) &&
+        other is $ConnectionPool$Type;
   }
 }
 
-/// from: okhttp3.Dispatcher
-class Dispatcher extends jni.JObject {
-  @override
-  late final jni.JObjType<Dispatcher> $type = type;
+/// from: `okhttp3.Dispatcher`
+class Dispatcher extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Dispatcher> $type;
 
+  @_$jni.internal
   Dispatcher.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Dispatcher');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Dispatcher');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $DispatcherType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $Dispatcher$Type();
+  static final _id_new$ = _class.constructorId(
     r'()V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory Dispatcher() {
     return Dispatcher.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
             .reference);
   }
 
@@ -8374,22 +8847,22 @@ class Dispatcher extends jni.JObject {
     r'()I',
   );
 
-  static final _getMaxRequests = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _getMaxRequests = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int getMaxRequests()
+  /// from: `public final int getMaxRequests()`
   int getMaxRequests() {
     return _getMaxRequests(
-            reference.pointer, _id_getMaxRequests as jni.JMethodIDPtr)
+            reference.pointer, _id_getMaxRequests as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -8398,22 +8871,22 @@ class Dispatcher extends jni.JObject {
     r'(I)V',
   );
 
-  static final _setMaxRequests = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallVoidMethod')
+  static final _setMaxRequests = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final void setMaxRequests(int i)
+  /// from: `public final void setMaxRequests(int i)`
   void setMaxRequests(
     int i,
   ) {
     _setMaxRequests(
-            reference.pointer, _id_setMaxRequests as jni.JMethodIDPtr, i)
+            reference.pointer, _id_setMaxRequests as _$jni.JMethodIDPtr, i)
         .check();
   }
 
@@ -8422,22 +8895,22 @@ class Dispatcher extends jni.JObject {
     r'()I',
   );
 
-  static final _getMaxRequestsPerHost = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _getMaxRequestsPerHost = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int getMaxRequestsPerHost()
+  /// from: `public final int getMaxRequestsPerHost()`
   int getMaxRequestsPerHost() {
     return _getMaxRequestsPerHost(
-            reference.pointer, _id_getMaxRequestsPerHost as jni.JMethodIDPtr)
+            reference.pointer, _id_getMaxRequestsPerHost as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -8446,22 +8919,22 @@ class Dispatcher extends jni.JObject {
     r'(I)V',
   );
 
-  static final _setMaxRequestsPerHost = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallVoidMethod')
+  static final _setMaxRequestsPerHost = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final void setMaxRequestsPerHost(int i)
+  /// from: `public final void setMaxRequestsPerHost(int i)`
   void setMaxRequestsPerHost(
     int i,
   ) {
-    _setMaxRequestsPerHost(
-            reference.pointer, _id_setMaxRequestsPerHost as jni.JMethodIDPtr, i)
+    _setMaxRequestsPerHost(reference.pointer,
+            _id_setMaxRequestsPerHost as _$jni.JMethodIDPtr, i)
         .check();
   }
 
@@ -8470,24 +8943,24 @@ class Dispatcher extends jni.JObject {
     r'()Ljava/lang/Runnable;',
   );
 
-  static final _getIdleCallback = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _getIdleCallback = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.lang.Runnable getIdleCallback()
+  /// from: `public final java.lang.Runnable getIdleCallback()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject getIdleCallback() {
+  _$jni.JObject getIdleCallback() {
     return _getIdleCallback(
-            reference.pointer, _id_getIdleCallback as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_getIdleCallback as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_setIdleCallback = _class.instanceMethodId(
@@ -8495,22 +8968,24 @@ class Dispatcher extends jni.JObject {
     r'(Ljava/lang/Runnable;)V',
   );
 
-  static final _setIdleCallback = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JThrowablePtr Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _setIdleCallback = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final void setIdleCallback(java.lang.Runnable runnable)
+  /// from: `public final void setIdleCallback(java.lang.Runnable runnable)`
   void setIdleCallback(
-    jni.JObject runnable,
+    _$jni.JObject runnable,
   ) {
-    _setIdleCallback(reference.pointer, _id_setIdleCallback as jni.JMethodIDPtr,
+    _setIdleCallback(
+            reference.pointer,
+            _id_setIdleCallback as _$jni.JMethodIDPtr,
             runnable.reference.pointer)
         .check();
   }
@@ -8520,48 +8995,48 @@ class Dispatcher extends jni.JObject {
     r'()Ljava/util/concurrent/ExecutorService;',
   );
 
-  static final _executorService = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _executorService = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.concurrent.ExecutorService executorService()
+  /// from: `public final java.util.concurrent.ExecutorService executorService()`
   /// The returned object must be released after use, by calling the [release] method.
   ExecutorService executorService() {
     return _executorService(
-            reference.pointer, _id_executorService as jni.JMethodIDPtr)
-        .object(const $ExecutorServiceType());
+            reference.pointer, _id_executorService as _$jni.JMethodIDPtr)
+        .object(const $ExecutorService$Type());
   }
 
-  static final _id_new1 = _class.constructorId(
+  static final _id_new$1 = _class.constructorId(
     r'(Ljava/util/concurrent/ExecutorService;)V',
   );
 
-  static final _new1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(java.util.concurrent.ExecutorService executorService)
+  /// from: `public void <init>(java.util.concurrent.ExecutorService executorService)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Dispatcher.new1(
+  factory Dispatcher.new$1(
     ExecutorService executorService,
   ) {
-    return Dispatcher.fromReference(_new1(_class.reference.pointer,
-            _id_new1 as jni.JMethodIDPtr, executorService.reference.pointer)
+    return Dispatcher.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr, executorService.reference.pointer)
         .reference);
   }
 
@@ -8570,21 +9045,21 @@ class Dispatcher extends jni.JObject {
     r'()V',
   );
 
-  static final _cancelAll = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _cancelAll = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void cancelAll()
+  /// from: `public final void cancelAll()`
   void cancelAll() {
-    _cancelAll(reference.pointer, _id_cancelAll as jni.JMethodIDPtr).check();
+    _cancelAll(reference.pointer, _id_cancelAll as _$jni.JMethodIDPtr).check();
   }
 
   static final _id_queuedCalls = _class.instanceMethodId(
@@ -8592,23 +9067,24 @@ class Dispatcher extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _queuedCalls = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _queuedCalls = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List queuedCalls()
+  /// from: `public final java.util.List queuedCalls()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<Call> queuedCalls() {
-    return _queuedCalls(reference.pointer, _id_queuedCalls as jni.JMethodIDPtr)
-        .object(const jni.JListType($CallType()));
+  _$jni.JList<Call> queuedCalls() {
+    return _queuedCalls(
+            reference.pointer, _id_queuedCalls as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType($Call$Type()));
   }
 
   static final _id_runningCalls = _class.instanceMethodId(
@@ -8616,24 +9092,24 @@ class Dispatcher extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _runningCalls = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _runningCalls = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.List runningCalls()
+  /// from: `public final java.util.List runningCalls()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<Call> runningCalls() {
+  _$jni.JList<Call> runningCalls() {
     return _runningCalls(
-            reference.pointer, _id_runningCalls as jni.JMethodIDPtr)
-        .object(const jni.JListType($CallType()));
+            reference.pointer, _id_runningCalls as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType($Call$Type()));
   }
 
   static final _id_queuedCallsCount = _class.instanceMethodId(
@@ -8641,22 +9117,22 @@ class Dispatcher extends jni.JObject {
     r'()I',
   );
 
-  static final _queuedCallsCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _queuedCallsCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int queuedCallsCount()
+  /// from: `public final int queuedCallsCount()`
   int queuedCallsCount() {
     return _queuedCallsCount(
-            reference.pointer, _id_queuedCallsCount as jni.JMethodIDPtr)
+            reference.pointer, _id_queuedCallsCount as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -8665,85 +9141,93 @@ class Dispatcher extends jni.JObject {
     r'()I',
   );
 
-  static final _runningCallsCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _runningCallsCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int runningCallsCount()
+  /// from: `public final int runningCallsCount()`
   int runningCallsCount() {
     return _runningCallsCount(
-            reference.pointer, _id_runningCallsCount as jni.JMethodIDPtr)
+            reference.pointer, _id_runningCallsCount as _$jni.JMethodIDPtr)
         .integer;
   }
 }
 
-final class $DispatcherType extends jni.JObjType<Dispatcher> {
-  const $DispatcherType();
+final class $Dispatcher$Type extends _$jni.JObjType<Dispatcher> {
+  @_$jni.internal
+  const $Dispatcher$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Dispatcher;';
 
-  @override
-  Dispatcher fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Dispatcher fromReference(_$jni.JReference reference) =>
       Dispatcher.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($DispatcherType).hashCode;
+  @_$core.override
+  int get hashCode => ($Dispatcher$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($DispatcherType) && other is $DispatcherType;
+    return other.runtimeType == ($Dispatcher$Type) && other is $Dispatcher$Type;
   }
 }
 
-/// from: java.util.concurrent.ExecutorService
-class ExecutorService extends jni.JObject {
-  @override
-  late final jni.JObjType<ExecutorService> $type = type;
+/// from: `java.util.concurrent.ExecutorService`
+class ExecutorService extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<ExecutorService> $type;
 
+  @_$jni.internal
   ExecutorService.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r'java/util/concurrent/ExecutorService');
+      _$jni.JClass.forName(r'java/util/concurrent/ExecutorService');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $ExecutorServiceType();
+  static const type = $ExecutorService$Type();
   static final _id_shutdown = _class.instanceMethodId(
     r'shutdown',
     r'()V',
   );
 
-  static final _shutdown = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _shutdown = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract void shutdown()
+  /// from: `public abstract void shutdown()`
   void shutdown() {
-    _shutdown(reference.pointer, _id_shutdown as jni.JMethodIDPtr).check();
+    _shutdown(reference.pointer, _id_shutdown as _$jni.JMethodIDPtr).check();
   }
 
   static final _id_shutdownNow = _class.instanceMethodId(
@@ -8751,23 +9235,24 @@ class ExecutorService extends jni.JObject {
     r'()Ljava/util/List;',
   );
 
-  static final _shutdownNow = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _shutdownNow = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract java.util.List shutdownNow()
+  /// from: `public abstract java.util.List shutdownNow()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JList<jni.JObject> shutdownNow() {
-    return _shutdownNow(reference.pointer, _id_shutdownNow as jni.JMethodIDPtr)
-        .object(const jni.JListType(jni.JObjectType()));
+  _$jni.JList<_$jni.JObject> shutdownNow() {
+    return _shutdownNow(
+            reference.pointer, _id_shutdownNow as _$jni.JMethodIDPtr)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
   }
 
   static final _id_isShutdown = _class.instanceMethodId(
@@ -8775,21 +9260,21 @@ class ExecutorService extends jni.JObject {
     r'()Z',
   );
 
-  static final _isShutdown = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isShutdown = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract boolean isShutdown()
+  /// from: `public abstract boolean isShutdown()`
   bool isShutdown() {
-    return _isShutdown(reference.pointer, _id_isShutdown as jni.JMethodIDPtr)
+    return _isShutdown(reference.pointer, _id_isShutdown as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -8798,22 +9283,22 @@ class ExecutorService extends jni.JObject {
     r'()Z',
   );
 
-  static final _isTerminated = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isTerminated = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract boolean isTerminated()
+  /// from: `public abstract boolean isTerminated()`
   bool isTerminated() {
     return _isTerminated(
-            reference.pointer, _id_isTerminated as jni.JMethodIDPtr)
+            reference.pointer, _id_isTerminated as _$jni.JMethodIDPtr)
         .boolean;
   }
 
@@ -8822,42 +9307,267 @@ class ExecutorService extends jni.JObject {
     r'(JLjava/util/concurrent/TimeUnit;)Z',
   );
 
-  static final _awaitTermination = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int64, ffi.Pointer<ffi.Void>)>)>>(
+  static final _awaitTermination = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Int64, _$jni.Pointer<_$jni.Void>)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract boolean awaitTermination(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public abstract boolean awaitTermination(long j, java.util.concurrent.TimeUnit timeUnit)`
   bool awaitTermination(
     int j,
     TimeUnit timeUnit,
   ) {
     return _awaitTermination(
             reference.pointer,
-            _id_awaitTermination as jni.JMethodIDPtr,
+            _id_awaitTermination as _$jni.JMethodIDPtr,
             j,
             timeUnit.reference.pointer)
         .boolean;
   }
 
-  /// Maps a specific port to the implemented interface.
-  static final Map<int, $ExecutorServiceImpl> _$impls = {};
-  ReceivePort? _$p;
+  static final _id_submit = _class.instanceMethodId(
+    r'submit',
+    r'(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Future;',
+  );
 
-  static jni.JObjectPtr _$invoke(
+  static final _submit = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.util.concurrent.Future submit(java.util.concurrent.Callable callable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject submit<$T extends _$jni.JObject>(
+    _$jni.JObject callable, {
+    required _$jni.JObjType<$T> T,
+  }) {
+    return _submit(reference.pointer, _id_submit as _$jni.JMethodIDPtr,
+            callable.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_submit$1 = _class.instanceMethodId(
+    r'submit',
+    r'(Ljava/lang/Runnable;Ljava/lang/Object;)Ljava/util/concurrent/Future;',
+  );
+
+  static final _submit$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.util.concurrent.Future submit(java.lang.Runnable runnable, T object)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject submit$1<$T extends _$jni.JObject>(
+    _$jni.JObject runnable,
+    $T object, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      object.$type,
+    ]) as _$jni.JObjType<$T>;
+    return _submit$1(reference.pointer, _id_submit$1 as _$jni.JMethodIDPtr,
+            runnable.reference.pointer, object.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_submit$2 = _class.instanceMethodId(
+    r'submit',
+    r'(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;',
+  );
+
+  static final _submit$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.util.concurrent.Future submit(java.lang.Runnable runnable)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject submit$2(
+    _$jni.JObject runnable,
+  ) {
+    return _submit$2(reference.pointer, _id_submit$2 as _$jni.JMethodIDPtr,
+            runnable.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_invokeAll = _class.instanceMethodId(
+    r'invokeAll',
+    r'(Ljava/util/Collection;)Ljava/util/List;',
+  );
+
+  static final _invokeAll = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.util.List invokeAll(java.util.Collection collection)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JList<_$jni.JObject> invokeAll<$T extends _$jni.JObject>(
+    _$jni.JObject collection, {
+    required _$jni.JObjType<$T> T,
+  }) {
+    return _invokeAll(reference.pointer, _id_invokeAll as _$jni.JMethodIDPtr,
+            collection.reference.pointer)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
+  }
+
+  static final _id_invokeAll$1 = _class.instanceMethodId(
+    r'invokeAll',
+    r'(Ljava/util/Collection;JLjava/util/concurrent/TimeUnit;)Ljava/util/List;',
+  );
+
+  static final _invokeAll$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int64,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract java.util.List invokeAll(java.util.Collection collection, long j, java.util.concurrent.TimeUnit timeUnit)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JList<_$jni.JObject> invokeAll$1<$T extends _$jni.JObject>(
+    _$jni.JObject collection,
+    int j,
+    TimeUnit timeUnit, {
+    required _$jni.JObjType<$T> T,
+  }) {
+    return _invokeAll$1(
+            reference.pointer,
+            _id_invokeAll$1 as _$jni.JMethodIDPtr,
+            collection.reference.pointer,
+            j,
+            timeUnit.reference.pointer)
+        .object(const _$jni.JListType(_$jni.JObjectType()));
+  }
+
+  static final _id_invokeAny = _class.instanceMethodId(
+    r'invokeAny',
+    r'(Ljava/util/Collection;)Ljava/lang/Object;',
+  );
+
+  static final _invokeAny = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract T invokeAny(java.util.Collection collection)`
+  /// The returned object must be released after use, by calling the [release] method.
+  $T invokeAny<$T extends _$jni.JObject>(
+    _$jni.JObject collection, {
+    required _$jni.JObjType<$T> T,
+  }) {
+    return _invokeAny(reference.pointer, _id_invokeAny as _$jni.JMethodIDPtr,
+            collection.reference.pointer)
+        .object(T);
+  }
+
+  static final _id_invokeAny$1 = _class.instanceMethodId(
+    r'invokeAny',
+    r'(Ljava/util/Collection;JLjava/util/concurrent/TimeUnit;)Ljava/lang/Object;',
+  );
+
+  static final _invokeAny$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int64,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract T invokeAny(java.util.Collection collection, long j, java.util.concurrent.TimeUnit timeUnit)`
+  /// The returned object must be released after use, by calling the [release] method.
+  $T invokeAny$1<$T extends _$jni.JObject>(
+    _$jni.JObject collection,
+    int j,
+    TimeUnit timeUnit, {
+    required _$jni.JObjType<$T> T,
+  }) {
+    return _invokeAny$1(
+            reference.pointer,
+            _id_invokeAny$1 as _$jni.JMethodIDPtr,
+            collection.reference.pointer,
+            j,
+            timeUnit.reference.pointer)
+        .object(T);
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $ExecutorService> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -8865,120 +9575,265 @@ class ExecutorService extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d == r'shutdown()V') {
         _$impls[$p]!.shutdown();
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'shutdownNow()Ljava/util/List;') {
         final $r = _$impls[$p]!.shutdownNow();
-        return ($r as jni.JObject)
-            .castTo(const jni.JObjectType())
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
             .reference
             .toPointer();
       }
       if ($d == r'isShutdown()Z') {
         final $r = _$impls[$p]!.isShutdown();
-        return jni.JBoolean($r).reference.toPointer();
+        return _$jni.JBoolean($r).reference.toPointer();
       }
       if ($d == r'isTerminated()Z') {
         final $r = _$impls[$p]!.isTerminated();
-        return jni.JBoolean($r).reference.toPointer();
+        return _$jni.JBoolean($r).reference.toPointer();
       }
       if ($d == r'awaitTermination(JLjava/util/concurrent/TimeUnit;)Z') {
         final $r = _$impls[$p]!.awaitTermination(
           $a[0]
-              .castTo(const jni.JLongType(), releaseOriginal: true)
+              .as(const _$jni.JLongType(), releaseOriginal: true)
               .longValue(releaseOriginal: true),
-          $a[1].castTo(const $TimeUnitType(), releaseOriginal: true),
+          $a[1].as(const $TimeUnit$Type(), releaseOriginal: true),
         );
-        return jni.JBoolean($r).reference.toPointer();
+        return _$jni.JBoolean($r).reference.toPointer();
+      }
+      if ($d ==
+          r'submit(Ljava/util/concurrent/Callable;)Ljava/util/concurrent/Future;') {
+        final $r = _$impls[$p]!.submit(
+          $a[0].as(const _$jni.JObjectType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d ==
+          r'submit(Ljava/lang/Runnable;Ljava/lang/Object;)Ljava/util/concurrent/Future;') {
+        final $r = _$impls[$p]!.submit$1(
+          $a[0].as(const _$jni.JObjectType(), releaseOriginal: true),
+          $a[1].as(const _$jni.JObjectType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d == r'submit(Ljava/lang/Runnable;)Ljava/util/concurrent/Future;') {
+        final $r = _$impls[$p]!.submit$2(
+          $a[0].as(const _$jni.JObjectType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d == r'invokeAll(Ljava/util/Collection;)Ljava/util/List;') {
+        final $r = _$impls[$p]!.invokeAll(
+          $a[0].as(const _$jni.JObjectType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d ==
+          r'invokeAll(Ljava/util/Collection;JLjava/util/concurrent/TimeUnit;)Ljava/util/List;') {
+        final $r = _$impls[$p]!.invokeAll$1(
+          $a[0].as(const _$jni.JObjectType(), releaseOriginal: true),
+          $a[1]
+              .as(const _$jni.JLongType(), releaseOriginal: true)
+              .longValue(releaseOriginal: true),
+          $a[2].as(const $TimeUnit$Type(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d == r'invokeAny(Ljava/util/Collection;)Ljava/lang/Object;') {
+        final $r = _$impls[$p]!.invokeAny(
+          $a[0].as(const _$jni.JObjectType(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d ==
+          r'invokeAny(Ljava/util/Collection;JLjava/util/concurrent/TimeUnit;)Ljava/lang/Object;') {
+        final $r = _$impls[$p]!.invokeAny$1(
+          $a[0].as(const _$jni.JObjectType(), releaseOriginal: true),
+          $a[1]
+              .as(const _$jni.JLongType(), releaseOriginal: true)
+              .longValue(releaseOriginal: true),
+          $a[2].as(const $TimeUnit$Type(), releaseOriginal: true),
+        );
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory ExecutorService.implement(
-    $ExecutorServiceImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $ExecutorService $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = ExecutorService.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'java.util.concurrent.ExecutorService',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'java.util.concurrent.ExecutorService',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.shutdown$async) r'shutdown()V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory ExecutorService.implement(
+    $ExecutorService $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return ExecutorService.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $ExecutorServiceImpl {
-  factory $ExecutorServiceImpl({
+abstract base mixin class $ExecutorService {
+  factory $ExecutorService({
     required void Function() shutdown,
-    required jni.JList<jni.JObject> Function() shutdownNow,
+    bool shutdown$async,
+    required _$jni.JList<_$jni.JObject> Function() shutdownNow,
     required bool Function() isShutdown,
     required bool Function() isTerminated,
     required bool Function(int j, TimeUnit timeUnit) awaitTermination,
-  }) = _$ExecutorServiceImpl;
+    required _$jni.JObject Function(_$jni.JObject callable) submit,
+    required _$jni.JObject Function(
+            _$jni.JObject runnable, _$jni.JObject object)
+        submit$1,
+    required _$jni.JObject Function(_$jni.JObject runnable) submit$2,
+    required _$jni.JList<_$jni.JObject> Function(_$jni.JObject collection)
+        invokeAll,
+    required _$jni.JList<_$jni.JObject> Function(
+            _$jni.JObject collection, int j, TimeUnit timeUnit)
+        invokeAll$1,
+    required _$jni.JObject Function(_$jni.JObject collection) invokeAny,
+    required _$jni.JObject Function(
+            _$jni.JObject collection, int j, TimeUnit timeUnit)
+        invokeAny$1,
+  }) = _$ExecutorService;
 
   void shutdown();
-  jni.JList<jni.JObject> shutdownNow();
+  bool get shutdown$async => false;
+  _$jni.JList<_$jni.JObject> shutdownNow();
   bool isShutdown();
   bool isTerminated();
   bool awaitTermination(int j, TimeUnit timeUnit);
+  _$jni.JObject submit(_$jni.JObject callable);
+  _$jni.JObject submit$1(_$jni.JObject runnable, _$jni.JObject object);
+  _$jni.JObject submit$2(_$jni.JObject runnable);
+  _$jni.JList<_$jni.JObject> invokeAll(_$jni.JObject collection);
+  _$jni.JList<_$jni.JObject> invokeAll$1(
+      _$jni.JObject collection, int j, TimeUnit timeUnit);
+  _$jni.JObject invokeAny(_$jni.JObject collection);
+  _$jni.JObject invokeAny$1(_$jni.JObject collection, int j, TimeUnit timeUnit);
 }
 
-class _$ExecutorServiceImpl implements $ExecutorServiceImpl {
-  _$ExecutorServiceImpl({
+final class _$ExecutorService with $ExecutorService {
+  _$ExecutorService({
     required void Function() shutdown,
-    required jni.JList<jni.JObject> Function() shutdownNow,
+    this.shutdown$async = false,
+    required _$jni.JList<_$jni.JObject> Function() shutdownNow,
     required bool Function() isShutdown,
     required bool Function() isTerminated,
     required bool Function(int j, TimeUnit timeUnit) awaitTermination,
+    required _$jni.JObject Function(_$jni.JObject callable) submit,
+    required _$jni.JObject Function(
+            _$jni.JObject runnable, _$jni.JObject object)
+        submit$1,
+    required _$jni.JObject Function(_$jni.JObject runnable) submit$2,
+    required _$jni.JList<_$jni.JObject> Function(_$jni.JObject collection)
+        invokeAll,
+    required _$jni.JList<_$jni.JObject> Function(
+            _$jni.JObject collection, int j, TimeUnit timeUnit)
+        invokeAll$1,
+    required _$jni.JObject Function(_$jni.JObject collection) invokeAny,
+    required _$jni.JObject Function(
+            _$jni.JObject collection, int j, TimeUnit timeUnit)
+        invokeAny$1,
   })  : _shutdown = shutdown,
         _shutdownNow = shutdownNow,
         _isShutdown = isShutdown,
         _isTerminated = isTerminated,
-        _awaitTermination = awaitTermination;
+        _awaitTermination = awaitTermination,
+        _submit = submit,
+        _submit$1 = submit$1,
+        _submit$2 = submit$2,
+        _invokeAll = invokeAll,
+        _invokeAll$1 = invokeAll$1,
+        _invokeAny = invokeAny,
+        _invokeAny$1 = invokeAny$1;
 
   final void Function() _shutdown;
-  final jni.JList<jni.JObject> Function() _shutdownNow;
+  final bool shutdown$async;
+  final _$jni.JList<_$jni.JObject> Function() _shutdownNow;
   final bool Function() _isShutdown;
   final bool Function() _isTerminated;
   final bool Function(int j, TimeUnit timeUnit) _awaitTermination;
+  final _$jni.JObject Function(_$jni.JObject callable) _submit;
+  final _$jni.JObject Function(_$jni.JObject runnable, _$jni.JObject object)
+      _submit$1;
+  final _$jni.JObject Function(_$jni.JObject runnable) _submit$2;
+  final _$jni.JList<_$jni.JObject> Function(_$jni.JObject collection)
+      _invokeAll;
+  final _$jni.JList<_$jni.JObject> Function(
+      _$jni.JObject collection, int j, TimeUnit timeUnit) _invokeAll$1;
+  final _$jni.JObject Function(_$jni.JObject collection) _invokeAny;
+  final _$jni.JObject Function(
+      _$jni.JObject collection, int j, TimeUnit timeUnit) _invokeAny$1;
 
   void shutdown() {
     return _shutdown();
   }
 
-  jni.JList<jni.JObject> shutdownNow() {
+  _$jni.JList<_$jni.JObject> shutdownNow() {
     return _shutdownNow();
   }
 
@@ -8993,71 +9848,109 @@ class _$ExecutorServiceImpl implements $ExecutorServiceImpl {
   bool awaitTermination(int j, TimeUnit timeUnit) {
     return _awaitTermination(j, timeUnit);
   }
-}
 
-final class $ExecutorServiceType extends jni.JObjType<ExecutorService> {
-  const $ExecutorServiceType();
+  _$jni.JObject submit(_$jni.JObject callable) {
+    return _submit(callable);
+  }
 
-  @override
-  String get signature => r'Ljava/util/concurrent/ExecutorService;';
+  _$jni.JObject submit$1(_$jni.JObject runnable, _$jni.JObject object) {
+    return _submit$1(runnable, object);
+  }
 
-  @override
-  ExecutorService fromReference(jni.JReference reference) =>
-      ExecutorService.fromReference(reference);
+  _$jni.JObject submit$2(_$jni.JObject runnable) {
+    return _submit$2(runnable);
+  }
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  _$jni.JList<_$jni.JObject> invokeAll(_$jni.JObject collection) {
+    return _invokeAll(collection);
+  }
 
-  @override
-  final superCount = 1;
+  _$jni.JList<_$jni.JObject> invokeAll$1(
+      _$jni.JObject collection, int j, TimeUnit timeUnit) {
+    return _invokeAll$1(collection, j, timeUnit);
+  }
 
-  @override
-  int get hashCode => ($ExecutorServiceType).hashCode;
+  _$jni.JObject invokeAny(_$jni.JObject collection) {
+    return _invokeAny(collection);
+  }
 
-  @override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($ExecutorServiceType) &&
-        other is $ExecutorServiceType;
+  _$jni.JObject invokeAny$1(
+      _$jni.JObject collection, int j, TimeUnit timeUnit) {
+    return _invokeAny$1(collection, j, timeUnit);
   }
 }
 
-/// from: okhttp3.Cache$Companion
-class Cache_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<Cache_Companion> $type = type;
+final class $ExecutorService$Type extends _$jni.JObjType<ExecutorService> {
+  @_$jni.internal
+  const $ExecutorService$Type();
 
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/util/concurrent/ExecutorService;';
+
+  @_$jni.internal
+  @_$core.override
+  ExecutorService fromReference(_$jni.JReference reference) =>
+      ExecutorService.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($ExecutorService$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($ExecutorService$Type) &&
+        other is $ExecutorService$Type;
+  }
+}
+
+/// from: `okhttp3.Cache$Companion`
+class Cache_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Cache_Companion> $type;
+
+  @_$jni.internal
   Cache_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Cache$Companion');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Cache$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Cache_CompanionType();
+  static const type = $Cache_Companion$Type();
   static final _id_key = _class.instanceMethodId(
     r'key',
     r'(Lokhttp3/HttpUrl;)Ljava/lang/String;',
   );
 
-  static final _key = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _key = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.lang.String key(okhttp3.HttpUrl httpUrl)
+  /// from: `public final java.lang.String key(okhttp3.HttpUrl httpUrl)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString key(
-    jni.JObject httpUrl,
+  _$jni.JString key(
+    _$jni.JObject httpUrl,
   ) {
-    return _key(reference.pointer, _id_key as jni.JMethodIDPtr,
+    return _key(reference.pointer, _id_key as _$jni.JMethodIDPtr,
             httpUrl.reference.pointer)
-        .object(const jni.JStringType());
+        .object(const _$jni.JStringType());
   }
 
   static final _id_varyMatches = _class.instanceMethodId(
@@ -9065,26 +9958,26 @@ class Cache_Companion extends jni.JObject {
     r'(Lokhttp3/Response;Lokhttp3/Headers;Lokhttp3/Request;)Z',
   );
 
-  static final _varyMatches = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _varyMatches = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>,
-              jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final boolean varyMatches(okhttp3.Response response, okhttp3.Headers headers, okhttp3.Request request)
+  /// from: `public final boolean varyMatches(okhttp3.Response response, okhttp3.Headers headers, okhttp3.Request request)`
   bool varyMatches(
     Response response,
     Headers headers,
@@ -9092,7 +9985,7 @@ class Cache_Companion extends jni.JObject {
   ) {
     return _varyMatches(
             reference.pointer,
-            _id_varyMatches as jni.JMethodIDPtr,
+            _id_varyMatches as _$jni.JMethodIDPtr,
             response.reference.pointer,
             headers.reference.pointer,
             request.reference.pointer)
@@ -9104,22 +9997,22 @@ class Cache_Companion extends jni.JObject {
     r'(Lokhttp3/Response;)Z',
   );
 
-  static final _hasVaryAll = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _hasVaryAll = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final boolean hasVaryAll(okhttp3.Response response)
+  /// from: `public final boolean hasVaryAll(okhttp3.Response response)`
   bool hasVaryAll(
     Response response,
   ) {
-    return _hasVaryAll(reference.pointer, _id_hasVaryAll as jni.JMethodIDPtr,
+    return _hasVaryAll(reference.pointer, _id_hasVaryAll as _$jni.JMethodIDPtr,
             response.reference.pointer)
         .boolean;
   }
@@ -9129,201 +10022,221 @@ class Cache_Companion extends jni.JObject {
     r'(Lokhttp3/Response;)Lokhttp3/Headers;',
   );
 
-  static final _varyHeaders = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _varyHeaders = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.Headers varyHeaders(okhttp3.Response response)
+  /// from: `public final okhttp3.Headers varyHeaders(okhttp3.Response response)`
   /// The returned object must be released after use, by calling the [release] method.
   Headers varyHeaders(
     Response response,
   ) {
-    return _varyHeaders(reference.pointer, _id_varyHeaders as jni.JMethodIDPtr,
-            response.reference.pointer)
-        .object(const $HeadersType());
+    return _varyHeaders(reference.pointer,
+            _id_varyHeaders as _$jni.JMethodIDPtr, response.reference.pointer)
+        .object(const $Headers$Type());
   }
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Cache_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return Cache_Companion.fromReference(_new0(
+    return Cache_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $Cache_CompanionType extends jni.JObjType<Cache_Companion> {
-  const $Cache_CompanionType();
+final class $Cache_Companion$Type extends _$jni.JObjType<Cache_Companion> {
+  @_$jni.internal
+  const $Cache_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Cache$Companion;';
 
-  @override
-  Cache_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Cache_Companion fromReference(_$jni.JReference reference) =>
       Cache_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($Cache_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($Cache_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($Cache_CompanionType) &&
-        other is $Cache_CompanionType;
+    return other.runtimeType == ($Cache_Companion$Type) &&
+        other is $Cache_Companion$Type;
   }
 }
 
-/// from: okhttp3.Cache$Entry$Companion
-class Cache_Entry_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<Cache_Entry_Companion> $type = type;
+/// from: `okhttp3.Cache$Entry$Companion`
+class Cache_Entry_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Cache_Entry_Companion> $type;
 
+  @_$jni.internal
   Cache_Entry_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Cache$Entry$Companion');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Cache$Entry$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $Cache_Entry_CompanionType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $Cache_Entry_Companion$Type();
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Cache_Entry_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return Cache_Entry_Companion.fromReference(_new0(
+    return Cache_Entry_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $Cache_Entry_CompanionType
-    extends jni.JObjType<Cache_Entry_Companion> {
-  const $Cache_Entry_CompanionType();
+final class $Cache_Entry_Companion$Type
+    extends _$jni.JObjType<Cache_Entry_Companion> {
+  @_$jni.internal
+  const $Cache_Entry_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Cache$Entry$Companion;';
 
-  @override
-  Cache_Entry_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Cache_Entry_Companion fromReference(_$jni.JReference reference) =>
       Cache_Entry_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($Cache_Entry_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($Cache_Entry_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($Cache_Entry_CompanionType) &&
-        other is $Cache_Entry_CompanionType;
+    return other.runtimeType == ($Cache_Entry_Companion$Type) &&
+        other is $Cache_Entry_Companion$Type;
   }
 }
 
-/// from: okhttp3.Cache
-class Cache extends jni.JObject {
-  @override
-  late final jni.JObjType<Cache> $type = type;
+/// from: `okhttp3.Cache`
+class Cache extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Cache> $type;
 
+  @_$jni.internal
   Cache.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/Cache');
+  static final _class = _$jni.JClass.forName(r'okhttp3/Cache');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $CacheType();
+  static const type = $Cache$Type();
   static final _id_Companion = _class.staticFieldId(
     r'Companion',
     r'Lokhttp3/Cache$Companion;',
   );
 
-  /// from: static public final okhttp3.Cache$Companion Companion
+  /// from: `static public final okhttp3.Cache$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static Cache_Companion get Companion =>
-      _id_Companion.get(_class, const $Cache_CompanionType());
+      _id_Companion.get(_class, const $Cache_Companion$Type());
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Ljava/io/File;JLokhttp3/internal/io/FileSystem;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Int64,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int64,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(java.io.File file, long j, okhttp3.internal.io.FileSystem fileSystem)
+  /// from: `public void <init>(java.io.File file, long j, okhttp3.internal.io.FileSystem fileSystem)`
   /// The returned object must be released after use, by calling the [release] method.
   factory Cache(
-    jni.JObject file,
+    _$jni.JObject file,
     int j,
-    jni.JObject fileSystem,
+    _$jni.JObject fileSystem,
   ) {
-    return Cache.fromReference(_new0(
+    return Cache.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             file.reference.pointer,
             j,
             fileSystem.reference.pointer)
@@ -9335,47 +10248,48 @@ class Cache extends jni.JObject {
     r'()Z',
   );
 
-  static final _isClosed = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _isClosed = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final boolean isClosed()
+  /// from: `public final boolean isClosed()`
   bool isClosed() {
-    return _isClosed(reference.pointer, _id_isClosed as jni.JMethodIDPtr)
+    return _isClosed(reference.pointer, _id_isClosed as _$jni.JMethodIDPtr)
         .boolean;
   }
 
-  static final _id_new1 = _class.constructorId(
+  static final _id_new$1 = _class.constructorId(
     r'(Ljava/io/File;J)V',
   );
 
-  static final _new1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, ffi.Int64)>)>>(
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int64)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: public void <init>(java.io.File file, long j)
+  /// from: `public void <init>(java.io.File file, long j)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory Cache.new1(
-    jni.JObject file,
+  factory Cache.new$1(
+    _$jni.JObject file,
     int j,
   ) {
-    return Cache.fromReference(_new1(_class.reference.pointer,
-            _id_new1 as jni.JMethodIDPtr, file.reference.pointer, j)
+    return Cache.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr, file.reference.pointer, j)
         .reference);
   }
 
@@ -9384,21 +10298,22 @@ class Cache extends jni.JObject {
     r'()V',
   );
 
-  static final _initialize = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _initialize = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void initialize()
+  /// from: `public final void initialize()`
   void initialize() {
-    _initialize(reference.pointer, _id_initialize as jni.JMethodIDPtr).check();
+    _initialize(reference.pointer, _id_initialize as _$jni.JMethodIDPtr)
+        .check();
   }
 
   static final _id_delete = _class.instanceMethodId(
@@ -9406,21 +10321,21 @@ class Cache extends jni.JObject {
     r'()V',
   );
 
-  static final _delete = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _delete = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void delete()
+  /// from: `public final void delete()`
   void delete() {
-    _delete(reference.pointer, _id_delete as jni.JMethodIDPtr).check();
+    _delete(reference.pointer, _id_delete as _$jni.JMethodIDPtr).check();
   }
 
   static final _id_evictAll = _class.instanceMethodId(
@@ -9428,21 +10343,21 @@ class Cache extends jni.JObject {
     r'()V',
   );
 
-  static final _evictAll = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _evictAll = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void evictAll()
+  /// from: `public final void evictAll()`
   void evictAll() {
-    _evictAll(reference.pointer, _id_evictAll as jni.JMethodIDPtr).check();
+    _evictAll(reference.pointer, _id_evictAll as _$jni.JMethodIDPtr).check();
   }
 
   static final _id_urls = _class.instanceMethodId(
@@ -9450,23 +10365,23 @@ class Cache extends jni.JObject {
     r'()Ljava/util/Iterator;',
   );
 
-  static final _urls = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _urls = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.util.Iterator urls()
+  /// from: `public final java.util.Iterator urls()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JIterator<jni.JString> urls() {
-    return _urls(reference.pointer, _id_urls as jni.JMethodIDPtr)
-        .object(const jni.JIteratorType(jni.JStringType()));
+  _$jni.JIterator<_$jni.JString> urls() {
+    return _urls(reference.pointer, _id_urls as _$jni.JMethodIDPtr)
+        .object(const _$jni.JIteratorType(_$jni.JStringType()));
   }
 
   static final _id_writeAbortCount = _class.instanceMethodId(
@@ -9474,22 +10389,22 @@ class Cache extends jni.JObject {
     r'()I',
   );
 
-  static final _writeAbortCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _writeAbortCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int writeAbortCount()
+  /// from: `public final int writeAbortCount()`
   int writeAbortCount() {
     return _writeAbortCount(
-            reference.pointer, _id_writeAbortCount as jni.JMethodIDPtr)
+            reference.pointer, _id_writeAbortCount as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -9498,22 +10413,22 @@ class Cache extends jni.JObject {
     r'()I',
   );
 
-  static final _writeSuccessCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _writeSuccessCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int writeSuccessCount()
+  /// from: `public final int writeSuccessCount()`
   int writeSuccessCount() {
     return _writeSuccessCount(
-            reference.pointer, _id_writeSuccessCount as jni.JMethodIDPtr)
+            reference.pointer, _id_writeSuccessCount as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -9522,21 +10437,21 @@ class Cache extends jni.JObject {
     r'()J',
   );
 
-  static final _size = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _size = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long size()
+  /// from: `public final long size()`
   int size() {
-    return _size(reference.pointer, _id_size as jni.JMethodIDPtr).long;
+    return _size(reference.pointer, _id_size as _$jni.JMethodIDPtr).long;
   }
 
   static final _id_maxSize = _class.instanceMethodId(
@@ -9544,21 +10459,21 @@ class Cache extends jni.JObject {
     r'()J',
   );
 
-  static final _maxSize = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _maxSize = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final long maxSize()
+  /// from: `public final long maxSize()`
   int maxSize() {
-    return _maxSize(reference.pointer, _id_maxSize as jni.JMethodIDPtr).long;
+    return _maxSize(reference.pointer, _id_maxSize as _$jni.JMethodIDPtr).long;
   }
 
   static final _id_flush = _class.instanceMethodId(
@@ -9566,21 +10481,21 @@ class Cache extends jni.JObject {
     r'()V',
   );
 
-  static final _flush = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _flush = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void flush()
+  /// from: `public void flush()`
   void flush() {
-    _flush(reference.pointer, _id_flush as jni.JMethodIDPtr).check();
+    _flush(reference.pointer, _id_flush as _$jni.JMethodIDPtr).check();
   }
 
   static final _id_close = _class.instanceMethodId(
@@ -9588,21 +10503,21 @@ class Cache extends jni.JObject {
     r'()V',
   );
 
-  static final _close = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _close = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void close()
+  /// from: `public void close()`
   void close() {
-    _close(reference.pointer, _id_close as jni.JMethodIDPtr).check();
+    _close(reference.pointer, _id_close as _$jni.JMethodIDPtr).check();
   }
 
   static final _id_directory = _class.instanceMethodId(
@@ -9610,23 +10525,23 @@ class Cache extends jni.JObject {
     r'()Ljava/io/File;',
   );
 
-  static final _directory = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _directory = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final java.io.File directory()
+  /// from: `public final java.io.File directory()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject directory() {
-    return _directory(reference.pointer, _id_directory as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+  _$jni.JObject directory() {
+    return _directory(reference.pointer, _id_directory as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_networkCount = _class.instanceMethodId(
@@ -9634,22 +10549,22 @@ class Cache extends jni.JObject {
     r'()I',
   );
 
-  static final _networkCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _networkCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int networkCount()
+  /// from: `public final int networkCount()`
   int networkCount() {
     return _networkCount(
-            reference.pointer, _id_networkCount as jni.JMethodIDPtr)
+            reference.pointer, _id_networkCount as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -9658,21 +10573,21 @@ class Cache extends jni.JObject {
     r'()I',
   );
 
-  static final _hitCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _hitCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int hitCount()
+  /// from: `public final int hitCount()`
   int hitCount() {
-    return _hitCount(reference.pointer, _id_hitCount as jni.JMethodIDPtr)
+    return _hitCount(reference.pointer, _id_hitCount as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -9681,22 +10596,22 @@ class Cache extends jni.JObject {
     r'()I',
   );
 
-  static final _requestCount = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _requestCount = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int requestCount()
+  /// from: `public final int requestCount()`
   int requestCount() {
     return _requestCount(
-            reference.pointer, _id_requestCount as jni.JMethodIDPtr)
+            reference.pointer, _id_requestCount as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -9705,111 +10620,120 @@ class Cache extends jni.JObject {
     r'(Lokhttp3/HttpUrl;)Ljava/lang/String;',
   );
 
-  static final _key = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _key = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final java.lang.String key(okhttp3.HttpUrl httpUrl)
+  /// from: `static public final java.lang.String key(okhttp3.HttpUrl httpUrl)`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni.JString key(
-    jni.JObject httpUrl,
+  static _$jni.JString key(
+    _$jni.JObject httpUrl,
   ) {
-    return _key(_class.reference.pointer, _id_key as jni.JMethodIDPtr,
+    return _key(_class.reference.pointer, _id_key as _$jni.JMethodIDPtr,
             httpUrl.reference.pointer)
-        .object(const jni.JStringType());
+        .object(const _$jni.JStringType());
   }
 }
 
-final class $CacheType extends jni.JObjType<Cache> {
-  const $CacheType();
+final class $Cache$Type extends _$jni.JObjType<Cache> {
+  @_$jni.internal
+  const $Cache$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/Cache;';
 
-  @override
-  Cache fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  Cache fromReference(_$jni.JReference reference) =>
       Cache.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($CacheType).hashCode;
+  @_$core.override
+  int get hashCode => ($Cache$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($CacheType) && other is $CacheType;
+    return other.runtimeType == ($Cache$Type) && other is $Cache$Type;
   }
 }
 
-/// from: com.example.ok_http.RedirectReceivedCallback
-class RedirectReceivedCallback extends jni.JObject {
-  @override
-  late final jni.JObjType<RedirectReceivedCallback> $type = type;
+/// from: `com.example.ok_http.RedirectReceivedCallback`
+class RedirectReceivedCallback extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<RedirectReceivedCallback> $type;
 
+  @_$jni.internal
   RedirectReceivedCallback.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r'com/example/ok_http/RedirectReceivedCallback');
+      _$jni.JClass.forName(r'com/example/ok_http/RedirectReceivedCallback');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $RedirectReceivedCallbackType();
+  static const type = $RedirectReceivedCallback$Type();
   static final _id_onRedirectReceived = _class.instanceMethodId(
     r'onRedirectReceived',
     r'(Lokhttp3/Response;Ljava/lang/String;)V',
   );
 
-  static final _onRedirectReceived = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onRedirectReceived = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onRedirectReceived(okhttp3.Response response, java.lang.String string)
+  /// from: `public abstract void onRedirectReceived(okhttp3.Response response, java.lang.String string)`
   void onRedirectReceived(
     Response response,
-    jni.JString string,
+    _$jni.JString string,
   ) {
     _onRedirectReceived(
             reference.pointer,
-            _id_onRedirectReceived as jni.JMethodIDPtr,
+            _id_onRedirectReceived as _$jni.JMethodIDPtr,
             response.reference.pointer,
             string.reference.pointer)
         .check();
   }
 
   /// Maps a specific port to the implemented interface.
-  static final Map<int, $RedirectReceivedCallbackImpl> _$impls = {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
+  static final _$core.Map<int, $RedirectReceivedCallback> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -9817,145 +10741,174 @@ class RedirectReceivedCallback extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d == r'onRedirectReceived(Lokhttp3/Response;Ljava/lang/String;)V') {
         _$impls[$p]!.onRedirectReceived(
-          $a[0].castTo(const $ResponseType(), releaseOriginal: true),
-          $a[1].castTo(const jni.JStringType(), releaseOriginal: true),
+          $a[0].as(const $Response$Type(), releaseOriginal: true),
+          $a[1].as(const _$jni.JStringType(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory RedirectReceivedCallback.implement(
-    $RedirectReceivedCallbackImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $RedirectReceivedCallback $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = RedirectReceivedCallback.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'com.example.ok_http.RedirectReceivedCallback',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'com.example.ok_http.RedirectReceivedCallback',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.onRedirectReceived$async)
+          r'onRedirectReceived(Lokhttp3/Response;Ljava/lang/String;)V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory RedirectReceivedCallback.implement(
+    $RedirectReceivedCallback $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return RedirectReceivedCallback.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $RedirectReceivedCallbackImpl {
-  factory $RedirectReceivedCallbackImpl({
-    required void Function(Response response, jni.JString string)
+abstract base mixin class $RedirectReceivedCallback {
+  factory $RedirectReceivedCallback({
+    required void Function(Response response, _$jni.JString string)
         onRedirectReceived,
-  }) = _$RedirectReceivedCallbackImpl;
+    bool onRedirectReceived$async,
+  }) = _$RedirectReceivedCallback;
 
-  void onRedirectReceived(Response response, jni.JString string);
+  void onRedirectReceived(Response response, _$jni.JString string);
+  bool get onRedirectReceived$async => false;
 }
 
-class _$RedirectReceivedCallbackImpl implements $RedirectReceivedCallbackImpl {
-  _$RedirectReceivedCallbackImpl({
-    required void Function(Response response, jni.JString string)
+final class _$RedirectReceivedCallback with $RedirectReceivedCallback {
+  _$RedirectReceivedCallback({
+    required void Function(Response response, _$jni.JString string)
         onRedirectReceived,
+    this.onRedirectReceived$async = false,
   }) : _onRedirectReceived = onRedirectReceived;
 
-  final void Function(Response response, jni.JString string)
+  final void Function(Response response, _$jni.JString string)
       _onRedirectReceived;
+  final bool onRedirectReceived$async;
 
-  void onRedirectReceived(Response response, jni.JString string) {
+  void onRedirectReceived(Response response, _$jni.JString string) {
     return _onRedirectReceived(response, string);
   }
 }
 
-final class $RedirectReceivedCallbackType
-    extends jni.JObjType<RedirectReceivedCallback> {
-  const $RedirectReceivedCallbackType();
+final class $RedirectReceivedCallback$Type
+    extends _$jni.JObjType<RedirectReceivedCallback> {
+  @_$jni.internal
+  const $RedirectReceivedCallback$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lcom/example/ok_http/RedirectReceivedCallback;';
 
-  @override
-  RedirectReceivedCallback fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  RedirectReceivedCallback fromReference(_$jni.JReference reference) =>
       RedirectReceivedCallback.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($RedirectReceivedCallbackType).hashCode;
+  @_$core.override
+  int get hashCode => ($RedirectReceivedCallback$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($RedirectReceivedCallbackType) &&
-        other is $RedirectReceivedCallbackType;
+    return other.runtimeType == ($RedirectReceivedCallback$Type) &&
+        other is $RedirectReceivedCallback$Type;
   }
 }
 
-/// from: com.example.ok_http.RedirectInterceptor$Companion
-class RedirectInterceptor_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<RedirectInterceptor_Companion> $type = type;
+/// from: `com.example.ok_http.RedirectInterceptor$Companion`
+class RedirectInterceptor_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<RedirectInterceptor_Companion> $type;
 
+  @_$jni.internal
   RedirectInterceptor_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class =
-      jni.JClass.forName(r'com/example/ok_http/RedirectInterceptor$Companion');
+  static final _class = _$jni.JClass.forName(
+      r'com/example/ok_http/RedirectInterceptor$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $RedirectInterceptor_CompanionType();
+  static const type = $RedirectInterceptor_Companion$Type();
   static final _id_addRedirectInterceptor = _class.instanceMethodId(
     r'addRedirectInterceptor',
     r'(Lokhttp3/OkHttpClient$Builder;IZLcom/example/ok_http/RedirectReceivedCallback;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _addRedirectInterceptor = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _addRedirectInterceptor = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        $Int32,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, int, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addRedirectInterceptor(okhttp3.OkHttpClient$Builder builder, int i, boolean z, com.example.ok_http.RedirectReceivedCallback redirectReceivedCallback)
+  /// from: `public final okhttp3.OkHttpClient$Builder addRedirectInterceptor(okhttp3.OkHttpClient$Builder builder, int i, boolean z, com.example.ok_http.RedirectReceivedCallback redirectReceivedCallback)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addRedirectInterceptor(
     OkHttpClient_Builder builder,
@@ -9965,180 +10918,197 @@ class RedirectInterceptor_Companion extends jni.JObject {
   ) {
     return _addRedirectInterceptor(
             reference.pointer,
-            _id_addRedirectInterceptor as jni.JMethodIDPtr,
+            _id_addRedirectInterceptor as _$jni.JMethodIDPtr,
             builder.reference.pointer,
             i,
             z ? 1 : 0,
             redirectReceivedCallback.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+        .object(const $OkHttpClient_Builder$Type());
   }
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory RedirectInterceptor_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return RedirectInterceptor_Companion.fromReference(_new0(
+    return RedirectInterceptor_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $RedirectInterceptor_CompanionType
-    extends jni.JObjType<RedirectInterceptor_Companion> {
-  const $RedirectInterceptor_CompanionType();
+final class $RedirectInterceptor_Companion$Type
+    extends _$jni.JObjType<RedirectInterceptor_Companion> {
+  @_$jni.internal
+  const $RedirectInterceptor_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature =>
       r'Lcom/example/ok_http/RedirectInterceptor$Companion;';
 
-  @override
-  RedirectInterceptor_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  RedirectInterceptor_Companion fromReference(_$jni.JReference reference) =>
       RedirectInterceptor_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($RedirectInterceptor_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($RedirectInterceptor_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($RedirectInterceptor_CompanionType) &&
-        other is $RedirectInterceptor_CompanionType;
+    return other.runtimeType == ($RedirectInterceptor_Companion$Type) &&
+        other is $RedirectInterceptor_Companion$Type;
   }
 }
 
-/// from: com.example.ok_http.RedirectInterceptor
-class RedirectInterceptor extends jni.JObject {
-  @override
-  late final jni.JObjType<RedirectInterceptor> $type = type;
+/// from: `com.example.ok_http.RedirectInterceptor`
+class RedirectInterceptor extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<RedirectInterceptor> $type;
 
+  @_$jni.internal
   RedirectInterceptor.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r'com/example/ok_http/RedirectInterceptor');
+      _$jni.JClass.forName(r'com/example/ok_http/RedirectInterceptor');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $RedirectInterceptorType();
+  static const type = $RedirectInterceptor$Type();
   static final _id_Companion = _class.staticFieldId(
     r'Companion',
     r'Lcom/example/ok_http/RedirectInterceptor$Companion;',
   );
 
-  /// from: static public final com.example.ok_http.RedirectInterceptor$Companion Companion
+  /// from: `static public final com.example.ok_http.RedirectInterceptor$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static RedirectInterceptor_Companion get Companion =>
-      _id_Companion.get(_class, const $RedirectInterceptor_CompanionType());
+      _id_Companion.get(_class, const $RedirectInterceptor_Companion$Type());
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'()V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory RedirectInterceptor() {
     return RedirectInterceptor.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
             .reference);
   }
 }
 
-final class $RedirectInterceptorType extends jni.JObjType<RedirectInterceptor> {
-  const $RedirectInterceptorType();
+final class $RedirectInterceptor$Type
+    extends _$jni.JObjType<RedirectInterceptor> {
+  @_$jni.internal
+  const $RedirectInterceptor$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lcom/example/ok_http/RedirectInterceptor;';
 
-  @override
-  RedirectInterceptor fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  RedirectInterceptor fromReference(_$jni.JReference reference) =>
       RedirectInterceptor.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($RedirectInterceptorType).hashCode;
+  @_$core.override
+  int get hashCode => ($RedirectInterceptor$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($RedirectInterceptorType) &&
-        other is $RedirectInterceptorType;
+    return other.runtimeType == ($RedirectInterceptor$Type) &&
+        other is $RedirectInterceptor$Type;
   }
 }
 
-/// from: com.example.ok_http.AsyncInputStreamReader
-class AsyncInputStreamReader extends jni.JObject {
-  @override
-  late final jni.JObjType<AsyncInputStreamReader> $type = type;
+/// from: `com.example.ok_http.AsyncInputStreamReader`
+class AsyncInputStreamReader extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<AsyncInputStreamReader> $type;
 
+  @_$jni.internal
   AsyncInputStreamReader.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r'com/example/ok_http/AsyncInputStreamReader');
+      _$jni.JClass.forName(r'com/example/ok_http/AsyncInputStreamReader');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $AsyncInputStreamReaderType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $AsyncInputStreamReader$Type();
+  static final _id_new$ = _class.constructorId(
     r'()V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory AsyncInputStreamReader() {
     return AsyncInputStreamReader.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
             .reference);
   }
 
@@ -10147,29 +11117,32 @@ class AsyncInputStreamReader extends jni.JObject {
     r'(Ljava/io/InputStream;Lcom/example/ok_http/DataCallback;)Ljava/util/concurrent/Future;',
   );
 
-  static final _readAsync = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _readAsync = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final java.util.concurrent.Future readAsync(java.io.InputStream inputStream, com.example.ok_http.DataCallback dataCallback)
+  /// from: `public final java.util.concurrent.Future readAsync(java.io.InputStream inputStream, com.example.ok_http.DataCallback dataCallback)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject readAsync(
-    jni.JObject inputStream,
+  _$jni.JObject readAsync(
+    _$jni.JObject inputStream,
     DataCallback dataCallback,
   ) {
-    return _readAsync(reference.pointer, _id_readAsync as jni.JMethodIDPtr,
+    return _readAsync(reference.pointer, _id_readAsync as _$jni.JMethodIDPtr,
             inputStream.reference.pointer, dataCallback.reference.pointer)
-        .object(const jni.JObjectType());
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_shutdown = _class.instanceMethodId(
@@ -10177,85 +11150,94 @@ class AsyncInputStreamReader extends jni.JObject {
     r'()V',
   );
 
-  static final _shutdown = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _shutdown = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final void shutdown()
+  /// from: `public final void shutdown()`
   void shutdown() {
-    _shutdown(reference.pointer, _id_shutdown as jni.JMethodIDPtr).check();
+    _shutdown(reference.pointer, _id_shutdown as _$jni.JMethodIDPtr).check();
   }
 }
 
-final class $AsyncInputStreamReaderType
-    extends jni.JObjType<AsyncInputStreamReader> {
-  const $AsyncInputStreamReaderType();
+final class $AsyncInputStreamReader$Type
+    extends _$jni.JObjType<AsyncInputStreamReader> {
+  @_$jni.internal
+  const $AsyncInputStreamReader$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lcom/example/ok_http/AsyncInputStreamReader;';
 
-  @override
-  AsyncInputStreamReader fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  AsyncInputStreamReader fromReference(_$jni.JReference reference) =>
       AsyncInputStreamReader.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($AsyncInputStreamReaderType).hashCode;
+  @_$core.override
+  int get hashCode => ($AsyncInputStreamReader$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($AsyncInputStreamReaderType) &&
-        other is $AsyncInputStreamReaderType;
+    return other.runtimeType == ($AsyncInputStreamReader$Type) &&
+        other is $AsyncInputStreamReader$Type;
   }
 }
 
-/// from: com.example.ok_http.DataCallback
-class DataCallback extends jni.JObject {
-  @override
-  late final jni.JObjType<DataCallback> $type = type;
+/// from: `com.example.ok_http.DataCallback`
+class DataCallback extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<DataCallback> $type;
 
+  @_$jni.internal
   DataCallback.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'com/example/ok_http/DataCallback');
+  static final _class =
+      _$jni.JClass.forName(r'com/example/ok_http/DataCallback');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $DataCallbackType();
+  static const type = $DataCallback$Type();
   static final _id_onDataRead = _class.instanceMethodId(
     r'onDataRead',
     r'([B)V',
   );
 
-  static final _onDataRead = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JThrowablePtr Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _onDataRead = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onDataRead(byte[] bs)
+  /// from: `public abstract void onDataRead(byte[] bs)`
   void onDataRead(
-    jni.JArray<jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    _onDataRead(reference.pointer, _id_onDataRead as jni.JMethodIDPtr,
+    _onDataRead(reference.pointer, _id_onDataRead as _$jni.JMethodIDPtr,
             bs.reference.pointer)
         .check();
   }
@@ -10265,21 +11247,22 @@ class DataCallback extends jni.JObject {
     r'()V',
   );
 
-  static final _onFinished = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _onFinished = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract void onFinished()
+  /// from: `public abstract void onFinished()`
   void onFinished() {
-    _onFinished(reference.pointer, _id_onFinished as jni.JMethodIDPtr).check();
+    _onFinished(reference.pointer, _id_onFinished as _$jni.JMethodIDPtr)
+        .check();
   }
 
   static final _id_onError = _class.instanceMethodId(
@@ -10287,38 +11270,36 @@ class DataCallback extends jni.JObject {
     r'(Ljava/io/IOException;)V',
   );
 
-  static final _onError = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JThrowablePtr Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _onError = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onError(java.io.IOException iOException)
+  /// from: `public abstract void onError(java.io.IOException iOException)`
   void onError(
-    jni.JObject iOException,
+    _$jni.JObject iOException,
   ) {
-    _onError(reference.pointer, _id_onError as jni.JMethodIDPtr,
+    _onError(reference.pointer, _id_onError as _$jni.JMethodIDPtr,
             iOException.reference.pointer)
         .check();
   }
 
   /// Maps a specific port to the implemented interface.
-  static final Map<int, $DataCallbackImpl> _$impls = {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
+  static final _$core.Map<int, $DataCallback> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -10326,95 +11307,120 @@ class DataCallback extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d == r'onDataRead([B)V') {
         _$impls[$p]!.onDataRead(
-          $a[0].castTo(const jni.JArrayType(jni.jbyteType()),
+          $a[0].as(const _$jni.JArrayType(_$jni.jbyteType()),
               releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'onFinished()V') {
         _$impls[$p]!.onFinished();
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'onError(Ljava/io/IOException;)V') {
         _$impls[$p]!.onError(
-          $a[0].castTo(const jni.JObjectType(), releaseOriginal: true),
+          $a[0].as(const _$jni.JObjectType(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory DataCallback.implement(
-    $DataCallbackImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $DataCallback $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = DataCallback.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'com.example.ok_http.DataCallback',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'com.example.ok_http.DataCallback',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.onDataRead$async) r'onDataRead([B)V',
+        if ($impl.onFinished$async) r'onFinished()V',
+        if ($impl.onError$async) r'onError(Ljava/io/IOException;)V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory DataCallback.implement(
+    $DataCallback $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return DataCallback.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $DataCallbackImpl {
-  factory $DataCallbackImpl({
-    required void Function(jni.JArray<jni.jbyte> bs) onDataRead,
+abstract base mixin class $DataCallback {
+  factory $DataCallback({
+    required void Function(_$jni.JArray<_$jni.jbyte> bs) onDataRead,
+    bool onDataRead$async,
     required void Function() onFinished,
-    required void Function(jni.JObject iOException) onError,
-  }) = _$DataCallbackImpl;
+    bool onFinished$async,
+    required void Function(_$jni.JObject iOException) onError,
+    bool onError$async,
+  }) = _$DataCallback;
 
-  void onDataRead(jni.JArray<jni.jbyte> bs);
+  void onDataRead(_$jni.JArray<_$jni.jbyte> bs);
+  bool get onDataRead$async => false;
   void onFinished();
-  void onError(jni.JObject iOException);
+  bool get onFinished$async => false;
+  void onError(_$jni.JObject iOException);
+  bool get onError$async => false;
 }
 
-class _$DataCallbackImpl implements $DataCallbackImpl {
-  _$DataCallbackImpl({
-    required void Function(jni.JArray<jni.jbyte> bs) onDataRead,
+final class _$DataCallback with $DataCallback {
+  _$DataCallback({
+    required void Function(_$jni.JArray<_$jni.jbyte> bs) onDataRead,
+    this.onDataRead$async = false,
     required void Function() onFinished,
-    required void Function(jni.JObject iOException) onError,
+    this.onFinished$async = false,
+    required void Function(_$jni.JObject iOException) onError,
+    this.onError$async = false,
   })  : _onDataRead = onDataRead,
         _onFinished = onFinished,
         _onError = onError;
 
-  final void Function(jni.JArray<jni.jbyte> bs) _onDataRead;
+  final void Function(_$jni.JArray<_$jni.jbyte> bs) _onDataRead;
+  final bool onDataRead$async;
   final void Function() _onFinished;
-  final void Function(jni.JObject iOException) _onError;
+  final bool onFinished$async;
+  final void Function(_$jni.JObject iOException) _onError;
+  final bool onError$async;
 
-  void onDataRead(jni.JArray<jni.jbyte> bs) {
+  void onDataRead(_$jni.JArray<_$jni.jbyte> bs) {
     return _onDataRead(bs);
   }
 
@@ -10422,95 +11428,104 @@ class _$DataCallbackImpl implements $DataCallbackImpl {
     return _onFinished();
   }
 
-  void onError(jni.JObject iOException) {
+  void onError(_$jni.JObject iOException) {
     return _onError(iOException);
   }
 }
 
-final class $DataCallbackType extends jni.JObjType<DataCallback> {
-  const $DataCallbackType();
+final class $DataCallback$Type extends _$jni.JObjType<DataCallback> {
+  @_$jni.internal
+  const $DataCallback$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lcom/example/ok_http/DataCallback;';
 
-  @override
-  DataCallback fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  DataCallback fromReference(_$jni.JReference reference) =>
       DataCallback.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($DataCallbackType).hashCode;
+  @_$core.override
+  int get hashCode => ($DataCallback$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($DataCallbackType) &&
-        other is $DataCallbackType;
+    return other.runtimeType == ($DataCallback$Type) &&
+        other is $DataCallback$Type;
   }
 }
 
-/// from: okhttp3.WebSocket$Factory
-class WebSocket_Factory extends jni.JObject {
-  @override
-  late final jni.JObjType<WebSocket_Factory> $type = type;
+/// from: `okhttp3.WebSocket$Factory`
+class WebSocket_Factory extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<WebSocket_Factory> $type;
 
+  @_$jni.internal
   WebSocket_Factory.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/WebSocket$Factory');
+  static final _class = _$jni.JClass.forName(r'okhttp3/WebSocket$Factory');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WebSocket_FactoryType();
+  static const type = $WebSocket_Factory$Type();
   static final _id_newWebSocket = _class.instanceMethodId(
     r'newWebSocket',
     r'(Lokhttp3/Request;Lokhttp3/WebSocketListener;)Lokhttp3/WebSocket;',
   );
 
-  static final _newWebSocket = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _newWebSocket = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)
+  /// from: `public abstract okhttp3.WebSocket newWebSocket(okhttp3.Request request, okhttp3.WebSocketListener webSocketListener)`
   /// The returned object must be released after use, by calling the [release] method.
   WebSocket newWebSocket(
     Request request,
-    jni.JObject webSocketListener,
+    _$jni.JObject webSocketListener,
   ) {
     return _newWebSocket(
             reference.pointer,
-            _id_newWebSocket as jni.JMethodIDPtr,
+            _id_newWebSocket as _$jni.JMethodIDPtr,
             request.reference.pointer,
             webSocketListener.reference.pointer)
-        .object(const $WebSocketType());
+        .object(const $WebSocket$Type());
   }
 
   /// Maps a specific port to the implemented interface.
-  static final Map<int, $WebSocket_FactoryImpl> _$impls = {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
+  static final _$core.Map<int, $WebSocket_Factory> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -10518,15 +11533,15 @@ class WebSocket_Factory extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
@@ -10534,131 +11549,150 @@ class WebSocket_Factory extends jni.JObject {
       if ($d ==
           r'newWebSocket(Lokhttp3/Request;Lokhttp3/WebSocketListener;)Lokhttp3/WebSocket;') {
         final $r = _$impls[$p]!.newWebSocket(
-          $a[0].castTo(const $RequestType(), releaseOriginal: true),
-          $a[1].castTo(const jni.JObjectType(), releaseOriginal: true),
+          $a[0].as(const $Request$Type(), releaseOriginal: true),
+          $a[1].as(const _$jni.JObjectType(), releaseOriginal: true),
         );
-        return ($r as jni.JObject)
-            .castTo(const jni.JObjectType())
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
             .reference
             .toPointer();
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory WebSocket_Factory.implement(
-    $WebSocket_FactoryImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $WebSocket_Factory $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = WebSocket_Factory.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'okhttp3.WebSocket$Factory',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'okhttp3.WebSocket$Factory',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory WebSocket_Factory.implement(
+    $WebSocket_Factory $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return WebSocket_Factory.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $WebSocket_FactoryImpl {
-  factory $WebSocket_FactoryImpl({
-    required WebSocket Function(Request request, jni.JObject webSocketListener)
+abstract base mixin class $WebSocket_Factory {
+  factory $WebSocket_Factory({
+    required WebSocket Function(
+            Request request, _$jni.JObject webSocketListener)
         newWebSocket,
-  }) = _$WebSocket_FactoryImpl;
+  }) = _$WebSocket_Factory;
 
-  WebSocket newWebSocket(Request request, jni.JObject webSocketListener);
+  WebSocket newWebSocket(Request request, _$jni.JObject webSocketListener);
 }
 
-class _$WebSocket_FactoryImpl implements $WebSocket_FactoryImpl {
-  _$WebSocket_FactoryImpl({
-    required WebSocket Function(Request request, jni.JObject webSocketListener)
+final class _$WebSocket_Factory with $WebSocket_Factory {
+  _$WebSocket_Factory({
+    required WebSocket Function(
+            Request request, _$jni.JObject webSocketListener)
         newWebSocket,
   }) : _newWebSocket = newWebSocket;
 
-  final WebSocket Function(Request request, jni.JObject webSocketListener)
+  final WebSocket Function(Request request, _$jni.JObject webSocketListener)
       _newWebSocket;
 
-  WebSocket newWebSocket(Request request, jni.JObject webSocketListener) {
+  WebSocket newWebSocket(Request request, _$jni.JObject webSocketListener) {
     return _newWebSocket(request, webSocketListener);
   }
 }
 
-final class $WebSocket_FactoryType extends jni.JObjType<WebSocket_Factory> {
-  const $WebSocket_FactoryType();
+final class $WebSocket_Factory$Type extends _$jni.JObjType<WebSocket_Factory> {
+  @_$jni.internal
+  const $WebSocket_Factory$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/WebSocket$Factory;';
 
-  @override
-  WebSocket_Factory fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  WebSocket_Factory fromReference(_$jni.JReference reference) =>
       WebSocket_Factory.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($WebSocket_FactoryType).hashCode;
+  @_$core.override
+  int get hashCode => ($WebSocket_Factory$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($WebSocket_FactoryType) &&
-        other is $WebSocket_FactoryType;
+    return other.runtimeType == ($WebSocket_Factory$Type) &&
+        other is $WebSocket_Factory$Type;
   }
 }
 
-/// from: okhttp3.WebSocket
-class WebSocket extends jni.JObject {
-  @override
-  late final jni.JObjType<WebSocket> $type = type;
+/// from: `okhttp3.WebSocket`
+class WebSocket extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<WebSocket> $type;
 
+  @_$jni.internal
   WebSocket.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okhttp3/WebSocket');
+  static final _class = _$jni.JClass.forName(r'okhttp3/WebSocket');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WebSocketType();
+  static const type = $WebSocket$Type();
   static final _id_request = _class.instanceMethodId(
     r'request',
     r'()Lokhttp3/Request;',
   );
 
-  static final _request = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _request = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract okhttp3.Request request()
+  /// from: `public abstract okhttp3.Request request()`
   /// The returned object must be released after use, by calling the [release] method.
   Request request() {
-    return _request(reference.pointer, _id_request as jni.JMethodIDPtr)
-        .object(const $RequestType());
+    return _request(reference.pointer, _id_request as _$jni.JMethodIDPtr)
+        .object(const $Request$Type());
   }
 
   static final _id_queueSize = _class.instanceMethodId(
@@ -10666,21 +11700,21 @@ class WebSocket extends jni.JObject {
     r'()J',
   );
 
-  static final _queueSize = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _queueSize = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract long queueSize()
+  /// from: `public abstract long queueSize()`
   int queueSize() {
-    return _queueSize(reference.pointer, _id_queueSize as jni.JMethodIDPtr)
+    return _queueSize(reference.pointer, _id_queueSize as _$jni.JMethodIDPtr)
         .long;
   }
 
@@ -10689,47 +11723,47 @@ class WebSocket extends jni.JObject {
     r'(Ljava/lang/String;)Z',
   );
 
-  static final _send = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _send = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract boolean send(java.lang.String string)
+  /// from: `public abstract boolean send(java.lang.String string)`
   bool send(
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    return _send(reference.pointer, _id_send as jni.JMethodIDPtr,
+    return _send(reference.pointer, _id_send as _$jni.JMethodIDPtr,
             string.reference.pointer)
         .boolean;
   }
 
-  static final _id_send1 = _class.instanceMethodId(
+  static final _id_send$1 = _class.instanceMethodId(
     r'send',
     r'(Lokio/ByteString;)Z',
   );
 
-  static final _send1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _send$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract boolean send(okio.ByteString byteString)
-  bool send1(
+  /// from: `public abstract boolean send(okio.ByteString byteString)`
+  bool send$1(
     ByteString byteString,
   ) {
-    return _send1(reference.pointer, _id_send1 as jni.JMethodIDPtr,
+    return _send$1(reference.pointer, _id_send$1 as _$jni.JMethodIDPtr,
             byteString.reference.pointer)
         .boolean;
   }
@@ -10739,23 +11773,24 @@ class WebSocket extends jni.JObject {
     r'(ILjava/lang/String;)Z',
   );
 
-  static final _close = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<($Int32, ffi.Pointer<ffi.Void>)>)>>(
+  static final _close = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Int32, _$jni.Pointer<_$jni.Void>)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract boolean close(int i, java.lang.String string)
+  /// from: `public abstract boolean close(int i, java.lang.String string)`
   bool close(
     int i,
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    return _close(reference.pointer, _id_close as jni.JMethodIDPtr, i,
+    return _close(reference.pointer, _id_close as _$jni.JMethodIDPtr, i,
             string.reference.pointer)
         .boolean;
   }
@@ -10765,35 +11800,33 @@ class WebSocket extends jni.JObject {
     r'()V',
   );
 
-  static final _cancel = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _cancel = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public abstract void cancel()
+  /// from: `public abstract void cancel()`
   void cancel() {
-    _cancel(reference.pointer, _id_cancel as jni.JMethodIDPtr).check();
+    _cancel(reference.pointer, _id_cancel as _$jni.JMethodIDPtr).check();
   }
 
   /// Maps a specific port to the implemented interface.
-  static final Map<int, $WebSocketImpl> _$impls = {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
+  static final _$core.Map<int, $WebSocket> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -10801,127 +11834,142 @@ class WebSocket extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d == r'request()Lokhttp3/Request;') {
         final $r = _$impls[$p]!.request();
-        return ($r as jni.JObject)
-            .castTo(const jni.JObjectType())
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
             .reference
             .toPointer();
       }
       if ($d == r'queueSize()J') {
         final $r = _$impls[$p]!.queueSize();
-        return jni.JLong($r).reference.toPointer();
+        return _$jni.JLong($r).reference.toPointer();
       }
       if ($d == r'send(Ljava/lang/String;)Z') {
         final $r = _$impls[$p]!.send(
-          $a[0].castTo(const jni.JStringType(), releaseOriginal: true),
+          $a[0].as(const _$jni.JStringType(), releaseOriginal: true),
         );
-        return jni.JBoolean($r).reference.toPointer();
+        return _$jni.JBoolean($r).reference.toPointer();
       }
       if ($d == r'send(Lokio/ByteString;)Z') {
-        final $r = _$impls[$p]!.send1(
-          $a[0].castTo(const $ByteStringType(), releaseOriginal: true),
+        final $r = _$impls[$p]!.send$1(
+          $a[0].as(const $ByteString$Type(), releaseOriginal: true),
         );
-        return jni.JBoolean($r).reference.toPointer();
+        return _$jni.JBoolean($r).reference.toPointer();
       }
       if ($d == r'close(ILjava/lang/String;)Z') {
         final $r = _$impls[$p]!.close(
           $a[0]
-              .castTo(const jni.JIntegerType(), releaseOriginal: true)
+              .as(const _$jni.JIntegerType(), releaseOriginal: true)
               .intValue(releaseOriginal: true),
-          $a[1].castTo(const jni.JStringType(), releaseOriginal: true),
+          $a[1].as(const _$jni.JStringType(), releaseOriginal: true),
         );
-        return jni.JBoolean($r).reference.toPointer();
+        return _$jni.JBoolean($r).reference.toPointer();
       }
       if ($d == r'cancel()V') {
         _$impls[$p]!.cancel();
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory WebSocket.implement(
-    $WebSocketImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $WebSocket $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = WebSocket.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'okhttp3.WebSocket',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'okhttp3.WebSocket',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.cancel$async) r'cancel()V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory WebSocket.implement(
+    $WebSocket $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return WebSocket.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $WebSocketImpl {
-  factory $WebSocketImpl({
+abstract base mixin class $WebSocket {
+  factory $WebSocket({
     required Request Function() request,
     required int Function() queueSize,
-    required bool Function(jni.JString string) send,
-    required bool Function(ByteString byteString) send1,
-    required bool Function(int i, jni.JString string) close,
+    required bool Function(_$jni.JString string) send,
+    required bool Function(ByteString byteString) send$1,
+    required bool Function(int i, _$jni.JString string) close,
     required void Function() cancel,
-  }) = _$WebSocketImpl;
+    bool cancel$async,
+  }) = _$WebSocket;
 
   Request request();
   int queueSize();
-  bool send(jni.JString string);
-  bool send1(ByteString byteString);
-  bool close(int i, jni.JString string);
+  bool send(_$jni.JString string);
+  bool send$1(ByteString byteString);
+  bool close(int i, _$jni.JString string);
   void cancel();
+  bool get cancel$async => false;
 }
 
-class _$WebSocketImpl implements $WebSocketImpl {
-  _$WebSocketImpl({
+final class _$WebSocket with $WebSocket {
+  _$WebSocket({
     required Request Function() request,
     required int Function() queueSize,
-    required bool Function(jni.JString string) send,
-    required bool Function(ByteString byteString) send1,
-    required bool Function(int i, jni.JString string) close,
+    required bool Function(_$jni.JString string) send,
+    required bool Function(ByteString byteString) send$1,
+    required bool Function(int i, _$jni.JString string) close,
     required void Function() cancel,
+    this.cancel$async = false,
   })  : _request = request,
         _queueSize = queueSize,
         _send = send,
-        _send1 = send1,
+        _send$1 = send$1,
         _close = close,
         _cancel = cancel;
 
   final Request Function() _request;
   final int Function() _queueSize;
-  final bool Function(jni.JString string) _send;
-  final bool Function(ByteString byteString) _send1;
-  final bool Function(int i, jni.JString string) _close;
+  final bool Function(_$jni.JString string) _send;
+  final bool Function(ByteString byteString) _send$1;
+  final bool Function(int i, _$jni.JString string) _close;
   final void Function() _cancel;
+  final bool cancel$async;
 
   Request request() {
     return _request();
@@ -10931,15 +11979,15 @@ class _$WebSocketImpl implements $WebSocketImpl {
     return _queueSize();
   }
 
-  bool send(jni.JString string) {
+  bool send(_$jni.JString string) {
     return _send(string);
   }
 
-  bool send1(ByteString byteString) {
-    return _send1(byteString);
+  bool send$1(ByteString byteString) {
+    return _send$1(byteString);
   }
 
-  bool close(int i, jni.JString string) {
+  bool close(int i, _$jni.JString string) {
     return _close(i, string);
   }
 
@@ -10948,71 +11996,81 @@ class _$WebSocketImpl implements $WebSocketImpl {
   }
 }
 
-final class $WebSocketType extends jni.JObjType<WebSocket> {
-  const $WebSocketType();
+final class $WebSocket$Type extends _$jni.JObjType<WebSocket> {
+  @_$jni.internal
+  const $WebSocket$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokhttp3/WebSocket;';
 
-  @override
-  WebSocket fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  WebSocket fromReference(_$jni.JReference reference) =>
       WebSocket.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($WebSocketType).hashCode;
+  @_$core.override
+  int get hashCode => ($WebSocket$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($WebSocketType) && other is $WebSocketType;
+    return other.runtimeType == ($WebSocket$Type) && other is $WebSocket$Type;
   }
 }
 
-/// from: com.example.ok_http.WebSocketListenerProxy$WebSocketListener
-class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
-  @override
-  late final jni.JObjType<WebSocketListenerProxy_WebSocketListener> $type =
-      type;
+/// from: `com.example.ok_http.WebSocketListenerProxy$WebSocketListener`
+class WebSocketListenerProxy_WebSocketListener extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<WebSocketListenerProxy_WebSocketListener> $type;
 
+  @_$jni.internal
   WebSocketListenerProxy_WebSocketListener.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(
+  static final _class = _$jni.JClass.forName(
       r'com/example/ok_http/WebSocketListenerProxy$WebSocketListener');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WebSocketListenerProxy_WebSocketListenerType();
+  static const type = $WebSocketListenerProxy_WebSocketListener$Type();
   static final _id_onOpen = _class.instanceMethodId(
     r'onOpen',
     r'(Lokhttp3/WebSocket;Lokhttp3/Response;)V',
   );
 
-  static final _onOpen = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onOpen = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)
+  /// from: `public abstract void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)`
   void onOpen(
     WebSocket webSocket,
     Response response,
   ) {
-    _onOpen(reference.pointer, _id_onOpen as jni.JMethodIDPtr,
+    _onOpen(reference.pointer, _id_onOpen as _$jni.JMethodIDPtr,
             webSocket.reference.pointer, response.reference.pointer)
         .check();
   }
@@ -11022,55 +12080,61 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
     r'(Lokhttp3/WebSocket;Ljava/lang/String;)V',
   );
 
-  static final _onMessage = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onMessage = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)
+  /// from: `public abstract void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)`
   void onMessage(
     WebSocket webSocket,
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    _onMessage(reference.pointer, _id_onMessage as jni.JMethodIDPtr,
+    _onMessage(reference.pointer, _id_onMessage as _$jni.JMethodIDPtr,
             webSocket.reference.pointer, string.reference.pointer)
         .check();
   }
 
-  static final _id_onMessage1 = _class.instanceMethodId(
+  static final _id_onMessage$1 = _class.instanceMethodId(
     r'onMessage',
     r'(Lokhttp3/WebSocket;Lokio/ByteString;)V',
   );
 
-  static final _onMessage1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onMessage$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)
-  void onMessage1(
+  /// from: `public abstract void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)`
+  void onMessage$1(
     WebSocket webSocket,
     ByteString byteString,
   ) {
-    _onMessage1(reference.pointer, _id_onMessage1 as jni.JMethodIDPtr,
+    _onMessage$1(reference.pointer, _id_onMessage$1 as _$jni.JMethodIDPtr,
             webSocket.reference.pointer, byteString.reference.pointer)
         .check();
   }
@@ -11080,28 +12144,32 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
     r'(Lokhttp3/WebSocket;ILjava/lang/String;)V',
   );
 
-  static final _onClosing = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onClosing = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)
+  /// from: `public abstract void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)`
   void onClosing(
     WebSocket webSocket,
     int i,
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    _onClosing(reference.pointer, _id_onClosing as jni.JMethodIDPtr,
+    _onClosing(reference.pointer, _id_onClosing as _$jni.JMethodIDPtr,
             webSocket.reference.pointer, i, string.reference.pointer)
         .check();
   }
@@ -11111,34 +12179,34 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
     r'(Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V',
   );
 
-  static final _onFailure = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onFailure = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-              ffi.Pointer<ffi.Void>,
-              jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public abstract void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)
+  /// from: `public abstract void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)`
   void onFailure(
     WebSocket webSocket,
-    jni.JObject throwable,
+    _$jni.JObject throwable,
     Response response,
   ) {
     _onFailure(
             reference.pointer,
-            _id_onFailure as jni.JMethodIDPtr,
+            _id_onFailure as _$jni.JMethodIDPtr,
             webSocket.reference.pointer,
             throwable.reference.pointer,
             response.reference.pointer)
@@ -11146,18 +12214,16 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
   }
 
   /// Maps a specific port to the implemented interface.
-  static final Map<int, $WebSocketListenerProxy_WebSocketListenerImpl> _$impls =
-      {};
-  ReceivePort? _$p;
-
-  static jni.JObjectPtr _$invoke(
+  static final _$core.Map<int, $WebSocketListenerProxy_WebSocketListener>
+      _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
     int port,
-    jni.JObjectPtr descriptor,
-    jni.JObjectPtr args,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
   ) {
     return _$invokeMethod(
       port,
-      $MethodInvocation.fromAddresses(
+      _$jni.MethodInvocation.fromAddresses(
         0,
         descriptor.address,
         args.address,
@@ -11165,226 +12231,276 @@ class WebSocketListenerProxy_WebSocketListener extends jni.JObject {
     );
   }
 
-  static final ffi.Pointer<
-          ffi.NativeFunction<
-              jni.JObjectPtr Function(
-                  ffi.Uint64, jni.JObjectPtr, jni.JObjectPtr)>>
-      _$invokePointer = ffi.Pointer.fromFunction(_$invoke);
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
 
-  static ffi.Pointer<ffi.Void> _$invokeMethod(
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
     int $p,
-    $MethodInvocation $i,
+    _$jni.MethodInvocation $i,
   ) {
     try {
       final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
       final $a = $i.args;
       if ($d == r'onOpen(Lokhttp3/WebSocket;Lokhttp3/Response;)V') {
         _$impls[$p]!.onOpen(
-          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
-          $a[1].castTo(const $ResponseType(), releaseOriginal: true),
+          $a[0].as(const $WebSocket$Type(), releaseOriginal: true),
+          $a[1].as(const $Response$Type(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'onMessage(Lokhttp3/WebSocket;Ljava/lang/String;)V') {
         _$impls[$p]!.onMessage(
-          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
-          $a[1].castTo(const jni.JStringType(), releaseOriginal: true),
+          $a[0].as(const $WebSocket$Type(), releaseOriginal: true),
+          $a[1].as(const _$jni.JStringType(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'onMessage(Lokhttp3/WebSocket;Lokio/ByteString;)V') {
-        _$impls[$p]!.onMessage1(
-          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
-          $a[1].castTo(const $ByteStringType(), releaseOriginal: true),
+        _$impls[$p]!.onMessage$1(
+          $a[0].as(const $WebSocket$Type(), releaseOriginal: true),
+          $a[1].as(const $ByteString$Type(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d == r'onClosing(Lokhttp3/WebSocket;ILjava/lang/String;)V') {
         _$impls[$p]!.onClosing(
-          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
+          $a[0].as(const $WebSocket$Type(), releaseOriginal: true),
           $a[1]
-              .castTo(const jni.JIntegerType(), releaseOriginal: true)
+              .as(const _$jni.JIntegerType(), releaseOriginal: true)
               .intValue(releaseOriginal: true),
-          $a[2].castTo(const jni.JStringType(), releaseOriginal: true),
+          $a[2].as(const _$jni.JStringType(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
       if ($d ==
           r'onFailure(Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V') {
         _$impls[$p]!.onFailure(
-          $a[0].castTo(const $WebSocketType(), releaseOriginal: true),
-          $a[1].castTo(const jni.JObjectType(), releaseOriginal: true),
-          $a[2].castTo(const $ResponseType(), releaseOriginal: true),
+          $a[0].as(const $WebSocket$Type(), releaseOriginal: true),
+          $a[1].as(const _$jni.JObjectType(), releaseOriginal: true),
+          $a[2].as(const $Response$Type(), releaseOriginal: true),
         );
-        return jni.nullptr;
+        return _$jni.nullptr;
       }
     } catch (e) {
-      return ProtectedJniExtensions.newDartException(e);
+      return _$jni.ProtectedJniExtensions.newDartException(e);
     }
-    return jni.nullptr;
+    return _$jni.nullptr;
   }
 
-  factory WebSocketListenerProxy_WebSocketListener.implement(
-    $WebSocketListenerProxy_WebSocketListenerImpl $impl,
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $WebSocketListenerProxy_WebSocketListener $impl,
   ) {
-    final $p = ReceivePort();
-    final $x = WebSocketListenerProxy_WebSocketListener.fromReference(
-      ProtectedJniExtensions.newPortProxy(
-        r'com.example.ok_http.WebSocketListenerProxy$WebSocketListener',
-        $p,
-        _$invokePointer,
-      ),
-    ).._$p = $p;
-    final $a = $p.sendPort.nativePort;
-    _$impls[$a] = $impl;
-    $p.listen(($m) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
       if ($m == null) {
         _$impls.remove($p.sendPort.nativePort);
         $p.close();
         return;
       }
-      final $i = $MethodInvocation.fromMessage($m as List<dynamic>);
+      final $i = _$jni.MethodInvocation.fromMessage($m);
       final $r = _$invokeMethod($p.sendPort.nativePort, $i);
-      ProtectedJniExtensions.returnResult($i.result, $r);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
     });
-    return $x;
+    implementer.add(
+      r'com.example.ok_http.WebSocketListenerProxy$WebSocketListener',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.onOpen$async)
+          r'onOpen(Lokhttp3/WebSocket;Lokhttp3/Response;)V',
+        if ($impl.onMessage$async)
+          r'onMessage(Lokhttp3/WebSocket;Ljava/lang/String;)V',
+        if ($impl.onMessage$1$async)
+          r'onMessage(Lokhttp3/WebSocket;Lokio/ByteString;)V',
+        if ($impl.onClosing$async)
+          r'onClosing(Lokhttp3/WebSocket;ILjava/lang/String;)V',
+        if ($impl.onFailure$async)
+          r'onFailure(Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory WebSocketListenerProxy_WebSocketListener.implement(
+    $WebSocketListenerProxy_WebSocketListener $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return WebSocketListenerProxy_WebSocketListener.fromReference(
+      $i.implementReference(),
+    );
   }
 }
 
-abstract interface class $WebSocketListenerProxy_WebSocketListenerImpl {
-  factory $WebSocketListenerProxy_WebSocketListenerImpl({
+abstract base mixin class $WebSocketListenerProxy_WebSocketListener {
+  factory $WebSocketListenerProxy_WebSocketListener({
     required void Function(WebSocket webSocket, Response response) onOpen,
-    required void Function(WebSocket webSocket, jni.JString string) onMessage,
+    bool onOpen$async,
+    required void Function(WebSocket webSocket, _$jni.JString string) onMessage,
+    bool onMessage$async,
     required void Function(WebSocket webSocket, ByteString byteString)
-        onMessage1,
-    required void Function(WebSocket webSocket, int i, jni.JString string)
+        onMessage$1,
+    bool onMessage$1$async,
+    required void Function(WebSocket webSocket, int i, _$jni.JString string)
         onClosing,
+    bool onClosing$async,
     required void Function(
-            WebSocket webSocket, jni.JObject throwable, Response response)
+            WebSocket webSocket, _$jni.JObject throwable, Response response)
         onFailure,
-  }) = _$WebSocketListenerProxy_WebSocketListenerImpl;
+    bool onFailure$async,
+  }) = _$WebSocketListenerProxy_WebSocketListener;
 
   void onOpen(WebSocket webSocket, Response response);
-  void onMessage(WebSocket webSocket, jni.JString string);
-  void onMessage1(WebSocket webSocket, ByteString byteString);
-  void onClosing(WebSocket webSocket, int i, jni.JString string);
-  void onFailure(WebSocket webSocket, jni.JObject throwable, Response response);
+  bool get onOpen$async => false;
+  void onMessage(WebSocket webSocket, _$jni.JString string);
+  bool get onMessage$async => false;
+  void onMessage$1(WebSocket webSocket, ByteString byteString);
+  bool get onMessage$1$async => false;
+  void onClosing(WebSocket webSocket, int i, _$jni.JString string);
+  bool get onClosing$async => false;
+  void onFailure(
+      WebSocket webSocket, _$jni.JObject throwable, Response response);
+  bool get onFailure$async => false;
 }
 
-class _$WebSocketListenerProxy_WebSocketListenerImpl
-    implements $WebSocketListenerProxy_WebSocketListenerImpl {
-  _$WebSocketListenerProxy_WebSocketListenerImpl({
+final class _$WebSocketListenerProxy_WebSocketListener
+    with $WebSocketListenerProxy_WebSocketListener {
+  _$WebSocketListenerProxy_WebSocketListener({
     required void Function(WebSocket webSocket, Response response) onOpen,
-    required void Function(WebSocket webSocket, jni.JString string) onMessage,
+    this.onOpen$async = false,
+    required void Function(WebSocket webSocket, _$jni.JString string) onMessage,
+    this.onMessage$async = false,
     required void Function(WebSocket webSocket, ByteString byteString)
-        onMessage1,
-    required void Function(WebSocket webSocket, int i, jni.JString string)
+        onMessage$1,
+    this.onMessage$1$async = false,
+    required void Function(WebSocket webSocket, int i, _$jni.JString string)
         onClosing,
+    this.onClosing$async = false,
     required void Function(
-            WebSocket webSocket, jni.JObject throwable, Response response)
+            WebSocket webSocket, _$jni.JObject throwable, Response response)
         onFailure,
+    this.onFailure$async = false,
   })  : _onOpen = onOpen,
         _onMessage = onMessage,
-        _onMessage1 = onMessage1,
+        _onMessage$1 = onMessage$1,
         _onClosing = onClosing,
         _onFailure = onFailure;
 
   final void Function(WebSocket webSocket, Response response) _onOpen;
-  final void Function(WebSocket webSocket, jni.JString string) _onMessage;
-  final void Function(WebSocket webSocket, ByteString byteString) _onMessage1;
-  final void Function(WebSocket webSocket, int i, jni.JString string)
+  final bool onOpen$async;
+  final void Function(WebSocket webSocket, _$jni.JString string) _onMessage;
+  final bool onMessage$async;
+  final void Function(WebSocket webSocket, ByteString byteString) _onMessage$1;
+  final bool onMessage$1$async;
+  final void Function(WebSocket webSocket, int i, _$jni.JString string)
       _onClosing;
+  final bool onClosing$async;
   final void Function(
-      WebSocket webSocket, jni.JObject throwable, Response response) _onFailure;
+          WebSocket webSocket, _$jni.JObject throwable, Response response)
+      _onFailure;
+  final bool onFailure$async;
 
   void onOpen(WebSocket webSocket, Response response) {
     return _onOpen(webSocket, response);
   }
 
-  void onMessage(WebSocket webSocket, jni.JString string) {
+  void onMessage(WebSocket webSocket, _$jni.JString string) {
     return _onMessage(webSocket, string);
   }
 
-  void onMessage1(WebSocket webSocket, ByteString byteString) {
-    return _onMessage1(webSocket, byteString);
+  void onMessage$1(WebSocket webSocket, ByteString byteString) {
+    return _onMessage$1(webSocket, byteString);
   }
 
-  void onClosing(WebSocket webSocket, int i, jni.JString string) {
+  void onClosing(WebSocket webSocket, int i, _$jni.JString string) {
     return _onClosing(webSocket, i, string);
   }
 
   void onFailure(
-      WebSocket webSocket, jni.JObject throwable, Response response) {
+      WebSocket webSocket, _$jni.JObject throwable, Response response) {
     return _onFailure(webSocket, throwable, response);
   }
 }
 
-final class $WebSocketListenerProxy_WebSocketListenerType
-    extends jni.JObjType<WebSocketListenerProxy_WebSocketListener> {
-  const $WebSocketListenerProxy_WebSocketListenerType();
+final class $WebSocketListenerProxy_WebSocketListener$Type
+    extends _$jni.JObjType<WebSocketListenerProxy_WebSocketListener> {
+  @_$jni.internal
+  const $WebSocketListenerProxy_WebSocketListener$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature =>
       r'Lcom/example/ok_http/WebSocketListenerProxy$WebSocketListener;';
 
-  @override
+  @_$jni.internal
+  @_$core.override
   WebSocketListenerProxy_WebSocketListener fromReference(
-          jni.JReference reference) =>
+          _$jni.JReference reference) =>
       WebSocketListenerProxy_WebSocketListener.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($WebSocketListenerProxy_WebSocketListenerType).hashCode;
+  @_$core.override
+  int get hashCode => ($WebSocketListenerProxy_WebSocketListener$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
     return other.runtimeType ==
-            ($WebSocketListenerProxy_WebSocketListenerType) &&
-        other is $WebSocketListenerProxy_WebSocketListenerType;
+            ($WebSocketListenerProxy_WebSocketListener$Type) &&
+        other is $WebSocketListenerProxy_WebSocketListener$Type;
   }
 }
 
-/// from: com.example.ok_http.WebSocketListenerProxy
-class WebSocketListenerProxy extends jni.JObject {
-  @override
-  late final jni.JObjType<WebSocketListenerProxy> $type = type;
+/// from: `com.example.ok_http.WebSocketListenerProxy`
+class WebSocketListenerProxy extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<WebSocketListenerProxy> $type;
 
+  @_$jni.internal
   WebSocketListenerProxy.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r'com/example/ok_http/WebSocketListenerProxy');
+      _$jni.JClass.forName(r'com/example/ok_http/WebSocketListenerProxy');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WebSocketListenerProxyType();
-  static final _id_new0 = _class.constructorId(
+  static const type = $WebSocketListenerProxy$Type();
+  static final _id_new$ = _class.constructorId(
     r'(Lcom/example/ok_http/WebSocketListenerProxy$WebSocketListener;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(com.example.ok_http.WebSocketListenerProxy$WebSocketListener webSocketListener)
+  /// from: `public void <init>(com.example.ok_http.WebSocketListenerProxy$WebSocketListener webSocketListener)`
   /// The returned object must be released after use, by calling the [release] method.
   factory WebSocketListenerProxy(
     WebSocketListenerProxy_WebSocketListener webSocketListener,
   ) {
-    return WebSocketListenerProxy.fromReference(_new0(_class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr, webSocketListener.reference.pointer)
+    return WebSocketListenerProxy.fromReference(_new$(_class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr, webSocketListener.reference.pointer)
         .reference);
   }
 
@@ -11393,26 +12509,29 @@ class WebSocketListenerProxy extends jni.JObject {
     r'(Lokhttp3/WebSocket;Lokhttp3/Response;)V',
   );
 
-  static final _onOpen = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onOpen = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)
+  /// from: `public void onOpen(okhttp3.WebSocket webSocket, okhttp3.Response response)`
   void onOpen(
     WebSocket webSocket,
     Response response,
   ) {
-    _onOpen(reference.pointer, _id_onOpen as jni.JMethodIDPtr,
+    _onOpen(reference.pointer, _id_onOpen as _$jni.JMethodIDPtr,
             webSocket.reference.pointer, response.reference.pointer)
         .check();
   }
@@ -11422,55 +12541,61 @@ class WebSocketListenerProxy extends jni.JObject {
     r'(Lokhttp3/WebSocket;Ljava/lang/String;)V',
   );
 
-  static final _onMessage = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onMessage = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)
+  /// from: `public void onMessage(okhttp3.WebSocket webSocket, java.lang.String string)`
   void onMessage(
     WebSocket webSocket,
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    _onMessage(reference.pointer, _id_onMessage as jni.JMethodIDPtr,
+    _onMessage(reference.pointer, _id_onMessage as _$jni.JMethodIDPtr,
             webSocket.reference.pointer, string.reference.pointer)
         .check();
   }
 
-  static final _id_onMessage1 = _class.instanceMethodId(
+  static final _id_onMessage$1 = _class.instanceMethodId(
     r'onMessage',
     r'(Lokhttp3/WebSocket;Lokio/ByteString;)V',
   );
 
-  static final _onMessage1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onMessage$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)
-  void onMessage1(
+  /// from: `public void onMessage(okhttp3.WebSocket webSocket, okio.ByteString byteString)`
+  void onMessage$1(
     WebSocket webSocket,
     ByteString byteString,
   ) {
-    _onMessage1(reference.pointer, _id_onMessage1 as jni.JMethodIDPtr,
+    _onMessage$1(reference.pointer, _id_onMessage$1 as _$jni.JMethodIDPtr,
             webSocket.reference.pointer, byteString.reference.pointer)
         .check();
   }
@@ -11480,28 +12605,32 @@ class WebSocketListenerProxy extends jni.JObject {
     r'(Lokhttp3/WebSocket;ILjava/lang/String;)V',
   );
 
-  static final _onClosing = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onClosing = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)
+  /// from: `public void onClosing(okhttp3.WebSocket webSocket, int i, java.lang.String string)`
   void onClosing(
     WebSocket webSocket,
     int i,
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    _onClosing(reference.pointer, _id_onClosing as jni.JMethodIDPtr,
+    _onClosing(reference.pointer, _id_onClosing as _$jni.JMethodIDPtr,
             webSocket.reference.pointer, i, string.reference.pointer)
         .check();
   }
@@ -11511,34 +12640,34 @@ class WebSocketListenerProxy extends jni.JObject {
     r'(Lokhttp3/WebSocket;Ljava/lang/Throwable;Lokhttp3/Response;)V',
   );
 
-  static final _onFailure = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _onFailure = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-              ffi.Pointer<ffi.Void>,
-              jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)
+  /// from: `public void onFailure(okhttp3.WebSocket webSocket, java.lang.Throwable throwable, okhttp3.Response response)`
   void onFailure(
     WebSocket webSocket,
-    jni.JObject throwable,
+    _$jni.JObject throwable,
     Response response,
   ) {
     _onFailure(
             reference.pointer,
-            _id_onFailure as jni.JMethodIDPtr,
+            _id_onFailure as _$jni.JMethodIDPtr,
             webSocket.reference.pointer,
             throwable.reference.pointer,
             response.reference.pointer)
@@ -11546,124 +12675,136 @@ class WebSocketListenerProxy extends jni.JObject {
   }
 }
 
-final class $WebSocketListenerProxyType
-    extends jni.JObjType<WebSocketListenerProxy> {
-  const $WebSocketListenerProxyType();
+final class $WebSocketListenerProxy$Type
+    extends _$jni.JObjType<WebSocketListenerProxy> {
+  @_$jni.internal
+  const $WebSocketListenerProxy$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lcom/example/ok_http/WebSocketListenerProxy;';
 
-  @override
-  WebSocketListenerProxy fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  WebSocketListenerProxy fromReference(_$jni.JReference reference) =>
       WebSocketListenerProxy.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($WebSocketListenerProxyType).hashCode;
+  @_$core.override
+  int get hashCode => ($WebSocketListenerProxy$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($WebSocketListenerProxyType) &&
-        other is $WebSocketListenerProxyType;
+    return other.runtimeType == ($WebSocketListenerProxy$Type) &&
+        other is $WebSocketListenerProxy$Type;
   }
 }
 
-/// from: okio.ByteString$Companion
-class ByteString_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<ByteString_Companion> $type = type;
+/// from: `okio.ByteString$Companion`
+class ByteString_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<ByteString_Companion> $type;
 
+  @_$jni.internal
   ByteString_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okio/ByteString$Companion');
+  static final _class = _$jni.JClass.forName(r'okio/ByteString$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $ByteString_CompanionType();
+  static const type = $ByteString_Companion$Type();
   static final _id_of = _class.instanceMethodId(
     r'of',
     r'([B)Lokio/ByteString;',
   );
 
-  static final _of = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okio.ByteString of(byte[] bs)
+  /// from: `public final okio.ByteString of(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString of(
-    jni.JArray<jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _of(
-            reference.pointer, _id_of as jni.JMethodIDPtr, bs.reference.pointer)
-        .object(const $ByteStringType());
+    return _of(reference.pointer, _id_of as _$jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .object(const $ByteString$Type());
   }
 
-  static final _id_of1 = _class.instanceMethodId(
+  static final _id_of$1 = _class.instanceMethodId(
     r'of',
     r'([BII)Lokio/ByteString;',
   );
 
-  static final _of1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32, $Int32)>)>>(
-          'globalEnv_CallObjectMethod')
+  static final _of$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
 
-  /// from: public final okio.ByteString of(byte[] bs, int i, int i1)
+  /// from: `public final okio.ByteString of(byte[] bs, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
-  ByteString of1(
-    jni.JArray<jni.jbyte> bs,
+  ByteString of$1(
+    _$jni.JArray<_$jni.jbyte> bs,
     int i,
     int i1,
   ) {
-    return _of1(reference.pointer, _id_of1 as jni.JMethodIDPtr,
+    return _of$1(reference.pointer, _id_of$1 as _$jni.JMethodIDPtr,
             bs.reference.pointer, i, i1)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
-  static final _id_of2 = _class.instanceMethodId(
+  static final _id_of$2 = _class.instanceMethodId(
     r'of',
     r'(Ljava/nio/ByteBuffer;)Lokio/ByteString;',
   );
 
-  static final _of2 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)
+  /// from: `public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)`
   /// The returned object must be released after use, by calling the [release] method.
-  ByteString of2(
-    jni.JByteBuffer byteBuffer,
+  ByteString of$2(
+    _$jni.JByteBuffer byteBuffer,
   ) {
-    return _of2(reference.pointer, _id_of2 as jni.JMethodIDPtr,
+    return _of$2(reference.pointer, _id_of$2 as _$jni.JMethodIDPtr,
             byteBuffer.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_encodeUtf8 = _class.instanceMethodId(
@@ -11671,25 +12812,25 @@ class ByteString_Companion extends jni.JObject {
     r'(Ljava/lang/String;)Lokio/ByteString;',
   );
 
-  static final _encodeUtf8 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _encodeUtf8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okio.ByteString encodeUtf8(java.lang.String string)
+  /// from: `public final okio.ByteString encodeUtf8(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString encodeUtf8(
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    return _encodeUtf8(reference.pointer, _id_encodeUtf8 as jni.JMethodIDPtr,
+    return _encodeUtf8(reference.pointer, _id_encodeUtf8 as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_encodeString = _class.instanceMethodId(
@@ -11697,32 +12838,35 @@ class ByteString_Companion extends jni.JObject {
     r'(Ljava/lang/String;Ljava/nio/charset/Charset;)Lokio/ByteString;',
   );
 
-  static final _encodeString = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _encodeString = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)
+  /// from: `public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString encodeString(
-    jni.JString string,
-    jni.JObject charset,
+    _$jni.JString string,
+    _$jni.JObject charset,
   ) {
     return _encodeString(
             reference.pointer,
-            _id_encodeString as jni.JMethodIDPtr,
+            _id_encodeString as _$jni.JMethodIDPtr,
             string.reference.pointer,
             charset.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_decodeBase64 = _class.instanceMethodId(
@@ -11730,25 +12874,25 @@ class ByteString_Companion extends jni.JObject {
     r'(Ljava/lang/String;)Lokio/ByteString;',
   );
 
-  static final _decodeBase64 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _decodeBase64 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okio.ByteString decodeBase64(java.lang.String string)
+  /// from: `public final okio.ByteString decodeBase64(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString decodeBase64(
-    jni.JString string,
+    _$jni.JString string,
   ) {
     return _decodeBase64(reference.pointer,
-            _id_decodeBase64 as jni.JMethodIDPtr, string.reference.pointer)
-        .object(const $ByteStringType());
+            _id_decodeBase64 as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $ByteString$Type());
   }
 
   static final _id_decodeHex = _class.instanceMethodId(
@@ -11756,25 +12900,25 @@ class ByteString_Companion extends jni.JObject {
     r'(Ljava/lang/String;)Lokio/ByteString;',
   );
 
-  static final _decodeHex = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _decodeHex = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okio.ByteString decodeHex(java.lang.String string)
+  /// from: `public final okio.ByteString decodeHex(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString decodeHex(
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    return _decodeHex(reference.pointer, _id_decodeHex as jni.JMethodIDPtr,
+    return _decodeHex(reference.pointer, _id_decodeHex as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_read = _class.instanceMethodId(
@@ -11782,137 +12926,147 @@ class ByteString_Companion extends jni.JObject {
     r'(Ljava/io/InputStream;I)Lokio/ByteString;',
   );
 
-  static final _read = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+  static final _read = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: public final okio.ByteString read(java.io.InputStream inputStream, int i)
+  /// from: `public final okio.ByteString read(java.io.InputStream inputStream, int i)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString read(
-    jni.JObject inputStream,
+    _$jni.JObject inputStream,
     int i,
   ) {
-    return _read(reference.pointer, _id_read as jni.JMethodIDPtr,
+    return _read(reference.pointer, _id_read as _$jni.JMethodIDPtr,
             inputStream.reference.pointer, i)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ByteString_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return ByteString_Companion.fromReference(_new0(
+    return ByteString_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $ByteString_CompanionType
-    extends jni.JObjType<ByteString_Companion> {
-  const $ByteString_CompanionType();
+final class $ByteString_Companion$Type
+    extends _$jni.JObjType<ByteString_Companion> {
+  @_$jni.internal
+  const $ByteString_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokio/ByteString$Companion;';
 
-  @override
-  ByteString_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  ByteString_Companion fromReference(_$jni.JReference reference) =>
       ByteString_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($ByteString_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($ByteString_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($ByteString_CompanionType) &&
-        other is $ByteString_CompanionType;
+    return other.runtimeType == ($ByteString_Companion$Type) &&
+        other is $ByteString_Companion$Type;
   }
 }
 
-/// from: okio.ByteString
-class ByteString extends jni.JObject {
-  @override
-  late final jni.JObjType<ByteString> $type = type;
+/// from: `okio.ByteString`
+class ByteString extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<ByteString> $type;
 
+  @_$jni.internal
   ByteString.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'okio/ByteString');
+  static final _class = _$jni.JClass.forName(r'okio/ByteString');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $ByteStringType();
+  static const type = $ByteString$Type();
   static final _id_Companion = _class.staticFieldId(
     r'Companion',
     r'Lokio/ByteString$Companion;',
   );
 
-  /// from: static public final okio.ByteString$Companion Companion
+  /// from: `static public final okio.ByteString$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString_Companion get Companion =>
-      _id_Companion.get(_class, const $ByteString_CompanionType());
+      _id_Companion.get(_class, const $ByteString_Companion$Type());
 
   static final _id_EMPTY = _class.staticFieldId(
     r'EMPTY',
     r'Lokio/ByteString;',
   );
 
-  /// from: static public final okio.ByteString EMPTY
+  /// from: `static public final okio.ByteString EMPTY`
   /// The returned object must be released after use, by calling the [release] method.
-  static ByteString get EMPTY => _id_EMPTY.get(_class, const $ByteStringType());
+  static ByteString get EMPTY =>
+      _id_EMPTY.get(_class, const $ByteString$Type());
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'([B)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(byte[] bs)
+  /// from: `public void <init>(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   factory ByteString(
-    jni.JArray<jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return ByteString.fromReference(_new0(_class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr, bs.reference.pointer)
+    return ByteString.fromReference(_new$(_class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr, bs.reference.pointer)
         .reference);
   }
 
@@ -11921,23 +13075,23 @@ class ByteString extends jni.JObject {
     r'()Ljava/lang/String;',
   );
 
-  static final _utf8 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _utf8 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String utf8()
+  /// from: `public java.lang.String utf8()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString utf8() {
-    return _utf8(reference.pointer, _id_utf8 as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString utf8() {
+    return _utf8(reference.pointer, _id_utf8 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_string = _class.instanceMethodId(
@@ -11945,25 +13099,25 @@ class ByteString extends jni.JObject {
     r'(Ljava/nio/charset/Charset;)Ljava/lang/String;',
   );
 
-  static final _string = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _string = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public java.lang.String string(java.nio.charset.Charset charset)
+  /// from: `public java.lang.String string(java.nio.charset.Charset charset)`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString string(
-    jni.JObject charset,
+  _$jni.JString string(
+    _$jni.JObject charset,
   ) {
-    return _string(reference.pointer, _id_string as jni.JMethodIDPtr,
+    return _string(reference.pointer, _id_string as _$jni.JMethodIDPtr,
             charset.reference.pointer)
-        .object(const jni.JStringType());
+        .object(const _$jni.JStringType());
   }
 
   static final _id_base64 = _class.instanceMethodId(
@@ -11971,23 +13125,23 @@ class ByteString extends jni.JObject {
     r'()Ljava/lang/String;',
   );
 
-  static final _base64 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _base64 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String base64()
+  /// from: `public java.lang.String base64()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString base64() {
-    return _base64(reference.pointer, _id_base64 as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString base64() {
+    return _base64(reference.pointer, _id_base64 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_md5 = _class.instanceMethodId(
@@ -11995,23 +13149,23 @@ class ByteString extends jni.JObject {
     r'()Lokio/ByteString;',
   );
 
-  static final _md5 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _md5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString md5()
+  /// from: `public final okio.ByteString md5()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString md5() {
-    return _md5(reference.pointer, _id_md5 as jni.JMethodIDPtr)
-        .object(const $ByteStringType());
+    return _md5(reference.pointer, _id_md5 as _$jni.JMethodIDPtr)
+        .object(const $ByteString$Type());
   }
 
   static final _id_sha1 = _class.instanceMethodId(
@@ -12019,23 +13173,23 @@ class ByteString extends jni.JObject {
     r'()Lokio/ByteString;',
   );
 
-  static final _sha1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _sha1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString sha1()
+  /// from: `public final okio.ByteString sha1()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString sha1() {
-    return _sha1(reference.pointer, _id_sha1 as jni.JMethodIDPtr)
-        .object(const $ByteStringType());
+    return _sha1(reference.pointer, _id_sha1 as _$jni.JMethodIDPtr)
+        .object(const $ByteString$Type());
   }
 
   static final _id_sha256 = _class.instanceMethodId(
@@ -12043,23 +13197,23 @@ class ByteString extends jni.JObject {
     r'()Lokio/ByteString;',
   );
 
-  static final _sha256 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _sha256 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString sha256()
+  /// from: `public final okio.ByteString sha256()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString sha256() {
-    return _sha256(reference.pointer, _id_sha256 as jni.JMethodIDPtr)
-        .object(const $ByteStringType());
+    return _sha256(reference.pointer, _id_sha256 as _$jni.JMethodIDPtr)
+        .object(const $ByteString$Type());
   }
 
   static final _id_sha512 = _class.instanceMethodId(
@@ -12067,23 +13221,23 @@ class ByteString extends jni.JObject {
     r'()Lokio/ByteString;',
   );
 
-  static final _sha512 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _sha512 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString sha512()
+  /// from: `public final okio.ByteString sha512()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString sha512() {
-    return _sha512(reference.pointer, _id_sha512 as jni.JMethodIDPtr)
-        .object(const $ByteStringType());
+    return _sha512(reference.pointer, _id_sha512 as _$jni.JMethodIDPtr)
+        .object(const $ByteString$Type());
   }
 
   static final _id_hmacSha1 = _class.instanceMethodId(
@@ -12091,25 +13245,25 @@ class ByteString extends jni.JObject {
     r'(Lokio/ByteString;)Lokio/ByteString;',
   );
 
-  static final _hmacSha1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _hmacSha1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okio.ByteString hmacSha1(okio.ByteString byteString)
+  /// from: `public okio.ByteString hmacSha1(okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString hmacSha1(
     ByteString byteString,
   ) {
-    return _hmacSha1(reference.pointer, _id_hmacSha1 as jni.JMethodIDPtr,
+    return _hmacSha1(reference.pointer, _id_hmacSha1 as _$jni.JMethodIDPtr,
             byteString.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_hmacSha256 = _class.instanceMethodId(
@@ -12117,25 +13271,25 @@ class ByteString extends jni.JObject {
     r'(Lokio/ByteString;)Lokio/ByteString;',
   );
 
-  static final _hmacSha256 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _hmacSha256 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okio.ByteString hmacSha256(okio.ByteString byteString)
+  /// from: `public okio.ByteString hmacSha256(okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString hmacSha256(
     ByteString byteString,
   ) {
-    return _hmacSha256(reference.pointer, _id_hmacSha256 as jni.JMethodIDPtr,
+    return _hmacSha256(reference.pointer, _id_hmacSha256 as _$jni.JMethodIDPtr,
             byteString.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_hmacSha512 = _class.instanceMethodId(
@@ -12143,25 +13297,25 @@ class ByteString extends jni.JObject {
     r'(Lokio/ByteString;)Lokio/ByteString;',
   );
 
-  static final _hmacSha512 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _hmacSha512 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public okio.ByteString hmacSha512(okio.ByteString byteString)
+  /// from: `public okio.ByteString hmacSha512(okio.ByteString byteString)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString hmacSha512(
     ByteString byteString,
   ) {
-    return _hmacSha512(reference.pointer, _id_hmacSha512 as jni.JMethodIDPtr,
+    return _hmacSha512(reference.pointer, _id_hmacSha512 as _$jni.JMethodIDPtr,
             byteString.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_base64Url = _class.instanceMethodId(
@@ -12169,23 +13323,23 @@ class ByteString extends jni.JObject {
     r'()Ljava/lang/String;',
   );
 
-  static final _base64Url = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _base64Url = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String base64Url()
+  /// from: `public java.lang.String base64Url()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString base64Url() {
-    return _base64Url(reference.pointer, _id_base64Url as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString base64Url() {
+    return _base64Url(reference.pointer, _id_base64Url as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_hex = _class.instanceMethodId(
@@ -12193,23 +13347,23 @@ class ByteString extends jni.JObject {
     r'()Ljava/lang/String;',
   );
 
-  static final _hex = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _hex = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String hex()
+  /// from: `public java.lang.String hex()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString hex() {
-    return _hex(reference.pointer, _id_hex as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString hex() {
+    return _hex(reference.pointer, _id_hex as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
   static final _id_toAsciiLowercase = _class.instanceMethodId(
@@ -12217,24 +13371,24 @@ class ByteString extends jni.JObject {
     r'()Lokio/ByteString;',
   );
 
-  static final _toAsciiLowercase = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toAsciiLowercase = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public okio.ByteString toAsciiLowercase()
+  /// from: `public okio.ByteString toAsciiLowercase()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString toAsciiLowercase() {
     return _toAsciiLowercase(
-            reference.pointer, _id_toAsciiLowercase as jni.JMethodIDPtr)
-        .object(const $ByteStringType());
+            reference.pointer, _id_toAsciiLowercase as _$jni.JMethodIDPtr)
+        .object(const $ByteString$Type());
   }
 
   static final _id_toAsciiUppercase = _class.instanceMethodId(
@@ -12242,24 +13396,24 @@ class ByteString extends jni.JObject {
     r'()Lokio/ByteString;',
   );
 
-  static final _toAsciiUppercase = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toAsciiUppercase = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public okio.ByteString toAsciiUppercase()
+  /// from: `public okio.ByteString toAsciiUppercase()`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString toAsciiUppercase() {
     return _toAsciiUppercase(
-            reference.pointer, _id_toAsciiUppercase as jni.JMethodIDPtr)
-        .object(const $ByteStringType());
+            reference.pointer, _id_toAsciiUppercase as _$jni.JMethodIDPtr)
+        .object(const $ByteString$Type());
   }
 
   static final _id_substring = _class.instanceMethodId(
@@ -12267,23 +13421,26 @@ class ByteString extends jni.JObject {
     r'(II)Lokio/ByteString;',
   );
 
-  static final _substring = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32, $Int32)>)>>('globalEnv_CallObjectMethod')
+  static final _substring = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Int32, _$jni.Int32)>)>>(
+          'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int, int)>();
 
-  /// from: public okio.ByteString substring(int i, int i1)
+  /// from: `public okio.ByteString substring(int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
   ByteString substring(
     int i,
     int i1,
   ) {
     return _substring(
-            reference.pointer, _id_substring as jni.JMethodIDPtr, i, i1)
-        .object(const $ByteStringType());
+            reference.pointer, _id_substring as _$jni.JMethodIDPtr, i, i1)
+        .object(const $ByteString$Type());
   }
 
   static final _id_getByte = _class.instanceMethodId(
@@ -12291,19 +13448,22 @@ class ByteString extends jni.JObject {
     r'(I)B',
   );
 
-  static final _getByte = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallByteMethod')
+  static final _getByte = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallByteMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final byte getByte(int i)
+  /// from: `public final byte getByte(int i)`
   int getByte(
     int i,
   ) {
-    return _getByte(reference.pointer, _id_getByte as jni.JMethodIDPtr, i).byte;
+    return _getByte(reference.pointer, _id_getByte as _$jni.JMethodIDPtr, i)
+        .byte;
   }
 
   static final _id_size = _class.instanceMethodId(
@@ -12311,21 +13471,21 @@ class ByteString extends jni.JObject {
     r'()I',
   );
 
-  static final _size = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _size = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final int size()
+  /// from: `public final int size()`
   int size() {
-    return _size(reference.pointer, _id_size as jni.JMethodIDPtr).integer;
+    return _size(reference.pointer, _id_size as _$jni.JMethodIDPtr).integer;
   }
 
   static final _id_toByteArray = _class.instanceMethodId(
@@ -12333,23 +13493,24 @@ class ByteString extends jni.JObject {
     r'()[B',
   );
 
-  static final _toByteArray = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toByteArray = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public byte[] toByteArray()
+  /// from: `public byte[] toByteArray()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JArray<jni.jbyte> toByteArray() {
-    return _toByteArray(reference.pointer, _id_toByteArray as jni.JMethodIDPtr)
-        .object(const jni.JArrayType(jni.jbyteType()));
+  _$jni.JArray<_$jni.jbyte> toByteArray() {
+    return _toByteArray(
+            reference.pointer, _id_toByteArray as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.jbyteType()));
   }
 
   static final _id_asByteBuffer = _class.instanceMethodId(
@@ -12357,24 +13518,24 @@ class ByteString extends jni.JObject {
     r'()Ljava/nio/ByteBuffer;',
   );
 
-  static final _asByteBuffer = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _asByteBuffer = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.nio.ByteBuffer asByteBuffer()
+  /// from: `public java.nio.ByteBuffer asByteBuffer()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JByteBuffer asByteBuffer() {
+  _$jni.JByteBuffer asByteBuffer() {
     return _asByteBuffer(
-            reference.pointer, _id_asByteBuffer as jni.JMethodIDPtr)
-        .object(const jni.JByteBufferType());
+            reference.pointer, _id_asByteBuffer as _$jni.JMethodIDPtr)
+        .object(const _$jni.JByteBufferType());
   }
 
   static final _id_write = _class.instanceMethodId(
@@ -12382,22 +13543,22 @@ class ByteString extends jni.JObject {
     r'(Ljava/io/OutputStream;)V',
   );
 
-  static final _write = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JThrowablePtr Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _write = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void write(java.io.OutputStream outputStream)
+  /// from: `public void write(java.io.OutputStream outputStream)`
   void write(
-    jni.JObject outputStream,
+    _$jni.JObject outputStream,
   ) {
-    _write(reference.pointer, _id_write as jni.JMethodIDPtr,
+    _write(reference.pointer, _id_write as _$jni.JMethodIDPtr,
             outputStream.reference.pointer)
         .check();
   }
@@ -12407,65 +13568,70 @@ class ByteString extends jni.JObject {
     r'(ILokio/ByteString;II)Z',
   );
 
-  static final _rangeEquals = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _rangeEquals = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        $Int32,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        $Int32
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>, int, int)>();
 
-  /// from: public boolean rangeEquals(int i, okio.ByteString byteString, int i1, int i2)
+  /// from: `public boolean rangeEquals(int i, okio.ByteString byteString, int i1, int i2)`
   bool rangeEquals(
     int i,
     ByteString byteString,
     int i1,
     int i2,
   ) {
-    return _rangeEquals(reference.pointer, _id_rangeEquals as jni.JMethodIDPtr,
-            i, byteString.reference.pointer, i1, i2)
+    return _rangeEquals(
+            reference.pointer,
+            _id_rangeEquals as _$jni.JMethodIDPtr,
+            i,
+            byteString.reference.pointer,
+            i1,
+            i2)
         .boolean;
   }
 
-  static final _id_rangeEquals1 = _class.instanceMethodId(
+  static final _id_rangeEquals$1 = _class.instanceMethodId(
     r'rangeEquals',
     r'(I[BII)Z',
   );
 
-  static final _rangeEquals1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _rangeEquals$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        $Int32,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        $Int32
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>, int, int)>();
 
-  /// from: public boolean rangeEquals(int i, byte[] bs, int i1, int i2)
-  bool rangeEquals1(
+  /// from: `public boolean rangeEquals(int i, byte[] bs, int i1, int i2)`
+  bool rangeEquals$1(
     int i,
-    jni.JArray<jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs,
     int i1,
     int i2,
   ) {
-    return _rangeEquals1(
+    return _rangeEquals$1(
             reference.pointer,
-            _id_rangeEquals1 as jni.JMethodIDPtr,
+            _id_rangeEquals$1 as _$jni.JMethodIDPtr,
             i,
             bs.reference.pointer,
             i1,
@@ -12478,30 +13644,30 @@ class ByteString extends jni.JObject {
     r'(I[BII)V',
   );
 
-  static final _copyInto = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _copyInto = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        $Int32,
-                        ffi.Pointer<ffi.Void>,
-                        $Int32,
-                        $Int32
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
                       )>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              int, ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>, int, int)>();
 
-  /// from: public void copyInto(int i, byte[] bs, int i1, int i2)
+  /// from: `public void copyInto(int i, byte[] bs, int i1, int i2)`
   void copyInto(
     int i,
-    jni.JArray<jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs,
     int i1,
     int i2,
   ) {
-    _copyInto(reference.pointer, _id_copyInto as jni.JMethodIDPtr, i,
+    _copyInto(reference.pointer, _id_copyInto as _$jni.JMethodIDPtr, i,
             bs.reference.pointer, i1, i2)
         .check();
   }
@@ -12511,48 +13677,48 @@ class ByteString extends jni.JObject {
     r'(Lokio/ByteString;)Z',
   );
 
-  static final _startsWith = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _startsWith = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final boolean startsWith(okio.ByteString byteString)
+  /// from: `public final boolean startsWith(okio.ByteString byteString)`
   bool startsWith(
     ByteString byteString,
   ) {
-    return _startsWith(reference.pointer, _id_startsWith as jni.JMethodIDPtr,
+    return _startsWith(reference.pointer, _id_startsWith as _$jni.JMethodIDPtr,
             byteString.reference.pointer)
         .boolean;
   }
 
-  static final _id_startsWith1 = _class.instanceMethodId(
+  static final _id_startsWith$1 = _class.instanceMethodId(
     r'startsWith',
     r'([B)Z',
   );
 
-  static final _startsWith1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _startsWith$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final boolean startsWith(byte[] bs)
-  bool startsWith1(
-    jni.JArray<jni.jbyte> bs,
+  /// from: `public final boolean startsWith(byte[] bs)`
+  bool startsWith$1(
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _startsWith1(reference.pointer, _id_startsWith1 as jni.JMethodIDPtr,
-            bs.reference.pointer)
+    return _startsWith$1(reference.pointer,
+            _id_startsWith$1 as _$jni.JMethodIDPtr, bs.reference.pointer)
         .boolean;
   }
 
@@ -12561,47 +13727,47 @@ class ByteString extends jni.JObject {
     r'(Lokio/ByteString;)Z',
   );
 
-  static final _endsWith = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _endsWith = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final boolean endsWith(okio.ByteString byteString)
+  /// from: `public final boolean endsWith(okio.ByteString byteString)`
   bool endsWith(
     ByteString byteString,
   ) {
-    return _endsWith(reference.pointer, _id_endsWith as jni.JMethodIDPtr,
+    return _endsWith(reference.pointer, _id_endsWith as _$jni.JMethodIDPtr,
             byteString.reference.pointer)
         .boolean;
   }
 
-  static final _id_endsWith1 = _class.instanceMethodId(
+  static final _id_endsWith$1 = _class.instanceMethodId(
     r'endsWith',
     r'([B)Z',
   );
 
-  static final _endsWith1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _endsWith$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final boolean endsWith(byte[] bs)
-  bool endsWith1(
-    jni.JArray<jni.jbyte> bs,
+  /// from: `public final boolean endsWith(byte[] bs)`
+  bool endsWith$1(
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _endsWith1(reference.pointer, _id_endsWith1 as jni.JMethodIDPtr,
+    return _endsWith$1(reference.pointer, _id_endsWith$1 as _$jni.JMethodIDPtr,
             bs.reference.pointer)
         .boolean;
   }
@@ -12611,49 +13777,51 @@ class ByteString extends jni.JObject {
     r'(Lokio/ByteString;I)I',
   );
 
-  static final _indexOf = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+  static final _indexOf = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: public final int indexOf(okio.ByteString byteString, int i)
+  /// from: `public final int indexOf(okio.ByteString byteString, int i)`
   int indexOf(
     ByteString byteString,
     int i,
   ) {
-    return _indexOf(reference.pointer, _id_indexOf as jni.JMethodIDPtr,
+    return _indexOf(reference.pointer, _id_indexOf as _$jni.JMethodIDPtr,
             byteString.reference.pointer, i)
         .integer;
   }
 
-  static final _id_indexOf1 = _class.instanceMethodId(
+  static final _id_indexOf$1 = _class.instanceMethodId(
     r'indexOf',
     r'([BI)I',
   );
 
-  static final _indexOf1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+  static final _indexOf$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: public int indexOf(byte[] bs, int i)
-  int indexOf1(
-    jni.JArray<jni.jbyte> bs,
+  /// from: `public int indexOf(byte[] bs, int i)`
+  int indexOf$1(
+    _$jni.JArray<_$jni.jbyte> bs,
     int i,
   ) {
-    return _indexOf1(reference.pointer, _id_indexOf1 as jni.JMethodIDPtr,
+    return _indexOf$1(reference.pointer, _id_indexOf$1 as _$jni.JMethodIDPtr,
             bs.reference.pointer, i)
         .integer;
   }
@@ -12663,50 +13831,55 @@ class ByteString extends jni.JObject {
     r'(Lokio/ByteString;I)I',
   );
 
-  static final _lastIndexOf = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+  static final _lastIndexOf = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: public final int lastIndexOf(okio.ByteString byteString, int i)
+  /// from: `public final int lastIndexOf(okio.ByteString byteString, int i)`
   int lastIndexOf(
     ByteString byteString,
     int i,
   ) {
-    return _lastIndexOf(reference.pointer, _id_lastIndexOf as jni.JMethodIDPtr,
-            byteString.reference.pointer, i)
+    return _lastIndexOf(
+            reference.pointer,
+            _id_lastIndexOf as _$jni.JMethodIDPtr,
+            byteString.reference.pointer,
+            i)
         .integer;
   }
 
-  static final _id_lastIndexOf1 = _class.instanceMethodId(
+  static final _id_lastIndexOf$1 = _class.instanceMethodId(
     r'lastIndexOf',
     r'([BI)I',
   );
 
-  static final _lastIndexOf1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+  static final _lastIndexOf$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: public int lastIndexOf(byte[] bs, int i)
-  int lastIndexOf1(
-    jni.JArray<jni.jbyte> bs,
+  /// from: `public int lastIndexOf(byte[] bs, int i)`
+  int lastIndexOf$1(
+    _$jni.JArray<_$jni.jbyte> bs,
     int i,
   ) {
-    return _lastIndexOf1(reference.pointer,
-            _id_lastIndexOf1 as jni.JMethodIDPtr, bs.reference.pointer, i)
+    return _lastIndexOf$1(reference.pointer,
+            _id_lastIndexOf$1 as _$jni.JMethodIDPtr, bs.reference.pointer, i)
         .integer;
   }
 
@@ -12715,46 +13888,46 @@ class ByteString extends jni.JObject {
     r'(Ljava/lang/Object;)Z',
   );
 
-  static final _equals = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _equals = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallBooleanMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public boolean equals(java.lang.Object object)
+  /// from: `public boolean equals(java.lang.Object object)`
   bool equals(
-    jni.JObject object,
+    _$jni.JObject object,
   ) {
-    return _equals(reference.pointer, _id_equals as jni.JMethodIDPtr,
+    return _equals(reference.pointer, _id_equals as _$jni.JMethodIDPtr,
             object.reference.pointer)
         .boolean;
   }
 
-  static final _id_hashCode1 = _class.instanceMethodId(
+  static final _id_hashCode$1 = _class.instanceMethodId(
     r'hashCode',
     r'()I',
   );
 
-  static final _hashCode1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _hashCode$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public int hashCode()
-  int hashCode1() {
-    return _hashCode1(reference.pointer, _id_hashCode1 as jni.JMethodIDPtr)
+  /// from: `public int hashCode()`
+  int hashCode$1() {
+    return _hashCode$1(reference.pointer, _id_hashCode$1 as _$jni.JMethodIDPtr)
         .integer;
   }
 
@@ -12763,193 +13936,199 @@ class ByteString extends jni.JObject {
     r'(Lokio/ByteString;)I',
   );
 
-  static final _compareTo = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _compareTo = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public int compareTo(okio.ByteString byteString)
+  /// from: `public int compareTo(okio.ByteString byteString)`
   int compareTo(
     ByteString byteString,
   ) {
-    return _compareTo(reference.pointer, _id_compareTo as jni.JMethodIDPtr,
+    return _compareTo(reference.pointer, _id_compareTo as _$jni.JMethodIDPtr,
             byteString.reference.pointer)
         .integer;
   }
 
-  static final _id_toString1 = _class.instanceMethodId(
+  static final _id_toString$1 = _class.instanceMethodId(
     r'toString',
     r'()Ljava/lang/String;',
   );
 
-  static final _toString1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.lang.String toString()
+  /// from: `public java.lang.String toString()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JString toString1() {
-    return _toString1(reference.pointer, _id_toString1 as jni.JMethodIDPtr)
-        .object(const jni.JStringType());
+  _$jni.JString toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
   }
 
-  static final _id_substring1 = _class.instanceMethodId(
+  static final _id_substring$1 = _class.instanceMethodId(
     r'substring',
     r'(I)Lokio/ByteString;',
   );
 
-  static final _substring1 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<($Int32,)>)>>('globalEnv_CallObjectMethod')
+  static final _substring$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public final okio.ByteString substring(int i)
+  /// from: `public final okio.ByteString substring(int i)`
   /// The returned object must be released after use, by calling the [release] method.
-  ByteString substring1(
+  ByteString substring$1(
     int i,
   ) {
-    return _substring1(reference.pointer, _id_substring1 as jni.JMethodIDPtr, i)
-        .object(const $ByteStringType());
+    return _substring$1(
+            reference.pointer, _id_substring$1 as _$jni.JMethodIDPtr, i)
+        .object(const $ByteString$Type());
   }
 
-  static final _id_substring2 = _class.instanceMethodId(
+  static final _id_substring$2 = _class.instanceMethodId(
     r'substring',
     r'()Lokio/ByteString;',
   );
 
-  static final _substring2 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _substring$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public final okio.ByteString substring()
+  /// from: `public final okio.ByteString substring()`
   /// The returned object must be released after use, by calling the [release] method.
-  ByteString substring2() {
-    return _substring2(reference.pointer, _id_substring2 as jni.JMethodIDPtr)
-        .object(const $ByteStringType());
+  ByteString substring$2() {
+    return _substring$2(
+            reference.pointer, _id_substring$2 as _$jni.JMethodIDPtr)
+        .object(const $ByteString$Type());
   }
 
-  static final _id_indexOf2 = _class.instanceMethodId(
+  static final _id_indexOf$2 = _class.instanceMethodId(
     r'indexOf',
     r'(Lokio/ByteString;)I',
   );
 
-  static final _indexOf2 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _indexOf$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final int indexOf(okio.ByteString byteString)
-  int indexOf2(
+  /// from: `public final int indexOf(okio.ByteString byteString)`
+  int indexOf$2(
     ByteString byteString,
   ) {
-    return _indexOf2(reference.pointer, _id_indexOf2 as jni.JMethodIDPtr,
+    return _indexOf$2(reference.pointer, _id_indexOf$2 as _$jni.JMethodIDPtr,
             byteString.reference.pointer)
         .integer;
   }
 
-  static final _id_indexOf3 = _class.instanceMethodId(
+  static final _id_indexOf$3 = _class.instanceMethodId(
     r'indexOf',
     r'([B)I',
   );
 
-  static final _indexOf3 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _indexOf$3 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final int indexOf(byte[] bs)
-  int indexOf3(
-    jni.JArray<jni.jbyte> bs,
+  /// from: `public final int indexOf(byte[] bs)`
+  int indexOf$3(
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _indexOf3(reference.pointer, _id_indexOf3 as jni.JMethodIDPtr,
+    return _indexOf$3(reference.pointer, _id_indexOf$3 as _$jni.JMethodIDPtr,
             bs.reference.pointer)
         .integer;
   }
 
-  static final _id_lastIndexOf2 = _class.instanceMethodId(
+  static final _id_lastIndexOf$2 = _class.instanceMethodId(
     r'lastIndexOf',
     r'(Lokio/ByteString;)I',
   );
 
-  static final _lastIndexOf2 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _lastIndexOf$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final int lastIndexOf(okio.ByteString byteString)
-  int lastIndexOf2(
+  /// from: `public final int lastIndexOf(okio.ByteString byteString)`
+  int lastIndexOf$2(
     ByteString byteString,
   ) {
-    return _lastIndexOf2(reference.pointer,
-            _id_lastIndexOf2 as jni.JMethodIDPtr, byteString.reference.pointer)
+    return _lastIndexOf$2(
+            reference.pointer,
+            _id_lastIndexOf$2 as _$jni.JMethodIDPtr,
+            byteString.reference.pointer)
         .integer;
   }
 
-  static final _id_lastIndexOf3 = _class.instanceMethodId(
+  static final _id_lastIndexOf$3 = _class.instanceMethodId(
     r'lastIndexOf',
     r'([B)I',
   );
 
-  static final _lastIndexOf3 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _lastIndexOf$3 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallIntMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final int lastIndexOf(byte[] bs)
-  int lastIndexOf3(
-    jni.JArray<jni.jbyte> bs,
+  /// from: `public final int lastIndexOf(byte[] bs)`
+  int lastIndexOf$3(
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _lastIndexOf3(reference.pointer,
-            _id_lastIndexOf3 as jni.JMethodIDPtr, bs.reference.pointer)
+    return _lastIndexOf$3(reference.pointer,
+            _id_lastIndexOf$3 as _$jni.JMethodIDPtr, bs.reference.pointer)
         .integer;
   }
 
@@ -12958,79 +14137,83 @@ class ByteString extends jni.JObject {
     r'([B)Lokio/ByteString;',
   );
 
-  static final _of = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okio.ByteString of(byte[] bs)
+  /// from: `static public final okio.ByteString of(byte[] bs)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString of(
-    jni.JArray<jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs,
   ) {
-    return _of(_class.reference.pointer, _id_of as jni.JMethodIDPtr,
+    return _of(_class.reference.pointer, _id_of as _$jni.JMethodIDPtr,
             bs.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
-  static final _id_of1 = _class.staticMethodId(
+  static final _id_of$1 = _class.staticMethodId(
     r'of',
     r'([BII)Lokio/ByteString;',
   );
 
-  static final _of1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32, $Int32)>)>>(
-          'globalEnv_CallStaticObjectMethod')
+  static final _of$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
 
-  /// from: static public final okio.ByteString of(byte[] bs, int i, int i1)
+  /// from: `static public final okio.ByteString of(byte[] bs, int i, int i1)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ByteString of1(
-    jni.JArray<jni.jbyte> bs,
+  static ByteString of$1(
+    _$jni.JArray<_$jni.jbyte> bs,
     int i,
     int i1,
   ) {
-    return _of1(_class.reference.pointer, _id_of1 as jni.JMethodIDPtr,
+    return _of$1(_class.reference.pointer, _id_of$1 as _$jni.JMethodIDPtr,
             bs.reference.pointer, i, i1)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
-  static final _id_of2 = _class.staticMethodId(
+  static final _id_of$2 = _class.staticMethodId(
     r'of',
     r'(Ljava/nio/ByteBuffer;)Lokio/ByteString;',
   );
 
-  static final _of2 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)
+  /// from: `static public final okio.ByteString of(java.nio.ByteBuffer byteBuffer)`
   /// The returned object must be released after use, by calling the [release] method.
-  static ByteString of2(
-    jni.JByteBuffer byteBuffer,
+  static ByteString of$2(
+    _$jni.JByteBuffer byteBuffer,
   ) {
-    return _of2(_class.reference.pointer, _id_of2 as jni.JMethodIDPtr,
+    return _of$2(_class.reference.pointer, _id_of$2 as _$jni.JMethodIDPtr,
             byteBuffer.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_encodeUtf8 = _class.staticMethodId(
@@ -13038,25 +14221,25 @@ class ByteString extends jni.JObject {
     r'(Ljava/lang/String;)Lokio/ByteString;',
   );
 
-  static final _encodeUtf8 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _encodeUtf8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okio.ByteString encodeUtf8(java.lang.String string)
+  /// from: `static public final okio.ByteString encodeUtf8(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString encodeUtf8(
-    jni.JString string,
+    _$jni.JString string,
   ) {
     return _encodeUtf8(_class.reference.pointer,
-            _id_encodeUtf8 as jni.JMethodIDPtr, string.reference.pointer)
-        .object(const $ByteStringType());
+            _id_encodeUtf8 as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $ByteString$Type());
   }
 
   static final _id_encodeString = _class.staticMethodId(
@@ -13064,32 +14247,35 @@ class ByteString extends jni.JObject {
     r'(Ljava/lang/String;Ljava/nio/charset/Charset;)Lokio/ByteString;',
   );
 
-  static final _encodeString = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<
+  static final _encodeString = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
                       (
-                        ffi.Pointer<ffi.Void>,
-                        ffi.Pointer<ffi.Void>
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
                       )>)>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)
+  /// from: `static public final okio.ByteString encodeString(java.lang.String string, java.nio.charset.Charset charset)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString encodeString(
-    jni.JString string,
-    jni.JObject charset,
+    _$jni.JString string,
+    _$jni.JObject charset,
   ) {
     return _encodeString(
             _class.reference.pointer,
-            _id_encodeString as jni.JMethodIDPtr,
+            _id_encodeString as _$jni.JMethodIDPtr,
             string.reference.pointer,
             charset.reference.pointer)
-        .object(const $ByteStringType());
+        .object(const $ByteString$Type());
   }
 
   static final _id_decodeBase64 = _class.staticMethodId(
@@ -13097,25 +14283,25 @@ class ByteString extends jni.JObject {
     r'(Ljava/lang/String;)Lokio/ByteString;',
   );
 
-  static final _decodeBase64 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _decodeBase64 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okio.ByteString decodeBase64(java.lang.String string)
+  /// from: `static public final okio.ByteString decodeBase64(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString decodeBase64(
-    jni.JString string,
+    _$jni.JString string,
   ) {
     return _decodeBase64(_class.reference.pointer,
-            _id_decodeBase64 as jni.JMethodIDPtr, string.reference.pointer)
-        .object(const $ByteStringType());
+            _id_decodeBase64 as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $ByteString$Type());
   }
 
   static final _id_decodeHex = _class.staticMethodId(
@@ -13123,25 +14309,25 @@ class ByteString extends jni.JObject {
     r'(Ljava/lang/String;)Lokio/ByteString;',
   );
 
-  static final _decodeHex = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _decodeHex = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public final okio.ByteString decodeHex(java.lang.String string)
+  /// from: `static public final okio.ByteString decodeHex(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString decodeHex(
-    jni.JString string,
+    _$jni.JString string,
   ) {
     return _decodeHex(_class.reference.pointer,
-            _id_decodeHex as jni.JMethodIDPtr, string.reference.pointer)
-        .object(const $ByteStringType());
+            _id_decodeHex as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $ByteString$Type());
   }
 
   static final _id_read = _class.staticMethodId(
@@ -13149,352 +14335,356 @@ class ByteString extends jni.JObject {
     r'(Ljava/io/InputStream;I)Lokio/ByteString;',
   );
 
-  static final _read = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, $Int32)>)>>(
+  static final _read = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: static public final okio.ByteString read(java.io.InputStream inputStream, int i)
+  /// from: `static public final okio.ByteString read(java.io.InputStream inputStream, int i)`
   /// The returned object must be released after use, by calling the [release] method.
   static ByteString read(
-    jni.JObject inputStream,
+    _$jni.JObject inputStream,
     int i,
   ) {
-    return _read(_class.reference.pointer, _id_read as jni.JMethodIDPtr,
+    return _read(_class.reference.pointer, _id_read as _$jni.JMethodIDPtr,
             inputStream.reference.pointer, i)
-        .object(const $ByteStringType());
-  }
-
-  static final _id_compareTo1 = _class.instanceMethodId(
-    r'compareTo',
-    r'(Ljava/lang/Object;)I',
-  );
-
-  static final _compareTo1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
-          'globalEnv_CallIntMethod')
-      .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
-
-  /// from: public int compareTo(java.lang.Object object)
-  int compareTo1(
-    jni.JObject object,
-  ) {
-    return _compareTo1(reference.pointer, _id_compareTo1 as jni.JMethodIDPtr,
-            object.reference.pointer)
-        .integer;
+        .object(const $ByteString$Type());
   }
 }
 
-final class $ByteStringType extends jni.JObjType<ByteString> {
-  const $ByteStringType();
+final class $ByteString$Type extends _$jni.JObjType<ByteString> {
+  @_$jni.internal
+  const $ByteString$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lokio/ByteString;';
 
-  @override
-  ByteString fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  ByteString fromReference(_$jni.JReference reference) =>
       ByteString.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($ByteStringType).hashCode;
+  @_$core.override
+  int get hashCode => ($ByteString$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($ByteStringType) && other is $ByteStringType;
+    return other.runtimeType == ($ByteString$Type) && other is $ByteString$Type;
   }
 }
 
-/// from: com.example.ok_http.WebSocketInterceptor$Companion
-class WebSocketInterceptor_Companion extends jni.JObject {
-  @override
-  late final jni.JObjType<WebSocketInterceptor_Companion> $type = type;
+/// from: `com.example.ok_http.WebSocketInterceptor$Companion`
+class WebSocketInterceptor_Companion extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<WebSocketInterceptor_Companion> $type;
 
+  @_$jni.internal
   WebSocketInterceptor_Companion.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class =
-      jni.JClass.forName(r'com/example/ok_http/WebSocketInterceptor$Companion');
+  static final _class = _$jni.JClass.forName(
+      r'com/example/ok_http/WebSocketInterceptor$Companion');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WebSocketInterceptor_CompanionType();
+  static const type = $WebSocketInterceptor_Companion$Type();
   static final _id_addWSInterceptor = _class.instanceMethodId(
     r'addWSInterceptor',
     r'(Lokhttp3/OkHttpClient$Builder;)Lokhttp3/OkHttpClient$Builder;',
   );
 
-  static final _addWSInterceptor = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _addWSInterceptor = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public final okhttp3.OkHttpClient$Builder addWSInterceptor(okhttp3.OkHttpClient$Builder builder)
+  /// from: `public final okhttp3.OkHttpClient$Builder addWSInterceptor(okhttp3.OkHttpClient$Builder builder)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder addWSInterceptor(
     OkHttpClient_Builder builder,
   ) {
-    return _addWSInterceptor(reference.pointer,
-            _id_addWSInterceptor as jni.JMethodIDPtr, builder.reference.pointer)
-        .object(const $OkHttpClient_BuilderType());
+    return _addWSInterceptor(
+            reference.pointer,
+            _id_addWSInterceptor as _$jni.JMethodIDPtr,
+            builder.reference.pointer)
+        .object(const $OkHttpClient_Builder$Type());
   }
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'(Lkotlin/jvm/internal/DefaultConstructorMarker;)V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)
+  /// from: `synthetic public void <init>(kotlin.jvm.internal.DefaultConstructorMarker defaultConstructorMarker)`
   /// The returned object must be released after use, by calling the [release] method.
   factory WebSocketInterceptor_Companion(
-    jni.JObject defaultConstructorMarker,
+    _$jni.JObject defaultConstructorMarker,
   ) {
-    return WebSocketInterceptor_Companion.fromReference(_new0(
+    return WebSocketInterceptor_Companion.fromReference(_new$(
             _class.reference.pointer,
-            _id_new0 as jni.JMethodIDPtr,
+            _id_new$ as _$jni.JMethodIDPtr,
             defaultConstructorMarker.reference.pointer)
         .reference);
   }
 }
 
-final class $WebSocketInterceptor_CompanionType
-    extends jni.JObjType<WebSocketInterceptor_Companion> {
-  const $WebSocketInterceptor_CompanionType();
+final class $WebSocketInterceptor_Companion$Type
+    extends _$jni.JObjType<WebSocketInterceptor_Companion> {
+  @_$jni.internal
+  const $WebSocketInterceptor_Companion$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature =>
       r'Lcom/example/ok_http/WebSocketInterceptor$Companion;';
 
-  @override
-  WebSocketInterceptor_Companion fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  WebSocketInterceptor_Companion fromReference(_$jni.JReference reference) =>
       WebSocketInterceptor_Companion.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($WebSocketInterceptor_CompanionType).hashCode;
+  @_$core.override
+  int get hashCode => ($WebSocketInterceptor_Companion$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($WebSocketInterceptor_CompanionType) &&
-        other is $WebSocketInterceptor_CompanionType;
+    return other.runtimeType == ($WebSocketInterceptor_Companion$Type) &&
+        other is $WebSocketInterceptor_Companion$Type;
   }
 }
 
-/// from: com.example.ok_http.WebSocketInterceptor
-class WebSocketInterceptor extends jni.JObject {
-  @override
-  late final jni.JObjType<WebSocketInterceptor> $type = type;
+/// from: `com.example.ok_http.WebSocketInterceptor`
+class WebSocketInterceptor extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<WebSocketInterceptor> $type;
 
+  @_$jni.internal
   WebSocketInterceptor.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
   static final _class =
-      jni.JClass.forName(r'com/example/ok_http/WebSocketInterceptor');
+      _$jni.JClass.forName(r'com/example/ok_http/WebSocketInterceptor');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $WebSocketInterceptorType();
+  static const type = $WebSocketInterceptor$Type();
   static final _id_Companion = _class.staticFieldId(
     r'Companion',
     r'Lcom/example/ok_http/WebSocketInterceptor$Companion;',
   );
 
-  /// from: static public final com.example.ok_http.WebSocketInterceptor$Companion Companion
+  /// from: `static public final com.example.ok_http.WebSocketInterceptor$Companion Companion`
   /// The returned object must be released after use, by calling the [release] method.
   static WebSocketInterceptor_Companion get Companion =>
-      _id_Companion.get(_class, const $WebSocketInterceptor_CompanionType());
+      _id_Companion.get(_class, const $WebSocketInterceptor_Companion$Type());
 
-  static final _id_new0 = _class.constructorId(
+  static final _id_new$ = _class.constructorId(
     r'()V',
   );
 
-  static final _new0 = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_NewObject')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public void <init>()
+  /// from: `public void <init>()`
   /// The returned object must be released after use, by calling the [release] method.
   factory WebSocketInterceptor() {
     return WebSocketInterceptor.fromReference(
-        _new0(_class.reference.pointer, _id_new0 as jni.JMethodIDPtr)
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
             .reference);
   }
 }
 
-final class $WebSocketInterceptorType
-    extends jni.JObjType<WebSocketInterceptor> {
-  const $WebSocketInterceptorType();
+final class $WebSocketInterceptor$Type
+    extends _$jni.JObjType<WebSocketInterceptor> {
+  @_$jni.internal
+  const $WebSocketInterceptor$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Lcom/example/ok_http/WebSocketInterceptor;';
 
-  @override
-  WebSocketInterceptor fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  WebSocketInterceptor fromReference(_$jni.JReference reference) =>
       WebSocketInterceptor.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($WebSocketInterceptorType).hashCode;
+  @_$core.override
+  int get hashCode => ($WebSocketInterceptor$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($WebSocketInterceptorType) &&
-        other is $WebSocketInterceptorType;
+    return other.runtimeType == ($WebSocketInterceptor$Type) &&
+        other is $WebSocketInterceptor$Type;
   }
 }
 
-/// from: java.util.concurrent.TimeUnit
-class TimeUnit extends jni.JObject {
-  @override
-  late final jni.JObjType<TimeUnit> $type = type;
+/// from: `java.util.concurrent.TimeUnit`
+class TimeUnit extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<TimeUnit> $type;
 
+  @_$jni.internal
   TimeUnit.fromReference(
-    jni.JReference reference,
-  ) : super.fromReference(reference);
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
 
-  static final _class = jni.JClass.forName(r'java/util/concurrent/TimeUnit');
+  static final _class = _$jni.JClass.forName(r'java/util/concurrent/TimeUnit');
 
   /// The type which includes information such as the signature of this class.
-  static const type = $TimeUnitType();
+  static const type = $TimeUnit$Type();
   static final _id_NANOSECONDS = _class.staticFieldId(
     r'NANOSECONDS',
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit NANOSECONDS
+  /// from: `static public final java.util.concurrent.TimeUnit NANOSECONDS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get NANOSECONDS =>
-      _id_NANOSECONDS.get(_class, const $TimeUnitType());
+      _id_NANOSECONDS.get(_class, const $TimeUnit$Type());
 
   static final _id_MICROSECONDS = _class.staticFieldId(
     r'MICROSECONDS',
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit MICROSECONDS
+  /// from: `static public final java.util.concurrent.TimeUnit MICROSECONDS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get MICROSECONDS =>
-      _id_MICROSECONDS.get(_class, const $TimeUnitType());
+      _id_MICROSECONDS.get(_class, const $TimeUnit$Type());
 
   static final _id_MILLISECONDS = _class.staticFieldId(
     r'MILLISECONDS',
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit MILLISECONDS
+  /// from: `static public final java.util.concurrent.TimeUnit MILLISECONDS`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit get MILLISECONDS =>
-      _id_MILLISECONDS.get(_class, const $TimeUnitType());
+      _id_MILLISECONDS.get(_class, const $TimeUnit$Type());
 
   static final _id_SECONDS = _class.staticFieldId(
     r'SECONDS',
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit SECONDS
+  /// from: `static public final java.util.concurrent.TimeUnit SECONDS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit get SECONDS => _id_SECONDS.get(_class, const $TimeUnitType());
+  static TimeUnit get SECONDS =>
+      _id_SECONDS.get(_class, const $TimeUnit$Type());
 
   static final _id_MINUTES = _class.staticFieldId(
     r'MINUTES',
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit MINUTES
+  /// from: `static public final java.util.concurrent.TimeUnit MINUTES`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit get MINUTES => _id_MINUTES.get(_class, const $TimeUnitType());
+  static TimeUnit get MINUTES =>
+      _id_MINUTES.get(_class, const $TimeUnit$Type());
 
   static final _id_HOURS = _class.staticFieldId(
     r'HOURS',
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit HOURS
+  /// from: `static public final java.util.concurrent.TimeUnit HOURS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit get HOURS => _id_HOURS.get(_class, const $TimeUnitType());
+  static TimeUnit get HOURS => _id_HOURS.get(_class, const $TimeUnit$Type());
 
   static final _id_DAYS = _class.staticFieldId(
     r'DAYS',
     r'Ljava/util/concurrent/TimeUnit;',
   );
 
-  /// from: static public final java.util.concurrent.TimeUnit DAYS
+  /// from: `static public final java.util.concurrent.TimeUnit DAYS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit get DAYS => _id_DAYS.get(_class, const $TimeUnitType());
+  static TimeUnit get DAYS => _id_DAYS.get(_class, const $TimeUnit$Type());
 
   static final _id_values = _class.staticMethodId(
     r'values',
     r'()[Ljava/util/concurrent/TimeUnit;',
   );
 
-  static final _values = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _values = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: static public java.util.concurrent.TimeUnit[] values()
+  /// from: `static public java.util.concurrent.TimeUnit[] values()`
   /// The returned object must be released after use, by calling the [release] method.
-  static jni.JArray<TimeUnit> values() {
-    return _values(_class.reference.pointer, _id_values as jni.JMethodIDPtr)
-        .object(const jni.JArrayType($TimeUnitType()));
+  static _$jni.JArray<TimeUnit> values() {
+    return _values(_class.reference.pointer, _id_values as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType($TimeUnit$Type()));
   }
 
   static final _id_valueOf = _class.staticMethodId(
@@ -13502,25 +14692,25 @@ class TimeUnit extends jni.JObject {
     r'(Ljava/lang/String;)Ljava/util/concurrent/TimeUnit;',
   );
 
-  static final _valueOf = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _valueOf = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public java.util.concurrent.TimeUnit valueOf(java.lang.String string)
+  /// from: `static public java.util.concurrent.TimeUnit valueOf(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit valueOf(
-    jni.JString string,
+    _$jni.JString string,
   ) {
-    return _valueOf(_class.reference.pointer, _id_valueOf as jni.JMethodIDPtr,
+    return _valueOf(_class.reference.pointer, _id_valueOf as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const $TimeUnitType());
+        .object(const $TimeUnit$Type());
   }
 
   static final _id_convert = _class.instanceMethodId(
@@ -13528,48 +14718,49 @@ class TimeUnit extends jni.JObject {
     r'(JLjava/util/concurrent/TimeUnit;)J',
   );
 
-  static final _convert = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Int64, ffi.Pointer<ffi.Void>)>)>>(
+  static final _convert = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Int64, _$jni.Pointer<_$jni.Void>)>)>>(
           'globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, int, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public long convert(long j, java.util.concurrent.TimeUnit timeUnit)
+  /// from: `public long convert(long j, java.util.concurrent.TimeUnit timeUnit)`
   int convert(
     int j,
     TimeUnit timeUnit,
   ) {
-    return _convert(reference.pointer, _id_convert as jni.JMethodIDPtr, j,
+    return _convert(reference.pointer, _id_convert as _$jni.JMethodIDPtr, j,
             timeUnit.reference.pointer)
         .long;
   }
 
-  static final _id_convert1 = _class.instanceMethodId(
+  static final _id_convert$1 = _class.instanceMethodId(
     r'convert',
     r'(Ljava/time/Duration;)J',
   );
 
-  static final _convert1 = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _convert$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: public long convert(java.time.Duration duration)
-  int convert1(
-    jni.JObject duration,
+  /// from: `public long convert(java.time.Duration duration)`
+  int convert$1(
+    _$jni.JObject duration,
   ) {
-    return _convert1(reference.pointer, _id_convert1 as jni.JMethodIDPtr,
+    return _convert$1(reference.pointer, _id_convert$1 as _$jni.JMethodIDPtr,
             duration.reference.pointer)
         .long;
   }
@@ -13579,19 +14770,22 @@ class TimeUnit extends jni.JObject {
     r'(J)J',
   );
 
-  static final _toNanos = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+  static final _toNanos = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public long toNanos(long j)
+  /// from: `public long toNanos(long j)`
   int toNanos(
     int j,
   ) {
-    return _toNanos(reference.pointer, _id_toNanos as jni.JMethodIDPtr, j).long;
+    return _toNanos(reference.pointer, _id_toNanos as _$jni.JMethodIDPtr, j)
+        .long;
   }
 
   static final _id_toMicros = _class.instanceMethodId(
@@ -13599,19 +14793,21 @@ class TimeUnit extends jni.JObject {
     r'(J)J',
   );
 
-  static final _toMicros = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+  static final _toMicros = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public long toMicros(long j)
+  /// from: `public long toMicros(long j)`
   int toMicros(
     int j,
   ) {
-    return _toMicros(reference.pointer, _id_toMicros as jni.JMethodIDPtr, j)
+    return _toMicros(reference.pointer, _id_toMicros as _$jni.JMethodIDPtr, j)
         .long;
   }
 
@@ -13620,19 +14816,21 @@ class TimeUnit extends jni.JObject {
     r'(J)J',
   );
 
-  static final _toMillis = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+  static final _toMillis = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public long toMillis(long j)
+  /// from: `public long toMillis(long j)`
   int toMillis(
     int j,
   ) {
-    return _toMillis(reference.pointer, _id_toMillis as jni.JMethodIDPtr, j)
+    return _toMillis(reference.pointer, _id_toMillis as _$jni.JMethodIDPtr, j)
         .long;
   }
 
@@ -13641,19 +14839,21 @@ class TimeUnit extends jni.JObject {
     r'(J)J',
   );
 
-  static final _toSeconds = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+  static final _toSeconds = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public long toSeconds(long j)
+  /// from: `public long toSeconds(long j)`
   int toSeconds(
     int j,
   ) {
-    return _toSeconds(reference.pointer, _id_toSeconds as jni.JMethodIDPtr, j)
+    return _toSeconds(reference.pointer, _id_toSeconds as _$jni.JMethodIDPtr, j)
         .long;
   }
 
@@ -13662,19 +14862,21 @@ class TimeUnit extends jni.JObject {
     r'(J)J',
   );
 
-  static final _toMinutes = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+  static final _toMinutes = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public long toMinutes(long j)
+  /// from: `public long toMinutes(long j)`
   int toMinutes(
     int j,
   ) {
-    return _toMinutes(reference.pointer, _id_toMinutes as jni.JMethodIDPtr, j)
+    return _toMinutes(reference.pointer, _id_toMinutes as _$jni.JMethodIDPtr, j)
         .long;
   }
 
@@ -13683,19 +14885,22 @@ class TimeUnit extends jni.JObject {
     r'(J)J',
   );
 
-  static final _toHours = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+  static final _toHours = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public long toHours(long j)
+  /// from: `public long toHours(long j)`
   int toHours(
     int j,
   ) {
-    return _toHours(reference.pointer, _id_toHours as jni.JMethodIDPtr, j).long;
+    return _toHours(reference.pointer, _id_toHours as _$jni.JMethodIDPtr, j)
+        .long;
   }
 
   static final _id_toDays = _class.instanceMethodId(
@@ -13703,19 +14908,21 @@ class TimeUnit extends jni.JObject {
     r'(J)J',
   );
 
-  static final _toDays = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallLongMethod')
+  static final _toDays = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallLongMethod')
       .asFunction<
-          jni.JniResult Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public long toDays(long j)
+  /// from: `public long toDays(long j)`
   int toDays(
     int j,
   ) {
-    return _toDays(reference.pointer, _id_toDays as jni.JMethodIDPtr, j).long;
+    return _toDays(reference.pointer, _id_toDays as _$jni.JMethodIDPtr, j).long;
   }
 
   static final _id_timedWait = _class.instanceMethodId(
@@ -13723,23 +14930,24 @@ class TimeUnit extends jni.JObject {
     r'(Ljava/lang/Object;J)V',
   );
 
-  static final _timedWait = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JThrowablePtr Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, ffi.Int64)>)>>(
+  static final _timedWait = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int64)>)>>(
           'globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: public void timedWait(java.lang.Object object, long j)
+  /// from: `public void timedWait(java.lang.Object object, long j)`
   void timedWait(
-    jni.JObject object,
+    _$jni.JObject object,
     int j,
   ) {
-    _timedWait(reference.pointer, _id_timedWait as jni.JMethodIDPtr,
+    _timedWait(reference.pointer, _id_timedWait as _$jni.JMethodIDPtr,
             object.reference.pointer, j)
         .check();
   }
@@ -13749,23 +14957,24 @@ class TimeUnit extends jni.JObject {
     r'(Ljava/lang/Thread;J)V',
   );
 
-  static final _timedJoin = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JThrowablePtr Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>, ffi.Int64)>)>>(
+  static final _timedJoin = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int64)>)>>(
           'globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>, int)>();
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
 
-  /// from: public void timedJoin(java.lang.Thread thread, long j)
+  /// from: `public void timedJoin(java.lang.Thread thread, long j)`
   void timedJoin(
-    jni.JObject thread,
+    _$jni.JObject thread,
     int j,
   ) {
-    _timedJoin(reference.pointer, _id_timedJoin as jni.JMethodIDPtr,
+    _timedJoin(reference.pointer, _id_timedJoin as _$jni.JMethodIDPtr,
             thread.reference.pointer, j)
         .check();
   }
@@ -13775,21 +14984,21 @@ class TimeUnit extends jni.JObject {
     r'(J)V',
   );
 
-  static final _sleep = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JThrowablePtr Function(
-                  ffi.Pointer<ffi.Void>,
-                  jni.JMethodIDPtr,
-                  ffi.VarArgs<(ffi.Int64,)>)>>('globalEnv_CallVoidMethod')
+  static final _sleep = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallVoidMethod')
       .asFunction<
-          jni.JThrowablePtr Function(
-              ffi.Pointer<ffi.Void>, jni.JMethodIDPtr, int)>();
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
 
-  /// from: public void sleep(long j)
+  /// from: `public void sleep(long j)`
   void sleep(
     int j,
   ) {
-    _sleep(reference.pointer, _id_sleep as jni.JMethodIDPtr, j).check();
+    _sleep(reference.pointer, _id_sleep as _$jni.JMethodIDPtr, j).check();
   }
 
   static final _id_toChronoUnit = _class.instanceMethodId(
@@ -13797,24 +15006,24 @@ class TimeUnit extends jni.JObject {
     r'()Ljava/time/temporal/ChronoUnit;',
   );
 
-  static final _toChronoUnit = ProtectedJniExtensions.lookup<
-          ffi.NativeFunction<
-              jni.JniResult Function(
-                ffi.Pointer<ffi.Void>,
-                jni.JMethodIDPtr,
+  static final _toChronoUnit = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
               )>>('globalEnv_CallObjectMethod')
       .asFunction<
-          jni.JniResult Function(
-            ffi.Pointer<ffi.Void>,
-            jni.JMethodIDPtr,
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
           )>();
 
-  /// from: public java.time.temporal.ChronoUnit toChronoUnit()
+  /// from: `public java.time.temporal.ChronoUnit toChronoUnit()`
   /// The returned object must be released after use, by calling the [release] method.
-  jni.JObject toChronoUnit() {
+  _$jni.JObject toChronoUnit() {
     return _toChronoUnit(
-            reference.pointer, _id_toChronoUnit as jni.JMethodIDPtr)
-        .object(const jni.JObjectType());
+            reference.pointer, _id_toChronoUnit as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
   }
 
   static final _id_of = _class.staticMethodId(
@@ -13822,49 +15031,54 @@ class TimeUnit extends jni.JObject {
     r'(Ljava/time/temporal/ChronoUnit;)Ljava/util/concurrent/TimeUnit;',
   );
 
-  static final _of = ProtectedJniExtensions.lookup<
-              ffi.NativeFunction<
-                  jni.JniResult Function(
-                      ffi.Pointer<ffi.Void>,
-                      jni.JMethodIDPtr,
-                      ffi.VarArgs<(ffi.Pointer<ffi.Void>,)>)>>(
+  static final _of = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
           'globalEnv_CallStaticObjectMethod')
       .asFunction<
-          jni.JniResult Function(ffi.Pointer<ffi.Void>, jni.JMethodIDPtr,
-              ffi.Pointer<ffi.Void>)>();
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
 
-  /// from: static public java.util.concurrent.TimeUnit of(java.time.temporal.ChronoUnit chronoUnit)
+  /// from: `static public java.util.concurrent.TimeUnit of(java.time.temporal.ChronoUnit chronoUnit)`
   /// The returned object must be released after use, by calling the [release] method.
   static TimeUnit of(
-    jni.JObject chronoUnit,
+    _$jni.JObject chronoUnit,
   ) {
-    return _of(_class.reference.pointer, _id_of as jni.JMethodIDPtr,
+    return _of(_class.reference.pointer, _id_of as _$jni.JMethodIDPtr,
             chronoUnit.reference.pointer)
-        .object(const $TimeUnitType());
+        .object(const $TimeUnit$Type());
   }
 }
 
-final class $TimeUnitType extends jni.JObjType<TimeUnit> {
-  const $TimeUnitType();
+final class $TimeUnit$Type extends _$jni.JObjType<TimeUnit> {
+  @_$jni.internal
+  const $TimeUnit$Type();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   String get signature => r'Ljava/util/concurrent/TimeUnit;';
 
-  @override
-  TimeUnit fromReference(jni.JReference reference) =>
+  @_$jni.internal
+  @_$core.override
+  TimeUnit fromReference(_$jni.JReference reference) =>
       TimeUnit.fromReference(reference);
 
-  @override
-  jni.JObjType get superType => const jni.JObjectType();
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
 
-  @override
+  @_$jni.internal
+  @_$core.override
   final superCount = 1;
 
-  @override
-  int get hashCode => ($TimeUnitType).hashCode;
+  @_$core.override
+  int get hashCode => ($TimeUnit$Type).hashCode;
 
-  @override
+  @_$core.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($TimeUnitType) && other is $TimeUnitType;
+    return other.runtimeType == ($TimeUnit$Type) && other is $TimeUnit$Type;
   }
 }

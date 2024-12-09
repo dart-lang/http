@@ -82,9 +82,8 @@ class OkHttpWebSocket implements WebSocket {
       throw ArgumentError.value(
           url, 'url', 'only ws: and wss: schemes are supported');
     }
-
     final requestBuilder =
-        bindings.Request_Builder().url1(url.toString().toJString());
+        bindings.Request_Builder().url$1(url.toString().toJString());
 
     if (protocols != null) {
       requestBuilder.addHeader('Sec-WebSocket-Protocol'.toJString(),
@@ -97,12 +96,12 @@ class OkHttpWebSocket implements WebSocket {
         requestBuilder.build(),
         bindings.WebSocketListenerProxy(
             bindings.WebSocketListenerProxy_WebSocketListener.implement(
-                bindings.$WebSocketListenerProxy_WebSocketListenerImpl(
+                bindings.$WebSocketListenerProxy_WebSocketListener(
           onOpen: (webSocket, response) {
             _webSocket = webSocket;
 
             var protocolHeader =
-                response.header1('sec-websocket-protocol'.toJString());
+                response.header$1('sec-websocket-protocol'.toJString());
             if (!protocolHeader.isNull) {
               _protocol = protocolHeader.toDartString(releaseOriginal: true);
               if (!(protocols?.contains(_protocol) ?? true)) {
@@ -119,7 +118,7 @@ class OkHttpWebSocket implements WebSocket {
             if (_events.isClosed) return;
             _events.add(TextDataReceived(string.toDartString()));
           },
-          onMessage1:
+          onMessage$1:
               (bindings.WebSocket webSocket, bindings.ByteString byteString) {
             if (_events.isClosed) return;
             _events.add(
@@ -202,7 +201,7 @@ class OkHttpWebSocket implements WebSocket {
     if (_events.isClosed) {
       throw WebSocketConnectionClosed();
     }
-    _webSocket.send1(bindings.ByteString.of(b.toJArray()));
+    _webSocket.send$1(bindings.ByteString.of(b.toJArray()));
   }
 
   @override
