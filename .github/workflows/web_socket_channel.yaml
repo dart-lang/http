@@ -1,13 +1,22 @@
-name: CI
+name: package:web_socket_channel
 
 on:
-  # Run on PRs and pushes to the default branch.
   push:
-    branches: [ master ]
+    branches:
+      - master
+    paths:
+      - '.github/workflows/web_socket_channel.yaml'
+      - 'pkgs/web_socket_channel/**'
   pull_request:
-    branches: [ master ]
+    paths:
+      - '.github/workflows/web_socket_channel.yaml'
+      - 'pkgs/web_socket_channel/**'
   schedule:
     - cron: "0 0 * * 0"
+
+defaults:  
+  run:  
+    working-directory: pkgs/web_socket_channel/
 
 env:
   PUB_ENVIRONMENT: bot.github
