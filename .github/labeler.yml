@@ -2,28 +2,48 @@
 
 'type-infra':
   - changed-files:
-      - any-glob-to-any-file: '.github/**'
+    - any-glob-to-any-file: '.github/**'
 
 'package:cronet_http':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/cronet_http/**'
+    - any-glob-to-any-file: 'pkgs/cronet_http/**'
 
 'package:cupertino_http':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/cupertino_http/**'
+    - any-glob-to-any-file: 'pkgs/cupertino_http/**'
+
+'package:flutter_http_example':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/flutter_http_example/**'
 
 'package:http':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/http/**'
+    - any-glob-to-any-file: 'pkgs/http/**'
 
 'package:http2':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/http2/**'
-
-'package:http_parser':
-  - changed-files:
-      - any-glob-to-any-file: 'pkgs/http_parser/**'
+    - any-glob-to-any-file: 'pkgs/http2/**'
 
 'package:http_client_conformance_tests':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/http_client_conformance_tests/**'
+    - any-glob-to-any-file: 'pkgs/http_client_conformance_tests/**'
+
+'package:http_parser':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/http_parser/**'
+
+'package:http_profile':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/http_profile/**'
+
+'package:ok_http':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/ok_http/**'
+
+'package:web_socket':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/web_socket/**'
+
+'package:web_socket_conformance_tests':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/web_socket_conformance_tests/**'

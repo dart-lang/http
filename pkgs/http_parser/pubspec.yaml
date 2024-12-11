@@ -3,6 +3,7 @@ version: 4.1.1
 description: >-
   A platform-independent package for parsing and serializing HTTP formats.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http_parser
+issue_tracker: https://github.com/dart-lang/http/issues?q=is%3Aissue+is%3Aopen+label%3Apackage%3Ahttp_parser
 
 environment:
   sdk: ^3.4.0
