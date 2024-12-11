@@ -1,0 +1,27 @@
+include: package:dart_flutter_team_lints/analysis_options.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+
+linter:
+  rules:
+  - avoid_bool_literals_in_conditional_expressions
+  - avoid_classes_with_only_static_members
+  - avoid_private_typedef_functions
+  - avoid_redundant_argument_values
+  - avoid_returning_this
+  - avoid_unused_constructor_parameters
+  - avoid_void_async
+  - cancel_subscriptions
+  - join_return_with_assignment
+  - literal_only_boolean_expressions
+  - missing_whitespace_between_adjacent_strings
+  - no_adjacent_strings_in_list
+  - no_runtimeType_toString
+  - prefer_const_declarations
+  - prefer_expression_function_bodies
+  - prefer_final_locals
+  - prefer_void_to_null
+  - unnecessary_await_in_return
+  - use_string_buffers
