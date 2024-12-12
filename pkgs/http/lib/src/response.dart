@@ -21,10 +21,10 @@ class Response extends BaseResponse {
   ///
   /// This is converted from [bodyBytes] using the `charset` parameter of the
   /// `Content-Type` header field, if available. If it's unavailable or if the
-  /// encoding name is unknown, [latin1] is used by default, as per
-  /// [RFC 2616][].
+  /// encoding name is unknown, [utf8] is used by default, as per
+  /// [RFC3629][].
   ///
-  /// [RFC 2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html
+  /// [RFC3629]:https://www.rfc-editor.org/rfc/rfc3629.
   String get body => _encodingForHeaders(headers).decode(bodyBytes);
 
   /// Creates a new HTTP response with a string body.
@@ -43,11 +43,7 @@ class Response extends BaseResponse {
 
   /// Create a new HTTP response with a byte array body.
   Response.bytes(List<int> bodyBytes, super.statusCode,
-      {super.request,
-      super.headers,
-      super.isRedirect,
-      super.persistentConnection,
-      super.reasonPhrase})
+      {super.request, super.headers, super.isRedirect, super.persistentConnection, super.reasonPhrase})
       : bodyBytes = toUint8List(bodyBytes),
         super(contentLength: bodyBytes.length);
 
@@ -66,10 +62,12 @@ class Response extends BaseResponse {
 
 /// Returns the encoding to use for a response with the given headers.
 ///
-/// Defaults to [latin1] if the headers don't specify a charset or if that
-/// charset is unknown.
+/// If the `Content-Type` header specifies a charset, it will use that charset.
+/// If no charset is provided or the charset is unknown:
+/// - Defaults to [utf8] if the `Content-Type` is `application/json` (since JSON is defined to use UTF-8 by default).
+/// - Otherwise, defaults to [latin1] for compatibility.
 Encoding _encodingForHeaders(Map<String, String> headers) =>
-    encodingForCharset(_contentTypeForHeaders(headers).parameters['charset']);
+    encodingForContentTypeHeader(_contentTypeForHeaders(headers));
 
 /// Returns the [MediaType] object for the given headers' content-type.
 ///
