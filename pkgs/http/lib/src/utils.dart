@@ -14,21 +14,25 @@ import 'byte_stream.dart';
 ///
 ///     mapToQuery({"foo": "bar", "baz": "bang"});
 ///     //=> "foo=bar&baz=bang"
-String mapToQuery(Map<String, String> map, {required Encoding encoding}) => map.entries
-    .map((e) => '${Uri.encodeQueryComponent(e.key, encoding: encoding)}'
-        '=${Uri.encodeQueryComponent(e.value, encoding: encoding)}')
-    .join('&');
+String mapToQuery(Map<String, String> map, {required Encoding encoding}) =>
+    map.entries
+        .map((e) => '${Uri.encodeQueryComponent(e.key, encoding: encoding)}'
+            '=${Uri.encodeQueryComponent(e.value, encoding: encoding)}')
+        .join('&');
 
 /// Determines the appropriate [Encoding] based on the given [contentTypeHeader].
 ///
 /// - If the `Content-Type` is `application/json` and no charset is specified, it defaults to [utf8].
 /// - If a charset is specified in the parameters, it attempts to find a matching [Encoding].
 /// - If no charset is specified or the charset is unknown, it falls back to the provided [fallback], which defaults to [latin1].
-Encoding encodingForContentTypeHeader(MediaType contentTypeHeader, [Encoding fallback = latin1]) {
+Encoding encodingForContentTypeHeader(MediaType contentTypeHeader,
+    [Encoding fallback = latin1]) {
   final charset = contentTypeHeader.parameters['charset'];
 
   // Default to utf8 for application/json when charset is unspecified.
-  if (contentTypeHeader.type == 'application' && contentTypeHeader.subtype == 'json' && charset == null) {
+  if (contentTypeHeader.type == 'application' &&
+      contentTypeHeader.subtype == 'json' &&
+      charset == null) {
     return utf8;
   }
 
@@ -41,7 +45,8 @@ Encoding encodingForContentTypeHeader(MediaType contentTypeHeader, [Encoding fal
 /// Throws a [FormatException] if no [Encoding] was found that corresponds to
 /// [charset].
 Encoding requiredEncodingForCharset(String charset) =>
-    Encoding.getByName(charset) ?? (throw FormatException('Unsupported encoding "$charset".'));
+    Encoding.getByName(charset) ??
+    (throw FormatException('Unsupported encoding "$charset".'));
 
 /// A regular expression that matches strings that are composed entirely of
 /// ASCII-compatible characters.

@@ -43,7 +43,11 @@ class Response extends BaseResponse {
 
   /// Create a new HTTP response with a byte array body.
   Response.bytes(List<int> bodyBytes, super.statusCode,
-      {super.request, super.headers, super.isRedirect, super.persistentConnection, super.reasonPhrase})
+      {super.request,
+      super.headers,
+      super.isRedirect,
+      super.persistentConnection,
+      super.reasonPhrase})
       : bodyBytes = toUint8List(bodyBytes),
         super(contentLength: bodyBytes.length);
 
