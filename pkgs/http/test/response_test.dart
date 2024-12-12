@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:test/test.dart';
@@ -27,12 +28,6 @@ void main() {
           headers: {'content-type': 'text/plain; charset=iso-8859-1'});
       expect(response.bodyBytes, equals([102, 246, 248, 98, 227, 114]));
     });
-
-    test('test empty charset', () {
-      var response = http.Response('{"foo":"Привет, мир!"}', 200,
-          headers: {'content-type': 'application/json'});
-      expect(response.body, equals('{"foo":"Привет, мир!"}'));
-    });
   });
 
   group('.bytes()', () {
@@ -50,6 +45,13 @@ void main() {
       var response = http.Response.bytes([102, 246, 248, 98, 227, 114], 200,
           headers: {'content-type': 'text/plain; charset=iso-8859-1'});
       expect(response.body, equals('föøbãr'));
+    });
+    test('test decoding with empty charset if content type is application/json',
+        () {
+      final utf8Bytes = utf8.encode('{"foo":"Привет, мир!"}');
+      var response = http.Response.bytes(utf8Bytes, 200,
+          headers: {'content-type': 'application/json'});
+      expect(response.body, equals('{"foo":"Привет, мир!"}'));
     });
   });
 
