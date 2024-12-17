@@ -11,6 +11,6 @@ jobs:
       sdk: dev
       channel: dev
       flutter_packages: "pkgs/cronet,pkgs/cupertino,pkgs/okhttp"
-      ignore_packages: "pkgs/http,pkgs/websocket"
+      ignore_packages: "pkgs/http,pkgs/web_socket"
     permissions:
       pull-requests: write
