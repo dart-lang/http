@@ -10,7 +10,7 @@ jobs:
     with:
       sdk: dev
       channel: dev
-      flutter_packages: "pkgs/cronet,pkgs/cupertino,pkgs/okhttp"
+      flutter_packages: "pkgs/cronet_http,pkgs/cupertino_http,pkgs/ok_http"
       ignore_packages: "pkgs/http,pkgs/web_socket"
     permissions:
       pull-requests: write
