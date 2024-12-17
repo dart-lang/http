@@ -96,6 +96,11 @@ class OkHttpClient extends BaseClient {
     // https://stackoverflow.com/questions/25509296/trusting-all-certificates-with-okhttp
     print('Creating client!!!!');
     const alias = "foo";
+    final hostNameVerifier = bindings.$HostnameVerifier(
+        verify: (JString string, JObject sSLSession) {
+      print('I was called');
+      return true;
+    });
     final x509KeyManager = bindings.$X509KeyManager(
         chooseClientAlias: (strings, principals, socket) {
           print('chooseClientAlias');
@@ -122,15 +127,21 @@ class OkHttpClient extends BaseClient {
     final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())
       ..init(
           JArray(bindings.KeyManager.type, 1)
-//            ..[0] = bindings.X509Foo().as(bindings.KeyManager.type),
-            ..[0] = bindings.X509KeyManager.implement(x509KeyManager)
-                .as(bindings.KeyManager.type),
+            ..[0] = bindings.X509Foo().as(bindings.KeyManager.type),
+//            ..[0] = bindings.X509KeyManager.implement(x509KeyManager)
+//                .as(bindings.KeyManager.type),
 //          JArray.fromReference(bindings.TrustManager.type, jNullReference),
           tm.getTrustManagers(),
           bindings.SecureRandom());
     _client = bindings.OkHttpClient_Builder()
-        .sslSocketFactory$1(sslContext.getSocketFactory(),
+//        .hostnameVerifier(bindings.HostnameVerifier.implement(hostNameVerifier))
+        .hostnameVerifier(
+            bindings.Verifier().as(bindings.HostnameVerifier.type))
+        .socketFactory(bindings.SocketFactoryFoo())
+        .sslSocketFactory$1(bindings.SSLSocketFactoryFoo(),
             tm.getTrustManagers()[0].as(bindings.X509TrustManager.type))
+//        .sslSocketFactory$1(sslContext.getSocketFactory(),
+//            tm.getTrustManagers()[0].as(bindings.X509TrustManager.type))
         .build();
   }
 

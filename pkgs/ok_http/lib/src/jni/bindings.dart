@@ -5089,7 +5089,7 @@ class OkHttpClient_Builder extends _$jni.JObject {
   /// from: `public final okhttp3.OkHttpClient$Builder socketFactory(javax.net.SocketFactory socketFactory)`
   /// The returned object must be released after use, by calling the [release] method.
   OkHttpClient_Builder socketFactory(
-    _$jni.JObject socketFactory,
+    SocketFactory socketFactory,
   ) {
     return _socketFactory(
             reference.pointer,
@@ -6156,10 +6156,10 @@ class OkHttpClient extends _$jni.JObject {
 
   /// from: `public final javax.net.SocketFactory socketFactory()`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject socketFactory() {
+  SocketFactory socketFactory() {
     return _socketFactory(
             reference.pointer, _id_socketFactory as _$jni.JMethodIDPtr)
-        .object(const _$jni.JObjectType());
+        .object(const $SocketFactory$Type());
   }
 
   static final _id_sslSocketFactory = _class.instanceMethodId(
@@ -12984,6 +12984,700 @@ final class $X509Foo$Type extends _$jni.JObjType<X509Foo> {
   }
 }
 
+/// from: `com.example.ok_http.Verifier`
+class Verifier extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Verifier> $type;
+
+  @_$jni.internal
+  Verifier.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'com/example/ok_http/Verifier');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $Verifier$Type();
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory Verifier() {
+    return Verifier.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_verify = _class.instanceMethodId(
+    r'verify',
+    r'(Ljava/lang/String;Ljavax/net/ssl/SSLSession;)Z',
+  );
+
+  static final _verify = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public boolean verify(java.lang.String string, javax.net.ssl.SSLSession sSLSession)`
+  bool verify(
+    _$jni.JString string,
+    _$jni.JObject sSLSession,
+  ) {
+    return _verify(reference.pointer, _id_verify as _$jni.JMethodIDPtr,
+            string.reference.pointer, sSLSession.reference.pointer)
+        .boolean;
+  }
+}
+
+final class $Verifier$Type extends _$jni.JObjType<Verifier> {
+  @_$jni.internal
+  const $Verifier$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Lcom/example/ok_http/Verifier;';
+
+  @_$jni.internal
+  @_$core.override
+  Verifier fromReference(_$jni.JReference reference) =>
+      Verifier.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($Verifier$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Verifier$Type) && other is $Verifier$Type;
+  }
+}
+
+/// from: `com.example.ok_http.SocketFactoryFoo`
+class SocketFactoryFoo extends SocketFactory {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<SocketFactoryFoo> $type;
+
+  @_$jni.internal
+  SocketFactoryFoo.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'com/example/ok_http/SocketFactoryFoo');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $SocketFactoryFoo$Type();
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory SocketFactoryFoo() {
+    return SocketFactoryFoo.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_createSocket = _class.instanceMethodId(
+    r'createSocket',
+    r'()Ljava/net/Socket;',
+  );
+
+  static final _createSocket = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.net.Socket createSocket()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket() {
+    return _createSocket(
+            reference.pointer, _id_createSocket as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket1 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/lang/String;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `public java.net.Socket createSocket(java.lang.String string, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket1(
+    _$jni.JString string,
+    int i,
+  ) {
+    return _createSocket1(
+            reference.pointer,
+            _id_createSocket1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            i)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket2 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/lang/String;ILjava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
+
+  /// from: `public java.net.Socket createSocket(java.lang.String string, int i, java.net.InetAddress inetAddress, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket2(
+    _$jni.JString string,
+    int i,
+    _$jni.JObject inetAddress,
+    int i1,
+  ) {
+    return _createSocket2(
+            reference.pointer,
+            _id_createSocket2 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            i,
+            inetAddress.reference.pointer,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket3 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket3 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `public java.net.Socket createSocket(java.net.InetAddress inetAddress, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket3(
+    _$jni.JObject inetAddress,
+    int i,
+  ) {
+    return _createSocket3(
+            reference.pointer,
+            _id_createSocket3 as _$jni.JMethodIDPtr,
+            inetAddress.reference.pointer,
+            i)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket4 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/net/InetAddress;ILjava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
+
+  /// from: `public java.net.Socket createSocket(java.net.InetAddress inetAddress, int i, java.net.InetAddress inetAddress1, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket4(
+    _$jni.JObject inetAddress,
+    int i,
+    _$jni.JObject inetAddress1,
+    int i1,
+  ) {
+    return _createSocket4(
+            reference.pointer,
+            _id_createSocket4 as _$jni.JMethodIDPtr,
+            inetAddress.reference.pointer,
+            i,
+            inetAddress1.reference.pointer,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+}
+
+final class $SocketFactoryFoo$Type extends _$jni.JObjType<SocketFactoryFoo> {
+  @_$jni.internal
+  const $SocketFactoryFoo$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Lcom/example/ok_http/SocketFactoryFoo;';
+
+  @_$jni.internal
+  @_$core.override
+  SocketFactoryFoo fromReference(_$jni.JReference reference) =>
+      SocketFactoryFoo.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const $SocketFactory$Type();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 2;
+
+  @_$core.override
+  int get hashCode => ($SocketFactoryFoo$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($SocketFactoryFoo$Type) &&
+        other is $SocketFactoryFoo$Type;
+  }
+}
+
+/// from: `com.example.ok_http.SSLSocketFactoryFoo`
+class SSLSocketFactoryFoo extends SSLSocketFactory {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<SSLSocketFactoryFoo> $type;
+
+  @_$jni.internal
+  SSLSocketFactoryFoo.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'com/example/ok_http/SSLSocketFactoryFoo');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $SSLSocketFactoryFoo$Type();
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory SSLSocketFactoryFoo() {
+    return SSLSocketFactoryFoo.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_createSocket$6 = _class.instanceMethodId(
+    r'createSocket',
+    r'()Ljava/net/Socket;',
+  );
+
+  static final _createSocket$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.net.Socket createSocket()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$6() {
+    return _createSocket$6(
+            reference.pointer, _id_createSocket$6 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket$7 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/lang/String;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket$7 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `public java.net.Socket createSocket(java.lang.String string, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$7(
+    _$jni.JString string,
+    int i,
+  ) {
+    return _createSocket$7(
+            reference.pointer,
+            _id_createSocket$7 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            i)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket$8 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/lang/String;ILjava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket$8 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
+
+  /// from: `public java.net.Socket createSocket(java.lang.String string, int i, java.net.InetAddress inetAddress, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$8(
+    _$jni.JString string,
+    int i,
+    _$jni.JObject inetAddress,
+    int i1,
+  ) {
+    return _createSocket$8(
+            reference.pointer,
+            _id_createSocket$8 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            i,
+            inetAddress.reference.pointer,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket$9 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket$9 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `public java.net.Socket createSocket(java.net.InetAddress inetAddress, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$9(
+    _$jni.JObject inetAddress,
+    int i,
+  ) {
+    return _createSocket$9(
+            reference.pointer,
+            _id_createSocket$9 as _$jni.JMethodIDPtr,
+            inetAddress.reference.pointer,
+            i)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket$10 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/net/InetAddress;ILjava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket$10 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
+
+  /// from: `public java.net.Socket createSocket(java.net.InetAddress inetAddress, int i, java.net.InetAddress inetAddress1, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$10(
+    _$jni.JObject inetAddress,
+    int i,
+    _$jni.JObject inetAddress1,
+    int i1,
+  ) {
+    return _createSocket$10(
+            reference.pointer,
+            _id_createSocket$10 as _$jni.JMethodIDPtr,
+            inetAddress.reference.pointer,
+            i,
+            inetAddress1.reference.pointer,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket5 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/net/Socket;Ljava/lang/String;IZ)Ljava/net/Socket;',
+  );
+
+  static final _createSocket5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `public java.net.Socket createSocket(java.net.Socket socket, java.lang.String string, int i, boolean z)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket5(
+    _$jni.JObject socket,
+    _$jni.JString string,
+    int i,
+    bool z,
+  ) {
+    return _createSocket5(
+            reference.pointer,
+            _id_createSocket5 as _$jni.JMethodIDPtr,
+            socket.reference.pointer,
+            string.reference.pointer,
+            i,
+            z ? 1 : 0)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getDefaultCipherSuites = _class.instanceMethodId(
+    r'getDefaultCipherSuites',
+    r'()[Ljava/lang/String;',
+  );
+
+  static final _getDefaultCipherSuites = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String[] getDefaultCipherSuites()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JString> getDefaultCipherSuites() {
+    return _getDefaultCipherSuites(
+            reference.pointer, _id_getDefaultCipherSuites as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.JStringType()));
+  }
+
+  static final _id_getSupportedCipherSuites = _class.instanceMethodId(
+    r'getSupportedCipherSuites',
+    r'()[Ljava/lang/String;',
+  );
+
+  static final _getSupportedCipherSuites = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.lang.String[] getSupportedCipherSuites()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.JString> getSupportedCipherSuites() {
+    return _getSupportedCipherSuites(reference.pointer,
+            _id_getSupportedCipherSuites as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.JStringType()));
+  }
+}
+
+final class $SSLSocketFactoryFoo$Type
+    extends _$jni.JObjType<SSLSocketFactoryFoo> {
+  @_$jni.internal
+  const $SSLSocketFactoryFoo$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Lcom/example/ok_http/SSLSocketFactoryFoo;';
+
+  @_$jni.internal
+  @_$core.override
+  SSLSocketFactoryFoo fromReference(_$jni.JReference reference) =>
+      SSLSocketFactoryFoo.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const $SSLSocketFactory$Type();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 3;
+
+  @_$core.override
+  int get hashCode => ($SSLSocketFactoryFoo$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($SSLSocketFactoryFoo$Type) &&
+        other is $SSLSocketFactoryFoo$Type;
+  }
+}
+
 /// from: `okio.ByteString$Companion`
 class ByteString_Companion extends _$jni.JObject {
   @_$jni.internal
@@ -15666,8 +16360,256 @@ final class $X509TrustManager$Type extends _$jni.JObjType<X509TrustManager> {
   }
 }
 
+/// from: `javax.net.SocketFactory`
+class SocketFactory extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<SocketFactory> $type;
+
+  @_$jni.internal
+  SocketFactory.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'javax/net/SocketFactory');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $SocketFactory$Type();
+  static final _id_getDefault = _class.staticMethodId(
+    r'getDefault',
+    r'()Ljavax/net/SocketFactory;',
+  );
+
+  static final _getDefault = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `static public javax.net.SocketFactory getDefault()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static SocketFactory getDefault() {
+    return _getDefault(
+            _class.reference.pointer, _id_getDefault as _$jni.JMethodIDPtr)
+        .object(const $SocketFactory$Type());
+  }
+
+  static final _id_createSocket = _class.instanceMethodId(
+    r'createSocket',
+    r'()Ljava/net/Socket;',
+  );
+
+  static final _createSocket = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.net.Socket createSocket()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket() {
+    return _createSocket(
+            reference.pointer, _id_createSocket as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket$1 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/lang/String;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `public abstract java.net.Socket createSocket(java.lang.String string, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$1(
+    _$jni.JString string,
+    int i,
+  ) {
+    return _createSocket$1(
+            reference.pointer,
+            _id_createSocket$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            i)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket$2 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/lang/String;ILjava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
+
+  /// from: `public abstract java.net.Socket createSocket(java.lang.String string, int i, java.net.InetAddress inetAddress, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$2(
+    _$jni.JString string,
+    int i,
+    _$jni.JObject inetAddress,
+    int i1,
+  ) {
+    return _createSocket$2(
+            reference.pointer,
+            _id_createSocket$2 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            i,
+            inetAddress.reference.pointer,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket$3 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket$3 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `public abstract java.net.Socket createSocket(java.net.InetAddress inetAddress, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$3(
+    _$jni.JObject inetAddress,
+    int i,
+  ) {
+    return _createSocket$3(
+            reference.pointer,
+            _id_createSocket$3 as _$jni.JMethodIDPtr,
+            inetAddress.reference.pointer,
+            i)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createSocket$4 = _class.instanceMethodId(
+    r'createSocket',
+    r'(Ljava/net/InetAddress;ILjava/net/InetAddress;I)Ljava/net/Socket;',
+  );
+
+  static final _createSocket$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int)>();
+
+  /// from: `public abstract java.net.Socket createSocket(java.net.InetAddress inetAddress, int i, java.net.InetAddress inetAddress1, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject createSocket$4(
+    _$jni.JObject inetAddress,
+    int i,
+    _$jni.JObject inetAddress1,
+    int i1,
+  ) {
+    return _createSocket$4(
+            reference.pointer,
+            _id_createSocket$4 as _$jni.JMethodIDPtr,
+            inetAddress.reference.pointer,
+            i,
+            inetAddress1.reference.pointer,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+}
+
+final class $SocketFactory$Type extends _$jni.JObjType<SocketFactory> {
+  @_$jni.internal
+  const $SocketFactory$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/SocketFactory;';
+
+  @_$jni.internal
+  @_$core.override
+  SocketFactory fromReference(_$jni.JReference reference) =>
+      SocketFactory.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($SocketFactory$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($SocketFactory$Type) &&
+        other is $SocketFactory$Type;
+  }
+}
+
 /// from: `javax.net.ssl.SSLSocketFactory`
-class SSLSocketFactory extends _$jni.JObject {
+class SSLSocketFactory extends SocketFactory {
   @_$jni.internal
   @_$core.override
   final _$jni.JObjType<SSLSocketFactory> $type;
@@ -15701,10 +16643,10 @@ class SSLSocketFactory extends _$jni.JObject {
 
   /// from: `static public javax.net.SocketFactory getDefault()`
   /// The returned object must be released after use, by calling the [release] method.
-  static _$jni.JObject getDefault() {
+  static SocketFactory getDefault() {
     return _getDefault(
             _class.reference.pointer, _id_getDefault as _$jni.JMethodIDPtr)
-        .object(const _$jni.JObjectType());
+        .object(const $SocketFactory$Type());
   }
 
   static final _id_getDefaultCipherSuites = _class.instanceMethodId(
@@ -15757,12 +16699,12 @@ class SSLSocketFactory extends _$jni.JObject {
         .object(const _$jni.JArrayType(_$jni.JStringType()));
   }
 
-  static final _id_createSocket = _class.instanceMethodId(
+  static final _id_createSocket$5 = _class.instanceMethodId(
     r'createSocket',
     r'(Ljava/net/Socket;Ljava/lang/String;IZ)Ljava/net/Socket;',
   );
 
-  static final _createSocket = _$jni.ProtectedJniExtensions.lookup<
+  static final _createSocket$5 = _$jni.ProtectedJniExtensions.lookup<
           _$jni.NativeFunction<
               _$jni.JniResult Function(
                   _$jni.Pointer<_$jni.Void>,
@@ -15785,15 +16727,15 @@ class SSLSocketFactory extends _$jni.JObject {
 
   /// from: `public abstract java.net.Socket createSocket(java.net.Socket socket, java.lang.String string, int i, boolean z)`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject createSocket(
+  _$jni.JObject createSocket$5(
     _$jni.JObject socket,
     _$jni.JString string,
     int i,
     bool z,
   ) {
-    return _createSocket(
+    return _createSocket$5(
             reference.pointer,
-            _id_createSocket as _$jni.JMethodIDPtr,
+            _id_createSocket$5 as _$jni.JMethodIDPtr,
             socket.reference.pointer,
             string.reference.pointer,
             i,
@@ -15817,11 +16759,11 @@ final class $SSLSocketFactory$Type extends _$jni.JObjType<SSLSocketFactory> {
 
   @_$jni.internal
   @_$core.override
-  _$jni.JObjType get superType => const _$jni.JObjectType();
+  _$jni.JObjType get superType => const $SocketFactory$Type();
 
   @_$jni.internal
   @_$core.override
-  final superCount = 1;
+  final superCount = 2;
 
   @_$core.override
   int get hashCode => ($SSLSocketFactory$Type).hashCode;
