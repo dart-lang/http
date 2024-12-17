@@ -8,7 +8,6 @@ jobs:
   health:
     uses: dart-lang/ecosystem/.github/workflows/health.yaml@main
     with:
-      ignore_license: "**.g.dart"
       sdk: dev
       flutter_packages: "pkgs/cronet,pkgs/cupertino,pkgs/okhttp"
     permissions:
