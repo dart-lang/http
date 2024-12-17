@@ -10,5 +10,6 @@ jobs:
     with:
       ignore_license: "**.g.dart"
       sdk: dev
+      flutter_packages: "pkgs/cronet,pkgs/cupertino,pkgs/okhttp"
     permissions:
       pull-requests: write
