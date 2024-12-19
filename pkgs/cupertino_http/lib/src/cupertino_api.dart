@@ -893,9 +893,30 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onResponse != null) {
+      /*
+      final b =
+          ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
+              .blocking(
+                  (_, nsSession, nsDataTask, nsResponse, nsCompletionHandler) {
+        final exactResponse = URLResponse._exactURLResponseType(nsResponse);
+        final disposition = onResponse(
+            URLSession._(nsSession,
+                isBackground: isBackground, hasDelegate: true),
+            URLSessionTask._(nsDataTask),
+            exactResponse);
+        nsCompletionHandler.call(disposition);
+      });
+
+      final delegate = objc.getProtocol('NSURLSessionDataDelegate');
+      final sel = objc.registerName(
+          'URLSession:dataTask:didReceiveResponse:completionHandler:');
+      final signature = objc.getProtocolMethodSignature(delegate, sel,
+          isRequired: true, isInstanceMethod: true)!;
+      protoBuilder.implementMethod(sel, signature, b);
+*/
       ncb.NSURLSessionDataDelegate
           .URLSession_dataTask_didReceiveResponse_completionHandler_
-          .implementAsListener(protoBuilder,
+          .implement(protoBuilder,
               (nsSession, nsDataTask, nsResponse, nsCompletionHandler) {
         final exactResponse = URLResponse._exactURLResponseType(nsResponse);
         final disposition = onResponse(
