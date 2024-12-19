@@ -618,10 +618,10 @@ class NativeCupertinoHttp {
       .asFunction<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>, int)>();
 
   ffi.Pointer<ffi.Void> valloc(
-    int arg0,
+    int __size,
   ) {
     return _valloc(
-      arg0,
+      __size,
     );
   }
 
@@ -699,6 +699,22 @@ class NativeCupertinoHttp {
           ffi.Int Function(
               ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>>('atexit');
   late final _atexit = _atexitPtr.asFunction<
+      int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>();
+
+  int at_quick_exit(
+    ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>> arg0,
+  ) {
+    return _at_quick_exit(
+      arg0,
+    );
+  }
+
+  late final _at_quick_exitPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Int Function(
+                  ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>>(
+      'at_quick_exit');
+  late final _at_quick_exit = _at_quick_exitPtr.asFunction<
       int Function(ffi.Pointer<ffi.NativeFunction<ffi.Void Function()>>)>();
 
   double atof(
@@ -979,6 +995,18 @@ class NativeCupertinoHttp {
               ffi.NativeFunction<
                   ffi.Int Function(
                       ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>>)>();
+
+  void quick_exit(
+    int arg0,
+  ) {
+    return _quick_exit(
+      arg0,
+    );
+  }
+
+  late final _quick_exitPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>('quick_exit');
+  late final _quick_exit = _quick_exitPtr.asFunction<void Function(int)>();
 
   int rand() {
     return _rand();
@@ -3091,6 +3119,99 @@ class NativeCupertinoHttp {
   late final _CFAllocatorCreate = _CFAllocatorCreatePtr.asFunction<
       CFAllocatorRef Function(
           CFAllocatorRef, ffi.Pointer<CFAllocatorContext>)>();
+
+  ffi.Pointer<ffi.Void> CFAllocatorAllocateTyped(
+    CFAllocatorRef allocator,
+    int size,
+    int descriptor,
+    int hint,
+  ) {
+    return _CFAllocatorAllocateTyped(
+      allocator,
+      size,
+      descriptor,
+      hint,
+    );
+  }
+
+  late final _CFAllocatorAllocateTypedPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(CFAllocatorRef, CFIndex,
+              CFAllocatorTypeID, CFOptionFlags)>>('CFAllocatorAllocateTyped');
+  late final _CFAllocatorAllocateTyped =
+      _CFAllocatorAllocateTypedPtr.asFunction<
+          ffi.Pointer<ffi.Void> Function(CFAllocatorRef, int, int, int)>();
+
+  ffi.Pointer<ffi.Void> CFAllocatorReallocateTyped(
+    CFAllocatorRef allocator,
+    ffi.Pointer<ffi.Void> ptr,
+    int newsize,
+    int descriptor,
+    int hint,
+  ) {
+    return _CFAllocatorReallocateTyped(
+      allocator,
+      ptr,
+      newsize,
+      descriptor,
+      hint,
+    );
+  }
+
+  late final _CFAllocatorReallocateTypedPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(
+              CFAllocatorRef,
+              ffi.Pointer<ffi.Void>,
+              CFIndex,
+              CFAllocatorTypeID,
+              CFOptionFlags)>>('CFAllocatorReallocateTyped');
+  late final _CFAllocatorReallocateTyped =
+      _CFAllocatorReallocateTypedPtr.asFunction<
+          ffi.Pointer<ffi.Void> Function(
+              CFAllocatorRef, ffi.Pointer<ffi.Void>, int, int, int)>();
+
+  ffi.Pointer<ffi.Void> CFAllocatorAllocateBytes(
+    CFAllocatorRef allocator,
+    int size,
+    int hint,
+  ) {
+    return _CFAllocatorAllocateBytes(
+      allocator,
+      size,
+      hint,
+    );
+  }
+
+  late final _CFAllocatorAllocateBytesPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(CFAllocatorRef, CFIndex,
+              CFOptionFlags)>>('CFAllocatorAllocateBytes');
+  late final _CFAllocatorAllocateBytes = _CFAllocatorAllocateBytesPtr
+      .asFunction<ffi.Pointer<ffi.Void> Function(CFAllocatorRef, int, int)>();
+
+  ffi.Pointer<ffi.Void> CFAllocatorReallocateBytes(
+    CFAllocatorRef allocator,
+    ffi.Pointer<ffi.Void> ptr,
+    int newsize,
+    int hint,
+  ) {
+    return _CFAllocatorReallocateBytes(
+      allocator,
+      ptr,
+      newsize,
+      hint,
+    );
+  }
+
+  late final _CFAllocatorReallocateBytesPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ffi.Void> Function(CFAllocatorRef, ffi.Pointer<ffi.Void>,
+              CFIndex, CFOptionFlags)>>('CFAllocatorReallocateBytes');
+  late final _CFAllocatorReallocateBytes =
+      _CFAllocatorReallocateBytesPtr.asFunction<
+          ffi.Pointer<ffi.Void> Function(
+              CFAllocatorRef, ffi.Pointer<ffi.Void>, int, int)>();
 
   ffi.Pointer<ffi.Void> CFAllocatorAllocate(
     CFAllocatorRef allocator,
@@ -7138,6 +7259,20 @@ class NativeCupertinoHttp {
       int Function(
           int, ffi.Pointer<ffi.Char>, int, ffi.Pointer<ffi.Char>, int)>();
 
+  int printf(
+    ffi.Pointer<ffi.Char> arg0,
+  ) {
+    return _printf(
+      arg0,
+    );
+  }
+
+  late final _printfPtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
+          'printf');
+  late final _printf =
+      _printfPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
+
   late final ffi.Pointer<ffi.Pointer<FILE>> ___stdinp =
       _lookup<ffi.Pointer<FILE>>('__stdinp');
 
@@ -7512,20 +7647,6 @@ class NativeCupertinoHttp {
           'perror');
   late final _perror =
       _perrorPtr.asFunction<void Function(ffi.Pointer<ffi.Char>)>();
-
-  int printf(
-    ffi.Pointer<ffi.Char> arg0,
-  ) {
-    return _printf(
-      arg0,
-    );
-  }
-
-  late final _printfPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Char>)>>(
-          'printf');
-  late final _printf =
-      _printfPtr.asFunction<int Function(ffi.Pointer<ffi.Char>)>();
 
   int putc(
     int arg0,
@@ -16732,6 +16853,13 @@ class NativeCupertinoHttp {
 
   CFNumberFormatterKey get kCFNumberFormatterMaxSignificantDigits =>
       _kCFNumberFormatterMaxSignificantDigits.value;
+
+  late final ffi.Pointer<CFNumberFormatterKey>
+      _kCFNumberFormatterMinGroupingDigits =
+      _lookup<CFNumberFormatterKey>('kCFNumberFormatterMinGroupingDigits');
+
+  CFNumberFormatterKey get kCFNumberFormatterMinGroupingDigits =>
+      _kCFNumberFormatterMinGroupingDigits.value;
 
   int CFNumberFormatterGetDecimalInfoForCurrencyCode(
     CFStringRef currencyCode,
@@ -30083,6 +30211,32 @@ class NativeCupertinoHttp {
   late final _CFAttributedStringEndEditing = _CFAttributedStringEndEditingPtr
       .asFunction<void Function(CFMutableAttributedStringRef)>();
 
+  bool CFAttributedStringGetBidiLevelsAndResolvedDirections(
+    CFAttributedStringRef attributedString,
+    CFRange range,
+    int baseDirection,
+    ffi.Pointer<ffi.Uint8> bidiLevels,
+    ffi.Pointer<ffi.Uint8> baseDirections,
+  ) {
+    return _CFAttributedStringGetBidiLevelsAndResolvedDirections(
+      attributedString,
+      range,
+      baseDirection,
+      bidiLevels,
+      baseDirections,
+    );
+  }
+
+  late final _CFAttributedStringGetBidiLevelsAndResolvedDirectionsPtr = _lookup<
+          ffi.NativeFunction<
+              ffi.Bool Function(CFAttributedStringRef, CFRange, ffi.Int8,
+                  ffi.Pointer<ffi.Uint8>, ffi.Pointer<ffi.Uint8>)>>(
+      'CFAttributedStringGetBidiLevelsAndResolvedDirections');
+  late final _CFAttributedStringGetBidiLevelsAndResolvedDirections =
+      _CFAttributedStringGetBidiLevelsAndResolvedDirectionsPtr.asFunction<
+          bool Function(CFAttributedStringRef, CFRange, int,
+              ffi.Pointer<ffi.Uint8>, ffi.Pointer<ffi.Uint8>)>();
+
   int CFURLEnumeratorGetTypeID() {
     return _CFURLEnumeratorGetTypeID();
   }
@@ -33360,6 +33514,36 @@ class NativeCupertinoHttp {
   late final _SecCertificateCopySerialNumberData =
       _SecCertificateCopySerialNumberDataPtr.asFunction<
           CFDataRef Function(SecCertificateRef, ffi.Pointer<CFErrorRef>)>();
+
+  CFDateRef SecCertificateCopyNotValidBeforeDate(
+    SecCertificateRef certificate,
+  ) {
+    return _SecCertificateCopyNotValidBeforeDate(
+      certificate,
+    );
+  }
+
+  late final _SecCertificateCopyNotValidBeforeDatePtr =
+      _lookup<ffi.NativeFunction<CFDateRef Function(SecCertificateRef)>>(
+          'SecCertificateCopyNotValidBeforeDate');
+  late final _SecCertificateCopyNotValidBeforeDate =
+      _SecCertificateCopyNotValidBeforeDatePtr.asFunction<
+          CFDateRef Function(SecCertificateRef)>();
+
+  CFDateRef SecCertificateCopyNotValidAfterDate(
+    SecCertificateRef certificate,
+  ) {
+    return _SecCertificateCopyNotValidAfterDate(
+      certificate,
+    );
+  }
+
+  late final _SecCertificateCopyNotValidAfterDatePtr =
+      _lookup<ffi.NativeFunction<CFDateRef Function(SecCertificateRef)>>(
+          'SecCertificateCopyNotValidAfterDate');
+  late final _SecCertificateCopyNotValidAfterDate =
+      _SecCertificateCopyNotValidAfterDatePtr.asFunction<
+          CFDateRef Function(SecCertificateRef)>();
 
   CFDataRef SecCertificateCopySerialNumber(
     SecCertificateRef certificate,
@@ -40509,10 +40693,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1pl9qdv(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40525,10 +40753,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_wjovn7(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_1krhfwz(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1krhfwz(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40541,10 +40813,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_tg5tbv(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_1dqvvol(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1dqvvol(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40557,10 +40873,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_6enxqz(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_qxvyq2(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_qxvyq2(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40573,10 +40933,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_9o8504(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_12a4qua(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_12a4qua(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40589,10 +40993,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_gwxhxt(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_k73ff5(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_k73ff5(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40605,10 +41053,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_15f11yh(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_wjvic9(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_wjvic9(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40621,10 +41113,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_91c9gi(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_14pxqbs(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_14pxqbs(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40637,10 +41173,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1s56lr9(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_1hcfngn(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1hcfngn(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40653,10 +41233,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_16sve1d(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_1f43wec(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1f43wec(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40669,10 +41293,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_ao4xm9(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_ao4xm9(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40685,10 +41353,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_mn1xu3(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_13vswqm(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_13vswqm(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40701,10 +41413,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_37btrl(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_12nszru(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_12nszru(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40717,10 +41473,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_qm01og(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_1uuez7b(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1uuez7b(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40733,10 +41533,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_9qxjkl(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_3lo3bb(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_3lo3bb(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40749,10 +41593,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_16ko9u(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_1j2nt86(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_1j2nt86(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40765,10 +41653,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_8wbg7l(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_148br51(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_148br51(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40781,10 +41713,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_vhbh5h(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_zuf90e(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_zuf90e(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 @ffi.Native<
@@ -40797,10 +41773,54 @@ external ffi.Pointer<objc.ObjCBlockImpl>
 
 @ffi.Native<
     ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_ovsamd(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
         ffi.Pointer<objc.ObjCBlockImpl>)>(isLeaf: true)
 external ffi.Pointer<objc.ObjCBlockImpl>
     _NativeCupertinoHttp_wrapListenerBlock_4ya7yd(
   ffi.Pointer<objc.ObjCBlockImpl> block,
+);
+
+@ffi.Native<
+    ffi.Pointer<objc.ObjCBlockImpl> Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Double,
+        ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>>,
+        ffi.Pointer<
+            ffi.NativeFunction<
+                ffi.Void Function(
+                    ffi.Pointer<ffi.Void>, ffi.Double)>>)>(isLeaf: true)
+external ffi.Pointer<objc.ObjCBlockImpl>
+    _NativeCupertinoHttp_wrapBlockingBlock_4ya7yd(
+  ffi.Pointer<objc.ObjCBlockImpl> block,
+  ffi.Pointer<objc.ObjCBlockImpl> listnerBlock,
+  double timeoutSeconds,
+  ffi.Pointer<ffi.NativeFunction<ffi.Pointer<ffi.Void> Function()>> newWaiter,
+  ffi.Pointer<
+          ffi
+          .NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.Double)>>
+      awaitWaiter,
 );
 
 typedef __int8_t = ffi.SignedChar;
@@ -41038,6 +42058,14 @@ final class __darwin_arm_exception_state64 extends ffi.Struct {
 
   @__uint32_t()
   external int __exception;
+}
+
+final class __darwin_arm_exception_state64_v2 extends ffi.Struct {
+  @__uint64_t()
+  external int __far;
+
+  @__uint64_t()
+  external int __esr;
 }
 
 final class __darwin_arm_thread_state extends ffi.Struct {
@@ -41997,7 +43025,16 @@ final class rusage_info_v6 extends ffi.Struct {
   @ffi.Uint64()
   external int ri_secure_ptime_in_system;
 
-  @ffi.Array.multi([12])
+  @ffi.Uint64()
+  external int ri_neural_footprint;
+
+  @ffi.Uint64()
+  external int ri_lifetime_max_neural_footprint;
+
+  @ffi.Uint64()
+  external int ri_interval_max_neural_footprint;
+
+  @ffi.Array.multi([9])
   external ffi.Array<ffi.Uint64> ri_reserved;
 }
 
@@ -42017,24 +43054,6 @@ final class proc_rlimit_control_wakeupmon extends ffi.Struct {
 
   @ffi.Int32()
   external int wm_rate;
-}
-
-@ffi.Packed(1)
-final class _OSUnalignedU16 extends ffi.Struct {
-  @ffi.Uint16()
-  external int __val;
-}
-
-@ffi.Packed(1)
-final class _OSUnalignedU32 extends ffi.Struct {
-  @ffi.Uint32()
-  external int __val;
-}
-
-@ffi.Packed(1)
-final class _OSUnalignedU64 extends ffi.Struct {
-  @ffi.Uint64()
-  external int __val;
 }
 
 final class wait extends ffi.Opaque {}
@@ -42104,6 +43123,33 @@ ffi.NativeCallable<ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>)>
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block, ffi.Pointer<ffi.Void> waiter) {
+  try {
+    (objc.getBlockClosure(block) as void Function())();
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>
+    _ObjCBlock_ffiVoid_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>)>
+    _ObjCBlock_ffiVoid_blockingListenerCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>)>.listener(
+        _ObjCBlock_ffiVoid_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function()>`.
 abstract final class ObjCBlock_ffiVoid {
@@ -42152,6 +43198,34 @@ abstract final class ObjCBlock_ffiVoid {
         _ObjCBlock_ffiVoid_listenerCallable.nativeFunction.cast(), () => fn());
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1pl9qdv(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function()>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function()> blocking(void Function() fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_blockingCallable.nativeFunction.cast(), () => fn());
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_blockingListenerCallable.nativeFunction.cast(),
+        () => fn());
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1pl9qdv,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function()>(wrapper,
         retain: false, release: true);
   }
@@ -42265,10 +43339,9 @@ extension ObjCBlock_ffiInt_ffiVoid_ffiVoid_CallExtension on objc
                   ffi.Pointer<ffi.Void>)>()(ref.pointer, arg0, arg1);
 }
 
-typedef ptrdiff_t = ffi.Long;
-typedef Dartptrdiff_t = int;
-typedef rsize_t = ffi.UnsignedLong;
-typedef Dartrsize_t = int;
+typedef ptrdiff_t = __darwin_ptrdiff_t;
+typedef rsize_t = __darwin_size_t;
+typedef wint_t = __darwin_wint_t;
 typedef u_char = ffi.UnsignedChar;
 typedef Dartu_char = int;
 typedef u_short = ffi.UnsignedShort;
@@ -42349,8 +43422,8 @@ typedef DartNSUInteger = int;
 
 final class _NSZone extends ffi.Opaque {}
 
-typedef va_list = __builtin_va_list;
 typedef __gnuc_va_list = __builtin_va_list;
+typedef va_list = __builtin_va_list;
 typedef NSExceptionName = ffi.Pointer<objc.ObjCObject>;
 typedef DartNSExceptionName = objc.NSString;
 typedef NSRunLoopMode = ffi.Pointer<objc.ObjCObject>;
@@ -42578,7 +43651,7 @@ typedef ByteCount = ffi.UnsignedLong;
 typedef DartByteCount = int;
 typedef ByteOffset = ffi.UnsignedLong;
 typedef DartByteOffset = int;
-typedef Duration = SInt32;
+typedef Duration1 = SInt32;
 typedef AbsoluteTime = UnsignedWide;
 typedef OptionBits = UInt32;
 typedef ItemCount = ffi.UnsignedLong;
@@ -42760,6 +43833,8 @@ typedef UnsignedWidePtr = ffi.Pointer<UnsignedWide>;
 typedef extended80 = Float80;
 typedef extended96 = Float96;
 typedef VHSelect = SInt8;
+typedef CFAllocatorTypeID = ffi.UnsignedLongLong;
+typedef DartCFAllocatorTypeID = int;
 typedef CFTypeID = ffi.UnsignedLong;
 typedef DartCFTypeID = int;
 typedef CFOptionFlags = ffi.UnsignedLong;
@@ -43149,6 +44224,40 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSCachedURLResponse_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSCachedURLResponse_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSCachedURLResponse_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSCachedURLResponse_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSCachedURLResponse_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSCachedURLResponse_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>`.
 abstract final class ObjCBlock_ffiVoid_NSCachedURLResponse {
@@ -43214,6 +44323,45 @@ abstract final class ObjCBlock_ffiVoid_NSCachedURLResponse {
                 retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)> blocking(
+      void Function(NSCachedURLResponse?) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSCachedURLResponse_blockingCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : NSCachedURLResponse.castFromPointer(arg0,
+                retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSCachedURLResponse_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : NSCachedURLResponse.castFromPointer(arg0,
+                retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>(wrapper,
         retain: false, release: true);
   }
@@ -43759,6 +44907,7 @@ final _objc_msgSend_i3avs9 = objc.msgSendPointer
             ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCSelector>)>();
 late final _sel_requiresDNSSECValidation =
     objc.registerName("requiresDNSSECValidation");
+late final _sel_allowsPersistentDNS = objc.registerName("allowsPersistentDNS");
 late final _sel_init = objc.registerName("init");
 late final _sel_new = objc.registerName("new");
 late final _sel_allocWithZone_ = objc.registerName("allocWithZone:");
@@ -43917,6 +45066,50 @@ ffi.NativeCallable<
                 ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSCoder_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_ffiVoid_NSCoder_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<ffi.Void> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSCoder_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSCoder_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSCoder_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSCoder_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSCoder {
@@ -43981,6 +45174,44 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSCoder {
             objc.NSCoder.castFromPointer(arg1, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjovn7(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>
+      blocking(void Function(ffi.Pointer<ffi.Void>, objc.NSCoder) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSCoder_blockingCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            arg0,
+            objc.NSCoder.castFromPointer(arg1, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSCoder_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            arg0,
+            objc.NSCoder.castFromPointer(arg1, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_wjovn7,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(ffi.Pointer<ffi.Void>, objc.NSCoder)>(wrapper,
         retain: false, release: true);
@@ -44331,6 +45562,16 @@ class NSURLRequest extends objc.NSObject {
         this.ref.pointer, _sel_requiresDNSSECValidation);
   }
 
+  /// !
+  /// @abstract Allows storing and usage of DNS answers, potentially beyond TTL expiry,
+  /// in a persistent per-process cache. This should only be set for hostnames whose resolutions
+  /// are not expected to change across networks.
+  /// @discussion YES, if the DNS lookup for this request is allowed to use a persistent per-process cache,
+  /// NO otherwise. Defaults to NO.
+  bool get allowsPersistentDNS {
+    return _objc_msgSend_91o635(this.ref.pointer, _sel_allowsPersistentDNS);
+  }
+
   /// init
   NSURLRequest init() {
     final _ret =
@@ -44507,7 +45748,7 @@ class NSURLCache extends objc.NSObject {
   /// becoming unexpectedly unretrievable.
   /// @result the shared NSURLCache instance.
   static void setSharedURLCache(NSURLCache value) {
-    return _objc_msgSend_1jdvcbf(
+    _objc_msgSend_1jdvcbf(
         _class_NSURLCache, _sel_setSharedURLCache_, value.ref.pointer);
   }
 
@@ -44629,8 +45870,7 @@ class NSURLCache extends objc.NSObject {
   /// @discussion At the time this call is made, the in-memory cache will truncate its contents to the size given, if necessary.
   /// @result The in-memory capacity, measured in bytes, for the receiver.
   set memoryCapacity(DartNSUInteger value) {
-    return _objc_msgSend_1i9r4xy(
-        this.ref.pointer, _sel_setMemoryCapacity_, value);
+    _objc_msgSend_1i9r4xy(this.ref.pointer, _sel_setMemoryCapacity_, value);
   }
 
   /// !
@@ -44644,8 +45884,7 @@ class NSURLCache extends objc.NSObject {
   /// @abstract The on-disk capacity of the receiver.
   /// @discussion The on-disk capacity, measured in bytes, for the receiver. On mutation the on-disk cache will truncate its contents to the size given, if necessary.
   set diskCapacity(DartNSUInteger value) {
-    return _objc_msgSend_1i9r4xy(
-        this.ref.pointer, _sel_setDiskCapacity_, value);
+    _objc_msgSend_1i9r4xy(this.ref.pointer, _sel_setDiskCapacity_, value);
   }
 
   /// !
@@ -45088,7 +46327,7 @@ extension NSMutableHTTPURLRequest on NSMutableURLRequest {
   /// !
   /// @abstract Sets the HTTP request method of the receiver.
   set HTTPMethod(objc.NSString value) {
-    return _objc_msgSend_1jdvcbf(
+    _objc_msgSend_1jdvcbf(
         this.ref.pointer, _sel_setHTTPMethod_, value.ref.pointer);
   }
 
@@ -45121,7 +46360,7 @@ extension NSMutableHTTPURLRequest on NSMutableURLRequest {
   /// the key or value for a key-value pair answers NO when sent this
   /// message, the key-value pair is skipped.
   set allHTTPHeaderFields(objc.NSDictionary? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setAllHTTPHeaderFields_,
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setAllHTTPHeaderFields_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -45173,7 +46412,7 @@ extension NSMutableHTTPURLRequest on NSMutableURLRequest {
   /// @discussion This data is sent as the message body of the request, as
   /// in done in an HTTP POST request.
   set HTTPBody(objc.NSData? value) {
-    return _objc_msgSend_1jdvcbf(
+    _objc_msgSend_1jdvcbf(
         this.ref.pointer, _sel_setHTTPBody_, value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -45199,7 +46438,7 @@ extension NSMutableHTTPURLRequest on NSMutableURLRequest {
   /// and the body data (set by setHTTPBody:, above) are mutually exclusive
   /// - setting one will clear the other.
   set HTTPBodyStream(objc.NSInputStream? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setHTTPBodyStream_,
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setHTTPBodyStream_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -45222,7 +46461,7 @@ extension NSMutableHTTPURLRequest on NSMutableURLRequest {
   /// stored to the cookie manager by default.
   /// NOTE: In releases prior to 10.3, this value is ignored
   set HTTPShouldHandleCookies(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setHTTPShouldHandleCookies_, value);
   }
 
@@ -45261,7 +46500,7 @@ extension NSMutableHTTPURLRequest on NSMutableURLRequest {
   /// pipelining (disconnecting, sending resources misordered, omitting part of
   /// a resource, etc.).
   set HTTPShouldUsePipelining(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setHTTPShouldUsePipelining_, value);
   }
 }
@@ -45315,6 +46554,8 @@ final _objc_msgSend_1nw1jep = objc.msgSendPointer
             ffi.Pointer<objc.ObjCSelector>, int)>();
 late final _sel_setRequiresDNSSECValidation_ =
     objc.registerName("setRequiresDNSSECValidation:");
+late final _sel_setAllowsPersistentDNS_ =
+    objc.registerName("setAllowsPersistentDNS:");
 
 /// !
 /// @class NSMutableURLRequest
@@ -45376,7 +46617,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// !
   /// @abstract The URL of the receiver.
   set URL(objc.NSURL? value) {
-    return _objc_msgSend_1jdvcbf(
+    _objc_msgSend_1jdvcbf(
         this.ref.pointer, _sel_setURL_, value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -45390,8 +46631,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// !
   /// @abstract The cache policy of the receiver.
   set cachePolicy(NSURLRequestCachePolicy value) {
-    return _objc_msgSend_1yjxuv2(
-        this.ref.pointer, _sel_setCachePolicy_, value.value);
+    _objc_msgSend_1yjxuv2(this.ref.pointer, _sel_setCachePolicy_, value.value);
   }
 
   /// !
@@ -45425,8 +46665,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// is considered to have timed out. This timeout interval is measured
   /// in seconds.
   set timeoutInterval(DartNSTimeInterval value) {
-    return _objc_msgSend_hwm8nu(
-        this.ref.pointer, _sel_setTimeoutInterval_, value);
+    _objc_msgSend_hwm8nu(this.ref.pointer, _sel_setTimeoutInterval_, value);
   }
 
   /// !
@@ -45455,7 +46694,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// as a sub-resource of a user-specified URL, and possibly other things
   /// in the future.
   set mainDocumentURL(objc.NSURL? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setMainDocumentURL_,
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setMainDocumentURL_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -45474,7 +46713,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion This method is used to provide the network layers with a hint as to the purpose
   /// of the request.  Most clients should not need to use this method.
   set networkServiceType(NSURLRequestNetworkServiceType value) {
-    return _objc_msgSend_1mse4s1(
+    _objc_msgSend_1mse4s1(
         this.ref.pointer, _sel_setNetworkServiceType_, value.value);
   }
 
@@ -45493,7 +46732,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion NO if the receiver should not be allowed to use the built in
   /// cellular radios to satisfy the request, YES otherwise.  The default is YES.
   set allowsCellularAccess(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setAllowsCellularAccess_, value);
   }
 
@@ -45513,7 +46752,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion NO if the receiver should not be allowed to use an interface marked as expensive to
   /// satisfy the request, YES otherwise.
   set allowsExpensiveNetworkAccess(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setAllowsExpensiveNetworkAccess_, value);
   }
 
@@ -45533,7 +46772,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion NO if the receiver should not be allowed to use an interface marked as constrained to
   /// satisfy the request, YES otherwise.
   set allowsConstrainedNetworkAccess(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setAllowsConstrainedNetworkAccess_, value);
   }
 
@@ -45552,7 +46791,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @result YES if server endpoint is known to support HTTP/3. Defaults to NO.
   /// The default may be YES in a future OS update.
   set assumesHTTP3Capable(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setAssumesHTTP3Capable_, value);
   }
 
@@ -45570,8 +46809,7 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion Set to NSURLRequestAttributionUser if the URL was specified by the
   /// user. Defaults to NSURLRequestAttributionDeveloper.
   set attribution(NSURLRequestAttribution value) {
-    return _objc_msgSend_1nw1jep(
-        this.ref.pointer, _sel_setAttribution_, value.value);
+    _objc_msgSend_1nw1jep(this.ref.pointer, _sel_setAttribution_, value.value);
   }
 
   /// !
@@ -45588,8 +46826,29 @@ class NSMutableURLRequest extends NSURLRequest {
   /// @discussion YES, if the DNS lookup for this request should require DNSSEC validation,
   /// No otherwise. Defaults to NO.
   set requiresDNSSECValidation(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setRequiresDNSSECValidation_, value);
+  }
+
+  /// !
+  /// @abstract Allows storing and usage of DNS answers, potentially beyond TTL expiry,
+  /// in a persistent per-process cache. This should only be set for hostnames whose resolutions
+  /// are not expected to change across networks.
+  /// @discussion YES, if the DNS lookup for this request is allowed to use a persistent per-process cache,
+  /// NO otherwise. Defaults to NO.
+  bool get allowsPersistentDNS {
+    return _objc_msgSend_91o635(this.ref.pointer, _sel_allowsPersistentDNS);
+  }
+
+  /// !
+  /// @abstract Allows storing and usage of DNS answers, potentially beyond TTL expiry,
+  /// in a persistent per-process cache. This should only be set for hostnames whose resolutions
+  /// are not expected to change across networks.
+  /// @discussion YES, if the DNS lookup for this request is allowed to use a persistent per-process cache,
+  /// NO otherwise. Defaults to NO.
+  set allowsPersistentDNS(bool value) {
+    _objc_msgSend_1s56lr9(
+        this.ref.pointer, _sel_setAllowsPersistentDNS_, value);
   }
 
   /// !
@@ -46291,7 +47550,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// Delegate is strongly referenced until the task completes, after which it is
   /// reset to `nil`.
   set delegate(objc.ObjCObjectBase? value) {
-    return _objc_msgSend_1jdvcbf(
+    _objc_msgSend_1jdvcbf(
         this.ref.pointer, _sel_setDelegate_, value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -46320,7 +47579,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// Only applies to tasks created from background NSURLSession instances; has no
   /// effect for tasks created from other session types.
   set earliestBeginDate(objc.NSDate? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setEarliestBeginDate_,
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setEarliestBeginDate_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -46336,7 +47595,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// be sent and received by this task. These values are used by system scheduling
   /// policy. If unspecified, NSURLSessionTransferSizeUnknown is used.
   set countOfBytesClientExpectsToSend(int value) {
-    return _objc_msgSend_17gvxvj(
+    _objc_msgSend_17gvxvj(
         this.ref.pointer, _sel_setCountOfBytesClientExpectsToSend_, value);
   }
 
@@ -46348,7 +47607,7 @@ class NSURLSessionTask extends objc.NSObject {
 
   /// setCountOfBytesClientExpectsToReceive:
   set countOfBytesClientExpectsToReceive(int value) {
-    return _objc_msgSend_17gvxvj(
+    _objc_msgSend_17gvxvj(
         this.ref.pointer, _sel_setCountOfBytesClientExpectsToReceive_, value);
   }
 
@@ -46386,7 +47645,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// The taskDescription property is available for the developer to
   /// provide a descriptive label for the task.
   set taskDescription(objc.NSString? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setTaskDescription_,
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setTaskDescription_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -46463,7 +47722,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// priority levels are provided: NSURLSessionTaskPriorityLow and
   /// NSURLSessionTaskPriorityHigh, but use is not restricted to these.
   set priority(double value) {
-    return _objc_msgSend_v5hmet(this.ref.pointer, _sel_setPriority_, value);
+    _objc_msgSend_v5hmet(this.ref.pointer, _sel_setPriority_, value);
   }
 
   /// Provides a hint indicating if incremental delivery of a partial response body
@@ -46488,7 +47747,7 @@ class NSURLSessionTask extends objc.NSObject {
   /// Defaults to true unless this task is created with completion-handler based
   /// convenience methods, or if it is a download task.
   set prefersIncrementalDelivery(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setPrefersIncrementalDelivery_, value);
   }
 
@@ -46579,6 +47838,39 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_objcObjCObject_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_objcObjCObject_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_objcObjCObject_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_objcObjCObject_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>`.
 abstract final class ObjCBlock_ffiVoid_objcObjCObject {
@@ -46643,6 +47935,45 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject {
             : objc.ObjCObjectBase(arg0, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>
+      blocking(void Function(objc.ObjCObjectBase?) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_blockingCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : objc.ObjCObjectBase(arg0, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : objc.ObjCObjectBase(arg0, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?)>(
         wrapper,
         retain: false,
@@ -46844,6 +48175,56 @@ ffi.NativeCallable<
                 ffi.Pointer<ffi.Bool>)>.listener(
         _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1,
+    ffi.Pointer<ffi.Bool> arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>, ffi.Pointer<ffi.Bool>))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<ffi.Bool>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<ffi.Bool>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<ffi.Bool>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<ffi.Bool>)>.listener(
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<ffi.Bool>)>`.
 abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool {
@@ -46919,6 +48300,53 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool {
                 objc.ObjCObjectBase(arg1, retain: false, release: true), arg2));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1krhfwz(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<ffi.Bool>)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+          ffi.Pointer<objc.ObjCObject>, ffi.Pointer<ffi.Bool>)> blocking(
+      void Function(
+              objc.ObjCObjectBase, objc.ObjCObjectBase, ffi.Pointer<ffi.Bool>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<ffi.Bool> arg2) =>
+            fn(objc.ObjCObjectBase(arg0, retain: false, release: true),
+                objc.ObjCObjectBase(arg1, retain: false, release: true), arg2));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_bool_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<ffi.Bool> arg2) =>
+            fn(objc.ObjCObjectBase(arg0, retain: false, release: true),
+                objc.ObjCObjectBase(arg1, retain: false, release: true), arg2));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1krhfwz,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<objc.ObjCObject>,
@@ -48187,8 +49615,6 @@ final class SecKeychainAttributeInfo extends ffi.Struct {
   external ffi.Pointer<UInt32> format;
 }
 
-typedef wint_t = __darwin_wint_t;
-
 final class _RuneEntry extends ffi.Struct {
   @__darwin_rune_t()
   external int __min;
@@ -48630,6 +50056,25 @@ final class __CFBitVector extends ffi.Opaque {}
 
 typedef CFBitVectorRef = ffi.Pointer<__CFBitVector>;
 typedef CFMutableBitVectorRef = ffi.Pointer<__CFBitVector>;
+
+@ffi.Packed(1)
+final class _OSUnalignedU16 extends ffi.Struct {
+  @ffi.Uint16()
+  external int __val;
+}
+
+@ffi.Packed(1)
+final class _OSUnalignedU32 extends ffi.Struct {
+  @ffi.Uint32()
+  external int __val;
+}
+
+@ffi.Packed(1)
+final class _OSUnalignedU64 extends ffi.Struct {
+  @ffi.Uint64()
+  external int __val;
+}
+
 typedef CFByteOrder = CFIndex;
 
 final class CFSwappedFloat32 extends ffi.Struct {
@@ -49013,7 +50458,8 @@ enum CFCalendarUnit {
   kCFCalendarUnitQuarter(2048),
   kCFCalendarUnitWeekOfMonth(4096),
   kCFCalendarUnitWeekOfYear(8192),
-  kCFCalendarUnitYearForWeekOfYear(16384);
+  kCFCalendarUnitYearForWeekOfYear(16384),
+  kCFCalendarUnitDayOfYear(65536);
 
   final int value;
   const CFCalendarUnit(this.value);
@@ -49033,6 +50479,7 @@ enum CFCalendarUnit {
         4096 => kCFCalendarUnitWeekOfMonth,
         8192 => kCFCalendarUnitWeekOfYear,
         16384 => kCFCalendarUnitYearForWeekOfYear,
+        65536 => kCFCalendarUnitDayOfYear,
         _ => throw ArgumentError("Unknown value for CFCalendarUnit: $value"),
       };
 }
@@ -49743,6 +51190,46 @@ ffi.NativeCallable<
                 CFRunLoopObserverRef, CFOptionFlags)>.listener(
         _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        CFRunLoopObserverRef arg0,
+        int arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(CFRunLoopObserverRef, int))(
+        arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, CFRunLoopObserverRef, CFOptionFlags)>
+    _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                CFRunLoopObserverRef,
+                CFOptionFlags)>.isolateLocal(
+        _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, CFRunLoopObserverRef, CFOptionFlags)>
+    _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                CFRunLoopObserverRef,
+                CFOptionFlags)>.listener(
+        _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__CFRunLoopObserver>, CFOptionFlags)>`.
 abstract final class ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity {
@@ -49810,6 +51297,44 @@ abstract final class ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity {
             fn(arg0, CFRunLoopActivity.fromValue(arg1)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_tg5tbv(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<__CFRunLoopObserver>,
+            CFOptionFlags)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<__CFRunLoopObserver>, CFOptionFlags)>
+      blocking(void Function(CFRunLoopObserverRef, CFRunLoopActivity) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_blockingCallable
+            .nativeFunction
+            .cast(),
+        (CFRunLoopObserverRef arg0, int arg1) =>
+            fn(arg0, CFRunLoopActivity.fromValue(arg1)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_CFRunLoopObserverRef_CFRunLoopActivity_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (CFRunLoopObserverRef arg0, int arg1) =>
+            fn(arg0, CFRunLoopActivity.fromValue(arg1)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_tg5tbv,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(ffi.Pointer<__CFRunLoopObserver>,
             CFOptionFlags)>(wrapper, retain: false, release: true);
@@ -49889,6 +51414,36 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>, CFRunLoopTimerRef)>.listener(
         _ObjCBlock_ffiVoid_CFRunLoopTimerRef_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_CFRunLoopTimerRef_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    CFRunLoopTimerRef arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(CFRunLoopTimerRef))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, CFRunLoopTimerRef)>
+    _ObjCBlock_ffiVoid_CFRunLoopTimerRef_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, CFRunLoopTimerRef)>.isolateLocal(
+        _ObjCBlock_ffiVoid_CFRunLoopTimerRef_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, CFRunLoopTimerRef)>
+    _ObjCBlock_ffiVoid_CFRunLoopTimerRef_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, CFRunLoopTimerRef)>.listener(
+        _ObjCBlock_ffiVoid_CFRunLoopTimerRef_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__CFRunLoopTimer>)>`.
 abstract final class ObjCBlock_ffiVoid_CFRunLoopTimerRef {
@@ -49947,6 +51502,41 @@ abstract final class ObjCBlock_ffiVoid_CFRunLoopTimerRef {
         (CFRunLoopTimerRef arg0) => fn(arg0));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1dqvvol(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__CFRunLoopTimer>)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__CFRunLoopTimer>)>
+      blocking(void Function(CFRunLoopTimerRef) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_CFRunLoopTimerRef_blockingCallable.nativeFunction
+            .cast(),
+        (CFRunLoopTimerRef arg0) => fn(arg0));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_CFRunLoopTimerRef_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (CFRunLoopTimerRef arg0) => fn(arg0));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1dqvvol,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__CFRunLoopTimer>)>(
         wrapper,
         retain: false,
@@ -50461,6 +52051,36 @@ ffi.NativeCallable<ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Size)>
         ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
             ffi.Size)>.listener(_ObjCBlock_ffiVoid_ffiSize_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_ffiSize_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    int arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(int))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Size)>
+    _ObjCBlock_ffiVoid_ffiSize_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Size)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiSize_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Size)>
+    _ObjCBlock_ffiVoid_ffiSize_blockingListenerCallable = ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Size)>.listener(_ObjCBlock_ffiVoid_ffiSize_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Size)>`.
 abstract final class ObjCBlock_ffiVoid_ffiSize {
@@ -50515,6 +52135,37 @@ abstract final class ObjCBlock_ffiVoid_ffiSize {
         (int arg0) => fn(arg0));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_6enxqz(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Size)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Size)> blocking(
+      void Function(int) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiSize_blockingCallable.nativeFunction.cast(),
+        (int arg0) => fn(arg0));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiSize_blockingListenerCallable.nativeFunction
+            .cast(),
+        (int arg0) => fn(arg0));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_6enxqz,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Size)>(wrapper,
         retain: false, release: true);
   }
@@ -50990,6 +52641,41 @@ ffi.NativeCallable<
                 ffi.Int)>.listener(
         _ObjCBlock_ffiVoid_dispatchdatat_ffiInt_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_dispatchdatat_ffiInt_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    dispatch_data_t arg0,
+    int arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(dispatch_data_t, int))(
+        arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+    ffi.Void Function(
+        ffi.Pointer<objc.ObjCBlockImpl>,
+        ffi.Pointer<ffi.Void>,
+        dispatch_data_t,
+        ffi.Int)> _ObjCBlock_ffiVoid_dispatchdatat_ffiInt_blockingCallable = ffi
+    .NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, dispatch_data_t, ffi.Int)>.isolateLocal(
+    _ObjCBlock_ffiVoid_dispatchdatat_ffiInt_blockingTrampoline)
+  ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, dispatch_data_t, ffi.Int)>
+    _ObjCBlock_ffiVoid_dispatchdatat_ffiInt_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, dispatch_data_t, ffi.Int)>.listener(
+        _ObjCBlock_ffiVoid_dispatchdatat_ffiInt_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, ffi.Int)>`.
 abstract final class ObjCBlock_ffiVoid_dispatchdatat_ffiInt {
@@ -51055,6 +52741,43 @@ abstract final class ObjCBlock_ffiVoid_dispatchdatat_ffiInt {
     return objc.ObjCBlock<ffi.Void Function(objc.NSObject, ffi.Int)>(wrapper,
         retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSObject, ffi.Int)> blocking(
+      void Function(Dartdispatch_data_t, int) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_dispatchdatat_ffiInt_blockingCallable.nativeFunction
+            .cast(),
+        (dispatch_data_t arg0, int arg1) => fn(
+            objc.NSObject.castFromPointer(arg0, retain: false, release: true),
+            arg1));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_dispatchdatat_ffiInt_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (dispatch_data_t arg0, int arg1) => fn(
+            objc.NSObject.castFromPointer(arg0, retain: false, release: true),
+            arg1));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_qxvyq2,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSObject, ffi.Int)>(wrapper,
+        retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, ffi.Int)>`.
@@ -51112,6 +52835,39 @@ ffi.NativeCallable<
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, dispatch_data_t,
                 ffi.Int)>.listener(
         _ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_listenerTrampoline)
+      ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    dispatch_data_t arg0,
+    int arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(dispatch_data_t, int))(
+        arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, dispatch_data_t, ffi.Int)>
+    _ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, dispatch_data_t, ffi.Int)>.isolateLocal(
+        _ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, dispatch_data_t, ffi.Int)>
+    _ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, dispatch_data_t, ffi.Int)>.listener(
+        _ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_blockingTrampoline)
       ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject?, ffi.Int)>`.
@@ -51183,6 +52939,49 @@ abstract final class ObjCBlock_ffiVoid_dispatchdatat_ffiInt1 {
     return objc.ObjCBlock<ffi.Void Function(objc.NSObject?, ffi.Int)>(wrapper,
         retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSObject?, ffi.Int)> blocking(
+      void Function(Dartdispatch_data_t?, int) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_blockingCallable.nativeFunction
+            .cast(),
+        (dispatch_data_t arg0, int arg1) => fn(
+            arg0.address == 0
+                ? null
+                : objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+            arg1));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_dispatchdatat_ffiInt1_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (dispatch_data_t arg0, int arg1) => fn(
+            arg0.address == 0
+                ? null
+                : objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+            arg1));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_qxvyq2,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSObject?, ffi.Int)>(wrapper,
+        retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSObject?, ffi.Int)>`.
@@ -51230,6 +53029,37 @@ ffi.NativeCallable<ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Int)>
     _ObjCBlock_ffiVoid_ffiInt_listenerCallable = ffi.NativeCallable<
         ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
             ffi.Int)>.listener(_ObjCBlock_ffiVoid_ffiInt_listenerTrampoline)
+      ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_ffiInt_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    int arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(int))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Int)>
+    _ObjCBlock_ffiVoid_ffiInt_blockingCallable = ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Int)>.isolateLocal(_ObjCBlock_ffiVoid_ffiInt_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Int)>
+    _ObjCBlock_ffiVoid_ffiInt_blockingListenerCallable = ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Int)>.listener(_ObjCBlock_ffiVoid_ffiInt_blockingTrampoline)
       ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Int)>`.
@@ -51285,6 +53115,37 @@ abstract final class ObjCBlock_ffiVoid_ffiInt {
         (int arg0) => fn(arg0));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_9o8504(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Int)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Int)> blocking(
+      void Function(int) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiInt_blockingCallable.nativeFunction.cast(),
+        (int arg0) => fn(arg0));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiInt_blockingListenerCallable.nativeFunction
+            .cast(),
+        (int arg0) => fn(arg0));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_9o8504,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Int)>(wrapper,
         retain: false, release: true);
   }
@@ -51353,6 +53214,48 @@ ffi.NativeCallable<
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Bool,
                 dispatch_data_t, ffi.Int)>.listener(
         _ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt_listenerTrampoline)
+      ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    bool arg0,
+    dispatch_data_t arg1,
+    int arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(bool, dispatch_data_t, int))(
+        arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Bool, dispatch_data_t, ffi.Int)>
+    _ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Bool,
+                dispatch_data_t,
+                ffi.Int)>.isolateLocal(
+        _ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Bool, dispatch_data_t, ffi.Int)>
+    _ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Bool,
+                dispatch_data_t,
+                ffi.Int)>.listener(
+        _ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt_blockingTrampoline)
       ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Bool, objc.NSObject?, ffi.Int)>`.
@@ -51425,6 +53328,54 @@ abstract final class ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt {
             arg2));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_12a4qua(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Bool, objc.NSObject?, ffi.Int)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Bool, objc.NSObject?, ffi.Int)>
+      blocking(void Function(bool, Dartdispatch_data_t?, int) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt_blockingCallable
+            .nativeFunction
+            .cast(),
+        (bool arg0, dispatch_data_t arg1, int arg2) => fn(
+            arg0,
+            arg1.address == 0
+                ? null
+                : objc.NSObject.castFromPointer(arg1,
+                    retain: false, release: true),
+            arg2));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_bool_dispatchdatat_ffiInt_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (bool arg0, dispatch_data_t arg1, int arg2) => fn(
+            arg0,
+            arg1.address == 0
+                ? null
+                : objc.NSObject.castFromPointer(arg1,
+                    retain: false, release: true),
+            arg2));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_12a4qua,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Bool, objc.NSObject?, ffi.Int)>(
         wrapper,
         retain: false,
@@ -55092,6 +57043,39 @@ ffi.NativeCallable<
                 ffi.Uint32)>.listener(
         _ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    SecTrustRef arg0,
+    int arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(SecTrustRef, int))(
+        arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, SecTrustRef, ffi.Uint32)>
+    _ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, SecTrustRef, ffi.Uint32)>.isolateLocal(
+        _ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, SecTrustRef, ffi.Uint32)>
+    _ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, SecTrustRef, ffi.Uint32)>.listener(
+        _ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__SecTrust>, ffi.Uint32)>`.
 abstract final class ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType {
@@ -55154,6 +57138,43 @@ abstract final class ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType {
             fn(arg0, SecTrustResultType.fromValue(arg1)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_gwxhxt(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(ffi.Pointer<__SecTrust>, ffi.Uint32)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__SecTrust>, ffi.Uint32)>
+      blocking(void Function(SecTrustRef, SecTrustResultType) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType_blockingCallable
+            .nativeFunction
+            .cast(),
+        (SecTrustRef arg0, int arg1) =>
+            fn(arg0, SecTrustResultType.fromValue(arg1)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_SecTrustRef_SecTrustResultType_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (SecTrustRef arg0, int arg1) =>
+            fn(arg0, SecTrustResultType.fromValue(arg1)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_gwxhxt,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(ffi.Pointer<__SecTrust>, ffi.Uint32)>(wrapper,
         retain: false, release: true);
@@ -55228,6 +57249,48 @@ ffi.NativeCallable<
                 ffi.Bool, CFErrorRef)>.listener(
         _ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    SecTrustRef arg0,
+    bool arg1,
+    CFErrorRef arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        SecTrustRef, bool, CFErrorRef))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, SecTrustRef, ffi.Bool, CFErrorRef)>
+    _ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                SecTrustRef,
+                ffi.Bool,
+                CFErrorRef)>.isolateLocal(
+        _ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, SecTrustRef, ffi.Bool, CFErrorRef)>
+    _ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                SecTrustRef,
+                ffi.Bool,
+                CFErrorRef)>.listener(
+        _ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<__SecTrust>, ffi.Bool, ffi.Pointer<__CFError>)>`.
 abstract final class ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef {
@@ -55296,6 +57359,43 @@ abstract final class ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef {
         (SecTrustRef arg0, bool arg1, CFErrorRef arg2) => fn(arg0, arg1, arg2));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_k73ff5(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<__SecTrust>, ffi.Bool,
+            ffi.Pointer<__CFError>)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<__SecTrust>, ffi.Bool, ffi.Pointer<__CFError>)> blocking(
+      void Function(SecTrustRef, bool, CFErrorRef) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef_blockingCallable
+            .nativeFunction
+            .cast(),
+        (SecTrustRef arg0, bool arg1, CFErrorRef arg2) => fn(arg0, arg1, arg2));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_SecTrustRef_bool_CFErrorRef_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (SecTrustRef arg0, bool arg1, CFErrorRef arg2) => fn(arg0, arg1, arg2));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_k73ff5,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(ffi.Pointer<__SecTrust>, ffi.Bool,
             ffi.Pointer<__CFError>)>(wrapper, retain: false, release: true);
@@ -55554,6 +57654,36 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>, sec_certificate_t)>.listener(
         _ObjCBlock_ffiVoid_seccertificatet_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_seccertificatet_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    sec_certificate_t arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(sec_certificate_t))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, sec_certificate_t)>
+    _ObjCBlock_ffiVoid_seccertificatet_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, sec_certificate_t)>.isolateLocal(
+        _ObjCBlock_ffiVoid_seccertificatet_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, sec_certificate_t)>
+    _ObjCBlock_ffiVoid_seccertificatet_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, sec_certificate_t)>.listener(
+        _ObjCBlock_ffiVoid_seccertificatet_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject)>`.
 abstract final class ObjCBlock_ffiVoid_seccertificatet {
@@ -55616,6 +57746,41 @@ abstract final class ObjCBlock_ffiVoid_seccertificatet {
     return objc.ObjCBlock<ffi.Void Function(objc.NSObject)>(wrapper,
         retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSObject)> blocking(
+      void Function(Dartsec_certificate_t) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_seccertificatet_blockingCallable.nativeFunction
+            .cast(),
+        (sec_certificate_t arg0) => fn(
+            objc.NSObject.castFromPointer(arg0, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_seccertificatet_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (sec_certificate_t arg0) => fn(
+            objc.NSObject.castFromPointer(arg0, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSObject)>(wrapper,
+        retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSObject)>`.
@@ -55662,6 +57827,36 @@ ffi.NativeCallable<
     _ObjCBlock_ffiVoid_Uint16_listenerCallable = ffi.NativeCallable<
         ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
             ffi.Uint16)>.listener(_ObjCBlock_ffiVoid_Uint16_listenerTrampoline)
+      ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_Uint16_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    int arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(int))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Uint16)>
+    _ObjCBlock_ffiVoid_Uint16_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Uint16)>.isolateLocal(
+        _ObjCBlock_ffiVoid_Uint16_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Uint16)>
+    _ObjCBlock_ffiVoid_Uint16_blockingListenerCallable = ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Uint16)>.listener(_ObjCBlock_ffiVoid_Uint16_blockingTrampoline)
       ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Uint16)>`.
@@ -55717,6 +57912,37 @@ abstract final class ObjCBlock_ffiVoid_Uint16 {
         (int arg0) => fn(arg0));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_15f11yh(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Uint16)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Uint16)> blocking(
+      void Function(int) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_Uint16_blockingCallable.nativeFunction.cast(),
+        (int arg0) => fn(arg0));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_Uint16_blockingListenerCallable.nativeFunction
+            .cast(),
+        (int arg0) => fn(arg0));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_15f11yh,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Uint16)>(wrapper,
         retain: false, release: true);
   }
@@ -55782,6 +58008,45 @@ ffi.NativeCallable<
             ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, dispatch_data_t,
                 dispatch_data_t)>.listener(
         _ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_listenerTrampoline)
+      ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    dispatch_data_t arg0,
+    dispatch_data_t arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        dispatch_data_t, dispatch_data_t))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, dispatch_data_t, dispatch_data_t)>
+    _ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                dispatch_data_t,
+                dispatch_data_t)>.isolateLocal(
+        _ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, dispatch_data_t, dispatch_data_t)>
+    _ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                dispatch_data_t,
+                dispatch_data_t)>.listener(
+        _ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_blockingTrampoline)
       ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.NSObject)>`.
@@ -55853,6 +58118,46 @@ abstract final class ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat {
         retain: false,
         release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.NSObject)>
+      blocking(void Function(Dartdispatch_data_t, Dartdispatch_data_t) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_blockingCallable
+            .nativeFunction
+            .cast(),
+        (dispatch_data_t arg0, dispatch_data_t arg1) => fn(
+            objc.NSObject.castFromPointer(arg0, retain: false, release: true),
+            objc.NSObject.castFromPointer(arg1, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_dispatchdatat_dispatchdatat_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (dispatch_data_t arg0, dispatch_data_t arg1) => fn(
+            objc.NSObject.castFromPointer(arg0, retain: false, release: true),
+            objc.NSObject.castFromPointer(arg1, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_wjvic9,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.NSObject)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.NSObject)>`.
@@ -55904,6 +58209,36 @@ ffi.NativeCallable<
             ffi.Void Function(
                 ffi.Pointer<objc.ObjCBlockImpl>, dispatch_data_t)>.listener(
         _ObjCBlock_ffiVoid_dispatchdatat_listenerTrampoline)
+      ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_dispatchdatat_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    dispatch_data_t arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(dispatch_data_t))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, dispatch_data_t)>
+    _ObjCBlock_ffiVoid_dispatchdatat_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, dispatch_data_t)>.isolateLocal(
+        _ObjCBlock_ffiVoid_dispatchdatat_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, dispatch_data_t)>
+    _ObjCBlock_ffiVoid_dispatchdatat_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, dispatch_data_t)>.listener(
+        _ObjCBlock_ffiVoid_dispatchdatat_blockingTrampoline)
       ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>`.
@@ -55967,6 +58302,43 @@ abstract final class ObjCBlock_ffiVoid_dispatchdatat {
                 retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSObject?)> blocking(
+      void Function(Dartdispatch_data_t?) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_dispatchdatat_blockingCallable.nativeFunction.cast(),
+        (dispatch_data_t arg0) => fn(arg0.address == 0
+            ? null
+            : objc.NSObject.castFromPointer(arg0,
+                retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_dispatchdatat_blockingListenerCallable.nativeFunction
+            .cast(),
+        (dispatch_data_t arg0) => fn(arg0.address == 0
+            ? null
+            : objc.NSObject.castFromPointer(arg0,
+                retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>(wrapper,
         retain: false, release: true);
   }
@@ -56067,6 +58439,59 @@ ffi.NativeCallable<
                 sec_protocol_pre_shared_key_selection_complete_t)>.listener(
         _ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        sec_protocol_metadata_t arg0,
+        dispatch_data_t arg1,
+        sec_protocol_pre_shared_key_selection_complete_t arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        sec_protocol_metadata_t,
+        dispatch_data_t,
+        sec_protocol_pre_shared_key_selection_complete_t))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            sec_protocol_metadata_t,
+            dispatch_data_t,
+            sec_protocol_pre_shared_key_selection_complete_t)>
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                sec_protocol_metadata_t,
+                dispatch_data_t,
+                sec_protocol_pre_shared_key_selection_complete_t)>.isolateLocal(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            sec_protocol_metadata_t,
+            dispatch_data_t,
+            sec_protocol_pre_shared_key_selection_complete_t)>
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                sec_protocol_metadata_t,
+                dispatch_data_t,
+                sec_protocol_pre_shared_key_selection_complete_t)>.listener(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.NSObject?, objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)>`.
 abstract final class ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet {
@@ -56146,6 +58571,66 @@ abstract final class ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secpro
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_91c9gi(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(objc.NSObject, objc.NSObject?,
+                objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(objc.NSObject, objc.NSObject?,
+          objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)> blocking(
+      void Function(Dartsec_protocol_metadata_t, Dartdispatch_data_t?,
+              Dartsec_protocol_pre_shared_key_selection_complete_t)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet_blockingCallable
+            .nativeFunction
+            .cast(),
+        (sec_protocol_metadata_t arg0, dispatch_data_t arg1,
+                sec_protocol_pre_shared_key_selection_complete_t arg2) =>
+            fn(
+                objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : objc.NSObject.castFromPointer(arg1,
+                        retain: false, release: true),
+                ObjCBlock_ffiVoid_dispatchdatat.castFromPointer(arg2,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_dispatchdatat_secprotocolpresharedkeyselectioncompletet_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (sec_protocol_metadata_t arg0, dispatch_data_t arg1,
+                sec_protocol_pre_shared_key_selection_complete_t arg2) =>
+            fn(
+                objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : objc.NSObject.castFromPointer(arg1,
+                        retain: false, release: true),
+                ObjCBlock_ffiVoid_dispatchdatat.castFromPointer(arg2,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_91c9gi,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(objc.NSObject, objc.NSObject?,
                 objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)>(wrapper,
@@ -56249,6 +58734,52 @@ ffi.NativeCallable<
                 sec_protocol_key_update_complete_t)>.listener(
         _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        sec_protocol_metadata_t arg0,
+        sec_protocol_key_update_complete_t arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(sec_protocol_metadata_t,
+        sec_protocol_key_update_complete_t))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            sec_protocol_metadata_t,
+            sec_protocol_key_update_complete_t)>
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                sec_protocol_metadata_t,
+                sec_protocol_key_update_complete_t)>.isolateLocal(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            sec_protocol_metadata_t,
+            sec_protocol_key_update_complete_t)>
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                sec_protocol_metadata_t,
+                sec_protocol_key_update_complete_t)>.listener(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.ObjCBlock<ffi.Void Function()>)>`.
 abstract final class ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet {
@@ -56325,6 +58856,58 @@ abstract final class ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdate
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_14pxqbs(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                objc.NSObject, objc.ObjCBlock<ffi.Void Function()>)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+          ffi.Void Function(objc.NSObject, objc.ObjCBlock<ffi.Void Function()>)>
+      blocking(
+          void Function(Dartsec_protocol_metadata_t,
+                  Dartsec_protocol_key_update_complete_t)
+              fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet_blockingCallable
+            .nativeFunction
+            .cast(),
+        (sec_protocol_metadata_t arg0,
+                sec_protocol_key_update_complete_t arg1) =>
+            fn(
+                objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolkeyupdatecompletet_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (sec_protocol_metadata_t arg0,
+                sec_protocol_key_update_complete_t arg1) =>
+            fn(
+                objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_14pxqbs,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(
                 objc.NSObject, objc.ObjCBlock<ffi.Void Function()>)>(wrapper,
@@ -56418,6 +59001,52 @@ ffi.NativeCallable<
                 sec_protocol_challenge_complete_t)>.listener(
         _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        sec_protocol_metadata_t arg0,
+        sec_protocol_challenge_complete_t arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(sec_protocol_metadata_t,
+        sec_protocol_challenge_complete_t))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            sec_protocol_metadata_t,
+            sec_protocol_challenge_complete_t)>
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                sec_protocol_metadata_t,
+                sec_protocol_challenge_complete_t)>.isolateLocal(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            sec_protocol_metadata_t,
+            sec_protocol_challenge_complete_t)>
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                sec_protocol_metadata_t,
+                sec_protocol_challenge_complete_t)>.listener(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)>`.
 abstract final class ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet {
@@ -56502,6 +59131,59 @@ abstract final class ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallenge
                 objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)>(wrapper,
         retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+          ffi.Void Function(
+              objc.NSObject, objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)>
+      blocking(
+          void Function(Dartsec_protocol_metadata_t,
+                  Dartsec_protocol_challenge_complete_t)
+              fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet_blockingCallable
+            .nativeFunction
+            .cast(),
+        (sec_protocol_metadata_t arg0,
+                sec_protocol_challenge_complete_t arg1) =>
+            fn(
+                objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_dispatchdatat.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_secprotocolchallengecompletet_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (sec_protocol_metadata_t arg0,
+                sec_protocol_challenge_complete_t arg1) =>
+            fn(
+                objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_dispatchdatat.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_14pxqbs,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(objc.NSObject,
+                objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)>(wrapper,
+        retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.ObjCBlock<ffi.Void Function(objc.NSObject?)>)>`.
@@ -56559,6 +59241,37 @@ ffi.NativeCallable<ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>, ffi.Bool)>
         ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
             ffi.Bool)>.listener(_ObjCBlock_ffiVoid_bool_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_bool_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    bool arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(bool))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Bool)>
+    _ObjCBlock_ffiVoid_bool_blockingCallable = ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Bool)>.isolateLocal(_ObjCBlock_ffiVoid_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, ffi.Bool)>
+    _ObjCBlock_ffiVoid_bool_blockingListenerCallable = ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Bool)>.listener(_ObjCBlock_ffiVoid_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Bool)>`.
 abstract final class ObjCBlock_ffiVoid_bool {
@@ -56613,6 +59326,36 @@ abstract final class ObjCBlock_ffiVoid_bool {
         (bool arg0) => fn(arg0));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1s56lr9(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Bool)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Bool)> blocking(
+      void Function(bool) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_bool_blockingCallable.nativeFunction.cast(),
+        (bool arg0) => fn(arg0));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_bool_blockingListenerCallable.nativeFunction.cast(),
+        (bool arg0) => fn(arg0));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1s56lr9,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Bool)>(wrapper,
         retain: false, release: true);
   }
@@ -56703,6 +59446,57 @@ ffi.NativeCallable<
                 sec_protocol_verify_complete_t)>.listener(
         _ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        sec_protocol_metadata_t arg0,
+        sec_trust_t arg1,
+        sec_protocol_verify_complete_t arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(sec_protocol_metadata_t,
+        sec_trust_t, sec_protocol_verify_complete_t))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            sec_protocol_metadata_t,
+            sec_trust_t,
+            sec_protocol_verify_complete_t)>
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                sec_protocol_metadata_t,
+                sec_trust_t,
+                sec_protocol_verify_complete_t)>.isolateLocal(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            sec_protocol_metadata_t,
+            sec_trust_t,
+            sec_protocol_verify_complete_t)>
+    _ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                sec_protocol_metadata_t,
+                sec_trust_t,
+                sec_protocol_verify_complete_t)>.listener(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSObject, objc.NSObject, objc.ObjCBlock<ffi.Void Function(ffi.Bool)>)>`.
 abstract final class ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet {
@@ -56781,6 +59575,62 @@ abstract final class ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotoco
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_91c9gi(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(objc.NSObject, objc.NSObject,
+                objc.ObjCBlock<ffi.Void Function(ffi.Bool)>)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(objc.NSObject, objc.NSObject,
+          objc.ObjCBlock<ffi.Void Function(ffi.Bool)>)> blocking(
+      void Function(Dartsec_protocol_metadata_t, Dartsec_trust_t,
+              Dartsec_protocol_verify_complete_t)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet_blockingCallable
+            .nativeFunction
+            .cast(),
+        (sec_protocol_metadata_t arg0, sec_trust_t arg1,
+                sec_protocol_verify_complete_t arg2) =>
+            fn(
+                objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+                objc.NSObject.castFromPointer(arg1,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_bool.castFromPointer(arg2,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_secprotocolmetadatat_sectrustt_secprotocolverifycompletet_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (sec_protocol_metadata_t arg0, sec_trust_t arg1,
+                sec_protocol_verify_complete_t arg2) =>
+            fn(
+                objc.NSObject.castFromPointer(arg0,
+                    retain: false, release: true),
+                objc.NSObject.castFromPointer(arg1,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_bool.castFromPointer(arg2,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_91c9gi,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(objc.NSObject, objc.NSObject,
                 objc.ObjCBlock<ffi.Void Function(ffi.Bool)>)>(wrapper,
@@ -57024,6 +59874,58 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1,
+    ffi.Pointer<objc.ObjCObject> arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)>`.
 abstract final class ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError {
@@ -57107,6 +60009,70 @@ abstract final class ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError {
                         retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1hcfngn(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(objc.NSData?, NSURLResponse?,
+            objc.NSError?)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc
+      .ObjCBlock<ffi.Void Function(objc.NSData?, NSURLResponse?, objc.NSError?)>
+      blocking(void Function(objc.NSData?, NSURLResponse?, objc.NSError?) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSData.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : NSURLResponse.castFromPointer(arg1,
+                        retain: false, release: true),
+                arg2.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg2,
+                        retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSData.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : NSURLResponse.castFromPointer(arg1,
+                        retain: false, release: true),
+                arg2.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg2,
+                        retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1hcfngn,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(objc.NSData?, NSURLResponse?,
             objc.NSError?)>(wrapper, retain: false, release: true);
@@ -57242,6 +60208,38 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSData_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSData_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSData_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSData_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSData_blockingListenerCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSData_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSData?)>`.
 abstract final class ObjCBlock_ffiVoid_NSData {
@@ -57304,6 +60302,41 @@ abstract final class ObjCBlock_ffiVoid_NSData {
             : objc.NSData.castFromPointer(arg0, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSData?)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSData?)> blocking(
+      void Function(objc.NSData?) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSData_blockingCallable.nativeFunction.cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : objc.NSData.castFromPointer(arg0, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSData_blockingListenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : objc.NSData.castFromPointer(arg0, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(objc.NSData?)>(wrapper,
         retain: false, release: true);
   }
@@ -57487,6 +60520,58 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1,
+    ffi.Pointer<objc.ObjCObject> arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSURL?, NSURLResponse?, objc.NSError?)>`.
 abstract final class ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError {
@@ -57570,6 +60655,70 @@ abstract final class ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError {
                         retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1hcfngn(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(objc.NSURL?, NSURLResponse?,
+            objc.NSError?)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc
+      .ObjCBlock<ffi.Void Function(objc.NSURL?, NSURLResponse?, objc.NSError?)>
+      blocking(void Function(objc.NSURL?, NSURLResponse?, objc.NSError?) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSURL
+                        .castFromPointer(arg0, retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : NSURLResponse.castFromPointer(arg1,
+                        retain: false, release: true),
+                arg2.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg2,
+                        retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURL_NSURLResponse_NSError_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSURL
+                        .castFromPointer(arg0, retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : NSURLResponse.castFromPointer(arg1,
+                        retain: false, release: true),
+                arg2.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg2,
+                        retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1hcfngn,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(objc.NSURL?, NSURLResponse?,
             objc.NSError?)>(wrapper, retain: false, release: true);
@@ -57997,8 +61146,8 @@ final _objc_msgSend_1hx005a = objc.msgSendPointer
 /// created, a copy of the configuration object is made - you cannot
 /// modify the configuration of a session after it has been created.
 ///
-/// The shared session uses the global singleton credential, cache
-/// and cookie storage objects.
+/// The shared session uses the global credential, cache and cookie
+/// storage objects.
 ///
 /// An ephemeral session has no persistent disk storage for cookies,
 /// cache or credentials.
@@ -58069,7 +61218,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// default cache policy for requests
   set requestCachePolicy(NSURLRequestCachePolicy value) {
-    return _objc_msgSend_1yjxuv2(
+    _objc_msgSend_1yjxuv2(
         this.ref.pointer, _sel_setRequestCachePolicy_, value.value);
   }
 
@@ -58084,7 +61233,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// default timeout for requests.  This will cause a timeout if no data is transmitted for the given timeout value, and is reset whenever data is transmitted.
   set timeoutIntervalForRequest(DartNSTimeInterval value) {
-    return _objc_msgSend_hwm8nu(
+    _objc_msgSend_hwm8nu(
         this.ref.pointer, _sel_setTimeoutIntervalForRequest_, value);
   }
 
@@ -58099,7 +61248,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// default timeout for requests.  This will cause a timeout if a resource is not able to be retrieved within a given timeout.
   set timeoutIntervalForResource(DartNSTimeInterval value) {
-    return _objc_msgSend_hwm8nu(
+    _objc_msgSend_hwm8nu(
         this.ref.pointer, _sel_setTimeoutIntervalForResource_, value);
   }
 
@@ -58112,7 +61261,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// type of service for requests.
   set networkServiceType(NSURLRequestNetworkServiceType value) {
-    return _objc_msgSend_1mse4s1(
+    _objc_msgSend_1mse4s1(
         this.ref.pointer, _sel_setNetworkServiceType_, value.value);
   }
 
@@ -58123,7 +61272,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// allow request to route over cellular.
   set allowsCellularAccess(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setAllowsCellularAccess_, value);
   }
 
@@ -58135,7 +61284,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// allow request to route over expensive networks.  Defaults to YES.
   set allowsExpensiveNetworkAccess(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setAllowsExpensiveNetworkAccess_, value);
   }
 
@@ -58147,7 +61296,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// allow request to route over networks in constrained mode. Defaults to YES.
   set allowsConstrainedNetworkAccess(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setAllowsConstrainedNetworkAccess_, value);
   }
 
@@ -58159,7 +61308,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// requires requests from the session to be made with DNSSEC validation enabled. Defaults to NO.
   set requiresDNSSECValidation(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setRequiresDNSSECValidation_, value);
   }
 
@@ -58192,7 +61341,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Default value is NO. Ignored by background sessions, as background sessions
   /// always wait for connectivity.
   set waitsForConnectivity(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setWaitsForConnectivity_, value);
   }
 
@@ -58203,8 +61352,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// allows background tasks to be scheduled at the discretion of the system for optimal performance.
   set discretionary(bool value) {
-    return _objc_msgSend_1s56lr9(
-        this.ref.pointer, _sel_setDiscretionary_, value);
+    _objc_msgSend_1s56lr9(this.ref.pointer, _sel_setDiscretionary_, value);
   }
 
   /// The identifier of the shared data container into which files in background sessions should be downloaded.
@@ -58222,8 +61370,8 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// App extensions wishing to use background sessions *must* set this property to a valid container identifier, or
   /// all transfers in that session will fail with NSURLErrorBackgroundSessionRequiresSharedContainer.
   set sharedContainerIdentifier(objc.NSString? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer,
-        _sel_setSharedContainerIdentifier_, value?.ref.pointer ?? ffi.nullptr);
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setSharedContainerIdentifier_,
+        value?.ref.pointer ?? ffi.nullptr);
   }
 
   /// Allows the app to be resumed or launched in the background when tasks in background sessions complete
@@ -58242,7 +61390,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   ///
   /// NOTE: macOS apps based on AppKit do not support background launch.
   set sessionSendsLaunchEvents(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setSessionSendsLaunchEvents_, value);
   }
 
@@ -58257,8 +61405,8 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The proxy dictionary, as described by <CFNetwork/CFHTTPStream.h>
   set connectionProxyDictionary(objc.NSDictionary? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer,
-        _sel_setConnectionProxyDictionary_, value?.ref.pointer ?? ffi.nullptr);
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setConnectionProxyDictionary_,
+        value?.ref.pointer ?? ffi.nullptr);
   }
 
   /// The minimum allowable versions of the TLS protocol, from <Security/SecureTransport.h>
@@ -58270,7 +61418,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The minimum allowable versions of the TLS protocol, from <Security/SecureTransport.h>
   set TLSMinimumSupportedProtocol(SSLProtocol value) {
-    return _objc_msgSend_268k8x(
+    _objc_msgSend_268k8x(
         this.ref.pointer, _sel_setTLSMinimumSupportedProtocol_, value.value);
   }
 
@@ -58283,7 +61431,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The maximum allowable versions of the TLS protocol, from <Security/SecureTransport.h>
   set TLSMaximumSupportedProtocol(SSLProtocol value) {
-    return _objc_msgSend_268k8x(
+    _objc_msgSend_268k8x(
         this.ref.pointer, _sel_setTLSMaximumSupportedProtocol_, value.value);
   }
 
@@ -58296,7 +61444,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The minimum allowable versions of the TLS protocol, from <Security/SecProtocolTypes.h>
   set TLSMinimumSupportedProtocolVersion(tls_protocol_version_t value) {
-    return _objc_msgSend_1mvuct7(this.ref.pointer,
+    _objc_msgSend_1mvuct7(this.ref.pointer,
         _sel_setTLSMinimumSupportedProtocolVersion_, value.value);
   }
 
@@ -58309,7 +61457,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The maximum allowable versions of the TLS protocol, from <Security/SecProtocolTypes.h>
   set TLSMaximumSupportedProtocolVersion(tls_protocol_version_t value) {
-    return _objc_msgSend_1mvuct7(this.ref.pointer,
+    _objc_msgSend_1mvuct7(this.ref.pointer,
         _sel_setTLSMaximumSupportedProtocolVersion_, value.value);
   }
 
@@ -58320,7 +61468,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// Allow the use of HTTP pipelining
   set HTTPShouldUsePipelining(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setHTTPShouldUsePipelining_, value);
   }
 
@@ -58331,7 +61479,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// Allow the session to set cookies on requests
   set HTTPShouldSetCookies(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setHTTPShouldSetCookies_, value);
   }
 
@@ -58344,7 +61492,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// Policy for accepting cookies.  This overrides the policy otherwise specified by the cookie storage.
   set HTTPCookieAcceptPolicy(NSHTTPCookieAcceptPolicy value) {
-    return _objc_msgSend_3q55ys(
+    _objc_msgSend_3q55ys(
         this.ref.pointer, _sel_setHTTPCookieAcceptPolicy_, value.value);
   }
 
@@ -58361,8 +61509,8 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Specifies additional headers which will be set on outgoing requests.
   /// Note that these headers are added to the request only if not already present.
   set HTTPAdditionalHeaders(objc.NSDictionary? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer,
-        _sel_setHTTPAdditionalHeaders_, value?.ref.pointer ?? ffi.nullptr);
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setHTTPAdditionalHeaders_,
+        value?.ref.pointer ?? ffi.nullptr);
   }
 
   /// The maximum number of simultaneous persistent connections per host
@@ -58373,7 +61521,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The maximum number of simultaneous persistent connections per host
   set HTTPMaximumConnectionsPerHost(DartNSInteger value) {
-    return _objc_msgSend_4sp4xj(
+    _objc_msgSend_4sp4xj(
         this.ref.pointer, _sel_setHTTPMaximumConnectionsPerHost_, value);
   }
 
@@ -58389,7 +61537,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The cookie storage object to use, or nil to indicate that no cookies should be handled
   set HTTPCookieStorage(NSHTTPCookieStorage? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setHTTPCookieStorage_,
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setHTTPCookieStorage_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -58405,8 +61553,8 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The credential storage object, or nil to indicate that no credential storage is to be used
   set URLCredentialStorage(NSURLCredentialStorage? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer,
-        _sel_setURLCredentialStorage_, value?.ref.pointer ?? ffi.nullptr);
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setURLCredentialStorage_,
+        value?.ref.pointer ?? ffi.nullptr);
   }
 
   /// The URL resource cache, or nil to indicate that no caching is to be performed
@@ -58419,7 +61567,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// The URL resource cache, or nil to indicate that no caching is to be performed
   set URLCache(NSURLCache? value) {
-    return _objc_msgSend_1jdvcbf(
+    _objc_msgSend_1jdvcbf(
         this.ref.pointer, _sel_setURLCache_, value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -58433,7 +61581,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Enable extended background idle mode for any tcp sockets created.    Enabling this mode asks the system to keep the socket open
   /// and delay reclaiming it when the process moves to the background (see https://developer.apple.com/library/ios/technotes/tn2277/_index.html)
   set shouldUseExtendedBackgroundIdleMode(bool value) {
-    return _objc_msgSend_1s56lr9(
+    _objc_msgSend_1s56lr9(
         this.ref.pointer, _sel_setShouldUseExtendedBackgroundIdleMode_, value);
   }
 
@@ -58461,7 +61609,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
   /// Custom NSURLProtocol subclasses are not available to background
   /// sessions.
   set protocolClasses(objc.ObjCObjectBase? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setProtocolClasses_,
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setProtocolClasses_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -58474,7 +61622,7 @@ class NSURLSessionConfiguration extends objc.NSObject {
 
   /// multipath service type to use for connections.  The default is NSURLSessionMultipathServiceTypeNone
   set multipathServiceType(NSURLSessionMultipathServiceType value) {
-    return _objc_msgSend_1hx005a(
+    _objc_msgSend_1hx005a(
         this.ref.pointer, _sel_setMultipathServiceType_, value.value);
   }
 
@@ -58618,6 +61766,29 @@ final _objc_msgSend_n2da1l = objc.msgSendPointer
     .asFunction<
         void Function(ffi.Pointer<objc.ObjCObject>,
             ffi.Pointer<objc.ObjCSelector>, int)>();
+
+/// !
+/// @typedef dispatch_queue_t
+///
+/// @abstract
+/// Dispatch queues invoke workitems submitted to them.
+///
+/// @discussion
+/// Dispatch queues come in many flavors, the most common one being the dispatch
+/// serial queue (See dispatch_queue_serial_t).
+///
+/// The system manages a pool of threads which process dispatch queues and invoke
+/// workitems submitted to them.
+///
+/// Conceptually a dispatch queue may have its own thread of execution, and
+/// interaction between queues is highly asynchronous.
+///
+/// Dispatch queues are reference counted via calls to dispatch_retain() and
+/// dispatch_release(). Pending workitems submitted to a queue also hold a
+/// reference to the queue until they have finished. Once all references to a
+/// queue have been released, the queue will be deallocated by the system.
+typedef dispatch_queue_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_queue_t1 = objc.NSObject;
 late final _sel_underlyingQueue = objc.registerName("underlyingQueue");
 late final _sel_setUnderlyingQueue_ = objc.registerName("setUnderlyingQueue:");
 late final _sel_cancelAllOperations = objc.registerName("cancelAllOperations");
@@ -58688,7 +61859,7 @@ class NSOperationQueue extends objc.NSObject {
 
   /// setMaxConcurrentOperationCount:
   set maxConcurrentOperationCount(DartNSInteger value) {
-    return _objc_msgSend_4sp4xj(
+    _objc_msgSend_4sp4xj(
         this.ref.pointer, _sel_setMaxConcurrentOperationCount_, value);
   }
 
@@ -58699,7 +61870,7 @@ class NSOperationQueue extends objc.NSObject {
 
   /// setSuspended:
   set suspended(bool value) {
-    return _objc_msgSend_1s56lr9(this.ref.pointer, _sel_setSuspended_, value);
+    _objc_msgSend_1s56lr9(this.ref.pointer, _sel_setSuspended_, value);
   }
 
   /// name
@@ -58712,7 +61883,7 @@ class NSOperationQueue extends objc.NSObject {
 
   /// setName:
   set name(objc.NSString? value) {
-    return _objc_msgSend_1jdvcbf(
+    _objc_msgSend_1jdvcbf(
         this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -58724,12 +61895,12 @@ class NSOperationQueue extends objc.NSObject {
 
   /// setQualityOfService:
   set qualityOfService(NSQualityOfService value) {
-    return _objc_msgSend_n2da1l(
+    _objc_msgSend_n2da1l(
         this.ref.pointer, _sel_setQualityOfService_, value.value);
   }
 
   /// actually retain
-  Dartdispatch_queue_t? get underlyingQueue {
+  Dartdispatch_queue_t1? get underlyingQueue {
     final _ret = _objc_msgSend_1x359cv(this.ref.pointer, _sel_underlyingQueue);
     return _ret.address == 0
         ? null
@@ -58737,8 +61908,8 @@ class NSOperationQueue extends objc.NSObject {
   }
 
   /// actually retain
-  set underlyingQueue(Dartdispatch_queue_t? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setUnderlyingQueue_,
+  set underlyingQueue(Dartdispatch_queue_t1? value) {
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setUnderlyingQueue_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -58903,6 +62074,59 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<objc.ObjCObject> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
 abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject {
@@ -58989,6 +62213,58 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObj
                 ffi.Pointer<objc.ObjCObject>)>(wrapper,
         retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<objc.ObjCObject>,
+          ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)> blocking(
+      void Function(
+              objc.ObjCObjectBase, objc.ObjCObjectBase, objc.ObjCObjectBase)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                objc.ObjCObjectBase(arg0, retain: false, release: true),
+                objc.ObjCObjectBase(arg1, retain: false, release: true),
+                objc.ObjCObjectBase(arg2, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_objcObjCObject_objcObjCObject_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                objc.ObjCObjectBase(arg0, retain: false, release: true),
+                objc.ObjCObjectBase(arg1, retain: false, release: true),
+                objc.ObjCObjectBase(arg2, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1hcfngn,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>(wrapper,
+        retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>, ffi.Pointer<objc.ObjCObject>)>`.
@@ -59057,6 +62333,39 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_objcObjCObject1_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_objcObjCObject1_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_objcObjCObject1_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_objcObjCObject1_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_objcObjCObject1_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_objcObjCObject1_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>`.
 abstract final class ObjCBlock_ffiVoid_objcObjCObject1 {
@@ -59118,6 +62427,43 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject1 {
             fn(objc.ObjCObjectBase(arg0, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>
+      blocking(void Function(objc.ObjCObjectBase) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject1_blockingCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) =>
+            fn(objc.ObjCObjectBase(arg0, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject1_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) =>
+            fn(objc.ObjCObjectBase(arg0, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>)>(
         wrapper,
         retain: false,
@@ -59427,6 +62773,38 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSError_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSError_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSError_blockingListenerCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSError?)>`.
 abstract final class ObjCBlock_ffiVoid_NSError {
@@ -59490,6 +62868,43 @@ abstract final class ObjCBlock_ffiVoid_NSError {
                 retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSError?)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSError?)> blocking(
+      void Function(objc.NSError?) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSError_blockingCallable.nativeFunction.cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : objc.NSError.castFromPointer(arg0,
+                retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSError_blockingListenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : objc.NSError.castFromPointer(arg0,
+                retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(objc.NSError?)>(wrapper,
         retain: false, release: true);
   }
@@ -59567,6 +62982,51 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSURLSessionWebSocketMessage?, objc.NSError?)>`.
 abstract final class ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError {
@@ -59642,6 +63102,62 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError {
                         retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjvic9(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(NSURLSessionWebSocketMessage?,
+            objc.NSError?)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+          ffi.Void Function(NSURLSessionWebSocketMessage?, objc.NSError?)>
+      blocking(void Function(NSURLSessionWebSocketMessage?, objc.NSError?) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : NSURLSessionWebSocketMessage.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg1,
+                        retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionWebSocketMessage_NSError_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : NSURLSessionWebSocketMessage.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg1,
+                        retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_wjvic9,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(NSURLSessionWebSocketMessage?,
             objc.NSError?)>(wrapper, retain: false, release: true);
@@ -59796,8 +63312,7 @@ class NSURLSessionWebSocketTask extends NSURLSessionTask {
 
   /// The maximum number of bytes to be buffered before erroring out. This includes the sum of all bytes from continuation frames. Receive calls will error out if this value is reached
   set maximumMessageSize(DartNSInteger value) {
-    return _objc_msgSend_4sp4xj(
-        this.ref.pointer, _sel_setMaximumMessageSize_, value);
+    _objc_msgSend_4sp4xj(this.ref.pointer, _sel_setMaximumMessageSize_, value);
   }
 
   /// A task can be queried for it's close code at any point. When the task is not closed, it will be set to NSURLSessionWebSocketCloseCodeInvalid
@@ -60020,7 +63535,7 @@ class NSURLSession extends objc.NSObject {
   /// The sessionDescription property is available for the developer to
   /// provide a descriptive label for the session.
   set sessionDescription(objc.NSString? value) {
-    return _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setSessionDescription_,
+    _objc_msgSend_1jdvcbf(this.ref.pointer, _sel_setSessionDescription_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -60030,7 +63545,7 @@ class NSURLSession extends objc.NSObject {
   /// has been issued.
   ///
   /// -finishTasksAndInvalidate and -invalidateAndCancel do not
-  /// have any effect on the shared session singleton.
+  /// have any effect on the shared session instance.
   ///
   /// When invalidating a background session, it is not safe to create another background
   /// session with the same identifier until URLSession:didBecomeInvalidWithError: has
@@ -60375,6 +63890,37 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>, NSInteger)>.listener(
         _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    int arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(int))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, NSInteger)>
+    _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, NSInteger)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>, ffi.Pointer<ffi.Void>, NSInteger)>
+    _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, NSInteger)>.listener(
+        _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSInteger)>`.
 abstract final class ObjCBlock_ffiVoid_NSURLSessionResponseDisposition {
@@ -60434,6 +63980,40 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionResponseDisposition {
         (int arg0) => fn(NSURLSessionResponseDisposition.fromValue(arg0)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_16sve1d(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(NSInteger)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(NSInteger)> blocking(
+      void Function(NSURLSessionResponseDisposition) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_blockingCallable
+            .nativeFunction
+            .cast(),
+        (int arg0) => fn(NSURLSessionResponseDisposition.fromValue(arg0)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionResponseDisposition_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (int arg0) => fn(NSURLSessionResponseDisposition.fromValue(arg0)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_16sve1d,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(NSInteger)>(wrapper,
         retain: false, release: true);
   }
@@ -60552,6 +64132,71 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3,
+        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition {
@@ -60655,6 +64300,82 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
                     .castFromPointer(arg4, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1f43wec(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLSessionDataTask,
+                NSURLResponse,
+                objc.ObjCBlock<ffi.Void Function(NSInteger)>)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLSessionDataTask,
+          NSURLResponse,
+          objc.ObjCBlock<ffi.Void Function(NSInteger)>)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
+              NSURLResponse, objc.ObjCBlock<ffi.Void Function(NSInteger)>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLResponse.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionResponseDisposition
+                    .castFromPointer(arg4, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLResponse.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionResponseDisposition
+                    .castFromPointer(arg4, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1f43wec,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(
                 ffi.Pointer<ffi.Void>,
@@ -60796,6 +64517,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionDownloadTask)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask {
@@ -60880,6 +64660,70 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDataTask,
+            NSURLSessionDownloadTask)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDataTask, NSURLSessionDownloadTask)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
+              NSURLSessionDownloadTask)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionDownloadTask_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -61004,6 +64848,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSURLSessionStreamTask)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask {
@@ -61088,6 +64991,70 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDataTask,
+            NSURLSessionStreamTask)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDataTask, NSURLSessionStreamTask)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
+              NSURLSessionStreamTask)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLSessionStreamTask.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLSessionStreamTask_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLSessionStreamTask.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -61212,6 +65179,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, objc.NSData)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData {
@@ -61298,6 +65324,70 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDataTask,
+            objc.NSData)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDataTask, objc.NSData)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask,
+              objc.NSData)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                objc.NSData.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                objc.NSData.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -61434,6 +65524,71 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3,
+        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDataTask, NSCachedURLResponse, objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse {
@@ -61541,6 +65696,88 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1f43wec(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLSessionDataTask,
+                NSCachedURLResponse,
+                objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLSessionDataTask,
+          NSCachedURLResponse,
+          objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)> blocking(
+      void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLSessionDataTask,
+              NSCachedURLResponse,
+              objc.ObjCBlock<ffi.Void Function(NSCachedURLResponse?)>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSCachedURLResponse.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSCachedURLResponse.castFromPointer(arg4,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSCachedURLResponse_ffiVoidNSCachedURLResponse_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDataTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSCachedURLResponse.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSCachedURLResponse.castFromPointer(arg4,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1f43wec,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(
                 ffi.Pointer<ffi.Void>,
@@ -61669,6 +65906,59 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask {
@@ -61751,6 +66041,57 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask {
         ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
             NSURLSessionTask)>(wrapper, retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_ao4xm9,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+            NSURLSessionTask)>(wrapper, retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask)>`.
@@ -61829,6 +66170,46 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        int arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        int, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, NSInteger, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                NSInteger,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, NSInteger, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                NSInteger,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>`.
 abstract final class ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest {
@@ -61896,6 +66277,50 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSU
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_mn1xu3(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)> blocking(
+      void Function(NSURLSessionDelayedRequestDisposition, NSURLRequest?) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_blockingCallable
+            .nativeFunction
+            .cast(),
+        (int arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            NSURLSessionDelayedRequestDisposition.fromValue(arg0),
+            arg1.address == 0
+                ? null
+                : NSURLRequest.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (int arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            NSURLSessionDelayedRequestDisposition.fromValue(arg0),
+            arg1.address == 0
+                ? null
+                : NSURLRequest.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_mn1xu3,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>(wrapper,
         retain: false, release: true);
   }
@@ -62018,6 +66443,71 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3,
+        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest {
@@ -62126,6 +66616,89 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
                     .castFromPointer(arg4, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1f43wec(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLSessionTask,
+                NSURLRequest,
+                objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+          ffi.Void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLRequest,
+              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)>
+      blocking(
+          void Function(
+                  ffi.Pointer<ffi.Void>,
+                  NSURLSession,
+                  NSURLSessionTask,
+                  NSURLRequest,
+                  objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLRequest?)>)
+              fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLRequest.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest
+                    .castFromPointer(arg4, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLRequest_ffiVoidNSURLSessionDelayedRequestDispositionNSURLRequest_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLRequest.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionDelayedRequestDisposition_NSURLRequest
+                    .castFromPointer(arg4, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1f43wec,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(
                 ffi.Pointer<ffi.Void>,
@@ -62443,6 +67016,39 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSURLRequest_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSURLRequest_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLRequest_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSURLRequest_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLRequest_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSURLRequest_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>`.
 abstract final class ObjCBlock_ffiVoid_NSURLRequest {
@@ -62506,6 +67112,43 @@ abstract final class ObjCBlock_ffiVoid_NSURLRequest {
                 retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(NSURLRequest?)> blocking(
+      void Function(NSURLRequest?) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLRequest_blockingCallable.nativeFunction.cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : NSURLRequest.castFromPointer(arg0,
+                retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLRequest_blockingListenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : NSURLRequest.castFromPointer(arg0,
+                retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>(wrapper,
         retain: false, release: true);
   }
@@ -62639,6 +67282,77 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3,
+        ffi.Pointer<objc.ObjCObject> arg4,
+        ffi.Pointer<objc.ObjCBlockImpl> arg5) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4, arg5);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, NSHTTPURLResponse, NSURLRequest, objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest {
@@ -62756,6 +67470,95 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSH
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_13vswqm(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLSessionTask,
+                NSHTTPURLResponse,
+                NSURLRequest,
+                objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLSessionTask,
+          NSHTTPURLResponse,
+          NSURLRequest,
+          objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)> blocking(
+      void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLSessionTask,
+              NSHTTPURLResponse,
+              NSURLRequest,
+              objc.ObjCBlock<ffi.Void Function(NSURLRequest?)>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCObject> arg4,
+                ffi.Pointer<objc.ObjCBlockImpl> arg5) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSHTTPURLResponse.castFromPointer(arg3,
+                    retain: false, release: true),
+                NSURLRequest.castFromPointer(arg4,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLRequest.castFromPointer(arg5,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_NSURLRequest_ffiVoidNSURLRequest_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCObject> arg4,
+                ffi.Pointer<objc.ObjCBlockImpl> arg5) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSHTTPURLResponse.castFromPointer(arg3,
+                    retain: false, release: true),
+                NSURLRequest.castFromPointer(arg4,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLRequest.castFromPointer(arg5,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_13vswqm,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(
                 ffi.Pointer<ffi.Void>,
@@ -62906,6 +67709,46 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        int arg0,
+        ffi.Pointer<objc.ObjCObject> arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        int, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, NSInteger, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                NSInteger,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, NSInteger, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                NSInteger,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>`.
 abstract final class ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential {
@@ -62977,6 +67820,54 @@ abstract final class ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSUR
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_37btrl(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>
+      blocking(
+          void Function(NSURLSessionAuthChallengeDisposition, NSURLCredential?)
+              fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_blockingCallable
+            .nativeFunction
+            .cast(),
+        (int arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            NSURLSessionAuthChallengeDisposition.fromValue(arg0),
+            arg1.address == 0
+                ? null
+                : NSURLCredential.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (int arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            NSURLSessionAuthChallengeDisposition.fromValue(arg0),
+            arg1.address == 0
+                ? null
+                : NSURLCredential.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_37btrl,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>(
         wrapper,
         retain: false,
@@ -63100,6 +67991,71 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3,
+        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential {
@@ -63218,6 +68174,88 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
                     ffi.Void Function(NSInteger, NSURLCredential?)>)>(wrapper,
         retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLSessionTask,
+          NSURLAuthenticationChallenge,
+          objc.ObjCBlock<
+              ffi.Void Function(NSInteger, NSURLCredential?)>)> blocking(
+      void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLSessionTask,
+              NSURLAuthenticationChallenge,
+              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLAuthenticationChallenge.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
+                    .castFromPointer(arg4, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLAuthenticationChallenge.castFromPointer(arg3,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
+                    .castFromPointer(arg4, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1f43wec,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLSessionTask,
+                NSURLAuthenticationChallenge,
+                objc.ObjCBlock<
+                    ffi.Void Function(NSInteger, NSURLCredential?)>)>(wrapper,
+        retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>`.
@@ -63297,6 +68335,39 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSInputStream_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSInputStream_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSInputStream_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSInputStream_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSInputStream_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSInputStream_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>`.
 abstract final class ObjCBlock_ffiVoid_NSInputStream {
@@ -63360,6 +68431,43 @@ abstract final class ObjCBlock_ffiVoid_NSInputStream {
                 retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1jdvcbf(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)> blocking(
+      void Function(objc.NSInputStream?) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSInputStream_blockingCallable.nativeFunction.cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : objc.NSInputStream.castFromPointer(arg0,
+                retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSInputStream_blockingListenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0) => fn(arg0.address == 0
+            ? null
+            : objc.NSInputStream.castFromPointer(arg0,
+                retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>(wrapper,
         retain: false, release: true);
   }
@@ -63468,6 +68576,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCBlockImpl> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream {
@@ -63560,6 +68727,73 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffi
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_12nszru(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLSessionTask,
+                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+          objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSInputStream.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_ffiVoidNSInputStream_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSInputStream.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_12nszru,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(
                 ffi.Pointer<ffi.Void>,
@@ -63703,6 +68937,71 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        int arg3,
+        ffi.Pointer<objc.ObjCBlockImpl> arg4) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        int,
+        ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3, arg4);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Int64,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Int64,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, ffi.Int64, objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream {
@@ -63802,6 +69101,82 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_qm01og(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLSessionTask,
+                ffi.Int64,
+                objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLSessionTask,
+          ffi.Int64,
+          objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, int,
+              objc.ObjCBlock<ffi.Void Function(objc.NSInputStream?)>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                int arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                ObjCBlock_ffiVoid_NSInputStream.castFromPointer(arg4,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_ffiVoidNSInputStream_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                int arg3,
+                ffi.Pointer<objc.ObjCBlockImpl> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                ObjCBlock_ffiVoid_NSInputStream.castFromPointer(arg4,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_qm01og,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(
                 ffi.Pointer<ffi.Void>,
@@ -63963,6 +69338,77 @@ ffi.NativeCallable<
                 ffi.Int64)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        int arg3,
+        int arg4,
+        int arg5) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        int,
+        int,
+        int))(arg0, arg1, arg2, arg3, arg4, arg5);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Int64,
+            ffi.Int64,
+            ffi.Int64)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64,
+                ffi.Int64,
+                ffi.Int64)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Int64,
+            ffi.Int64,
+            ffi.Int64)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64,
+                ffi.Int64,
+                ffi.Int64)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, ffi.Int64, ffi.Int64, ffi.Int64)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64 {
@@ -64062,6 +69508,78 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int
                 arg5));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1uuez7b(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionTask,
+            ffi.Int64,
+            ffi.Int64,
+            ffi.Int64)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+          ffi.Int64, ffi.Int64, ffi.Int64)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, int,
+              int, int)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                int arg3,
+                int arg4,
+                int arg5) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                arg4,
+                arg5));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_Int64_Int64_Int64_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                int arg3,
+                int arg4,
+                int arg5) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                arg4,
+                arg5));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1uuez7b,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -64192,6 +69710,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, NSHTTPURLResponse)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse {
@@ -64277,6 +69854,67 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSH
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+            NSHTTPURLResponse)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+          NSHTTPURLResponse)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+              NSHTTPURLResponse)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSHTTPURLResponse.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSHTTPURLResponse_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSHTTPURLResponse.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
             NSHTTPURLResponse)>(wrapper, retain: false, release: true);
@@ -64417,6 +70055,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, NSURLSessionTaskMetrics)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics {
@@ -64501,6 +70198,67 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSU
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+            NSURLSessionTaskMetrics)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+          NSURLSessionTaskMetrics)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+              NSURLSessionTaskMetrics)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLSessionTaskMetrics.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSURLSessionTaskMetrics_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                NSURLSessionTaskMetrics.castFromPointer(arg3,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
             NSURLSessionTaskMetrics)>(wrapper, retain: false, release: true);
@@ -64622,6 +70380,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask, objc.NSError?)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError {
@@ -64710,6 +70527,71 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSE
                         retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+            objc.NSError?)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+          objc.NSError?)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
+              objc.NSError?)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg3,
+                        retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg3,
+                        retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionTask,
             objc.NSError?)>(wrapper, retain: false, release: true);
@@ -64815,6 +70697,58 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<ffi.Void> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1,
+    ffi.Pointer<objc.ObjCObject> arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError {
@@ -64891,6 +70825,61 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError {
                         retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ao4xm9(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+            objc.NSError?)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+          ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?)>
+      blocking(
+          void Function(ffi.Pointer<ffi.Void>, NSURLSession, objc.NSError?) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                arg2.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg2,
+                        retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSError_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                arg2.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg2,
+                        retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_ao4xm9,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
             objc.NSError?)>(wrapper, retain: false, release: true);
@@ -65009,6 +70998,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCBlockImpl> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCBlockImpl>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCBlockImpl>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCBlockImpl>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential {
@@ -65117,6 +71165,79 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationC
                     ffi.Void Function(NSInteger, NSURLCredential?)>)>(wrapper,
         retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          ffi.Pointer<ffi.Void>,
+          NSURLSession,
+          NSURLAuthenticationChallenge,
+          objc.ObjCBlock<
+              ffi.Void Function(NSInteger, NSURLCredential?)>)> blocking(
+      void Function(
+              ffi.Pointer<ffi.Void>,
+              NSURLSession,
+              NSURLAuthenticationChallenge,
+              objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLAuthenticationChallenge.castFromPointer(arg2,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
+                    .castFromPointer(arg3, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLAuthenticationChallenge_ffiVoidNSURLSessionAuthChallengeDispositionNSURLCredential_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCBlockImpl> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLAuthenticationChallenge.castFromPointer(arg2,
+                    retain: false, release: true),
+                ObjCBlock_ffiVoid_NSURLSessionAuthChallengeDisposition_NSURLCredential
+                    .castFromPointer(arg3, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_12nszru,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(
+                ffi.Pointer<ffi.Void>,
+                NSURLSession,
+                NSURLAuthenticationChallenge,
+                objc.ObjCBlock<
+                    ffi.Void Function(NSInteger, NSURLCredential?)>)>(wrapper,
+        retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLAuthenticationChallenge, objc.ObjCBlock<ffi.Void Function(NSInteger, NSURLCredential?)>)>`.
@@ -65202,6 +71323,51 @@ ffi.NativeCallable<
                 ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<ffi.Void> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>, ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession {
@@ -65267,6 +71433,44 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession {
             NSURLSession.castFromPointer(arg1, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjovn7(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>
+      blocking(void Function(ffi.Pointer<ffi.Void>, NSURLSession) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_blockingCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            arg0,
+            NSURLSession.castFromPointer(arg1, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1) => fn(
+            arg0,
+            NSURLSession.castFromPointer(arg1, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_wjovn7,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession)>(wrapper,
         retain: false, release: true);
@@ -66398,6 +72602,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL {
@@ -66484,6 +72747,70 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
                     .castFromPointer(arg3, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDownloadTask,
+            objc.NSURL)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDownloadTask, objc.NSURL)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDownloadTask, objc.NSURL)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                objc.NSURL
+                    .castFromPointer(arg3, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                objc.NSURL
+                    .castFromPointer(arg3, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -66631,6 +72958,77 @@ ffi.NativeCallable<
                 ffi.Int64)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        int arg3,
+        int arg4,
+        int arg5) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        int,
+        int,
+        int))(arg0, arg1, arg2, arg3, arg4, arg5);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Int64,
+            ffi.Int64,
+            ffi.Int64)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64,
+                ffi.Int64,
+                ffi.Int64)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Int64,
+            ffi.Int64,
+            ffi.Int64)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64,
+                ffi.Int64,
+                ffi.Int64)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDownloadTask, ffi.Int64, ffi.Int64, ffi.Int64)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64 {
@@ -66730,6 +73128,78 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
                 arg5));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1uuez7b(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDownloadTask,
+            ffi.Int64,
+            ffi.Int64,
+            ffi.Int64)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDownloadTask, ffi.Int64, ffi.Int64, ffi.Int64)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDownloadTask, int, int, int)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                int arg3,
+                int arg4,
+                int arg5) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                arg4,
+                arg5));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_Int64_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                int arg3,
+                int arg4,
+                int arg5) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                arg4,
+                arg5));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1uuez7b,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -66872,6 +73342,71 @@ ffi.NativeCallable<
                 ffi.Int64)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        int arg3,
+        int arg4) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        int,
+        int))(arg0, arg1, arg2, arg3, arg4);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Int64,
+            ffi.Int64)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64,
+                ffi.Int64)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Int64,
+            ffi.Int64)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Int64,
+                ffi.Int64)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionDownloadTask, ffi.Int64, ffi.Int64)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64 {
@@ -66955,6 +73490,67 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownload
                 arg4));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_9qxjkl(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionDownloadTask,
+            ffi.Int64,
+            ffi.Int64)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionDownloadTask, ffi.Int64, ffi.Int64)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionDownloadTask, int, int)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2, int arg3, int arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                arg4));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDownloadTask_Int64_Int64_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2, int arg3, int arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                arg4));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_9qxjkl,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -68025,6 +74621,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionWebSocketTask, objc.NSString?)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString {
@@ -68113,6 +74768,74 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
                         retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_1r3kn8f(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionWebSocketTask,
+            objc.NSString?)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionWebSocketTask, objc.NSString?)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionWebSocketTask, objc.NSString?)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionWebSocketTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3.address == 0
+                    ? null
+                    : objc.NSString.castFromPointer(arg3,
+                        retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSString_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionWebSocketTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3.address == 0
+                    ? null
+                    : objc.NSString.castFromPointer(arg3,
+                        retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -68249,6 +74972,71 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<ffi.Void> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        int arg3,
+        ffi.Pointer<objc.ObjCObject> arg4) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<ffi.Void>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        int,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3, arg4);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            NSInteger,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                NSInteger,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            NSInteger,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                NSInteger,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession, NSURLSessionWebSocketTask, NSInteger, objc.NSData?)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData {
@@ -68342,6 +75130,79 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocke
                         retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_3lo3bb(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            ffi.Pointer<ffi.Void>,
+            NSURLSession,
+            NSURLSessionWebSocketTask,
+            NSInteger,
+            objc.NSData?)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+          NSURLSessionWebSocketTask, NSInteger, objc.NSData?)> blocking(
+      void Function(ffi.Pointer<ffi.Void>, NSURLSession,
+              NSURLSessionWebSocketTask, DartNSInteger, objc.NSData?)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                int arg3,
+                ffi.Pointer<objc.ObjCObject> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionWebSocketTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                arg4.address == 0
+                    ? null
+                    : objc.NSData.castFromPointer(arg4,
+                        retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionWebSocketTask_NSURLSessionWebSocketCloseCode_NSData_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                int arg3,
+                ffi.Pointer<objc.ObjCObject> arg4) =>
+            fn(
+                arg0,
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionWebSocketTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                arg3,
+                arg4.address == 0
+                    ? null
+                    : objc.NSData.castFromPointer(arg4,
+                        retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_3lo3bb,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(
             ffi.Pointer<ffi.Void>,
@@ -69868,6 +76729,56 @@ ffi.NativeCallable<
                 ffi.Pointer<ffi.Bool>)>.listener(
         _ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    int arg1,
+    ffi.Pointer<ffi.Bool> arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<objc.ObjCObject>,
+        int, ffi.Pointer<ffi.Bool>))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            NSUInteger,
+            ffi.Pointer<ffi.Bool>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                NSUInteger,
+                ffi.Pointer<ffi.Bool>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            NSUInteger,
+            ffi.Pointer<ffi.Bool>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                NSUInteger,
+                ffi.Pointer<ffi.Bool>)>.listener(
+        _ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.UnsignedLong, ffi.Pointer<ffi.Bool>)>`.
 abstract final class ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool {
@@ -69940,6 +76851,50 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool {
                 arg2));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_16ko9u(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.UnsignedLong,
+            ffi.Pointer<ffi.Bool>)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.UnsignedLong,
+          ffi.Pointer<ffi.Bool>)> blocking(
+      void Function(objc.ObjCObjectBase, DartNSUInteger, ffi.Pointer<ffi.Bool>)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, int arg1,
+                ffi.Pointer<ffi.Bool> arg2) =>
+            fn(objc.ObjCObjectBase(arg0, retain: false, release: true), arg1,
+                arg2));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_NSUInteger_bool_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, int arg1,
+                ffi.Pointer<ffi.Bool> arg2) =>
+            fn(objc.ObjCObjectBase(arg0, retain: false, release: true), arg1,
+                arg2));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_16ko9u,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(ffi.Pointer<objc.ObjCObject>, ffi.UnsignedLong,
             ffi.Pointer<ffi.Bool>)>(wrapper, retain: false, release: true);
@@ -71392,6 +78347,51 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_objcObjCObject_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_objcObjCObject_NSError_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_NSError_blockingCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_objcObjCObject_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_objcObjCObject_NSError_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_objcObjCObject_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?, objc.NSError)>`.
 abstract final class ObjCBlock_ffiVoid_objcObjCObject_NSError {
@@ -71464,6 +78464,56 @@ abstract final class ObjCBlock_ffiVoid_objcObjCObject_NSError {
                     retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjvic9(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(ffi.Pointer<objc.ObjCObject>?,
+            objc.NSError)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc
+      .ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?, objc.NSError)>
+      blocking(void Function(objc.ObjCObjectBase?, objc.NSError) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_NSError_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.ObjCObjectBase(arg0, retain: false, release: true),
+                objc.NSError.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_objcObjCObject_NSError_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.ObjCObjectBase(arg0, retain: false, release: true),
+                objc.NSError.castFromPointer(arg1,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_wjvic9,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(ffi.Pointer<objc.ObjCObject>?,
             objc.NSError)>(wrapper, retain: false, release: true);
@@ -71568,6 +78618,59 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        NSItemProviderCompletionHandler arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        NSItemProviderCompletionHandler,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            NSItemProviderCompletionHandler,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                NSItemProviderCompletionHandler,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            NSItemProviderCompletionHandler,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                NSItemProviderCompletionHandler,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?, objc.NSError)>, ffi.Pointer<objc.ObjCObject>, objc.NSDictionary)>`.
 abstract final class ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary {
@@ -71663,6 +78766,67 @@ abstract final class ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCO
             ffi.Pointer<objc.ObjCObject>,
             objc.NSDictionary)>(wrapper, retain: false, release: true);
   }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(
+          objc.ObjCBlock<
+              ffi.Void Function(ffi.Pointer<objc.ObjCObject>?, objc.NSError)>,
+          ffi.Pointer<objc.ObjCObject>,
+          objc.NSDictionary)> blocking(
+      void Function(DartNSItemProviderCompletionHandler, objc.ObjCObjectBase,
+              objc.NSDictionary)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary_blockingCallable
+            .nativeFunction
+            .cast(),
+        (NSItemProviderCompletionHandler arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                ObjCBlock_ffiVoid_objcObjCObject_NSError.castFromPointer(arg0,
+                    retain: false, release: true),
+                objc.ObjCObjectBase(arg1, retain: false, release: true),
+                objc.NSDictionary.castFromPointer(arg2,
+                    retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSItemProviderCompletionHandler_objcObjCObject_NSDictionary_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (NSItemProviderCompletionHandler arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2) =>
+            fn(
+                ObjCBlock_ffiVoid_objcObjCObject_NSError.castFromPointer(arg0,
+                    retain: false, release: true),
+                objc.ObjCObjectBase(arg1, retain: false, release: true),
+                objc.NSDictionary.castFromPointer(arg2,
+                    retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_1j2nt86,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(
+            objc.ObjCBlock<
+                ffi.Void Function(ffi.Pointer<objc.ObjCObject>?, objc.NSError)>,
+            ffi.Pointer<objc.ObjCObject>,
+            objc.NSDictionary)>(wrapper, retain: false, release: true);
+  }
 }
 
 /// Call operator for `objc.ObjCBlock<ffi.Void Function(objc.ObjCBlock<ffi.Void Function(ffi.Pointer<objc.ObjCObject>?, objc.NSError)>, ffi.Pointer<objc.ObjCObject>, objc.NSDictionary)>`.
@@ -71729,7 +78893,7 @@ extension NSPreviewSupport on objc.NSItemProvider {
 
   /// setPreviewImageHandler:
   set previewImageHandler(DartNSItemProviderLoadHandler? value) {
-    return _objc_msgSend_f167m6(this.ref.pointer, _sel_setPreviewImageHandler_,
+    _objc_msgSend_f167m6(this.ref.pointer, _sel_setPreviewImageHandler_,
         value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -72159,6 +79323,61 @@ ffi.NativeCallable<
                 ffi.Pointer<ffi.Bool>)>.listener(
         _ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    NSRange arg1,
+    NSRange arg2,
+    ffi.Pointer<ffi.Bool> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<objc.ObjCObject>,
+        NSRange, NSRange, ffi.Pointer<ffi.Bool>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            NSRange,
+            NSRange,
+            ffi.Pointer<ffi.Bool>)>
+    _ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                NSRange,
+                NSRange,
+                ffi.Pointer<ffi.Bool>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            NSRange,
+            NSRange,
+            ffi.Pointer<ffi.Bool>)>
+    _ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                NSRange,
+                NSRange,
+                ffi.Pointer<ffi.Bool>)>.listener(
+        _ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSString?, objc.NSRange, objc.NSRange, ffi.Pointer<ffi.Bool>)>`.
 abstract final class ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool {
@@ -72236,6 +79455,61 @@ abstract final class ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool {
                 arg3));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_8wbg7l(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(objc.NSString?, objc.NSRange, objc.NSRange,
+            ffi.Pointer<ffi.Bool>)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(objc.NSString?, objc.NSRange, objc.NSRange,
+          ffi.Pointer<ffi.Bool>)> blocking(
+      void Function(objc.NSString?, NSRange, NSRange, ffi.Pointer<ffi.Bool>) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, NSRange arg1, NSRange arg2,
+                ffi.Pointer<ffi.Bool> arg3) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSString.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1,
+                arg2,
+                arg3));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSString_NSRange_NSRange_bool_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, NSRange arg1, NSRange arg2,
+                ffi.Pointer<ffi.Bool> arg3) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSString.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1,
+                arg2,
+                arg3));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_8wbg7l,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(objc.NSString?, objc.NSRange, objc.NSRange,
             ffi.Pointer<ffi.Bool>)>(wrapper, retain: false, release: true);
@@ -72333,6 +79607,50 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>, ffi.Pointer<ffi.Bool>)>.listener(
         _ObjCBlock_ffiVoid_NSString_bool_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSString_bool_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<ffi.Bool> arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>, ffi.Pointer<ffi.Bool>))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<ffi.Bool>)>
+    _ObjCBlock_ffiVoid_NSString_bool_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<ffi.Bool>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSString_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<ffi.Bool>)>
+    _ObjCBlock_ffiVoid_NSString_bool_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<ffi.Bool>)>.listener(
+        _ObjCBlock_ffiVoid_NSString_bool_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSString, ffi.Pointer<ffi.Bool>)>`.
 abstract final class ObjCBlock_ffiVoid_NSString_bool {
@@ -72397,6 +79715,42 @@ abstract final class ObjCBlock_ffiVoid_NSString_bool {
             arg1));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_148br51(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(objc.NSString, ffi.Pointer<ffi.Bool>)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSString, ffi.Pointer<ffi.Bool>)>
+      blocking(void Function(objc.NSString, ffi.Pointer<ffi.Bool>) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSString_bool_blockingCallable.nativeFunction.cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<ffi.Bool> arg1) => fn(
+            objc.NSString.castFromPointer(arg0, retain: false, release: true),
+            arg1));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSString_bool_blockingListenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0, ffi.Pointer<ffi.Bool> arg1) => fn(
+            objc.NSString.castFromPointer(arg0, retain: false, release: true),
+            arg1));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_148br51,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(objc.NSString, ffi.Pointer<ffi.Bool>)>(wrapper,
         retain: false, release: true);
@@ -72709,6 +80063,44 @@ ffi.NativeCallable<
                 ffi.Pointer<unichar>, NSUInteger)>.listener(
         _ObjCBlock_ffiVoid_unichar_NSUInteger_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_unichar_NSUInteger_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<unichar> arg0,
+    int arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<unichar>, int))(
+        arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<unichar>, NSUInteger)>
+    _ObjCBlock_ffiVoid_unichar_NSUInteger_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<unichar>,
+                NSUInteger)>.isolateLocal(
+        _ObjCBlock_ffiVoid_unichar_NSUInteger_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<unichar>, NSUInteger)>
+    _ObjCBlock_ffiVoid_unichar_NSUInteger_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<unichar>,
+                NSUInteger)>.listener(
+        _ObjCBlock_ffiVoid_unichar_NSUInteger_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>`.
 abstract final class ObjCBlock_ffiVoid_unichar_NSUInteger {
@@ -72769,6 +80161,41 @@ abstract final class ObjCBlock_ffiVoid_unichar_NSUInteger {
         (ffi.Pointer<unichar> arg0, int arg1) => fn(arg0, arg1));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_vhbh5h(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc
+      .ObjCBlock<ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>
+      blocking(void Function(ffi.Pointer<unichar>, DartNSUInteger) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_unichar_NSUInteger_blockingCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<unichar> arg0, int arg1) => fn(arg0, arg1));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_unichar_NSUInteger_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<unichar> arg0, int arg1) => fn(arg0, arg1));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_vhbh5h,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(ffi.Pointer<unichar>, ffi.UnsignedLong)>(wrapper,
         retain: false, release: true);
@@ -72955,6 +80382,44 @@ ffi.NativeCallable<
                 ffi.Pointer<ffi.Void>, NSUInteger)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<ffi.Void> arg0,
+    int arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<ffi.Void>, int))(
+        arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, NSUInteger)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                NSUInteger)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>, NSUInteger)>
+    _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<ffi.Void>,
+                NSUInteger)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid_NSUInteger {
@@ -73016,6 +80481,41 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid_NSUInteger {
         (ffi.Pointer<ffi.Void> arg0, int arg1) => fn(arg0, arg1));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_zuf90e(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+            ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc
+      .ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>
+      blocking(void Function(ffi.Pointer<ffi.Void>, DartNSUInteger) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_blockingCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, int arg1) => fn(arg0, arg1));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_NSUInteger_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0, int arg1) => fn(arg0, arg1));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_zuf90e,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
             ffi.Void Function(ffi.Pointer<ffi.Void>, ffi.UnsignedLong)>(wrapper,
         retain: false, release: true);
@@ -74760,6 +82260,50 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSData_NSError_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_NSData_NSError_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<objc.ObjCObject> arg0,
+    ffi.Pointer<objc.ObjCObject> arg1) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSData_NSError_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSData_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSData_NSError_blockingListenerCallable = ffi
+        .NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSData_NSError_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>`.
 abstract final class ObjCBlock_ffiVoid_NSData_NSError {
@@ -74834,6 +82378,61 @@ abstract final class ObjCBlock_ffiVoid_NSData_NSError {
                         retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_wjvic9(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
+        wrapper,
+        retain: false,
+        release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>
+      blocking(void Function(objc.NSData?, objc.NSError?) fn,
+          {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSData_NSError_blockingCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSData.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg1,
+                        retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSData_NSError_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1) =>
+            fn(
+                arg0.address == 0
+                    ? null
+                    : objc.NSData.castFromPointer(arg0,
+                        retain: false, release: true),
+                arg1.address == 0
+                    ? null
+                    : objc.NSError.castFromPointer(arg1,
+                        retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_wjvic9,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(objc.NSData?, objc.NSError?)>(
         wrapper,
         retain: false,
@@ -76065,6 +83664,35 @@ ffi.NativeCallable<
                 ffi.Pointer<ffi.Void>)>.listener(
         _ObjCBlock_ffiVoid_ffiVoid_listenerTrampoline)
       ..keepIsolateAlive = false;
+void _ObjCBlock_ffiVoid_ffiVoid_blockingTrampoline(
+    ffi.Pointer<objc.ObjCBlockImpl> block,
+    ffi.Pointer<ffi.Void> waiter,
+    ffi.Pointer<ffi.Void> arg0) {
+  try {
+    (objc.getBlockClosure(block) as void Function(ffi.Pointer<ffi.Void>))(arg0);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>
+    _ObjCBlock_ffiVoid_ffiVoid_blockingCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_ffiVoid_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>
+    _ObjCBlock_ffiVoid_ffiVoid_blockingListenerCallable = ffi.NativeCallable<
+            ffi.Void Function(ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>, ffi.Pointer<ffi.Void>)>.listener(
+        _ObjCBlock_ffiVoid_ffiVoid_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>`.
 abstract final class ObjCBlock_ffiVoid_ffiVoid {
@@ -76120,6 +83748,37 @@ abstract final class ObjCBlock_ffiVoid_ffiVoid {
         (ffi.Pointer<ffi.Void> arg0) => fn(arg0));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_ovsamd(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(wrapper,
+        retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)> blocking(
+      void Function(ffi.Pointer<ffi.Void>) fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_blockingCallable.nativeFunction.cast(),
+        (ffi.Pointer<ffi.Void> arg0) => fn(arg0));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_ffiVoid_blockingListenerCallable.nativeFunction
+            .cast(),
+        (ffi.Pointer<ffi.Void> arg0) => fn(arg0));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_ovsamd,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<ffi.Void Function(ffi.Pointer<ffi.Void>)>(wrapper,
         retain: false, release: true);
   }
@@ -76192,7 +83851,7 @@ class NSCondition extends objc.NSObject {
 
   /// setName:
   set name(objc.NSString? value) {
-    return _objc_msgSend_1jdvcbf(
+    _objc_msgSend_1jdvcbf(
         this.ref.pointer, _sel_setName_, value?.ref.pointer ?? ffi.nullptr);
   }
 
@@ -76297,6 +83956,705 @@ extension NSExceptionRaisingConveniences on NSException {
 
 typedef NSUncaughtExceptionHandler = ffi
     .NativeFunction<ffi.Void Function(ffi.Pointer<objc.ObjCObject> exception)>;
+typedef os_function_tFunction1 = ffi.Void Function(ffi.Pointer<ffi.Void>);
+typedef Dartos_function_tFunction1 = void Function(ffi.Pointer<ffi.Void>);
+typedef os_function_t1
+    = ffi.Pointer<ffi.NativeFunction<os_function_tFunction1>>;
+
+/// !
+/// @typedef os_block_t
+///
+/// @abstract
+/// Generic type for a block taking no arguments and returning no value.
+///
+/// @discussion
+/// When not building with Objective-C ARC, a block object allocated on or
+/// copied to the heap must be released with a -[release] message or the
+/// Block_release() function.
+///
+/// The declaration of a block literal allocates storage on the stack.
+/// Therefore, this is an invalid construct:
+/// <code>
+/// os_block_t block;
+/// if (x) {
+/// block = ^{ printf("true\n"); };
+/// } else {
+/// block = ^{ printf("false\n"); };
+/// }
+/// block(); // unsafe!!!
+/// </code>
+///
+/// What is happening behind the scenes:
+/// <code>
+/// if (x) {
+/// struct Block __tmp_1 = ...; // setup details
+/// block = &__tmp_1;
+/// } else {
+/// struct Block __tmp_2 = ...; // setup details
+/// block = &__tmp_2;
+/// }
+/// </code>
+///
+/// As the example demonstrates, the address of a stack variable is escaping the
+/// scope in which it is allocated. That is a classic C bug.
+///
+/// Instead, the block literal must be copied to the heap with the Block_copy()
+/// function or by sending it a -[copy] message.
+typedef os_block_t1 = ffi.Pointer<objc.ObjCBlockImpl>;
+typedef Dartos_block_t1 = objc.ObjCBlock<ffi.Void Function()>;
+typedef fsignatures_t1 = fsignatures;
+typedef fsupplement_t1 = fsupplement;
+
+/// DYLD needs to check if the object is allowed to be combined
+/// into the main binary. This is done between the code signature
+/// is loaded and dyld is doing all the work to process the LOAD commands.
+///
+/// While this could be done in F_ADDFILESIGS.* family the hook into
+/// the MAC module doesn't say no when LV isn't enabled and then that
+/// is cached on the vnode, and the MAC module never gets change once
+/// a process that library validation enabled.
+typedef fchecklv_t1 = fchecklv;
+
+/// fgetsigsinfo_t used by F_GETSIGSINFO command
+typedef fgetsigsinfo_t1 = fgetsigsinfo;
+
+/// fstore_t type used by F_PREALLOCATE command
+typedef fstore_t1 = fstore;
+
+/// fpunchhole_t used by F_PUNCHHOLE
+typedef fpunchhole_t1 = fpunchhole;
+
+/// factive_file_trim_t used by F_TRIM_ACTIVE_FILE
+typedef ftrimactivefile_t1 = ftrimactivefile;
+
+/// fspecread_t used by F_SPECULATIVE_READ
+typedef fspecread_t1 = fspecread;
+typedef fattributiontag_t1 = fattributiontag;
+typedef filesec_t1 = ffi.Pointer<_filesec>;
+typedef boolean_t1 = ffi.Int;
+typedef Dartboolean_t1 = int;
+
+/// natural_t and integer_t are Mach's legacy types for machine-
+/// independent integer types (unsigned, and signed, respectively).
+/// Their original purpose was to define other types in a machine/
+/// compiler independent way.
+///
+/// They also had an implicit "same size as pointer" characteristic
+/// to them (i.e. Mach's traditional types are very ILP32 or ILP64
+/// centric).  We will likely support x86 ABIs that do not follow
+/// either ofthese models (specifically LP64).  Therefore, we had to
+/// make a choice between making these types scale with pointers or stay
+/// tied to integers.  Because their use is predominantly tied to
+/// to the size of an integer, we are keeping that association and
+/// breaking free from pointer size guarantees.
+///
+/// New use of these types is discouraged.
+typedef natural_t1 = __darwin_natural_t;
+typedef integer_t1 = ffi.Int;
+typedef Dartinteger_t1 = int;
+typedef vm_offset_t1 = ffi.UintPtr;
+typedef Dartvm_offset_t1 = int;
+typedef vm_size_t1 = ffi.UintPtr;
+typedef Dartvm_size_t1 = int;
+typedef mach_vm_address_t1 = ffi.Uint64;
+typedef Dartmach_vm_address_t1 = int;
+typedef mach_vm_offset_t1 = ffi.Uint64;
+typedef Dartmach_vm_offset_t1 = int;
+typedef mach_vm_size_t1 = ffi.Uint64;
+typedef Dartmach_vm_size_t1 = int;
+typedef vm_map_offset_t1 = ffi.Uint64;
+typedef Dartvm_map_offset_t1 = int;
+typedef vm_map_address_t1 = ffi.Uint64;
+typedef Dartvm_map_address_t1 = int;
+typedef vm_map_size_t1 = ffi.Uint64;
+typedef Dartvm_map_size_t1 = int;
+typedef vm32_offset_t1 = ffi.Uint32;
+typedef Dartvm32_offset_t1 = int;
+typedef vm32_address_t1 = ffi.Uint32;
+typedef Dartvm32_address_t1 = int;
+typedef vm32_size_t1 = ffi.Uint32;
+typedef Dartvm32_size_t1 = int;
+typedef mach_port_context_t1 = vm_offset_t1;
+
+/// mach_port_name_t - the local identity for a Mach port
+///
+/// The name is Mach port namespace specific.  It is used to
+/// identify the rights held for that port by the task whose
+/// namespace is implied [or specifically provided].
+///
+/// Use of this type usually implies just a name - no rights.
+/// See mach_port_t for a type that implies a "named right."
+typedef mach_port_name_t1 = natural_t1;
+typedef mach_port_name_array_t1 = ffi.Pointer<mach_port_name_t1>;
+typedef mach_port_t1 = __darwin_mach_port_t;
+typedef mach_port_array_t1 = ffi.Pointer<mach_port_t1>;
+
+/// These are the different rights a task may have for a port.
+/// The MACH_PORT_RIGHT_* definitions are used as arguments
+/// to mach_port_allocate, mach_port_get_refs, etc, to specify
+/// a particular right to act upon.  The mach_port_names and
+/// mach_port_type calls return bitmasks using the MACH_PORT_TYPE_*
+/// definitions.  This is because a single name may denote
+/// multiple rights.
+typedef mach_port_right_t1 = natural_t1;
+typedef mach_port_type_t1 = natural_t1;
+typedef mach_port_type_array_t1 = ffi.Pointer<mach_port_type_t1>;
+
+/// User-references for capabilities.
+typedef mach_port_urefs_t1 = natural_t1;
+typedef mach_port_delta_t1 = integer_t1;
+
+/// Attributes of ports.  (See mach_port_get_receive_status.)
+typedef mach_port_seqno_t1 = natural_t1;
+typedef mach_port_mscount_t1 = natural_t1;
+typedef mach_port_msgcount_t1 = natural_t1;
+typedef mach_port_rights_t1 = natural_t1;
+typedef mach_port_srights_t1 = ffi.UnsignedInt;
+typedef Dartmach_port_srights_t1 = int;
+typedef mach_port_status_t1 = mach_port_status;
+typedef mach_port_limits_t1 = mach_port_limits;
+typedef mach_port_info_ext_t1 = mach_port_info_ext;
+typedef mach_port_guard_info_t1 = mach_port_guard_info;
+typedef mach_port_info_t1 = ffi.Pointer<integer_t1>;
+
+/// Flavors for mach_port_get/set/assert_attributes()
+typedef mach_port_flavor_t1 = ffi.Int;
+typedef Dartmach_port_flavor_t1 = int;
+
+/// Structure used to pass information about port allocation requests.
+/// Must be padded to 64-bits total length.
+typedef mach_port_qos_t1 = mach_port_qos;
+typedef mach_service_port_info_data_t1 = mach_service_port_info;
+typedef mach_service_port_info_t1 = ffi.Pointer<mach_service_port_info>;
+
+/// Structure to define optional attributes for a newly
+/// constructed port.
+typedef mach_port_options_t1 = mach_port_options;
+typedef mach_port_options_ptr_t1 = ffi.Pointer<mach_port_options_t1>;
+
+/// !
+/// @typedef os_workgroup_t
+///
+/// @abstract
+/// A reference counted os object representing a workload that needs to
+/// be distinctly recognized and tracked by the system.  The workgroup
+/// tracks a collection of threads all working cooperatively. An os_workgroup
+/// object - when not an instance of a specific os_workgroup_t subclass -
+/// represents a generic workload and makes no assumptions about the kind of
+/// work done.
+///
+/// @discussion
+/// Threads can explicitly join an os_workgroup_t to mark themselves as
+/// participants in the workload.
+typedef os_workgroup_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartos_workgroup_t1 = OS_os_workgroup;
+
+/// !
+/// @typedef os_workgroup_attr_t
+///
+/// @abstract
+/// Pointer to an opaque structure for describing attributes that can be
+/// configured on a workgroup at creation.
+typedef os_workgroup_attr_s1 = os_workgroup_attr_opaque_s;
+typedef os_workgroup_attr_t1 = ffi.Pointer<os_workgroup_attr_opaque_s>;
+
+/// !
+/// @typedef os_workgroup_join_token, os_workgroup_join_token_t
+///
+/// @abstract
+/// An opaque join token which the client needs to pass to os_workgroup_join
+/// and os_workgroup_leave
+typedef os_workgroup_join_token_s1 = os_workgroup_join_token_opaque_s;
+typedef os_workgroup_join_token_t1
+    = ffi.Pointer<os_workgroup_join_token_opaque_s>;
+
+/// Working Arena index of a thread in a workgroup
+typedef os_workgroup_index1 = ffi.Uint32;
+typedef Dartos_workgroup_index1 = int;
+typedef os_workgroup_working_arena_destructor_tFunction1 = ffi.Void Function(
+    ffi.Pointer<ffi.Void>);
+typedef Dartos_workgroup_working_arena_destructor_tFunction1 = void Function(
+    ffi.Pointer<ffi.Void>);
+
+/// Destructor for Working Arena
+typedef os_workgroup_working_arena_destructor_t1 = ffi.Pointer<
+    ffi.NativeFunction<os_workgroup_working_arena_destructor_tFunction1>>;
+
+/// !
+/// @typedef os_workgroup_max_parallel_threads_attr_t
+///
+/// @abstract
+/// A pointer to a structure describing the set of properties of a workgroup to
+/// override with the explicitly specified values in the structure.
+///
+/// See also os_workgroup_max_parallel_threads.
+typedef os_workgroup_mpt_attr_s1 = os_workgroup_max_parallel_threads_attr_s;
+typedef os_workgroup_mpt_attr_t1
+    = ffi.Pointer<os_workgroup_max_parallel_threads_attr_s>;
+typedef os_workgroup_interval_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartos_workgroup_interval_t1 = OS_os_workgroup;
+
+/// @typedef os_workgroup_interval_data, os_workgroup_interval_data_t
+///
+/// @abstract
+/// An opaque structure containing additional configuration for the workgroup
+/// interval.
+typedef os_workgroup_interval_data_s1 = os_workgroup_interval_data_opaque_s;
+typedef os_workgroup_interval_data_t1
+    = ffi.Pointer<os_workgroup_interval_data_opaque_s>;
+typedef os_workgroup_parallel_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartos_workgroup_parallel_t1 = OS_os_workgroup;
+typedef dispatch_function_tFunction1 = ffi.Void Function(ffi.Pointer<ffi.Void>);
+typedef Dartdispatch_function_tFunction1 = void Function(ffi.Pointer<ffi.Void>);
+typedef dispatch_function_t1
+    = ffi.Pointer<ffi.NativeFunction<dispatch_function_tFunction1>>;
+typedef time_value_t1 = time_value;
+
+/// Type definitions.
+typedef alarm_type_t1 = ffi.Int;
+typedef Dartalarm_type_t1 = int;
+typedef sleep_type_t1 = ffi.Int;
+typedef Dartsleep_type_t1 = int;
+typedef clock_id_t1 = ffi.Int;
+typedef Dartclock_id_t1 = int;
+typedef clock_flavor_t1 = ffi.Int;
+typedef Dartclock_flavor_t1 = int;
+typedef clock_attr_t1 = ffi.Pointer<ffi.Int>;
+typedef clock_res_t1 = ffi.Int;
+typedef Dartclock_res_t1 = int;
+typedef mach_timespec_t1 = mach_timespec;
+
+/// !
+/// @typedef dispatch_time_t
+///
+/// @abstract
+/// A somewhat abstract representation of time; where zero means "now" and
+/// DISPATCH_TIME_FOREVER means "infinity" and every value in between is an
+/// opaque encoding.
+typedef dispatch_time_t1 = ffi.Uint64;
+typedef Dartdispatch_time_t1 = int;
+
+/// By default, dispatch objects are declared as Objective-C types when building
+/// with an Objective-C compiler. This allows them to participate in ARC, in RR
+/// management by the Blocks runtime and in leaks checking by the static
+/// analyzer, and enables them to be added to Cocoa collections.
+/// See <os/object.h> for details.
+typedef dispatch_object_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_object_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_block_t
+///
+/// @abstract
+/// The type of blocks submitted to dispatch queues, which take no arguments
+/// and have no return value.
+///
+/// @discussion
+/// When not building with Objective-C ARC, a block object allocated on or
+/// copied to the heap must be released with a -[release] message or the
+/// Block_release() function.
+///
+/// The declaration of a block literal allocates storage on the stack.
+/// Therefore, this is an invalid construct:
+/// <code>
+/// dispatch_block_t block;
+/// if (x) {
+/// block = ^{ printf("true\n"); };
+/// } else {
+/// block = ^{ printf("false\n"); };
+/// }
+/// block(); // unsafe!!!
+/// </code>
+///
+/// What is happening behind the scenes:
+/// <code>
+/// if (x) {
+/// struct Block __tmp_1 = ...; // setup details
+/// block = &__tmp_1;
+/// } else {
+/// struct Block __tmp_2 = ...; // setup details
+/// block = &__tmp_2;
+/// }
+/// </code>
+///
+/// As the example demonstrates, the address of a stack variable is escaping the
+/// scope in which it is allocated. That is a classic C bug.
+///
+/// Instead, the block literal must be copied to the heap with the Block_copy()
+/// function or by sending it a -[copy] message.
+typedef dispatch_block_t1 = ffi.Pointer<objc.ObjCBlockImpl>;
+typedef Dartdispatch_block_t1 = objc.ObjCBlock<ffi.Void Function()>;
+
+/// !
+/// @typedef dispatch_queue_global_t
+///
+/// @abstract
+/// Dispatch global concurrent queues are an abstraction around the system thread
+/// pool which invokes workitems that are submitted to dispatch queues.
+///
+/// @discussion
+/// Dispatch global concurrent queues provide buckets of priorities on top of the
+/// thread pool the system manages. The system will decide how many threads
+/// to allocate to this pool depending on demand and system load. In particular,
+/// the system tries to maintain a good level of concurrency for this resource,
+/// and will create new threads when too many existing worker threads block in
+/// system calls.
+///
+/// The global concurrent queues are a shared resource and as such it is the
+/// responsiblity of every user of this resource to not submit an unbounded
+/// amount of work to this pool, especially work that may block, as this can
+/// cause the system to spawn very large numbers of threads (aka. thread
+/// explosion).
+///
+/// Work items submitted to the global concurrent queues have no ordering
+/// guarantee with respect to the order of submission, and workitems submitted
+/// to these queues may be invoked concurrently.
+///
+/// Dispatch global concurrent queues are well-known global objects that are
+/// returned by dispatch_get_global_queue(). These objects cannot be modified.
+/// Calls to dispatch_suspend(), dispatch_resume(), dispatch_set_context(), etc.,
+/// will have no effect when used with queues of this type.
+typedef dispatch_queue_global_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_queue_global_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_queue_serial_executor_t
+///
+/// @abstract
+/// An abstract class of dispatch queues which conform to the serial executor
+/// protocol.
+///
+/// @discussion
+/// A serial executor in Swift Concurrency represents a mutual exclusion context.
+/// Queues with a singular owner, which invoke only one workItem at a time
+/// provide such a mutual exclusion context and are serial executors.
+///
+/// Subclasses of this abstract class can be therefore be setup as Custom
+/// Executors for Swift Actors.
+///
+/// See dispatch_queue_serial_t and dispatch_workloop_t.
+typedef dispatch_queue_serial_executor_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_queue_serial_executor_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_queue_serial_t
+///
+/// @abstract
+/// Dispatch serial queues invoke workitems submitted to them serially in FIFO
+/// order.
+///
+/// @discussion
+/// Dispatch serial queues are lightweight objects to which workitems may be
+/// submitted to be invoked in FIFO order. A serial queue will only invoke one
+/// workitem at a time, but independent serial queues may each invoke their work
+/// items concurrently with respect to each other.
+///
+/// Serial queues can target each other (See dispatch_set_target_queue()). The
+/// serial queue at the bottom of a queue hierarchy provides an exclusion
+/// context: at most one workitem submitted to any of the queues in such
+/// a hiearchy will run at any given time.
+///
+/// Such hierarchies provide a natural construct to organize an application
+/// subsystem around.
+///
+/// Serial queues are created by passing a dispatch queue attribute derived from
+/// DISPATCH_QUEUE_SERIAL to dispatch_queue_create_with_target().
+typedef dispatch_queue_serial_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_queue_serial_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_queue_main_t
+///
+/// @abstract
+/// The type of the default queue that is bound to the main thread.
+///
+/// @discussion
+/// The main queue is a serial queue (See dispatch_queue_serial_t) which is bound
+/// to the main thread of an application.
+///
+/// In order to invoke workitems submitted to the main queue, the application
+/// must call dispatch_main(), NSApplicationMain(), or use a CFRunLoop on the
+/// main thread.
+///
+/// The main queue is a well known global object that is made automatically on
+/// behalf of the main thread during process initialization and is returned by
+/// dispatch_get_main_queue(). This object cannot be modified.  Calls to
+/// dispatch_suspend(), dispatch_resume(), dispatch_set_context(), etc., will
+/// have no effect when used on the main queue.
+typedef dispatch_queue_main_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_queue_main_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_queue_concurrent_t
+///
+/// @abstract
+/// Dispatch concurrent queues invoke workitems submitted to them concurrently,
+/// and admit a notion of barrier workitems.
+///
+/// @discussion
+/// Dispatch concurrent queues are lightweight objects to which regular and
+/// barrier workitems may be submited. Barrier workitems are invoked in
+/// exclusion of any other kind of workitem in FIFO order.
+///
+/// Regular workitems can be invoked concurrently for the same concurrent queue,
+/// in any order. However, regular workitems will not be invoked before any
+/// barrier workitem submited ahead of them has been invoked.
+///
+/// In other words, if a serial queue is equivalent to a mutex in the Dispatch
+/// world, a concurrent queue is equivalent to a reader-writer lock, where
+/// regular items are readers and barriers are writers.
+///
+/// Concurrent queues are created by passing a dispatch queue attribute derived
+/// from DISPATCH_QUEUE_CONCURRENT to dispatch_queue_create_with_target().
+///
+/// Caveat:
+/// Dispatch concurrent queues at this time do not implement priority inversion
+/// avoidance when lower priority regular workitems (readers) are being invoked
+/// and are preventing a higher priority barrier (writer) from being invoked.
+typedef dispatch_queue_concurrent_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_queue_concurrent_t1 = objc.NSObject;
+typedef dispatch_queue_priority_t1 = ffi.Long;
+typedef Dartdispatch_queue_priority_t1 = int;
+
+/// !
+/// @typedef dispatch_queue_attr_t
+///
+/// @abstract
+/// Attribute for dispatch queues.
+typedef dispatch_queue_attr_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_queue_attr_t1 = objc.NSObject;
+typedef kern_return_t1 = ffi.Int;
+typedef Dartkern_return_t1 = int;
+
+/// The timeout mechanism uses mach_msg_timeout_t values,
+/// passed by value.  The timeout units are milliseconds.
+/// It is controlled with the MACH_SEND_TIMEOUT
+/// and MACH_RCV_TIMEOUT options.
+typedef mach_msg_timeout_t1 = natural_t1;
+
+/// Every message starts with a message header.
+/// Following the message header, if the message is complex, are a count
+/// of type descriptors and the type descriptors themselves
+/// (mach_msg_descriptor_t). The size of the message must be specified in
+/// bytes, and includes the message header, descriptor count, descriptors,
+/// and inline data.
+///
+/// The msgh_remote_port field specifies the destination of the message.
+/// It must specify a valid send or send-once right for a port.
+///
+/// The msgh_local_port field specifies a "reply port".  Normally,
+/// This field carries a send-once right that the receiver will use
+/// to reply to the message.  It may carry the values MACH_PORT_NULL,
+/// MACH_PORT_DEAD, a send-once right, or a send right.
+///
+/// The msgh_voucher_port field specifies a Mach voucher port. Only
+/// send rights to kernel-implemented Mach Voucher kernel objects in
+/// addition to MACH_PORT_NULL or MACH_PORT_DEAD may be passed.
+///
+/// The msgh_id field is uninterpreted by the message primitives.
+/// It normally carries information specifying the format
+/// or meaning of the message.
+typedef mach_msg_bits_t1 = ffi.UnsignedInt;
+typedef Dartmach_msg_bits_t1 = int;
+typedef mach_msg_size_t1 = natural_t1;
+typedef mach_msg_id_t1 = integer_t1;
+typedef mach_msg_priority_t1 = ffi.UnsignedInt;
+typedef Dartmach_msg_priority_t1 = int;
+typedef mach_msg_type_name_t1 = ffi.UnsignedInt;
+typedef Dartmach_msg_type_name_t1 = int;
+typedef mach_msg_copy_options_t1 = ffi.UnsignedInt;
+typedef Dartmach_msg_copy_options_t1 = int;
+typedef mach_msg_guard_flags_t1 = ffi.UnsignedInt;
+typedef Dartmach_msg_guard_flags_t1 = int;
+
+/// In a complex mach message, the mach_msg_header_t is followed by
+/// a descriptor count, then an array of that number of descriptors
+/// (mach_msg_*_descriptor_t). The type field of mach_msg_type_descriptor_t
+/// (which any descriptor can be cast to) indicates the flavor of the
+/// descriptor.
+///
+/// Note that in LP64, the various types of descriptors are no longer all
+/// the same size as mach_msg_descriptor_t, so the array cannot be indexed
+/// as expected.
+typedef mach_msg_descriptor_type_t1 = ffi.UnsignedInt;
+typedef Dartmach_msg_descriptor_type_t1 = int;
+typedef mach_msg_trailer_type_t1 = ffi.UnsignedInt;
+typedef Dartmach_msg_trailer_type_t1 = int;
+typedef mach_msg_trailer_size_t1 = ffi.UnsignedInt;
+typedef Dartmach_msg_trailer_size_t1 = int;
+typedef mach_msg_trailer_info_t1 = ffi.Pointer<ffi.Char>;
+typedef mach_msg_filter_id1 = ffi.Int;
+typedef Dartmach_msg_filter_id1 = int;
+
+/// These values can change from release to release - but clearly
+/// code cannot request additional trailer elements one was not
+/// compiled to understand.  Therefore, it is safe to use this
+/// constant when the same module specified the receive options.
+/// Otherwise, you run the risk that the options requested by
+/// another module may exceed the local modules notion of
+/// MAX_TRAILER_SIZE.
+typedef mach_msg_max_trailer_t1 = mach_msg_mac_trailer_t;
+
+/// Legacy requirements keep us from ever updating these defines (even
+/// when the format_0 trailers gain new option data fields in the future).
+/// Therefore, they shouldn't be used going forward.  Instead, the sizes
+/// should be compared against the specific element size requested using
+/// REQUESTED_TRAILER_SIZE.
+typedef mach_msg_format_0_trailer_t1 = mach_msg_security_trailer_t;
+typedef mach_msg_options_t1 = integer_t1;
+typedef mach_msg_type_size_t1 = natural_t1;
+typedef mach_msg_type_number_t1 = natural_t1;
+typedef mach_msg_option_t1 = integer_t1;
+
+/// Much code assumes that mach_msg_return_t == kern_return_t.
+/// This definition is useful for descriptive purposes.
+///
+/// See <mach/error.h> for the format of error codes.
+/// IPC errors are system 4.  Send errors are subsystem 0;
+/// receive errors are subsystem 1.  The code field is always non-zero.
+/// The high bits of the code field communicate extra information
+/// for some error codes.  MACH_MSG_MASK masks off these special bits.
+typedef mach_msg_return_t1 = kern_return_t1;
+
+/// !
+/// @typedef dispatch_source_t
+///
+/// @abstract
+/// Dispatch sources are used to automatically submit event handler blocks to
+/// dispatch queues in response to external events.
+typedef dispatch_source_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_source_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_source_type_t
+///
+/// @abstract
+/// Constants of this type represent the class of low-level system object that
+/// is being monitored by the dispatch source. Constants of this type are
+/// passed as a parameter to dispatch_source_create() and determine how the
+/// handle argument is interpreted (i.e. as a file descriptor, mach port,
+/// signal number, process identifier, etc.), and how the mask argument is
+/// interpreted.
+typedef dispatch_source_type_t1 = ffi.Pointer<dispatch_source_type_s>;
+typedef dispatch_source_mach_send_flags_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_source_mach_send_flags_t1 = int;
+
+/// !
+/// @typedef dispatch_source_mach_recv_flags_t
+/// Type of dispatch_source_mach_recv flags
+typedef dispatch_source_mach_recv_flags_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_source_mach_recv_flags_t1 = int;
+typedef dispatch_source_memorypressure_flags_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_source_memorypressure_flags_t1 = int;
+typedef dispatch_source_proc_flags_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_source_proc_flags_t1 = int;
+typedef dispatch_source_vnode_flags_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_source_vnode_flags_t1 = int;
+typedef dispatch_source_timer_flags_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_source_timer_flags_t1 = int;
+
+/// !
+/// @typedef dispatch_group_t
+/// @abstract
+/// A group of blocks submitted to queues for asynchronous invocation.
+typedef dispatch_group_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_group_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_semaphore_t
+///
+/// @abstract
+/// A counting semaphore.
+typedef dispatch_semaphore_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_semaphore_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_once_t
+///
+/// @abstract
+/// A predicate for use with dispatch_once(). It must be initialized to zero.
+/// Note: static and global variables default to zero.
+typedef dispatch_once_t1 = ffi.IntPtr;
+typedef Dartdispatch_once_t1 = int;
+
+/// !
+/// @typedef dispatch_data_t
+/// A dispatch object representing memory regions.
+typedef dispatch_data_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_data_t1 = objc.NSObject;
+
+/// !
+/// @typedef dispatch_data_applier_t
+/// A block to be invoked for every contiguous memory region in a data object.
+///
+/// @param region	A data object representing the current region.
+/// @param offset	The logical offset of the current region to the start
+/// of the data object.
+/// @param buffer	The location of the memory for the current region.
+/// @param size		The size of the memory for the current region.
+/// @result		A Boolean indicating whether traversal should continue.
+typedef dispatch_data_applier_t1 = ffi.Pointer<objc.ObjCBlockImpl>;
+typedef Dartdispatch_data_applier_t1 = objc.ObjCBlock<
+    ffi.Bool Function(
+        objc.NSObject, ffi.Size, ffi.Pointer<ffi.Void>, ffi.Size)>;
+typedef dispatch_fd_t1 = ffi.Int;
+typedef Dartdispatch_fd_t1 = int;
+
+/// !
+/// @typedef dispatch_io_t
+/// A dispatch I/O channel represents the asynchronous I/O policy applied to a
+/// file descriptor. I/O channels are first class dispatch objects and may be
+/// retained and released, suspended and resumed, etc.
+typedef dispatch_io_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_io_t1 = objc.NSObject;
+typedef dispatch_io_type_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_io_type_t1 = int;
+
+/// !
+/// @typedef dispatch_io_handler_t
+/// The prototype of I/O handler blocks for dispatch I/O operations.
+///
+/// @param done		A flag indicating whether the operation is complete.
+/// @param data		The data object to be handled.
+/// @param error		An errno condition for the operation.
+typedef dispatch_io_handler_t1 = ffi.Pointer<objc.ObjCBlockImpl>;
+typedef Dartdispatch_io_handler_t1
+    = objc.ObjCBlock<ffi.Void Function(ffi.Bool, objc.NSObject?, ffi.Int)>;
+typedef dispatch_io_close_flags_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_io_close_flags_t1 = int;
+typedef dispatch_io_interval_flags_t1 = ffi.UnsignedLong;
+typedef Dartdispatch_io_interval_flags_t1 = int;
+
+/// !
+/// @typedef dispatch_workloop_t
+///
+/// @abstract
+/// Dispatch workloops invoke workitems submitted to them in priority order.
+///
+/// @discussion
+/// A dispatch workloop is a flavor of dispatch_queue_t that is a priority
+/// ordered queue (using the QOS class of the submitted workitems as the
+/// ordering). Dispatch workloops are an exclusion context and it is guaranteed
+/// that only one work item submitted to the dispatch workloop will be invoked at
+/// a time.
+///
+/// Between each workitem invocation, the workloop will evaluate whether higher
+/// priority workitems have since been submitted, either directly to the
+/// workloop or to any queues that target the workloop, and execute these first.
+///
+/// Serial queues targeting a workloop maintain FIFO execution of their
+/// workitems. However, the workloop may reorder workitems submitted to
+/// independent serial queues targeting it with respect to each other,
+/// based on their priorities, while preserving FIFO execution with respect to
+/// each serial queue.
+///
+/// A dispatch workloop is a "subclass" of dispatch_queue_t which can be passed
+/// to all APIs accepting a dispatch queue, except for functions from the
+/// dispatch_sync() family. dispatch_async_and_wait() must be used for workloop
+/// objects. Functions from the dispatch_sync() family on queues targeting
+/// a workloop are still permitted but discouraged for performance reasons.
+typedef dispatch_workloop_t1 = ffi.Pointer<objc.ObjCObject>;
+typedef Dartdispatch_workloop_t1 = objc.NSObject;
 
 enum NSOperationQueuePriority {
   NSOperationQueuePriorityVeryLow(-8),
@@ -76504,6 +84862,65 @@ ffi.NativeCallable<
                 ffi.Pointer<objc.ObjCObject>)>.listener(
         _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_listenerTrampoline)
       ..keepIsolateAlive = false;
+void
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingTrampoline(
+        ffi.Pointer<objc.ObjCBlockImpl> block,
+        ffi.Pointer<ffi.Void> waiter,
+        ffi.Pointer<objc.ObjCObject> arg0,
+        ffi.Pointer<objc.ObjCObject> arg1,
+        ffi.Pointer<objc.ObjCObject> arg2,
+        ffi.Pointer<objc.ObjCObject> arg3) {
+  try {
+    (objc.getBlockClosure(block) as void Function(
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>,
+        ffi.Pointer<objc.ObjCObject>))(arg0, arg1, arg2, arg3);
+  } catch (e) {
+  } finally {
+    objc.signalWaiter(waiter);
+    objc.objectRelease(block.cast());
+  }
+}
+
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.isolateLocal(
+        _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingTrampoline)
+      ..keepIsolateAlive = false;
+ffi.NativeCallable<
+        ffi.Void Function(
+            ffi.Pointer<objc.ObjCBlockImpl>,
+            ffi.Pointer<ffi.Void>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>,
+            ffi.Pointer<objc.ObjCObject>)>
+    _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingListenerCallable =
+    ffi.NativeCallable<
+            ffi.Void Function(
+                ffi.Pointer<objc.ObjCBlockImpl>,
+                ffi.Pointer<ffi.Void>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>,
+                ffi.Pointer<objc.ObjCObject>)>.listener(
+        _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingTrampoline)
+      ..keepIsolateAlive = false;
 
 /// Construction methods for `objc.ObjCBlock<ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)>`.
 abstract final class ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL {
@@ -76590,6 +85007,67 @@ abstract final class ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDown
                     .castFromPointer(arg3, retain: false, release: true)));
     final wrapper = _NativeCupertinoHttp_wrapListenerBlock_4ya7yd(raw);
     objc.objectRelease(raw.cast());
+    return objc.ObjCBlock<
+        ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask,
+            objc.NSURL)>(wrapper, retain: false, release: true);
+  }
+
+  /// Creates a blocking block from a Dart function.
+  ///
+  /// This callback can be invoked from any native thread, and will block the
+  /// caller until the callback is handled by the Dart isolate that created
+  /// the block. Async functions are not supported.
+  ///
+  /// This block does not keep the owner isolate alive. If the owner isolate has
+  /// shut down, and the block is invoked by native code, it may block
+  /// indefinitely. So to prevent deadlocks, you can specify a timeout, which
+  /// defaults to 3 seconds.
+  static objc.ObjCBlock<
+      ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask,
+          objc.NSURL)> blocking(
+      void Function(
+              NSCondition, NSURLSession, NSURLSessionDownloadTask, objc.NSURL)
+          fn,
+      {Duration timeout = const Duration(seconds: 3)}) {
+    final raw = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                NSCondition.castFromPointer(arg0, retain: false, release: true),
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                objc.NSURL
+                    .castFromPointer(arg3, retain: false, release: true)));
+    final rawListener = objc.newClosureBlock(
+        _ObjCBlock_ffiVoid_NSCondition_NSURLSession_NSURLSessionDownloadTask_NSURL_blockingListenerCallable
+            .nativeFunction
+            .cast(),
+        (ffi.Pointer<objc.ObjCObject> arg0,
+                ffi.Pointer<objc.ObjCObject> arg1,
+                ffi.Pointer<objc.ObjCObject> arg2,
+                ffi.Pointer<objc.ObjCObject> arg3) =>
+            fn(
+                NSCondition.castFromPointer(arg0, retain: false, release: true),
+                NSURLSession.castFromPointer(arg1,
+                    retain: false, release: true),
+                NSURLSessionDownloadTask.castFromPointer(arg2,
+                    retain: false, release: true),
+                objc.NSURL
+                    .castFromPointer(arg3, retain: false, release: true)));
+    final wrapper = objc.wrapBlockingBlock(
+        _NativeCupertinoHttp_wrapBlockingBlock_4ya7yd,
+        raw,
+        rawListener,
+        timeout);
+    objc.objectRelease(raw.cast());
+    objc.objectRelease(rawListener.cast());
     return objc.ObjCBlock<
         ffi.Void Function(NSCondition, NSURLSession, NSURLSessionDownloadTask,
             objc.NSURL)>(wrapper, retain: false, release: true);
@@ -81158,6 +89636,8 @@ const int TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA = -16331;
 const int TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA = -16330;
 
 const int TLS_PSK_WITH_CHACHA20_POLY1305_SHA256 = -13141;
+
+const int TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256 = -13140;
 
 const int TLS_NULL_WITH_NULL_NULL = 0;
 
@@ -86251,6 +94731,8 @@ const int TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA1 = -16330;
 
 const int TLS_PSK_WITH_CHACHA20_POLY1305_SHA2561 = -13141;
 
+const int TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA2561 = -13140;
+
 const int TLS_NULL_WITH_NULL_NULL1 = 0;
 
 const int TLS_RSA_WITH_NULL_MD51 = 1;
@@ -86587,6 +95069,10 @@ const int __MAC_14_4 = 140400;
 
 const int __MAC_14_5 = 140500;
 
+const int __MAC_15_0 = 150000;
+
+const int __MAC_15_1 = 150100;
+
 const int __IPHONE_2_0 = 20000;
 
 const int __IPHONE_2_1 = 20100;
@@ -86745,6 +95231,10 @@ const int __IPHONE_17_4 = 170400;
 
 const int __IPHONE_17_5 = 170500;
 
+const int __IPHONE_18_0 = 180000;
+
+const int __IPHONE_18_1 = 180100;
+
 const int __WATCHOS_1_0 = 10000;
 
 const int __WATCHOS_2_0 = 20000;
@@ -86838,6 +95328,10 @@ const int __WATCHOS_10_3 = 100300;
 const int __WATCHOS_10_4 = 100400;
 
 const int __WATCHOS_10_5 = 100500;
+
+const int __WATCHOS_11_0 = 110000;
+
+const int __WATCHOS_11_1 = 110100;
 
 const int __TVOS_9_0 = 90000;
 
@@ -86935,6 +95429,10 @@ const int __TVOS_17_4 = 170400;
 
 const int __TVOS_17_5 = 170500;
 
+const int __TVOS_18_0 = 180000;
+
+const int __TVOS_18_1 = 180100;
+
 const int __BRIDGEOS_2_0 = 20000;
 
 const int __BRIDGEOS_3_0 = 30000;
@@ -86987,6 +95485,10 @@ const int __BRIDGEOS_8_4 = 80400;
 
 const int __BRIDGEOS_8_5 = 80500;
 
+const int __BRIDGEOS_9_0 = 90000;
+
+const int __BRIDGEOS_9_1 = 90100;
+
 const int __DRIVERKIT_19_0 = 190000;
 
 const int __DRIVERKIT_20_0 = 200000;
@@ -87013,11 +95515,19 @@ const int __DRIVERKIT_23_4 = 230400;
 
 const int __DRIVERKIT_23_5 = 230500;
 
+const int __DRIVERKIT_24_0 = 240000;
+
+const int __DRIVERKIT_24_1 = 240100;
+
 const int __VISIONOS_1_0 = 10000;
 
 const int __VISIONOS_1_1 = 10100;
 
 const int __VISIONOS_1_2 = 10200;
+
+const int __VISIONOS_2_0 = 20000;
+
+const int __VISIONOS_2_1 = 20100;
 
 const int MAC_OS_X_VERSION_10_0 = 1000;
 
@@ -87141,9 +95651,13 @@ const int MAC_OS_VERSION_14_4 = 140400;
 
 const int MAC_OS_VERSION_14_5 = 140500;
 
-const int __MAC_OS_X_VERSION_MIN_REQUIRED = 140000;
+const int MAC_OS_VERSION_15_0 = 150000;
 
-const int __MAC_OS_X_VERSION_MAX_ALLOWED = 140500;
+const int MAC_OS_VERSION_15_1 = 150100;
+
+const int __MAC_OS_X_VERSION_MIN_REQUIRED = 150000;
+
+const int __MAC_OS_X_VERSION_MAX_ALLOWED = 150100;
 
 const int __ENABLE_LEGACY_MAC_AVAILABILITY = 1;
 
@@ -87743,13 +96257,13 @@ const int __DARWIN_BIG_ENDIAN = 4321;
 
 const int __DARWIN_PDP_ENDIAN = 3412;
 
-const int __DARWIN_BYTE_ORDER = 1234;
-
 const int LITTLE_ENDIAN = 1234;
 
 const int BIG_ENDIAN = 4321;
 
 const int PDP_ENDIAN = 3412;
+
+const int __DARWIN_BYTE_ORDER = 1234;
 
 const int BYTE_ORDER = 1234;
 
@@ -87760,12 +96274,6 @@ const int EXIT_FAILURE = 1;
 const int EXIT_SUCCESS = 0;
 
 const int RAND_MAX = 2147483647;
-
-const int MAC_OS_X_VERSION_MIN_REQUIRED = 140000;
-
-const int MAC_OS_X_VERSION_MAX_ALLOWED = 140000;
-
-const int __AVAILABILITY_MACROS_USES_AVAILABILITY = 1;
 
 const int TARGET_OS_RTKIT = 0;
 
@@ -87813,35 +96321,11 @@ const int NFDBITS = 32;
 
 const int FD_SETSIZE = 1024;
 
-const int OBJC_API_VERSION = 2;
-
-const int OBJC_NO_GC = 1;
-
-const int NS_ENFORCE_NSOBJECT_DESIGNATED_INITIALIZER = 1;
-
-const int OBJC_OLD_DISPATCH_PROTOTYPES = 0;
-
 const int __bool_true_false_are_defined = 1;
 
 const int true1 = 1;
 
 const int false1 = 0;
-
-const int OBJC_BOOL_IS_BOOL = 1;
-
-const int YES = 1;
-
-const int NO = 0;
-
-const int NSIntegerMax = 9223372036854775807;
-
-const int NSIntegerMin = -9223372036854775808;
-
-const int NSUIntegerMax = -1;
-
-const int NSINTEGER_DEFINED = 1;
-
-const int __GNUC_VA_LIST = 1;
 
 const int __DARWIN_CLK_TCK = 100;
 
@@ -87899,183 +96383,7 @@ const int QUAD_MAX = 9223372036854775807;
 
 const int QUAD_MIN = -9223372036854775808;
 
-const int ARG_MAX = 1048576;
-
-const int CHILD_MAX = 266;
-
-const int GID_MAX = 2147483647;
-
-const int LINK_MAX = 32767;
-
-const int MAX_CANON = 1024;
-
-const int MAX_INPUT = 1024;
-
-const int NAME_MAX = 255;
-
-const int NGROUPS_MAX = 16;
-
-const int UID_MAX = 2147483647;
-
-const int OPEN_MAX = 10240;
-
-const int PATH_MAX = 1024;
-
-const int PIPE_BUF = 512;
-
-const int BC_BASE_MAX = 99;
-
-const int BC_DIM_MAX = 2048;
-
-const int BC_SCALE_MAX = 99;
-
-const int BC_STRING_MAX = 1000;
-
-const int CHARCLASS_NAME_MAX = 14;
-
-const int COLL_WEIGHTS_MAX = 2;
-
-const int EQUIV_CLASS_MAX = 2;
-
-const int EXPR_NEST_MAX = 32;
-
-const int LINE_MAX = 2048;
-
-const int RE_DUP_MAX = 255;
-
-const int NZERO = 20;
-
-const int _POSIX_ARG_MAX = 4096;
-
-const int _POSIX_CHILD_MAX = 25;
-
-const int _POSIX_LINK_MAX = 8;
-
-const int _POSIX_MAX_CANON = 255;
-
-const int _POSIX_MAX_INPUT = 255;
-
-const int _POSIX_NAME_MAX = 14;
-
-const int _POSIX_NGROUPS_MAX = 8;
-
-const int _POSIX_OPEN_MAX = 20;
-
-const int _POSIX_PATH_MAX = 256;
-
-const int _POSIX_PIPE_BUF = 512;
-
-const int _POSIX_SSIZE_MAX = 32767;
-
-const int _POSIX_STREAM_MAX = 8;
-
-const int _POSIX_TZNAME_MAX = 6;
-
-const int _POSIX2_BC_BASE_MAX = 99;
-
-const int _POSIX2_BC_DIM_MAX = 2048;
-
-const int _POSIX2_BC_SCALE_MAX = 99;
-
-const int _POSIX2_BC_STRING_MAX = 1000;
-
-const int _POSIX2_EQUIV_CLASS_MAX = 2;
-
-const int _POSIX2_EXPR_NEST_MAX = 32;
-
-const int _POSIX2_LINE_MAX = 2048;
-
-const int _POSIX2_RE_DUP_MAX = 255;
-
-const int _POSIX_AIO_LISTIO_MAX = 2;
-
-const int _POSIX_AIO_MAX = 1;
-
-const int _POSIX_DELAYTIMER_MAX = 32;
-
-const int _POSIX_MQ_OPEN_MAX = 8;
-
-const int _POSIX_MQ_PRIO_MAX = 32;
-
-const int _POSIX_RTSIG_MAX = 8;
-
-const int _POSIX_SEM_NSEMS_MAX = 256;
-
-const int _POSIX_SEM_VALUE_MAX = 32767;
-
-const int _POSIX_SIGQUEUE_MAX = 32;
-
-const int _POSIX_TIMER_MAX = 32;
-
-const int _POSIX_CLOCKRES_MIN = 20000000;
-
-const int _POSIX_THREAD_DESTRUCTOR_ITERATIONS = 4;
-
 const int _POSIX_THREAD_KEYS_MAX = 128;
-
-const int _POSIX_THREAD_THREADS_MAX = 64;
-
-const int PTHREAD_DESTRUCTOR_ITERATIONS = 4;
-
-const int PTHREAD_KEYS_MAX = 512;
-
-const int PTHREAD_STACK_MIN = 16384;
-
-const int _POSIX_HOST_NAME_MAX = 255;
-
-const int _POSIX_LOGIN_NAME_MAX = 9;
-
-const int _POSIX_SS_REPL_MAX = 4;
-
-const int _POSIX_SYMLINK_MAX = 255;
-
-const int _POSIX_SYMLOOP_MAX = 8;
-
-const int _POSIX_TRACE_EVENT_NAME_MAX = 30;
-
-const int _POSIX_TRACE_NAME_MAX = 8;
-
-const int _POSIX_TRACE_SYS_MAX = 8;
-
-const int _POSIX_TRACE_USER_EVENT_MAX = 32;
-
-const int _POSIX_TTY_NAME_MAX = 9;
-
-const int _POSIX2_CHARCLASS_NAME_MAX = 14;
-
-const int _POSIX2_COLL_WEIGHTS_MAX = 2;
-
-const int _POSIX_RE_DUP_MAX = 255;
-
-const int OFF_MIN = -9223372036854775808;
-
-const int OFF_MAX = 9223372036854775807;
-
-const int PASS_MAX = 128;
-
-const int NL_ARGMAX = 9;
-
-const int NL_LANGMAX = 14;
-
-const int NL_MSGMAX = 32767;
-
-const int NL_NMAX = 1;
-
-const int NL_SETMAX = 255;
-
-const int NL_TEXTMAX = 2048;
-
-const int _XOPEN_IOV_MAX = 16;
-
-const int IOV_MAX = 1024;
-
-const int _XOPEN_NAME_MAX = 255;
-
-const int _XOPEN_PATH_MAX = 1024;
-
-const int NS_BLOCKS_AVAILABLE = 1;
-
-const int __COREFOUNDATION_CFAVAILABILITY__ = 1;
 
 const int API_TO_BE_DEPRECATED = 100000;
 
@@ -88091,411 +96399,9 @@ const int API_TO_BE_DEPRECATED_DRIVERKIT = 100000;
 
 const int API_TO_BE_DEPRECATED_VISIONOS = 100000;
 
-const int __CF_ENUM_FIXED_IS_AVAILABLE = 1;
-
-const double NSFoundationVersionNumber10_0 = 397.4;
-
-const double NSFoundationVersionNumber10_1 = 425.0;
-
-const double NSFoundationVersionNumber10_1_1 = 425.0;
-
-const double NSFoundationVersionNumber10_1_2 = 425.0;
-
-const double NSFoundationVersionNumber10_1_3 = 425.0;
-
-const double NSFoundationVersionNumber10_1_4 = 425.0;
-
-const double NSFoundationVersionNumber10_2 = 462.0;
-
-const double NSFoundationVersionNumber10_2_1 = 462.0;
-
-const double NSFoundationVersionNumber10_2_2 = 462.0;
-
-const double NSFoundationVersionNumber10_2_3 = 462.0;
-
-const double NSFoundationVersionNumber10_2_4 = 462.0;
-
-const double NSFoundationVersionNumber10_2_5 = 462.0;
-
-const double NSFoundationVersionNumber10_2_6 = 462.0;
-
-const double NSFoundationVersionNumber10_2_7 = 462.7;
-
-const double NSFoundationVersionNumber10_2_8 = 462.7;
-
-const double NSFoundationVersionNumber10_3 = 500.0;
-
-const double NSFoundationVersionNumber10_3_1 = 500.0;
-
-const double NSFoundationVersionNumber10_3_2 = 500.3;
-
-const double NSFoundationVersionNumber10_3_3 = 500.54;
-
-const double NSFoundationVersionNumber10_3_4 = 500.56;
-
-const double NSFoundationVersionNumber10_3_5 = 500.56;
-
-const double NSFoundationVersionNumber10_3_6 = 500.56;
-
-const double NSFoundationVersionNumber10_3_7 = 500.56;
-
-const double NSFoundationVersionNumber10_3_8 = 500.56;
-
-const double NSFoundationVersionNumber10_3_9 = 500.58;
-
-const double NSFoundationVersionNumber10_4 = 567.0;
-
-const double NSFoundationVersionNumber10_4_1 = 567.0;
-
-const double NSFoundationVersionNumber10_4_2 = 567.12;
-
-const double NSFoundationVersionNumber10_4_3 = 567.21;
-
-const double NSFoundationVersionNumber10_4_4_Intel = 567.23;
-
-const double NSFoundationVersionNumber10_4_4_PowerPC = 567.21;
-
-const double NSFoundationVersionNumber10_4_5 = 567.25;
-
-const double NSFoundationVersionNumber10_4_6 = 567.26;
-
-const double NSFoundationVersionNumber10_4_7 = 567.27;
-
-const double NSFoundationVersionNumber10_4_8 = 567.28;
-
-const double NSFoundationVersionNumber10_4_9 = 567.29;
-
-const double NSFoundationVersionNumber10_4_10 = 567.29;
-
-const double NSFoundationVersionNumber10_4_11 = 567.36;
-
-const double NSFoundationVersionNumber10_5 = 677.0;
-
-const double NSFoundationVersionNumber10_5_1 = 677.1;
-
-const double NSFoundationVersionNumber10_5_2 = 677.15;
-
-const double NSFoundationVersionNumber10_5_3 = 677.19;
-
-const double NSFoundationVersionNumber10_5_4 = 677.19;
-
-const double NSFoundationVersionNumber10_5_5 = 677.21;
-
-const double NSFoundationVersionNumber10_5_6 = 677.22;
-
-const double NSFoundationVersionNumber10_5_7 = 677.24;
-
-const double NSFoundationVersionNumber10_5_8 = 677.26;
-
-const double NSFoundationVersionNumber10_6 = 751.0;
-
-const double NSFoundationVersionNumber10_6_1 = 751.0;
-
-const double NSFoundationVersionNumber10_6_2 = 751.14;
-
-const double NSFoundationVersionNumber10_6_3 = 751.21;
-
-const double NSFoundationVersionNumber10_6_4 = 751.29;
-
-const double NSFoundationVersionNumber10_6_5 = 751.42;
-
-const double NSFoundationVersionNumber10_6_6 = 751.53;
-
-const double NSFoundationVersionNumber10_6_7 = 751.53;
-
-const double NSFoundationVersionNumber10_6_8 = 751.62;
-
-const double NSFoundationVersionNumber10_7 = 833.1;
-
-const double NSFoundationVersionNumber10_7_1 = 833.1;
-
-const double NSFoundationVersionNumber10_7_2 = 833.2;
-
-const double NSFoundationVersionNumber10_7_3 = 833.24;
-
-const double NSFoundationVersionNumber10_7_4 = 833.25;
-
-const double NSFoundationVersionNumber10_8 = 945.0;
-
-const double NSFoundationVersionNumber10_8_1 = 945.0;
-
-const double NSFoundationVersionNumber10_8_2 = 945.11;
-
-const double NSFoundationVersionNumber10_8_3 = 945.16;
-
-const double NSFoundationVersionNumber10_8_4 = 945.18;
-
-const int NSFoundationVersionNumber10_9 = 1056;
-
-const int NSFoundationVersionNumber10_9_1 = 1056;
-
-const double NSFoundationVersionNumber10_9_2 = 1056.13;
-
-const double NSFoundationVersionNumber10_10 = 1151.16;
-
-const double NSFoundationVersionNumber10_10_1 = 1151.16;
-
-const double NSFoundationVersionNumber10_10_2 = 1152.14;
-
-const double NSFoundationVersionNumber10_10_3 = 1153.2;
-
-const double NSFoundationVersionNumber10_10_4 = 1153.2;
-
-const int NSFoundationVersionNumber10_10_5 = 1154;
-
-const int NSFoundationVersionNumber10_10_Max = 1199;
-
-const int NSFoundationVersionNumber10_11 = 1252;
-
-const double NSFoundationVersionNumber10_11_1 = 1255.1;
-
-const double NSFoundationVersionNumber10_11_2 = 1256.1;
-
-const double NSFoundationVersionNumber10_11_3 = 1256.1;
-
-const int NSFoundationVersionNumber10_11_4 = 1258;
-
-const int NSFoundationVersionNumber10_11_Max = 1299;
-
-const int __COREFOUNDATION_CFBASE__ = 1;
-
-const int UNIVERSAL_INTERFACES_VERSION = 1024;
-
-const int PRAGMA_IMPORT = 0;
-
-const int PRAGMA_ONCE = 0;
-
-const int PRAGMA_STRUCT_PACK = 1;
-
-const int PRAGMA_STRUCT_PACKPUSH = 1;
-
-const int PRAGMA_STRUCT_ALIGN = 0;
-
-const int PRAGMA_ENUM_PACK = 0;
-
-const int PRAGMA_ENUM_ALWAYSINT = 0;
-
-const int PRAGMA_ENUM_OPTIONS = 0;
-
-const int TYPE_EXTENDED = 0;
-
-const int TYPE_LONGDOUBLE_IS_DOUBLE = 0;
-
-const int TYPE_LONGLONG = 1;
-
-const int FUNCTION_PASCAL = 0;
-
-const int FUNCTION_DECLSPEC = 0;
-
-const int FUNCTION_WIN32CC = 0;
-
-const int TARGET_API_MAC_OS8 = 0;
-
-const int TARGET_API_MAC_CARBON = 1;
-
-const int TARGET_API_MAC_OSX = 1;
-
-const int TARGET_CARBON = 1;
-
-const int OLDROUTINENAMES = 0;
-
-const int OPAQUE_TOOLBOX_STRUCTS = 1;
-
-const int OPAQUE_UPP_TYPES = 1;
-
-const int ACCESSOR_CALLS_ARE_FUNCTIONS = 1;
-
-const int CALL_NOT_IN_CARBON = 0;
-
-const int MIXEDMODE_CALLS_ARE_FUNCTIONS = 1;
-
-const int ALLOW_OBSOLETE_CARBON_MACMEMORY = 0;
-
-const int ALLOW_OBSOLETE_CARBON_OSUTILS = 0;
-
-const int kInvalidID = 0;
-
 const int TRUE = 1;
 
 const int FALSE = 0;
-
-const double kCFCoreFoundationVersionNumber10_0 = 196.4;
-
-const double kCFCoreFoundationVersionNumber10_0_3 = 196.5;
-
-const double kCFCoreFoundationVersionNumber10_1 = 226.0;
-
-const double kCFCoreFoundationVersionNumber10_1_1 = 226.0;
-
-const double kCFCoreFoundationVersionNumber10_1_2 = 227.2;
-
-const double kCFCoreFoundationVersionNumber10_1_3 = 227.2;
-
-const double kCFCoreFoundationVersionNumber10_1_4 = 227.3;
-
-const double kCFCoreFoundationVersionNumber10_2 = 263.0;
-
-const double kCFCoreFoundationVersionNumber10_2_1 = 263.1;
-
-const double kCFCoreFoundationVersionNumber10_2_2 = 263.1;
-
-const double kCFCoreFoundationVersionNumber10_2_3 = 263.3;
-
-const double kCFCoreFoundationVersionNumber10_2_4 = 263.3;
-
-const double kCFCoreFoundationVersionNumber10_2_5 = 263.5;
-
-const double kCFCoreFoundationVersionNumber10_2_6 = 263.5;
-
-const double kCFCoreFoundationVersionNumber10_2_7 = 263.5;
-
-const double kCFCoreFoundationVersionNumber10_2_8 = 263.5;
-
-const double kCFCoreFoundationVersionNumber10_3 = 299.0;
-
-const double kCFCoreFoundationVersionNumber10_3_1 = 299.0;
-
-const double kCFCoreFoundationVersionNumber10_3_2 = 299.0;
-
-const double kCFCoreFoundationVersionNumber10_3_3 = 299.3;
-
-const double kCFCoreFoundationVersionNumber10_3_4 = 299.31;
-
-const double kCFCoreFoundationVersionNumber10_3_5 = 299.31;
-
-const double kCFCoreFoundationVersionNumber10_3_6 = 299.32;
-
-const double kCFCoreFoundationVersionNumber10_3_7 = 299.33;
-
-const double kCFCoreFoundationVersionNumber10_3_8 = 299.33;
-
-const double kCFCoreFoundationVersionNumber10_3_9 = 299.35;
-
-const double kCFCoreFoundationVersionNumber10_4 = 368.0;
-
-const double kCFCoreFoundationVersionNumber10_4_1 = 368.1;
-
-const double kCFCoreFoundationVersionNumber10_4_2 = 368.11;
-
-const double kCFCoreFoundationVersionNumber10_4_3 = 368.18;
-
-const double kCFCoreFoundationVersionNumber10_4_4_Intel = 368.26;
-
-const double kCFCoreFoundationVersionNumber10_4_4_PowerPC = 368.25;
-
-const double kCFCoreFoundationVersionNumber10_4_5_Intel = 368.26;
-
-const double kCFCoreFoundationVersionNumber10_4_5_PowerPC = 368.25;
-
-const double kCFCoreFoundationVersionNumber10_4_6_Intel = 368.26;
-
-const double kCFCoreFoundationVersionNumber10_4_6_PowerPC = 368.25;
-
-const double kCFCoreFoundationVersionNumber10_4_7 = 368.27;
-
-const double kCFCoreFoundationVersionNumber10_4_8 = 368.27;
-
-const double kCFCoreFoundationVersionNumber10_4_9 = 368.28;
-
-const double kCFCoreFoundationVersionNumber10_4_10 = 368.28;
-
-const double kCFCoreFoundationVersionNumber10_4_11 = 368.31;
-
-const double kCFCoreFoundationVersionNumber10_5 = 476.0;
-
-const double kCFCoreFoundationVersionNumber10_5_1 = 476.0;
-
-const double kCFCoreFoundationVersionNumber10_5_2 = 476.1;
-
-const double kCFCoreFoundationVersionNumber10_5_3 = 476.13;
-
-const double kCFCoreFoundationVersionNumber10_5_4 = 476.14;
-
-const double kCFCoreFoundationVersionNumber10_5_5 = 476.15;
-
-const double kCFCoreFoundationVersionNumber10_5_6 = 476.17;
-
-const double kCFCoreFoundationVersionNumber10_5_7 = 476.18;
-
-const double kCFCoreFoundationVersionNumber10_5_8 = 476.19;
-
-const double kCFCoreFoundationVersionNumber10_6 = 550.0;
-
-const double kCFCoreFoundationVersionNumber10_6_1 = 550.0;
-
-const double kCFCoreFoundationVersionNumber10_6_2 = 550.13;
-
-const double kCFCoreFoundationVersionNumber10_6_3 = 550.19;
-
-const double kCFCoreFoundationVersionNumber10_6_4 = 550.29;
-
-const double kCFCoreFoundationVersionNumber10_6_5 = 550.42;
-
-const double kCFCoreFoundationVersionNumber10_6_6 = 550.42;
-
-const double kCFCoreFoundationVersionNumber10_6_7 = 550.42;
-
-const double kCFCoreFoundationVersionNumber10_6_8 = 550.43;
-
-const double kCFCoreFoundationVersionNumber10_7 = 635.0;
-
-const double kCFCoreFoundationVersionNumber10_7_1 = 635.0;
-
-const double kCFCoreFoundationVersionNumber10_7_2 = 635.15;
-
-const double kCFCoreFoundationVersionNumber10_7_3 = 635.19;
-
-const double kCFCoreFoundationVersionNumber10_7_4 = 635.21;
-
-const double kCFCoreFoundationVersionNumber10_7_5 = 635.21;
-
-const double kCFCoreFoundationVersionNumber10_8 = 744.0;
-
-const double kCFCoreFoundationVersionNumber10_8_1 = 744.0;
-
-const double kCFCoreFoundationVersionNumber10_8_2 = 744.12;
-
-const double kCFCoreFoundationVersionNumber10_8_3 = 744.18;
-
-const double kCFCoreFoundationVersionNumber10_8_4 = 744.19;
-
-const double kCFCoreFoundationVersionNumber10_9 = 855.11;
-
-const double kCFCoreFoundationVersionNumber10_9_1 = 855.11;
-
-const double kCFCoreFoundationVersionNumber10_9_2 = 855.14;
-
-const double kCFCoreFoundationVersionNumber10_10 = 1151.16;
-
-const double kCFCoreFoundationVersionNumber10_10_1 = 1151.16;
-
-const int kCFCoreFoundationVersionNumber10_10_2 = 1152;
-
-const double kCFCoreFoundationVersionNumber10_10_3 = 1153.18;
-
-const double kCFCoreFoundationVersionNumber10_10_4 = 1153.18;
-
-const double kCFCoreFoundationVersionNumber10_10_5 = 1153.18;
-
-const int kCFCoreFoundationVersionNumber10_10_Max = 1199;
-
-const int kCFCoreFoundationVersionNumber10_11 = 1253;
-
-const double kCFCoreFoundationVersionNumber10_11_1 = 1255.1;
-
-const double kCFCoreFoundationVersionNumber10_11_2 = 1256.14;
-
-const double kCFCoreFoundationVersionNumber10_11_3 = 1256.14;
-
-const double kCFCoreFoundationVersionNumber10_11_4 = 1258.1;
-
-const int kCFCoreFoundationVersionNumber10_11_Max = 1299;
-
-const int ISA_PTRAUTH_DISCRIMINATOR = 27361;
-
-const double NSTimeIntervalSince1970 = 978307200.0;
-
-const int __COREFOUNDATION_CFARRAY__ = 1;
 
 const int OS_OBJECT_HAVE_OBJC_SUPPORT = 0;
 
@@ -88504,472 +96410,6 @@ const int OS_OBJECT_USE_OBJC = 0;
 const int OS_OBJECT_SWIFT3 = 0;
 
 const int OS_OBJECT_USE_OBJC_RETAIN_RELEASE = 0;
-
-const int SEC_OS_IPHONE = 0;
-
-const int SEC_OS_OSX = 1;
-
-const int SEC_OS_OSX_INCLUDES = 1;
-
-const int SECURITY_TYPE_UNIFICATION = 1;
-
-const int __COREFOUNDATION_COREFOUNDATION__ = 1;
-
-const int __COREFOUNDATION__ = 1;
-
-const String __ASSERT_FILE_NAME = 'temp_for_macros.hpp';
-
-const int _CACHED_RUNES = 256;
-
-const int _CRMASK = -256;
-
-const String _RUNE_MAGIC_A = 'RuneMagA';
-
-const int _CTYPE_A = 256;
-
-const int _CTYPE_C = 512;
-
-const int _CTYPE_D = 1024;
-
-const int _CTYPE_G = 2048;
-
-const int _CTYPE_L = 4096;
-
-const int _CTYPE_P = 8192;
-
-const int _CTYPE_S = 16384;
-
-const int _CTYPE_U = 32768;
-
-const int _CTYPE_X = 65536;
-
-const int _CTYPE_B = 131072;
-
-const int _CTYPE_R = 262144;
-
-const int _CTYPE_I = 524288;
-
-const int _CTYPE_T = 1048576;
-
-const int _CTYPE_Q = 2097152;
-
-const int _CTYPE_SW0 = 536870912;
-
-const int _CTYPE_SW1 = 1073741824;
-
-const int _CTYPE_SW2 = 2147483648;
-
-const int _CTYPE_SW3 = 3221225472;
-
-const int _CTYPE_SWM = 3758096384;
-
-const int _CTYPE_SWS = 30;
-
-const int EPERM = 1;
-
-const int ENOENT = 2;
-
-const int ESRCH = 3;
-
-const int EINTR = 4;
-
-const int EIO = 5;
-
-const int ENXIO = 6;
-
-const int E2BIG = 7;
-
-const int ENOEXEC = 8;
-
-const int EBADF = 9;
-
-const int ECHILD = 10;
-
-const int EDEADLK = 11;
-
-const int ENOMEM = 12;
-
-const int EACCES = 13;
-
-const int EFAULT = 14;
-
-const int ENOTBLK = 15;
-
-const int EBUSY = 16;
-
-const int EEXIST = 17;
-
-const int EXDEV = 18;
-
-const int ENODEV = 19;
-
-const int ENOTDIR = 20;
-
-const int EISDIR = 21;
-
-const int EINVAL = 22;
-
-const int ENFILE = 23;
-
-const int EMFILE = 24;
-
-const int ENOTTY = 25;
-
-const int ETXTBSY = 26;
-
-const int EFBIG = 27;
-
-const int ENOSPC = 28;
-
-const int ESPIPE = 29;
-
-const int EROFS = 30;
-
-const int EMLINK = 31;
-
-const int EPIPE = 32;
-
-const int EDOM = 33;
-
-const int ERANGE = 34;
-
-const int EAGAIN = 35;
-
-const int EWOULDBLOCK = 35;
-
-const int EINPROGRESS = 36;
-
-const int EALREADY = 37;
-
-const int ENOTSOCK = 38;
-
-const int EDESTADDRREQ = 39;
-
-const int EMSGSIZE = 40;
-
-const int EPROTOTYPE = 41;
-
-const int ENOPROTOOPT = 42;
-
-const int EPROTONOSUPPORT = 43;
-
-const int ESOCKTNOSUPPORT = 44;
-
-const int ENOTSUP = 45;
-
-const int EPFNOSUPPORT = 46;
-
-const int EAFNOSUPPORT = 47;
-
-const int EADDRINUSE = 48;
-
-const int EADDRNOTAVAIL = 49;
-
-const int ENETDOWN = 50;
-
-const int ENETUNREACH = 51;
-
-const int ENETRESET = 52;
-
-const int ECONNABORTED = 53;
-
-const int ECONNRESET = 54;
-
-const int ENOBUFS = 55;
-
-const int EISCONN = 56;
-
-const int ENOTCONN = 57;
-
-const int ESHUTDOWN = 58;
-
-const int ETOOMANYREFS = 59;
-
-const int ETIMEDOUT = 60;
-
-const int ECONNREFUSED = 61;
-
-const int ELOOP = 62;
-
-const int ENAMETOOLONG = 63;
-
-const int EHOSTDOWN = 64;
-
-const int EHOSTUNREACH = 65;
-
-const int ENOTEMPTY = 66;
-
-const int EPROCLIM = 67;
-
-const int EUSERS = 68;
-
-const int EDQUOT = 69;
-
-const int ESTALE = 70;
-
-const int EREMOTE = 71;
-
-const int EBADRPC = 72;
-
-const int ERPCMISMATCH = 73;
-
-const int EPROGUNAVAIL = 74;
-
-const int EPROGMISMATCH = 75;
-
-const int EPROCUNAVAIL = 76;
-
-const int ENOLCK = 77;
-
-const int ENOSYS = 78;
-
-const int EFTYPE = 79;
-
-const int EAUTH = 80;
-
-const int ENEEDAUTH = 81;
-
-const int EPWROFF = 82;
-
-const int EDEVERR = 83;
-
-const int EOVERFLOW = 84;
-
-const int EBADEXEC = 85;
-
-const int EBADARCH = 86;
-
-const int ESHLIBVERS = 87;
-
-const int EBADMACHO = 88;
-
-const int ECANCELED = 89;
-
-const int EIDRM = 90;
-
-const int ENOMSG = 91;
-
-const int EILSEQ = 92;
-
-const int ENOATTR = 93;
-
-const int EBADMSG = 94;
-
-const int EMULTIHOP = 95;
-
-const int ENODATA = 96;
-
-const int ENOLINK = 97;
-
-const int ENOSR = 98;
-
-const int ENOSTR = 99;
-
-const int EPROTO = 100;
-
-const int ETIME = 101;
-
-const int EOPNOTSUPP = 102;
-
-const int ENOPOLICY = 103;
-
-const int ENOTRECOVERABLE = 104;
-
-const int EOWNERDEAD = 105;
-
-const int EQFULL = 106;
-
-const int ELAST = 106;
-
-const int FLT_EVAL_METHOD = 0;
-
-const int FLT_RADIX = 2;
-
-const int FLT_MANT_DIG = 24;
-
-const int DBL_MANT_DIG = 53;
-
-const int LDBL_MANT_DIG = 53;
-
-const int FLT_DIG = 6;
-
-const int DBL_DIG = 15;
-
-const int LDBL_DIG = 15;
-
-const int FLT_MIN_EXP = -125;
-
-const int DBL_MIN_EXP = -1021;
-
-const int LDBL_MIN_EXP = -1021;
-
-const int FLT_MIN_10_EXP = -37;
-
-const int DBL_MIN_10_EXP = -307;
-
-const int LDBL_MIN_10_EXP = -307;
-
-const int FLT_MAX_EXP = 128;
-
-const int DBL_MAX_EXP = 1024;
-
-const int LDBL_MAX_EXP = 1024;
-
-const int FLT_MAX_10_EXP = 38;
-
-const int DBL_MAX_10_EXP = 308;
-
-const int LDBL_MAX_10_EXP = 308;
-
-const double FLT_MAX = 3.4028234663852886e+38;
-
-const double DBL_MAX = 1.7976931348623157e+308;
-
-const double LDBL_MAX = 1.7976931348623157e+308;
-
-const double FLT_EPSILON = 1.1920928955078125e-7;
-
-const double DBL_EPSILON = 2.220446049250313e-16;
-
-const double LDBL_EPSILON = 2.220446049250313e-16;
-
-const double FLT_MIN = 1.1754943508222875e-38;
-
-const double DBL_MIN = 2.2250738585072014e-308;
-
-const double LDBL_MIN = 2.2250738585072014e-308;
-
-const int DECIMAL_DIG = 17;
-
-const int FLT_HAS_SUBNORM = 1;
-
-const int DBL_HAS_SUBNORM = 1;
-
-const int LDBL_HAS_SUBNORM = 1;
-
-const double FLT_TRUE_MIN = 1.401298464324817e-45;
-
-const double DBL_TRUE_MIN = 5e-324;
-
-const double LDBL_TRUE_MIN = 5e-324;
-
-const int FLT_DECIMAL_DIG = 9;
-
-const int DBL_DECIMAL_DIG = 17;
-
-const int LDBL_DECIMAL_DIG = 17;
-
-const int LC_ALL = 0;
-
-const int LC_COLLATE = 1;
-
-const int LC_CTYPE = 2;
-
-const int LC_MONETARY = 3;
-
-const int LC_NUMERIC = 4;
-
-const int LC_TIME = 5;
-
-const int LC_MESSAGES = 6;
-
-const int _LC_LAST = 7;
-
-const double HUGE_VAL = double.infinity;
-
-const double HUGE_VALF = double.infinity;
-
-const double HUGE_VALL = double.infinity;
-
-const double NAN = double.nan;
-
-const double INFINITY = double.infinity;
-
-const int FP_NAN = 1;
-
-const int FP_INFINITE = 2;
-
-const int FP_ZERO = 3;
-
-const int FP_NORMAL = 4;
-
-const int FP_SUBNORMAL = 5;
-
-const int FP_SUPERNORMAL = 6;
-
-const int FP_FAST_FMA = 1;
-
-const int FP_FAST_FMAF = 1;
-
-const int FP_FAST_FMAL = 1;
-
-const int FP_ILOGB0 = -2147483648;
-
-const int FP_ILOGBNAN = -2147483648;
-
-const int MATH_ERRNO = 1;
-
-const int MATH_ERREXCEPT = 2;
-
-const double M_E = 2.718281828459045;
-
-const double M_LOG2E = 1.4426950408889634;
-
-const double M_LOG10E = 0.4342944819032518;
-
-const double M_LN2 = 0.6931471805599453;
-
-const double M_LN10 = 2.302585092994046;
-
-const double M_PI = 3.141592653589793;
-
-const double M_PI_2 = 1.5707963267948966;
-
-const double M_PI_4 = 0.7853981633974483;
-
-const double M_1_PI = 0.3183098861837907;
-
-const double M_2_PI = 0.6366197723675814;
-
-const double M_2_SQRTPI = 1.1283791670955126;
-
-const double M_SQRT2 = 1.4142135623730951;
-
-const double M_SQRT1_2 = 0.7071067811865476;
-
-const double MAXFLOAT = 3.4028234663852886e+38;
-
-const int FP_SNAN = 1;
-
-const int FP_QNAN = 1;
-
-const double HUGE = 3.4028234663852886e+38;
-
-const double X_TLOSS = 14148475504056880.0;
-
-const int DOMAIN = 1;
-
-const int SING = 2;
-
-const int OVERFLOW = 3;
-
-const int UNDERFLOW = 4;
-
-const int TLOSS = 5;
-
-const int PLOSS = 6;
-
-const int _JBLEN = 48;
-
-const int RENAME_SECLUDE = 1;
-
-const int RENAME_SWAP = 2;
-
-const int RENAME_EXCL = 4;
-
-const int RENAME_RESERVED1 = 8;
-
-const int RENAME_NOFOLLOW_ANY = 16;
 
 const int SEEK_SET = 0;
 
@@ -88980,144 +96420,6 @@ const int SEEK_END = 2;
 const int SEEK_HOLE = 3;
 
 const int SEEK_DATA = 4;
-
-const int __SLBF = 1;
-
-const int __SNBF = 2;
-
-const int __SRD = 4;
-
-const int __SWR = 8;
-
-const int __SRW = 16;
-
-const int __SEOF = 32;
-
-const int __SERR = 64;
-
-const int __SMBF = 128;
-
-const int __SAPP = 256;
-
-const int __SSTR = 512;
-
-const int __SOPT = 1024;
-
-const int __SNPT = 2048;
-
-const int __SOFF = 4096;
-
-const int __SMOD = 8192;
-
-const int __SALC = 16384;
-
-const int __SIGN = 32768;
-
-const int _IOFBF = 0;
-
-const int _IOLBF = 1;
-
-const int _IONBF = 2;
-
-const int BUFSIZ = 1024;
-
-const int EOF = -1;
-
-const int FOPEN_MAX = 20;
-
-const int FILENAME_MAX = 1024;
-
-const String P_tmpdir = '/var/tmp/';
-
-const int L_tmpnam = 1024;
-
-const int TMP_MAX = 308915776;
-
-const int L_ctermid = 1024;
-
-const int CLOCKS_PER_SEC = 1000000;
-
-const int CLOCK_REALTIME = 0;
-
-const int CLOCK_MONOTONIC = 6;
-
-const int CLOCK_MONOTONIC_RAW = 4;
-
-const int CLOCK_MONOTONIC_RAW_APPROX = 5;
-
-const int CLOCK_UPTIME_RAW = 8;
-
-const int CLOCK_UPTIME_RAW_APPROX = 9;
-
-const int CLOCK_PROCESS_CPUTIME_ID = 12;
-
-const int CLOCK_THREAD_CPUTIME_ID = 16;
-
-const int TIME_UTC = 1;
-
-const int __COREFOUNDATION_CFBAG__ = 1;
-
-const int __COREFOUNDATION_CFBINARYHEAP__ = 1;
-
-const int __COREFOUNDATION_CFBITVECTOR__ = 1;
-
-const int __COREFOUNDATION_CFBYTEORDER__ = 1;
-
-const int CF_USE_OSBYTEORDER_H = 1;
-
-const int __COREFOUNDATION_CFCALENDAR__ = 1;
-
-const int __COREFOUNDATION_CFLOCALE__ = 1;
-
-const int __COREFOUNDATION_CFDICTIONARY__ = 1;
-
-const int __COREFOUNDATION_CFNOTIFICATIONCENTER__ = 1;
-
-const int __COREFOUNDATION_CFDATE__ = 1;
-
-const int __COREFOUNDATION_CFTIMEZONE__ = 1;
-
-const int __COREFOUNDATION_CFDATA__ = 1;
-
-const int __COREFOUNDATION_CFSTRING__ = 1;
-
-const int __COREFOUNDATION_CFCHARACTERSET__ = 1;
-
-const int __COREFOUNDATION_CFERROR__ = 1;
-
-const int kCFStringEncodingInvalidId = 4294967295;
-
-const int __kCFStringInlineBufferLength = 64;
-
-const int __COREFOUNDATION_CFCGTYPES__ = 1;
-
-const int CGFLOAT_IS_DOUBLE = 1;
-
-const double CGFLOAT_MIN = 2.2250738585072014e-308;
-
-const double CGFLOAT_MAX = 1.7976931348623157e+308;
-
-const double CGFLOAT_EPSILON = 2.220446049250313e-16;
-
-const int CGFLOAT_DEFINED = 1;
-
-const int CGVECTOR_DEFINED = 1;
-
-const int __COREFOUNDATION_CFDATEFORMATTER__ = 1;
-
-const int __COREFOUNDATION_CFNUMBER__ = 1;
-
-const int __COREFOUNDATION_CFNUMBERFORMATTER__ = 1;
-
-const int __COREFOUNDATION_CFPREFERENCES__ = 1;
-
-const int __COREFOUNDATION_CFPROPERTYLIST__ = 1;
-
-const int __COREFOUNDATION_CFSTREAM__ = 1;
-
-const int __COREFOUNDATION_CFURL__ = 1;
-
-const int __COREFOUNDATION_CFRUNLOOP__ = 1;
 
 const int MACH_PORT_NULL = 0;
 
@@ -89151,6 +96453,12 @@ const int MACH_PORT_TYPE_DEAD_NAME = 1048576;
 
 const int MACH_PORT_TYPE_LABELH = 2097152;
 
+const int MACH_PORT_TYPE_DNREQUEST = 2147483648;
+
+const int MACH_PORT_TYPE_SPREQUEST = 1073741824;
+
+const int MACH_PORT_TYPE_SPREQUEST_DELAYED = 536870912;
+
 const int MACH_PORT_TYPE_SEND_RECEIVE = 196608;
 
 const int MACH_PORT_TYPE_SEND_RIGHTS = 327680;
@@ -89160,12 +96468,6 @@ const int MACH_PORT_TYPE_PORT_RIGHTS = 458752;
 const int MACH_PORT_TYPE_PORT_OR_DEAD = 1507328;
 
 const int MACH_PORT_TYPE_ALL_RIGHTS = 2031616;
-
-const int MACH_PORT_TYPE_DNREQUEST = 2147483648;
-
-const int MACH_PORT_TYPE_SPREQUEST = 1073741824;
-
-const int MACH_PORT_TYPE_SPREQUEST_DELAYED = 536870912;
 
 const int MACH_PORT_SRIGHTS_NONE = 0;
 
@@ -89267,7 +96569,7 @@ const int MPO_ENFORCE_REPLY_PORT_SEMANTICS = 8192;
 
 const int MPO_PROVISIONAL_REPLY_PORT = 16384;
 
-const int MPO_PROVISIONAL_ID_PROT_OPTOUT = 32768;
+const int MPO_EXCEPTION_PORT = 32768;
 
 const int GUARD_TYPE_MACH_PORT = 1;
 
@@ -89300,8 +96602,6 @@ const int MPG_FLAGS_IMMOVABLE_PINNED = 72057594037927936;
 const int MPG_STRICT = 1;
 
 const int MPG_IMMOVABLE_RECEIVE = 2;
-
-const int __COREFOUNDATION_CFSOCKET__ = 1;
 
 const int _POSIX_VERSION = 200112;
 
@@ -90149,6 +97449,8 @@ const int F_TRANSFEREXTENTS = 110;
 
 const int F_ATTRIBUTION_TAG = 111;
 
+const int F_ADDSIGS_MAIN_BINARY = 113;
+
 const int FCNTL_FS_SPECIFIC_BASE = 65536;
 
 const int F_DUPFD_CLOEXEC = 67;
@@ -90763,924 +98065,4 @@ const int DISPATCH_IO_STOP = 1;
 
 const int DISPATCH_IO_STRICT_INTERVAL = 1;
 
-const int __COREFOUNDATION_CFSET__ = 1;
-
-const int __COREFOUNDATION_CFSTRINGENCODINGEXT__ = 1;
-
-const int __COREFOUNDATION_CFTREE__ = 1;
-
-const int __COREFOUNDATION_CFURLACCESS__ = 1;
-
-const int __COREFOUNDATION_CFUUID__ = 1;
-
-const int __COREFOUNDATION_CFUTILITIES__ = 1;
-
-const int __COREFOUNDATION_CFBUNDLE__ = 1;
-
-const int CPU_STATE_MAX = 4;
-
-const int CPU_STATE_USER = 0;
-
-const int CPU_STATE_SYSTEM = 1;
-
-const int CPU_STATE_IDLE = 2;
-
-const int CPU_STATE_NICE = 3;
-
-const int CPU_ARCH_MASK = 4278190080;
-
-const int CPU_ARCH_ABI64 = 16777216;
-
-const int CPU_ARCH_ABI64_32 = 33554432;
-
-const int CPU_TYPE_ANY = -1;
-
-const int CPU_TYPE_VAX = 1;
-
-const int CPU_TYPE_MC680x0 = 6;
-
-const int CPU_TYPE_X86 = 7;
-
-const int CPU_TYPE_I386 = 7;
-
-const int CPU_TYPE_X86_64 = 16777223;
-
-const int CPU_TYPE_MC98000 = 10;
-
-const int CPU_TYPE_HPPA = 11;
-
-const int CPU_TYPE_ARM = 12;
-
-const int CPU_TYPE_ARM64 = 16777228;
-
-const int CPU_TYPE_ARM64_32 = 33554444;
-
-const int CPU_TYPE_MC88000 = 13;
-
-const int CPU_TYPE_SPARC = 14;
-
-const int CPU_TYPE_I860 = 15;
-
-const int CPU_TYPE_POWERPC = 18;
-
-const int CPU_TYPE_POWERPC64 = 16777234;
-
-const int CPU_SUBTYPE_MASK = 4278190080;
-
-const int CPU_SUBTYPE_LIB64 = 2147483648;
-
-const int CPU_SUBTYPE_PTRAUTH_ABI = 2147483648;
-
-const int CPU_SUBTYPE_ANY = -1;
-
-const int CPU_SUBTYPE_MULTIPLE = -1;
-
-const int CPU_SUBTYPE_LITTLE_ENDIAN = 0;
-
-const int CPU_SUBTYPE_BIG_ENDIAN = 1;
-
-const int CPU_THREADTYPE_NONE = 0;
-
-const int CPU_SUBTYPE_VAX_ALL = 0;
-
-const int CPU_SUBTYPE_VAX780 = 1;
-
-const int CPU_SUBTYPE_VAX785 = 2;
-
-const int CPU_SUBTYPE_VAX750 = 3;
-
-const int CPU_SUBTYPE_VAX730 = 4;
-
-const int CPU_SUBTYPE_UVAXI = 5;
-
-const int CPU_SUBTYPE_UVAXII = 6;
-
-const int CPU_SUBTYPE_VAX8200 = 7;
-
-const int CPU_SUBTYPE_VAX8500 = 8;
-
-const int CPU_SUBTYPE_VAX8600 = 9;
-
-const int CPU_SUBTYPE_VAX8650 = 10;
-
-const int CPU_SUBTYPE_VAX8800 = 11;
-
-const int CPU_SUBTYPE_UVAXIII = 12;
-
-const int CPU_SUBTYPE_MC680x0_ALL = 1;
-
-const int CPU_SUBTYPE_MC68030 = 1;
-
-const int CPU_SUBTYPE_MC68040 = 2;
-
-const int CPU_SUBTYPE_MC68030_ONLY = 3;
-
-const int CPU_SUBTYPE_I386_ALL = 3;
-
-const int CPU_SUBTYPE_386 = 3;
-
-const int CPU_SUBTYPE_486 = 4;
-
-const int CPU_SUBTYPE_486SX = 132;
-
-const int CPU_SUBTYPE_586 = 5;
-
-const int CPU_SUBTYPE_PENT = 5;
-
-const int CPU_SUBTYPE_PENTPRO = 22;
-
-const int CPU_SUBTYPE_PENTII_M3 = 54;
-
-const int CPU_SUBTYPE_PENTII_M5 = 86;
-
-const int CPU_SUBTYPE_CELERON = 103;
-
-const int CPU_SUBTYPE_CELERON_MOBILE = 119;
-
-const int CPU_SUBTYPE_PENTIUM_3 = 8;
-
-const int CPU_SUBTYPE_PENTIUM_3_M = 24;
-
-const int CPU_SUBTYPE_PENTIUM_3_XEON = 40;
-
-const int CPU_SUBTYPE_PENTIUM_M = 9;
-
-const int CPU_SUBTYPE_PENTIUM_4 = 10;
-
-const int CPU_SUBTYPE_PENTIUM_4_M = 26;
-
-const int CPU_SUBTYPE_ITANIUM = 11;
-
-const int CPU_SUBTYPE_ITANIUM_2 = 27;
-
-const int CPU_SUBTYPE_XEON = 12;
-
-const int CPU_SUBTYPE_XEON_MP = 28;
-
-const int CPU_SUBTYPE_INTEL_FAMILY_MAX = 15;
-
-const int CPU_SUBTYPE_INTEL_MODEL_ALL = 0;
-
-const int CPU_SUBTYPE_X86_ALL = 3;
-
-const int CPU_SUBTYPE_X86_64_ALL = 3;
-
-const int CPU_SUBTYPE_X86_ARCH1 = 4;
-
-const int CPU_SUBTYPE_X86_64_H = 8;
-
-const int CPU_THREADTYPE_INTEL_HTT = 1;
-
-const int CPU_SUBTYPE_MIPS_ALL = 0;
-
-const int CPU_SUBTYPE_MIPS_R2300 = 1;
-
-const int CPU_SUBTYPE_MIPS_R2600 = 2;
-
-const int CPU_SUBTYPE_MIPS_R2800 = 3;
-
-const int CPU_SUBTYPE_MIPS_R2000a = 4;
-
-const int CPU_SUBTYPE_MIPS_R2000 = 5;
-
-const int CPU_SUBTYPE_MIPS_R3000a = 6;
-
-const int CPU_SUBTYPE_MIPS_R3000 = 7;
-
-const int CPU_SUBTYPE_MC98000_ALL = 0;
-
-const int CPU_SUBTYPE_MC98601 = 1;
-
-const int CPU_SUBTYPE_HPPA_ALL = 0;
-
-const int CPU_SUBTYPE_HPPA_7100 = 0;
-
-const int CPU_SUBTYPE_HPPA_7100LC = 1;
-
-const int CPU_SUBTYPE_MC88000_ALL = 0;
-
-const int CPU_SUBTYPE_MC88100 = 1;
-
-const int CPU_SUBTYPE_MC88110 = 2;
-
-const int CPU_SUBTYPE_SPARC_ALL = 0;
-
-const int CPU_SUBTYPE_I860_ALL = 0;
-
-const int CPU_SUBTYPE_I860_860 = 1;
-
-const int CPU_SUBTYPE_POWERPC_ALL = 0;
-
-const int CPU_SUBTYPE_POWERPC_601 = 1;
-
-const int CPU_SUBTYPE_POWERPC_602 = 2;
-
-const int CPU_SUBTYPE_POWERPC_603 = 3;
-
-const int CPU_SUBTYPE_POWERPC_603e = 4;
-
-const int CPU_SUBTYPE_POWERPC_603ev = 5;
-
-const int CPU_SUBTYPE_POWERPC_604 = 6;
-
-const int CPU_SUBTYPE_POWERPC_604e = 7;
-
-const int CPU_SUBTYPE_POWERPC_620 = 8;
-
-const int CPU_SUBTYPE_POWERPC_750 = 9;
-
-const int CPU_SUBTYPE_POWERPC_7400 = 10;
-
-const int CPU_SUBTYPE_POWERPC_7450 = 11;
-
-const int CPU_SUBTYPE_POWERPC_970 = 100;
-
-const int CPU_SUBTYPE_ARM_ALL = 0;
-
-const int CPU_SUBTYPE_ARM_V4T = 5;
-
-const int CPU_SUBTYPE_ARM_V6 = 6;
-
-const int CPU_SUBTYPE_ARM_V5TEJ = 7;
-
-const int CPU_SUBTYPE_ARM_XSCALE = 8;
-
-const int CPU_SUBTYPE_ARM_V7 = 9;
-
-const int CPU_SUBTYPE_ARM_V7F = 10;
-
-const int CPU_SUBTYPE_ARM_V7S = 11;
-
-const int CPU_SUBTYPE_ARM_V7K = 12;
-
-const int CPU_SUBTYPE_ARM_V8 = 13;
-
-const int CPU_SUBTYPE_ARM_V6M = 14;
-
-const int CPU_SUBTYPE_ARM_V7M = 15;
-
-const int CPU_SUBTYPE_ARM_V7EM = 16;
-
-const int CPU_SUBTYPE_ARM_V8M = 17;
-
-const int CPU_SUBTYPE_ARM64_ALL = 0;
-
-const int CPU_SUBTYPE_ARM64_V8 = 1;
-
-const int CPU_SUBTYPE_ARM64E = 2;
-
-const int CPU_SUBTYPE_ARM64_PTR_AUTH_MASK = 251658240;
-
-const int CPU_SUBTYPE_ARM64_32_ALL = 0;
-
-const int CPU_SUBTYPE_ARM64_32_V8 = 1;
-
-const int CPUFAMILY_UNKNOWN = 0;
-
-const int CPUFAMILY_POWERPC_G3 = 3471054153;
-
-const int CPUFAMILY_POWERPC_G4 = 2009171118;
-
-const int CPUFAMILY_POWERPC_G5 = 3983988906;
-
-const int CPUFAMILY_INTEL_6_13 = 2855483691;
-
-const int CPUFAMILY_INTEL_PENRYN = 2028621756;
-
-const int CPUFAMILY_INTEL_NEHALEM = 1801080018;
-
-const int CPUFAMILY_INTEL_WESTMERE = 1463508716;
-
-const int CPUFAMILY_INTEL_SANDYBRIDGE = 1418770316;
-
-const int CPUFAMILY_INTEL_IVYBRIDGE = 526772277;
-
-const int CPUFAMILY_INTEL_HASWELL = 280134364;
-
-const int CPUFAMILY_INTEL_BROADWELL = 1479463068;
-
-const int CPUFAMILY_INTEL_SKYLAKE = 939270559;
-
-const int CPUFAMILY_INTEL_KABYLAKE = 260141638;
-
-const int CPUFAMILY_INTEL_ICELAKE = 943936839;
-
-const int CPUFAMILY_INTEL_COMETLAKE = 486055998;
-
-const int CPUFAMILY_ARM_9 = 3878847406;
-
-const int CPUFAMILY_ARM_11 = 2415272152;
-
-const int CPUFAMILY_ARM_XSCALE = 1404044789;
-
-const int CPUFAMILY_ARM_12 = 3172666089;
-
-const int CPUFAMILY_ARM_13 = 214503012;
-
-const int CPUFAMILY_ARM_14 = 2517073649;
-
-const int CPUFAMILY_ARM_15 = 2823887818;
-
-const int CPUFAMILY_ARM_SWIFT = 506291073;
-
-const int CPUFAMILY_ARM_CYCLONE = 933271106;
-
-const int CPUFAMILY_ARM_TYPHOON = 747742334;
-
-const int CPUFAMILY_ARM_TWISTER = 2465937352;
-
-const int CPUFAMILY_ARM_HURRICANE = 1741614739;
-
-const int CPUFAMILY_ARM_MONSOON_MISTRAL = 3894312694;
-
-const int CPUFAMILY_ARM_VORTEX_TEMPEST = 131287967;
-
-const int CPUFAMILY_ARM_LIGHTNING_THUNDER = 1176831186;
-
-const int CPUFAMILY_ARM_FIRESTORM_ICESTORM = 458787763;
-
-const int CPUFAMILY_ARM_BLIZZARD_AVALANCHE = 3660830781;
-
-const int CPUFAMILY_ARM_EVEREST_SAWTOOTH = 2271604202;
-
-const int CPUFAMILY_ARM_IBIZA = 4197663070;
-
-const int CPUFAMILY_ARM_PALMA = 1912690738;
-
-const int CPUFAMILY_ARM_COLL = 678884789;
-
-const int CPUFAMILY_ARM_LOBOS = 1598941843;
-
-const int CPUFAMILY_ARM_DONAN = 1867590060;
-
-const int CPUSUBFAMILY_UNKNOWN = 0;
-
-const int CPUSUBFAMILY_ARM_HP = 1;
-
-const int CPUSUBFAMILY_ARM_HG = 2;
-
-const int CPUSUBFAMILY_ARM_M = 3;
-
-const int CPUSUBFAMILY_ARM_HS = 4;
-
-const int CPUSUBFAMILY_ARM_HC_HD = 5;
-
-const int CPUSUBFAMILY_ARM_HA = 6;
-
-const int CPUFAMILY_INTEL_6_23 = 2028621756;
-
-const int CPUFAMILY_INTEL_6_26 = 1801080018;
-
-const int __COREFOUNDATION_CFMESSAGEPORT__ = 1;
-
-const int __COREFOUNDATION_CFPLUGIN__ = 1;
-
-const int COREFOUNDATION_CFPLUGINCOM_SEPARATE = 1;
-
-const int __COREFOUNDATION_CFMACHPORT__ = 1;
-
-const int __COREFOUNDATION_CFATTRIBUTEDSTRING__ = 1;
-
-const int __COREFOUNDATION_CFURLENUMERATOR__ = 1;
-
-const int __COREFOUNDATION_CFFILESECURITY__ = 1;
-
-const int KAUTH_GUID_SIZE = 16;
-
-const int KAUTH_UID_NONE = 4294967195;
-
-const int KAUTH_GID_NONE = 4294967195;
-
-const int KAUTH_NTSID_MAX_AUTHORITIES = 16;
-
-const int KAUTH_NTSID_HDRSIZE = 8;
-
-const int KAUTH_EXTLOOKUP_SUCCESS = 0;
-
-const int KAUTH_EXTLOOKUP_BADRQ = 1;
-
-const int KAUTH_EXTLOOKUP_FAILURE = 2;
-
-const int KAUTH_EXTLOOKUP_FATAL = 3;
-
-const int KAUTH_EXTLOOKUP_INPROG = 100;
-
-const int KAUTH_EXTLOOKUP_VALID_UID = 1;
-
-const int KAUTH_EXTLOOKUP_VALID_UGUID = 2;
-
-const int KAUTH_EXTLOOKUP_VALID_USID = 4;
-
-const int KAUTH_EXTLOOKUP_VALID_GID = 8;
-
-const int KAUTH_EXTLOOKUP_VALID_GGUID = 16;
-
-const int KAUTH_EXTLOOKUP_VALID_GSID = 32;
-
-const int KAUTH_EXTLOOKUP_WANT_UID = 64;
-
-const int KAUTH_EXTLOOKUP_WANT_UGUID = 128;
-
-const int KAUTH_EXTLOOKUP_WANT_USID = 256;
-
-const int KAUTH_EXTLOOKUP_WANT_GID = 512;
-
-const int KAUTH_EXTLOOKUP_WANT_GGUID = 1024;
-
-const int KAUTH_EXTLOOKUP_WANT_GSID = 2048;
-
-const int KAUTH_EXTLOOKUP_WANT_MEMBERSHIP = 4096;
-
-const int KAUTH_EXTLOOKUP_VALID_MEMBERSHIP = 8192;
-
-const int KAUTH_EXTLOOKUP_ISMEMBER = 16384;
-
-const int KAUTH_EXTLOOKUP_VALID_PWNAM = 32768;
-
-const int KAUTH_EXTLOOKUP_WANT_PWNAM = 65536;
-
-const int KAUTH_EXTLOOKUP_VALID_GRNAM = 131072;
-
-const int KAUTH_EXTLOOKUP_WANT_GRNAM = 262144;
-
-const int KAUTH_EXTLOOKUP_VALID_SUPGRPS = 524288;
-
-const int KAUTH_EXTLOOKUP_WANT_SUPGRPS = 1048576;
-
-const int KAUTH_EXTLOOKUP_REGISTER = 0;
-
-const int KAUTH_EXTLOOKUP_RESULT = 1;
-
-const int KAUTH_EXTLOOKUP_WORKER = 2;
-
-const int KAUTH_EXTLOOKUP_DEREGISTER = 4;
-
-const int KAUTH_GET_CACHE_SIZES = 8;
-
-const int KAUTH_SET_CACHE_SIZES = 16;
-
-const int KAUTH_CLEAR_CACHES = 32;
-
-const String IDENTITYSVC_ENTITLEMENT = 'com.apple.private.identitysvc';
-
-const int KAUTH_ACE_KINDMASK = 15;
-
-const int KAUTH_ACE_PERMIT = 1;
-
-const int KAUTH_ACE_DENY = 2;
-
-const int KAUTH_ACE_AUDIT = 3;
-
-const int KAUTH_ACE_ALARM = 4;
-
-const int KAUTH_ACE_INHERITED = 16;
-
-const int KAUTH_ACE_FILE_INHERIT = 32;
-
-const int KAUTH_ACE_DIRECTORY_INHERIT = 64;
-
-const int KAUTH_ACE_LIMIT_INHERIT = 128;
-
-const int KAUTH_ACE_ONLY_INHERIT = 256;
-
-const int KAUTH_ACE_SUCCESS = 512;
-
-const int KAUTH_ACE_FAILURE = 1024;
-
-const int KAUTH_ACE_INHERIT_CONTROL_FLAGS = 480;
-
-const int KAUTH_ACE_GENERIC_ALL = 2097152;
-
-const int KAUTH_ACE_GENERIC_EXECUTE = 4194304;
-
-const int KAUTH_ACE_GENERIC_WRITE = 8388608;
-
-const int KAUTH_ACE_GENERIC_READ = 16777216;
-
-const int KAUTH_ACL_MAX_ENTRIES = 128;
-
-const int KAUTH_ACL_FLAGS_PRIVATE = 65535;
-
-const int KAUTH_ACL_DEFER_INHERIT = 65536;
-
-const int KAUTH_ACL_NO_INHERIT = 131072;
-
-const int KAUTH_FILESEC_NOACL = 4294967295;
-
-const int KAUTH_FILESEC_MAGIC = 19710317;
-
-const int KAUTH_FILESEC_FLAGS_PRIVATE = 65535;
-
-const int KAUTH_FILESEC_DEFER_INHERIT = 65536;
-
-const int KAUTH_FILESEC_NO_INHERIT = 131072;
-
-const String KAUTH_FILESEC_XATTR = 'com.apple.system.Security';
-
-const int KAUTH_ENDIAN_HOST = 1;
-
-const int KAUTH_ENDIAN_DISK = 2;
-
-const int KAUTH_VNODE_READ_DATA = 2;
-
-const int KAUTH_VNODE_LIST_DIRECTORY = 2;
-
-const int KAUTH_VNODE_WRITE_DATA = 4;
-
-const int KAUTH_VNODE_ADD_FILE = 4;
-
-const int KAUTH_VNODE_EXECUTE = 8;
-
-const int KAUTH_VNODE_SEARCH = 8;
-
-const int KAUTH_VNODE_DELETE = 16;
-
-const int KAUTH_VNODE_APPEND_DATA = 32;
-
-const int KAUTH_VNODE_ADD_SUBDIRECTORY = 32;
-
-const int KAUTH_VNODE_DELETE_CHILD = 64;
-
-const int KAUTH_VNODE_READ_ATTRIBUTES = 128;
-
-const int KAUTH_VNODE_WRITE_ATTRIBUTES = 256;
-
-const int KAUTH_VNODE_READ_EXTATTRIBUTES = 512;
-
-const int KAUTH_VNODE_WRITE_EXTATTRIBUTES = 1024;
-
-const int KAUTH_VNODE_READ_SECURITY = 2048;
-
-const int KAUTH_VNODE_WRITE_SECURITY = 4096;
-
-const int KAUTH_VNODE_TAKE_OWNERSHIP = 8192;
-
-const int KAUTH_VNODE_CHANGE_OWNER = 8192;
-
-const int KAUTH_VNODE_SYNCHRONIZE = 1048576;
-
-const int KAUTH_VNODE_LINKTARGET = 33554432;
-
-const int KAUTH_VNODE_CHECKIMMUTABLE = 67108864;
-
-const int KAUTH_VNODE_ACCESS = 2147483648;
-
-const int KAUTH_VNODE_NOIMMUTABLE = 1073741824;
-
-const int KAUTH_VNODE_SEARCHBYANYONE = 536870912;
-
-const int KAUTH_VNODE_GENERIC_READ_BITS = 2690;
-
-const int KAUTH_VNODE_GENERIC_WRITE_BITS = 5492;
-
-const int KAUTH_VNODE_GENERIC_EXECUTE_BITS = 8;
-
-const int KAUTH_VNODE_GENERIC_ALL_BITS = 8190;
-
-const int KAUTH_VNODE_WRITE_RIGHTS = 100676980;
-
-const int __DARWIN_ACL_READ_DATA = 2;
-
-const int __DARWIN_ACL_LIST_DIRECTORY = 2;
-
-const int __DARWIN_ACL_WRITE_DATA = 4;
-
-const int __DARWIN_ACL_ADD_FILE = 4;
-
-const int __DARWIN_ACL_EXECUTE = 8;
-
-const int __DARWIN_ACL_SEARCH = 8;
-
-const int __DARWIN_ACL_DELETE = 16;
-
-const int __DARWIN_ACL_APPEND_DATA = 32;
-
-const int __DARWIN_ACL_ADD_SUBDIRECTORY = 32;
-
-const int __DARWIN_ACL_DELETE_CHILD = 64;
-
-const int __DARWIN_ACL_READ_ATTRIBUTES = 128;
-
-const int __DARWIN_ACL_WRITE_ATTRIBUTES = 256;
-
-const int __DARWIN_ACL_READ_EXTATTRIBUTES = 512;
-
-const int __DARWIN_ACL_WRITE_EXTATTRIBUTES = 1024;
-
-const int __DARWIN_ACL_READ_SECURITY = 2048;
-
-const int __DARWIN_ACL_WRITE_SECURITY = 4096;
-
-const int __DARWIN_ACL_CHANGE_OWNER = 8192;
-
-const int __DARWIN_ACL_SYNCHRONIZE = 1048576;
-
-const int __DARWIN_ACL_EXTENDED_ALLOW = 1;
-
-const int __DARWIN_ACL_EXTENDED_DENY = 2;
-
-const int __DARWIN_ACL_ENTRY_INHERITED = 16;
-
-const int __DARWIN_ACL_ENTRY_FILE_INHERIT = 32;
-
-const int __DARWIN_ACL_ENTRY_DIRECTORY_INHERIT = 64;
-
-const int __DARWIN_ACL_ENTRY_LIMIT_INHERIT = 128;
-
-const int __DARWIN_ACL_ENTRY_ONLY_INHERIT = 256;
-
-const int __DARWIN_ACL_FLAG_NO_INHERIT = 131072;
-
-const int ACL_MAX_ENTRIES = 128;
-
-const int ACL_UNDEFINED_ID = 0;
-
-const int __COREFOUNDATION_CFSTRINGTOKENIZER__ = 1;
-
-const int __COREFOUNDATION_CFFILEDESCRIPTOR__ = 1;
-
-const int __COREFOUNDATION_CFUSERNOTIFICATION__ = 1;
-
-const int __COREFOUNDATION_CFXMLNODE__ = 1;
-
-const int __COREFOUNDATION_CFXMLPARSER__ = 1;
-
-const int _CSSMTYPE_H_ = 1;
-
-const int _CSSMCONFIG_H_ = 1;
-
-const int SEC_ASN1_TAG_MASK = 255;
-
-const int SEC_ASN1_TAGNUM_MASK = 31;
-
-const int SEC_ASN1_BOOLEAN = 1;
-
-const int SEC_ASN1_INTEGER = 2;
-
-const int SEC_ASN1_BIT_STRING = 3;
-
-const int SEC_ASN1_OCTET_STRING = 4;
-
-const int SEC_ASN1_NULL = 5;
-
-const int SEC_ASN1_OBJECT_ID = 6;
-
-const int SEC_ASN1_OBJECT_DESCRIPTOR = 7;
-
-const int SEC_ASN1_REAL = 9;
-
-const int SEC_ASN1_ENUMERATED = 10;
-
-const int SEC_ASN1_EMBEDDED_PDV = 11;
-
-const int SEC_ASN1_UTF8_STRING = 12;
-
-const int SEC_ASN1_SEQUENCE = 16;
-
-const int SEC_ASN1_SET = 17;
-
-const int SEC_ASN1_NUMERIC_STRING = 18;
-
-const int SEC_ASN1_PRINTABLE_STRING = 19;
-
-const int SEC_ASN1_T61_STRING = 20;
-
-const int SEC_ASN1_VIDEOTEX_STRING = 21;
-
-const int SEC_ASN1_IA5_STRING = 22;
-
-const int SEC_ASN1_UTC_TIME = 23;
-
-const int SEC_ASN1_GENERALIZED_TIME = 24;
-
-const int SEC_ASN1_GRAPHIC_STRING = 25;
-
-const int SEC_ASN1_VISIBLE_STRING = 26;
-
-const int SEC_ASN1_GENERAL_STRING = 27;
-
-const int SEC_ASN1_UNIVERSAL_STRING = 28;
-
-const int SEC_ASN1_BMP_STRING = 30;
-
-const int SEC_ASN1_HIGH_TAG_NUMBER = 31;
-
-const int SEC_ASN1_TELETEX_STRING = 20;
-
-const int SEC_ASN1_METHOD_MASK = 32;
-
-const int SEC_ASN1_PRIMITIVE = 0;
-
-const int SEC_ASN1_CONSTRUCTED = 32;
-
-const int SEC_ASN1_CLASS_MASK = 192;
-
-const int SEC_ASN1_UNIVERSAL = 0;
-
-const int SEC_ASN1_APPLICATION = 64;
-
-const int SEC_ASN1_CONTEXT_SPECIFIC = 128;
-
-const int SEC_ASN1_PRIVATE = 192;
-
-const int SEC_ASN1_OPTIONAL = 256;
-
-const int SEC_ASN1_EXPLICIT = 512;
-
-const int SEC_ASN1_ANY = 1024;
-
-const int SEC_ASN1_INLINE = 2048;
-
-const int SEC_ASN1_POINTER = 4096;
-
-const int SEC_ASN1_GROUP = 8192;
-
-const int SEC_ASN1_DYNAMIC = 16384;
-
-const int SEC_ASN1_SKIP = 32768;
-
-const int SEC_ASN1_INNER = 65536;
-
-const int SEC_ASN1_SAVE = 131072;
-
-const int SEC_ASN1_SKIP_REST = 524288;
-
-const int SEC_ASN1_CHOICE = 1048576;
-
-const int SEC_ASN1_SIGNED_INT = 8388608;
-
-const int SEC_ASN1_SEQUENCE_OF = 8208;
-
-const int SEC_ASN1_SET_OF = 8209;
-
-const int SEC_ASN1_ANY_CONTENTS = 66560;
-
-const int _CSSMAPPLE_H_ = 1;
-
-const int _CSSMERR_H_ = 1;
-
-const int _X509DEFS_H_ = 1;
-
-const int BER_TAG_UNKNOWN = 0;
-
-const int BER_TAG_BOOLEAN = 1;
-
-const int BER_TAG_INTEGER = 2;
-
-const int BER_TAG_BIT_STRING = 3;
-
-const int BER_TAG_OCTET_STRING = 4;
-
-const int BER_TAG_NULL = 5;
-
-const int BER_TAG_OID = 6;
-
-const int BER_TAG_OBJECT_DESCRIPTOR = 7;
-
-const int BER_TAG_EXTERNAL = 8;
-
-const int BER_TAG_REAL = 9;
-
-const int BER_TAG_ENUMERATED = 10;
-
-const int BER_TAG_PKIX_UTF8_STRING = 12;
-
-const int BER_TAG_SEQUENCE = 16;
-
-const int BER_TAG_SET = 17;
-
-const int BER_TAG_NUMERIC_STRING = 18;
-
-const int BER_TAG_PRINTABLE_STRING = 19;
-
-const int BER_TAG_T61_STRING = 20;
-
-const int BER_TAG_TELETEX_STRING = 20;
-
-const int BER_TAG_VIDEOTEX_STRING = 21;
-
-const int BER_TAG_IA5_STRING = 22;
-
-const int BER_TAG_UTC_TIME = 23;
-
-const int BER_TAG_GENERALIZED_TIME = 24;
-
-const int BER_TAG_GRAPHIC_STRING = 25;
-
-const int BER_TAG_ISO646_STRING = 26;
-
-const int BER_TAG_GENERAL_STRING = 27;
-
-const int BER_TAG_VISIBLE_STRING = 26;
-
-const int BER_TAG_PKIX_UNIVERSAL_STRING = 28;
-
-const int BER_TAG_PKIX_BMP_STRING = 30;
-
-const int CSSM_X509_OPTION_PRESENT = 1;
-
-const int CSSM_X509_OPTION_NOT_PRESENT = 0;
-
-const int CE_KU_DigitalSignature = 32768;
-
-const int CE_KU_NonRepudiation = 16384;
-
-const int CE_KU_KeyEncipherment = 8192;
-
-const int CE_KU_DataEncipherment = 4096;
-
-const int CE_KU_KeyAgreement = 2048;
-
-const int CE_KU_KeyCertSign = 1024;
-
-const int CE_KU_CRLSign = 512;
-
-const int CE_KU_EncipherOnly = 256;
-
-const int CE_KU_DecipherOnly = 128;
-
-const int CE_CR_Unspecified = 0;
-
-const int CE_CR_KeyCompromise = 1;
-
-const int CE_CR_CACompromise = 2;
-
-const int CE_CR_AffiliationChanged = 3;
-
-const int CE_CR_Superseded = 4;
-
-const int CE_CR_CessationOfOperation = 5;
-
-const int CE_CR_CertificateHold = 6;
-
-const int CE_CR_RemoveFromCRL = 8;
-
-const int CE_CD_Unspecified = 128;
-
-const int CE_CD_KeyCompromise = 64;
-
-const int CE_CD_CACompromise = 32;
-
-const int CE_CD_AffiliationChanged = 16;
-
-const int CE_CD_Superseded = 8;
-
-const int CE_CD_CessationOfOperation = 4;
-
-const int CE_CD_CertificateHold = 2;
-
-const int CSSM_APPLE_TP_SSL_OPTS_VERSION = 1;
-
-const int CSSM_APPLE_TP_SSL_CLIENT = 1;
-
-const int CSSM_APPLE_TP_CRL_OPTS_VERSION = 0;
-
-const int CSSM_APPLE_TP_SMIME_OPTS_VERSION = 0;
-
-const int CSSM_APPLE_TP_ACTION_VERSION = 0;
-
-const int CSSM_TP_APPLE_EVIDENCE_VERSION = 0;
-
-const int CSSM_EVIDENCE_FORM_APPLE_CUSTOM = 2147483648;
-
-const String CSSM_APPLE_CRL_END_OF_TIME = '99991231235959';
-
-const String kKeychainSuffix = '.keychain';
-
-const String kKeychainDbSuffix = '.keychain-db';
-
-const String kSystemKeychainName = 'System.keychain';
-
-const String kSystemKeychainDir = '/Library/Keychains/';
-
-const String kSystemUnlockFile = '/var/db/SystemKey';
-
-const String kSystemKeychainPath = '/Library/Keychains/System.keychain';
-
-const String CSSM_APPLE_ACL_TAG_PARTITION_ID = '___PARTITION___';
-
-const String CSSM_APPLE_ACL_TAG_INTEGRITY = '___INTEGRITY___';
-
-const int errSecErrnoBase = 100000;
-
-const int errSecErrnoLimit = 100255;
-
-const int errSSLServerAuthCompleted = -9841;
-
-const int errSSLClientAuthCompleted = -9841;
-
-const int errSSLLast = -9849;
-
-const int NSMaximumStringLength = 2147483646;
-
-const int NS_UNICHAR_IS_EIGHT_BIT = 0;
-
 const int NSURLResponseUnknownLength = -1;
-
-const int NSOperationQualityOfServiceUserInteractive = 33;
-
-const int NSOperationQualityOfServiceUserInitiated = 25;
-
-const int NSOperationQualityOfServiceUtility = 17;
-
-const int NSOperationQualityOfServiceBackground = 9;
