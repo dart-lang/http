@@ -29,6 +29,7 @@ library;
 import 'dart:async';
 import 'dart:isolate';
 
+import 'package:logging/logging.dart';
 import 'package:objective_c/objective_c.dart' as objc;
 
 import 'native_cupertino_bindings.dart' as ncb;
@@ -53,6 +54,8 @@ export 'native_cupertino_bindings.dart'
         NSURLSessionTaskState,
         NSURLSessionWebSocketCloseCode,
         NSURLSessionWebSocketMessageType;
+
+final _logger = Logger('ClassroomApp');
 
 abstract class _ObjectHolder<T extends objc.NSObject> {
   final T _nsObject;
@@ -850,6 +853,28 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   }) {
     final protoBuilder = objc.ObjCProtocolBuilder();
 
+    final b =
+        ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionTask_NSError
+            .blocking((_, nsSession, nsTask, nsError) {
+      _logger.severe(
+          'Complete: session: ${nsSession.ref.pointer} task: ${nsTask.ref.pointer}');
+      _decrementTaskCount();
+      if (onComplete != null) {
+        onComplete(
+            URLSession._(nsSession,
+                isBackground: isBackground, hasDelegate: true),
+            URLSessionTask._(nsTask),
+            nsError);
+      }
+    });
+
+    final delegate = objc.getProtocol('NSURLSessionTaskDelegate');
+    final sel = objc.registerName('URLSession:task:didCompleteWithError:');
+    final signature = objc.getProtocolMethodSignature(delegate, sel,
+        isRequired: false, isInstanceMethod: true)!;
+    protoBuilder.implementMethod(sel, signature, b);
+
+/*
     ncb.NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
         .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
       _decrementTaskCount();
@@ -861,7 +886,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             nsError);
       }
     });
-
+*/
     if (onRedirect != null) {
       ncb
           .NSURLSessionDataDelegate
@@ -897,6 +922,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
               .blocking(
                   (_, nsSession, nsDataTask, nsResponse, nsCompletionHandler) {
+        _logger.severe(
+            'Response: session: ${nsSession.ref.pointer} task: ${nsDataTask.ref.pointer}');
+
         final exactResponse = URLResponse._exactURLResponseType(nsResponse);
         final disposition = onResponse(
             URLSession._(nsSession,
@@ -929,6 +957,24 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onData != null) {
+      final b =
+          ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSData
+              .blocking((_, nsSession, nsDataTask, nsData) {
+        _logger.severe(
+            'Data: session: ${nsSession.ref.pointer} task: ${nsDataTask.ref.pointer}');
+        onData(
+            URLSession._(nsSession,
+                isBackground: isBackground, hasDelegate: true),
+            URLSessionTask._(nsDataTask),
+            nsData);
+      });
+      final delegate = objc.getProtocol('NSURLSessionDataDelegate');
+      final sel = objc.registerName('URLSession:dataTask:didReceiveData:');
+      final signature = objc.getProtocolMethodSignature(delegate, sel,
+          isRequired: false, isInstanceMethod: true)!;
+      protoBuilder.implementMethod(sel, signature, b);
+
+      /*
       ncb.NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_
           .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
         onData(
@@ -937,6 +983,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             URLSessionTask._(nsDataTask),
             nsData);
       });
+      */
     }
 
     if (onFinishedDownloading != null) {
