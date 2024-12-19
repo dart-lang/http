@@ -73,7 +73,7 @@ class MultipartFile {
   factory MultipartFile.fromString(String field, String value,
       {String? filename, MediaType? contentType}) {
     contentType ??= MediaType('text', 'plain');
-    var encoding = encodingForCharset(contentType.parameters['charset'], utf8);
+    var encoding = encodingForContentTypeHeader(contentType, utf8);
     contentType = contentType.change(parameters: {'charset': encoding.name});
 
     return MultipartFile.fromBytes(field, encoding.encode(value),
