@@ -11,7 +11,12 @@ final token = RegExp(r'[^()<>@,;:"\\/[\]?={} \t\x00-\x1F\x7F]+');
 final _lws = RegExp(r'(?:\r\n)?[ \t]+');
 
 /// A quoted string.
-final _quotedString = RegExp(r'"(?:[^"\x00-\x1F\x7F]|\\.)*"');
+///
+/// [RFC-2616 2.2](https://datatracker.ietf.org/doc/html/rfc2616#section-2.2)
+/// defines the `quoted-string` production. This expression is identical to
+/// the RFC definition expect that, in this regex, `qdtext` is not allowed to
+/// contain `"\"`.
+final _quotedString = RegExp(r'"(?:[^"\x00-\x1F\x7F\\]|\\.)*"');
 
 /// A quoted pair.
 final _quotedPair = RegExp(r'\\(.)');
@@ -54,7 +59,7 @@ List<T> parseList<T>(StringScanner scanner, T Function() parseElement) {
   return result;
 }
 
-/// Parses a single quoted string, and returns its contents.
+/// Parses a double quoted string, and returns its contents.
 ///
 /// If [name] is passed, it's used to describe the expected value if it's not
 /// found.

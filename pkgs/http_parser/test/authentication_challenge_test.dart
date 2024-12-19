@@ -73,6 +73,14 @@ void _singleChallengeTests(
         equals({'realm': 'fblthp, foo=bar', 'baz': 'qux'}));
   });
 
+  test('parses quoted string parameters with surrounding spaces', () {
+    final challenge =
+        parseChallenge('scheme realm= "fblthp, foo=bar" , baz= "qux" ');
+    expect(challenge.scheme, equals('scheme'));
+    expect(challenge.parameters,
+        equals({'realm': 'fblthp, foo=bar', 'baz': 'qux'}));
+  });
+
   test('normalizes the case of the scheme', () {
     final challenge = parseChallenge('ScHeMe realm=fblthp');
     expect(challenge.scheme, equals('scheme'));
