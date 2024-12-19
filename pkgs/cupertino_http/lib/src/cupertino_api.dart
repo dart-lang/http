@@ -893,7 +893,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
 
     if (onResponse != null) {
-      /*
       final b =
           ncb.ObjCBlock_ffiVoid_ffiVoid_NSURLSession_NSURLSessionDataTask_NSURLResponse_ffiVoidNSURLSessionResponseDisposition
               .blocking(
@@ -911,9 +910,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       final sel = objc.registerName(
           'URLSession:dataTask:didReceiveResponse:completionHandler:');
       final signature = objc.getProtocolMethodSignature(delegate, sel,
-          isRequired: true, isInstanceMethod: true)!;
+          isRequired: false, isInstanceMethod: true)!;
       protoBuilder.implementMethod(sel, signature, b);
-*/
+/*
       ncb.NSURLSessionDataDelegate
           .URLSession_dataTask_didReceiveResponse_completionHandler_
           .implement(protoBuilder,
@@ -926,6 +925,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             exactResponse);
         nsCompletionHandler.call(disposition);
       });
+      */
     }
 
     if (onData != null) {
