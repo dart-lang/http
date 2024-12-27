@@ -1,16 +1,21 @@
 package com.example.ok_http
 
 import javax.net.ssl.X509ExtendedKeyManager
+import javax.net.ssl.SSLEngine
 import java.net.Socket
 import java.security.Principal
 import java.security.PrivateKey
 import java.security.cert.X509Certificate
+import android.util.Log
 
 class X509Foo : X509ExtendedKeyManager() {
+    init {
+        Log.e("OKHTTP", "X509Foo constructor")
+    }
 
     override fun getClientAliases(keyType: String, issuers: Array<Principal>?): Array<String>
     {
-        println("getClientAliases")
+        Log.e("OKHTTP", "getClientAliases")
         return arrayOf("Foo")
     }
 
@@ -19,12 +24,12 @@ class X509Foo : X509ExtendedKeyManager() {
     issuers: Array<Principal>?,
     socket: Socket?,
   ): String  { 
-        println("chooseClientAlias")
+    Log.e("OKHTTP", "chooseClientAlias")
         return "Foo";
     }
 
     override fun getServerAliases(keyType: String, issuers: Array<Principal>?): Array<String> { 
-        println("getServerAliases")
+        Log.e("OKHTTP", "getServerAliases")
         return arrayOf("Foo")
     }
 
@@ -33,19 +38,33 @@ class X509Foo : X509ExtendedKeyManager() {
     issuers: Array<Principal>?,
     socket: Socket?,
   ): String { 
-        println("chooseServerAlias")
+    Log.e("OKHTTP", "chooseServerAlias")
         return "Foo"
     }
 
     override fun getCertificateChain(alias: String): Array<X509Certificate>? {
-        println("getCertificateChain")
+        Log.e("OKHTTP", "getCertificateChain")
         return arrayOf()
     }
 
 
     override fun getPrivateKey(alias: String): PrivateKey? {
-        println("getPrivateKey");
+        Log.e("OKHTTP", "getPrivateKey");
         return null
+    }
+
+    override fun chooseEngineClientAlias(
+        keyType: Array<String>,
+        issuers: Array<Principal>?,
+        engine: SSLEngine?,
+      ): String {
+        Log.e("OKHTTP", "chooseEngineClientAlias");
+        return "Hello";
+    }
+
+    override fun chooseEngineServerAlias(keyType: String, issuers: Array<Principal>?, engine: SSLEngine) : String {
+        Log.e("OKHTTP", "chooseEngineServerAlias");
+        return "Hello";
     }
 
 }

@@ -82,14 +82,8 @@ void main() {
 
   test('test', () async {
     runServer();
-    final Client httpClient;
-/*  if (Platform.isAndroid) {
-    httpClient = OkHttpClient();
-  } else {*/
-    final s = SecurityContext();
-    s.setTrustedCertificatesBytes(cert);
+    final httpClient = OkHttpClient();
 
-    httpClient = OkHttpClient();
     await httpClient.get(Uri.https('localhost:8080', '/'));
   });
 }

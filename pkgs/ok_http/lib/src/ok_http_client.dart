@@ -120,7 +120,8 @@ class OkHttpClient extends BaseClient {
           print('getPrivateKey: $alias');
           return JObject.fromReference(jNullReference);
         });
-    final tm = bindings.TrustManagerFactory.getInstance(
+
+    final trustManagerFactory = bindings.TrustManagerFactory.getInstance(
         bindings.TrustManagerFactory.getDefaultAlgorithm())
       ..init(bindings.KeyStore.fromReference(jNullReference));
 
@@ -131,17 +132,14 @@ class OkHttpClient extends BaseClient {
 //            ..[0] = bindings.X509KeyManager.implement(x509KeyManager)
 //                .as(bindings.KeyManager.type),
 //          JArray.fromReference(bindings.TrustManager.type, jNullReference),
-          tm.getTrustManagers(),
-          bindings.SecureRandom());
+          trustManagerFactory.getTrustManagers(),
+          bindings.SecureRandom.fromReference(jNullReference));
     _client = bindings.OkHttpClient_Builder()
-//        .hostnameVerifier(bindings.HostnameVerifier.implement(hostNameVerifier))
-        .hostnameVerifier(
-            bindings.Verifier().as(bindings.HostnameVerifier.type))
-        .socketFactory(bindings.SocketFactoryFoo())
-        .sslSocketFactory$1(bindings.SSLSocketFactoryFoo(),
-            tm.getTrustManagers()[0].as(bindings.X509TrustManager.type))
-//        .sslSocketFactory$1(sslContext.getSocketFactory(),
-//            tm.getTrustManagers()[0].as(bindings.X509TrustManager.type))
+        .sslSocketFactory$1(
+            sslContext.getSocketFactory(),
+            trustManagerFactory
+                .getTrustManagers()[0]
+                .as(bindings.X509TrustManager.type))
         .build();
   }
 
