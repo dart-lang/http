@@ -1,4 +1,4 @@
-## 4.1.2-wip
+## 4.1.2
 
 * Fixed a bug where parsing quoted header values could require a regex to
   backtrack
