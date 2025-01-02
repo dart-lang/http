@@ -14,5 +14,7 @@ void main() {
     IOClient.new, preservesMethodCase: false, // https://dartbug.com/54187
     canReceiveSetCookieHeaders: true,
     canSendCookieHeaders: true,
+    correctlyHandlesNullHeaderValues:
+        false, // https://github.com/dart-lang/sdk/issues/56636
   );
 }
