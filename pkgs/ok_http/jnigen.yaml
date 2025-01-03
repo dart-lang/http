@@ -50,6 +50,7 @@ classes:
   - "javax.net.ssl.X509KeyManager"
   - "javax.net.ssl.X509ExtendedKeyManager"
   - "javax.net.ssl.HostnameVerifier"
+  - "java.security.cert.X509Certificate"
 
 preamble: |
   // ignore_for_file: prefer_expression_function_bodies

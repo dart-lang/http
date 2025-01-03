@@ -70,6 +70,7 @@ void runServer() async {
       await SecureServerSocket.bind('localhost', 8080, serverSecurityContext);
   print('ok ${server.port}');
   server.listen((socket) async {
+    print('Peer: ${socket.peerCertificate}');
     socket.writeAll(['HTTP/1.1 200 OK', 'Content-Length: 0', '\r\n'], '\r\n');
     print('server: got connection');
 
