@@ -51,6 +51,8 @@ classes:
   - "javax.net.ssl.X509ExtendedKeyManager"
   - "javax.net.ssl.HostnameVerifier"
   - "java.security.cert.X509Certificate"
-
+  - "android.security.KeyChain"
+  - "android.security.KeyChainAliasCallback"
+  - "java.security.KeyStore"
 preamble: |
   // ignore_for_file: prefer_expression_function_bodies

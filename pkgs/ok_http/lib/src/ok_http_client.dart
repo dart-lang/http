@@ -12,6 +12,7 @@
 /// [`runApp`](https://api.flutter.dev/flutter/widgets/runApp.html).
 library;
 
+// test-combined.p12 1234
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -81,6 +82,12 @@ class OkHttpClientConfiguration {
 ///   }
 /// }
 /// ```
+/*
+https://github.com/square/okhttp/blob/cc7e3c8e99402415b4fb72af3c2018e67acb918a/okhttp/src/test/java/okhttp3/internal/tls/ClientAuthTest.java#L265
+https://square.github.io/okhttp/3.x/okhttp-tls/index.html?okhttp3/tls/HandshakeCertificates.html
+https://stackoverflow.com/questions/65283321/okhttp-mutual-ssl-in-android
+
+*/
 class OkHttpClient extends BaseClient {
   late bindings.OkHttpClient _client;
   bool _isClosed = false;
@@ -93,6 +100,20 @@ class OkHttpClient extends BaseClient {
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
   }) {
+    final activity = Jni.getCurrentActivity();
+    late final keyAlias;
+    bindings.KeyChain.choosePrivateKeyAlias(JObject.fromReference(activity),
+        bindings.KeyChainAliasCallback.implement(
+            bindings.$KeyChainAliasCallback(alias: (alias) {
+      print('alias: $alias');
+      keyAlias = alias;
+    })),
+        JArray.fromReference(JString.type, jNullReference),
+        JArray.fromReference(JObject.type, jNullReference),
+        JString.fromReference(jNullReference),
+        -1,
+        JString.fromReference(jNullReference));
+
     // https://stackoverflow.com/questions/25509296/trusting-all-certificates-with-okhttp
     print('Creating client!!!!');
     const alias = "foo";
@@ -132,7 +153,14 @@ class OkHttpClient extends BaseClient {
           print('getPrivateKey: $alias');
           return JObject.fromReference(jNullReference);
         });
-
+/*
+    final keyStore =
+        bindings.KeyStore.getInstance("AndroidKeyStore".toJString());
+    keyStore.load$1(
+        bindings.KeyStore_LoadStoreParameter.fromReference(jNullReference));
+    final privateKey = keyStore.getEntry('test-combined'.toJString(),
+        bindings.KeyStore_ProtectionParameter.fromReference(jNullReference));
+    print('>>> PRIVATE KEY: ${privateKey.getAttributes()}');*/
     final trustManagerFactory = bindings.TrustManagerFactory.getInstance(
         bindings.TrustManagerFactory.getDefaultAlgorithm())
       ..init(bindings.KeyStore.fromReference(jNullReference));
@@ -140,14 +168,14 @@ class OkHttpClient extends BaseClient {
     final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())
       ..init(
           JArray(bindings.KeyManager.type, 1)
-//            ..[0] = bindings.X509Foo().as(bindings.KeyManager.type),
-            ..[0] = bindings.X509KeyManager.implement(x509KeyManager)
-                .as(bindings.KeyManager.type),
+            ..[0] = bindings.X509Foo().as(bindings.KeyManager.type),
+//            ..[0] = bindings.X509KeyManager.implement(x509KeyManager)
+//                .as(bindings.KeyManager.type),
 //          JArray.fromReference(bindings.TrustManager.type, jNullReference),
-          JArray(bindings.TrustManager.type, 1)
-            ..[0] = trustManager.as(bindings.TrustManager.type),
+//          JArray(bindings.TrustManager.type, 1)
+//            ..[0] = trustManager.as(bindings.TrustManager.type),
 
-//          trustManagerFactory.getTrustManagers(),
+          trustManagerFactory.getTrustManagers(),
           bindings.SecureRandom.fromReference(jNullReference));
     _client = bindings.OkHttpClient_Builder()
         .sslSocketFactory$1(sslContext.getSocketFactory(), trustManager

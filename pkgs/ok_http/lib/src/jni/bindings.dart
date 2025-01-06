@@ -22788,3 +22788,722 @@ final class $X509Certificate$Type extends _$jni.JObjType<X509Certificate> {
         other is $X509Certificate$Type;
   }
 }
+
+/// from: `android.security.KeyChain`
+class KeyChain extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyChain> $type;
+
+  @_$jni.internal
+  KeyChain.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'android/security/KeyChain');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyChain$Type();
+  static final _id_ACTION_KEYCHAIN_CHANGED = _class.staticFieldId(
+    r'ACTION_KEYCHAIN_CHANGED',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String ACTION_KEYCHAIN_CHANGED`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get ACTION_KEYCHAIN_CHANGED =>
+      _id_ACTION_KEYCHAIN_CHANGED.get(_class, const _$jni.JStringType());
+
+  static final _id_ACTION_KEY_ACCESS_CHANGED = _class.staticFieldId(
+    r'ACTION_KEY_ACCESS_CHANGED',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String ACTION_KEY_ACCESS_CHANGED`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get ACTION_KEY_ACCESS_CHANGED =>
+      _id_ACTION_KEY_ACCESS_CHANGED.get(_class, const _$jni.JStringType());
+
+  static final _id_ACTION_STORAGE_CHANGED = _class.staticFieldId(
+    r'ACTION_STORAGE_CHANGED',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String ACTION_STORAGE_CHANGED`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get ACTION_STORAGE_CHANGED =>
+      _id_ACTION_STORAGE_CHANGED.get(_class, const _$jni.JStringType());
+
+  static final _id_ACTION_TRUST_STORE_CHANGED = _class.staticFieldId(
+    r'ACTION_TRUST_STORE_CHANGED',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String ACTION_TRUST_STORE_CHANGED`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get ACTION_TRUST_STORE_CHANGED =>
+      _id_ACTION_TRUST_STORE_CHANGED.get(_class, const _$jni.JStringType());
+
+  static final _id_EXTRA_CERTIFICATE = _class.staticFieldId(
+    r'EXTRA_CERTIFICATE',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String EXTRA_CERTIFICATE`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get EXTRA_CERTIFICATE =>
+      _id_EXTRA_CERTIFICATE.get(_class, const _$jni.JStringType());
+
+  static final _id_EXTRA_KEY_ACCESSIBLE = _class.staticFieldId(
+    r'EXTRA_KEY_ACCESSIBLE',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String EXTRA_KEY_ACCESSIBLE`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get EXTRA_KEY_ACCESSIBLE =>
+      _id_EXTRA_KEY_ACCESSIBLE.get(_class, const _$jni.JStringType());
+
+  static final _id_EXTRA_KEY_ALIAS = _class.staticFieldId(
+    r'EXTRA_KEY_ALIAS',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String EXTRA_KEY_ALIAS`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get EXTRA_KEY_ALIAS =>
+      _id_EXTRA_KEY_ALIAS.get(_class, const _$jni.JStringType());
+
+  static final _id_EXTRA_NAME = _class.staticFieldId(
+    r'EXTRA_NAME',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String EXTRA_NAME`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get EXTRA_NAME =>
+      _id_EXTRA_NAME.get(_class, const _$jni.JStringType());
+
+  static final _id_EXTRA_PKCS12 = _class.staticFieldId(
+    r'EXTRA_PKCS12',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String EXTRA_PKCS12`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get EXTRA_PKCS12 =>
+      _id_EXTRA_PKCS12.get(_class, const _$jni.JStringType());
+
+  static final _id_KEY_ALIAS_SELECTION_DENIED = _class.staticFieldId(
+    r'KEY_ALIAS_SELECTION_DENIED',
+    r'Ljava/lang/String;',
+  );
+
+  /// from: `static public final java.lang.String KEY_ALIAS_SELECTION_DENIED`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString get KEY_ALIAS_SELECTION_DENIED =>
+      _id_KEY_ALIAS_SELECTION_DENIED.get(_class, const _$jni.JStringType());
+
+  static final _id_new$ = _class.constructorId(
+    r'()V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void <init>()`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory KeyChain() {
+    return KeyChain.fromReference(
+        _new$(_class.reference.pointer, _id_new$ as _$jni.JMethodIDPtr)
+            .reference);
+  }
+
+  static final _id_createInstallIntent = _class.staticMethodId(
+    r'createInstallIntent',
+    r'()Landroid/content/Intent;',
+  );
+
+  static final _createInstallIntent = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `static public android.content.Intent createInstallIntent()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject createInstallIntent() {
+    return _createInstallIntent(_class.reference.pointer,
+            _id_createInstallIntent as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_createManageCredentialsIntent = _class.staticMethodId(
+    r'createManageCredentialsIntent',
+    r'(Landroid/security/AppUriAuthenticationPolicy;)Landroid/content/Intent;',
+  );
+
+  static final _createManageCredentialsIntent =
+      _$jni.ProtectedJniExtensions.lookup<
+                  _$jni.NativeFunction<
+                      _$jni.JniResult Function(
+                          _$jni.Pointer<_$jni.Void>,
+                          _$jni.JMethodIDPtr,
+                          _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+              'globalEnv_CallStaticObjectMethod')
+          .asFunction<
+              _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public android.content.Intent createManageCredentialsIntent(android.security.AppUriAuthenticationPolicy appUriAuthenticationPolicy)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject createManageCredentialsIntent(
+    _$jni.JObject appUriAuthenticationPolicy,
+  ) {
+    return _createManageCredentialsIntent(
+            _class.reference.pointer,
+            _id_createManageCredentialsIntent as _$jni.JMethodIDPtr,
+            appUriAuthenticationPolicy.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_choosePrivateKeyAlias = _class.staticMethodId(
+    r'choosePrivateKeyAlias',
+    r'(Landroid/app/Activity;Landroid/security/KeyChainAliasCallback;[Ljava/lang/String;[Ljava/security/Principal;Ljava/lang/String;ILjava/lang/String;)V',
+  );
+
+  static final _choosePrivateKeyAlias = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void choosePrivateKeyAlias(android.app.Activity activity, android.security.KeyChainAliasCallback keyChainAliasCallback, java.lang.String[] strings, java.security.Principal[] principals, java.lang.String string, int i, java.lang.String string1)`
+  static void choosePrivateKeyAlias(
+    _$jni.JObject activity,
+    KeyChainAliasCallback keyChainAliasCallback,
+    _$jni.JArray<_$jni.JString> strings,
+    _$jni.JArray<_$jni.JObject> principals,
+    _$jni.JString string,
+    int i,
+    _$jni.JString string1,
+  ) {
+    _choosePrivateKeyAlias(
+            _class.reference.pointer,
+            _id_choosePrivateKeyAlias as _$jni.JMethodIDPtr,
+            activity.reference.pointer,
+            keyChainAliasCallback.reference.pointer,
+            strings.reference.pointer,
+            principals.reference.pointer,
+            string.reference.pointer,
+            i,
+            string1.reference.pointer)
+        .check();
+  }
+
+  static final _id_choosePrivateKeyAlias$1 = _class.staticMethodId(
+    r'choosePrivateKeyAlias',
+    r'(Landroid/app/Activity;Landroid/security/KeyChainAliasCallback;[Ljava/lang/String;[Ljava/security/Principal;Landroid/net/Uri;Ljava/lang/String;)V',
+  );
+
+  static final _choosePrivateKeyAlias$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void choosePrivateKeyAlias(android.app.Activity activity, android.security.KeyChainAliasCallback keyChainAliasCallback, java.lang.String[] strings, java.security.Principal[] principals, android.net.Uri uri, java.lang.String string)`
+  static void choosePrivateKeyAlias$1(
+    _$jni.JObject activity,
+    KeyChainAliasCallback keyChainAliasCallback,
+    _$jni.JArray<_$jni.JString> strings,
+    _$jni.JArray<_$jni.JObject> principals,
+    _$jni.JObject uri,
+    _$jni.JString string,
+  ) {
+    _choosePrivateKeyAlias$1(
+            _class.reference.pointer,
+            _id_choosePrivateKeyAlias$1 as _$jni.JMethodIDPtr,
+            activity.reference.pointer,
+            keyChainAliasCallback.reference.pointer,
+            strings.reference.pointer,
+            principals.reference.pointer,
+            uri.reference.pointer,
+            string.reference.pointer)
+        .check();
+  }
+
+  static final _id_isCredentialManagementApp = _class.staticMethodId(
+    r'isCredentialManagementApp',
+    r'(Landroid/content/Context;)Z',
+  );
+
+  static final _isCredentialManagementApp = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean isCredentialManagementApp(android.content.Context context)`
+  static bool isCredentialManagementApp(
+    _$jni.JObject context,
+  ) {
+    return _isCredentialManagementApp(
+            _class.reference.pointer,
+            _id_isCredentialManagementApp as _$jni.JMethodIDPtr,
+            context.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_getCredentialManagementAppPolicy = _class.staticMethodId(
+    r'getCredentialManagementAppPolicy',
+    r'(Landroid/content/Context;)Landroid/security/AppUriAuthenticationPolicy;',
+  );
+
+  static final _getCredentialManagementAppPolicy =
+      _$jni.ProtectedJniExtensions.lookup<
+                  _$jni.NativeFunction<
+                      _$jni.JniResult Function(
+                          _$jni.Pointer<_$jni.Void>,
+                          _$jni.JMethodIDPtr,
+                          _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+              'globalEnv_CallStaticObjectMethod')
+          .asFunction<
+              _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public android.security.AppUriAuthenticationPolicy getCredentialManagementAppPolicy(android.content.Context context)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject getCredentialManagementAppPolicy(
+    _$jni.JObject context,
+  ) {
+    return _getCredentialManagementAppPolicy(
+            _class.reference.pointer,
+            _id_getCredentialManagementAppPolicy as _$jni.JMethodIDPtr,
+            context.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_removeCredentialManagementApp = _class.staticMethodId(
+    r'removeCredentialManagementApp',
+    r'(Landroid/content/Context;)Z',
+  );
+
+  static final _removeCredentialManagementApp =
+      _$jni.ProtectedJniExtensions.lookup<
+                  _$jni.NativeFunction<
+                      _$jni.JniResult Function(
+                          _$jni.Pointer<_$jni.Void>,
+                          _$jni.JMethodIDPtr,
+                          _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+              'globalEnv_CallStaticBooleanMethod')
+          .asFunction<
+              _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean removeCredentialManagementApp(android.content.Context context)`
+  static bool removeCredentialManagementApp(
+    _$jni.JObject context,
+  ) {
+    return _removeCredentialManagementApp(
+            _class.reference.pointer,
+            _id_removeCredentialManagementApp as _$jni.JMethodIDPtr,
+            context.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_getPrivateKey = _class.staticMethodId(
+    r'getPrivateKey',
+    r'(Landroid/content/Context;Ljava/lang/String;)Ljava/security/PrivateKey;',
+  );
+
+  static final _getPrivateKey = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.PrivateKey getPrivateKey(android.content.Context context, java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject getPrivateKey(
+    _$jni.JObject context,
+    _$jni.JString string,
+  ) {
+    return _getPrivateKey(
+            _class.reference.pointer,
+            _id_getPrivateKey as _$jni.JMethodIDPtr,
+            context.reference.pointer,
+            string.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_getCertificateChain = _class.staticMethodId(
+    r'getCertificateChain',
+    r'(Landroid/content/Context;Ljava/lang/String;)[Ljava/security/cert/X509Certificate;',
+  );
+
+  static final _getCertificateChain = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.security.cert.X509Certificate[] getCertificateChain(android.content.Context context, java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<X509Certificate> getCertificateChain(
+    _$jni.JObject context,
+    _$jni.JString string,
+  ) {
+    return _getCertificateChain(
+            _class.reference.pointer,
+            _id_getCertificateChain as _$jni.JMethodIDPtr,
+            context.reference.pointer,
+            string.reference.pointer)
+        .object(const _$jni.JArrayType($X509Certificate$Type()));
+  }
+
+  static final _id_isKeyAlgorithmSupported = _class.staticMethodId(
+    r'isKeyAlgorithmSupported',
+    r'(Ljava/lang/String;)Z',
+  );
+
+  static final _isKeyAlgorithmSupported = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean isKeyAlgorithmSupported(java.lang.String string)`
+  static bool isKeyAlgorithmSupported(
+    _$jni.JString string,
+  ) {
+    return _isKeyAlgorithmSupported(
+            _class.reference.pointer,
+            _id_isKeyAlgorithmSupported as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_isBoundKeyAlgorithm = _class.staticMethodId(
+    r'isBoundKeyAlgorithm',
+    r'(Ljava/lang/String;)Z',
+  );
+
+  static final _isBoundKeyAlgorithm = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean isBoundKeyAlgorithm(java.lang.String string)`
+  static bool isBoundKeyAlgorithm(
+    _$jni.JString string,
+  ) {
+    return _isBoundKeyAlgorithm(
+            _class.reference.pointer,
+            _id_isBoundKeyAlgorithm as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .boolean;
+  }
+}
+
+final class $KeyChain$Type extends _$jni.JObjType<KeyChain> {
+  @_$jni.internal
+  const $KeyChain$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Landroid/security/KeyChain;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyChain fromReference(_$jni.JReference reference) =>
+      KeyChain.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyChain$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyChain$Type) && other is $KeyChain$Type;
+  }
+}
+
+/// from: `android.security.KeyChainAliasCallback`
+class KeyChainAliasCallback extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyChainAliasCallback> $type;
+
+  @_$jni.internal
+  KeyChainAliasCallback.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'android/security/KeyChainAliasCallback');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyChainAliasCallback$Type();
+  static final _id_alias = _class.instanceMethodId(
+    r'alias',
+    r'(Ljava/lang/String;)V',
+  );
+
+  static final _alias = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract void alias(java.lang.String string)`
+  void alias(
+    _$jni.JString string,
+  ) {
+    _alias(reference.pointer, _id_alias as _$jni.JMethodIDPtr,
+            string.reference.pointer)
+        .check();
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $KeyChainAliasCallback> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r'alias(Ljava/lang/String;)V') {
+        _$impls[$p]!.alias(
+          $a[0].as(const _$jni.JStringType(), releaseOriginal: true),
+        );
+        return _$jni.nullptr;
+      }
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn(
+    _$jni.JImplementer implementer,
+    $KeyChainAliasCallback $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'android.security.KeyChainAliasCallback',
+      $p,
+      _$invokePointer,
+      [
+        if ($impl.alias$async) r'alias(Ljava/lang/String;)V',
+      ],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory KeyChainAliasCallback.implement(
+    $KeyChainAliasCallback $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return KeyChainAliasCallback.fromReference(
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $KeyChainAliasCallback {
+  factory $KeyChainAliasCallback({
+    required void Function(_$jni.JString string) alias,
+    bool alias$async,
+  }) = _$KeyChainAliasCallback;
+
+  void alias(_$jni.JString string);
+  bool get alias$async => false;
+}
+
+final class _$KeyChainAliasCallback with $KeyChainAliasCallback {
+  _$KeyChainAliasCallback({
+    required void Function(_$jni.JString string) alias,
+    this.alias$async = false,
+  }) : _alias = alias;
+
+  final void Function(_$jni.JString string) _alias;
+  final bool alias$async;
+
+  void alias(_$jni.JString string) {
+    return _alias(string);
+  }
+}
+
+final class $KeyChainAliasCallback$Type
+    extends _$jni.JObjType<KeyChainAliasCallback> {
+  @_$jni.internal
+  const $KeyChainAliasCallback$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Landroid/security/KeyChainAliasCallback;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyChainAliasCallback fromReference(_$jni.JReference reference) =>
+      KeyChainAliasCallback.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyChainAliasCallback$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyChainAliasCallback$Type) &&
+        other is $KeyChainAliasCallback$Type;
+  }
+}
