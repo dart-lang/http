@@ -20,6 +20,7 @@ void main() {
           CupertinoClient.defaultSessionConfiguration,
           canReceiveSetCookieHeaders: true,
           canSendCookieHeaders: true,
+          correctlyHandlesNullHeaderValues: false,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
@@ -33,6 +34,7 @@ void main() {
           CupertinoClient.defaultSessionConfiguration,
           canReceiveSetCookieHeaders: true,
           canSendCookieHeaders: true,
+          correctlyHandlesNullHeaderValues: false,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
@@ -46,6 +48,7 @@ void main() {
       canWorkInIsolates: false,
       canReceiveSetCookieHeaders: true,
       canSendCookieHeaders: true,
+      correctlyHandlesNullHeaderValues: false,
     );
   });
 }

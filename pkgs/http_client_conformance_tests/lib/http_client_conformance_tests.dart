@@ -69,6 +69,9 @@ export 'src/server_errors_test.dart' show testServerErrors;
 /// If [supportsFoldedHeaders] is `false` then the tests that assume that the
 /// [Client] can parse folded headers will be skipped.
 ///
+/// If [correctlyHandlesNullHeaderValues] is `false` then the tests that assume
+/// that the [Client] correctly deals with NUL in header values are skipped.
+///
 /// If [supportsMultipartRequest] is `false` then tests that assume that
 /// multipart requests can be sent will be skipped.
 ///
@@ -83,6 +86,7 @@ void testAll(
   bool canWorkInIsolates = true,
   bool preservesMethodCase = false,
   bool supportsFoldedHeaders = true,
+  bool correctlyHandlesNullHeaderValues = true,
   bool canSendCookieHeaders = false,
   bool canReceiveSetCookieHeaders = false,
   bool supportsMultipartRequest = true,
@@ -97,7 +101,8 @@ void testAll(
   testRequestHeaders(clientFactory());
   testRequestMethods(clientFactory(), preservesMethodCase: preservesMethodCase);
   testResponseHeaders(clientFactory(),
-      supportsFoldedHeaders: supportsFoldedHeaders);
+      supportsFoldedHeaders: supportsFoldedHeaders,
+      correctlyHandlesNullHeaderValues: correctlyHandlesNullHeaderValues);
   testResponseStatusLine(clientFactory());
   testRedirect(clientFactory(), redirectAlwaysAllowed: redirectAlwaysAllowed);
   testServerErrors(clientFactory());
