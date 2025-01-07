@@ -23507,3 +23507,307 @@ final class $KeyChainAliasCallback$Type
         other is $KeyChainAliasCallback$Type;
   }
 }
+
+/// from: `javax.net.ssl.KeyManagerFactory`
+class KeyManagerFactory extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<KeyManagerFactory> $type;
+
+  @_$jni.internal
+  KeyManagerFactory.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class =
+      _$jni.JClass.forName(r'javax/net/ssl/KeyManagerFactory');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $KeyManagerFactory$Type();
+  static final _id_getDefaultAlgorithm = _class.staticMethodId(
+    r'getDefaultAlgorithm',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getDefaultAlgorithm = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `static public final java.lang.String getDefaultAlgorithm()`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString getDefaultAlgorithm() {
+    return _getDefaultAlgorithm(_class.reference.pointer,
+            _id_getDefaultAlgorithm as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getAlgorithm = _class.instanceMethodId(
+    r'getAlgorithm',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getAlgorithm = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.lang.String getAlgorithm()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getAlgorithm() {
+    return _getAlgorithm(
+            reference.pointer, _id_getAlgorithm as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getInstance = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;)Ljavax/net/ssl/KeyManagerFactory;',
+  );
+
+  static final _getInstance = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public final javax.net.ssl.KeyManagerFactory getInstance(java.lang.String string)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyManagerFactory getInstance(
+    _$jni.JString string,
+  ) {
+    return _getInstance(_class.reference.pointer,
+            _id_getInstance as _$jni.JMethodIDPtr, string.reference.pointer)
+        .object(const $KeyManagerFactory$Type());
+  }
+
+  static final _id_getInstance$1 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/lang/String;)Ljavax/net/ssl/KeyManagerFactory;',
+  );
+
+  static final _getInstance$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public final javax.net.ssl.KeyManagerFactory getInstance(java.lang.String string, java.lang.String string1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyManagerFactory getInstance$1(
+    _$jni.JString string,
+    _$jni.JString string1,
+  ) {
+    return _getInstance$1(
+            _class.reference.pointer,
+            _id_getInstance$1 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            string1.reference.pointer)
+        .object(const $KeyManagerFactory$Type());
+  }
+
+  static final _id_getInstance$2 = _class.staticMethodId(
+    r'getInstance',
+    r'(Ljava/lang/String;Ljava/security/Provider;)Ljavax/net/ssl/KeyManagerFactory;',
+  );
+
+  static final _getInstance$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public final javax.net.ssl.KeyManagerFactory getInstance(java.lang.String string, java.security.Provider provider)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static KeyManagerFactory getInstance$2(
+    _$jni.JString string,
+    _$jni.JObject provider,
+  ) {
+    return _getInstance$2(
+            _class.reference.pointer,
+            _id_getInstance$2 as _$jni.JMethodIDPtr,
+            string.reference.pointer,
+            provider.reference.pointer)
+        .object(const $KeyManagerFactory$Type());
+  }
+
+  static final _id_getProvider = _class.instanceMethodId(
+    r'getProvider',
+    r'()Ljava/security/Provider;',
+  );
+
+  static final _getProvider = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.security.Provider getProvider()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JObject getProvider() {
+    return _getProvider(
+            reference.pointer, _id_getProvider as _$jni.JMethodIDPtr)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_init = _class.instanceMethodId(
+    r'init',
+    r'(Ljava/security/KeyStore;[C)V',
+  );
+
+  static final _init = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void init(java.security.KeyStore keyStore, char[] cs)`
+  void init(
+    KeyStore keyStore,
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    _init(reference.pointer, _id_init as _$jni.JMethodIDPtr,
+            keyStore.reference.pointer, cs.reference.pointer)
+        .check();
+  }
+
+  static final _id_init$1 = _class.instanceMethodId(
+    r'init',
+    r'(Ljavax/net/ssl/ManagerFactoryParameters;)V',
+  );
+
+  static final _init$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public final void init(javax.net.ssl.ManagerFactoryParameters managerFactoryParameters)`
+  void init$1(
+    _$jni.JObject managerFactoryParameters,
+  ) {
+    _init$1(reference.pointer, _id_init$1 as _$jni.JMethodIDPtr,
+            managerFactoryParameters.reference.pointer)
+        .check();
+  }
+
+  static final _id_getKeyManagers = _class.instanceMethodId(
+    r'getKeyManagers',
+    r'()[Ljavax/net/ssl/KeyManager;',
+  );
+
+  static final _getKeyManagers = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final javax.net.ssl.KeyManager[] getKeyManagers()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<KeyManager> getKeyManagers() {
+    return _getKeyManagers(
+            reference.pointer, _id_getKeyManagers as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType($KeyManager$Type()));
+  }
+}
+
+final class $KeyManagerFactory$Type extends _$jni.JObjType<KeyManagerFactory> {
+  @_$jni.internal
+  const $KeyManagerFactory$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljavax/net/ssl/KeyManagerFactory;';
+
+  @_$jni.internal
+  @_$core.override
+  KeyManagerFactory fromReference(_$jni.JReference reference) =>
+      KeyManagerFactory.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($KeyManagerFactory$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($KeyManagerFactory$Type) &&
+        other is $KeyManagerFactory$Type;
+  }
+}

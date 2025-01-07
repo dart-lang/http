@@ -14,6 +14,7 @@ library;
 
 // test-combined.p12 1234
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:http/http.dart';
@@ -114,14 +115,23 @@ class OkHttpClient extends BaseClient {
         -1,
         JString.fromReference(jNullReference));
 
-    // https://stackoverflow.com/questions/25509296/trusting-all-certificates-with-okhttp
-    print('Creating client!!!!');
-    const alias = "foo";
-    final hostNameVerifier = bindings.$HostnameVerifier(
-        verify: (JString string, JObject sSLSession) {
-      print('I was called');
-      return true;
-    });
+    const alias = 'test-combined';
+    final context = JObject.fromReference(Jni.getCachedApplicationContext());
+    final pk = bindings.KeyChain.getPrivateKey(context, alias.toJString());
+    final chain =
+        bindings.KeyChain.getCertificateChain(context, alias.toJString());
+    print('pk/chain: ${pk.isNull} ${chain.isNull}');
+    final trustManagerFactory = bindings.TrustManagerFactory.getInstance(
+        bindings.TrustManagerFactory.getDefaultAlgorithm());
+    trustManagerFactory.init(bindings.KeyStore.fromReference(jNullReference));
+    final trustManagers = trustManagerFactory.getTrustManagers();
+
+    final keyManagerFactory = bindings.KeyManagerFactory.getInstance(
+        bindings.KeyManagerFactory.getDefaultAlgorithm());
+    keyManagerFactory.init(bindings.KeyStore.fromReference(jNullReference),
+        JArray.fromReference(jchar.type, jNullReference));
+//    keyManagerFactory.init$1(JObject.fromReference(jNullReference));
+
     final trustManager = bindings.X509TrustManager.implement(
         bindings.$X509TrustManager(checkClientTrusted: (chain, authType) {
       print('checkClientTrusted');
@@ -134,7 +144,8 @@ class OkHttpClient extends BaseClient {
       factory.init(bindings.KeyStore.fromReference(jNullReference));
       return JArray(bindings.X509Certificate.type, 0);
     }));
-    final x509KeyManager = bindings.$X509KeyManager(
+
+    final km = bindings.$X509KeyManager(
         chooseClientAlias: (strings, principals, socket) {
           print('chooseClientAlias');
           return alias.toJString();
@@ -153,38 +164,21 @@ class OkHttpClient extends BaseClient {
           print('getPrivateKey: $alias');
           return JObject.fromReference(jNullReference);
         });
-/*
-    final keyStore =
-        bindings.KeyStore.getInstance("AndroidKeyStore".toJString());
-    keyStore.load$1(
-        bindings.KeyStore_LoadStoreParameter.fromReference(jNullReference));
-    final privateKey = keyStore.getEntry('test-combined'.toJString(),
-        bindings.KeyStore_ProtectionParameter.fromReference(jNullReference));
-    print('>>> PRIVATE KEY: ${privateKey.getAttributes()}');*/
-    final trustManagerFactory = bindings.TrustManagerFactory.getInstance(
-        bindings.TrustManagerFactory.getDefaultAlgorithm())
-      ..init(bindings.KeyStore.fromReference(jNullReference));
 
     final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())
       ..init(
           JArray(bindings.KeyManager.type, 1)
-            ..[0] = bindings.X509Foo().as(bindings.KeyManager.type),
-//            ..[0] = bindings.X509KeyManager.implement(x509KeyManager)
-//                .as(bindings.KeyManager.type),
-//          JArray.fromReference(bindings.TrustManager.type, jNullReference),
-//          JArray(bindings.TrustManager.type, 1)
-//            ..[0] = trustManager.as(bindings.TrustManager.type),
-
-          trustManagerFactory.getTrustManagers(),
+//            ..[0] = bindings.X509Foo().as(bindings.KeyManager.type),
+            ..[0] = bindings.X509KeyManager.implement(km)
+                .as(bindings.KeyManager.type),
+          JArray(bindings.TrustManager.type, 1)
+            ..[0] = trustManager.as(bindings.TrustManager.type),
+//          trustManagers,
           bindings.SecureRandom.fromReference(jNullReference));
+    print('Creating client');
     _client = bindings.OkHttpClient_Builder()
-        .sslSocketFactory$1(sslContext.getSocketFactory(), trustManager
-            /*
-            trustManagerFactory
-                .getTrustManagers()[0]
-                .as(bindings.X509TrustManager.type)
-                */
-            )
+        .sslSocketFactory$1(sslContext.getSocketFactory(),
+            trustManagers[0].as(bindings.X509TrustManager.type))
         .build();
   }
 

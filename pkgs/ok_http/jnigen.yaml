@@ -54,5 +54,6 @@ classes:
   - "android.security.KeyChain"
   - "android.security.KeyChainAliasCallback"
   - "java.security.KeyStore"
+  - "javax.net.ssl.KeyManagerFactory"
 preamble: |
   // ignore_for_file: prefer_expression_function_bodies
