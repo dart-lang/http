@@ -16,4 +16,5 @@ typedef void (^_DidFinishWithLock)(NSCondition *lock, NSURLSession *session,
 /// Create a block useable as a
 /// `URLSession:downloadTask:didFinishDownloadingToURL:` that can be used to
 /// make an async Dart callback behave synchronously.
+__attribute__((visibility("default"))) __attribute__((used))
 _DidFinish adaptFinishWithLock(_DidFinishWithLock block);
