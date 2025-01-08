@@ -31,3 +31,7 @@
 'package:http_parser':
   - changed-files:
     - any-glob-to-any-file: 'pkgs/http_parser/**'
+
+'package:web_socket_conformance_tests':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/web_socket_conformance_tests/**'
