@@ -97,25 +97,36 @@ class OkHttpClient extends BaseClient {
   /// It can be updated multiple times during the client's lifecycle.
   OkHttpClientConfiguration configuration;
 
-  /// Creates a new instance of [OkHttpClient] with the given [configuration].
-  OkHttpClient({
-    this.configuration = const OkHttpClientConfiguration(),
-  }) {
+  static Future<String> getAlias() async {
+    final c = Completer<String>();
     final activity = Jni.getCurrentActivity();
-    late final keyAlias;
     bindings.KeyChain.choosePrivateKeyAlias(JObject.fromReference(activity),
         bindings.KeyChainAliasCallback.implement(
             bindings.$KeyChainAliasCallback(alias: (alias) {
       print('alias: $alias');
-      keyAlias = alias;
+      final context = JObject.fromReference(Jni.getCachedApplicationContext());
+      final pk = bindings.KeyChain.getPrivateKey(context, alias);
+      final chain = bindings.KeyChain.getCertificateChain(context, alias);
+      print('pk/chain (callback): ${pk.isNull} ${chain.isNull}');
+      if (!pk.isNull) {
+        print(
+            'pk algorithm: ${pk.as(bindings.Key.type).getAlgorithm().toDartString()}');
+      }
+      c.complete(alias.toDartString());
     })),
         JArray.fromReference(JString.type, jNullReference),
         JArray.fromReference(JObject.type, jNullReference),
         JString.fromReference(jNullReference),
         -1,
         JString.fromReference(jNullReference));
+    return c.future;
+  }
 
-    const alias = 'test-combined';
+  /// Creates a new instance of [OkHttpClient] with the given [configuration].
+  OkHttpClient({
+    this.configuration = const OkHttpClientConfiguration(),
+    required String alias,
+  }) {
     final context = JObject.fromReference(Jni.getCachedApplicationContext());
     final pk = bindings.KeyChain.getPrivateKey(context, alias.toJString());
     final chain =
@@ -162,15 +173,45 @@ class OkHttpClient extends BaseClient {
         },
         getPrivateKey: (alias) {
           print('getPrivateKey: $alias');
-          return JObject.fromReference(jNullReference);
+          return bindings.PrivateKey.fromReference(jNullReference);
         });
+/*
+    final generator = bindings.KeyPairGenerator.getInstance("RSA".toJString());
+    final keyPair = generator.genKeyPair();
 
+    final privateKey = keyPair.getPrivate();
+
+    final serverRootCa = bindings.HeldCertificate_Builder()
+        .serialNumber$1(1)
+        .certificateAuthority(1)
+        .commonName("root".toJString())
+        .addSubjectAlternativeName("root_ca.com".toJString())
+        .build();
+
+    final clientIntermediateCa = bindings.HeldCertificate_Builder()
+        .signedBy(serverRootCa)
+        .certificateAuthority(0)
+        .serialNumber$1(2)
+        .commonName("intermediate_ca".toJString())
+        .addSubjectAlternativeName("intermediate_ca.com".toJString())
+        .build();
+
+    final clientCert = bindings.HeldCertificate_Builder()
+        .signedBy(clientIntermediateCa)
+        .serialNumber$1(4)
+        .commonName("Jethro Willis".toJString())
+        .addSubjectAlternativeName("jethrowillis.com".toJString())
+        .build();
+    final privateKeyChain = JArray(bindings.X509Certificate.type, 1)
+      ..[0] = clientIntermediateCa.certificate();
+*/
     final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())
       ..init(
           JArray(bindings.KeyManager.type, 1)
-//            ..[0] = bindings.X509Foo().as(bindings.KeyManager.type),
-            ..[0] = bindings.X509KeyManager.implement(km)
+            ..[0] = bindings.X509Foo(chain, pk, alias.toJString())
                 .as(bindings.KeyManager.type),
+//            ..[0] = bindings.X509KeyManager.implement(km)
+//                .as(bindings.KeyManager.type),
           JArray(bindings.TrustManager.type, 1)
             ..[0] = trustManager.as(bindings.TrustManager.type),
 //          trustManagers,
@@ -419,7 +460,7 @@ class OkHttpClientWithProfile extends OkHttpClient {
   HttpClientRequestProfile? _createProfile(BaseRequest request) =>
       profile = super._createProfile(request);
 
-  OkHttpClientWithProfile() : super();
+  OkHttpClientWithProfile() : super(alias: 'XXX');
 }
 
 extension on Uint8List {

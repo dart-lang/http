@@ -54,6 +54,12 @@ classes:
   - "android.security.KeyChain"
   - "android.security.KeyChainAliasCallback"
   - "java.security.KeyStore"
+  - "java.security.PrivateKey"
+  - "java.security.Key"
   - "javax.net.ssl.KeyManagerFactory"
+  - "java.security.KeyPairGenerator"
+  - "java.security.KeyPair"
+  - "java.security.PublicKey"
+  - "okhttp3.tls.HeldCertificate"
 preamble: |
   // ignore_for_file: prefer_expression_function_bodies

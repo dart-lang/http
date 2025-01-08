@@ -1,70 +1,47 @@
 package com.example.ok_http
 
-import javax.net.ssl.X509ExtendedKeyManager
-import javax.net.ssl.SSLEngine
 import java.net.Socket
 import java.security.Principal
 import java.security.PrivateKey
 import java.security.cert.X509Certificate
-import android.util.Log
+import javax.net.ssl.SSLEngine
+import javax.net.ssl.X509ExtendedKeyManager
 
-class X509Foo : X509ExtendedKeyManager() {
-    init {
-        Log.e("OKHTTP", "X509Foo constructor")
-    }
+class X509Foo(
+        private val certificateChain: Array<X509Certificate>,
+        private val privateKey: PrivateKey,
+        private val alias: String,
+) : X509ExtendedKeyManager() {
 
-    override fun getClientAliases(keyType: String, issuers: Array<Principal>?): Array<String>
-    {
-        Log.e("OKHTTP", "getClientAliases")
-        return arrayOf("Foo")
-    }
+    override fun getClientAliases(keyType: String, issuers: Array<Principal>?) = arrayOf(alias)
 
     override fun chooseClientAlias(
-    keyType: Array<String>,
-    issuers: Array<Principal>?,
-    socket: Socket?,
-  ): String  { 
-    Log.e("OKHTTP", "chooseClientAlias")
-        return "Foo";
-    }
+            keyType: Array<String>,
+            issuers: Array<Principal>?,
+            socket: Socket?,
+    ) = alias
 
-    override fun getServerAliases(keyType: String, issuers: Array<Principal>?): Array<String> { 
-        Log.e("OKHTTP", "getServerAliases")
-        return arrayOf("Foo")
-    }
+    override fun getServerAliases(keyType: String, issuers: Array<Principal>?) = arrayOf(alias)
 
     override fun chooseServerAlias(
-    keyType: String,
-    issuers: Array<Principal>?,
-    socket: Socket?,
-  ): String { 
-    Log.e("OKHTTP", "chooseServerAlias")
-        return "Foo"
-    }
+            keyType: String,
+            issuers: Array<Principal>?,
+            socket: Socket?,
+    ) = alias
 
-    override fun getCertificateChain(alias: String): Array<X509Certificate>? {
-        Log.e("OKHTTP", "getCertificateChain")
-        return arrayOf()
-    }
+    override fun getCertificateChain(alias: String) = certificateChain
 
-
-    override fun getPrivateKey(alias: String): PrivateKey? {
-        Log.e("OKHTTP", "getPrivateKey");
-        return null
-    }
+    override fun getPrivateKey(alias: String) = privateKey
 
     override fun chooseEngineClientAlias(
-        keyType: Array<String>,
-        issuers: Array<Principal>?,
-        engine: SSLEngine?,
-      ): String {
-        Log.e("OKHTTP", "chooseEngineClientAlias");
-        return "Hello";
-    }
+            keyType: Array<String>,
+            issuers: Array<Principal>?,
+            engine: SSLEngine?,
+    ) = alias
 
-    override fun chooseEngineServerAlias(keyType: String, issuers: Array<Principal>?, engine: SSLEngine) : String {
-        Log.e("OKHTTP", "chooseEngineServerAlias");
-        return "Hello";
-    }
-
+    override fun chooseEngineServerAlias(
+            keyType: String,
+            issuers: Array<Principal>?,
+            engine: SSLEngine
+    ) = alias
 }

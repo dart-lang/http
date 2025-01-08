@@ -66,8 +66,10 @@ final SecurityContext serverSecurityContext = () {
 }();
 
 void runServer() async {
-  final server =
-      await SecureServerSocket.bind('localhost', 8080, serverSecurityContext);
+  // https://github.com/dart-lang/sdk/issues/52609
+  final server = await SecureServerSocket.bind(
+      'localhost', 8080, serverSecurityContext,
+      requestClientCertificate: true, requireClientCertificate: true);
   print('ok ${server.port}');
   server.listen((socket) async {
     print('Peer: ${socket.peerCertificate}');
@@ -83,7 +85,8 @@ void main() {
 
   test('test', () async {
     runServer();
-    final httpClient = OkHttpClient();
+    final alias = await OkHttpClient.getAlias();
+    final httpClient = OkHttpClient(alias: alias);
 
     await httpClient.get(Uri.https('localhost:8080', '/'));
   });
