@@ -80,11 +80,12 @@ Future<SecurityContext> serverContext(String certType, String password) async =>
           await loadCertificateBytes('certificates/server_key.p12'),
           password: password)
       ..setTrustedCertificatesBytes(
-          await loadCertificateBytes('certificates/client_authority.p12'),
-          password: password)
-      ..setClientAuthoritiesBytes(
-          await loadCertificateBytes('certificates/client_authority.p12'),
-          password: password);
+          await loadCertificateBytes('certificates/test-combined.p12'),
+          password: '1234')
+/*      ..setClientAuthoritiesBytes(
+          await loadCertificateBytes('certificates/test-combined.p12'),
+          password: '1234')*/
+    ;
 
 Future<void> runServer() async {
   // https://github.com/dart-lang/sdk/issues/52609
@@ -106,7 +107,8 @@ void main() async {
 
   final certChain =
       await loadCertificateBytes('certificates/client_authority.p12');
-  final clientCert = await loadCertificateBytes('certificates/client1_key.p12');
+  final clientCert =
+      await loadCertificateBytes('certificates/test-combined.p12');
 
   test('test', () async {
     await runServer();

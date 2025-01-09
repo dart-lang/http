@@ -127,15 +127,15 @@ class OkHttpClient extends BaseClient {
     var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString());
     JString string;
 
-    final password = JArray(jchar.type, 8)
-      ..[0] = 'd'.codeUnits[0]
-      ..[1] = 'a'.codeUnits[0]
-      ..[2] = 'r'.codeUnits[0]
-      ..[3] = 't'.codeUnits[0]
-      ..[4] = 'd'.codeUnits[0]
-      ..[5] = 'a'.codeUnits[0]
-      ..[6] = 'r'.codeUnits[0]
-      ..[7] = 't'.codeUnits[0];
+    final password = JArray(jchar.type, 4)
+      ..[0] = '1'.codeUnits[0]
+      ..[1] = '2'.codeUnits[0]
+      ..[2] = '3'.codeUnits[0]
+      ..[3] = '4'.codeUnits[0];
+//      ..[4] = 'd'.codeUnits[0]
+//      ..[5] = 'a'.codeUnits[0]
+//      ..[6] = 'r'.codeUnits[0]
+//      ..[7] = 't'.codeUnits[0];
 
     /// XXX to Char array
     ///
@@ -143,20 +143,28 @@ class OkHttpClient extends BaseClient {
     final alias = keyStore.aliases().nextElement();
     print('found alias: ${alias.toDartString()}');
 
-    keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString());
-    keyStore.load(bindings.ByteArrayInputStream(chain.toJArray()), password);
     // final chain2 = JArray(bindings.X509Certificate.type, 0);
     //  print(keyStore.aliases().nextElement().toDartString());
 //    final alias2 = keyStore.aliases().nextElement();
 //    print('found alias2: ${alias2.toDartString()}');
-
-    final chain1 =
-        keyStore.getCertificateChain("clientauthority".toJString()); // alias);
+/*
+  'package:jni/src/jobject.dart': Failed assertion: line 92 pos 7: '() {
+          final jClass = type.jClass.reference.toPointer();
+          final canBeCasted = Jni.env.IsInstanceOf(reference.pointer, jClass);
+          Jni.env.DeleteGlobalRef(jClass);
+          return canBeCasted;
+        }()': The object must be of type "[Ljava/security/cert/X509Certificate;".
+        */
+    final chain1 = keyStore.getCertificateChain(alias);
     print('two: ${chain1.isNull}');
-    final chain2 = bindings.Arrays.copyOf(chain1, chain.length,
+    print(chain1.length);
+    print(chain1[0].jClass);
+    final chain2 = JArray(bindings.X509Certificate.type, 1)
+      ..[0] = chain1[0].as(bindings.X509Certificate.type);
+/*    final chain2 = bindings.Arrays.copyOf(chain1, chain.length,
             T: bindings.X509Certificate.type)
         .as(JArray.type(bindings.X509Certificate.type));
-
+*/
     return (keyStore.getKey(alias, password), chain2, alias.toDartString());
   }
 
@@ -181,8 +189,8 @@ class OkHttpClient extends BaseClient {
     final chain = keyStore.getCertificateChain(alias);
     print('two: ${chain.isNull}');
     return bindings.Arrays.copyOf(chain, chain.length,
-            T: bindings.X509Certificate.type)
-        .as(JArray.type(bindings.X509Certificate.type));
+        T: bindings.X509Certificate.type);
+//        .as(JArray.type(bindings.X509Certificate.type));
   }
 
   /// Creates a new instance of [OkHttpClient] with the given [configuration].
