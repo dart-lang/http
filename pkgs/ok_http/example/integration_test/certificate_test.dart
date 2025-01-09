@@ -80,7 +80,9 @@ Future<SecurityContext> serverContext(String certType, String password) async =>
           await loadCertificateBytes('certificates/server_key.p12'),
           password: password)
       ..setTrustedCertificatesBytes(
-          await loadCertificateBytes('certificates/test-combined.p12'),
+//          await loadCertificateBytes('certificates/test-combined.p12'),
+
+          await loadCertificateBytes('test_certs/client-cert.p12'),
           password: '1234')
 /*      ..setClientAuthoritiesBytes(
           await loadCertificateBytes('certificates/test-combined.p12'),
@@ -105,15 +107,14 @@ Future<void> runServer() async {
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final certChain =
-      await loadCertificateBytes('certificates/client_authority.p12');
-  final clientCert =
-      await loadCertificateBytes('certificates/test-combined.p12');
+  final clientCert = await loadCertificateBytes('test_certs/client-cert.p12');
+//  final clientCert =
+//      await loadCertificateBytes('certificates/test-combined.p12');
 
   test('test', () async {
     await runServer();
     // final alias = await OkHttpClient.getAlias();
-    final httpClient = OkHttpClient(certChain, clientCert);
+    final httpClient = OkHttpClient(Uint8List(0), clientCert);
 
     await httpClient.get(Uri.https('localhost:8080', '/'));
   });
