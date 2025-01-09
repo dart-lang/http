@@ -20,13 +20,37 @@
 id objc_retain(id);
 id objc_retainBlock(id);
 
+@interface _NativeCupertinoHttp_BlockDestroyer : NSObject {}
+@property int64_t closure_id;
+@property int64_t dispose_port;
+@property void (*dtor)(int64_t, int64_t);
+- (void)dealloc;
+@end
+@implementation _NativeCupertinoHttp_BlockDestroyer
+- (void)dealloc { self.dtor(self.dispose_port, self.closure_id); }
+@end
+
 typedef void  (^_BlockType)();
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1pl9qdv(
+    _BlockType block)  {
+  return block();
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType _NativeCupertinoHttp_newClosureBlock_1pl9qdv(
-    void  (*trampoline)(void * ), void* target) NS_RETURNS_RETAINED {
-  return ^void () {
-    return trampoline(target);
+    void  (*trampoline)(id , int64_t ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType weakBlk;
+  _BlockType blk = ^void () {
+    return trampoline(weakBlk, obj.closure_id);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -58,29 +82,71 @@ _BlockType _NativeCupertinoHttp_wrapBlockingBlock_1pl9qdv(
 
 typedef int  (^_BlockType1)(void * arg0, void * arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+int  _NativeCupertinoHttp_invokeBlock_1xo8x7m(
+    _BlockType1 block, void * arg0, void * arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType1 _NativeCupertinoHttp_newClosureBlock_1xo8x7m(
-    int  (*trampoline)(void * , void * , void * ), void* target) NS_RETURNS_RETAINED {
-  return ^int (void * arg0, void * arg1) {
-    return trampoline(target, arg0, arg1);
+    int  (*trampoline)(id , int64_t , void * , void * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType1 weakBlk;
+  _BlockType1 blk = ^int (void * arg0, void * arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef NSComparisonResult  (^_BlockType2)(id arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+NSComparisonResult  _NativeCupertinoHttp_invokeBlock_8brfhu(
+    _BlockType2 block, id arg0, id arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType2 _NativeCupertinoHttp_newClosureBlock_8brfhu(
-    NSComparisonResult  (*trampoline)(void * , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^NSComparisonResult (id arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    NSComparisonResult  (*trampoline)(id , int64_t , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType2 weakBlk;
+  _BlockType2 blk = ^NSComparisonResult (id arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef void  (^_BlockType3)(id arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1jdvcbf(
+    _BlockType3 block, id arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType3 _NativeCupertinoHttp_newClosureBlock_1jdvcbf(
-    void  (*trampoline)(void * , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0) {
-    return trampoline(target, arg0);
+    void  (*trampoline)(id , int64_t , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType3 weakBlk;
+  _BlockType3 blk = ^void (id arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -112,29 +178,71 @@ _BlockType3 _NativeCupertinoHttp_wrapBlockingBlock_1jdvcbf(
 
 typedef BOOL  (^_BlockType4)(void * arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+BOOL  _NativeCupertinoHttp_invokeBlock_e3qsqz(
+    _BlockType4 block, void * arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType4 _NativeCupertinoHttp_newClosureBlock_e3qsqz(
-    BOOL  (*trampoline)(void * , void * ), void* target) NS_RETURNS_RETAINED {
-  return ^BOOL (void * arg0) {
-    return trampoline(target, arg0);
+    BOOL  (*trampoline)(id , int64_t , void * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType4 weakBlk;
+  _BlockType4 blk = ^BOOL (void * arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef id  (^_BlockType5)(void * arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+id  _NativeCupertinoHttp_invokeBlock_1yesha9(
+    _BlockType5 block, void * arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType5 _NativeCupertinoHttp_newClosureBlock_1yesha9(
-    id  (*trampoline)(void * , void * ), void* target) NS_RETURNS_RETAINED {
-  return ^id (void * arg0) {
-    return trampoline(target, arg0);
+    id  (*trampoline)(id , int64_t , void * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType5 weakBlk;
+  _BlockType5 blk = ^id (void * arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef void  (^_BlockType6)(void * arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_wjovn7(
+    _BlockType6 block, void * arg0, id arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType6 _NativeCupertinoHttp_newClosureBlock_wjovn7(
-    void  (*trampoline)(void * , void * , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , void * , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType6 weakBlk;
+  _BlockType6 blk = ^void (void * arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -166,20 +274,48 @@ _BlockType6 _NativeCupertinoHttp_wrapBlockingBlock_wjovn7(
 
 typedef id  (^_BlockType7)(void * arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+id  _NativeCupertinoHttp_invokeBlock_1m9h2n(
+    _BlockType7 block, void * arg0, id arg1) NS_RETURNS_RETAINED {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType7 _NativeCupertinoHttp_newClosureBlock_1m9h2n(
-    id  (*trampoline)(void * , void * , id ), void* target) NS_RETURNS_RETAINED {
-  return ^id (void * arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    id  (*trampoline)(id , int64_t , void * , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType7 weakBlk;
+  _BlockType7 blk = ^id (void * arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef void  (^_BlockType8)(id arg0, id arg1, BOOL * arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1krhfwz(
+    _BlockType8 block, id arg0, id arg1, BOOL * arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType8 _NativeCupertinoHttp_newClosureBlock_1krhfwz(
-    void  (*trampoline)(void * , id , id , BOOL * ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, id arg1, BOOL * arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    void  (*trampoline)(id , int64_t , id , id , BOOL * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType8 weakBlk;
+  _BlockType8 blk = ^void (id arg0, id arg1, BOOL * arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -211,38 +347,94 @@ _BlockType8 _NativeCupertinoHttp_wrapBlockingBlock_1krhfwz(
 
 typedef BOOL  (^_BlockType9)(id arg0, id arg1, BOOL * arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+BOOL  _NativeCupertinoHttp_invokeBlock_gi6iel(
+    _BlockType9 block, id arg0, id arg1, BOOL * arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType9 _NativeCupertinoHttp_newClosureBlock_gi6iel(
-    BOOL  (*trampoline)(void * , id , id , BOOL * ), void* target) NS_RETURNS_RETAINED {
-  return ^BOOL (id arg0, id arg1, BOOL * arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    BOOL  (*trampoline)(id , int64_t , id , id , BOOL * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType9 weakBlk;
+  _BlockType9 blk = ^BOOL (id arg0, id arg1, BOOL * arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef unsigned long  (^_BlockType10)(void * arg0, NSFastEnumerationState * arg1, id * arg2, unsigned long arg3);
 __attribute__((visibility("default"))) __attribute__((used))
+unsigned long  _NativeCupertinoHttp_invokeBlock_17ap02x(
+    _BlockType10 block, void * arg0, NSFastEnumerationState * arg1, id * arg2, unsigned long arg3)  {
+  return block(arg0, arg1, arg2, arg3);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType10 _NativeCupertinoHttp_newClosureBlock_17ap02x(
-    unsigned long  (*trampoline)(void * , void * , NSFastEnumerationState * , id * , unsigned long ), void* target) NS_RETURNS_RETAINED {
-  return ^unsigned long (void * arg0, NSFastEnumerationState * arg1, id * arg2, unsigned long arg3) {
-    return trampoline(target, arg0, arg1, arg2, arg3);
+    unsigned long  (*trampoline)(id , int64_t , void * , NSFastEnumerationState * , id * , unsigned long ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType10 weakBlk;
+  _BlockType10 blk = ^unsigned long (void * arg0, NSFastEnumerationState * arg1, id * arg2, unsigned long arg3) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef id  (^_BlockType11)(id arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+id  _NativeCupertinoHttp_invokeBlock_1e364rg(
+    _BlockType11 block, id arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType11 _NativeCupertinoHttp_newClosureBlock_1e364rg(
-    id  (*trampoline)(void * , id ), void* target) NS_RETURNS_RETAINED {
-  return ^id (id arg0) {
-    return trampoline(target, arg0);
+    id  (*trampoline)(id , int64_t , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType11 weakBlk;
+  _BlockType11 blk = ^id (id arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef void  (^_BlockType12)(struct __CFRunLoopObserver * arg0, CFRunLoopActivity arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_tg5tbv(
+    _BlockType12 block, struct __CFRunLoopObserver * arg0, CFRunLoopActivity arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType12 _NativeCupertinoHttp_newClosureBlock_tg5tbv(
-    void  (*trampoline)(void * , struct __CFRunLoopObserver * , CFRunLoopActivity ), void* target) NS_RETURNS_RETAINED {
-  return ^void (struct __CFRunLoopObserver * arg0, CFRunLoopActivity arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , struct __CFRunLoopObserver * , CFRunLoopActivity ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType12 weakBlk;
+  _BlockType12 blk = ^void (struct __CFRunLoopObserver * arg0, CFRunLoopActivity arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -274,11 +466,25 @@ _BlockType12 _NativeCupertinoHttp_wrapBlockingBlock_tg5tbv(
 
 typedef void  (^_BlockType13)(struct __CFRunLoopTimer * arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1dqvvol(
+    _BlockType13 block, struct __CFRunLoopTimer * arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType13 _NativeCupertinoHttp_newClosureBlock_1dqvvol(
-    void  (*trampoline)(void * , struct __CFRunLoopTimer * ), void* target) NS_RETURNS_RETAINED {
-  return ^void (struct __CFRunLoopTimer * arg0) {
-    return trampoline(target, arg0);
+    void  (*trampoline)(id , int64_t , struct __CFRunLoopTimer * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType13 weakBlk;
+  _BlockType13 blk = ^void (struct __CFRunLoopTimer * arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -310,11 +516,25 @@ _BlockType13 _NativeCupertinoHttp_wrapBlockingBlock_1dqvvol(
 
 typedef void  (^_BlockType14)(size_t arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_6enxqz(
+    _BlockType14 block, size_t arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType14 _NativeCupertinoHttp_newClosureBlock_6enxqz(
-    void  (*trampoline)(void * , size_t ), void* target) NS_RETURNS_RETAINED {
-  return ^void (size_t arg0) {
-    return trampoline(target, arg0);
+    void  (*trampoline)(id , int64_t , size_t ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType14 weakBlk;
+  _BlockType14 blk = ^void (size_t arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -346,20 +566,48 @@ _BlockType14 _NativeCupertinoHttp_wrapBlockingBlock_6enxqz(
 
 typedef BOOL  (^_BlockType15)(id arg0, size_t arg1, void * arg2, size_t arg3);
 __attribute__((visibility("default"))) __attribute__((used))
+BOOL  _NativeCupertinoHttp_invokeBlock_16886ch(
+    _BlockType15 block, id arg0, size_t arg1, void * arg2, size_t arg3)  {
+  return block(arg0, arg1, arg2, arg3);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType15 _NativeCupertinoHttp_newClosureBlock_16886ch(
-    BOOL  (*trampoline)(void * , id , size_t , void * , size_t ), void* target) NS_RETURNS_RETAINED {
-  return ^BOOL (id arg0, size_t arg1, void * arg2, size_t arg3) {
-    return trampoline(target, arg0, arg1, arg2, arg3);
+    BOOL  (*trampoline)(id , int64_t , id , size_t , void * , size_t ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType15 weakBlk;
+  _BlockType15 blk = ^BOOL (id arg0, size_t arg1, void * arg2, size_t arg3) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef void  (^_BlockType16)(id arg0, int arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_qxvyq2(
+    _BlockType16 block, id arg0, int arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType16 _NativeCupertinoHttp_newClosureBlock_qxvyq2(
-    void  (*trampoline)(void * , id , int ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, int arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , id , int ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType16 weakBlk;
+  _BlockType16 blk = ^void (id arg0, int arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -391,11 +639,25 @@ _BlockType16 _NativeCupertinoHttp_wrapBlockingBlock_qxvyq2(
 
 typedef void  (^_BlockType17)(int arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_9o8504(
+    _BlockType17 block, int arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType17 _NativeCupertinoHttp_newClosureBlock_9o8504(
-    void  (*trampoline)(void * , int ), void* target) NS_RETURNS_RETAINED {
-  return ^void (int arg0) {
-    return trampoline(target, arg0);
+    void  (*trampoline)(id , int64_t , int ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType17 weakBlk;
+  _BlockType17 blk = ^void (int arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -427,11 +689,25 @@ _BlockType17 _NativeCupertinoHttp_wrapBlockingBlock_9o8504(
 
 typedef void  (^_BlockType18)(BOOL arg0, id arg1, int arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_12a4qua(
+    _BlockType18 block, BOOL arg0, id arg1, int arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType18 _NativeCupertinoHttp_newClosureBlock_12a4qua(
-    void  (*trampoline)(void * , BOOL , id , int ), void* target) NS_RETURNS_RETAINED {
-  return ^void (BOOL arg0, id arg1, int arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    void  (*trampoline)(id , int64_t , BOOL , id , int ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType18 weakBlk;
+  _BlockType18 blk = ^void (BOOL arg0, id arg1, int arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -463,11 +739,25 @@ _BlockType18 _NativeCupertinoHttp_wrapBlockingBlock_12a4qua(
 
 typedef void  (^_BlockType19)(struct __SecTrust * arg0, SecTrustResultType arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_gwxhxt(
+    _BlockType19 block, struct __SecTrust * arg0, SecTrustResultType arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType19 _NativeCupertinoHttp_newClosureBlock_gwxhxt(
-    void  (*trampoline)(void * , struct __SecTrust * , SecTrustResultType ), void* target) NS_RETURNS_RETAINED {
-  return ^void (struct __SecTrust * arg0, SecTrustResultType arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , struct __SecTrust * , SecTrustResultType ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType19 weakBlk;
+  _BlockType19 blk = ^void (struct __SecTrust * arg0, SecTrustResultType arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -499,11 +789,25 @@ _BlockType19 _NativeCupertinoHttp_wrapBlockingBlock_gwxhxt(
 
 typedef void  (^_BlockType20)(struct __SecTrust * arg0, BOOL arg1, struct __CFError * arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_k73ff5(
+    _BlockType20 block, struct __SecTrust * arg0, BOOL arg1, struct __CFError * arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType20 _NativeCupertinoHttp_newClosureBlock_k73ff5(
-    void  (*trampoline)(void * , struct __SecTrust * , BOOL , struct __CFError * ), void* target) NS_RETURNS_RETAINED {
-  return ^void (struct __SecTrust * arg0, BOOL arg1, struct __CFError * arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    void  (*trampoline)(id , int64_t , struct __SecTrust * , BOOL , struct __CFError * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType20 weakBlk;
+  _BlockType20 blk = ^void (struct __SecTrust * arg0, BOOL arg1, struct __CFError * arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -535,11 +839,25 @@ _BlockType20 _NativeCupertinoHttp_wrapBlockingBlock_k73ff5(
 
 typedef void  (^_BlockType21)(uint16_t arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_15f11yh(
+    _BlockType21 block, uint16_t arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType21 _NativeCupertinoHttp_newClosureBlock_15f11yh(
-    void  (*trampoline)(void * , uint16_t ), void* target) NS_RETURNS_RETAINED {
-  return ^void (uint16_t arg0) {
-    return trampoline(target, arg0);
+    void  (*trampoline)(id , int64_t , uint16_t ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType21 weakBlk;
+  _BlockType21 blk = ^void (uint16_t arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -571,11 +889,25 @@ _BlockType21 _NativeCupertinoHttp_wrapBlockingBlock_15f11yh(
 
 typedef void  (^_BlockType22)(id arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_wjvic9(
+    _BlockType22 block, id arg0, id arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType22 _NativeCupertinoHttp_newClosureBlock_wjvic9(
-    void  (*trampoline)(void * , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType22 weakBlk;
+  _BlockType22 blk = ^void (id arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -607,11 +939,25 @@ _BlockType22 _NativeCupertinoHttp_wrapBlockingBlock_wjvic9(
 
 typedef void  (^_BlockType23)(id arg0, id arg1, id arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_91c9gi(
+    _BlockType23 block, id arg0, id arg1, id arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType23 _NativeCupertinoHttp_newClosureBlock_91c9gi(
-    void  (*trampoline)(void * , id , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, id arg1, id arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    void  (*trampoline)(id , int64_t , id , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType23 weakBlk;
+  _BlockType23 blk = ^void (id arg0, id arg1, id arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -643,11 +989,25 @@ _BlockType23 _NativeCupertinoHttp_wrapBlockingBlock_91c9gi(
 
 typedef void  (^_BlockType24)(id arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_14pxqbs(
+    _BlockType24 block, id arg0, id arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType24 _NativeCupertinoHttp_newClosureBlock_14pxqbs(
-    void  (*trampoline)(void * , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType24 weakBlk;
+  _BlockType24 blk = ^void (id arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -679,11 +1039,25 @@ _BlockType24 _NativeCupertinoHttp_wrapBlockingBlock_14pxqbs(
 
 typedef void  (^_BlockType25)(BOOL arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1s56lr9(
+    _BlockType25 block, BOOL arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType25 _NativeCupertinoHttp_newClosureBlock_1s56lr9(
-    void  (*trampoline)(void * , BOOL ), void* target) NS_RETURNS_RETAINED {
-  return ^void (BOOL arg0) {
-    return trampoline(target, arg0);
+    void  (*trampoline)(id , int64_t , BOOL ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType25 weakBlk;
+  _BlockType25 blk = ^void (BOOL arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -715,11 +1089,25 @@ _BlockType25 _NativeCupertinoHttp_wrapBlockingBlock_1s56lr9(
 
 typedef void  (^_BlockType26)(id arg0, id arg1, id arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1hcfngn(
+    _BlockType26 block, id arg0, id arg1, id arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType26 _NativeCupertinoHttp_newClosureBlock_1hcfngn(
-    void  (*trampoline)(void * , id , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, id arg1, id arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    void  (*trampoline)(id , int64_t , id , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType26 weakBlk;
+  _BlockType26 blk = ^void (id arg0, id arg1, id arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -751,11 +1139,25 @@ _BlockType26 _NativeCupertinoHttp_wrapBlockingBlock_1hcfngn(
 
 typedef void  (^_BlockType27)(NSURLSessionResponseDisposition arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_16sve1d(
+    _BlockType27 block, NSURLSessionResponseDisposition arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType27 _NativeCupertinoHttp_newClosureBlock_16sve1d(
-    void  (*trampoline)(void * , NSURLSessionResponseDisposition ), void* target) NS_RETURNS_RETAINED {
-  return ^void (NSURLSessionResponseDisposition arg0) {
-    return trampoline(target, arg0);
+    void  (*trampoline)(id , int64_t , NSURLSessionResponseDisposition ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType27 weakBlk;
+  _BlockType27 blk = ^void (NSURLSessionResponseDisposition arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -787,11 +1189,25 @@ _BlockType27 _NativeCupertinoHttp_wrapBlockingBlock_16sve1d(
 
 typedef void  (^_BlockType28)(NSURLSessionDelayedRequestDisposition arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_mn1xu3(
+    _BlockType28 block, NSURLSessionDelayedRequestDisposition arg0, id arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType28 _NativeCupertinoHttp_newClosureBlock_mn1xu3(
-    void  (*trampoline)(void * , NSURLSessionDelayedRequestDisposition , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (NSURLSessionDelayedRequestDisposition arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , NSURLSessionDelayedRequestDisposition , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType28 weakBlk;
+  _BlockType28 blk = ^void (NSURLSessionDelayedRequestDisposition arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -823,11 +1239,25 @@ _BlockType28 _NativeCupertinoHttp_wrapBlockingBlock_mn1xu3(
 
 typedef void  (^_BlockType29)(void * arg0, id arg1, id arg2, id arg3, id arg4);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1f43wec(
+    _BlockType29 block, void * arg0, id arg1, id arg2, id arg3, id arg4)  {
+  return block(arg0, arg1, arg2, arg3, arg4);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType29 _NativeCupertinoHttp_newClosureBlock_1f43wec(
-    void  (*trampoline)(void * , void * , id , id , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2, id arg3, id arg4) {
-    return trampoline(target, arg0, arg1, arg2, arg3, arg4);
+    void  (*trampoline)(id , int64_t , void * , id , id , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType29 weakBlk;
+  _BlockType29 blk = ^void (void * arg0, id arg1, id arg2, id arg3, id arg4) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3, arg4);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -859,11 +1289,25 @@ _BlockType29 _NativeCupertinoHttp_wrapBlockingBlock_1f43wec(
 
 typedef void  (^_BlockType30)(void * arg0, id arg1, id arg2, id arg3);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1r3kn8f(
+    _BlockType30 block, void * arg0, id arg1, id arg2, id arg3)  {
+  return block(arg0, arg1, arg2, arg3);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType30 _NativeCupertinoHttp_newClosureBlock_1r3kn8f(
-    void  (*trampoline)(void * , void * , id , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2, id arg3) {
-    return trampoline(target, arg0, arg1, arg2, arg3);
+    void  (*trampoline)(id , int64_t , void * , id , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType30 weakBlk;
+  _BlockType30 blk = ^void (void * arg0, id arg1, id arg2, id arg3) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -895,11 +1339,25 @@ _BlockType30 _NativeCupertinoHttp_wrapBlockingBlock_1r3kn8f(
 
 typedef void  (^_BlockType31)(void * arg0, id arg1, id arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_ao4xm9(
+    _BlockType31 block, void * arg0, id arg1, id arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType31 _NativeCupertinoHttp_newClosureBlock_ao4xm9(
-    void  (*trampoline)(void * , void * , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    void  (*trampoline)(id , int64_t , void * , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType31 weakBlk;
+  _BlockType31 blk = ^void (void * arg0, id arg1, id arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -931,11 +1389,25 @@ _BlockType31 _NativeCupertinoHttp_wrapBlockingBlock_ao4xm9(
 
 typedef void  (^_BlockType32)(void * arg0, id arg1, id arg2, id arg3, id arg4, id arg5);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_13vswqm(
+    _BlockType32 block, void * arg0, id arg1, id arg2, id arg3, id arg4, id arg5)  {
+  return block(arg0, arg1, arg2, arg3, arg4, arg5);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType32 _NativeCupertinoHttp_newClosureBlock_13vswqm(
-    void  (*trampoline)(void * , void * , id , id , id , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2, id arg3, id arg4, id arg5) {
-    return trampoline(target, arg0, arg1, arg2, arg3, arg4, arg5);
+    void  (*trampoline)(id , int64_t , void * , id , id , id , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType32 weakBlk;
+  _BlockType32 blk = ^void (void * arg0, id arg1, id arg2, id arg3, id arg4, id arg5) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3, arg4, arg5);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -967,11 +1439,25 @@ _BlockType32 _NativeCupertinoHttp_wrapBlockingBlock_13vswqm(
 
 typedef void  (^_BlockType33)(NSURLSessionAuthChallengeDisposition arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_37btrl(
+    _BlockType33 block, NSURLSessionAuthChallengeDisposition arg0, id arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType33 _NativeCupertinoHttp_newClosureBlock_37btrl(
-    void  (*trampoline)(void * , NSURLSessionAuthChallengeDisposition , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (NSURLSessionAuthChallengeDisposition arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , NSURLSessionAuthChallengeDisposition , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType33 weakBlk;
+  _BlockType33 blk = ^void (NSURLSessionAuthChallengeDisposition arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1003,11 +1489,25 @@ _BlockType33 _NativeCupertinoHttp_wrapBlockingBlock_37btrl(
 
 typedef void  (^_BlockType34)(void * arg0, id arg1, id arg2, id arg3);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_12nszru(
+    _BlockType34 block, void * arg0, id arg1, id arg2, id arg3)  {
+  return block(arg0, arg1, arg2, arg3);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType34 _NativeCupertinoHttp_newClosureBlock_12nszru(
-    void  (*trampoline)(void * , void * , id , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2, id arg3) {
-    return trampoline(target, arg0, arg1, arg2, arg3);
+    void  (*trampoline)(id , int64_t , void * , id , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType34 weakBlk;
+  _BlockType34 blk = ^void (void * arg0, id arg1, id arg2, id arg3) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1039,11 +1539,25 @@ _BlockType34 _NativeCupertinoHttp_wrapBlockingBlock_12nszru(
 
 typedef void  (^_BlockType35)(void * arg0, id arg1, id arg2, int64_t arg3, id arg4);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_qm01og(
+    _BlockType35 block, void * arg0, id arg1, id arg2, int64_t arg3, id arg4)  {
+  return block(arg0, arg1, arg2, arg3, arg4);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType35 _NativeCupertinoHttp_newClosureBlock_qm01og(
-    void  (*trampoline)(void * , void * , id , id , int64_t , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2, int64_t arg3, id arg4) {
-    return trampoline(target, arg0, arg1, arg2, arg3, arg4);
+    void  (*trampoline)(id , int64_t , void * , id , id , int64_t , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType35 weakBlk;
+  _BlockType35 blk = ^void (void * arg0, id arg1, id arg2, int64_t arg3, id arg4) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3, arg4);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1075,11 +1589,25 @@ _BlockType35 _NativeCupertinoHttp_wrapBlockingBlock_qm01og(
 
 typedef void  (^_BlockType36)(void * arg0, id arg1, id arg2, int64_t arg3, int64_t arg4, int64_t arg5);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1uuez7b(
+    _BlockType36 block, void * arg0, id arg1, id arg2, int64_t arg3, int64_t arg4, int64_t arg5)  {
+  return block(arg0, arg1, arg2, arg3, arg4, arg5);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType36 _NativeCupertinoHttp_newClosureBlock_1uuez7b(
-    void  (*trampoline)(void * , void * , id , id , int64_t , int64_t , int64_t ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2, int64_t arg3, int64_t arg4, int64_t arg5) {
-    return trampoline(target, arg0, arg1, arg2, arg3, arg4, arg5);
+    void  (*trampoline)(id , int64_t , void * , id , id , int64_t , int64_t , int64_t ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType36 weakBlk;
+  _BlockType36 blk = ^void (void * arg0, id arg1, id arg2, int64_t arg3, int64_t arg4, int64_t arg5) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3, arg4, arg5);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1113,11 +1641,25 @@ Protocol* _NativeCupertinoHttp_NSURLSessionDataDelegate(void) { return @protocol
 
 typedef void  (^_BlockType37)(void * arg0, id arg1, id arg2, int64_t arg3, int64_t arg4);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_9qxjkl(
+    _BlockType37 block, void * arg0, id arg1, id arg2, int64_t arg3, int64_t arg4)  {
+  return block(arg0, arg1, arg2, arg3, arg4);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType37 _NativeCupertinoHttp_newClosureBlock_9qxjkl(
-    void  (*trampoline)(void * , void * , id , id , int64_t , int64_t ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2, int64_t arg3, int64_t arg4) {
-    return trampoline(target, arg0, arg1, arg2, arg3, arg4);
+    void  (*trampoline)(id , int64_t , void * , id , id , int64_t , int64_t ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType37 weakBlk;
+  _BlockType37 blk = ^void (void * arg0, id arg1, id arg2, int64_t arg3, int64_t arg4) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3, arg4);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1151,11 +1693,25 @@ Protocol* _NativeCupertinoHttp_NSURLSessionDownloadDelegate(void) { return @prot
 
 typedef void  (^_BlockType38)(void * arg0, id arg1, id arg2, NSURLSessionWebSocketCloseCode arg3, id arg4);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_3lo3bb(
+    _BlockType38 block, void * arg0, id arg1, id arg2, NSURLSessionWebSocketCloseCode arg3, id arg4)  {
+  return block(arg0, arg1, arg2, arg3, arg4);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType38 _NativeCupertinoHttp_newClosureBlock_3lo3bb(
-    void  (*trampoline)(void * , void * , id , id , NSURLSessionWebSocketCloseCode , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, id arg1, id arg2, NSURLSessionWebSocketCloseCode arg3, id arg4) {
-    return trampoline(target, arg0, arg1, arg2, arg3, arg4);
+    void  (*trampoline)(id , int64_t , void * , id , id , NSURLSessionWebSocketCloseCode , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType38 weakBlk;
+  _BlockType38 blk = ^void (void * arg0, id arg1, id arg2, NSURLSessionWebSocketCloseCode arg3, id arg4) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3, arg4);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1189,11 +1745,25 @@ Protocol* _NativeCupertinoHttp_NSURLSessionWebSocketDelegate(void) { return @pro
 
 typedef void  (^_BlockType39)(id arg0, unsigned long arg1, BOOL * arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_16ko9u(
+    _BlockType39 block, id arg0, unsigned long arg1, BOOL * arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType39 _NativeCupertinoHttp_newClosureBlock_16ko9u(
-    void  (*trampoline)(void * , id , unsigned long , BOOL * ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, unsigned long arg1, BOOL * arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    void  (*trampoline)(id , int64_t , id , unsigned long , BOOL * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType39 weakBlk;
+  _BlockType39 blk = ^void (id arg0, unsigned long arg1, BOOL * arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1225,29 +1795,71 @@ _BlockType39 _NativeCupertinoHttp_wrapBlockingBlock_16ko9u(
 
 typedef BOOL  (^_BlockType40)(id arg0, unsigned long arg1, BOOL * arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+BOOL  _NativeCupertinoHttp_invokeBlock_kujo9w(
+    _BlockType40 block, id arg0, unsigned long arg1, BOOL * arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType40 _NativeCupertinoHttp_newClosureBlock_kujo9w(
-    BOOL  (*trampoline)(void * , id , unsigned long , BOOL * ), void* target) NS_RETURNS_RETAINED {
-  return ^BOOL (id arg0, unsigned long arg1, BOOL * arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    BOOL  (*trampoline)(id , int64_t , id , unsigned long , BOOL * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType40 weakBlk;
+  _BlockType40 blk = ^BOOL (id arg0, unsigned long arg1, BOOL * arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef BOOL  (^_BlockType41)(id arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+BOOL  _NativeCupertinoHttp_invokeBlock_1lqxdg3(
+    _BlockType41 block, id arg0, id arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType41 _NativeCupertinoHttp_newClosureBlock_1lqxdg3(
-    BOOL  (*trampoline)(void * , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^BOOL (id arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    BOOL  (*trampoline)(id , int64_t , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType41 weakBlk;
+  _BlockType41 blk = ^BOOL (id arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef void  (^_BlockType42)(id arg0, id arg1, id arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_1j2nt86(
+    _BlockType42 block, id arg0, id arg1, id arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType42 _NativeCupertinoHttp_newClosureBlock_1j2nt86(
-    void  (*trampoline)(void * , id , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, id arg1, id arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    void  (*trampoline)(id , int64_t , id , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType42 weakBlk;
+  _BlockType42 blk = ^void (id arg0, id arg1, id arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1279,11 +1891,25 @@ _BlockType42 _NativeCupertinoHttp_wrapBlockingBlock_1j2nt86(
 
 typedef void  (^_BlockType43)(id arg0, struct _NSRange arg1, struct _NSRange arg2, BOOL * arg3);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_8wbg7l(
+    _BlockType43 block, id arg0, struct _NSRange arg1, struct _NSRange arg2, BOOL * arg3)  {
+  return block(arg0, arg1, arg2, arg3);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType43 _NativeCupertinoHttp_newClosureBlock_8wbg7l(
-    void  (*trampoline)(void * , id , struct _NSRange , struct _NSRange , BOOL * ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, struct _NSRange arg1, struct _NSRange arg2, BOOL * arg3) {
-    return trampoline(target, arg0, arg1, arg2, arg3);
+    void  (*trampoline)(id , int64_t , id , struct _NSRange , struct _NSRange , BOOL * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType43 weakBlk;
+  _BlockType43 blk = ^void (id arg0, struct _NSRange arg1, struct _NSRange arg2, BOOL * arg3) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1315,11 +1941,25 @@ _BlockType43 _NativeCupertinoHttp_wrapBlockingBlock_8wbg7l(
 
 typedef void  (^_BlockType44)(id arg0, BOOL * arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_148br51(
+    _BlockType44 block, id arg0, BOOL * arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType44 _NativeCupertinoHttp_newClosureBlock_148br51(
-    void  (*trampoline)(void * , id , BOOL * ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, BOOL * arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , id , BOOL * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType44 weakBlk;
+  _BlockType44 blk = ^void (id arg0, BOOL * arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1351,11 +1991,25 @@ _BlockType44 _NativeCupertinoHttp_wrapBlockingBlock_148br51(
 
 typedef void  (^_BlockType45)(unsigned short * arg0, unsigned long arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_vhbh5h(
+    _BlockType45 block, unsigned short * arg0, unsigned long arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType45 _NativeCupertinoHttp_newClosureBlock_vhbh5h(
-    void  (*trampoline)(void * , unsigned short * , unsigned long ), void* target) NS_RETURNS_RETAINED {
-  return ^void (unsigned short * arg0, unsigned long arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , unsigned short * , unsigned long ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType45 weakBlk;
+  _BlockType45 blk = ^void (unsigned short * arg0, unsigned long arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1387,11 +2041,25 @@ _BlockType45 _NativeCupertinoHttp_wrapBlockingBlock_vhbh5h(
 
 typedef void  (^_BlockType46)(void * arg0, unsigned long arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_zuf90e(
+    _BlockType46 block, void * arg0, unsigned long arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType46 _NativeCupertinoHttp_newClosureBlock_zuf90e(
-    void  (*trampoline)(void * , void * , unsigned long ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0, unsigned long arg1) {
-    return trampoline(target, arg0, arg1);
+    void  (*trampoline)(id , int64_t , void * , unsigned long ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType46 weakBlk;
+  _BlockType46 blk = ^void (void * arg0, unsigned long arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1423,38 +2091,94 @@ _BlockType46 _NativeCupertinoHttp_wrapBlockingBlock_zuf90e(
 
 typedef id  (^_BlockType47)(void * arg0, id arg1, id arg2, id * arg3);
 __attribute__((visibility("default"))) __attribute__((used))
+id  _NativeCupertinoHttp_invokeBlock_e2pkq8(
+    _BlockType47 block, void * arg0, id arg1, id arg2, id * arg3)  {
+  return block(arg0, arg1, arg2, arg3);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType47 _NativeCupertinoHttp_newClosureBlock_e2pkq8(
-    id  (*trampoline)(void * , void * , id , id , id * ), void* target) NS_RETURNS_RETAINED {
-  return ^id (void * arg0, id arg1, id arg2, id * arg3) {
-    return trampoline(target, arg0, arg1, arg2, arg3);
+    id  (*trampoline)(id , int64_t , void * , id , id , id * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType47 weakBlk;
+  _BlockType47 blk = ^id (void * arg0, id arg1, id arg2, id * arg3) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef NSItemProviderRepresentationVisibility  (^_BlockType48)(void * arg0, id arg1);
 __attribute__((visibility("default"))) __attribute__((used))
+NSItemProviderRepresentationVisibility  _NativeCupertinoHttp_invokeBlock_1d5d8wd(
+    _BlockType48 block, void * arg0, id arg1)  {
+  return block(arg0, arg1);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType48 _NativeCupertinoHttp_newClosureBlock_1d5d8wd(
-    NSItemProviderRepresentationVisibility  (*trampoline)(void * , void * , id ), void* target) NS_RETURNS_RETAINED {
-  return ^NSItemProviderRepresentationVisibility (void * arg0, id arg1) {
-    return trampoline(target, arg0, arg1);
+    NSItemProviderRepresentationVisibility  (*trampoline)(id , int64_t , void * , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType48 weakBlk;
+  _BlockType48 blk = ^NSItemProviderRepresentationVisibility (void * arg0, id arg1) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef id  (^_BlockType49)(void * arg0, id arg1, id arg2);
 __attribute__((visibility("default"))) __attribute__((used))
+id  _NativeCupertinoHttp_invokeBlock_4saw50(
+    _BlockType49 block, void * arg0, id arg1, id arg2)  {
+  return block(arg0, arg1, arg2);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType49 _NativeCupertinoHttp_newClosureBlock_4saw50(
-    id  (*trampoline)(void * , void * , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^id (void * arg0, id arg1, id arg2) {
-    return trampoline(target, arg0, arg1, arg2);
+    id  (*trampoline)(id , int64_t , void * , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType49 weakBlk;
+  _BlockType49 blk = ^id (void * arg0, id arg1, id arg2) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 typedef void  (^_BlockType50)(void * arg0);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_ovsamd(
+    _BlockType50 block, void * arg0)  {
+  return block(arg0);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType50 _NativeCupertinoHttp_newClosureBlock_ovsamd(
-    void  (*trampoline)(void * , void * ), void* target) NS_RETURNS_RETAINED {
-  return ^void (void * arg0) {
-    return trampoline(target, arg0);
+    void  (*trampoline)(id , int64_t , void * ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType50 weakBlk;
+  _BlockType50 blk = ^void (void * arg0) {
+    return trampoline(weakBlk, obj.closure_id, arg0);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
@@ -1486,11 +2210,25 @@ _BlockType50 _NativeCupertinoHttp_wrapBlockingBlock_ovsamd(
 
 typedef void  (^_BlockType51)(id arg0, id arg1, id arg2, id arg3);
 __attribute__((visibility("default"))) __attribute__((used))
+void  _NativeCupertinoHttp_invokeBlock_4ya7yd(
+    _BlockType51 block, id arg0, id arg1, id arg2, id arg3)  {
+  return block(arg0, arg1, arg2, arg3);
+}
+
+__attribute__((visibility("default"))) __attribute__((used))
 _BlockType51 _NativeCupertinoHttp_newClosureBlock_4ya7yd(
-    void  (*trampoline)(void * , id , id , id , id ), void* target) NS_RETURNS_RETAINED {
-  return ^void (id arg0, id arg1, id arg2, id arg3) {
-    return trampoline(target, arg0, arg1, arg2, arg3);
+    void  (*trampoline)(id , int64_t , id , id , id , id ), int64_t closure_id, int64_t dispose_port,
+    void (*dtor)(int64_t, int64_t)) NS_RETURNS_RETAINED {
+  _NativeCupertinoHttp_BlockDestroyer* obj = [[_NativeCupertinoHttp_BlockDestroyer alloc] init];
+  obj.closure_id = closure_id;
+  obj.dispose_port = dispose_port;
+  obj.dtor = dtor;
+  __weak __block _BlockType51 weakBlk;
+  _BlockType51 blk = ^void (id arg0, id arg1, id arg2, id arg3) {
+    return trampoline(weakBlk, obj.closure_id, arg0, arg1, arg2, arg3);
   };
+  weakBlk = blk;
+  return blk;
 }
 
 __attribute__((visibility("default"))) __attribute__((used))
