@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:http/http.dart';
 import 'package:http/io_client.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:ok_http/ok_http.dart';
 import 'package:test/test.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 List<int> key = '''-----BEGIN PRIVATE KEY-----
 MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDEEY2eWBX1rTDg
@@ -65,10 +67,29 @@ final SecurityContext serverSecurityContext = () {
   return context;
 }();
 
-void runServer() async {
+Future<Uint8List> loadCertificateBytes(String path) async {
+  return (await rootBundle.load(path)).buffer.asUint8List();
+}
+
+Future<SecurityContext> serverContext(String certType, String password) async =>
+    SecurityContext()
+      ..useCertificateChainBytes(
+          await loadCertificateBytes('certificates/server_chain.p12'),
+          password: password)
+      ..usePrivateKeyBytes(
+          await loadCertificateBytes('certificates/server_key.p12'),
+          password: password)
+      ..setTrustedCertificatesBytes(
+          await loadCertificateBytes('certificates/client_authority.p12'),
+          password: password)
+      ..setClientAuthoritiesBytes(
+          await loadCertificateBytes('certificates/client_authority.p12'),
+          password: password);
+
+Future<void> runServer() async {
   // https://github.com/dart-lang/sdk/issues/52609
   final server = await SecureServerSocket.bind(
-      'localhost', 8080, serverSecurityContext,
+      'localhost', 8080, await serverContext('p12', 'dartdart'),
       requestClientCertificate: true, requireClientCertificate: true);
   print('ok ${server.port}');
   server.listen((socket) async {
@@ -80,13 +101,17 @@ void runServer() async {
   });
 }
 
-void main() {
+void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  final certChain =
+      await loadCertificateBytes('certificates/client_authority.p12');
+  final clientCert = await loadCertificateBytes('certificates/client1_key.p12');
+
   test('test', () async {
-    runServer();
-    final alias = await OkHttpClient.getAlias();
-    final httpClient = OkHttpClient(alias: alias);
+    await runServer();
+    // final alias = await OkHttpClient.getAlias();
+    final httpClient = OkHttpClient(certChain, clientCert);
 
     await httpClient.get(Uri.https('localhost:8080', '/'));
   });

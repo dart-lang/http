@@ -122,15 +122,86 @@ class OkHttpClient extends BaseClient {
     return c.future;
   }
 
+  (bindings.Key, JArray<bindings.X509Certificate>, String) cert(
+      Uint8List cert, Uint8List chain) {
+    var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString());
+    JString string;
+
+    final password = JArray(jchar.type, 8)
+      ..[0] = 'd'.codeUnits[0]
+      ..[1] = 'a'.codeUnits[0]
+      ..[2] = 'r'.codeUnits[0]
+      ..[3] = 't'.codeUnits[0]
+      ..[4] = 'd'.codeUnits[0]
+      ..[5] = 'a'.codeUnits[0]
+      ..[6] = 'r'.codeUnits[0]
+      ..[7] = 't'.codeUnits[0];
+
+    /// XXX to Char array
+    ///
+    keyStore.load(bindings.ByteArrayInputStream(cert.toJArray()), password);
+    final alias = keyStore.aliases().nextElement();
+    print('found alias: ${alias.toDartString()}');
+
+    keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString());
+    keyStore.load(bindings.ByteArrayInputStream(chain.toJArray()), password);
+    // final chain2 = JArray(bindings.X509Certificate.type, 0);
+    //  print(keyStore.aliases().nextElement().toDartString());
+//    final alias2 = keyStore.aliases().nextElement();
+//    print('found alias2: ${alias2.toDartString()}');
+
+    final chain1 =
+        keyStore.getCertificateChain("clientauthority".toJString()); // alias);
+    print('two: ${chain1.isNull}');
+    final chain2 = bindings.Arrays.copyOf(chain1, chain.length,
+            T: bindings.X509Certificate.type)
+        .as(JArray.type(bindings.X509Certificate.type));
+
+    return (keyStore.getKey(alias, password), chain2, alias.toDartString());
+  }
+
+  chain2(Uint8List cert) {
+    final keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString());
+
+    final password = JArray(jchar.type, 8)
+      ..[0] = 'd'.codeUnits[0]
+      ..[1] = 'a'.codeUnits[0]
+      ..[2] = 'r'.codeUnits[0]
+      ..[3] = 't'.codeUnits[0]
+      ..[4] = 'd'.codeUnits[0]
+      ..[5] = 'a'.codeUnits[0]
+      ..[6] = 'r'.codeUnits[0]
+      ..[7] = 't'.codeUnits[0];
+
+    /// XXX to Char array
+    ///
+    final alias = "unmarked".toJString();
+    // keyStore.aliases().nextElement();
+    print('one');
+    final chain = keyStore.getCertificateChain(alias);
+    print('two: ${chain.isNull}');
+    return bindings.Arrays.copyOf(chain, chain.length,
+            T: bindings.X509Certificate.type)
+        .as(JArray.type(bindings.X509Certificate.type));
+  }
+
   /// Creates a new instance of [OkHttpClient] with the given [configuration].
-  OkHttpClient({
+  OkHttpClient(
+    Uint8List certChain,
+    Uint8List clientCert, {
     this.configuration = const OkHttpClientConfiguration(),
-    required String alias,
+//    required String alias,
   }) {
     final context = JObject.fromReference(Jni.getCachedApplicationContext());
+
+    final (key, chain, alias) = cert(clientCert, certChain);
+    final pk = key.as(bindings.PrivateKey.type);
+    print('three');
+/*
     final pk = bindings.KeyChain.getPrivateKey(context, alias.toJString());
     final chain =
         bindings.KeyChain.getCertificateChain(context, alias.toJString());
+*/
     print('pk/chain: ${pk.isNull} ${chain.isNull}');
     final trustManagerFactory = bindings.TrustManagerFactory.getInstance(
         bindings.TrustManagerFactory.getDefaultAlgorithm());
@@ -155,7 +226,7 @@ class OkHttpClient extends BaseClient {
       factory.init(bindings.KeyStore.fromReference(jNullReference));
       return JArray(bindings.X509Certificate.type, 0);
     }));
-
+/*
     final km = bindings.$X509KeyManager(
         chooseClientAlias: (strings, principals, socket) {
           print('chooseClientAlias');
@@ -175,6 +246,7 @@ class OkHttpClient extends BaseClient {
           print('getPrivateKey: $alias');
           return bindings.PrivateKey.fromReference(jNullReference);
         });
+        */
 /*
     final generator = bindings.KeyPairGenerator.getInstance("RSA".toJString());
     final keyPair = generator.genKeyPair();
@@ -460,7 +532,7 @@ class OkHttpClientWithProfile extends OkHttpClient {
   HttpClientRequestProfile? _createProfile(BaseRequest request) =>
       profile = super._createProfile(request);
 
-  OkHttpClientWithProfile() : super(alias: 'XXX');
+  OkHttpClientWithProfile() : super(Uint8List(0), Uint8List(0));
 }
 
 extension on Uint8List {

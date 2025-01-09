@@ -61,5 +61,9 @@ classes:
   - "java.security.KeyPair"
   - "java.security.PublicKey"
   - "okhttp3.tls.HeldCertificate"
+  - "java.io.ByteArrayInputStream"
+  - "java.util.Enumeration"
+  - "java.util.Arrays"
+  - "java.security.cert.Certificate"
 preamble: |
   // ignore_for_file: prefer_expression_function_bodies

@@ -18982,7 +18982,7 @@ class KeyStore_PrivateKeyEntry extends _$jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   factory KeyStore_PrivateKeyEntry(
     PrivateKey privateKey,
-    _$jni.JArray<_$jni.JObject> certificates,
+    _$jni.JArray<Certificate> certificates,
   ) {
     return KeyStore_PrivateKeyEntry.fromReference(_new$(
             _class.reference.pointer,
@@ -19019,7 +19019,7 @@ class KeyStore_PrivateKeyEntry extends _$jni.JObject {
   /// The returned object must be released after use, by calling the [release] method.
   factory KeyStore_PrivateKeyEntry.new$1(
     PrivateKey privateKey,
-    _$jni.JArray<_$jni.JObject> certificates,
+    _$jni.JArray<Certificate> certificates,
     _$jni.JSet<KeyStore_Entry_Attribute> set,
   ) {
     return KeyStore_PrivateKeyEntry.fromReference(_new$1(
@@ -19075,10 +19075,10 @@ class KeyStore_PrivateKeyEntry extends _$jni.JObject {
 
   /// from: `public java.security.cert.Certificate[] getCertificateChain()`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JArray<_$jni.JObject> getCertificateChain() {
+  _$jni.JArray<Certificate> getCertificateChain() {
     return _getCertificateChain(
             reference.pointer, _id_getCertificateChain as _$jni.JMethodIDPtr)
-        .object(const _$jni.JArrayType(_$jni.JObjectType()));
+        .object(const _$jni.JArrayType($Certificate$Type()));
   }
 
   static final _id_getCertificate = _class.instanceMethodId(
@@ -19100,10 +19100,10 @@ class KeyStore_PrivateKeyEntry extends _$jni.JObject {
 
   /// from: `public java.security.cert.Certificate getCertificate()`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject getCertificate() {
+  Certificate getCertificate() {
     return _getCertificate(
             reference.pointer, _id_getCertificate as _$jni.JMethodIDPtr)
-        .object(const _$jni.JObjectType());
+        .object(const $Certificate$Type());
   }
 
   static final _id_getAttributes = _class.instanceMethodId(
@@ -19537,7 +19537,7 @@ class KeyStore_TrustedCertificateEntry extends _$jni.JObject {
   /// from: `public void <init>(java.security.cert.Certificate certificate)`
   /// The returned object must be released after use, by calling the [release] method.
   factory KeyStore_TrustedCertificateEntry(
-    _$jni.JObject certificate,
+    Certificate certificate,
   ) {
     return KeyStore_TrustedCertificateEntry.fromReference(_new$(
             _class.reference.pointer,
@@ -19570,7 +19570,7 @@ class KeyStore_TrustedCertificateEntry extends _$jni.JObject {
   /// from: `public void <init>(java.security.cert.Certificate certificate, java.util.Set set)`
   /// The returned object must be released after use, by calling the [release] method.
   factory KeyStore_TrustedCertificateEntry.new$1(
-    _$jni.JObject certificate,
+    Certificate certificate,
     _$jni.JSet<KeyStore_Entry_Attribute> set,
   ) {
     return KeyStore_TrustedCertificateEntry.fromReference(_new$1(
@@ -19600,10 +19600,10 @@ class KeyStore_TrustedCertificateEntry extends _$jni.JObject {
 
   /// from: `public java.security.cert.Certificate getTrustedCertificate()`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject getTrustedCertificate() {
+  Certificate getTrustedCertificate() {
     return _getTrustedCertificate(
             reference.pointer, _id_getTrustedCertificate as _$jni.JMethodIDPtr)
-        .object(const _$jni.JObjectType());
+        .object(const $Certificate$Type());
   }
 
   static final _id_getAttributes = _class.instanceMethodId(
@@ -19927,14 +19927,14 @@ class KeyStore extends _$jni.JObject {
 
   /// from: `public final java.security.cert.Certificate[] getCertificateChain(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JArray<_$jni.JObject> getCertificateChain(
+  _$jni.JArray<Certificate> getCertificateChain(
     _$jni.JString string,
   ) {
     return _getCertificateChain(
             reference.pointer,
             _id_getCertificateChain as _$jni.JMethodIDPtr,
             string.reference.pointer)
-        .object(const _$jni.JArrayType(_$jni.JObjectType()));
+        .object(const _$jni.JArrayType($Certificate$Type()));
   }
 
   static final _id_getCertificate = _class.instanceMethodId(
@@ -19955,12 +19955,12 @@ class KeyStore extends _$jni.JObject {
 
   /// from: `public final java.security.cert.Certificate getCertificate(java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject getCertificate(
+  Certificate getCertificate(
     _$jni.JString string,
   ) {
     return _getCertificate(reference.pointer,
             _id_getCertificate as _$jni.JMethodIDPtr, string.reference.pointer)
-        .object(const _$jni.JObjectType());
+        .object(const $Certificate$Type());
   }
 
   static final _id_getCreationDate = _class.instanceMethodId(
@@ -20020,7 +20020,7 @@ class KeyStore extends _$jni.JObject {
     _$jni.JString string,
     Key key,
     _$jni.JArray<_$jni.jchar> cs,
-    _$jni.JArray<_$jni.JObject> certificates,
+    _$jni.JArray<Certificate> certificates,
   ) {
     _setKeyEntry(
             reference.pointer,
@@ -20060,7 +20060,7 @@ class KeyStore extends _$jni.JObject {
   void setKeyEntry$1(
     _$jni.JString string,
     _$jni.JArray<_$jni.jbyte> bs,
-    _$jni.JArray<_$jni.JObject> certificates,
+    _$jni.JArray<Certificate> certificates,
   ) {
     _setKeyEntry$1(
             reference.pointer,
@@ -20096,7 +20096,7 @@ class KeyStore extends _$jni.JObject {
   /// from: `public final void setCertificateEntry(java.lang.String string, java.security.cert.Certificate certificate)`
   void setCertificateEntry(
     _$jni.JString string,
-    _$jni.JObject certificate,
+    Certificate certificate,
   ) {
     _setCertificateEntry(
             reference.pointer,
@@ -20150,9 +20150,9 @@ class KeyStore extends _$jni.JObject {
 
   /// from: `public final java.util.Enumeration aliases()`
   /// The returned object must be released after use, by calling the [release] method.
-  _$jni.JObject aliases() {
+  Enumeration<_$jni.JString> aliases() {
     return _aliases(reference.pointer, _id_aliases as _$jni.JMethodIDPtr)
-        .object(const _$jni.JObjectType());
+        .object(const $Enumeration$Type(_$jni.JStringType()));
   }
 
   static final _id_containsAlias = _class.instanceMethodId(
@@ -20273,7 +20273,7 @@ class KeyStore extends _$jni.JObject {
   /// from: `public final java.lang.String getCertificateAlias(java.security.cert.Certificate certificate)`
   /// The returned object must be released after use, by calling the [release] method.
   _$jni.JString getCertificateAlias(
-    _$jni.JObject certificate,
+    Certificate certificate,
   ) {
     return _getCertificateAlias(
             reference.pointer,
@@ -22178,7 +22178,7 @@ final class $HostnameVerifier$Type extends _$jni.JObjType<HostnameVerifier> {
 }
 
 /// from: `java.security.cert.X509Certificate`
-class X509Certificate extends _$jni.JObject {
+class X509Certificate extends Certificate {
   @_$jni.internal
   @_$core.override
   final _$jni.JObjType<X509Certificate> $type;
@@ -22740,12 +22740,12 @@ class X509Certificate extends _$jni.JObject {
         .object(const _$jni.JObjectType());
   }
 
-  static final _id_verify = _class.instanceMethodId(
+  static final _id_verify2 = _class.instanceMethodId(
     r'verify',
     r'(Ljava/security/PublicKey;Ljava/security/Provider;)V',
   );
 
-  static final _verify = _$jni.ProtectedJniExtensions.lookup<
+  static final _verify2 = _$jni.ProtectedJniExtensions.lookup<
           _$jni.NativeFunction<
               _$jni.JThrowablePtr Function(
                   _$jni.Pointer<_$jni.Void>,
@@ -22763,11 +22763,11 @@ class X509Certificate extends _$jni.JObject {
               _$jni.Pointer<_$jni.Void>)>();
 
   /// from: `public void verify(java.security.PublicKey publicKey, java.security.Provider provider)`
-  void verify(
+  void verify2(
     PublicKey publicKey,
     _$jni.JObject provider,
   ) {
-    _verify(reference.pointer, _id_verify as _$jni.JMethodIDPtr,
+    _verify2(reference.pointer, _id_verify2 as _$jni.JMethodIDPtr,
             publicKey.reference.pointer, provider.reference.pointer)
         .check();
   }
@@ -22788,11 +22788,11 @@ final class $X509Certificate$Type extends _$jni.JObjType<X509Certificate> {
 
   @_$jni.internal
   @_$core.override
-  _$jni.JObjType get superType => const _$jni.JObjectType();
+  _$jni.JObjType get superType => const $Certificate$Type();
 
   @_$jni.internal
   @_$core.override
-  final superCount = 1;
+  final superCount = 2;
 
   @_$core.override
   int get hashCode => ($X509Certificate$Type).hashCode;
@@ -25700,5 +25700,8624 @@ final class $HeldCertificate$Type extends _$jni.JObjType<HeldCertificate> {
   bool operator ==(Object other) {
     return other.runtimeType == ($HeldCertificate$Type) &&
         other is $HeldCertificate$Type;
+  }
+}
+
+/// from: `java.io.ByteArrayInputStream`
+class ByteArrayInputStream extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<ByteArrayInputStream> $type;
+
+  @_$jni.internal
+  ByteArrayInputStream.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'java/io/ByteArrayInputStream');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $ByteArrayInputStream$Type();
+  static final _id_new$ = _class.constructorId(
+    r'([B)V',
+  );
+
+  static final _new$ = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void <init>(byte[] bs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ByteArrayInputStream(
+    _$jni.JArray<_$jni.jbyte> bs,
+  ) {
+    return ByteArrayInputStream.fromReference(_new$(_class.reference.pointer,
+            _id_new$ as _$jni.JMethodIDPtr, bs.reference.pointer)
+        .reference);
+  }
+
+  static final _id_new$1 = _class.constructorId(
+    r'([BII)V',
+  );
+
+  static final _new$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_NewObject')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `public void <init>(byte[] bs, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  factory ByteArrayInputStream.new$1(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return ByteArrayInputStream.fromReference(_new$1(_class.reference.pointer,
+            _id_new$1 as _$jni.JMethodIDPtr, bs.reference.pointer, i, i1)
+        .reference);
+  }
+
+  static final _id_read = _class.instanceMethodId(
+    r'read',
+    r'()I',
+  );
+
+  static final _read = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public int read()`
+  int read() {
+    return _read(reference.pointer, _id_read as _$jni.JMethodIDPtr).integer;
+  }
+
+  static final _id_read$1 = _class.instanceMethodId(
+    r'read',
+    r'([BII)I',
+  );
+
+  static final _read$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `public int read(byte[] bs, int i, int i1)`
+  int read$1(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return _read$1(reference.pointer, _id_read$1 as _$jni.JMethodIDPtr,
+            bs.reference.pointer, i, i1)
+        .integer;
+  }
+
+  static final _id_readAllBytes = _class.instanceMethodId(
+    r'readAllBytes',
+    r'()[B',
+  );
+
+  static final _readAllBytes = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public byte[] readAllBytes()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.jbyte> readAllBytes() {
+    return _readAllBytes(
+            reference.pointer, _id_readAllBytes as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.jbyteType()));
+  }
+
+  static final _id_readNBytes = _class.instanceMethodId(
+    r'readNBytes',
+    r'([BII)I',
+  );
+
+  static final _readNBytes = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `public int readNBytes(byte[] bs, int i, int i1)`
+  int readNBytes(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return _readNBytes(reference.pointer, _id_readNBytes as _$jni.JMethodIDPtr,
+            bs.reference.pointer, i, i1)
+        .integer;
+  }
+
+  static final _id_transferTo = _class.instanceMethodId(
+    r'transferTo',
+    r'(Ljava/io/OutputStream;)J',
+  );
+
+  static final _transferTo = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallLongMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public long transferTo(java.io.OutputStream outputStream)`
+  int transferTo(
+    _$jni.JObject outputStream,
+  ) {
+    return _transferTo(reference.pointer, _id_transferTo as _$jni.JMethodIDPtr,
+            outputStream.reference.pointer)
+        .long;
+  }
+
+  static final _id_skip = _class.instanceMethodId(
+    r'skip',
+    r'(J)J',
+  );
+
+  static final _skip = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int64,)>)>>('globalEnv_CallLongMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
+
+  /// from: `public long skip(long j)`
+  int skip(
+    int j,
+  ) {
+    return _skip(reference.pointer, _id_skip as _$jni.JMethodIDPtr, j).long;
+  }
+
+  static final _id_available = _class.instanceMethodId(
+    r'available',
+    r'()I',
+  );
+
+  static final _available = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public int available()`
+  int available() {
+    return _available(reference.pointer, _id_available as _$jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_markSupported = _class.instanceMethodId(
+    r'markSupported',
+    r'()Z',
+  );
+
+  static final _markSupported = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public boolean markSupported()`
+  bool markSupported() {
+    return _markSupported(
+            reference.pointer, _id_markSupported as _$jni.JMethodIDPtr)
+        .boolean;
+  }
+
+  static final _id_mark = _class.instanceMethodId(
+    r'mark',
+    r'(I)V',
+  );
+
+  static final _mark = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<(_$jni.Int32,)>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>, _$jni.JMethodIDPtr, int)>();
+
+  /// from: `public void mark(int i)`
+  void mark(
+    int i,
+  ) {
+    _mark(reference.pointer, _id_mark as _$jni.JMethodIDPtr, i).check();
+  }
+
+  static final _id_reset = _class.instanceMethodId(
+    r'reset',
+    r'()V',
+  );
+
+  static final _reset = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void reset()`
+  void reset() {
+    _reset(reference.pointer, _id_reset as _$jni.JMethodIDPtr).check();
+  }
+
+  static final _id_close = _class.instanceMethodId(
+    r'close',
+    r'()V',
+  );
+
+  static final _close = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public void close()`
+  void close() {
+    _close(reference.pointer, _id_close as _$jni.JMethodIDPtr).check();
+  }
+}
+
+final class $ByteArrayInputStream$Type
+    extends _$jni.JObjType<ByteArrayInputStream> {
+  @_$jni.internal
+  const $ByteArrayInputStream$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/io/ByteArrayInputStream;';
+
+  @_$jni.internal
+  @_$core.override
+  ByteArrayInputStream fromReference(_$jni.JReference reference) =>
+      ByteArrayInputStream.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($ByteArrayInputStream$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($ByteArrayInputStream$Type) &&
+        other is $ByteArrayInputStream$Type;
+  }
+}
+
+/// from: `java.util.Enumeration`
+class Enumeration<$E extends _$jni.JObject> extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Enumeration<$E>> $type;
+
+  @_$jni.internal
+  final _$jni.JObjType<$E> E;
+
+  @_$jni.internal
+  Enumeration.fromReference(
+    this.E,
+    _$jni.JReference reference,
+  )   : $type = type(E),
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'java/util/Enumeration');
+
+  /// The type which includes information such as the signature of this class.
+  static $Enumeration$Type<$E> type<$E extends _$jni.JObject>(
+    _$jni.JObjType<$E> E,
+  ) {
+    return $Enumeration$Type(
+      E,
+    );
+  }
+
+  static final _id_hasMoreElements = _class.instanceMethodId(
+    r'hasMoreElements',
+    r'()Z',
+  );
+
+  static final _hasMoreElements = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract boolean hasMoreElements()`
+  bool hasMoreElements() {
+    return _hasMoreElements(
+            reference.pointer, _id_hasMoreElements as _$jni.JMethodIDPtr)
+        .boolean;
+  }
+
+  static final _id_nextElement = _class.instanceMethodId(
+    r'nextElement',
+    r'()Ljava/lang/Object;',
+  );
+
+  static final _nextElement = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract E nextElement()`
+  /// The returned object must be released after use, by calling the [release] method.
+  $E nextElement() {
+    return _nextElement(
+            reference.pointer, _id_nextElement as _$jni.JMethodIDPtr)
+        .object(E);
+  }
+
+  static final _id_asIterator = _class.instanceMethodId(
+    r'asIterator',
+    r'()Ljava/util/Iterator;',
+  );
+
+  static final _asIterator = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public java.util.Iterator asIterator()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JIterator<$E> asIterator() {
+    return _asIterator(reference.pointer, _id_asIterator as _$jni.JMethodIDPtr)
+        .object(_$jni.JIteratorType(E));
+  }
+
+  /// Maps a specific port to the implemented interface.
+  static final _$core.Map<int, $Enumeration> _$impls = {};
+  static _$jni.JObjectPtr _$invoke(
+    int port,
+    _$jni.JObjectPtr descriptor,
+    _$jni.JObjectPtr args,
+  ) {
+    return _$invokeMethod(
+      port,
+      _$jni.MethodInvocation.fromAddresses(
+        0,
+        descriptor.address,
+        args.address,
+      ),
+    );
+  }
+
+  static final _$jni.Pointer<
+          _$jni.NativeFunction<
+              _$jni.JObjectPtr Function(
+                  _$jni.Int64, _$jni.JObjectPtr, _$jni.JObjectPtr)>>
+      _$invokePointer = _$jni.Pointer.fromFunction(_$invoke);
+
+  static _$jni.Pointer<_$jni.Void> _$invokeMethod(
+    int $p,
+    _$jni.MethodInvocation $i,
+  ) {
+    try {
+      final $d = $i.methodDescriptor.toDartString(releaseOriginal: true);
+      final $a = $i.args;
+      if ($d == r'hasMoreElements()Z') {
+        final $r = _$impls[$p]!.hasMoreElements();
+        return _$jni.JBoolean($r).reference.toPointer();
+      }
+      if ($d == r'nextElement()Ljava/lang/Object;') {
+        final $r = _$impls[$p]!.nextElement();
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+      if ($d == r'asIterator()Ljava/util/Iterator;') {
+        final $r = _$impls[$p]!.asIterator();
+        return ($r as _$jni.JObject)
+            .as(const _$jni.JObjectType())
+            .reference
+            .toPointer();
+      }
+    } catch (e) {
+      return _$jni.ProtectedJniExtensions.newDartException(e);
+    }
+    return _$jni.nullptr;
+  }
+
+  static void implementIn<$E extends _$jni.JObject>(
+    _$jni.JImplementer implementer,
+    $Enumeration<$E> $impl,
+  ) {
+    late final _$jni.RawReceivePort $p;
+    $p = _$jni.RawReceivePort(($m) {
+      if ($m == null) {
+        _$impls.remove($p.sendPort.nativePort);
+        $p.close();
+        return;
+      }
+      final $i = _$jni.MethodInvocation.fromMessage($m);
+      final $r = _$invokeMethod($p.sendPort.nativePort, $i);
+      _$jni.ProtectedJniExtensions.returnResult($i.result, $r);
+    });
+    implementer.add(
+      r'java.util.Enumeration',
+      $p,
+      _$invokePointer,
+      [],
+    );
+    final $a = $p.sendPort.nativePort;
+    _$impls[$a] = $impl;
+  }
+
+  factory Enumeration.implement(
+    $Enumeration<$E> $impl,
+  ) {
+    final $i = _$jni.JImplementer();
+    implementIn($i, $impl);
+    return Enumeration.fromReference(
+      $impl.E,
+      $i.implementReference(),
+    );
+  }
+}
+
+abstract base mixin class $Enumeration<$E extends _$jni.JObject> {
+  factory $Enumeration({
+    required _$jni.JObjType<$E> E,
+    required bool Function() hasMoreElements,
+    required $E Function() nextElement,
+    required _$jni.JIterator<_$jni.JObject> Function() asIterator,
+  }) = _$Enumeration;
+
+  _$jni.JObjType<$E> get E;
+
+  bool hasMoreElements();
+  $E nextElement();
+  _$jni.JIterator<_$jni.JObject> asIterator();
+}
+
+final class _$Enumeration<$E extends _$jni.JObject> with $Enumeration<$E> {
+  _$Enumeration({
+    required this.E,
+    required bool Function() hasMoreElements,
+    required $E Function() nextElement,
+    required _$jni.JIterator<_$jni.JObject> Function() asIterator,
+  })  : _hasMoreElements = hasMoreElements,
+        _nextElement = nextElement,
+        _asIterator = asIterator;
+
+  @_$core.override
+  final _$jni.JObjType<$E> E;
+
+  final bool Function() _hasMoreElements;
+  final $E Function() _nextElement;
+  final _$jni.JIterator<_$jni.JObject> Function() _asIterator;
+
+  bool hasMoreElements() {
+    return _hasMoreElements();
+  }
+
+  $E nextElement() {
+    return _nextElement();
+  }
+
+  _$jni.JIterator<_$jni.JObject> asIterator() {
+    return _asIterator();
+  }
+}
+
+final class $Enumeration$Type<$E extends _$jni.JObject>
+    extends _$jni.JObjType<Enumeration<$E>> {
+  @_$jni.internal
+  final _$jni.JObjType<$E> E;
+
+  @_$jni.internal
+  const $Enumeration$Type(
+    this.E,
+  );
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/util/Enumeration;';
+
+  @_$jni.internal
+  @_$core.override
+  Enumeration<$E> fromReference(_$jni.JReference reference) =>
+      Enumeration.fromReference(E, reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => Object.hash($Enumeration$Type, E);
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Enumeration$Type<$E>) &&
+        other is $Enumeration$Type<$E> &&
+        E == other.E;
+  }
+}
+
+/// from: `java.util.Arrays`
+class Arrays extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Arrays> $type;
+
+  @_$jni.internal
+  Arrays.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'java/util/Arrays');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $Arrays$Type();
+  static final _id_sort = _class.staticMethodId(
+    r'sort',
+    r'([I)V',
+  );
+
+  static final _sort = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(int[] is)`
+  static void sort(
+    _$jni.JArray<_$jni.jint> is$,
+  ) {
+    _sort(_class.reference.pointer, _id_sort as _$jni.JMethodIDPtr,
+            is$.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$1 = _class.staticMethodId(
+    r'sort',
+    r'([III)V',
+  );
+
+  static final _sort$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void sort(int[] is, int i, int i1)`
+  static void sort$1(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+  ) {
+    _sort$1(_class.reference.pointer, _id_sort$1 as _$jni.JMethodIDPtr,
+            is$.reference.pointer, i, i1)
+        .check();
+  }
+
+  static final _id_sort$2 = _class.staticMethodId(
+    r'sort',
+    r'([J)V',
+  );
+
+  static final _sort$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(long[] js)`
+  static void sort$2(
+    _$jni.JArray<_$jni.jlong> js,
+  ) {
+    _sort$2(_class.reference.pointer, _id_sort$2 as _$jni.JMethodIDPtr,
+            js.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$3 = _class.staticMethodId(
+    r'sort',
+    r'([JII)V',
+  );
+
+  static final _sort$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void sort(long[] js, int i, int i1)`
+  static void sort$3(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+  ) {
+    _sort$3(_class.reference.pointer, _id_sort$3 as _$jni.JMethodIDPtr,
+            js.reference.pointer, i, i1)
+        .check();
+  }
+
+  static final _id_sort$4 = _class.staticMethodId(
+    r'sort',
+    r'([S)V',
+  );
+
+  static final _sort$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(short[] ss)`
+  static void sort$4(
+    _$jni.JArray<_$jni.jshort> ss,
+  ) {
+    _sort$4(_class.reference.pointer, _id_sort$4 as _$jni.JMethodIDPtr,
+            ss.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$5 = _class.staticMethodId(
+    r'sort',
+    r'([SII)V',
+  );
+
+  static final _sort$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void sort(short[] ss, int i, int i1)`
+  static void sort$5(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+  ) {
+    _sort$5(_class.reference.pointer, _id_sort$5 as _$jni.JMethodIDPtr,
+            ss.reference.pointer, i, i1)
+        .check();
+  }
+
+  static final _id_sort$6 = _class.staticMethodId(
+    r'sort',
+    r'([C)V',
+  );
+
+  static final _sort$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(char[] cs)`
+  static void sort$6(
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    _sort$6(_class.reference.pointer, _id_sort$6 as _$jni.JMethodIDPtr,
+            cs.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$7 = _class.staticMethodId(
+    r'sort',
+    r'([CII)V',
+  );
+
+  static final _sort$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void sort(char[] cs, int i, int i1)`
+  static void sort$7(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+    int i1,
+  ) {
+    _sort$7(_class.reference.pointer, _id_sort$7 as _$jni.JMethodIDPtr,
+            cs.reference.pointer, i, i1)
+        .check();
+  }
+
+  static final _id_sort$8 = _class.staticMethodId(
+    r'sort',
+    r'([B)V',
+  );
+
+  static final _sort$8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(byte[] bs)`
+  static void sort$8(
+    _$jni.JArray<_$jni.jbyte> bs,
+  ) {
+    _sort$8(_class.reference.pointer, _id_sort$8 as _$jni.JMethodIDPtr,
+            bs.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$9 = _class.staticMethodId(
+    r'sort',
+    r'([BII)V',
+  );
+
+  static final _sort$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void sort(byte[] bs, int i, int i1)`
+  static void sort$9(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    _sort$9(_class.reference.pointer, _id_sort$9 as _$jni.JMethodIDPtr,
+            bs.reference.pointer, i, i1)
+        .check();
+  }
+
+  static final _id_sort$10 = _class.staticMethodId(
+    r'sort',
+    r'([F)V',
+  );
+
+  static final _sort$10 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(float[] fs)`
+  static void sort$10(
+    _$jni.JArray<_$jni.jfloat> fs,
+  ) {
+    _sort$10(_class.reference.pointer, _id_sort$10 as _$jni.JMethodIDPtr,
+            fs.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$11 = _class.staticMethodId(
+    r'sort',
+    r'([FII)V',
+  );
+
+  static final _sort$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void sort(float[] fs, int i, int i1)`
+  static void sort$11(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+    int i1,
+  ) {
+    _sort$11(_class.reference.pointer, _id_sort$11 as _$jni.JMethodIDPtr,
+            fs.reference.pointer, i, i1)
+        .check();
+  }
+
+  static final _id_sort$12 = _class.staticMethodId(
+    r'sort',
+    r'([D)V',
+  );
+
+  static final _sort$12 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(double[] ds)`
+  static void sort$12(
+    _$jni.JArray<_$jni.jdouble> ds,
+  ) {
+    _sort$12(_class.reference.pointer, _id_sort$12 as _$jni.JMethodIDPtr,
+            ds.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$13 = _class.staticMethodId(
+    r'sort',
+    r'([DII)V',
+  );
+
+  static final _sort$13 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void sort(double[] ds, int i, int i1)`
+  static void sort$13(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+  ) {
+    _sort$13(_class.reference.pointer, _id_sort$13 as _$jni.JMethodIDPtr,
+            ds.reference.pointer, i, i1)
+        .check();
+  }
+
+  static final _id_parallelSort = _class.staticMethodId(
+    r'parallelSort',
+    r'([B)V',
+  );
+
+  static final _parallelSort = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(byte[] bs)`
+  static void parallelSort(
+    _$jni.JArray<_$jni.jbyte> bs,
+  ) {
+    _parallelSort(_class.reference.pointer,
+            _id_parallelSort as _$jni.JMethodIDPtr, bs.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$1 = _class.staticMethodId(
+    r'parallelSort',
+    r'([BII)V',
+  );
+
+  static final _parallelSort$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void parallelSort(byte[] bs, int i, int i1)`
+  static void parallelSort$1(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    _parallelSort$1(
+            _class.reference.pointer,
+            _id_parallelSort$1 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            i,
+            i1)
+        .check();
+  }
+
+  static final _id_parallelSort$2 = _class.staticMethodId(
+    r'parallelSort',
+    r'([C)V',
+  );
+
+  static final _parallelSort$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(char[] cs)`
+  static void parallelSort$2(
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    _parallelSort$2(_class.reference.pointer,
+            _id_parallelSort$2 as _$jni.JMethodIDPtr, cs.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$3 = _class.staticMethodId(
+    r'parallelSort',
+    r'([CII)V',
+  );
+
+  static final _parallelSort$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void parallelSort(char[] cs, int i, int i1)`
+  static void parallelSort$3(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+    int i1,
+  ) {
+    _parallelSort$3(
+            _class.reference.pointer,
+            _id_parallelSort$3 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            i,
+            i1)
+        .check();
+  }
+
+  static final _id_parallelSort$4 = _class.staticMethodId(
+    r'parallelSort',
+    r'([S)V',
+  );
+
+  static final _parallelSort$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(short[] ss)`
+  static void parallelSort$4(
+    _$jni.JArray<_$jni.jshort> ss,
+  ) {
+    _parallelSort$4(_class.reference.pointer,
+            _id_parallelSort$4 as _$jni.JMethodIDPtr, ss.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$5 = _class.staticMethodId(
+    r'parallelSort',
+    r'([SII)V',
+  );
+
+  static final _parallelSort$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void parallelSort(short[] ss, int i, int i1)`
+  static void parallelSort$5(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+  ) {
+    _parallelSort$5(
+            _class.reference.pointer,
+            _id_parallelSort$5 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            i,
+            i1)
+        .check();
+  }
+
+  static final _id_parallelSort$6 = _class.staticMethodId(
+    r'parallelSort',
+    r'([I)V',
+  );
+
+  static final _parallelSort$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(int[] is)`
+  static void parallelSort$6(
+    _$jni.JArray<_$jni.jint> is$,
+  ) {
+    _parallelSort$6(_class.reference.pointer,
+            _id_parallelSort$6 as _$jni.JMethodIDPtr, is$.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$7 = _class.staticMethodId(
+    r'parallelSort',
+    r'([III)V',
+  );
+
+  static final _parallelSort$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void parallelSort(int[] is, int i, int i1)`
+  static void parallelSort$7(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+  ) {
+    _parallelSort$7(
+            _class.reference.pointer,
+            _id_parallelSort$7 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1)
+        .check();
+  }
+
+  static final _id_parallelSort$8 = _class.staticMethodId(
+    r'parallelSort',
+    r'([J)V',
+  );
+
+  static final _parallelSort$8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(long[] js)`
+  static void parallelSort$8(
+    _$jni.JArray<_$jni.jlong> js,
+  ) {
+    _parallelSort$8(_class.reference.pointer,
+            _id_parallelSort$8 as _$jni.JMethodIDPtr, js.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$9 = _class.staticMethodId(
+    r'parallelSort',
+    r'([JII)V',
+  );
+
+  static final _parallelSort$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void parallelSort(long[] js, int i, int i1)`
+  static void parallelSort$9(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+  ) {
+    _parallelSort$9(
+            _class.reference.pointer,
+            _id_parallelSort$9 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1)
+        .check();
+  }
+
+  static final _id_parallelSort$10 = _class.staticMethodId(
+    r'parallelSort',
+    r'([F)V',
+  );
+
+  static final _parallelSort$10 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(float[] fs)`
+  static void parallelSort$10(
+    _$jni.JArray<_$jni.jfloat> fs,
+  ) {
+    _parallelSort$10(_class.reference.pointer,
+            _id_parallelSort$10 as _$jni.JMethodIDPtr, fs.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$11 = _class.staticMethodId(
+    r'parallelSort',
+    r'([FII)V',
+  );
+
+  static final _parallelSort$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void parallelSort(float[] fs, int i, int i1)`
+  static void parallelSort$11(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+    int i1,
+  ) {
+    _parallelSort$11(
+            _class.reference.pointer,
+            _id_parallelSort$11 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            i,
+            i1)
+        .check();
+  }
+
+  static final _id_parallelSort$12 = _class.staticMethodId(
+    r'parallelSort',
+    r'([D)V',
+  );
+
+  static final _parallelSort$12 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(double[] ds)`
+  static void parallelSort$12(
+    _$jni.JArray<_$jni.jdouble> ds,
+  ) {
+    _parallelSort$12(_class.reference.pointer,
+            _id_parallelSort$12 as _$jni.JMethodIDPtr, ds.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$13 = _class.staticMethodId(
+    r'parallelSort',
+    r'([DII)V',
+  );
+
+  static final _parallelSort$13 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void parallelSort(double[] ds, int i, int i1)`
+  static void parallelSort$13(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+  ) {
+    _parallelSort$13(
+            _class.reference.pointer,
+            _id_parallelSort$13 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            i,
+            i1)
+        .check();
+  }
+
+  static final _id_parallelSort$14 = _class.staticMethodId(
+    r'parallelSort',
+    r'([Ljava/lang/Comparable;)V',
+  );
+
+  static final _parallelSort$14 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(java.lang.Object[] comparables)`
+  static void parallelSort$14<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> comparables, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((comparables.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _parallelSort$14(
+            _class.reference.pointer,
+            _id_parallelSort$14 as _$jni.JMethodIDPtr,
+            comparables.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$15 = _class.staticMethodId(
+    r'parallelSort',
+    r'([Ljava/lang/Comparable;II)V',
+  );
+
+  static final _parallelSort$15 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void parallelSort(java.lang.Object[] comparables, int i, int i1)`
+  static void parallelSort$15<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> comparables,
+    int i,
+    int i1, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((comparables.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _parallelSort$15(
+            _class.reference.pointer,
+            _id_parallelSort$15 as _$jni.JMethodIDPtr,
+            comparables.reference.pointer,
+            i,
+            i1)
+        .check();
+  }
+
+  static final _id_parallelSort$16 = _class.staticMethodId(
+    r'parallelSort',
+    r'([Ljava/lang/Object;Ljava/util/Comparator;)V',
+  );
+
+  static final _parallelSort$16 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(java.lang.Object[] objects, java.util.Comparator comparator)`
+  static void parallelSort$16<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _parallelSort$16(
+            _class.reference.pointer,
+            _id_parallelSort$16 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            comparator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSort$17 = _class.staticMethodId(
+    r'parallelSort',
+    r'([Ljava/lang/Object;IILjava/util/Comparator;)V',
+  );
+
+  static final _parallelSort$17 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSort(java.lang.Object[] objects, int i, int i1, java.util.Comparator comparator)`
+  static void parallelSort$17<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _parallelSort$17(
+            _class.reference.pointer,
+            _id_parallelSort$17 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            comparator.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$14 = _class.staticMethodId(
+    r'sort',
+    r'([Ljava/lang/Object;)V',
+  );
+
+  static final _sort$14 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(java.lang.Object[] objects)`
+  static void sort$14(
+    _$jni.JArray<_$jni.JObject> objects,
+  ) {
+    _sort$14(_class.reference.pointer, _id_sort$14 as _$jni.JMethodIDPtr,
+            objects.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$15 = _class.staticMethodId(
+    r'sort',
+    r'([Ljava/lang/Object;II)V',
+  );
+
+  static final _sort$15 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public void sort(java.lang.Object[] objects, int i, int i1)`
+  static void sort$15(
+    _$jni.JArray<_$jni.JObject> objects,
+    int i,
+    int i1,
+  ) {
+    _sort$15(_class.reference.pointer, _id_sort$15 as _$jni.JMethodIDPtr,
+            objects.reference.pointer, i, i1)
+        .check();
+  }
+
+  static final _id_sort$16 = _class.staticMethodId(
+    r'sort',
+    r'([Ljava/lang/Object;Ljava/util/Comparator;)V',
+  );
+
+  static final _sort$16 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(java.lang.Object[] objects, java.util.Comparator comparator)`
+  static void sort$16<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _sort$16(_class.reference.pointer, _id_sort$16 as _$jni.JMethodIDPtr,
+            objects.reference.pointer, comparator.reference.pointer)
+        .check();
+  }
+
+  static final _id_sort$17 = _class.staticMethodId(
+    r'sort',
+    r'([Ljava/lang/Object;IILjava/util/Comparator;)V',
+  );
+
+  static final _sort$17 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void sort(java.lang.Object[] objects, int i, int i1, java.util.Comparator comparator)`
+  static void sort$17<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _sort$17(_class.reference.pointer, _id_sort$17 as _$jni.JMethodIDPtr,
+            objects.reference.pointer, i, i1, comparator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelPrefix = _class.staticMethodId(
+    r'parallelPrefix',
+    r'([Ljava/lang/Object;Ljava/util/function/BinaryOperator;)V',
+  );
+
+  static final _parallelPrefix = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelPrefix(java.lang.Object[] objects, java.util.function.BinaryOperator binaryOperator)`
+  static void parallelPrefix<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    _$jni.JObject binaryOperator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _parallelPrefix(
+            _class.reference.pointer,
+            _id_parallelPrefix as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            binaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelPrefix$1 = _class.staticMethodId(
+    r'parallelPrefix',
+    r'([Ljava/lang/Object;IILjava/util/function/BinaryOperator;)V',
+  );
+
+  static final _parallelPrefix$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelPrefix(java.lang.Object[] objects, int i, int i1, java.util.function.BinaryOperator binaryOperator)`
+  static void parallelPrefix$1<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1,
+    _$jni.JObject binaryOperator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _parallelPrefix$1(
+            _class.reference.pointer,
+            _id_parallelPrefix$1 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            binaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelPrefix$2 = _class.staticMethodId(
+    r'parallelPrefix',
+    r'([JLjava/util/function/LongBinaryOperator;)V',
+  );
+
+  static final _parallelPrefix$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelPrefix(long[] js, java.util.function.LongBinaryOperator longBinaryOperator)`
+  static void parallelPrefix$2(
+    _$jni.JArray<_$jni.jlong> js,
+    _$jni.JObject longBinaryOperator,
+  ) {
+    _parallelPrefix$2(
+            _class.reference.pointer,
+            _id_parallelPrefix$2 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            longBinaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelPrefix$3 = _class.staticMethodId(
+    r'parallelPrefix',
+    r'([JIILjava/util/function/LongBinaryOperator;)V',
+  );
+
+  static final _parallelPrefix$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelPrefix(long[] js, int i, int i1, java.util.function.LongBinaryOperator longBinaryOperator)`
+  static void parallelPrefix$3(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+    _$jni.JObject longBinaryOperator,
+  ) {
+    _parallelPrefix$3(
+            _class.reference.pointer,
+            _id_parallelPrefix$3 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1,
+            longBinaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelPrefix$4 = _class.staticMethodId(
+    r'parallelPrefix',
+    r'([DLjava/util/function/DoubleBinaryOperator;)V',
+  );
+
+  static final _parallelPrefix$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelPrefix(double[] ds, java.util.function.DoubleBinaryOperator doubleBinaryOperator)`
+  static void parallelPrefix$4(
+    _$jni.JArray<_$jni.jdouble> ds,
+    _$jni.JObject doubleBinaryOperator,
+  ) {
+    _parallelPrefix$4(
+            _class.reference.pointer,
+            _id_parallelPrefix$4 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            doubleBinaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelPrefix$5 = _class.staticMethodId(
+    r'parallelPrefix',
+    r'([DIILjava/util/function/DoubleBinaryOperator;)V',
+  );
+
+  static final _parallelPrefix$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelPrefix(double[] ds, int i, int i1, java.util.function.DoubleBinaryOperator doubleBinaryOperator)`
+  static void parallelPrefix$5(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+    _$jni.JObject doubleBinaryOperator,
+  ) {
+    _parallelPrefix$5(
+            _class.reference.pointer,
+            _id_parallelPrefix$5 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            i,
+            i1,
+            doubleBinaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelPrefix$6 = _class.staticMethodId(
+    r'parallelPrefix',
+    r'([ILjava/util/function/IntBinaryOperator;)V',
+  );
+
+  static final _parallelPrefix$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelPrefix(int[] is, java.util.function.IntBinaryOperator intBinaryOperator)`
+  static void parallelPrefix$6(
+    _$jni.JArray<_$jni.jint> is$,
+    _$jni.JObject intBinaryOperator,
+  ) {
+    _parallelPrefix$6(
+            _class.reference.pointer,
+            _id_parallelPrefix$6 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            intBinaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelPrefix$7 = _class.staticMethodId(
+    r'parallelPrefix',
+    r'([IIILjava/util/function/IntBinaryOperator;)V',
+  );
+
+  static final _parallelPrefix$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelPrefix(int[] is, int i, int i1, java.util.function.IntBinaryOperator intBinaryOperator)`
+  static void parallelPrefix$7(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+    _$jni.JObject intBinaryOperator,
+  ) {
+    _parallelPrefix$7(
+            _class.reference.pointer,
+            _id_parallelPrefix$7 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1,
+            intBinaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_binarySearch = _class.staticMethodId(
+    r'binarySearch',
+    r'([JJ)I',
+  );
+
+  static final _binarySearch = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int64)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public int binarySearch(long[] js, long j)`
+  static int binarySearch(
+    _$jni.JArray<_$jni.jlong> js,
+    int j,
+  ) {
+    return _binarySearch(_class.reference.pointer,
+            _id_binarySearch as _$jni.JMethodIDPtr, js.reference.pointer, j)
+        .integer;
+  }
+
+  static final _id_binarySearch$1 = _class.staticMethodId(
+    r'binarySearch',
+    r'([JIIJ)I',
+  );
+
+  static final _binarySearch$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int64
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public int binarySearch(long[] js, int i, int i1, long j)`
+  static int binarySearch$1(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+    int j,
+  ) {
+    return _binarySearch$1(
+            _class.reference.pointer,
+            _id_binarySearch$1 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1,
+            j)
+        .integer;
+  }
+
+  static final _id_binarySearch$2 = _class.staticMethodId(
+    r'binarySearch',
+    r'([II)I',
+  );
+
+  static final _binarySearch$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public int binarySearch(int[] is, int i)`
+  static int binarySearch$2(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+  ) {
+    return _binarySearch$2(_class.reference.pointer,
+            _id_binarySearch$2 as _$jni.JMethodIDPtr, is$.reference.pointer, i)
+        .integer;
+  }
+
+  static final _id_binarySearch$3 = _class.staticMethodId(
+    r'binarySearch',
+    r'([IIII)I',
+  );
+
+  static final _binarySearch$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public int binarySearch(int[] is, int i, int i1, int i2)`
+  static int binarySearch$3(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+    int i2,
+  ) {
+    return _binarySearch$3(
+            _class.reference.pointer,
+            _id_binarySearch$3 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1,
+            i2)
+        .integer;
+  }
+
+  static final _id_binarySearch$4 = _class.staticMethodId(
+    r'binarySearch',
+    r'([SS)I',
+  );
+
+  static final _binarySearch$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public int binarySearch(short[] ss, short s)`
+  static int binarySearch$4(
+    _$jni.JArray<_$jni.jshort> ss,
+    int s,
+  ) {
+    return _binarySearch$4(_class.reference.pointer,
+            _id_binarySearch$4 as _$jni.JMethodIDPtr, ss.reference.pointer, s)
+        .integer;
+  }
+
+  static final _id_binarySearch$5 = _class.staticMethodId(
+    r'binarySearch',
+    r'([SIIS)I',
+  );
+
+  static final _binarySearch$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public int binarySearch(short[] ss, int i, int i1, short s)`
+  static int binarySearch$5(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+    int s,
+  ) {
+    return _binarySearch$5(
+            _class.reference.pointer,
+            _id_binarySearch$5 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            i,
+            i1,
+            s)
+        .integer;
+  }
+
+  static final _id_binarySearch$6 = _class.staticMethodId(
+    r'binarySearch',
+    r'([CC)I',
+  );
+
+  static final _binarySearch$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public int binarySearch(char[] cs, char c)`
+  static int binarySearch$6(
+    _$jni.JArray<_$jni.jchar> cs,
+    int c,
+  ) {
+    return _binarySearch$6(_class.reference.pointer,
+            _id_binarySearch$6 as _$jni.JMethodIDPtr, cs.reference.pointer, c)
+        .integer;
+  }
+
+  static final _id_binarySearch$7 = _class.staticMethodId(
+    r'binarySearch',
+    r'([CIIC)I',
+  );
+
+  static final _binarySearch$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public int binarySearch(char[] cs, int i, int i1, char c)`
+  static int binarySearch$7(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+    int i1,
+    int c,
+  ) {
+    return _binarySearch$7(
+            _class.reference.pointer,
+            _id_binarySearch$7 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            i,
+            i1,
+            c)
+        .integer;
+  }
+
+  static final _id_binarySearch$8 = _class.staticMethodId(
+    r'binarySearch',
+    r'([BB)I',
+  );
+
+  static final _binarySearch$8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public int binarySearch(byte[] bs, byte b)`
+  static int binarySearch$8(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int b,
+  ) {
+    return _binarySearch$8(_class.reference.pointer,
+            _id_binarySearch$8 as _$jni.JMethodIDPtr, bs.reference.pointer, b)
+        .integer;
+  }
+
+  static final _id_binarySearch$9 = _class.staticMethodId(
+    r'binarySearch',
+    r'([BIIB)I',
+  );
+
+  static final _binarySearch$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public int binarySearch(byte[] bs, int i, int i1, byte b)`
+  static int binarySearch$9(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+    int b,
+  ) {
+    return _binarySearch$9(
+            _class.reference.pointer,
+            _id_binarySearch$9 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            i,
+            i1,
+            b)
+        .integer;
+  }
+
+  static final _id_binarySearch$10 = _class.staticMethodId(
+    r'binarySearch',
+    r'([DD)I',
+  );
+
+  static final _binarySearch$10 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Double
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, double)>();
+
+  /// from: `static public int binarySearch(double[] ds, double d)`
+  static int binarySearch$10(
+    _$jni.JArray<_$jni.jdouble> ds,
+    double d,
+  ) {
+    return _binarySearch$10(_class.reference.pointer,
+            _id_binarySearch$10 as _$jni.JMethodIDPtr, ds.reference.pointer, d)
+        .integer;
+  }
+
+  static final _id_binarySearch$11 = _class.staticMethodId(
+    r'binarySearch',
+    r'([DIID)I',
+  );
+
+  static final _binarySearch$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Double
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              double)>();
+
+  /// from: `static public int binarySearch(double[] ds, int i, int i1, double d)`
+  static int binarySearch$11(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+    double d,
+  ) {
+    return _binarySearch$11(
+            _class.reference.pointer,
+            _id_binarySearch$11 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            i,
+            i1,
+            d)
+        .integer;
+  }
+
+  static final _id_binarySearch$12 = _class.staticMethodId(
+    r'binarySearch',
+    r'([FF)I',
+  );
+
+  static final _binarySearch$12 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Double
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, double)>();
+
+  /// from: `static public int binarySearch(float[] fs, float f)`
+  static int binarySearch$12(
+    _$jni.JArray<_$jni.jfloat> fs,
+    double f,
+  ) {
+    return _binarySearch$12(_class.reference.pointer,
+            _id_binarySearch$12 as _$jni.JMethodIDPtr, fs.reference.pointer, f)
+        .integer;
+  }
+
+  static final _id_binarySearch$13 = _class.staticMethodId(
+    r'binarySearch',
+    r'([FIIF)I',
+  );
+
+  static final _binarySearch$13 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Double
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              double)>();
+
+  /// from: `static public int binarySearch(float[] fs, int i, int i1, float f)`
+  static int binarySearch$13(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+    int i1,
+    double f,
+  ) {
+    return _binarySearch$13(
+            _class.reference.pointer,
+            _id_binarySearch$13 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            i,
+            i1,
+            f)
+        .integer;
+  }
+
+  static final _id_binarySearch$14 = _class.staticMethodId(
+    r'binarySearch',
+    r'([Ljava/lang/Object;Ljava/lang/Object;)I',
+  );
+
+  static final _binarySearch$14 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int binarySearch(java.lang.Object[] objects, java.lang.Object object)`
+  static int binarySearch$14(
+    _$jni.JArray<_$jni.JObject> objects,
+    _$jni.JObject object,
+  ) {
+    return _binarySearch$14(
+            _class.reference.pointer,
+            _id_binarySearch$14 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            object.reference.pointer)
+        .integer;
+  }
+
+  static final _id_binarySearch$15 = _class.staticMethodId(
+    r'binarySearch',
+    r'([Ljava/lang/Object;IILjava/lang/Object;)I',
+  );
+
+  static final _binarySearch$15 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int binarySearch(java.lang.Object[] objects, int i, int i1, java.lang.Object object)`
+  static int binarySearch$15(
+    _$jni.JArray<_$jni.JObject> objects,
+    int i,
+    int i1,
+    _$jni.JObject object,
+  ) {
+    return _binarySearch$15(
+            _class.reference.pointer,
+            _id_binarySearch$15 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            object.reference.pointer)
+        .integer;
+  }
+
+  static final _id_binarySearch$16 = _class.staticMethodId(
+    r'binarySearch',
+    r'([Ljava/lang/Object;Ljava/lang/Object;Ljava/util/Comparator;)I',
+  );
+
+  static final _binarySearch$16 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int binarySearch(java.lang.Object[] objects, T object, java.util.Comparator comparator)`
+  static int binarySearch$16<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    $T object,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      object.$type,
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _binarySearch$16(
+            _class.reference.pointer,
+            _id_binarySearch$16 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            object.reference.pointer,
+            comparator.reference.pointer)
+        .integer;
+  }
+
+  static final _id_binarySearch$17 = _class.staticMethodId(
+    r'binarySearch',
+    r'([Ljava/lang/Object;IILjava/lang/Object;Ljava/util/Comparator;)I',
+  );
+
+  static final _binarySearch$17 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int binarySearch(java.lang.Object[] objects, int i, int i1, T object, java.util.Comparator comparator)`
+  static int binarySearch$17<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1,
+    $T object,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      object.$type,
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _binarySearch$17(
+            _class.reference.pointer,
+            _id_binarySearch$17 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            object.reference.pointer,
+            comparator.reference.pointer)
+        .integer;
+  }
+
+  static final _id_equals = _class.staticMethodId(
+    r'equals',
+    r'([J[J)Z',
+  );
+
+  static final _equals = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(long[] js, long[] js1)`
+  static bool equals(
+    _$jni.JArray<_$jni.jlong> js,
+    _$jni.JArray<_$jni.jlong> js1,
+  ) {
+    return _equals(_class.reference.pointer, _id_equals as _$jni.JMethodIDPtr,
+            js.reference.pointer, js1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$1 = _class.staticMethodId(
+    r'equals',
+    r'([JII[JII)Z',
+  );
+
+  static final _equals$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(long[] js, int i, int i1, long[] js1, int i2, int i3)`
+  static bool equals$1(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jlong> js1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$1(
+            _class.reference.pointer,
+            _id_equals$1 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1,
+            js1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$2 = _class.staticMethodId(
+    r'equals',
+    r'([I[I)Z',
+  );
+
+  static final _equals$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(int[] is, int[] is1)`
+  static bool equals$2(
+    _$jni.JArray<_$jni.jint> is$,
+    _$jni.JArray<_$jni.jint> is1,
+  ) {
+    return _equals$2(
+            _class.reference.pointer,
+            _id_equals$2 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            is1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$3 = _class.staticMethodId(
+    r'equals',
+    r'([III[III)Z',
+  );
+
+  static final _equals$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(int[] is, int i, int i1, int[] is1, int i2, int i3)`
+  static bool equals$3(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jint> is1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$3(
+            _class.reference.pointer,
+            _id_equals$3 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1,
+            is1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$4 = _class.staticMethodId(
+    r'equals',
+    r'([S[S)Z',
+  );
+
+  static final _equals$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(short[] ss, short[] ss1)`
+  static bool equals$4(
+    _$jni.JArray<_$jni.jshort> ss,
+    _$jni.JArray<_$jni.jshort> ss1,
+  ) {
+    return _equals$4(
+            _class.reference.pointer,
+            _id_equals$4 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            ss1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$5 = _class.staticMethodId(
+    r'equals',
+    r'([SII[SII)Z',
+  );
+
+  static final _equals$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(short[] ss, int i, int i1, short[] ss1, int i2, int i3)`
+  static bool equals$5(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jshort> ss1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$5(
+            _class.reference.pointer,
+            _id_equals$5 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            i,
+            i1,
+            ss1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$6 = _class.staticMethodId(
+    r'equals',
+    r'([C[C)Z',
+  );
+
+  static final _equals$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(char[] cs, char[] cs1)`
+  static bool equals$6(
+    _$jni.JArray<_$jni.jchar> cs,
+    _$jni.JArray<_$jni.jchar> cs1,
+  ) {
+    return _equals$6(
+            _class.reference.pointer,
+            _id_equals$6 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            cs1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$7 = _class.staticMethodId(
+    r'equals',
+    r'([CII[CII)Z',
+  );
+
+  static final _equals$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(char[] cs, int i, int i1, char[] cs1, int i2, int i3)`
+  static bool equals$7(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jchar> cs1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$7(
+            _class.reference.pointer,
+            _id_equals$7 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            i,
+            i1,
+            cs1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$8 = _class.staticMethodId(
+    r'equals',
+    r'([B[B)Z',
+  );
+
+  static final _equals$8 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(byte[] bs, byte[] bs1)`
+  static bool equals$8(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs1,
+  ) {
+    return _equals$8(
+            _class.reference.pointer,
+            _id_equals$8 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            bs1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$9 = _class.staticMethodId(
+    r'equals',
+    r'([BII[BII)Z',
+  );
+
+  static final _equals$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(byte[] bs, int i, int i1, byte[] bs1, int i2, int i3)`
+  static bool equals$9(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jbyte> bs1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$9(
+            _class.reference.pointer,
+            _id_equals$9 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            i,
+            i1,
+            bs1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$10 = _class.staticMethodId(
+    r'equals',
+    r'([Z[Z)Z',
+  );
+
+  static final _equals$10 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(boolean[] zs, boolean[] zs1)`
+  static bool equals$10(
+    _$jni.JArray<_$jni.jboolean> zs,
+    _$jni.JArray<_$jni.jboolean> zs1,
+  ) {
+    return _equals$10(
+            _class.reference.pointer,
+            _id_equals$10 as _$jni.JMethodIDPtr,
+            zs.reference.pointer,
+            zs1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$11 = _class.staticMethodId(
+    r'equals',
+    r'([ZII[ZII)Z',
+  );
+
+  static final _equals$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(boolean[] zs, int i, int i1, boolean[] zs1, int i2, int i3)`
+  static bool equals$11(
+    _$jni.JArray<_$jni.jboolean> zs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jboolean> zs1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$11(
+            _class.reference.pointer,
+            _id_equals$11 as _$jni.JMethodIDPtr,
+            zs.reference.pointer,
+            i,
+            i1,
+            zs1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$12 = _class.staticMethodId(
+    r'equals',
+    r'([D[D)Z',
+  );
+
+  static final _equals$12 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(double[] ds, double[] ds1)`
+  static bool equals$12(
+    _$jni.JArray<_$jni.jdouble> ds,
+    _$jni.JArray<_$jni.jdouble> ds1,
+  ) {
+    return _equals$12(
+            _class.reference.pointer,
+            _id_equals$12 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            ds1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$13 = _class.staticMethodId(
+    r'equals',
+    r'([DII[DII)Z',
+  );
+
+  static final _equals$13 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(double[] ds, int i, int i1, double[] ds1, int i2, int i3)`
+  static bool equals$13(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jdouble> ds1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$13(
+            _class.reference.pointer,
+            _id_equals$13 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            i,
+            i1,
+            ds1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$14 = _class.staticMethodId(
+    r'equals',
+    r'([F[F)Z',
+  );
+
+  static final _equals$14 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(float[] fs, float[] fs1)`
+  static bool equals$14(
+    _$jni.JArray<_$jni.jfloat> fs,
+    _$jni.JArray<_$jni.jfloat> fs1,
+  ) {
+    return _equals$14(
+            _class.reference.pointer,
+            _id_equals$14 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            fs1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$15 = _class.staticMethodId(
+    r'equals',
+    r'([FII[FII)Z',
+  );
+
+  static final _equals$15 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(float[] fs, int i, int i1, float[] fs1, int i2, int i3)`
+  static bool equals$15(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jfloat> fs1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$15(
+            _class.reference.pointer,
+            _id_equals$15 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            i,
+            i1,
+            fs1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$16 = _class.staticMethodId(
+    r'equals',
+    r'([Ljava/lang/Object;[Ljava/lang/Object;)Z',
+  );
+
+  static final _equals$16 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(java.lang.Object[] objects, java.lang.Object[] objects1)`
+  static bool equals$16(
+    _$jni.JArray<_$jni.JObject> objects,
+    _$jni.JArray<_$jni.JObject> objects1,
+  ) {
+    return _equals$16(
+            _class.reference.pointer,
+            _id_equals$16 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            objects1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$17 = _class.staticMethodId(
+    r'equals',
+    r'([Ljava/lang/Object;II[Ljava/lang/Object;II)Z',
+  );
+
+  static final _equals$17 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public boolean equals(java.lang.Object[] objects, int i, int i1, java.lang.Object[] objects1, int i2, int i3)`
+  static bool equals$17(
+    _$jni.JArray<_$jni.JObject> objects,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.JObject> objects1,
+    int i2,
+    int i3,
+  ) {
+    return _equals$17(
+            _class.reference.pointer,
+            _id_equals$17 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            objects1.reference.pointer,
+            i2,
+            i3)
+        .boolean;
+  }
+
+  static final _id_equals$18 = _class.staticMethodId(
+    r'equals',
+    r'([Ljava/lang/Object;[Ljava/lang/Object;Ljava/util/Comparator;)Z',
+  );
+
+  static final _equals$18 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(java.lang.Object[] objects, java.lang.Object[] objects1, java.util.Comparator comparator)`
+  static bool equals$18<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    _$jni.JArray<$T> objects1,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects1.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _equals$18(
+            _class.reference.pointer,
+            _id_equals$18 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            objects1.reference.pointer,
+            comparator.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_equals$19 = _class.staticMethodId(
+    r'equals',
+    r'([Ljava/lang/Object;II[Ljava/lang/Object;IILjava/util/Comparator;)Z',
+  );
+
+  static final _equals$19 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean equals(java.lang.Object[] objects, int i, int i1, java.lang.Object[] objects1, int i2, int i3, java.util.Comparator comparator)`
+  static bool equals$19<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1,
+    _$jni.JArray<$T> objects1,
+    int i2,
+    int i3,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects1.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _equals$19(
+            _class.reference.pointer,
+            _id_equals$19 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            objects1.reference.pointer,
+            i2,
+            i3,
+            comparator.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_fill = _class.staticMethodId(
+    r'fill',
+    r'([JJ)V',
+  );
+
+  static final _fill = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int64)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public void fill(long[] js, long j)`
+  static void fill(
+    _$jni.JArray<_$jni.jlong> js,
+    int j,
+  ) {
+    _fill(_class.reference.pointer, _id_fill as _$jni.JMethodIDPtr,
+            js.reference.pointer, j)
+        .check();
+  }
+
+  static final _id_fill$1 = _class.staticMethodId(
+    r'fill',
+    r'([JIIJ)V',
+  );
+
+  static final _fill$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int64
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public void fill(long[] js, int i, int i1, long j)`
+  static void fill$1(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+    int j,
+  ) {
+    _fill$1(_class.reference.pointer, _id_fill$1 as _$jni.JMethodIDPtr,
+            js.reference.pointer, i, i1, j)
+        .check();
+  }
+
+  static final _id_fill$2 = _class.staticMethodId(
+    r'fill',
+    r'([II)V',
+  );
+
+  static final _fill$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public void fill(int[] is, int i)`
+  static void fill$2(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+  ) {
+    _fill$2(_class.reference.pointer, _id_fill$2 as _$jni.JMethodIDPtr,
+            is$.reference.pointer, i)
+        .check();
+  }
+
+  static final _id_fill$3 = _class.staticMethodId(
+    r'fill',
+    r'([IIII)V',
+  );
+
+  static final _fill$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public void fill(int[] is, int i, int i1, int i2)`
+  static void fill$3(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+    int i2,
+  ) {
+    _fill$3(_class.reference.pointer, _id_fill$3 as _$jni.JMethodIDPtr,
+            is$.reference.pointer, i, i1, i2)
+        .check();
+  }
+
+  static final _id_fill$4 = _class.staticMethodId(
+    r'fill',
+    r'([SS)V',
+  );
+
+  static final _fill$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public void fill(short[] ss, short s)`
+  static void fill$4(
+    _$jni.JArray<_$jni.jshort> ss,
+    int s,
+  ) {
+    _fill$4(_class.reference.pointer, _id_fill$4 as _$jni.JMethodIDPtr,
+            ss.reference.pointer, s)
+        .check();
+  }
+
+  static final _id_fill$5 = _class.staticMethodId(
+    r'fill',
+    r'([SIIS)V',
+  );
+
+  static final _fill$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public void fill(short[] ss, int i, int i1, short s)`
+  static void fill$5(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+    int s,
+  ) {
+    _fill$5(_class.reference.pointer, _id_fill$5 as _$jni.JMethodIDPtr,
+            ss.reference.pointer, i, i1, s)
+        .check();
+  }
+
+  static final _id_fill$6 = _class.staticMethodId(
+    r'fill',
+    r'([CC)V',
+  );
+
+  static final _fill$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public void fill(char[] cs, char c)`
+  static void fill$6(
+    _$jni.JArray<_$jni.jchar> cs,
+    int c,
+  ) {
+    _fill$6(_class.reference.pointer, _id_fill$6 as _$jni.JMethodIDPtr,
+            cs.reference.pointer, c)
+        .check();
+  }
+
+  static final _id_fill$7 = _class.staticMethodId(
+    r'fill',
+    r'([CIIC)V',
+  );
+
+  static final _fill$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public void fill(char[] cs, int i, int i1, char c)`
+  static void fill$7(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+    int i1,
+    int c,
+  ) {
+    _fill$7(_class.reference.pointer, _id_fill$7 as _$jni.JMethodIDPtr,
+            cs.reference.pointer, i, i1, c)
+        .check();
+  }
+
+  static final _id_fill$8 = _class.staticMethodId(
+    r'fill',
+    r'([BB)V',
+  );
+
+  static final _fill$8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public void fill(byte[] bs, byte b)`
+  static void fill$8(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int b,
+  ) {
+    _fill$8(_class.reference.pointer, _id_fill$8 as _$jni.JMethodIDPtr,
+            bs.reference.pointer, b)
+        .check();
+  }
+
+  static final _id_fill$9 = _class.staticMethodId(
+    r'fill',
+    r'([BIIB)V',
+  );
+
+  static final _fill$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public void fill(byte[] bs, int i, int i1, byte b)`
+  static void fill$9(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+    int b,
+  ) {
+    _fill$9(_class.reference.pointer, _id_fill$9 as _$jni.JMethodIDPtr,
+            bs.reference.pointer, i, i1, b)
+        .check();
+  }
+
+  static final _id_fill$10 = _class.staticMethodId(
+    r'fill',
+    r'([ZZ)V',
+  );
+
+  static final _fill$10 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public void fill(boolean[] zs, boolean z)`
+  static void fill$10(
+    _$jni.JArray<_$jni.jboolean> zs,
+    bool z,
+  ) {
+    _fill$10(_class.reference.pointer, _id_fill$10 as _$jni.JMethodIDPtr,
+            zs.reference.pointer, z ? 1 : 0)
+        .check();
+  }
+
+  static final _id_fill$11 = _class.staticMethodId(
+    r'fill',
+    r'([ZIIZ)V',
+  );
+
+  static final _fill$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int, int)>();
+
+  /// from: `static public void fill(boolean[] zs, int i, int i1, boolean z)`
+  static void fill$11(
+    _$jni.JArray<_$jni.jboolean> zs,
+    int i,
+    int i1,
+    bool z,
+  ) {
+    _fill$11(_class.reference.pointer, _id_fill$11 as _$jni.JMethodIDPtr,
+            zs.reference.pointer, i, i1, z ? 1 : 0)
+        .check();
+  }
+
+  static final _id_fill$12 = _class.staticMethodId(
+    r'fill',
+    r'([DD)V',
+  );
+
+  static final _fill$12 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Double
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, double)>();
+
+  /// from: `static public void fill(double[] ds, double d)`
+  static void fill$12(
+    _$jni.JArray<_$jni.jdouble> ds,
+    double d,
+  ) {
+    _fill$12(_class.reference.pointer, _id_fill$12 as _$jni.JMethodIDPtr,
+            ds.reference.pointer, d)
+        .check();
+  }
+
+  static final _id_fill$13 = _class.staticMethodId(
+    r'fill',
+    r'([DIID)V',
+  );
+
+  static final _fill$13 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Double
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              double)>();
+
+  /// from: `static public void fill(double[] ds, int i, int i1, double d)`
+  static void fill$13(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+    double d,
+  ) {
+    _fill$13(_class.reference.pointer, _id_fill$13 as _$jni.JMethodIDPtr,
+            ds.reference.pointer, i, i1, d)
+        .check();
+  }
+
+  static final _id_fill$14 = _class.staticMethodId(
+    r'fill',
+    r'([FF)V',
+  );
+
+  static final _fill$14 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Double
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, double)>();
+
+  /// from: `static public void fill(float[] fs, float f)`
+  static void fill$14(
+    _$jni.JArray<_$jni.jfloat> fs,
+    double f,
+  ) {
+    _fill$14(_class.reference.pointer, _id_fill$14 as _$jni.JMethodIDPtr,
+            fs.reference.pointer, f)
+        .check();
+  }
+
+  static final _id_fill$15 = _class.staticMethodId(
+    r'fill',
+    r'([FIIF)V',
+  );
+
+  static final _fill$15 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Double
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              double)>();
+
+  /// from: `static public void fill(float[] fs, int i, int i1, float f)`
+  static void fill$15(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+    int i1,
+    double f,
+  ) {
+    _fill$15(_class.reference.pointer, _id_fill$15 as _$jni.JMethodIDPtr,
+            fs.reference.pointer, i, i1, f)
+        .check();
+  }
+
+  static final _id_fill$16 = _class.staticMethodId(
+    r'fill',
+    r'([Ljava/lang/Object;Ljava/lang/Object;)V',
+  );
+
+  static final _fill$16 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void fill(java.lang.Object[] objects, java.lang.Object object)`
+  static void fill$16(
+    _$jni.JArray<_$jni.JObject> objects,
+    _$jni.JObject object,
+  ) {
+    _fill$16(_class.reference.pointer, _id_fill$16 as _$jni.JMethodIDPtr,
+            objects.reference.pointer, object.reference.pointer)
+        .check();
+  }
+
+  static final _id_fill$17 = _class.staticMethodId(
+    r'fill',
+    r'([Ljava/lang/Object;IILjava/lang/Object;)V',
+  );
+
+  static final _fill$17 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void fill(java.lang.Object[] objects, int i, int i1, java.lang.Object object)`
+  static void fill$17(
+    _$jni.JArray<_$jni.JObject> objects,
+    int i,
+    int i1,
+    _$jni.JObject object,
+  ) {
+    _fill$17(_class.reference.pointer, _id_fill$17 as _$jni.JMethodIDPtr,
+            objects.reference.pointer, i, i1, object.reference.pointer)
+        .check();
+  }
+
+  static final _id_copyOf = _class.staticMethodId(
+    r'copyOf',
+    r'([Ljava/lang/Object;I)[Ljava/lang/Object;',
+  );
+
+  static final _copyOf = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public java.lang.Object[] copyOf(java.lang.Object[] objects, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<$T> copyOf<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _copyOf(_class.reference.pointer, _id_copyOf as _$jni.JMethodIDPtr,
+            objects.reference.pointer, i)
+        .object(_$jni.JArrayType(T));
+  }
+
+  static final _id_copyOf$1 = _class.staticMethodId(
+    r'copyOf',
+    r'([Ljava/lang/Object;ILjava/lang/Class;)[Ljava/lang/Object;',
+  );
+
+  static final _copyOf$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.Object[] copyOf(java.lang.Object[] objects, int i, java.lang.Class class)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<$T>
+      copyOf$1<$T extends _$jni.JObject, $U extends _$jni.JObject>(
+    _$jni.JArray<$U> objects,
+    int i,
+    _$jni.JObject class$, {
+    required _$jni.JObjType<$T> T,
+    _$jni.JObjType<$U>? U,
+  }) {
+    U ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$U>;
+    return _copyOf$1(
+            _class.reference.pointer,
+            _id_copyOf$1 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            class$.reference.pointer)
+        .object(_$jni.JArrayType(T));
+  }
+
+  static final _id_copyOf$2 = _class.staticMethodId(
+    r'copyOf',
+    r'([BI)[B',
+  );
+
+  static final _copyOf$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public byte[] copyOf(byte[] bs, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jbyte> copyOf$2(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+  ) {
+    return _copyOf$2(_class.reference.pointer,
+            _id_copyOf$2 as _$jni.JMethodIDPtr, bs.reference.pointer, i)
+        .object(const _$jni.JArrayType(_$jni.jbyteType()));
+  }
+
+  static final _id_copyOf$3 = _class.staticMethodId(
+    r'copyOf',
+    r'([SI)[S',
+  );
+
+  static final _copyOf$3 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public short[] copyOf(short[] ss, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jshort> copyOf$3(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+  ) {
+    return _copyOf$3(_class.reference.pointer,
+            _id_copyOf$3 as _$jni.JMethodIDPtr, ss.reference.pointer, i)
+        .object(const _$jni.JArrayType(_$jni.jshortType()));
+  }
+
+  static final _id_copyOf$4 = _class.staticMethodId(
+    r'copyOf',
+    r'([II)[I',
+  );
+
+  static final _copyOf$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public int[] copyOf(int[] is, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jint> copyOf$4(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+  ) {
+    return _copyOf$4(_class.reference.pointer,
+            _id_copyOf$4 as _$jni.JMethodIDPtr, is$.reference.pointer, i)
+        .object(const _$jni.JArrayType(_$jni.jintType()));
+  }
+
+  static final _id_copyOf$5 = _class.staticMethodId(
+    r'copyOf',
+    r'([JI)[J',
+  );
+
+  static final _copyOf$5 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public long[] copyOf(long[] js, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jlong> copyOf$5(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+  ) {
+    return _copyOf$5(_class.reference.pointer,
+            _id_copyOf$5 as _$jni.JMethodIDPtr, js.reference.pointer, i)
+        .object(const _$jni.JArrayType(_$jni.jlongType()));
+  }
+
+  static final _id_copyOf$6 = _class.staticMethodId(
+    r'copyOf',
+    r'([CI)[C',
+  );
+
+  static final _copyOf$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public char[] copyOf(char[] cs, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jchar> copyOf$6(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+  ) {
+    return _copyOf$6(_class.reference.pointer,
+            _id_copyOf$6 as _$jni.JMethodIDPtr, cs.reference.pointer, i)
+        .object(const _$jni.JArrayType(_$jni.jcharType()));
+  }
+
+  static final _id_copyOf$7 = _class.staticMethodId(
+    r'copyOf',
+    r'([FI)[F',
+  );
+
+  static final _copyOf$7 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public float[] copyOf(float[] fs, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jfloat> copyOf$7(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+  ) {
+    return _copyOf$7(_class.reference.pointer,
+            _id_copyOf$7 as _$jni.JMethodIDPtr, fs.reference.pointer, i)
+        .object(const _$jni.JArrayType(_$jni.jfloatType()));
+  }
+
+  static final _id_copyOf$8 = _class.staticMethodId(
+    r'copyOf',
+    r'([DI)[D',
+  );
+
+  static final _copyOf$8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public double[] copyOf(double[] ds, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jdouble> copyOf$8(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+  ) {
+    return _copyOf$8(_class.reference.pointer,
+            _id_copyOf$8 as _$jni.JMethodIDPtr, ds.reference.pointer, i)
+        .object(const _$jni.JArrayType(_$jni.jdoubleType()));
+  }
+
+  static final _id_copyOf$9 = _class.staticMethodId(
+    r'copyOf',
+    r'([ZI)[Z',
+  );
+
+  static final _copyOf$9 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni
+                          .VarArgs<(_$jni.Pointer<_$jni.Void>, _$jni.Int32)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int)>();
+
+  /// from: `static public boolean[] copyOf(boolean[] zs, int i)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jboolean> copyOf$9(
+    _$jni.JArray<_$jni.jboolean> zs,
+    int i,
+  ) {
+    return _copyOf$9(_class.reference.pointer,
+            _id_copyOf$9 as _$jni.JMethodIDPtr, zs.reference.pointer, i)
+        .object(const _$jni.JArrayType(_$jni.jbooleanType()));
+  }
+
+  static final _id_copyOfRange = _class.staticMethodId(
+    r'copyOfRange',
+    r'([Ljava/lang/Object;II)[Ljava/lang/Object;',
+  );
+
+  static final _copyOfRange = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.lang.Object[] copyOfRange(java.lang.Object[] objects, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<$T> copyOfRange<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _copyOfRange(
+            _class.reference.pointer,
+            _id_copyOfRange as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1)
+        .object(_$jni.JArrayType(T));
+  }
+
+  static final _id_copyOfRange$1 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([Ljava/lang/Object;IILjava/lang/Class;)[Ljava/lang/Object;',
+  );
+
+  static final _copyOfRange$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.Object[] copyOfRange(java.lang.Object[] objects, int i, int i1, java.lang.Class class)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<$T>
+      copyOfRange$1<$T extends _$jni.JObject, $U extends _$jni.JObject>(
+    _$jni.JArray<$U> objects,
+    int i,
+    int i1,
+    _$jni.JObject class$, {
+    required _$jni.JObjType<$T> T,
+    _$jni.JObjType<$U>? U,
+  }) {
+    U ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$U>;
+    return _copyOfRange$1(
+            _class.reference.pointer,
+            _id_copyOfRange$1 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            class$.reference.pointer)
+        .object(_$jni.JArrayType(T));
+  }
+
+  static final _id_copyOfRange$2 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([BII)[B',
+  );
+
+  static final _copyOfRange$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public byte[] copyOfRange(byte[] bs, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jbyte> copyOfRange$2(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+  ) {
+    return _copyOfRange$2(
+            _class.reference.pointer,
+            _id_copyOfRange$2 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JArrayType(_$jni.jbyteType()));
+  }
+
+  static final _id_copyOfRange$3 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([SII)[S',
+  );
+
+  static final _copyOfRange$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public short[] copyOfRange(short[] ss, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jshort> copyOfRange$3(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+  ) {
+    return _copyOfRange$3(
+            _class.reference.pointer,
+            _id_copyOfRange$3 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JArrayType(_$jni.jshortType()));
+  }
+
+  static final _id_copyOfRange$4 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([III)[I',
+  );
+
+  static final _copyOfRange$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public int[] copyOfRange(int[] is, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jint> copyOfRange$4(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+  ) {
+    return _copyOfRange$4(
+            _class.reference.pointer,
+            _id_copyOfRange$4 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JArrayType(_$jni.jintType()));
+  }
+
+  static final _id_copyOfRange$5 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([JII)[J',
+  );
+
+  static final _copyOfRange$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public long[] copyOfRange(long[] js, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jlong> copyOfRange$5(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+  ) {
+    return _copyOfRange$5(
+            _class.reference.pointer,
+            _id_copyOfRange$5 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JArrayType(_$jni.jlongType()));
+  }
+
+  static final _id_copyOfRange$6 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([CII)[C',
+  );
+
+  static final _copyOfRange$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public char[] copyOfRange(char[] cs, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jchar> copyOfRange$6(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+    int i1,
+  ) {
+    return _copyOfRange$6(
+            _class.reference.pointer,
+            _id_copyOfRange$6 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JArrayType(_$jni.jcharType()));
+  }
+
+  static final _id_copyOfRange$7 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([FII)[F',
+  );
+
+  static final _copyOfRange$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public float[] copyOfRange(float[] fs, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jfloat> copyOfRange$7(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+    int i1,
+  ) {
+    return _copyOfRange$7(
+            _class.reference.pointer,
+            _id_copyOfRange$7 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JArrayType(_$jni.jfloatType()));
+  }
+
+  static final _id_copyOfRange$8 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([DII)[D',
+  );
+
+  static final _copyOfRange$8 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public double[] copyOfRange(double[] ds, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jdouble> copyOfRange$8(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+  ) {
+    return _copyOfRange$8(
+            _class.reference.pointer,
+            _id_copyOfRange$8 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JArrayType(_$jni.jdoubleType()));
+  }
+
+  static final _id_copyOfRange$9 = _class.staticMethodId(
+    r'copyOfRange',
+    r'([ZII)[Z',
+  );
+
+  static final _copyOfRange$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public boolean[] copyOfRange(boolean[] zs, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JArray<_$jni.jboolean> copyOfRange$9(
+    _$jni.JArray<_$jni.jboolean> zs,
+    int i,
+    int i1,
+  ) {
+    return _copyOfRange$9(
+            _class.reference.pointer,
+            _id_copyOfRange$9 as _$jni.JMethodIDPtr,
+            zs.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JArrayType(_$jni.jbooleanType()));
+  }
+
+  static final _id_asList = _class.staticMethodId(
+    r'asList',
+    r'([Ljava/lang/Object;)Ljava/util/List;',
+  );
+
+  static final _asList = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.List asList(java.lang.Object[] objects)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JList<$T> asList<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _asList(_class.reference.pointer, _id_asList as _$jni.JMethodIDPtr,
+            objects.reference.pointer)
+        .object(_$jni.JListType(T));
+  }
+
+  static final _id_hashCode$1 = _class.staticMethodId(
+    r'hashCode',
+    r'([J)I',
+  );
+
+  static final _hashCode$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(long[] js)`
+  static int hashCode$1(
+    _$jni.JArray<_$jni.jlong> js,
+  ) {
+    return _hashCode$1(_class.reference.pointer,
+            _id_hashCode$1 as _$jni.JMethodIDPtr, js.reference.pointer)
+        .integer;
+  }
+
+  static final _id_hashCode$2 = _class.staticMethodId(
+    r'hashCode',
+    r'([I)I',
+  );
+
+  static final _hashCode$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(int[] is)`
+  static int hashCode$2(
+    _$jni.JArray<_$jni.jint> is$,
+  ) {
+    return _hashCode$2(_class.reference.pointer,
+            _id_hashCode$2 as _$jni.JMethodIDPtr, is$.reference.pointer)
+        .integer;
+  }
+
+  static final _id_hashCode$3 = _class.staticMethodId(
+    r'hashCode',
+    r'([S)I',
+  );
+
+  static final _hashCode$3 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(short[] ss)`
+  static int hashCode$3(
+    _$jni.JArray<_$jni.jshort> ss,
+  ) {
+    return _hashCode$3(_class.reference.pointer,
+            _id_hashCode$3 as _$jni.JMethodIDPtr, ss.reference.pointer)
+        .integer;
+  }
+
+  static final _id_hashCode$4 = _class.staticMethodId(
+    r'hashCode',
+    r'([C)I',
+  );
+
+  static final _hashCode$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(char[] cs)`
+  static int hashCode$4(
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    return _hashCode$4(_class.reference.pointer,
+            _id_hashCode$4 as _$jni.JMethodIDPtr, cs.reference.pointer)
+        .integer;
+  }
+
+  static final _id_hashCode$5 = _class.staticMethodId(
+    r'hashCode',
+    r'([B)I',
+  );
+
+  static final _hashCode$5 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(byte[] bs)`
+  static int hashCode$5(
+    _$jni.JArray<_$jni.jbyte> bs,
+  ) {
+    return _hashCode$5(_class.reference.pointer,
+            _id_hashCode$5 as _$jni.JMethodIDPtr, bs.reference.pointer)
+        .integer;
+  }
+
+  static final _id_hashCode$6 = _class.staticMethodId(
+    r'hashCode',
+    r'([Z)I',
+  );
+
+  static final _hashCode$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(boolean[] zs)`
+  static int hashCode$6(
+    _$jni.JArray<_$jni.jboolean> zs,
+  ) {
+    return _hashCode$6(_class.reference.pointer,
+            _id_hashCode$6 as _$jni.JMethodIDPtr, zs.reference.pointer)
+        .integer;
+  }
+
+  static final _id_hashCode$7 = _class.staticMethodId(
+    r'hashCode',
+    r'([F)I',
+  );
+
+  static final _hashCode$7 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(float[] fs)`
+  static int hashCode$7(
+    _$jni.JArray<_$jni.jfloat> fs,
+  ) {
+    return _hashCode$7(_class.reference.pointer,
+            _id_hashCode$7 as _$jni.JMethodIDPtr, fs.reference.pointer)
+        .integer;
+  }
+
+  static final _id_hashCode$8 = _class.staticMethodId(
+    r'hashCode',
+    r'([D)I',
+  );
+
+  static final _hashCode$8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(double[] ds)`
+  static int hashCode$8(
+    _$jni.JArray<_$jni.jdouble> ds,
+  ) {
+    return _hashCode$8(_class.reference.pointer,
+            _id_hashCode$8 as _$jni.JMethodIDPtr, ds.reference.pointer)
+        .integer;
+  }
+
+  static final _id_hashCode$9 = _class.staticMethodId(
+    r'hashCode',
+    r'([Ljava/lang/Object;)I',
+  );
+
+  static final _hashCode$9 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int hashCode(java.lang.Object[] objects)`
+  static int hashCode$9(
+    _$jni.JArray<_$jni.JObject> objects,
+  ) {
+    return _hashCode$9(_class.reference.pointer,
+            _id_hashCode$9 as _$jni.JMethodIDPtr, objects.reference.pointer)
+        .integer;
+  }
+
+  static final _id_deepHashCode = _class.staticMethodId(
+    r'deepHashCode',
+    r'([Ljava/lang/Object;)I',
+  );
+
+  static final _deepHashCode = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int deepHashCode(java.lang.Object[] objects)`
+  static int deepHashCode(
+    _$jni.JArray<_$jni.JObject> objects,
+  ) {
+    return _deepHashCode(_class.reference.pointer,
+            _id_deepHashCode as _$jni.JMethodIDPtr, objects.reference.pointer)
+        .integer;
+  }
+
+  static final _id_deepEquals = _class.staticMethodId(
+    r'deepEquals',
+    r'([Ljava/lang/Object;[Ljava/lang/Object;)Z',
+  );
+
+  static final _deepEquals = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public boolean deepEquals(java.lang.Object[] objects, java.lang.Object[] objects1)`
+  static bool deepEquals(
+    _$jni.JArray<_$jni.JObject> objects,
+    _$jni.JArray<_$jni.JObject> objects1,
+  ) {
+    return _deepEquals(
+            _class.reference.pointer,
+            _id_deepEquals as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            objects1.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_toString$1 = _class.staticMethodId(
+    r'toString',
+    r'([J)Ljava/lang/String;',
+  );
+
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(long[] js)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$1(
+    _$jni.JArray<_$jni.jlong> js,
+  ) {
+    return _toString$1(_class.reference.pointer,
+            _id_toString$1 as _$jni.JMethodIDPtr, js.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_toString$2 = _class.staticMethodId(
+    r'toString',
+    r'([I)Ljava/lang/String;',
+  );
+
+  static final _toString$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(int[] is)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$2(
+    _$jni.JArray<_$jni.jint> is$,
+  ) {
+    return _toString$2(_class.reference.pointer,
+            _id_toString$2 as _$jni.JMethodIDPtr, is$.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_toString$3 = _class.staticMethodId(
+    r'toString',
+    r'([S)Ljava/lang/String;',
+  );
+
+  static final _toString$3 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(short[] ss)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$3(
+    _$jni.JArray<_$jni.jshort> ss,
+  ) {
+    return _toString$3(_class.reference.pointer,
+            _id_toString$3 as _$jni.JMethodIDPtr, ss.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_toString$4 = _class.staticMethodId(
+    r'toString',
+    r'([C)Ljava/lang/String;',
+  );
+
+  static final _toString$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(char[] cs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$4(
+    _$jni.JArray<_$jni.jchar> cs,
+  ) {
+    return _toString$4(_class.reference.pointer,
+            _id_toString$4 as _$jni.JMethodIDPtr, cs.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_toString$5 = _class.staticMethodId(
+    r'toString',
+    r'([B)Ljava/lang/String;',
+  );
+
+  static final _toString$5 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(byte[] bs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$5(
+    _$jni.JArray<_$jni.jbyte> bs,
+  ) {
+    return _toString$5(_class.reference.pointer,
+            _id_toString$5 as _$jni.JMethodIDPtr, bs.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_toString$6 = _class.staticMethodId(
+    r'toString',
+    r'([Z)Ljava/lang/String;',
+  );
+
+  static final _toString$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(boolean[] zs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$6(
+    _$jni.JArray<_$jni.jboolean> zs,
+  ) {
+    return _toString$6(_class.reference.pointer,
+            _id_toString$6 as _$jni.JMethodIDPtr, zs.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_toString$7 = _class.staticMethodId(
+    r'toString',
+    r'([F)Ljava/lang/String;',
+  );
+
+  static final _toString$7 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(float[] fs)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$7(
+    _$jni.JArray<_$jni.jfloat> fs,
+  ) {
+    return _toString$7(_class.reference.pointer,
+            _id_toString$7 as _$jni.JMethodIDPtr, fs.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_toString$8 = _class.staticMethodId(
+    r'toString',
+    r'([D)Ljava/lang/String;',
+  );
+
+  static final _toString$8 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(double[] ds)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$8(
+    _$jni.JArray<_$jni.jdouble> ds,
+  ) {
+    return _toString$8(_class.reference.pointer,
+            _id_toString$8 as _$jni.JMethodIDPtr, ds.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_toString$9 = _class.staticMethodId(
+    r'toString',
+    r'([Ljava/lang/Object;)Ljava/lang/String;',
+  );
+
+  static final _toString$9 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String toString(java.lang.Object[] objects)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString toString$9(
+    _$jni.JArray<_$jni.JObject> objects,
+  ) {
+    return _toString$9(_class.reference.pointer,
+            _id_toString$9 as _$jni.JMethodIDPtr, objects.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_deepToString = _class.staticMethodId(
+    r'deepToString',
+    r'([Ljava/lang/Object;)Ljava/lang/String;',
+  );
+
+  static final _deepToString = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.lang.String deepToString(java.lang.Object[] objects)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JString deepToString(
+    _$jni.JArray<_$jni.JObject> objects,
+  ) {
+    return _deepToString(_class.reference.pointer,
+            _id_deepToString as _$jni.JMethodIDPtr, objects.reference.pointer)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_setAll = _class.staticMethodId(
+    r'setAll',
+    r'([Ljava/lang/Object;Ljava/util/function/IntFunction;)V',
+  );
+
+  static final _setAll = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void setAll(java.lang.Object[] objects, java.util.function.IntFunction intFunction)`
+  static void setAll<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    _$jni.JObject intFunction, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _setAll(_class.reference.pointer, _id_setAll as _$jni.JMethodIDPtr,
+            objects.reference.pointer, intFunction.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSetAll = _class.staticMethodId(
+    r'parallelSetAll',
+    r'([Ljava/lang/Object;Ljava/util/function/IntFunction;)V',
+  );
+
+  static final _parallelSetAll = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSetAll(java.lang.Object[] objects, java.util.function.IntFunction intFunction)`
+  static void parallelSetAll<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    _$jni.JObject intFunction, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    _parallelSetAll(
+            _class.reference.pointer,
+            _id_parallelSetAll as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            intFunction.reference.pointer)
+        .check();
+  }
+
+  static final _id_setAll$1 = _class.staticMethodId(
+    r'setAll',
+    r'([ILjava/util/function/IntUnaryOperator;)V',
+  );
+
+  static final _setAll$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void setAll(int[] is, java.util.function.IntUnaryOperator intUnaryOperator)`
+  static void setAll$1(
+    _$jni.JArray<_$jni.jint> is$,
+    _$jni.JObject intUnaryOperator,
+  ) {
+    _setAll$1(_class.reference.pointer, _id_setAll$1 as _$jni.JMethodIDPtr,
+            is$.reference.pointer, intUnaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSetAll$1 = _class.staticMethodId(
+    r'parallelSetAll',
+    r'([ILjava/util/function/IntUnaryOperator;)V',
+  );
+
+  static final _parallelSetAll$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSetAll(int[] is, java.util.function.IntUnaryOperator intUnaryOperator)`
+  static void parallelSetAll$1(
+    _$jni.JArray<_$jni.jint> is$,
+    _$jni.JObject intUnaryOperator,
+  ) {
+    _parallelSetAll$1(
+            _class.reference.pointer,
+            _id_parallelSetAll$1 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            intUnaryOperator.reference.pointer)
+        .check();
+  }
+
+  static final _id_setAll$2 = _class.staticMethodId(
+    r'setAll',
+    r'([JLjava/util/function/IntToLongFunction;)V',
+  );
+
+  static final _setAll$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void setAll(long[] js, java.util.function.IntToLongFunction intToLongFunction)`
+  static void setAll$2(
+    _$jni.JArray<_$jni.jlong> js,
+    _$jni.JObject intToLongFunction,
+  ) {
+    _setAll$2(_class.reference.pointer, _id_setAll$2 as _$jni.JMethodIDPtr,
+            js.reference.pointer, intToLongFunction.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSetAll$2 = _class.staticMethodId(
+    r'parallelSetAll',
+    r'([JLjava/util/function/IntToLongFunction;)V',
+  );
+
+  static final _parallelSetAll$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSetAll(long[] js, java.util.function.IntToLongFunction intToLongFunction)`
+  static void parallelSetAll$2(
+    _$jni.JArray<_$jni.jlong> js,
+    _$jni.JObject intToLongFunction,
+  ) {
+    _parallelSetAll$2(
+            _class.reference.pointer,
+            _id_parallelSetAll$2 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            intToLongFunction.reference.pointer)
+        .check();
+  }
+
+  static final _id_setAll$3 = _class.staticMethodId(
+    r'setAll',
+    r'([DLjava/util/function/IntToDoubleFunction;)V',
+  );
+
+  static final _setAll$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void setAll(double[] ds, java.util.function.IntToDoubleFunction intToDoubleFunction)`
+  static void setAll$3(
+    _$jni.JArray<_$jni.jdouble> ds,
+    _$jni.JObject intToDoubleFunction,
+  ) {
+    _setAll$3(_class.reference.pointer, _id_setAll$3 as _$jni.JMethodIDPtr,
+            ds.reference.pointer, intToDoubleFunction.reference.pointer)
+        .check();
+  }
+
+  static final _id_parallelSetAll$3 = _class.staticMethodId(
+    r'parallelSetAll',
+    r'([DLjava/util/function/IntToDoubleFunction;)V',
+  );
+
+  static final _parallelSetAll$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public void parallelSetAll(double[] ds, java.util.function.IntToDoubleFunction intToDoubleFunction)`
+  static void parallelSetAll$3(
+    _$jni.JArray<_$jni.jdouble> ds,
+    _$jni.JObject intToDoubleFunction,
+  ) {
+    _parallelSetAll$3(
+            _class.reference.pointer,
+            _id_parallelSetAll$3 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            intToDoubleFunction.reference.pointer)
+        .check();
+  }
+
+  static final _id_spliterator = _class.staticMethodId(
+    r'spliterator',
+    r'([Ljava/lang/Object;)Ljava/util/Spliterator;',
+  );
+
+  static final _spliterator = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.Spliterator spliterator(java.lang.Object[] objects)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject spliterator<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _spliterator(_class.reference.pointer,
+            _id_spliterator as _$jni.JMethodIDPtr, objects.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_spliterator$1 = _class.staticMethodId(
+    r'spliterator',
+    r'([Ljava/lang/Object;II)Ljava/util/Spliterator;',
+  );
+
+  static final _spliterator$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.util.Spliterator spliterator(java.lang.Object[] objects, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject spliterator$1<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _spliterator$1(
+            _class.reference.pointer,
+            _id_spliterator$1 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_spliterator$2 = _class.staticMethodId(
+    r'spliterator',
+    r'([I)Ljava/util/Spliterator$OfInt;',
+  );
+
+  static final _spliterator$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.Spliterator$OfInt spliterator(int[] is)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject spliterator$2(
+    _$jni.JArray<_$jni.jint> is$,
+  ) {
+    return _spliterator$2(_class.reference.pointer,
+            _id_spliterator$2 as _$jni.JMethodIDPtr, is$.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_spliterator$3 = _class.staticMethodId(
+    r'spliterator',
+    r'([III)Ljava/util/Spliterator$OfInt;',
+  );
+
+  static final _spliterator$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.util.Spliterator$OfInt spliterator(int[] is, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject spliterator$3(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+  ) {
+    return _spliterator$3(
+            _class.reference.pointer,
+            _id_spliterator$3 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_spliterator$4 = _class.staticMethodId(
+    r'spliterator',
+    r'([J)Ljava/util/Spliterator$OfLong;',
+  );
+
+  static final _spliterator$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.Spliterator$OfLong spliterator(long[] js)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject spliterator$4(
+    _$jni.JArray<_$jni.jlong> js,
+  ) {
+    return _spliterator$4(_class.reference.pointer,
+            _id_spliterator$4 as _$jni.JMethodIDPtr, js.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_spliterator$5 = _class.staticMethodId(
+    r'spliterator',
+    r'([JII)Ljava/util/Spliterator$OfLong;',
+  );
+
+  static final _spliterator$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.util.Spliterator$OfLong spliterator(long[] js, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject spliterator$5(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+  ) {
+    return _spliterator$5(
+            _class.reference.pointer,
+            _id_spliterator$5 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_spliterator$6 = _class.staticMethodId(
+    r'spliterator',
+    r'([D)Ljava/util/Spliterator$OfDouble;',
+  );
+
+  static final _spliterator$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.Spliterator$OfDouble spliterator(double[] ds)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject spliterator$6(
+    _$jni.JArray<_$jni.jdouble> ds,
+  ) {
+    return _spliterator$6(_class.reference.pointer,
+            _id_spliterator$6 as _$jni.JMethodIDPtr, ds.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_spliterator$7 = _class.staticMethodId(
+    r'spliterator',
+    r'([DII)Ljava/util/Spliterator$OfDouble;',
+  );
+
+  static final _spliterator$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.util.Spliterator$OfDouble spliterator(double[] ds, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject spliterator$7(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+  ) {
+    return _spliterator$7(
+            _class.reference.pointer,
+            _id_spliterator$7 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_stream = _class.staticMethodId(
+    r'stream',
+    r'([Ljava/lang/Object;)Ljava/util/stream/Stream;',
+  );
+
+  static final _stream = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.stream.Stream stream(java.lang.Object[] objects)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject stream<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _stream(_class.reference.pointer, _id_stream as _$jni.JMethodIDPtr,
+            objects.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_stream$1 = _class.staticMethodId(
+    r'stream',
+    r'([Ljava/lang/Object;II)Ljava/util/stream/Stream;',
+  );
+
+  static final _stream$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.util.stream.Stream stream(java.lang.Object[] objects, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject stream$1<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _stream$1(
+            _class.reference.pointer,
+            _id_stream$1 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_stream$2 = _class.staticMethodId(
+    r'stream',
+    r'([I)Ljava/util/stream/IntStream;',
+  );
+
+  static final _stream$2 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.stream.IntStream stream(int[] is)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject stream$2(
+    _$jni.JArray<_$jni.jint> is$,
+  ) {
+    return _stream$2(_class.reference.pointer,
+            _id_stream$2 as _$jni.JMethodIDPtr, is$.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_stream$3 = _class.staticMethodId(
+    r'stream',
+    r'([III)Ljava/util/stream/IntStream;',
+  );
+
+  static final _stream$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.util.stream.IntStream stream(int[] is, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject stream$3(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+  ) {
+    return _stream$3(_class.reference.pointer,
+            _id_stream$3 as _$jni.JMethodIDPtr, is$.reference.pointer, i, i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_stream$4 = _class.staticMethodId(
+    r'stream',
+    r'([J)Ljava/util/stream/LongStream;',
+  );
+
+  static final _stream$4 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.stream.LongStream stream(long[] js)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject stream$4(
+    _$jni.JArray<_$jni.jlong> js,
+  ) {
+    return _stream$4(_class.reference.pointer,
+            _id_stream$4 as _$jni.JMethodIDPtr, js.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_stream$5 = _class.staticMethodId(
+    r'stream',
+    r'([JII)Ljava/util/stream/LongStream;',
+  );
+
+  static final _stream$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.util.stream.LongStream stream(long[] js, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject stream$5(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+  ) {
+    return _stream$5(_class.reference.pointer,
+            _id_stream$5 as _$jni.JMethodIDPtr, js.reference.pointer, i, i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_stream$6 = _class.staticMethodId(
+    r'stream',
+    r'([D)Ljava/util/stream/DoubleStream;',
+  );
+
+  static final _stream$6 = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public java.util.stream.DoubleStream stream(double[] ds)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject stream$6(
+    _$jni.JArray<_$jni.jdouble> ds,
+  ) {
+    return _stream$6(_class.reference.pointer,
+            _id_stream$6 as _$jni.JMethodIDPtr, ds.reference.pointer)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_stream$7 = _class.staticMethodId(
+    r'stream',
+    r'([DII)Ljava/util/stream/DoubleStream;',
+  );
+
+  static final _stream$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>, int, int)>();
+
+  /// from: `static public java.util.stream.DoubleStream stream(double[] ds, int i, int i1)`
+  /// The returned object must be released after use, by calling the [release] method.
+  static _$jni.JObject stream$7(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+  ) {
+    return _stream$7(_class.reference.pointer,
+            _id_stream$7 as _$jni.JMethodIDPtr, ds.reference.pointer, i, i1)
+        .object(const _$jni.JObjectType());
+  }
+
+  static final _id_compare = _class.staticMethodId(
+    r'compare',
+    r'([Z[Z)I',
+  );
+
+  static final _compare = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(boolean[] zs, boolean[] zs1)`
+  static int compare(
+    _$jni.JArray<_$jni.jboolean> zs,
+    _$jni.JArray<_$jni.jboolean> zs1,
+  ) {
+    return _compare(_class.reference.pointer, _id_compare as _$jni.JMethodIDPtr,
+            zs.reference.pointer, zs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$1 = _class.staticMethodId(
+    r'compare',
+    r'([ZII[ZII)I',
+  );
+
+  static final _compare$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(boolean[] zs, int i, int i1, boolean[] zs1, int i2, int i3)`
+  static int compare$1(
+    _$jni.JArray<_$jni.jboolean> zs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jboolean> zs1,
+    int i2,
+    int i3,
+  ) {
+    return _compare$1(
+            _class.reference.pointer,
+            _id_compare$1 as _$jni.JMethodIDPtr,
+            zs.reference.pointer,
+            i,
+            i1,
+            zs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$2 = _class.staticMethodId(
+    r'compare',
+    r'([B[B)I',
+  );
+
+  static final _compare$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(byte[] bs, byte[] bs1)`
+  static int compare$2(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs1,
+  ) {
+    return _compare$2(
+            _class.reference.pointer,
+            _id_compare$2 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            bs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$3 = _class.staticMethodId(
+    r'compare',
+    r'([BII[BII)I',
+  );
+
+  static final _compare$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(byte[] bs, int i, int i1, byte[] bs1, int i2, int i3)`
+  static int compare$3(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jbyte> bs1,
+    int i2,
+    int i3,
+  ) {
+    return _compare$3(
+            _class.reference.pointer,
+            _id_compare$3 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            i,
+            i1,
+            bs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compareUnsigned = _class.staticMethodId(
+    r'compareUnsigned',
+    r'([B[B)I',
+  );
+
+  static final _compareUnsigned = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compareUnsigned(byte[] bs, byte[] bs1)`
+  static int compareUnsigned(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs1,
+  ) {
+    return _compareUnsigned(
+            _class.reference.pointer,
+            _id_compareUnsigned as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            bs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compareUnsigned$1 = _class.staticMethodId(
+    r'compareUnsigned',
+    r'([BII[BII)I',
+  );
+
+  static final _compareUnsigned$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compareUnsigned(byte[] bs, int i, int i1, byte[] bs1, int i2, int i3)`
+  static int compareUnsigned$1(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jbyte> bs1,
+    int i2,
+    int i3,
+  ) {
+    return _compareUnsigned$1(
+            _class.reference.pointer,
+            _id_compareUnsigned$1 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            i,
+            i1,
+            bs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$4 = _class.staticMethodId(
+    r'compare',
+    r'([S[S)I',
+  );
+
+  static final _compare$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(short[] ss, short[] ss1)`
+  static int compare$4(
+    _$jni.JArray<_$jni.jshort> ss,
+    _$jni.JArray<_$jni.jshort> ss1,
+  ) {
+    return _compare$4(
+            _class.reference.pointer,
+            _id_compare$4 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            ss1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$5 = _class.staticMethodId(
+    r'compare',
+    r'([SII[SII)I',
+  );
+
+  static final _compare$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(short[] ss, int i, int i1, short[] ss1, int i2, int i3)`
+  static int compare$5(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jshort> ss1,
+    int i2,
+    int i3,
+  ) {
+    return _compare$5(
+            _class.reference.pointer,
+            _id_compare$5 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            i,
+            i1,
+            ss1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compareUnsigned$2 = _class.staticMethodId(
+    r'compareUnsigned',
+    r'([S[S)I',
+  );
+
+  static final _compareUnsigned$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compareUnsigned(short[] ss, short[] ss1)`
+  static int compareUnsigned$2(
+    _$jni.JArray<_$jni.jshort> ss,
+    _$jni.JArray<_$jni.jshort> ss1,
+  ) {
+    return _compareUnsigned$2(
+            _class.reference.pointer,
+            _id_compareUnsigned$2 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            ss1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compareUnsigned$3 = _class.staticMethodId(
+    r'compareUnsigned',
+    r'([SII[SII)I',
+  );
+
+  static final _compareUnsigned$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compareUnsigned(short[] ss, int i, int i1, short[] ss1, int i2, int i3)`
+  static int compareUnsigned$3(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jshort> ss1,
+    int i2,
+    int i3,
+  ) {
+    return _compareUnsigned$3(
+            _class.reference.pointer,
+            _id_compareUnsigned$3 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            i,
+            i1,
+            ss1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$6 = _class.staticMethodId(
+    r'compare',
+    r'([C[C)I',
+  );
+
+  static final _compare$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(char[] cs, char[] cs1)`
+  static int compare$6(
+    _$jni.JArray<_$jni.jchar> cs,
+    _$jni.JArray<_$jni.jchar> cs1,
+  ) {
+    return _compare$6(
+            _class.reference.pointer,
+            _id_compare$6 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            cs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$7 = _class.staticMethodId(
+    r'compare',
+    r'([CII[CII)I',
+  );
+
+  static final _compare$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(char[] cs, int i, int i1, char[] cs1, int i2, int i3)`
+  static int compare$7(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jchar> cs1,
+    int i2,
+    int i3,
+  ) {
+    return _compare$7(
+            _class.reference.pointer,
+            _id_compare$7 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            i,
+            i1,
+            cs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$8 = _class.staticMethodId(
+    r'compare',
+    r'([I[I)I',
+  );
+
+  static final _compare$8 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(int[] is, int[] is1)`
+  static int compare$8(
+    _$jni.JArray<_$jni.jint> is$,
+    _$jni.JArray<_$jni.jint> is1,
+  ) {
+    return _compare$8(
+            _class.reference.pointer,
+            _id_compare$8 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            is1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$9 = _class.staticMethodId(
+    r'compare',
+    r'([III[III)I',
+  );
+
+  static final _compare$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(int[] is, int i, int i1, int[] is1, int i2, int i3)`
+  static int compare$9(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jint> is1,
+    int i2,
+    int i3,
+  ) {
+    return _compare$9(
+            _class.reference.pointer,
+            _id_compare$9 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1,
+            is1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compareUnsigned$4 = _class.staticMethodId(
+    r'compareUnsigned',
+    r'([I[I)I',
+  );
+
+  static final _compareUnsigned$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compareUnsigned(int[] is, int[] is1)`
+  static int compareUnsigned$4(
+    _$jni.JArray<_$jni.jint> is$,
+    _$jni.JArray<_$jni.jint> is1,
+  ) {
+    return _compareUnsigned$4(
+            _class.reference.pointer,
+            _id_compareUnsigned$4 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            is1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compareUnsigned$5 = _class.staticMethodId(
+    r'compareUnsigned',
+    r'([III[III)I',
+  );
+
+  static final _compareUnsigned$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compareUnsigned(int[] is, int i, int i1, int[] is1, int i2, int i3)`
+  static int compareUnsigned$5(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jint> is1,
+    int i2,
+    int i3,
+  ) {
+    return _compareUnsigned$5(
+            _class.reference.pointer,
+            _id_compareUnsigned$5 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1,
+            is1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$10 = _class.staticMethodId(
+    r'compare',
+    r'([J[J)I',
+  );
+
+  static final _compare$10 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(long[] js, long[] js1)`
+  static int compare$10(
+    _$jni.JArray<_$jni.jlong> js,
+    _$jni.JArray<_$jni.jlong> js1,
+  ) {
+    return _compare$10(
+            _class.reference.pointer,
+            _id_compare$10 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            js1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$11 = _class.staticMethodId(
+    r'compare',
+    r'([JII[JII)I',
+  );
+
+  static final _compare$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(long[] js, int i, int i1, long[] js1, int i2, int i3)`
+  static int compare$11(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jlong> js1,
+    int i2,
+    int i3,
+  ) {
+    return _compare$11(
+            _class.reference.pointer,
+            _id_compare$11 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1,
+            js1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compareUnsigned$6 = _class.staticMethodId(
+    r'compareUnsigned',
+    r'([J[J)I',
+  );
+
+  static final _compareUnsigned$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compareUnsigned(long[] js, long[] js1)`
+  static int compareUnsigned$6(
+    _$jni.JArray<_$jni.jlong> js,
+    _$jni.JArray<_$jni.jlong> js1,
+  ) {
+    return _compareUnsigned$6(
+            _class.reference.pointer,
+            _id_compareUnsigned$6 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            js1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compareUnsigned$7 = _class.staticMethodId(
+    r'compareUnsigned',
+    r'([JII[JII)I',
+  );
+
+  static final _compareUnsigned$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compareUnsigned(long[] js, int i, int i1, long[] js1, int i2, int i3)`
+  static int compareUnsigned$7(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jlong> js1,
+    int i2,
+    int i3,
+  ) {
+    return _compareUnsigned$7(
+            _class.reference.pointer,
+            _id_compareUnsigned$7 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1,
+            js1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$12 = _class.staticMethodId(
+    r'compare',
+    r'([F[F)I',
+  );
+
+  static final _compare$12 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(float[] fs, float[] fs1)`
+  static int compare$12(
+    _$jni.JArray<_$jni.jfloat> fs,
+    _$jni.JArray<_$jni.jfloat> fs1,
+  ) {
+    return _compare$12(
+            _class.reference.pointer,
+            _id_compare$12 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            fs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$13 = _class.staticMethodId(
+    r'compare',
+    r'([FII[FII)I',
+  );
+
+  static final _compare$13 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(float[] fs, int i, int i1, float[] fs1, int i2, int i3)`
+  static int compare$13(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jfloat> fs1,
+    int i2,
+    int i3,
+  ) {
+    return _compare$13(
+            _class.reference.pointer,
+            _id_compare$13 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            i,
+            i1,
+            fs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$14 = _class.staticMethodId(
+    r'compare',
+    r'([D[D)I',
+  );
+
+  static final _compare$14 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(double[] ds, double[] ds1)`
+  static int compare$14(
+    _$jni.JArray<_$jni.jdouble> ds,
+    _$jni.JArray<_$jni.jdouble> ds1,
+  ) {
+    return _compare$14(
+            _class.reference.pointer,
+            _id_compare$14 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            ds1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$15 = _class.staticMethodId(
+    r'compare',
+    r'([DII[DII)I',
+  );
+
+  static final _compare$15 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(double[] ds, int i, int i1, double[] ds1, int i2, int i3)`
+  static int compare$15(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jdouble> ds1,
+    int i2,
+    int i3,
+  ) {
+    return _compare$15(
+            _class.reference.pointer,
+            _id_compare$15 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            i,
+            i1,
+            ds1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$16 = _class.staticMethodId(
+    r'compare',
+    r'([Ljava/lang/Comparable;[Ljava/lang/Comparable;)I',
+  );
+
+  static final _compare$16 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(java.lang.Object[] comparables, java.lang.Object[] comparables1)`
+  static int compare$16<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> comparables,
+    _$jni.JArray<$T> comparables1, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((comparables1.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+      ((comparables.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _compare$16(
+            _class.reference.pointer,
+            _id_compare$16 as _$jni.JMethodIDPtr,
+            comparables.reference.pointer,
+            comparables1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$17 = _class.staticMethodId(
+    r'compare',
+    r'([Ljava/lang/Comparable;II[Ljava/lang/Comparable;II)I',
+  );
+
+  static final _compare$17 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int compare(java.lang.Object[] comparables, int i, int i1, java.lang.Object[] comparables1, int i2, int i3)`
+  static int compare$17<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> comparables,
+    int i,
+    int i1,
+    _$jni.JArray<$T> comparables1,
+    int i2,
+    int i3, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((comparables1.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+      ((comparables.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _compare$17(
+            _class.reference.pointer,
+            _id_compare$17 as _$jni.JMethodIDPtr,
+            comparables.reference.pointer,
+            i,
+            i1,
+            comparables1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_compare$18 = _class.staticMethodId(
+    r'compare',
+    r'([Ljava/lang/Object;[Ljava/lang/Object;Ljava/util/Comparator;)I',
+  );
+
+  static final _compare$18 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(java.lang.Object[] objects, java.lang.Object[] objects1, java.util.Comparator comparator)`
+  static int compare$18<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    _$jni.JArray<$T> objects1,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects1.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _compare$18(
+            _class.reference.pointer,
+            _id_compare$18 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            objects1.reference.pointer,
+            comparator.reference.pointer)
+        .integer;
+  }
+
+  static final _id_compare$19 = _class.staticMethodId(
+    r'compare',
+    r'([Ljava/lang/Object;II[Ljava/lang/Object;IILjava/util/Comparator;)I',
+  );
+
+  static final _compare$19 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int compare(java.lang.Object[] objects, int i, int i1, java.lang.Object[] objects1, int i2, int i3, java.util.Comparator comparator)`
+  static int compare$19<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1,
+    _$jni.JArray<$T> objects1,
+    int i2,
+    int i3,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects1.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _compare$19(
+            _class.reference.pointer,
+            _id_compare$19 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            objects1.reference.pointer,
+            i2,
+            i3,
+            comparator.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch = _class.staticMethodId(
+    r'mismatch',
+    r'([Z[Z)I',
+  );
+
+  static final _mismatch = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(boolean[] zs, boolean[] zs1)`
+  static int mismatch(
+    _$jni.JArray<_$jni.jboolean> zs,
+    _$jni.JArray<_$jni.jboolean> zs1,
+  ) {
+    return _mismatch(
+            _class.reference.pointer,
+            _id_mismatch as _$jni.JMethodIDPtr,
+            zs.reference.pointer,
+            zs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$1 = _class.staticMethodId(
+    r'mismatch',
+    r'([ZII[ZII)I',
+  );
+
+  static final _mismatch$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(boolean[] zs, int i, int i1, boolean[] zs1, int i2, int i3)`
+  static int mismatch$1(
+    _$jni.JArray<_$jni.jboolean> zs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jboolean> zs1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$1(
+            _class.reference.pointer,
+            _id_mismatch$1 as _$jni.JMethodIDPtr,
+            zs.reference.pointer,
+            i,
+            i1,
+            zs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$2 = _class.staticMethodId(
+    r'mismatch',
+    r'([B[B)I',
+  );
+
+  static final _mismatch$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(byte[] bs, byte[] bs1)`
+  static int mismatch$2(
+    _$jni.JArray<_$jni.jbyte> bs,
+    _$jni.JArray<_$jni.jbyte> bs1,
+  ) {
+    return _mismatch$2(
+            _class.reference.pointer,
+            _id_mismatch$2 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            bs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$3 = _class.staticMethodId(
+    r'mismatch',
+    r'([BII[BII)I',
+  );
+
+  static final _mismatch$3 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(byte[] bs, int i, int i1, byte[] bs1, int i2, int i3)`
+  static int mismatch$3(
+    _$jni.JArray<_$jni.jbyte> bs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jbyte> bs1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$3(
+            _class.reference.pointer,
+            _id_mismatch$3 as _$jni.JMethodIDPtr,
+            bs.reference.pointer,
+            i,
+            i1,
+            bs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$4 = _class.staticMethodId(
+    r'mismatch',
+    r'([C[C)I',
+  );
+
+  static final _mismatch$4 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(char[] cs, char[] cs1)`
+  static int mismatch$4(
+    _$jni.JArray<_$jni.jchar> cs,
+    _$jni.JArray<_$jni.jchar> cs1,
+  ) {
+    return _mismatch$4(
+            _class.reference.pointer,
+            _id_mismatch$4 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            cs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$5 = _class.staticMethodId(
+    r'mismatch',
+    r'([CII[CII)I',
+  );
+
+  static final _mismatch$5 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(char[] cs, int i, int i1, char[] cs1, int i2, int i3)`
+  static int mismatch$5(
+    _$jni.JArray<_$jni.jchar> cs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jchar> cs1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$5(
+            _class.reference.pointer,
+            _id_mismatch$5 as _$jni.JMethodIDPtr,
+            cs.reference.pointer,
+            i,
+            i1,
+            cs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$6 = _class.staticMethodId(
+    r'mismatch',
+    r'([S[S)I',
+  );
+
+  static final _mismatch$6 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(short[] ss, short[] ss1)`
+  static int mismatch$6(
+    _$jni.JArray<_$jni.jshort> ss,
+    _$jni.JArray<_$jni.jshort> ss1,
+  ) {
+    return _mismatch$6(
+            _class.reference.pointer,
+            _id_mismatch$6 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            ss1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$7 = _class.staticMethodId(
+    r'mismatch',
+    r'([SII[SII)I',
+  );
+
+  static final _mismatch$7 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(short[] ss, int i, int i1, short[] ss1, int i2, int i3)`
+  static int mismatch$7(
+    _$jni.JArray<_$jni.jshort> ss,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jshort> ss1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$7(
+            _class.reference.pointer,
+            _id_mismatch$7 as _$jni.JMethodIDPtr,
+            ss.reference.pointer,
+            i,
+            i1,
+            ss1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$8 = _class.staticMethodId(
+    r'mismatch',
+    r'([I[I)I',
+  );
+
+  static final _mismatch$8 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(int[] is, int[] is1)`
+  static int mismatch$8(
+    _$jni.JArray<_$jni.jint> is$,
+    _$jni.JArray<_$jni.jint> is1,
+  ) {
+    return _mismatch$8(
+            _class.reference.pointer,
+            _id_mismatch$8 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            is1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$9 = _class.staticMethodId(
+    r'mismatch',
+    r'([III[III)I',
+  );
+
+  static final _mismatch$9 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(int[] is, int i, int i1, int[] is1, int i2, int i3)`
+  static int mismatch$9(
+    _$jni.JArray<_$jni.jint> is$,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jint> is1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$9(
+            _class.reference.pointer,
+            _id_mismatch$9 as _$jni.JMethodIDPtr,
+            is$.reference.pointer,
+            i,
+            i1,
+            is1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$10 = _class.staticMethodId(
+    r'mismatch',
+    r'([J[J)I',
+  );
+
+  static final _mismatch$10 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(long[] js, long[] js1)`
+  static int mismatch$10(
+    _$jni.JArray<_$jni.jlong> js,
+    _$jni.JArray<_$jni.jlong> js1,
+  ) {
+    return _mismatch$10(
+            _class.reference.pointer,
+            _id_mismatch$10 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            js1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$11 = _class.staticMethodId(
+    r'mismatch',
+    r'([JII[JII)I',
+  );
+
+  static final _mismatch$11 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(long[] js, int i, int i1, long[] js1, int i2, int i3)`
+  static int mismatch$11(
+    _$jni.JArray<_$jni.jlong> js,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jlong> js1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$11(
+            _class.reference.pointer,
+            _id_mismatch$11 as _$jni.JMethodIDPtr,
+            js.reference.pointer,
+            i,
+            i1,
+            js1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$12 = _class.staticMethodId(
+    r'mismatch',
+    r'([F[F)I',
+  );
+
+  static final _mismatch$12 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(float[] fs, float[] fs1)`
+  static int mismatch$12(
+    _$jni.JArray<_$jni.jfloat> fs,
+    _$jni.JArray<_$jni.jfloat> fs1,
+  ) {
+    return _mismatch$12(
+            _class.reference.pointer,
+            _id_mismatch$12 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            fs1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$13 = _class.staticMethodId(
+    r'mismatch',
+    r'([FII[FII)I',
+  );
+
+  static final _mismatch$13 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(float[] fs, int i, int i1, float[] fs1, int i2, int i3)`
+  static int mismatch$13(
+    _$jni.JArray<_$jni.jfloat> fs,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jfloat> fs1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$13(
+            _class.reference.pointer,
+            _id_mismatch$13 as _$jni.JMethodIDPtr,
+            fs.reference.pointer,
+            i,
+            i1,
+            fs1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$14 = _class.staticMethodId(
+    r'mismatch',
+    r'([D[D)I',
+  );
+
+  static final _mismatch$14 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(double[] ds, double[] ds1)`
+  static int mismatch$14(
+    _$jni.JArray<_$jni.jdouble> ds,
+    _$jni.JArray<_$jni.jdouble> ds1,
+  ) {
+    return _mismatch$14(
+            _class.reference.pointer,
+            _id_mismatch$14 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            ds1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$15 = _class.staticMethodId(
+    r'mismatch',
+    r'([DII[DII)I',
+  );
+
+  static final _mismatch$15 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(double[] ds, int i, int i1, double[] ds1, int i2, int i3)`
+  static int mismatch$15(
+    _$jni.JArray<_$jni.jdouble> ds,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.jdouble> ds1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$15(
+            _class.reference.pointer,
+            _id_mismatch$15 as _$jni.JMethodIDPtr,
+            ds.reference.pointer,
+            i,
+            i1,
+            ds1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$16 = _class.staticMethodId(
+    r'mismatch',
+    r'([Ljava/lang/Object;[Ljava/lang/Object;)I',
+  );
+
+  static final _mismatch$16 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(java.lang.Object[] objects, java.lang.Object[] objects1)`
+  static int mismatch$16(
+    _$jni.JArray<_$jni.JObject> objects,
+    _$jni.JArray<_$jni.JObject> objects1,
+  ) {
+    return _mismatch$16(
+            _class.reference.pointer,
+            _id_mismatch$16 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            objects1.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$17 = _class.staticMethodId(
+    r'mismatch',
+    r'([Ljava/lang/Object;II[Ljava/lang/Object;II)I',
+  );
+
+  static final _mismatch$17 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int)>();
+
+  /// from: `static public int mismatch(java.lang.Object[] objects, int i, int i1, java.lang.Object[] objects1, int i2, int i3)`
+  static int mismatch$17(
+    _$jni.JArray<_$jni.JObject> objects,
+    int i,
+    int i1,
+    _$jni.JArray<_$jni.JObject> objects1,
+    int i2,
+    int i3,
+  ) {
+    return _mismatch$17(
+            _class.reference.pointer,
+            _id_mismatch$17 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            objects1.reference.pointer,
+            i2,
+            i3)
+        .integer;
+  }
+
+  static final _id_mismatch$18 = _class.staticMethodId(
+    r'mismatch',
+    r'([Ljava/lang/Object;[Ljava/lang/Object;Ljava/util/Comparator;)I',
+  );
+
+  static final _mismatch$18 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(java.lang.Object[] objects, java.lang.Object[] objects1, java.util.Comparator comparator)`
+  static int mismatch$18<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    _$jni.JArray<$T> objects1,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects1.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _mismatch$18(
+            _class.reference.pointer,
+            _id_mismatch$18 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            objects1.reference.pointer,
+            comparator.reference.pointer)
+        .integer;
+  }
+
+  static final _id_mismatch$19 = _class.staticMethodId(
+    r'mismatch',
+    r'([Ljava/lang/Object;II[Ljava/lang/Object;IILjava/util/Comparator;)I',
+  );
+
+  static final _mismatch$19 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Int32,
+                        _$jni.Int32,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallStaticIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>,
+              int,
+              int,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `static public int mismatch(java.lang.Object[] objects, int i, int i1, java.lang.Object[] objects1, int i2, int i3, java.util.Comparator comparator)`
+  static int mismatch$19<$T extends _$jni.JObject>(
+    _$jni.JArray<$T> objects,
+    int i,
+    int i1,
+    _$jni.JArray<$T> objects1,
+    int i2,
+    int i3,
+    _$jni.JObject comparator, {
+    _$jni.JObjType<$T>? T,
+  }) {
+    T ??= _$jni.lowestCommonSuperType([
+      ((objects1.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+      ((objects.$type as _$jni.JArrayType).elementType as _$jni.JObjType),
+    ]) as _$jni.JObjType<$T>;
+    return _mismatch$19(
+            _class.reference.pointer,
+            _id_mismatch$19 as _$jni.JMethodIDPtr,
+            objects.reference.pointer,
+            i,
+            i1,
+            objects1.reference.pointer,
+            i2,
+            i3,
+            comparator.reference.pointer)
+        .integer;
+  }
+}
+
+final class $Arrays$Type extends _$jni.JObjType<Arrays> {
+  @_$jni.internal
+  const $Arrays$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/util/Arrays;';
+
+  @_$jni.internal
+  @_$core.override
+  Arrays fromReference(_$jni.JReference reference) =>
+      Arrays.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($Arrays$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Arrays$Type) && other is $Arrays$Type;
+  }
+}
+
+/// from: `java.security.cert.Certificate`
+class Certificate extends _$jni.JObject {
+  @_$jni.internal
+  @_$core.override
+  final _$jni.JObjType<Certificate> $type;
+
+  @_$jni.internal
+  Certificate.fromReference(
+    _$jni.JReference reference,
+  )   : $type = type,
+        super.fromReference(reference);
+
+  static final _class = _$jni.JClass.forName(r'java/security/cert/Certificate');
+
+  /// The type which includes information such as the signature of this class.
+  static const type = $Certificate$Type();
+  static final _id_getType = _class.instanceMethodId(
+    r'getType',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _getType = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public final java.lang.String getType()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString getType() {
+    return _getType(reference.pointer, _id_getType as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_equals = _class.instanceMethodId(
+    r'equals',
+    r'(Ljava/lang/Object;)Z',
+  );
+
+  static final _equals = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JniResult Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallBooleanMethod')
+      .asFunction<
+          _$jni.JniResult Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public boolean equals(java.lang.Object object)`
+  bool equals(
+    _$jni.JObject object,
+  ) {
+    return _equals(reference.pointer, _id_equals as _$jni.JMethodIDPtr,
+            object.reference.pointer)
+        .boolean;
+  }
+
+  static final _id_hashCode$1 = _class.instanceMethodId(
+    r'hashCode',
+    r'()I',
+  );
+
+  static final _hashCode$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallIntMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public int hashCode()`
+  int hashCode$1() {
+    return _hashCode$1(reference.pointer, _id_hashCode$1 as _$jni.JMethodIDPtr)
+        .integer;
+  }
+
+  static final _id_getEncoded = _class.instanceMethodId(
+    r'getEncoded',
+    r'()[B',
+  );
+
+  static final _getEncoded = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract byte[] getEncoded()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JArray<_$jni.jbyte> getEncoded() {
+    return _getEncoded(reference.pointer, _id_getEncoded as _$jni.JMethodIDPtr)
+        .object(const _$jni.JArrayType(_$jni.jbyteType()));
+  }
+
+  static final _id_verify = _class.instanceMethodId(
+    r'verify',
+    r'(Ljava/security/PublicKey;)V',
+  );
+
+  static final _verify = _$jni.ProtectedJniExtensions.lookup<
+              _$jni.NativeFunction<
+                  _$jni.JThrowablePtr Function(
+                      _$jni.Pointer<_$jni.Void>,
+                      _$jni.JMethodIDPtr,
+                      _$jni.VarArgs<(_$jni.Pointer<_$jni.Void>,)>)>>(
+          'globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(_$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr, _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract void verify(java.security.PublicKey publicKey)`
+  void verify(
+    PublicKey publicKey,
+  ) {
+    _verify(reference.pointer, _id_verify as _$jni.JMethodIDPtr,
+            publicKey.reference.pointer)
+        .check();
+  }
+
+  static final _id_verify$1 = _class.instanceMethodId(
+    r'verify',
+    r'(Ljava/security/PublicKey;Ljava/lang/String;)V',
+  );
+
+  static final _verify$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public abstract void verify(java.security.PublicKey publicKey, java.lang.String string)`
+  void verify$1(
+    PublicKey publicKey,
+    _$jni.JString string,
+  ) {
+    _verify$1(reference.pointer, _id_verify$1 as _$jni.JMethodIDPtr,
+            publicKey.reference.pointer, string.reference.pointer)
+        .check();
+  }
+
+  static final _id_verify$2 = _class.instanceMethodId(
+    r'verify',
+    r'(Ljava/security/PublicKey;Ljava/security/Provider;)V',
+  );
+
+  static final _verify$2 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JThrowablePtr Function(
+                  _$jni.Pointer<_$jni.Void>,
+                  _$jni.JMethodIDPtr,
+                  _$jni.VarArgs<
+                      (
+                        _$jni.Pointer<_$jni.Void>,
+                        _$jni.Pointer<_$jni.Void>
+                      )>)>>('globalEnv_CallVoidMethod')
+      .asFunction<
+          _$jni.JThrowablePtr Function(
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.JMethodIDPtr,
+              _$jni.Pointer<_$jni.Void>,
+              _$jni.Pointer<_$jni.Void>)>();
+
+  /// from: `public void verify(java.security.PublicKey publicKey, java.security.Provider provider)`
+  void verify$2(
+    PublicKey publicKey,
+    _$jni.JObject provider,
+  ) {
+    _verify$2(reference.pointer, _id_verify$2 as _$jni.JMethodIDPtr,
+            publicKey.reference.pointer, provider.reference.pointer)
+        .check();
+  }
+
+  static final _id_toString$1 = _class.instanceMethodId(
+    r'toString',
+    r'()Ljava/lang/String;',
+  );
+
+  static final _toString$1 = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.lang.String toString()`
+  /// The returned object must be released after use, by calling the [release] method.
+  _$jni.JString toString$1() {
+    return _toString$1(reference.pointer, _id_toString$1 as _$jni.JMethodIDPtr)
+        .object(const _$jni.JStringType());
+  }
+
+  static final _id_getPublicKey = _class.instanceMethodId(
+    r'getPublicKey',
+    r'()Ljava/security/PublicKey;',
+  );
+
+  static final _getPublicKey = _$jni.ProtectedJniExtensions.lookup<
+          _$jni.NativeFunction<
+              _$jni.JniResult Function(
+                _$jni.Pointer<_$jni.Void>,
+                _$jni.JMethodIDPtr,
+              )>>('globalEnv_CallObjectMethod')
+      .asFunction<
+          _$jni.JniResult Function(
+            _$jni.Pointer<_$jni.Void>,
+            _$jni.JMethodIDPtr,
+          )>();
+
+  /// from: `public abstract java.security.PublicKey getPublicKey()`
+  /// The returned object must be released after use, by calling the [release] method.
+  PublicKey getPublicKey() {
+    return _getPublicKey(
+            reference.pointer, _id_getPublicKey as _$jni.JMethodIDPtr)
+        .object(const $PublicKey$Type());
+  }
+}
+
+final class $Certificate$Type extends _$jni.JObjType<Certificate> {
+  @_$jni.internal
+  const $Certificate$Type();
+
+  @_$jni.internal
+  @_$core.override
+  String get signature => r'Ljava/security/cert/Certificate;';
+
+  @_$jni.internal
+  @_$core.override
+  Certificate fromReference(_$jni.JReference reference) =>
+      Certificate.fromReference(reference);
+
+  @_$jni.internal
+  @_$core.override
+  _$jni.JObjType get superType => const _$jni.JObjectType();
+
+  @_$jni.internal
+  @_$core.override
+  final superCount = 1;
+
+  @_$core.override
+  int get hashCode => ($Certificate$Type).hashCode;
+
+  @_$core.override
+  bool operator ==(Object other) {
+    return other.runtimeType == ($Certificate$Type) &&
+        other is $Certificate$Type;
   }
 }
