@@ -80,14 +80,10 @@ Future<SecurityContext> serverContext(String certType, String password) async =>
           await loadCertificateBytes('certificates/server_key.p12'),
           password: password)
       ..setTrustedCertificatesBytes(
-//          await loadCertificateBytes('certificates/test-combined.p12'),
-
-          await loadCertificateBytes('test_certs/client-cert.p12'),
-          password: '1234')
-/*      ..setClientAuthoritiesBytes(
           await loadCertificateBytes('certificates/test-combined.p12'),
-          password: '1234')*/
-    ;
+
+//          await loadCertificateBytes('test_certs/client-cert.p12'),
+          password: '1234');
 
 Future<void> runServer() async {
   // https://github.com/dart-lang/sdk/issues/52609
@@ -104,17 +100,30 @@ Future<void> runServer() async {
   });
 }
 
+Future<Client> okHttpClient() async {
+  final clientCert =
+      await loadCertificateBytes('certificates/test-combined.p12');
+  return OkHttpClient(Uint8List(0), clientCert);
+}
+
+Future<Client> ioClient() async {
+  final context = SecurityContext()
+    ..usePrivateKeyBytes(
+        await loadCertificateBytes('certificates/test-combined.p12'),
+        password: '1234');
+  return IOClient(
+      HttpClient(context: context)..badCertificateCallback = (x, y, z) => true);
+}
+
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  final clientCert = await loadCertificateBytes('test_certs/client-cert.p12');
 //  final clientCert =
 //      await loadCertificateBytes('certificates/test-combined.p12');
 
   test('test', () async {
     await runServer();
-    // final alias = await OkHttpClient.getAlias();
-    final httpClient = OkHttpClient(Uint8List(0), clientCert);
+    final httpClient = await okHttpClient();
 
     await httpClient.get(Uri.https('localhost:8080', '/'));
   });
