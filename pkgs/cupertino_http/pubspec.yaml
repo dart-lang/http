@@ -23,6 +23,14 @@ dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
   ffigen: ^16.0.0
 
+dependency_overrides:
+  ffi:
+    path: /Users/liama/dev/native/pkgs/ffi/
+  ffigen:
+    path: /Users/liama/dev/native/pkgs/ffigen/
+  objective_c:
+    path: /Users/liama/dev/native/pkgs/objective_c/
+
 flutter:
   plugin:
     platforms:
