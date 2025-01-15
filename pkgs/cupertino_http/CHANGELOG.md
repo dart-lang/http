@@ -1,4 +1,4 @@
-## 2.0.2-wip
+## 2.0.2
 
 * Upgrade to `package:objective_c` 4.1.
 * Upgrade to `package:ffigen` 16.1.
