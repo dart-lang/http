@@ -1,6 +1,10 @@
 ## 2.0.2-wip
 
-* Upgrade to `package:objective_c` 4.0.
+* Upgrade to `package:objective_c` 4.1.
+* Upgrade to `package:ffigen` 16.1.
+* Fixes a bug where responses were not processed correctly:
+  * [#1413](https://github.com/dart-lang/http/issues/1413)
+  * [#1446](https://github.com/dart-lang/http/issues/1446)
 
 ## 2.0.1
 
