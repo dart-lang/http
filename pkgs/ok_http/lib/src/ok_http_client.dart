@@ -22,6 +22,7 @@ import 'package:http_profile/http_profile.dart';
 import 'package:jni/_internal.dart';
 import 'package:jni/jni.dart';
 
+import '../ok_http.dart';
 import 'jni/bindings.dart' as bindings;
 
 /// Configurations for the [OkHttpClient].
@@ -53,14 +54,93 @@ class OkHttpClientConfiguration {
   /// See [OkHttpClient.Builder.writeTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html).
   final Duration writeTimeout;
 
+  final PrivateKey? clientPrivateKey;
+  final List<X509Certificate>? clientCertificateChain;
+
   const OkHttpClientConfiguration({
     this.callTimeout = Duration.zero,
     this.connectTimeout = const Duration(milliseconds: 10000),
     this.readTimeout = const Duration(milliseconds: 10000),
     this.writeTimeout = const Duration(milliseconds: 10000),
+    this.clientPrivateKey,
+    this.clientCertificateChain,
   });
 }
 
+
+Future<String> choosePrivateKeyAlias({
+  JObject? activity,
+  String? keyTypes,
+  Uri? serverUri,
+  String? preselectedAlias,
+}) async {
+  final c = Completer<String>();
+  activity ??= JObject.fromReference(Jni.getCurrentActivity());
+  bindings.KeyChain.choosePrivateKeyAlias(activity,
+      bindings.KeyChainAliasCallback.implement(
+          bindings.$KeyChainAliasCallback(alias: (alias) {
+    c.complete(alias!.toDartString());
+  })),
+      JArray.fromReference(JString.type, jNullReference),
+      JArray.fromReference(JObject.type, jNullReference),
+      JString.fromReference(jNullReference),
+      -1,
+      JString.fromReference(jNullReference));
+  return c.future;
+}
+
+(PrivateKey, List<X509Certificate>) loadKeyFromAlias(String alias,
+    {JObject? context}) {
+  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
+  final jAlias = alias.toJString();
+  final pk = bindings.KeyChain.getPrivateKey(context, jAlias);
+  final chain = bindings.KeyChain.getCertificateChain(context, jAlias);
+
+  return (pk, chain.toList());
+}
+
+(PrivateKey, List<X509Certificate>) loadKeyFromPKC12Bytes(
+    Uint8List bytes, String password) {
+  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString());
+
+  final jPassword = JCharArray(password.length);
+  for (var i = 0; i < password.length; ++i) {
+    jPassword[i] = password[i].codeUnits[0];
+  }
+
+  keyStore.load(bindings.ByteArrayInputStream(bytes.toJArray()), jPassword);
+
+  final jAlias = keyStore.aliases().nextElement();
+
+  final jCertificates = keyStore.getCertificateChain(jAlias);
+/*
+  List<X509Certificate>.from(jCertificates);
+
+  // final chain2 = JArray(bindings.X509Certificate.type, 0);
+  //  print(keyStore.aliases().nextElement().toDartString());
+//    final alias2 = keyStore.aliases().nextElement();
+//    print('found alias2: ${alias2.toDartString()}');
+/*
+  'package:jni/src/jobject.dart': Failed assertion: line 92 pos 7: '() {
+          final jClass = type.jClass.reference.toPointer();
+          final canBeCasted = Jni.env.IsInstanceOf(reference.pointer, jClass);
+          Jni.env.DeleteGlobalRef(jClass);
+          return canBeCasted;
+        }()': The object must be of type "[Ljava/security/cert/X509Certificate;".
+        */
+  final chain1 = keyStore.getCertificateChain(alias);
+  print('two: ${chain1.isNull}');
+  print(chain1.length);
+  print(chain1[0].jClass);
+  final chain2 = JArray(bindings.X509Certificate.type, 1)
+    ..[0] = chain1[0].as(bindings.X509Certificate.type);
+/*    final chain2 = bindings.Arrays.copyOf(chain1, chain.length,
+            T: bindings.X509Certificate.type)
+        .as(JArray.type(bindings.X509Certificate.type));
+*/
+  return (keyStore.getKey(alias, password), chain2, alias.toDartString());*/
+}
+*/
 /// An HTTP [Client] utilizing the [OkHttp](https://square.github.io/okhttp/) client.
 ///
 /// Example Usage:
@@ -104,15 +184,7 @@ class OkHttpClient extends BaseClient {
         bindings.KeyChainAliasCallback.implement(
             bindings.$KeyChainAliasCallback(alias: (alias) {
       print('alias: $alias');
-      final context = JObject.fromReference(Jni.getCachedApplicationContext());
-      final pk = bindings.KeyChain.getPrivateKey(context, alias);
-      final chain = bindings.KeyChain.getCertificateChain(context, alias);
-      print('pk/chain (callback): ${pk.isNull} ${chain.isNull}');
-      if (!pk.isNull) {
-        print(
-            'pk algorithm: ${pk.as(bindings.Key.type).getAlgorithm().toDartString()}');
-      }
-      c.complete(alias.toDartString());
+      c.complete(alias!.toDartString());
     })),
         JArray.fromReference(JString.type, jNullReference),
         JArray.fromReference(JObject.type, jNullReference),
@@ -127,7 +199,7 @@ class OkHttpClient extends BaseClient {
     var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString());
     JString string;
 
-    final password = JArray(jchar.type, 4)
+    final password = JCharArray(4)
       ..[0] = '1'.codeUnits[0]
       ..[1] = '2'.codeUnits[0]
       ..[2] = '3'.codeUnits[0]
@@ -139,9 +211,10 @@ class OkHttpClient extends BaseClient {
 
     /// XXX to Char array
     ///
-    keyStore.load(bindings.ByteArrayInputStream(cert.toJArray()), password);
-    final alias = keyStore.aliases().nextElement();
-    print('found alias: ${alias.toDartString()}');
+    keyStore!.load(
+        bindings.ByteArrayInputStream(cert.toJByteBuffer().array), password);
+    final alias = keyStore.aliases()!.nextElement();
+    print('found alias: ${alias!.toDartString()}');
 
     // final chain2 = JArray(bindings.X509Certificate.type, 0);
     //  print(keyStore.aliases().nextElement().toDartString());
@@ -156,41 +229,13 @@ class OkHttpClient extends BaseClient {
         }()': The object must be of type "[Ljava/security/cert/X509Certificate;".
         */
     final chain1 = keyStore.getCertificateChain(alias);
-    print('two: ${chain1.isNull}');
-    print(chain1.length);
-    print(chain1[0].jClass);
     final chain2 = JArray(bindings.X509Certificate.type, 1)
-      ..[0] = chain1[0].as(bindings.X509Certificate.type);
+      ..[0] = chain1![0]!.as(bindings.X509Certificate.type);
 /*    final chain2 = bindings.Arrays.copyOf(chain1, chain.length,
             T: bindings.X509Certificate.type)
         .as(JArray.type(bindings.X509Certificate.type));
 */
-    return (keyStore.getKey(alias, password), chain2, alias.toDartString());
-  }
-
-  chain2(Uint8List cert) {
-    final keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString());
-
-    final password = JArray(jchar.type, 8)
-      ..[0] = 'd'.codeUnits[0]
-      ..[1] = 'a'.codeUnits[0]
-      ..[2] = 'r'.codeUnits[0]
-      ..[3] = 't'.codeUnits[0]
-      ..[4] = 'd'.codeUnits[0]
-      ..[5] = 'a'.codeUnits[0]
-      ..[6] = 'r'.codeUnits[0]
-      ..[7] = 't'.codeUnits[0];
-
-    /// XXX to Char array
-    ///
-    final alias = "unmarked".toJString();
-    // keyStore.aliases().nextElement();
-    print('one');
-    final chain = keyStore.getCertificateChain(alias);
-    print('two: ${chain.isNull}');
-    return bindings.Arrays.copyOf(chain, chain.length,
-        T: bindings.X509Certificate.type);
-//        .as(JArray.type(bindings.X509Certificate.type));
+    return (keyStore.getKey(alias, password)!, chain2, alias!.toDartString());
   }
 
   /// Creates a new instance of [OkHttpClient] with the given [configuration].
@@ -210,16 +255,15 @@ class OkHttpClient extends BaseClient {
     final chain =
         bindings.KeyChain.getCertificateChain(context, alias.toJString());
 */
-    print('pk/chain: ${pk.isNull} ${chain.isNull}');
     final trustManagerFactory = bindings.TrustManagerFactory.getInstance(
         bindings.TrustManagerFactory.getDefaultAlgorithm());
-    trustManagerFactory.init(bindings.KeyStore.fromReference(jNullReference));
+    trustManagerFactory!.init(bindings.KeyStore.fromReference(jNullReference));
     final trustManagers = trustManagerFactory.getTrustManagers();
 
     final keyManagerFactory = bindings.KeyManagerFactory.getInstance(
         bindings.KeyManagerFactory.getDefaultAlgorithm());
-    keyManagerFactory.init(bindings.KeyStore.fromReference(jNullReference),
-        JArray.fromReference(jchar.type, jNullReference));
+    keyManagerFactory!.init(bindings.KeyStore.fromReference(jNullReference),
+        JCharArray.fromReference(jNullReference));
 //    keyManagerFactory.init$1(JObject.fromReference(jNullReference));
 
     final trustManager = bindings.X509TrustManager.implement(
@@ -231,7 +275,7 @@ class OkHttpClient extends BaseClient {
       print('getAcceptedIssuers');
       final factory = bindings.TrustManagerFactory.getInstance(
           bindings.TrustManagerFactory.getDefaultAlgorithm());
-      factory.init(bindings.KeyStore.fromReference(jNullReference));
+      factory!.init(bindings.KeyStore.fromReference(jNullReference));
       return JArray(bindings.X509Certificate.type, 0);
     }));
 /*
@@ -285,7 +329,7 @@ class OkHttpClient extends BaseClient {
     final privateKeyChain = JArray(bindings.X509Certificate.type, 1)
       ..[0] = clientIntermediateCa.certificate();
 */
-    final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())
+    final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())!
       ..init(
           JArray(bindings.KeyManager.type, 1)
             ..[0] = bindings.X509Foo(chain, pk, alias.toJString())
@@ -297,9 +341,9 @@ class OkHttpClient extends BaseClient {
 //          trustManagers,
           bindings.SecureRandom.fromReference(jNullReference));
     print('Creating client');
-    _client = bindings.OkHttpClient_Builder()
-        .sslSocketFactory$1(sslContext.getSocketFactory(),
-            trustManagers[0].as(bindings.X509TrustManager.type))
+    _client = bindings.OkHttpClient$Builder()
+        .sslSocketFactory$1(sslContext.getSocketFactory()!,
+            trustManagers![0]!.as(bindings.X509TrustManager.type))
         .build();
   }
 
@@ -316,7 +360,7 @@ class OkHttpClient extends BaseClient {
 
       // Close the cache and release the JNI reference to the client.
       var cache = _client.cache();
-      if (!cache.isNull) {
+      if (cache != null) {
         cache.close();
       }
       _client.release();
@@ -388,7 +432,8 @@ class OkHttpClient extends BaseClient {
     // So, we need to handle this case separately.
     bindings.RequestBody okReqBody;
     if (requestMethod != 'GET' && requestMethod != 'HEAD') {
-      okReqBody = bindings.RequestBody.create$10(requestBody.toJArray());
+      okReqBody =
+          bindings.RequestBody.create$10(requestBody.toJByteBuffer().array)!;
     } else {
       okReqBody = bindings.RequestBody.fromReference(jNullReference);
     }
@@ -406,7 +451,7 @@ class OkHttpClient extends BaseClient {
     // `followRedirects` is set to `false` to handle redirects manually.
     // (Since OkHttp sets a hard limit of 20 redirects.)
     // https://github.com/square/okhttp/blob/54238b4c713080c3fd32fb1a070fb5d6814c9a09/okhttp/src/main/kotlin/okhttp3/internal/http/RetryAndFollowUpInterceptor.kt#L350
-    final reqConfiguredClient = bindings.RedirectInterceptor.Companion
+    final reqConfiguredClient = bindings.RedirectInterceptor.Companion!
         .addRedirectInterceptor(
             _client.newBuilder().followRedirects(false),
             maxRedirects,
@@ -424,9 +469,9 @@ class OkHttpClient extends BaseClient {
           },
         )))
         .callTimeout(configuration.callTimeout.inMilliseconds,
-            bindings.TimeUnit.MILLISECONDS)
+            bindings.TimeUnit.MILLISECONDS!)
         .connectTimeout(configuration.connectTimeout.inMilliseconds,
-            bindings.TimeUnit.MILLISECONDS)
+            bindings.TimeUnit.MILLISECONDS!)
         .readTimeout(configuration.readTimeout.inMilliseconds,
             bindings.TimeUnit.MILLISECONDS)
         .writeTimeout(configuration.writeTimeout.inMilliseconds,

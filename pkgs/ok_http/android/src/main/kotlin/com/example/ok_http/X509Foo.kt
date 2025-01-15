@@ -34,13 +34,13 @@ class X509Foo(
     override fun getPrivateKey(alias: String) = privateKey
 
     override fun chooseEngineClientAlias(
-            keyType: Array<String>,
+            keyType: Array<String>?,
             issuers: Array<Principal>?,
             engine: SSLEngine?,
     ) = alias
 
     override fun chooseEngineServerAlias(
-            keyType: String,
+            keyType: String?,
             issuers: Array<Principal>?,
             engine: SSLEngine
     ) = alias

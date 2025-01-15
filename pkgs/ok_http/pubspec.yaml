@@ -26,3 +26,9 @@ flutter:
     platforms:
       android:
         ffiPlugin: true
+
+dependency_overrides:
+  jni:
+    path: /Users/bquinlan/dart/native/pkgs/jni
+  jnigen:
+    path: /Users/bquinlan/dart/native/pkgs/jnigen

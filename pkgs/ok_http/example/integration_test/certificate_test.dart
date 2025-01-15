@@ -82,7 +82,7 @@ Future<SecurityContext> serverContext(String certType, String password) async =>
       ..setTrustedCertificatesBytes(
           await loadCertificateBytes('certificates/test-combined.p12'),
 
-//          await loadCertificateBytes('test_certs/client-cert.p12'),
+//        await loadCertificateBytes('test_certs/client-cert.p12'),
           password: '1234');
 
 Future<void> runServer() async {
@@ -101,7 +101,7 @@ Future<void> runServer() async {
 }
 
 Future<Client> okHttpClient() async {
-  final clientCert =
+  final clientCert = // await loadCertificateBytes('test_certs/client-cert.p12');
       await loadCertificateBytes('certificates/test-combined.p12');
   return OkHttpClient(Uint8List(0), clientCert);
 }

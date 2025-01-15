@@ -62,5 +62,4 @@ dependencies {
     // `jnigen` will work. Applications should not include this line.
     // The version should be synced with `pkgs/ok_http/android/build.gradle`.
     implementation('com.squareup.okhttp3:okhttp:4.12.0')
-    implementation('com.squareup.okhttp3:okhttp-tls:4.12.0')
 }

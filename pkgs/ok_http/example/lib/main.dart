@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -17,7 +18,7 @@ import 'book.dart';
 void main() {
   final Client httpClient;
   if (Platform.isAndroid) {
-    httpClient = OkHttpClient();
+    httpClient = OkHttpClient(Uint8List(0), Uint8List(0));
   } else {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
