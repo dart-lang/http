@@ -1,3 +1,7 @@
+## 2.0.3-wip
+
+* Remove some unnecessary native code.
+
 ## 2.0.2
 
 * Upgrade to `package:objective_c` 4.1.
