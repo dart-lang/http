@@ -4,9 +4,9 @@ description: A composable, multi-platform, Future-based API for HTTP requests.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http
 
 topics:
- - http
- - network
- - protocols
+  - http
+  - network
+  - protocols
 
 environment:
   sdk: ^3.4.0
