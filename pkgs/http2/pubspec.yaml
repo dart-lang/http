@@ -4,9 +4,9 @@ description: A HTTP/2 implementation in Dart.
 repository: https://github.com/dart-lang/http/tree/master/pkgs/http2
 
 topics:
- - http
- - network
- - protocols
+  - http
+  - network
+  - protocols
 
 environment:
   sdk: ^3.2.0
