@@ -11,7 +11,6 @@
 #import <Foundation/NSOperation.h>
 #import <Foundation/NSError.h>
 #import <Foundation/NSDictionary.h>
-#import "utils.h"
 
 #if !__has_feature(objc_arc)
 #error "This file must be compiled with ARC enabled"
@@ -1056,34 +1055,6 @@ _ListenerTrampoline36 _NativeCupertinoHttp_wrapBlockingBlock_ovsamd(
       void* waiter = newWaiter();
       objc_retainBlock(listenerBlock);
       listenerBlock(waiter, arg0);
-      awaitWaiter(waiter);
-    }
-  };
-}
-
-typedef void  (^_ListenerTrampoline37)(id arg0, id arg1, id arg2, id arg3);
-__attribute__((visibility("default"))) __attribute__((used))
-_ListenerTrampoline37 _NativeCupertinoHttp_wrapListenerBlock_mlcr8l(_ListenerTrampoline37 block) NS_RETURNS_RETAINED {
-  return ^void(id arg0, id arg1, id arg2, id arg3) {
-    objc_retainBlock(block);
-    block((__bridge id)(__bridge_retained void*)(arg0), (__bridge id)(__bridge_retained void*)(arg1), (__bridge id)(__bridge_retained void*)(arg2), (__bridge id)(__bridge_retained void*)(arg3));
-  };
-}
-
-typedef void  (^_BlockingTrampoline37)(void * waiter, id arg0, id arg1, id arg2, id arg3);
-__attribute__((visibility("default"))) __attribute__((used))
-_ListenerTrampoline37 _NativeCupertinoHttp_wrapBlockingBlock_mlcr8l(
-    _BlockingTrampoline37 block, _BlockingTrampoline37 listenerBlock,
-    void* (*newWaiter)(), void (*awaitWaiter)(void*)) NS_RETURNS_RETAINED {
-  NSThread *targetThread = [NSThread currentThread];
-  return ^void(id arg0, id arg1, id arg2, id arg3) {
-    if ([NSThread currentThread] == targetThread) {
-      objc_retainBlock(block);
-      block(nil, (__bridge id)(__bridge_retained void*)(arg0), (__bridge id)(__bridge_retained void*)(arg1), (__bridge id)(__bridge_retained void*)(arg2), (__bridge id)(__bridge_retained void*)(arg3));
-    } else {
-      void* waiter = newWaiter();
-      objc_retainBlock(listenerBlock);
-      listenerBlock(waiter, (__bridge id)(__bridge_retained void*)(arg0), (__bridge id)(__bridge_retained void*)(arg1), (__bridge id)(__bridge_retained void*)(arg2), (__bridge id)(__bridge_retained void*)(arg3));
       awaitWaiter(waiter);
     }
   };
