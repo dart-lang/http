@@ -42,7 +42,8 @@
 ///
 /// A simple example on how to connect to a http/2 capable server and
 /// requesting a resource is available at https://github.com/dart-lang/http2/blob/master/example/display_headers.dart.
-library http2.http2;
+library;
 
 import 'transport.dart';
+
 export 'transport.dart';
