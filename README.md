@@ -21,6 +21,7 @@ and the browser.
 | [http_profile](pkgs/http_profile/) | A library used by HTTP client authors to integrate with the DevTools Network View. | [![pub package](https://img.shields.io/pub/v/http_profile.svg)](https://pub.dev/packages/http_profile) |
 | [ok_http](pkgs/ok_http/) | An Android Flutter plugin that provides access to the [OkHttp](https://square.github.io/okhttp/) HTTP client and the OkHttp [WebSocket](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-web-socket/index.html) API. | [![pub package](https://img.shields.io/pub/v/ok_http.svg)](https://pub.dev/packages/ok_http) |
 | [web_socket](pkgs/web_socket/) | Any easy-to-use library for communicating with WebSockets that has multiple implementations. | [![pub package](https://img.shields.io/pub/v/web_socket.svg)](https://pub.dev/packages/web_socket) |
+| [web_socket_channel](pkgs/web_socket_channel/) | StreamChannel wrappers for WebSockets. Provides a cross-platform WebSocketChannel API. | [![package issues](https://img.shields.io/badge/package:web_socket_channel-4774bc)](https://github.com/dart-lang/tools/issues?q=is%3Aissue+is%3Aopen+label%3Apackage%3Aweb_socket_channel) | [![pub package](https://img.shields.io/pub/v/web_socket_channel.svg)](https://pub.dev/packages/web_socket_channel) |
 | [web_socket_conformance_tests](pkgs/web_socket_conformance_tests/) | A library that tests whether implementations of `package:web_socket`'s `WebSocket` class behave as expected. |  |
 
 ## Contributing
