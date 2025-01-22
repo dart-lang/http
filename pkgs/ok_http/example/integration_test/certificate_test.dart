@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -7,6 +8,7 @@ import 'package:integration_test/integration_test.dart';
 import 'package:ok_http/ok_http.dart';
 import 'package:test/test.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:jni/jni.dart';
 
 List<int> key = '''-----BEGIN PRIVATE KEY-----
 MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDEEY2eWBX1rTDg
@@ -88,8 +90,13 @@ Future<SecurityContext> serverContext(String certType, String password) async =>
 Future<void> runServer() async {
   // https://github.com/dart-lang/sdk/issues/52609
   final server = await SecureServerSocket.bind(
-      'localhost', 8080, await serverContext('p12', 'dartdart'),
-      requestClientCertificate: true, requireClientCertificate: true);
+    'localhost',
+    8080,
+    await serverContext('p12', 'dartdart'),
+    /*
+      requestClientCertificate: true, requireClientCertificate: true
+      */
+  );
   print('ok ${server.port}');
   server.listen((socket) async {
     print('Peer: ${socket.peerCertificate}');
@@ -97,13 +104,21 @@ Future<void> runServer() async {
     print('server: got connection');
 
     await socket.close();
+  }, onError: (e) {
+    print('Exception: $e');
   });
 }
 
 Future<Client> okHttpClient() async {
   final clientCert = // await loadCertificateBytes('test_certs/client-cert.p12');
       await loadCertificateBytes('certificates/test-combined.p12');
-  return OkHttpClient(Uint8List(0), clientCert);
+  final (key, chain) = loadKeyFromPKC12Bytes(clientCert, '1234');
+
+  final config = OkHttpClientConfiguration(
+      validateServerCertificates: false,
+      clientPrivateKey: key,
+      clientCertificateChain: chain);
+  return OkHttpClient(configuration: config);
 }
 
 Future<Client> ioClient() async {
@@ -118,13 +133,99 @@ Future<Client> ioClient() async {
 void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
+  group('TLS', () {
+    test('unknown server cert', () async {
+      final serverContext = SecurityContext()
+        ..useCertificateChainBytes(
+            await loadCertificateBytes('certificates/server_chain.p12'),
+            password: 'dartdart')
+        ..usePrivateKeyBytes(
+            await loadCertificateBytes('certificates/server_key.p12'),
+            password: 'dartdart');
+      final server =
+          await SecureServerSocket.bind('localhost', 0, serverContext);
+      final serverException = Completer<void>();
+      server.listen((socket) async {
+        serverException.complete();
+      }, onError: (Object e) {
+        serverException.completeError(e);
+      });
+
+      final config =
+          const OkHttpClientConfiguration(validateServerCertificates: true);
+      final httpClient = OkHttpClient(configuration: config);
+
+      expect(
+          () async =>
+              await httpClient.get(Uri.https('localhost:${server.port}', '/')),
+          throwsA(isA<ClientException>()
+              .having((e) => e.message, 'message', contains('Handshake'))));
+      expect(
+          () async => await serverException.future,
+          throwsA(isA<HandshakeException>()
+              .having((e) => e.message, 'message', contains('Handshake'))));
+    });
+
+    test('ignore unknown server cert', () async {
+      final serverContext = SecurityContext()
+        ..useCertificateChainBytes(
+            await loadCertificateBytes('certificates/server_chain.p12'),
+            password: 'dartdart')
+        ..usePrivateKeyBytes(
+            await loadCertificateBytes('certificates/server_key.p12'),
+            password: 'dartdart');
+      final server =
+          await SecureServerSocket.bind('localhost', 0, serverContext);
+      server.listen((socket) async {
+        socket
+            .writeAll(['HTTP/1.1 200 OK', 'Content-Length: 0', '\r\n'], '\r\n');
+        await socket.close();
+      });
+
+      final config =
+          const OkHttpClientConfiguration(validateServerCertificates: false);
+      final httpClient = OkHttpClient(configuration: config);
+
+      expect(
+          (await httpClient.get(Uri.https('localhost:${server.port}', '/')))
+              .statusCode,
+          200);
+    });
+  });
+
 //  final clientCert =
 //      await loadCertificateBytes('certificates/test-combined.p12');
+/*
+  setUpAll(() async {
+    await runServer();
+  });
+  test('test connect to server', () async {
+    final httpClient = OkHttpClient();
+
+    await httpClient.get(Uri.https('localhost:8080', '/'));
+  });
+
+  test('test connect to server - no validate', () async {
+    final config =
+        const OkHttpClientConfiguration(validateServerCertificates: false);
+    final httpClient = OkHttpClient(configuration: config);
+
+    await httpClient.get(Uri.https('localhost:8080', '/'));
+  });
 
   test('test', () async {
+    return;
+    final l = Uint8List.fromList([1, 2, 3, 4]);
+    final bb = JByteBuffer.fromList(l);
+
+    print(l);
+    print(bb.array);
+    print(bb.array.getRange(0, 4));
+
     await runServer();
     final httpClient = await okHttpClient();
 
     await httpClient.get(Uri.https('localhost:8080', '/'));
   });
+    */
 }

@@ -14747,11 +14747,11 @@ class X509Foo extends X509ExtendedKeyManager {
   /// from: `public java.lang.String chooseEngineClientAlias(java.lang.String[] strings, java.security.Principal[] principals, javax.net.ssl.SSLEngine sSLEngine)`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString chooseEngineClientAlias(
-    jni$_.JArray<jni$_.JString> strings,
-    jni$_.JArray<jni$_.JObject>? principals,
+    jni$_.JArray<jni$_.JString?>? strings,
+    jni$_.JArray<jni$_.JObject?>? principals,
     jni$_.JObject? sSLEngine,
   ) {
-    final _$strings = strings.reference;
+    final _$strings = strings?.reference ?? jni$_.jNullReference;
     final _$principals = principals?.reference ?? jni$_.jNullReference;
     final _$sSLEngine = sSLEngine?.reference ?? jni$_.jNullReference;
     return _chooseEngineClientAlias(
@@ -14790,13 +14790,13 @@ class X509Foo extends X509ExtendedKeyManager {
   /// from: `public java.lang.String chooseEngineServerAlias(java.lang.String string, java.security.Principal[] principals, javax.net.ssl.SSLEngine sSLEngine)`
   /// The returned object must be released after use, by calling the [release] method.
   jni$_.JString chooseEngineServerAlias(
-    jni$_.JString string,
-    jni$_.JArray<jni$_.JObject>? principals,
-    jni$_.JObject sSLEngine,
+    jni$_.JString? string,
+    jni$_.JArray<jni$_.JObject?>? principals,
+    jni$_.JObject? sSLEngine,
   ) {
-    final _$string = string.reference;
+    final _$string = string?.reference ?? jni$_.jNullReference;
     final _$principals = principals?.reference ?? jni$_.jNullReference;
-    final _$sSLEngine = sSLEngine.reference;
+    final _$sSLEngine = sSLEngine?.reference ?? jni$_.jNullReference;
     return _chooseEngineServerAlias(
             reference.pointer,
             _id_chooseEngineServerAlias as jni$_.JMethodIDPtr,
@@ -17823,8 +17823,8 @@ class TimeUnit extends jni$_.JObject {
 
   /// from: `static public final java.util.concurrent.TimeUnit NANOSECONDS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit? get NANOSECONDS =>
-      _id_NANOSECONDS.get(_class, const $TimeUnit$NullableType());
+  static TimeUnit get NANOSECONDS =>
+      _id_NANOSECONDS.get(_class, const $TimeUnit$Type());
 
   static final _id_MICROSECONDS = _class.staticFieldId(
     r'MICROSECONDS',
@@ -17833,8 +17833,8 @@ class TimeUnit extends jni$_.JObject {
 
   /// from: `static public final java.util.concurrent.TimeUnit MICROSECONDS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit? get MICROSECONDS =>
-      _id_MICROSECONDS.get(_class, const $TimeUnit$NullableType());
+  static TimeUnit get MICROSECONDS =>
+      _id_MICROSECONDS.get(_class, const $TimeUnit$Type());
 
   static final _id_MILLISECONDS = _class.staticFieldId(
     r'MILLISECONDS',
@@ -17843,8 +17843,8 @@ class TimeUnit extends jni$_.JObject {
 
   /// from: `static public final java.util.concurrent.TimeUnit MILLISECONDS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit? get MILLISECONDS =>
-      _id_MILLISECONDS.get(_class, const $TimeUnit$NullableType());
+  static TimeUnit get MILLISECONDS =>
+      _id_MILLISECONDS.get(_class, const $TimeUnit$Type());
 
   static final _id_SECONDS = _class.staticFieldId(
     r'SECONDS',
@@ -17853,8 +17853,8 @@ class TimeUnit extends jni$_.JObject {
 
   /// from: `static public final java.util.concurrent.TimeUnit SECONDS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit? get SECONDS =>
-      _id_SECONDS.get(_class, const $TimeUnit$NullableType());
+  static TimeUnit get SECONDS =>
+      _id_SECONDS.get(_class, const $TimeUnit$Type());
 
   static final _id_MINUTES = _class.staticFieldId(
     r'MINUTES',
@@ -17863,8 +17863,8 @@ class TimeUnit extends jni$_.JObject {
 
   /// from: `static public final java.util.concurrent.TimeUnit MINUTES`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit? get MINUTES =>
-      _id_MINUTES.get(_class, const $TimeUnit$NullableType());
+  static TimeUnit get MINUTES =>
+      _id_MINUTES.get(_class, const $TimeUnit$Type());
 
   static final _id_HOURS = _class.staticFieldId(
     r'HOURS',
@@ -17873,8 +17873,7 @@ class TimeUnit extends jni$_.JObject {
 
   /// from: `static public final java.util.concurrent.TimeUnit HOURS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit? get HOURS =>
-      _id_HOURS.get(_class, const $TimeUnit$NullableType());
+  static TimeUnit get HOURS => _id_HOURS.get(_class, const $TimeUnit$Type());
 
   static final _id_DAYS = _class.staticFieldId(
     r'DAYS',
@@ -17883,8 +17882,7 @@ class TimeUnit extends jni$_.JObject {
 
   /// from: `static public final java.util.concurrent.TimeUnit DAYS`
   /// The returned object must be released after use, by calling the [release] method.
-  static TimeUnit? get DAYS =>
-      _id_DAYS.get(_class, const $TimeUnit$NullableType());
+  static TimeUnit get DAYS => _id_DAYS.get(_class, const $TimeUnit$Type());
 
   static final _id_values = _class.staticMethodId(
     r'values',
