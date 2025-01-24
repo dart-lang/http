@@ -114,17 +114,27 @@ extension on List<int> {
   for (var i = 0; i < password.length; ++i) {
     jPassword[i] = password[i].codeUnits[0];
   }
-//  print('jPassword: $jPassword');
-//  print('dart bytes: $bytes');
   keyStore.load(bindings.ByteArrayInputStream(bytes.toJByteArray()), jPassword);
 
-  final jAlias = keyStore.aliases()!.nextElement();
-  final pk = bindings.KeyChain.getPrivateKey(context, jAlias)!;
-  final jCertificates = keyStore.getCertificateChain(jAlias)!;
+  if (keyStore.size() != 1) {
+    throw Exception('Unexpected keyStore size');
+  }
+
+  final aliases = keyStore.aliases()!;
+  final jAlias = aliases.nextElement()!;
+  if (aliases.hasMoreElements()) {
+    print('More aliases');
+  }
+
+  final pk = keyStore.getKey(jAlias, jPassword);
+  final jCertificates = keyStore.getCertificateChain(jAlias);
+  if (pk == null || jCertificates == null) {
+    throw Exception('Unable to load certificate');
+  }
   final certificates =
       jCertificates.map((c) => c!.as(X509Certificate.type)).toList();
 
-  return (pk, certificates);
+  return (pk.as(PrivateKey.type), certificates);
 }
 
 final _allAllTrustManager = bindings.X509TrustManager.implement(
@@ -199,24 +209,21 @@ class OkHttpClient extends BaseClient {
     if (configuration.clientPrivateKey != null ||
         configuration.clientCertificateChain != null ||
         !configuration.validateServerCertificates) {
-      print(
-          'configuration.clientPrivateKey: ${configuration.clientPrivateKey}');
-      print(
-          'configuration.clientCertificateChain: ${configuration.clientCertificateChain}');
-      print(
-          'configuration.validateServerCertificates: ${configuration.validateServerCertificates}');
       JArray<bindings.KeyManager>? keyManagers;
       final trustManagers = JArray(bindings.TrustManager.nullableType, 1);
 
       if (configuration.clientCertificateChain != null) {
-        final chain = JArray(bindings.X509Certificate.type,
-            configuration.clientCertificateChain!.length)
+        // XXX doesn't handle length zero.
+        final chain = JArray.filled(
+            configuration.clientCertificateChain!.length,
+            configuration.clientCertificateChain![0])
           ..setRange(0, configuration.clientCertificateChain!.length,
               configuration.clientCertificateChain!);
-        keyManagers = JArray(bindings.KeyManager.type, 1)
-          ..[0] = bindings.X509Foo(
-                  chain, configuration.clientPrivateKey!, 'DUMMY'.toJString())
-              .as(bindings.KeyManager.type);
+        // XXX doesn't handle length zero.
+        final foo = bindings.X509Foo(
+            chain, configuration.clientPrivateKey!, 'DUMMY'.toJString());
+        keyManagers = JArray.filled(1, foo.as(bindings.KeyManager.type),
+            E: bindings.KeyManager.type);
       }
 
       if (!configuration.validateServerCertificates) {
@@ -236,8 +243,6 @@ class OkHttpClient extends BaseClient {
       builder.sslSocketFactory$1(sslContext.getSocketFactory()!,
           trustManagers[0]!.as(bindings.X509TrustManager.type));
     }
-
-    print('Creating client');
     _client = builder.build();
   }
 
