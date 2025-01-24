@@ -7,7 +7,7 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.SSLEngine
 import javax.net.ssl.X509ExtendedKeyManager
 
-class X509Foo(
+class FixedResponseX509ExtendedKeyManager(
         private val certificateChain: Array<X509Certificate>,
         private val privateKey: PrivateKey,
         private val alias: String,

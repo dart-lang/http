@@ -220,7 +220,7 @@ class OkHttpClient extends BaseClient {
           ..setRange(0, configuration.clientCertificateChain!.length,
               configuration.clientCertificateChain!);
         // XXX doesn't handle length zero.
-        final foo = bindings.X509Foo(
+        final foo = bindings.FixedResponseX509ExtendedKeyManager(
             chain, configuration.clientPrivateKey!, 'DUMMY'.toJString());
         keyManagers = JArray.filled(1, foo.as(bindings.KeyManager.type),
             E: bindings.KeyManager.type);

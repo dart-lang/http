@@ -2,13 +2,11 @@ import 'dart:async';
 import 'dart:io' as io;
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart';
-import 'package:http/io_client.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:ok_http/ok_http.dart';
 import 'package:test/test.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:jni/jni.dart';
 
 Future<Uint8List> loadCertificateBytes(String path) async {
   return (await rootBundle.load(path)).buffer.asUint8List();

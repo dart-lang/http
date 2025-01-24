@@ -14442,23 +14442,25 @@ final class $WebSocketListenerProxy$Type
   }
 }
 
-/// from: `com.example.ok_http.X509Foo`
-class X509Foo extends X509ExtendedKeyManager {
+/// from: `com.example.ok_http.FixedResponseX509ExtendedKeyManager`
+class FixedResponseX509ExtendedKeyManager extends X509ExtendedKeyManager {
   @jni$_.internal
   @core$_.override
-  final jni$_.JObjType<X509Foo> $type;
+  final jni$_.JObjType<FixedResponseX509ExtendedKeyManager> $type;
 
   @jni$_.internal
-  X509Foo.fromReference(
+  FixedResponseX509ExtendedKeyManager.fromReference(
     jni$_.JReference reference,
   )   : $type = type,
         super.fromReference(reference);
 
-  static final _class = jni$_.JClass.forName(r'com/example/ok_http/X509Foo');
+  static final _class = jni$_.JClass.forName(
+      r'com/example/ok_http/FixedResponseX509ExtendedKeyManager');
 
   /// The type which includes information such as the signature of this class.
-  static const nullableType = $X509Foo$NullableType();
-  static const type = $X509Foo$Type();
+  static const nullableType =
+      $FixedResponseX509ExtendedKeyManager$NullableType();
+  static const type = $FixedResponseX509ExtendedKeyManager$Type();
   static final _id_new$ = _class.constructorId(
     r'([Ljava/security/cert/X509Certificate;Ljava/security/PrivateKey;Ljava/lang/String;)V',
   );
@@ -14484,7 +14486,7 @@ class X509Foo extends X509ExtendedKeyManager {
 
   /// from: `public void <init>(java.security.cert.X509Certificate[] x509Certificates, java.security.PrivateKey privateKey, java.lang.String string)`
   /// The returned object must be released after use, by calling the [release] method.
-  factory X509Foo(
+  factory FixedResponseX509ExtendedKeyManager(
     jni$_.JArray<X509Certificate> x509Certificates,
     PrivateKey privateKey,
     jni$_.JString string,
@@ -14492,7 +14494,7 @@ class X509Foo extends X509ExtendedKeyManager {
     final _$x509Certificates = x509Certificates.reference;
     final _$privateKey = privateKey.reference;
     final _$string = string.reference;
-    return X509Foo.fromReference(_new$(
+    return FixedResponseX509ExtendedKeyManager.fromReference(_new$(
             _class.reference.pointer,
             _id_new$ as jni$_.JMethodIDPtr,
             _$x509Certificates.pointer,
@@ -14807,54 +14809,64 @@ class X509Foo extends X509ExtendedKeyManager {
   }
 }
 
-final class $X509Foo$NullableType extends jni$_.JObjType<X509Foo?> {
+final class $FixedResponseX509ExtendedKeyManager$NullableType
+    extends jni$_.JObjType<FixedResponseX509ExtendedKeyManager?> {
   @jni$_.internal
-  const $X509Foo$NullableType();
+  const $FixedResponseX509ExtendedKeyManager$NullableType();
 
   @jni$_.internal
   @core$_.override
-  String get signature => r'Lcom/example/ok_http/X509Foo;';
+  String get signature =>
+      r'Lcom/example/ok_http/FixedResponseX509ExtendedKeyManager;';
 
   @jni$_.internal
   @core$_.override
-  X509Foo? fromReference(jni$_.JReference reference) => reference.isNull
-      ? null
-      : X509Foo.fromReference(
-          reference,
-        );
+  FixedResponseX509ExtendedKeyManager? fromReference(
+          jni$_.JReference reference) =>
+      reference.isNull
+          ? null
+          : FixedResponseX509ExtendedKeyManager.fromReference(
+              reference,
+            );
   @jni$_.internal
   @core$_.override
   jni$_.JObjType get superType => const $X509ExtendedKeyManager$Type();
 
   @jni$_.internal
   @core$_.override
-  jni$_.JObjType<X509Foo?> get nullableType => this;
+  jni$_.JObjType<FixedResponseX509ExtendedKeyManager?> get nullableType => this;
 
   @jni$_.internal
   @core$_.override
   final superCount = 2;
 
   @core$_.override
-  int get hashCode => ($X509Foo$NullableType).hashCode;
+  int get hashCode =>
+      ($FixedResponseX509ExtendedKeyManager$NullableType).hashCode;
 
   @core$_.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($X509Foo$NullableType) &&
-        other is $X509Foo$NullableType;
+    return other.runtimeType ==
+            ($FixedResponseX509ExtendedKeyManager$NullableType) &&
+        other is $FixedResponseX509ExtendedKeyManager$NullableType;
   }
 }
 
-final class $X509Foo$Type extends jni$_.JObjType<X509Foo> {
+final class $FixedResponseX509ExtendedKeyManager$Type
+    extends jni$_.JObjType<FixedResponseX509ExtendedKeyManager> {
   @jni$_.internal
-  const $X509Foo$Type();
+  const $FixedResponseX509ExtendedKeyManager$Type();
 
   @jni$_.internal
   @core$_.override
-  String get signature => r'Lcom/example/ok_http/X509Foo;';
+  String get signature =>
+      r'Lcom/example/ok_http/FixedResponseX509ExtendedKeyManager;';
 
   @jni$_.internal
   @core$_.override
-  X509Foo fromReference(jni$_.JReference reference) => X509Foo.fromReference(
+  FixedResponseX509ExtendedKeyManager fromReference(
+          jni$_.JReference reference) =>
+      FixedResponseX509ExtendedKeyManager.fromReference(
         reference,
       );
   @jni$_.internal
@@ -14863,852 +14875,20 @@ final class $X509Foo$Type extends jni$_.JObjType<X509Foo> {
 
   @jni$_.internal
   @core$_.override
-  jni$_.JObjType<X509Foo?> get nullableType => const $X509Foo$NullableType();
+  jni$_.JObjType<FixedResponseX509ExtendedKeyManager?> get nullableType =>
+      const $FixedResponseX509ExtendedKeyManager$NullableType();
 
   @jni$_.internal
   @core$_.override
   final superCount = 2;
 
   @core$_.override
-  int get hashCode => ($X509Foo$Type).hashCode;
+  int get hashCode => ($FixedResponseX509ExtendedKeyManager$Type).hashCode;
 
   @core$_.override
   bool operator ==(Object other) {
-    return other.runtimeType == ($X509Foo$Type) && other is $X509Foo$Type;
-  }
-}
-
-/// from: `com.example.ok_http.Verifier`
-class Verifier extends jni$_.JObject {
-  @jni$_.internal
-  @core$_.override
-  final jni$_.JObjType<Verifier> $type;
-
-  @jni$_.internal
-  Verifier.fromReference(
-    jni$_.JReference reference,
-  )   : $type = type,
-        super.fromReference(reference);
-
-  static final _class = jni$_.JClass.forName(r'com/example/ok_http/Verifier');
-
-  /// The type which includes information such as the signature of this class.
-  static const nullableType = $Verifier$NullableType();
-  static const type = $Verifier$Type();
-  static final _id_new$ = _class.constructorId(
-    r'()V',
-  );
-
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public void <init>()`
-  /// The returned object must be released after use, by calling the [release] method.
-  factory Verifier() {
-    return Verifier.fromReference(
-        _new$(_class.reference.pointer, _id_new$ as jni$_.JMethodIDPtr)
-            .reference);
-  }
-
-  static final _id_verify = _class.instanceMethodId(
-    r'verify',
-    r'(Ljava/lang/String;Ljavax/net/ssl/SSLSession;)Z',
-  );
-
-  static final _verify = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>
-                      )>)>>('globalEnv_CallBooleanMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr,
-              jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>)>();
-
-  /// from: `public boolean verify(java.lang.String string, javax.net.ssl.SSLSession sSLSession)`
-  bool verify(
-    jni$_.JString string,
-    jni$_.JObject sSLSession,
-  ) {
-    final _$string = string.reference;
-    final _$sSLSession = sSLSession.reference;
-    return _verify(reference.pointer, _id_verify as jni$_.JMethodIDPtr,
-            _$string.pointer, _$sSLSession.pointer)
-        .boolean;
-  }
-}
-
-final class $Verifier$NullableType extends jni$_.JObjType<Verifier?> {
-  @jni$_.internal
-  const $Verifier$NullableType();
-
-  @jni$_.internal
-  @core$_.override
-  String get signature => r'Lcom/example/ok_http/Verifier;';
-
-  @jni$_.internal
-  @core$_.override
-  Verifier? fromReference(jni$_.JReference reference) => reference.isNull
-      ? null
-      : Verifier.fromReference(
-          reference,
-        );
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType get superType => const jni$_.JObjectNullableType();
-
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType<Verifier?> get nullableType => this;
-
-  @jni$_.internal
-  @core$_.override
-  final superCount = 1;
-
-  @core$_.override
-  int get hashCode => ($Verifier$NullableType).hashCode;
-
-  @core$_.override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($Verifier$NullableType) &&
-        other is $Verifier$NullableType;
-  }
-}
-
-final class $Verifier$Type extends jni$_.JObjType<Verifier> {
-  @jni$_.internal
-  const $Verifier$Type();
-
-  @jni$_.internal
-  @core$_.override
-  String get signature => r'Lcom/example/ok_http/Verifier;';
-
-  @jni$_.internal
-  @core$_.override
-  Verifier fromReference(jni$_.JReference reference) => Verifier.fromReference(
-        reference,
-      );
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType get superType => const jni$_.JObjectNullableType();
-
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType<Verifier?> get nullableType => const $Verifier$NullableType();
-
-  @jni$_.internal
-  @core$_.override
-  final superCount = 1;
-
-  @core$_.override
-  int get hashCode => ($Verifier$Type).hashCode;
-
-  @core$_.override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($Verifier$Type) && other is $Verifier$Type;
-  }
-}
-
-/// from: `com.example.ok_http.SocketFactoryFoo`
-class SocketFactoryFoo extends SocketFactory {
-  @jni$_.internal
-  @core$_.override
-  final jni$_.JObjType<SocketFactoryFoo> $type;
-
-  @jni$_.internal
-  SocketFactoryFoo.fromReference(
-    jni$_.JReference reference,
-  )   : $type = type,
-        super.fromReference(reference);
-
-  static final _class =
-      jni$_.JClass.forName(r'com/example/ok_http/SocketFactoryFoo');
-
-  /// The type which includes information such as the signature of this class.
-  static const nullableType = $SocketFactoryFoo$NullableType();
-  static const type = $SocketFactoryFoo$Type();
-  static final _id_new$ = _class.constructorId(
-    r'()V',
-  );
-
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public void <init>()`
-  /// The returned object must be released after use, by calling the [release] method.
-  factory SocketFactoryFoo() {
-    return SocketFactoryFoo.fromReference(
-        _new$(_class.reference.pointer, _id_new$ as jni$_.JMethodIDPtr)
-            .reference);
-  }
-
-  static final _id_createSocket = _class.instanceMethodId(
-    r'createSocket',
-    r'()Ljava/net/Socket;',
-  );
-
-  static final _createSocket = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public java.net.Socket createSocket()`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket() {
-    return _createSocket(
-            reference.pointer, _id_createSocket as jni$_.JMethodIDPtr)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket1 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/lang/String;I)Ljava/net/Socket;',
-  );
-
-  static final _createSocket1 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_
-                          .VarArgs<(jni$_.Pointer<jni$_.Void>, jni$_.Int32)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>, int)>();
-
-  /// from: `public java.net.Socket createSocket(java.lang.String string, int i)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket1(
-    jni$_.JString string,
-    int i,
-  ) {
-    final _$string = string.reference;
-    return _createSocket1(reference.pointer,
-            _id_createSocket1 as jni$_.JMethodIDPtr, _$string.pointer, i)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket2 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/lang/String;ILjava/net/InetAddress;I)Ljava/net/Socket;',
-  );
-
-  static final _createSocket2 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr,
-              jni$_.Pointer<jni$_.Void>,
-              int,
-              jni$_.Pointer<jni$_.Void>,
-              int)>();
-
-  /// from: `public java.net.Socket createSocket(java.lang.String string, int i, java.net.InetAddress inetAddress, int i1)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket2(
-    jni$_.JString string,
-    int i,
-    jni$_.JObject inetAddress,
-    int i1,
-  ) {
-    final _$string = string.reference;
-    final _$inetAddress = inetAddress.reference;
-    return _createSocket2(
-            reference.pointer,
-            _id_createSocket2 as jni$_.JMethodIDPtr,
-            _$string.pointer,
-            i,
-            _$inetAddress.pointer,
-            i1)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket3 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/net/InetAddress;I)Ljava/net/Socket;',
-  );
-
-  static final _createSocket3 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_
-                          .VarArgs<(jni$_.Pointer<jni$_.Void>, jni$_.Int32)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>, int)>();
-
-  /// from: `public java.net.Socket createSocket(java.net.InetAddress inetAddress, int i)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket3(
-    jni$_.JObject inetAddress,
-    int i,
-  ) {
-    final _$inetAddress = inetAddress.reference;
-    return _createSocket3(reference.pointer,
-            _id_createSocket3 as jni$_.JMethodIDPtr, _$inetAddress.pointer, i)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket4 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/net/InetAddress;ILjava/net/InetAddress;I)Ljava/net/Socket;',
-  );
-
-  static final _createSocket4 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr,
-              jni$_.Pointer<jni$_.Void>,
-              int,
-              jni$_.Pointer<jni$_.Void>,
-              int)>();
-
-  /// from: `public java.net.Socket createSocket(java.net.InetAddress inetAddress, int i, java.net.InetAddress inetAddress1, int i1)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket4(
-    jni$_.JObject inetAddress,
-    int i,
-    jni$_.JObject inetAddress1,
-    int i1,
-  ) {
-    final _$inetAddress = inetAddress.reference;
-    final _$inetAddress1 = inetAddress1.reference;
-    return _createSocket4(
-            reference.pointer,
-            _id_createSocket4 as jni$_.JMethodIDPtr,
-            _$inetAddress.pointer,
-            i,
-            _$inetAddress1.pointer,
-            i1)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-}
-
-final class $SocketFactoryFoo$NullableType
-    extends jni$_.JObjType<SocketFactoryFoo?> {
-  @jni$_.internal
-  const $SocketFactoryFoo$NullableType();
-
-  @jni$_.internal
-  @core$_.override
-  String get signature => r'Lcom/example/ok_http/SocketFactoryFoo;';
-
-  @jni$_.internal
-  @core$_.override
-  SocketFactoryFoo? fromReference(jni$_.JReference reference) =>
-      reference.isNull
-          ? null
-          : SocketFactoryFoo.fromReference(
-              reference,
-            );
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType get superType => const $SocketFactory$Type();
-
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType<SocketFactoryFoo?> get nullableType => this;
-
-  @jni$_.internal
-  @core$_.override
-  final superCount = 2;
-
-  @core$_.override
-  int get hashCode => ($SocketFactoryFoo$NullableType).hashCode;
-
-  @core$_.override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($SocketFactoryFoo$NullableType) &&
-        other is $SocketFactoryFoo$NullableType;
-  }
-}
-
-final class $SocketFactoryFoo$Type extends jni$_.JObjType<SocketFactoryFoo> {
-  @jni$_.internal
-  const $SocketFactoryFoo$Type();
-
-  @jni$_.internal
-  @core$_.override
-  String get signature => r'Lcom/example/ok_http/SocketFactoryFoo;';
-
-  @jni$_.internal
-  @core$_.override
-  SocketFactoryFoo fromReference(jni$_.JReference reference) =>
-      SocketFactoryFoo.fromReference(
-        reference,
-      );
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType get superType => const $SocketFactory$Type();
-
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType<SocketFactoryFoo?> get nullableType =>
-      const $SocketFactoryFoo$NullableType();
-
-  @jni$_.internal
-  @core$_.override
-  final superCount = 2;
-
-  @core$_.override
-  int get hashCode => ($SocketFactoryFoo$Type).hashCode;
-
-  @core$_.override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($SocketFactoryFoo$Type) &&
-        other is $SocketFactoryFoo$Type;
-  }
-}
-
-/// from: `com.example.ok_http.SSLSocketFactoryFoo`
-class SSLSocketFactoryFoo extends SSLSocketFactory {
-  @jni$_.internal
-  @core$_.override
-  final jni$_.JObjType<SSLSocketFactoryFoo> $type;
-
-  @jni$_.internal
-  SSLSocketFactoryFoo.fromReference(
-    jni$_.JReference reference,
-  )   : $type = type,
-        super.fromReference(reference);
-
-  static final _class =
-      jni$_.JClass.forName(r'com/example/ok_http/SSLSocketFactoryFoo');
-
-  /// The type which includes information such as the signature of this class.
-  static const nullableType = $SSLSocketFactoryFoo$NullableType();
-  static const type = $SSLSocketFactoryFoo$Type();
-  static final _id_new$ = _class.constructorId(
-    r'()V',
-  );
-
-  static final _new$ = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_NewObject')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public void <init>()`
-  /// The returned object must be released after use, by calling the [release] method.
-  factory SSLSocketFactoryFoo() {
-    return SSLSocketFactoryFoo.fromReference(
-        _new$(_class.reference.pointer, _id_new$ as jni$_.JMethodIDPtr)
-            .reference);
-  }
-
-  static final _id_createSocket$6 = _class.instanceMethodId(
-    r'createSocket',
-    r'()Ljava/net/Socket;',
-  );
-
-  static final _createSocket$6 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public java.net.Socket createSocket()`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket$6() {
-    return _createSocket$6(
-            reference.pointer, _id_createSocket$6 as jni$_.JMethodIDPtr)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket$7 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/lang/String;I)Ljava/net/Socket;',
-  );
-
-  static final _createSocket$7 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_
-                          .VarArgs<(jni$_.Pointer<jni$_.Void>, jni$_.Int32)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>, int)>();
-
-  /// from: `public java.net.Socket createSocket(java.lang.String string, int i)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket$7(
-    jni$_.JString string,
-    int i,
-  ) {
-    final _$string = string.reference;
-    return _createSocket$7(reference.pointer,
-            _id_createSocket$7 as jni$_.JMethodIDPtr, _$string.pointer, i)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket$8 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/lang/String;ILjava/net/InetAddress;I)Ljava/net/Socket;',
-  );
-
-  static final _createSocket$8 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr,
-              jni$_.Pointer<jni$_.Void>,
-              int,
-              jni$_.Pointer<jni$_.Void>,
-              int)>();
-
-  /// from: `public java.net.Socket createSocket(java.lang.String string, int i, java.net.InetAddress inetAddress, int i1)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket$8(
-    jni$_.JString string,
-    int i,
-    jni$_.JObject inetAddress,
-    int i1,
-  ) {
-    final _$string = string.reference;
-    final _$inetAddress = inetAddress.reference;
-    return _createSocket$8(
-            reference.pointer,
-            _id_createSocket$8 as jni$_.JMethodIDPtr,
-            _$string.pointer,
-            i,
-            _$inetAddress.pointer,
-            i1)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket$9 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/net/InetAddress;I)Ljava/net/Socket;',
-  );
-
-  static final _createSocket$9 = jni$_.ProtectedJniExtensions.lookup<
-              jni$_.NativeFunction<
-                  jni$_.JniResult Function(
-                      jni$_.Pointer<jni$_.Void>,
-                      jni$_.JMethodIDPtr,
-                      jni$_
-                          .VarArgs<(jni$_.Pointer<jni$_.Void>, jni$_.Int32)>)>>(
-          'globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr, jni$_.Pointer<jni$_.Void>, int)>();
-
-  /// from: `public java.net.Socket createSocket(java.net.InetAddress inetAddress, int i)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket$9(
-    jni$_.JObject inetAddress,
-    int i,
-  ) {
-    final _$inetAddress = inetAddress.reference;
-    return _createSocket$9(reference.pointer,
-            _id_createSocket$9 as jni$_.JMethodIDPtr, _$inetAddress.pointer, i)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket$10 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/net/InetAddress;ILjava/net/InetAddress;I)Ljava/net/Socket;',
-  );
-
-  static final _createSocket$10 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr,
-              jni$_.Pointer<jni$_.Void>,
-              int,
-              jni$_.Pointer<jni$_.Void>,
-              int)>();
-
-  /// from: `public java.net.Socket createSocket(java.net.InetAddress inetAddress, int i, java.net.InetAddress inetAddress1, int i1)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket$10(
-    jni$_.JObject inetAddress,
-    int i,
-    jni$_.JObject inetAddress1,
-    int i1,
-  ) {
-    final _$inetAddress = inetAddress.reference;
-    final _$inetAddress1 = inetAddress1.reference;
-    return _createSocket$10(
-            reference.pointer,
-            _id_createSocket$10 as jni$_.JMethodIDPtr,
-            _$inetAddress.pointer,
-            i,
-            _$inetAddress1.pointer,
-            i1)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_createSocket5 = _class.instanceMethodId(
-    r'createSocket',
-    r'(Ljava/net/Socket;Ljava/lang/String;IZ)Ljava/net/Socket;',
-  );
-
-  static final _createSocket5 = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                  jni$_.Pointer<jni$_.Void>,
-                  jni$_.JMethodIDPtr,
-                  jni$_.VarArgs<
-                      (
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Pointer<jni$_.Void>,
-                        jni$_.Int32,
-                        jni$_.Int32
-                      )>)>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-              jni$_.Pointer<jni$_.Void>,
-              jni$_.JMethodIDPtr,
-              jni$_.Pointer<jni$_.Void>,
-              jni$_.Pointer<jni$_.Void>,
-              int,
-              int)>();
-
-  /// from: `public java.net.Socket createSocket(java.net.Socket socket, java.lang.String string, int i, boolean z)`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JObject createSocket5(
-    jni$_.JObject socket,
-    jni$_.JString string,
-    int i,
-    bool z,
-  ) {
-    final _$socket = socket.reference;
-    final _$string = string.reference;
-    return _createSocket5(
-            reference.pointer,
-            _id_createSocket5 as jni$_.JMethodIDPtr,
-            _$socket.pointer,
-            _$string.pointer,
-            i,
-            z ? 1 : 0)
-        .object<jni$_.JObject>(const jni$_.JObjectType());
-  }
-
-  static final _id_getDefaultCipherSuites = _class.instanceMethodId(
-    r'getDefaultCipherSuites',
-    r'()[Ljava/lang/String;',
-  );
-
-  static final _getDefaultCipherSuites = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public java.lang.String[] getDefaultCipherSuites()`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JArray<jni$_.JString> getDefaultCipherSuites() {
-    return _getDefaultCipherSuites(
-            reference.pointer, _id_getDefaultCipherSuites as jni$_.JMethodIDPtr)
-        .object<jni$_.JArray<jni$_.JString>>(
-            const jni$_.JArrayType<jni$_.JString>(jni$_.JStringType()));
-  }
-
-  static final _id_getSupportedCipherSuites = _class.instanceMethodId(
-    r'getSupportedCipherSuites',
-    r'()[Ljava/lang/String;',
-  );
-
-  static final _getSupportedCipherSuites = jni$_.ProtectedJniExtensions.lookup<
-          jni$_.NativeFunction<
-              jni$_.JniResult Function(
-                jni$_.Pointer<jni$_.Void>,
-                jni$_.JMethodIDPtr,
-              )>>('globalEnv_CallObjectMethod')
-      .asFunction<
-          jni$_.JniResult Function(
-            jni$_.Pointer<jni$_.Void>,
-            jni$_.JMethodIDPtr,
-          )>();
-
-  /// from: `public java.lang.String[] getSupportedCipherSuites()`
-  /// The returned object must be released after use, by calling the [release] method.
-  jni$_.JArray<jni$_.JString> getSupportedCipherSuites() {
-    return _getSupportedCipherSuites(reference.pointer,
-            _id_getSupportedCipherSuites as jni$_.JMethodIDPtr)
-        .object<jni$_.JArray<jni$_.JString>>(
-            const jni$_.JArrayType<jni$_.JString>(jni$_.JStringType()));
-  }
-}
-
-final class $SSLSocketFactoryFoo$NullableType
-    extends jni$_.JObjType<SSLSocketFactoryFoo?> {
-  @jni$_.internal
-  const $SSLSocketFactoryFoo$NullableType();
-
-  @jni$_.internal
-  @core$_.override
-  String get signature => r'Lcom/example/ok_http/SSLSocketFactoryFoo;';
-
-  @jni$_.internal
-  @core$_.override
-  SSLSocketFactoryFoo? fromReference(jni$_.JReference reference) =>
-      reference.isNull
-          ? null
-          : SSLSocketFactoryFoo.fromReference(
-              reference,
-            );
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType get superType => const $SSLSocketFactory$Type();
-
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType<SSLSocketFactoryFoo?> get nullableType => this;
-
-  @jni$_.internal
-  @core$_.override
-  final superCount = 3;
-
-  @core$_.override
-  int get hashCode => ($SSLSocketFactoryFoo$NullableType).hashCode;
-
-  @core$_.override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($SSLSocketFactoryFoo$NullableType) &&
-        other is $SSLSocketFactoryFoo$NullableType;
-  }
-}
-
-final class $SSLSocketFactoryFoo$Type
-    extends jni$_.JObjType<SSLSocketFactoryFoo> {
-  @jni$_.internal
-  const $SSLSocketFactoryFoo$Type();
-
-  @jni$_.internal
-  @core$_.override
-  String get signature => r'Lcom/example/ok_http/SSLSocketFactoryFoo;';
-
-  @jni$_.internal
-  @core$_.override
-  SSLSocketFactoryFoo fromReference(jni$_.JReference reference) =>
-      SSLSocketFactoryFoo.fromReference(
-        reference,
-      );
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType get superType => const $SSLSocketFactory$Type();
-
-  @jni$_.internal
-  @core$_.override
-  jni$_.JObjType<SSLSocketFactoryFoo?> get nullableType =>
-      const $SSLSocketFactoryFoo$NullableType();
-
-  @jni$_.internal
-  @core$_.override
-  final superCount = 3;
-
-  @core$_.override
-  int get hashCode => ($SSLSocketFactoryFoo$Type).hashCode;
-
-  @core$_.override
-  bool operator ==(Object other) {
-    return other.runtimeType == ($SSLSocketFactoryFoo$Type) &&
-        other is $SSLSocketFactoryFoo$Type;
+    return other.runtimeType == ($FixedResponseX509ExtendedKeyManager$Type) &&
+        other is $FixedResponseX509ExtendedKeyManager$Type;
   }
 }
 
