@@ -19,10 +19,10 @@ void main() async {
     test('unknown server cert', () async {
       final serverContext = io.SecurityContext()
         ..useCertificateChainBytes(
-            await loadCertificateBytes('certificates/server_chain.p12'),
+            await loadCertificateBytes('test_certs/server_chain.p12'),
             password: 'dartdart')
         ..usePrivateKeyBytes(
-            await loadCertificateBytes('certificates/server_key.p12'),
+            await loadCertificateBytes('test_certs/server_key.p12'),
             password: 'dartdart');
       final server =
           await io.SecureServerSocket.bind('localhost', 0, serverContext);
@@ -51,10 +51,10 @@ void main() async {
     test('ignore unknown server cert', () async {
       final serverContext = io.SecurityContext()
         ..useCertificateChainBytes(
-            await loadCertificateBytes('certificates/server_chain.p12'),
+            await loadCertificateBytes('test_certs/server_chain.p12'),
             password: 'dartdart')
         ..usePrivateKeyBytes(
-            await loadCertificateBytes('certificates/server_key.p12'),
+            await loadCertificateBytes('test_certs/server_key.p12'),
             password: 'dartdart');
       final server =
           await io.SecureServerSocket.bind('localhost', 0, serverContext);
@@ -76,13 +76,13 @@ void main() async {
 
     test('client cert', () async {
       final certBytes =
-          await loadCertificateBytes('certificates/test-combined.p12');
+          await loadCertificateBytes('test_certs/test-combined.p12');
       final serverContext = io.SecurityContext()
         ..useCertificateChainBytes(
-            await loadCertificateBytes('certificates/server_chain.p12'),
+            await loadCertificateBytes('test_certs/server_chain.p12'),
             password: 'dartdart')
         ..usePrivateKeyBytes(
-            await loadCertificateBytes('certificates/server_key.p12'),
+            await loadCertificateBytes('test_certs/server_key.p12'),
             password: 'dartdart')
         ..setTrustedCertificatesBytes(certBytes, password: '1234');
 
