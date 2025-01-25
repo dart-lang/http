@@ -97,7 +97,8 @@ void main() async {
         await socket.close();
       });
 
-      final (key, chain) = loadKeyFromPKC12Bytes(certBytes, '1234');
+      final (key, chain) =
+          loadPrivateKeyAndCertificateChainFromPKCS12(certBytes, '1234');
       final config = OkHttpClientConfiguration(
           clientPrivateKey: key,
           clientCertificateChain: chain,

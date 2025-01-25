@@ -12,18 +12,31 @@
 /// [`runApp`](https://api.flutter.dev/flutter/widgets/runApp.html).
 library;
 
-// test-combined.p12 1234
 import 'dart:async';
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
-import 'package:jni/_internal.dart';
 import 'package:jni/jni.dart';
 
 import '../ok_http.dart';
 import 'jni/bindings.dart' as bindings;
+
+extension on List<int> {
+  JByteArray toJByteArray() => JByteArray(length)..setRange(0, length, this);
+}
+
+/// A [bindings.X509TrustManager] that trusts all certificates.
+final _allAllTrustManager =
+    bindings.X509TrustManager.implement(bindings.$X509TrustManager(
+        checkClientTrusted: (chain, authType) {},
+        checkServerTrusted: (chain, authType) {},
+        getAcceptedIssuers: () {
+          final factory = bindings.TrustManagerFactory.getInstance(
+              bindings.TrustManagerFactory.getDefaultAlgorithm());
+          factory!.init(null);
+          return JArray(bindings.X509Certificate.nullableType, 0);
+        })).as(bindings.TrustManager.type);
 
 /// Configurations for the [OkHttpClient].
 class OkHttpClientConfiguration {
@@ -69,28 +82,29 @@ class OkHttpClientConfiguration {
   });
 }
 
-Future<String> choosePrivateKeyAlias({
+/// Launches an Activity for the user to select the alias for a private key and
+/// certificate pair for authentication. The selected alias or null will be
+/// returned.
+///
+/// See [`KeyChain.choosePrivateKeyAlias`](https://developer.android.com/reference/android/security/KeyChain#choosePrivateKeyAlias(android.app.Activity,%20android.security.KeyChainAliasCallback,%20java.lang.String[],%20java.security.Principal[],%20android.net.Uri,%20java.lang.String).
+Future<String?> choosePrivateKeyAlias({
   JObject? activity,
-  String? keyTypes,
-  Uri? serverUri,
-  String? preselectedAlias,
 }) async {
-  final c = Completer<String>();
+  final c = Completer<String?>();
   activity ??= JObject.fromReference(Jni.getCurrentActivity());
   bindings.KeyChain.choosePrivateKeyAlias(activity,
       bindings.KeyChainAliasCallback.implement(
           bindings.$KeyChainAliasCallback(alias: (alias) {
-    c.complete(alias!.toDartString());
-  })),
-      JArray.fromReference(JString.type, jNullReference),
-      JArray.fromReference(JObject.type, jNullReference),
-      JString.fromReference(jNullReference),
-      -1,
-      JString.fromReference(jNullReference));
+    c.complete(alias?.toDartString());
+  })), null, null, null, -1, null);
   return c.future;
 }
 
-(PrivateKey, List<X509Certificate>) loadKeyFromAlias(String alias,
+/// Load a [PrivateKey] and certificate chain given a `KeyStore` alias.
+///
+/// See [Android Keystore system](https://developer.android.com/privacy-and-security/keystore).
+(PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromAlias(
+    String alias,
     {JObject? context}) {
   context ??= JObject.fromReference(Jni.getCachedApplicationContext());
   final jAlias = alias.toJString();
@@ -100,12 +114,9 @@ Future<String> choosePrivateKeyAlias({
   return (pk, chain.toList().cast<X509Certificate>());
 }
 
-extension on List<int> {
-  JByteArray toJByteArray() => JByteArray(length)..setRange(0, length, this);
-}
-
-(PrivateKey, List<X509Certificate>) loadKeyFromPKC12Bytes(
-    Uint8List bytes, String password,
+/// Load a [PrivateKey] and certificate chain from a PKCS 12 archive.
+(PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromPKCS12(
+    Uint8List pkcs12Data, String password,
     {JObject? context}) {
   context ??= JObject.fromReference(Jni.getCachedApplicationContext());
   var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString())!;
@@ -114,41 +125,30 @@ extension on List<int> {
   for (var i = 0; i < password.length; ++i) {
     jPassword[i] = password[i].codeUnits[0];
   }
-  keyStore.load(bindings.ByteArrayInputStream(bytes.toJByteArray()), jPassword);
+  keyStore.load(
+      bindings.ByteArrayInputStream(pkcs12Data.toJByteArray()), jPassword);
 
-  if (keyStore.size() != 1) {
-    throw Exception('Unexpected keyStore size');
-  }
+  assert(keyStore.size() == 1, 'unexpected KeyStore size: ${keyStore.size()}');
 
   final aliases = keyStore.aliases()!;
   final jAlias = aliases.nextElement()!;
-  if (aliases.hasMoreElements()) {
-    print('More aliases');
-  }
 
   final pk = keyStore.getKey(jAlias, jPassword);
-  final jCertificates = keyStore.getCertificateChain(jAlias);
-  if (pk == null || jCertificates == null) {
-    throw Exception('Unable to load certificate');
+  if (pk == null) {
+    throw ArgumentError('no key in PKC12 data', 'pkcs12Data');
   }
+  final jCertificates = keyStore.getCertificateChain(jAlias);
+  if (jCertificates == null) {
+    throw ArgumentError('no certificate chain in PKC12 data', 'pkcs12Data');
+  }
+
+  // TODO: Add `isA` type checks when
+  // https://github.com/dart-lang/native/pull/1943 is released.
+
   final certificates =
       jCertificates.map((c) => c!.as(X509Certificate.type)).toList();
-
   return (pk.as(PrivateKey.type), certificates);
 }
-
-final _allAllTrustManager = bindings.X509TrustManager.implement(
-    bindings.$X509TrustManager(checkClientTrusted: (chain, authType) {
-  print('checkClientTrusted');
-}, checkServerTrusted: (chain, authType) {
-  print('checkServerTrusted');
-}, getAcceptedIssuers: () {
-  print('getAcceptedIssuers');
-  final factory = bindings.TrustManagerFactory.getInstance(
-      bindings.TrustManagerFactory.getDefaultAlgorithm());
-  factory!.init(null);
-  return JArray(bindings.X509Certificate.nullableType, 0);
-})).as(bindings.TrustManager.type);
 
 /// An HTTP [Client] utilizing the [OkHttp](https://square.github.io/okhttp/) client.
 ///
@@ -172,12 +172,6 @@ final _allAllTrustManager = bindings.X509TrustManager.implement(
 ///   }
 /// }
 /// ```
-/*
-https://github.com/square/okhttp/blob/cc7e3c8e99402415b4fb72af3c2018e67acb918a/okhttp/src/test/java/okhttp3/internal/tls/ClientAuthTest.java#L265
-https://square.github.io/okhttp/3.x/okhttp-tls/index.html?okhttp3/tls/HandshakeCertificates.html
-https://stackoverflow.com/questions/65283321/okhttp-mutual-ssl-in-android
-
-*/
 class OkHttpClient extends BaseClient {
   late bindings.OkHttpClient _client;
   bool _isClosed = false;
@@ -191,37 +185,36 @@ class OkHttpClient extends BaseClient {
     this.configuration = const OkHttpClientConfiguration(),
 //    required String alias,
   }) {
-    if (configuration.clientPrivateKey != null &&
-        configuration.clientCertificateChain == null) {
+    final clientPrivateKey = configuration.clientPrivateKey;
+    final clientCertificateChain = configuration.clientCertificateChain;
+
+    if (clientPrivateKey != null && clientCertificateChain == null) {
       throw ArgumentError(
           'OkHttpClientConfiguration.clientCertificateChain must be set '
           'if OkHttpClientConfiguration.clientPrivateKey is set');
     }
 
-    if (configuration.clientCertificateChain != null &&
-        configuration.clientPrivateKey == null) {
+    if (clientCertificateChain != null && clientPrivateKey == null) {
       throw ArgumentError(
           'OkHttpClientConfiguration.clientPrivateKey must be set '
           'if OkHttpClientConfiguration.clientCertificateChain is set');
     }
 
     final builder = bindings.OkHttpClient$Builder();
-    if (configuration.clientPrivateKey != null ||
-        configuration.clientCertificateChain != null ||
+    if (clientPrivateKey != null ||
+        clientCertificateChain != null ||
         !configuration.validateServerCertificates) {
       JArray<bindings.KeyManager>? keyManagers;
       final trustManagers = JArray(bindings.TrustManager.nullableType, 1);
 
-      if (configuration.clientCertificateChain != null) {
-        // XXX doesn't handle length zero.
+      if (clientPrivateKey != null && clientCertificateChain != null) {
+        // TODO: Switch to `JArray.of` when package:jnigen 0.20 is released.
+        // This does not work if the
         final chain = JArray.filled(
-            configuration.clientCertificateChain!.length,
-            configuration.clientCertificateChain![0])
-          ..setRange(0, configuration.clientCertificateChain!.length,
-              configuration.clientCertificateChain!);
-        // XXX doesn't handle length zero.
+            clientCertificateChain.length, clientCertificateChain[0])
+          ..setRange(0, clientCertificateChain.length, clientCertificateChain);
         final foo = bindings.FixedResponseX509ExtendedKeyManager(
-            chain, configuration.clientPrivateKey!, 'DUMMY'.toJString());
+            chain, clientPrivateKey, 'DUMMY'.toJString());
         keyManagers = JArray.filled(1, foo.as(bindings.KeyManager.type),
             E: bindings.KeyManager.type);
       }
