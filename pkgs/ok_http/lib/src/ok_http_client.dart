@@ -67,8 +67,23 @@ class OkHttpClientConfiguration {
   /// See [OkHttpClient.Builder.writeTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html).
   final Duration writeTimeout;
 
+  /// The [PrivateKey] used for TLS Client Authentication.
+  ///
+  /// If set then [clientCertificateChain] must also be set.
+  ///
+  /// See [Introducing TLS with Client Authentication](https://blog.cloudflare.com/introducing-tls-client-auth/).
   final PrivateKey? clientPrivateKey;
+
+  /// The certificate chain used for TLS Client Authentication.
+  ///
+  /// If set then [clientPrivateKey] must also be set.
+  ///
+  /// See [Introducing TLS with Client Authentication](https://blog.cloudflare.com/introducing-tls-client-auth/).
   final List<X509Certificate>? clientCertificateChain;
+
+  /// Whether the certificate chain for server certificates will be validated.
+  ///
+  /// This should only be used in a testing environment.
   final bool validateServerCertificates;
 
   const OkHttpClientConfiguration({
