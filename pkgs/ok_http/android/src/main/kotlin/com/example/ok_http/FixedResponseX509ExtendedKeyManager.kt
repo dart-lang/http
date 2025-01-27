@@ -1,3 +1,7 @@
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 package com.example.ok_http
 
 import java.net.Socket
@@ -7,6 +11,10 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.SSLEngine
 import javax.net.ssl.X509ExtendedKeyManager
 
+/**
+ * A `X509ExtendedKeyManager` that always responds with the configured
+ * private key, certificate chain, and alias.
+ */
 class FixedResponseX509ExtendedKeyManager(
         private val certificateChain: Array<X509Certificate>,
         private val privateKey: PrivateKey,

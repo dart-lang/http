@@ -33,13 +33,16 @@ void main() async {
       final serverException = Completer<void>();
       server.listen((socket) async {
         serverException.complete();
+        await socket.close();
       }, onError: (Object e) {
         serverException.completeError(e);
       });
+      addTearDown(server.close);
 
       final config =
           const OkHttpClientConfiguration(validateServerCertificates: true);
       final httpClient = OkHttpClient(configuration: config);
+      addTearDown(httpClient.close);
 
       expect(
           () async =>
@@ -67,10 +70,12 @@ void main() async {
             .writeAll(['HTTP/1.1 200 OK', 'Content-Length: 0', '\r\n'], '\r\n');
         await socket.close();
       });
+      addTearDown(server.close);
 
       final config =
           const OkHttpClientConfiguration(validateServerCertificates: false);
       final httpClient = OkHttpClient(configuration: config);
+      addTearDown(httpClient.close);
 
       expect(
           (await httpClient.get(Uri.https('localhost:${server.port}', '/')))
@@ -100,6 +105,7 @@ void main() async {
             .writeAll(['HTTP/1.1 200 OK', 'Content-Length: 0', '\r\n'], '\r\n');
         await socket.close();
       });
+      addTearDown(server.close);
 
       final (key, chain) =
           loadPrivateKeyAndCertificateChainFromPKCS12(certBytes, '1234');
@@ -108,6 +114,7 @@ void main() async {
           clientCertificateChain: chain,
           validateServerCertificates: false);
       final httpClient = OkHttpClient(configuration: config);
+      addTearDown(httpClient.close);
 
       expect(
           (await httpClient.get(Uri.https('localhost:${server.port}', '/')))
@@ -115,6 +122,26 @@ void main() async {
           200);
       expect((await clientCertificate.future)!.issuer,
           contains('Internet Widgits Pty Ltd'));
+    });
+
+    test('private key without cert chain', () async {
+      final certBytes =
+          await loadCertificateBytes('test_certs/test-combined.p12');
+
+      final (key, chain) =
+          loadPrivateKeyAndCertificateChainFromPKCS12(certBytes, '1234');
+      final config = OkHttpClientConfiguration(clientPrivateKey: key);
+      expect(() => OkHttpClient(configuration: config), throwsArgumentError);
+    });
+
+    test('private key without cert chain', () async {
+      final certBytes =
+          await loadCertificateBytes('test_certs/test-combined.p12');
+
+      final (key, chain) =
+          loadPrivateKeyAndCertificateChainFromPKCS12(certBytes, '1234');
+      final config = OkHttpClientConfiguration(clientCertificateChain: chain);
+      expect(() => OkHttpClient(configuration: config), throwsArgumentError);
     });
   });
 }

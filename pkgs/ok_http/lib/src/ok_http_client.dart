@@ -19,8 +19,8 @@ import 'package:http/http.dart';
 import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
 
-import '../ok_http.dart';
 import 'jni/bindings.dart' as bindings;
+import 'jni/bindings.dart' show PrivateKey, X509Certificate;
 
 extension on List<int> {
   JByteArray toJByteArray() => JByteArray(length)..setRange(0, length, this);
