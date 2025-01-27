@@ -13,7 +13,7 @@ void main() {
   testAll(BrowserClient.new,
       redirectAlwaysAllowed: true,
       canStreamRequestBody: false,
-      canStreamResponseBody: false,
+      canStreamResponseBody: true,
       canWorkInIsolates: false,
       supportsMultipartRequest: false);
 }

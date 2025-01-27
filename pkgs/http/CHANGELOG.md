@@ -1,6 +1,7 @@
-## 1.2.3-wip
+## 1.3.0
 
-* Fixed unintended HTML tags in doc comments. 
+* Fixed unintended HTML tags in doc comments.
+* Switched `BrowserClient` to use Fetch API instead of `XMLHttpRequest`.
 
 ## 1.2.2
 

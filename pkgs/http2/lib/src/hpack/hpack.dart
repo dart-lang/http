@@ -3,9 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// Implements a [HPackContext] for encoding/decoding headers according to the
-/// HPACK specificaiton. See here for more information:
+/// HPACK specification. See here for more information:
 ///   https://tools.ietf.org/html/draft-ietf-httpbis-header-compression-10
-library http2.hpack;
+library;
 
 import 'dart:convert' show ascii;
 import 'dart:typed_data';
