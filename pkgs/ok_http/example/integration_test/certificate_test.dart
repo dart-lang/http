@@ -10,6 +10,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:ok_http/ok_http.dart';
+import 'package:ok_http/src/jni/bindings.dart' as bindings;
+
 import 'package:test/test.dart';
 
 Future<Uint8List> loadCertificateBytes(String path) async {
@@ -20,6 +22,44 @@ void main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('TLS', () {
+    group('loadPrivateKeyAndCertificateChainFromPKCS12', () {
+      test('success', () async {
+        final certBytes =
+            await loadCertificateBytes('test_certs/test-combined.p12');
+        final (key, chain) =
+            loadPrivateKeyAndCertificateChainFromPKCS12(certBytes, '1234');
+        expect(
+            key
+                .as(bindings.Key.type)
+                .getFormat()!
+                .toDartString(releaseOriginal: true),
+            'PKCS#8');
+        expect(chain.length, 1);
+        expect(chain[0].getType()!.toDartString(), 'X.509');
+      });
+
+      test('bad password', () async {
+        final certBytes =
+            await loadCertificateBytes('test_certs/test-combined.p12');
+        expect(
+            () => loadPrivateKeyAndCertificateChainFromPKCS12(
+                certBytes, 'incorrectpassword'),
+            throwsA(isA<io.IOException>().having(
+                (e) => e.toString(), 'toString', contains('password'))));
+      });
+
+      test('bad PKCS12 data', () async {
+        final certBytes = Uint8List.fromList([1, 2, 3, 4]);
+        expect(
+            () =>
+                loadPrivateKeyAndCertificateChainFromPKCS12(certBytes, '1234'),
+            throwsA(isA<io.IOException>().having(
+                (e) => e.toString(),
+                'toString',
+                contains('does not represent a PKCS12 key store'))));
+      });
+    });
+
     test('unknown server cert', () async {
       final serverContext = io.SecurityContext()
         ..useCertificateChainBytes(

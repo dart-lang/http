@@ -13,6 +13,7 @@
 library;
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:http/http.dart';
@@ -24,6 +25,14 @@ import 'jni/bindings.dart' show PrivateKey, X509Certificate;
 
 extension on List<int> {
   JByteArray toJByteArray() => JByteArray(length)..setRange(0, length, this);
+}
+
+class _JavaIOException extends IOException {
+  final String _message;
+  _JavaIOException(JniException e) : _message = e.message;
+
+  @override
+  String toString() => _message;
 }
 
 /// A [bindings.X509TrustManager] that trusts all certificates.
@@ -130,6 +139,9 @@ Future<String?> choosePrivateKeyAlias({
 }
 
 /// Load a [PrivateKey] and certificate chain from a PKCS 12 archive.
+///
+/// Throws [IOException] if the password is incorrect or the PKCS12 data is
+/// invalid.
 (PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromPKCS12(
     Uint8List pkcs12Data, String password,
     {JObject? context}) {
@@ -140,8 +152,14 @@ Future<String?> choosePrivateKeyAlias({
   for (var i = 0; i < password.length; ++i) {
     jPassword[i] = password[i].codeUnits[0];
   }
-  keyStore.load(
-      bindings.ByteArrayInputStream(pkcs12Data.toJByteArray()), jPassword);
+  try {
+    keyStore.load(
+        bindings.ByteArrayInputStream(pkcs12Data.toJByteArray()), jPassword);
+  } on JniException catch (e) {
+    if (e.message.contains('java.io.IOException')) {
+      throw _JavaIOException(e);
+    }
+  }
 
   assert(keyStore.size() == 1, 'unexpected KeyStore size: ${keyStore.size()}');
 
