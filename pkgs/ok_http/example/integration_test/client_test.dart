@@ -28,6 +28,7 @@ Future<void> testConformance() async {
           supportsFoldedHeaders: false,
           canSendCookieHeaders: true,
           canReceiveSetCookieHeaders: true,
+          correctlyHandlesNullHeaderValues: false,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
@@ -46,6 +47,7 @@ Future<void> testConformance() async {
           supportsFoldedHeaders: false,
           canSendCookieHeaders: true,
           canReceiveSetCookieHeaders: true,
+          correctlyHandlesNullHeaderValues: false,
         );
       } finally {
         HttpClientRequestProfile.profilingEnabled = profile;
