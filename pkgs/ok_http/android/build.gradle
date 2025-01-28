@@ -33,7 +33,7 @@ android {
     }
     
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_21
+        jvmTarget = '1.8'
     }
 
     sourceSets {
@@ -51,8 +51,8 @@ android {
     ndkVersion = android.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     defaultConfig {
