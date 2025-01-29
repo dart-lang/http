@@ -163,8 +163,8 @@ void testResponseHeaders(Client client,
               response.headers['foo'],
               anyOf(
                   '1 2', // RFC-specified behavior
-                  '1' // Common client behavior.
-                  ));
+                  // Common client behavior (Cronet, Apple URL Loading System).
+                  '1'));
         } on ClientException {
           // The client rejected the response, which is allowed per RFC-9110.
         }
@@ -178,9 +178,11 @@ void testResponseHeaders(Client client,
           expect(
               response.headers['foo'],
               anyOf(
-                  '1 2', // RFC-specified behavior
-                  '1' // Common client behavior.
-                  ));
+                '1 2', // RFC-specified behavior
+                // Common client behavior (Cronet, Apple URL Loading System).
+                '1',
+                '1\r2', // Common client behavior (Java).
+              ));
         } on ClientException {
           // The client rejected the response, which is allowed per RFC-9110.
         }
