@@ -54,6 +54,4 @@ jobs:
           # - pkgs/ok_http/android/build.gradle
           # - pkgs/ok_http/example/android/app/build.gradle
           api-level: 21
-          target: google_apis
-          arch: x86_64
           script: cd pkgs/ok_http/example && flutter test --timeout=1200s integration_test/
