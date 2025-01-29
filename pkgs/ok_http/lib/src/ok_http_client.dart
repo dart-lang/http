@@ -242,7 +242,7 @@ class OkHttpClient extends BaseClient {
 
       if (clientPrivateKey != null && clientCertificateChain != null) {
         // TODO: Switch to `JArray.of` when package:jnigen 0.20 is released.
-        // This does not work if the
+        // This does not work if `clientCertificateChain` is empty list.
         final chain = JArray.filled(
             clientCertificateChain.length, clientCertificateChain[0])
           ..setRange(0, clientCertificateChain.length, clientCertificateChain);
