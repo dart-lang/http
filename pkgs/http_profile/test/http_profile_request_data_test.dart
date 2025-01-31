@@ -56,56 +56,6 @@ void main() {
     expect(profile.requestData.endTime, DateTime.parse('2024-03-23'));
   });
 
-  test('populating HttpClientRequestProfile.requestData.connectionInfo',
-      () async {
-    final requestData = backingMap['requestData'] as Map<String, dynamic>;
-    expect(requestData['connectionInfo'], isNull);
-    expect(profile.requestData.connectionInfo, isNull);
-
-    profile.requestData.connectionInfo = {
-      'localPort': 1285,
-      'remotePort': 443,
-      'connectionPoolId': '21x23'
-    };
-
-    final connectionInfoFromBackingMap =
-        requestData['connectionInfo'] as Map<String, dynamic>;
-    expect(connectionInfoFromBackingMap['localPort'], 1285);
-    expect(connectionInfoFromBackingMap['remotePort'], 443);
-    expect(connectionInfoFromBackingMap['connectionPoolId'], '21x23');
-
-    final connectionInfoFromGetter = profile.requestData.connectionInfo!;
-    expect(connectionInfoFromGetter['localPort'], 1285);
-    expect(connectionInfoFromGetter['remotePort'], 443);
-    expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
-  });
-
-  test('HttpClientRequestProfile.requestData.connectionInfo = null', () async {
-    final requestData = backingMap['requestData'] as Map<String, dynamic>;
-
-    profile.requestData.connectionInfo = {
-      'localPort': 1285,
-      'remotePort': 443,
-      'connectionPoolId': '21x23'
-    };
-
-    final connectionInfoFromBackingMap =
-        requestData['connectionInfo'] as Map<String, dynamic>;
-    expect(connectionInfoFromBackingMap['localPort'], 1285);
-    expect(connectionInfoFromBackingMap['remotePort'], 443);
-    expect(connectionInfoFromBackingMap['connectionPoolId'], '21x23');
-
-    final connectionInfoFromGetter = profile.requestData.connectionInfo!;
-    expect(connectionInfoFromGetter['localPort'], 1285);
-    expect(connectionInfoFromGetter['remotePort'], 443);
-    expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
-
-    profile.requestData.connectionInfo = null;
-
-    expect(requestData['connectionInfo'], isNull);
-    expect(profile.requestData.connectionInfo, isNull);
-  });
-
   test('populating HttpClientRequestProfile.requestData.contentLength',
       () async {
     final requestData = backingMap['requestData'] as Map<String, dynamic>;
@@ -398,9 +348,11 @@ void main() {
     expect(profile.requestData.bodyBytes, isEmpty);
 
     profile.requestData.bodySink.add([1, 2, 3]);
+    profile.requestData.bodySink.addError('this is an error');
+    profile.requestData.bodySink.add([4, 5]);
     await profile.requestData.close();
 
-    expect(requestBodyBytes, [1, 2, 3]);
-    expect(profile.requestData.bodyBytes, [1, 2, 3]);
+    expect(requestBodyBytes, [1, 2, 3, 4, 5]);
+    expect(profile.requestData.bodyBytes, [1, 2, 3, 4, 5]);
   });
 }

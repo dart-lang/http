@@ -77,4 +77,66 @@ void main() {
     expect(eventFromGetter.timestamp, DateTime.parse('2024-03-22'));
     expect(eventFromGetter.name, 'an event');
   });
+
+  test('populating HttpClientRequestProfile.connectionInfo', () async {
+    final requestData = backingMap['requestData'] as Map<String, dynamic>;
+    final responseData = backingMap['responseData'] as Map<String, dynamic>;
+    expect(requestData['connectionInfo'], isNull);
+    expect(responseData['connectionInfo'], isNull);
+    expect(profile.connectionInfo, isNull);
+
+    profile.connectionInfo = {
+      'localPort': 1285,
+      'remotePort': 443,
+      'connectionPoolId': '21x23'
+    };
+
+    final connectionInfoFromRequestData =
+        requestData['connectionInfo'] as Map<String, dynamic>;
+    final connectionInfoFromResponseData =
+        responseData['connectionInfo'] as Map<String, dynamic>;
+    expect(connectionInfoFromRequestData['localPort'], 1285);
+    expect(connectionInfoFromResponseData['localPort'], 1285);
+    expect(connectionInfoFromRequestData['remotePort'], 443);
+    expect(connectionInfoFromResponseData['remotePort'], 443);
+    expect(connectionInfoFromRequestData['connectionPoolId'], '21x23');
+    expect(connectionInfoFromResponseData['connectionPoolId'], '21x23');
+
+    final connectionInfoFromGetter = profile.connectionInfo!;
+    expect(connectionInfoFromGetter['localPort'], 1285);
+    expect(connectionInfoFromGetter['remotePort'], 443);
+    expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
+  });
+
+  test('HttpClientRequestProfile.connectionInfo = null', () async {
+    profile.connectionInfo = {
+      'localPort': 1285,
+      'remotePort': 443,
+      'connectionPoolId': '21x23'
+    };
+
+    final requestData = backingMap['requestData'] as Map<String, dynamic>;
+    final connectionInfoFromRequestData =
+        requestData['connectionInfo'] as Map<String, dynamic>;
+    final responseData = backingMap['responseData'] as Map<String, dynamic>;
+    final connectionInfoFromResponseData =
+        responseData['connectionInfo'] as Map<String, dynamic>;
+    expect(connectionInfoFromRequestData['localPort'], 1285);
+    expect(connectionInfoFromResponseData['localPort'], 1285);
+    expect(connectionInfoFromRequestData['remotePort'], 443);
+    expect(connectionInfoFromResponseData['remotePort'], 443);
+    expect(connectionInfoFromRequestData['connectionPoolId'], '21x23');
+    expect(connectionInfoFromResponseData['connectionPoolId'], '21x23');
+
+    final connectionInfoFromGetter = profile.connectionInfo!;
+    expect(connectionInfoFromGetter['localPort'], 1285);
+    expect(connectionInfoFromGetter['remotePort'], 443);
+    expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
+
+    profile.connectionInfo = null;
+
+    expect(requestData['connectionInfo'], isNull);
+    expect(responseData['connectionInfo'], isNull);
+    expect(profile.connectionInfo, isNull);
+  });
 }

@@ -36,6 +36,21 @@ class HttpProfileRedirectData {
         'method': _method,
         'location': _location,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      (other is HttpProfileRedirectData) &&
+      (statusCode == other.statusCode &&
+          method == other.method &&
+          location == other.location);
+
+  @override
+  int get hashCode => Object.hashAll([statusCode, method, location]);
+
+  @override
+  String toString() =>
+      'HttpProfileRedirectData(statusCode: $statusCode, method: $method, '
+      'location: $location)';
 }
 
 /// Describes details about a response to an HTTP request.
@@ -62,49 +77,14 @@ final class HttpProfileResponseData {
           .map(HttpProfileRedirectData._fromJson));
 
   /// A sink that can be used to record the body of the response.
+  ///
+  /// Errors added to [bodySink] (for example with [StreamSink.addError]) are
+  /// ignored.
   StreamSink<List<int>> get bodySink => _body.sink;
 
   /// The body of the response represented as an unmodifiable list of bytes.
   List<int> get bodyBytes =>
       UnmodifiableListView(_data['responseBodyBytes'] as List<int>);
-
-  /// Information about the networking connection used in the HTTP response.
-  ///
-  /// This information is meant to be used for debugging.
-  ///
-  /// It can contain any arbitrary data as long as the values are of type
-  /// [String] or [int].
-  ///
-  /// This field can only be modified by assigning a Map to it. That is:
-  /// ```dart
-  /// // Valid
-  /// profile?.responseData.connectionInfo = {
-  ///   'localPort': 1285,
-  ///   'remotePort': 443,
-  ///   'connectionPoolId': '21x23',
-  /// };
-  ///
-  /// // Invalid
-  /// profile?.responseData.connectionInfo?['localPort'] = 1285;
-  /// ```
-  set connectionInfo(Map<String, dynamic /*String|int*/ >? value) {
-    _checkAndUpdate();
-    if (value == null) {
-      _responseData.remove('connectionInfo');
-    } else {
-      for (final v in value.values) {
-        if (!(v is String || v is int)) {
-          throw ArgumentError(
-            'The values in connectionInfo must be of type String or int.',
-          );
-        }
-      }
-      _responseData['connectionInfo'] = {...value};
-    }
-  }
-
-  Map<String, dynamic /*String|int*/ >? get connectionInfo =>
-      _responseData['connectionInfo'] as Map<String, dynamic>?;
 
   /// The response headers where duplicate headers are represented using a list
   /// of values.

@@ -5,10 +5,9 @@
 import 'dart:ffi';
 import 'dart:io';
 
-import 'native_cupertino_bindings.dart' as ncb;
+import 'package:objective_c/objective_c.dart';
 
-const _packageName = 'cupertino_http';
-const _libName = _packageName;
+import 'native_cupertino_bindings.dart' as ncb;
 
 /// Access to symbols that are linked into the process.
 ///
@@ -23,60 +22,37 @@ final ncb.NativeCupertinoHttp linkedLibs = () {
       'Platform ${Platform.operatingSystem} is not supported');
 }();
 
-/// Access to symbols that are available in the cupertino_http helper shared
-/// library.
-final ncb.NativeCupertinoHttp helperLibs = _loadHelperLibrary();
-
-DynamicLibrary _loadHelperDynamicLibrary() {
-  if (Platform.isMacOS || Platform.isIOS) {
-    return DynamicLibrary.open('$_libName.framework/$_libName');
-  }
-
-  throw UnsupportedError(
-      'Platform ${Platform.operatingSystem} is not supported');
-}
-
-ncb.NativeCupertinoHttp _loadHelperLibrary() {
-  final lib = _loadHelperDynamicLibrary();
-
-  final initializeApi = lib.lookupFunction<IntPtr Function(Pointer<Void>),
-      int Function(Pointer<Void>)>('Dart_InitializeApiDL');
-  final initializeResult = initializeApi(NativeApi.initializeApiDLData);
-  if (initializeResult != 0) {
-    throw StateError('failed to init API.');
-  }
-
-  return ncb.NativeCupertinoHttp(lib);
-}
-
-String? toStringOrNull(ncb.NSString? s) {
-  if (s == null) {
-    return null;
-  }
-
-  return s.toString();
-}
-
 /// Converts a NSDictionary containing NSString keys and NSString values into
 /// an equivalent map.
-Map<String, String> stringDictToMap(ncb.NSDictionary d) {
-  // TODO(https://github.com/dart-lang/ffigen/issues/374): Make this
-  // function type safe. Currently it will unconditionally cast both keys and
-  // values to NSString with a likely crash down the line if that isn't their
-  // true types.
+Map<String, String> stringNSDictionaryToMap(NSDictionary d) {
   final m = <String, String>{};
-
-  final keys = ncb.NSArray.castFrom(d.allKeys!);
+  final keys = NSArray.castFrom(d.allKeys);
   for (var i = 0; i < keys.count; ++i) {
     final nsKey = keys.objectAtIndex_(i);
-    final key = toStringOrNull(ncb.NSString.castFrom(nsKey))!;
-    final value =
-        toStringOrNull(ncb.NSString.castFrom(d.objectForKey_(nsKey)))!;
+    if (!NSString.isInstance(nsKey)) {
+      throw UnsupportedError('keys must be strings');
+    }
+    final key = NSString.castFrom(nsKey).toString();
+    final nsValue = d.objectForKey_(nsKey);
+    if (nsValue == null || !NSString.isInstance(nsValue)) {
+      throw UnsupportedError('values must be strings');
+    }
+    final value = NSString.castFrom(nsValue).toString();
     m[key] = value;
   }
 
   return m;
 }
 
-ncb.NSURL uriToNSURL(Uri uri) =>
-    ncb.NSURL.URLWithString_(linkedLibs, uri.toString().toNSString(linkedLibs));
+NSArray stringIterableToNSArray(Iterable<String> strings) {
+  final array = NSMutableArray.arrayWithCapacity_(strings.length);
+
+  var index = 0;
+  for (var s in strings) {
+    array.setObject_atIndexedSubscript_(s.toNSString(), index++);
+  }
+  return array;
+}
+
+NSURL uriToNSURL(Uri uri) => NSURL.URLWithString_(uri.toString().toNSString())!;
+Uri nsurlToUri(NSURL url) => Uri.parse(url.absoluteString!.toString());

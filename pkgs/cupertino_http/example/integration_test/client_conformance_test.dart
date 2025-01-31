@@ -5,17 +5,41 @@
 import 'package:cupertino_http/cupertino_http.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http_client_conformance_tests/http_client_conformance_tests.dart';
+import 'package:http_profile/http_profile.dart';
 import 'package:integration_test/integration_test.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('defaultSessionConfiguration', () {
-    testAll(
-      CupertinoClient.defaultSessionConfiguration,
-      canReceiveSetCookieHeaders: true,
-      canSendCookieHeaders: true,
-    );
+    group('profile enabled', () {
+      final profile = HttpClientRequestProfile.profilingEnabled;
+      HttpClientRequestProfile.profilingEnabled = true;
+      try {
+        testAll(
+          CupertinoClient.defaultSessionConfiguration,
+          canReceiveSetCookieHeaders: true,
+          canSendCookieHeaders: true,
+          correctlyHandlesNullHeaderValues: false,
+        );
+      } finally {
+        HttpClientRequestProfile.profilingEnabled = profile;
+      }
+    });
+    group('profile disabled', () {
+      final profile = HttpClientRequestProfile.profilingEnabled;
+      HttpClientRequestProfile.profilingEnabled = false;
+      try {
+        testAll(
+          CupertinoClient.defaultSessionConfiguration,
+          canReceiveSetCookieHeaders: true,
+          canSendCookieHeaders: true,
+          correctlyHandlesNullHeaderValues: false,
+        );
+      } finally {
+        HttpClientRequestProfile.profilingEnabled = profile;
+      }
+    });
   });
   group('fromSessionConfiguration', () {
     final config = URLSessionConfiguration.ephemeralSessionConfiguration();
@@ -24,6 +48,7 @@ void main() {
       canWorkInIsolates: false,
       canReceiveSetCookieHeaders: true,
       canSendCookieHeaders: true,
+      correctlyHandlesNullHeaderValues: false,
     );
   });
 }

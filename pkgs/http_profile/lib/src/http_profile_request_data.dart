@@ -55,53 +55,14 @@ final class HttpProfileRequestData {
       _data['requestData'] as Map<String, dynamic>;
 
   /// A sink that can be used to record the body of the request.
+  ///
+  /// Errors added to [bodySink] (for example with [StreamSink.addError]) are
+  /// ignored.
   StreamSink<List<int>> get bodySink => _body.sink;
 
   /// The body of the request represented as an unmodifiable list of bytes.
   List<int> get bodyBytes =>
       UnmodifiableListView(_data['requestBodyBytes'] as List<int>);
-
-  /// Information about the networking connection used in the HTTP request.
-  ///
-  /// This information is meant to be used for debugging.
-  ///
-  /// It can contain any arbitrary data as long as the values are of type
-  /// [String] or [int].
-  ///
-  /// This field can only be modified by assigning a Map to it. That is:
-  /// ```dart
-  /// // Valid
-  /// profile?.requestData.connectionInfo = {
-  ///   'localPort': 1285,
-  ///   'remotePort': 443,
-  ///   'connectionPoolId': '21x23',
-  /// };
-  ///
-  /// // Invalid
-  /// profile?.requestData.connectionInfo?['localPort'] = 1285;
-  /// ```
-  set connectionInfo(Map<String, dynamic /*String|int*/ >? value) {
-    _checkAndUpdate();
-    if (value == null) {
-      _requestData.remove('connectionInfo');
-    } else {
-      for (final v in value.values) {
-        if (!(v is String || v is int)) {
-          throw ArgumentError(
-            'The values in connectionInfo must be of type String or int.',
-          );
-        }
-      }
-      _requestData['connectionInfo'] = {...value};
-    }
-  }
-
-  Map<String, dynamic /*String|int*/ >? get connectionInfo =>
-      _requestData['connectionInfo'] == null
-          ? null
-          : UnmodifiableMapView(
-              _requestData['connectionInfo'] as Map<String, dynamic>,
-            );
 
   /// The content length of the request, in bytes.
   set contentLength(int? value) {

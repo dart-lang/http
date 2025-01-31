@@ -150,7 +150,7 @@ abstract interface class WebSocket {
   /// [code] is set then the peer will see a 1005 status code. If no [reason]
   /// is set then the peer will not receive a reason string.
   ///
-  /// Throws a [RangeError] if [code] is not in the range 3000-4999.
+  /// Throws an [ArgumentError] if [code] is not 1000 or in the range 3000-4999.
   ///
   /// Throws an [ArgumentError] if [reason] is longer than 123 bytes when
   /// encoded as UTF-8
@@ -169,8 +169,8 @@ abstract interface class WebSocket {
   ///
   /// - A close frame was received from the peer. [CloseReceived.code] and
   ///   [CloseReceived.reason] will be set by the peer.
-  /// - A failure occured (e.g. the peer disconnected). [CloseReceived.code] and
-  ///   [CloseReceived.reason] will be a failure code defined by
+  /// - A failure occurred (e.g. the peer disconnected). [CloseReceived.code]
+  ///   and [CloseReceived.reason] will be a failure code defined by
   ///   (RFC-6455)[https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1]
   ///   (e.g. 1006).
   ///

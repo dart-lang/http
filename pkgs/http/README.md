@@ -114,12 +114,12 @@ the [`RetryClient()`][new RetryClient] constructor.
 
 ## Choosing an implementation
 
-There are multiple implementations of the `package:http` [`Client`][client] interface. By default, `package:http` uses [`BrowserClient`][browserclient] on the web and [`IOClient`][ioclient] on all other platforms. You an choose a different [`Client`][client] implementation based on the needs of your application.
+There are multiple implementations of the `package:http` [`Client`][client] interface. By default, `package:http` uses [`BrowserClient`][browserclient] on the web and [`IOClient`][ioclient] on all other platforms. You can choose a different [`Client`][client] implementation based on the needs of your application.
 
 You can change implementations without changing your application code, except
 for a few lines of [configuration](#2-configure-the-http-client).
 
-Some well supported implementations are:
+Some well-supported implementations are:
 
 | Implementation | Supported Platforms | SDK | Caching | HTTP3/QUIC | Platform Native | 
 | -------------- | ------------------- | ----| ------- | ---------- | --------------- |
@@ -130,7 +130,7 @@ Some well supported implementations are:
 | [`package:fetch_client`][fetch] — [`FetchClient`][fetchclient] | Web | Dart, Flutter | ✅︎ | ✅︎ | ✅︎ |
 
 > [!TIP]
-> If you are writing a Dart package or Flutter pluggin that uses
+> If you are writing a Dart package or Flutter plugin that uses
 > `package:http`, you should not depend on a particular [`Client`][client]
 > implementation. Let the application author decide what implementation is
 > best for their project. You can make that easier by accepting an explicit
@@ -145,7 +145,7 @@ Some well supported implementations are:
 
 ## Configuration
 
-To use a HTTP client implementation other than the default, you must:
+To use an HTTP client implementation other than the default, you must:
 1. Add the HTTP client as a dependency.
 2. Configure the HTTP client.
 3. Connect the HTTP client to the code that uses it.
@@ -204,7 +204,7 @@ Client httpClient() {
 #### Supporting browser and native
 
 If your application can be run in the browser and natively, you must put your
-browser and native configurations in seperate files and import the correct file
+browser and native configurations in separate files and import the correct file
 based on the platform.
 
 For example:
@@ -249,15 +249,22 @@ void main() {
 }
 ```
 
-In Flutter, you can use a one of many
-[state mangement approaches][flutterstatemanagement].
+When using the Flutter SDK, you can use a one of many
+[state management approaches][flutterstatemanagement].
 
-If you depend on code that uses top-level functions (e.g. `http.post`) or
-calls the [`Client()`][clientconstructor] constructor, then you can use
-[`runWithClient`](runwithclient) to ensure that the correct
-`Client` is used. When an [Isolate][isolate] is spawned, it does not inherit
-any variables from the calling Zone, so `runWithClient` needs to be used in
-each Isolate that uses `package:http`.
+> [!TIP]
+> [The Flutter HTTP example application][flutterhttpexample] demonstrates
+> how to make the configured [`Client`][client] available using
+> [`package:provider`][provider] and
+> [`package:http_image_provider`][http_image_provider].
+
+When using the Dart SDK, you can use [`runWithClient`][runwithclient] to
+ensure that the correct [`Client`][client] is used when explicit argument
+passing is not an option. For example, if you depend on code that uses
+top-level functions (e.g. `http.post`) or calls the
+[`Client()`][clientconstructor] constructor. When an [Isolate][isolate] is
+spawned, it does not inherit any variables from the calling Zone, so
+`runWithClient` needs to be used in each Isolate that uses `package:http`.
 
 You can ensure that only the `Client` that you have explicitly configured is
 used by defining `no_default_http_client=true` in the environment. This will
@@ -268,11 +275,6 @@ a reduced application size.
 $ flutter build appbundle --dart-define=no_default_http_client=true ...
 $ dart compile exe --define=no_default_http_client=true ...
 ```
-
-> [!TIP]
-> [The Flutter HTTP example application][flutterhttpexample] demonstrates
-> how to make the configured [`Client`][client] available using
-> [`package:provider`][provider] and [`package:http_image_provider`][http_image_provider].
 
 [browserclient]: https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html
 [client]: https://pub.dev/documentation/http/latest/http/Client-class.html

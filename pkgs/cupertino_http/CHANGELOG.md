@@ -1,4 +1,62 @@
-## 1.3.1-wip
+## 2.0.3-wip
+
+* Remove some unnecessary native code.
+
+## 2.0.2
+
+* Upgrade to `package:objective_c` 4.1.
+* Upgrade to `package:ffigen` 16.1.
+* Fixes a bug where responses were not processed correctly:
+  * [#1413](https://github.com/dart-lang/http/issues/1413)
+  * [#1446](https://github.com/dart-lang/http/issues/1446)
+
+## 2.0.1
+
+* Fix a [bug](https://github.com/dart-lang/http/issues/1398) where
+  `package:cupertino_http` only worked with iOS 17+. 
+
+## 2.0.0
+
+* The behavior of `CupertinoClient` and `CupertinoWebSocket` has not changed.
+* **Breaking:** `MutableURLRequest.httpBodyStream` now takes a `NSInputStream`
+  instead of a `Stream<List<int>>`.
+* **Breaking:** The following enums/classes previous defined by
+  `package:cupertino_http` are now imported from `package:objective_c`:
+    * `NSData`
+    * `NSError`
+    * `NSHTTPCookieAcceptPolicy`
+    * `NSMutableData`
+    * `NSURLRequestCachePolicy`
+    * `NSURLRequestNetworkServiceType`
+    * `NSURLSessionMultipathServiceType`
+    * `NSURLSessionResponseDisposition`
+    * `NSURLSessionTaskState`
+    * `NSURLSessionWebSocketCloseCode`
+    * `NSURLSessionWebSocketMessageType`
+* **Breaking:** `URLSession.dataTaskWithCompletionHandler` is no longer
+  supported for background sessions.
+
+## 1.5.1
+
+* Allow `1000` as a `code` argument in `CupertinoWebSocket.close`.
+* Fix a bug where the `Content-Length` header would not be set under certain
+  circumstances.
+
+## 1.5.0
+
+* Add integration to the
+  [DevTools Network View](https://docs.flutter.dev/tools/devtools/network).
+* Upgrade to `package:ffigen` 11.0.0.
+* Bring `WebSocket` behavior in line with the documentation by throwing
+  `WebSocketConnectionClosed` rather than `StateError` when attempting to send
+  data to or close an already closed `CupertinoWebSocket`.
+* Update minimum supported iOS/macOS versions to be in sync with the minimum
+  (best effort) supported for Flutter: iOS 12, macOS 10.14.
+* Eagerly free resources on `CupertinoClient.close()`.
+
+## 1.4.0
+
+* **Experimental** support for the `package:web_socket` `WebSocket` interface.
 
 ## 1.3.0
 

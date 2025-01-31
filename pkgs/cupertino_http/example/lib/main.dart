@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Get the list of books matching `query`.
-  // The `get` call will automatically use the `client` configurated in `main`.
+  // The `get` call will automatically use the `client` configured in `main`.
   Future<List<Book>> _findMatchingBooks(String query) async {
     final response = await _client.get(
       Uri.https(
@@ -141,7 +141,7 @@ class _BookListState extends State<BookList> {
           key: ValueKey(widget.books[index].title),
           child: ListTile(
             leading: Image(
-                image: HttpImage(
+                image: HttpImageProvider(
                     widget.books[index].imageUrl.replace(scheme: 'https'),
                     client: context.read<Client>())),
             title: Text(widget.books[index].title),

@@ -1,3 +1,12 @@
+## 1.3.0
+
+* Fixed unintended HTML tags in doc comments.
+* Switched `BrowserClient` to use Fetch API instead of `XMLHttpRequest`.
+
+## 1.2.2
+
+* Require package `web: '>=0.5.0 <2.0.0'`.
+
 ## 1.2.1
 
 * Require Dart `^3.3`

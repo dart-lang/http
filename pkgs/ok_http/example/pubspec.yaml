@@ -1,0 +1,37 @@
+name: ok_http_example
+description: "Demonstrates how to use the ok_http plugin."
+
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.1 <4.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.6
+  flutter:
+    sdk: flutter
+  http: ^1.0.0
+  http_image_provider: ^1.0.0
+  ok_http:
+    path: ../
+  provider: ^6.1.1
+  web_socket: ^0.1.5
+
+dev_dependencies:
+  dart_flutter_team_lints: ^3.0.0
+  flutter_test:
+    sdk: flutter
+  http_client_conformance_tests:
+    path: ../../http_client_conformance_tests/
+  http_profile: ^0.1.0
+  integration_test:
+    sdk: flutter
+  test: ^1.23.1
+  web_socket_conformance_tests:
+    path: ../../web_socket_conformance_tests/
+
+flutter:
+  uses-material-design: true
+  assets:
+    - test_certs/  # Used in integration tests.

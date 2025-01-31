@@ -1,3 +1,7 @@
-## 0.0.1
+## 0.1.1-wip
 
-* Skeleton class and test definitions.
+* Fixed unintended HTML tags in doc comments. 
+
+## 0.1.0
+
+* Initial **experimental** release.

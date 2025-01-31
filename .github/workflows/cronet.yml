@@ -6,12 +6,12 @@ on:
       - main
       - master
     paths:
-      - '.github/workflows/cronet.yaml'
+      - '.github/workflows/cronet.yml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   pull_request:
     paths:
-      - '.github/workflows/cronet.yaml'
+      - '.github/workflows/cronet.yml'
       - 'pkgs/cronet_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   schedule:
@@ -23,20 +23,26 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
+      fail-fast: false
       matrix:
         cronetHttpNoPlay: ['false', 'true']
     defaults:
       run:
         working-directory: pkgs/cronet_http
     steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-      - uses: actions/setup-java@9704b39bf258b59bc04b50fa2dd55e9ed76b47a8
+      - name: Delete unnecessary tools 🔧
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          android: false # Don't remove Android tools
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b
         with:
           distribution: 'zulu'
           java-version: '17'
-      - uses: subosito/flutter-action@2783a3f08e1baf891508463f8c6653c258246225
+      - uses: subosito/flutter-action@44ac965b96f18d999802d4b807e3256d5a3f9fa1
         with:
           channel: 'stable'
       - id: install
@@ -49,7 +55,7 @@ jobs:
         if: always() && steps.install.outcome == 'success'
         run: flutter analyze --fatal-infos
       - name: Run tests
-        uses: reactivecircus/android-emulator-runner@6b0df4b0efb23bb0ec63d881db79aefbc976e4b2
+        uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d
         if: always() && steps.install.outcome == 'success'
         with:
           # api-level/minSdkVersion should be help in sync in:
@@ -59,5 +65,4 @@ jobs:
           api-level: 21
           arch: x86_64
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
-          profile: pixel
           script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/

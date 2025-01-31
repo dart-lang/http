@@ -26,6 +26,48 @@ void main() {
     backingMap = profileBackingMaps.lastOrNull!;
   });
 
+  group('HttpProfileRedirectData', () {
+    test('equal', () {
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'));
+    });
+
+    test('not equal', () {
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          isNot(Object()));
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          isNot(HttpProfileRedirectData(
+              statusCode: 303, method: 'GET', location: 'http://somewhere')));
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          isNot(HttpProfileRedirectData(
+              statusCode: 302, method: 'POST', location: 'http://somewhere')));
+      expect(
+          HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://somewhere'),
+          isNot(HttpProfileRedirectData(
+              statusCode: 302, method: 'GET', location: 'http://notthere')));
+    });
+
+    test('hash', () {
+      expect(
+          HttpProfileRedirectData(
+                  statusCode: 302, method: 'GET', location: 'http://somewhere')
+              .hashCode,
+          HttpProfileRedirectData(
+                  statusCode: 302, method: 'GET', location: 'http://somewhere')
+              .hashCode);
+    });
+  });
+
   test('calling HttpClientRequestProfile.responseData.addRedirect', () async {
     final responseData = backingMap['responseData'] as Map<String, dynamic>;
     final redirectsFromBackingMap =
@@ -45,61 +87,13 @@ void main() {
     expect(redirectFromBackingMap['method'], 'GET');
     expect(redirectFromBackingMap['location'], 'https://images.example.com/1');
 
-    expect(profile.responseData.redirects.length, 1);
-    final redirectFromGetter = profile.responseData.redirects.first;
-    expect(redirectFromGetter.statusCode, 301);
-    expect(redirectFromGetter.method, 'GET');
-    expect(redirectFromGetter.location, 'https://images.example.com/1');
-  });
-
-  test('populating HttpClientRequestProfile.responseData.connectionInfo',
-      () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-    expect(responseData['connectionInfo'], isNull);
-    expect(profile.responseData.connectionInfo, isNull);
-
-    profile.responseData.connectionInfo = {
-      'localPort': 1285,
-      'remotePort': 443,
-      'connectionPoolId': '21x23'
-    };
-
-    final connectionInfoFromBackingMap =
-        responseData['connectionInfo'] as Map<String, dynamic>;
-    expect(connectionInfoFromBackingMap['localPort'], 1285);
-    expect(connectionInfoFromBackingMap['remotePort'], 443);
-    expect(connectionInfoFromBackingMap['connectionPoolId'], '21x23');
-
-    final connectionInfoFromGetter = profile.responseData.connectionInfo!;
-    expect(connectionInfoFromGetter['localPort'], 1285);
-    expect(connectionInfoFromGetter['remotePort'], 443);
-    expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
-  });
-
-  test('HttpClientRequestProfile.responseData.connectionInfo = null', () async {
-    final responseData = backingMap['responseData'] as Map<String, dynamic>;
-
-    profile.responseData.connectionInfo = {
-      'localPort': 1285,
-      'remotePort': 443,
-      'connectionPoolId': '21x23'
-    };
-
-    final connectionInfoFromBackingMap =
-        responseData['connectionInfo'] as Map<String, dynamic>;
-    expect(connectionInfoFromBackingMap['localPort'], 1285);
-    expect(connectionInfoFromBackingMap['remotePort'], 443);
-    expect(connectionInfoFromBackingMap['connectionPoolId'], '21x23');
-
-    final connectionInfoFromGetter = profile.responseData.connectionInfo!;
-    expect(connectionInfoFromGetter['localPort'], 1285);
-    expect(connectionInfoFromGetter['remotePort'], 443);
-    expect(connectionInfoFromGetter['connectionPoolId'], '21x23');
-
-    profile.responseData.connectionInfo = null;
-
-    expect(responseData['connectionInfo'], isNull);
-    expect(profile.responseData.connectionInfo, isNull);
+    expect(profile.responseData.redirects, [
+      HttpProfileRedirectData(
+        statusCode: 301,
+        method: 'GET',
+        location: 'https://images.example.com/1',
+      )
+    ]);
   });
 
   test('populating HttpClientRequestProfile.responseData.headersListValues',
@@ -442,9 +436,11 @@ void main() {
     expect(profile.responseData.bodyBytes, isEmpty);
 
     profile.responseData.bodySink.add([1, 2, 3]);
+    profile.responseData.bodySink.addError('this is an error');
+    profile.responseData.bodySink.add([4, 5]);
     await profile.responseData.close();
 
-    expect(responseBodyBytes, [1, 2, 3]);
-    expect(profile.responseData.bodyBytes, [1, 2, 3]);
+    expect(responseBodyBytes, [1, 2, 3, 4, 5]);
+    expect(profile.responseData.bodyBytes, [1, 2, 3, 4, 5]);
   });
 }
