@@ -72,7 +72,7 @@ Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
 /// Caching utilities types for using cache for any http request.
 ///
 /// For more references, check (Caching types)[https://developer.mozilla.org/en-US/docs/Web/API/Request/cache]
-mixin HttpCacheUtils{
+mixin HttpCacheUtils {
   static const String defaultType = "default";
   static const String reloadType = "reload";
   static const String noStoringType = "no-store";

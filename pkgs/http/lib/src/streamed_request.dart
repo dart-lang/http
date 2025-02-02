@@ -55,14 +55,14 @@ class StreamedRequest extends BaseRequest {
 
   @override
   String? get cache {
-    if(this._cache != null){
+    if (this._cache != null) {
       return this._cache;
-    }
-    else return super.cache;
+    } else
+      return super.cache;
   }
 
   String? _cache;
-  set cache(String? cacheType){
+  set cache(String? cacheType) {
     this._cache = cacheType!;
   }
 }
