@@ -181,4 +181,17 @@ class Request extends BaseRequest {
     if (!finalized) return;
     throw StateError("Can't modify a finalized Request.");
   }
+
+  @override
+  String? get cache {
+    if(this._cache != null){
+      return this._cache;
+    }
+    else return super.cache;
+  }
+
+  String? _cache;
+  set cache(String? cacheType){
+    this._cache = cacheType!;
+  }
 }
