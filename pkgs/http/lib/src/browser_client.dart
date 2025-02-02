@@ -69,6 +69,7 @@ class BrowserClient extends BaseClient {
             RequestInit(
               method: request.method,
               body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
+              cache: request.cache!,
               credentials: withCredentials ? 'include' : 'same-origin',
               headers: {
                 if (request.contentLength case final contentLength?)
