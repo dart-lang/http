@@ -184,14 +184,14 @@ class Request extends BaseRequest {
 
   @override
   String? get cache {
-    if (this._cache != null) {
-      return this._cache;
-    } else
-      return super.cache;
+    if (_cache != null) {
+      return _cache;
+    }
+    return super.cache;
   }
 
   String? _cache;
   set cache(String? cacheType) {
-    this._cache = cacheType!;
+    _cache = cacheType!;
   }
 }
