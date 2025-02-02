@@ -169,5 +169,5 @@ abstract class BaseRequest {
   /// [cache] property for caching the network request.
   ///
   /// Defaults to `default`.
-  String? get cache => HttpCacheUtils.defaultType;
+  String? get cache => HttpCacheOptions.defaultType;
 }
