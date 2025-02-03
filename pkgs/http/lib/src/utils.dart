@@ -75,10 +75,10 @@ Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
 enum CacheOption {
   defaultType('default'),
   reload('reload'),
-  noStore('no_store'),
-  noCache('no_cache'),
-  forceCache('force_cache'),
-  onlyIfCached('only_if_cached');
+  noStore('no-store'),
+  noCache('no-cache'),
+  forceCache('force-cache'),
+  onlyIfCached('only-if-cached');
 
   final String cacheType;
 
