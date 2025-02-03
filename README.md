@@ -6,7 +6,7 @@ A composable, Future-based library for making HTTP requests.
 easy to consume HTTP resources. It's multi-platform, and supports mobile, desktop,
 and the browser.
 
-## Packages 
+## Packages
 
 | Package | Description | Version |
 |---|---|---|
