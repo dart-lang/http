@@ -165,9 +165,4 @@ abstract class BaseRequest {
 
   @override
   String toString() => '$method $url';
-
-  /// [cache] property for caching the network request.
-  ///
-  /// Defaults to `default`.
-  String? get cache => HttpCacheOptions.defaultType;
 }

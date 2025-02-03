@@ -52,17 +52,4 @@ class StreamedRequest extends BaseRequest {
     super.finalize();
     return ByteStream(_controller.stream);
   }
-
-  @override
-  String? get cache {
-    if (_cache != null) {
-      return _cache;
-    }
-    return super.cache;
-  }
-
-  String? _cache;
-  set cache(String? cacheType) {
-    _cache = cacheType!;
-  }
 }
