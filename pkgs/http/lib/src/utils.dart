@@ -72,11 +72,20 @@ Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
 /// Caching utilities types for using cache for any http request.
 ///
 /// For more references, check (Caching types)[https://developer.mozilla.org/en-US/docs/Web/API/Request/cache]
-mixin HttpCacheOptions {
-  static const String defaultType = 'default';
-  static const String reloadType = 'reload';
-  static const String noStoringType = 'no-store';
-  static const String noCachingType = 'no-cache';
-  static const String forceCachingType = 'force-cache';
-  static const String onlyIfCachedType = 'only-if-cached';
+enum CacheOption {
+  defaultType('default'),
+  reload('reload'),
+  noStore('no_store'),
+  noCache('no_cache'),
+  forceCache('force_cache'),
+  onlyIfCached('only_if_cached');
+
+  final String cacheType;
+
+  const CacheOption(this.cacheType);
+
+  static CacheOption fromString(String cacheType) => values.firstWhere(
+        (v) => v.cacheType == cacheType,
+        orElse: () => CacheOption.defaultType,
+      );
 }

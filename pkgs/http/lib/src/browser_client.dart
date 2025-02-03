@@ -4,7 +4,7 @@
 
 import 'dart:async';
 import 'dart:js_interop';
-
+import 'package:http/src/utils.dart' show CacheOption;
 import 'package:web/web.dart'
     show
         AbortController,
@@ -45,6 +45,10 @@ BaseClient createClient() {
 class BrowserClient extends BaseClient {
   final _abortController = AbortController();
 
+  BrowserClient([CacheOption? cacheOption]) {
+    _cacheOption = cacheOption?.cacheType ?? CacheOption.defaultType.cacheType;
+  }
+
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
   ///
@@ -52,6 +56,8 @@ class BrowserClient extends BaseClient {
   bool withCredentials = false;
 
   bool _isClosed = false;
+
+  String? _cacheOption;
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
@@ -69,7 +75,7 @@ class BrowserClient extends BaseClient {
             RequestInit(
               method: request.method,
               body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
-              cache: request.cache!,
+              cache: _cacheOption!,
               credentials: withCredentials ? 'include' : 'same-origin',
               headers: {
                 if (request.contentLength case final contentLength?)
