@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:js_interop';
-import 'package:http/src/utils.dart' show CacheOption;
 import 'package:web/web.dart'
     show
         AbortController,
@@ -18,6 +17,7 @@ import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
+import 'utils.dart';
 
 /// Create a [BrowserClient].
 ///
