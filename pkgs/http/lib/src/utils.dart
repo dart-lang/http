@@ -69,10 +69,8 @@ Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
       onDone();
     }));
 
-/// Caching utilities types for using cache for any http request.
-///
-/// For more references, check (Caching types)[https://developer.mozilla.org/en-US/docs/Web/API/Request/cache]
-enum CacheOption {
+/// Caching modes for any http request in a browser.
+enum CacheMode {
   defaultType('default'),
   reload('reload'),
   noStore('no-store'),
@@ -82,10 +80,10 @@ enum CacheOption {
 
   final String cacheType;
 
-  const CacheOption(this.cacheType);
+  const CacheMode(this.cacheType);
 
-  static CacheOption fromString(String cacheType) => values.firstWhere(
+  static CacheMode fromString(String cacheType) => values.firstWhere(
         (v) => v.cacheType == cacheType,
-        orElse: () => CacheOption.defaultType,
+        orElse: () => CacheMode.defaultType,
       );
 }

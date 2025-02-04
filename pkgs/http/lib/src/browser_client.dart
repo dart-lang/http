@@ -17,7 +17,6 @@ import 'base_client.dart';
 import 'base_request.dart';
 import 'exception.dart';
 import 'streamed_response.dart';
-import 'utils.dart';
 
 /// Create a [BrowserClient].
 ///
@@ -45,9 +44,17 @@ BaseClient createClient() {
 class BrowserClient extends BaseClient {
   final _abortController = AbortController();
 
-  BrowserClient([CacheOption? cacheOption]) {
-    _cacheOption = cacheOption?.cacheType ?? CacheOption.defaultType.cacheType;
-  }
+  /// Create a new browser-based HTTP Client.
+  ///
+  /// If [cacheMode] is provided then it can be used to cache the request
+  /// in the browser.
+  ///
+  /// For example:
+  /// ```dart
+  /// const mode = 'reload';
+  /// final client = BrowserClient(cacheMode: mode);
+  /// ```
+  BrowserClient({this.cacheMode = 'default'});
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
@@ -57,7 +64,10 @@ class BrowserClient extends BaseClient {
 
   bool _isClosed = false;
 
-  String? _cacheOption;
+  /// Use different caching mode for a HTTP request.
+  /// Defaults to `default`.
+  // https://developer.mozilla.org/en-US/docs/Web/API/Request/cache
+  String cacheMode;
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
@@ -75,7 +85,7 @@ class BrowserClient extends BaseClient {
             RequestInit(
               method: request.method,
               body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
-              cache: _cacheOption!,
+              cache: cacheMode,
               credentials: withCredentials ? 'include' : 'same-origin',
               headers: {
                 if (request.contentLength case final contentLength?)
