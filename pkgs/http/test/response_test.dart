@@ -52,6 +52,16 @@ void main() {
       var response = http.Response.bytes(utf8Bytes, 200,
           headers: {'content-type': 'application/json'});
       expect(response.body, equals('{"foo":"Привет, мир!"}'));
+
+      final chineseUtf8Bytes = utf8.encode('{"foo":"你好，世界！"}');
+      var responseChinese = http.Response.bytes(chineseUtf8Bytes, 200,
+          headers: {'content-type': 'application/json'});
+      expect(responseChinese.body, equals('{"foo":"你好，世界！"}'));
+
+      final koreanUtf8Bytes = utf8.encode('{"foo":"안녕하세요, 세계!"}');
+      var responseKorean = http.Response.bytes(koreanUtf8Bytes, 200,
+          headers: {'content-type': 'application/json'});
+      expect(responseKorean.body, equals('{"foo":"안녕하세요, 세계!"}'));
     });
   });
 
