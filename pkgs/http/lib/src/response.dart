@@ -21,8 +21,8 @@ class Response extends BaseResponse {
   ///
   /// This is converted from [bodyBytes] using the `charset` parameter of the
   /// `Content-Type` header field, if available. If it's unavailable or if the
-  /// encoding name is unknown, [utf8] is used by default, as per
-  /// [RFC3629][].
+  /// encoding name is unknown, [utf8] is used by default,
+  /// as per [RFC3629][].
   ///
   /// [RFC3629]:https://www.rfc-editor.org/rfc/rfc3629.
   String get body => _encodingForHeaders(headers).decode(bodyBytes);
