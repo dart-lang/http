@@ -21,10 +21,12 @@ class Response extends BaseResponse {
   ///
   /// This is converted from [bodyBytes] using the `charset` parameter of the
   /// `Content-Type` header field, if available. If it's unavailable or if the
-  /// encoding name is unknown, [utf8] is used by default,
-  /// as per [RFC3629][].
+  /// encoding name is unknown:
+  /// - [utf8] is used when the content-type is 'application/json' (see [RFC 3629]).
+  /// - [latin1] is used in all other cases (see [RFC 2616][])
   ///
-  /// [RFC3629]:https://www.rfc-editor.org/rfc/rfc3629.
+  /// [RFC 3629]:https://www.rfc-editor.org/rfc/rfc3629.
+  /// [RFC 2616]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html
   String get body => _encodingForHeaders(headers).decode(bodyBytes);
 
   /// Creates a new HTTP response with a string body.
@@ -68,7 +70,8 @@ class Response extends BaseResponse {
 ///
 /// If the `Content-Type` header specifies a charset, it will use that charset.
 /// If no charset is provided or the charset is unknown:
-/// - Defaults to [utf8] if the `Content-Type` is `application/json` (since JSON is defined to use UTF-8 by default).
+/// - Defaults to [utf8] if the `Content-Type` is `application/json`
+///   (since JSON is defined to use UTF-8 by default).
 /// - Otherwise, defaults to [latin1] for compatibility.
 Encoding _encodingForHeaders(Map<String, String> headers) =>
     encodingForContentTypeHeader(_contentTypeForHeaders(headers));
