@@ -44,6 +44,8 @@ BaseClient createClient() {
 class BrowserClient extends BaseClient {
   final _abortController = AbortController();
 
+  final String? _cacheMode;
+
   /// Create a new browser-based HTTP Client.
   ///
   /// If [cacheMode] is provided then it can be used to cache the request
@@ -51,10 +53,12 @@ class BrowserClient extends BaseClient {
   ///
   /// For example:
   /// ```dart
-  /// const mode = 'reload';
-  /// final client = BrowserClient(cacheMode: mode);
+  /// final client = BrowserClient(cacheMode: 'reload');
   /// ```
-  BrowserClient({this.cacheMode = 'default'});
+  ///
+  /// Defaults to `default`.
+  /// https://developer.mozilla.org/en-US/docs/Web/API/Request/cache
+  BrowserClient([String? cacheMode]) : _cacheMode = cacheMode ?? "default";
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
@@ -63,11 +67,6 @@ class BrowserClient extends BaseClient {
   bool withCredentials = false;
 
   bool _isClosed = false;
-
-  /// Use different caching mode for a HTTP request.
-  /// Defaults to `default`.
-  // https://developer.mozilla.org/en-US/docs/Web/API/Request/cache
-  String cacheMode;
 
   /// Sends an HTTP request and asynchronously returns the response.
   @override
@@ -85,7 +84,7 @@ class BrowserClient extends BaseClient {
             RequestInit(
               method: request.method,
               body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
-              cache: cacheMode,
+              cache: _cacheMode!,
               credentials: withCredentials ? 'include' : 'same-origin',
               headers: {
                 if (request.contentLength case final contentLength?)
@@ -200,4 +199,18 @@ Stream<List<int>> _readBody(BaseRequest request, Response response) async* {
 @JS()
 extension type _IterableHeaders._(JSObject _) implements JSObject {
   external void forEach(JSFunction fn);
+}
+
+/// Caching modes for any http request in a browser.
+enum CacheMode {
+  defaultType('default'),
+  reload('reload'),
+  noStore('no-store'),
+  noCache('no-cache'),
+  forceCache('force-cache'),
+  onlyIfCached('only-if-cached');
+
+  final String cacheType;
+
+  const CacheMode(this.cacheType);
 }

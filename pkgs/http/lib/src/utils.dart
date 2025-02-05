@@ -68,22 +68,3 @@ Stream<T> onDone<T>(Stream<T> stream, void Function() onDone) =>
       sink.close();
       onDone();
     }));
-
-/// Caching modes for any http request in a browser.
-enum CacheMode {
-  defaultType('default'),
-  reload('reload'),
-  noStore('no-store'),
-  noCache('no-cache'),
-  forceCache('force-cache'),
-  onlyIfCached('only-if-cached');
-
-  final String cacheType;
-
-  const CacheMode(this.cacheType);
-
-  static CacheMode fromString(String cacheType) => values.firstWhere(
-        (v) => v.cacheType == cacheType,
-        orElse: () => CacheMode.defaultType,
-      );
-}
