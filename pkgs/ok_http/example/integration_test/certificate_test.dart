@@ -38,6 +38,26 @@ void main() async {
         expect(chain[0].getType()!.toDartString(), 'X.509');
       });
 
+      test('no key', () async {
+        final certBytes =
+            await loadCertificateBytes('test_certs/server_chain.p12');
+        expect(
+            () => loadPrivateKeyAndCertificateChainFromPKCS12(
+                certBytes, 'dartdart'),
+            throwsA(isA<ArgumentError>()
+                .having((e) => e.message, 'toString', contains('no key'))));
+      });
+
+      test('no chain', () async {
+        final certBytes =
+            await loadCertificateBytes('test_certs/server_key.p12');
+        expect(
+            () => loadPrivateKeyAndCertificateChainFromPKCS12(
+                certBytes, 'dartdart'),
+            throwsA(isA<ArgumentError>().having((e) => e.message, 'toString',
+                contains('no certificate chain'))));
+      });
+
       test('bad password', () async {
         final certBytes =
             await loadCertificateBytes('test_certs/test-combined.p12');

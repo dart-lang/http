@@ -23,10 +23,6 @@ import 'package:jni/jni.dart';
 import 'jni/bindings.dart' as bindings;
 import 'jni/bindings.dart' show PrivateKey, X509Certificate;
 
-extension on List<int> {
-  JByteArray toJByteArray() => JByteArray(length)..setRange(0, length, this);
-}
-
 class _JavaIOException extends IOException {
   final String _message;
   _JavaIOException(JniException e) : _message = e.message;
@@ -154,14 +150,20 @@ Future<String?> choosePrivateKeyAlias({
   }
   try {
     keyStore.load(
-        bindings.ByteArrayInputStream(pkcs12Data.toJByteArray()), jPassword);
+        bindings.ByteArrayInputStream(JByteArray.from(pkcs12Data)), jPassword);
   } on JniException catch (e) {
     if (e.message.contains('java.io.IOException')) {
       throw _JavaIOException(e);
     }
   }
 
-  assert(keyStore.size() == 1, 'unexpected KeyStore size: ${keyStore.size()}');
+  if (keyStore.size() == 0) {
+    throw ArgumentError('no key in PKC12 data', 'pkcs12Data');
+  }
+
+  if (keyStore.size() > 1) {
+    throw ArgumentError('multiple entries in PKC12 data', 'pkcs12Data');
+  }
 
   final aliases = keyStore.aliases()!;
   final jAlias = aliases.nextElement()!;
@@ -175,11 +177,17 @@ Future<String?> choosePrivateKeyAlias({
     throw ArgumentError('no certificate chain in PKC12 data', 'pkcs12Data');
   }
 
-  // TODO: Add `isA` type checks when
-  // https://github.com/dart-lang/native/pull/1943 is released.
+  if (!pk.isA(PrivateKey.type)) {
+    throw ArgumentError('certificate key is not a PrivateKey', 'pkcs12Data');
+  }
 
-  final certificates =
-      jCertificates.map((c) => c!.as(X509Certificate.type)).toList();
+  final certificates = jCertificates.map((c) {
+    if (c == null || !c.isA(X509Certificate.type)) {
+      throw ArgumentError(
+          'certificate chain contains non-X509 certificates', 'pkcs12Data');
+    }
+    return c.as(X509Certificate.type);
+  }).toList();
   return (pk.as(PrivateKey.type), certificates);
 }
 
@@ -241,14 +249,11 @@ class OkHttpClient extends BaseClient {
       final trustManagers = JArray(bindings.TrustManager.nullableType, 1);
 
       if (clientPrivateKey != null && clientCertificateChain != null) {
-        // TODO: Switch to `JArray.of` when package:jnigen 0.20 is released.
-        // This does not work if `clientCertificateChain` is empty list.
-        final chain = JArray.filled(
-            clientCertificateChain.length, clientCertificateChain[0])
-          ..setRange(0, clientCertificateChain.length, clientCertificateChain);
-        final foo = bindings.FixedResponseX509ExtendedKeyManager(
+        final chain =
+            JArray.of(bindings.X509Certificate.type, clientCertificateChain);
+        final keyManager = bindings.FixedResponseX509ExtendedKeyManager(
             chain, clientPrivateKey, 'DUMMY'.toJString());
-        keyManagers = JArray.filled(1, foo.as(bindings.KeyManager.type),
+        keyManagers = JArray.filled(1, keyManager.as(bindings.KeyManager.type),
             E: bindings.KeyManager.type);
       }
 
@@ -357,7 +362,7 @@ class OkHttpClient extends BaseClient {
     // So, we need to handle this case separately.
     bindings.RequestBody? okReqBody;
     if (requestMethod != 'GET' && requestMethod != 'HEAD') {
-      okReqBody = bindings.RequestBody.create$10(requestBody.toJByteArray());
+      okReqBody = bindings.RequestBody.create$10(JByteArray.from(requestBody));
     }
 
     reqBuilder.method(
