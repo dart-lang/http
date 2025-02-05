@@ -58,7 +58,7 @@ class BrowserClient extends BaseClient {
   ///
   /// Defaults to `default`.
   /// https://developer.mozilla.org/en-US/docs/Web/API/Request/cache
-  BrowserClient([String? cacheMode]) : _cacheMode = cacheMode ?? "default";
+  BrowserClient([String? cacheMode]) : _cacheMode = cacheMode ?? 'default';
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
