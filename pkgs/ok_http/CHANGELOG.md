@@ -2,7 +2,9 @@
 
 - `OkHttpClient` now receives an `OkHttpClientConfiguration` to configure the client on a per-call basis.
 - `OkHttpClient` supports setting four types of timeouts: [`connectTimeout`](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/connect-timeout.html), [`readTimeout`](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/read-timeout.html), [`writeTimeout`](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html), and [`callTimeout`](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/call-timeout.html), using the `OkHttpClientConfiguration`.
-- Update to `jnigen` 0.12.2
+- Upgrade to `jni` 0.14.0
+- Upgrade to `jnigen` 0.14.0
+- `OKHttpClient` supports client certificates.
 
 ## 0.1.0
 

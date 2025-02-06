@@ -13,6 +13,7 @@
 library;
 
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:http/http.dart';
@@ -20,6 +21,27 @@ import 'package:http_profile/http_profile.dart';
 import 'package:jni/jni.dart';
 
 import 'jni/bindings.dart' as bindings;
+import 'jni/bindings.dart' show PrivateKey, X509Certificate;
+
+class _JavaIOException extends IOException {
+  final String _message;
+  _JavaIOException(JniException e) : _message = e.message;
+
+  @override
+  String toString() => _message;
+}
+
+/// A [bindings.X509TrustManager] that trusts all certificates.
+final _allAllTrustManager =
+    bindings.X509TrustManager.implement(bindings.$X509TrustManager(
+        checkClientTrusted: (chain, authType) {},
+        checkServerTrusted: (chain, authType) {},
+        getAcceptedIssuers: () {
+          final factory = bindings.TrustManagerFactory.getInstance(
+              bindings.TrustManagerFactory.getDefaultAlgorithm());
+          factory!.init(null);
+          return JArray(bindings.X509Certificate.nullableType, 0);
+        })).as(bindings.TrustManager.type);
 
 /// Configurations for the [OkHttpClient].
 class OkHttpClientConfiguration {
@@ -50,12 +72,123 @@ class OkHttpClientConfiguration {
   /// See [OkHttpClient.Builder.writeTimeout](https://square.github.io/okhttp/5.x/okhttp/okhttp3/-ok-http-client/-builder/write-timeout.html).
   final Duration writeTimeout;
 
+  /// The [PrivateKey] used for TLS Client Authentication.
+  ///
+  /// If set then [clientCertificateChain] must also be set.
+  ///
+  /// See [Introducing TLS with Client Authentication](https://blog.cloudflare.com/introducing-tls-client-auth/).
+  final PrivateKey? clientPrivateKey;
+
+  /// The certificate chain used for TLS Client Authentication.
+  ///
+  /// If set then [clientPrivateKey] must also be set.
+  ///
+  /// See [Introducing TLS with Client Authentication](https://blog.cloudflare.com/introducing-tls-client-auth/).
+  final List<X509Certificate>? clientCertificateChain;
+
+  /// Whether the certificate chain for server certificates will be validated.
+  ///
+  /// This should only be used in a testing environment.
+  final bool validateServerCertificates;
+
   const OkHttpClientConfiguration({
     this.callTimeout = Duration.zero,
     this.connectTimeout = const Duration(milliseconds: 10000),
     this.readTimeout = const Duration(milliseconds: 10000),
     this.writeTimeout = const Duration(milliseconds: 10000),
+    this.clientPrivateKey,
+    this.clientCertificateChain,
+    this.validateServerCertificates = true,
   });
+}
+
+/// Launches an Activity for the user to select the alias for a private key and
+/// certificate pair for authentication. The selected alias or null will be
+/// returned.
+///
+/// See [`KeyChain.choosePrivateKeyAlias`](https://developer.android.com/reference/android/security/KeyChain#choosePrivateKeyAlias(android.app.Activity,%20android.security.KeyChainAliasCallback,%20java.lang.String[],%20java.security.Principal[],%20android.net.Uri,%20java.lang.String).
+Future<String?> choosePrivateKeyAlias({
+  JObject? activity,
+}) async {
+  final c = Completer<String?>();
+  activity ??= JObject.fromReference(Jni.getCurrentActivity());
+  bindings.KeyChain.choosePrivateKeyAlias(activity,
+      bindings.KeyChainAliasCallback.implement(
+          bindings.$KeyChainAliasCallback(alias: (alias) {
+    c.complete(alias?.toDartString());
+  })), null, null, null, -1, null);
+  return c.future;
+}
+
+/// Load a [PrivateKey] and certificate chain given a `KeyStore` alias.
+///
+/// See [Android Keystore system](https://developer.android.com/privacy-and-security/keystore).
+(PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromAlias(
+    String alias,
+    {JObject? context}) {
+  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
+  final jAlias = alias.toJString();
+  final pk = bindings.KeyChain.getPrivateKey(context, jAlias)!;
+  final chain = bindings.KeyChain.getCertificateChain(context, jAlias)!;
+
+  return (pk, chain.toList().cast<X509Certificate>());
+}
+
+/// Load a [PrivateKey] and certificate chain from a PKCS 12 archive.
+///
+/// Throws [IOException] if the password is incorrect or the PKCS12 data is
+/// invalid.
+(PrivateKey, List<X509Certificate>) loadPrivateKeyAndCertificateChainFromPKCS12(
+    Uint8List pkcs12Data, String password,
+    {JObject? context}) {
+  context ??= JObject.fromReference(Jni.getCachedApplicationContext());
+  var keyStore = bindings.KeyStore.getInstance('PKCS12'.toJString())!;
+
+  final jPassword = JCharArray(password.length);
+  for (var i = 0; i < password.length; ++i) {
+    jPassword[i] = password[i].codeUnits[0];
+  }
+  try {
+    keyStore.load(
+        bindings.ByteArrayInputStream(JByteArray.from(pkcs12Data)), jPassword);
+  } on JniException catch (e) {
+    if (e.message.contains('java.io.IOException')) {
+      throw _JavaIOException(e);
+    }
+  }
+
+  if (keyStore.size() == 0) {
+    throw ArgumentError('no key in PKC12 data', 'pkcs12Data');
+  }
+
+  if (keyStore.size() > 1) {
+    throw ArgumentError('multiple entries in PKC12 data', 'pkcs12Data');
+  }
+
+  final aliases = keyStore.aliases()!;
+  final jAlias = aliases.nextElement()!;
+
+  final pk = keyStore.getKey(jAlias, jPassword);
+  if (pk == null) {
+    throw ArgumentError('no key in PKC12 data', 'pkcs12Data');
+  }
+  final jCertificates = keyStore.getCertificateChain(jAlias);
+  if (jCertificates == null) {
+    throw ArgumentError('no certificate chain in PKC12 data', 'pkcs12Data');
+  }
+
+  if (!pk.isA(PrivateKey.type)) {
+    throw ArgumentError('certificate key is not a PrivateKey', 'pkcs12Data');
+  }
+
+  final certificates = jCertificates.map((c) {
+    if (c == null || !c.isA(X509Certificate.type)) {
+      throw ArgumentError(
+          'certificate chain contains non-X509 certificates', 'pkcs12Data');
+    }
+    return c.as(X509Certificate.type);
+  }).toList();
+  return (pk.as(PrivateKey.type), certificates);
 }
 
 /// An HTTP [Client] utilizing the [OkHttp](https://square.github.io/okhttp/) client.
@@ -91,8 +224,57 @@ class OkHttpClient extends BaseClient {
   /// Creates a new instance of [OkHttpClient] with the given [configuration].
   OkHttpClient({
     this.configuration = const OkHttpClientConfiguration(),
+//    required String alias,
   }) {
-    _client = bindings.OkHttpClient_Builder().build();
+    final clientPrivateKey = configuration.clientPrivateKey;
+    final clientCertificateChain = configuration.clientCertificateChain;
+
+    if (clientPrivateKey != null && clientCertificateChain == null) {
+      throw ArgumentError(
+          'OkHttpClientConfiguration.clientCertificateChain must be set '
+          'if OkHttpClientConfiguration.clientPrivateKey is set');
+    }
+
+    if (clientCertificateChain != null && clientPrivateKey == null) {
+      throw ArgumentError(
+          'OkHttpClientConfiguration.clientPrivateKey must be set '
+          'if OkHttpClientConfiguration.clientCertificateChain is set');
+    }
+
+    final builder = bindings.OkHttpClient$Builder();
+    if (clientPrivateKey != null ||
+        clientCertificateChain != null ||
+        !configuration.validateServerCertificates) {
+      JArray<bindings.KeyManager>? keyManagers;
+      final trustManagers = JArray(bindings.TrustManager.nullableType, 1);
+
+      if (clientPrivateKey != null && clientCertificateChain != null) {
+        final chain =
+            JArray.of(bindings.X509Certificate.type, clientCertificateChain);
+        final keyManager = bindings.FixedResponseX509ExtendedKeyManager(
+            chain, clientPrivateKey, 'DUMMY'.toJString());
+        keyManagers = JArray.filled(1, keyManager.as(bindings.KeyManager.type),
+            E: bindings.KeyManager.type);
+      }
+
+      if (!configuration.validateServerCertificates) {
+        trustManagers[0] = _allAllTrustManager;
+      } else {
+        final tms = bindings.TrustManagerFactory.getInstance(
+                bindings.TrustManagerFactory.getDefaultAlgorithm())!
+            .getTrustManagers()!;
+        if (tms.length != 1) {
+          throw StateError('unexpected XXX');
+        }
+        trustManagers[0] = tms[0]!;
+      }
+
+      final sslContext = bindings.SSLContext.getInstance('TLS'.toJString())!
+        ..init(keyManagers, trustManagers, null);
+      builder.sslSocketFactory$1(sslContext.getSocketFactory()!,
+          trustManagers[0]!.as(bindings.X509TrustManager.type));
+    }
+    _client = builder.build();
   }
 
   @override
@@ -108,7 +290,7 @@ class OkHttpClient extends BaseClient {
 
       // Close the cache and release the JNI reference to the client.
       var cache = _client.cache();
-      if (!cache.isNull) {
+      if (cache != null) {
         cache.close();
       }
       _client.release();
@@ -170,7 +352,7 @@ class OkHttpClient extends BaseClient {
 
     final responseCompleter = Completer<StreamedResponse>();
 
-    var reqBuilder = bindings.Request_Builder().url$1(requestUrl.toJString());
+    var reqBuilder = bindings.Request$Builder().url$1(requestUrl.toJString());
 
     requestHeaders.forEach((headerName, headerValue) {
       reqBuilder.addHeader(headerName.toJString(), headerValue.toJString());
@@ -178,11 +360,9 @@ class OkHttpClient extends BaseClient {
 
     // OkHttp doesn't allow a non-null RequestBody for GET and HEAD requests.
     // So, we need to handle this case separately.
-    bindings.RequestBody okReqBody;
+    bindings.RequestBody? okReqBody;
     if (requestMethod != 'GET' && requestMethod != 'HEAD') {
-      okReqBody = bindings.RequestBody.create$10(requestBody.toJArray());
-    } else {
-      okReqBody = bindings.RequestBody.fromReference(jNullReference);
+      okReqBody = bindings.RequestBody.create$10(JByteArray.from(requestBody));
     }
 
     reqBuilder.method(
@@ -254,13 +434,13 @@ class OkHttpClient extends BaseClient {
               }
             }
 
-            var responseBodyByteStream = response.body().byteStream();
+            var responseBodyByteStream = response.body()!.byteStream();
             reader.readAsync(
                 responseBodyByteStream,
                 bindings.DataCallback.implement(
                   bindings.$DataCallback(
-                    onDataRead: (JArray<jbyte> bytesRead) {
-                      var data = bytesRead.toUint8List();
+                    onDataRead: (bytesRead) {
+                      var data = bytesRead.toList(growable: false);
 
                       respBodyStreamController.sink.add(data);
                       profile?.responseData.bodySink.add(data);
@@ -333,14 +513,4 @@ class OkHttpClientWithProfile extends OkHttpClient {
       profile = super._createProfile(request);
 
   OkHttpClientWithProfile() : super();
-}
-
-extension on Uint8List {
-  JArray<jbyte> toJArray() =>
-      JArray(jbyte.type, length)..setRange(0, length, this);
-}
-
-extension on JArray<jbyte> {
-  Uint8List toUint8List({int? length}) =>
-      getRange(0, length ?? this.length).buffer.asUint8List();
 }

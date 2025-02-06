@@ -2,28 +2,40 @@
 
 'type-infra':
   - changed-files:
-      - any-glob-to-any-file: '.github/**'
+    - any-glob-to-any-file: '.github/**'
 
 'package:cronet_http':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/cronet_http/**'
+    - any-glob-to-any-file: 'pkgs/cronet_http/**'
 
 'package:cupertino_http':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/cupertino_http/**'
+    - any-glob-to-any-file: 'pkgs/cupertino_http/**'
 
 'package:http':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/http/**'
+    - any-glob-to-any-file: 'pkgs/http/**'
 
 'package:http2':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/http2/**'
-
-'package:http_parser':
-  - changed-files:
-      - any-glob-to-any-file: 'pkgs/http_parser/**'
+    - any-glob-to-any-file: 'pkgs/http2/**'
 
 'package:http_client_conformance_tests':
   - changed-files:
-      - any-glob-to-any-file: 'pkgs/http_client_conformance_tests/**'
+    - any-glob-to-any-file: 'pkgs/http_client_conformance_tests/**'
+
+'package:http_multi_server':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/http_multi_server/**'
+
+'package:http_parser':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/http_parser/**'
+
+'package:web_socket_channel':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/web_socket_channel/**'
+
+'package:web_socket_conformance_tests':
+  - changed-files:
+    - any-glob-to-any-file: 'pkgs/http_client_conformance_tests/**'

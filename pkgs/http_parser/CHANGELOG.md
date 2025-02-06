@@ -1,3 +1,10 @@
+## 4.1.2
+
+* Fixed a bug where parsing quoted header values could require a regex to
+  backtrack
+* Fixed a bug where quoted header values containing escaped quotes would not
+  be correctly parsed.
+
 ## 4.1.1
 
 * Move to `dart-lang/http` monorepo.
