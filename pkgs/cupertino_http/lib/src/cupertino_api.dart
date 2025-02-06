@@ -31,7 +31,6 @@ import 'dart:isolate';
 
 import 'package:objective_c/objective_c.dart' as objc;
 
-import 'native_cupertino_bindings.dart' as ncb;
 import 'native_cupertino_bindings.dart'
     show
         NSHTTPCookieAcceptPolicy,
@@ -41,6 +40,7 @@ import 'native_cupertino_bindings.dart'
         NSURLSessionResponseDisposition,
         NSURLSessionTaskState,
         NSURLSessionWebSocketMessageType;
+import 'native_cupertino_bindings.dart' as ncb;
 import 'utils.dart';
 
 export 'native_cupertino_bindings.dart'
@@ -863,13 +863,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     });
 
     if (onRedirect != null) {
-      ncb
-          .NSURLSessionDataDelegate
-          // ignore: lines_longer_than_80_chars
+      ncb.NSURLSessionDataDelegate
           .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
           .implementAsListener(protoBuilder,
-              // ignore: lines_longer_than_80_chars
-
               (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
         final request = URLRequest._(nsRequest);
         URLRequest? redirectRequest;
