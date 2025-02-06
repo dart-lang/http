@@ -22,7 +22,7 @@ class Response extends BaseResponse {
   /// This is converted from [bodyBytes] using the `charset` parameter of the
   /// `Content-Type` header field, if available. If it's unavailable or if the
   /// encoding name is unknown:
-  /// - [utf8] is used when the content-type is 'application/json' (see [RFC 3629]).
+  /// - [utf8] is used when the content-type is 'application/json' (see [RFC 3629][]).
   /// - [latin1] is used in all other cases (see [RFC 2616][])
   ///
   /// [RFC 3629]:https://www.rfc-editor.org/rfc/rfc3629.
