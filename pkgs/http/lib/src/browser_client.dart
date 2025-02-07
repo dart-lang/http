@@ -4,7 +4,6 @@
 
 import 'dart:async';
 import 'dart:js_interop';
-
 import 'package:web/web.dart'
     show
         AbortController,
@@ -30,6 +29,23 @@ BaseClient createClient() {
   return BrowserClient();
 }
 
+/// Caching mode used by the [BrowserClient].
+///
+/// Sets the request cache value of the browser Fetch API.
+/// [`Request.cache`](https://developer.mozilla.org/en-US/docs/Web/API/Request/cache) property.
+enum CacheMode {
+  defaultType('default'),
+  reload('reload'),
+  noStore('no-store'),
+  noCache('no-cache'),
+  forceCache('force-cache'),
+  onlyIfCached('only-if-cached');
+
+  final String cacheType;
+
+  const CacheMode(this.cacheType);
+}
+
 /// A `package:web`-based HTTP client that runs in the browser and is backed by
 /// [`window.fetch`](https://fetch.spec.whatwg.org/).
 ///
@@ -44,6 +60,20 @@ BaseClient createClient() {
 /// once all the data is available.
 class BrowserClient extends BaseClient {
   final _abortController = AbortController();
+
+  final CacheMode _cacheMode;
+
+  /// Create a new browser-based HTTP Client.
+  ///
+  /// If [cacheMode] is provided then it can be used to cache the request
+  /// in the browser.
+  ///
+  /// For example:
+  /// ```dart
+  /// final client = BrowserClient(cacheMode: CacheMode.reload);
+  /// ```
+  BrowserClient({CacheMode cacheMode = CacheMode.defaultType})
+      : _cacheMode = cacheMode;
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
@@ -69,6 +99,7 @@ class BrowserClient extends BaseClient {
             RequestInit(
               method: request.method,
               body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
+              cache: _cacheMode.cacheType,
               credentials: withCredentials ? 'include' : 'same-origin',
               headers: {
                 if (request.contentLength case final contentLength?)
