@@ -57,7 +57,6 @@ void main() {
     test('two set-cookie, with lots of commas', () async {
       expect(
           splitHeaderValues({
-            // ignore: missing_whitespace_between_adjacent_strings
             'set-cookie':
                 // ignore: missing_whitespace_between_adjacent_strings
                 'id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Path=/,,HE,=L=LO,'
