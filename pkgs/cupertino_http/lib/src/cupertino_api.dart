@@ -863,7 +863,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     });
 
     if (onRedirect != null) {
-      ncb.NSURLSessionDataDelegate
+      ncb
+          .NSURLSessionDataDelegate
+          // ignore: lines_longer_than_80_chars
           .URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler_
           .implementAsListener(protoBuilder,
               (nsSession, nsTask, nsResponse, nsRequest, nsRequestCompleter) {
