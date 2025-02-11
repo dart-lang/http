@@ -39,7 +39,7 @@ void main() async {
     httpClient = IOClient(HttpClient()..userAgent = 'Book Agent');
   }
 
-  final response = await client.get(Uri.https(
+  final response = await httpClient.get(Uri.https(
       'www.googleapis.com',
       '/books/v1/volumes',
       {'q': 'HTTP', 'maxResults': '40', 'printType': 'books'}));
