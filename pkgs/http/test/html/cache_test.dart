@@ -32,7 +32,7 @@ void main() {
 
     expect(bodyUnits,
         equals('{"hello": "world"}'.codeUnits));
-  });
+  }, skip: 'Need to fix server tests for browser');
 
   test('#send a StreamedRequest with reload type', () async {
     var client = BrowserClient(cacheMode: CacheMode.reload);
@@ -49,7 +49,7 @@ void main() {
 
     expect(jsonResponse["headers"]["cache-control"],
         contains('no-cache'));
-  });
+  }, skip: 'Need to fix server tests for browser');
 
   test('#send a StreamedRequest with no-cache type', () async {
     var client = BrowserClient(cacheMode: CacheMode.noCache);
@@ -66,5 +66,5 @@ void main() {
 
     expect(jsonResponse["headers"]["cache-control"],
         contains('max-age=0'));
-  });
+  }, skip: 'Need to fix server tests for browser');
 }
