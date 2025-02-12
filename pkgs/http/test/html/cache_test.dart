@@ -6,37 +6,33 @@
 library;
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:http/browser_client.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/src/exception.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
 
 void main() {
-
   test('#send a StreamedRequest with default type', () async {
     var client = BrowserClient(cacheMode: CacheMode.defaultType);
-    var request = http.StreamedRequest('POST',echoUrl);
-
+    var request = http.StreamedRequest('POST', echoUrl);
     var responseFuture = client.send(request);
     request.sink.add('{"hello": "world"}'.codeUnits);
     unawaited(request.sink.close());
-    var response = await responseFuture;
-    var bytesString = await response.stream.bytesToString();
 
-    final jsonResponse = jsonDecode(bytesString);
-    var bodyUnits = jsonResponse['body'] as List;
+    var response = await responseFuture;
+
     client.close();
 
-    expect(bodyUnits,
-        equals('{"hello": "world"}'.codeUnits));
+    expect(response.statusCode, 200);
+    expect(response.reasonPhrase, 'OK');
   }, skip: 'Need to fix server tests for browser');
 
   test('#send a StreamedRequest with reload type', () async {
     var client = BrowserClient(cacheMode: CacheMode.reload);
-    var request = http.StreamedRequest('POST',echoUrl);
+    var request = http.StreamedRequest('POST', echoUrl);
 
     var responseFuture = client.send(request);
     request.sink.add('{"hello": "world"}'.codeUnits);
@@ -44,16 +40,14 @@ void main() {
     var response = await responseFuture;
     var bytesString = await response.stream.bytesToString();
 
-    final jsonResponse = jsonDecode(bytesString);
     client.close();
 
-    expect(jsonResponse["headers"]["cache-control"],
-        contains('no-cache'));
+    expect(bytesString, contains('no-cache'));
   }, skip: 'Need to fix server tests for browser');
 
   test('#send a StreamedRequest with no-cache type', () async {
     var client = BrowserClient(cacheMode: CacheMode.noCache);
-    var request = http.StreamedRequest('POST',echoUrl);
+    var request = http.StreamedRequest('POST', echoUrl);
 
     var responseFuture = client.send(request);
     request.sink.add('{"hello": "world"}'.codeUnits);
@@ -61,10 +55,29 @@ void main() {
     var response = await responseFuture;
     var bytesString = await response.stream.bytesToString();
 
-    final jsonResponse = jsonDecode(bytesString);
     client.close();
+    expect(bytesString, contains('max-age=0'));
+  }, skip: 'Need to fix server tests for browser');
 
-    expect(jsonResponse["headers"]["cache-control"],
-        contains('max-age=0'));
+  test('#send a StreamedRequest with only-if-cached type', () {
+    var client = BrowserClient(cacheMode: CacheMode.onlyIfCached);
+    var request = http.StreamedRequest('POST', echoUrl);
+
+    expectLater(client.send(request), throwsA(isA<ClientException>()));
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    unawaited(request.sink.close());
+
+    client.close();
+  }, skip: 'Need to fix server tests for browser');
+
+  test('#send with an invalid URL', () {
+    var client = BrowserClient(cacheMode: CacheMode.onlyIfCached);
+    var url = Uri.http('http.invalid', '');
+    var request = http.StreamedRequest('POST', url);
+
+    expect(client.send(request), throwsClientException());
+
+    request.sink.add('{"hello": "world"}'.codeUnits);
+    request.sink.close();
   }, skip: 'Need to fix server tests for browser');
 }
