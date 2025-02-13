@@ -337,7 +337,7 @@ class URLResponse extends _ObjectHolder<ncb.NSURLResponse> {
   /// The MIME type of the response.
   ///
   /// See [NSURLResponse.MIMEType](https://developer.apple.com/documentation/foundation/nsurlresponse/1411613-mimetype)
-  String? get mimeType => _nsObject.MIMEType?.toString();
+  String? get mimeType => _nsObject.MIMEType?.toDartString();
 
   @override
   String toString() => '[URLResponse '
@@ -411,7 +411,7 @@ class URLSessionWebSocketMessage
   /// Will be `null` if the [URLSessionWebSocketMessage] is a data message.
   ///
   /// See [NSURLSessionWebSocketMessage.string](https://developer.apple.com/documentation/foundation/nsurlsessionwebsocketmessage/3181194-string)
-  String? get string => _nsObject.string?.toString();
+  String? get string => _nsObject.string?.toDartString();
 
   /// The type of the WebSocket message.
   ///
@@ -516,7 +516,7 @@ class URLSessionTask extends _ObjectHolder<ncb.NSURLSessionTask> {
   /// The user-assigned description for the task.
   ///
   /// See [NSURLSessionTask.taskDescription](https://developer.apple.com/documentation/foundation/nsurlsessiontask/1409798-taskdescription)
-  String get taskDescription => _nsObject.taskDescription.toString();
+  String get taskDescription => _nsObject.taskDescription?.toDartString() ?? '';
 
   /// The user-assigned description for the task.
   ///
@@ -702,7 +702,7 @@ class URLRequest extends _ObjectHolder<ncb.NSURLRequest> {
   /// NOTE: The documentation for `NSURLRequest.HTTPMethod` says that the
   /// property is nullable but, in practice, assigning it to null will produce
   /// an error.
-  String get httpMethod => _nsObject.HTTPMethod!.toString();
+  String get httpMethod => _nsObject.HTTPMethod!.toDartString();
 
   /// The timeout interval during the connection attempt.
   ///
@@ -938,7 +938,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
             URLSession._(nsSession,
                 isBackground: isBackground, hasDelegate: true),
             URLSessionWebSocketTask._(nsTask),
-            nsProtocol?.toString());
+            nsProtocol?.toDartString());
       });
     }
 
@@ -1083,7 +1083,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// A description of the session that may be useful for debugging.
   ///
   /// See [NSURLSession.sessionDescription](https://developer.apple.com/documentation/foundation/nsurlsession/1408277-sessiondescription)
-  String? get sessionDescription => _nsObject.sessionDescription?.toString();
+  String? get sessionDescription =>
+      _nsObject.sessionDescription?.toDartString();
   set sessionDescription(String? value) =>
       _nsObject.sessionDescription = value?.toNSString();
 

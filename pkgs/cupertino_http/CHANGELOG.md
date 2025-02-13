@@ -1,6 +1,7 @@
 ## 2.0.3-wip
 
 * Remove some unnecessary native code.
+* Upgrade to `package:objective_c` 5.0.
 
 ## 2.0.2
 
