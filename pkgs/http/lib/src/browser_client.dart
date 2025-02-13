@@ -10,9 +10,9 @@ import 'package:web/web.dart'
         AbortController,
         HeadersInit,
         ReadableStreamDefaultReader,
+        RequestInfo,
         RequestInit,
-        Response,
-        window;
+        Response;
 
 import 'base_client.dart';
 import 'base_request.dart';
@@ -29,6 +29,12 @@ BaseClient createClient() {
   }
   return BrowserClient();
 }
+
+@JS('fetch')
+external JSPromise<Response> _fetch(
+  RequestInfo input, [
+  RequestInit init,
+]);
 
 /// A `package:web`-based HTTP client that runs in the browser and is backed by
 /// [`window.fetch`](https://fetch.spec.whatwg.org/).
@@ -63,24 +69,22 @@ class BrowserClient extends BaseClient {
 
     final bodyBytes = await request.finalize().toBytes();
     try {
-      final response = await window
-          .fetch(
-            '${request.url}'.toJS,
-            RequestInit(
-              method: request.method,
-              body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
-              credentials: withCredentials ? 'include' : 'same-origin',
-              headers: {
-                if (request.contentLength case final contentLength?)
-                  'content-length': contentLength,
-                for (var header in request.headers.entries)
-                  header.key: header.value,
-              }.jsify()! as HeadersInit,
-              signal: _abortController.signal,
-              redirect: request.followRedirects ? 'follow' : 'error',
-            ),
-          )
-          .toDart;
+      final response = await _fetch(
+        '${request.url}'.toJS,
+        RequestInit(
+          method: request.method,
+          body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
+          credentials: withCredentials ? 'include' : 'same-origin',
+          headers: {
+            if (request.contentLength case final contentLength?)
+              'content-length': contentLength,
+            for (var header in request.headers.entries)
+              header.key: header.value,
+          }.jsify()! as HeadersInit,
+          signal: _abortController.signal,
+          redirect: request.followRedirects ? 'follow' : 'error',
+        ),
+      ).toDart;
 
       final contentLengthHeader = response.headers.get('content-length');
 
