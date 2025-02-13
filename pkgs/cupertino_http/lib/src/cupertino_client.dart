@@ -169,7 +169,7 @@ class CupertinoClient extends BaseClient {
     final taskTracker = _tracker(task);
     if (error != null) {
       final exception = ClientException(
-          error.localizedDescription.toString(), taskTracker.request.url);
+          error.localizedDescription.toDartString(), taskTracker.request.url);
       if (taskTracker.profile != null &&
           taskTracker.profile!.requestData.endTime == null) {
         // Error occurred during the request.
