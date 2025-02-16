@@ -1,3 +1,10 @@
+## 1.4.0-wip
+
+* Fixed default encoding for application/json without a charset
+  to use utf8 instead of latin1, ensuring proper JSON decoding.
+* Avoid references to `window` in `BrowserClient`, restoring support for web
+  workers and NodeJS.
+
 ## 1.3.0
 
 * Fixed unintended HTML tags in doc comments.

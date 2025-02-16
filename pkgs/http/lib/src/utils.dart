@@ -6,6 +6,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:http_parser/http_parser.dart';
+
 import 'byte_stream.dart';
 
 /// Converts a [Map] from parameter names to values to a URL query string.
@@ -18,13 +20,27 @@ String mapToQuery(Map<String, String> map, {required Encoding encoding}) =>
             '=${Uri.encodeQueryComponent(e.value, encoding: encoding)}')
         .join('&');
 
-/// Returns the [Encoding] that corresponds to [charset].
+/// Determines the appropriate [Encoding] based on the given [contentTypeHeader]
 ///
-/// Returns [fallback] if [charset] is null or if no [Encoding] was found that
-/// corresponds to [charset].
-Encoding encodingForCharset(String? charset, [Encoding fallback = latin1]) {
-  if (charset == null) return fallback;
-  return Encoding.getByName(charset) ?? fallback;
+/// - If the `Content-Type` is `application/json` and no charset is specified,
+///   it defaults to [utf8].
+/// - If a charset is specified in the parameters,
+///   it attempts to find a matching [Encoding].
+/// - If no charset is specified or the charset is unknown,
+///   it falls back to the provided [fallback], which defaults to [latin1].
+Encoding encodingForContentTypeHeader(MediaType contentTypeHeader,
+    [Encoding fallback = latin1]) {
+  final charset = contentTypeHeader.parameters['charset'];
+
+  // Default to utf8 for application/json when charset is unspecified.
+  if (contentTypeHeader.type == 'application' &&
+      contentTypeHeader.subtype == 'json' &&
+      charset == null) {
+    return utf8;
+  }
+
+  // Attempt to find the encoding or fall back to the default.
+  return charset != null ? Encoding.getByName(charset) ?? fallback : fallback;
 }
 
 /// Returns the [Encoding] that corresponds to [charset].
