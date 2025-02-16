@@ -99,7 +99,6 @@ class BrowserClient extends BaseClient {
 
     final bodyBytes = await request.finalize().toBytes();
     try {
-
       final response = await _fetch(
         '${request.url}'.toJS,
         RequestInit(
