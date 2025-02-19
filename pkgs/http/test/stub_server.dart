@@ -11,7 +11,7 @@ import 'package:http/src/utils.dart';
 import 'package:stream_channel/stream_channel.dart';
 
 void hybridMain(StreamChannel<dynamic> channel) async {
-  final server = await HttpServer.bind('localhost', 0);
+  final server = await HttpServer.bind('localhost', 63618);
   final url = Uri.http('localhost:${server.port}', '');
   server.listen((request) async {
     var path = request.uri.path;
@@ -31,6 +31,17 @@ void hybridMain(StreamChannel<dynamic> channel) async {
         ..statusCode = 302
         ..headers.set('location', url.resolve('/loop?${n + 1}').toString())
         ..contentLength = 0;
+      unawaited(response.close());
+      return;
+    }
+
+    if (path == '/echo') {
+      response
+        ..headers.add("Access-Control-Allow-Origin", "localhost")
+        ..headers.add("Access-Control-Allow-Methods", "POST, GET")
+        ..statusCode = 200
+        ..contentLength = 31
+        ..write('object');
       unawaited(response.close());
       return;
     }
