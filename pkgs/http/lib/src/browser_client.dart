@@ -46,6 +46,21 @@ enum CacheMode {
   const CacheMode(this.cacheType);
 }
 
+/// Request mode used by the [BrowserClient].
+///
+/// Sets the request mode value of the browser Fetch API.
+/// [`Request.mode`](https://developer.mozilla.org/en-US/docs/Web/API/Request/mode) property.
+enum RequestMode {
+  sameOrigin('same-origin'),
+  noCors('no-cors'),
+  cors('cors'),
+  navigate('navigate');
+
+  final String requestType;
+
+  const RequestMode(this.requestType);
+}
+
 @JS('fetch')
 external JSPromise<Response> _fetch(
   RequestInfo input, [
@@ -69,6 +84,7 @@ class BrowserClient extends BaseClient {
 
   final CacheMode _cacheMode;
 
+  final RequestMode _requestMode;
   /// Create a new browser-based HTTP Client.
   ///
   /// If [cacheMode] is provided then it can be used to cache the request
@@ -78,8 +94,10 @@ class BrowserClient extends BaseClient {
   /// ```dart
   /// final client = BrowserClient(cacheMode: CacheMode.reload);
   /// ```
-  BrowserClient({CacheMode cacheMode = CacheMode.defaultType})
-      : _cacheMode = cacheMode;
+  BrowserClient({RequestMode requestMode = RequestMode.cors,
+    CacheMode cacheMode = CacheMode.defaultType})
+      : _cacheMode = cacheMode,
+        _requestMode = requestMode;
 
   /// Whether to send credentials such as cookies or authorization headers for
   /// cross-site requests.
@@ -105,7 +123,7 @@ class BrowserClient extends BaseClient {
           method: request.method,
           body: bodyBytes.isNotEmpty ? bodyBytes.toJS : null,
           cache: _cacheMode.cacheType,
-          mode: '',
+          mode: _requestMode.requestType,
           credentials: withCredentials ? 'include' : 'same-origin',
           headers: {
             if (request.contentLength case final contentLength?)
