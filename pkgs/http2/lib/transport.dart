@@ -73,7 +73,7 @@ abstract class TransportConnection {
   Future finish();
 
   /// Terminates this connection forcefully.
-  Future terminate([int? errorCode]);
+  Future terminate([int? errorCode, String? message]);
 }
 
 abstract class ClientTransportConnection extends TransportConnection {
