@@ -10,7 +10,6 @@ import 'dart:async';
 import 'package:http/browser_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-import 'package:stream_channel/stream_channel.dart';
 import 'package:test/test.dart';
 
 import 'utils.dart';
