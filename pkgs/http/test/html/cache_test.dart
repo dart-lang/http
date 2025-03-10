@@ -41,11 +41,11 @@ void main() {
     client.close();
   });
 
-  test('#send a POST with no-cache type', () async {
+  test('#send a GET with no-cache type', () async {
     var client = BrowserClient(cacheMode: CacheMode.noCache);
 
-    await client.post(url);
-    var response = await client.post(url);
+    await client.get(url);
+    var response = await client.get(url);
     client.close();
     expect(
         response.body,
@@ -53,30 +53,29 @@ void main() {
             containsPair('cache-control', ['max-age=0']))));
   });
 
-  test('#send a POST with no-store type', () async {
+  test('#send a GET with no-store type', () async {
     var client = BrowserClient(cacheMode: CacheMode.noStore);
 
-    await client.post(url);
-    var response = await client.post(url);
+    await client.get(url);
+    var response = await client.get(url);
     client.close();
     expect(response.body, parse(allOf(containsPair('numOfRequests', 2))));
   });
 
-  test('#send a POST with force-store type', () async {
+  test('#send a GET with force-store type', () async {
     var client = BrowserClient(cacheMode: CacheMode.forceCache);
 
-    await client.post(url);
-    var response = await client.post(url);
+    await client.get(url);
+    var response = await client.get(url);
     client.close();
-    expect(response.body, parse(allOf(containsPair('numOfRequests', 2))));
+    expect(response.body, parse(allOf(containsPair('numOfRequests', 1))));
   });
 
   test('#send a StreamedRequest with only-if-cached type', () {
     var client = BrowserClient(cacheMode: CacheMode.onlyIfCached);
-    var request = http.StreamedRequest('POST', url);
+    var request = http.StreamedRequest('GET', url);
 
     expectLater(client.send(request), throwsA(isA<ClientException>()));
-    request.sink.add('{"hello": "world"}'.codeUnits);
     unawaited(request.sink.close());
 
     client.close();
