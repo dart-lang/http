@@ -14,20 +14,30 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
+  late int port;
+  setUpAll(() async {
+    final channel =
+        spawnHybridUri(Uri(path: '/test/stub_server.dart'), stayAlive: true);
+    port = await channel.stream.first as int;
+  });
+
   test('#send a StreamedRequest', () async {
     var client = BrowserClient();
-    var request = http.StreamedRequest('POST', echoUrl);
+    var request = http.StreamedRequest('POST', echoUrl.replace(port: port));
 
     var responseFuture = client.send(request);
     request.sink.add('{"hello": "world"}'.codeUnits);
     unawaited(request.sink.close());
 
     var response = await responseFuture;
+
     var bytesString = await response.stream.bytesToString();
+
     client.close();
 
-    expect(bytesString, equals('{"hello": "world"}'));
-  }, skip: 'Need to fix server tests for browser');
+    expect(bytesString,
+        parse(allOf(containsPair('body', '{"hello": "world"}'.codeUnits))));
+  });
 
   test('#send with an invalid URL', () {
     var client = BrowserClient();

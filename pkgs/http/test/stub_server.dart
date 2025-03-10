@@ -11,6 +11,7 @@ import 'package:http/src/utils.dart';
 import 'package:stream_channel/stream_channel.dart';
 
 void hybridMain(StreamChannel<dynamic> channel) async {
+  var numOfRequests = 0;
   final server = await HttpServer.bind('localhost', 63618);
   final url = Uri.http('localhost:${server.port}', '');
   server.listen((request) async {
@@ -35,17 +36,6 @@ void hybridMain(StreamChannel<dynamic> channel) async {
       return;
     }
 
-    if (path == '/echo') {
-      response
-        ..headers.add("Access-Control-Allow-Origin", "localhost")
-        ..headers.add("Access-Control-Allow-Methods", "POST, GET")
-        ..statusCode = 200
-        ..contentLength = 31
-        ..write('object');
-      unawaited(response.close());
-      return;
-    }
-
     if (path == '/redirect') {
       response
         ..statusCode = 302
@@ -62,6 +52,14 @@ void hybridMain(StreamChannel<dynamic> channel) async {
         ..write('body');
       unawaited(response.close());
       return;
+    }
+
+    // For browser runtime testing...
+    if (path == '/echo') {
+      ++numOfRequests;
+      response
+        ..headers.add('Access-Control-Allow-Origin', '*')
+        ..headers.add('Access-Control-Allow-Methods', 'POST, GET');
     }
 
     var requestBodyBytes = await ByteStream(request).toBytes();
@@ -99,6 +97,7 @@ void hybridMain(StreamChannel<dynamic> channel) async {
       'path': request.uri.path,
       if (requestBody != null) 'body': requestBody,
       'headers': headers,
+      if (path == '/echo') 'numOfRequests': numOfRequests
     };
 
     var body = json.encode(content);

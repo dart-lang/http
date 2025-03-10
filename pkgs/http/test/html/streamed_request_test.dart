@@ -14,27 +14,35 @@ import 'package:test/test.dart';
 import 'utils.dart';
 
 void main() {
+  late Uri url;
+  setUpAll(() async {
+    final channel =
+        spawnHybridUri(Uri(path: '/test/stub_server.dart'), stayAlive: true);
+    var port = await channel.stream.first as int;
+    url = echoUrl.replace(port: port);
+  });
   group('contentLength', () {
     test("works when it's set", () async {
-      var request = http.StreamedRequest('POST', echoUrl)
+      var request = http.StreamedRequest('POST', url)
         ..contentLength = 10
         ..sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       unawaited(request.sink.close());
 
       final response = await BrowserClient().send(request);
 
-      expect(await response.stream.toBytes(),
-          equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+      expect(await response.stream.bytesToString(),
+          parse(allOf(containsPair('body', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))));
     });
 
     test("works when it's not set", () async {
-      var request = http.StreamedRequest('POST', echoUrl);
+      var request = http.StreamedRequest('POST', url);
       request.sink.add([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
       unawaited(request.sink.close());
 
       final response = await BrowserClient().send(request);
-      expect(await response.stream.toBytes(),
-          equals([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
+
+      expect(await response.stream.bytesToString(),
+          parse(allOf(containsPair('body', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))));
     });
-  }, skip: 'Need to fix server tests for browser');
+  });
 }

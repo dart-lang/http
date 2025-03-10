@@ -1,3 +1,7 @@
+## 1.5.0
+
+* Added caching options for `BrowserClient` with fixing tests.
+ 
 ## 1.4.0-wip
 
 * Fixed default encoding for application/json without a charset
