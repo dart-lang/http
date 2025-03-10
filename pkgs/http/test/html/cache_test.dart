@@ -19,7 +19,7 @@ void main() {
   late Uri url;
   setUp(() async {
     final channel = spawnHybridUri(Uri(path: '/test/stub_server.dart'));
-    var port = await (channel.stream.first as num).toInt();
+    var port = (await channel.stream.first as num).toInt();
     url = echoUrl.replace(port: port);
   });
 

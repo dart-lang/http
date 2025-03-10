@@ -18,7 +18,7 @@ void main() {
   setUpAll(() async {
     final channel =
         spawnHybridUri(Uri(path: '/test/stub_server.dart'), stayAlive: true);
-    var port = await (channel.stream.first as num).toInt();
+    var port = (await channel.stream.first as num).toInt();
     url = echoUrl.replace(port: port);
   });
   group('contentLength', () {
