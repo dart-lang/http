@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable"
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/web_socket-pkgs/web_socket_conformance_tests;commands:analyze_1"
@@ -110,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/web_socket-pkgs/web_socket_conformance_tests;commands:analyze_1"
@@ -176,7 +176,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_client_conformance_tests-pkgs/http_profile-pkgs/web_socket-pkgs/web_socket_conformance_tests;commands:format"
@@ -242,7 +242,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:pkgs/flutter_http_example;commands:format"
@@ -272,7 +272,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:pkgs/flutter_http_example;commands:analyze_0"
@@ -302,7 +302,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/http;commands:command_1"
@@ -339,7 +339,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/http;commands:test_3"
@@ -376,7 +376,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/http-pkgs/http_profile;commands:test_2"
@@ -422,7 +422,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/web_socket;commands:test_6"
@@ -459,7 +459,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:3.4.0;packages:pkgs/web_socket;commands:test_5"
@@ -496,7 +496,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:command_1"
@@ -533,7 +533,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:test_3"
@@ -570,7 +570,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http-pkgs/http_profile;commands:test_2"
@@ -616,7 +616,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/http;commands:test_4"
@@ -653,7 +653,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/web_socket;commands:test_6"
@@ -690,7 +690,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:dev;packages:pkgs/web_socket;commands:test_5"
@@ -727,7 +727,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:pkgs/flutter_http_example;commands:test_1"
@@ -764,7 +764,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:ubuntu-latest;pub-cache-hosted;sdk:stable;packages:pkgs/flutter_http_example;commands:command_0"
@@ -801,7 +801,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Cache Pub hosted dependencies
-        uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a
+        uses: actions/cache@v4
         with:
           path: "~/.pub-cache/hosted"
           key: "os:macos-latest;pub-cache-hosted;sdk:stable;packages:pkgs/flutter_http_example;commands:command_0"
