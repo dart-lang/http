@@ -15,17 +15,11 @@ import 'package:test/test.dart';
 
 import 'utils.dart';
 
-extension on StreamChannel<dynamic> {
-  /// Handles the Wasm case where the runtime type is actually [double] instead
-  /// of the JS case where its [int].
-  Future<int> get firstAsInt async => ((await stream.first) as num).toInt();
-}
-
 void main() {
   late Uri url;
   setUp(() async {
     final channel = spawnHybridUri(Uri(path: '/test/stub_server.dart'));
-    var port = await channel.firstAsInt;
+    var port = await (channel.stream.first as num).toInt();
     url = echoUrl.replace(port: port);
   });
 
