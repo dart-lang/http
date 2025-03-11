@@ -17,6 +17,9 @@ void hybridMain(StreamChannel<dynamic> channel) async {
   server.listen((request) async {
     var path = request.uri.path;
     var response = request.response;
+    response.headers
+      ..set('Cache-Control', 'public, max-age=30, immutable')
+      ..set('etag', '312424');
 
     if (path == '/error') {
       response
@@ -57,6 +60,7 @@ void hybridMain(StreamChannel<dynamic> channel) async {
     // For browser runtime testing...
     if (path == '/echo') {
       ++numOfRequests;
+
       response
         ..headers.add('Access-Control-Allow-Origin', '*')
         ..headers.add('Access-Control-Allow-Methods', 'POST, GET');

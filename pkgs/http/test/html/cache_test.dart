@@ -30,7 +30,7 @@ void main() {
 
     expect(response.statusCode, 200);
     expect(response.reasonPhrase, 'OK');
-    expect(response.body, parse(allOf(containsPair('numOfRequests', 2))));
+    expect(response.body, parse(allOf(containsPair('numOfRequests', 1))));
   });
 
   test('#send a GET Request with reload type', () async {
