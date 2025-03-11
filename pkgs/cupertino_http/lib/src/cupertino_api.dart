@@ -827,7 +827,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     }
   }
 
-  static objc.ObjCObjectBase delegate(
+  static ncb.NSURLSessionDelegate delegate(
     bool isBackground, {
     URLRequest? Function(URLSession session, URLSessionTask task,
             HTTPURLResponse response, URLRequest newRequest)?
@@ -956,7 +956,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       });
     }
 
-    return protoBuilder.build();
+    return ncb.NSURLSessionDelegate.castFrom(protoBuilder.build());
   }
 
   URLSession._(
@@ -1036,7 +1036,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     // Avoid the complexity of simultaneous or out-of-order delegate callbacks
     // by only allowing callbacks to execute sequentially.
     // See https://developer.apple.com/forums/thread/47252
-    final queue = ncb.NSOperationQueue.new1()
+    final queue = ncb.NSOperationQueue()
       ..maxConcurrentOperationCount = 1
       ..name = 'cupertino_http.NSURLSessionDelegateQueue'.toNSString();
 
