@@ -27,7 +27,6 @@
 library;
 
 import 'dart:async';
-import 'dart:isolate';
 
 import 'package:objective_c/objective_c.dart' as objc;
 
@@ -802,7 +801,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // Indicates if the session is a background session. Copied from the
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
-  final bool _hasDelegate;
 
   static ncb.NSURLSessionDelegate delegate(
     bool isBackground, {
@@ -830,11 +828,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     if (onComplete != null) {
       ncb.NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
           .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
-        onComplete(
-            URLSession._(nsSession,
-                isBackground: isBackground, hasDelegate: true),
-            URLSessionTask._(nsTask),
-            nsError);
+        onComplete(URLSession._(nsSession, isBackground: isBackground),
+            URLSessionTask._(nsTask), nsError);
       });
     }
 
@@ -854,8 +849,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           final response =
               URLResponse._exactURLResponseType(nsResponse) as HTTPURLResponse;
           redirectRequest = onRedirect(
-              URLSession._(nsSession,
-                  isBackground: isBackground, hasDelegate: true),
+              URLSession._(nsSession, isBackground: isBackground),
               URLSessionTask._(nsTask),
               response,
               request);
@@ -875,8 +869,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
               (nsSession, nsDataTask, nsResponse, nsCompletionHandler) {
         final exactResponse = URLResponse._exactURLResponseType(nsResponse);
         final disposition = onResponse(
-            URLSession._(nsSession,
-                isBackground: isBackground, hasDelegate: true),
+            URLSession._(nsSession, isBackground: isBackground),
             URLSessionTask._(nsDataTask),
             exactResponse);
         nsCompletionHandler.call(disposition);
@@ -886,11 +879,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     if (onData != null) {
       ncb.NSURLSessionDataDelegate.URLSession_dataTask_didReceiveData_
           .implementAsListener(protoBuilder, (nsSession, nsDataTask, nsData) {
-        onData(
-            URLSession._(nsSession,
-                isBackground: isBackground, hasDelegate: true),
-            URLSessionTask._(nsDataTask),
-            nsData);
+        onData(URLSession._(nsSession, isBackground: isBackground),
+            URLSessionTask._(nsDataTask), nsData);
       });
     }
 
@@ -899,8 +889,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           .URLSession_downloadTask_didFinishDownloadingToURL_
           .implementAsBlocking(protoBuilder, (nsSession, nsTask, nsUrl) {
         onFinishedDownloading(
-            URLSession._(nsSession,
-                isBackground: isBackground, hasDelegate: true),
+            URLSession._(nsSession, isBackground: isBackground),
             URLSessionDownloadTask._(nsTask),
             nsurlToUri(nsUrl));
       });
@@ -911,8 +900,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           .URLSession_webSocketTask_didOpenWithProtocol_
           .implementAsListener(protoBuilder, (nsSession, nsTask, nsProtocol) {
         onWebSocketTaskOpened(
-            URLSession._(nsSession,
-                isBackground: isBackground, hasDelegate: true),
+            URLSession._(nsSession, isBackground: isBackground),
             URLSessionWebSocketTask._(nsTask),
             nsProtocol?.toDartString());
       });
@@ -924,8 +912,7 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
           .implementAsListener(protoBuilder,
               (nsSession, nsTask, closeCode, reason) {
         onWebSocketTaskClosed(
-            URLSession._(nsSession,
-                isBackground: isBackground, hasDelegate: true),
+            URLSession._(nsSession, isBackground: isBackground),
             URLSessionWebSocketTask._(nsTask),
             closeCode,
             reason);
@@ -938,16 +925,13 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   URLSession._(
     super.c, {
     required bool isBackground,
-    required bool hasDelegate,
-  })  : _isBackground = isBackground,
-        _hasDelegate = hasDelegate;
+  }) : _isBackground = isBackground;
 
   /// A client with reasonable default behavior.
   ///
   /// See [NSURLSession.sharedSession](https://developer.apple.com/documentation/foundation/nsurlsession/1409000-sharedsession)
   factory URLSession.sharedSession() =>
-      URLSession._(ncb.NSURLSession.getSharedSession(),
-          isBackground: false, hasDelegate: false);
+      URLSession._(ncb.NSURLSession.getSharedSession(), isBackground: false);
 
   /// A client with a given configuration.
   ///
@@ -1039,13 +1023,11 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
                 onWebSocketTaskClosed: onWebSocketTaskClosed),
             queue),
         isBackground: config._isBackground,
-        hasDelegate: true,
       );
     } else {
       return URLSession._(
           ncb.NSURLSession.sessionWithConfiguration_(config._nsObject),
-          isBackground: config._isBackground,
-          hasDelegate: false);
+          isBackground: config._isBackground);
     }
   }
 
