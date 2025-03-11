@@ -22,10 +22,6 @@ dependencies:
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
   ffigen: ^18.0.0
-  
-dependency_overrides:
-  ffigen:
-    path: /Users/bquinlan/dart/native/pkgs/ffigen/
 
 flutter:
   plugin:
