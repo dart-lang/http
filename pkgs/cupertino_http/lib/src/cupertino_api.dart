@@ -803,29 +803,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   // [URLSessionConfiguration._isBackground] associated with this [URLSession].
   final bool _isBackground;
   final bool _hasDelegate;
-  // Pending Dart-implemented protocols/blocks do not keep the isolate alive.
-  // So we create a `ReceivePort` to keep the isolate alive.
-  // When a new task is created in a `URLSession` with a delegate installed
-  // (`_hasDelegate`), `_taskCount` is incremented. When a task completes,
-  // `_taskCount` is decremented. When `_taskCount` is 0 then the `ReceivePort`
-  // is closed.
-  static var _taskCount = 0;
-  static ReceivePort? _port;
-
-  static void _incrementTaskCount() {
-    _port ??= ReceivePort();
-    ++_taskCount;
-  }
-
-  static void _decrementTaskCount() {
-    assert(_taskCount > 0);
-    assert(_port != null);
-    --_taskCount;
-    if (_taskCount == 0) {
-      _port?.close();
-      _port = null;
-    }
-  }
 
   static ncb.NSURLSessionDelegate delegate(
     bool isBackground, {
@@ -850,17 +827,16 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   }) {
     final protoBuilder = objc.ObjCProtocolBuilder();
 
-    ncb.NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
-        .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
-      _decrementTaskCount();
-      if (onComplete != null) {
+    if (onComplete != null) {
+      ncb.NSURLSessionDataDelegate.URLSession_task_didCompleteWithError_
+          .implementAsListener(protoBuilder, (nsSession, nsTask, nsError) {
         onComplete(
             URLSession._(nsSession,
                 isBackground: isBackground, hasDelegate: true),
             URLSessionTask._(nsTask),
             nsError);
-      }
-    });
+      });
+    }
 
     if (onRedirect != null) {
       ncb
@@ -1091,14 +1067,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// Create a [URLSessionTask] that accesses a server URL.
   ///
   /// See [NSURLSession dataTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1410592-datataskwithrequest)
-  URLSessionTask dataTaskWithRequest(URLRequest request) {
-    final task =
-        URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
-    if (_hasDelegate) {
-      _incrementTaskCount();
-    }
-    return task;
-  }
+  URLSessionTask dataTaskWithRequest(URLRequest request) =>
+      URLSessionTask._(_nsObject.dataTaskWithRequest_(request._nsObject));
 
   /// Creates a [URLSessionTask] that accesses a server URL and calls
   /// [completion] when done.
@@ -1117,7 +1087,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
     final completer =
         ncb.ObjCBlock_ffiVoid_NSData_NSURLResponse_NSError.listener(
             (data, response, error) {
-      _decrementTaskCount();
       completion(
         data,
         response == null ? null : URLResponse._exactURLResponseType(response),
@@ -1130,7 +1099,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       completer,
     );
 
-    _incrementTaskCount();
     return URLSessionTask._(task);
   }
 
@@ -1141,14 +1109,9 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
   /// receive notifications when the data has completed downloaded.
   ///
   /// See [NSURLSession downloadTaskWithRequest:](https://developer.apple.com/documentation/foundation/nsurlsession/1411481-downloadtaskwithrequest)
-  URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) {
-    final task = URLSessionDownloadTask._(
-        _nsObject.downloadTaskWithRequest_(request._nsObject));
-    if (_hasDelegate) {
-      _incrementTaskCount();
-    }
-    return task;
-  }
+  URLSessionDownloadTask downloadTaskWithRequest(URLRequest request) =>
+      URLSessionDownloadTask._(
+          _nsObject.downloadTaskWithRequest_(request._nsObject));
 
   /// Creates a [URLSessionWebSocketTask] that represents a connection to a
   /// WebSocket endpoint.
@@ -1162,12 +1125,8 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       throw UnsupportedError(
           'WebSocket tasks are not supported in background sessions');
     }
-    final task = URLSessionWebSocketTask._(
+    return URLSessionWebSocketTask._(
         _nsObject.webSocketTaskWithRequest_(request._nsObject));
-    if (_hasDelegate) {
-      _incrementTaskCount();
-    }
-    return task;
   }
 
   /// Creates a [URLSessionWebSocketTask] that represents a connection to a
@@ -1188,9 +1147,6 @@ class URLSession extends _ObjectHolder<ncb.NSURLSession> {
       task = URLSessionWebSocketTask._(
           _nsObject.webSocketTaskWithURL_protocols_(
               uriToNSURL(uri), stringIterableToNSArray(protocols)));
-    }
-    if (_hasDelegate) {
-      _incrementTaskCount();
     }
     return task;
   }
