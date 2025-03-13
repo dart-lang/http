@@ -12,20 +12,20 @@ void main() {
 
   group('stringNSDictionaryToMap', () {
     test('empty input', () {
-      final d = objc.NSMutableDictionary.new1();
+      final d = objc.NSMutableDictionary();
 
       expect(stringNSDictionaryToMap(d), <String, String>{});
     });
 
     test('single string input', () {
-      final d = objc.NSMutableDictionary.new1()
+      final d = objc.NSMutableDictionary()
         ..setObject_forKey_('value'.toNSString(), 'key'.toNSString());
 
       expect(stringNSDictionaryToMap(d), {'key': 'value'});
     });
 
     test('multiple string input', () {
-      final d = objc.NSMutableDictionary.new1()
+      final d = objc.NSMutableDictionary()
         ..setObject_forKey_('value1'.toNSString(), 'key1'.toNSString())
         ..setObject_forKey_('value2'.toNSString(), 'key2'.toNSString())
         ..setObject_forKey_('value3'.toNSString(), 'key3'.toNSString());
@@ -34,14 +34,14 @@ void main() {
     });
 
     test('non-string value', () {
-      final d = objc.NSMutableDictionary.new1()
+      final d = objc.NSMutableDictionary()
         ..setObject_forKey_(
             objc.NSNumberCreation.numberWithInteger_(5), 'key'.toNSString());
       expect(() => stringNSDictionaryToMap(d), throwsUnsupportedError);
     });
 
     test('non-string key', () {
-      final d = objc.NSMutableDictionary.new1()
+      final d = objc.NSMutableDictionary()
         ..setObject_forKey_(
             'value'.toNSString(), objc.NSNumberCreation.numberWithInteger_(5));
       expect(() => stringNSDictionaryToMap(d), throwsUnsupportedError);
@@ -57,17 +57,17 @@ void main() {
     test('single string input', () {
       final array = stringIterableToNSArray(['apple']);
       expect(array.count, 1);
-      expect(
-          objc.NSString.castFrom(array.objectAtIndex_(0)).toString(), 'apple');
+      expect(objc.NSString.castFrom(array.objectAtIndex_(0)).toDartString(),
+          'apple');
     });
 
     test('multiple string input', () {
       final array = stringIterableToNSArray(['apple', 'banana']);
       expect(array.count, 2);
-      expect(
-          objc.NSString.castFrom(array.objectAtIndex_(0)).toString(), 'apple');
-      expect(
-          objc.NSString.castFrom(array.objectAtIndex_(1)).toString(), 'banana');
+      expect(objc.NSString.castFrom(array.objectAtIndex_(0)).toDartString(),
+          'apple');
+      expect(objc.NSString.castFrom(array.objectAtIndex_(1)).toDartString(),
+          'banana');
     });
   });
 }

@@ -121,7 +121,11 @@ void testProperties(URLSessionConfiguration config) {
           config.multipathServiceType,
           NSURLSessionMultipathServiceType
               .NSURLSessionMultipathServiceTypeNone);
-    });
+    },
+        skip: Platform.isMacOS
+            ? 'NSURLSessionConfiguration.multipathServiceType is not '
+                'supported on macOS'
+            : false);
     test('networkServiceType', () {
       expect(config.networkServiceType,
           NSURLRequestNetworkServiceType.NSURLNetworkServiceTypeDefault);
