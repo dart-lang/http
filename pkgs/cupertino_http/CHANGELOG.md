@@ -1,4 +1,4 @@
-## 2.1.0-wip
+## 2.1.0
 
 * Remove some unnecessary native code.
 * Upgrade to `package:objective_c` 7.0.
