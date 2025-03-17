@@ -75,11 +75,24 @@ class MediaType {
         return MediaType(type, subtype, parameters);
       });
 
+  /// Creates an arbitrary media type.
   MediaType(String type, String subtype, [Map<String, String>? parameters])
       : type = type.toLowerCase(),
         subtype = subtype.toLowerCase(),
         parameters = UnmodifiableMapView(
             parameters == null ? {} : CaseInsensitiveMap.from(parameters));
+
+  /// Creates an `image/*` media type.
+  MediaType.image({String subtype = '*', Map<String, String>? parameters})
+      : this('image', subtype, parameters);
+
+  /// Creates an `audio/*` media type.
+  MediaType.audio({String subtype = '*', Map<String, String>? parameters})
+      : this('audio', subtype, parameters);
+
+  /// Creates an `video/*` media type.
+  MediaType.video({String subtype = '*', Map<String, String>? parameters})
+      : this('video', subtype, parameters);
 
   /// Returns a copy of this [MediaType] with some fields altered.
   ///
@@ -90,12 +103,13 @@ class MediaType {
   /// [parameters] overwrites and adds to the corresponding field. If
   /// [clearParameters] is passed, it replaces the corresponding field entirely
   /// instead.
-  MediaType change(
-      {String? type,
-      String? subtype,
-      String? mimeType,
-      Map<String, String>? parameters,
-      bool clearParameters = false}) {
+  MediaType change({
+    String? type,
+    String? subtype,
+    String? mimeType,
+    Map<String, String>? parameters,
+    bool clearParameters = false,
+  }) {
     if (mimeType != null) {
       if (type != null) {
         throw ArgumentError('You may not pass both [type] and [mimeType].');
