@@ -23,7 +23,7 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: ubuntu-latest
+    runs-on: linux-4cpu-16GB
     defaults:
       run:
         working-directory: pkgs/ok_http
