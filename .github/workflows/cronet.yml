@@ -23,7 +23,7 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: linux-4cpu-16GB
+    runs-on: ubuntu-cpu16-ram64
     timeout-minutes: 20
     strategy:
       fail-fast: false
