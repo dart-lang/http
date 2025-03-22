@@ -23,7 +23,7 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-cpu16-ram64
     timeout-minutes: 20
     strategy:
       fail-fast: false
@@ -33,10 +33,6 @@ jobs:
       run:
         working-directory: pkgs/cronet_http
     steps:
-      - name: Delete unnecessary tools 🔧
-        uses: jlumbroso/free-disk-space@v1.3.1
-        with:
-          android: false # Don't remove Android tools
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12
         with:
@@ -63,6 +59,7 @@ jobs:
           # - pkgs/cronet_http/android/build.gradle
           # - pkgs/cronet_http/example/android/app/build.gradle
           api-level: 21
+          disable-animations: true
           arch: x86_64
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/
