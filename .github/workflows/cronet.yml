@@ -44,10 +44,6 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
-      - name: Memory
-        run: cat /proc/meminfo
-      - name: CPU
-        run: lscpu
       - name: Check formatting
         if: always() && steps.install.outcome == 'success'
         run: dart format --output=none --set-exit-if-changed .
@@ -62,7 +58,7 @@ jobs:
           # - .github/workflows/cronet.yml
           # - pkgs/cronet_http/android/build.gradle
           # - pkgs/cronet_http/example/android/app/build.gradle
-          api-level: 21
+          api-level: ${{ matrix.cronetHttpNoPlay == 'true' && '21' || '29' }} 
           disable-animations: true
           arch: x86_64
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
