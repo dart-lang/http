@@ -44,6 +44,10 @@ jobs:
       - id: install
         name: Install dependencies
         run: flutter pub get
+      - name: Memory
+        run: cat /proc/meminfo
+      - name: CPU
+        run: lscpu
       - name: Check formatting
         if: always() && steps.install.outcome == 'success'
         run: dart format --output=none --set-exit-if-changed .
