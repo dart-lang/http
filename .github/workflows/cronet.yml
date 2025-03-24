@@ -24,7 +24,7 @@ jobs:
   verify:
     name: Format & Analyze & Test
     runs-on: ubuntu-cpu16-ram64
-    timeout-minutes: 20
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -58,7 +58,14 @@ jobs:
           # - .github/workflows/cronet.yml
           # - pkgs/cronet_http/android/build.gradle
           # - pkgs/cronet_http/example/android/app/build.gradle
-          api-level: ${{ matrix.cronetHttpNoPlay == 'true' && '21' || '29' }} 
+
+          # Google Play services does not support older Android API levels;
+          # as of March 2025, they supported API level 23 and higher. Instead
+          # of breaking when support for API level 23 is removed, just run
+          # the tests that rely on Google Play services with the newest API
+          # level (34 as of March 2025). The tests that don't rely on Google
+          # Play serviecs can test the oldest supported API level.
+          api-level: ${{ matrix.cronetHttpNoPlay == 'true' && '21' || '34' }} 
           disable-animations: true
           arch: x86_64
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
