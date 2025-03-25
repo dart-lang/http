@@ -1,4 +1,5 @@
 ## 2.3.2-wip
+- Add support for providing custom message when terminating a connection.
 
 ## 2.3.1
 
