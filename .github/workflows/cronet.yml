@@ -23,8 +23,8 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    runs-on: ubuntu-cpu16-ram64
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -33,10 +33,6 @@ jobs:
       run:
         working-directory: pkgs/cronet_http
     steps:
-      - name: Delete unnecessary tools 🔧
-        uses: jlumbroso/free-disk-space@v1.3.1
-        with:
-          android: false # Don't remove Android tools
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
       - uses: actions/setup-java@3a4f6e1af504cf6a31855fa899c6aa5355ba6c12
         with:
@@ -54,6 +50,11 @@ jobs:
       - name: Analyze code
         if: always() && steps.install.outcome == 'success'
         run: flutter analyze --fatal-infos
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d
         if: always() && steps.install.outcome == 'success'
@@ -62,7 +63,15 @@ jobs:
           # - .github/workflows/cronet.yml
           # - pkgs/cronet_http/android/build.gradle
           # - pkgs/cronet_http/example/android/app/build.gradle
-          api-level: 21
+
+          # Google Play services does not support older Android API levels;
+          # as of March 2025, they supported API level 23 and higher. Instead
+          # of breaking when support for API level 23 is removed, just run
+          # the tests that rely on Google Play services with the newest API
+          # level (34 as of March 2025). The tests that don't rely on Google
+          # Play serviecs can test the oldest supported API level.
+          api-level: ${{ matrix.cronetHttpNoPlay == 'true' && '21' || '29' }} 
+          disable-animations: true
           arch: x86_64
           target: ${{ matrix.cronetHttpNoPlay == 'true' && 'default' || 'google_apis' }}
           script: cd pkgs/cronet_http/example && flutter test --dart-define=cronetHttpNoPlay=${{ matrix.cronetHttpNoPlay }} --timeout=1200s integration_test/

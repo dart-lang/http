@@ -6,12 +6,12 @@ on:
       - main
       - master
     paths:
-      - '.github/workflows/okhttp.yml'
+      - '.github/workflows/okhttp.yaml'
       - 'pkgs/ok_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   pull_request:
     paths:
-      - '.github/workflows/okhttp.yml'
+      - '.github/workflows/okhttp.yaml'
       - 'pkgs/ok_http/**'
       - 'pkgs/http_client_conformance_tests/**'
   schedule:
@@ -23,7 +23,7 @@ env:
 jobs:
   verify:
     name: Format & Analyze & Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-cpu16-ram64
     defaults:
       run:
         working-directory: pkgs/ok_http
@@ -45,6 +45,11 @@ jobs:
       - name: Analyze code
         if: always() && steps.install.outcome == 'success'
         run: flutter analyze --fatal-infos
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
       - name: Run tests
         uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d
         if: always() && steps.install.outcome == 'success'
