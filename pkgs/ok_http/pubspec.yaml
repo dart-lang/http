@@ -15,7 +15,7 @@ dependencies:
   http_profile: ^0.1.0
   jni: ^0.14.0
   plugin_platform_interface: ^2.0.2
-  web_socket: ^0.1.5
+  web_socket: '>=0.1.5 <2.0.0'
 
 dev_dependencies:
   dart_flutter_team_lints: ^3.0.0
